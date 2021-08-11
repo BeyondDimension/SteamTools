@@ -13,6 +13,7 @@ namespace System.Application
         public const string OfficialWebsite_Agreement = "https://steampp.net/agreement";
         public const string OfficialWebsite_Contact = "https://steampp.net/contact";
         public const string OfficialWebsite_Faq = "https://steampp.net/faq";
+        public const string OfficialWebsite_Changelog = "https://steampp.net/changelog";
         public const string OfficialWebsite_Box_Changelog_ = "https://steampp.net/changelogbox?theme={0}&language={1}";
         public const string OfficialWebsite_Box_Faq_ = "https://steampp.net/faqbox?theme={0}&language={1}";
         public const string OfficialWebsite_Box_Privacy = "https://steampp.net/PrivacyBox";
@@ -21,8 +22,8 @@ namespace System.Application
         public const string GitHub_Repository = "https://github.com/SteamTools-Team/SteamTools";
         public const string Gitee_Repository = "https://gitee.com/rmbgame/SteamTools";
 
-        public const string GitHub_Issues = "https://github.com/SteamTools-Team/SteamTools";
-        public const string Gitee_Issues = "https://gitee.com/rmbgame/SteamTools";
+        public const string GitHub_Issues = "https://github.com/SteamTools-Team/SteamTools/issues";
+        public const string Gitee_Issues = "https://gitee.com/rmbgame/SteamTools/issues";
 
         public const string License_GPLv3 = "https://www.gnu.org/licenses/gpl-3.0.html";
     }

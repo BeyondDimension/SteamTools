@@ -89,18 +89,26 @@
           <Panel Width="10" Height="10" />
           <TextBlock Name="LogoText3" Classes="h1 ultrabold">2.0</TextBlock>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Spacing="6">
           <TextBlock Classes="Header light"
-                     Margin="0,0,6,0"
                      Text="{Binding LabelVersionDisplay,Mode=OneTime}"
                      VerticalAlignment="Center"/>
           <TextBox Classes="Content readonlybox"
                    IsReadOnly="True"
-                   MinWidth="10" Margin="0,0,6,0"
+                   MinWidth="10"
                    Text="{Binding VersionDisplay,Mode=OneTime}"/>
-          <Button Classes="plain" Command="{Binding CheckUpdateCommand}"
-                  VerticalAlignment="Center" VerticalContentAlignment="Center">
+          <Button Classes="plain"
+                  Command="{Binding CheckUpdateCommand}"
+                  VerticalAlignment="Center"
+                  VerticalContentAlignment="Center">
             <TextBlock Text="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}" Classes="Hyperlink" />
+          </Button>
+          <Button Classes="plain"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.ChangeLogLink}"
+                  VerticalAlignment="Center"
+                  VerticalContentAlignment="Center">
+            <TextBlock Text="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
           </Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
@@ -133,7 +141,7 @@
             <TextBlock Text="@Cliencer克总" Classes="Hyperlink" />
           </Button>
         </StackPanel>
-        
+
         <WrapPanel>
           <TextBlock Margin=" 0 0 6 -0.5"
                      VerticalAlignment="Center"
@@ -146,22 +154,22 @@
             </Button>
           </StackPanel>
         </WrapPanel>
-        
-        <TextBox Classes="readonlybox" 
+
+        <TextBox Classes="readonlybox"
                  Padding="0"
                  TextWrapping="Wrap">
           <TextBox.Text>
-Translators:
+            Translators:
 
-    English:
-    沙中金
+            English:
+            沙中金
 
-    Spanish:
-    EspRoy
+            Spanish:
+            EspRoy
 
-    Italian:
-    Zhengye
-    
+            Italian:
+            Zhengye
+
           </TextBox.Text>
         </TextBox>
 

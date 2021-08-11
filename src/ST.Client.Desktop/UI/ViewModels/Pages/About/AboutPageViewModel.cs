@@ -34,6 +34,8 @@ namespace System.Application.UI.ViewModels
 
         public static string FAQLink => UrlConstants.OfficialWebsite_Faq;
 
+        public static string ChangeLogLink => UrlConstants.OfficialWebsite_Changelog;
+
         public static string LicenseLink => UrlConstants.License_GPLv3;
     }
 }

@@ -17,14 +17,14 @@
         </pages:About_SoftwarePage.DataContext>
       </pages:About_SoftwarePage>
     </TabItem>
-    <TabItem IsVisible="{ReflectionBinding Path=.,Mode=OneWay,Source={x:Static ui_desktop:AppHelper.IsSystemWebViewAvailable}}"
+    <!--<TabItem IsVisible="{ReflectionBinding Path=.,Mode=OneWay,Source={x:Static ui_desktop:AppHelper.IsSystemWebViewAvailable}}"
              Header="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}">
       <pages:About_ChangeLog />
     </TabItem>
     <TabItem IsVisible="{ReflectionBinding Path=.,Mode=OneWay,Source={x:Static ui_desktop:AppHelper.IsSystemWebViewAvailable}}"
              Header="{ReflectionBinding Path=Res.About_FAQ,Mode=OneWay,Source={x:Static resx:R.Current}}">
       <pages:About_FAQPage />
-    </TabItem>
+    </TabItem>-->
     <TabItem Header="{ReflectionBinding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
       <pages:About_OpenSourcePage />
     </TabItem>
