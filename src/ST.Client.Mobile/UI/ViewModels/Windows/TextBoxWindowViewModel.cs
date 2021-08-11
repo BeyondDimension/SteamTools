@@ -10,7 +10,7 @@ namespace System.Application.UI.ViewModels
 #if __MOBILE__
         PageViewModel
 #else
-        WindowViewModel
+        DialogWindowViewModel
 #endif
         , ITextBoxWindowViewModel
     {
@@ -116,22 +116,5 @@ namespace System.Application.UI.ViewModels
         {
             LocalAuth_PasswordRequired,
         }
-
-#if !__MOBILE__
-        public void Ok()
-        {
-            if (!InputValidator())
-            {
-                return;
-            }
-            this.Close();
-        }
-
-        public void Cancel()
-        {
-            Value = string.Empty;
-            this.Close();
-        }
-#endif
     }
 }

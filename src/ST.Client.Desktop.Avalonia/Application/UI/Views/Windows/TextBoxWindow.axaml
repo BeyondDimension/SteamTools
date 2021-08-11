@@ -43,8 +43,8 @@
                  IsReadOnly="True" />
         <Separator Classes="Separator"></Separator>
         <StackPanel Spacing="10" HorizontalAlignment="Right" Orientation="Horizontal">
-          <Button MinWidth="90" Padding="30,6" IsDefault="True" Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding Ok}"></Button>
-          <Button MinWidth="90" Padding="30,6" IsCancel="True" Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{ReflectionBinding Cancel}"></Button>
+          <Button MinWidth="90" Padding="30,6" IsDefault="True" Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
+          <Button MinWidth="90" Padding="30,6" IsCancel="True" Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}"></Button>
         </StackPanel>
       </StackPanel>
     </Border>
