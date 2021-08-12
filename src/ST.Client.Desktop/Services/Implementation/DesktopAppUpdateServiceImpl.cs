@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Properties;
 using System.Text;
-using static System.Application.Services.IAppUpdateService;
+using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
@@ -45,23 +45,23 @@ namespace System.Application.Services.Implementation
                     AppDownloadType.Compressed_GZip
                         => TarGZipHelper.Unpack(value, dirPath,
                             progress: new Progress<float>(OnReportDecompressing),
-                            maxProgress: MaxProgressValue),
+                            maxProgress: CC.MaxProgress),
                     AppDownloadType.Compressed_7z
                         => SevenZipHelper.Unpack(value, dirPath,
                             progress: new Progress<float>(OnReportDecompressing),
-                            maxProgress: MaxProgressValue),
+                            maxProgress: CC.MaxProgress),
                     _ => throw new NotSupportedException(),
                 };
                 if (isOK)
                 {
-                    OnReport(MaxProgressValue);
+                    OnReport(CC.MaxProgress);
                     IOPath.FileTryDelete(value);
                     OverwriteUpgradePrivate(dirPath);
                 }
                 else
                 {
                     toast.Show(SR.UpdateUnpackFail);
-                    OnReport(MaxProgressValue);
+                    OnReport(CC.MaxProgress);
                 }
             }
 

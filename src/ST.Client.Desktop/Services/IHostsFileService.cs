@@ -76,7 +76,7 @@ namespace System.Application.Services
 
         bool ContainsHostsByTag();
 
-        public enum EncodingType : byte
+        enum EncodingType : byte
         {
             /// <summary>
             /// 系统的活动代码页并创建 Encoding 与其对应的对象。 

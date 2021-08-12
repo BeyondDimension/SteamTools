@@ -13,8 +13,6 @@ namespace System.Application.Services
     {
         static IAppUpdateService Instance => DI.Get<IAppUpdateService>();
 
-        const float MaxProgressValue = 100f;
-
         /// <summary>
         /// 升级包存放文件夹名称
         /// </summary>

@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CC = System.Common.Constants;
 
 namespace System.Application
 {
@@ -66,7 +67,7 @@ namespace System.Application
         public static bool Unpack(string filePath, string dirPath,
             ProgressMessageHandler? progressMessage = null,
             IProgress<float>? progress = null,
-            float maxProgress = 100f)
+            float maxProgress = CC.MaxProgress)
         {
             if (!File.Exists(filePath)) return false;
             if (Directory.Exists(dirPath)) return false;
