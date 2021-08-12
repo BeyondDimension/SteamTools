@@ -120,6 +120,12 @@
 
 ## 🏗️ [项目结构](./src/README.md)
 
+<!--
+* [LibVLCSharp](https://github.com/videolan/libvlcsharp)
+* [Chromium Embedded Framework (CEF)](https://github.com/chromiumembedded/cef)
+* [CefNet](https://github.com/CefNet/CefNet)
+* [CefSharp](https://github.com/cefsharp/CefSharp)
+-->
 <!--👇图标如果发生更改，还需更改 Tools.OpenSourceLibraryList(Program.OpenSourceLibraryListEmoji) -->
 ## 📄 感谢以下开源项目
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
@@ -151,7 +157,7 @@
 * [Polly](https://github.com/App-vNext/Polly)
 * [TaskScheduler](https://github.com/dahall/taskscheduler)
 * [SharpZipLib](https://github.com/icsharpcode/SharpZipLib)
-* [LibVLCSharp](https://github.com/videolan/libvlcsharp)
+* [SevenZipSharp](https://github.com/squid-box/SevenZipSharp)
 * [Depressurizer](https://github.com/Depressurizer/Depressurizer)
 * [NLog](https://github.com/nlog/NLog)
 * [NUnit](https://github.com/nunit/nunit)
@@ -161,18 +167,14 @@
 * [AvaloniaGif](https://github.com/jmacato/AvaloniaGif)
 * [Avalonia XAML Behaviors](https://github.com/wieslawsoltes/AvaloniaBehaviors)
 * [APNG.NET](https://github.com/jz5/APNG.NET)
-* [Chromium Embedded Framework (CEF)](https://github.com/chromiumembedded/cef)
 * [Moq](https://github.com/moq/moq4)
 * [NPOI](https://github.com/nissl-lab/npoi)
 * [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 * [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)
 * [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers)
-* [CefNet](https://github.com/CefNet/CefNet)
-* [CefSharp](https://github.com/cefsharp/CefSharp)
 * [ZXing.Net](https://github.com/micjahn/ZXing.Net)
 * [ZXing.Net.Mobile](https://github.com/Redth/ZXing.Net.Mobile)
 * [QRCoder](https://github.com/codebude/QRCoder)
-* [SharpCompress](https://github.com/adamhathcock/sharpcompress)
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)

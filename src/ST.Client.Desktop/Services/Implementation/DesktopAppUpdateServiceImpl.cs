@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Properties;
 using System.Text;
+using System.Threading.Tasks;
 using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
@@ -25,7 +26,7 @@ namespace System.Application.Services.Implementation
         /// </summary>
         protected abstract void OnExit();
 
-        protected override void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType)
+        protected override async void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType)
         {
             if (isIncrement) // 增量更新
             {
@@ -40,7 +41,7 @@ namespace System.Application.Services.Implementation
                     Directory.Delete(dirPath, true);
                 }
 
-                var isOK = downloadType switch
+                var isOK = await Task.Run(() => downloadType switch
                 {
                     AppDownloadType.Compressed_GZip
                         => TarGZipHelper.Unpack(value, dirPath,
@@ -50,8 +51,8 @@ namespace System.Application.Services.Implementation
                         => SevenZipHelper.Unpack(value, dirPath,
                             progress: new Progress<float>(OnReportDecompressing),
                             maxProgress: CC.MaxProgress),
-                    _ => throw new NotSupportedException(),
-                };
+                    _ => false,
+                });
                 if (isOK)
                 {
                     OnReport(CC.MaxProgress);

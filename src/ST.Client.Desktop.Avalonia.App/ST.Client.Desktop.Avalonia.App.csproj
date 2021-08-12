@@ -91,6 +91,9 @@
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
+    <None Include="..\..\references\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <!--<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">

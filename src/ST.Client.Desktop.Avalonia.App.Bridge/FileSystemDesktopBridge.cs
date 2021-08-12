@@ -1,8 +1,10 @@
+using System.Runtime.Versioning;
 using Windows.Storage;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application
 {
+    [SupportedOSPlatform("Windows10.0.10240.0")]
     static class FileSystemDesktopBridge
     {
         internal static void InitFileSystem()

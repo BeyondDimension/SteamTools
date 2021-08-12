@@ -391,7 +391,7 @@ namespace System.Application.Services.Implementation
                         {
                             if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
-                                OverwriteUpgrade(packFilePath, isIncrement: false);
+                                OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
                                 goto end;
                             }
                             else // 验证文件失败，删除源文件，将会重新下载
@@ -484,7 +484,7 @@ namespace System.Application.Services.Implementation
 
                             if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
-                                OverwriteUpgrade(packFileName, isIncrement: false, downloadType: download.DownloadType);
+                                OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
                                 OnReportDownloading(CC.MaxProgress);
                             }
                             else
