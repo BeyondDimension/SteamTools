@@ -397,14 +397,28 @@ namespace System
 
         const double unit = 1024d;
         static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB" };
+
+        public static (double length, string unit) GetSize(double length)
+        {
+            if (length > 0d)
+            {
+                for (int i = 0; i < units.Length; i++)
+                {
+                    if (i > 0) length /= unit;
+                    if (length < unit) return (length, units[i]);
+                }
+                return (length, units.Last());
+            }
+            else
+            {
+                return (0, units.First());
+            }
+        }
+
         public static string GetSizeString(double length)
         {
-            for (int i = 0; i < units.Length; i++)
-            {
-                if (i > 0) length /= unit;
-                if (length < unit) return $"{length:0.00} {units[i]}";
-            }
-            return $"{length:0.00} {units.Last()}";
+            (length, string unit) = GetSize(length);
+            return $"{length:0.00} {unit}";
         }
     }
 }
