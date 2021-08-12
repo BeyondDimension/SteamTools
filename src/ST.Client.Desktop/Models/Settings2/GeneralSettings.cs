@@ -89,6 +89,12 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<bool> UseGPURendering { get; }
             = GetProperty(defaultValue: true, autoSave: true);
+
+        /// <summary>
+        /// Hosts 文件编码类型
+        /// </summary>
+        public static SerializableProperty<IHostsFileService.EncodingType> HostsEncodingType { get; }
+            = GetProperty(defaultValue: default(IHostsFileService.EncodingType), autoSave: true);
 #endif
     }
 }

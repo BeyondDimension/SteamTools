@@ -78,6 +78,16 @@ namespace System
         /// </summary>
         public static bool IsWindows10OrLater { get; }
 
+        /// <summary>
+        /// 当前是否运行在 Windows 7 上
+        /// </summary>
+        public static bool IsWindows7 { get; }
+
+        /// <summary>
+        /// 当前是否运行在 Windows 上
+        /// </summary>
+        public static bool IsWindowsOrUWP { get; }
+
         static bool? _IsDesktopBridge;
         public static bool IsDesktopBridge
         {
@@ -135,7 +145,15 @@ namespace System
             }
             else if (Platform == Platform.Windows)
             {
-                IsWindows10OrLater = Environment.OSVersion.Version.Major >= 10;
+                var osVer = Environment.OSVersion.Version;
+                IsWindows10OrLater = osVer.Major >= 10;
+                IsWindows7 = !IsWindows10OrLater && osVer.Major == 6 && osVer.Minor == 1;
+                IsWindowsOrUWP = true;
+            }
+            else if (Platform == Platform.UWP)
+            {
+                IsWindows10OrLater = true;
+                IsWindowsOrUWP = true;
             }
         }
 

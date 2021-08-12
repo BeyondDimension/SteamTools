@@ -1,3 +1,4 @@
+using System.Text;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
@@ -18,5 +19,10 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="filePath"></param>
         void OpenFileByTextReader(string filePath);
+
+        /// <summary>
+        /// .NET Framework 中 <see cref="Encoding.Default"/> 行为
+        /// </summary>
+        Encoding Default => Encoding.Default;
     }
 }

@@ -80,8 +80,8 @@ namespace System.Application.Services
             }
 
             var providers = new List<TextReaderProvider>() {
-                TextReaderProvider.Notepad,
-                TextReaderProvider.VSCode };
+                TextReaderProvider.VSCode,
+                TextReaderProvider.Notepad };
 
             if (userProvider.HasValue)
             {
@@ -91,6 +91,11 @@ namespace System.Application.Services
 
             foreach (var item in providers)
             {
+                if (item == TextReaderProvider.VSCode && !DI.IsWindowsOrUWP)
+                {
+                    // 其他平台的 VSCode 打开方式尚未实现
+                    continue;
+                }
                 try
                 {
                     var fileName = GetFileName(item);

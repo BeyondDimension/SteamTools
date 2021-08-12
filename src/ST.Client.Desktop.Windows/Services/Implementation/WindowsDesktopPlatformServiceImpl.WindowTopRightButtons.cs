@@ -16,16 +16,9 @@ namespace System.Application.Services.Implementation
         public const int SC_MAXIMIZE = 0xF030;
         //public const int CS_DROPSHADOW = 0x20000;
 
-        static readonly Lazy<bool> mIsWindows7 = new(() =>
-        {
-            var osVer = Environment.OSVersion.Version;
-            return osVer.Major == 6 && osVer.Minor == 1;
-        });
-        public static bool IsWindows7 => mIsWindows7.Value;
-
         public void FixFluentWindowStyleOnWin7(IntPtr hWnd)
         {
-            if (!IsWindows7) return;
+            if (!DI.IsWindows7) return;
             var value = GetWindowLong(hWnd, GWL_STYLE);
             value &= ~WS_MAXIMIZEBOX;
             value &= ~WS_MINIMIZEBOX;

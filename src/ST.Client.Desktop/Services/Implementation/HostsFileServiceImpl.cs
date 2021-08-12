@@ -1,3 +1,4 @@
+using System.Application.Models.Settings;
 using System.Application.Properties;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -274,7 +275,8 @@ namespace System.Application.Services.Implementation
                     Dictionary<string, (int line_num, string line_value)> backup_insert_mark_datas = new(); // 备份插入标记区数据，项已存在的情况下
                     Dictionary<string, (int line_num, string line_value)> backup_datas = new(); // 备份区域数据
 
-                    using (var fileReader = fileInfo.OpenText())
+                    var encoding = GetEncoding();
+                    using (var fileReader = fileInfo.OpenText(encoding))
                     {
                         int line_num = 0;
                         HashSet<string> domains = new(); // 域名唯一检查
@@ -445,7 +447,7 @@ namespace System.Application.Services.Implementation
                     }
 
                     var contents = stringBuilder.ToString();
-                    File.WriteAllText(fileInfo.FullName, contents);
+                    File.WriteAllText(fileInfo.FullName, contents, encoding);
 
                     result.ResultType = OperationResultType.Success;
                     result.Message = AppResources.Hosts_UpdateSuccess;
@@ -474,6 +476,17 @@ namespace System.Application.Services.Implementation
         #endregion
 
         public void OpenFile() => s.OpenFileByTextReader(s.HostsFilePath);
+
+        /// <summary>
+        /// 获取 hosts 文件编码
+        /// </summary>
+        /// <returns></returns>
+        Encoding GetEncoding() => GeneralSettings.HostsEncodingType.Value switch
+        {
+            EncodingType.ANSICodePage => s.Default,
+            EncodingType.UTF8WithBOM => Encoding.UTF8,
+            _ => Encoding.Default,
+        };
 
         static Dictionary<string, string> ReadHostsAllLines(StreamReader fileReader)
         {
@@ -518,7 +531,7 @@ namespace System.Application.Services.Implementation
                 }
                 try
                 {
-                    using var fileReader = fileInfo.OpenText();
+                    using var fileReader = fileInfo.OpenText(GetEncoding());
                     result.AppendData.AddRange(ReadHostsAllLines_(fileReader));
                     result.ResultType = OperationResultType.Success;
                     result.Message = AppResources.Hosts_ReadSuccess;
@@ -545,7 +558,7 @@ namespace System.Application.Services.Implementation
                 }
                 try
                 {
-                    using var fileReader = fileInfo.OpenText();
+                    using var fileReader = fileInfo.OpenText(GetEncoding());
                     result = new OperationResult<Dictionary<string, string>>()
                     {
                         AppendData = ReadHostsAllLines(fileReader),
@@ -603,10 +616,15 @@ namespace System.Application.Services.Implementation
 
         public bool ContainsHostsByTag()
         {
-            var lines = File.ReadAllLines(s.HostsFilePath);
-            if (lines.Reverse().Any(x => x.StartsWith(MarkEnd)))
+            var filePath = s.HostsFilePath;
+            var fileInfo = new FileInfo(filePath);
+            if (fileInfo.Exists && fileInfo.Length <= MaxFileLength)
             {
-                return true;
+                var lines = File.ReadAllLines(filePath, GetEncoding());
+                if (lines.Reverse().Any(x => x.StartsWith(MarkEnd)))
+                {
+                    return true;
+                }
             }
             return false;
         }

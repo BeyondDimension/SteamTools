@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
@@ -58,5 +59,9 @@ namespace System
             QueryLimitedInformation = 0x00001000,
             Synchronize = 0x00100000
         }
+
+        [DllImport("kernel32.dll")]
+        [ResourceExposure(ResourceScope.None)]
+        public static extern int GetACP();
     }
 }
