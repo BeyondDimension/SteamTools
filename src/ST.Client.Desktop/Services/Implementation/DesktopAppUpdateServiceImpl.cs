@@ -63,6 +63,7 @@ namespace System.Application.Services.Implementation
                 {
                     toast.Show(SR.UpdateUnpackFail);
                     OnReport(CC.MaxProgress);
+                    IsNotStartUpdateing = true;
                 }
             }
 

@@ -18,6 +18,8 @@ namespace System.Application.Services
         /// </summary>
         const string PackDirName = "UpgradePackages";
 
+        bool IsNotStartUpdateing { get; }
+
         /// <summary>
         /// 进度值
         /// </summary>

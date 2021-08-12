@@ -156,6 +156,13 @@ namespace System.Application.Services.Implementation
         /// </summary>
         const bool isSupportedResume = false;
 
+        bool _IsNotStartUpdateing = true;
+        public bool IsNotStartUpdateing
+        {
+            get => _IsNotStartUpdateing;
+            protected set => this.RaiseAndSetIfChanged(ref _IsNotStartUpdateing, value);
+        }
+
         float _ProgressValue;
         public float ProgressValue
         {
@@ -204,6 +211,8 @@ namespace System.Application.Services.Implementation
         /// </summary>
         protected async void DownloadUpdate()
         {
+            var isCallOverwriteUpgrade = false;
+
             if (isDownloading) return;
 
             if (!IsSupportedServerDistribution) throw new PlatformNotSupportedException();
@@ -391,6 +400,7 @@ namespace System.Application.Services.Implementation
                         {
                             if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
+                                isCallOverwriteUpgrade = true;
                                 OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
                                 goto end;
                             }
@@ -477,6 +487,7 @@ namespace System.Application.Services.Implementation
                             requestUri: requestUri,
                             cacheFilePath,
                             new Progress<float>(OnReportDownloading));
+                        OnReportDownloading(CC.MaxProgress);
 
                         if (rsp.IsSuccess)
                         {
@@ -484,8 +495,8 @@ namespace System.Application.Services.Implementation
 
                             if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
+                                isCallOverwriteUpgrade = true;
                                 OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
-                                OnReportDownloading(CC.MaxProgress);
                             }
                             else
                             {
@@ -505,6 +516,10 @@ namespace System.Application.Services.Implementation
             }
 
         end: isDownloading = false;
+            if (!isCallOverwriteUpgrade)
+            {
+                IsNotStartUpdateing = true;
+            }
             void Fail(string error)
             {
                 toast.Show(error);
@@ -534,6 +549,7 @@ namespace System.Application.Services.Implementation
                 NewVersionInfo.HasValue() &&
                 !NewVersionInfo!.DisableAutomateUpdate)
             {
+                IsNotStartUpdateing = false;
                 DownloadUpdate();
             }
             else
