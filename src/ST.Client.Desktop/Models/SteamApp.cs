@@ -53,6 +53,8 @@ namespace System.Application.Models
         //public bool IsInstalled { get; set; }
         public bool IsInstalled => IsBitSet(State, 2);
 
+        public string? InstalledDrive => !string.IsNullOrEmpty(InstalledDir) ? Path.GetPathRoot(InstalledDir).ToUpper().Remove(2) : null;
+
         public string? InstalledDir { get; set; }
 
         public string? Name { get; set; }
