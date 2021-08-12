@@ -359,13 +359,13 @@
                         Foreground="#FFFFFFFF"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
                     <Border IsVisible="{Binding IsInstalled}"
-                            Margin="20 0 20 -5"
+                            Margin="20 0 20 -3"
                             CornerRadius="3"
                             Classes="paper"
                             Background="#3D4450"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
-                      <StackPanel Margin="10 3" 
+                      <StackPanel Margin="15 3"
                                   Orientation="Horizontal"
                                   Spacing="3"
                                   HorizontalAlignment="Center">
