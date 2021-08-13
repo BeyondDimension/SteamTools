@@ -181,11 +181,11 @@ namespace System.Application.UI.ViewModels
             vm.ServerWebSocket.Start();
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             var apiBaseUrl =
-#if DEBUG
-           "https://127.0.0.1:28110";
-#else
+//#if DEBUG
+//           "https://127.0.0.1:28110";
+//#else
 ICloudServiceClient.Instance.ApiBaseUrl;
-#endif
+//#endif
 
             vm.TempAes.RemoveTo(vm);
             vm.TempAes = AESUtils.Create();
