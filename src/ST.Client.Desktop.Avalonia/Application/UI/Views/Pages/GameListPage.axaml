@@ -358,6 +358,7 @@
                         FontSize="20"
                         Foreground="#FFFFFFFF"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
+                    
                     <Border IsVisible="{Binding IsInstalled}"
                             Margin="20 0 20 -3"
                             CornerRadius="3"
@@ -370,6 +371,7 @@
                                   Spacing="3"
                                   HorizontalAlignment="Center">
                         <TextBlock Text="{Binding InstalledDrive}"
+                                   Foreground="#FFFFFFFF"
                                    IsVisible="{Binding InstalledDrive,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
                                    VerticalAlignment="Center"
                                    FontSize="12"/>
