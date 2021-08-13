@@ -8,8 +8,9 @@
 7. 新增 意大利语支持
 8. 新增 西班牙语支持
 9. 新增 通用设置内可支持访问程序的 AppData、Cache、Logs 文件夹和查看缓存及日志占用空间大小情况
-10. Android/macOS/Linux 版现已开启 Beta/Alpha 测试，可从 GitHub/Gitee 上下载
-11. 现已通过 Desktop Bridge 转制为 UWP 上架 Microsoft Store 
+10. 新增 本地令牌可以查看令牌二维码导入到手机端
+11. Android/macOS/Linux 版现已开启 Beta/Alpha 测试，可从 GitHub/Gitee 上下载
+12. 现已通过 Desktop Bridge 转制为 UWP 上架 Microsoft Store 
 
 ### 修复问题
 1. 修复 开机自启动在 2.4.x 中不生效
