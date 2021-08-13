@@ -37,23 +37,25 @@ namespace System.Application.UI.ViewModels
 #endif
                 AppResources.LoginAndRegister;
 
-            ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel_ =>
+            ChooseChannel = ReactiveCommand.Create<string>(channel_ =>
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
                     CurrentSelectChannel = channel_;
                     ChangeLoginState(3);
-                    await this.StartLRBAsync(channel);
+                    this.StartLRB(channel);
                 }
+#if !__MOBILE__
                 else
                 {
                     switch (channel_)
                     {
                         case FastLoginChannelViewModel.PhoneNumber:
-                            await GoToLoginOrRegisterByPhoneNumberAsync();
+                            ChangeLoginState(1);
                             break;
                     }
                 }
+#endif
             });
             SendSms = ReactiveCommand.CreateFromTask(SendSmsAsync);
             Submit = ReactiveCommand.CreateFromTask(SubmitAsync);
@@ -148,7 +150,6 @@ namespace System.Application.UI.ViewModels
             get => _LoginState;
             set
             {
-                //this.RaiseAndSetIfChanged(ref _LoginState, value);
                 if (_LoginState == value) return;
                 _LoginState = value;
                 this.RaisePropertyChanged();
@@ -192,12 +193,10 @@ namespace System.Application.UI.ViewModels
             Toast.Show(msg);
         }
 
-        //#if !__MOBILE__
         public void ChangeLoginState(short state)
         {
             LoginState = state;
         }
-        //#endif
 
         public new Action? Close { get; set; }
 

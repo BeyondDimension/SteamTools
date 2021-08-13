@@ -98,7 +98,7 @@ namespace System.Application.UI.ViewModels
                     await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        await LRViewModel.SuccessAsync(response.Content!); 
+                        await LRViewModel.SuccessAsync(response.Content!);
                         vm.Close?.Invoke();
                     });
                 }
@@ -158,7 +158,7 @@ namespace System.Application.UI.ViewModels
         /// <param name="vm"></param>
         /// <param name="channel"></param>
         /// <returns></returns>
-        public static async Task StartLRBAsync(this IViewModel vm, FastLoginChannel channel)
+        public static void StartLRB(this IViewModel vm, FastLoginChannel channel)
         {
 #if __MOBILE__
             switch (channel)
