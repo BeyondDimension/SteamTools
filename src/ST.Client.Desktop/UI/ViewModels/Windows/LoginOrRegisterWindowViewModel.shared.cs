@@ -178,6 +178,7 @@ namespace System.Application.UI.ViewModels
             if (response.IsSuccess)
             {
                 await SuccessAsync(response.Content!);
+                this?.Close?.Invoke();
                 return;
             }
 
