@@ -98,7 +98,7 @@ namespace System.Application.UI.ViewModels
                     await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        await LRViewModel.SuccessAsync(response.Content!); 
+                        await LRViewModel.SuccessAsync(response.Content!);
                         vm.Close?.Invoke();
                     });
                 }
@@ -158,7 +158,7 @@ namespace System.Application.UI.ViewModels
         /// <param name="vm"></param>
         /// <param name="channel"></param>
         /// <returns></returns>
-        public static async Task StartLRBAsync(this IViewModel vm, FastLoginChannel channel)
+        public static void StartLRB(this IViewModel vm, FastLoginChannel channel)
         {
 #if __MOBILE__
             switch (channel)
@@ -181,11 +181,11 @@ namespace System.Application.UI.ViewModels
             vm.ServerWebSocket.Start();
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             var apiBaseUrl =
-#if DEBUG
-           "https://127.0.0.1:28110";
-#else
+//#if DEBUG
+//           "https://127.0.0.1:28110";
+//#else
 ICloudServiceClient.Instance.ApiBaseUrl;
-#endif
+            //#endif
 
             vm.TempAes.RemoveTo(vm);
             vm.TempAes = AESUtils.Create();

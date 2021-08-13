@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Common;
 using AndroidApplication = Android.App.Application;
 using JClass = Java.Lang.Class;
+using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
@@ -225,7 +226,7 @@ namespace System.Application.Services.Implementation
             // 通用层采用 float 浮点数作为进度值，范围从0~100，保留两位小数
             // 平台层采用 int 整型作为进度值，范围从0~10000，转换需要 乘 100
             const int unit_convert_multiple = 100; // 从float到int转换单位倍数
-            const float PROGRESS_MAX = IAppUpdateService.MaxProgressValue * unit_convert_multiple; // 进度条满值
+            const float PROGRESS_MAX = CC.MaxProgress * unit_convert_multiple; // 进度条满值
             int PROGRESS_MAX_INT32 = PROGRESS_MAX.ToInt32();
             // 发出零进度的初始通知
             // Issue the initial notification with zero progress
