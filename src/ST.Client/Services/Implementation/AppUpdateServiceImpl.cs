@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.Services.CloudService.Constants;
 using static System.Application.Services.IAppUpdateService;
+using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
@@ -155,6 +156,13 @@ namespace System.Application.Services.Implementation
         /// </summary>
         const bool isSupportedResume = false;
 
+        bool _IsNotStartUpdateing = true;
+        public bool IsNotStartUpdateing
+        {
+            get => _IsNotStartUpdateing;
+            protected set => this.RaiseAndSetIfChanged(ref _IsNotStartUpdateing, value);
+        }
+
         float _ProgressValue;
         public float ProgressValue
         {
@@ -190,7 +198,7 @@ namespace System.Application.Services.Implementation
             onReportCalcHashing(0);
             var sha256_ = Hashs.String.SHA256(File.OpenRead(filePath));  // 改为带进度的哈希计算
             var value = string.Equals(sha256_, sha256, StringComparison.OrdinalIgnoreCase);
-            onReportCalcHashing(MaxProgressValue);
+            onReportCalcHashing(CC.MaxProgress);
             return value;
         }
 
@@ -203,6 +211,8 @@ namespace System.Application.Services.Implementation
         /// </summary>
         protected async void DownloadUpdate()
         {
+            var isCallOverwriteUpgrade = false;
+
             if (isDownloading) return;
 
             if (!IsSupportedServerDistribution) throw new PlatformNotSupportedException();
@@ -354,10 +364,10 @@ namespace System.Application.Services.Implementation
                     #endregion
 
                     for_end: i++;
-                        OnReportDownloading3_(i / (float)allFiles.Count * MaxProgressValue);
+                        OnReportDownloading3_(i / (float)allFiles.Count * CC.MaxProgress);
                     }
 
-                    OnReport(MaxProgressValue);
+                    OnReport(CC.MaxProgress);
                     OverwriteUpgrade(packDirPath, isIncrement: true);
                 }
                 else // 全量更新
@@ -390,7 +400,8 @@ namespace System.Application.Services.Implementation
                         {
                             if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
-                                OverwriteUpgrade(packFilePath, isIncrement: false);
+                                isCallOverwriteUpgrade = true;
+                                OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
                                 goto end;
                             }
                             else // 验证文件失败，删除源文件，将会重新下载
@@ -476,6 +487,7 @@ namespace System.Application.Services.Implementation
                             requestUri: requestUri,
                             cacheFilePath,
                             new Progress<float>(OnReportDownloading));
+                        OnReportDownloading(CC.MaxProgress);
 
                         if (rsp.IsSuccess)
                         {
@@ -483,8 +495,8 @@ namespace System.Application.Services.Implementation
 
                             if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
-                                OverwriteUpgrade(packFileName, isIncrement: false, downloadType: download.DownloadType);
-                                OnReportDownloading(MaxProgressValue);
+                                isCallOverwriteUpgrade = true;
+                                OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
                             }
                             else
                             {
@@ -504,10 +516,14 @@ namespace System.Application.Services.Implementation
             }
 
         end: isDownloading = false;
+            if (!isCallOverwriteUpgrade)
+            {
+                IsNotStartUpdateing = true;
+            }
             void Fail(string error)
             {
                 toast.Show(error);
-                OnReport(MaxProgressValue);
+                OnReport(CC.MaxProgress);
             }
         }
 
@@ -533,6 +549,7 @@ namespace System.Application.Services.Implementation
                 NewVersionInfo.HasValue() &&
                 !NewVersionInfo!.DisableAutomateUpdate)
             {
+                IsNotStartUpdateing = false;
                 DownloadUpdate();
             }
             else

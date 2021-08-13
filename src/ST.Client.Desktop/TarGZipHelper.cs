@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CC = System.Common.Constants;
 
 namespace System.Application
 {
@@ -16,7 +17,7 @@ namespace System.Application
         /// <param name="filePath">要创建的文件路径</param>
         /// <param name="dirPath">要打包的目录</param>
         /// <param name="level">压缩等级，取值范围在 <see cref="Deflater.NO_COMPRESSION"/> ~ <see cref="Deflater.BEST_COMPRESSION"/></param>
-        /// <param name="progressMessage">进度消息监听</param>
+        /// <param name="progress">进度值监听</param>
         /// <returns></returns>
         public static bool Create(string filePath, string dirPath, int level = Deflater.BEST_COMPRESSION, ProgressMessageHandler? progress = null)
         {
@@ -66,7 +67,7 @@ namespace System.Application
         public static bool Unpack(string filePath, string dirPath,
             ProgressMessageHandler? progressMessage = null,
             IProgress<float>? progress = null,
-            float maxProgress = 100f)
+            float maxProgress = CC.MaxProgress)
         {
             if (!File.Exists(filePath)) return false;
             if (Directory.Exists(dirPath)) return false;

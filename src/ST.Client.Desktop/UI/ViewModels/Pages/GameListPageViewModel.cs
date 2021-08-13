@@ -103,7 +103,7 @@ namespace System.Application.UI.ViewModels
                 .Filter(typeFilter)
                 .Filter(installFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName))
+                .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName).ThenByDescending(s => s.SizeOnDisk))
                 .Bind(out _SteamApps)
                 .Subscribe(_ =>
                 {

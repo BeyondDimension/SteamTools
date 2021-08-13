@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using static System.Application.Services.CloudService.Constants.Headers.Request;
+using CC = System.Common.Constants;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace System.Application.Services.CloudService
@@ -846,7 +847,7 @@ namespace System.Application.Services.CloudService
                                 totalRead += read;
                                 if (canReportProgress)
                                 {
-                                    var progressValue = MathF.Round((float)totalRead / total, 2, MidpointRounding.AwayFromZero);
+                                    var progressValue = MathF.Round((float)totalRead / total * CC.MaxProgress, 2, MidpointRounding.AwayFromZero);
                                     if (progressValue != lastProgressValue)
                                     {
                                         progress?.Report(progressValue);

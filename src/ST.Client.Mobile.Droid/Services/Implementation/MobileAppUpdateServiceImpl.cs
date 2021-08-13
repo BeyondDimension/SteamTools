@@ -6,7 +6,7 @@ using System.Application.Models;
 using System.Windows;
 using XEPlatform = Xamarin.Essentials.Platform;
 using static System.Application.UI.Resx.AppResources;
-using static System.Application.Services.IAppUpdateService;
+using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
@@ -56,13 +56,13 @@ namespace System.Application.Services.Implementation
             base.OnReport(value, str);
             if (value == 0)
             {
-                progress?.Report(MaxProgressValue);
+                progress?.Report(CC.MaxProgress);
                 progress = notification.NotifyDownload(() => ProgressString,
                     NotificationType.NewVersionDownloadProgress);
             }
-            else if (value == MaxProgressValue)
+            else if (value == CC.MaxProgress)
             {
-                progress?.Report(MaxProgressValue);
+                progress?.Report(CC.MaxProgress);
                 progress = null;
             }
             else

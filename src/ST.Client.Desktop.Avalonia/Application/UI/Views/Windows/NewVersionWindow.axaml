@@ -27,7 +27,7 @@
     <StackPanel Grid.Row="2" x:Name="content">
       <ScrollViewer MaxHeight="400" Padding="12 10 12 0">
         <StackPanel Spacing="8">
-          <TextBlock Text="{ReflectionBinding Path=Res.UpdateContent,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+          <TextBlock Text="{ReflectionBinding Path=Res.UpdateContent,Mode=OneWay,Source={x:Static resx:R.Current}}"
                      FontSize="19"/>
           <TextBlock Text="{ReflectionBinding Path=NewVersionInfoDesc,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"
                      MaxWidth="596"
@@ -66,6 +66,7 @@
         Padding="30,6"
         Margin="10,0,0,10"
         IsDefault="True"
+        IsEnabled="{ReflectionBinding Path=IsNotStartUpdateing,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"
         Content="{ReflectionBinding Path=Res.StartUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"
         Command="{ReflectionBinding Path=StartUpdateCommand,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"/>
       <Button
@@ -74,6 +75,7 @@
         Padding="30,6"
         Margin="10,0,0,10"
         IsCancel="True"
+        IsEnabled="{ReflectionBinding Path=IsNotStartUpdateing,Mode=OneWay,Source={x:Static ccl_services:IAppUpdateService.Instance}}"
         Content="{ReflectionBinding Path=Res.DoNotUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
     </WrapPanel>
   </Grid>

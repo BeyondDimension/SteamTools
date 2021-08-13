@@ -190,6 +190,7 @@ namespace System.Application.Services.Implementation
             }
             return users;
         }
+
         public bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> model)
         {
             var authorizeds = new List<AuthorizedDevice>();

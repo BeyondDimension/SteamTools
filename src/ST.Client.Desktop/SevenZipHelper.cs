@@ -1,15 +1,21 @@
-using SharpCompress.Archives;
-using SharpCompress.Archives.SevenZip;
-using SharpCompress.Common;
+using SevenZip;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using CC = System.Common.Constants;
 
 namespace System.Application
 {
     public static class SevenZipHelper
     {
+        static SevenZipHelper()
+        {
+            if (DI.Platform == Platform.Windows)
+            {
+                // ✅ AppContext.BaseDirectory
+                var sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "7z.dll");
+                SevenZipBase.SetLibraryPath(sevenZipLibraryPath);
+            }
+        }
+
         /// <summary>
         /// 解压压缩包文件
         /// </summary>
@@ -20,58 +26,26 @@ namespace System.Application
         /// <returns></returns>
         public static bool Unpack(string filePath, string dirPath,
             IProgress<float>? progress = null,
-            float maxProgress = 100f)
+            float maxProgress = CC.MaxProgress)
         {
             if (!File.Exists(filePath)) return false;
             if (Directory.Exists(dirPath)) return false;
 
             using var fs = File.OpenRead(filePath);
             float length = fs.Length;
-            var isFinish = false;
-            CancellationTokenSource? cts = null;
-            async void ProgressMonitor()
-            {
-                try
-                {
-                    while (!isFinish)
-                    {
-                        var value = fs.Position / length * maxProgress;
-                        progress!.Report(value);
-                        await Task.Delay(200, cts.Token);
-                    }
-                }
-                catch (OperationCanceledException)
-                {
-                }
-            }
             Directory.CreateDirectory(dirPath);
-            using var archive = SevenZipArchive.Open(fs);
+            using var archive = new SevenZipExtractor(fs);
             var hasProgress = progress != null;
             if (hasProgress)
             {
-                cts = new();
-                try
+                archive.Extracting += (_, e) =>
                 {
-                    Task.Factory.StartNew(ProgressMonitor, cts.Token);
-                }
-                catch (OperationCanceledException)
-                {
-                }
+                    progress!.Report(e.PercentDone);
+                };
             }
-            var files = archive.Entries.Where(entry => !entry.IsDirectory).ToArray();
-            for (int i = 0; i < files.Length; i++)
-            {
-                var file = files[i];
-                file.WriteToDirectory(dirPath, new ExtractionOptions()
-                {
-                    ExtractFullPath = true,
-                    Overwrite = true
-                });
-            }
-            isFinish = true;
+            archive.ExtractArchive(dirPath);
             if (hasProgress)
             {
-                cts!.Cancel();
                 progress!.Report(maxProgress);
             }
             return true;

@@ -359,19 +359,27 @@
                         Foreground="#FFFFFFFF"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
                     <Border IsVisible="{Binding IsInstalled}"
-                            Margin="20 0 20 -5"
+                            Margin="20 0 20 -3"
                             CornerRadius="3"
                             Classes="paper"
                             Background="#3D4450"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
-                      <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
-                                 Foreground="#FFFFFFFF"
-                                 TextWrapping="Wrap"
-                                 Margin="10 3"
-                                 HorizontalAlignment="Center"
-                                 TextAlignment="Center"
-                                 FontSize="12"/>
+                      <StackPanel Margin="15 3"
+                                  Orientation="Horizontal"
+                                  Spacing="3"
+                                  HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding InstalledDrive}"
+                                   IsVisible="{Binding InstalledDrive,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                                   VerticalAlignment="Center"
+                                   FontSize="12"/>
+                        <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
+                                   Foreground="#FFFFFFFF"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   FontSize="12"/>
+                      </StackPanel>
                     </Border>
                   </Panel>
                 </Border>

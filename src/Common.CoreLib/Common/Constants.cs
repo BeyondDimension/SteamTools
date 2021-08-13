@@ -1,4 +1,4 @@
-﻿namespace System.Common
+namespace System.Common
 {
     public static class Constants
     {
@@ -53,5 +53,7 @@
         public const long TimestampMillisecondsMaxValue = 253402300799999;
 
         public const string N = "N";
+
+        public const float MaxProgress = 100f;
     }
 }

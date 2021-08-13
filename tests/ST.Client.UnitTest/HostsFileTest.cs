@@ -5,6 +5,9 @@ using System.Application.Services.Implementation;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Text;
 using R = System.Application.Properties.Resources;
 
 namespace System.Application
@@ -33,12 +36,49 @@ namespace System.Application
             File.WriteAllLines(tempFileName, hosts);
             var mock_dps = new Mock<IDesktopPlatformService>();
             mock_dps.Setup(x => x.HostsFilePath).Returns(tempFileName);
+            mock_dps.Setup(x => x.Default).Returns(DefaultEncoding);
             IDesktopPlatformService dps = mock_dps.Object;
             IHostsFileService s = new HostsFileServiceImpl(dps);
             action(hosts, s, dps);
             File.Delete(tempFileName);
             tempFileNames.Remove(tempFileName);
         }
+
+        #region DefaultEncoding
+
+        static volatile Encoding? defaultEncoding;
+
+        static Encoding DefaultEncoding
+        {
+            get
+            {
+                if (DI.IsWindowsOrUWP)
+                {
+                    if (defaultEncoding == null)
+                    {
+                        defaultEncoding = CreateDefaultEncoding();
+                    }
+                    return defaultEncoding;
+                }
+                else
+                {
+                    return Encoding.Default;
+                }
+            }
+        }
+
+        static Encoding CreateDefaultEncoding()
+        {
+            int codePage = GetACP();
+            var encoding = CodePagesEncodingProvider.Instance.GetEncoding(codePage);
+            return encoding ?? Encoding.Default;
+        }
+
+        [DllImport("kernel32.dll")]
+        [ResourceExposure(ResourceScope.None)]
+        static extern int GetACP();
+
+        #endregion
 
         static bool TestEquals(IEnumerable<(string ip, string domain)> left, IEnumerable<(string ip, string domain)> right)
         {
