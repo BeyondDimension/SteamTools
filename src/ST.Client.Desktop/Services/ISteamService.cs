@@ -61,13 +61,13 @@ namespace System.Application.Services
         void StartSteam(string? arguments = null);
 
         /// <summary>
-        /// 获取最后一次自动登陆 Steam 用户名称
+        /// 获取最后一次自动登录 Steam 用户名称
         /// </summary>
         /// <returns></returns>
         string GetLastLoginUserName();
 
         /// <summary>
-        /// 获取所有记住登陆 Steam 用户信息
+        /// 获取所有记住登录 Steam 用户信息
         /// </summary>
         /// <returns></returns>
         List<SteamUser> GetRememberUserList();
@@ -81,7 +81,7 @@ namespace System.Application.Services
         List<AuthorizedDevice> GetAuthorizedDeviceList();
 
         /// <summary>
-        /// 设置下次登陆 Steam 用户
+        /// 设置下次登录 Steam 用户
         /// </summary>
         /// <param name="userName"></param>
         void SetCurrentUser(string userName);

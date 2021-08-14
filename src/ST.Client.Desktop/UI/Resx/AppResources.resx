@@ -1539,7 +1539,7 @@
     <value>Steam国际服</value>
   </data>
   <data name="User_WaitFastLoginTip" xml:space="preserve">
-    <value>我们已使用您的系统浏览器打开快速登陆窗口，请进入该页面并登陆。保持该窗口打开</value>
+    <value>我们已使用您的系统浏览器打开快速登录窗口，请进入该页面并登录。保持该窗口打开</value>
   </data>
   <data name="Retry" xml:space="preserve">
     <value>重试</value>
