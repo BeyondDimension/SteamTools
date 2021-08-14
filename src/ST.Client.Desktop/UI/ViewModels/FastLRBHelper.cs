@@ -210,14 +210,7 @@ namespace System.Application.UI.ViewModels
                     access_token_expires = vm.TempAes.Encrypt(now.ToString(DateTimeFormat.RFC1123));
                 }
             }
-            var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?" +
-                $"port={vm.ServerWebSocketListenerPort}&" +
-                $"sKey={skey_str}&" +
-                $"sKeyPadding={padding.OaepHashAlgorithm}&" +
-                $"version={csc.Settings.AppVersionStr}&" +
-                $"isBind={isBind}&" +
-                $"access_token_expires={access_token_expires}&" +
-                $"access_token={access_token}";
+            var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={vm.ServerWebSocketListenerPort}&sKey={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&version={csc.Settings.AppVersionStr}&isBind={isBind}&access_token_expires={access_token_expires}&access_token={access_token}";
             BrowserOpen(url);
         }
     }
