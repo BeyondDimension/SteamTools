@@ -212,8 +212,7 @@ namespace System.Application.UI.ViewModels
             }
             var url = apiBaseUrl +
                 $"/ExternalLoginDetection/{(int)channel}" +
-                $"?websocket=true&" +
-                $"port={vm.ServerWebSocketListenerPort}&" +
+                $"?port={vm.ServerWebSocketListenerPort}&" +
                 $"sKey={skey_str}&" +
                 $"sKeyPadding={padding.OaepHashAlgorithm}&" +
                 $"version={csc.Settings.AppVersionStr}&" +
