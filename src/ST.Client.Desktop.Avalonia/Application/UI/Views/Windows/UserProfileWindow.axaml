@@ -205,8 +205,15 @@
           </Panel>
         </TabItem>
         <TabItem Header="{ReflectionBinding Path=Res.User_AccountBind,Mode=OneWay,Source={x:Static resx:R.Current}}">
-          <Panel>
-            <Grid Margin="{StaticResource ContentMargin}" VerticalAlignment="Center">
+          <DockPanel>
+            <TextBlock Margin="20"
+                       DockPanel.Dock="Bottom"
+                       Text="{ReflectionBinding Path=Res.User_AccountBindTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       VerticalAlignment="Bottom"
+                       TextWrapping="Wrap"/>
+            <Grid Margin="{StaticResource ContentMargin}"
+                  VerticalAlignment="Center"
+                  DockPanel.Dock="Top">
               <Grid.RowDefinitions>
                 <RowDefinition Height="16"/>
                 <RowDefinition Height="Auto"/>
@@ -289,11 +296,7 @@
                        Grid.Row="7"
                        Grid.Column="1"/>
             </Grid>
-            <TextBlock Margin="20"
-                       Text="{ReflectionBinding Path=Res.User_AccountBindTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                       VerticalAlignment="Bottom"
-                       TextWrapping="Wrap"/>
-          </Panel>
+          </DockPanel>
         </TabItem>
       </TabControl>
     </Panel>
