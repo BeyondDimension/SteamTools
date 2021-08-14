@@ -178,22 +178,22 @@ namespace System.Application.UI.ViewModels
 
             if (response.IsSuccess)
             {
-                await SuccessAsync(response.Content!);
-                this?.Close?.Invoke();
+                await SuccessAsync(response.Content!, Close);
                 return;
             }
 
             IsLoading = false;
         }
 
-        public static async Task SuccessAsync(LoginOrRegisterResponse rsp)
+        internal static async Task SuccessAsync(LoginOrRegisterResponse rsp, Action? close = null)
         {
             await UserService.Current.RefreshUserAsync();
             var msg = AppResources.Success_.Format((rsp?.IsLoginOrRegister ?? false) ? AppResources.User_Login : AppResources.User_Register);
+            close?.Invoke();
             Toast.Show(msg);
         }
 
-        public void ChangeLoginState(short state)
+        void ChangeLoginState(short state)
         {
             LoginState = state;
         }

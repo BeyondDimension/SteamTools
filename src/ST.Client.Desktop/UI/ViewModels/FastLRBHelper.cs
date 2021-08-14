@@ -98,8 +98,7 @@ namespace System.Application.UI.ViewModels
                     await conn_helper.OnLoginedAsync(response.Content!, response.Content!);
                     await MainThread2.InvokeOnMainThreadAsync(async () =>
                     {
-                        await LRViewModel.SuccessAsync(response.Content!);
-                        vm.Close?.Invoke();
+                        await LRViewModel.SuccessAsync(response.Content!, vm.Close);
                     });
                 }
             }
@@ -185,7 +184,7 @@ namespace System.Application.UI.ViewModels
 //           "https://127.0.0.1:28110";
 //#else
 ICloudServiceClient.Instance.ApiBaseUrl;
-//#endif
+            //#endif
 
             vm.TempAes.RemoveTo(vm);
             vm.TempAes = AESUtils.Create();
