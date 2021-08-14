@@ -81,9 +81,9 @@ namespace System.Application.Services.Implementation
                    IOPath.BaseDirectory,
                    AppHelper.ProgramPath);
 
-                updateCommand = "chcp" + Environment.NewLine + "chcp 65001" + Environment.NewLine + updateCommand;
+                updateCommand = "chcp 65001" + Environment.NewLine + updateCommand;
 
-                File.WriteAllText(updateCommandPath, updateCommand, Encoding.UTF8);
+                File.WriteAllText(updateCommandPath, updateCommand, Encoding.Default);
 
                 using var p = new Process();
                 p.StartInfo.FileName = updateCommandPath;
