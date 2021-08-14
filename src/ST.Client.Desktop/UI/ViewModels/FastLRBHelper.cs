@@ -21,6 +21,10 @@ namespace System.Application.UI.ViewModels
 {
     public static class FastLRBHelper
     {
+#if DEBUG
+        static readonly bool UseLoopbackTest = false;
+#endif
+
         public interface IViewModel : IDisposableHolder
         {
             /// <summary>
@@ -157,7 +161,7 @@ namespace System.Application.UI.ViewModels
         /// <param name="vm"></param>
         /// <param name="channel"></param>
         /// <returns></returns>
-        public static void StartLRB(this IViewModel vm, FastLoginChannel channel)
+        public static async Task StartLRBAsync(this IViewModel vm, FastLoginChannel channel)
         {
 #if __MOBILE__
             switch (channel)
@@ -179,12 +183,10 @@ namespace System.Application.UI.ViewModels
             }
             vm.ServerWebSocket.Start();
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
-            var apiBaseUrl =
-//#if DEBUG
-//           "https://127.0.0.1:28110";
-//#else
-ICloudServiceClient.Instance.ApiBaseUrl;
-            //#endif
+            var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
+#if DEBUG
+            if (UseLoopbackTest) apiBaseUrl = "https://127.0.0.1:28110";
+#endif
 
             vm.TempAes.RemoveTo(vm);
             vm.TempAes = AESUtils.Create();
@@ -194,16 +196,18 @@ ICloudServiceClient.Instance.ApiBaseUrl;
             var csc = DI.Get<CloudServiceClientBase>();
             var padding = RSAUtils.DefaultPadding;
             var isBind = vm.IsBind;
-            var auth = string.Empty;
+            var access_token = string.Empty;
+            var access_token_expires = string.Empty;
             if (isBind)
             {
-                Func<Task<JWTEntity?>> getAuthTokenAsync = () => conn_helper.Auth.GetAuthTokenAsync().AsTask();
-                var authToken = getAuthTokenAsync.RunSync();
+                var authToken = await conn_helper.Auth.GetAuthTokenAsync();
                 var authHeaderValue = conn_helper.GetAuthenticationHeaderValue(authToken);
                 if (authHeaderValue != null)
                 {
                     var authHeaderValueStr = authHeaderValue.ToString();
-                    auth = vm.TempAes.Encrypt(authHeaderValueStr);
+                    access_token = vm.TempAes.Encrypt(authHeaderValueStr);
+                    var now = DateTime.UtcNow;
+                    access_token_expires = vm.TempAes.Encrypt(now.ToString(DateTimeFormat.RFC1123));
                 }
             }
             var url = apiBaseUrl +
@@ -214,7 +218,8 @@ ICloudServiceClient.Instance.ApiBaseUrl;
                 $"sKeyPadding={padding.OaepHashAlgorithm}&" +
                 $"version={csc.Settings.AppVersionStr}&" +
                 $"isBind={isBind}&" +
-                $"auth={auth}";
+                $"access_token_expires={access_token_expires}&" +
+                $"access_token={access_token}";
             BrowserOpen(url);
         }
     }

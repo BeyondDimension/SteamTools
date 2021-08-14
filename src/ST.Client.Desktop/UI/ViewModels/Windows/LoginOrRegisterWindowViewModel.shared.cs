@@ -37,13 +37,13 @@ namespace System.Application.UI.ViewModels
 #endif
                 AppResources.LoginAndRegister;
 
-            ChooseChannel = ReactiveCommand.Create<string>(channel_ =>
+            ChooseChannel = ReactiveCommand.CreateFromTask<string>(async channel_ =>
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
                     CurrentSelectChannel = channel_;
                     ChangeLoginState(3);
-                    this.StartLRB(channel);
+                    await this.StartLRBAsync(channel);
                 }
 #if !__MOBILE__
                 else

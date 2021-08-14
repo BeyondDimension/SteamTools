@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Sockets;
 using System.Text;
 
@@ -39,6 +40,23 @@ namespace System
                 .Append(path)
                 .Append(queryString)
                 .ToString();
+        }
+
+        public static string Action(this IUrlHelper helper, string action, QueryString values)
+        {
+            var url = helper.Action(action);
+            if (values.HasValue)
+            {
+                var length = url.Length + values.Value!.Length;
+                return new StringBuilder(length)
+                   .Append(url)
+                   .Append(values.Value)
+                   .ToString();
+            }
+            else
+            {
+                return url;
+            }
         }
 
         /// <summary>

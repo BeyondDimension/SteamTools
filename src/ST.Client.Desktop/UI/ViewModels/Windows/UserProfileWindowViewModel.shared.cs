@@ -82,11 +82,11 @@ namespace System.Application.UI.ViewModels
                 SubscribeFormItem(x => x.AreaSelectItem3, SubscribeAreaOnNext);
                 SubscribeFormItem(x => x.AreaSelectItem4, SubscribeAreaOnNext);
             }
-            OnBindFastLoginClick = ReactiveCommand.Create<string>(channel_ =>
+            OnBindFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
-                    this.StartLRB(channel);
+                    await this.StartLRB(channel);
                 }
             });
             OnUnbundleFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>

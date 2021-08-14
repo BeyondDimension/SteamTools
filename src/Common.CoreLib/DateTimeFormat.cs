@@ -1,4 +1,4 @@
-﻿namespace System
+namespace System
 {
     public static class DateTimeFormat
     {
@@ -27,5 +27,7 @@
         public const string DateCN = "yyyy年MM月dd日";
 
         public const string DateCN2 = "yyyy年M月d日";
+
+        public const string RFC1123 = "r";
     }
 }
