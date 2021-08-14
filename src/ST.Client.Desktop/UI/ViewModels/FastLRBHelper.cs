@@ -194,6 +194,19 @@ ICloudServiceClient.Instance.ApiBaseUrl;
             var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
             var csc = DI.Get<CloudServiceClientBase>();
             var padding = RSAUtils.DefaultPadding;
+            var isBind = vm.IsBind;
+            var auth = string.Empty;
+            if (isBind)
+            {
+                Func<Task<JWTEntity?>> getAuthTokenAsync = () => conn_helper.Auth.GetAuthTokenAsync().AsTask();
+                var authToken = getAuthTokenAsync.RunSync();
+                var authHeaderValue = conn_helper.GetAuthenticationHeaderValue(authToken);
+                if (authHeaderValue != null)
+                {
+                    var authHeaderValueStr = authHeaderValue.ToString();
+                    auth = vm.TempAes.Encrypt(authHeaderValueStr);
+                }
+            }
             var url = apiBaseUrl +
                 $"/ExternalLoginDetection/{(int)channel}" +
                 $"?websocket=true&" +
@@ -201,7 +214,8 @@ ICloudServiceClient.Instance.ApiBaseUrl;
                 $"sKey={skey_str}&" +
                 $"sKeyPadding={padding.OaepHashAlgorithm}&" +
                 $"version={csc.Settings.AppVersionStr}&" +
-                $"isBind={vm.IsBind}";
+                $"isBind={isBind}&" +
+                $"auth={auth}";
             BrowserOpen(url);
         }
     }

@@ -426,24 +426,24 @@ namespace System.Application
                     }
                     static void SetApiBaseUrl(AppSettings s)
                     {
-#if DEBUG
-                        if (BuildConfig.IsAigioPC && Program.IsMainProcess)
-                        {
-                            try
-                            {
-                                var url = CSConst.Prefix_HTTPS + "localhost:5001";
-                                var request = WebRequest.CreateHttp(url);
-                                request.Timeout = 1888;
-                                request.GetResponse();
-                                s.ApiBaseUrl = url;
-                                return;
-                            }
-                            catch (Exception e)
-                            {
-                                Debug.WriteLine(e.ToString());
-                            }
-                        }
-#endif
+//#if DEBUG
+//                        if (BuildConfig.IsAigioPC && Program.IsMainProcess)
+//                        {
+//                            try
+//                            {
+//                                var url = CSConst.Prefix_HTTPS + "localhost:5001";
+//                                var request = WebRequest.CreateHttp(url);
+//                                request.Timeout = 1888;
+//                                request.GetResponse();
+//                                s.ApiBaseUrl = url;
+//                                return;
+//                            }
+//                            catch (Exception e)
+//                            {
+//                                Debug.WriteLine(e.ToString());
+//                            }
+//                        }
+//#endif
                         var value =
                             (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
                             CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
