@@ -210,10 +210,42 @@
                        DockPanel.Dock="Bottom"
                        Text="{ReflectionBinding Path=Res.User_AccountBindTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        VerticalAlignment="Bottom"
-                       TextWrapping="Wrap"/>
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       IsVisible="{Binding CurrentSelectChannel,Converter={StaticResource IsNullConverter}}"/>
+
+            <StackPanel Spacing="8"
+                        VerticalAlignment="Center"
+                        Margin="40 0"
+                        IsVisible="{Binding CurrentSelectChannel,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+              <TextBlock TextWrapping="WrapWithOverflow"
+                         Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              <controls:ProgressRing IsIndeterminate="True"
+                                     Margin="0 40 0 40"
+                                     Width="100"
+                                     Height="100">
+              </controls:ProgressRing>
+
+              <WrapPanel HorizontalAlignment="Center" Margin="0 0 0 50">
+                <Button Classes="plain"
+                        Margin="0 0 25 0"
+                        HorizontalContentAlignment="Center"
+                        Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        Command="{ReflectionBinding ChangeLoginState}"
+                        CommandParameter="2"/>
+                <Button Classes="plain"
+                        Margin="25 0 0 0"
+                        HorizontalContentAlignment="Center"
+                        Content="{ReflectionBinding Path=Res.Retry,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        Command="{Binding OnBindFastLoginClick}"
+                        CommandParameter="{Binding CurrentSelectChannel}"/>
+              </WrapPanel>
+            </StackPanel>
+
             <Grid Margin="{StaticResource ContentMargin}"
                   VerticalAlignment="Center"
-                  DockPanel.Dock="Top">
+                  DockPanel.Dock="Top"
+                  IsVisible="{Binding CurrentSelectChannel,Converter={StaticResource IsNullConverter}}">
               <Grid.RowDefinitions>
                 <RowDefinition Height="16"/>
                 <RowDefinition Height="Auto"/>
@@ -282,19 +314,37 @@
                       IsEnabled="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                       IsVisible="{ReflectionBinding Path=User.MicrosoftAccountEmail,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
-              <PathIcon Classes="FormItemLabel" Data="{StaticResource Apple}" Grid.Row="5"/>
+              <PathIcon Classes="FormItemLabel" Data="{StaticResource QQ}" Grid.Row="5"/>
               <TextBox IsReadOnly="True"
                        Focusable="False"
-                       Watermark="{ReflectionBinding Path=Res.UnderConstruction,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Watermark="{ReflectionBinding Path=Res.Unbound,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Text="{ReflectionBinding Path=User.QQAccountNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}}"
                        Grid.Row="5"
                        Grid.Column="1"/>
+              <Button Classes="Secondary"
+                      Content="{ReflectionBinding Path=Res.Bind,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Grid.Row="5"
+                      Grid.Column="3"
+                      Command="{Binding OnBindFastLoginClick}"
+                      CommandParameter="QQ"
+                      IsVisible="{ReflectionBinding Path=User.QQAccountNumber,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNull}}"/>
+              <Button Classes="Secondary"
+                      Content="{ReflectionBinding Path=Res.Unbundling,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Grid.Row="5"
+                      Grid.Column="3"
+                      Command="{Binding OnUnbundleFastLoginClick}"
+                      CommandParameter="QQ"
+                      IsEnabled="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                      IsVisible="{ReflectionBinding Path=User.QQAccountNumber,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
-              <PathIcon Classes="FormItemLabel" Data="{StaticResource QQ}" Grid.Row="7"/>
+              <PathIcon Classes="FormItemLabel" Data="{StaticResource Apple}" Grid.Row="7"/>
               <TextBox IsReadOnly="True"
                        Focusable="False"
                        Watermark="{ReflectionBinding Path=Res.UnderConstruction,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        Grid.Row="7"
                        Grid.Column="1"/>
+
+
             </Grid>
           </DockPanel>
         </TabItem>

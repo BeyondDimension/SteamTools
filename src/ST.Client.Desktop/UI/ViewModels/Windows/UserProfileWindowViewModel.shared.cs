@@ -86,6 +86,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
+                    CurrentSelectChannel = channel_;
                     await this.StartLRBAsync(channel);
                 }
             });
@@ -96,6 +97,17 @@ namespace System.Application.UI.ViewModels
                     await OnUnbundleFastLoginClickAsync(channel);
                 }
             });
+            OnCancelBindFastLoginClick = ReactiveCommand.Create(() =>
+            {
+                CurrentSelectChannel = null;
+            });
+        }
+
+        string? _CurrentSelectChannel;
+        public string? CurrentSelectChannel
+        {
+            get => _CurrentSelectChannel;
+            set => this.RaiseAndSetIfChanged(ref _CurrentSelectChannel, value);
         }
 
         bool _IsModify;
@@ -194,6 +206,8 @@ namespace System.Application.UI.ViewModels
         /// 绑定用于快速登录的第三方账号 按钮点击
         /// </summary>
         public ICommand OnBindFastLoginClick { get; }
+
+        public ICommand OnCancelBindFastLoginClick { get; }
 
         /// <summary>
         /// 解绑用于快速登录的第三方账号 按钮点击
