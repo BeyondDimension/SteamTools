@@ -28,8 +28,8 @@ emit_plist() {
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleName</key>
-    <string>$PLIST_APPNAME</string>
+	<key>CFBundleName</key>
+	<string>$PLIST_APPNAME</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.steampp.app</string>
 	<key>CFBundleShortVersionString</key>
@@ -42,18 +42,18 @@ emit_plist() {
 	<string>zh_CN</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-    <key>CFBundleExecutable</key>
-    <string>$PLIST_APPNAME</string>
-    <key>CFBundleGetInfoString</key>
-    <string>$PLIST_APPNAME</string>
-    <key>CFBundleIconFile</key>
-    <string>$PLIST_APPNAME</string>
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>CFBundleSignature</key>
+	<key>CFBundleExecutable</key>
+	<string>$PLIST_APPNAME</string>
+	<key>CFBundleGetInfoString</key>
+	<string>$PLIST_APPNAME</string>
+	<key>CFBundleIconFile</key>
+	<string>$PLIST_APPNAME</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
 	<string>????</string>
-    <key>LSUIElement</key>
-    <string>$LSUIELEMENT</string>
+	<key>LSUIElement</key>
+	<string>$LSUIELEMENT</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 长沙次元超越科技有限公司. All Rights Reserved.</string>
 	<key>NSPrincipalClass</key>
