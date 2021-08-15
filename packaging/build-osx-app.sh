@@ -51,7 +51,7 @@ emit_plist() {
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleSignature</key>
-    <string>????</string>
+	<string>????</string>
     <key>LSUIElement</key>
     <string>$LSUIELEMENT</string>
 	<key>NSHumanReadableCopyright</key>
@@ -63,27 +63,13 @@ emit_plist() {
 EOF
     fi
 }
+
 cd "/Users/mossimo/bin"
 
 
 BINARYNAME="Steam++"
-CEFZIP="cef_binary_90.6.3%2Bgc53c523%2Bchromium-90.0.4430.93_macosx64_minimal.tar.bz2"
 
-
-echo "Building CefNet Avalonia demo..."
-
-CEFBINARIES="../cef"
-CEFFRAMEWORK_DIR="$(find $CEFBINARIES -name "Release")"
-
-if [ ! -d "$CEFFRAMEWORK_DIR" ]; then
-    if [ ! -f "$CEFBINARIES/$CEFZIP" ]; then
-        echo "downloading cef binaries from https://cef-builds.spotifycdn.com/$CEFZIP"
-        curl -o "$CEFBINARIES/$CEFZIP" "https://cef-builds.spotifycdn.com/$CEFZIP"
-    fi
-    echo "unzipping cef binaries"
-    tar -jxvf "$CEFBINARIES/$CEFZIP" --strip-components 1 -C "./$CEFBINARIES"
-    CEFFRAMEWORK_DIR="$(find $CEFBINARIES -name "Release")"
-fi
+echo "Building Avalonia demo..."
 
 
 APPNAME="$BINARYNAME"
@@ -94,40 +80,14 @@ rm -rf "$APPDIR"
 create_app_structure "$APPNAME"
 emit_plist "$APPNAME" "$APPDIR" true
 
-cp -R "$CEFFRAMEWORK_DIR/Chromium Embedded Framework.framework" "$APPDIR/Frameworks/"
-
 cd "$APPDIR/Frameworks"
 
 APPNAME="$BINARYNAME Helper"
 APPDIR="$APPNAME.app/Contents"
 create_app_structure "$APPNAME"
 emit_plist "$APPNAME" "$APPDIR"
-cp -R "../../../steampp/" "$APPDIR/MacOS"
-ln -s "Frameworks/$APPDIR/MacOS" "../MacOS"
-chmod +x "$APPDIR/MacOS/$BINARYNAME"
-cp "$APPDIR/MacOS/$BINARYNAME" "$APPDIR/MacOS/$APPNAME"
-chmod +x "$APPDIR/MacOS/$APPNAME"
-
-APPNAME="$BINARYNAME Helper (GPU)"
-APPDIR="$APPNAME.app/Contents"
-mkdir -pv "$APPDIR"
-emit_plist "$APPNAME" "$APPDIR"
-ln -s "../../$BINARYNAME Helper.app/Contents/MacOS" "$APPDIR/MacOS"
-cp "$APPDIR/MacOS/$BINARYNAME" "$APPDIR/MacOS/$APPNAME"
-chmod +x "$APPDIR/MacOS/$APPNAME"
-
-APPNAME="$BINARYNAME Helper (Plugin)"
-APPDIR="$APPNAME.app/Contents"
-mkdir -pv "$APPDIR"
-emit_plist "$APPNAME" "$APPDIR"
-ln -s "../../$BINARYNAME Helper.app/Contents/MacOS" "$APPDIR/MacOS"
-cp "$APPDIR/MacOS/$BINARYNAME" "$APPDIR/MacOS/$APPNAME"
-chmod +x "$APPDIR/MacOS/$APPNAME"
-
-APPNAME="$BINARYNAME Helper (Renderer)"
-APPDIR="$APPNAME.app/Contents"
-mkdir -pv "$APPDIR"
-emit_plist "$APPNAME" "$APPDIR"
-ln -s "../../$BINARYNAME Helper.app/Contents/MacOS" "$APPDIR/MacOS"
-cp "$APPDIR/MacOS/$BINARYNAME" "$APPDIR/MacOS/$APPNAME"
-chmod +x "$APPDIR/MacOS/$APPNAME"
+cp -R "../../../steampp/" "../MacOS"
+ln -s "../../MacOS" "Frameworks/$APPDIR/MacOS"
+chmod +x "../MacOS/$BINARYNAME"
+cp "../MacOS/$BINARYNAME" "../MacOS/$APPNAME"
+chmod +x "../MacOS/$APPNAME"

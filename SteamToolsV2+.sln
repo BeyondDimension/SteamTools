@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Root", "_Root", "{66839CD8
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		packaging\build-osx-app.sh = packaging\build-osx-app.sh
 		Directory.Build.props = Directory.Build.props
 		global.json = global.json
 		nuget.config = nuget.config
