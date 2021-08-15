@@ -1254,7 +1254,7 @@
     <value>确定要删除这条本地记录帐户吗？</value>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
-    <value>点此修改备注</value>
+    <value>修改账号备注</value>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
     <value>登录新 Steam 账号</value>

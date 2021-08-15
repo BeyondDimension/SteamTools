@@ -108,11 +108,11 @@
                           </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                       </Ellipse>
-                      <controls:ScrollingTextBlock x:Name="nickname" 
-                                         Text="{Binding SteamNickName}" 
-                                         FontSize="24" 
-                                         Foreground="{DynamicResource HighlightForegroundBrushKey}" 
-                                         Cursor="Hand" 
+                      <controls:ScrollingTextBlock x:Name="nickname"
+                                         Text="{Binding SteamNickName}"
+                                         FontSize="24"
+                                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                         Cursor="Hand"
                                          ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
                         <i:Interaction.Behaviors>
                           <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
@@ -120,23 +120,24 @@
                           </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                       </controls:ScrollingTextBlock>
-                      <TextBox VerticalAlignment="Center"
-                           VerticalContentAlignment="Center"
-                           Watermark="{ReflectionBinding Path=Res.UserChange_EditRemark,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                           ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_EditRemark,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                           MinWidth="150"
-                           Text="{Binding Remark,Mode=TwoWay}"
-                           Classes="readonlybox"
-                           Foreground="{DynamicResource InactiveForegroundBrushKey}">
-                        <TextBox.InnerRightContent>
-                          <PathIcon Data="{StaticResource EditDrawing}"
-                                    Width="10" Height="10"
-                                    Opacity="0.8"
-                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                    Margin="0"
-                                    IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter}}"/>
-                        </TextBox.InnerRightContent>
-                      </TextBox>
+                      <TextBlock VerticalAlignment="Center"
+                              Margin="5 0"
+                              Text="{Binding Remark,Mode=TwoWay}"
+                              Foreground="{DynamicResource InactiveForegroundBrushKey}">
+                      </TextBlock>
+                      <Button Cursor="Hand"
+                              Command="{ReflectionBinding #u.DataContext.EditRemarkAsync}"
+                              CommandParameter="{Binding}"
+                              Classes="plain"
+                              ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_EditRemark,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              VerticalAlignment="Center"
+                              VerticalContentAlignment="Center">
+                        <PathIcon Data="{StaticResource EditDrawing}"
+                                  Width="10" Height="10"
+                                  Opacity="0.8"
+                                  VerticalAlignment="Center" HorizontalAlignment="Left"
+                                  Margin="0"/>
+                      </Button>
                     </WrapPanel>
 
                     <WrapPanel Orientation="Horizontal">

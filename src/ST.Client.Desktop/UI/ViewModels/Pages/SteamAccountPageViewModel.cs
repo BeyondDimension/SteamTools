@@ -137,15 +137,15 @@ namespace System.Application.UI.ViewModels
 
             _SteamUsersSourceList.Refresh();
 
-            this.WhenAnyValue(x => x.SteamUsers)
-                  .Subscribe(items => items?
-                  .ToObservableChangeSet()
-                  .AutoRefresh(x => x.Remark)
-                  .WhenValueChanged(x => x.Remark, false)
-                  .Subscribe(_ =>
-                  {
-                      SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
-                  }));
+            //this.WhenAnyValue(x => x.SteamUsers)
+            //      .Subscribe(items => items?
+            //      .ToObservableChangeSet()
+            //      .AutoRefresh(x => x.Remark)
+            //      .WhenValueChanged(x => x.Remark, false)
+            //      .Subscribe(_ =>
+            //      {
+            //          SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
+            //      }));
         }
 
         public void SteamId_Click(SteamUser user)
@@ -214,6 +214,21 @@ namespace System.Application.UI.ViewModels
                     steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
                 }
             });
+        }
+
+        public async void EditRemarkAsync(SteamUser user)
+        {
+            var value = await TextBoxWindowViewModel.ShowDialogAsync(new()
+            {
+                Value = user.Remark,
+                Title = AppResources.UserChange_EditRemark,
+            });
+            if (value == null)
+                return;
+            user.Remark = value;
+
+            SteamAccountSettings.AccountRemarks.Value!.AddOrUpdate(user.SteamId64, user.Remark, (oldkey, oldvalue) => user.Remark);
+            SteamAccountSettings.AccountRemarks.RaiseValueChanged();
         }
     }
 }
