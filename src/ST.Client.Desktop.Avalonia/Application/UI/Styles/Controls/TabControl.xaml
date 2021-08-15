@@ -15,9 +15,9 @@
     <Setter Property="FontSize" Value="16"></Setter>
     <Setter Property="MinHeight" Value="36"></Setter>
   </Style>
-  <Style Selector="TabControl.flat /template/ DockPanel">
+  <!--<Style Selector="TabControl.flat /template/ DockPanel">
     <Setter Property="Margin" Value="0 -10 0 0"></Setter>
-  </Style>
+  </Style>-->
   <Style Selector="TabControl.flat /template/ ItemsPresenter">
     <Setter Property="Margin" Value="{StaticResource PageMargin}"></Setter>
   </Style>
