@@ -30,7 +30,8 @@ namespace System
             STClientDesktop => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             STClientDesktop_AppResources => GetResxFilePathCore(new[] { STClientDesktop, "UI", "Resx", "AppResources.resx" }),
             STServicesCloudServiceModels => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
-            STToolsWin7Troubleshoot => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
+            //STToolsWin7Troubleshoot => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
+            STServer_AppResources => GetResxFilePathCore(new[] { "ST.Server.Resources", "UI", "Resx", "AppResources.resx" }),
             _ => throw new ArgumentOutOfRangeException(nameof(resx), resx, null),
         };
 

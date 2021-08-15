@@ -118,78 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bind" xml:space="preserve">
-    <value>绑定</value>
+    <value>Привязка</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>很抱歉，您正在使用一个过时的浏览器。建议升级您的浏览器或使用</value>
+    <value>К сожалению, вы используете устаревший браузер. Рекомендуется обновить браузер или использовать его</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>等其他现代浏览器，以提高您的体验。</value>
+    <value>и т.д. другие современные браузеры, чтобы улучшить свой опыт.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>点击此处重试</value>
+    <value>Нажмите здесь, чтобы повторить попытку</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>来自第三方登录提供程序的错误，{0}，请联系网站管理员。</value>
+    <value>Ошибка от стороннего поставщика входа, {0}, обратитесь к администратору веб-сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>未知的第三方登录提供程序，{0}，请联系网站管理员。</value>
+    <value>Неизвестный сторонний поставщик входа, {0}, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>未知的第三方登录渠道，{0}，请联系网站管理员。</value>
+    <value>Неизвестные сторонние каналы входа, {0}, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>加载第三方登录信息时出错，请联系网站管理员。</value>
+    <value>Произошла ошибка при загрузке данных для входа третьей стороны, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>快速登录仅可在未授权时使用，请联系网站管理员。</value>
+    <value>Быстрый вход доступен только в том случае, если он не авторизован, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>账号绑定获取当前登录用户失败，请联系网站管理员。</value>
+    <value>Привязка учетной записи не удалась получить текущего вошедшего в систему пользователя, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>登录</value>
+    <value>Войдите в систему</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
-    <value>登录 / 注册</value>
+    <value>Вход / Регистрация</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}已完成，您可以关闭此窗口并返回至 Steam++。</value>
+    <value>{0} {1} завершена, вы можете закрыть это окно и вернуться к Steam++.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>此浏览器窗口/标签页将会在 10 秒内尝试自动关闭，您也可以手动关闭。</value>
+    <value>Это окно браузера/ вкладка будет пытаться закрыть автоматически в течение 10 секунд, или вы можете закрыть его вручную.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>长时间未跳转？</value>
+    <value>Долго не прыгать?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
+    <value>&quot;Steam++&quot; — это набор инструментов, включающий множество функций инструментов Steam.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>需要开启 JavaScript 才能浏览本站点。</value>
+    <value>Чтобы просмотреть этот сайт, необходимо включить JavaScript.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>请检查是否能正常访问 Steam 社区。</value>
+    <value>Убедитесь, что у вас есть обычный доступ к сообществу Steam.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>请稍后…</value>
+    <value>Пожалуйста, позже...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>读取 SteamAccountId64 失败，值：{0}，请联系网站管理员。</value>
+    <value>Не удалось прочитать SteamAccountId64 со значением: {0} обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>读取 UnionId 失败，值：{0}，请联系网站管理员。</value>
+    <value>Чтение UnionId завершается неудачей, значение: {0}, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
-    <value>错误!</value>
+    <value>Ошибка!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Success_" xml:space="preserve">
-    <value>{0}成功!</value>
+    <value>{0} успех!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>与程序的连接丢失，点击重试或重新在程序内点击快速登录。</value>
+    <value>Подключение к программе потеряно, нажмите Повторить попытку или снова нажать кнопку Быстрый вход в программу.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>端口号必须为 UInt16 类型，请联系网站管理员。</value>
+    <value>Номер порта должен быть UInt16, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

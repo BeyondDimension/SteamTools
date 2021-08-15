@@ -43,7 +43,8 @@ namespace System
         public const string STClientDesktop = "ST.Client.Desktop";
         public const string STClientDesktop_AppResources = "ST.Client.Desktop[AppResources]";
         public const string STServicesCloudServiceModels = "ST.Services.CloudService.Models";
-        public const string STToolsWin7Troubleshoot = "ST.Tools.Win7Troubleshoot";
+        //public const string STToolsWin7Troubleshoot = "ST.Tools.Win7Troubleshoot";
+        public const string STServer_AppResources = "ST.Server.Resources[AppResources]";
 
         /// <summary>
         /// 有 resx 文件的项目名
@@ -57,7 +58,8 @@ namespace System
             STClientDesktop,
             STClientDesktop_AppResources,
             STServicesCloudServiceModels,
-            STToolsWin7Troubleshoot,
+            //STToolsWin7Troubleshoot,
+            STServer_AppResources,
         };
 
         public const string DataXmlStart = "<data name=\"";

@@ -118,78 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bind" xml:space="preserve">
-    <value>绑定</value>
+    <value>guinzaglio</value>
+    <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>很抱歉，您正在使用一个过时的浏览器。建议升级您的浏览器或使用</value>
+    <value>Siamo spiacenti, stai usando un browser obsoleto. Si consiglia di aggiornare il browser o utilizzarlo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>等其他现代浏览器，以提高您的体验。</value>
+    <value>altri browser moderni per migliorare la tua esperienza.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>点击此处重试</value>
+    <value>Clicca qui per riprovare</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>来自第三方登录提供程序的错误，{0}，请联系网站管理员。</value>
+    <value>Gli errori dei provider di accesso di terze parti, {0}, contattare il webmaster.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>未知的第三方登录提供程序，{0}，请联系网站管理员。</value>
+    <value>Per provider di accesso di terze parti sconosciuti, {0}, contatta il tuo webmaster.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>未知的第三方登录渠道，{0}，请联系网站管理员。</value>
+    <value>Per canali di accesso di terze parti sconosciuti, {0}, contatta il tuo webmaster.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>加载第三方登录信息时出错，请联系网站管理员。</value>
+    <value>Si è verificato un errore durante il caricamento di informazioni di accesso di terze parti, contattare l&apos;amministratore del sito.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>快速登录仅可在未授权时使用，请联系网站管理员。</value>
+    <value>L&apos;accesso rapido è disponibile solo se non autorizzato, contattare l&apos;amministratore del sito.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>账号绑定获取当前登录用户失败，请联系网站管理员。</value>
+    <value>L&apos;associazione dell&apos;account non è riuscita a ottenere l&apos;utente di accesso corrente, contattare l&apos;amministratore del sito.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>登录</value>
+    <value>accesso</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
-    <value>登录 / 注册</value>
+    <value>Accesso / Registrazione</value>
+    <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}已完成，您可以关闭此窗口并返回至 Steam++。</value>
+    <value>{0} {1} è completo, puoi chiudere questa finestra e tornare a Steam.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>此浏览器窗口/标签页将会在 10 秒内尝试自动关闭，您也可以手动关闭。</value>
+    <value>Questa finestra/scheda del browser tenterà di chiudersi automaticamente entro 10 secondi oppure è possibile chiuderla manualmente.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>长时间未跳转？</value>
+    <value>Non salti da molto tempo?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
+    <value>&quot;Steam&quot; è una cassetta degli attrezzi con una varietà di funzioni degli strumenti di Steam.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>需要开启 JavaScript 才能浏览本站点。</value>
+    <value>JavaScript deve essere attivato per esplorare il sito.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>请检查是否能正常访问 Steam 社区。</value>
+    <value>Controlla se riesci ad accedere correttamente alla community di Steam.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>请稍后…</value>
+    <value>Per favore...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>读取 SteamAccountId64 失败，值：{0}，请联系网站管理员。</value>
+    <value>Impossibile leggere SteamAccountId64, valore: {0}, contattare il webmaster.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>读取 UnionId 失败，值：{0}，请联系网站管理员。</value>
+    <value>Impossibile leggere UnionId, valore: {0}, contattare l&apos;amministratore del sito.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
-    <value>错误!</value>
+    <value>errore!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Success_" xml:space="preserve">
-    <value>{0}成功!</value>
+    <value>{0} successo!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>与程序的连接丢失，点击重试或重新在程序内点击快速登录。</value>
+    <value>Connessione persa al programma, fare clic su Riprova o fare di nuovo clic su Accesso rapido all&apos;interno del programma.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>端口号必须为 UInt16 类型，请联系网站管理员。</value>
+    <value>Il numero di porta deve essere del tipo UInt16, contattare il webmaster.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

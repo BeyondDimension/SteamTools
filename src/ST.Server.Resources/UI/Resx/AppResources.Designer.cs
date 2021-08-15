@@ -61,6 +61,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 绑定 的本地化字符串。
+        /// </summary>
+        public static string Bind {
+            get {
+                return ResourceManager.GetString("Bind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 很抱歉，您正在使用一个过时的浏览器。建议升级您的浏览器或使用 的本地化字符串。
         /// </summary>
         public static string BrowserIsSupported1 {
@@ -160,7 +169,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 {0} 登录已完成，您可以关闭此窗口并返回至 Steam++。 的本地化字符串。
+        ///   查找类似 {0} {1}已完成，您可以关闭此窗口并返回至 Steam++。 的本地化字符串。
         /// </summary>
         public static string LoginSuccessTip1 {
             get {

@@ -118,78 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bind" xml:space="preserve">
-    <value>绑定</value>
+    <value>バインドします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>很抱歉，您正在使用一个过时的浏览器。建议升级您的浏览器或使用</value>
+    <value>申し訳ございませんが、古いブラウザを使用しています。 ブラウザをアップグレードするか、使用することをお勧めします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>等其他现代浏览器，以提高您的体验。</value>
+    <value>など、あなたの経験を向上させるために、他の近代的なブラウザ。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>点击此处重试</value>
+    <value>ここをクリックして再試行してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>来自第三方登录提供程序的错误，{0}，请联系网站管理员。</value>
+    <value>サード パーティのサインイン プロバイダーからのエラー{0}、ウェブマスターに問い合わせてください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>未知的第三方登录提供程序，{0}，请联系网站管理员。</value>
+    <value>不明なサード パーティのサインイン プロバイダー{0}、ウェブマスターにお問い合わせください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>未知的第三方登录渠道，{0}，请联系网站管理员。</value>
+    <value>不明なサード パーティのサインイン チャネル{0}、ウェブマスターにお問い合わせください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>加载第三方登录信息时出错，请联系网站管理员。</value>
+    <value>サード パーティのログイン情報の読み込み中にエラーが発生しました。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>快速登录仅可在未授权时使用，请联系网站管理员。</value>
+    <value>クイック ログインは、承認されていない場合にのみ使用できます。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>账号绑定获取当前登录用户失败，请联系网站管理员。</value>
+    <value>アカウント バインドが現在ログオンしているユーザーを取得できませんでした場合は、サイト管理者に問い合わせてください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>登录</value>
+    <value>サインインします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
-    <value>登录 / 注册</value>
+    <value>ログイン/登録</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}已完成，您可以关闭此窗口并返回至 Steam++。</value>
+    <value>{0} {1}完了したら、このウィンドウを閉じて Steam++ に戻ることができます。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>此浏览器窗口/标签页将会在 10 秒内尝试自动关闭，您也可以手动关闭。</value>
+    <value>このブラウザ ウィンドウ/タブは、10 秒以内に自動的に閉じようとするか、手動で閉じることができます。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>长时间未跳转？</value>
+    <value>長い間ジャンプしていない?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
+    <value>「Steam++」は、複数のSteamツール機能を含むツールボックスです。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>需要开启 JavaScript 才能浏览本站点。</value>
+    <value>このサイトを閲覧するには、JavaScript を有効にする必要があります。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>请检查是否能正常访问 Steam 社区。</value>
+    <value>Steam コミュニティに正常にアクセスできるかどうかを確認します。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>请稍后…</value>
+    <value>後で...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>读取 SteamAccountId64 失败，值：{0}，请联系网站管理员。</value>
+    <value>SteamAccountId64 の読み取りに失敗しました(値: {0}、ウェブマスターにお問い合わせください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>读取 UnionId 失败，值：{0}，请联系网站管理员。</value>
+    <value>UnionId の読み取りに失敗しました(値: {0}は、ウェブマスターにお問い合わせください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
-    <value>错误!</value>
+    <value>間違いだ!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Success_" xml:space="preserve">
     <value>{0}成功!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>与程序的连接丢失，点击重试或重新在程序内点击快速登录。</value>
+    <value>プログラムへの接続が失われた場合は、[再試行] をクリックするか、[プログラム内] をクリックしてすばやくサインインします。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>端口号必须为 UInt16 类型，请联系网站管理员。</value>
+    <value>ポート番号は UInt16 タイプである必要があります。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

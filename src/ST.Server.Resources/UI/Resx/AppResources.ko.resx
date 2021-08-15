@@ -118,78 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bind" xml:space="preserve">
-    <value>绑定</value>
+    <value>바인딩입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>很抱歉，您正在使用一个过时的浏览器。建议升级您的浏览器或使用</value>
+    <value>죄송합니다, 당신은 오래된 브라우저를 사용하고 있습니다. 브라우저를 업그레이드하거나 사용하는 것이 좋습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>等其他现代浏览器，以提高您的体验。</value>
+    <value>사용자 경험을 향상시키기 위해 다른 현대적인 브라우저.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>点击此处重试</value>
+    <value>다시 시도하려면 여기를 클릭하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>来自第三方登录提供程序的错误，{0}，请联系网站管理员。</value>
+    <value>타사 로그인 공급자의 오류, {0} 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>未知的第三方登录提供程序，{0}，请联系网站管理员。</value>
+    <value>알 수 없는 타사 로그인 공급자, {0} 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>未知的第三方登录渠道，{0}，请联系网站管理员。</value>
+    <value>알 수 없는 타사 로그인 채널, {0} 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>加载第三方登录信息时出错，请联系网站管理员。</value>
+    <value>타사 로그인 정보를 로드하는 동안 오류가 발생하면 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>快速登录仅可在未授权时使用，请联系网站管理员。</value>
+    <value>빠른 로그인은 권한이 없는 경우에만 사용할 수 있으며 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>账号绑定获取当前登录用户失败，请联系网站管理员。</value>
+    <value>계정 바인딩이 현재 로그인한 사용자를 가져오지 못했습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>登录</value>
+    <value>로그인합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
-    <value>登录 / 注册</value>
+    <value>로그인 / 등록</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}已完成，您可以关闭此窗口并返回至 Steam++。</value>
+    <value>{0} {1} 완료되면 창을 닫고 Steam++로 돌아갈 수 있습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>此浏览器窗口/标签页将会在 10 秒内尝试自动关闭，您也可以手动关闭。</value>
+    <value>이 브라우저 창/탭은 10초 이내에 자동으로 닫히거나 수동으로 닫으려고 시도합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>长时间未跳转？</value>
+    <value>점프하지 않고 오랜 시간 동안?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
+    <value>&quot;Steam++&quot;는 다양한 Steam 도구 기능을 포함하는 도구 상자입니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>需要开启 JavaScript 才能浏览本站点。</value>
+    <value>이 사이트를 탐색하려면 JavaScript를 켜야 합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>请检查是否能正常访问 Steam 社区。</value>
+    <value>Steam 커뮤니티에 제대로 액세스할 수 있는지 확인합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>请稍后…</value>
+    <value>나중에...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>读取 SteamAccountId64 失败，值：{0}，请联系网站管理员。</value>
+    <value>SteamAccountId64를 읽지 못했습니다. 값: {0} 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>读取 UnionId 失败，值：{0}，请联系网站管理员。</value>
+    <value>UnionId를 읽지 못했습니다. 값: {0} 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
-    <value>错误!</value>
+    <value>실수!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Success_" xml:space="preserve">
-    <value>{0}成功!</value>
+    <value>{0} 성공!</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>与程序的连接丢失，点击重试或重新在程序内点击快速登录。</value>
+    <value>프로그램에 대한 연결이 끊어지면 다시 시도 또는 프로그램 내에서 빠른 로그인을 클릭합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>端口号必须为 UInt16 类型，请联系网站管理员。</value>
+    <value>포트 번호는 UInt16 유형이어야 하며 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

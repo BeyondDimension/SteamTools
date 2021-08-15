@@ -118,78 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bind" xml:space="preserve">
-    <value>绑定</value>
+    <value>綁定</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>很抱歉，您正在使用一个过时的浏览器。建议升级您的浏览器或使用</value>
+    <value>很抱歉，您正在使用一個過時的瀏覽器。 建議升級您的瀏覽器或使用</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>等其他现代浏览器，以提高您的体验。</value>
+    <value>等其他現代瀏覽器，以提高您的體驗。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>点击此处重试</value>
+    <value>點擊此處重試</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>来自第三方登录提供程序的错误，{0}，请联系网站管理员。</value>
+    <value>來自第三方登錄提供程式的錯誤，{0}，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>未知的第三方登录提供程序，{0}，请联系网站管理员。</value>
+    <value>未知的第三方登錄提供程式，{0}，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>未知的第三方登录渠道，{0}，请联系网站管理员。</value>
+    <value>未知的第三方登錄管道，{0}，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>加载第三方登录信息时出错，请联系网站管理员。</value>
+    <value>載入第三方登錄資訊時出錯，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>快速登录仅可在未授权时使用，请联系网站管理员。</value>
+    <value>快速登錄僅可在未授權時使用，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>账号绑定获取当前登录用户失败，请联系网站管理员。</value>
+    <value>賬號綁定獲取當前登錄用戶失敗，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>登录</value>
+    <value>登錄</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
-    <value>登录 / 注册</value>
+    <value>登錄 / 註冊</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}已完成，您可以关闭此窗口并返回至 Steam++。</value>
+    <value>{0} {1}已完成，您可以關閉此視窗並返回至 Steam++。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>此浏览器窗口/标签页将会在 10 秒内尝试自动关闭，您也可以手动关闭。</value>
+    <value>此瀏覽器視窗/標籤頁將會在 10 秒內嘗試自動關閉，您也可以手動關閉。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>长时间未跳转？</value>
+    <value>長時間未跳轉？</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
+    <value>「Steam++」是一個包含多種Steam工具功能的工具箱。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>需要开启 JavaScript 才能浏览本站点。</value>
+    <value>需要開啟 JavaScript 才能瀏覽本網站。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>请检查是否能正常访问 Steam 社区。</value>
+    <value>請檢查是否能正常訪問 Steam 社區。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>请稍后…</value>
+    <value>請稍後...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>读取 SteamAccountId64 失败，值：{0}，请联系网站管理员。</value>
+    <value>讀取 SteamAccountId64 失敗，值：{0}，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>读取 UnionId 失败，值：{0}，请联系网站管理员。</value>
+    <value>讀取 UnionId 失敗，值：{0}，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
-    <value>错误!</value>
+    <value>錯誤！</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Success_" xml:space="preserve">
-    <value>{0}成功!</value>
+    <value>{0}成功！</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>与程序的连接丢失，点击重试或重新在程序内点击快速登录。</value>
+    <value>與程式的連接丟失，點擊重試或重新在程式內點擊快速登錄。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>端口号必须为 UInt16 类型，请联系网站管理员。</value>
+    <value>埠號必須為 UInt16 類型，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>
