@@ -316,7 +316,7 @@
             <TextBox IsReadOnly="True"
                      Focusable="False"
                      Watermark="{ReflectionBinding Path=Res.Unbound,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                     Text="{ReflectionBinding Path=User.QQAccountNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}}"
+                     Text="{ReflectionBinding Path=User.QQNickName,Mode=OneWay,Source={x:Static service:UserService.Current}}}"
                      Grid.Row="5"
                      Grid.Column="1"/>
             <Button Classes="Secondary"
@@ -325,7 +325,7 @@
                     Grid.Column="3"
                     Command="{Binding OnBindFastLoginClick}"
                     CommandParameter="QQ"
-                    IsVisible="{ReflectionBinding Path=User.QQAccountNumber,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNull}}"/>
+                    IsVisible="{ReflectionBinding Path=User.QQNickName,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNull}}"/>
             <Button Classes="Secondary"
                     Content="{ReflectionBinding Path=Res.Unbundling,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     Grid.Row="5"
@@ -333,7 +333,7 @@
                     Command="{Binding OnUnbundleFastLoginClick}"
                     CommandParameter="QQ"
                     IsEnabled="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
-                    IsVisible="{ReflectionBinding Path=User.QQAccountNumber,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                    IsVisible="{ReflectionBinding Path=User.QQNickName,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={x:Static ObjectConverters.IsNotNull}}"/>
 
             <PathIcon Classes="FormItemLabel" Data="{StaticResource Apple}" Grid.Row="7"/>
             <TextBox IsReadOnly="True"
