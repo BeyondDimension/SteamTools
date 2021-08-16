@@ -1,3 +1,4 @@
+using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Entities;
 using System.Application.Models;
@@ -46,6 +47,12 @@ namespace System.Application.UI.ViewModels
                 userInfoSource = await userManager.GetCurrentUserInfoAsync() ?? new UserInfoDTO();
                 userInfoValue = Serializable.SMP(userInfoSource);
 
+                UserService.Current.User?.WhenValueChanged(x => x, false).Subscribe(x =>
+                {
+                    if (x == null || isSubmited) return;
+                    userInfoValue = Serializable.SMP(x);
+                }).AddTo(this);
+
                 // (SetFields)DTO => VM
                 _NickName = userInfoSource.NickName;
                 _Gender = userInfoSource.Gender;
@@ -55,7 +62,7 @@ namespace System.Application.UI.ViewModels
                 userInfoSource = Serializable.DMP<UserInfoDTO>(userInfoValue) ?? throw new ArgumentNullException(nameof(userInfoSource));
 
                 // IsModifySubscribe
-                void SubscribeOnNext<T>(T value, Action<T> onNext)
+                void SubscribeOnNext<T>(T? value, Action<T?> onNext)
                 {
                     onNext(value);
                     var currentUserInfoValue = Serializable.SMP(userInfoSource);
@@ -67,7 +74,7 @@ namespace System.Application.UI.ViewModels
 #else
         UserProfileWindowViewModel
 #endif
-                    , T>> expression, Action<T> onNext) => this.WhenAnyValue(expression).Subscribe(value => SubscribeOnNext(value, onNext)).AddTo(this);
+                    , T?>> expression, Action<T?> onNext) => this.WhenAnyValue(expression).Subscribe(value => SubscribeOnNext(value, onNext)).AddTo(this);
                 SubscribeFormItem(x => x.NickName, x => userInfoSource.NickName = x ?? string.Empty);
                 SubscribeFormItem(x => x.Gender, x => userInfoSource.Gender = x);
                 SubscribeFormItem(x => x.BirthDate, x => userInfoSource.SetBirthDate(x));
@@ -140,6 +147,7 @@ namespace System.Application.UI.ViewModels
 
         public bool IsComplete { get; set; }
 
+        bool isSubmited;
         public async void Submit()
         {
             if (!IsModify || IsLoading) return;
@@ -161,6 +169,7 @@ namespace System.Application.UI.ViewModels
             var response = await ICloudServiceClient.Instance.Manage.EditUserProfile(request);
             if (response.IsSuccess)
             {
+                isSubmited = true;
                 await userManager.SetCurrentUserInfoAsync(userInfoSource, true);
                 await UserService.Current.RefreshUserAsync();
 
