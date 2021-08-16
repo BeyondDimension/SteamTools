@@ -208,7 +208,8 @@
                       Margin="0 0 25 0"
                       HorizontalContentAlignment="Center"
                       Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                      Command="{ReflectionBinding OnCancelBindFastLoginClick}"/>
+                      Command="{ReflectionBinding ChangeLoginState}"
+                      CommandParameter="2"/>
               <Button Classes="plain"
                       Margin="25 0 0 0"
                       HorizontalContentAlignment="Center"
