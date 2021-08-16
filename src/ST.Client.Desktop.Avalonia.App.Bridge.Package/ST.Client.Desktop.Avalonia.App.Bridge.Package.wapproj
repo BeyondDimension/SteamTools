@@ -157,7 +157,6 @@
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
     <Content Include="Images\Wide310x150Logo.scale-400.png" />
     <None Include="Package.StoreAssociation.xml" />
-    <None Include="Package_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <ItemGroup>
@@ -167,7 +166,9 @@
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge.Package.RefLauncher\Launcher\Launcher.csproj" />
   </ItemGroup>
   <!--<ItemGroup>
-    --><!--<ItemGroup Condition="'$(Platform)'=='x64'">--><!--
+    -->
+  <!--<ItemGroup Condition="'$(Platform)'=='x64'">-->
+  <!--
     <Content Include="..\..\..\CEF\win-x64\locales\zh-CN.pak">
       <Link>CEF\win-x64\locales\zh-CN.pak</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -258,5 +259,3 @@
   </ItemGroup>
   <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
 </Project>
-
-
