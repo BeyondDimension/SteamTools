@@ -33,7 +33,16 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public string NickName { get; set; } = string.Empty;
+        public string NickName
+#if MVVM_VM
+        {
+            get => _NickName;
+            set => this.RaiseAndSetIfChanged(ref _NickName, value);
+        }
+        string _NickName = string.Empty;
+#else
+        { get; set; } = string.Empty;
+#endif
 
         [MPKey(2)]
         [N_JsonProperty("2")]

@@ -88,7 +88,7 @@ namespace Avalonia.Controls
                     && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
                     this.Height = vm.SizePosition.Height;
 
-                HandleResized(new Size(this.Width, this.Height),PlatformResizeReason.Application);
+                HandleResized(new Size(this.Width, this.Height), PlatformResizeReason.Application);
 
                 this.GetObservable(WidthProperty).Subscribe(v =>
                 {
@@ -120,6 +120,12 @@ namespace Avalonia.Controls
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.SystemChrome;
             }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if (DataContext is IDisposable disposable) disposable.Dispose();
         }
     }
 
@@ -232,6 +238,12 @@ namespace Avalonia.Controls
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.SystemChrome;
             }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if (DataContext is IDisposable disposable) disposable.Dispose();
         }
     }
 }

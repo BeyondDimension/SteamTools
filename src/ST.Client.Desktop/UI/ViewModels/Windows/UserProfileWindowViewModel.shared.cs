@@ -54,13 +54,11 @@ namespace System.Application.UI.ViewModels
                 if (userInfoSource.AreaId.HasValue) this.SetAreaId(userInfoSource.AreaId.Value);
 
                 userInfoSource = Serializable.DMP<UserInfoDTO>(userInfoValue) ?? throw new ArgumentNullException(nameof(userInfoSource));
-
                 // IsModifySubscribe
                 void SubscribeOnNext<T>(T? value, Action<T?> onNext)
                 {
                     onNext(value);
-                    var currentUserInfoValue = Serializable.SMP(userInfoSource);
-                    IsModify = !Enumerable.SequenceEqual(userInfoValue, currentUserInfoValue);
+                    DetectionIsModify();
                 }
                 void SubscribeFormItem<T>(Expression<Func<
 #if __MOBILE__
@@ -68,7 +66,7 @@ namespace System.Application.UI.ViewModels
 #else
         UserProfileWindowViewModel
 #endif
-                    , T?>> expression, Action<T?> onNext) => this.WhenAnyValue(expression).Subscribe(value => SubscribeOnNext(value, onNext)).AddTo(this);
+                    , T?>> expression, Action<T?> onNext) => this.WhenValueChanged(expression, false).Subscribe(value => SubscribeOnNext(value, onNext)).AddTo(this);
                 SubscribeFormItem(x => x.NickName, x => userInfoSource.NickName = x ?? string.Empty);
                 SubscribeFormItem(x => x.Gender, x => userInfoSource.Gender = x);
                 SubscribeFormItem(x => x.BirthDate, x => userInfoSource.SetBirthDate(x));
@@ -82,12 +80,6 @@ namespace System.Application.UI.ViewModels
                 SubscribeFormItem(x => x.AreaSelectItem2, SubscribeAreaOnNext);
                 SubscribeFormItem(x => x.AreaSelectItem3, SubscribeAreaOnNext);
                 SubscribeFormItem(x => x.AreaSelectItem4, SubscribeAreaOnNext);
-
-                UserService.Current.User!.WhenAnyValue(x => x).Subscribe(x =>
-                {
-                    if (x == null || isSubmited) return;
-                    userInfoValue = Serializable.SMP(x);
-                }).AddTo(this);
             }
             OnBindFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
             {
@@ -104,10 +96,7 @@ namespace System.Application.UI.ViewModels
                     await OnUnbundleFastLoginClickAsync(channel);
                 }
             });
-            OnCancelBindFastLoginClick = ReactiveCommand.Create(() =>
-            {
-                CurrentSelectChannel = null;
-            });
+            OnCancelBindFastLoginClick = ReactiveCommand.Create(HideFastLoginLoading);
         }
 
         string? _CurrentSelectChannel;
@@ -116,6 +105,11 @@ namespace System.Application.UI.ViewModels
             get => _CurrentSelectChannel;
             set => this.RaiseAndSetIfChanged(ref _CurrentSelectChannel, value);
         }
+
+        /// <summary>
+        /// 隐藏快速登录加载中动画
+        /// </summary>
+        void HideFastLoginLoading() => CurrentSelectChannel = null;
 
         bool _IsModify;
         public bool IsModify
@@ -147,7 +141,6 @@ namespace System.Application.UI.ViewModels
 
         public bool IsComplete { get; set; }
 
-        bool isSubmited;
         public async void Submit()
         {
             if (!IsModify || IsLoading) return;
@@ -169,7 +162,6 @@ namespace System.Application.UI.ViewModels
             var response = await ICloudServiceClient.Instance.Manage.EditUserProfile(request);
             if (response.IsSuccess)
             {
-                isSubmited = true;
                 await userManager.SetCurrentUserInfoAsync(userInfoSource, true);
                 await UserService.Current.RefreshUserAsync();
 
@@ -247,6 +239,32 @@ namespace System.Application.UI.ViewModels
                 }
 
                 IsLoading = false;
+            }
+        }
+
+        /// <summary>
+        /// 检查是否有修改
+        /// </summary>
+        void DetectionIsModify()
+        {
+            var currentUserInfoValue = Serializable.SMP(userInfoSource);
+            IsModify = userInfoValue == null || !Enumerable.SequenceEqual(userInfoValue, currentUserInfoValue);
+        }
+
+        /// <summary>
+        /// 绑定成功时刷新用户资料
+        /// </summary>
+        void OnBindSuccessedRefreshUser()
+        {
+            var user = UserService.Current.User;
+            if (user == null || Disposed || userInfoValue == null) return;
+            var changeNickName = string.IsNullOrEmpty(NickName);
+            if (changeNickName)
+            {
+                var user2 = Serializable.DMP<UserInfoDTO>(userInfoValue)!;
+                user2.NickName = user.NickName;
+                userInfoValue = Serializable.SMP(user2);
+                NickName = user.NickName;
             }
         }
     }

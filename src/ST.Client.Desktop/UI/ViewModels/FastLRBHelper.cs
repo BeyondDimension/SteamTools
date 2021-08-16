@@ -51,6 +51,8 @@ namespace System.Application.UI.ViewModels
             /// 是否为绑定账号
             /// </summary>
             bool IsBind { get; }
+
+            void OnBindSuccessed() { }
         }
 
         /// <summary>
@@ -88,6 +90,7 @@ namespace System.Application.UI.ViewModels
                         {
                             msg = AppResources.Success_.Format(AppResources.User_AccountBind);
                             await UserService.Current.BindAccountAfterUpdateAsync(channel.Value, response.Content!);
+                            vm.OnBindSuccessed();
                         }
                         else
                         {
@@ -246,6 +249,12 @@ namespace System.Application.UI.ViewModels
         Aes? IViewModel.TempAes { get; set; }
 
         bool IViewModel.IsBind => true;
+
+        void IViewModel.OnBindSuccessed()
+        {
+            HideFastLoginLoading();
+            OnBindSuccessedRefreshUser();
+        }
     }
 }
 
