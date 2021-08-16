@@ -47,12 +47,6 @@ namespace System.Application.UI.ViewModels
                 userInfoSource = await userManager.GetCurrentUserInfoAsync() ?? new UserInfoDTO();
                 userInfoValue = Serializable.SMP(userInfoSource);
 
-                UserService.Current.User?.WhenValueChanged(x => x, false).Subscribe(x =>
-                {
-                    if (x == null || isSubmited) return;
-                    userInfoValue = Serializable.SMP(x);
-                }).AddTo(this);
-
                 // (SetFields)DTO => VM
                 _NickName = userInfoSource.NickName;
                 _Gender = userInfoSource.Gender;
@@ -88,6 +82,12 @@ namespace System.Application.UI.ViewModels
                 SubscribeFormItem(x => x.AreaSelectItem2, SubscribeAreaOnNext);
                 SubscribeFormItem(x => x.AreaSelectItem3, SubscribeAreaOnNext);
                 SubscribeFormItem(x => x.AreaSelectItem4, SubscribeAreaOnNext);
+
+                UserService.Current.User!.WhenAnyValue(x => x).Subscribe(x =>
+                {
+                    if (x == null || isSubmited) return;
+                    userInfoValue = Serializable.SMP(x);
+                }).AddTo(this);
             }
             OnBindFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
             {
