@@ -28,6 +28,12 @@
 
 English | [简体中文](./README.md)
 
+## 🚀 Download channel
+- [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
+- [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
+- [Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [Official WebSite](https://steampp.net)
+
 ## ✨ Functions
 1. Local reverse proxy for Steam's community webpage to enable normal access in **the Chinese Mainland, Mainland of China**
 2. Quickly switch the Steam account that the current PC has remembered to log into

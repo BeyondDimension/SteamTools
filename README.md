@@ -29,6 +29,12 @@
 
 [English](./README.en.md) | 简体中文
 
+## 🚀 下载渠道
+- [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
+- [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
+- [Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [Official WebSite](https://steampp.net)
+
 ## ✨ 功能
 1. 反代 Steam 的社区网页使其能正常访问
 	- 功能类似羽翼城大佬的 [steamcommunity_302](https://www.dogfight360.com/blog/686/)
