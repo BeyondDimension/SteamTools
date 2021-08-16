@@ -93,7 +93,6 @@ namespace System.Application.UI.ViewModels
                         {
                             msg = "Account bind fail, unknown channel.";
                         }
-                        vm?.Close?.Invoke();
                         Toast.Show(msg);
                     });
                 }
