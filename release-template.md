@@ -40,6 +40,16 @@
 25. 改进 hosts 文件编码在 Windows 上使用系统的活动代码页(ANSICodePage)，例如 GB2312/936，其他操作系统则使用 UTF-8，还原 V1 版本行为
 26. 改进 开始菜单磁贴背景由黑色更改为透明
 27. 修复 账号切换修改账号备注重启后被还原
+
+### 已知问题
+- macOS
+	- 尚未公证，这会影响 macOS Catalina（版本 10.15）以上
+	- 自动更新不可用
+- Linux
+	- 托盘不生效，这将影响程序不能正常退出
+	- 窗口弹出位置不正确
+	- 自动更新不可用
+
 ***
 
 <!-- 1. 新增 ASF Plus 本地挂卡
@@ -62,11 +72,9 @@
 |  ----  |  ----  |
 | Steam++_win_x64_v2.4.9.7z  | SHA256 |
 | Steam++_win_x64_v2.4.9.exe  | SHA256 |
-| Steam++_win_x64_v2.4.9.msix  | SHA256 |
 | | |
 | Steam++_win_arm64_v2.4.9.7z  | SHA256 |
 | Steam++_win_arm64_v2.4.9.exe  | SHA256 |
-| Steam++_win_arm64_v2.4.9.msix  | SHA256 |
 | | |
 | Steam++_linux_x64_v2.4.9.7z  | SHA256 |
 | Steam++_linux_x64_v2.4.9.deb  | SHA256 |

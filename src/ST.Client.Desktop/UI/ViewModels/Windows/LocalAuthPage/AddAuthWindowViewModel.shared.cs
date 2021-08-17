@@ -406,8 +406,9 @@ namespace System.Application.UI.ViewModels
                     AuthService.Current.ImportWinAuthenticators(urls, AuthIsLocal, AuthPassword);
                 }
             }
-            catch
+            catch (Exception e)
             {
+                Log.Error(nameof(ImportSteamPlusPlusV2), e, string.Empty);
                 Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, ImportResultCode.IncorrectFormat));
             }
         }

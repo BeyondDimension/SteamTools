@@ -36,7 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidSupportedAbis>x86_64</AndroidSupportedAbis>
+    <AndroidSupportedAbis>x86_64;arm64-v8a</AndroidSupportedAbis>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>

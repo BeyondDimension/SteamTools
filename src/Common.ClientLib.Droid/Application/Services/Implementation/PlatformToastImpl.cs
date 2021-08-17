@@ -39,7 +39,7 @@ namespace System.Application.Services.Implementation
             }
             catch (JException e)
             {
-                Log.Error(TAG, e, "ShowDroidToast Error, text: {0}", text);
+                Log.Error(TAG, e, "ShowDroidToast Error, text: {0}, IsMainThread: {1}", text, IsMainThread);
                 // 解决在子线程中调用Toast的异常情况处理
                 Looper.Prepare();
                 var _toast = AndroidToast.MakeText(context, text, duration2)

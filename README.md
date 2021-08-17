@@ -131,6 +131,7 @@
 * [Chromium Embedded Framework (CEF)](https://github.com/chromiumembedded/cef)
 * [CefNet](https://github.com/CefNet/CefNet)
 * [CefSharp](https://github.com/cefsharp/CefSharp)
+* [ZXing.Net.Mobile](https://github.com/Redth/ZXing.Net.Mobile)
 -->
 <!--👇图标如果发生更改，还需更改 Tools.OpenSourceLibraryList(Program.OpenSourceLibraryListEmoji) -->
 ## 📄 感谢以下开源项目
@@ -179,7 +180,6 @@
 * [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)
 * [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers)
 * [ZXing.Net](https://github.com/micjahn/ZXing.Net)
-* [ZXing.Net.Mobile](https://github.com/Redth/ZXing.Net.Mobile)
 * [QRCoder](https://github.com/codebude/QRCoder)
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
@@ -191,6 +191,7 @@
 * [MSBuild.Sdk.Extras](https://github.com/novotnyllc/MSBuildSdkExtras)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
 * [Open Source Components for Xamarin](https://github.com/xamarin/XamarinComponents)
+* [Google Play Services / Firebase / ML Kit for Xamarin.Android](https://github.com/xamarin/GooglePlayServicesComponents)
 * [Picasso](https://github.com/square/picasso)
 * [OkHttp](https://github.com/square/okhttp)
 * [Material Components for Android](https://github.com/material-components/material-components-android)

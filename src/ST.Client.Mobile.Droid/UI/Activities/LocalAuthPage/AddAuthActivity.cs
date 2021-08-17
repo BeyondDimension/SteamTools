@@ -44,7 +44,7 @@ namespace System.Application.UI.Activities
         {
             2 => new LocalAuthSteamUserImportFragment(),
             1 => new LocalAuthSteamAppImportFragment(),
-            0 => new LocalAuthSteamToolsImportFragment(),
+            0 => new LocalAuthSteamToolsImportFragment.MLKitCameraX(),
             3 => new LocalAuthOtherImportFragment(),
             _ => throw new ArgumentOutOfRangeException(nameof(position), position.ToString()),
         };

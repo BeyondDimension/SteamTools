@@ -3,16 +3,13 @@ using Binding;
 using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using ZXing.Mobile;
 using static System.Application.UI.Resx.AppResources;
 
 namespace System.Application.UI.Fragments
 {
-    internal sealed class LocalAuthSteamToolsImportFragment : BaseFragment<fragment_local_auth_import_steam_plus_plus, AddAuthWindowViewModel>
+    internal abstract partial class LocalAuthSteamToolsImportFragment : BaseFragment<fragment_local_auth_import_steam_plus_plus, AddAuthWindowViewModel>
     {
         protected override int? LayoutResource => Resource.Layout.fragment_local_auth_import_steam_plus_plus;
-
-        MobileBarcodeScanner? scanner;
 
         public override void OnCreateView(View view)
         {
@@ -29,10 +26,9 @@ namespace System.Application.UI.Fragments
             }).AddTo(this);
 
             SetOnClickListener(binding!.btnImportV1, binding.btnImportV2, binding.btnImportV2ByQRCode);
-
-            //Create a new instance of our Scanner
-            scanner = new();
         }
+
+        protected abstract void OnBtnImportV2ByQRCodeClick();
 
         protected override bool OnClick(View view)
         {
@@ -48,11 +44,7 @@ namespace System.Application.UI.Fragments
             }
             else if (view.Id == Resource.Id.btnImportV2ByQRCode)
             {
-                scanner.StartScan(x =>
-                {
-                    if (!x.RawBytes.Any_Nullable()) return;
-                    ViewModel!.ImportSteamPlusPlusV2(x.RawBytes!);
-                });
+                OnBtnImportV2ByQRCodeClick();
                 return true;
             }
             return base.OnClick(view);

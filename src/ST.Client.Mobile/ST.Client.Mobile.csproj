@@ -135,7 +135,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="14.1.1" />
+    <PackageReference Include="ReactiveUI" Version="14.3.10" />
     <PackageReference Include="Microsoft.Identity.Client" Version="4.35.1" />
     <!--<PackageReference Include="StatefulModel.Standard" Version="0.1.0" />-->
   </ItemGroup>
