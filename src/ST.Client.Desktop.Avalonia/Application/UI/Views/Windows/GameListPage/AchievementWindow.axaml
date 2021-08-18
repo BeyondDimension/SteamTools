@@ -116,11 +116,12 @@
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate x:DataType="models:AchievementInfo">
                   <CheckBox Classes="onlyCheckBox"
-                          IsChecked="{Binding IsChecked,Mode=TwoWay}"
-                          VerticalAlignment="Center"
-                          Margin="-5 0 0 0"
-                          HorizontalAlignment="Center"
-                          HorizontalContentAlignment="Center">
+                            IsEnabled="{Binding !IsProtection}"
+                            IsChecked="{Binding IsChecked,Mode=TwoWay}"
+                            VerticalAlignment="Center"
+                            Margin="-5 0 0 0"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center">
                   </CheckBox>
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
