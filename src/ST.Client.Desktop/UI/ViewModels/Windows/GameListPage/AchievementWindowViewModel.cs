@@ -128,7 +128,8 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(x =>
                 {
                     foreach (var item in _AchievementsSourceList.Items)
-                        item.IsChecked = x == true;
+                        if(!item.IsProtection)
+                            item.IsChecked = x == true;
                 });
 
             AppId = appid;
