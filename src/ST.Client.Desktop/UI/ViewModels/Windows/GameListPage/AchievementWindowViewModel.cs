@@ -128,7 +128,7 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(x =>
                 {
                     foreach (var item in _AchievementsSourceList.Items)
-                        if(!item.IsProtection)
+                        if (!item.IsProtection)
                             item.IsChecked = x == true;
                 });
 
