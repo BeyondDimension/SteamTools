@@ -91,7 +91,7 @@ namespace System.Application.Services
         bool UpdateAppListJson(List<SteamApp> apps, string filePath);
 
         bool UpdateAppListJson(string appsJsonStr, string filePath);
-
+        bool UpdateRegistryVdfPath(string name);
         void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false);
 
         void UpdateLocalUserData(SteamUser user);

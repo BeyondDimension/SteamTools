@@ -169,7 +169,10 @@ namespace System.Application.UI.ViewModels
         private void ReStartSteamByUser(SteamUser user)
         {
             steamService.SetCurrentUser(user.AccountName ?? string.Empty);
-            steamService.TryKillSteamProcess();
+            if (DI.IsmacOS && user.AccountName != null)
+                if (!steamService.UpdateRegistryVdfPath(user.AccountName))
+                    Toast.Show(AppResources.Script_UpdateError);
+           steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
 

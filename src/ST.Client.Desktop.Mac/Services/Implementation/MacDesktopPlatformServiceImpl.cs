@@ -234,6 +234,8 @@ namespace System.Application.Services.Implementation
 
         public void SetCurrentUser(string userName)
         {
+
+           
         }
 
         #region MachineKey
