@@ -16,10 +16,15 @@ namespace System.Application.Services
             BasePermission Permission { get; }
         }
 
+        interface IPermission<TPermission> : IPermission where TPermission : IPermission<TPermission>
+        {
+            static TPermission Instance => DI.Get<TPermission>();
+        }
+
         /// <summary>
         /// 获取手机号码所需权限
         /// </summary>
-        interface IGetPhoneNumber : IPermission { }
+        interface IGetPhoneNumber : IPermission<IGetPhoneNumber> { }
 
         /// <summary>
         /// 检查并申请一组权限

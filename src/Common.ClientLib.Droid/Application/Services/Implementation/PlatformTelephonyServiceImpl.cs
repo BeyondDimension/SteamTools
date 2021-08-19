@@ -1,4 +1,4 @@
-﻿using Android.Content;
+using Android.Content;
 using Android.Telephony;
 using XEPlatform = Xamarin.Essentials.Platform;
 
@@ -7,7 +7,7 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="ITelephonyService"/>
     internal sealed class PlatformTelephonyServiceImpl : TelephonyServiceImpl
     {
-        public PlatformTelephonyServiceImpl(IPermissions pf, IPermissions.IGetPhoneNumber p1) : base(pf, p1)
+        public PlatformTelephonyServiceImpl(IPermissions p) : base(p)
         {
         }
 
