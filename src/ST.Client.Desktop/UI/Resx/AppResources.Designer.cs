@@ -2818,6 +2818,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 扫描二维码 的本地化字符串。
+        /// </summary>
+        public static string ScanQRCode {
+            get {
+                return ResourceManager.GetString("ScanQRCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用脚本自动检查更新 的本地化字符串。
         /// </summary>
         public static string Script_AutoUpdate {

@@ -19,6 +19,7 @@ using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows;
@@ -176,15 +177,17 @@ namespace System.Application.UI.Activities
                     b.AppendLine();
                     b.Append("[app.starttime] ");
                     b.AppendLine(MainApplication.ElapsedMilliseconds + "ms");
-                    if (_ThisAssembly.Debuggable)
-                    {
-                        b.Append("[app.multi] ");
-                        VirtualApkCheckUtil.GetCheckResult(AndroidApplication.Context, b);
-                        b.AppendLine();
-                    }
+                    //if (_ThisAssembly.Debuggable)
+                    //{
+                    //    b.Append("[app.multi] ");
+                    //    VirtualApkCheckUtil.GetCheckResult(AndroidApplication.Context, b);
+                    //    b.AppendLine();
+                    //}
                     //b.Append("[rom.ver] ");
                     //AndroidROM.Current.ToString(b);
                     //b.AppendLine();
+                    b.Append("[app.center] ");
+                    b.AppendLine(VisualStudioAppCenterSDK.TryGetAppSecret(out var appSecret) ? appSecret.Split('-').FirstOrDefault() : string.Empty);
                     b.Append("[webview.ver] ");
                     GetWebViewImplementationVersionDisplayString(b);
                     b.AppendLine();

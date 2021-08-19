@@ -63,12 +63,11 @@ namespace System.Application
                 ResValueFormat.StringGuidD);
             return r;
         });
-        static readonly Lazy<bool> _HasAppSecret = new(() => !string.IsNullOrWhiteSpace(_AppSecret.Value));
 
-        internal static bool TryGetAppSecret([NotNullWhen(true)] out string? appSecret)
+        public static bool TryGetAppSecret([NotNullWhen(true)] out string? appSecret)
         {
             appSecret = _AppSecret.Value;
-            return _HasAppSecret.Value;
+            return !string.IsNullOrWhiteSpace(appSecret);
         }
     }
 }

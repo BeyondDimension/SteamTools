@@ -538,7 +538,7 @@ namespace System.Application.Services
             }
             else
             {
-                Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, result.resultCode));
+                Toast.Show(AppResources.LocalAuth_ExportAuth_Error.Format(result.resultCode));
             }
         }
 
@@ -549,13 +549,13 @@ namespace System.Application.Services
         {
             if (File.Exists(file))
             {
-                (bool success, byte[]? bt, Exception? ex) = await IOPath.TryReadAllBytesAsync(file);
+                (bool success, byte[]? bt, Exception? _) = await IOPath.TryReadAllBytesAsync(file);
                 if (!success)
                 {
                     //Toast.Show($"Import authenticator file fail, exception: {ex}");
                     return;
                 }
-                ImportAuthenticatorFile(bt, isLocal, password, exportPassword);
+                ImportAuthenticatorFile(bt!, isLocal, password, exportPassword);
             }
         }
 

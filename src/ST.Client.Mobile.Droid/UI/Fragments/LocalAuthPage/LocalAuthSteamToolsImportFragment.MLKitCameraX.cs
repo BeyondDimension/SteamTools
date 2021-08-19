@@ -1,3 +1,5 @@
+using System.Application.UI.Activities;
+
 namespace System.Application.UI.Fragments
 {
     partial class LocalAuthSteamToolsImportFragment
@@ -6,6 +8,8 @@ namespace System.Application.UI.Fragments
         {
             protected override void OnBtnImportV2ByQRCodeClick()
             {
+                BarcodeScannerActivity.StartActivity(this,
+                    onScanCompleted: bytes => ViewModel!.ImportSteamPlusPlusV2(bytes));
             }
         }
     }

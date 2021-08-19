@@ -217,7 +217,7 @@ namespace System.Application.Repositories
             PartSuccess,
 
             /// <summary>
-            /// 格式不正确，反序列化失败
+            /// 格式不正确
             /// </summary>
             IncorrectFormat = 400,
 

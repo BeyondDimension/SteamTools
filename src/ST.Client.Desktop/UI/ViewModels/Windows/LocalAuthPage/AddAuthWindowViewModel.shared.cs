@@ -5,8 +5,8 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Linq;
+using System.Net;
 using System.Properties;
 using System.Threading.Tasks;
 using System.Windows;
@@ -394,21 +394,91 @@ namespace System.Application.UI.ViewModels
             AuthService.Current.ImportAuthenticatorFile(filePath, AuthIsLocal, AuthPassword);
         }
 
+        public void ImportAuto(string filePath)
+        {
+            var extension = Path.GetExtension(filePath);
+            if (string.Equals(extension, FileEx.TXT, StringComparison.OrdinalIgnoreCase))
+            {
+                ImportWinAuth(filePath);
+            }
+            else if (string.Equals(extension, FileEx.MPO, StringComparison.OrdinalIgnoreCase))
+            {
+                ImportSteamPlusPlusV2(filePath);
+            }
+            else if (string.Equals(extension, ".dat", StringComparison.OrdinalIgnoreCase))
+            {
+                ImportSteamPlusPlusV1(filePath);
+            }
+            else if (string.Equals(extension, ".maFile", StringComparison.OrdinalIgnoreCase))
+            {
+                ImportSDA(filePath);
+            }
+            else
+            {
+                Toast.Show(AppResources.LocalAuth_ExportAuth_Error.Format(ImportResultCode.IncorrectFormat));
+            }
+        }
+
+        IEnumerable<string>? ToUrls(byte[] bytes)
+        {
+            var bytes_decompress_br = bytes.DecompressByteArrayByBrotli();
+            var dtos = Serializable.DMP<LightweightExportDTO[]>(bytes_decompress_br);
+            if (dtos.Any_Nullable())
+            {
+                var urls = dtos!.Select(x => x.ToString());
+                return urls;
+            }
+            return null;
+        }
+
         public void ImportSteamPlusPlusV2(byte[] bytes)
         {
+            var isOK = false;
             try
             {
-                var bytes_decompress_br = bytes.DecompressByteArrayByBrotli();
-                var dtos = Serializable.DMP<LightweightExportDTO[]>(bytes_decompress_br);
-                if (dtos.Any_Nullable())
+                var urls = ToUrls(bytes);
+                if (urls != null)
                 {
-                    var urls = dtos!.Select(x => x.ToString());
                     AuthService.Current.ImportWinAuthenticators(urls, AuthIsLocal, AuthPassword);
+                    isOK = true;
                 }
             }
             catch (Exception e)
             {
                 Log.Error(nameof(ImportSteamPlusPlusV2), e, string.Empty);
+            }
+            if (!isOK)
+            {
+                Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, ImportResultCode.IncorrectFormat));
+            }
+        }
+
+        public void ImportSteamPlusPlusV2(IEnumerable<byte[]> items)
+        {
+            var isOK = false;
+            List<string> list = new();
+            foreach (var bytes in items)
+            {
+                try
+                {
+                    var urls = ToUrls(bytes);
+                    if (urls != null)
+                    {
+                        list.AddRange(urls);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log.Error(nameof(ImportSteamPlusPlusV2), e, string.Empty);
+                }
+            }
+            if (list.Any())
+            {
+                AuthService.Current.ImportWinAuthenticators(list, AuthIsLocal, AuthPassword);
+                isOK = true;
+            }
+            if (!isOK)
+            {
                 Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, ImportResultCode.IncorrectFormat));
             }
         }

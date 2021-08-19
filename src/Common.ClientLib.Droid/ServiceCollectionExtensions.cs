@@ -48,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddPlatformPermissions(this IServiceCollection services)
         {
-            services.AddSingleton<IPermissions.IGetPhoneNumber, GetPhoneNumberPermission>();
+            services.AddTransient<IPermissions.IGetPhoneNumber, GetPhoneNumberPermission>();
             return services;
         }
     }

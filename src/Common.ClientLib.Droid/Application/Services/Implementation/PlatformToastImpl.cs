@@ -17,12 +17,25 @@ namespace System.Application.Services.Implementation
         }
 
         static AndroidToast? toast;
+        static DateTime hideTime;
+
+        static int GetHideTimeByDuration(int duration, AndroidToastLength duration2)
+        {
+            if (duration2 == AndroidToastLength.Long)
+            {
+                return (int)ToastLength.Long;
+            }
+            else if (duration2 == AndroidToastLength.Short)
+            {
+                return (int)ToastLength.Short;
+            }
+            return duration;
+        }
 
         protected override void PlatformShow(string text, int duration)
         {
-            var context = XEPlatform.CurrentActivity;
+            var context = XEPlatform.CurrentActivity?.ApplicationContext ?? XEPlatform.AppContext;
             var duration2 = (AndroidToastLength)duration;
-
             // https://blog.csdn.net/android157/article/details/80267737
             try
             {
@@ -48,11 +61,16 @@ namespace System.Application.Services.Implementation
                 Looper.Loop();
             }
 
-            static void SetTextAndShow(AndroidToast t, string text)
+            void SetTextAndShow(AndroidToast t, string text)
             {
                 // 某些定制ROM会更改内容文字，例如MIUI，重新设置可强行指定文本
                 t.SetText(text);
-                t.Show();
+                var now = DateTime.Now;
+                if (hideTime == default || hideTime <= now) // 同一时间内多次调用 Show 将会导致无法显示
+                {
+                    hideTime = now.AddMilliseconds(GetHideTimeByDuration(duration, duration2));
+                    t.Show();
+                }
             }
         }
 

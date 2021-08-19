@@ -38,23 +38,24 @@ namespace System.Application.UI.Activities
             }).AddTo(this);
         }
 
-        int ViewPagerAdapter.IHost.ItemCount => 4;
+        int ViewPagerAdapter.IHost.ItemCount => 2;
+        //4;
 
         Fragment ViewPagerAdapter.IHost.CreateFragment(int position) => position switch
         {
-            2 => new LocalAuthSteamUserImportFragment(),
+            //2 => new LocalAuthSteamUserImportFragment(),
             1 => new LocalAuthSteamAppImportFragment(),
             0 => new LocalAuthSteamToolsImportFragment.MLKitCameraX(),
-            3 => new LocalAuthOtherImportFragment(),
+            //3 => new LocalAuthOtherImportFragment(),
             _ => throw new ArgumentOutOfRangeException(nameof(position), position.ToString()),
         };
 
         string ViewPagerWithTabLayoutAdapter.IHost.GetPageTitle(int position) => position switch
         {
-            2 => LocalAuth_SteamUserImport,
+            //2 => LocalAuth_SteamUserImport,
             1 => LocalAuth_SteamAppImport,
             0 => LocalAuth_SteamToolsImport,
-            3 => LocalAuth_OtherImport,
+            //3 => LocalAuth_OtherImport,
             _ => throw new ArgumentOutOfRangeException(nameof(position), position.ToString()),
         };
     }

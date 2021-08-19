@@ -20,7 +20,7 @@ namespace System.Application.Services.Implementation
 
         protected override Version OSVersion =>
 #if __ANDROID__
-            new((int)Build.VERSION.SdkInt, 0);
+            new((int)Build.VERSION.SdkInt, 0, 0);
 #else
             Xamarin.Essentials.DeviceInfo.Version;
 #endif

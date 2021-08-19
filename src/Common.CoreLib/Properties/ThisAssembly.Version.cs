@@ -9,10 +9,10 @@ namespace System.Properties
         ///   <item> iOS：\src\ST.Client.Mobile.iOS.App\Info.plist &lt;CFBundleVersion&gt; &lt;CFBundleShortVersionString&gt; </item>
         ///   <item> Android：\src\ST.Client.Mobile.Droid.App\Properties\AndroidManifest.xml &lt;manifest ... android:versionCode(long递增) android:versionName </item>
         ///   <item> UWP(DesktopBridge)：\src\ST.Client.Desktop.Avalonia.App.Bridge.Package\Package.appxmanifest &lt;Identity ... Version </item>
-        ///   <item> macOS：\src\ST.Client.Desktop.Avalonia.App\Info.plist &lt;CFBundleVersion&gt; &lt;CFBundleShortVersionString&gt; </item>
+        ///   <item> macOS：\packaging\build-osx-app.sh &lt;CFBundleVersion&gt; &lt;CFBundleShortVersionString&gt; </item>
         /// </list>
         /// </summary>
-        public const string Version = "2.4.9";
+        public const string Version = "2.4.10";
 
         //public const string InfoVersion = Version + "-beta";
     }
