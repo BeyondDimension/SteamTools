@@ -14,8 +14,7 @@
     <item
         android:id="@+id/navigation_community_fix"
         android:icon="@drawable/mdi_rocket_black_24"
-        android:title="@string/community_fix"
-        android:visible="false" />
+        android:title="@string/community_fix" />
 
     <item
         android:id="@+id/navigation_game_list"

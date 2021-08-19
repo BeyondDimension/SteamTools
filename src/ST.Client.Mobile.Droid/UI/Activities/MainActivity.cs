@@ -58,6 +58,8 @@ namespace System.Application.UI.Activities
             {
                 SetSubPageTitle(Resource.Id.navigation_local_auth, LocalAuthPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_my, MyPageViewModel.DisplayName);
+                SetSubPageTitle(Resource.Id.navigation_community_fix, AppResources.CommunityFix);
+                //SetSubPageTitle(Resource.Id.navigation_game_list, AppResources.GameList);
             }).AddTo(this);
 
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
