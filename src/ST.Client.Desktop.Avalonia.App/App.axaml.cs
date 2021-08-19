@@ -27,6 +27,8 @@ using System.Application.UI.Views.Windows;
 using System.Application.Services.Implementation;
 using System.Threading.Tasks;
 using System.Application.Security;
+using Avalonia;
+using Avalonia.Platform;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -288,6 +290,15 @@ namespace System.Application.UI
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        /// <summary>
+        /// override RegisterServices register custom service
+        /// </summary>
+        public override void RegisterServices()
+        {
+            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            base.RegisterServices();
         }
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)

@@ -99,7 +99,11 @@
                 </StackPanel>
               </Panel>
               <Separator Classes="Separator"></Separator>
-              <ListBox SelectionMode="Single" Classes="metro" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+              <ListBox SelectionMode="Single"
+                       Classes="metro"
+                       Background="Transparent"
+                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.Styles>
                   <Style Selector="Button">
                     <Setter Property="Width" Value="{Binding #UserMenu.Width}"></Setter>

@@ -111,21 +111,21 @@
                           <DockPanel>
                             <CheckBox IsChecked="{Binding Enable,Mode=TwoWay}"
                                       VerticalAlignment="Center">
-                              <WrapPanel>
-                                <WrapPanel.Styles>
+                              <StackPanel Orientation="Horizontal">
+                                <StackPanel.Styles>
                                   <Style Selector="TextBlock.count">
                                     <Setter Property="VerticalAlignment" Value="Center"></Setter>
                                     <Setter Property="FontSize" Value="12"></Setter>
                                     <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}"></Setter>
                                   </Style>
-                                </WrapPanel.Styles>
+                                </StackPanel.Styles>
                                 <TextBlock Text="{Binding Name_Localiza}"
                                   VerticalAlignment="Center"/>
                                 <TextBlock Margin="5 0 0 0" Text="(" Classes="count"/>
                                 <TextBlock Classes="count"
                                            Text="{Binding Count}"/>
                                 <TextBlock Classes="count" Text=")"/>
-                              </WrapPanel>
+                              </StackPanel>
                             </CheckBox>
                           </DockPanel>
                         </DataTemplate>
@@ -353,12 +353,12 @@
                         Text="{Binding DisplayName}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
-                        TextWrapping="WrapWithOverflow"
+                        TextTrimming="CharacterEllipsis"
                         TextAlignment="Center"
-                        FontSize="20"
+                        FontSize="18"
                         Foreground="#FFFFFFFF"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
-                    
+
                     <Border IsVisible="{Binding IsInstalled}"
                             Margin="20 0 20 -3"
                             CornerRadius="3"
@@ -366,22 +366,21 @@
                             Background="#3D4450"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
-                      <StackPanel Margin="15 3"
+                      <WrapPanel Margin="15 3"
                                   Orientation="Horizontal"
-                                  Spacing="3"
                                   HorizontalAlignment="Center">
                         <TextBlock Text="{Binding InstalledDrive}"
                                    Foreground="#FFFFFFFF"
                                    IsVisible="{Binding InstalledDrive,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
                                    VerticalAlignment="Center"
-                                   FontSize="12"/>
+                                   Margin="0 0 5 0"
+                                   FontSize="11"/>
                         <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
                                    Foreground="#FFFFFFFF"
                                    TextWrapping="Wrap"
                                    VerticalAlignment="Center"
-                                   TextAlignment="Center"
-                                   FontSize="12"/>
-                      </StackPanel>
+                                   FontSize="11"/>
+                      </WrapPanel>
                     </Border>
                   </Panel>
                 </Border>
