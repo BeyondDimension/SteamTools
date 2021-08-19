@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using System.Application.Security;
 using Avalonia;
 using Avalonia.Platform;
+using FluentAvalonia.Styling;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -117,6 +118,9 @@ namespace System.Application.UI
             {
                 Source = uri_1,
             };
+
+            var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+            thm.RequestedTheme = the;
         }
 
         readonly Dictionary<string, ICommand> mNotifyIconMenus = new();

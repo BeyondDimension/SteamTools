@@ -208,15 +208,15 @@
                           <Setter Property="HorizontalAlignment" Value="Right"/>
                         </Style>
                       </StackPanel.Styles>
-                      <WrapPanel IsVisible="{Binding MostRecent}">
+                      <StackPanel Orientation="Horizontal" IsVisible="{Binding MostRecent}">
                         <PathIcon Data="{StaticResource CheckmarkDrawing}"/>
                         <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                      </WrapPanel>
+                      </StackPanel>
 
-                      <WrapPanel IsVisible="{Binding RememberPassword}">
+                      <StackPanel Orientation="Horizontal" IsVisible="{Binding RememberPassword}">
                         <PathIcon Data="{StaticResource CheckmarkDrawing}"/>
                         <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RememberMe,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                      </WrapPanel>
+                      </StackPanel>
                     </StackPanel>
                   </Panel>
                 </Panel>

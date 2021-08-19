@@ -360,13 +360,13 @@
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
 
                     <Border IsVisible="{Binding IsInstalled}"
-                            Margin="20 0 20 -3"
+                            Margin="10 0 10 -3"
                             CornerRadius="3"
                             Classes="paper"
                             Background="#3D4450"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
-                      <WrapPanel Margin="15 3"
+                      <WrapPanel Margin="10 3"
                                   Orientation="Horizontal"
                                   HorizontalAlignment="Center">
                         <TextBlock Text="{Binding InstalledDrive}"

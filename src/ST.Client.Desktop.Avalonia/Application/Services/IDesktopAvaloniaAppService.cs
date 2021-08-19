@@ -88,6 +88,16 @@ namespace System.Application.Services
             }
         }
 
+        bool IsVisibleWindow(WindowViewModel vm)
+        {
+            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                var window = desktop.Windows.FirstOrDefault(x => x.DataContext == vm);
+                return window?.IsVisible == true;
+            }
+            return false;
+        }
+
         void HideWindow(WindowViewModel vm)
         {
             if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

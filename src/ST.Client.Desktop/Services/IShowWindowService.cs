@@ -73,6 +73,7 @@ namespace System.Application.Services
 
 #if !__MOBILE__
         void CloseWindow(WindowViewModel vm);
+        bool IsVisibleWindow(WindowViewModel vm);
         void HideWindow(WindowViewModel vm);
         void ShowWindow(WindowViewModel vm);
 #else

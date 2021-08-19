@@ -11,13 +11,6 @@ namespace System.Application.UI.ViewModels
 {
     public class TaskBarWindowViewModel : WindowViewModel
     {
-        private bool _IsVisible;
-        public bool IsVisible
-        {
-            get => _IsVisible;
-            set => this.RaiseAndSetIfChanged(ref _IsVisible, value);
-        }
-
         public new string Title => ThisAssembly.AssemblyTrademark;
 
         public string Version => ThisAssembly.Version;
@@ -32,7 +25,6 @@ namespace System.Application.UI.ViewModels
         public async void Show(int x, int y)
         {
             SetPosition(x, y);
-            IsVisible = true;
             await IShowWindowService.Instance.Show(CustomWindow.TaskBar, this, string.Empty, ResizeModeCompat.NoResize, isParent: false);
         }
 
@@ -44,7 +36,6 @@ namespace System.Application.UI.ViewModels
 
         public override void Hide()
         {
-            IsVisible = false;
             base.Hide();
         }
 

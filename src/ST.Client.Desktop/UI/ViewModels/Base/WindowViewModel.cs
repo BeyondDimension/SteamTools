@@ -78,6 +78,10 @@ namespace System.Application.UI.ViewModels
         [IgnoreDataMember]
         public bool IsInitialized { get; protected set; }
 
+        [IgnoreDataMember]
+        public bool IsVisible =>
+            IShowWindowService.Instance.IsVisibleWindow(this);
+
         /// <summary>
         /// 关闭当前viewmodel绑定的窗口
         /// </summary>

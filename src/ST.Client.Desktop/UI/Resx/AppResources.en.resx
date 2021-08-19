@@ -226,7 +226,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
-    <value>Unlocked at s0:yyy-MM-dd HH:mm:ss</value>
+    <value>Unlocked at {0:yyyy-MM-dd HH:mm:ss}</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">

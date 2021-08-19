@@ -197,6 +197,19 @@ namespace System.Application.Services.Implementation
                     "CloseWindow fail, vmType: {0}", vm.GetType().Name);
             }
         }
+        public bool IsVisibleWindow(WindowViewModel vm)
+        {
+            try
+            {
+               return IDesktopAvaloniaAppService.Instance.IsVisibleWindow(vm);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(ShowWindowServiceImpl), e,
+                    "HideWindow fail, vmType: {0}", vm.GetType().Name);
+                return false;
+            }
+        }
 
         public void HideWindow(WindowViewModel vm)
         {

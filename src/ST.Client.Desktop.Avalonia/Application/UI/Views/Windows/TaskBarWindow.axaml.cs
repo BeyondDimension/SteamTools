@@ -72,7 +72,6 @@ namespace System.Application.UI.Views.Windows
             {
                 if (this.DataContext is TaskBarWindowViewModel vm)
                 {
-                    vm.IsVisible = false;
                     this.Hide();
                 }
             }
