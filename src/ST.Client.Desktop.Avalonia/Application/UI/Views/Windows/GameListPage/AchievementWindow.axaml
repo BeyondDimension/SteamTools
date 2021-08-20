@@ -95,8 +95,9 @@
         <PathIcon Data="{StaticResource SearchDrawing}"
                   Width="18" Height="18"
                   Opacity="0.8"
-                  VerticalAlignment="Top" HorizontalAlignment="Left"
-                  Margin="15,10,0,0" />
+                  VerticalAlignment="Top" 
+                  HorizontalAlignment="Left"
+                  Margin="10,5,0,0" />
       </TextBox.InnerLeftContent>
     </TextBox>
 
@@ -119,7 +120,7 @@
                             IsEnabled="{Binding !IsProtection}"
                             IsChecked="{Binding IsChecked,Mode=TwoWay}"
                             VerticalAlignment="Center"
-                            Margin="-5 0 0 0"
+                            Margin="0 0 0 0"
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Center">
                   </CheckBox>

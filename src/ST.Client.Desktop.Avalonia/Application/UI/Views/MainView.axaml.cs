@@ -47,7 +47,7 @@ namespace System.Application.UI.Views
                       {
                           avater.Width = 64;
                           avater.Height = 64;
-                          avater.Margin = new Thickness(20, 0);
+                          avater.Margin = new Thickness(10, 0);
                       }
                   });
             }
