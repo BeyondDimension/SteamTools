@@ -1,8 +1,8 @@
-﻿using Android.App;
+using Android.App;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class PlatformNotificationServiceImpl : PlatformNotificationServiceImpl<NotificationType, NotificationChannelType, Entrance>, INotificationService
+    internal sealed class PlatformNotificationServiceImpl : PlatformNotificationServiceImpl<NotificationType, NotificationChannelType, Entrance, INotificationService>, INotificationService
     {
         protected override void CreateNotificationChannel(NotificationChannelType notificationChannelType, NotificationChannel notificationChannel)
         {

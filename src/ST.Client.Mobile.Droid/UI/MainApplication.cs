@@ -15,6 +15,7 @@ using System.Application.Models.Settings;
 using AndroidX.AppCompat.App;
 using System.Application.Services;
 using System.Application.Services.Implementation;
+using Android.OS;
 #if DEBUG
 using Square.LeakCanary;
 #endif
@@ -81,10 +82,10 @@ namespace System.Application.UI
             Startup.Init(level);
             if (IsMainProcess)
             {
-                if (INotificationService.Instance is PlatformNotificationServiceImpl notification)
-                {
-                    notification.InitNotificationChannels(this);
-                }
+                PlatformNotificationServiceImpl.InitNotificationChannels(this);
+#if DEBUG
+                INotificationService.Instance.Notify("测试内容", NotificationType.Announcement);
+#endif
                 XEVersionTracking.Track();
                 if (XEVersionTracking.IsFirstLaunchForCurrentVersion)
                 {

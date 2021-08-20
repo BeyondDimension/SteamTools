@@ -23,7 +23,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_weight="1"
-      android:backgroundTint="@color/mtrl_btn_bg_color_selector"
+      android:backgroundTint="?attr/colorPrimary"
       android:clickable="true"
       android:focusable="true"
       xamarin:managedType="Google.Android.Material.Card.MaterialCardView">
@@ -71,7 +71,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_weight="1"
-      android:backgroundTint="@color/mtrl_btn_bg_color_selector"
+      android:backgroundTint="?attr/colorPrimary"
       android:clickable="true"
       android:focusable="true"
       xamarin:managedType="Google.Android.Material.Card.MaterialCardView">

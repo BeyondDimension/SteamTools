@@ -1,20 +1,25 @@
 using Android.App;
 using Android.Content;
+using Android.OS;
 using AndroidX.Core.App;
 using System.Collections.Generic;
 using System.Common;
 using AndroidApplication = Android.App.Application;
-using JClass = Java.Lang.Class;
 using CC = System.Common.Constants;
+using JClass = Java.Lang.Class;
 
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance}"/>
-    public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance> : INotificationService<TNotificationType, TEntrance>
+    public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance, TNotificationService> : INotificationService<TNotificationType, TEntrance, TNotificationService>
         where TNotificationType : notnull, Enum
         where TNotificationChannelType : notnull, Enum
         where TEntrance : notnull, Enum
+        where TNotificationService : INotificationService<TNotificationType, TEntrance, TNotificationService>
     {
+        public static bool IsSupportedNotificationChannel
+            => Build.VERSION.SdkInt >= BuildVersionCodes.O;
+
         protected virtual Type? GetActivityType(TEntrance entrance) => null;
 
         protected virtual int GetNotifyId(TNotificationType notificationType)
@@ -43,17 +48,26 @@ namespace System.Application.Services.Implementation
             manager.CancelAll();
         }
 
-        /// <summary>
-        /// 初始化通知渠道
-        /// </summary>
-        /// <param name="context"></param>
-        public void InitNotificationChannels(Context context)
+        void InitNotificationChannelsCore(Context context)
         {
             var manager = NotificationManagerCompat.From(context);
             var items = Enum.GetValues(typeof(TNotificationChannelType));
             foreach (TNotificationChannelType item in items)
             {
                 CreateNotificationChannel(manager, item);
+            }
+        }
+
+        /// <summary>
+        /// 初始化通知渠道
+        /// </summary>
+        /// <param name="context"></param>
+        public static void InitNotificationChannels(Context context)
+        {
+            if (IsSupportedNotificationChannel &&
+                   INotificationService<TNotificationType, TEntrance, TNotificationService>.Instance is PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance, TNotificationService> notification)
+            {
+                notification.InitNotificationChannelsCore(context);
             }
         }
 
@@ -95,9 +109,10 @@ namespace System.Application.Services.Implementation
         /// <param name="manager"></param>
         /// <param name="notificationChannelType"></param>
         /// <returns></returns>
-        protected NotificationChannel CreateNotificationChannel(NotificationManagerCompat manager,
+        protected NotificationChannel? CreateNotificationChannel(NotificationManagerCompat manager,
            TNotificationChannelType notificationChannelType)
         {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return null;
             var channelId = GetChannelId(notificationChannelType);
             var name = GetName(notificationChannelType);
             var description = GetDescription(notificationChannelType);
@@ -170,8 +185,8 @@ namespace System.Application.Services.Implementation
             IReadOnlyCollection<NotificationCompat.Action>? actions = null)
         {
             var channelType = GetChannel(notificationType);
-            var channel = CreateNotificationChannel(manager, channelType);
-            var builder = new NotificationCompat.Builder(context, channel.Id);
+            var channelId = GetChannelId(channelType);
+            var builder = new NotificationCompat.Builder(context, channelId);
             var level = GetImportanceLevel(channelType);
             builder.SetPriority(GetNotificationPriority(level));
             var status_bar_icon = R.drawable.ic_stat_notify_msg;

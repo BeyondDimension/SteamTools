@@ -457,6 +457,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_visibility_off_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_visibility_off_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\ic_stat_notify_msg.png">
+      <Link>Resources\drawable-hdpi\ic_stat_notify_msg.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\outline_chevron_right_black_24.png">
       <Link>Resources\drawable-hdpi\outline_chevron_right_black_24.png</Link>
     </AndroidResource>
@@ -570,6 +573,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_visibility_off_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_visibility_off_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\ic_stat_notify_msg.png">
+      <Link>Resources\drawable-mdpi\ic_stat_notify_msg.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\outline_chevron_right_black_24.png">
       <Link>Resources\drawable-mdpi\outline_chevron_right_black_24.png</Link>
@@ -685,6 +691,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_visibility_off_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_visibility_off_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\ic_stat_notify_msg.png">
+      <Link>Resources\drawable-xhdpi\ic_stat_notify_msg.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\outline_chevron_right_black_24.png">
       <Link>Resources\drawable-xhdpi\outline_chevron_right_black_24.png</Link>
     </AndroidResource>
@@ -798,6 +807,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_visibility_off_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_visibility_off_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\ic_stat_notify_msg.png">
+      <Link>Resources\drawable-xxhdpi\ic_stat_notify_msg.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\logo.png">
       <Link>Resources\drawable-xxhdpi\logo.png</Link>
@@ -918,6 +930,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_visibility_off_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_visibility_off_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\ic_stat_notify_msg.png">
+      <Link>Resources\drawable-xxxhdpi\ic_stat_notify_msg.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\outline_chevron_right_black_24.png">
       <Link>Resources\drawable-xxxhdpi\outline_chevron_right_black_24.png</Link>
@@ -1146,6 +1161,9 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
+
 
 
 

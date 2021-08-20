@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Security;
 using System.Threading.Tasks;
 using static System.Application.KeyConstants;
@@ -6,10 +6,8 @@ using static System.Application.KeyConstants;
 namespace System.Application.Services
 {
     /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance}"/>
-    public interface INotificationService : INotificationService<NotificationType, Entrance>
+    public interface INotificationService : INotificationService<NotificationType, Entrance, INotificationService>
     {
-        public static INotificationService Instance => DI.Get<INotificationService>();
-
         /// <summary>
         /// 显示从服务端获取到通知纪录
         /// </summary>
