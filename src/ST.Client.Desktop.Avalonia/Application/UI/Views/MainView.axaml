@@ -25,7 +25,6 @@
                             Opacity="0.8">
         </Image>-->
     <!--Background-->
-
     <Grid ZIndex="0"
                IsHitTestVisible="False"
                ColumnDefinitions="Auto,*"
@@ -201,24 +200,6 @@
           <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
         </StackPanel>
       </ui:NavigationView.PaneHeader>-->
-      <!--<ui:NavigationView.PaneFooter>
-        <ItemsRepeater Items="{Binding FootTabItems}" >
-          <ItemsRepeater.Layout>
-            <StackLayout Orientation="Vertical"/>
-          </ItemsRepeater.Layout>
-          <ItemsRepeater.ItemTemplate>
-            <DataTemplate  DataType="{x:Type vm:TabItemViewModel}">
-              <ui:NavigationViewItem Content="{Binding Name}" IsSelected="">
-                <ui:NavigationViewItem.Icon>
-                  <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
-                               Width="20" Height="20"/>
-                </ui:NavigationViewItem.Icon>
-              </ui:NavigationViewItem>
-            </DataTemplate>
-          </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
-      </ui:NavigationView.PaneFooter>-->
-
       <ui:NavigationView.PaneCustomContent>
         <ui:Button Cursor="Hand"
                    Margin="6"
@@ -315,16 +296,6 @@
       </ui:NavigationView.DataTemplates>
       <ui:NavigationView.MenuItemTemplate>
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
-          <!--<DockPanel>
-            <PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
-                  Width="18" Height="18"
-                  HorizontalAlignment="Left"
-                  Margin="0 0 10 0"></PathIcon>
-            <controls:ScrollingTextBlock
-                Text="{Binding Name}"
-                FontSize="14"
-                FontWeight="Regular"></controls:ScrollingTextBlock>
-          </DockPanel>-->
           <ui:NavigationViewItem Content="{Binding Name,StringFormat={} {0}}">
             <ui:NavigationViewItem.Icon>
               <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>

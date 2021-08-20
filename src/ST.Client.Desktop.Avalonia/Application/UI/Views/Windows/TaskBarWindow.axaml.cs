@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
+using FluentAvalonia.Styling;
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
@@ -16,15 +17,16 @@ namespace System.Application.UI.Views.Windows
         public TaskBarWindow()
         {
             InitializeComponent();
-
             Topmost = true;
+
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
-            ShowInTaskbar = false;
-            SizeToContent = Avalonia.Controls.SizeToContent.Height;
+            //SystemDecorations = SystemDecorations.None;
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+            SizeToContent = Avalonia.Controls.SizeToContent.Height;
             CanResize = false;
+            ShowInTaskbar = false;
 
             this.Opened += Window_Opened;
             this.LostFocus += Window_LostFocus;
@@ -39,6 +41,12 @@ namespace System.Application.UI.Views.Windows
 #if DEBUG
             this.AttachDevTools();
 #endif
+
+            if (DI.IsWindows10OrLater)
+            {
+                var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+                thm.ForceNativeTitleBarToTheme(this);
+            }
         }
 
         private void MenuButton_PointerLeave(object? sender, Avalonia.Input.PointerEventArgs e)

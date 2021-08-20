@@ -81,6 +81,7 @@
                 x:Name="TbSmsCode"
                 Watermark="{ReflectionBinding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Text="{Binding SmsCode}"
+                VerticalContentAlignment="Center"
                 MaxLength="{ReflectionBinding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
               <Border HorizontalAlignment="Right" Cursor="Hand">
                 <Button Classes="CodeButton"

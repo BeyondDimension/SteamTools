@@ -13,6 +13,8 @@
   <Styles.Resources>
     <FontFamily x:Key="UnicodeFont">avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei</FontFamily>
 
+    <Thickness x:Key="TextBoxIconMargin">12,0,0,0</Thickness>
+
     <ContextMenu x:Key="DefaultTextBoxContextMenu" x:Name="TextBoxContextMenu">
       <MenuItem x:Name="TextBoxContextMenuCutItem"
                 Header="{ReflectionBinding Path=Res.Cut,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -36,9 +38,19 @@
     </ContextMenu>
   </Styles.Resources>
 
+  <Style Selector="PathIcon.TextBoxIcon">
+    <Setter Property="Height" Value="18"/>
+    <Setter Property="Width" Value="18"/>
+    <Setter Property="Opacity" Value="0.8"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="HorizontalAlignment" Value="Left"/>
+    <Setter Property="Margin" Value="{StaticResource TextBoxIconMargin}"/>
+  </Style>
+
   <Style Selector="TextBox">
     <!--<Setter Property="FontFamily" Value="Microsoft YaHei UI,Microsoft YaHei,Simsun,苹方-简,宋体-简"></Setter>-->
     <!--<Setter Property="FontFamily" Value="{StaticResource UnicodeFont}" />-->
+    <Setter Property="MinHeight" Value="38"/>
     <Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" />
 
     <Setter Property="Template">
@@ -102,6 +114,11 @@
           </Panel>
         </DataValidationErrors>
       </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="TextBox[AcceptsReturn=False]">
+    <Setter Property="VerticalContentAlignment" Value="Center">
     </Setter>
   </Style>
 

@@ -41,7 +41,7 @@
       </Style.Animations>
     </Style>
     <Style Selector="TextBlock#LogoText3">
-      <Setter Property="Foreground" Value="{DynamicResource ThemeAccentBrushKey}" />
+      <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
       <Setter Property="RenderTransformOrigin" Value="50%,50%" />
       <Style.Animations>
         <Animation Delay="0.34" Duration="0.37" Easing="{StaticResource FluentEasing}">
