@@ -48,8 +48,6 @@ namespace System.Application.UI.ViewModels
         public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
 
-        public SettingsPageViewModel SettingsPage => SettingsPageViewModel.Instance;
-
         readonly Dictionary<Type, Lazy<TabItemViewModel>> mTabItems = new();
         public IEnumerable<TabItemViewModel> TabItems => mTabItems.Values.Select(x => x.Value);
 
