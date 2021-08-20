@@ -16,12 +16,12 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 
-            var sp = this.FindControl<StackPanel>("titleMenu");
-            if (sp != null)
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    sp.Margin = new Avalonia.Thickness(0, 0, 140, 0);
-                else
-                    sp.Margin = new Avalonia.Thickness(0, 6, 10, 0);
+            //var sp = this.FindControl<StackPanel>("titleMenu");
+            //if (sp != null)
+            //    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //        sp.Margin = new Avalonia.Thickness(0, 0, 140, 0);
+            //    else
+            //        sp.Margin = new Avalonia.Thickness(0, 6, 10, 0);
 
             var avater = this.FindControl<Image>("avater");
             var nav = this.FindControl<NavigationView>("NavigationView");

@@ -13,16 +13,6 @@ namespace System.Application.UI.Views
         public MainWindow() : base()
         {
             InitializeComponent();
-
-            if (DI.Platform == Platform.Windows)
-            {
-                ExtendClientAreaToDecorationsHint = false;
-                ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.Default;
-
-                var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-                thm.ForceNativeTitleBarToTheme(this);
-            }
-
 #if DEBUG
             this.AttachDevTools();
 #endif

@@ -128,9 +128,14 @@
 
                     <DockPanel VerticalAlignment="Bottom">
                       <StackPanel Orientation="Horizontal" Spacing="10">
-                        <ToggleSwitch Classes="onlyToggleSwitch" IsChecked="{Binding Enable,Mode=TwoWay}">
+                        <ToggleSwitch Classes="onlyToggleSwitch" 
+                                      IsChecked="{Binding Enable,Mode=TwoWay}"
+                                      VerticalAlignment="Center">
                         </ToggleSwitch>
-                        <Button Background="Transparent" Cursor="Hand"
+                        
+                        <Button Background="Transparent"
+                                Cursor="Hand"
+                                VerticalAlignment="Center"
                                 Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"
                                 CommandParameter="{Binding}"
                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Edit,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -138,6 +143,7 @@
                         </Button>
 
                         <Button Background="Transparent" Cursor="Hand"
+                                VerticalAlignment="Center"
                                 Command="{ReflectionBinding #u.DataContext.RefreshScriptItemButton}"
                                 CommandParameter="{Binding}"
                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -145,13 +151,16 @@
                         </Button>
 
                         <Button Background="Transparent" Cursor="Hand"
+                                VerticalAlignment="Center"
                                 Command="{ReflectionBinding #u.DataContext.OpenHomeScriptItemButton}"
                                 CommandParameter="{Binding}"
                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Home,Mode=OneWay,Source={x:Static resx:R.Current}}">
                           <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
                         </Button>
 
-                        <Button Background="Transparent" IsVisible="{Binding !IsBasics}" Cursor="Hand" HorizontalAlignment="Right"
+                        <Button Background="Transparent" IsVisible="{Binding !IsBasics}" Cursor="Hand" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
                                 Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"
                                 CommandParameter="{Binding}"
                                 ToolTip.Tip="{ReflectionBinding Path=Res.Delete,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -180,7 +189,7 @@
                                  CommandParameter="{Binding}"
                                  Content="{Binding NewVersion,StringFormat={}v{0}}"
                                  FontSize="{DynamicResource FontSizeH7}"
-                                VerticalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
                                  VerticalAlignment="Center"
                                  Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
                         <Ellipse VerticalAlignment="Center"

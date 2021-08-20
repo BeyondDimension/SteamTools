@@ -20,7 +20,7 @@
                VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
     <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                    VerticalScrollBarVisibility="Auto"
-                   Padding="0 0 0 10">
+                   Padding="0 10">
       <ItemsRepeater Items="{CompiledBinding SteamUsers}">
         <ItemsRepeater.Layout>
           <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"

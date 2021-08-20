@@ -6,7 +6,7 @@
   </Design.PreviewWith>
 
   <Styles.Resources>
-    <x:Double x:Key="ToggleSwitchThemeMinWidth">40</x:Double>
+    <x:Double x:Key="ToggleSwitchThemeMinWidth">0</x:Double>
   </Styles.Resources>
   
   <Style Selector="ToggleSwitch.onlyToggleSwitch">
@@ -14,5 +14,9 @@
     <Setter Property="OffContent" Value=""></Setter>
     <Setter Property="OnContent" Value=""></Setter>
     <Setter Property="Width" Value="40"></Setter>
+  </Style>
+
+  <Style Selector="RadioButton">
+    <Setter Property="MinWidth" Value="0" />
   </Style>
 </Styles>

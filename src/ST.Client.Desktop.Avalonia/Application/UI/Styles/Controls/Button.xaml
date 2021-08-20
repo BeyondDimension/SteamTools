@@ -66,9 +66,46 @@
   <Style Selector="Button.flatbutton:pressed  /template/ ContentPresenter">
     <Setter Property="CornerRadius" Value="0" />
   </Style>
+  
+  
+  <Style Selector="Button.action /template/ Border#BorderElement">
+    <Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrush}" />
+  </Style>
+  <Style Selector="Button.action /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
+    <!--<Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrush}" />-->
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentButtonForeground}" />
+  </Style>
 
-  <Style Selector="Button.action /template/ ContentPresenter">
-    <Setter Property="Background" Value="{DynamicResource ThemeAccentBrushKey}" />
+  <Style Selector="Button.action:pointerover /template/ Border#BorderElement">
+    <Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrushPointerOver}" />
+  </Style>
+  <Style Selector="Button.action:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource AccentButtonBackgroundPointerOver}" />
+    <!--<Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrushPointerOver}" />-->
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentButtonForegroundPointerOver}" />
+  </Style>
+
+  <Style Selector="Button.action:pressed /template/ Border#BorderElement">
+    <Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrushPressed}" />
+  </Style>
+  <Style Selector="Button.action:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource AccentButtonBackgroundPressed}" />
+    <!--<Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrushPressed}" />-->
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentButtonForegroundPressed}" />
+  </Style>
+
+  <Style Selector="Button.action:disabled /template/ Border#BorderElement">
+    <Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrushDisabled}" />
+  </Style>
+  <Style Selector="Button.action:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource AccentButtonBackgroundDisabled}" />
+    <!--<Setter Property="BorderBrush" Value="{DynamicResource AccentButtonBorderBrushDisabled}" />-->
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentButtonForegroundDisabled}" />
+  </Style>
+  
+  <!--<Style Selector="Button.action /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
     <Setter Property="Padding" Value="20 10" />
     <Setter Property="TextBlock.Foreground" Value="#FFFFFFFF" />
   </Style>
@@ -80,7 +117,7 @@
   </Style>
   <Style Selector="Button.action:disabled /template/ ContentPresenter">
     <Setter Property="Background" Value="{DynamicResource ThemeAccentDisabledBrushKey}" />
-  </Style>
+  </Style>-->
 
   <Style Selector="Button.plain">
     <Setter Property="VerticalAlignment" Value="Stretch" />

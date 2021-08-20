@@ -20,7 +20,7 @@
              x:Class="System.Application.UI.Views.Pages.ArchiSteamFarmPlusPage">
   <DockPanel>
 
-    <Border Padding="10" DockPanel.Dock="Top" Margin="10 0 10 10"
+    <Border Padding="10" DockPanel.Dock="Top" Margin="10"
             Classes="paper" Background="{DynamicResource ThemeBrushKey}">
       <DockPanel>
         <StackPanel

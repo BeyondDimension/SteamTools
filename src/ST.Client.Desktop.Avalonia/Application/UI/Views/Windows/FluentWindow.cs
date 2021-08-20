@@ -2,6 +2,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using Avalonia.Styling;
+using FluentAvalonia.Styling;
 using System;
 using System.Application.Services;
 using System.Application.UI.Resx;
@@ -53,6 +54,12 @@ namespace Avalonia.Controls
             {
                 this.Opened += FluentWindow_Opened;
                 this.PositionChanged += FluentWindow_PositionChanged;
+            }
+
+            if (DI.IsWindows10OrLater)
+            {
+                var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+                thm.ForceNativeTitleBarToTheme(this);
             }
         }
 
@@ -169,6 +176,12 @@ namespace Avalonia.Controls
                 if (this.CanResize)
                     this.PositionChanged += FluentWindow_PositionChanged;
             }
+
+            if (DI.IsWindows10OrLater)
+            {
+                var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+                thm.ForceNativeTitleBarToTheme(this);
+            }
         }
 
         private void FluentWindow_PositionChanged(object? sender, PixelPointEventArgs e)
@@ -222,8 +235,8 @@ namespace Avalonia.Controls
 
             if (DI.Platform == System.Platform.Windows)
             {
-                ExtendClientAreaChromeHints =
-                ExtendClientAreaChromeHints.PreferSystemChrome;
+                ExtendClientAreaChromeHints = 
+                    ExtendClientAreaChromeHints.PreferSystemChrome;
             }
             else if (DI.IsmacOS)
             {

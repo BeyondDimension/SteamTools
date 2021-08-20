@@ -25,20 +25,40 @@
                             Opacity="0.8">
         </Image>-->
     <!--Background-->
-    <DockPanel HorizontalAlignment="Stretch" ZIndex="0" IsHitTestVisible="False">
-      <ExperimentalAcrylicBorder x:Name="NavBarBackground" IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
+
+    <Grid ZIndex="0"
+               IsHitTestVisible="False"
+               ColumnDefinitions="Auto,*"
+               RowDefinitions="30,*">
+      <ExperimentalAcrylicBorder IsHitTestVisible="False"
+                                 Grid.ColumnSpan="2">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
+                                       MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
+                                       TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+      </ExperimentalAcrylicBorder>
+      <ExperimentalAcrylicBorder x:Name="NavBarBackground"
+                                 Grid.Row="1"
+                                 IsHitTestVisible="False"
+                                 Width="240">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder IsHitTestVisible="False"
+                                 Grid.Row="1"
+                                 Grid.Column="1">
         <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
+                                       MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
+                                       TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-    </DockPanel>
+    </Grid>
 
     <!--Title-->
+    <controls:TitleBar IsVisibleBackground="False"/>
     <!--<Grid ColumnDefinitions="240,*,Auto">
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
         <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
@@ -166,6 +186,8 @@
 
     <!--Content-->
     <ui:NavigationView x:Name="NavigationView"
+                       Margin="0 30 0 0"
+                       Background="Transparent"
                        PaneDisplayMode="Left"
                        AlwaysShowHeader="True"
                        IsSettingsVisible="False"
@@ -217,18 +239,24 @@
                    HorizontalAlignment="Left"
                    Height="64"
                    Width="64"/>
-            <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                   IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
-                   HorizontalAlignment="Right"
-                   Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                   FontSize="16"
-                   VerticalAlignment="Center"/>
-            <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
-                   IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
-                   HorizontalAlignment="Right"
-                   Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                   FontSize="16"
-                   VerticalAlignment="Center"/>
+            <StackPanel Spacing="5" VerticalAlignment="Center">
+              <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
+                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                        FontSize="16"
+                        VerticalAlignment="Center"/>
+              <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                     IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                     Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                     FontSize="16"
+                     VerticalAlignment="Center"/>
+              <TextBlock Text="{ReflectionBinding Path=PhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                        IsVisible="{ReflectionBinding Path=User.HasPhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                        Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                        FontSize="14"
+                        VerticalAlignment="Center"/>
+            </StackPanel>
+
           </DockPanel>
           <ui:Button.Flyout>
             <ui:MenuFlyout Placement="RightEdgeAlignedTop">
