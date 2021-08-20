@@ -280,6 +280,12 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_phone_black_24.xml">
       <Link>Resources\drawable\baseline_phone_black_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_photo_black_48.xml">
+      <Link>Resources\drawable\baseline_photo_black_48.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_qr_code_2_black_48.xml">
+      <Link>Resources\drawable\baseline_qr_code_2_black_48.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_refresh_black_24.xml">
       <Link>Resources\drawable\baseline_refresh_black_24.xml</Link>
     </AndroidResource>
@@ -418,6 +424,12 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_phone_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_phone_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_photo_black_48.png">
+      <Link>Resources\drawable-hdpi\baseline_photo_black_48.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_qr_code_2_black_48.png">
+      <Link>Resources\drawable-hdpi\baseline_qr_code_2_black_48.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_refresh_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_refresh_black_24.png</Link>
     </AndroidResource>
@@ -525,6 +537,12 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_phone_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_phone_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_photo_black_48.png">
+      <Link>Resources\drawable-mdpi\baseline_photo_black_48.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_qr_code_2_black_48.png">
+      <Link>Resources\drawable-mdpi\baseline_qr_code_2_black_48.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_refresh_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_refresh_black_24.png</Link>
@@ -634,6 +652,12 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_phone_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_phone_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_photo_black_48.png">
+      <Link>Resources\drawable-xhdpi\baseline_photo_black_48.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_qr_code_2_black_48.png">
+      <Link>Resources\drawable-xhdpi\baseline_qr_code_2_black_48.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_refresh_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_refresh_black_24.png</Link>
     </AndroidResource>
@@ -741,6 +765,12 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_phone_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_phone_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_photo_black_48.png">
+      <Link>Resources\drawable-xxhdpi\baseline_photo_black_48.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_qr_code_2_black_48.png">
+      <Link>Resources\drawable-xxhdpi\baseline_qr_code_2_black_48.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_refresh_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_refresh_black_24.png</Link>
@@ -855,6 +885,12 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_phone_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_phone_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_photo_black_48.png">
+      <Link>Resources\drawable-xxxhdpi\baseline_photo_black_48.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_qr_code_2_black_48.png">
+      <Link>Resources\drawable-xxxhdpi\baseline_qr_code_2_black_48.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_refresh_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_refresh_black_24.png</Link>
@@ -1015,6 +1051,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\auth_trade_toolbar_menu.xml">
       <Link>Resources\menu\auth_trade_toolbar_menu.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\barcode_scanner_menu.xml">
+      <Link>Resources\menu\barcode_scanner_menu.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\bottom_nav_menu.xml">
       <Link>Resources\menu\bottom_nav_menu.xml</Link>
     </AndroidResource>
@@ -1107,6 +1146,9 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
+
 
 
 

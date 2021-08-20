@@ -16,21 +16,21 @@ namespace System.Application.Services.Implementation
         {
         }
 
-        static AndroidToast? toast;
-        static DateTime hideTime;
+        //static AndroidToast? toast;
+        //static DateTime hideTime;
 
-        static int GetHideTimeByDuration(int duration, AndroidToastLength duration2)
-        {
-            if (duration2 == AndroidToastLength.Long)
-            {
-                return (int)ToastLength.Long;
-            }
-            else if (duration2 == AndroidToastLength.Short)
-            {
-                return (int)ToastLength.Short;
-            }
-            return duration;
-        }
+        //static int GetHideTimeByDuration(int duration, AndroidToastLength duration2)
+        //{
+        //    if (duration2 == AndroidToastLength.Long)
+        //    {
+        //        return (int)ToastLength.Long;
+        //    }
+        //    else if (duration2 == AndroidToastLength.Short)
+        //    {
+        //        return (int)ToastLength.Short;
+        //    }
+        //    return duration;
+        //}
 
         protected override void PlatformShow(string text, int duration)
         {
@@ -39,16 +39,16 @@ namespace System.Application.Services.Implementation
             // https://blog.csdn.net/android157/article/details/80267737
             try
             {
-                if (toast == null)
-                {
-                    toast = AndroidToast.MakeText(context, text, duration2);
-                    if (toast == null) throw new NullReferenceException("toast markeText Fail");
-                }
-                else
-                {
-                    toast.Duration = duration2;
-                }
-                SetTextAndShow(toast, text);
+                //if (toast == null)
+                //{
+                var toast = AndroidToast.MakeText(context, text, duration2);
+                //if (toast == null) throw new NullReferenceException("toast markeText Fail");
+                //}
+                //else
+                //{
+                //    toast.Duration = duration2;
+                //}
+                SetTextAndShow(toast!, text);
             }
             catch (JException e)
             {
@@ -61,16 +61,16 @@ namespace System.Application.Services.Implementation
                 Looper.Loop();
             }
 
-            void SetTextAndShow(AndroidToast t, string text)
+            static void SetTextAndShow(AndroidToast t, string text)
             {
                 // 某些定制ROM会更改内容文字，例如MIUI，重新设置可强行指定文本
                 t.SetText(text);
-                var now = DateTime.Now;
-                if (hideTime == default || hideTime <= now) // 同一时间内多次调用 Show 将会导致无法显示
-                {
-                    hideTime = now.AddMilliseconds(GetHideTimeByDuration(duration, duration2));
-                    t.Show();
-                }
+                //var now = DateTime.Now;
+                //if (hideTime == default || hideTime <= now) // 同一时间内多次调用 Show 将会导致无法显示
+                //{
+                //    hideTime = now.AddMilliseconds(GetHideTimeByDuration(duration, duration2));
+                t.Show();
+                //}
             }
         }
 

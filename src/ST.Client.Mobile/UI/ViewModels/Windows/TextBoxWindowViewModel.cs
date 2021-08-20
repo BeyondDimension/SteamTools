@@ -55,9 +55,14 @@ namespace System.Application.UI.ViewModels
         public TextBoxInputType InputType { get; set; }
 
         /// <summary>
-        /// 输入空值时提示，当此值不为 <see cref="string.Empty"/> 或 <see langword="null"/> 时，在 <see cref="InputValidator"/> 中会判断输入空值时提示并取消关闭弹窗操作
+        /// 输入空值时提示，<see cref="string.IsNullOrWhiteSpace(string?)"/> == <see langword="true"/> 时，在 <see cref="InputValidator"/> 中会判断输入空值时提示并取消关闭弹窗操作
         /// </summary>
         public string? ValueIsNullOrWhiteSpaceTip { get; set; }
+
+        /// <summary>
+        /// 输入空值时提示，<see cref="string.IsNullOrEmpty(string?)"/> == <see langword="true"/> 时，在 <see cref="InputValidator"/> 中会判断输入空值时提示并取消关闭弹窗操作
+        /// </summary>
+        public string? ValueIsNullOrEmptyTip { get; set; }
 
         /// <summary>
         /// 输入内容验证
@@ -70,11 +75,16 @@ namespace System.Application.UI.ViewModels
                 Toast.Show(ValueIsNullOrWhiteSpaceTip);
                 return false;
             }
+            else if (ValueIsNullOrEmptyTip != null && string.IsNullOrEmpty(Value))
+            {
+                Toast.Show(ValueIsNullOrEmptyTip);
+                return false;
+            }
             return true;
         }
 
         /// <summary>
-        /// 显示弹窗，点击取消按钮回返回NULL
+        /// 显示弹窗，点击取消按钮回返回 <see langword="null"/>
         /// </summary>
         /// <param name="vm"></param>
         /// <returns></returns>
@@ -96,7 +106,7 @@ namespace System.Application.UI.ViewModels
             {
                 Title = AppResources.LocalAuth_PasswordRequired,
                 Placeholder = AppResources.LocalAuth_PasswordRequired1,
-                ValueIsNullOrWhiteSpaceTip = AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip,
+                ValueIsNullOrEmptyTip = AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip,
                 InputType = TextBoxInputType.Password,
             }),
             _ => ShowDialogAsync(),

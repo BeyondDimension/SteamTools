@@ -18,28 +18,22 @@ namespace System.Application.UI.Fragments
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
-                binding.btnImportV1.Text = LocalAuth_SteamToolsV1Import;
-                binding.btnImportV2.Text = LocalAuth_SteamToolsV2Import;
-                binding.btnImportV2ByQRCode.Text = LocalAuth_SteamToolsV2Import;
-                binding.tvQRCode.Text = ImportByQRCode;
+                binding.tvImportV2ByQRCode.Text = ImportByQRCode;
                 binding.tvFilePicker.Text = ImportByFilePicker;
             }).AddTo(this);
 
-            SetOnClickListener(binding!.btnImportV1, binding.btnImportV2, binding.btnImportV2ByQRCode);
+            SetOnClickListener(binding!.btnImportAutoByFilePicker, binding.btnImportV2ByQRCode);
         }
 
         protected abstract void OnBtnImportV2ByQRCodeClick();
 
+        protected abstract void Analyze(string filePath);
+
         protected override bool OnClick(View view)
         {
-            if (view.Id == Resource.Id.btnImportV1)
+            if (view.Id == Resource.Id.btnImportAutoByFilePicker)
             {
-                ViewModel!.SppBtn_Click.Invoke();
-                return true;
-            }
-            else if (view.Id == Resource.Id.btnImportV2)
-            {
-                ViewModel!.SppV2Btn_Click.Invoke();
+                OnBtnImportByFilePickerClick();
                 return true;
             }
             else if (view.Id == Resource.Id.btnImportV2ByQRCode)
@@ -49,5 +43,21 @@ namespace System.Application.UI.Fragments
             }
             return base.OnClick(view);
         }
+
+        async void OnBtnImportByFilePickerClick() => await FilePicker2.PickAsync(filePath => ViewModel!.ImportAuto(filePath, extension =>
+        {
+            if (string.Equals(extension, FileEx.JPG, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.JPEG, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.PNG, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.WEBP, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.HEIC, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.HEIF, StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    Analyze(filePath);
+                    return true;
+                }
+                catch
+                {
+                }
+            }
+            return false;
+        }));
     }
 }

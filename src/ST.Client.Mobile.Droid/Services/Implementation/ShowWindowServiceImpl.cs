@@ -24,7 +24,12 @@ namespace System.Application.Services.Implementation
 
         async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
-            var currentActivity = await WaitForActivityAsync();
+            Activity currentActivity;
+            do
+            {
+                currentActivity = await WaitForActivityAsync();
+                await Task.Delay(100);
+            } while (!currentActivity.HasValue());
             return await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 return await PlatformShowWindowCore(currentActivity, customWindow, viewModel, title);

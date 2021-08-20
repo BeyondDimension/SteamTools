@@ -19,10 +19,12 @@ using System.Linq;
 using Xamarin.Essentials;
 using Xamarin.Google.MLKit.Vision.BarCode;
 using Xamarin.Google.MLKit.Vision.Common;
+using AUri = Android.Net.Uri;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using GmsTask = Android.Gms.Tasks.Task;
 using JException = Java.Lang.Exception;
 using JObject = Java.Lang.Object;
+using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.UI.Activities
 {
@@ -36,6 +38,7 @@ namespace System.Application.UI.Activities
 
         ICamera? camera;
         IListenableFuture? cameraProviderFuture;
+        QRCodeAnalyser? analyser;
 
         protected override async void OnCreate(Bundle? savedInstanceState)
         {
@@ -62,6 +65,33 @@ namespace System.Application.UI.Activities
         {
             base.OnDestroy();
             ScanCompletedHandler = null;
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu? menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.barcode_scanner_menu, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.menu_gallery)
+            {
+                AnalyzeByGallery();
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
+        async void AnalyzeByGallery()
+        {
+            if (analyser == null) return;
+            //var fileResult = await FilePicker.PickAsync(PickOptions.Images);
+            var fileResult = await MediaPicker.PickPhotoAsync();
+            if (fileResult != null)
+            {
+                analyser.Analyze(fileResult.FullPath);
+            }
         }
 
         void ViewTreeObserver.IOnGlobalLayoutListener.OnGlobalLayout()
@@ -91,16 +121,15 @@ namespace System.Application.UI.Activities
                 .SetBackpressureStrategy(ImageAnalysis.StrategyKeepOnlyLatest)
                 .Build();
             // 绑定图片扫描解析
-            imageAnalysis.SetAnalyzer(
-                Executors.NewSingleThreadExecutor(),
-                new QRCodeAnalyser((barCodes, imageWidth, imageHeight) =>
-                {
-                    // 解绑当前所有相机操作
-                    cameraProvider.UnbindAll();
-                    ScanCompletedHandler?.Invoke(barCodes.Select(x => x.GetRawBytes()));
-                    ScanCompletedHandler = null;
-                    Finish();
-                }));
+            analyser = new((barCodes, imageWidth, imageHeight) =>
+            {
+                // 解绑当前所有相机操作
+                cameraProvider.UnbindAll();
+                ScanCompletedHandler?.Invoke(barCodes.Select(x => x.GetRawBytes()));
+                ScanCompletedHandler = null;
+                Finish();
+            });
+            imageAnalysis.SetAnalyzer(Executors.NewSingleThreadExecutor(), analyser);
             camera = cameraProvider.BindToLifecycle(this, cameraSelector, imageAnalysis, preview);
         }
 
@@ -119,6 +148,23 @@ namespace System.Application.UI.Activities
                 this.listener = listener;
             }
 
+            void Analyze(InputImage image)
+            {
+                detector.Process(image)
+                    .AddOnSuccessListener(this)
+                    .AddOnFailureListener(this)
+                    .AddOnCompleteListener(this);
+            }
+
+            public void Analyze(AUri imageUri)
+            {
+                var image = InputImage.FromFilePath(XEPlatform.AppContext, imageUri);
+                Analyze(image);
+            }
+
+            public void Analyze(string imageFilePath)
+                => Analyze(AUri.FromFile(new(imageFilePath))!);
+
             void ImageAnalysis.IAnalyzer.Analyze(IImageProxy imageProxy)
             {
                 var mediaImage = imageProxy.Image;
@@ -129,10 +175,7 @@ namespace System.Application.UI.Activities
                 }
                 this.imageProxy = imageProxy;
                 var image = InputImage.FromMediaImage(mediaImage, imageProxy.ImageInfo.RotationDegrees);
-                detector.Process(image)
-                    .AddOnSuccessListener(this)
-                    .AddOnFailureListener(this)
-                    .AddOnCompleteListener(this);
+                Analyze(image);
             }
 
             void IOnSuccessListener.OnSuccess(JObject result)
@@ -144,7 +187,7 @@ namespace System.Application.UI.Activities
 
             void OnSuccess(IList<Barcode> barCodes)
             {
-                listener(barCodes, imageProxy!.Width, imageProxy.Height);
+                listener(barCodes, imageProxy?.Width ?? 0, imageProxy?.Height ?? 0);
                 // 接收到结果后，就关闭解析
                 detector.Close();
             }
@@ -176,6 +219,12 @@ namespace System.Application.UI.Activities
         {
             ScanCompletedHandler = onScanCompleted;
             fragment.StartActivity<BarcodeScannerActivity>();
+        }
+
+        public static void Analyze(string imageFilePath, Action<IList<Barcode>, int, int> listener)
+        {
+            var analyser = new QRCodeAnalyser(listener);
+            analyser.Analyze(imageFilePath);
         }
     }
 }

@@ -300,10 +300,10 @@ namespace System.Application.Services
                     importedAuthenticator.Value = auth;
 
                     // sync
-                    Toast.Show(AppResources.LocalAuth_AddAuthSyncTip);
+                    Toast.Show(AppResources.LocalAuth_AddAuthSyncTip, ToastLength.Short);
                     importedAuthenticator.Value.Sync();
 
-                    AuthService.AddOrUpdateSaveAuthenticators(importedAuthenticator, isLocal, password);
+                    AddOrUpdateSaveAuthenticators(importedAuthenticator, isLocal, password);
                 }
                 Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
             }
@@ -534,7 +534,8 @@ namespace System.Application.Services
             {
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 exportPassword = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
-                goto Run;
+                if (exportPassword == null) return; // 当值为 null 时代表取消
+                else goto Run;
             }
             else
             {

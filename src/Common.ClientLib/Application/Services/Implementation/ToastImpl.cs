@@ -21,7 +21,7 @@ namespace System.Application.Services.Implementation
         /// <param name="len"></param>
         /// <returns></returns>
         protected virtual int CalcDurationByStringLength(int len)
-            => len > 5 ? ToDuration(ToastLength.Long) : ToDuration(ToastLength.Short);
+            => len > 7 ? ToDuration(ToastLength.Long) : ToDuration(ToastLength.Short);
 
         protected virtual bool IsMainThread
             => MainThread.IsMainThread;

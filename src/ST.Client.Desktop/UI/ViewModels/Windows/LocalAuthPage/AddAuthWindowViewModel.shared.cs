@@ -394,7 +394,7 @@ namespace System.Application.UI.ViewModels
             AuthService.Current.ImportAuthenticatorFile(filePath, AuthIsLocal, AuthPassword);
         }
 
-        public void ImportAuto(string filePath)
+        public void ImportAuto(string filePath, Func<string, bool>? func = null)
         {
             var extension = Path.GetExtension(filePath);
             if (string.Equals(extension, FileEx.TXT, StringComparison.OrdinalIgnoreCase))
@@ -413,7 +413,7 @@ namespace System.Application.UI.ViewModels
             {
                 ImportSDA(filePath);
             }
-            else
+            else if (func == null || !func(extension))
             {
                 Toast.Show(AppResources.LocalAuth_ExportAuth_Error.Format(ImportResultCode.IncorrectFormat));
             }
