@@ -28,7 +28,7 @@
 
     <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                    VerticalScrollBarVisibility="Auto"
-                   Padding="20 0 20 10">
+                   Padding="{StaticResource PageMargin}">
       <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
         <ItemsRepeater.Layout>
           <UniformGridLayout ItemsJustification="SpaceAround"

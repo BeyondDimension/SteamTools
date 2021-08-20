@@ -39,15 +39,15 @@ namespace Avalonia.Controls
                 PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
             });
 
-            this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
-                .Subscribe(x =>
-                {
-                    if (!x)
-                    {
-                        SystemDecorations = SystemDecorations.Full;
-                        //TransparencyLevelHint = WindowTransparencyLevel.Blur;
-                    }
-                });
+            //this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
+            //    .Subscribe(x =>
+            //    {
+            //        if (!x)
+            //        {
+            //            SystemDecorations = SystemDecorations.Full;
+            //            //TransparencyLevelHint = WindowTransparencyLevel.Blur;
+            //        }
+            //    });
 
             if (isSaveStatus)
             {
@@ -138,11 +138,11 @@ namespace Avalonia.Controls
             //if (DI.Platform == System.Platform.Windows)
             //{
             ExtendClientAreaToDecorationsHint = true;
-            //ExtendClientAreaTitleBarHeightHint = -1;
+            ExtendClientAreaTitleBarHeightHint = -1;
 
             //}
-            //SystemDecorations = SystemDecorations.BorderOnly;
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+            SystemDecorations = SystemDecorations.Full;
 
             if (DI.Platform == System.Platform.Windows)
             {
@@ -156,15 +156,12 @@ namespace Avalonia.Controls
                 PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
             });
 
-            this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
-                .Subscribe(x =>
-                {
-                    if (!x)
-                    {
-                        SystemDecorations = SystemDecorations.Full;
-                        //TransparencyLevelHint = WindowTransparencyLevel.Blur;
-                    }
-                });
+            //this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
+            //    .Subscribe(x =>
+            //    {
+            //        SystemDecorations = SystemDecorations.Full;
+            //        //TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+            //    });
 
             if (isSaveStatus)
             {

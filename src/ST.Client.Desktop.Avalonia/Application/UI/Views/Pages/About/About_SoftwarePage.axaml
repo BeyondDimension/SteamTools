@@ -79,7 +79,7 @@
   </UserControl.Styles>
   <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto"
-                Padding="{StaticResource PageMargin2}">
+                Padding="{StaticResource PageMargin}">
     <DockPanel>
       <StackPanel Spacing="10" DockPanel.Dock="Top">
         <StackPanel Orientation="Horizontal">

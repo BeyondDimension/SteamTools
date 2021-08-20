@@ -100,7 +100,7 @@
       </TextBox.InnerLeftContent>
     </TextBox>
 
-    <TabControl Classes="flat" Margin="0 30 0 0" ZIndex="1">
+    <TabControl Classes="flat" ZIndex="1">
       <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
           <DataGrid.Columns>

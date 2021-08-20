@@ -30,7 +30,7 @@
         <ItemsRepeater.ItemTemplate>
           <DataTemplate>
             <Border x:Name="card"
-                    Margin="20 0"
+                    Margin="10 0"
                     Classes="paper"
                     Background="{DynamicResource ThemeBrushKey}">
               <!--<Border.Background>

@@ -70,7 +70,7 @@
                Header="筛选"
                ExpandDirection="Down"
                Margin="20 0 20 10">-->
-    <Border DockPanel.Dock="Top" Margin="20 0 20 10">
+    <Border DockPanel.Dock="Top" Margin="10">
       <DockPanel>
         <StackPanel
             Orientation="Horizontal"
@@ -85,11 +85,15 @@
           </StackPanel.Styles>
 
           <Button
+                        HorizontalContentAlignment="Stretch"
                         VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Width="200" Height="35">
             <Button.Content>
               <DockPanel>
-                <TextBlock VerticalAlignment="Center" Text="{Binding TypeFilterString}" TextTrimming="CharacterEllipsis"/>
+                <TextBlock VerticalAlignment="Center"
+                           Text="{Binding TypeFilterString}"
+                           TextTrimming="CharacterEllipsis"/>
                 <PathIcon VerticalAlignment="Center"
                           HorizontalAlignment="Right"
                           Data="{StaticResource ChevronDownDrawing}"
@@ -198,7 +202,7 @@
                         Width="18" Height="18"
                         Opacity="0.8"
                         VerticalAlignment="Top" HorizontalAlignment="Left"
-                        Margin="15,8,0,0" />
+                        Margin="10,5,0,0" />
             </TextBox.InnerLeftContent>
           </TextBox>
         </StackPanel>

@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using FluentAvalonia.Styling;
 using System.Application.UI.ViewModels;
 using System.ComponentModel;
 
@@ -12,6 +13,13 @@ namespace System.Application.UI.Views
         public MainWindow() : base()
         {
             InitializeComponent();
+
+            ExtendClientAreaToDecorationsHint = false;
+            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.Default;
+
+            var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+            thm.ForceNativeTitleBarToTheme(this);
+
 #if DEBUG
             this.AttachDevTools();
 #endif

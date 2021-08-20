@@ -3025,6 +3025,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 全选 的本地化字符串。
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 全选({0}/{1}) 的本地化字符串。
         /// </summary>
         public static string SelectAllText_ {
@@ -4102,6 +4111,15 @@ namespace System.Application.UI.Resx {
         public static string User_UnbundleAccountTip {
             get {
                 return ResourceManager.GetString("User_UnbundleAccountTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未登录 的本地化字符串。
+        /// </summary>
+        public static string User_UnLogin {
+            get {
+                return ResourceManager.GetString("User_UnLogin", resourceCulture);
             }
         }
         

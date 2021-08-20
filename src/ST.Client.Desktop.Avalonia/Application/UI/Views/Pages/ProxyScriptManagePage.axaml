@@ -24,7 +24,7 @@
              Margin="{StaticResource ScrollMargin}">
       <DockPanel>
         <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
-          <ToggleSwitch Content="" OnContent="" OffContent=""
+          <ToggleSwitch Classes="onlyToggleSwitch"
                         Margin="5 0 0 5"
                         IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
                         ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -62,7 +62,7 @@
                         Width="20" Height="20"
                         Opacity="0.8"
                         VerticalAlignment="Top" HorizontalAlignment="Left"
-                        Margin="15,8,0,0" />
+                        Margin="10,5,0,0" />
             </TextBox.InnerLeftContent>
           </TextBox>
         </StackPanel>
@@ -80,13 +80,13 @@
                     Padding="0 0 0 10">
         <ItemsRepeater Items="{Binding ProxyScripts}">
           <ItemsRepeater.Layout>
-            <StackLayout Spacing="20" Orientation="Vertical"/>
+            <StackLayout Spacing="10" Orientation="Vertical"/>
             <!--<UniformGridLayout ItemsJustification="Start" ItemsStretch="Uniform" MinColumnSpacing="20" MinRowSpacing="20" MaximumRowsOrColumns="2" Orientation="Horizontal"/>-->
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
               <Border Classes="paper"
-                      Margin="20 0"
+                      Margin="10 0"
                       Background="{DynamicResource ThemeBrushKey}"
                       Padding="20 10">
                 <DockPanel>
@@ -128,7 +128,7 @@
 
                     <DockPanel VerticalAlignment="Bottom">
                       <StackPanel Orientation="Horizontal" Spacing="10">
-                        <ToggleSwitch OnContent="" OffContent="" IsChecked="{Binding Enable,Mode=TwoWay}">
+                        <ToggleSwitch Classes="onlyToggleSwitch" IsChecked="{Binding Enable,Mode=TwoWay}">
                         </ToggleSwitch>
                         <Button Background="Transparent" Cursor="Hand"
                                 Command="{ReflectionBinding #u.DataContext.EditScriptItemButton}"

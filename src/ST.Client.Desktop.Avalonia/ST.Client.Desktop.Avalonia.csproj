@@ -52,6 +52,7 @@
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
     <None Remove="Application\UI\Assets\movecross.png" />
     <None Remove="Application\UI\Styles\Controls\DateTimePicker.xaml" />
+    <None Remove="Application\UI\Styles\Controls\ToggleSwitch.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,6 +90,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\ToggleSwitch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\Controls\DateTimePicker.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>

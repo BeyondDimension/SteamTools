@@ -17,7 +17,7 @@ namespace System.Application.UI
 
         //Load font resources in the project, you can load multiple font resources
         private readonly Typeface _defaultTypeface =
-            new Typeface("resm:ST.Client.Desktop.Avalonia.Assets.Fonts.WenQuanYiMicroHei-01#WenQuanYi Micro Hei");
+            new Typeface("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
 
         public CustomFontManagerImpl()
         {
@@ -43,27 +43,79 @@ namespace System.Application.UI
 
         private readonly string[] _bcp47 = { CultureInfo.CurrentCulture.ThreeLetterISOLanguageName, CultureInfo.CurrentCulture.TwoLetterISOLanguageName };
 
+        [ThreadStatic] private static string[] t_languageTagBuffer;
+
         public bool TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontFamily fontFamily,
-            CultureInfo culture, out Typeface typeface)
+            CultureInfo culture, out Typeface fontKey)
         {
-            //foreach (var customTypeface in _customTypefaces)
-            //{
-            //    if (customTypeface.GlyphTypeface.GetGlyph((uint)codepoint) == 0)
-            //    {
-            //        continue;
-            //    }
+            SKFontStyle skFontStyle;
 
-            //    typeface = new Typeface(customTypeface.FontFamily.Name, fontStyle, fontWeight);
+            switch (fontWeight)
+            {
+                case FontWeight.Normal when fontStyle == FontStyle.Normal:
+                    skFontStyle = SKFontStyle.Normal;
+                    break;
+                case FontWeight.Normal when fontStyle == FontStyle.Italic:
+                    skFontStyle = SKFontStyle.Italic;
+                    break;
+                case FontWeight.Bold when fontStyle == FontStyle.Normal:
+                    skFontStyle = SKFontStyle.Bold;
+                    break;
+                case FontWeight.Bold when fontStyle == FontStyle.Italic:
+                    skFontStyle = SKFontStyle.BoldItalic;
+                    break;
+                default:
+                    skFontStyle = new SKFontStyle((SKFontStyleWeight)fontWeight, SKFontStyleWidth.Normal, (SKFontStyleSlant)fontStyle);
+                    break;
+            }
 
-            //    return true;
-            //}
+            if (culture == null)
+            {
+                culture = CultureInfo.CurrentUICulture;
+            }
 
-            var fallback = SKFontManager.Default.MatchCharacter(fontFamily?.Name, (SKFontStyleWeight)fontWeight,
-                SKFontStyleWidth.Normal, (SKFontStyleSlant)fontStyle, _bcp47, codepoint);
+            if (t_languageTagBuffer == null)
+            {
+                t_languageTagBuffer = new string[2];
+            }
 
-            typeface = new Typeface(fallback?.FamilyName ?? _defaultFamilyName, fontStyle, fontWeight);
+            t_languageTagBuffer[0] = culture.TwoLetterISOLanguageName;
+            t_languageTagBuffer[1] = culture.ThreeLetterISOLanguageName;
 
-            return true;
+            if (fontFamily != null && fontFamily.FamilyNames.HasFallbacks)
+            {
+                var familyNames = fontFamily.FamilyNames;
+
+                for (var i = 1; i < familyNames.Count; i++)
+                {
+                    var skTypeface =
+                        _skFontManager.MatchCharacter(familyNames[i], skFontStyle, t_languageTagBuffer, codepoint);
+
+                    if (skTypeface == null)
+                    {
+                        continue;
+                    }
+
+                    fontKey = new Typeface(skTypeface.FamilyName, fontStyle, fontWeight);
+
+                    return true;
+                }
+            }
+            else
+            {
+                var skTypeface = _skFontManager.MatchCharacter(null, skFontStyle, t_languageTagBuffer, codepoint);
+
+                if (skTypeface != null)
+                {
+                    fontKey = new Typeface(skTypeface.FamilyName, fontStyle, fontWeight);
+
+                    return true;
+                }
+            }
+
+            fontKey = default;
+
+            return false;
         }
 
         private SKTypeface GetSkTypefaceByFontFamily(Typeface typeface)

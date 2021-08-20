@@ -63,7 +63,7 @@
     </Panel.Styles>
     <controls:TitleBar/>
     <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}"/>
-    <TabControl Margin="0 20 0 0" Padding="0" IsVisible="{Binding !IsLoading}">
+    <TabControl Margin="0 10 0 0" Padding="0" IsVisible="{Binding !IsLoading}">
       <TabControl.Styles>
         <Style Selector="TabItem">
           <Setter Property="FontSize" Value="16"></Setter>

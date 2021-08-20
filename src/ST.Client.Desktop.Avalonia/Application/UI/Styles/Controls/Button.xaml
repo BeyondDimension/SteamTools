@@ -1,91 +1,97 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Design.PreviewWith>
-        <Border Padding="20" Background="Black">
-            <StackPanel Spacing="5">
-                <Button Classes="Hyperlink" Content="Code Font Family" />
-                <Button Classes="CodeButton" Content="Code Font Family" />
-                <Button Classes="flatbutton" Content="Code Font Family" />
-                <Button Classes="action" Content="Code Font Family" />
-            </StackPanel>
-        </Border>
-    </Design.PreviewWith>
-    <Styles.Resources>
-    </Styles.Resources>
-    <Style Selector="Button.CodeButton">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="Cursor" Value="Hand" />
-    </Style>
-    <Style Selector="Button.CodeButton /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="0" />
-        <Setter Property="Padding" Value="8 10" />
-    </Style>
-    <Style Selector="Button.CodeButton:pointerover /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="0" />
-    </Style>
-    <Style Selector="Button.flatbutton:pressed  /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="0" />
-    </Style>
+  <Design.PreviewWith>
+    <Border Padding="20" Background="Black">
+      <StackPanel Spacing="5">
+        <Button Classes="Hyperlink" Content="Code Font Family" />
+        <Button Classes="CodeButton" Content="Code Font Family" />
+        <Button Classes="flatbutton" Content="Code Font Family" />
+        <Button Classes="action" Content="Code Font Family" />
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+  <Styles.Resources>
+  </Styles.Resources>
 
-    <Style Selector="Button.Hyperlink">
-        <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
+  <Style Selector="Button">
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="BorderThickness" Value="0"/>
+  </Style>
 
-    <Style Selector="Button.Hyperlink TextBlock">
-        <Setter Property="TextDecorations" Value="Underline" />
-    </Style>
+  <Style Selector="Button.CodeButton">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Margin" Value="0"/>
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Button.CodeButton /template/ ContentPresenter">
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="8 10" />
+  </Style>
+  <Style Selector="Button.CodeButton:pointerover /template/ ContentPresenter">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector="Button.flatbutton:pressed  /template/ ContentPresenter">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
 
-    <Style Selector="Button.Hyperlink:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperLinkForeground}" />
-    </Style>
+  <Style Selector="Button.Hyperlink">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
 
-    <Style Selector="Button.Hyperlink:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
+  <Style Selector="Button.Hyperlink TextBlock">
+    <Setter Property="TextDecorations" Value="Underline" />
+  </Style>
 
-    <Style Selector="Button.flatbutton">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-    </Style>
-    <Style Selector="Button.flatbutton:pointerover /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="0" />
-    </Style>
-    <Style Selector="Button.flatbutton:pressed  /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="0" />
-    </Style>
+  <Style Selector="Button.Hyperlink:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperLinkForeground}" />
+  </Style>
 
-    <Style Selector="Button.action /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrushKey}" />
-        <Setter Property="Padding" Value="20 10" />
-        <Setter Property="TextBlock.Foreground" Value="#FFFFFFFF" />
-    </Style>
-    <Style Selector="Button.action:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentPointerOverBrushKey}" />
-    </Style>
-    <Style Selector="Button.action:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentPressedBrushKey}" />
-    </Style>
-    <Style Selector="Button.action:disabled /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentDisabledBrushKey}" />
-    </Style>
+  <Style Selector="Button.Hyperlink:pressed /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
 
-    <Style Selector="Button.plain">
-        <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="BorderThickness" Value="0" />
-    </Style>
-    <Style Selector="Button.plain /template/ ContentPresenter">
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
+  <Style Selector="Button.flatbutton">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderBrush" Value="Transparent"/>
+  </Style>
+  <Style Selector="Button.flatbutton:pointerover /template/ ContentPresenter">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector="Button.flatbutton:pressed  /template/ ContentPresenter">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="Button.action /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ThemeAccentBrushKey}" />
+    <Setter Property="Padding" Value="20 10" />
+    <Setter Property="TextBlock.Foreground" Value="#FFFFFFFF" />
+  </Style>
+  <Style Selector="Button.action:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ThemeAccentPointerOverBrushKey}" />
+  </Style>
+  <Style Selector="Button.action:pressed /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ThemeAccentPressedBrushKey}" />
+  </Style>
+  <Style Selector="Button.action:disabled /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ThemeAccentDisabledBrushKey}" />
+  </Style>
+
+  <Style Selector="Button.plain">
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+  <Style Selector="Button.plain /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
 
   <Style Selector="Button.clip">
     <Setter Property="Background" Value="Transparent" />
@@ -98,5 +104,10 @@
     <Setter Property="Height" Value="30" />
     <Setter Property="Width" Value="30" />
     <Setter Property="CornerRadius" Value="15" />
+  </Style>
+
+
+  <Style Selector="ToggleButton">
+    <Setter Property="BorderThickness" Value="0"/>
   </Style>
 </Styles>

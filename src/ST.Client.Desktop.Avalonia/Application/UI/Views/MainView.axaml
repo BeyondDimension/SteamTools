@@ -10,6 +10,7 @@
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
         x:Class="System.Application.UI.Views.MainView"
         FontSize="14"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
@@ -25,7 +26,7 @@
         </Image>-->
     <!--Background-->
     <DockPanel HorizontalAlignment="Stretch" ZIndex="0" IsHitTestVisible="False">
-      <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
+      <ExperimentalAcrylicBorder x:Name="NavBarBackground" IsHitTestVisible="False" DockPanel.Dock="Left" Width="240">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
@@ -38,16 +39,18 @@
     </DockPanel>
 
     <!--Title-->
-    <Grid ColumnDefinitions="240,*,Auto">
+    <!--<Grid ColumnDefinitions="240,*,Auto">
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
         <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
         <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
       </StackPanel>
-      <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}"
+      <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}"
                  Padding="15 8 0 0" FontSize="24" FontWeight="Regular"/>
       <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
-        <!--<Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Classes="BindMenu">
-                </Menu>-->
+
+        <Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Classes="BindMenu">
+        </Menu>
+
         <Menu Classes="BindMenu">
           <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem"
               IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
@@ -63,9 +66,11 @@
                   Stretch="Uniform"
                   Height="20"
                   Width="20">
-                <!--<Image.Clip>
-                                    <EllipseGeometry Rect="0,0,20,20" />
-                                </Image.Clip>-->
+
+                <Image.Clip>
+                  <EllipseGeometry Rect="0,0,20,20" />
+                </Image.Clip>
+
               </Image>
             </MenuItem.Header>
           </MenuItem>
@@ -80,15 +85,18 @@
                      HorizontalAlignment="Stretch"
                      CornerRadius="{DynamicResource OverlayCornerRadius}">
             <StackPanel>
-              <Panel x:Name="UserMenu" Width="300" Margin="0 20">
+              <Panel x:Name="UserMenu" Width="250" Margin="0 20">
                 <StackPanel>
                   <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
                          Stretch="Uniform"
-                         Height="100" Width="100"
+                         Height="100"
+                         Width="100"
                          HorizontalAlignment="Center">
-                    <!--<Image.Clip>
+
+                    <Image.Clip>
                       <EllipseGeometry Rect="0,0,80,80" />
-                    </Image.Clip>-->
+                    </Image.Clip>
+
                   </Image>
                   <TextBlock
                     Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
@@ -106,6 +114,7 @@
                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.Styles>
                   <Style Selector="Button">
+                    <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
                     <Setter Property="Width" Value="{Binding #UserMenu.Width}"></Setter>
                   </Style>
                   <Style Selector="Button > TextBlock">
@@ -133,13 +142,15 @@
                         Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                         CommandParameter="BindPhoneNumber"></Button>
                 </ListBoxItem>
-                <!--<ListBoxItem>
+
+                <ListBoxItem>
                   <Button
                       Classes="CodeButton"
                       Content="{ReflectionBinding Path=Res.DelAccount,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                       CommandParameter="ChangeBindPhoneNumber"></Button>
-                </ListBoxItem>-->
+                </ListBoxItem>
+
                 <ListBoxItem>
                   <Button
                       Classes="CodeButton"
@@ -151,18 +162,161 @@
           </Border>
         </Popup>
       </StackPanel>
-    </Grid>
+    </Grid>-->
 
     <!--Content-->
-    <TabControl
+    <ui:NavigationView x:Name="NavigationView"
+                       PaneDisplayMode="Left"
+                       AlwaysShowHeader="True"
+                       IsSettingsVisible="False"
+                       OpenPaneLength="240"
+                       MenuItems="{Binding TabItems}"
+                       Content="{Binding SelectedItem}"
+                       SelectedItem="{Binding SelectedItem}">
+      <!--<ui:NavigationView.PaneHeader>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
+          <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
+          <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
+        </StackPanel>
+      </ui:NavigationView.PaneHeader>-->
+      <!--<ui:NavigationView.PaneFooter>
+        <ItemsRepeater Items="{Binding FootTabItems}" >
+          <ItemsRepeater.Layout>
+            <StackLayout Orientation="Vertical"/>
+          </ItemsRepeater.Layout>
+          <ItemsRepeater.ItemTemplate>
+            <DataTemplate  DataType="{x:Type vm:TabItemViewModel}">
+              <ui:NavigationViewItem Content="{Binding Name}" IsSelected="">
+                <ui:NavigationViewItem.Icon>
+                  <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
+                               Width="20" Height="20"/>
+                </ui:NavigationViewItem.Icon>
+              </ui:NavigationViewItem>
+            </DataTemplate>
+          </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+      </ui:NavigationView.PaneFooter>-->
+
+      <ui:NavigationView.PaneCustomContent>
+        <ui:Button Cursor="Hand"
+                   Margin="6"
+                   Padding="10 5"
+                   BorderThickness="0"
+                   Background="Transparent"
+                   HorizontalContentAlignment="Stretch"
+                   HorizontalAlignment="Stretch"
+                   Command="{Binding OpenUserMenu}">
+          <DockPanel
+                      HorizontalAlignment="Stretch">
+            <!--<Image x:Name="avater" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
+            <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="18" Margin="8,0,0,0"/>-->
+            <Image x:Name="avater"
+                   Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
+                   Stretch="Uniform"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Height="64"
+                   Width="64"/>
+            <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
+                   HorizontalAlignment="Right"
+                   Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                   FontSize="16"
+                   VerticalAlignment="Center"/>
+            <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                   IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                   HorizontalAlignment="Right"
+                   Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                   FontSize="16"
+                   VerticalAlignment="Center"/>
+          </DockPanel>
+          <ui:Button.Flyout>
+            <ui:MenuFlyout Placement="RightEdgeAlignedTop">
+              <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                                 CommandParameter="UserProfile"/>
+              <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                                 CommandParameter="ChangeBindPhoneNumber"/>
+              <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.User_BindPhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                                 CommandParameter="BindPhoneNumber"/>
+              <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}"/>
+            </ui:MenuFlyout>
+          </ui:Button.Flyout>
+        </ui:Button>
+
+      </ui:NavigationView.PaneCustomContent>
+      <ui:NavigationView.DataTemplates>
+        <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
+          <pages:ProxyScriptManagePage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:DebugPageViewModel">
+          <pages:DebugPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:AboutPageViewModel">
+          <pages:AboutPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:SettingsPageViewModel">
+          <pages:SettingsPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:StartPageViewModel">
+          <pages:StartPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:SteamAccountPageViewModel">
+          <pages:SteamAccountPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:GameListPageViewModel">
+          <pages:GameListPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:CommunityProxyPageViewModel">
+          <pages:CommunityProxyPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:LocalAuthPageViewModel">
+          <pages:LocalAuthPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:GameRelatedPageViewModel">
+          <pages:GameRelatedPage/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:ArchiSteamFarmPlusPageViewModel">
+          <pages:ArchiSteamFarmPlusPage/>
+        </DataTemplate>
+      </ui:NavigationView.DataTemplates>
+      <ui:NavigationView.MenuItemTemplate>
+        <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
+          <!--<DockPanel>
+            <PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
+                  Width="18" Height="18"
+                  HorizontalAlignment="Left"
+                  Margin="0 0 10 0"></PathIcon>
+            <controls:ScrollingTextBlock
+                Text="{Binding Name}"
+                FontSize="14"
+                FontWeight="Regular"></controls:ScrollingTextBlock>
+          </DockPanel>-->
+          <ui:NavigationViewItem Content="{Binding Name,StringFormat={} {0}}">
+            <ui:NavigationViewItem.Icon>
+              <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>
+            </ui:NavigationViewItem.Icon>
+          </ui:NavigationViewItem>
+        </DataTemplate>
+      </ui:NavigationView.MenuItemTemplate>
+    </ui:NavigationView>
+
+    <!--<TabControl
                         Items="{Binding TabItems}"
                         SelectedItem="{Binding SelectedItem}"
                         Margin="0 22 0 0"
                         Classes="NavBar">
       <TabControl.DataTemplates>
-        <!--<DataTemplate DataType="vm:DebugWebViewPageViewModel">
+        -->
+    <!--<DataTemplate DataType="vm:DebugWebViewPageViewModel">
           <pages:DebugWebViewPage/>
         </DataTemplate>-->
+    <!--
         <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
           <pages:ProxyScriptManagePage/>
         </DataTemplate>
@@ -211,7 +365,7 @@
           </DockPanel>
         </DataTemplate>
       </TabControl.ItemTemplate>
-    </TabControl>
+    </TabControl>-->
     <!--Toast-->
     <controls:ToastMessage />
   </Panel>

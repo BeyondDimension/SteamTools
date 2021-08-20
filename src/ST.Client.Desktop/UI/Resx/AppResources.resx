@@ -1330,6 +1330,9 @@
   <data name="User_Login" xml:space="preserve">
     <value>登录</value>
   </data>
+  <data name="User_UnLogin" xml:space="preserve">
+    <value>未登录</value>
+  </data>
   <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
     <value>重新获取({0})</value>
     <comment>Comment=短信验证码倒计时;</comment>
@@ -1544,7 +1547,10 @@
   <data name="Retry" xml:space="preserve">
     <value>重试</value>
   </data>
-  <data name="ScanQRCode" xml:space="preserve">
+    <data name="ScanQRCode" xml:space="preserve">
     <value>扫描二维码</value>
+  </data>
+    <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
   </data>
 </root>
