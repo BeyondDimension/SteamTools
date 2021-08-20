@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <PackageReference Include="DnsClient" Version="1.5.0" />
+    <PackageReference Include="Fleck" Version="1.2.0" />
     <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
     <PackageReference Include="NLog" Version="4.7.11" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.7.3" />

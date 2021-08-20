@@ -1,12 +1,16 @@
+using Fleck;
 using System.Application.Models;
 using System.Application.Mvvm;
 using System.Application.Services;
 using System.Application.Services.CloudService;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using System.Net.WebSocket;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using static System.Application.Services.CloudService.Constants;
 using static System.Application.UI.ViewModels.FastLRBHelper;
@@ -30,7 +34,7 @@ namespace System.Application.UI.ViewModels
             /// <summary>
             /// 当前 WebSocket 服务
             /// </summary>
-            ServerWebSocket? ServerWebSocket { get; set; }
+            WebSocketServer? WebSocketServer { get; set; }
 
             /// <summary>
             /// 当前 WebSocket 服务监听端口号
@@ -54,29 +58,29 @@ namespace System.Application.UI.ViewModels
 
             void OnBindSuccessed() { }
         }
-
+         
         /// <summary>
         /// 当接收到 WebSocket Client 发送的消息时
         /// </summary>
         /// <param name="vm"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        static async Task OnClientReceived(this IViewModel vm, ReceivedEventArgs e)
+        static async Task OnMessage(this IViewModel vm, string msg,IWebSocketConnection socket)
         {
             if (vm.TempAes == null) return;
-            var byteArray = e.Message.Base64UrlDecodeToByteArray();
+            var byteArray = msg.Base64UrlDecodeToByteArray();
             byteArray = vm.TempAes.Decrypt(byteArray);
             var response = ApiResponse.Deserialize<LoginOrRegisterResponse>(byteArray);
             var webResponse = new FastLRBWebResponse();
             if (response.IsSuccess && response.Content == null)
             {
                 webResponse.Msg = ApiResponse.GetMessage(ApiResponseCode.NoResponseContent);
-                await e.Client.WriteAsync(webResponse);
+                await socket.Send(JsonSerializer.Serialize(webResponse));
                 return;
             }
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             webResponse.State = response.IsSuccess;
-            await e.Client.WriteAsync(webResponse); // 仅可在 close 之前传递消息
+            await socket.Send(JsonSerializer.Serialize(webResponse)); // 仅可在 close 之前传递消息
             if (response.IsSuccess)
             {
                 if (vm.IsBind)
@@ -156,6 +160,12 @@ namespace System.Application.UI.ViewModels
             void QQLogin();
         }
 #endif
+        internal static bool IsPortOccupedFun(int port)
+        {
+            IPGlobalProperties iproperties = IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] ipEndPoints = iproperties.GetActiveTcpListeners();
+            return ipEndPoints.Any(x => x.Port == port);
+        }
 
         /// <summary>
         /// 开始第三方快速登录、注册、绑定
@@ -176,14 +186,21 @@ namespace System.Application.UI.ViewModels
                     return;
             }
 #endif
-            if (vm.ServerWebSocket == null)
+            if (vm.WebSocketServer == null)
             {
-                vm.ServerWebSocket = new(IPAddress.Loopback, out var port);
-                vm.ServerWebSocket.AddTo(vm);
-                vm.ServerWebSocketListenerPort = port;
-                vm.ServerWebSocket.OnClientReceived += e => vm.OnClientReceived(e);
+                var random = new Random();
+                int port = random.Next(10000, 25564);
+                while (IsPortOccupedFun(port))
+                {
+                    port = random.Next(10000, 25564);
+                }
+                vm.WebSocketServer = new($"ws://{IPAddress.Loopback}:{port}");
+                vm.WebSocketServer.AddTo(vm);
+                vm.ServerWebSocketListenerPort = port; 
             }
-            vm.ServerWebSocket.Start();
+            vm.WebSocketServer.Start(socket=> {
+                socket.OnMessage =async message =>await vm.OnMessage(message, socket);
+            });
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
 #if DEBUG
@@ -225,7 +242,7 @@ namespace System.Application.UI.ViewModels
 #endif
         : IViewModel
     {
-        ServerWebSocket? IViewModel.ServerWebSocket { get; set; }
+        WebSocketServer? IViewModel.WebSocketServer { get; set; }
 
         int IViewModel.ServerWebSocketListenerPort { get; set; }
 
@@ -242,7 +259,7 @@ namespace System.Application.UI.ViewModels
 #endif
         : IViewModel
     {
-        ServerWebSocket? IViewModel.ServerWebSocket { get; set; }
+        WebSocketServer? IViewModel.WebSocketServer { get; set; }
 
         int IViewModel.ServerWebSocketListenerPort { get; set; }
 
