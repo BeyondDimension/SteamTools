@@ -21,7 +21,7 @@
               Grid.Row="0"
               Grid.ColumnSpan="2"
               Margin="10"
-              Padding="10"
+              Padding="20 10"
               Classes="paper"
               Background="{DynamicResource ThemeBrushKey}">
         <DockPanel>
