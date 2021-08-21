@@ -122,12 +122,25 @@
 
                     </DockPanel>
 
-                    <WrapPanel Orientation="Horizontal">
-                      <TextBlock Text="{Binding AccountName}" FontSize="12" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                      <TextBlock Text="(" FontSize="12" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                      <TextBox Text="{Binding SteamId64_Int,Mode=OneWay}" FontSize="12" Classes="readonlybox" Padding="0" Foreground="{DynamicResource InactiveForegroundBrushKey}" IsReadOnly="True"></TextBox>
-                      <TextBlock Text=")" FontSize="12" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                    </WrapPanel>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock Text="{Binding AccountName}"
+                                 FontSize="12"
+                                 VerticalAlignment="Center"
+                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                      <TextBlock Text="(" FontSize="12"
+                                 VerticalAlignment="Center"
+                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                      <TextBox Text="{Binding SteamId64_Int,Mode=OneWay}"
+                                 FontSize="12"
+                                 VerticalAlignment="Center"
+                                 Classes="readonlybox"
+                                 Padding="0"
+                                 Foreground="{DynamicResource InactiveForegroundBrushKey}" IsReadOnly="True"></TextBox>
+                      <TextBlock Text=")"
+                                 VerticalAlignment="Center"
+                                 FontSize="12"
+                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                    </StackPanel>
                   </StackPanel>
 
                   <WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">

@@ -85,14 +85,14 @@
 
       <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                      VerticalScrollBarVisibility="Auto"
-                     Padding="0 0 0 10">
+                     Padding="10 0 10 10">
         <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
           <ItemsRepeater.Layout>
-            <UniformGridLayout ItemsJustification="SpaceAround"
+            <!--<UniformGridLayout ItemsJustification="SpaceAround"
                                MinRowSpacing="20"
-                               MaximumRowsOrColumns="8"/>
-            <!--<WrapLayout HorizontalSpacing="40"
-                      VerticalSpacing="20" Orientation="Horizontal"></WrapLayout>-->
+                               MaximumRowsOrColumns="8"/>-->
+            <WrapLayout HorizontalSpacing="10"
+                      VerticalSpacing="10" Orientation="Horizontal"/>
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
