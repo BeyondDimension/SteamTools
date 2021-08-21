@@ -63,6 +63,8 @@
         </ui:CommandBar.PrimaryCommands>
         <ui:CommandBar.SecondaryCommands>
           <ui:CommandBarButton Icon="Help"
+                               Command="{Binding OpenBrowserCommand}"
+                               CommandParameter="https://keylol.com/t710508-1-1"
                                Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         </ui:CommandBar.SecondaryCommands>
       </ui:CommandBar>

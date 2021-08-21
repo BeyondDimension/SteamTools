@@ -58,18 +58,6 @@ namespace System.Application.Models.Settings
             = GetProperty(defaultValue: "Default", autoSave: true);
 
         /// <summary>
-        /// 背景图片路径
-        /// </summary>
-        public static SerializableProperty<string> BackgroundImagePath { get; }
-            = GetProperty(defaultValue: string.Empty, autoSave: true);
-
-        /// <summary>
-        /// 主题选择
-        /// </summary>
-        public static SerializableProperty<int> ThemeAccent { get; }
-            = GetProperty(defaultValue: 0, autoSave: true);
-
-        /// <summary>
         /// 窗口毛玻璃背景透明度
         /// </summary>
         public static SerializableProperty<double> AcrylicOpacity { get; }
@@ -100,6 +88,36 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<bool> SteamAccountRemarkReplaceName { get; }
             = GetProperty(defaultValue: false, autoSave: true);
+
+        /// <summary>
+        /// 启用圆角界面
+        /// </summary>
+        public static SerializableProperty<bool> EnableFilletUI { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
+
+        /// <summary>
+        /// 启用自定义背景图标
+        /// </summary>
+        public static SerializableProperty<bool> EnableCustomBackgroundImage { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
+
+        /// <summary>
+        /// 背景图片路径
+        /// </summary>
+        public static SerializableProperty<string> BackgroundImagePath { get; }
+            = GetProperty(defaultValue: "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png", autoSave: true);
+
+        /// <summary>
+        /// 主题颜色(十六进制字符串)
+        /// </summary>
+        public static SerializableProperty<string> ThemeAccent { get; }
+            = GetProperty(defaultValue: "#FF0078D7", autoSave: true);
+
+        /// <summary>
+        /// 主题颜色从系统获取
+        /// </summary>
+        public static SerializableProperty<bool> GetUserThemeAccent { get; }
+            = GetProperty(defaultValue: true, autoSave: true);
 #endif
     }
 }

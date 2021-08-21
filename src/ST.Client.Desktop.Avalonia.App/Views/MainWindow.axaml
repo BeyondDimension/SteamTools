@@ -11,7 +11,7 @@
         x:Class="System.Application.UI.Views.MainWindow"
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
-        ExtendClientAreaTitleBarHeightHint="50"
+        ExtendClientAreaTitleBarHeightHint="30"
         Background="Transparent"
         Title="{Binding Title,Mode=OneWay}"
         Topmost="{Binding Topmost}"

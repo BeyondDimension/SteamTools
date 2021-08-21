@@ -24,7 +24,10 @@
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
 
-    <sty:FluentAvaloniaTheme ControlsVersion="2" RequestedTheme="Dark" DefaultToUserTheme="False"/>
+    <sty:FluentAvaloniaTheme ControlsVersion="2" 
+                             RequestedTheme="Dark" 
+                             DefaultToUserTheme="False" 
+                             UseSegoeUIOnWindows="False"/>
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
 

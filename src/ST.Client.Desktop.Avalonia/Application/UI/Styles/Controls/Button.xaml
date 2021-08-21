@@ -36,25 +36,62 @@
   </Style>
 
   <Style Selector="Button.Hyperlink">
-    <Setter Property="TextBlock.Foreground" Value="{DynamicResource SystemControlHyperlinkTextBrush}" />
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackground}" />
+    <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForeground}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrush}" />
+    <Setter Property="BorderThickness" Value="{DynamicResource HyperlinkButtonBorderThemeThickness}" />
     <Setter Property="Padding" Value="0" />
-    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Padding="{TemplateBinding Padding}"
+                          CornerRadius="{DynamicResource ControlCornerRadius}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                          TextBlock.Foreground="{TemplateBinding Foreground}">
+          <ContentPresenter.Styles>
+            <Style Selector="TextBlock">
+              <Setter Property="TextDecorations" Value="Underline" />
+            </Style>
+          </ContentPresenter.Styles>
+        </ContentPresenter>
+      </ControlTemplate>
+    </Setter>
   </Style>
-
-  <Style Selector="Button.Hyperlink TextBlock">
-    <Setter Property="TextDecorations" Value="Underline" />
+  
+  <Style Selector="Button.Hyperlink:pointerover /template/ ContentPresenter#ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkButtonForegroundPointerOver}" />
+    <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackgroundPointerOver}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrushPointerOver}" />
   </Style>
-
-  <Style Selector="Button.Hyperlink:pointerover /template/ ContentPresenter">
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperLinkForeground}" />
+  <Style Selector="Button.Hyperlink:pressed /template/ ContentPresenter#ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkButtonForegroundPressed}" />
+    <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackgroundPressed}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrushPressed}" />
+  </Style>
+  <Style Selector="Button.Hyperlink:disabled /template/ ContentPresenter#ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkButtonForegroundDisabled}" />
+    <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackgroundDisabled}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource HyperlinkButtonBorderBrushDisabled}" />
+  </Style>
+  
+  <!--<Style Selector="Button.Hyperlink:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackground}" />
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource HyperlinkButtonForeground}" />
   </Style>
 
   <Style Selector="Button.Hyperlink:pressed /template/ ContentPresenter">
     <Setter Property="Background" Value="Transparent" />
-  </Style>
+  </Style>-->
 
   <Style Selector="Button.flatbutton">
     <Setter Property="Background" Value="Transparent"/>

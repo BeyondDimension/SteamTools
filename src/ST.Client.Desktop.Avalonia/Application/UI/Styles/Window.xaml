@@ -1,0 +1,22 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop">
+  <Design.PreviewWith>
+  </Design.PreviewWith>
+  <Styles.Resources>
+    <!--<FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>-->
+  </Styles.Resources>
+
+  <Style Selector=":is(TemplatedControl)">
+    <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></Setter>
+  </Style>
+
+  <Style Selector="Window">
+    <Setter Property="Title" Value="{Binding Title,Mode=OneWay}"/>
+    <!--<Setter Property="FontSize" Value="14"></Setter>-->
+    <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></Setter>
+    <Setter Property="Background" Value="Transparent"></Setter>
+    <Setter Property="TransparencyLevelHint" Value="AcrylicBlur"></Setter>
+  </Style>
+
+</Styles>

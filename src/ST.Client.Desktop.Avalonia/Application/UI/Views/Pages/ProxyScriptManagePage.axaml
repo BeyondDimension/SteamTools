@@ -140,6 +140,7 @@
                     <DockPanel VerticalAlignment="Bottom">
                       <StackPanel Orientation="Horizontal" Spacing="10">
                         <ToggleSwitch Classes="onlyToggleSwitch" 
+                                      Margin="0 -5 0 0"
                                       IsChecked="{Binding Enable,Mode=TwoWay}"
                                       VerticalAlignment="Center">
                         </ToggleSwitch>

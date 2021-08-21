@@ -37,10 +37,10 @@
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
         </ui:CommandBar.PrimaryCommands>
-        <ui:CommandBar.SecondaryCommands>
+        <!--<ui:CommandBar.SecondaryCommands>
           <ui:CommandBarButton Icon="Help"
                                Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        </ui:CommandBar.SecondaryCommands>
+        </ui:CommandBar.SecondaryCommands>-->
       </ui:CommandBar>
     </Border>
 

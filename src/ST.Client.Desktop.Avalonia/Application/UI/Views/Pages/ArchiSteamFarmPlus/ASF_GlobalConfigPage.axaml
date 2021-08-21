@@ -18,7 +18,7 @@
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_GlobalConfigPage">
-  <StackPanel Spacing="20" Margin="20 0">
+  <StackPanel Spacing="20" Margin="10 0">
     <StackPanel.Styles>
       <Style Selector="TextBlock">
         <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>

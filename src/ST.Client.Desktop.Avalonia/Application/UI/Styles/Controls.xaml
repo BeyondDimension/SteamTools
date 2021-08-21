@@ -18,6 +18,7 @@
     <SolidColorBrush x:Key="TransparentColor">#00000000</SolidColorBrush>
     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="TransparentColor" />
   </Styles.Resources>
+  <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
   <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />

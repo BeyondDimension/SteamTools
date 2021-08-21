@@ -2809,6 +2809,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 重置 的本地化字符串。
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 重试 的本地化字符串。
         /// </summary>
         public static string Retry {
@@ -3304,6 +3313,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 主题色 的本地化字符串。
+        /// </summary>
+        public static string Settings_ThemeAccent {
+            get {
+                return ResourceManager.GetString("Settings_ThemeAccent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 界面设置 的本地化字符串。
         /// </summary>
         public static string Settings_UI {
@@ -3322,6 +3340,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 自定义 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_Custom {
+            get {
+                return ResourceManager.GetString("Settings_UI_Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 自定义背景图片 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_CustomBackgroundImage {
+            get {
+                return ResourceManager.GetString("Settings_UI_CustomBackgroundImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 深色 的本地化字符串。
         /// </summary>
         public static string Settings_UI_Dark {
@@ -3331,11 +3367,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启用圆角界面 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_EnableFilletUI {
+            get {
+                return ResourceManager.GetString("Settings_UI_EnableFilletUI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 浅色 的本地化字符串。
         /// </summary>
         public static string Settings_UI_Light {
             get {
                 return ResourceManager.GetString("Settings_UI_Light", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择图片 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_SelectImage {
+            get {
+                return ResourceManager.GetString("Settings_UI_SelectImage", resourceCulture);
             }
         }
         

@@ -158,7 +158,8 @@ namespace System.Application.UI
             {
                 case FontFamily.DefaultFontFamilyName:
                 case "WenQuanYi Micro Hei":  //font family name
-                    skTypeface = GetSkTypefaceByFontFamily(_defaultTypeface); break;
+                    skTypeface = GetSkTypefaceByFontFamily(_defaultTypeface); 
+                    break;
                 default:
                     skTypeface = GetSkTypefaceByFontFamily(typeface);
                     break;

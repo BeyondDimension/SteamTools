@@ -1,4 +1,5 @@
-﻿using System.Application.Models;
+using Avalonia.Data;
+using System.Application.Models;
 using System.Globalization;
 using System.IO;
 
@@ -60,7 +61,7 @@ namespace System.Application.Converters
                 }
                 return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid), width);
             }
-            throw new NotSupportedException();
+            return BindingOperations.DoNothing;
         }
     }
 }

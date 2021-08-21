@@ -1,3 +1,4 @@
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using System.Globalization;
 
@@ -16,7 +17,11 @@ namespace System.Application.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (targetType == typeof(string))
+            {
+                return value.ToString();
+            }
+            return value;
         }
     }
 }

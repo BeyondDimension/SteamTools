@@ -5,9 +5,13 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.FileFormats;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Essentials;
+using static System.Application.FilePicker2;
 
 namespace System.Application.UI.ViewModels
 {
@@ -51,6 +55,9 @@ namespace System.Application.UI.ViewModels
             get => _UpdateChannels;
             set => this.RaiseAndSetIfChanged(ref _UpdateChannels, value);
         }
+
+        public ICommand SelectImage_Click { get; }
+        public ICommand ResetImage_Click { get; }
 #endif
 
         public SettingsPageViewModel()
@@ -70,6 +77,21 @@ namespace System.Application.UI.ViewModels
 
 
             UpdateChannels = Enum.GetValues<UpdateChannelType>();
+
+            SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
+                {
+                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("Image Files", new[] { FileEx.BMP ,FileEx.JPG,FileEx.JPEG,FileEx.PNG,FileEx.GIF,FileEx.WEBP}),
+                        ("All Files", new[] { "*" }),
+                    }),
+                    _ => null,
+                };
+                await PickAsync(SetBackgroundImagePath, fileTypes);
+            });
+
+            ResetImage_Click = ReactiveCommand.Create(() => SetBackgroundImagePath(null));
 #endif
         }
 
@@ -102,6 +124,28 @@ namespace System.Application.UI.ViewModels
                 IDesktopPlatformService.Instance.OpenFolder(path);
                 if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
             }
+        }
+
+        public void SetBackgroundImagePath(string? imagePath)
+        {
+            if (imagePath == null)
+            {
+                UISettings.BackgroundImagePath.Reset();
+                return;
+            }
+            if (File.Exists(imagePath))
+            {
+                if (IOPath.TryOpenRead(imagePath, out var stream, out var _))
+                {
+                    var image = FileFormat.IsImage(stream);
+                    if (image.isImage)
+                    {
+                        UISettings.BackgroundImagePath.Value = imagePath;
+                        return;
+                    }
+                }
+            }
+            Toast.Show("选择的图片格式不正确");
         }
 #endif
 

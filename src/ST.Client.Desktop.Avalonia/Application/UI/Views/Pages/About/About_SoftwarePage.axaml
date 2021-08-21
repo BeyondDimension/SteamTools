@@ -65,11 +65,6 @@
     <Style Selector="TextBlock.Header">
       <Setter Property="FontWeight" Value="Regular" />
     </Style>
-    <Style Selector="TextBlock.Hyperlink">
-      <Setter Property="TextDecorations" Value="Underline" />
-      <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
-      <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
     <Style Selector="TextBox.Content">
       <Setter Property="Padding" Value="0" />
       <Setter Property="FontSize" Value="{StaticResource FontSizeH6}" />
@@ -97,49 +92,47 @@
                    IsReadOnly="True"
                    MinWidth="10"
                    Text="{Binding VersionDisplay,Mode=OneTime}"/>
-          <Button Classes="plain"
+          <Button Classes="Hyperlink"
+                  Content="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}"
                   Command="{Binding CheckUpdateCommand}"
                   VerticalAlignment="Center"
-                  VerticalContentAlignment="Center">
-            <TextBlock Text="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}" Classes="Hyperlink" />
-          </Button>
-          <Button Classes="plain"
+                  VerticalContentAlignment="Center"/>
+          <Button Classes="Hyperlink"
+                  Content="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}"
                   Command="{Binding OpenBrowserCommand}"
                   CommandParameter="{x:Static vm:AboutPageViewModel.ChangeLogLink}"
                   VerticalAlignment="Center"
-                  VerticalContentAlignment="Center">
-            <TextBlock Text="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
-          </Button>
+                  VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
                      Text="Developers:"
                      VerticalAlignment="Center"/>
-          <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                          CommandParameter="{x:Static vm:AboutPageViewModel.RmbadminLink}">
-            <TextBlock Text="@软妹币玩家" Classes="Hyperlink" />
-          </Button>
+          <Button Classes="Hyperlink"
+                  Content="@软妹币玩家"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.RmbadminLink}"/>
           <TextBlock Classes="LinkSeparatorPadding" Text="-" />
-          <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                          CommandParameter="{x:Static vm:AboutPageViewModel.AigioLLink}">
-            <TextBlock Text="@AigioL" Classes="Hyperlink" />
-          </Button>
+          <Button Classes="Hyperlink"
+                  Content="@AigioL"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.AigioLLink}"/>
           <TextBlock Classes="LinkSeparatorPadding" Text="-" />
-          <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                          CommandParameter="{x:Static vm:AboutPageViewModel.MossimosLink}">
-            <TextBlock Text="@Mossimos" Classes="Hyperlink" />
-          </Button>
+          <Button Classes="Hyperlink"
+                  Content="@Mossimos"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.MossimosLink}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
                      Text="Business Cooperation Contact:"
                      VerticalAlignment="Center"/>
-          <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                          CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}">
-            <TextBlock Text="@Cliencer克总" Classes="Hyperlink" />
-          </Button>
+          <Button Classes="Hyperlink"
+                  Content="@Cliencer克总"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}"/>
         </StackPanel>
 
         <WrapPanel>
@@ -147,11 +140,10 @@
                      VerticalAlignment="Center"
                      Text="This open source software is licensed with " />
           <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
-            <Button Classes="plain"
+            <Button Classes="Hyperlink"
+                    Content="GPLv3 License"
                     Command="{Binding OpenBrowserCommand}"
-                    CommandParameter="{x:Static vm:AboutPageViewModel.LicenseLink}">
-              <TextBlock Text="GPLv3 License" Classes="Hyperlink" />
-            </Button>
+                    CommandParameter="{x:Static vm:AboutPageViewModel.LicenseLink}"/>
           </StackPanel>
         </WrapPanel>
 
@@ -184,58 +176,63 @@
                     DockPanel.Dock="Bottom" HorizontalAlignment="Center" Orientation="Vertical">
           <WrapPanel Margin="0 0 0 10" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
-              <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
+              <Button Classes="Hyperlink"
+                      Content="Source Code (Github)"
+                      Command="{Binding OpenBrowserCommand}"
                       CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
-                <TextBlock Text="Source Code (Github)" Classes="Hyperlink" />
               </Button>
             </StackPanel>
             <TextBlock Classes="LinkSeparatorPadding" Text="-" />
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
-              <Button Classes="plain"
+              <Button Classes="Hyperlink"
+                      Content="Website"
                       Command="{Binding OpenBrowserCommand}"
                       CommandParameter="{x:Static vm:AboutPageViewModel.OfficialLink}">
-                <TextBlock Text="Website" Classes="Hyperlink" />
               </Button>
             </StackPanel>
             <TextBlock Classes="LinkSeparatorPadding" Text="-" />
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
-              <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
+              <Button Classes="Hyperlink"
+                      Content="User Support"  
+                      Command="{Binding OpenBrowserCommand}"
                       CommandParameter="{x:Static vm:AboutPageViewModel.UserSupportLink}">
-                <TextBlock Text="User Support" Classes="Hyperlink" />
               </Button>
             </StackPanel>
             <TextBlock Classes="LinkSeparatorPadding" Text="-" />
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
-              <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
+              <Button Classes="Hyperlink"
+                      Content="Bug Reporting"
+                      Command="{Binding OpenBrowserCommand}"
                       CommandParameter="{x:Static vm:AboutPageViewModel.BugReportLink}">
-                <TextBlock Text="Bug Reporting" Classes="Hyperlink" />
               </Button>
             </StackPanel>
             <TextBlock Classes="LinkSeparatorPadding" Text="-" />
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
-              <Button Classes="plain"
+              <Button Classes="Hyperlink"
+                      Content="FAQ"
                       Command="{Binding OpenBrowserCommand}"
                       CommandParameter="{x:Static vm:AboutPageViewModel.FAQLink}">
-                <TextBlock Text="FAQ" Classes="Hyperlink" />
               </Button>
             </StackPanel>
           </WrapPanel>
           <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
-            <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                            CommandParameter="{x:Static vm:AboutPageViewModel.AgreementLink}">
-              <TextBlock Text="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
+            <Button Classes="Hyperlink"
+                      Content="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding OpenBrowserCommand}"
+                      CommandParameter="{x:Static vm:AboutPageViewModel.AgreementLink}">
             </Button>
             <TextBlock Classes="LinkSeparatorPadding" Text="-" />
-            <Button Classes="plain" Command="{Binding OpenBrowserCommand}"
-                        CommandParameter="{x:Static vm:AboutPageViewModel.PrivacyLink}">
-              <TextBlock Text="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
+            <Button Classes="Hyperlink"
+                      Content="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding OpenBrowserCommand}"
+                      CommandParameter="{x:Static vm:AboutPageViewModel.PrivacyLink}">
             </Button>
             <TextBlock Classes="LinkSeparatorPadding" Text="-"
                        IsVisible="{ReflectionBinding Path=IsAuthenticated,Source={x:Static service:UserService.Current}}" />
-            <Button Classes="plain"
-                    Command="{Binding DelAccountCommand}"
-                    IsVisible="{ReflectionBinding Path=IsAuthenticated,Source={x:Static service:UserService.Current}}">
-              <TextBlock Text="{ReflectionBinding Path=Res.DelAccount,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="Hyperlink" />
+            <Button Classes="Hyperlink"
+                      Content="{ReflectionBinding Path=Res.DelAccount,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding DelAccountCommand}"
+                      IsVisible="{ReflectionBinding Path=IsAuthenticated,Source={x:Static service:UserService.Current}}">
             </Button>
           </StackPanel>
           <WrapPanel HorizontalAlignment="Center">

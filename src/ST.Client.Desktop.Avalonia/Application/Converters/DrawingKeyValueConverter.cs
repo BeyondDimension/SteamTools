@@ -1,7 +1,8 @@
-﻿using System.Application.Services;
+using System.Application.Services;
 using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Platform;
 
@@ -19,12 +20,12 @@ namespace System.Application.Converters
             {
                 return IDesktopAvaloniaAppService.Instance.Current.FindResource(key);
             }
-            throw new NotSupportedException();
+            return BindingOperations.DoNothing;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException();
+            return BindingOperations.DoNothing;
         }
     }
 }

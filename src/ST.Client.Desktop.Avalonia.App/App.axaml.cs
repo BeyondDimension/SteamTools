@@ -30,6 +30,7 @@ using System.Application.Security;
 using Avalonia;
 using Avalonia.Platform;
 using FluentAvalonia.Styling;
+using Avalonia.Media;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -119,8 +120,28 @@ namespace System.Application.UI
                 Source = uri_1,
             };
 
+            AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = the;
+        }
+
+        public void SetThemeAccent(string? colorHex)
+        {
+            if (colorHex == null)
+            {
+                return;
+            }
             var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-            thm.RequestedTheme = the;
+
+            if (Color.TryParse(colorHex, out var color))
+            {
+                thm.CustomAccentColor = color;
+            }
+            else
+            {
+                if (colorHex.Equals(bool.TrueString, StringComparison.OrdinalIgnoreCase))
+                {
+                    thm.CustomAccentColor = null;
+                }
+            }
         }
 
         readonly Dictionary<string, ICommand> mNotifyIconMenus = new();
@@ -158,6 +179,8 @@ namespace System.Application.UI
             StartupTrace.Restart("Theme");
 #endif
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+            UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
+            UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
             GeneralSettings.InitWindowsStartupAutoRun();
 #if StartupTrace

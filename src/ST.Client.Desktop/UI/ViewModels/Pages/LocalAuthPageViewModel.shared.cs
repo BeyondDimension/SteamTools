@@ -27,6 +27,7 @@ namespace System.Application.UI.ViewModels
             IconKey = nameof(LocalAuthPageViewModel).Replace("ViewModel", "Svg");
 #endif
 
+            OpenBrowserCommand = ReactiveCommand.Create<string>(Services.CloudService.Constants.BrowserOpen);
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.CreateFromTask(async () =>
             {
@@ -111,6 +112,8 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Task> LockCommand { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshAuthCommand { get; }
+
+        public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
 #if __MOBILE__
         private bool _IsFirstLoadedAuthenticatorsEmpty;

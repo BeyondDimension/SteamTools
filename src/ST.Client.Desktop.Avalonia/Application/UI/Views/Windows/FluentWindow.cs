@@ -61,8 +61,7 @@ namespace Avalonia.Controls
 
                 if (DI.IsWindows10OrLater)
                 {
-                    var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-                    thm.ForceNativeTitleBarToTheme(this);
+                    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
                 }
             }
         }
@@ -185,8 +184,7 @@ namespace Avalonia.Controls
 
                 if (DI.IsWindows10OrLater)
                 {
-                    var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-                    thm.ForceNativeTitleBarToTheme(this);
+                    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
                 }
             }
         }

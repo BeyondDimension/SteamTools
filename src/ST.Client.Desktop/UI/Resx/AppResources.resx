@@ -1102,6 +1102,15 @@
   <data name="Settings_Theme" xml:space="preserve">
     <value>主题</value>
   </data>
+  <data name="Settings_ThemeAccent" xml:space="preserve">
+    <value>主题色</value>
+  </data>
+  <data name="Settings_UI_Custom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
+    <value>启用圆角界面</value>
+  </data>
   <data name="Settings_UI" xml:space="preserve">
     <value>界面设置</value>
   </data>
@@ -1555,5 +1564,14 @@
   </data>
   <data name="Helper" xml:space="preserve">
     <value>帮助</value>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
+    <value>自定义背景图片</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Settings_UI_SelectImage" xml:space="preserve">
+    <value>选择图片</value>
   </data>
 </root>
