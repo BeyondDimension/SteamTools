@@ -196,11 +196,11 @@ namespace System.Application.UI.ViewModels
                 }
                 vm.WebSocketServer = new($"ws://{IPAddress.Loopback}:{port}");
                 vm.WebSocketServer.AddTo(vm);
-                vm.ServerWebSocketListenerPort = port; 
-            }
-            vm.WebSocketServer.Start(socket=> {
-                socket.OnMessage =async message =>await vm.OnMessage(message, socket);
-            });
+                vm.ServerWebSocketListenerPort = port;
+                vm.WebSocketServer.Start(socket => {
+                    socket.OnMessage = async message => await vm.OnMessage(message, socket);
+                });
+            } 
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
 #if DEBUG
