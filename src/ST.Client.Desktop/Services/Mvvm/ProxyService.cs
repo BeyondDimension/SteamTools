@@ -435,21 +435,29 @@ namespace System.Application.Services
             }
         }
 
-        private Timer timer;
+        private Timer? timer;
 
         public void StartTimer()
         {
             AccelerateTime = new DateTimeOffset().Add((DateTimeOffset.Now - _StartAccelerateTime));
-            timer = new Timer((state) =>
+
+            if (timer == null)
             {
-                Thread.CurrentThread.IsBackground = true;
-                AccelerateTime = AccelerateTime.AddSeconds(1);
-            }, nameof(AccelerateTime), 1000, 1000);
+                timer = new Timer((state) =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    AccelerateTime = AccelerateTime.AddSeconds(1);
+                }, nameof(AccelerateTime), 1000, 1000);
+            }
         }
 
         public void StopTimer()
         {
-            timer.Dispose();
+            if (timer != null)
+            {
+                timer.Dispose();
+                timer = null;
+            }
         }
 
         public static void OnExitRestoreHosts()

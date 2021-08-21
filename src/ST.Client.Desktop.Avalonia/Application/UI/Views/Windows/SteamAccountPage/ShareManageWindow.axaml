@@ -52,7 +52,8 @@
                HorizontalAlignment="Center"/>
     <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                    VerticalScrollBarVisibility="Auto"
-                   Padding="{StaticResource TitleBarAfterMargin}">
+                   Margin="{StaticResource TitleBarAfterMargin}"
+                   Padding="0 10">
       <ItemsRepeater Items="{CompiledBinding AuthorizedList}">
         <ItemsRepeater.Layout>
           <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
@@ -64,7 +65,7 @@
             <Border x:Name="card"
                     Classes="paper"
                     Background="{DynamicResource ThemeBrushKey}"
-                    Margin="5"  >
+                    Margin="10 0">
               <Grid Height="92"
                     ColumnDefinitions="Auto,*,Auto">
                 <Panel x:Name="avatar"
@@ -152,7 +153,7 @@
                     </Button>
                   </Panel>-->
                   <WrapPanel Grid.Row="1" Orientation="Horizontal">
-                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" 
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
                             IsEnabled="{Binding !First}"
                             BorderThickness=".66 .66 .66 0"
                             ToolTip.Tip="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -165,7 +166,7 @@
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
                     </Border>
-                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" 
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
                             IsEnabled="{Binding !First}"
                             BorderThickness=".66 .66 .66 0"
                             ToolTip.Tip="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -178,7 +179,7 @@
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
                     </Border>
-                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" 
+                    <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
                             IsEnabled="{Binding !End}"
                             BorderThickness="0 .66 0 0"
                             ToolTip.Tip="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}">

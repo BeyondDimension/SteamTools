@@ -156,6 +156,7 @@
         </WrapPanel>
 
         <TextBox Classes="readonlybox"
+                 IsReadOnly="True"
                  Padding="0"
                  TextWrapping="Wrap">
           <TextBox.Text>

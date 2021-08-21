@@ -75,7 +75,7 @@ namespace System.Application.UI.ViewModels
                             { IconKey="RefreshDrawing" , Command = RefreshCommand},
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
                         {
-                            IconKey="MoreDrawing",
+                            IconKey="CertificateDrawing",
                             Items = new[]
                             {
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)){ IconKey="CertificateDrawing", Command=SetupCertificateCommand },
@@ -83,7 +83,7 @@ namespace System.Application.UI.ViewModels
                                 new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ IconKey="FolderOpenDrawing", Command=OpenCertificateDirCommand },
                             }
                         },
-                         new MenuItemViewModel (),
+                        new MenuItemViewModel (),
                         new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
                         //new MenuItemViewModel (nameof(AppResources.CommunityFix_NetworkFix)){ Command=NetworkFixCommand },
                 //    }

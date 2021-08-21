@@ -1611,6 +1611,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 帮助 的本地化字符串。
+        /// </summary>
+        public static string Helper {
+            get {
+                return ResourceManager.GetString("Helper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 写入的 hosts 已经存在 的本地化字符串。
         /// </summary>
         public static string Hosts_Exists {

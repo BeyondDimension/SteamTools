@@ -31,20 +31,34 @@
                         VerticalAlignment="Center"></ToggleSwitch>
 
           <controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />
-          <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}" Background="Transparent" Cursor="Hand" Command="{Binding AddNewScriptButton_Click}"
+          <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}" 
+                  Background="Transparent" 
+                  Cursor="Hand" 
+                  Command="{Binding AddNewScriptButton_Click}"
                    ToolTip.Tip="{ReflectionBinding Path=Res.Import,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource AddDrawing}" />
           </Button>
-          <Button Background="Transparent" Cursor="Hand"
+          <Button Background="Transparent" 
+                  Cursor="Hand"
                   Command="{ReflectionBinding RefreshScriptButton}"
                   ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
           </Button>
-          <Button Background="Transparent" Cursor="Hand"
+          <Button Background="Transparent" 
+                  Cursor="Hand"
                   Command="{Binding ScriptStoreCommand}"
                   ToolTip.Tip="{ReflectionBinding Path=Res.ScriptStore,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource JavaScriptDrawing}" />
           </Button>
+          <Menu Classes="BindMenu">
+            <MenuItem Items="{Binding MenuItems}"
+                      Classes="BindItem"
+                      IsVisible="{Binding !MenuItems,Converter={StaticResource IsNullConverter}}">
+              <MenuItem.Header>
+                <PathIcon Data="{StaticResource MoreDrawing}" Width="14"></PathIcon>
+              </MenuItem.Header>
+            </MenuItem>
+          </Menu>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"

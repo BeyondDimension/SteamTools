@@ -191,9 +191,7 @@
                        AlwaysShowHeader="True"
                        IsSettingsVisible="False"
                        OpenPaneLength="240"
-                       
                        MenuItems="{Binding TabItems}"
-                       Content="{Binding SelectedItem}"
                        SelectedItem="{Binding SelectedItem}">
       <!--<ui:NavigationView.PaneHeader>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
@@ -201,7 +199,47 @@
           <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
         </StackPanel>
       </ui:NavigationView.PaneHeader>-->
-      
+
+      <ui:NavigationView.Content>
+        <ui:Frame Content="{Binding SelectedItem}">
+          <ui:Frame.DataTemplates>
+            <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
+              <pages:ProxyScriptManagePage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:DebugPageViewModel">
+              <pages:DebugPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:AboutPageViewModel">
+              <pages:AboutPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:SettingsPageViewModel">
+              <pages:SettingsPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:StartPageViewModel">
+              <pages:StartPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:SteamAccountPageViewModel">
+              <pages:SteamAccountPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:GameListPageViewModel">
+              <pages:GameListPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:CommunityProxyPageViewModel">
+              <pages:CommunityProxyPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:LocalAuthPageViewModel">
+              <pages:LocalAuthPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:GameRelatedPageViewModel">
+              <pages:GameRelatedPage/>
+            </DataTemplate>
+            <DataTemplate DataType="vm:ArchiSteamFarmPlusPageViewModel">
+              <pages:ArchiSteamFarmPlusPage/>
+            </DataTemplate>
+          </ui:Frame.DataTemplates>
+        </ui:Frame>
+      </ui:NavigationView.Content>
+
       <ui:NavigationView.PaneCustomContent>
         <ui:Button Cursor="Hand"
                    Margin="6"
@@ -261,48 +299,13 @@
         </ui:Button>
 
       </ui:NavigationView.PaneCustomContent>
-      
-      <ui:NavigationView.DataTemplates>
-        <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
-          <pages:ProxyScriptManagePage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:DebugPageViewModel">
-          <pages:DebugPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:AboutPageViewModel">
-          <pages:AboutPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:SettingsPageViewModel">
-          <pages:SettingsPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:StartPageViewModel">
-          <pages:StartPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:SteamAccountPageViewModel">
-          <pages:SteamAccountPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:GameListPageViewModel">
-          <pages:GameListPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:CommunityProxyPageViewModel">
-          <pages:CommunityProxyPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:LocalAuthPageViewModel">
-          <pages:LocalAuthPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:GameRelatedPageViewModel">
-          <pages:GameRelatedPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:ArchiSteamFarmPlusPageViewModel">
-          <pages:ArchiSteamFarmPlusPage/>
-        </DataTemplate>
-      </ui:NavigationView.DataTemplates>
-      
+
       <ui:NavigationView.MenuItemTemplate>
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
           <ui:NavigationViewItem Content="{Binding Name,StringFormat={} {0}}">
             <ui:NavigationViewItem.Icon>
-              <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>
+              <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
+                           Width="18" Height="16"/>
             </ui:NavigationViewItem.Icon>
           </ui:NavigationViewItem>
         </DataTemplate>
