@@ -28,11 +28,6 @@ namespace Avalonia.Controls
             SystemDecorations = SystemDecorations.Full;
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
 
-            if (DI.Platform == System.Platform.Windows)
-            {
-                DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
-            }
-
             this.GetObservable(WindowStateProperty)
             .Subscribe(x =>
             {
@@ -56,10 +51,19 @@ namespace Avalonia.Controls
                 this.PositionChanged += FluentWindow_PositionChanged;
             }
 
-            if (DI.IsWindows10OrLater)
+
+            if (!ViewModelBase.IsInDesignMode)
             {
-                var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-                thm.ForceNativeTitleBarToTheme(this);
+                if (DI.Platform == System.Platform.Windows)
+                {
+                    DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+                }
+
+                if (DI.IsWindows10OrLater)
+                {
+                    var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+                    thm.ForceNativeTitleBarToTheme(this);
+                }
             }
         }
 
@@ -151,11 +155,6 @@ namespace Avalonia.Controls
             TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
             SystemDecorations = SystemDecorations.Full;
 
-            if (DI.Platform == System.Platform.Windows)
-            {
-                DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
-            }
-
             this.GetObservable(WindowStateProperty)
             .Subscribe(x =>
             {
@@ -177,10 +176,18 @@ namespace Avalonia.Controls
                     this.PositionChanged += FluentWindow_PositionChanged;
             }
 
-            if (DI.IsWindows10OrLater)
+            if (!ViewModelBase.IsInDesignMode)
             {
-                var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-                thm.ForceNativeTitleBarToTheme(this);
+                if (DI.Platform == System.Platform.Windows)
+                {
+                    DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+                }
+
+                if (DI.IsWindows10OrLater)
+                {
+                    var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+                    thm.ForceNativeTitleBarToTheme(this);
+                }
             }
         }
 
@@ -235,7 +242,7 @@ namespace Avalonia.Controls
 
             if (DI.Platform == System.Platform.Windows)
             {
-                ExtendClientAreaChromeHints = 
+                ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
             }
             else if (DI.IsmacOS)

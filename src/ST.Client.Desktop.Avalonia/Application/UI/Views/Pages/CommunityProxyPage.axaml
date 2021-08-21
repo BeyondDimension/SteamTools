@@ -48,7 +48,7 @@
                     Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     FontSize="16"
                     MinWidth="150"
-                    Width="220"
+                    Width="200"
                     MinHeight="40"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"

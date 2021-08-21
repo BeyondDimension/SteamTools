@@ -191,6 +191,7 @@
                        AlwaysShowHeader="True"
                        IsSettingsVisible="False"
                        OpenPaneLength="240"
+                       
                        MenuItems="{Binding TabItems}"
                        Content="{Binding SelectedItem}"
                        SelectedItem="{Binding SelectedItem}">
@@ -200,6 +201,7 @@
           <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
         </StackPanel>
       </ui:NavigationView.PaneHeader>-->
+      
       <ui:NavigationView.PaneCustomContent>
         <ui:Button Cursor="Hand"
                    Margin="6"
@@ -259,6 +261,7 @@
         </ui:Button>
 
       </ui:NavigationView.PaneCustomContent>
+      
       <ui:NavigationView.DataTemplates>
         <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
           <pages:ProxyScriptManagePage/>
@@ -294,6 +297,7 @@
           <pages:ArchiSteamFarmPlusPage/>
         </DataTemplate>
       </ui:NavigationView.DataTemplates>
+      
       <ui:NavigationView.MenuItemTemplate>
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
           <ui:NavigationViewItem Content="{Binding Name,StringFormat={} {0}}">
