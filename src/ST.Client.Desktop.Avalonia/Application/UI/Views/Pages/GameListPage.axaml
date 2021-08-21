@@ -241,7 +241,7 @@
             Padding="10 0 10 10">
         <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
           <ItemsRepeater.Layout>
-            <UniformGridLayout ItemsJustification="SpaceEvenly"
+            <UniformGridLayout ItemsJustification="SpaceBetween"
                                MinRowSpacing="10"
                                MinColumnSpacing="10"
                                MaximumRowsOrColumns="10"
