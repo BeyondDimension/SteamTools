@@ -240,15 +240,19 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _RequiresAdd, value);
         }
 
-        public void ImportSteamGuard()
+        public void ImportSteamGuard() => ImportSteamGuard2();
+
+        public bool ImportSteamGuard2()
         {
             if (AuthService.Current.ImportSteamGuard(AuthName!, UUID!, SteamGuard!, AuthIsLocal, AuthPassword))
             {
                 Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
+                return true;
             }
             else
             {
                 Toast.Show(AppResources.LocalAuth_ImportFaild);
+                return false;
             }
         }
 

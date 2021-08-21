@@ -132,6 +132,7 @@
 * [CefNet](https://github.com/CefNet/CefNet)
 * [CefSharp](https://github.com/cefsharp/CefSharp)
 * [ZXing.Net.Mobile](https://github.com/Redth/ZXing.Net.Mobile)
+* [Floating Action Button Speed Dial](https://github.com/leinardi/FloatingActionButtonSpeedDial)
 -->
 <!--👇图标如果发生更改，还需更改 Tools.OpenSourceLibraryList(Program.OpenSourceLibraryListEmoji) -->
 ## 📄 感谢以下开源项目
@@ -176,6 +177,7 @@
 * [APNG.NET](https://github.com/jz5/APNG.NET)
 * [Moq](https://github.com/moq/moq4)
 * [NPOI](https://github.com/nissl-lab/npoi)
+* [Fleck](https://github.com/statianzo/Fleck)
 * [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 * [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers)
 * [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers)
@@ -185,7 +187,6 @@
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)
 * [Toast messages for Xamarin.iOS](https://github.com/andrius-k/Toast)
-* [Floating Action Button Speed Dial](https://github.com/leinardi/FloatingActionButtonSpeedDial)
 * [Visual Studio App Center SDK for .NET](https://github.com/microsoft/appcenter-sdk-dotnet)
 * [AppCenter-XMac](https://github.com/nor0x/AppCenter-XMac)
 * [MSBuild.Sdk.Extras](https://github.com/novotnyllc/MSBuildSdkExtras)

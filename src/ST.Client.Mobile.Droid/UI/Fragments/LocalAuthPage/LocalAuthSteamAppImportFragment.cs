@@ -45,10 +45,31 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.btnImport)
             {
-                ViewModel!.ImportSteamGuard();
+                var importResult = ViewModel!.ImportSteamGuard2();
+                if (importResult)
+                {
+                    binding!.tbName.Text = string.Empty;
+                    binding.tbSteamUUIDKey.Text = string.Empty;
+                    binding.tbGuard.Text = string.Empty;
+                }
                 return true;
             }
             return base.OnClick(view);
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            if (!MainApplication.AllowScreenshots)
+            {
+                Activity.SetWindowSecure(true);
+            }
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+            Activity.SetWindowSecure(false);
         }
     }
 }
