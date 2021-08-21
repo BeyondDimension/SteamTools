@@ -89,7 +89,8 @@
         <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
           <ItemsRepeater.Layout>
             <UniformGridLayout ItemsJustification="SpaceAround"
-                               MinRowSpacing="20"
+                               MinRowSpacing="10" 
+                               MinColumnSpacing="10"
                                MaximumRowsOrColumns="8"/>
             <!--<WrapLayout HorizontalSpacing="10"
                       VerticalSpacing="10" Orientation="Horizontal"/>-->
