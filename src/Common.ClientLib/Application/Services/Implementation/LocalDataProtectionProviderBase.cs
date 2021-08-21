@@ -25,7 +25,7 @@ namespace System.Application.Services.Implementation
             this.dataProtectionProvider = dataProtectionProvider;
             defaultELocalDataProtectionType = DI.Platform switch
             {
-                Platform.Windows => DI.IsWindows10OrLater
+                Platform.Windows => OperatingSystem2.IsWindows10AtLeast
                     ? LocalDataProtectionType.Win10WithAesCFB
                     : LocalDataProtectionType.ProtectedDataWithAesCFB,
                 _ => LocalDataProtectionType.AesCFB,

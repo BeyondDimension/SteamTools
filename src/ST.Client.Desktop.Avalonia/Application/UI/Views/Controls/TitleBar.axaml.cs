@@ -20,7 +20,7 @@ namespace System.Application.UI.Views.Controls
         {
             InitializeComponent();
 
-            if (DI.IsmacOS)
+            if (OperatingSystem2.IsMacOS)
             {
                 var title = this.FindControl<StackPanel>("title");
                 title.HorizontalAlignment = HorizontalAlignment.Center;

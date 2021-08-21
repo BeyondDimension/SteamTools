@@ -18,7 +18,7 @@ namespace System.Application.Services.Implementation
 
         public void FixFluentWindowStyleOnWin7(IntPtr hWnd)
         {
-            if (!DI.IsWindows7) return;
+            if (!OperatingSystem2.IsWindows7) return;
             var value = GetWindowLong(hWnd, GWL_STYLE);
             value &= ~WS_MAXIMIZEBOX;
             value &= ~WS_MINIMIZEBOX;

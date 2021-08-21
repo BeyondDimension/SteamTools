@@ -17,7 +17,7 @@ namespace System.Application.Services.Implementation
             {
                 // 设置 - 个性化 - 颜色 - 选择你的默认 Windows 模式 SystemUsesLightTheme
                 // 设置 - 个性化 - 颜色 - 选择默认应用模式 AppsUseLightTheme
-                if (DI.IsWindows10OrLater)
+                if (OperatingSystem2.IsWindows10AtLeast)
                 {
                     try
                     {

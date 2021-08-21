@@ -80,7 +80,7 @@ namespace System
 #if NOT_NJSON
             return JsonImplType.SystemTextJson;
 #else
-            if (DI.Platform == Platform.Android || DI.IsiOSOriPadOSOrwatchOS)
+            if (Environment.Version.Major <= 5)
             {
                 return JsonImplType.NewtonsoftJson;
             }

@@ -49,10 +49,10 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                if (DI.IsDesktopBridge ||
-                    DI.IsiOSOriPadOSOrwatchOS ||
-                    DI.Platform == Platform.Linux ||
-                    DI.IsmacOS)
+                if (DesktopBridge.IsRunningOnUWP ||
+                    OperatingSystem2.IsOnlySupportedStore ||
+                    OperatingSystem2.IsLinux ||
+                    OperatingSystem2.IsMacOS)
                 {
                     return false;
                 }
@@ -232,7 +232,7 @@ namespace System.Application.Services.Implementation
                 }
 
                 var isAndroid = DI.Platform == Platform.Android;
-                var isDesktop = DI.Platform == Platform.Windows || DI.Platform == Platform.Linux || DI.IsmacOS;
+                var isDesktop = DI.Platform == Platform.Windows || DI.Platform == Platform.Linux || OperatingSystem2.IsMacOS;
                 if (!isAndroid && !isDesktop)
                 {
                     OpenInAppStore();

@@ -36,7 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<WindowsProtectedData>();
                 services.AddSingleton<IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
                 services.AddSingleton<ILocalDataProtectionProvider.IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
-                if (DI.IsWindows10OrLater)
+                if (OperatingSystem2.IsWindows10AtLeast)
                 {
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }

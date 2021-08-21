@@ -42,7 +42,7 @@ namespace System.Application.UI.Views.Windows
             this.AttachDevTools();
 #endif
 
-            if (DI.IsWindows10OrLater)
+            if (OperatingSystem2.IsWindows10AtLeast)
             {
                 var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
                 thm.ForceNativeTitleBarToTheme(this);

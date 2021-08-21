@@ -107,7 +107,7 @@ namespace System.Application.Services.Implementation
                     }
                 }
 
-                if (DI.IsmacOS)
+                if (OperatingSystem2.IsMacOS)
                 {
                     var editPath = Path.Combine(IOPath.CacheDirectory, "hosts");
                     var editInfo = new FileInfo(editPath);

@@ -52,7 +52,7 @@ namespace System.Application
         {
             get
             {
-                if (DI.IsWindowsOrUWP)
+                if (OperatingSystem2.IsWindows)
                 {
                     if (defaultEncoding == null)
                     {

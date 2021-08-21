@@ -89,7 +89,7 @@ namespace System.Application.UI.ViewModels
                 //    }
                 //},
             };
-            if (DI.IsmacOS) {
+            if (OperatingSystem2.IsMacOS) {
                 MenuItems.Add(new MenuItemViewModel(nameof(AppResources.CommunityFix_CertificateTrust)) { IconKey = "RefreshDrawing", Command = TrustCerCommand });
             }
             AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);

@@ -213,7 +213,7 @@ namespace System.Application.Services
                                         });
                                     }).Where(w => !string.IsNullOrEmpty(w.Item1));
 
-                                    if (DI.Platform == Platform.Windows || DI.IsmacOS)
+                                    if (DI.Platform == Platform.Windows || OperatingSystem2.IsMacOS)
                                     {
                                         var r = IHostsFileService.Instance.UpdateHosts(hosts);
 
@@ -223,7 +223,7 @@ namespace System.Application.Services
                                             httpProxyService.StopProxy();
                                             return;
                                         }
-                                        else if (DI.IsmacOS)
+                                        else if (OperatingSystem2.IsMacOS)
                                         {
                                             IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                         }
@@ -255,7 +255,7 @@ namespace System.Application.Services
                                     Toast.Show(SR.OperationHostsError_.Format(r.Message));
                                     //return;
                                 }
-                                else if (DI.IsmacOS && !ProxySettings.EnableWindowsProxy.Value)
+                                else if (OperatingSystem2.IsMacOS && !ProxySettings.EnableWindowsProxy.Value)
                                 {
                                     IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                 }

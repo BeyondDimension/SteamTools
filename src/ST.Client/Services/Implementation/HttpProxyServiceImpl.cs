@@ -356,7 +356,7 @@ namespace System.Application.Services.Implementation
             }
             catch { }
             proxyServer.CertificateManager.EnsureRootCertificate();
-            if (DI.IsmacOS)
+            if (OperatingSystem2.IsMacOS)
             {
                 TrustCer();
             }
@@ -501,7 +501,7 @@ namespace System.Application.Services.Implementation
                         proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
                         proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
                     }
-                    else if (DI.IsmacOS)
+                    else if (OperatingSystem2.IsMacOS)
                     {
                         var stringList = IPlatformService.Instance.GetMacNetworksetup();
                         var shellContent = new StringBuilder();
@@ -626,7 +626,7 @@ namespace System.Application.Services.Implementation
                 proxyServer.BeforeResponse -= OnResponse;
                 proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
                 proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
-                if (DI.IsmacOS)
+                if (OperatingSystem2.IsMacOS)
                 {
                     StopMacProxy();
                 }
@@ -691,7 +691,7 @@ namespace System.Application.Services.Implementation
         {
             if (proxyServer.ProxyRunning)
             {
-                if (DI.IsmacOS)
+                if (OperatingSystem2.IsMacOS)
                 {
                     StopMacProxy();
                 }

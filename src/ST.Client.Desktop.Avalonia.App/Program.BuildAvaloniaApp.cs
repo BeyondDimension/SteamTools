@@ -22,7 +22,7 @@ namespace System.Application.UI
                 })
                 .With(new Win32PlatformOptions
                 {
-                    AllowEglInitialization = true /*!DI.IsmacOS*/,
+                    AllowEglInitialization = true /*!OperatingSystem2.IsMacOS*/,
                     UseWindowsUIComposition = true
                 })
                 .LogToTrace()

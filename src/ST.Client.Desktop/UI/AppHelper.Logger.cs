@@ -161,7 +161,7 @@ namespace System.Application.UI
             var devicePlatform = DI.Platform;
             LogUnderCache = devicePlatform switch
             {
-                Platform.Windows => DI.IsDesktopBridge,
+                Platform.Windows => DesktopBridge.IsRunningOnUWP,
                 Platform.Linux => false,
                 Platform.Android or Platform.Apple or Platform.UWP => true,
                 _ => throw new ArgumentOutOfRangeException(nameof(devicePlatform), devicePlatform, null),

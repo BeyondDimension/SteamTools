@@ -59,7 +59,7 @@ namespace Avalonia.Controls
                     DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
                 }
 
-                if (DI.IsWindows10OrLater)
+                if (OperatingSystem2.IsWindows10AtLeast)
                 {
                     AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
                 }
@@ -120,7 +120,7 @@ namespace Avalonia.Controls
                 ExtendClientAreaChromeHints =
                 ExtendClientAreaChromeHints.PreferSystemChrome;
             }
-            else if (DI.IsmacOS)
+            else if (OperatingSystem2.IsMacOS)
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
@@ -182,7 +182,7 @@ namespace Avalonia.Controls
                     DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
                 }
 
-                if (DI.IsWindows10OrLater)
+                if (OperatingSystem2.IsWindows10AtLeast)
                 {
                     AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
                 }
@@ -243,7 +243,7 @@ namespace Avalonia.Controls
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
             }
-            else if (DI.IsmacOS)
+            else if (OperatingSystem2.IsMacOS)
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;

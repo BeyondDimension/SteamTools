@@ -31,7 +31,7 @@ namespace System.Net.Http
         {
             get
             {
-                if (DI.Platform == Platform.Android || DI.IsiOSOriPadOSOrwatchOS)
+                if (DeviceInfo.Platform != DevicePlatform.Unknown)
                 {
                     var networkAccess = Connectivity.NetworkAccess;
                     return networkAccess == NetworkAccess.Internet;

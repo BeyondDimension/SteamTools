@@ -1,7 +1,6 @@
 #if !NOT_DI
 using Microsoft.Extensions.DependencyInjection;
 #endif
-using System.Linq;
 using System.Runtime.InteropServices;
 #if !NOT_XE
 using Xamarin.Essentials;
@@ -48,70 +47,8 @@ namespace System
         /// <inheritdoc cref="System.DeviceIdiom"/>
         public static DeviceIdiom DeviceIdiom { get; private set; }
 
-        /// <summary>
-        /// 当前是否使用Mono运行时
-        /// </summary>
-        public static bool IsRunningOnMono { get; }
-
-        /// <summary>
-        /// 当前进程运行的构架为 <see cref="Architecture.X86"/> 或 <see cref="Architecture.X64"/>
-        /// </summary>
-        public static bool IsX86OrX64 { get; }
-
-        /// <summary>
-        /// 当前进程运行的构架为 <see cref="Architecture.Arm64"/>
-        /// </summary>
-        public static bool IsArm64 { get; }
-
-        /// <summary>
-        /// 当前是否运行在 macOS 上
-        /// </summary>
-        public static bool IsmacOS { get; }
-
-        /// <summary>
-        /// 当前是否运行在 iOS/iPadOS/watchOS 上
-        /// </summary>
-        public static bool IsiOSOriPadOSOrwatchOS { get; }
-
-        /// <summary>
-        /// 当前是否运行在 >= Windows 10 上
-        /// </summary>
-        public static bool IsWindows10OrLater { get; }
-
-        /// <summary>
-        /// 当前是否运行在 Windows 7 上
-        /// </summary>
-        public static bool IsWindows7 { get; }
-
-        /// <summary>
-        /// 当前是否运行在 Windows 上
-        /// </summary>
-        public static bool IsWindowsOrUWP { get; }
-
-        static bool? _IsDesktopBridge;
-        public static bool IsDesktopBridge
-        {
-            get => _IsDesktopBridge ?? false;
-            set
-            {
-                if (_IsDesktopBridge.HasValue) throw new NotSupportedException();
-                _IsDesktopBridge = value;
-            }
-        }
-
-        const string DesktopWindowTypeNames =
-            "Avalonia.Controls.Window, Avalonia.Controls" +
-            "\n" +
-            "System.Windows.Forms.Form, System.Windows.Forms" +
-            "\n" +
-            "System.Windows.Window, PresentationFramework";
-
         static DI()
         {
-            IsRunningOnMono = Type.GetType("Mono.Runtime") != null;
-            var processArchitecture = RuntimeInformation.ProcessArchitecture;
-            IsX86OrX64 = processArchitecture is Architecture.X64 or Architecture.X86;
-            IsArm64 = processArchitecture == Architecture.Arm64;
             static Platform RuntimeInformationOSPlatform()
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -122,39 +59,17 @@ namespace System
                     return Platform.Linux;
                 return Platform.Unknown;
             }
-            static DeviceIdiom GetDeviceIdiom()
-            {
-                if (DesktopWindowTypeNames.Split('\n')
-                    .Any(x => Type.GetType(x) != null))
-                    return DeviceIdiom.Desktop;
-                return DeviceIdiom.Unknown;
-            }
 #if !NOT_XE
             Platform = DeviceInfo.Platform.Convert();
-            if (Platform == Platform.Unknown) Platform = RuntimeInformationOSPlatform();
-            DeviceIdiom = DeviceInfo.Idiom.Convert();
-            if (DeviceIdiom == DeviceIdiom.Unknown) DeviceIdiom = GetDeviceIdiom();
+            if (Platform == Platform.Unknown)
+                Platform = RuntimeInformationOSPlatform();
+            DeviceIdiom = OperatingSystem2.IsDesktop ?
+                DeviceIdiom.Desktop : DeviceInfo.Idiom.Convert();
 #else
             Platform = RuntimeInformationOSPlatform();
-            DeviceIdiom = GetDeviceIdiom();
+            DeviceIdiom = OperatingSystem2.IsDesktop ?
+                DeviceIdiom.Desktop : DeviceIdiom.Unknown;
 #endif
-            if (Platform == Platform.Apple)
-            {
-                IsmacOS = DeviceIdiom == DeviceIdiom.Desktop;
-                IsiOSOriPadOSOrwatchOS = !IsmacOS;
-            }
-            else if (Platform == Platform.Windows)
-            {
-                var osVer = Environment.OSVersion.Version;
-                IsWindows10OrLater = osVer.Major >= 10;
-                IsWindows7 = !IsWindows10OrLater && osVer.Major == 6 && osVer.Minor == 1;
-                IsWindowsOrUWP = true;
-            }
-            else if (Platform == Platform.UWP)
-            {
-                IsWindows10OrLater = true;
-                IsWindowsOrUWP = true;
-            }
         }
 
 #if !NOT_DI
