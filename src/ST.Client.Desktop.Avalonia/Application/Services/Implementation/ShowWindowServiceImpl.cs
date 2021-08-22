@@ -201,7 +201,7 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-               return IDesktopAvaloniaAppService.Instance.IsVisibleWindow(vm);
+                return IDesktopAvaloniaAppService.Instance.IsVisibleWindow(vm);
             }
             catch (Exception e)
             {

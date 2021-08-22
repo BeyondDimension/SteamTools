@@ -27,10 +27,12 @@ namespace System.Application.UI.Views.Windows
                 case TextBoxWindowViewModel.TextBoxInputType.Password:
                     passwordBox.IsVisible = true;
                     passwordBox.PasswordChar = '*';
+                    passwordBox.Classes = new Classes("revealPasswordButton");
                     break;
                 case TextBoxWindowViewModel.TextBoxInputType.TextBox:
                     passwordBox.IsVisible = true;
                     passwordBox.PasswordChar = default;
+                    passwordBox.Classes = new Classes();
                     break;
                 case TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText:
                     passwordBox.IsVisible = false;
