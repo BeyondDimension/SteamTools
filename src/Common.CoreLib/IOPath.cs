@@ -121,20 +121,7 @@ namespace System
 #if NET35 || NOT_XE
                 throw new PlatformNotSupportedException();
 #else
-                try
-                {
-                    return FileSystem.AppDataDirectory;
-                }
-                catch
-                {
-                    if (DI.DeviceIdiom == DeviceIdiom.Desktop)
-                    {
-                        var r = Path.Combine(BaseDirectory, DirName_AppData);
-                        DirCreateByNotExists(r);
-                        return r;
-                    }
-                    throw;
-                }
+                return FileSystem.AppDataDirectory;
 #endif
             }
         }
@@ -149,20 +136,7 @@ namespace System
 #if NET35 || NOT_XE
                 throw new PlatformNotSupportedException();
 #else
-                try
-                {
-                    return FileSystem.CacheDirectory;
-                }
-                catch
-                {
-                    if (DI.DeviceIdiom == DeviceIdiom.Desktop)
-                    {
-                        var r = Path.Combine(BaseDirectory, DirName_Cache);
-                        DirCreateByNotExists(r);
-                        return r;
-                    }
-                    throw;
-                }
+                return FileSystem.CacheDirectory;
 #endif
             }
         }
@@ -189,7 +163,7 @@ namespace System
         static readonly Lazy<string> _BaseDirectory = new(() =>
         {
             var value = AppContext.BaseDirectory;
-            if (OperatingSystem2.IsWindows && !DesktopBridge.IsRunningOnUWP) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
+            if (OperatingSystem2.IsWindows && !DesktopBridge.IsRunningAsUwp) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
             {
                 var value2 = new DirectoryInfo(value);
                 if (value2.Parent != null && string.Equals(value2.Name, DirName_Bin, StringComparison.OrdinalIgnoreCase))

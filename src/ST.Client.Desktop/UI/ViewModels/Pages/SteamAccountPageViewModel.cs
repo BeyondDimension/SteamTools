@@ -109,7 +109,7 @@ namespace System.Application.UI.ViewModels
                 user.AvatarFull = temp.AvatarFull;
                 user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
 
-                if (DI.Platform == Platform.Windows)
+                if (OperatingSystem2.IsWindows)
                 {
                     var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
                     if (!string.IsNullOrEmpty(user.Remark))
@@ -171,7 +171,8 @@ namespace System.Application.UI.ViewModels
             steamService.SetCurrentUser(user.AccountName ?? string.Empty);
             if (OperatingSystem2.IsMacOS && user.AccountName != null)
                 if (!steamService.UpdateRegistryVdfPath(user.AccountName))
-                    Toast.Show(AppResources.Script_UpdateError);
+                    Toast.Show(AppResources.Script_Update
+                        );
            steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }

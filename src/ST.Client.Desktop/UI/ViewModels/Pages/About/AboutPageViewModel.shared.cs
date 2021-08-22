@@ -7,9 +7,6 @@ using System.Reactive;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
-//#if __MOBILE__
-//using Xamarin.Essentials;
-//#endif
 using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
@@ -79,25 +76,7 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit> DelAccountCommand { get; }
 
-        static string GetOS() => DI.Platform switch
-        {
-            Platform.Windows => DesktopBridge.IsRunningOnUWP ? "Windows Desktop Bridge" : "Windows",
-            Platform.Linux => "Linux",
-            Platform.Android => "Android",
-            Platform.Apple => DI.DeviceIdiom switch
-            {
-                DeviceIdiom.Phone => "iOS",
-                DeviceIdiom.Tablet => "iPadOS",
-                DeviceIdiom.Desktop => "macOS",
-                DeviceIdiom.TV => "tvOS",
-                DeviceIdiom.Watch => "watchOS",
-                _ => string.Empty,
-            },
-            Platform.UWP => "UWP",
-            _ => string.Empty,
-        };
-
-        public string VersionDisplay => $"{ThisAssembly.VersionDisplay} for {GetOS()} ({RuntimeInformation.ProcessArchitecture})";
+        public string VersionDisplay => $"{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName} ({RuntimeInformation.ProcessArchitecture})";
 
         public string LabelVersionDisplay => ThisAssembly.IsAlphaRelease ? "Alpha Version:" : (ThisAssembly.IsBetaRelease ? "Beta Version:" : "Current Version:");
 

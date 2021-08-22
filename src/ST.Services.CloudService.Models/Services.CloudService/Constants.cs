@@ -86,7 +86,7 @@ namespace System.Application.Services.CloudService
         {
             if (IsHttpUrl(url))
             {
-                if (DI.DeviceIdiom == DeviceIdiom.Desktop && DI.Platform != Platform.UWP)
+                if (DeviceInfo.Platform == DevicePlatform.Unknown)
                 {
                     try
                     {

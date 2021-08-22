@@ -80,14 +80,22 @@ namespace System.Application.UI.ViewModels
 
             SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
-                {
-                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                        ("Image Files", new[] { FileEx.BMP ,FileEx.JPG,FileEx.JPEG,FileEx.PNG,FileEx.GIF,FileEx.WEBP}),
+                var fileTypes =
+#if __MOBILE__
+                    (FilePickerFileType?)null;
+#else
+                    new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("Image Files", new[] {
+                            FileEx.BMP,
+                            FileEx.JPG,
+                            FileEx.JPEG,
+                            FileEx.PNG,
+                            FileEx.GIF,
+                            FileEx.WEBP,
+                        }),
                         ("All Files", new[] { "*" }),
-                    }),
-                    _ => null,
-                };
+                    });
+#endif
                 await PickAsync(SetBackgroundImagePath, fileTypes);
             });
 

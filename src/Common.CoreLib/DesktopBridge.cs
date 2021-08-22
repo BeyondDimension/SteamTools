@@ -7,6 +7,6 @@ namespace System
         /// <summary>
         /// 指示当前应用程序是否正在通过 Desktop Bridge 运行在 UWP 上。
         /// </summary>
-        public static bool IsRunningOnUWP { get; protected set; }
+        public static bool IsRunningAsUwp { get; protected set; }
     }
 }

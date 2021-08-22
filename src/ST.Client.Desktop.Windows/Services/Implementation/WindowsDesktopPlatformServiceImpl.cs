@@ -128,7 +128,7 @@ namespace System.Application.Services.Implementation
 
         public async void SetBootAutoStart(bool isAutoStart, string name)
         {
-            if (DesktopBridge.IsRunningOnUWP)
+            if (DesktopBridge.IsRunningAsUwp)
             {
                 // https://blogs.windows.com/windowsdeveloper/2017/08/01/configure-app-start-log/
                 // https://blog.csdn.net/lh275985651/article/details/109360162

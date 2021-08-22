@@ -96,7 +96,7 @@ namespace System.Application.Services.Implementation
 
         protected override void OpenInAppStore()
         {
-            if (DesktopBridge.IsRunningOnUWP)
+            if (DesktopBridge.IsRunningAsUwp)
             {
                 Process.Start(new ProcessStartInfo
                 {

@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI)
         {
-            if (DI.Platform == Platform.Apple)
+            if (OperatingSystem2.IsMacOS)
             {
                 services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
                 services.AddSingleton(AppDelegateHelper.Instance!);

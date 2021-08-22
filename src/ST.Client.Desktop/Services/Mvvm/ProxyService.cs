@@ -7,6 +7,7 @@ using System.Application.Properties;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -167,7 +168,7 @@ namespace System.Application.Services
 
                         if (!ProxySettings.EnableWindowsProxy.Value)
                         {
-                            //if (DI.Platform == Platform.Windows)
+                            //if (OperatingSystem2.IsWindows)
                             //{
                             //    var inUse = httpProxyService.PortInUse(443);
                             //    if (inUse)
@@ -213,7 +214,7 @@ namespace System.Application.Services
                                         });
                                     }).Where(w => !string.IsNullOrEmpty(w.Item1));
 
-                                    if (DI.Platform == Platform.Windows || OperatingSystem2.IsMacOS)
+                                    if (OperatingSystem2.IsWindows || OperatingSystem2.IsMacOS)
                                     {
                                         var r = IHostsFileService.Instance.UpdateHosts(hosts);
 
@@ -618,10 +619,10 @@ namespace System.Application.Services
         {
             ProxyService.OnExitRestoreHosts();
 
-            if (DI.Platform == Platform.Windows)
+            if (OperatingSystem2.IsWindows)
             {
                 httpProxyService.StopProxy();
-                System.Diagnostics.Process.Start("cmd.exe", "netsh winsock reset");
+                Process.Start("cmd.exe", "netsh winsock reset");
             }
 
             Toast.Show("修复网络完成");

@@ -161,11 +161,10 @@ namespace System.Security.Cryptography
             return Padding;
         }
 
-        public static RSAEncryptionPadding DefaultPadding => DI.Platform switch
-        {
-            Platform.Android => RSAEncryptionPadding.OaepSHA1,
-            _ => RSAEncryptionPadding.OaepSHA256,
-        };
+        public static RSAEncryptionPadding DefaultPadding
+            => OperatingSystem2.IsAndroid ?
+                RSAEncryptionPadding.OaepSHA1 :
+                RSAEncryptionPadding.OaepSHA256;
 
         #endregion
 

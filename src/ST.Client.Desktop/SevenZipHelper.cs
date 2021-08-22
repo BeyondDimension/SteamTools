@@ -8,7 +8,7 @@ namespace System.Application
     {
         static SevenZipHelper()
         {
-            if (DI.Platform == Platform.Windows)
+            if (OperatingSystem2.IsWindows)
             {
                 // ✅ AppContext.BaseDirectory
                 var sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "7z.dll");

@@ -89,7 +89,7 @@ namespace System.Application.UI.ViewModels
             }
 
             //AddTabItem<SteamIdlePageViewModel>();
-            if (DI.Platform == Platform.Windows)
+            if (OperatingSystem2.IsWindows)
                 AddTabItem<GameRelatedPageViewModel>();
             //AddTabItem<OtherPlatformPageViewModel>();
 

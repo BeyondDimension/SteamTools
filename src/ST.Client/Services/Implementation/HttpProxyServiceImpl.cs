@@ -496,7 +496,7 @@ namespace System.Application.Services.Implementation
 
                 if (IsWindowsProxy)
                 {
-                    if (DI.Platform == Platform.Windows)
+                    if (OperatingSystem2.IsWindows)
                     {
                         proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
                         proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
@@ -682,7 +682,7 @@ namespace System.Application.Services.Implementation
                 return false;
             if (certificate2.NotAfter <= DateTime.Now)
                 return false;
-            using var store = new X509Store(DI.Platform == Platform.Apple ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
+            using var store = new X509Store(OperatingSystem2.IsMacOS ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
             store.Open(OpenFlags.ReadOnly);
             return store.Certificates.Contains(certificate2);
         }

@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI)
         {
-            if (DI.Platform == Platform.Windows)
+            if (OperatingSystem2.IsWindows)
             {
                 services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
                 services.AddSingleton<WindowsDesktopPlatformServiceImpl>();

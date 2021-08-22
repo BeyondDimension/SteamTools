@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Security;
+using Xamarin.Essentials;
 using static System.Application.Services.ILocalDataProtectionProvider;
 using static System.Application.Services.Implementation.LocalDataProtectionProviderBase;
 using MSEXOptions = Microsoft.Extensions.Options.Options;
@@ -32,7 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection TryAddStorage(this IServiceCollection services)
         {
-            if (DI.DeviceIdiom == DeviceIdiom.Desktop)
+            if (DeviceInfo.Platform == DevicePlatform.Unknown)
             {
                 services.TryAddSingleton<IStorage, DesktopClientStorage>();
             }

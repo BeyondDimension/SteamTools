@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
@@ -23,7 +23,7 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public Platform Platform { get; set; } = DI.Platform;
+        public Platform Platform { get; set; } = DeviceInfo2.Platform;
 
         /// <summary>
         /// 设备类型
@@ -31,7 +31,7 @@ namespace System.Application.Models
         [MPKey(2)]
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
-        public DeviceIdiom DeviceIdiom { get; set; } = DI.DeviceIdiom;
+        public DeviceIdiom DeviceIdiom { get; set; } = DeviceInfo2.Idiom;
 
         /// <summary>
         /// 系统版本号

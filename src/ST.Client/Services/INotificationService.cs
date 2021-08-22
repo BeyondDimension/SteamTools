@@ -13,9 +13,7 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="notification"></param>
         private void Notify(NotificationRecordDTO notification)
-        {
-            Notify(notification.Content, notification.Type, title: notification.Title);
-        }
+            => Notify(notification.Content, notification.Type, title: notification.Title);
 
         /// <summary>
         /// 显示从服务端获取到通知纪录
@@ -24,11 +22,6 @@ namespace System.Application.Services
         /// <param name="type"></param>
         static async void Notify(IApiResponse<NotificationRecordDTO?> rsp, ActiveUserType type)
         {
-            if (DI.DeviceIdiom == DeviceIdiom.Desktop)
-            {
-                return;
-                //throw new NotImplementedException();
-            }
             if (rsp.IsSuccess && rsp.Content != null)
             {
                 if (type == ActiveUserType.OnStartup)
@@ -44,8 +37,12 @@ namespace System.Application.Services
 
                 if (rsp.Content.Type == NotificationType.Announcement)
                 {
-                    var isShow = IAnnouncementService.Instance.Show(rsp.Content);
-                    if (isShow) return;
+                    var announcementService = DI.Get_Nullable<IAnnouncementService>();
+                    if (announcementService != null)
+                    {
+                        var isShow = announcementService.Show(rsp.Content);
+                        if (isShow) return;
+                    }
                 }
 
                 Instance.Notify(rsp.Content);

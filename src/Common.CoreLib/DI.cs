@@ -41,37 +41,6 @@ namespace System
 
 #endif
 
-        /// <inheritdoc cref="System.Platform"/>
-        public static Platform Platform { get; }
-
-        /// <inheritdoc cref="System.DeviceIdiom"/>
-        public static DeviceIdiom DeviceIdiom { get; private set; }
-
-        static DI()
-        {
-            static Platform RuntimeInformationOSPlatform()
-            {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    return Platform.Windows;
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                    return Platform.Apple;
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                    return Platform.Linux;
-                return Platform.Unknown;
-            }
-#if !NOT_XE
-            Platform = DeviceInfo.Platform.Convert();
-            if (Platform == Platform.Unknown)
-                Platform = RuntimeInformationOSPlatform();
-            DeviceIdiom = OperatingSystem2.IsDesktop ?
-                DeviceIdiom.Desktop : DeviceInfo.Idiom.Convert();
-#else
-            Platform = RuntimeInformationOSPlatform();
-            DeviceIdiom = OperatingSystem2.IsDesktop ?
-                DeviceIdiom.Desktop : DeviceIdiom.Unknown;
-#endif
-        }
-
 #if !NOT_DI
 
         static Exception GetDIGetFailException(Type serviceType) => new($"DI.Get* fail, serviceType: {serviceType}");

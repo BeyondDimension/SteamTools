@@ -20,7 +20,7 @@ namespace Avalonia.Controls
 
         public FluentWindow(bool isSaveStatus = true)
         {
-            //if (DI.Platform == System.Platform.Windows)
+            //if (OperatingSystem2.IsWindows)
             //{
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
@@ -54,7 +54,7 @@ namespace Avalonia.Controls
 
             if (!ViewModelBase.IsInDesignMode)
             {
-                if (DI.Platform == System.Platform.Windows)
+                if (OperatingSystem2.IsWindows)
                 {
                     DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
                 }
@@ -115,7 +115,7 @@ namespace Avalonia.Controls
         {
             base.OnApplyTemplate(e);
 
-            if (DI.Platform == System.Platform.Windows)
+            if (OperatingSystem2.IsWindows)
             {
                 ExtendClientAreaChromeHints =
                 ExtendClientAreaChromeHints.PreferSystemChrome;
@@ -145,7 +145,7 @@ namespace Avalonia.Controls
 
         public FluentWindow(bool isSaveStatus = true)
         {
-            //if (DI.Platform == System.Platform.Windows)
+            //if (OperatingSystem2.IsWindows)
             //{
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
@@ -177,12 +177,11 @@ namespace Avalonia.Controls
 
             if (!ViewModelBase.IsInDesignMode)
             {
-                if (DI.Platform == System.Platform.Windows)
+                if (OperatingSystem2.IsWindows7)
                 {
-                    DI.Get<IDesktopPlatformService>().FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+                    IDesktopPlatformService.Instance.FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
                 }
-
-                if (OperatingSystem2.IsWindows10AtLeast)
+                else if (OperatingSystem2.IsWindows10AtLeast)
                 {
                     AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
                 }
@@ -238,7 +237,7 @@ namespace Avalonia.Controls
         {
             base.OnApplyTemplate(e);
 
-            if (DI.Platform == System.Platform.Windows)
+            if (OperatingSystem2.IsWindows)
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;

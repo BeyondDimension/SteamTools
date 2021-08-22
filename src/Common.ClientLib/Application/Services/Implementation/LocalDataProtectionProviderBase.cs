@@ -23,24 +23,28 @@ namespace System.Application.Services.Implementation
         {
             this.protectedData = protectedData;
             this.dataProtectionProvider = dataProtectionProvider;
-            defaultELocalDataProtectionType = DI.Platform switch
+            if (OperatingSystem2.IsWindows)
             {
-                Platform.Windows => OperatingSystem2.IsWindows10AtLeast
-                    ? LocalDataProtectionType.Win10WithAesCFB
-                    : LocalDataProtectionType.ProtectedDataWithAesCFB,
-                _ => LocalDataProtectionType.AesCFB,
-            };
+                if (OperatingSystem2.IsWindows10AtLeast)
+                {
+                    defaultELocalDataProtectionType = LocalDataProtectionType.Win10WithAesCFB;
+                }
+                else
+                {
+                    defaultELocalDataProtectionType = LocalDataProtectionType.ProtectedDataWithAesCFB;
+                }
+            }
+            else
+            {
+                defaultELocalDataProtectionType = LocalDataProtectionType.AesCFB;
+            }
             _aes = new Lazy<Aes>(() =>
             {
                 (var key, var iv) = MachineSecretKey;
                 // https://github.com/dotnet/runtime/issues/42214#issuecomment-698495584
                 // AES CFB in Windows 7 catch Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: Unknown error (0xc10000bb)
                 // AES CFB in Android catch CryptographicException: Bad PKCS7 padding. Invalid length
-                var mode = DI.Platform switch
-                {
-                    Platform.Android => CipherMode.CBC,
-                    _ => CipherMode.CFB,
-                };
+                var mode = OperatingSystem2.IsAndroid ? CipherMode.CBC : CipherMode.CFB;
                 var r = AESUtils.Create(key, iv, mode, PaddingMode.PKCS7);
                 return r;
             });

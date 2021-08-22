@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI)
         {
-            if (DI.Platform == Platform.Linux)
+            if (OperatingSystem2.IsLinux)
             {
                 services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
                 services.AddSingleton<LinuxDesktopPlatformServiceImpl>();

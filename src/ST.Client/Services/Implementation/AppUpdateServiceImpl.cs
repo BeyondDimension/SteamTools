@@ -49,7 +49,7 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                if (DesktopBridge.IsRunningOnUWP ||
+                if (DesktopBridge.IsRunningAsUwp ||
                     OperatingSystem2.IsOnlySupportedStore ||
                     OperatingSystem2.IsLinux ||
                     OperatingSystem2.IsMacOS)
@@ -113,8 +113,8 @@ namespace System.Application.Services.Implementation
             isCheckUpdateing = true;
 
             var id = settings.AppVersion;
-            var platform = DI.Platform;
-            var deviceIdiom = DI.DeviceIdiom;
+            var platform = DeviceInfo2.Platform;
+            var deviceIdiom = DeviceInfo2.Idiom;
             if (deviceIdiom == DeviceIdiom.Tablet && platform == Platform.Apple)
             {
                 deviceIdiom = DeviceIdiom.Phone;
@@ -231,8 +231,8 @@ namespace System.Application.Services.Implementation
                     goto end;
                 }
 
-                var isAndroid = DI.Platform == Platform.Android;
-                var isDesktop = DI.Platform == Platform.Windows || DI.Platform == Platform.Linux || OperatingSystem2.IsMacOS;
+                var isAndroid = OperatingSystem2.IsAndroid;
+                var isDesktop = OperatingSystem2.IsDesktop;
                 if (!isAndroid && !isDesktop)
                 {
                     OpenInAppStore();

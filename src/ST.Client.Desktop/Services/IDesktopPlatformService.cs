@@ -53,7 +53,7 @@ namespace System.Application.Services
             var p = GeneralSettings.TextReaderProvider.Value;
             if (p != null)
             {
-                var platform = DI.Platform;
+                var platform = DeviceInfo2.Platform;
                 if (p.ContainsKey(platform))
                 {
                     var value = p[platform];

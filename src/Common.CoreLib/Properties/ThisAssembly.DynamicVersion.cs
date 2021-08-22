@@ -9,33 +9,18 @@ namespace System.Properties
         {
             get
             {
-                switch (DI.Platform)
+                if (OperatingSystem2.IsLinux || OperatingSystem2.IsAndroid)
                 {
-                    case Platform.Windows:
-                        return DesktopBridge.IsRunningOnUWP ? Version + beta : Version;
-                    case Platform.Linux:
-                        return Version + alpha;
-                    case Platform.Android:
-                        return Version + alpha;
-                    case Platform.Apple:
-                        switch (DI.DeviceIdiom)
-                        {
-                            case DeviceIdiom.Phone:
-                                break;
-                            case DeviceIdiom.Tablet:
-                                break;
-                            case DeviceIdiom.Desktop:
-                                return Version + beta;
-                            case DeviceIdiom.TV:
-                                break;
-                            case DeviceIdiom.Watch:
-                                break;
-                        }
-                        break;
-                    case Platform.UWP:
-                        break;
+                    return Version + alpha;
                 }
-                return Version;
+                else if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsWindows && DesktopBridge.IsRunningAsUwp))
+                {
+                    return Version + beta;
+                }
+                else
+                {
+                    return Version;
+                }
             }
         }
 

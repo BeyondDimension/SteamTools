@@ -15,18 +15,7 @@ namespace System
             Assert.IsTrue(bytes[0] == values[0]);
         }
 
-        static CipherMode CFB
-        {
-            get
-            {
-                var mode = DI.Platform switch
-                {
-                    Platform.Android => CipherMode.CBC,
-                    _ => CipherMode.CFB,
-                };
-                return mode;
-            }
-        }
+        static CipherMode CFB => OperatingSystem2.IsAndroid ? CipherMode.CBC : CipherMode.CFB;
 
         [Test]
         public void MultipleEncrypt()
@@ -46,7 +35,7 @@ namespace System
 
 #pragma warning disable CA1416 // 验证平台兼容性
 #if !ANDROID && !__ANDROID__ && !__MOBILE__
-            if (DI.Platform == Platform.Windows)
+            if (OperatingSystem2.IsWindows)
             {
                 bytes_4 = ProtectedData.Protect(bytes_3, null, DataProtectionScope.LocalMachine);
 

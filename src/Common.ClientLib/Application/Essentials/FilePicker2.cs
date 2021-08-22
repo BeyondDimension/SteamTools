@@ -233,7 +233,7 @@ namespace System.Application
 
             protected override IEnumerable<string> GetPlatformFileType(DevicePlatform _)
             {
-                if (fileTypes.TryGetValue(DI.Platform, out var type))
+                if (fileTypes.TryGetValue(DeviceInfo2.Platform, out var type))
                     return type;
 
                 throw new PlatformNotSupportedException("This platform does not support this file type.");
@@ -258,13 +258,14 @@ namespace System.Application
                 {
                     return FilePickerFileType.Images;
                 }
+                else if (OperatingSystem2.IsWindows)
+                {
+                    GeneralFilePickerFileType fileTypes = new[] { FileEx.PNG, FileEx.JPG, FileEx.JPEG, FileEx.GIF, FileEx.BMP };
+                    return fileTypes;
+                }
                 else
                 {
-                    GeneralFilePickerFileType fileTypes = DI.Platform switch
-                    {
-                        Platform.Windows => new[] { FileEx.PNG, FileEx.JPG, FileEx.JPEG, FileEx.GIF, FileEx.BMP },
-                        _ => new[] { FileEx.PNG, FileEx.JPG, FileEx.JPEG, FileEx.GIF },
-                    };
+                    GeneralFilePickerFileType fileTypes = new[] { FileEx.PNG, FileEx.JPG, FileEx.JPEG, FileEx.GIF };
                     return fileTypes;
                 }
             });

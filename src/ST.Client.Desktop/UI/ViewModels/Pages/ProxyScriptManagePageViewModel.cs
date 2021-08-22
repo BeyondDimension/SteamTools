@@ -78,15 +78,16 @@ namespace System.Application.UI.ViewModels
             });
             AddNewScriptButton_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
-                {
-                    DeviceIdiom.Desktop => new FilePicker2.FilePickerFilter(new (string, IEnumerable<string>)[] {
+                var fileTypes =
+#if __MOBILE__
+                    (FilePickerFileType?)null;
+#else
+                    new FilePicker2.FilePickerFilter(new (string, IEnumerable<string>)[] {
                         ("JavaScript Files", new[] { "js" }),
                         ("Text Files", new[] { "txt" }),
                         ("All Files", new[] { "*" }),
-                    }),
-                    _ => null,
-                };
+                    });
+#endif
                 await FilePicker2.PickAsync(ProxyService.Current.AddNewScript, fileTypes);
             });
             MenuItems = new ObservableCollection<MenuItemViewModel>()

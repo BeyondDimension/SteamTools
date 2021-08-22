@@ -35,56 +35,58 @@ namespace System.Application.UI.ViewModels
 
             SppV2Btn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
-                {
-                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                var fileTypes =
+#if __MOBILE__
+                    (FilePickerFileType?)null;
+#else
+                    new FilePickerFilter(new (string, IEnumerable<string>)[] {
                         ("MsgPack Files", new[] { "mpo" }),
                         ("Data Files", new[] { "dat" }),
                         ("All Files", new[] { "*" }),
-                    }),
-                    _ => null,
-                };
+                    });
+#endif
                 await PickAsync(ImportSteamPlusPlusV2, fileTypes);
             });
             SppBtn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
-                {
-                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                var fileTypes =
+#if __MOBILE__
+                    (FilePickerFileType?)null;
+#else
+                    new FilePickerFilter(new (string, IEnumerable<string>)[] {
                         ("Data Files", new[] { "dat" }),
                         ("All Files", new[] { "*" }),
-                    }),
-                    _ => null,
-                };
+                    });
+#endif
                 await PickAsync(ImportSteamPlusPlusV1, fileTypes);
             });
             SdaBtn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
-                {
-                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                var fileTypes =
+#if __MOBILE__
+                    (FilePickerFileType?)null;
+#else
+                    new FilePickerFilter(new (string, IEnumerable<string>)[] {
                         ("MaFile Files", new[] { "maFile" }),
                         ("JSON Files", new[] { "json" }),
                         ("All Files", new[] { "*" }),
-                    }),
-                    _ => null,
-                };
+                    });
+#endif
                 await PickAsync(ImportSDA, fileTypes);
             });
             WinAuthBtn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePickerFileType? fileTypes = DI.DeviceIdiom switch
-                {
-                    DeviceIdiom.Desktop => new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                var fileTypes =
+#if __MOBILE__
+                    OperatingSystem2.IsAndroid ?
+                        new GeneralFilePickerFileType(new[] { MediaTypeNames.TXT }) :
+                        (FilePickerFileType?)null;
+#else
+                    new FilePickerFilter(new (string, IEnumerable<string>)[] {
                         ("Text Files", new[] { "txt" }),
                         ("All Files", new[] { "*" }),
-                    }),
-                    _ => DI.Platform switch
-                    {
-                        Platform.Android => new GeneralFilePickerFileType(new[] { MediaTypeNames.TXT }),
-                        _ => null,
-                    },
-                };
+                    });
+#endif
                 await PickAsync(ImportWinAuth, fileTypes);
             });
 

@@ -20,7 +20,7 @@ namespace System.Application
             {
                 return false;
             }
-            IsRunningOnUWP = true;
+            IsRunningAsUwp = true;
             FileSystemDesktopBridge.InitFileSystem();
             return true;
         }

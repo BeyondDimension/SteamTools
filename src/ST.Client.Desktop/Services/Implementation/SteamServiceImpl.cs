@@ -544,7 +544,7 @@ namespace System.Application.Services.Implementation
         public async Task<(LoginUsingSteamClientResultCode resultCode, CookieCollection? cookies)> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false)
         {
             (LoginUsingSteamClientResultCode resultCode, string[]? cookies) result;
-            if (runasInvoker && DI.Platform == Platform.Windows && platformService.IsAdministrator)
+            if (runasInvoker && OperatingSystem2.IsWindows && platformService.IsAdministrator)
             {
                 result = await Task.Run(GetLoginUsingSteamClientCookies);
             }

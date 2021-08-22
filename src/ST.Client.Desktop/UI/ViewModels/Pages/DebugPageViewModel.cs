@@ -271,7 +271,7 @@ namespace System.Application.UI.ViewModels
         public void ShowDialogButton_Click()
         {
             //#if DEBUG
-            //            if (DI.Platform == Platform.Windows)
+            //            if (OperatingSystem2.IsWindows)
             //            {
             //                //IPCTest();
             //                FileShareTest();

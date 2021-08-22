@@ -242,15 +242,13 @@ namespace System.Application.UI
                         var notifyIcon = INotifyIcon.Instance;
                         notifyIcon.Visible = true;
                         notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
-                        switch (DI.Platform)
+                        if (OperatingSystem2.IsMacOS)
                         {
-                            case Platform.Windows:
-                            case Platform.Linux:
-                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
-                                break;
-                            case Platform.Apple:
-                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
-                                break;
+                            notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
+                        }
+                        else
+                        {
+                            notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
                         }
 #if WINDOWS
                         notifyIcon.RightClick += (s, e) =>
