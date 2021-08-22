@@ -244,7 +244,7 @@
             <UniformGridLayout ItemsJustification="SpaceBetween"
                                MinRowSpacing="10"
                                MinColumnSpacing="10"
-                               MaximumRowsOrColumns="10"
+                               MaximumRowsOrColumns="15"
                                ItemsStretch="Fill" />
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>

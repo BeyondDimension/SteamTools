@@ -290,6 +290,7 @@ namespace System.Application.Services
             IsLoadingGameList = true;
             LoadGames(await ISteamService.Instance.GetAppInfos());
             //UpdateGamesImage();
+            InitializeDownloadGameList();
             IsLoadingGameList = false;
         }
 
@@ -349,7 +350,6 @@ namespace System.Application.Services
                 //else
                 //{
                 InitializeGameList();
-                InitializeDownloadGameList();
                 Toast.Show(AppResources.GameList_RefreshGamesListSucess);
                 _IsRefreshing = false;
                 //}

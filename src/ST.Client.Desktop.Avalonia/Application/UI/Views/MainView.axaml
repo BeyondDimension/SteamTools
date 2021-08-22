@@ -306,7 +306,7 @@
           <ui:NavigationViewItem Content="{Binding Name,StringFormat={} {0}}">
             <ui:NavigationViewItem.Icon>
               <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
-                           Width="18" Height="16"/>
+                           Width="18" Height="18"/>
             </ui:NavigationViewItem.Icon>
           </ui:NavigationViewItem>
         </DataTemplate>
