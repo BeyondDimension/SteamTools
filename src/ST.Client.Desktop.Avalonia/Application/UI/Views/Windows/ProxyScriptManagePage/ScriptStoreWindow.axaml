@@ -20,7 +20,11 @@
     <controls:TitleBar></controls:TitleBar>
 
     <DockPanel>
-      <Border DockPanel.Dock="Top" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10" Margin="20 40 20 10">
+      <Border DockPanel.Dock="Top" 
+              Classes="paper" 
+              Background="{DynamicResource ThemeBrushKey}" 
+              Padding="10" 
+              Margin="10 40 10 10">
         <DockPanel>
           <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
             <Button Background="Transparent" Cursor="Hand"
@@ -31,7 +35,11 @@
           </StackPanel>
 
           <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{CompiledBinding SearchText,Mode=TwoWay}" VerticalAlignment="Center" MinWidth="300">
+            <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                     Text="{CompiledBinding SearchText,Mode=TwoWay}" 
+                     Background="Transparent"
+                     VerticalAlignment="Center" 
+                     MinWidth="300">
               <TextBox.InnerLeftContent>
                 <PathIcon Data="{StaticResource SearchDrawing}"
                           Width="20" Height="20"
@@ -45,17 +53,21 @@
       </Border>
       <Panel>
         <TextBlock IsVisible="{Binding IsScriptsEmpty}"
-     Text="{ReflectionBinding Path=Res.ScriptConfig_ScriptEmptyTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
-     TextWrapping="WrapWithOverflow"
-     VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="{StaticResource ScrollMargin}">
+                   Text="{ReflectionBinding Path=Res.ScriptConfig_ScriptEmptyTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   TextWrapping="WrapWithOverflow"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"></TextBlock>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="0 0 0 10">
           <ItemsRepeater Items="{Binding Scripts}">
             <ItemsRepeater.Layout>
               <StackLayout Orientation="Vertical" Spacing="20"/>
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
               <DataTemplate>
-                <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="20 10">
+                <Border Classes="paper" 
+                        Background="{DynamicResource ThemeBrushKey}" 
+                        Margin="10 0"
+                        Padding="20 10">
                   <DockPanel>
                     <Image Source="{Binding Icon}" DockPanel.Dock="Left"></Image>
                     <StackPanel Spacing="8" DockPanel.Dock="Right">

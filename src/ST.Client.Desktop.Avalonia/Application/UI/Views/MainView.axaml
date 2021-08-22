@@ -22,7 +22,7 @@
     <!--Background-->
     <DockPanel IsHitTestVisible="False" Margin="{StaticResource TitleBarAfterMargin}">
       <ExperimentalAcrylicBorder x:Name="NavBarBackground"
-                                 IsHitTestVisible="False" 
+                                 IsHitTestVisible="False"
                                  DockPanel.Dock="Left"
                                  Width="240">
         <ExperimentalAcrylicBorder.Material>
