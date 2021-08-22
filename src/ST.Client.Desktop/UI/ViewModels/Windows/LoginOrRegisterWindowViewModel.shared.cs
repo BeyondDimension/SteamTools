@@ -57,6 +57,7 @@ namespace System.Application.UI.ViewModels
                 }
 #endif
             });
+            ManualLogin = ReactiveCommand.CreateFromTask(ManualLoginAsync);
             SendSms = ReactiveCommand.CreateFromTask(SendSmsAsync);
             Submit = ReactiveCommand.CreateFromTask(SubmitAsync);
             OpenHyperlink = ReactiveCommand.Create<string>(OpenHyperlink_);
@@ -78,6 +79,26 @@ namespace System.Application.UI.ViewModels
             };
         }
 
+        public ICommand ManualLogin { get; }
+        async Task ManualLoginAsync()
+        {
+            await MainThread2.InvokeOnMainThreadAsync(async () =>
+            {
+                TextBoxWindowViewModel vm = new()
+                {
+                    Title = AppResources.LoginInputManualLoginToken,
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox
+                };
+                await TextBoxWindowViewModel.ShowDialogAsync(vm);
+                if (string.IsNullOrWhiteSpace(vm.Value))
+                {
+                    Toast.Show(AppResources.Login_ManualLoginEmpt);
+                    return;
+                }
+                else
+                    await this.OnMessage(vm.Value, null);
+            });
+        }
         private string? _CurrentSelectChannel;
         public string? CurrentSelectChannel
         {
@@ -205,7 +226,6 @@ namespace System.Application.UI.ViewModels
         public Action? TbSmsCodeFocus { get; set; }
 
         public CancellationTokenSource? CTS { get; set; }
-
         public ICommand SendSms { get; }
 
         async Task SendSmsAsync() => await this.SendSmsAsync(() => new()

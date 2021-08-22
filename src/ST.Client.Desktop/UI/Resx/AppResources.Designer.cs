@@ -2584,6 +2584,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 手动登录 的本地化字符串。
+        /// </summary>
+        public static string Login_ManualLogin {
+            get {
+                return ResourceManager.GetString("Login_ManualLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 输入的内容不能为空。 的本地化字符串。
+        /// </summary>
+        public static string Login_ManualLoginEmpt {
+            get {
+                return ResourceManager.GetString("Login_ManualLoginEmpt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 数据解密失败，请确定数据正确重试。 的本地化字符串。
+        /// </summary>
+        public static string Login_WebSocketOnMessage {
+            get {
+                return ResourceManager.GetString("Login_WebSocketOnMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 登录 / 注册 的本地化字符串。
         /// </summary>
         public static string LoginAndRegister {
@@ -2598,6 +2625,15 @@ namespace System.Application.UI.Resx {
         public static string Logining {
             get {
                 return ResourceManager.GetString("Logining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请粘贴网页复制的内容。 的本地化字符串。
+        /// </summary>
+        public static string LoginInputManualLoginToken {
+            get {
+                return ResourceManager.GetString("LoginInputManualLoginToken", resourceCulture);
             }
         }
         

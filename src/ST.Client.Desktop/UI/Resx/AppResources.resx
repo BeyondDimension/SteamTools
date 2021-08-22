@@ -1574,4 +1574,16 @@
   <data name="Settings_UI_SelectImage" xml:space="preserve">
     <value>选择图片</value>
   </data>
+  <data name="Login_ManualLogin" xml:space="preserve">
+    <value>手动登录</value>
+  </data>
+  <data name="LoginInputManualLoginToken" xml:space="preserve">
+    <value>请粘贴网页复制的内容。</value>
+  </data>
+  <data name="Login_ManualLoginEmpt" xml:space="preserve">
+    <value>输入的内容不能为空。</value>
+  </data>
+  <data name="Login_WebSocketOnMessage" xml:space="preserve">
+    <value>数据解密失败，请确定数据正确重试。</value>
+  </data>
 </root>

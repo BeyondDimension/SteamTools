@@ -58,29 +58,41 @@ namespace System.Application.UI.ViewModels
 
             void OnBindSuccessed() { }
         }
-         
         /// <summary>
         /// 当接收到 WebSocket Client 发送的消息时
         /// </summary>
         /// <param name="vm"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        static async Task OnMessage(this IViewModel vm, string msg,IWebSocketConnection socket)
+        public static async Task OnMessage(this IViewModel vm, string msg, IWebSocketConnection? socket)
         {
             if (vm.TempAes == null) return;
             var byteArray = msg.Base64UrlDecodeToByteArray();
+            try { 
             byteArray = vm.TempAes.Decrypt(byteArray);
+            }
+            catch {
+                if (socket == null)
+                    Toast.Show(AppResources.Login_WebSocketOnMessage);
+                return;
+            }
             var response = ApiResponse.Deserialize<LoginOrRegisterResponse>(byteArray);
             var webResponse = new FastLRBWebResponse();
             if (response.IsSuccess && response.Content == null)
             {
                 webResponse.Msg = ApiResponse.GetMessage(ApiResponseCode.NoResponseContent);
-                await socket.Send(JsonSerializer.Serialize(webResponse));
+                if (socket != null)
+                    await socket.Send(JsonSerializer.Serialize(webResponse));
+                else
+                    Toast.Show(webResponse.Msg);
                 return;
             }
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             webResponse.State = response.IsSuccess;
-            await socket.Send(JsonSerializer.Serialize(webResponse)); // 仅可在 close 之前传递消息
+            if (socket != null)
+                await socket.Send(JsonSerializer.Serialize(webResponse)); // 仅可在 close 之前传递消息
+            else
+                Toast.Show(webResponse.Msg);
             if (response.IsSuccess)
             {
                 if (vm.IsBind)
@@ -166,7 +178,6 @@ namespace System.Application.UI.ViewModels
             IPEndPoint[] ipEndPoints = iproperties.GetActiveTcpListeners();
             return ipEndPoints.Any(x => x.Port == port);
         }
-
         /// <summary>
         /// 开始第三方快速登录、注册、绑定
         /// </summary>
@@ -197,10 +208,11 @@ namespace System.Application.UI.ViewModels
                 vm.WebSocketServer = new($"ws://{IPAddress.Loopback}:{port}");
                 vm.WebSocketServer.AddTo(vm);
                 vm.ServerWebSocketListenerPort = port;
-                vm.WebSocketServer.Start(socket => {
+                vm.WebSocketServer.Start(socket =>
+                {
                     socket.OnMessage = async message => await vm.OnMessage(message, socket);
                 });
-            } 
+            }
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
 #if DEBUG
