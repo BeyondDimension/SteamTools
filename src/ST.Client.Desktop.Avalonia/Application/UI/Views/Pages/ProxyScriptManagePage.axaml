@@ -31,20 +31,20 @@
                         VerticalAlignment="Center"></ToggleSwitch>
 
           <controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />
-          <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}" 
-                  Background="Transparent" 
-                  Cursor="Hand" 
+          <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}"
+                  Background="Transparent"
+                  Cursor="Hand"
                   Command="{Binding AddNewScriptButton_Click}"
                    ToolTip.Tip="{ReflectionBinding Path=Res.Import,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource AddDrawing}" />
           </Button>
-          <Button Background="Transparent" 
+          <Button Background="Transparent"
                   Cursor="Hand"
                   Command="{ReflectionBinding RefreshScriptButton}"
                   ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
           </Button>
-          <Button Background="Transparent" 
+          <Button Background="Transparent"
                   Cursor="Hand"
                   Command="{Binding ScriptStoreCommand}"
                   ToolTip.Tip="{ReflectionBinding Path=Res.ScriptStore,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -139,12 +139,12 @@
 
                     <DockPanel VerticalAlignment="Bottom">
                       <StackPanel Orientation="Horizontal" Spacing="10">
-                        <ToggleSwitch Classes="onlyToggleSwitch" 
+                        <ToggleSwitch Classes="onlyToggleSwitch"
                                       Margin="0 -5 0 0"
                                       IsChecked="{Binding Enable,Mode=TwoWay}"
                                       VerticalAlignment="Center">
                         </ToggleSwitch>
-                        
+
                         <Button Background="Transparent"
                                 Cursor="Hand"
                                 VerticalAlignment="Center"
@@ -170,7 +170,7 @@
                           <PathIcon Width="16"  Data="{StaticResource HomeDrawing}" />
                         </Button>
 
-                        <Button Background="Transparent" IsVisible="{Binding !IsBasics}" Cursor="Hand" 
+                        <Button Background="Transparent" IsVisible="{Binding !IsBasics}" Cursor="Hand"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Right"
                                 Command="{ReflectionBinding #u.DataContext.DeleteScriptItemButton}"

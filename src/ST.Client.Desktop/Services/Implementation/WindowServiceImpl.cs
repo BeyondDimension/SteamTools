@@ -43,12 +43,15 @@ namespace System.Application.Services.Implementation
                     mainWindow = new MainWindowViewModel();
                     MainWindow = mainWindow;
                 }
-                taskbarWindow = new TaskBarWindowViewModel();
             }
             catch (Exception ex)
             {
                 Log.Error("WindowService", ex, "Init WindowViewModel");
                 throw;
+            }
+            finally
+            {
+                taskbarWindow = new TaskBarWindowViewModel();
             }
         }
 
@@ -82,14 +85,14 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                if (!taskbarWindow.IsVisible)
-                {
-                    taskbarWindow.Show(x, y);
-                }
-                else
-                {
-                    taskbarWindow.SetPosition(x, y);
-                }
+                //if (!taskbarWindow.IsVisible)
+                //{
+                taskbarWindow.Show(x, y);
+                //}
+                //else
+                //{
+                //    taskbarWindow.SetPosition(x, y);
+                //}
             }
             catch (Exception ex)
             {

@@ -44,8 +44,7 @@ namespace System.Application.UI.Views.Windows
 
             if (OperatingSystem2.IsWindows10AtLeast)
             {
-                var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-                thm.ForceNativeTitleBarToTheme(this);
+                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
             }
         }
 
