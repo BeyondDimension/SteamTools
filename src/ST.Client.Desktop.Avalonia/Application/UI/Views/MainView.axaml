@@ -16,49 +16,28 @@
         x:DataType="vm:MainWindowViewModel"
         x:CompileBindings="True">
   <Panel>
-    <Image IsHitTestVisible="False"
-           IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay}"
-           Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
-           HorizontalAlignment="Stretch"
-           VerticalAlignment="Stretch"
-           Stretch="Fill"
-           Opacity="0.8">
-    </Image>
+    <!--Title-->
+    <controls:TitleBar IsVisibleBackground="False"/>
 
     <!--Background-->
-    <Grid ZIndex="0"
-               IsHitTestVisible="False"
-               ColumnDefinitions="Auto,*"
-               RowDefinitions="30,*">
-      <ExperimentalAcrylicBorder IsHitTestVisible="False"
-                                 Grid.ColumnSpan="2">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
-                                       MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
-                                       TintOpacity="1"/>
-        </ExperimentalAcrylicBorder.Material>
-      </ExperimentalAcrylicBorder>
+    <DockPanel IsHitTestVisible="False" Margin="{StaticResource TitleBarAfterMargin}">
       <ExperimentalAcrylicBorder x:Name="NavBarBackground"
-                                 Grid.Row="1"
-                                 IsHitTestVisible="False"
+                                 IsHitTestVisible="False" 
+                                 DockPanel.Dock="Left"
                                  Width="240">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False"
-                                 Grid.Row="1"
-                                 Grid.Column="1">
+      <ExperimentalAcrylicBorder IsHitTestVisible="False" DockPanel.Dock="Right">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-    </Grid>
+    </DockPanel>
 
-    <!--Title-->
-    <controls:TitleBar IsVisibleBackground="False"/>
     <!--<Grid ColumnDefinitions="240,*,Auto">
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
         <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
@@ -186,7 +165,7 @@
 
     <!--Content-->
     <ui:NavigationView x:Name="NavigationView"
-                       Margin="0 30 0 0"
+                       Margin="{StaticResource TitleBarAfterMargin}"
                        Background="Transparent"
                        PaneDisplayMode="Left"
                        AlwaysShowHeader="True"

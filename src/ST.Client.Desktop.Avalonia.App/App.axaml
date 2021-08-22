@@ -9,6 +9,7 @@
   </Application.DataTemplates>
   <Application.Resources>
     <converters:IsNullConverter x:Key="IsNullConverter" />
+    <converters:IsVisibleToOpacity x:Key="IsVisibleToOpacity" />
     <converters:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
     <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
@@ -24,9 +25,9 @@
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
 
-    <sty:FluentAvaloniaTheme ControlsVersion="2" 
-                             RequestedTheme="Dark" 
-                             DefaultToUserTheme="False" 
+    <sty:FluentAvaloniaTheme ControlsVersion="2"
+                             RequestedTheme="Dark"
+                             DefaultToUserTheme="False"
                              UseSegoeUIOnWindows="False"/>
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />

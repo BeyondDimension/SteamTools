@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight"
         MinWidth="450" MinHeight="50"
-        MaxWidth="900"
+        MaxWidth="900" MaxHeight="600"
         ShowInTaskbar="False"
         Padding="0" Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"

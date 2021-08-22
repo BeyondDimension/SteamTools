@@ -4,17 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
              mc:Ignorable="d"
-             x:Name="u" IsHitTestVisible="False"
+             x:Name="u"
+             IsHitTestVisible="False"
              Background="Transparent"
              x:Class="System.Application.UI.Views.Controls.TitleBar">
   <Panel>
-    <DockPanel x:Name="Back" HorizontalAlignment="Stretch">
+    <Panel.Background>
+      <ImageBrush Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                  Stretch="UniformToFill"
+                  Opacity="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay,Converter={StaticResource IsVisibleToOpacity},ConverterParameter=0.8}"/>
+    </Panel.Background>
+    <!--<Image IsHitTestVisible="False"
+       IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay}"
+       Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+       HorizontalAlignment="Stretch"
+       VerticalAlignment="Stretch"
+       Stretch="UniformToFill"
+       Opacity="0.8">
+      </Image>-->
+    <DockPanel HorizontalAlignment="Stretch">
       <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="{StaticResource TitleBarHeight}">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False" Opacity="{StaticResource ContentOpacity}">
+      <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" 
+                                 x:Name="Back"
+                                 IsHitTestVisible="False">
+        <!--Opacity="{StaticResource ContentOpacity}"-->
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>

@@ -26,7 +26,7 @@ namespace System.Application.UI.Views.Controls
                 title.HorizontalAlignment = HorizontalAlignment.Center;
             }
 
-            var back = this.FindControl<DockPanel>("Back");
+            var back = this.FindControl<ExperimentalAcrylicBorder>("Back");
             this.GetObservable(IsVisibleBackgroundProperty)
                   .Subscribe(x => back.IsVisible = x);
         }
