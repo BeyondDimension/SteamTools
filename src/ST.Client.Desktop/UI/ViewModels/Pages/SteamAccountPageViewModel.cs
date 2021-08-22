@@ -96,19 +96,21 @@ namespace System.Application.UI.ViewModels
             {
                 string? remark = null;
                 accountRemarks?.TryGetValue(user.SteamId64, out remark);
-                var temp = await webApiService.GetUserInfo(user.SteamId64);
                 user.Remark = remark;
-                user.SteamID = temp.SteamID;
-                user.OnlineState = temp.OnlineState;
-                user.MemberSince = temp.MemberSince;
-                user.VacBanned = temp.VacBanned;
-                user.Summary = temp.Summary;
-                user.PrivacyState = temp.PrivacyState;
-                user.AvatarIcon = temp.AvatarIcon;
-                user.AvatarMedium = temp.AvatarMedium;
-                user.AvatarFull = temp.AvatarFull;
-                user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
-
+                var temp = await webApiService.GetUserInfo(user.SteamId64);
+                if (!string.IsNullOrEmpty(temp.SteamID))
+                {
+                    user.SteamID = temp.SteamID;
+                    user.OnlineState = temp.OnlineState;
+                    user.MemberSince = temp.MemberSince;
+                    user.VacBanned = temp.VacBanned;
+                    user.Summary = temp.Summary;
+                    user.PrivacyState = temp.PrivacyState;
+                    user.AvatarIcon = temp.AvatarIcon;
+                    user.AvatarMedium = temp.AvatarMedium;
+                    user.AvatarFull = temp.AvatarFull;
+                    user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+                }
                 if (OperatingSystem2.IsWindows)
                 {
                     var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
