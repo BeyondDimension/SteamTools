@@ -305,8 +305,7 @@
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
           <ui:NavigationViewItem Content="{Binding Name,StringFormat={} {0}}">
             <ui:NavigationViewItem.Icon>
-              <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
-                           Width="18" Height="18"/>
+              <ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>
             </ui:NavigationViewItem.Icon>
           </ui:NavigationViewItem>
         </DataTemplate>

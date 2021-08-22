@@ -874,34 +874,42 @@ namespace System.Application.Services.Implementation
 
         public SteamApp? FileToAppInfo(string filename)
         {
-            string[] content = File.ReadAllLines(filename);
-            // Skip if file contains only NULL bytes (this can happen sometimes, example: download crashes, resulting in a corrupted file)
-            if (content.Length == 1 && string.IsNullOrWhiteSpace(content[0].TrimStart('\0'))) return null;
-
-            dynamic v = VdfHelper.Read(filename);
-
-            if (v.Value == null)
+            try
             {
-                Toast.Show(
-                    $"{filename}{Environment.NewLine}contains unexpected content.{Environment.NewLine}This game will be ignored.");
+                string[] content = File.ReadAllLines(filename);
+                // Skip if file contains only NULL bytes (this can happen sometimes, example: download crashes, resulting in a corrupted file)
+                if (content.Length == 1 && string.IsNullOrWhiteSpace(content[0].TrimStart('\0'))) return null;
+
+                dynamic v = VdfHelper.Read(filename);
+
+                if (v.Value == null)
+                {
+                    Toast.Show(
+                        $"{filename}{Environment.NewLine}contains unexpected content.{Environment.NewLine}This game will be ignored.");
+                    return null;
+                }
+                v = v.Value;
+
+                SteamApp newInfo = new SteamApp
+                {
+                    AppId = uint.Parse((v.appid ?? v.appID ?? v.AppID).ToString()),
+                    Name = v.name.ToString() ?? v.installdir.ToString(),
+                    InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", v.installdir.ToString()),
+                    State = int.Parse(v.StateFlags.ToString()),
+                    SizeOnDisk = long.Parse(v.SizeOnDisk.ToString()),
+                    LastOwner = long.Parse(v.LastOwner.ToString()),
+                    BytesToDownload = long.Parse(v.BytesToDownload.ToString()),
+                    BytesDownloaded = long.Parse(v.BytesDownloaded.ToString()),
+                    lastUpdatedTicks = long.Parse(v.LastUpdated.ToString()),
+                };
+                newInfo.LastUpdated = newInfo.lastUpdatedTicks.ToDateTimeS();
+                return newInfo;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(FileToAppInfo), ex, filename);
                 return null;
             }
-            v = v.Value;
-
-            SteamApp newInfo = new SteamApp
-            {
-                AppId = uint.Parse((v.appid ?? v.appID ?? v.AppID).ToString()),
-                Name = v.name.ToString() ?? v.installdir.ToString(),
-                InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", v.installdir.ToString()),
-                State = int.Parse(v.StateFlags.ToString()),
-                SizeOnDisk = long.Parse(v.SizeOnDisk.ToString()),
-                LastOwner = long.Parse(v.LastOwner.ToString()),
-                BytesToDownload = long.Parse(v.BytesToDownload.ToString()),
-                BytesDownloaded = long.Parse(v.BytesDownloaded.ToString()),
-                lastUpdatedTicks = long.Parse(v.LastUpdated.ToString()),
-            };
-            newInfo.LastUpdated = newInfo.lastUpdatedTicks.ToDateTimeS();
-            return newInfo;
         }
 
         /// <summary>
@@ -909,30 +917,36 @@ namespace System.Application.Services.Implementation
         /// </summary>
         public List<SteamApp> GetDownloadingAppList()
         {
-            string[] libraryPaths = GetLibraryPaths();
-            if (libraryPaths.Length == 0)
-            {
-                Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
-            }
-
             var appInfos = new List<SteamApp>();
-
-            foreach (string path in libraryPaths)
+            try
             {
-                DirectoryInfo di = new DirectoryInfo(path);
-
-                foreach (FileInfo fileInfo in di.EnumerateFiles("*.acf"))
+                string[] libraryPaths = GetLibraryPaths();
+                if (libraryPaths.Length == 0)
                 {
-                    // Skip if file is empty
-                    if (fileInfo.Length == 0) continue;
-
-                    SteamApp? ai = FileToAppInfo(fileInfo.FullName);
-                    if (ai == null) continue;
-
-                    appInfos.Add(ai);
+                    Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
                 }
-            }
 
+                foreach (string path in libraryPaths)
+                {
+                    DirectoryInfo di = new DirectoryInfo(path);
+
+                    foreach (FileInfo fileInfo in di.EnumerateFiles("*.acf"))
+                    {
+                        // Skip if file is empty
+                        if (fileInfo.Length == 0) continue;
+
+                        SteamApp? ai = FileToAppInfo(fileInfo.FullName);
+                        if (ai == null) continue;
+
+                        appInfos.Add(ai);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(GetDownloadingAppList), ex, "GetDownloadApp Error");
+            }
             return appInfos.OrderBy(x => x.Name).ToList();
         }
 
