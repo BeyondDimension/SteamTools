@@ -97,6 +97,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 点此复制 的本地化字符串。
+        /// </summary>
+        public static string CopyButton {
+            get {
+                return ResourceManager.GetString("CopyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 该浏览器不支持点击复制到剪贴板 的本地化字符串。
+        /// </summary>
+        public static string CopyNoSupport {
+            get {
+                return ResourceManager.GetString("CopyNoSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 成功复制到剪贴板 的本地化字符串。
+        /// </summary>
+        public static string CopySuccess {
+            get {
+                return ResourceManager.GetString("CopySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 来自第三方登录提供程序的错误，{0}，请联系网站管理员。 的本地化字符串。
         /// </summary>
         public static string ErrorFromExternalProvider_ {
@@ -192,6 +219,15 @@ namespace System.Application.UI.Resx {
         public static string LongTimeNoJump {
             get {
                 return ResourceManager.GetString("LongTimeNoJump", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 连接程序出错,请手动复制以下内容到程序点击手动登录。 的本地化字符串。
+        /// </summary>
+        public static string ManualCopyTip {
+            get {
+                return ResourceManager.GetString("ManualCopyTip", resourceCulture);
             }
         }
         

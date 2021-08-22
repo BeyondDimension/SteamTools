@@ -129,6 +129,15 @@
   <data name="ClickHereTryAgain" xml:space="preserve">
     <value>点击此处重试</value>
   </data>
+  <data name="CopyButton" xml:space="preserve">
+    <value>点此复制</value>
+  </data>
+  <data name="CopyNoSupport" xml:space="preserve">
+    <value>该浏览器不支持点击复制到剪贴板</value>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>成功复制到剪贴板</value>
+  </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
     <value>来自第三方登录提供程序的错误，{0}，请联系网站管理员。</value>
   </data>
@@ -161,6 +170,9 @@
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
     <value>长时间未跳转？</value>
+  </data>
+  <data name="ManualCopyTip" xml:space="preserve">
+    <value>连接程序出错,请手动复制以下内容到程序点击手动登录。</value>
   </data>
   <data name="meta_description" xml:space="preserve">
     <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
