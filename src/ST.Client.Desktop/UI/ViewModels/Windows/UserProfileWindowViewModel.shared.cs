@@ -89,6 +89,10 @@ namespace System.Application.UI.ViewModels
                     await this.StartLRBAsync(channel);
                 }
             });
+            OnManualLoginClick = ReactiveCommand.CreateFromTask(async ()=>
+            {
+                await this.ManualLoginAsync();
+            });
             OnUnbundleFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
@@ -97,6 +101,7 @@ namespace System.Application.UI.ViewModels
                 }
             });
             OnCancelBindFastLoginClick = ReactiveCommand.Create(HideFastLoginLoading);
+
         }
 
         string? _CurrentSelectChannel;
@@ -207,7 +212,11 @@ namespace System.Application.UI.ViewModels
         /// 绑定用于快速登录的第三方账号 按钮点击
         /// </summary>
         public ICommand OnBindFastLoginClick { get; }
-
+        /// <summary>
+        /// 手动输入数据
+        /// </summary>
+        public ICommand OnManualLoginClick { get; }
+        
         public ICommand OnCancelBindFastLoginClick { get; }
 
         /// <summary>

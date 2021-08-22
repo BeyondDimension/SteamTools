@@ -58,13 +58,32 @@ namespace System.Application.UI.ViewModels
 
             void OnBindSuccessed() { }
         }
+       public static async Task ManualLoginAsync(this IViewModel vm)
+        {
+            await MainThread2.InvokeOnMainThreadAsync(async () =>
+            {
+                TextBoxWindowViewModel modelvm = new()
+                {
+                    Title = AppResources.LoginInputManualLoginToken,
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox
+                };
+                await TextBoxWindowViewModel.ShowDialogAsync(modelvm);
+                if (string.IsNullOrWhiteSpace(modelvm.Value))
+                {
+                    Toast.Show(AppResources.Login_ManualLoginEmpt);
+                    return;
+                }
+                else
+                    await OnMessage(vm, modelvm.Value, null);
+            });
+        }
         /// <summary>
         /// 当接收到 WebSocket Client 发送的消息时
         /// </summary>
         /// <param name="vm"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        public static async Task OnMessage(this IViewModel vm, string msg, IWebSocketConnection? socket)
+        static async Task OnMessage(this IViewModel vm, string msg, IWebSocketConnection? socket)
         {
             if (vm.TempAes == null) return;
             var byteArray = msg.Base64UrlDecodeToByteArray();
