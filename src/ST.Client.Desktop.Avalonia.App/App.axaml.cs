@@ -142,6 +142,18 @@ namespace System.Application.UI
                     thm.CustomAccentColor = null;
                 }
             }
+
+            if (OperatingSystem2.IsWindows)
+            {
+                if (OperatingSystem2.IsWindowsVersionAtLeast(6, 2))
+                    thm.GetUserAccentColor = true;
+                else
+                    thm.GetUserAccentColor = false;
+            }
+            else
+            {
+                thm.GetUserAccentColor = true;
+            }
         }
 
         readonly Dictionary<string, ICommand> mNotifyIconMenus = new();

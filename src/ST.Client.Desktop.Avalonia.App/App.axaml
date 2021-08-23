@@ -28,6 +28,7 @@
     <sty:FluentAvaloniaTheme ControlsVersion="2"
                              RequestedTheme="Dark"
                              DefaultToUserTheme="False"
+                             GetUserAccentColor="False"
                              UseSegoeUIOnWindows="False"/>
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
