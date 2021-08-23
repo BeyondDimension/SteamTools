@@ -576,13 +576,14 @@ namespace System.Application.UI.ViewModels
 
         public void TestFontsButton_Click()
         {
-            InstalledFontCollection ifc = new();
-            StringBuilder s = new();
-            foreach (var item in ifc.Families)
-            {
-                s.AppendLine(item.GetName(R.Culture.LCID));
-            }
-            DebugString = s.ToString();
+            IWindowService.Instance.ShowTaskBarWindow(0, 0);
+            //InstalledFontCollection ifc = new();
+            //StringBuilder s = new();
+            //foreach (var item in ifc.Families)
+            //{
+            //    s.AppendLine(item.GetName(R.Culture.LCID));
+            //}
+            //DebugString = s.ToString();
         }
 
 #if DEBUG

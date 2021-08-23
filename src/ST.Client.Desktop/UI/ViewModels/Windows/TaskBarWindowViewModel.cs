@@ -57,6 +57,7 @@ namespace System.Application.UI.ViewModels
                     if (IWindowService.Instance.MainWindow is MainWindowViewModel main)
                     {
                         var tab = main.TabItems.FirstOrDefault(s => s.Name == tag);
+                        tab ??= main.FooterTabItems.FirstOrDefault(s => s.Name == tag);
                         if (tab != null)
                         {
                             DI.Get<IDesktopAppService>().RestoreMainWindow();

@@ -123,12 +123,12 @@ namespace System.Application.UI
             SKTypeface? skTypeface = SKTypeface.FromFamilyName(typeface.FontFamily.Name,
                           (SKFontStyleWeight)typeface.Weight, SKFontStyleWidth.Normal, (SKFontStyleSlant)typeface.Style);
 
-            if (skTypeface.FamilyName != typeface.FontFamily.Name)
+            if (skTypeface != null && !skTypeface.FamilyName.Equals(typeface.FontFamily.Name, StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
                     Assembly asm = Assembly.Load("Avalonia.Skia");
-                    var t = asm.GetType("Avalonia.Skia.SKTypefaceCollectionCache");
+                    var t = asm?.GetType("Avalonia.Skia.SKTypefaceCollectionCache");
                     var fontCollection = t?.InvokeMember("GetOrAddTypefaceCollection", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, new object[] { typeface.FontFamily });
                     var type = fontCollection?.GetType();
                     var oMethod = type?.GetMethod("Get");
@@ -158,7 +158,7 @@ namespace System.Application.UI
             {
                 case FontFamily.DefaultFontFamilyName:
                 case "WenQuanYi Micro Hei":  //font family name
-                    skTypeface = GetSkTypefaceByFontFamily(_defaultTypeface); 
+                    skTypeface = GetSkTypefaceByFontFamily(_defaultTypeface);
                     break;
                 default:
                     skTypeface = GetSkTypefaceByFontFamily(typeface);
