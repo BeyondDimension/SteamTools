@@ -25,3 +25,6 @@
 [submodule "references/sqlite-net"]
 	path = references/sqlite-net
 	url = https://github.com/SteamTools-Team/sqlite-net.git
+[submodule "references/FluentAvalonia"]
+	path = references/FluentAvalonia
+	url = https://github.com/SteamTools-Team/FluentAvalonia.git
