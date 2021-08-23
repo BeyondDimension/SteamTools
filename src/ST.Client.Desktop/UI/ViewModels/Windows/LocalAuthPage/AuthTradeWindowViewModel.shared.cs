@@ -29,7 +29,6 @@ namespace System.Application.UI.ViewModels
                 ThisAssembly.AssemblyTrademark + " | " +
 #endif
                 DisplayName;
-            _ConfirmationsSourceList = new SourceList<WinAuthSteamClient.Confirmation>();
 
             _ConfirmationsSourceList
                .Connect()
@@ -187,8 +186,9 @@ namespace System.Application.UI.ViewModels
         private readonly ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation>? _Confirmations;
         public ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation> Confirmations => _Confirmations ?? throw new ArgumentNullException(nameof(_Confirmations));
 
-        private readonly SourceList<WinAuthSteamClient.Confirmation> _ConfirmationsSourceList;
-        public SourceList<WinAuthSteamClient.Confirmation> ConfirmationsSourceList => _ConfirmationsSourceList;
+        private readonly SourceList<WinAuthSteamClient.Confirmation> _ConfirmationsSourceList = new();
+        public SourceList<WinAuthSteamClient.Confirmation> ConfirmationsSourceList =>
+            _ConfirmationsSourceList;
 
         private bool _IsLoading;
         public bool IsLoading

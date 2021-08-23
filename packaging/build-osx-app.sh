@@ -37,7 +37,7 @@ emit_plist() {
 	<key>CFBundleVersion</key>
 	<string>2.4.10.0</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.13</string>
+	<string>10.14</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_CN</string>
 	<key>CFBundleInfoDictionaryVersion</key>

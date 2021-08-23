@@ -70,11 +70,11 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private string _SelectAllText = string.Empty;
+        private string? _SelectAllText;
         /// <summary>
-        /// 全选文字
+        /// 全选文字，当值为 <see langword="null"/> 时应隐藏底部操作区域
         /// </summary>
-        public string SelectAllText
+        public string? SelectAllText
         {
             get => _SelectAllText;
             set => this.RaiseAndSetIfChanged(ref _SelectAllText, value);
@@ -95,13 +95,20 @@ namespace System.Application.UI.ViewModels
                 })
                 .Subscribe(x =>
                 {
-                    var unselectAll = x.select_count != x.count;
-                    if (_UnselectAll != unselectAll)
+                    if (x.count > 0)
                     {
-                        _UnselectAll = unselectAll;
-                        this.RaisePropertyChanged(nameof(UnselectAll));
+                        var unselectAll = x.select_count != x.count;
+                        if (_UnselectAll != unselectAll)
+                        {
+                            _UnselectAll = unselectAll;
+                            this.RaisePropertyChanged(nameof(UnselectAll));
+                        }
+                        SelectAllText = AppResources.SelectAllText_.Format(x.select_count, x.count);
                     }
-                    SelectAllText = AppResources.SelectAllText_.Format(x.select_count, x.count);
+                    else
+                    {
+                        SelectAllText = null;
+                    }
                 })
                 .AddTo(this)
             ).AddTo(this);

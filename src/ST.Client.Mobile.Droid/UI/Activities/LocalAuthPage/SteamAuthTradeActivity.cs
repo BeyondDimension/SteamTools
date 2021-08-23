@@ -102,6 +102,10 @@ namespace System.Application.UI.Activities
             {
                 if (binding == null) return;
                 binding.tvConfirmConutMessage.Text = value;
+                if (ViewModel!.IsConfirmationsEmpty)
+                {
+                    binding.layoutActions.Visibility = ViewStates.Gone;
+                }
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsLoading).SubscribeInMainThread(value =>
             {
@@ -110,7 +114,8 @@ namespace System.Application.UI.Activities
                 binding.layoutContentConfirmations.Visibility = (value || !ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutContentSteamLogin.Visibility = (value || ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutLoading.Visibility = state;
-                binding.swipeRefreshLayout.Refreshing = value;
+                //binding.swipeRefreshLayout.Refreshing = value;
+                binding.layoutActions.Visibility = (value || !ViewModel!.IsLoggedIn || ViewModel!.IsConfirmationsEmpty) ? ViewStates.Gone : ViewStates.Visible;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.UnselectAll).SubscribeInMainThread(value =>
             {
@@ -120,7 +125,21 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.SelectAllText).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                binding.cbSelectAll.Text = value;
+                if (value == null)
+                {
+                    if (binding.layoutActions.Visibility != ViewStates.Gone)
+                    {
+                        binding.layoutActions.Visibility = ViewStates.Gone;
+                    }
+                }
+                else
+                {
+                    if (binding.layoutActions.Visibility != ViewStates.Visible)
+                    {
+                        binding.layoutActions.Visibility = ViewStates.Visible;
+                    }
+                    binding.cbSelectAll.Text = value;
+                }
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.LoadingText).SubscribeInMainThread(value =>
             {
@@ -296,6 +315,7 @@ namespace System.Application.UI.Activities
 
         void SwipeRefreshLayout.IOnRefreshListener.OnRefresh()
         {
+            binding!.swipeRefreshLayout.Refreshing = false;
             ViewModel!.MenuItemClick(ActionItem.Refresh);
         }
     }
