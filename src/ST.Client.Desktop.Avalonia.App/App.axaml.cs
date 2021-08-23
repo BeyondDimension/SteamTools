@@ -367,11 +367,7 @@ namespace System.Application.UI
             }
 #endif
 
-            var startupToastIntercept = DI.Get_Nullable<StartupToastIntercept>();
-            if (startupToastIntercept != null)
-            {
-                startupToastIntercept.IsStartuped = true;
-            }
+            StartupToastIntercept.OnStartuped();
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.SetIsStartuped");
 #endif
