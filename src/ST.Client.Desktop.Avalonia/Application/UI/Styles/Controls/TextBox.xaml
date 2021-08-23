@@ -31,9 +31,11 @@
                 Command="{Binding $parent[TextBox].Paste}"
                 IsEnabled="{Binding $parent[TextBox].CanPaste}"
                 InputGesture="{x:Static TextBox.PasteGesture}"/>
+      <MenuItem Header="-"/>
       <MenuItem x:Name="TextBoxContextMenuSelectAllItem"
                 Header="{ReflectionBinding Path=Res.SelectAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{Binding $parent[TextBox].SelectAll}"
+                IsEnabled="{Binding $parent[TextBox].Text,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
                 InputGesture="Ctrl + A"/>
     </ContextMenu>
   </Styles.Resources>
