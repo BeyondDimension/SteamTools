@@ -26,10 +26,22 @@ namespace System.Application.UI.Views
             var avater = this.FindControl<Image>("avater");
             var nav = this.FindControl<NavigationView>("NavigationView");
             var back = this.FindControl<ExperimentalAcrylicBorder>("NavBarBackground");
+
             if (back != null && nav != null)
             {
                 nav.GetObservable(NavigationView.IsPaneOpenProperty)
-                    .Subscribe(x => back.Width = x ? 240 : 48);
+                    .Subscribe(x =>
+                    {
+                        if (nav.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
+                        {
+                            back.IsVisible = false;
+                            //back.Width = 0;
+                        }
+                        else
+                        {
+                            back.Width = x ? 240 : 48;
+                        }
+                    });
             }
 
             if (back != null && nav != null)

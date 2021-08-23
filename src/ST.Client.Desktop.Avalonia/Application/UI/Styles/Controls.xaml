@@ -15,8 +15,9 @@
     <Thickness x:Key="UnifyTitleBarAfterContentMargin">34, 30, 34, 0</Thickness>
     <Thickness x:Key="ContentMargin">34, 0, 34, 0</Thickness>
 
-    <SolidColorBrush x:Key="TransparentColor">#00000000</SolidColorBrush>
-    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="TransparentColor" />
+    <SolidColorBrush x:Key="NavigationViewContentBackground">#00000000</SolidColorBrush>
+    <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
+    <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
   </Styles.Resources>
   <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
   <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
