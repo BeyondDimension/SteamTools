@@ -111,7 +111,9 @@ namespace System.Application.Services
             if (user is UserInfoDTO userInfo && userInfo.SteamAccountId.HasValue)
             {
                 // Steam Avatar
-                value = CurrentSteamUser?.AvatarStream;
+                if (CurrentSteamUser == null)
+                    return DefaultAvaterPath;
+                value = CurrentSteamUser.AvatarStream;
             }
 
             if (user is IUserDTO user2 && user2.Avatar.HasValue)
@@ -197,20 +199,7 @@ namespace System.Application.Services
             User = user;
             this.RaisePropertyChanged(nameof(IsAuthenticated));
 
-            if (User != null && User.SteamAccountId.HasValue)
-            {
-#if !__MOBILE__
-                CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
-                CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
-#else
-                AvaterPath = DefaultAvaterPath;
-#endif
-            }
-            else
-            {
-                AvaterPath = DefaultAvaterPath;
-            }
+            RefreshUserAvaterAsync();
 
             var currentUser = await userManager.GetCurrentUserAsync();
             RefreshCurrentUser(currentUser);
@@ -220,6 +209,25 @@ namespace System.Application.Services
         {
             var user = await userManager.GetCurrentUserInfoAsync();
             await RefreshUserAsync(user);
+        }
+
+        public async void RefreshUserAvaterAsync()
+        {
+            if (User != null && User.SteamAccountId.HasValue)
+            {
+#if !__MOBILE__
+                CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
+                CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
+                AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream) ?? DefaultAvaterPath;
+                return;
+#else
+                AvaterPath = DefaultAvaterPath;
+#endif
+            }
+            else
+            {
+                AvaterPath = DefaultAvaterPath;
+            }
         }
 
         /// <summary>

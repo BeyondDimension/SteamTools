@@ -263,6 +263,8 @@
           </DockPanel>
           <ui:Button.Flyout>
             <ui:MenuFlyout Placement="RightEdgeAlignedTop">
+              <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Command="{ReflectionBinding Path=RefreshUserAvaterAsync,Source={x:Static service:UserService.Current}}"/>
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                                  CommandParameter="UserProfile"/>

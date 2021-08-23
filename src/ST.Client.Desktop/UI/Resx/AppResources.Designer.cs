@@ -423,6 +423,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 同步 Steam 头像 的本地化字符串。
+        /// </summary>
+        public static string AsyncSteamAvatar {
+            get {
+                return ResourceManager.GetString("AsyncSteamAvatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。 的本地化字符串。
+        /// </summary>
+        public static string AsyncSteamAvatarDesc {
+            get {
+                return ResourceManager.GetString("AsyncSteamAvatarDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 数据长度超出二维码最大值，请尝试其他导出方式或单个导出 的本地化字符串。
         /// </summary>
         public static string AuthLocal_ExportToQRCodeTooLongErrorTip {
@@ -2800,6 +2818,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 刷新头像 的本地化字符串。
+        /// </summary>
+        public static string RefreshAvatar {
+            get {
+                return ResourceManager.GetString("RefreshAvatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新列表 的本地化字符串。
         /// </summary>
         public static string RefreshList {
@@ -2814,24 +2841,6 @@ namespace System.Application.UI.Resx {
         public static string RefreshOK {
             get {
                 return ResourceManager.GetString("RefreshOK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 刷新 Steam 头像 的本地化字符串。
-        /// </summary>
-        public static string RefreshSteamAvatar {
-            get {
-                return ResourceManager.GetString("RefreshSteamAvatar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。 的本地化字符串。
-        /// </summary>
-        public static string RefreshSteamAvatarDesc {
-            get {
-                return ResourceManager.GetString("RefreshSteamAvatarDesc", resourceCulture);
             }
         }
         

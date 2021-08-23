@@ -124,6 +124,18 @@
                   Command="{Binding OpenBrowserCommand}"
                   CommandParameter="{x:Static vm:AboutPageViewModel.MossimosLink}"/>
         </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Classes="Header light"
+                     Margin="0,0,6,0"
+                     Text="Desktop UI Desgin:"
+                     VerticalAlignment="Center"/>
+          <Button Classes="Hyperlink"
+                  Content="@Pixel Mover"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="https://space.bilibili.com/18356231"/>
+        </StackPanel>
+
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
@@ -193,7 +205,7 @@
             <TextBlock Classes="LinkSeparatorPadding" Text="-" />
             <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
               <Button Classes="Hyperlink"
-                      Content="User Support"  
+                      Content="User Support"
                       Command="{Binding OpenBrowserCommand}"
                       CommandParameter="{x:Static vm:AboutPageViewModel.UserSupportLink}">
               </Button>

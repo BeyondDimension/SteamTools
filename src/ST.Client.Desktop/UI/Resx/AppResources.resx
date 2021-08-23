@@ -984,10 +984,13 @@
   <data name="RefreshOK" xml:space="preserve">
     <value>刷新成功</value>
   </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>刷新 Steam 头像</value>
+  <data name="RefreshAvatar" xml:space="preserve">
+    <value>刷新头像</value>
   </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
+  <data name="AsyncSteamAvatar" xml:space="preserve">
+    <value>同步 Steam 头像</value>
+  </data>
+  <data name="AsyncSteamAvatarDesc" xml:space="preserve">
     <value>绑定 Steam 账号后可手动同步刷新使用 Steam 账号头像。</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
