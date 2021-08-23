@@ -222,9 +222,9 @@ namespace System.Application.Models
             modified(this, new EventArgs());
         }
 
-        public Process StartSteamAppProcess()
+        public Process? StartSteamAppProcess()
         {
-            return Process = Process.Start(AppHelper.ProgramPath, "-clt app -silence -id " + AppId.ToString());
+            return Process = IDesktopPlatformService.Instance.OpenProcess(AppHelper.ProgramPath, "-clt app -silence -id " + AppId.ToString());
         }
 
         public static SteamApp? FromReader(BinaryReader reader)

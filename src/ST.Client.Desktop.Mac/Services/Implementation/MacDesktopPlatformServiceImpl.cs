@@ -157,29 +157,12 @@ namespace System.Application.Services.Implementation
             p.Close();
         }
 
-        void IDesktopPlatformService.OpenProcess(string name)
+        Process? IDesktopPlatformService.OpenProcess(string name, string? arguments)
         {
-            var pInfo = new ProcessStartInfo
-            {
-                FileName = name
-            };
-            pInfo.UseShellExecute = true;
-            var p = Process.Start(pInfo);
+            var p = IDesktopPlatformService.Instance.OpenProcess(name, $"\"{arguments}\"", true);
             if (p == null) throw new FileNotFoundException(name);
             p.Close();
-        }
-
-        void IDesktopPlatformService.OpenProcess(string name, string arguments)
-        {
-            var pInfo = new ProcessStartInfo
-            {
-                FileName = name,
-                Arguments = $"\"{arguments}\"",
-            };
-            pInfo.UseShellExecute = true;
-            var p = Process.Start(pInfo);
-            if (p == null) throw new FileNotFoundException(name);
-            p.Close();
+            return p;
         }
 
         public void SetSystemSessionEnding(Action action)
@@ -235,7 +218,7 @@ namespace System.Application.Services.Implementation
         public void SetCurrentUser(string userName)
         {
 
-           
+
         }
 
         #region MachineKey

@@ -43,9 +43,31 @@ namespace System.Application.Services
         /// <exception cref="IO.FileNotFoundException"></exception>
         void StartProcess(string name, string filePath) => Process.Start(name, $"\"{filePath}\"");
 
-        void OpenProcess(string name, string arguments) => Process.Start(name, arguments);
+        void StartProcess(string name)
+        {
+            Process.Start(name);
+        }
 
-        void OpenProcess(string name) => Process.Start(name);
+        Process? OpenProcess(string name)
+        {
+            return OpenProcess(name, null, true);
+        }
+
+        Process? OpenProcess(string name, string? arguments = null)
+        {
+            return OpenProcess(name, arguments, true);
+        }
+
+        Process? OpenProcess(string name, string? arguments, bool useShell)
+        {
+            var p = new ProcessStartInfo(name);
+            if (!string.IsNullOrEmpty(arguments))
+            {
+                p.Arguments = arguments;
+            }
+            p.UseShellExecute = useShell;
+            return Process.Start(p);
+        }
 
         void IPlatformService.OpenFileByTextReader(string filePath)
         {
