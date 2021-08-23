@@ -172,6 +172,7 @@
                        IsSettingsVisible="False"
                        OpenPaneLength="240"
                        MenuItems="{Binding TabItems}"
+                       FooterMenuItems="{Binding FooterTabItems}"
                        SelectedItem="{Binding SelectedItem}">
       <!--<ui:NavigationView.PaneHeader>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">

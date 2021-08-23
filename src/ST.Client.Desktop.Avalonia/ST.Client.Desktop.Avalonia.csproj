@@ -70,6 +70,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\references\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
+    <ProjectReference Include="..\..\references\FluentAvalonia\FluentAvalonia\FluentAvalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
@@ -83,7 +84,7 @@
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.7" />
     <!--<PackageReference Include="CefNet.Avalonia" Version="90.6.21124.1851" />-->
     <!--<PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-    <PackageReference Include="FluentAvaloniaUI" Version="1.1.1" />
+    <!--<PackageReference Include="FluentAvaloniaUI" Version="1.1.1" />-->
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">

@@ -50,6 +50,7 @@ namespace System.Application.UI.ViewModels
 
         readonly Dictionary<Type, Lazy<TabItemViewModel>> mTabItems = new();
         public IEnumerable<TabItemViewModel> TabItems => mTabItems.Values.Select(x => x.Value);
+        public List<TabItemViewModel> FooterTabItems { get; set; } = new();
 
         public MainWindowViewModel() : base()
         {
@@ -93,12 +94,16 @@ namespace System.Application.UI.ViewModels
                 AddTabItem<GameRelatedPageViewModel>();
             //AddTabItem<OtherPlatformPageViewModel>();
 
-            AddTabItem(() => SettingsPageViewModel.Instance);
-            AddTabItem(() => AboutPageViewModel.Instance);
+            //AddTabItem(() => SettingsPageViewModel.Instance);
+            //AddTabItem(() => AboutPageViewModel.Instance);
+            FooterTabItems.Add(SettingsPageViewModel.Instance);
+            FooterTabItems.Add(AboutPageViewModel.Instance);
 
             if (AppHelper.EnableDevtools)
             {
                 AddTabItem<DebugPageViewModel>();
+                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
+
                 //if (AppHelper.IsSystemWebViewAvailable)
                 //{
                 //    AddTabItem<DebugWebViewPageViewModel>();
@@ -139,11 +144,11 @@ namespace System.Application.UI.ViewModels
             mTabItems.Add(typeof(TabItemVM), value);
         }
 
-        void AddTabItem<TabItemVM>(Func<TabItemVM> func) where TabItemVM : TabItemViewModel
-        {
-            Lazy<TabItemViewModel> value = new(func);
-            mTabItems.Add(typeof(TabItemVM), value);
-        }
+        //void AddTabItem<TabItemVM>(Func<TabItemVM> func) where TabItemVM : TabItemViewModel
+        //{
+        //    Lazy<TabItemViewModel> value = new(func);
+        //    mTabItems.Add(typeof(TabItemVM), value);
+        //}
 
         TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel => (TabItemVM)mTabItems[typeof(TabItemVM)].Value;
     }
