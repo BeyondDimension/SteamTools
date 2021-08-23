@@ -32,8 +32,8 @@
 ## 🚀 下载渠道
 - [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
-- [Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 - [Official WebSite](https://steampp.net)
+- ~~[Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)~~
 
 ## ✨ 功能
 1. 反代 Steam 的社区网页使其能正常访问
@@ -174,6 +174,7 @@
 * [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)
 * [AvaloniaGif](https://github.com/jmacato/AvaloniaGif)
 * [Avalonia XAML Behaviors](https://github.com/wieslawsoltes/AvaloniaBehaviors)
+* [FluentAvalonia](https://github.com/amwx/FluentAvalonia)
 * [APNG.NET](https://github.com/jz5/APNG.NET)
 * [Moq](https://github.com/moq/moq4)
 * [NPOI](https://github.com/nissl-lab/npoi)

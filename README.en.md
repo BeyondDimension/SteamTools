@@ -31,8 +31,8 @@ English | [简体中文](./README.md)
 ## 🚀 Download channel
 - [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
-- [Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 - [Official WebSite](https://steampp.net)
+- ~~[Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)~~
 
 ## ✨ Functions
 1. Local reverse proxy for Steam's community webpage to enable normal access in **the Chinese Mainland, Mainland of China**
@@ -154,6 +154,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [AvaloniaUI](https://github.com/AvaloniaUI/Avalonia)
 * [AvaloniaGif](https://github.com/jmacato/AvaloniaGif)
 * [Avalonia XAML Behaviors](https://github.com/wieslawsoltes/AvaloniaBehaviors)
+* [FluentAvalonia](https://github.com/amwx/FluentAvalonia)
 * [APNG.NET](https://github.com/jz5/APNG.NET)
 * [Moq](https://github.com/moq/moq4)
 * [NPOI](https://github.com/nissl-lab/npoi)
