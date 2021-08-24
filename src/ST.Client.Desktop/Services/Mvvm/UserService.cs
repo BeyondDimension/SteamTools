@@ -211,46 +211,68 @@ namespace System.Application.Services
             await RefreshUserAsync(user);
         }
 
+#if !__MOBILE__
         public async void RefreshUserAvaterAsync()
         {
-            if (User != null && User.SteamAccountId.HasValue)
+            if (User != null)
             {
-#if !__MOBILE__
-                CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
-                CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                var ava = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
-                AvaterPath = ava ?? DefaultAvaterPath;
-                return;
-#else
-                AvaterPath = DefaultAvaterPath;
-#endif
-            }
-            else if (User?.AvatarUrl.Any_Nullable() ?? false)
-            {
-                var order = new[] {
-                    FastLoginChannel.QQ,
-                    FastLoginChannel.Microsoft,
-                    FastLoginChannel.Apple,
-                    FastLoginChannel.Steam,
-                };
-                foreach (var item in order)
+                if (User.AvatarUrl.Any_Nullable())
                 {
-                    if (User.AvatarUrl!.ContainsKey(item))
+                    var order = new[] {
+                        FastLoginChannel.Steam,
+                        FastLoginChannel.QQ,
+                        FastLoginChannel.Apple,
+                        FastLoginChannel.Microsoft,
+                    };
+                    foreach (var item in order)
                     {
-                        var value = User.AvatarUrl[item];
-                        if (!string.IsNullOrWhiteSpace(value))
+                        if (User.AvatarUrl!.ContainsKey(item))
                         {
-                            AvaterPath = CircleImageStream.Convert(value);
+                            var avatarUrl = User.AvatarUrl[item];
+                            if (!string.IsNullOrWhiteSpace(avatarUrl))
+                            {
+                                var avatarLocalFilePath = await IHttpService.Instance.GetImageAsync(avatarUrl, ImageChannelType.SteamAvatars);
+                                AvaterPath = CircleImageStream.Convert(avatarLocalFilePath);
+                            }
+                            return;
                         }
-                        return;
+                        else if (item == FastLoginChannel.Steam
+                            && await RefreshSteamUserAvaterAsync())
+                        {
+                            return;
+                        }
+                    }
+                }
+                else if (await RefreshSteamUserAvaterAsync())
+                {
+                    return;
+                }
+
+                async Task<bool> RefreshSteamUserAvaterAsync()
+                {
+                    if (User != null && User.SteamAccountId.HasValue)
+                    {
+                        CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
+                        CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
+                        var avaterStream = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
+                        AvaterPath = avaterStream ?? DefaultAvaterPath;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
-            else
-            {
-                AvaterPath = DefaultAvaterPath;
-            }
+
+            AvaterPath = DefaultAvaterPath;
         }
+#else
+        public void RefreshUserAvaterAsync()
+        {
+            AvaterPath = DefaultAvaterPath;
+        }
+#endif
 
         /// <summary>
         /// 更新当前登录用户的手机号码
