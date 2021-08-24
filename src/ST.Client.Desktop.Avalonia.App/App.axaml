@@ -20,22 +20,18 @@
   <Application.Styles>
     <FluentTheme Mode="Dark" />
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
-    <!--<StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeLight.xaml" />-->
-    <!--<StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Styles.xaml" />-->
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
-
+    
+    <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
     <sty:FluentAvaloniaTheme ControlsVersion="2"
                              RequestedTheme="Dark"
                              DefaultToUserTheme="False"
                              GetUserAccentColor="False"
                              UseSegoeUIOnWindows="False"/>
-    <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
+    
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
 
-    <Style Selector="Window">
-      <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"/>
-    </Style>
   </Application.Styles>
   <!-- (NativeMenu.Menu) https://github.com/AvaloniaUI/Avalonia/issues/3541 -->
   <!--<NativeMenu.Menu>

@@ -35,7 +35,7 @@
         </DockPanel>
 
         <StackPanel Margin="0,12">
-          <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"  />
+          <Separator Classes="Separator"/>
         </StackPanel>
 
 

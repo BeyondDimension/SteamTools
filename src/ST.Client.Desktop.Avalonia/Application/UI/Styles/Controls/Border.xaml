@@ -10,11 +10,11 @@
 
   <Style Selector="Border.cardborder">
     <Setter Property="BorderBrush" Value="#2F2F37"/>
-    <Setter Property="BorderThickness" Value=".88"/>
+    <Setter Property="BorderThickness" Value="0.88 0.88"/>
   </Style>
   <Style Selector="Border.cardborder:pointerover">
     <Setter Property="BorderBrush" Value="#5E5E66"/>
-    <Setter Property="BorderThickness" Value=".88"/>
+    <Setter Property="BorderThickness" Value="0.88 0.88"/>
   </Style>
 
   <Style Selector="Border.paper">

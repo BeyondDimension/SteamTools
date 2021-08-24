@@ -65,14 +65,18 @@ namespace System.Application.UI
                     if (isLightOrDarkTheme.HasValue)
                     {
                         switch_value = GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+#if DEBUG
                         dps.SetLightOrDarkThemeFollowingSystem(true);
+#endif
                         if (switch_value == mTheme) goto setValue;
                     }
                 }
                 else if (mTheme == AppTheme.FollowingSystem)
                 {
                     var dps = DI.Get<IDesktopPlatformService>();
+#if DEBUG
                     dps.SetLightOrDarkThemeFollowingSystem(false);
+#endif
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
@@ -190,7 +194,11 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Theme");
 #endif
+
+#if DEBUG
+            //实时切换主题有BUG暂且屏蔽
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+#endif
             UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
             UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
