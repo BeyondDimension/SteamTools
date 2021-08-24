@@ -225,6 +225,23 @@ namespace System.Application.Services
                 AvaterPath = DefaultAvaterPath;
 #endif
             }
+            else if (User?.AvatarUrl.Any_Nullable() ?? false)
+            {
+                var order = new[] {
+                    FastLoginChannel.QQ,
+                    FastLoginChannel.Microsoft,
+                    FastLoginChannel.Apple,
+                    FastLoginChannel.Steam,
+                };
+                foreach (var item in order)
+                {
+                    if (User.AvatarUrl!.ContainsKey(item))
+                    {
+                        AvaterPath = User.AvatarUrl[item];
+                        return;
+                    }
+                }
+            }
             else
             {
                 AvaterPath = DefaultAvaterPath;

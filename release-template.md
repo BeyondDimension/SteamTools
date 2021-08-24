@@ -1,24 +1,13 @@
 ### 新增内容
-1. Linux/macOS 版本中的 CLR 升级至 .NET 6 Preview 7
-2. Desktop 现已适配 WinUI 3 / Windows 11 / Fluent Design System 样式风格
-3. 新增 Android 上从图库选择二维码图片导入令牌
-4. 新增 Android 上文件导入选择二维码图片导入令牌
-5. 新增 Desktop 上现可刷新头像
 
 ### 修复问题
-1. 修复 Desktop 上账号切换功能
-2. 改进 Desktop 上受保护的成就不在支持勾选
-3. 修复 Linux 上因字体引发的启动时闪退
-4. 修复 Android 上扫码导入功能
-5. 修复 Android 上 Toast 不能正常显示
-6. 改进 Android 上的令牌导入方式
-7. 修复 Android 上导入带密码的令牌时不显示密码输入框
-8. 修复 导入带密码的令牌时密码输入文本框窗口不能正确取消
-9. 修复 Desktop 上使用火狐浏览器无法进行快速登录
-10. 修复 Android 8.0 以下启动时闪退
-11. 修复 Desktop 上部分用户库存游戏已安装游戏无法读取
-12. 尝试修复 Windows 上托盘菜单有时无法打开窗口
-13. 改进 Android 上确认交易页面上的显示隐藏逻辑
+1. 修复 Desktop 上因登录或注册后头像引发的无限闪退
+2. 修复 Windows 上托盘菜单有时无法打开窗口
+3. 改进 Desktop 上库存游戏右键菜单隐藏游戏项位置
+4. 移除 Desktop 上菜单栏用户手机号显示
+5. 修复 Desktop 上库存游戏中磁盘占用 UI 错位
+6. 修复 Desktop 上快速登录等待中 UI 错位
+7. 修复一些杂项问题，增强程序稳定性
 
 ### 已知问题
 - Desktop 
@@ -29,7 +18,7 @@
 	- Linux
 		- 托盘不生效，这将影响程序不能正常退出
 		- 窗口弹出位置不正确
-		- 某些窗口顶部会有两个标题栏
+		- 窗口顶部会有两个标题栏
 		- 自动更新不可用
 	- Shared
 		- 主题切换需重启软件后生效，且跟随系统暂不可用
@@ -74,18 +63,19 @@
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.4.10.7z  | 767FEC42DA14A632E92D517E96487F74184F55D6AFB7D95E57747E6AB3F4AC37 |
-| Steam++_win_x64_v2.4.10.exe  | D598A9807F6325D2E07C1FF7CE4ADFC1605501E5115FC94014FEAF88FBCBEA1B |
+| Steam++_win_x64_v2.4.11.7z  | SHA256 |
+| Steam++_win_x64_v2.4.11.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.4.10.7z  | 691ABC49640E244BF18240A5AE692DADB44E10129262793E3F19BA0D16F43FBE |
-| Steam++_linux_arm64_v2.4.10.7z  | 71A0A924661091859529471D715E8F79B914BDDB79A3AEA397FE49382E54DEB2 |
-| Steam++_linux_arm_v2.4.10.7z  | 4038B1A73EDA7FB27A759BB814C3A74A3C52F1BDBE777341727B26F0E123507F |
+| Steam++_linux_x64_v2.4.11.7z  | SHA256 |
+| Steam++_linux_arm64_v2.4.11.7z  | SHA256 |
+| Steam++_linux_arm_v2.4.11.7z  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.4.10.app.zip  | 660D729FDCEE55C36E27FFD9A65B930BB87BFCF7BA3EEA89FA25586FF4A1952B |
-| Steam++_macos_x64_v2.4.10.7z  | 7B5CC77F45596FE83157E72A2F2EA4B125B0A9A350B106DDE893E1BC49B3EF79 |
+| Steam++_macos_x64_v2.4.11.dmg  | SHA256 |
+| Steam++_macos_x64_v2.4.11.app.zip  | SHA256 |
+| Steam++_macos_x64_v2.4.11.7z  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.4.10.apk  | 432046DF7C9BBA5CCBD8AC476CE31C9A8022C3F46508F8A32E7D42081A29DDA3 |
-| Steam++_android_armeabi_v7a_v2.4.10.apk  | 25584531B040E2B50EB0855D1E3242978E37EF554019241E6C4FDB25E7B8533D |
+| Steam++_android_arm64_v8a_v2.4.11.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.4.11.apk  | SHA256 |
 
 <!-- ***
 

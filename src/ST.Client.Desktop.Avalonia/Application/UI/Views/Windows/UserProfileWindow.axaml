@@ -86,6 +86,9 @@
                 <TextBlock FontSize="12"
                            TextWrapping="Wrap"
                            Text="{ReflectionBinding Path=Res.UploadYourAvatarDesc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                <TextBlock FontSize="12"
+                           TextWrapping="Wrap"
+                           Text="{ReflectionBinding Path=Res.UnderConstruction,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
               </StackPanel>
             </DockPanel>
             <Grid>

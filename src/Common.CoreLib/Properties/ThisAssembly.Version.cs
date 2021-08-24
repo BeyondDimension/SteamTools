@@ -12,7 +12,7 @@ namespace System.Properties
         ///   <item> macOS：\packaging\build-osx-app.sh &lt;CFBundleVersion&gt; &lt;CFBundleShortVersionString&gt; </item>
         /// </list>
         /// </summary>
-        public const string Version = "2.4.10";
+        public const string Version = "2.4.11";
 
         //public const string InfoVersion = Version + "-beta";
     }
