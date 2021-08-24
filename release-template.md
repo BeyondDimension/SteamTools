@@ -51,16 +51,19 @@
 | linux-x64  | ✅ | α |
 | android-arm64  | ✅ | α |
 | android-arm  | ✅ | α |
-| osx-arm64  | ✅ | β |
 | linux-arm64  | ✅ | β |
 | linux-arm  | ✅ | β |
+| osx-arm64  | ❌ |  |
+| win-arm64  | ❌ |  |
 | ios-arm64  | ❌ |  |
-| win-arm64  | ❌ | |
 
-## 下载指南
+<!-- 
 - macOS
 	- 如果你使用 ARM 芯片的 Mac（较为**稀有**），例如 **M1**，则下载文件名中带有 **macos_arm64** 的文件
 	- 如果你使用 Intel、AMD 芯片的 Mac（较为**普遍**），则下载文件名中带有 **macos_x64** 的文件
+-->
+
+## 下载指南
 - Linux
 	- 如果你使用 Intel、AMD 芯片的 PC（较为**普遍**），则下载文件名中带有 **linux_x64** 的文件
 	- 如果你使用 ARM64 芯片的 PC（较为**稀有**），例如 **Raspberry Pi Model 3+**，则下载文件名中带有 **linux_arm64** 的文件
@@ -71,20 +74,18 @@
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.4.10.7z  | SHA256 |
+| Steam++_win_x64_v2.4.10.7z  | 767FEC42DA14A632E92D517E96487F74184F55D6AFB7D95E57747E6AB3F4AC37 |
 | Steam++_win_x64_v2.4.10.exe  | SHA256 |
-| Steam++_win_arm64_v2.4.10.7z  | SHA256 |
-| Steam++_win_arm64_v2.4.10.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.4.10.7z  | SHA256 |
-| Steam++_linux_arm64_v2.4.10.7z  | SHA256 |
-| Steam++_linux_arm_v2.4.10.7z  | SHA256 |
+| Steam++_linux_x64_v2.4.10.7z  | 691ABC49640E244BF18240A5AE692DADB44E10129262793E3F19BA0D16F43FBE |
+| Steam++_linux_arm64_v2.4.10.7z  | 71A0A924661091859529471D715E8F79B914BDDB79A3AEA397FE49382E54DEB2 |
+| Steam++_linux_arm_v2.4.10.7z  | 4038B1A73EDA7FB27A759BB814C3A74A3C52F1BDBE777341727B26F0E123507F |
 | | |
 | Steam++_macos_x64_v2.4.10.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.4.10.dmg  | SHA256 |
+| Steam++_macos_x64_v2.4.10.7z  | 7B5CC77F45596FE83157E72A2F2EA4B125B0A9A350B106DDE893E1BC49B3EF79 |
 | | |
-| Steam++_android_arm64_v8a_v2.4.10.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.4.10.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.4.10.apk  | 432046DF7C9BBA5CCBD8AC476CE31C9A8022C3F46508F8A32E7D42081A29DDA3 |
+| Steam++_android_armeabi_v7a_v2.4.10.apk  | 25584531B040E2B50EB0855D1E3242978E37EF554019241E6C4FDB25E7B8533D |
 
 <!-- ***
 
