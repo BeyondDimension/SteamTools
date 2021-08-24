@@ -3,6 +3,7 @@ using System.Application.Models;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Properties;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -218,12 +219,13 @@ namespace System.Application.Services
             {
                 if (User.AvatarUrl.Any_Nullable())
                 {
-                    var order = new[] {
+                    var settingPriority = FastLoginChannel.Steam; // 设置中优先选取头像渠道配置项
+                    var order = new[] { settingPriority }.Concat(new[] {
                         FastLoginChannel.Steam,
                         FastLoginChannel.QQ,
                         FastLoginChannel.Apple,
                         FastLoginChannel.Microsoft,
-                    };
+                    }.Where(x => x != settingPriority));
                     foreach (var item in order)
                     {
                         if (User.AvatarUrl!.ContainsKey(item))
