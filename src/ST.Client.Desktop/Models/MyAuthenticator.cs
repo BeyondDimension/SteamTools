@@ -345,6 +345,7 @@ namespace System.Application.Models
         /// <param name="token"></param>
         async void StartAutoRefreshCode(CancellationToken token)
         {
+            RefreshCode();
             try
             {
                 await Task.Run(async () =>
