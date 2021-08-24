@@ -20,7 +20,7 @@ namespace System.Application.Services.Implementation
     {
         const string TAG = "WindowsDesktopPlatformS";
         const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
-
+        public string? GetRegistryVdfPath() { return null; }
         public string GetCommandLineArgs(Process process)
         {
             try

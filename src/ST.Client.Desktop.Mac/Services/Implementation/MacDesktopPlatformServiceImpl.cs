@@ -214,10 +214,38 @@ namespace System.Application.Services.Implementation
         }
 
         public string GetLastSteamLoginUserName() => string.Empty;
-
+        public string? GetRegistryVdfPath() {
+            var value = string.Format(
+                    "{0}Users{0}{1}{0}Library{0}Application Support{0}Steam{0}registry.vdf",
+                    Path.DirectorySeparatorChar,
+                    Environment.UserName);
+            return value;
+        }
         public void SetCurrentUser(string userName)
         {
-
+            try
+            {
+                var registryVdfPath = GetRegistryVdfPath();
+                if (!string.IsNullOrWhiteSpace(registryVdfPath) && File.Exists(registryVdfPath))
+                {
+                    dynamic v = VdfHelper.Read(registryVdfPath);
+                    var autoLoginUser = v.Value.HKCU.Software.Valve.Steam.AutoLoginUser;
+                    if (autoLoginUser != null)
+                    {
+                        var oldStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{autoLoginUser}\"\n";
+                        var newStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{userName}\"\n";
+                        VdfHelper.UpdateValueByReplaceNoPattern(registryVdfPath, oldStr, newStr); 
+                    }
+                    else
+                    {
+                        Log.Error("SetCurrentUser","UpdateAuthorizedAutoLoginUser Fail(0). AutoLoginUser IsNull");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error("SetCurrentUser", e, "UpdateAuthorizedAutoLoginUser Fail(0)."); 
+            } 
 
         }
 

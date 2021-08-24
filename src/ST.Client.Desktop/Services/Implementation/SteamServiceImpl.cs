@@ -37,13 +37,13 @@ namespace System.Application.Services.Implementation
         /// </summary>
         readonly string? UserVdfPath;
         readonly string? ConfigVdfPath;
-        readonly string? RegistryVdfPath;
         readonly string? AppInfoPath;
         readonly string? LibrarycacheDirPath;
         const string UserDataDirectory = "userdata";
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
+        readonly string? mRegistryVdfPath;
         readonly string[] steamProcess = new[] { "steam", "steam_osx", "steamservice", "steamwebhelper" };
         readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
         IHttpService Http => _http.Value;
@@ -56,7 +56,7 @@ namespace System.Application.Services.Implementation
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
             AppInfoPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "appinfo.vdf");
             LibrarycacheDirPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "librarycache");
-            RegistryVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "registry.vdf");
+            mRegistryVdfPath = platformService.GetRegistryVdfPath();// SteamDirPath == null ? null : Path.Combine(SteamDirPath, "registry.vdf");
             //RegistryVdfPath  = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "registry.vdf");
             ConfigVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "config.vdf");
 
@@ -67,6 +67,7 @@ namespace System.Application.Services.Implementation
         }
 
         public string? SteamDirPath => mSteamDirPath;
+        public string? RegistryVdfPath => mRegistryVdfPath;
 
         public string? SteamProgramPath => mSteamProgramPath;
 
@@ -190,34 +191,7 @@ namespace System.Application.Services.Implementation
             }
             return users;
         }
-        public bool UpdateRegistryVdfPath(string name)
-        {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(RegistryVdfPath) && File.Exists(RegistryVdfPath))
-                {
-                    dynamic v = VdfHelper.Read(RegistryVdfPath);
-                    var autoLoginUser = v.Value.HKCU.Software.Valve.Steam.AutoLoginUser;
-                    if (autoLoginUser != null)
-                    {
-                        var oldStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{autoLoginUser}\"\n";
-                        var newStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{name}\"\n";
-                        VdfHelper.UpdateValueByReplaceNoPattern(RegistryVdfPath, oldStr, newStr);
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error(TAG, e, "UpdateAuthorizedDeviceList Fail(0).");
-                return false;
-            }
-            return false;
-        }
+      
         public bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> model)
         {
             var authorizeds = new List<AuthorizedDevice>();

@@ -167,6 +167,7 @@ namespace System.Application.Services
 
         /// <inheritdoc cref="ISteamService.SteamProgramPath"/>
         string? GetSteamProgramPath();
+        string? GetRegistryVdfPath();
 
         /// <inheritdoc cref="ISteamService.GetLastLoginUserName"/>
         string GetLastSteamLoginUserName();
