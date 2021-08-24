@@ -1981,4 +1981,76 @@
     <value>다시 시도하십시오</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="RefreshAvatar" xml:space="preserve">
+    <value>아바타를 새로 고칩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatar" xml:space="preserve">
+    <value>Steam 아바타를 동기화합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatarDesc" xml:space="preserve">
+    <value>Steam 계정을 바인딩한 후 Steam 계정 아바타를 사용하여 수동으로 동기화할 수 있습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_ThemeAccent" xml:space="preserve">
+    <value>테마 색상입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_Custom" xml:space="preserve">
+    <value>사용자 지정</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
+    <value>모깎기 인터페이스를 활성화합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_UnLogin" xml:space="preserve">
+    <value>로그인하지 않았습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>QR 코드를 스캔합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>모두 선택</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Helper" xml:space="preserve">
+    <value>도움말</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
+    <value>배경 이미지를 사용자 지정합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>재설정합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_SelectImage" xml:space="preserve">
+    <value>그림을 선택합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLogin" xml:space="preserve">
+    <value>수동으로 로그인합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LoginInputManualLoginToken" xml:space="preserve">
+    <value>웹 페이지에서 복사한 내용을 붙여넣으십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLoginEmpt" xml:space="preserve">
+    <value>입력한 내용은 비어 있을 수 없습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_WebSocketOnMessage" xml:space="preserve">
+    <value>데이터 암호 해독에 실패했습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+    <value>홈 공유 라이브러리가 비어 있습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

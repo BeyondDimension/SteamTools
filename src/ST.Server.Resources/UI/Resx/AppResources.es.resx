@@ -217,4 +217,20 @@
     <value>El número de puerto debe ser del tipo UInt16, póngase en contacto con su webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyButton" xml:space="preserve">
+    <value>Apuntar a esta copia</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopyNoSupport" xml:space="preserve">
+    <value>Este explorador no admite hacer clic en copiar en el portapapeles</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>Copiado correctamente en el portapapeles</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ManualCopyTip" xml:space="preserve">
+    <value>Se ha producido un error con el programa de conexión, copie manualmente lo siguiente en el programa, haga clic manualmente para iniciar sesión.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

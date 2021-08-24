@@ -217,4 +217,20 @@
     <value>포트 번호는 UInt16 유형이어야 하며 웹마스터에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyButton" xml:space="preserve">
+    <value>복사를 클릭합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopyNoSupport" xml:space="preserve">
+    <value>브라우저는 클립보드에 복사를 클릭하는 것을 지원하지 않습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>클립보드에 성공적으로 복사되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ManualCopyTip" xml:space="preserve">
+    <value>연결 프로그램에 오류가 있는 경우 수동 로그인을 클릭하여 프로그램에 다음을 수동으로 복사합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

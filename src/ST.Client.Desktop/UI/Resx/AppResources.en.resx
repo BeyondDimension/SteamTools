@@ -1985,4 +1985,76 @@
     <value>retry</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="RefreshAvatar" xml:space="preserve">
+    <value>Refresh the avatar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatar" xml:space="preserve">
+    <value>Synchronize steam avatars</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatarDesc" xml:space="preserve">
+    <value>After binding a Steam account, you can manually sync and refresh your Steam account profile picture.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_ThemeAccent" xml:space="preserve">
+    <value>Theme color</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_Custom" xml:space="preserve">
+    <value>Customization</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
+    <value>Enable the fillet interface</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_UnLogin" xml:space="preserve">
+    <value>Not signed in</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>Scan QR codes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>All selected</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Helper" xml:space="preserve">
+    <value>Help</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
+    <value>Customize the background picture</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>reset</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_SelectImage" xml:space="preserve">
+    <value>Select the picture</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLogin" xml:space="preserve">
+    <value>Sign in manually</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LoginInputManualLoginToken" xml:space="preserve">
+    <value>Please paste the contents of the web page copy.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLoginEmpt" xml:space="preserve">
+    <value>The input cannot be empty.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_WebSocketOnMessage" xml:space="preserve">
+    <value>Data decryption failed, make sure the data was retried correctly.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+    <value>The home share library is empty.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

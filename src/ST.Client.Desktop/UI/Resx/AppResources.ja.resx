@@ -1981,4 +1981,76 @@
     <value>再試行します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="RefreshAvatar" xml:space="preserve">
+    <value>アバターを更新します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatar" xml:space="preserve">
+    <value>Steam アバターを同期します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatarDesc" xml:space="preserve">
+    <value>Steam アカウントをバインドすると、Steam アカウントアバターを使用して手動で同期的に更新できます。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_ThemeAccent" xml:space="preserve">
+    <value>テーマの色</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_Custom" xml:space="preserve">
+    <value>カスタマイズ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
+    <value>フィレット インターフェイスを有効にします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_UnLogin" xml:space="preserve">
+    <value>ログインしていません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>QRコードをスキャンします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>完全選択</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Helper" xml:space="preserve">
+    <value>助け</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
+    <value>背景画像をカスタマイズします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>リセットします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_SelectImage" xml:space="preserve">
+    <value>画像を選択します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLogin" xml:space="preserve">
+    <value>手動でサインインします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LoginInputManualLoginToken" xml:space="preserve">
+    <value>Web ページによってコピーされたコンテンツを貼り付けてください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLoginEmpt" xml:space="preserve">
+    <value>入力内容を空にすることはできません。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_WebSocketOnMessage" xml:space="preserve">
+    <value>データの復号化に失敗しました。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+    <value>ホーム共有ライブラリが空です。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

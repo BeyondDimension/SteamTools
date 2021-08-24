@@ -217,4 +217,20 @@
     <value>Номер порта должен быть UInt16, обратитесь к администратору сайта.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyButton" xml:space="preserve">
+    <value>Нажмите Здесь для репликации</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopyNoSupport" xml:space="preserve">
+    <value>Браузер не поддерживает копирование щелчков в буфер обмена</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>Успешно скопировано в буфер обмена</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ManualCopyTip" xml:space="preserve">
+    <value>Что-то пошло не так с соединителем, пожалуйста, скопируйте следующее вручную в программу, нажав кнопку Вручную войти в систему.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

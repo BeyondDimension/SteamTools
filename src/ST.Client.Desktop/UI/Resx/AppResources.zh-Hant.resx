@@ -1981,4 +1981,76 @@
     <value>重試</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="RefreshAvatar" xml:space="preserve">
+    <value>刷新頭像</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatar" xml:space="preserve">
+    <value>同步 Steam 頭像</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="AsyncSteamAvatarDesc" xml:space="preserve">
+    <value>綁定 Steam 帳號後可手動同步刷新使用 Steam 帳號頭像。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_ThemeAccent" xml:space="preserve">
+    <value>主題色</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_Custom" xml:space="preserve">
+    <value>自訂</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
+    <value>啟用圓角介面</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_UnLogin" xml:space="preserve">
+    <value>未登錄</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>掃描二維碼</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全選</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Helper" xml:space="preserve">
+    <value>説明</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
+    <value>自訂背景圖片</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>重置</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_SelectImage" xml:space="preserve">
+    <value>選擇圖片</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLogin" xml:space="preserve">
+    <value>手動登錄</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LoginInputManualLoginToken" xml:space="preserve">
+    <value>請貼貼網頁複製的內容。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_ManualLoginEmpt" xml:space="preserve">
+    <value>輸入的內容不能為空。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Login_WebSocketOnMessage" xml:space="preserve">
+    <value>數據解密失敗，請確定數據正確重試。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+    <value>家庭共用庫為空。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

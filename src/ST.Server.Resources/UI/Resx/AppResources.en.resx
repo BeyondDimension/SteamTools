@@ -217,4 +217,20 @@
     <value>The port number must be of the UInt16 type, contact your webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyButton" xml:space="preserve">
+    <value>Point to this copy</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopyNoSupport" xml:space="preserve">
+    <value>This browser does not support click copy to the clipboard</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>Successfully copied to the clipboard</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ManualCopyTip" xml:space="preserve">
+    <value>There was an error with the connection program, please manually copy the following to the program click manually to log in.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

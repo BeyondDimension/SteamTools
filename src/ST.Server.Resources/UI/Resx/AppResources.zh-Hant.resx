@@ -217,4 +217,20 @@
     <value>埠號必須為 UInt16 類型，請聯繫網站管理員。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyButton" xml:space="preserve">
+    <value>點此複製</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopyNoSupport" xml:space="preserve">
+    <value>該瀏覽器不支援點擊複製到剪貼板</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CopySuccess" xml:space="preserve">
+    <value>成功複製到剪貼板</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ManualCopyTip" xml:space="preserve">
+    <value>連接程式出錯，請手動複製以下內容到程式點擊手動登錄。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
