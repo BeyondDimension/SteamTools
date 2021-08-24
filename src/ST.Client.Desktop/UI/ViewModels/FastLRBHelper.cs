@@ -58,7 +58,8 @@ namespace System.Application.UI.ViewModels
 
             void OnBindSuccessed() { }
         }
-       public static async Task ManualLoginAsync(this IViewModel vm)
+
+        public static async Task ManualLoginAsync(this IViewModel vm)
         {
             await MainThread2.InvokeOnMainThreadAsync(async () =>
             {
@@ -70,11 +71,16 @@ namespace System.Application.UI.ViewModels
                 await TextBoxWindowViewModel.ShowDialogAsync(modelvm);
                 if (string.IsNullOrWhiteSpace(modelvm.Value))
                 {
-                    Toast.Show(AppResources.Login_ManualLoginEmpt);
+                    if (modelvm.Value != null)
+                    {
+                        Toast.Show(AppResources.Login_ManualLoginEmpt);
+                    }
                     return;
                 }
                 else
+                {
                     await OnMessage(vm, modelvm.Value, null);
+                }
             });
         }
         /// <summary>
@@ -87,10 +93,12 @@ namespace System.Application.UI.ViewModels
         {
             if (vm.TempAes == null) return;
             var byteArray = msg.Base64UrlDecodeToByteArray();
-            try { 
-            byteArray = vm.TempAes.Decrypt(byteArray);
+            try
+            {
+                byteArray = vm.TempAes.Decrypt(byteArray);
             }
-            catch {
+            catch
+            {
                 if (socket == null)
                     Toast.Show(AppResources.Login_WebSocketOnMessage);
                 return;
