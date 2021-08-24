@@ -29,7 +29,7 @@
       <MenuItem Width="50" Command="{ReflectionBinding About_Click}"
                ToolTip.Tip="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
-          <ui:SymbolIcon Symbol="Help" FontSize="16"/>
+          <ui:SymbolIcon Symbol="Help" FontSize="18"/>
         </MenuItem.Header>
       </MenuItem>
       <MenuItem Width="50" Command="{ReflectionBinding Refresh_Click}"
