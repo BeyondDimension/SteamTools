@@ -237,7 +237,11 @@ namespace System.Application.Services
                 {
                     if (User.AvatarUrl!.ContainsKey(item))
                     {
-                        AvaterPath = User.AvatarUrl[item];
+                        var value = User.AvatarUrl[item];
+                        if (!string.IsNullOrWhiteSpace(value))
+                        {
+                            AvaterPath = CircleImageStream.Convert(value);
+                        }
                         return;
                     }
                 }
