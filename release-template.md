@@ -51,8 +51,8 @@
 | linux-x64  | ✅ | α |
 | android-arm64  | ✅ | α |
 | android-arm  | ✅ | α |
-| linux-arm64  | ✅ | β |
-| linux-arm  | ✅ | β |
+| linux-arm64  | ✅ | α |
+| linux-arm  | ✅ | α |
 | osx-arm64  | ❌ |  |
 | win-arm64  | ❌ |  |
 | ios-arm64  | ❌ |  |
@@ -65,12 +65,12 @@
 
 ## 下载指南
 - Linux
-	- 如果你使用 Intel、AMD 芯片的 PC（较为**普遍**），则下载文件名中带有 **linux_x64** 的文件
-	- 如果你使用 ARM64 芯片的 PC（较为**稀有**），例如 **Raspberry Pi Model 3+**，则下载文件名中带有 **linux_arm64** 的文件
-	- 如果你使用 ARM 芯片的 PC（较为**稀有**），例如 **Raspberry Pi Model 2+**，则下载文件名中带有 **linux_arm** 的文件
+	- 如果你使用 Intel、AMD 芯片的 PC（较为**普遍**）则下载文件名中带有 **linux_x64** 的文件
+	- 如果你使用 ARM64 芯片的 PC（较为**稀有**）例如 **Raspberry Pi Model 3+**，则下载文件名中带有 **linux_arm64** 的文件
+	- 如果你使用 ARM 芯片的 PC（较为**稀有**）例如 **Raspberry Pi Model 2+**，则下载文件名中带有 **linux_arm** 的文件
 - Android
-	- 如果你使用 ARM64 芯片的设备（较为**普遍**），则下载文件名中带有 **android_arm64_v8a** 的文件
-	- 如果你使用 ARM 芯片的设备（较为**稀有**），通常为 **2014** 年下半年之前生产的手机、平板等设备，则下载文件名中带有 **android_armeabi_v7a** 的文件
+	- 如果你使用 ARM64 芯片的设备（较为**普遍**）则下载文件名中带有 **android_arm64_v8a** 的文件
+	- 如果你使用 ARM 芯片的设备（较为**稀有**）通常为 **14** 年下半年之前生产的设备，则下载文件名中带有 **android_armeabi_v7a** 的文件
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
