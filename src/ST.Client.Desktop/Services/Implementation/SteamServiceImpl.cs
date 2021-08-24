@@ -132,7 +132,7 @@ namespace System.Application.Services.Implementation
         {
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {
-                DI.Get<IDesktopPlatformService>().OpenProcess(SteamProgramPath, arguments, true);
+                platformService.OpenProcess(SteamProgramPath, arguments, true);
             }
         }
 
