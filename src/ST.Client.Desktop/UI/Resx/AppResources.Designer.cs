@@ -3575,6 +3575,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 家庭共享库为空。 的本地化字符串。
+        /// </summary>
+        public static string SteamAccountPage_ShareEmpt {
+            get {
+                return ResourceManager.GetString("SteamAccountPage_ShareEmpt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 软件 的本地化字符串。
         /// </summary>
         public static string SteamAppType_Application {

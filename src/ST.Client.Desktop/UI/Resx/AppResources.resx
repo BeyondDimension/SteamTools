@@ -1589,4 +1589,7 @@
   <data name="Login_WebSocketOnMessage" xml:space="preserve">
     <value>数据解密失败，请确定数据正确重试。</value>
   </data>
+  <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
+    <value>家庭共享库为空。</value>
+  </data>
 </root>
