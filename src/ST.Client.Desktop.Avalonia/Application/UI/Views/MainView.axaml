@@ -253,11 +253,11 @@
                      Foreground="{DynamicResource HighlightForegroundBrushKey}"
                      FontSize="14"
                      VerticalAlignment="Center"/>
-              <TextBlock Text="{ReflectionBinding Path=PhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+              <!--<TextBlock Text="{ReflectionBinding Path=PhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                         IsVisible="{ReflectionBinding Path=User.HasPhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                         Foreground="{DynamicResource InactiveForegroundBrushKey}"
                         FontSize="12"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Center"/>-->
             </StackPanel>
 
           </DockPanel>

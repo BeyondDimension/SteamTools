@@ -256,13 +256,14 @@ namespace System
 
         static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
 
-        [Obsolete("use TryOpenRead")]
-        [return: NotNullIfNotNull("filePath")]
         public static FileStream? OpenRead(string? filePath)
         {
             if (filePath == null) return null;
-            var fileStream = OpenReadCore(filePath);
-            return fileStream;
+            //var fileStream = OpenReadCore(filePath);
+            TryOpenRead(filePath, out var stream, out var ex);
+            if (ex != null)
+                Log.Error(nameof(OpenRead), ex, "OpenRead Error");
+            return stream;
         }
 
 #if !NET35

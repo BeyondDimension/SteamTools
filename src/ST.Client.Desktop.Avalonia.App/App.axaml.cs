@@ -324,6 +324,8 @@ namespace System.Application.UI
 #endif
                     MainWindow;
 
+                IWindowService.Instance.MainWindow.Initialize();
+
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
                 desktop.ShutdownMode =

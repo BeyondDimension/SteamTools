@@ -204,6 +204,8 @@ namespace System.Application.Services.Implementation
                 if (localCacheFilePathExists) // 存在缓存文件
                 {
                     using var fileStream = IOPath.OpenRead(localCacheFilePath);
+                    if (fileStream == null)
+                        return null;
                     if (FileFormat.IsImage(fileStream, out var format))
                     {
                         if (http_helper.SupportedImageFormats.Contains(format)) // 读取缓存并且格式符合要求

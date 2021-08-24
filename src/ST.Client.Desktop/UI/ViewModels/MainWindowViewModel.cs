@@ -112,7 +112,7 @@ namespace System.Application.UI.ViewModels
 
             _SelectedItem = TabItems.First();
 
-            Task.Run(Initialize).ForgetAndDispose();
+            //Task.Run(Initialize).ForgetAndDispose();
 
             //this.WhenAnyValue(x => x.SelectedItem)
             //    .Subscribe(x =>
@@ -121,21 +121,24 @@ namespace System.Application.UI.ViewModels
             //    });
         }
 
-        public void Initialize()
+        public override async void Initialize()
         {
-            Threading.Thread.CurrentThread.IsBackground = true;
-            ProxyService.Current.Initialize();
-            SteamConnectService.Current.Initialize();
-
-            if (!IsInitialized)
+            await Task.Run(() =>
             {
-                Parallel.ForEach(TabItems, item =>
+                Threading.Thread.CurrentThread.IsBackground = true;
+                ProxyService.Current.Initialize();
+                SteamConnectService.Current.Initialize();
+
+                if (!IsInitialized)
                 {
-                    item.Initialize();
-                    //Task.Run(item.Initialize).ForgetAndDispose();
-                });
-                IsInitialized = true;
-            }
+                    Parallel.ForEach(TabItems, item =>
+                    {
+                        item.Initialize();
+                        //Task.Run(item.Initialize).ForgetAndDispose();
+                    });
+                    IsInitialized = true;
+                }
+            });
         }
 
         void AddTabItem<TabItemVM>() where TabItemVM : TabItemViewModel, new()

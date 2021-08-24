@@ -218,7 +218,8 @@ namespace System.Application.Services
 #if !__MOBILE__
                 CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
                 CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream) ?? DefaultAvaterPath;
+                var ava = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
+                AvaterPath = ava ?? DefaultAvaterPath;
                 return;
 #else
                 AvaterPath = DefaultAvaterPath;

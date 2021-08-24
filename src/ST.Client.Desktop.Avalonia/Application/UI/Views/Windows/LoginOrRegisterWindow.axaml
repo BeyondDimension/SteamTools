@@ -204,7 +204,7 @@
                                    Height="100">
             </controls:ProgressRing>
 
-            <WrapPanel HorizontalAlignment="Center" Margin="0 0 0 40">
+            <StackPanel HorizontalAlignment="Center" Margin="0 0 0 40">
               <Button Classes="plain"
                       Margin="0 0 25 0"
                       HorizontalContentAlignment="Center"
@@ -217,7 +217,7 @@
                       Content="{ReflectionBinding Path=Res.Retry,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{Binding ChooseChannel}"
                       CommandParameter="{Binding CurrentSelectChannel}"/>
-            </WrapPanel>
+            </StackPanel>
             <WrapPanel HorizontalAlignment="Center" Margin="20 0 0 20">
               <Button Classes="plain"
                       Margin="0 0 25 0"

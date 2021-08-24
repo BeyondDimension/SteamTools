@@ -82,6 +82,10 @@ namespace System.Application.UI.ViewModels
         public bool IsVisible =>
             IShowWindowService.Instance.IsVisibleWindow(this);
 
+        public virtual void Initialize() 
+        {
+        }
+
         /// <summary>
         /// 关闭当前viewmodel绑定的窗口
         /// </summary>

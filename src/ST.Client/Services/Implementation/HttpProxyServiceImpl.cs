@@ -483,8 +483,12 @@ namespace System.Application.Services.Implementation
 
                     proxyServer.AddEndPoint(transparentProxyEndPoint);
 
-                    if (PortInUse(80) == false)
-                        proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
+                    try
+                    {
+                        if (PortInUse(80) == false)
+                            proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
+                    }
+                    catch { }
                 }
 
                 proxyServer.ExceptionFunc = ((Exception exception) =>

@@ -144,10 +144,7 @@ namespace System.Application.UI.ViewModels
             //if (IsFirstActivation)
             if (IsAuthenticatorsEmptyButHasSourceAuths)
             {
-                await Task.Run(async () =>
-                {
-                    await AuthService.Current.InitializeAsync(auths);
-                });
+                await AuthService.Current.InitializeAsync(auths);
             }
 #if __MOBILE__
             else
@@ -158,12 +155,12 @@ namespace System.Application.UI.ViewModels
             base.Activation();
         }
 
-#if !__MOBILE__
-        public async void Refreshing()
-        {
-            await AuthService.Current.InitializeAsync();
-        }
-#endif
+        //#if !__MOBILE__
+        //        public async void Refreshing()
+        //        {
+        //            await AuthService.Current.InitializeAsync();
+        //        }
+        //#endif
 
         void AddAuthMenu_Click()
         {

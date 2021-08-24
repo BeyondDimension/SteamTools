@@ -45,8 +45,10 @@ namespace System.Application.Converters
             }
         }
 
-        protected static Bitmap GetBitmap(ImageClipStream ics, int width = 0)
+        protected static Bitmap? GetBitmap(ImageClipStream ics, int width = 0)
         {
+            if (ics.Stream == null)
+                return null;
             TryReset(ics.Stream);
             using var ms = new MemoryStream();
             ics.Stream.CopyTo(ms);
@@ -90,7 +92,10 @@ namespace System.Application.Converters
 
         protected static Bitmap GetDecodeBitmap(string s, int width)
         {
-            return GetDecodeBitmap(IOPath.OpenRead(s), width);
+            if (IOPath.TryOpenRead(s, out var stream, out var ex))
+                return GetDecodeBitmap(stream, width);
+            else
+                return null;
         }
 
         protected static Stream OpenAssets(Uri uri)

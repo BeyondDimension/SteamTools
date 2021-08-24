@@ -305,13 +305,16 @@ namespace System.Application.UI
         /// <see cref="IntPtr.Zero"/>.</param>
         public void ShowBalloonTip(string title, string message, NIIF flags, IntPtr balloonIconHandle)
         {
-            iconData.szInfo = message ?? string.Empty;
-            iconData.szInfoTitle = title ?? string.Empty;
-            iconData.uFlags = NIF.INFO | NIF.ICON;
-            //iconData.CustomBalloonIconHandle = balloonIconHandle;
-            iconData.dwInfoFlags = flags;
+            if (iconData != null)
+            {
+                iconData.szInfo = message ?? string.Empty;
+                iconData.szInfoTitle = title ?? string.Empty;
+                iconData.uFlags |= NIF.INFO;
+                //iconData.CustomBalloonIconHandle = balloonIconHandle;
+                iconData.dwInfoFlags = flags;
 
-            var result = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
+                var result = UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
+            }
         }
 
         /// <summary>
@@ -319,9 +322,12 @@ namespace System.Application.UI
         /// </summary>
         public void HideBalloonTip()
         {
-            // reset balloon by just setting the info to an empty string
-            iconData.szInfo = iconData.szInfoTitle = string.Empty;
-            UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
+            if (iconData != null)
+            {
+                // reset balloon by just setting the info to an empty string
+                iconData.szInfo = iconData.szInfoTitle = string.Empty;
+                UnmanagedMethods.Shell_NotifyIcon(UnmanagedMethods.NIM.MODIFY, iconData);
+            }
         }
 
         /// <summary>
@@ -329,10 +335,10 @@ namespace System.Application.UI
         /// </summary>
         public void WndProc(uint msg, IntPtr wParam, IntPtr lParam)
         {
-            //Log.Debug(TAG, "WndProc: MSG={0}, wParam={1}, lParam={2}",
-            //    ((UnmanagedMethods.CustomWindowsMessage)msg).ToString(),
-            //    ((UnmanagedMethods.WindowsMessage)wParam.ToInt32()).ToString(),
-            //    ((UnmanagedMethods.WindowsMessage)lParam.ToInt32()).ToString());
+            System.Diagnostics.Debug.WriteLine(string.Format("WndProc: MSG={0}, wParam={1}, lParam={2}",
+                ((UnmanagedMethods.CustomWindowsMessage)msg).ToString(),
+                ((UnmanagedMethods.WindowsMessage)wParam.ToInt32()).ToString(),
+                ((UnmanagedMethods.WindowsMessage)lParam.ToInt32()).ToString()));
 
             // We only care about tray icon messages
             if (msg != (uint)UnmanagedMethods.CustomWindowsMessage.WM_TRAYMOUSE)

@@ -5,12 +5,12 @@ namespace System.Application.Models
 {
     public class ImageClipStream : IDisposable
     {
-        public ImageClipStream(Stream stream)
+        public ImageClipStream(Stream? stream)
         {
             Stream = stream;
         }
 
-        public Stream Stream { get; set; }
+        public Stream? Stream { get; set; }
 
         public float Top { get; set; }
 

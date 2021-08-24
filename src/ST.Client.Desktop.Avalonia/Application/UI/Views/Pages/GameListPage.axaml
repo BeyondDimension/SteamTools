@@ -70,8 +70,8 @@
                Header="筛选"
                ExpandDirection="Down"
                Margin="20 0 20 10">-->
-    <Border DockPanel.Dock="Top" 
-            Margin="{StaticResource ScrollMargin}" 
+    <Border DockPanel.Dock="Top"
+            Margin="{StaticResource ScrollMargin}"
             Padding="10"
             Classes="paper"
             Background="{DynamicResource ThemeBrushKey}">
@@ -189,7 +189,7 @@
              ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Data="{StaticResource TopSpeedDrawing}" />
           </Button>
-          
+
           <Menu Classes="BindMenu">
             <MenuItem Items="{Binding MenuItems}"
                       Classes="BindItem"
@@ -288,14 +288,6 @@
                         </MenuItem.Icon>
                       </MenuItem>
                       <MenuItem
-                          Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                                        Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
-                                                        CommandParameter="{Binding}" >
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource EyeHideDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_AddAfkGameList,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
                                 CommandParameter="{Binding}">
@@ -303,11 +295,6 @@
                           <PathIcon Data="{StaticResource TopSpeedDrawing}" Width="14"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
-
-                      <!--<MenuItem
-                                  Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                  Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
-                                  CommandParameter="{Binding}" />-->
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenFolder,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenFolder}"
@@ -317,6 +304,10 @@
                           <PathIcon Data="{StaticResource FolderOpenDrawing}" Width="14"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
+                      <!--<MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                  CommandParameter="{Binding}" />-->
                       <MenuItem Header="-"></MenuItem>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -340,6 +331,16 @@
                                 CommandParameter="{Binding}">
                         <MenuItem.Icon>
                           <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
+                      
+                      <MenuItem Header="-"/>
+                      <MenuItem
+                         Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                                       Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
+                                                       CommandParameter="{Binding}" >
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource EyeHideDrawing}" Width="14"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
                     </MenuFlyout>
@@ -375,8 +376,7 @@
                             Background="#3D4450"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom">
-                      <WrapPanel Margin="10 3"
-                                  Orientation="Horizontal"
+                      <DockPanel Margin="10 3"
                                   HorizontalAlignment="Center">
                         <TextBlock Text="{Binding InstalledDrive}"
                                    Foreground="#FFFFFFFF"
@@ -384,12 +384,12 @@
                                    VerticalAlignment="Center"
                                    Margin="0 0 5 0"
                                    FontSize="11"/>
-                        <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
+                        <controls:ScrollingTextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
                                    Foreground="#FFFFFFFF"
                                    TextWrapping="Wrap"
                                    VerticalAlignment="Center"
                                    FontSize="11"/>
-                      </WrapPanel>
+                      </DockPanel>
                     </Border>
                   </Panel>
                 </Border>

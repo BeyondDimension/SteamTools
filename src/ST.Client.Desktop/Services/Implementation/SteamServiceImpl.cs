@@ -191,7 +191,7 @@ namespace System.Application.Services.Implementation
             }
             return users;
         }
-      
+
         public bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> model)
         {
             var authorizeds = new List<AuthorizedDevice>();
@@ -407,7 +407,12 @@ namespace System.Application.Services.Implementation
                 {
                     if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
                         return apps;
-                    using (BinaryReader binaryReader = new(IOPath.OpenRead(AppInfoPath)))
+                    using var stream = IOPath.OpenRead(AppInfoPath);
+                    if (stream == null)
+                    {
+                        return apps;
+                    }
+                    using (BinaryReader binaryReader = new(stream))
                     {
                         uint num = binaryReader.ReadUInt32();
                         if (num != MagicNumber)

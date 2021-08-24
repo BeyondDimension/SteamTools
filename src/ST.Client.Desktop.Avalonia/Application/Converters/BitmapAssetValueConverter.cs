@@ -12,10 +12,9 @@ namespace System.Application.Converters
             if (value == null)
                 return null;
             int width = 0;
-            if (parameter is string para)
+            if (parameter is int w)
             {
-                if (int.TryParse(para, out int w))
-                    width = w;
+                width = w;
             }
 
             if (value is string rawUri)
