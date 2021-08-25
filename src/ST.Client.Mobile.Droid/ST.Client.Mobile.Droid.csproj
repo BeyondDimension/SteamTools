@@ -177,7 +177,7 @@
     <EmbeddedResource Include="..\..\appcenter-secret-android-debug.pfx" Link="Resources\D0702261" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-android-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-android-release.pfx" LinkBase="Resources\5C6F1F18" />
+    <EmbeddedResource Include="..\..\appcenter-secret-android-release.pfx" Link="Resources\5C6F1F18" />
   </ItemGroup>
 
   <!--AppSettings namespacePrefix = "System.Application.UI.Resources."-->

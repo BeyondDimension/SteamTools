@@ -75,30 +75,34 @@ namespace System.Application.UI.Resx
             }
         }
 
-        public static void ChangeAutoLanguage(CultureInfo? cultureInfo = null)
+        public static void ChangeAutoLanguage(CultureInfo? cultureInfo = null) => MainThread2.BeginInvokeOnMainThread(() => ChangeAutoLanguageCore(cultureInfo));
+
+        static void ChangeAutoLanguageCore(CultureInfo? cultureInfo = null)
         {
 #if !__MOBILE__
             if (!string.IsNullOrWhiteSpace(SettingsPageViewModel.Instance.SelectLanguage.Key)) return;
 #endif
             cultureInfo ??= CultureInfo.CurrentUICulture;
             DefaultCurrentUICulture = cultureInfo;
-            ChangeLanguage(cultureInfo.Name);
+            ChangeLanguageCore(cultureInfo.Name);
         }
 
         /// <summary>
         /// 更改语言
         /// </summary>
         /// <param name="cultureName"></param>
-        public static void ChangeLanguage(string? cultureName)
+        public static void ChangeLanguage(string? cultureName) => MainThread2.BeginInvokeOnMainThread(() => ChangeLanguageCore(cultureName));
+
+        static void ChangeLanguageCore(string? cultureName)
         {
             if (cultureName == null || IsMatch(AppRes.Culture, cultureName)) return;
             AppRes.Culture = string.IsNullOrWhiteSpace(cultureName) ?
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
-            CultureInfo.CurrentUICulture = AppRes.Culture;
             CultureInfo.DefaultThreadCurrentUICulture = AppRes.Culture;
-            CultureInfo.CurrentCulture = AppRes.Culture;
             CultureInfo.DefaultThreadCurrentCulture = AppRes.Culture;
+            CultureInfo.CurrentUICulture = AppRes.Culture;
+            CultureInfo.CurrentCulture = AppRes.Culture;
             mAcceptLanguage = GetAcceptLanguageCore();
             mLanguage = GetLanguageCore();
             Current.Res =
