@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content;
 using System.Application.UI.Resx;
+using System.Globalization;
 
 namespace System.Application.Receivers
 {
@@ -8,6 +9,11 @@ namespace System.Application.Receivers
     [IntentFilter(new[] { Intent.ActionLocaleChanged }, Priority = int.MaxValue)]
     internal sealed class LocaleChangedReceiver : BroadcastReceiver
     {
+        /// <summary>
+        /// 当 Android 系统设置语言发生改变时
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="intent"></param>
         public override void OnReceive(Context? context, Intent? intent)
         {
             if (intent == null) return;
@@ -22,7 +28,17 @@ namespace System.Application.Receivers
             {
                 name = locale.Language;
             }
-            R.ChangeAutoLanguage(new(name));
+            CultureInfo? cultureInfo;
+            try
+            {
+                cultureInfo = new(name);
+            }
+            catch
+            {
+                cultureInfo = null;
+            }
+            if (cultureInfo == null) return;
+            R.ChangeAutoLanguage(cultureInfo);
         }
     }
 }

@@ -5,7 +5,6 @@ using System;
 using System.Application.Models;
 using System.Application.Models.Internals;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.FileFormats;
 using System.Linq;
@@ -385,16 +384,17 @@ namespace System.Application.Services.CloudService
             await GlobalResponseIntercept(method, requestUri, response, isShowResponseErrorMessage, errorAppendText);
         }
 
-        bool GlobalBeforeIntercept<TResponseModel>(
-            [NotNullWhen(true)] out IApiResponse<TResponseModel>? responseResult,
+        async Task<IApiResponse<TResponseModel>?> GlobalBeforeInterceptAsync<TResponseModel>(
             bool isShowResponseErrorMessage = true,
             string? errorAppendText = null)
         {
-            responseResult = null;
+            IApiResponse<TResponseModel>? responseResult = null;
 
             #region NetworkAccess
 
-            if (!http_helper.IsConnected)
+            var isConnected = await http_helper.IsConnectedAsync();
+
+            if (!isConnected)
             {
                 responseResult = ApiResponse.Code<TResponseModel>(ApiResponseCode.NetworkConnectionInterruption, Constants.NetworkConnectionInterruption);
             }
@@ -406,7 +406,7 @@ namespace System.Application.Services.CloudService
                 ShowResponseErrorMessage(responseResult, errorAppendText);
             }
 
-            return responseResult != null;
+            return responseResult;
         }
 
         public Task<bool>? RefreshTokenAndAutoSaveTask { get; private set; }
@@ -501,7 +501,8 @@ namespace System.Application.Services.CloudService
 
             #endregion
 
-            if (GlobalBeforeIntercept<TResponseModel>(out var globalBeforeInterceptResponse, isShowResponseErrorMessage, errorAppendText))
+            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<TResponseModel>(isShowResponseErrorMessage, errorAppendText);
+            if (globalBeforeInterceptResponse != null)
             {
                 return globalBeforeInterceptResponse;
             }
@@ -762,7 +763,8 @@ namespace System.Application.Services.CloudService
             if (cacheDirPath == null) throw new ArgumentNullException(nameof(cacheDirPath));
             IOPath.DirCreateByNotExists(cacheDirPath);
 
-            if (GlobalBeforeIntercept<object>(out var globalBeforeInterceptResponse, isShowResponseErrorMessage, errorAppendText))
+            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<object>(isShowResponseErrorMessage, errorAppendText);
+            if (globalBeforeInterceptResponse != null)
             {
                 return globalBeforeInterceptResponse;
             }

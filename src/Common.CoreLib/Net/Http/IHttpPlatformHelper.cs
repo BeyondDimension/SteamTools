@@ -33,6 +33,7 @@ namespace System.Net.Http
         /// <summary>
         /// 是否有网络链接
         /// </summary>
+        [Obsolete("use IsConnectedAsync")]
         bool IsConnected { get; }
     }
 }

@@ -20,7 +20,9 @@ namespace System.Application.Services.Implementation
             {
                 if (OperatingSystem2.IsWindows10AtLeast)
                 {
+#pragma warning disable CA1416 // 验证平台兼容性
                     var networkAccess = PlatformNetworkAccess;
+#pragma warning restore CA1416 // 验证平台兼容性
                     return networkAccess == NetworkAccess.Internet;
                 }
                 else
@@ -37,22 +39,19 @@ namespace System.Application.Services.Implementation
             {
                 // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Connectivity/Connectivity.uwp.cs#L19
 
+                // 必须在同一个线程中调用，否则其他线程将返回 null。
                 var profile = NetworkInformation.GetInternetConnectionProfile();
                 if (profile == null)
                     return NetworkAccess.Unknown;
 
                 var level = profile.GetNetworkConnectivityLevel();
-                switch (level)
+                return level switch
                 {
-                    case NetworkConnectivityLevel.LocalAccess:
-                        return NetworkAccess.Local;
-                    case NetworkConnectivityLevel.InternetAccess:
-                        return NetworkAccess.Internet;
-                    case NetworkConnectivityLevel.ConstrainedInternetAccess:
-                        return NetworkAccess.ConstrainedInternet;
-                    default:
-                        return NetworkAccess.None;
-                }
+                    NetworkConnectivityLevel.LocalAccess => NetworkAccess.Local,
+                    NetworkConnectivityLevel.InternetAccess => NetworkAccess.Internet,
+                    NetworkConnectivityLevel.ConstrainedInternetAccess => NetworkAccess.ConstrainedInternet,
+                    _ => NetworkAccess.None,
+                };
             }
         }
     }
