@@ -173,6 +173,8 @@
                        OpenPaneLength="240"
                        MenuItems="{Binding TabItems}"
                        FooterMenuItems="{Binding FooterTabItems}"
+                       IsBackButtonVisible="False"
+                       IsBackEnabled="{Binding #frame.CanGoBack}"
                        SelectedItem="{Binding SelectedItem}">
       <!--<ui:NavigationView.PaneHeader>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
@@ -182,7 +184,7 @@
       </ui:NavigationView.PaneHeader>-->
 
       <ui:NavigationView.Content>
-        <ui:Frame Content="{Binding SelectedItem,Mode=OneWay}">
+        <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}">
           <ui:Frame.DataTemplates>
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
               <pages:ProxyScriptManagePage/>

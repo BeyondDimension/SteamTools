@@ -2,11 +2,15 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Media.Animation;
 using System.Application.UI.ViewModels;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.Views
 {
@@ -62,6 +66,30 @@ namespace System.Application.UI.Views
                           avater.Margin = new Thickness(10, 0);
                       }
                   });
+            }
+
+            var frame = this.FindControl<Frame>("frame");
+            if (frame != null && nav != null)
+            {
+                if (nav.IsBackButtonVisible)
+                {
+                    nav.BackRequested += (sender, e) =>
+                    {
+                        frame.GoBack();
+                    };
+                }
+                nav.GetObservable(NavigationView.SelectedItemProperty)
+                    .Subscribe(x =>
+                    {
+                        if (x != null)
+                        {
+                            var page = frame.DataTemplates.FirstOrDefault(f => f.Match(x));
+                            if (page is DataTemplate template)
+                            {
+                                frame.Navigate(template.Build(null).GetType());
+                            }
+                        }
+                    });
             }
         }
 
