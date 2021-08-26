@@ -56,39 +56,91 @@
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 系统要求
-- 桌面端(仅支持 X64 和 ARM64)
-	- Windows 10/Windows Server 版本 20H2
-	- Windows 10/Windows Server 版本 2004
-	- Windows 10/Windows Server 版本 1909
-	- Windows 10/Windows Server 版本 1903
-	- Windows 10 版本 1809
-	- Windows 10 版本 1803
-	- Windows 10 版本 1709
-	- Windows 10 版本 1607
-	- Windows 8.1
-	- Windows 7 SP1 [ESU](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq)
-		- 先决条件
-		- KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) / [32 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47409)
-	- Windows Server 2019
-	- Windows Server 2016
-	- Windows Server 2012 R2
-	- Windows Server 2012
-	- macOS 10.14 Mojave 或更高版本
-	- Linux 发行版
-		- Arch Linux
-		- Alpine Linux 3.13+
-		- CentOS 7+
-		- Debian 10+
-		- Deepin 20.1 / UOS 20
-		- Fedora 32+
-		- Linux Mint 18+
-		- openSUSE 15+
-		- Red Hat Enterprise Linux 7+
-		- SUSE Enterprise Linux (SLES) 12 SP2+
-		- Ubuntu 16.04, 18.04, 20.04+
-- 移动端
-	- Android 5.0/API 21+ (仅支持 [arm64-v8a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) 和 [armeabiv-v7a](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a))
-	- iOS 10.0+ (仅支持 ARM64)
+### Windows
+
+OS                                    | Version                 | Architectures   | Lifecycle
+--------------------------------------|-------------------------|-----------------|----------
+[Windows Client][Windows-client]      | 7 SP1(**\***), 8.1      | x64        | [Windows][Windows-lifecycle]
+[Windows 10 Client][Windows-client]   | Version 1607+           | x64 | [Windows][Windows-lifecycle]
+[Windows Server][Windows-Server]      | 2012+                | x64        | [Windows Server][Windows-Server-lifecycle]
+
+**\*** Windows 7 SP1 is supported with KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) installed.
+
+[Windows-client]: https://www.microsoft.com/windows/
+[Windows-lifecycle]: https://support.microsoft.com/help/13853/windows-lifecycle-fact-sheet
+[win-client-docker]: https://hub.docker.com/_/microsoft-windows
+[Windows-Server-lifecycle]: https://docs.microsoft.com/windows-server/get-started/windows-server-release-info
+[Nano-Server]: https://docs.microsoft.com/windows-server/get-started/getting-started-with-nano-server
+[Windows-Server]: https://docs.microsoft.com/windows-server/
+
+### Linux
+
+OS                                    | Version               | Architectures     | Lifecycle
+--------------------------------------|-----------------------|-------------------|----------
+[Alpine Linux][Alpine]                | 3.13+                 | x64, Arm64, Arm32 | [Alpine][Alpine-lifecycle]
+[CentOS][CentOS]                      | 7+                    | x64               | [CentOS][CentOS-lifecycle]
+[Debian][Debian]                      | 10+                   | x64, Arm64, Arm32 | [Debian][Debian-lifecycle]
+[Fedora][Fedora]                      | 33+                   | x64               | [Fedora][Fedora-lifecycle]
+[openSUSE][OpenSUSE]                  | 15+                   | x64               | [OpenSUSE][OpenSUSE-lifecycle]
+[Red Hat Enterprise Linux][RHEL]      | 7+                    | x64, Arm64        | [Red Hat][RHEL-lifecycle]
+[SUSE Enterprise Linux (SLES)][SLES]  | 12 SP2+               | x64               | [SUSE][SLES-lifecycle]
+[Ubuntu][Ubuntu]                      | 16.04, 18.04, 20.04+  | x64, Arm64, Arm32 | [Ubuntu][Ubuntu-lifecycle]
+[Deepin / UOS][Deepin]                      | 20+                   | x64 | [Deepin][Deepin-lifecycle]
+
+[Alpine]: https://alpinelinux.org/
+[Alpine-lifecycle]: https://wiki.alpinelinux.org/wiki/Alpine_Linux:Releases
+[CentOS]: https://www.centos.org/
+[CentOS-lifecycle]:https://wiki.centos.org/FAQ/General
+[CentOS-docker]: https://hub.docker.com/_/centos
+[CentOS-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-centos8
+[Debian]: https://www.debian.org/
+[Debian-lifecycle]: https://wiki.debian.org/DebianReleases
+[Debian-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-debian10
+[Fedora]: https://getfedora.org/
+[Fedora-lifecycle]: https://fedoraproject.org/wiki/End_of_life
+[Fedora-docker]: https://hub.docker.com/_/fedora
+[Fedora-msft-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-fedora32
+[Fedora-pm]: https://fedoraproject.org/wiki/DotNet
+[OpenSUSE]: https://opensuse.org/
+[OpenSUSE-lifecycle]: https://en.opensuse.org/Lifetime
+[OpenSUSE-docker]: https://hub.docker.com/r/opensuse/leap
+[OpenSUSE-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-opensuse15
+[RHEL]: https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux
+[RHEL-lifecycle]: https://access.redhat.com/support/policy/updates/errata/
+[RHEL-msft-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-rhel8
+[RHEL-pm]: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/developing_.net_applications_in_rhel_8/using-net-core-on-rhel_gsg#installing-net-core_gsg
+[SLES]: https://www.suse.com/products/server/
+[SLES-lifecycle]: https://www.suse.com/lifecycle/
+[SLES-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-sles15
+[Ubuntu]: https://ubuntu.com/
+[Ubuntu-lifecycle]: https://wiki.ubuntu.com/Releases
+[Ubuntu-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-ubuntu-2004
+[Deepin]: https://www.deepin.org/
+[Deepin-lifecycle]: https://www.deepin.org/release-notes
+
+### macOS
+
+OS                            | Version                   | Architectures     |
+------------------------------|---------------------------|-------------------|
+[macOS][macOS]                | 10.14+                    | x64        |
+
+[macOS]: https://support.apple.com/macos
+
+### Android
+
+OS                            | Version                 | Architectures     |
+------------------------------|-------------------------|-------------------|
+[Android][Android]            | 5.0(API 21)+                 | [Arm32](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a), [Arm64](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) |
+
+[Android]: https://support.google.com/android
+
+### iOS / iPadOS
+
+OS                            | Version                 | Architectures     |
+------------------------------|-------------------------|-------------------|
+[iOS][iOS]                    | 10.0+                   | x64, Arm32, Arm64 |
+
+[iOS]: https://support.apple.com/ios
 
 ## ⛔ 不受支持的操作系统
 - Windows 8

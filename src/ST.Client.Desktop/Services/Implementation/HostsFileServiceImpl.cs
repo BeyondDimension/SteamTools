@@ -114,7 +114,8 @@ namespace System.Application.Services.Implementation
                     if (editInfo.Exists)
                         editInfo.Delete();
                     fileInfo.CopyTo(editPath);
-                    fileInfo = new FileInfo(editPath);
+                    editInfo.Refresh();
+                    fileInfo = editInfo;
                 }
                 if (checkMaxLength)
                 {

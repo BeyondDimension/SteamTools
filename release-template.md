@@ -1,14 +1,10 @@
 ### 新增内容
-1. 部分新增文本的其他语言翻译
+
 
 ### 修复问题
-1. 修复 Desktop 上因登录或注册后头像引发的无限闪退
-2. 修复 Windows 上托盘菜单有时无法打开窗口
-3. 改进 Desktop 上库存游戏右键菜单隐藏游戏项位置
-4. 移除 Desktop 上菜单栏用户手机号显示
-5. 修复 Desktop 上库存游戏中磁盘占用 UI 错位
-6. 修复 Desktop 上快速登录等待中 UI 错位
-7. 修复一些杂项问题，增强程序稳定性
+1. 修复 Desktop 上用户头像应当为圆形而不是方形
+2. 修复 Android 上切换系统语言可能引发的闪退
+3. 修复 Windows 10 上启动时可能出现的网络连接中断提示
 
 ### 已知问题
 - Desktop 
@@ -64,19 +60,19 @@
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.4.11.7z  | SHA256 |
-| Steam++_win_x64_v2.4.11.exe  | SHA256 |
+| Steam++_win_x64_v2.4.12.7z  | SHA256 |
+| Steam++_win_x64_v2.4.12.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.4.11.7z  | SHA256 |
-| Steam++_linux_arm64_v2.4.11.7z  | SHA256 |
-| Steam++_linux_arm_v2.4.11.7z  | SHA256 |
+| Steam++_linux_x64_v2.4.12.7z  | SHA256 |
+| Steam++_linux_arm64_v2.4.12.7z  | SHA256 |
+| Steam++_linux_arm_v2.4.12.7z  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.4.11.dmg  | SHA256 |
-| Steam++_macos_x64_v2.4.11.app.zip  | SHA256 |
-| Steam++_macos_x64_v2.4.11.7z  | SHA256 |
+| Steam++_macos_x64_v2.4.12.dmg  | SHA256 |
+| Steam++_macos_x64_v2.4.12.app.zip  | SHA256 |
+| Steam++_macos_x64_v2.4.12.7z  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.4.11.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.4.11.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.4.12.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.4.12.apk  | SHA256 |
 
 <!-- ***
 

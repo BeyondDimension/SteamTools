@@ -66,10 +66,10 @@ namespace System.Application.Services
             {
                 if (!ProxyDomains.Items.Any_Nullable())
                     return null;
-                return ProxyDomains.Items.SelectMany(s =>
-                {
-                    return s.Items.Where(w => w.Enable);
-                }).ToArray();
+                return ProxyDomains.Items
+                    .Where(x => x.Items != null)
+                    .SelectMany(s => s.Items!.Where(w => w.Enable))
+                    .ToArray();
             }
         }
 
@@ -79,9 +79,9 @@ namespace System.Application.Services
             {
                 if (!IsEnableScript)
                     return null;
-                if (!ProxyScripts.Items.Any())
+                if (!ProxyScripts.Items.Any_Nullable())
                     return null;
-                return ProxyScripts.Items.Where(w => w.Enable).ToArray();
+                return ProxyScripts.Items!.Where(w => w.Enable).ToArray();
             }
         }
 
@@ -205,7 +205,7 @@ namespace System.Application.Services
                                         if (s == null) return default!;
                                         return s.HostsArray.Select(host =>
                                         {
-                                            if (host.Contains(" "))
+                                            if (host.Contains(' '))
                                             {
                                                 var h = host.Split(' ');
                                                 return (h[0], h[1]);
@@ -244,7 +244,7 @@ namespace System.Application.Services
                     {
                         httpProxyService.StopProxy();
                         StopTimer();
-                        void OnStopRemoveHostsByTag()
+                        static void OnStopRemoveHostsByTag()
                         {
                             var needClear = IHostsFileService.Instance.ContainsHostsByTag();
                             if (needClear)

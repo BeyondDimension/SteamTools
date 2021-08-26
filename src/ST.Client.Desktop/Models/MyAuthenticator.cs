@@ -154,7 +154,17 @@ namespace System.Application.Models
         string _CurrentCode = string.Empty;
         string? _CurrentCodeCache;
 
-        string GetCurrentCode() => AuthenticatorData.Value.CurrentCode;
+        string GetCurrentCode()
+        {
+            try
+            {
+                return AuthenticatorData.Value.CurrentCode;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
 
         public Task<Stream?> QrCodeStream => GetQrCodeStream();
 
