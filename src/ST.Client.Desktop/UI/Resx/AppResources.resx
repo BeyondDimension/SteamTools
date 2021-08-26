@@ -771,17 +771,8 @@
   <data name="LocalAuth_MenuName" xml:space="preserve">
     <value>编辑令牌</value>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>右上角</value>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>右下角</value>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>你还没有导入任何令牌哦，可以在右上角小齿轮图标处新增令牌。</value>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>你还没有导入任何令牌哦，可以在{0}小齿轮图标处新增令牌。</value>
+    <value>你还没有导入任何令牌，请先新增令牌。</value>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>其它软件导入</value>

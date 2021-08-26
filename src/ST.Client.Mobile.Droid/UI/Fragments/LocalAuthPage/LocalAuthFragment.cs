@@ -60,7 +60,7 @@ namespace System.Application.UI.Fragments
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 if (binding == null) return;
-                binding.tvEmptyTip.Text = LocalAuth_NoAuthTip_.Format(TopRightCorner/*BottomRightCorner*/);
+                binding.tvEmptyTip.Text = LocalAuth_NoAuthTip;
                 binding.tvLoading.Text = LocalAuth_Loading;
                 //speedDialDict.ReplaceLabels(ToString2);
                 SetMenuTitle();

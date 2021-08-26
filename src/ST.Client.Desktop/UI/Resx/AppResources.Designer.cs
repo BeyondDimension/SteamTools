@@ -459,15 +459,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 右下角 的本地化字符串。
-        /// </summary>
-        public static string BottomRightCorner {
-            get {
-                return ResourceManager.GetString("BottomRightCorner", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 完成 的本地化字符串。
         /// </summary>
         public static string Btn_Text_Complete {
@@ -2179,20 +2170,11 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 你还没有导入任何令牌哦，可以在右上角小齿轮图标处新增令牌。 的本地化字符串。
+        ///   查找类似 你还没有导入任何令牌，请先新增令牌。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_NoAuthTip {
             get {
                 return ResourceManager.GetString("LocalAuth_NoAuthTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 你还没有导入任何令牌哦，可以在{0}小齿轮图标处新增令牌。 的本地化字符串。
-        /// </summary>
-        public static string LocalAuth_NoAuthTip_ {
-            get {
-                return ResourceManager.GetString("LocalAuth_NoAuthTip_", resourceCulture);
             }
         }
         
@@ -3787,15 +3769,6 @@ namespace System.Application.UI.Resx {
         public static string Top {
             get {
                 return ResourceManager.GetString("Top", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 右上角 的本地化字符串。
-        /// </summary>
-        public static string TopRightCorner {
-            get {
-                return ResourceManager.GetString("TopRightCorner", resourceCulture);
             }
         }
         

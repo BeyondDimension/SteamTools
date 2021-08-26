@@ -120,10 +120,51 @@ namespace System.Application.UI
 
         private SKTypeface GetSkTypefaceByFontFamily(Typeface typeface)
         {
-            SKTypeface? skTypeface = SKTypeface.FromFamilyName(typeface.FontFamily.Name,
-                          (SKFontStyleWeight)typeface.Weight, SKFontStyleWidth.Normal, (SKFontStyleSlant)typeface.Style);
+            //SKTypeface? skTypeface = SKTypeface.FromFamilyName(typeface.FontFamily.Name,
+            //              (SKFontStyleWeight)typeface.Weight, SKFontStyleWidth.Normal, (SKFontStyleSlant)typeface.Style);
+            //if (skTypeface != null && !skTypeface.FamilyName.Equals(typeface.FontFamily.Name, StringComparison.OrdinalIgnoreCase))
+            //{
+            //    try
+            //    {
+            //        Assembly asm = Assembly.Load("Avalonia.Skia");
+            //        var t = asm?.GetType("Avalonia.Skia.SKTypefaceCollectionCache");
+            //        var fontCollection = t?.InvokeMember("GetOrAddTypefaceCollection", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, new object[] { typeface.FontFamily });
+            //        var type = fontCollection?.GetType();
+            //        var oMethod = type?.GetMethod("Get");
+            //        var r = oMethod?.Invoke(fontCollection, new object[] { typeface });
+            //        skTypeface = r as SKTypeface;
+            //    }
+            //    catch
+            //    {
+            //        //Log.Error(nameof(CustomFontManagerImpl), ex, nameof(GetSkTypefaceByFontFamily));
+            //        skTypeface = null;
+            //    }
+            //}
 
-            if (skTypeface != null && !skTypeface.FamilyName.Equals(typeface.FontFamily.Name, StringComparison.OrdinalIgnoreCase))
+            SKTypeface? skTypeface = null;
+
+            if (typeface.FontFamily.Key == null)
+            {
+                var defaultName = SKTypeface.Default.FamilyName;
+                var fontStyle = new SKFontStyle((SKFontStyleWeight)typeface.Weight, SKFontStyleWidth.Normal, (SKFontStyleSlant)typeface.Style);
+
+                foreach (var familyName in typeface.FontFamily.FamilyNames)
+                {
+                    skTypeface = _skFontManager.MatchFamily(familyName, fontStyle);
+
+                    if (skTypeface is null
+                        || (!skTypeface.FamilyName.Equals(familyName, StringComparison.Ordinal)
+                            && defaultName.Equals(skTypeface.FamilyName, StringComparison.Ordinal)))
+                    {
+                        continue;
+                    }
+
+                    break;
+                }
+
+                skTypeface ??= _skFontManager.MatchTypeface(SKTypeface.Default, fontStyle);
+            }
+            else
             {
                 try
                 {
@@ -154,15 +195,15 @@ namespace System.Application.UI
         {
             SKTypeface? skTypeface = null;
 
-            switch (typeface.FontFamily.Name)
+            skTypeface = typeface.FontFamily.Name switch
             {
-                case FontFamily.DefaultFontFamilyName:
-                case "WenQuanYi Micro Hei":  //font family name
-                    skTypeface = GetSkTypefaceByFontFamily(_defaultTypeface);
-                    break;
-                default:
-                    skTypeface = GetSkTypefaceByFontFamily(typeface);
-                    break;
+                FontFamily.DefaultFontFamilyName or "WenQuanYi Micro Hei" => GetSkTypefaceByFontFamily(_defaultTypeface),
+                _ => GetSkTypefaceByFontFamily(typeface),
+            };
+
+            if (skTypeface == null)
+            {
+                skTypeface = SKTypeface.Default;
             }
 
             return new GlyphTypefaceImpl(skTypeface);
