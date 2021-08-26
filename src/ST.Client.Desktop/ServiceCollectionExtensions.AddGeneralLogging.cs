@@ -26,6 +26,9 @@ namespace Microsoft.Extensions.DependencyInjection
                     b.AddProvider(PlatformLoggerProvider.Instance);
                 }
 #endif
+#if XAMARIN_MAC || MONO_MAC
+                b.AddProvider(PlatformLoggerProvider.Instance);
+#endif
             });
             services.Configure<LoggerFilterOptions>(o =>
             {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="ServiceCollectionExtensions.AddGeneralLogging.cs" />
     <Compile Remove="UI\ViewModels\Pages\DebugWebViewPageViewModel.cs" />
   </ItemGroup>
 
