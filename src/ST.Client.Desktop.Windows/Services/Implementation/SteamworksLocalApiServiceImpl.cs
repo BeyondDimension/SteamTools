@@ -71,8 +71,10 @@ namespace System.Application.Services.Implementation
 
         public IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps)
         {
-            if (SteamClient.SteamApps008 == null || SteamClient.SteamApps001 == null)
+            if (!apps.Any_Nullable())
                 return new List<SteamApp>();
+            if (SteamClient.SteamApps008 == null || SteamClient.SteamApps001 == null)
+                return apps;
             return apps.Where(f => SteamClient.SteamApps008.IsSubscribedApp(f.AppId))
                 .OrderBy(s => s.Name).Select((s) =>
                 {
@@ -88,7 +90,7 @@ namespace System.Application.Services.Implementation
                     //s.InstalledDir = GetAppInstallDir(s.AppId);
                     s.Type = Enum.TryParse<SteamAppType>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppType.Unknown;
                     return s;
-                }).ToList();
+                });
         }
 
         public string GetAppData(uint appid, string key)

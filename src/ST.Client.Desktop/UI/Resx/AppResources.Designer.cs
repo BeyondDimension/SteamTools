@@ -720,6 +720,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 代理设置 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxySettings {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 管理脚本 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ScriptManage {

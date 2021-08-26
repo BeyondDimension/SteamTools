@@ -273,6 +273,8 @@ namespace System.Application.Services
 
         public async void Initialize()
         {
+            //httpProxyService.StopProxy();
+
             await InitializeAccelerate();
             await InitializeScript();
             if (ProxySettings.ProgramStartupRunProxy.Value)

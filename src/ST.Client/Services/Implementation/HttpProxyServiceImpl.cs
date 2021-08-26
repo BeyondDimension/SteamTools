@@ -55,6 +55,11 @@ namespace System.Application.Services.Implementation
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
             //else
+            proxyServer.ExceptionFunc = ((Exception exception) =>
+            {
+                Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
+            });
+
             proxyServer.EnableConnectionPool = true;
             // 可选地设置证书引擎
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
@@ -443,9 +448,6 @@ namespace System.Application.Services.Implementation
             //{
             //    SetupCertificate();
             //}
-
-            if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
-
             #region 启动代理
             //proxyServer.Enable100ContinueBehaviour = true;
             proxyServer.EnableHttp2 = true;
@@ -491,10 +493,14 @@ namespace System.Application.Services.Implementation
                     catch { }
                 }
 
-                proxyServer.ExceptionFunc = ((Exception exception) =>
-                {
-                    Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
-                });
+                //proxyServer.AddEndPoint(new SocksProxyEndPoint(ProxyIp, 9980, true));
+
+                //proxyServer.UpStreamHttpsProxy = new ExternalProxy("127.0.0.1", 7890)
+                //{
+                //    ProxyDnsRequests = true,
+                //    ProxyType = ExternalProxyType.Socks5,
+                //};
+                //proxyServer.ForwardToUpstreamGateway = true;
 
                 proxyServer.Start();
 
@@ -502,8 +508,9 @@ namespace System.Application.Services.Implementation
                 {
                     if (OperatingSystem2.IsWindows)
                     {
-                        proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
-                        proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
+                        //proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
+                        //proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
+                        proxyServer.SetAsSystemProxy(explicitProxyEndPoint, ProxyProtocolType.AllHttp);
                     }
                     else if (OperatingSystem2.IsMacOS)
                     {
@@ -526,6 +533,7 @@ namespace System.Application.Services.Implementation
                     }
                 }
 
+                if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
             }
             catch (Exception ex)
             {
@@ -636,11 +644,11 @@ namespace System.Application.Services.Implementation
                     StopMacProxy();
                 }
                 proxyServer.Stop();
-
             }
             try
             {
                 proxyServer.DisableAllSystemProxies();
+                //proxyServer.RestoreOriginalProxySettings();
             }
             catch
             {
