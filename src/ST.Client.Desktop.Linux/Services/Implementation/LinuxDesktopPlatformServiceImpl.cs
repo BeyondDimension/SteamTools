@@ -52,9 +52,9 @@ namespace System.Application.Services.Implementation
         public string? GetRegistryVdfPath()
         {
             var value = string.Format(
-                    "{0}home{0}{1}{0}.steam{0}registry.vdf",
+                    "{1}{0}.steam{0}registry.vdf",
                     Path.DirectorySeparatorChar,
-                    Environment.UserName);
+                   Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
             return value;
         }
         public void SetCurrentUser(string userName)
