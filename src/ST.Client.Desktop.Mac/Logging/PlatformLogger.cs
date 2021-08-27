@@ -5,7 +5,6 @@ using MonoMac.Foundation;
 using Foundation;
 #endif
 using System.Runtime.InteropServices;
-using static System.Properties.ThisAssembly;
 
 // ReSharper disable once CheckNamespace
 namespace System.Logging
@@ -19,10 +18,11 @@ namespace System.Logging
 
         public override bool IsEnabled(LogLevel logLevel)
         {
-            if (Debuggable) return true;
-#pragma warning disable CS0162 // 检测到无法访问的代码
+#if DEBUG
+            return true;
+#else
             return logLevel >= LogLevel.Error;
-#pragma warning restore CS0162 // 检测到无法访问的代码
+#endif
         }
 
         public override void WriteMessage(LogLevel logLevel, string message)

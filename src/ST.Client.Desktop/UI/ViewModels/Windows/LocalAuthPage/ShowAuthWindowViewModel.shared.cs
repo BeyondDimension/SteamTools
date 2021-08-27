@@ -30,7 +30,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string? SteamDataIndented => Serializable.GetIndented(_Authenticator?.SteamData);
+        public string? SteamDataIndented => Serializable.GetIndented(_Authenticator?.SteamData, Serializable.JsonImplType.NewtonsoftJson);
 
         public string? RecoveryCode => _Authenticator?.RecoveryCode;
 

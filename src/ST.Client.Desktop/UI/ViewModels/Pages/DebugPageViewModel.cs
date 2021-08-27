@@ -55,7 +55,7 @@ namespace System.Application.UI.ViewModels
             //TestHttp();
             //return;
 
-            TestTextBoxWindow(0);
+            //TestTextBoxWindow(0);
 
             //DebugButton_Click1();
             Parallel.For(0, 10, (_, _) =>
@@ -109,12 +109,19 @@ namespace System.Application.UI.ViewModels
 
             @string.AppendFormatLine("UserName: {0}", Environment.UserName);
             @string.AppendFormatLine("MachineName: {0}", Environment.MachineName);
-            @string.AppendFormatLine("ApplicationData: {0}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            @string.AppendFormatLine("LocalApplicationData: {0}", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
-            @string.AppendFormatLine("UserProfile: {0}", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-            @string.AppendFormatLine("System: {0}", Environment.GetFolderPath(Environment.SpecialFolder.System));
-            @string.AppendFormatLine("SystemX86: {0}", Environment.GetFolderPath(Environment.SpecialFolder.SystemX86));
-            @string.AppendFormatLine("Windows: {0}", Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+            if (OperatingSystem2.IsLinux)
+            {
+                @string.AppendFormatLine("$HOME: {0}", Environment.GetEnvironmentVariable("HOME"));
+            }
+
+            var folders = Enum2.GetAll<Environment.SpecialFolder>()
+                .Select(x => (int)x)
+                .Distinct()
+                .Select(x => (Environment.SpecialFolder)x);
+            foreach (var folder in folders)
+            {
+                @string.AppendFormatLine("{1}: {0}", Environment.GetFolderPath(folder), folder);
+            }
 
             var dps = DI.Get<IDesktopPlatformService>();
             @string.AppendFormatLine("SteamDirPath: {0}", dps.GetSteamDirPath());
@@ -262,7 +269,7 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("EmbeddedAes: {0}", embeddedAes);
 
 #if DEBUG
-            DI.Get<ITestAppCenter>().Test(@string);
+            DI.Get_Nullable<ITestAppCenter>()?.Test(@string);
 #endif
 
             DebugString += @string.ToString() + Environment.NewLine;
