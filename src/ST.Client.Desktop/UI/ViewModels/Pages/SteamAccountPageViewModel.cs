@@ -89,6 +89,7 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
+            #region 加载备注信息
             _SteamUsersSourceList.AddOrUpdate(list);
             var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
 
@@ -97,6 +98,13 @@ namespace System.Application.UI.ViewModels
                 string? remark = null;
                 accountRemarks?.TryGetValue(user.SteamId64, out remark);
                 user.Remark = remark;
+            }
+            _SteamUsersSourceList.Refresh();
+            #endregion
+
+            #region 通过webapi加载头像图片用户信息
+            foreach (var user in _SteamUsersSourceList.Items)
+            {
                 var temp = await webApiService.GetUserInfo(user.SteamId64);
                 if (!string.IsNullOrEmpty(temp.SteamID))
                 {
@@ -124,7 +132,9 @@ namespace System.Application.UI.ViewModels
             }
 
             _SteamUsersSourceList.Refresh();
+            #endregion
 
+            #region 加载动态头像头像框数据
             foreach (var item in _SteamUsersSourceList.Items)
             {
                 item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
@@ -138,6 +148,7 @@ namespace System.Application.UI.ViewModels
             }
 
             _SteamUsersSourceList.Refresh();
+            #endregion
 
             //this.WhenAnyValue(x => x.SteamUsers)
             //      .Subscribe(items => items?

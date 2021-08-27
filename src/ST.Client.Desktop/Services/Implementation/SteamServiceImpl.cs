@@ -825,7 +825,7 @@ namespace System.Application.Services.Implementation
 
                 if (pathNode == null) break;
 
-                if (pathNode.Type == VTokenType.Object)
+                if (pathNode.path != null)
                 {
                     // New format
                     // Valve introduced a new format for the "libraryfolders.vdf" file

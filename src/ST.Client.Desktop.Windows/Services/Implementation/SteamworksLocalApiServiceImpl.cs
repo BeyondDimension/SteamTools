@@ -88,6 +88,8 @@ namespace System.Application.Services.Implementation
                     //IsInstalled = IsAppInstalled(s.AppId)
                     //s.IsInstalled = IsAppInstalled(s.AppId);
                     //s.InstalledDir = GetAppInstallDir(s.AppId);
+                    s.State = IsAppInstalled(s.AppId) ? 4 : s.State;
+                    s.InstalledDir = string.IsNullOrEmpty(s.InstalledDir) ? GetAppInstallDir(s.AppId) : s.InstalledDir;
                     s.Type = Enum.TryParse<SteamAppType>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppType.Unknown;
                     return s;
                 });
