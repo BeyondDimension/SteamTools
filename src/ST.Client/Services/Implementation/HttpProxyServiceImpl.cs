@@ -365,6 +365,12 @@ namespace System.Application.Services.Implementation
             {
                 TrustCer();
             }
+            if (OperatingSystem2.IsLinux)
+            {
+                IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
+                CloudService.Constants.BrowserOpen("https://www.steampp.net/liunxSetupCer");
+                return true;
+            }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
 
@@ -435,13 +441,29 @@ namespace System.Application.Services.Implementation
 
         public bool StartProxy(bool IsWindowsProxy = false, bool IsProxyGOG = false)
         {
-            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+            if (OperatingSystem2.IsLinux)
             {
-                DeleteCertificate();
-                var isOk = SetupCertificate();
-                if (!isOk)
+                var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
+                if (!new FileInfo(filePath).Exists)
                 {
-                    return false;
+                    var isOk = SetupCertificate();
+                    if (!isOk)
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+
+                if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+                {
+                    DeleteCertificate();
+                    var isOk = SetupCertificate();
+                    if (!isOk)
+                    {
+                        return false;
+                    }
                 }
             }
             //else
@@ -531,6 +553,16 @@ namespace System.Application.Services.Implementation
                         IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
 
                     }
+                    else if (OperatingSystem2.IsLinux)
+                    {
+                        var shellContent = new StringBuilder();
+                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy mode 'manual'");
+                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http host '127.0.0.1'");
+                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http port {explicitProxyEndPoint.Port}");
+                        shellContent.AppendLine($" gsettings set org.gnome.system.proxy.https host '127.0.0.1'");
+                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy.https port {explicitProxyEndPoint.Port}");
+                        IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
+                    }
                 }
 
                 if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
@@ -614,6 +646,11 @@ namespace System.Application.Services.Implementation
             return Task.CompletedTask;
         }
 
+        public void StopLiunxProxy()
+        {  
+            IPlatformService.Instance.AdminShell($"gsettings set org.gnome.system.proxy mode 'none'", false);
+
+        }
         public void StopMacProxy()
         {
             var stringList = IPlatformService.Instance.GetMacNetworksetup();
@@ -642,6 +679,10 @@ namespace System.Application.Services.Implementation
                 if (OperatingSystem2.IsMacOS)
                 {
                     StopMacProxy();
+                }
+                if (OperatingSystem2.IsLinux)
+                {
+                    StopLiunxProxy();
                 }
                 proxyServer.Stop();
             }
@@ -707,6 +748,10 @@ namespace System.Application.Services.Implementation
                 if (OperatingSystem2.IsMacOS)
                 {
                     StopMacProxy();
+                }
+                if (OperatingSystem2.IsLinux)
+                {
+                    StopLiunxProxy();
                 }
                 proxyServer.Stop();
             }

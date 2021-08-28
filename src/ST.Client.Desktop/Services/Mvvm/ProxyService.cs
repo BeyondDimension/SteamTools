@@ -214,7 +214,7 @@ namespace System.Application.Services
                                         });
                                     }).Where(w => !string.IsNullOrEmpty(w.Item1));
 
-                                    if (OperatingSystem2.IsWindows || OperatingSystem2.IsMacOS)
+                                    if (OperatingSystem2.IsDesktop)
                                     {
                                         var r = IHostsFileService.Instance.UpdateHosts(hosts);
 

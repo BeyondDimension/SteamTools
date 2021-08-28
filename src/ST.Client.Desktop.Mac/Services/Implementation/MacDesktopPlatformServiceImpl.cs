@@ -90,49 +90,6 @@ namespace System.Application.Services.Implementation
             p.Kill();
             if (file.Exists)
                 file.Delete();
-            //var pInfo = new ProcessStartInfo
-            //{
-            //    FileName = "/bin/bash",
-            //    Arguments = $"{file.FullName}"
-            //};
-            ////var pInfo = new ProcessStartInfo
-            ////{
-            ////    FileName = Path.Combine(IOPath.AppDataDirectory, $@"sudoShell"),
-            ////    Arguments = $"-p '{file.FullName}'"
-            ////};
-            //pInfo.UseShellExecute = false;
-            //var p = Process.Start(pInfo);
-
-            //if (p == null) throw new FileNotFoundException("Shell");
-            //p.Exited += (object? _, EventArgs _) =>
-            //{
-            //    if (p.ExitCode != 0)
-            //    {
-            //        ((IPlatformService)this).AdminShell(shell);
-            //    }
-            //    else
-            //    {
-            //        if (file.Exists)
-            //            file.Delete();
-            //    }
-            //}; 
-            //p.Close();
-            //if (file.Exists)
-            //    file.Delete();
-#if MONO_MAC
-#elif XAMARIN_MAC
-            //var edithost = new NSAppleScript($"do shell script \"'${shell}'\" with administrator privileges");
-            //var state = edithost.CompileAndReturnError(out var error); 
-            //return state;
-            //var pInfo = new ProcessStartInfo
-            //{
-            //    FileName = "sudo",
-            //    Arguments = $"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain {filePath}",
-            //};
-            //pInfo.UseShellExecute = true;
-            //var p = Process.Start(pInfo);
-            //p.Close(); 
-#endif
         }
 
         public static void OpenFile(string appName, string filePath) => NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);

@@ -16,6 +16,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 using System.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -134,6 +135,9 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("MachineSecretKey.key: {0}", key.Base64UrlEncode());
             @string.AppendFormatLine("MachineSecretKey.iv: {0}", iv.Base64UrlEncode());
 
+            @string.AppendFormatLine("X509Store My: {0}", string.Join(",", new X509Store(StoreName.My, StoreLocation.CurrentUser).Certificates.Select(x => x.FriendlyName).ToArray()));
+            @string.AppendFormatLine("X509Store Root: {0}",string.Join(",",new X509Store(StoreName.Root, StoreLocation.CurrentUser).Certificates.Select(x=>x.FriendlyName).ToArray()));
+            @string.AppendFormatLine("X509Store CertificateAuthority: {0}", string.Join(",", new X509Store(StoreName.CertificateAuthority, StoreLocation.CurrentUser).Certificates.Select(x => x.FriendlyName).ToArray()));
             var stopwatch = Stopwatch.StartNew();
 
             try
@@ -271,7 +275,7 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("EmbeddedAes: {0}", embeddedAes);
 
 #if DEBUG
-            DI.Get_Nullable<ITestAppCenter>()?.Test(@string);
+          DI.Get_Nullable<ITestAppCenter>()?.Test(@string);
 #endif
 
             DebugString += @string.ToString() + Environment.NewLine;
