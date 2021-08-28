@@ -38,7 +38,7 @@ namespace System.Application.UI
             //if (activatedArgs != null) args = OnActivated(args, activatedArgs);
 #elif !__MOBILE__
 #if MAC
-            AppDelegateHelper.Init(args);
+            AppDelegate.Init(/*args*/);
             FileSystemDesktopMac.InitFileSystem();
 #else
             FileSystemDesktop.InitFileSystem();
