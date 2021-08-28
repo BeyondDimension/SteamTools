@@ -258,7 +258,6 @@ namespace System.Application.UI
                     if (Startup.HasNotifyIcon)
                     {
                         #region NotifyIcon
-
                         var notifyIcon = INotifyIcon.Instance;
                         notifyIcon.Visible = true;
                         notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;

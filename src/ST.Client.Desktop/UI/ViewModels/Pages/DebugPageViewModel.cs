@@ -52,6 +52,8 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
+            INotificationService.Instance.Notify("aaa", NotificationType.Announcement);
+
             //TestHttp();
             //return;
 

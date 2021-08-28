@@ -1266,7 +1266,7 @@ namespace WinAuth
                 var isForward = enableForward && TryGetForwardUrl(ref url);
 
                 // call the server
-                HttpWebRequest request = WebRequest.CreateHttp(url);
+                HttpWebRequest request = GeneralHttpClientFactory.Create(url);
                 request.Timeout = GeneralHttpClientFactory.DefaultTimeoutTotalMilliseconds;
                 request.Method = method;
                 request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";

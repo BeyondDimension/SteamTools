@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2011 Colin Mackie.
  * This software is distributed under the terms of the GNU General Public License.
  *
@@ -17,6 +17,7 @@
  */
 
 using System.Net;
+using System.Net.Http;
 using WinAuth;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
@@ -80,7 +81,7 @@ namespace System.Application.Models
                 try
                 {
                     // we use the Header response field from a request to www.google.come
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(TIME_SYNC_URL);
+                    HttpWebRequest request = GeneralHttpClientFactory(TIME_SYNC_URL);
                     request.Method = "GET";
                     request.ContentType = "text/html";
                     request.Timeout = 5000;

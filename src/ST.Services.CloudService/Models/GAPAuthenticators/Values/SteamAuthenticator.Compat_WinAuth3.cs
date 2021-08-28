@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -232,8 +233,8 @@ namespace System.Application.Models
                     return true;
                 });
                 // call the server
-                //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                var request = WebRequest.CreateHttp(url);
+                //HttpWebRequest request = GeneralHttpClientFactory(url);
+                var request = GeneralHttpClientFactory.Create(url);
                 request.Method = method;
                 request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";
                 request.ServicePoint.Expect100Continue = false;

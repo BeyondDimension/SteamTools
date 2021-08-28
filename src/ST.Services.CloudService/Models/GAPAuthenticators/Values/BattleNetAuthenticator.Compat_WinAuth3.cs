@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2013 Colin Mackie.
  * This software is distributed under the terms of the GNU General Public License.
  *
@@ -24,6 +24,7 @@ using Org.BouncyCastle.Crypto.Parameters;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -205,7 +206,7 @@ namespace System.Application.Models
                 // Battle.net does a GEO IP lookup anyway so there is no need to pass the region
                 // however China has its own URL so we must still do our own GEO IP lookup to find the country
 
-                var georequest = (HttpWebRequest)WebRequest.Create(GEOIPURL);
+                var georequest = GeneralHttpClientFactory.Create(GEOIPURL);
                 georequest.Method = "GET";
                 georequest.ContentType = "application/json";
                 georequest.Timeout = 10000;
@@ -302,7 +303,7 @@ namespace System.Application.Models
                 byte[]? responseData = null;
                 try
                 {
-                    var request = (HttpWebRequest)WebRequest.Create(GetMobileUrl(region) + ENROLL_PATH);
+                    var request = GeneralHttpClientFactory(GetMobileUrl(region) + ENROLL_PATH);
                     request.Method = "POST";
                     request.ContentType = "application/octet-stream";
                     request.ContentLength = encrypted.Length;
@@ -409,7 +410,7 @@ namespace System.Application.Models
                 try
                 {
                     // create a connection to time sync server
-                    var request = (HttpWebRequest)WebRequest.Create(GetMobileUrl(Region) + SYNC_PATH);
+                    var request = GeneralHttpClientFactory(GetMobileUrl(Region) + SYNC_PATH);
                     request.Method = "GET";
                     request.Timeout = 5000;
 
@@ -481,7 +482,7 @@ namespace System.Application.Models
                 var serialBytes = Encoding.UTF8.GetBytes(serial.ToUpper().Replace("-", string.Empty));
 
                 // send the request to the server to get our challenge
-                var request = (HttpWebRequest)WebRequest.Create(GetMobileUrl(serial) + RESTORE_PATH);
+                var request = GeneralHttpClientFactory(GetMobileUrl(serial) + RESTORE_PATH);
                 request.Method = "POST";
                 request.ContentType = "application/octet-stream";
                 request.ContentLength = serialBytes.Length;
@@ -565,7 +566,7 @@ namespace System.Application.Models
                 Array.Copy(encrypted, 0, postbytes, serialBytes.Length, encrypted.Length);
 
                 // send the challenge response back to the server
-                request = (HttpWebRequest)WebRequest.Create(GetMobileUrl(serial) + RESTOREVALIDATE_PATH);
+                request = GeneralHttpClientFactory(GetMobileUrl(serial) + RESTOREVALIDATE_PATH);
                 request.Method = "POST";
                 request.ContentType = "application/octet-stream";
                 request.ContentLength = postbytes.Length;

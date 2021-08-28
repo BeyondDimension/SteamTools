@@ -63,5 +63,25 @@ namespace System.Net.Http
                 return _clientFactory.CreateClient(clientName);
             }
         }
+
+        static void ConfigHttpWebRequest(HttpWebRequest request)
+        {
+            request.AllowAutoRedirect = true;
+            request.MaximumAutomaticRedirections = 200;
+        }
+
+        public static HttpWebRequest Create(string requestUriString)
+        {
+            var request = WebRequest.CreateHttp(requestUriString);
+            ConfigHttpWebRequest(request);
+            return request;
+        }
+
+        public static HttpWebRequest Create(Uri requestUri)
+        {
+            var request = WebRequest.CreateHttp(requestUri);
+            ConfigHttpWebRequest(request);
+            return request;
+        }
     }
 }
