@@ -30,6 +30,7 @@ namespace System.Application
         BindPhoneNumber,
         ASF_AddBot,
         SteamShutdown,
+        ProxySettings,
 #endif
     }
 }

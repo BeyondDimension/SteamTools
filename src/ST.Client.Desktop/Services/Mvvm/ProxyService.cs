@@ -163,6 +163,9 @@ namespace System.Application.Services
                         httpProxyService.Scripts = EnableProxyScripts;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
+                        httpProxyService.IsWindowsProxy = ProxySettings.EnableWindowsProxy.Value;
+                        httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
@@ -192,7 +195,7 @@ namespace System.Application.Services
                             //}
                         }
 
-                        var isRun = httpProxyService.StartProxy(ProxySettings.EnableWindowsProxy.Value, ProxySettings.IsProxyGOG.Value);
+                        var isRun = httpProxyService.StartProxy();
 
                         if (isRun)
                         {

@@ -35,6 +35,12 @@ namespace System.Application.Services
 
         public int ProxyPort { get; set; }
 
+        public IPAddress ProxyIp { get; set; }
+
+        public bool IsWindowsProxy { get; set; }
+
+        public bool IsProxyGOG { get; set; }
+
         public bool ProxyRunning { get; }
 
         public bool SetupCertificate();
@@ -43,7 +49,7 @@ namespace System.Application.Services
 
         bool PortInUse(int port);
 
-        public bool StartProxy(bool IsWindowsProxy = false, bool IsProxyGOG = false);
+        public bool StartProxy();
 
         public void StopProxy();
 

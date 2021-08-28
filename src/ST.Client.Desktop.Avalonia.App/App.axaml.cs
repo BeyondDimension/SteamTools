@@ -213,6 +213,7 @@ namespace System.Application.UI
             switch (windowService.MainWindow)
             {
                 case AchievementWindowViewModel window:
+                    Program.IsMinimize = false;
                     MainWindow = new AchievementWindow
                     {
                         DataContext = windowService.MainWindow,
@@ -224,14 +225,13 @@ namespace System.Application.UI
 #if !UI_DEMO
                     compositeDisposable.Add(SettingsHost.Save);
                     compositeDisposable.Add(ProxyService.Current.Dispose);
-                    //compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
                     compositeDisposable.Add(ASFService.Current.StopASF);
                     if (GeneralSettings.IsStartupAppMinimized.Value)
                     {
                         Program.IsMinimize = true;
-                        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                            desktop.MainWindow = null;
+                        //if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                        //    desktop.MainWindow = null;
                     }
 #endif
                     #endregion
@@ -288,13 +288,13 @@ namespace System.Application.UI
 #endif
                 }
 
+                IWindowService.Instance.MainWindow.Initialize();
+                 
                 desktop.MainWindow =
 #if !UI_DEMO
                     Program.IsMinimize ? null :
 #endif
                     MainWindow;
-
-                IWindowService.Instance.MainWindow.Initialize();
 
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;

@@ -104,6 +104,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Application\UI\Views\Windows\CommunityProxyPage\ProxySettingsWindow.axaml.cs">
+      <DependentUpon>ProxySettingsWindow.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Windows\GameListPage\SteamShutdownWindow.axaml.cs">
       <DependentUpon>SteamShutdownWindow.axaml</DependentUpon>
     </Compile>

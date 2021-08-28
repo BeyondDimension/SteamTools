@@ -49,6 +49,13 @@ namespace System.Application.Models.Settings
             = GetProperty(defaultValue: (IReadOnlyCollection<string>)new List<string>(), autoSave: false);
 
         /// <summary>
+        /// 脚本启用状态
+        /// </summary>
+        public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
+            = GetProperty(defaultValue: (IReadOnlyCollection<int>)new List<int>(), autoSave: true);
+
+        #region 代理设置
+        /// <summary>
         /// 系统代理模式端口
         /// </summary>
         public static SerializableProperty<int> SystemProxyPortId { get; }
@@ -59,11 +66,57 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<string> SystemProxyIp { get; }
             = GetProperty(defaultValue: IPAddress.Loopback.ToString(), autoSave: false);
+        #endregion
 
+        #region 本地代理设置
         /// <summary>
-        /// 脚本启用状态
+        /// Socks5 Enable
         /// </summary>
-        public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
-            = GetProperty(defaultValue: (IReadOnlyCollection<int>)new List<int>(), autoSave: true);
+        public static SerializableProperty<bool> Socks5ProxyEnable { get; }
+            = GetProperty(defaultValue: false, autoSave: false);
+        /// <summary>
+        /// Socks5 监听端口
+        /// </summary>
+        public static SerializableProperty<int> Socks5ProxyPortId { get; }
+            = GetProperty(defaultValue: 8868, autoSave: false);
+        /// <summary>
+        /// Socks5 UserName
+        /// </summary>
+        public static SerializableProperty<string> Socks5UserName { get; }
+            = GetProperty(defaultValue: string.Empty, autoSave: false);
+        /// <summary>
+        /// Socks5 Password
+        /// </summary>
+        public static SerializableProperty<string> Socks5Password { get; }
+            = GetProperty(defaultValue: string.Empty, autoSave: false);
+        #endregion
+
+        #region 二级代理设置
+        /// <summary>
+        /// TwoLevelAgent Enable
+        /// </summary>
+        public static SerializableProperty<bool> TwoLevelAgentEnable { get; }
+            = GetProperty(defaultValue: false, autoSave: false);
+        /// <summary>
+        /// 二级代理 IP
+        /// </summary>
+        public static SerializableProperty<string> TwoLevelAgentIp { get; }
+            = GetProperty(defaultValue: IPAddress.Loopback.ToString(), autoSave: false);
+        /// <summary>
+        /// 二级代理 监听端口
+        /// </summary>
+        public static SerializableProperty<int> TwoLevelAgentPortId { get; }
+            = GetProperty(defaultValue: 7890, autoSave: false);
+        /// <summary>
+        /// TwoLevelAgent UserName
+        /// </summary>
+        public static SerializableProperty<string> TwoLevelAgentUserName { get; }
+            = GetProperty(defaultValue: string.Empty, autoSave: false);
+        /// <summary>
+        /// TwoLevelAgent Password
+        /// </summary>
+        public static SerializableProperty<string> TwoLevelAgentPassword { get; }
+            = GetProperty(defaultValue: string.Empty, autoSave: false);
+        #endregion
     }
 }

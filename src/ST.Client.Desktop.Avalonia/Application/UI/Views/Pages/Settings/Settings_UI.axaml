@@ -88,7 +88,7 @@
                   SelectedItem="{Binding SelectFont}"
                   HorizontalAlignment="Stretch"
                   AutoScrollToSelectedItem="True"
-                  MaxDropDownHeight="400">
+                  MaxDropDownHeight="300">
           <ComboBox.ItemTemplate>
             <DataTemplate>
               <TextBlock Text="{Binding Key,Mode=OneWay}"

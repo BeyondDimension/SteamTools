@@ -45,7 +45,11 @@ namespace System.Application.Services.Implementation
 
         public IPAddress ProxyIp { get; set; } = IPAddress.Any;
 
+        public bool IsWindowsProxy { get; set; } = false;
+        public bool IsProxyGOG { get; set; } = false;
+
         public bool ProxyRunning => proxyServer.ProxyRunning;
+
         public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
         public const string LocalDomain = "local.steampp.net";
@@ -60,6 +64,8 @@ namespace System.Application.Services.Implementation
                 Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
             });
 
+            //proxyServer.Enable100ContinueBehaviour = true;
+            proxyServer.EnableHttp2 = true;
             proxyServer.EnableConnectionPool = true;
             // 可选地设置证书引擎
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
@@ -439,7 +445,7 @@ namespace System.Application.Services.Implementation
             return inUse;
         }
 
-        public bool StartProxy(bool IsWindowsProxy = false, bool IsProxyGOG = false)
+        public bool StartProxy()
         {
             if (OperatingSystem2.IsLinux)
             {
@@ -471,8 +477,6 @@ namespace System.Application.Services.Implementation
             //    SetupCertificate();
             //}
             #region 启动代理
-            //proxyServer.Enable100ContinueBehaviour = true;
-            proxyServer.EnableHttp2 = true;
             proxyServer.BeforeRequest += OnRequest;
             proxyServer.BeforeResponse += OnResponse;
             proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
@@ -544,9 +548,9 @@ namespace System.Application.Services.Implementation
                             {
                                 //shellContent.AppendLine($"networksetup -setsocksfirewallproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
                                 //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' on");
-                                shellContent.AppendLine($"networksetup -setwebproxy '{item}' '127.0.0.1' {explicitProxyEndPoint.Port}");
+                                shellContent.AppendLine($"networksetup -setwebproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
                                 shellContent.AppendLine($"networksetup -setwebproxystate '{item}' on");
-                                shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' '127.0.0.1' {explicitProxyEndPoint.Port}");
+                                shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
                                 shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' on");
                             }
                         }
@@ -686,14 +690,18 @@ namespace System.Application.Services.Implementation
                 }
                 proxyServer.Stop();
             }
-            try
+
+            if (IsWindowsProxy)
             {
-                proxyServer.DisableAllSystemProxies();
-                //proxyServer.RestoreOriginalProxySettings();
-            }
-            catch
-            {
-                //忽略异常导致的崩溃
+                try
+                {
+                    proxyServer.DisableAllSystemProxies();
+                    //proxyServer.RestoreOriginalProxySettings();
+                }
+                catch
+                {
+                    //忽略异常导致的崩溃
+                }
             }
         }
 

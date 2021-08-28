@@ -12,6 +12,7 @@ using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
@@ -32,6 +33,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
         public ReactiveCommand<Unit, Unit> NetworkFixCommand { get; }
         public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
+        public ReactiveCommand<Unit, Unit> ProxySettingsCommand { get; }
         //public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
         public MenuItemViewModel AutoRunProxy { get; }
@@ -56,6 +58,10 @@ namespace System.Application.UI.ViewModels
             OpenCertificateDirCommand = ReactiveCommand.Create(() =>
             {
                 DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.AppDataDirectory + @$"\{ThisAssembly.AssemblyProduct}.Certificate.cer");
+            });
+            ProxySettingsCommand = ReactiveCommand.Create(() =>
+            {
+                IShowWindowService.Instance.Show(CustomWindow.ProxySettings, new ProxySettingsWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
             });
             RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);
             //EnableProxyScriptCommand = ReactiveCommand.Create(() =>
