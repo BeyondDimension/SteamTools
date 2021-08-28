@@ -81,7 +81,7 @@ namespace System.Application.Models
                 try
                 {
                     // we use the Header response field from a request to www.google.come
-                    HttpWebRequest request = GeneralHttpClientFactory(TIME_SYNC_URL);
+                    HttpWebRequest request = GeneralHttpClientFactory.Create(TIME_SYNC_URL);
                     request.Method = "GET";
                     request.ContentType = "text/html";
                     request.Timeout = 5000;

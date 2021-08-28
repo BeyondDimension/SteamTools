@@ -303,7 +303,7 @@ namespace System.Application.Models
                 byte[]? responseData = null;
                 try
                 {
-                    var request = GeneralHttpClientFactory(GetMobileUrl(region) + ENROLL_PATH);
+                    var request = GeneralHttpClientFactory.Create(GetMobileUrl(region) + ENROLL_PATH);
                     request.Method = "POST";
                     request.ContentType = "application/octet-stream";
                     request.ContentLength = encrypted.Length;
@@ -410,7 +410,7 @@ namespace System.Application.Models
                 try
                 {
                     // create a connection to time sync server
-                    var request = GeneralHttpClientFactory(GetMobileUrl(Region) + SYNC_PATH);
+                    var request = GeneralHttpClientFactory.Create(GetMobileUrl(Region) + SYNC_PATH);
                     request.Method = "GET";
                     request.Timeout = 5000;
 
@@ -482,7 +482,7 @@ namespace System.Application.Models
                 var serialBytes = Encoding.UTF8.GetBytes(serial.ToUpper().Replace("-", string.Empty));
 
                 // send the request to the server to get our challenge
-                var request = GeneralHttpClientFactory(GetMobileUrl(serial) + RESTORE_PATH);
+                var request = GeneralHttpClientFactory.Create(GetMobileUrl(serial) + RESTORE_PATH);
                 request.Method = "POST";
                 request.ContentType = "application/octet-stream";
                 request.ContentLength = serialBytes.Length;
@@ -566,7 +566,7 @@ namespace System.Application.Models
                 Array.Copy(encrypted, 0, postbytes, serialBytes.Length, encrypted.Length);
 
                 // send the challenge response back to the server
-                request = GeneralHttpClientFactory(GetMobileUrl(serial) + RESTOREVALIDATE_PATH);
+                request = GeneralHttpClientFactory.Create(GetMobileUrl(serial) + RESTOREVALIDATE_PATH);
                 request.Method = "POST";
                 request.ContentType = "application/octet-stream";
                 request.ContentLength = postbytes.Length;
