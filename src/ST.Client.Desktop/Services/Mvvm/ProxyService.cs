@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Titanium.Web.Proxy.Models;
 
 namespace System.Application.Services
 {
@@ -165,6 +166,21 @@ namespace System.Application.Services
                         httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
                         httpProxyService.IsWindowsProxy = ProxySettings.EnableWindowsProxy.Value;
                         httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+
+                        IPAddress.TryParse(ProxySettings.SystemProxyIp.Value, out var ip);
+                        httpProxyService.ProxyIp = ip ?? IPAddress.Any;
+
+                        httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
+                        httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
+                        httpProxyService.Socks5UserName = ProxySettings.Socks5UserName.Value;
+                        httpProxyService.Socks5Password = ProxySettings.Socks5Password.Value;
+
+                        httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
+                        httpProxyService.TwoLevelAgentProxyType =(ExternalProxyType) ProxySettings.TwoLevelAgentProxyType.Value;
+                        httpProxyService.TwoLevelAgentIp = ProxySettings.TwoLevelAgentIp.Value ?? IPAddress.Loopback.ToString();
+                        httpProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
+                        httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
+                        httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));

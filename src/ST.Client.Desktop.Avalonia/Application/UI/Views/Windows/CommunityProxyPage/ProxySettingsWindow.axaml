@@ -56,10 +56,10 @@
                 <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
-              <DockPanel>
+              <!--<DockPanel>
                 <Label Content="自定义根证书密码"></Label>
                 <TextBox></TextBox>
-              </DockPanel>
+              </DockPanel>-->
 
               <!--<DockPanel>
                 <Label Content="自定义根证书" ></Label>
@@ -68,60 +68,63 @@
             </StackPanel>
           </Expander>
 
-          <Expander>
-            <Expander.Header>
-              <StackPanel Orientation="Horizontal" Spacing="5">
-                <ToggleSwitch Content="" OnContent="启用Socks5本地代理" OffContent="启用Socks5本地代理"/>
-              </StackPanel>
-            </Expander.Header>
+          <Expander Header="Socks5本地代理" IsExpanded="True">
             <StackPanel Spacing="10">
               <DockPanel>
+                <TextBlock Text="启用" ></TextBlock>
+                <ToggleSwitch
+                            IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
+              </DockPanel>
+              <DockPanel>
                 <Label Content="监听端口" ></Label>
-                <NumericUpDown/>
+                <NumericUpDown Value="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyPortId},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
 
               <DockPanel>
                 <Label Content="用户名" ></Label>
-                <TextBox></TextBox>
+                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5UserName},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
               <DockPanel>
                 <Label Content="密码" ></Label>
-                <TextBox></TextBox>
+                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5Password},Path=Value, Mode=TwoWay}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
               </DockPanel>
             </StackPanel>
           </Expander>
 
-          <Expander>
-            <Expander.Header>
-              <StackPanel Orientation="Horizontal" Spacing="5">
-                <ToggleSwitch Content="" OnContent="启用二级代理" OffContent="启用二级代理"/>
-              </StackPanel>
-            </Expander.Header>
+          <Expander Header="二级代理" IsExpanded="True">
             <StackPanel Spacing="10">
               <DockPanel>
-                <Label Content="代理类型"></Label>
-                <ComboBox HorizontalAlignment="Stretch"/>
+                <TextBlock Text="启用" ></TextBlock>
+                <ToggleSwitch
+                            IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentEnable},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
 
               <DockPanel>
-                <Label Content="地址" ></Label>
-                <TextBox></TextBox>
+                <Label Content="代理类型"></Label>
+                <ComboBox HorizontalAlignment="Stretch"
+                          Items="{Binding ProxyTypes}"
+                          SelectedIndex="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentProxyType},Path=Value, Mode=TwoWay}"/>
+              </DockPanel>
+
+              <DockPanel>
+                <Label Content="地址"></Label>
+                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentIp},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
               <DockPanel>
                 <Label Content="端口" ></Label>
-                <TextBox></TextBox>
+                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPortId},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
               <DockPanel>
                 <Label Content="用户名" ></Label>
-                <TextBox></TextBox>
+                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentUserName},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
               <DockPanel>
                 <Label Content="密码" ></Label>
-                <TextBox></TextBox>
+                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPassword},Path=Value, Mode=TwoWay}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
               </DockPanel>
 
             </StackPanel>

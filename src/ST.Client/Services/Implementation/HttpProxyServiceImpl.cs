@@ -48,6 +48,19 @@ namespace System.Application.Services.Implementation
         public bool IsWindowsProxy { get; set; } = false;
         public bool IsProxyGOG { get; set; } = false;
 
+        public bool Socks5ProxyEnable { get; set; } = false;
+        public int Socks5ProxyPortId { get; set; }
+        public string Socks5UserName { get; set; }
+        public string Socks5Password { get; set; }
+
+        public bool TwoLevelAgentEnable { get; set; } = false;
+        public ExternalProxyType TwoLevelAgentProxyType { get; set; } = ExternalProxyType.Socks5;
+        public string TwoLevelAgentIp { get; set; }
+        public int TwoLevelAgentPortId { get; set; }
+        public string TwoLevelAgentUserName { get; set; }
+        public string TwoLevelAgentPassword { get; set; }
+
+
         public bool ProxyRunning => proxyServer.ProxyRunning;
 
         public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
@@ -142,7 +155,7 @@ namespace System.Application.Services.Implementation
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
             Debug.WriteLine("ClientRemoteEndPoint " + e.ClientRemoteEndPoint.ToString());
 #endif
-            if (ProxyDomains is null || e.HttpClient.Request.Host == null)
+            if (e.HttpClient.Request.Host == null)
             {
                 return;
             }
@@ -162,12 +175,16 @@ namespace System.Application.Services.Implementation
                 {
                     case "xhr":
                         await HttpRequest(e);
-
                         return;
                     default:
                         e.Ok(Scripts.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
                         return;
                 }
+            }
+
+            if (ProxyDomains is null || TwoLevelAgentEnable)
+            {
+                return;
             }
             foreach (var item in ProxyDomains)
             {
@@ -229,7 +246,6 @@ namespace System.Application.Services.Implementation
                     }
                 }
             }
-
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
             //if (!e.IsTransparent)
             //{
@@ -519,14 +535,23 @@ namespace System.Application.Services.Implementation
                     catch { }
                 }
 
-                //proxyServer.AddEndPoint(new SocksProxyEndPoint(ProxyIp, 9980, true));
+                if (Socks5ProxyEnable)
+                {
+                    proxyServer.AddEndPoint(new SocksProxyEndPoint(ProxyIp, Socks5ProxyPortId, true));
+                }
 
-                //proxyServer.UpStreamHttpsProxy = new ExternalProxy("127.0.0.1", 7890)
-                //{
-                //    ProxyDnsRequests = true,
-                //    ProxyType = ExternalProxyType.Socks5,
-                //};
-                //proxyServer.ForwardToUpstreamGateway = true;
+                if (TwoLevelAgentEnable)
+                {
+                    proxyServer.UpStreamHttpsProxy = new ExternalProxy(TwoLevelAgentIp, TwoLevelAgentPortId)
+                    {
+                        ProxyDnsRequests = true,
+                        BypassLocalhost = true,
+                        ProxyType = TwoLevelAgentProxyType,
+                        UserName = TwoLevelAgentUserName,
+                        Password = TwoLevelAgentPassword,
+                    };
+                    proxyServer.ForwardToUpstreamGateway = true;
+                }
 
                 proxyServer.Start();
 

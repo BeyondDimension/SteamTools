@@ -98,6 +98,11 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<bool> TwoLevelAgentEnable { get; }
             = GetProperty(defaultValue: false, autoSave: false);
         /// <summary>
+        /// TwoLevelAgent Enable
+        /// </summary>
+        public static SerializableProperty<short> TwoLevelAgentProxyType { get; }
+            = GetProperty(defaultValue: (short)2, autoSave: false);
+        /// <summary>
         /// 二级代理 IP
         /// </summary>
         public static SerializableProperty<string> TwoLevelAgentIp { get; }
