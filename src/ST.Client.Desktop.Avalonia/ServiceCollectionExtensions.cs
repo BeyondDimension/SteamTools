@@ -28,17 +28,6 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-        /// <summary>
-        /// 添加适用于桌面端的 <see cref="INotificationService"/>
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddNotificationService(this IServiceCollection services)
-        {
-            services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
-            return services;
-        }
-
         public static IServiceCollection AddFontManager(this IServiceCollection services, bool useGdiPlusFirst)
         {
             services.AddSingleton<IFontManager>(new AvaloniaFontManagerImpl(useGdiPlusFirst));

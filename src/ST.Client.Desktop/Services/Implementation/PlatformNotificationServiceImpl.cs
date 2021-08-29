@@ -1,4 +1,3 @@
-using System.Application.UI;
 using System.Properties;
 using System.Windows;
 
@@ -18,19 +17,28 @@ namespace System.Application.Services.Implementation
 
         void INotificationService<NotificationType, Entrance, INotificationService>.Cancel(NotificationType notificationType)
         {
-            notifyIcon.HideBalloonTip();
+            if (OperatingSystem2.IsWindows)
+            {
+                notifyIcon.HideBalloonTip();
+            }
         }
 
         void INotificationService<NotificationType, Entrance, INotificationService>.CancelAll()
         {
-            notifyIcon.HideBalloonTip();
+            if (OperatingSystem2.IsWindows)
+            {
+                notifyIcon.HideBalloonTip();
+            }
         }
 
         void INotificationService<NotificationType, Entrance, INotificationService>.Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance)
         {
-            title ??= ThisAssembly.AssemblyTrademark;
-            // 调用托盘显示通知
-            notifyIcon.ShowBalloonTip(title, text, ToolTipIcon.None);
+            if (OperatingSystem2.IsWindows)
+            {
+                title ??= ThisAssembly.AssemblyTrademark;
+                // 调用托盘显示通知
+                notifyIcon.ShowBalloonTip(title, text, ToolTipIcon.None);
+            }
         }
 
         Progress<float> INotificationService<NotificationType, Entrance, INotificationService>.NotifyDownload(Func<string> text, NotificationType notificationType, string? title)

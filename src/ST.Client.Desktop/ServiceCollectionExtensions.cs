@@ -85,13 +85,24 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加 Window 窗口viewmodel
+        /// 添加窗口服务
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
         public static IServiceCollection AddWindowService(this IServiceCollection services)
         {
             services.AddSingleton<IWindowService, WindowServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加适用于桌面端的 <see cref="INotificationService"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddNotificationService(this IServiceCollection services)
+        {
+            services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
             return services;
         }
     }
