@@ -10,14 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// 添加桌面平台服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="hasSteam"></param>
-        /// <param name="hasGUI"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI)
+        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
         {
             if (OperatingSystem2.IsWindows)
             {
@@ -43,7 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 services.AddSingleton<ISystemWindowApiService, SystemWindowApiServiceImpl>();
                 services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
-                services.AddNotifyIcon();
+                if (hasNotifyIcon) services.AddNotifyIcon();
             }
             else
             {

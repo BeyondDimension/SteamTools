@@ -140,7 +140,7 @@ namespace System.Application
             var hasSteam = level.HasFlag(DILevel.Steam);
 #if !UI_DEMO && !__MOBILE__
             // 桌面平台服务 此项放在其他通用业务实现服务之前
-            services.AddDesktopPlatformService(hasSteam, hasGUI);
+            services.AddDesktopPlatformService(hasSteam, hasGUI, HasNotifyIcon);
 #endif
 #if __MOBILE__
             services.AddMobilePlatformService(hasGUI);
@@ -353,21 +353,6 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.Steam");
 #endif
             }
-#if !CONSOLEAPP
-            if (HasNotifyIcon)
-            {
-                // 托盘图标
-#if WINDOWS
-                //services.AddTransient<INotifyIconWindow<ContextMenu>, Win32NotifyIconWindow>();
-#endif
-#if !UI_DEMO
-                services.AddNotifyIcon<NotifyIconImpl>();
-#endif
-#if StartupTrace
-                StartupTrace.Restart("DI.ConfigureDemandServices.NotifyIcon");
-#endif
-            }
-#endif
 #endif
 #if !CONSOLEAPP
             if (hasMainProcessRequired)
@@ -426,24 +411,24 @@ namespace System.Application
                     }
                     static void SetApiBaseUrl(AppSettings s)
                     {
-//#if DEBUG
-//                        if (BuildConfig.IsAigioPC && Program.IsMainProcess)
-//                        {
-//                            try
-//                            {
-//                                var url = CSConst.Prefix_HTTPS + "localhost:5001";
-//                                var request = WebRequest.CreateHttp(url);
-//                                request.Timeout = 1888;
-//                                request.GetResponse();
-//                                s.ApiBaseUrl = url;
-//                                return;
-//                            }
-//                            catch (Exception e)
-//                            {
-//                                Debug.WriteLine(e.ToString());
-//                            }
-//                        }
-//#endif
+                        //#if DEBUG
+                        //                        if (BuildConfig.IsAigioPC && Program.IsMainProcess)
+                        //                        {
+                        //                            try
+                        //                            {
+                        //                                var url = CSConst.Prefix_HTTPS + "localhost:5001";
+                        //                                var request = WebRequest.CreateHttp(url);
+                        //                                request.Timeout = 1888;
+                        //                                request.GetResponse();
+                        //                                s.ApiBaseUrl = url;
+                        //                                return;
+                        //                            }
+                        //                            catch (Exception e)
+                        //                            {
+                        //                                Debug.WriteLine(e.ToString());
+                        //                            }
+                        //                        }
+                        //#endif
                         var value =
                             (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
                             CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
@@ -458,111 +443,6 @@ namespace System.Application
 
 #if !__MOBILE__ && !CONSOLEAPP
         public static bool HasNotifyIcon { get; private set; }
-
-#if !UI_DEMO && !CONSOLEAPP
-        sealed class NotifyIconImpl : NotifyIcon<ContextMenu>, INotifyIcon { }
-#endif
-
-#if WINDOWS && !CONSOLEAPP
-        //sealed class Win32NotifyIconWindow : MainWindow, INotifyIconWindow<ContextMenu>
-        //{
-        //    sealed class Win32WindowImpl : Avalonia.Win32.WindowImpl
-        //    {
-        //        public Win32NotifyIconWindow? Window { get; set; }
-
-        //        protected override IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
-        //        {
-        //            var _notifyIcon = Window?.NotifyIcon;
-        //            var value = _notifyIcon == null ? null : NotifyIcon<ContextMenu>.WndProc(_notifyIcon, msg, wParam, lParam);
-        //            return value ?? base.WndProc(hWnd, msg, wParam, lParam);
-        //        }
-        //    }
-
-        //    public Win32NotifyIconWindow() : base(new Win32WindowImpl())
-        //    {
-        //        if (PlatformImpl is Win32WindowImpl impl)
-        //        {
-        //            impl.Window = this;
-        //        }
-        //        else
-        //        {
-        //            throw new PlatformNotSupportedException();
-        //        }
-        //    }
-
-        //    public IntPtr Handle => PlatformImpl.Handle.Handle;
-
-        //    [NotNull, DisallowNull] // C# 8 not null
-        //    public NotifyIcon<ContextMenu>? NotifyIcon { get; private set; }
-
-        //    public void Initialize(INotifyIcon<ContextMenu> notifyIcon)
-        //    {
-        //        if (notifyIcon is NotifyIcon<ContextMenu> _notifyIcon)
-        //        {
-        //            NotifyIcon = _notifyIcon;
-        //        }
-        //        else
-        //        {
-        //            throw new PlatformNotSupportedException();
-        //        }
-        //        //Content = NotifyIcon;
-        //    }
-        //}
-
-        //        sealed class WPFMessageBoxCompatService : IMessageBoxCompatService
-        //        {
-        //            static MessageBoxButton GetButtonEnum(MessageBoxButtonCompat button) => button switch
-        //            {
-        //                MessageBoxButtonCompat.OK => MessageBoxButton.OK,
-        //                MessageBoxButtonCompat.OKCancel => MessageBoxButton.OKCancel,
-        //#pragma warning disable CS0618 // 类型或成员已过时
-        //                MessageBoxButtonCompat.YesNo => MessageBoxButton.YesNo,
-        //                MessageBoxButtonCompat.YesNoCancel => MessageBoxButton.YesNoCancel,
-        //#pragma warning restore CS0618 // 类型或成员已过时
-        //                _ => throw new ArgumentOutOfRangeException(nameof(button), $"value: {button}"),
-        //            };
-
-        //            static MessageBoxImage GetIcon(MessageBoxImageCompat icon) => icon switch
-        //            {
-        //                MessageBoxImageCompat.Asterisk => MessageBoxImage.Asterisk,
-        //                MessageBoxImageCompat.Error => MessageBoxImage.Error,
-        //                MessageBoxImageCompat.Exclamation => MessageBoxImage.Exclamation,
-        //                MessageBoxImageCompat.None => MessageBoxImage.None,
-        //#pragma warning disable CS0618 // 类型或成员已过时
-        //                MessageBoxImageCompat.Question => MessageBoxImage.Question,
-        //#pragma warning restore CS0618 // 类型或成员已过时
-        //                _ => throw new ArgumentOutOfRangeException(nameof(icon), $"value: {icon}"),
-        //            };
-
-        //            static MessageBoxResultCompat GetResult(MessageBoxResult result) => result switch
-        //            {
-        //                MessageBoxResult.OK => MessageBoxResultCompat.OK,
-        //#pragma warning disable CS0618 // 类型或成员已过时
-        //                MessageBoxResult.Yes => MessageBoxResultCompat.Yes,
-        //                MessageBoxResult.No => MessageBoxResultCompat.No,
-        //#pragma warning restore CS0618 // 类型或成员已过时
-        //                MessageBoxResult.Cancel => MessageBoxResultCompat.Cancel,
-        //                MessageBoxResult.None => MessageBoxResultCompat.None,
-        //                _ => throw new ArgumentOutOfRangeException(nameof(result), $"value: {result}"),
-        //            };
-
-        //            public Task<MessageBoxResultCompat> ShowAsync(string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon)
-        //            {
-        //                var button_ = GetButtonEnum(button);
-        //                if (icon.HasValue)
-        //                {
-        //                    var icon_ = GetIcon(icon.Value);
-        //                    var result = MessageBox.Show(messageBoxText, caption, button_, icon_);
-        //                    return Task.FromResult(GetResult(result));
-        //                }
-        //                else
-        //                {
-        //                    var result = MessageBox.Show(messageBoxText, caption, button_);
-        //                    return Task.FromResult(GetResult(result));
-        //                }
-        //            }
-        //        }
-#endif
 #endif
 
 #if UI_DEMO
