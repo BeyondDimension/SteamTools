@@ -40,7 +40,9 @@ namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
     {
+#if LINUX || DEBUG
         NotifyIconHelper.PipeServer? notifyIconPipeServer;
+#endif
 
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
@@ -275,8 +277,10 @@ namespace System.Application.UI
                         }
                         else
                         {
+#if LINUX || DEBUG
                             notifyIconPipeServer = new();
                             notifyIconPipeServer.OnStart();
+#endif
                         }
                     }
 #if WINDOWS
@@ -351,7 +355,9 @@ namespace System.Application.UI
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
+#if LINUX || DEBUG
             notifyIconPipeServer?.Dispose();
+#endif
 
             try
             {

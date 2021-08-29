@@ -200,8 +200,11 @@ namespace System.Application.UI
 
                     DI.Init(ConfigureServices);
 
+
+#if LINUX || DEBUG
                     var notifyIconPipeClient = new NotifyIconHelper.PipeClient(handle, pid);
                     notifyIconPipeClient.OnStart();
+#endif
 
                     (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIcon);
                     notifyIcon.Click += (_, _) =>
@@ -215,6 +218,9 @@ namespace System.Application.UI
 
                     menuItemDisposable?.Dispose();
                     notifyIcon.Dispose();
+#if LINUX || DEBUG
+                    notifyIconPipeClient.Dispose();
+#endif
 
                     static void ConfigureServices(IServiceCollection services)
                     {

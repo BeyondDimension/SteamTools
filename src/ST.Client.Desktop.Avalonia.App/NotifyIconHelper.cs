@@ -80,6 +80,7 @@ namespace System.Application.UI
             return (notifyIcon, menuItemDisposable);
         }
 
+        #region 仅在非 Windows 上使用平台原生托盘菜单
 #if !WINDOWS || DEBUG
         static string Exit => AppResources.Exit;
 
@@ -132,7 +133,10 @@ namespace System.Application.UI
             return null;
         }
 #endif
+        #endregion
 
+        #region 仅在 Linux 上使用管道 IPC 调用托盘菜单项点击事件
+#if LINUX || DEBUG
         public abstract class PipeCore : IDisposable
         {
             public const string CommandNotifyIconClick = "NotifyIconClick";
@@ -363,5 +367,7 @@ namespace System.Application.UI
                 base.Dispose(disposing);
             }
         }
+#endif
+        #endregion
     }
 }
