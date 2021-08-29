@@ -47,18 +47,18 @@ namespace System.Application.Services.Implementation
 
         public bool IsWindowsProxy { get; set; } = false;
         public bool IsProxyGOG { get; set; } = false;
+        public bool OnlyEnableProxyScript { get; set; } = false;
+
 
         public bool Socks5ProxyEnable { get; set; } = false;
         public int Socks5ProxyPortId { get; set; }
-        public string Socks5UserName { get; set; }
-        public string Socks5Password { get; set; }
 
         public bool TwoLevelAgentEnable { get; set; } = false;
         public ExternalProxyType TwoLevelAgentProxyType { get; set; } = ExternalProxyType.Socks5;
         public string TwoLevelAgentIp { get; set; }
         public int TwoLevelAgentPortId { get; set; }
-        public string TwoLevelAgentUserName { get; set; }
-        public string TwoLevelAgentPassword { get; set; }
+        public string? TwoLevelAgentUserName { get; set; }
+        public string? TwoLevelAgentPassword { get; set; }
 
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
@@ -182,10 +182,11 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            if (ProxyDomains is null || TwoLevelAgentEnable)
+            if (ProxyDomains is null || TwoLevelAgentEnable || OnlyEnableProxyScript)
             {
                 return;
             }
+
             foreach (var item in ProxyDomains)
             {
                 foreach (var host in item.DomainNamesArray)
@@ -676,7 +677,7 @@ namespace System.Application.Services.Implementation
         }
 
         public void StopLiunxProxy()
-        {  
+        {
             IPlatformService.Instance.AdminShell($"gsettings set org.gnome.system.proxy mode 'none'", false);
 
         }

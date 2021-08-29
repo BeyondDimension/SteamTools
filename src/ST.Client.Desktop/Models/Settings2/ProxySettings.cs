@@ -66,6 +66,12 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<string> SystemProxyIp { get; }
             = GetProperty(defaultValue: IPAddress.Loopback.ToString(), autoSave: false);
+
+        /// <summary>
+        /// 开启加速后仅代理脚本而不加速
+        /// </summary>
+        public static SerializableProperty<bool> OnlyEnableProxyScript { get; }
+            = GetProperty(defaultValue: false, autoSave: false);
         #endregion
 
         #region 本地代理设置
@@ -79,16 +85,6 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<int> Socks5ProxyPortId { get; }
             = GetProperty(defaultValue: 8868, autoSave: false);
-        /// <summary>
-        /// Socks5 UserName
-        /// </summary>
-        public static SerializableProperty<string> Socks5UserName { get; }
-            = GetProperty(defaultValue: string.Empty, autoSave: false);
-        /// <summary>
-        /// Socks5 Password
-        /// </summary>
-        public static SerializableProperty<string> Socks5Password { get; }
-            = GetProperty(defaultValue: string.Empty, autoSave: false);
         #endregion
 
         #region 二级代理设置

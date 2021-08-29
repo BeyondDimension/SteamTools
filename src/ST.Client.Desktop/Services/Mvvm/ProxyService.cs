@@ -172,8 +172,6 @@ namespace System.Application.Services
 
                         httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
-                        httpProxyService.Socks5UserName = ProxySettings.Socks5UserName.Value;
-                        httpProxyService.Socks5Password = ProxySettings.Socks5Password.Value;
 
                         httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
                         httpProxyService.TwoLevelAgentProxyType =(ExternalProxyType) ProxySettings.TwoLevelAgentProxyType.Value;

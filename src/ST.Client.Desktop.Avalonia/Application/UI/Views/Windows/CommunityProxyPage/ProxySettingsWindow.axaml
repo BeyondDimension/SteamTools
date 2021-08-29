@@ -56,6 +56,11 @@
                 <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
+              <DockPanel>
+                <TextBlock Text="开启加速后仅启用脚本功能" ></TextBlock>
+                <ToggleSwitch
+                            IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript},Path=Value, Mode=TwoWay}"/>
+              </DockPanel>
               <!--<DockPanel>
                 <Label Content="自定义根证书密码"></Label>
                 <TextBox></TextBox>
@@ -76,18 +81,9 @@
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
               <DockPanel>
-                <Label Content="监听端口" ></Label>
-                <NumericUpDown Value="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyPortId},Path=Value, Mode=TwoWay}"/>
-              </DockPanel>
-
-              <DockPanel>
-                <Label Content="用户名" ></Label>
-                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5UserName},Path=Value, Mode=TwoWay}"></TextBox>
-              </DockPanel>
-
-              <DockPanel>
-                <Label Content="密码" ></Label>
-                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5Password},Path=Value, Mode=TwoWay}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
+                <Label Content="监听端口"></Label>
+                <NumericUpDown Maximum="65535"
+                               Value="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyPortId},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
             </StackPanel>
           </Expander>
@@ -114,7 +110,8 @@
 
               <DockPanel>
                 <Label Content="端口" ></Label>
-                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPortId},Path=Value, Mode=TwoWay}"></TextBox>
+                <NumericUpDown Maximum="65535"
+                               Value="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPortId},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
 
               <DockPanel>
