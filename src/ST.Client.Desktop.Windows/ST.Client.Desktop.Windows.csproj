@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
@@ -31,21 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aigio.Avalonia.AppCenter" Version="4.3.1" />
-    <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.3.1" />
-    <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.3.1" />
-    <PackageReference Include="JumpLists.Win32.Avalonia" Version="0.0.1" Aliases="JumpLists" />
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.3.3" />
-    <PackageReference Include="NotifyIcon.Windows" Version="1.0.2" />
-    <PackageReference Include="TaskScheduler" Version="2.9.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net5')) ">
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net6')) ">
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
+    <PackageReference Include="JumpLists.Win32.Avalonia" Aliases="JumpLists" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" />
+    <PackageReference Include="NotifyIcon.Windows" />
+    <PackageReference Include="TaskScheduler" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
   </ItemGroup>
 
   <ItemGroup>

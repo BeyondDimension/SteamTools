@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NotifyIcon.Linux" Version="1.0.2" />
+    <PackageReference Include="NotifyIcon.Linux" />
   </ItemGroup>
 
   <ItemGroup>

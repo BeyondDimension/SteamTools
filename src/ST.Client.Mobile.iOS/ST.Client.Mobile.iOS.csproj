@@ -30,10 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter" Version="4.2.0" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0" />
-    <PackageReference Include="Toast.iOS" Version="1.2.0" Aliases="NUGET_PACKAGE_TOAST_IOS" />
+    <PackageReference Include="Microsoft.AppCenter" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" />
+    <PackageReference Include="Toast.iOS" Aliases="NUGET_PACKAGE_TOAST_IOS" />
   </ItemGroup>
 
   <ItemGroup>

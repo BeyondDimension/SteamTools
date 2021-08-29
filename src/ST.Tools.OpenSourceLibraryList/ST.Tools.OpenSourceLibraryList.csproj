@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -36,8 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.3.75" />
-    <PackageReference Include="Octokit" Version="0.50.0" />
+    <PackageReference Include="MessagePack" />
+    <PackageReference Include="Octokit" />
   </ItemGroup>
 
 </Project>

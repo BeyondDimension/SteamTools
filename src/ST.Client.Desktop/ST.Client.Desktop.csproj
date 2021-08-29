@@ -39,19 +39,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DnsClient" Version="1.5.0" />
-    <PackageReference Include="Fleck" Version="1.2.0" />
-    <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
-    <PackageReference Include="NLog" Version="4.7.11" />
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.7.3" />
-    <PackageReference Include="NotifyIcon.Base" Version="1.0.2" />
-    <PackageReference Include="SharpZipLib" Version="1.3.2" />
-    <PackageReference Include="Squid-Box.SevenZipSharp" Version="1.5.0.366" />
-    <PackageReference Include="StatefulModel.Standard" Version="0.1.0" />
-    <!--<PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />-->
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="DnsClient" />
+    <PackageReference Include="Fleck" />
+    <PackageReference Include="Gameloop.Vdf" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="NLog.Extensions.Logging" />
+    <PackageReference Include="NotifyIcon.Base" />
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="Squid-Box.SevenZipSharp" />
+    <PackageReference Include="StatefulModel.Standard" />
+    <!--<PackageReference Include="Titanium.Web.Proxy" />-->
+    <PackageReference Include="System.CommandLine" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
   </ItemGroup>
 
   <ItemGroup>

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="QRCoder" Version="1.4.1" />
+    <PackageReference Include="QRCoder" />
   </ItemGroup>
 
   <ItemGroup>

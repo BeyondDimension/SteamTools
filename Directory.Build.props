@@ -5,6 +5,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <TrimMode>link</TrimMode>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <PropertyGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Unicorn.pfx') ">

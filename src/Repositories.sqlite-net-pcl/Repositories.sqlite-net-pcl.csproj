@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="sqlite-net-pcl" Version="1.7.335" />-->
-    <PackageReference Include="Polly" Version="7.2.2" />
+    <!--<PackageReference Include="sqlite-net-pcl" />-->
+    <PackageReference Include="Polly" />
   </ItemGroup>
 </Project>

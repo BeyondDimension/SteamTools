@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <!--<Project Sdk="MSBuild.Sdk.Extras">-->
 
   <PropertyGroup>
@@ -48,17 +48,18 @@
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
-    <PackageReference Include="nor0x.AppCenter" Version="4.2.0-XMAC" />
-    <PackageReference Include="nor0x.AppCenter.Analytics" Version="4.2.0-XMAC" />
-    <PackageReference Include="nor0x.AppCenter.Crashes" Version="4.2.0-XMAC" />
+    <PackageReference Include="nor0x.AppCenter" />
+    <PackageReference Include="nor0x.AppCenter.Analytics" />
+    <PackageReference Include="nor0x.AppCenter.Crashes" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5'))  OR $(TargetFramework.EndsWith('net6.0')) ">
-    <PackageReference Include="MonoMac.NetStandard" Version="0.0.4" />
+ 
+  <ItemGroup Condition=" $(DefineConstants.Contains('MONO_MAC')) ">
+    <PackageReference Include="MonoMac.NetStandard" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NotifyIcon.Mac" Version="1.0.2" />
+    <PackageReference Include="NotifyIcon.Mac" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">

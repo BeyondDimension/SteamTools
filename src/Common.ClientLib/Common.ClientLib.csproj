@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="15.1.1" />
+    <PackageReference Include="ReactiveUI" />
   </ItemGroup>
 
   <ItemGroup>
