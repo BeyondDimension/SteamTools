@@ -58,8 +58,6 @@ namespace System.Application.UI
 #endif
 
             //void InitCefNetApp() => CefNetApp.Init(AppHelper.LogDirPath, args);
-            void InitAvaloniaApp() => BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
-            void InitStartup(DILevel level) => Startup.Init(level);
             Startup.InitGlobalExceptionHandler();
             try
             {
@@ -73,7 +71,7 @@ namespace System.Application.UI
                 {
                     args_clt = new[] { command_main };
                 }
-                return CommandLineTools.Run(args_clt, InitStartup, InitAvaloniaApp/*, InitCefNetApp*/);
+                return CommandLineTools.Run(args_clt);
             }
             catch (Exception ex)
             {
@@ -103,5 +101,10 @@ namespace System.Application.UI
         /// 当前是否是主进程
         /// </summary>
         public static bool IsMainProcess { get; private set; }
+
+        /// <summary>
+        /// 当前是否是用于托盘的独立进程
+        /// </summary>
+        public static bool IsTrayProcess { get; private set; }
     }
 }

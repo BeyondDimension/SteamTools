@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -44,6 +44,7 @@
     <PackageReference Include="Gameloop.Vdf" Version="0.6.1" />
     <PackageReference Include="NLog" Version="4.7.11" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.7.3" />
+    <PackageReference Include="NotifyIcon.Base" Version="1.0.2" />
     <PackageReference Include="SharpZipLib" Version="1.3.2" />
     <PackageReference Include="Squid-Box.SevenZipSharp" Version="1.5.0.366" />
     <PackageReference Include="StatefulModel.Standard" Version="0.1.0" />

@@ -1,17 +1,20 @@
 using ReactiveUI;
 using System.Application.Services;
-using System.Collections.ObjectModel;
-using System.Properties;
-using System.Threading.Tasks;
 using System.Linq;
-using System.Windows;
+using System.Properties;
 using System.Reactive;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace System.Application.UI.ViewModels
 {
     public class TaskBarWindowViewModel : WindowViewModel
     {
-        public new string Title => ThisAssembly.AssemblyTrademark;
+#pragma warning disable CA1822 // 将成员标记为 static
+        public new string Title => TitleString;
+#pragma warning restore CA1822 // 将成员标记为 static
+
+        public static string TitleString => ThisAssembly.AssemblyTrademark;
 
         public string Version => ThisAssembly.Version;
 
@@ -34,11 +37,6 @@ namespace System.Application.UI.ViewModels
             SizePosition.Y = y;
         }
 
-        public override void Hide()
-        {
-            base.Hide();
-        }
-
         public ReactiveCommand<string, Unit> MenuClickCommand { get; }
 
         public TaskBarWindowViewModel()
@@ -46,27 +44,55 @@ namespace System.Application.UI.ViewModels
             MenuClickCommand = ReactiveCommand.Create<string>(MenuClick);
         }
 
-        public void MenuClick(string tag)
+        public const string CommandExit = "Exit";
+
+        public void MenuClick(string tag) => OnMenuClickCore(tag, Hide);
+
+        static void OnMenuClick(Func<TabItemViewModel, bool> predicate, Action? hideTaskBarWindow = null)
+        {
+            if (IWindowService.Instance.MainWindow is MainWindowViewModel main)
+            {
+                var tab = main.TabItems.FirstOrDefault(predicate);
+                tab ??= main.FooterTabItems.FirstOrDefault(predicate);
+                if (tab != null)
+                {
+                    DI.Get<IDesktopAppService>().RestoreMainWindow();
+                    main.SelectedItem = tab;
+                    hideTaskBarWindow?.Invoke();
+                }
+            }
+        }
+
+        static bool OnMenuClickCore(string tag, Action? hideTaskBarWindow = null, MainWindowViewModel.TabItemId tabItemId = default)
         {
             switch (tag)
             {
-                case "Exit":
+                case CommandExit:
                     DI.Get<IDesktopAppService>().Shutdown();
-                    break;
+                    return true;
                 default:
-                    if (IWindowService.Instance.MainWindow is MainWindowViewModel main)
+                    MainThread2.BeginInvokeOnMainThread(() =>
                     {
-                        var tab = main.TabItems.FirstOrDefault(s => s.Name == tag);
-                        tab ??= main.FooterTabItems.FirstOrDefault(s => s.Name == tag);
-                        if (tab != null)
-                        {
-                            DI.Get<IDesktopAppService>().RestoreMainWindow();
-                            main.SelectedItem = tab;
-                            Hide();
-                        }
-                    }
+                        if (tabItemId != default)
+                            OnMenuClick(s =>
+                                s is MainWindowViewModel.ITabItemViewModel item &&
+                                    item.Id == tabItemId, hideTaskBarWindow);
+                        else
+                            OnMenuClick(s => s.Name == tag, hideTaskBarWindow);
+                    }, DispatcherPriorityCompat.MaxValue);
                     break;
             }
+            return false;
         }
+
+        public static bool OnMenuClick(string command)
+        {
+            if (Enum.TryParse<MainWindowViewModel.TabItemId>(command, out var tabItemId))
+                return OnMenuClick(tabItemId);
+            else
+                return OnMenuClickCore(command);
+        }
+
+        public static bool OnMenuClick(MainWindowViewModel.TabItemId tabItemId) => OnMenuClickCore(string.Empty, tabItemId: tabItemId);
     }
 }

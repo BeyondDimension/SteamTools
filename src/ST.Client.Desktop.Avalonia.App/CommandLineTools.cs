@@ -1,11 +1,9 @@
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using System.Windows;
-using AvaloniaApplication = Avalonia.Application;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
@@ -20,10 +18,7 @@ namespace System.Application.UI
         /// </summary>
         static class CommandLineTools
         {
-            public static int Run(string[] args,
-                Action<DILevel> initStartup,
-                Action initUIApp/*,*/
-                /*Action initCef*/)
+            public static int Run(string[] args)
             {
                 if (args.Length == 0) args = new[] { "-h" };
 
@@ -36,7 +31,7 @@ namespace System.Application.UI
 #if StartupTrace
                     StartupTrace.Restart("ProcessCheck");
 #endif
-                    initStartup(IsMainProcess ? DILevel.MainProcess : DILevel.Min);
+                    Startup.Init(IsMainProcess ? DILevel.MainProcess : DILevel.Min);
 #if StartupTrace
                     StartupTrace.Restart("Startup.Init");
 #endif
@@ -79,16 +74,16 @@ namespace System.Application.UI
                             }
                         };
                     }
-//#if StartupTrace
-//                    StartupTrace.Restart("ApplicationInstance");
-//#endif
-//                    initCef();
-//#if StartupTrace
-//                    StartupTrace.Restart("InitCefNetApp");
-//#endif
+                    //#if StartupTrace
+                    //                    StartupTrace.Restart("ApplicationInstance");
+                    //#endif
+                    //                    initCef();
+                    //#if StartupTrace
+                    //                    StartupTrace.Restart("InitCefNetApp");
+                    //#endif
                     if (IsMainProcess)
                     {
-                        initUIApp();
+                        BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
                     }
 #if StartupTrace
                     StartupTrace.Restart("InitAvaloniaApp");
@@ -153,7 +148,7 @@ namespace System.Application.UI
                 {
                     if (!string.IsNullOrEmpty(account))
                     {
-                        initStartup(DILevel.Steam);
+                        Startup.Init(DILevel.Steam);
                         ISteamService.Instance.TryKillSteamProcess();
                         ISteamService.Instance.SetCurrentUser(account);
                         ISteamService.Instance.StartSteam();
@@ -172,13 +167,13 @@ namespace System.Application.UI
                         if (id <= 0) return;
                         if (!silence)
                         {
-                            initStartup(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
+                            Startup.Init(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
                             IWindowService.Instance.InitUnlockAchievement(id);
-                            initUIApp();
+                            BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
                         }
                         else
                         {
-                            initStartup(DILevel.Steam);
+                            Startup.Init(DILevel.Steam);
                             SteamConnectService.Current.Initialize(id);
                             TaskCompletionSource tcs = new();
                             await tcs.Task;
@@ -190,6 +185,43 @@ namespace System.Application.UI
                     }
                 });
                 rootCommand.AddCommand(unlock_achievement);
+
+                // -clt tray -handle -pid
+                var tray = new Command("tray");
+                common.AddOption(new Option<string>("-handle"));
+                common.AddOption(new Option<int>("-pid"));
+                common.Handler = CommandHandler.Create((string handle, int pid) =>
+                {
+#if LINUX
+                    // https://www.mono-project.com/docs/gui/gtksharp/widgets/notification-icon/
+                    // Initialize GTK#
+                    GtkApplication.Init();
+#endif
+
+                    DI.Init(ConfigureServices);
+
+                    var notifyIconPipeClient = new NotifyIconHelper.PipeClient(handle, pid);
+                    notifyIconPipeClient.OnStart();
+
+                    (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIcon);
+                    notifyIcon.Click += (_, _) =>
+                    {
+                        notifyIconPipeClient.Append(NotifyIconHelper.PipeCore.CommandNotifyIconClick);
+                    };
+
+#if LINUX
+                    GtkApplication.Run();
+#endif
+
+                    menuItemDisposable?.Dispose();
+                    notifyIcon.Dispose();
+
+                    static void ConfigureServices(IServiceCollection services)
+                    {
+                        services.AddNotifyIcon();
+                    }
+                });
+                rootCommand.AddCommand(common);
 
                 var r = rootCommand.InvokeAsync(args).Result;
                 return r;

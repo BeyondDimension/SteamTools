@@ -1,9 +1,12 @@
-﻿using System.Application.UI.Resx;
+using System.Application.UI.Resx;
 
 namespace System.Application.UI.ViewModels
 {
-    public class GameRelatedPageViewModel : TabItemViewModel
+    public class GameRelatedPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
     {
+        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
+            => MainWindowViewModel.TabItemId.GameRelated;
+
         public override string Name
         {
             get => AppResources.GameRelated;

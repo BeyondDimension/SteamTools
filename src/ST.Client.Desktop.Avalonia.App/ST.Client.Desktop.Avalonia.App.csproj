@@ -40,12 +40,13 @@
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>MAC;$(DefineConstants)</DefineConstants>
     <!--<TargetFramework>net6.0-macos</TargetFramework>-->
-    <TargetFramework>net6.0</TargetFramework>
+    <!--<TargetFramework>net6.0</TargetFramework>-->
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
-    <TargetFramework>net6.0</TargetFramework>
+    <DefineConstants>LINUX;$(DefineConstants)</DefineConstants>
+    <!--<TargetFramework>net6.0</TargetFramework>-->
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 

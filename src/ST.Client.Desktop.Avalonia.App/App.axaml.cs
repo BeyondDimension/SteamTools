@@ -40,6 +40,8 @@ namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
     {
+        NotifyIconHelper.PipeServer? notifyIconPipeServer;
+
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
@@ -246,6 +248,12 @@ namespace System.Application.UI
 
         public override void OnFrameworkInitializationCompleted()
         {
+            if (Program.IsTrayProcess)
+            {
+                base.OnFrameworkInitializationCompleted();
+                return;
+            }
+
             // 在UI预览中，ApplicationLifetime 为 null
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
@@ -257,61 +265,20 @@ namespace System.Application.UI
                 {
                     if (Startup.HasNotifyIcon)
                     {
-                        #region NotifyIcon
-                        var notifyIcon = INotifyIcon.Instance;
-                        notifyIcon.Visible = true;
-                        notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
-                        if (OperatingSystem2.IsMacOS)
+                        if (!OperatingSystem2.IsLinux)
                         {
-                            notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
+                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
+                            notifyIcon.Click += NotifyIcon_Click;
+                            notifyIcon.DoubleClick += NotifyIcon_Click;
+                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
+                            notifyIcon.AddTo(this);
                         }
                         else
                         {
-                            notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
+                            notifyIconPipeServer = new();
+                            notifyIconPipeServer.OnStart();
                         }
-#if WINDOWS
-                        notifyIcon.RightClick += (s, e) =>
-                        {
-                            if (e is MouseEventArgs args)
-                            {
-                                IWindowService.Instance.ShowTaskBarWindow(args.MousePosition.X, args.MousePosition.Y);
-                            }
-                        };
-#endif
-
-#if !WINDOWS
-                        NotifyIconContextMenu = new ContextMenu();
-
-                        mNotifyIconMenus.Add("Light", ReactiveCommand.Create(() =>
-                        {
-                            Theme = AppTheme.Light;
-                        }));
-
-                        mNotifyIconMenus.Add("Dark", ReactiveCommand.Create(() =>
-                        {
-                            Theme = AppTheme.Dark;
-                        }));
-
-                        mNotifyIconMenus.Add("Show",
-                            ReactiveCommand.Create(RestoreMainWindow));
-
-                        mNotifyIconMenus.Add("Exit",
-                            ReactiveCommand.Create(() => Shutdown()));
-
-                        NotifyIconContextMenu.Items = mNotifyIconMenus
-                            .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
-                        notifyIcon.ContextMenu = NotifyIconContextMenu;
-#endif
-                        notifyIcon.Click += NotifyIcon_Click;
-                        notifyIcon.DoubleClick += NotifyIcon_Click;
-                        compositeDisposable.Add(() =>
-                        {
-                            notifyIcon.IconPath = string.Empty;
-                        });
                     }
-
-                    #endregion
-
 #if WINDOWS
                     JumpLists.Init();
 #endif
@@ -384,6 +351,8 @@ namespace System.Application.UI
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
+            notifyIconPipeServer?.Dispose();
+
             try
             {
                 compositeDisposable.Dispose();
@@ -398,7 +367,7 @@ namespace System.Application.UI
             AppHelper.TryShutdown();
         }
 
-        void NotifyIcon_Click(object? sender, EventArgs e)
+        internal void NotifyIcon_Click(object? sender, EventArgs e)
         {
             RestoreMainWindow();
         }
@@ -435,7 +404,7 @@ namespace System.Application.UI
         {
             Window? mainWindow = null;
 
-            if (AvaloniaApplication.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 mainWindow = desktop.MainWindow;
                 if (mainWindow == null)
@@ -493,7 +462,7 @@ namespace System.Application.UI
         /// </summary>
         public static bool Shutdown(int exitCode = 0)
         {
-            if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 MainThread2.BeginInvokeOnMainThread(() =>
                 {

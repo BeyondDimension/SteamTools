@@ -15,8 +15,11 @@ using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
-    public class CommunityProxyPageViewModel : TabItemViewModel
+    public class CommunityProxyPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
     {
+        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
+            => MainWindowViewModel.TabItemId.CommunityProxy;
+
         public override string Name
         {
             get => AppResources.CommunityFix;
@@ -89,12 +92,14 @@ namespace System.Application.UI.ViewModels
                 //    }
                 //},
             };
-            if (OperatingSystem2.IsMacOS) {
+            if (OperatingSystem2.IsMacOS)
+            {
                 MenuItems.Add(new MenuItemViewModel(nameof(AppResources.CommunityFix_CertificateTrust)) { IconKey = "RefreshDrawing", Command = TrustCerCommand });
             }
             AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
         }
-        public void TrustCer_OnClick() {
+        public void TrustCer_OnClick()
+        {
             DI.Get<IHttpProxyService>().TrustCer();
         }
         public override void Activation()

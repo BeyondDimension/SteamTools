@@ -154,5 +154,25 @@ namespace System.Application.UI.ViewModels
         //}
 
         TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel => (TabItemVM)mTabItems[typeof(TabItemVM)].Value;
+
+        public enum TabItemId : byte
+        {
+            CommunityProxy = 1,
+            ProxyScriptManage,
+            SteamAccount,
+            GameList,
+            LocalAuth,
+            ArchiSteamFarmPlus,
+            GameRelated,
+            Settings,
+            About,
+        }
+
+        public interface ITabItemViewModel
+        {
+            TabItemId Id { get; }
+
+            string Name { get; }
+        }
     }
 }

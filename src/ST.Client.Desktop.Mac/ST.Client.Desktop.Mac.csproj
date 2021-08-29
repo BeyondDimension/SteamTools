@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <!--<Project Sdk="MSBuild.Sdk.Extras">-->
 
   <PropertyGroup>
@@ -55,6 +55,10 @@
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.StartsWith('net5'))  OR $(TargetFramework.EndsWith('net6.0')) ">
     <PackageReference Include="MonoMac.NetStandard" Version="0.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NotifyIcon.Mac" Version="1.0.2" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">

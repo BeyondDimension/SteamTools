@@ -3,6 +3,7 @@ using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
 using System.Net.Http;
+using System.Windows;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -20,6 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
                 services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
                 services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
+                services.AddNotifyIcon();
             }
             else
             {

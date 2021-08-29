@@ -1,7 +1,10 @@
 namespace System.Application.UI.ViewModels
 {
-    partial class AboutPageViewModel : TabItemViewModel
+    partial class AboutPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
     {
+        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
+            => MainWindowViewModel.TabItemId.About;
+
         public static AboutPageViewModel Instance { get; } = new();
 
         public override string Name

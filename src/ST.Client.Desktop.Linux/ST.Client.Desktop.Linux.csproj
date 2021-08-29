@@ -4,6 +4,7 @@
     <TargetFrameworks>net6.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Linux</AssemblyName>
+    <DefineConstants>LINUX;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Eto.Forms" Version="2.5.11" />
+    <PackageReference Include="NotifyIcon.Linux" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
 using System.Security.Cryptography;
+using System.Windows;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -42,6 +43,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 services.AddSingleton<ISystemWindowApiService, SystemWindowApiServiceImpl>();
                 services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
+                services.AddNotifyIcon();
             }
             else
             {

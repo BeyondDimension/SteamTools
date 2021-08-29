@@ -17,11 +17,16 @@ namespace System.Application.UI.ViewModels
 {
     public class SettingsPageViewModel :
 #if !__MOBILE__
-        TabItemViewModel
+        TabItemViewModel, MainWindowViewModel.ITabItemViewModel
 #else
         ViewModelBase
 #endif
     {
+#if !__MOBILE__
+        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
+            => MainWindowViewModel.TabItemId.Settings;
+#endif
+
         public static SettingsPageViewModel Instance { get; } = new();
 
         public

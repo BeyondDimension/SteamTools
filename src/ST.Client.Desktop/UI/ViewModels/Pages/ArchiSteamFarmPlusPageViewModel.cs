@@ -10,8 +10,11 @@ using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ArchiSteamFarmPlusPageViewModel : TabItemViewModel
+    public class ArchiSteamFarmPlusPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
     {
+        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
+            => MainWindowViewModel.TabItemId.ArchiSteamFarmPlus;
+
         readonly IArchiSteamFarmService asfSerivce = DI.Get<IArchiSteamFarmService>();
 
         public override string Name

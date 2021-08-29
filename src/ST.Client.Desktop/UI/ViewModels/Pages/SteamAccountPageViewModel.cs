@@ -17,8 +17,11 @@ using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
-    public class SteamAccountPageViewModel : TabItemViewModel
+    public class SteamAccountPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
     {
+        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
+            => MainWindowViewModel.TabItemId.SteamAccount;
+
         readonly ISteamService steamService = DI.Get<ISteamService>();
         readonly IHttpService httpService = DI.Get<IHttpService>();
         readonly ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();

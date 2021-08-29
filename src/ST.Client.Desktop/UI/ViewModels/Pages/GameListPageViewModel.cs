@@ -21,8 +21,11 @@ using System.Application.Models.Settings;
 
 namespace System.Application.UI.ViewModels
 {
-    public class GameListPageViewModel : TabItemViewModel
+    public class GameListPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
     {
+        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
+            => MainWindowViewModel.TabItemId.GameList;
+
         public override string Name
         {
             get => AppResources.GameList;
