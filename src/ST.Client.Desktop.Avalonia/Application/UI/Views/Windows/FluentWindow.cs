@@ -132,7 +132,7 @@ namespace Avalonia.Controls
         }
     }
 
-    public abstract class FluentWindow : FluentWindow<object>
+    public abstract class FluentWindow : FluentWindow<WindowViewModel>
     {
         public FluentWindow(bool isSaveStatus = true) : base(isSaveStatus)
         {

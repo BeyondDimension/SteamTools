@@ -188,9 +188,9 @@ namespace System.Application.UI
 
                 // -clt tray -handle -pid
                 var tray = new Command("tray");
-                common.AddOption(new Option<string>("-handle"));
-                common.AddOption(new Option<int>("-pid"));
-                common.Handler = CommandHandler.Create((string handle, int pid) =>
+                tray.AddOption(new Option<string>("-handle"));
+                tray.AddOption(new Option<int>("-pid"));
+                tray.Handler = CommandHandler.Create((string handle, int pid) =>
                 {
 #if LINUX
                     // https://www.mono-project.com/docs/gui/gtksharp/widgets/notification-icon/
@@ -227,7 +227,7 @@ namespace System.Application.UI
                         services.AddNotifyIcon();
                     }
                 });
-                rootCommand.AddCommand(common);
+                rootCommand.AddCommand(tray);
 
                 var r = rootCommand.InvokeAsync(args).Result;
                 return r;
