@@ -62,7 +62,7 @@ namespace System.Application.UI.Activities
             {
                 if (binding == null) return;
                 binding.tvUISettingsLanguageValue.Text = x.Value;
-            });
+            }).AddTo(this);
 
             comboBoxs.Add(binding.layoutRootUISettingsLanguage, ComboBoxHelper.Popup(this, R.Languages.Select(x => x.Value).ToArray(), x =>
             {
