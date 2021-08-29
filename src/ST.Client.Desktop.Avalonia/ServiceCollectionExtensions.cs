@@ -29,21 +29,6 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加托盘图标
-        /// </summary>
-        /// <typeparam name="TNotifyIcon"></typeparam>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddNotifyIcon<TNotifyIcon>(this IServiceCollection services) where TNotifyIcon : class, INotifyIcon
-        {
-            services.AddSingleton<INotifyIcon<ContextMenu>.IUIFrameworkHelper, INotifyIcon.UIFrameworkHelper>();
-            services.AddSingleton<TNotifyIcon>();
-            services.AddSingleton<INotifyIcon>(s => s.GetRequiredService<TNotifyIcon>());
-            services.AddSingleton<INotifyIcon<ContextMenu>>(s => s.GetRequiredService<TNotifyIcon>());
-            return services;
-        }
-
-        /// <summary>
         /// 添加适用于桌面端的 <see cref="INotificationService"/>
         /// </summary>
         /// <param name="services"></param>
