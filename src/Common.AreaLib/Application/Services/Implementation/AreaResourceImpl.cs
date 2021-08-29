@@ -7,17 +7,14 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class AreaResourceImpl<TArea> : IAreaResource<TArea>, IAreaResourceHelper<TArea> where TArea : class, IArea
     {
-        TArea[]? areas;
-
-        public TArea[] GetAll()
+        static readonly Lazy<TArea[]> areas = new(() =>
         {
-            if (areas == null)
-            {
-                var lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
-                areas = MessagePackSerializer.Deserialize<TArea[]>(SR.AMap_adcode_citycode_20210406_xlsx, lz4Options);
-            }
+            var lz4Options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.Lz4BlockArray);
+            var areas = MessagePackSerializer.Deserialize<TArea[]>(SR.AMap_adcode_citycode_20210406_xlsx, lz4Options);
             return areas;
-        }
+        });
+
+        public TArea[] GetAll() => areas.Value;
 
         const int DefaultSelectionId = 110000;
 

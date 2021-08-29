@@ -1,4 +1,4 @@
-﻿using System.Application.Entities;
+using System.Application.Entities;
 using System.Linq;
 
 namespace System.Application.Services
@@ -10,7 +10,7 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="area"></param>
         /// <returns></returns>
-        public TArea GetSecondaryOrThis(TArea area)
+        TArea GetSecondaryOrThis(TArea area)
         {
             if (area.Level == AreaLevel.区县_县级市 && area.Up.HasValue)
             {
@@ -42,7 +42,7 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="area"></param>
         /// <returns></returns>
-        public string GetFullName(TArea area)
+        string GetFullName(TArea area)
         {
             if (area.Up.HasValue)
             {
@@ -52,7 +52,7 @@ namespace System.Application.Services
                     return $"{entity} {area}";
                 }
             }
-            return AreaExtensions.ToString(area);
+            return area.ToString();
         }
     }
 }
