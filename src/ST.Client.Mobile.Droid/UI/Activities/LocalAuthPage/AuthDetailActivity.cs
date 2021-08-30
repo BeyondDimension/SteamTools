@@ -9,6 +9,7 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using static System.Application.UI.Resx.AppResources;
@@ -20,11 +21,19 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class AuthDetailActivity : BaseActivity<activity_detail_auth, MyAuthenticatorWrapper>, TViewModel.IAutoRefreshCode, IReadOnlyViewFor<TViewModel>
+    internal sealed class AuthDetailActivity : BaseActivity<activity_detail_auth, MyAuthenticatorWrapper>, TViewModel.IAutoRefreshCodeHost, IReadOnlyViewFor<TViewModel>
     {
-        public CancellationTokenSource? AutoRefreshCode { get; set; }
-
         TViewModel IReadOnlyViewFor<TViewModel>.ViewModel => ViewModel!;
+
+        Timer? TViewModel.IAutoRefreshCodeHost.Timer { get; set; }
+
+        IEnumerable<TViewModel> TViewModel.IAutoRefreshCodeHost.ViewModels
+        {
+            get
+            {
+                yield return ViewModel!;
+            }
+        }
 
         protected override int? LayoutResource => Resource.Layout.activity_detail_auth;
 
@@ -88,16 +97,15 @@ namespace System.Application.UI.Activities
         protected override void OnPause()
         {
             base.OnPause();
-            TViewModel.StopAutoRefreshCode(this);
+            TViewModel.IAutoRefreshCodeHost host = this;
+            host.StopTimer();
         }
 
         protected override void OnResume()
         {
             base.OnResume();
-            if (AutoRefreshCode == null)
-            {
-                TViewModel.StartAutoRefreshCode(this, noStop: true);
-            }
+            TViewModel.IAutoRefreshCodeHost host = this;
+            host.StartTimer();
         }
 
         protected override async void OnClick(View view)

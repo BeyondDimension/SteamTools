@@ -1,7 +1,6 @@
 using ReactiveUI;
 using System.Application.Mvvm;
 using System.Application.Services;
-using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -349,10 +348,12 @@ namespace System.Application.Models
             }
         }
 
+#if DEBUG
         /// <summary>
         /// 开始自动刷新一次性密码代码
         /// </summary>
         /// <param name="token"></param>
+        [Obsolete("use IAutoRefreshCodeHost.StartTimer")]
         async void StartAutoRefreshCode(CancellationToken token)
         {
             RefreshCode();
@@ -404,6 +405,7 @@ namespace System.Application.Models
         /// </summary>
         /// <param name="i"></param>
         /// <param name="noSetNull"></param>
+        [Obsolete("use IAutoRefreshCodeHost.StopTimer")]
         public static void StopAutoRefreshCode(IAutoRefreshCode i, bool noSetNull = false)
         {
             if (i.AutoRefreshCode != null)
@@ -423,6 +425,7 @@ namespace System.Application.Models
         /// </summary>
         /// <param name="i"></param>
         /// <param name="noStop"></param>
+        [Obsolete("use IAutoRefreshCodeHost.StartTimer")]
         public static void StartAutoRefreshCode(IAutoRefreshCode i, bool noStop = false)
         {
             if (!noStop) StopAutoRefreshCode(i, noSetNull: true);
@@ -437,9 +440,76 @@ namespace System.Application.Models
         /// <summary>
         /// 自动刷新一次性密码代码
         /// </summary>
+        [Obsolete("use IAutoRefreshCodeHost")]
         public interface IAutoRefreshCode : IDisposableHolder, IReadOnlyViewFor<MyAuthenticator>
         {
             CancellationTokenSource? AutoRefreshCode { get; set; }
+        }
+#endif
+
+        /// <summary>
+        /// 自动刷新一次性密码代码
+        /// </summary>
+        public interface IAutoRefreshCodeHost
+        {
+            /// <summary>
+            /// 当前自动刷新的 <see cref="System.Threading.Timer"/>
+            /// </summary>
+            protected Timer? Timer { get; set; }
+
+            /// <summary>
+            /// 获取当前正在显示中的视图模型组
+            /// </summary>
+            protected IEnumerable<MyAuthenticator> ViewModels { get; }
+
+            /// <summary>
+            /// 停止当前自动刷新一次性密码代码
+            /// </summary>
+            void StopTimer()
+            {
+                if (Timer != null)
+                {
+                    Timer?.Dispose();
+                    Timer = null;
+                }
+            }
+
+            /// <summary>
+            /// 开始自动刷新一次性密码代码
+            /// </summary>
+            void StartTimer()
+            {
+                if (Timer != null) return;
+                var isFirst = true;
+                Timer = new((_) =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    foreach (var item in ViewModels)
+                    {
+                        var value = item.TimingCycle;
+                        var isZero = value <= 0;
+                        if (isZero) value = item.Period;
+#if DEBUG
+                        Log.Debug("AutoRefreshCode", "while({1}), name: {0}", item.Name, value);
+#endif
+                        string? code = null;
+                        var isRefresh = isZero || isFirst;
+                        if (isRefresh)
+                        {
+                            code = item.GetNextCode();
+                        }
+                        MainThread2.BeginInvokeOnMainThread(() =>
+                        {
+                            item.AutoRefreshCodeTimingCurrent = value;
+                            if (code != null)
+                            {
+                                item.RefreshCode(code);
+                            }
+                        });
+                    }
+                    isFirst = false;
+                }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+            }
         }
 #endif
 
