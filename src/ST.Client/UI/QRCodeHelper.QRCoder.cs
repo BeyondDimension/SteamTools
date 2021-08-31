@@ -21,7 +21,7 @@ namespace System.Application.UI
         {
             try
             {
-                var qrCodeData = GenerateQrCode(bytes, level);
+                using var qrCodeData = GenerateQrCode(bytes, level);
                 var ms = qrCodeData.GetStream(pixelsPerModule);
                 return (QRCodeCreateResult.Success, ms, null);
             }
@@ -39,7 +39,7 @@ namespace System.Application.UI
         {
             try
             {
-                var qrCodeData = GenerateQrCode(str, level);
+                using var qrCodeData = GenerateQrCode(str, level);
                 var ms = qrCodeData.GetStream(pixelsPerModule);
                 return (QRCodeCreateResult.Success, ms, null);
             }
