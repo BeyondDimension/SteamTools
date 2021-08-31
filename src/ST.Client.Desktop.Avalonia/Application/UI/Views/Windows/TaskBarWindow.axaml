@@ -9,8 +9,8 @@
         xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         x:DataType="vm:TaskBarWindowViewModel"
         x:CompileBindings="True"
         x:Name="taskbarWindow"
@@ -41,7 +41,7 @@
 
         <Style Selector="Button.MenuButton">
           <Setter Property="Command" Value="{Binding MenuClickCommand}"></Setter>
-          <Setter Property="CommandParameter" Value="{ReflectionBinding $self.Content}"></Setter>
+          <Setter Property="CommandParameter" Value="{ReflectionBinding $self.Tag}"></Setter>
         </Style>
       </StackPanel.Styles>
 
@@ -53,7 +53,7 @@
                          HorizontalAlignment="Center">
           </Image>-->
         <StackPanel DockPanel.Dock="Right" Spacing="8" VerticalAlignment="Center">
-          <controls:ScrollingTextBlock Text="{Binding Title}"
+          <controls:ScrollingTextBlock Text="{x:Static vm:TaskBarWindowViewModel.TitleString}"
                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                 FontSize="16"/>
           <TextBlock Text="{Binding Path=Version, StringFormat=v{0}, Mode=OneWay}"
@@ -62,40 +62,73 @@
       </DockPanel>
       <Separator Classes="Separator"/>
       <StackPanel>
-        <Button Content="{ReflectionBinding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <ItemsRepeater Items="{Binding Tabs}">
+          <ItemsRepeater.Layout>
+            <StackLayout Orientation="Vertical" />
+          </ItemsRepeater.Layout>
+          <ItemsRepeater.ItemTemplate>
+            <DataTemplate>
+              <Button x:Name="menuItem"
+                      Tag="{Binding}"
+                      HorizontalContentAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      CommandParameter="{Binding Id}"
+                      PointerEnter="MenuButton_PointerEnter"
+                      PointerLeave="MenuButton_PointerLeave"
+                      Command="{ReflectionBinding #taskbarWindow.DataContext.MenuClickCommand}">
+                <Button.Content>
+                  <DockPanel>
+                    <ui:SymbolIcon Symbol="ChevronRight"
+                                   IsVisible="{Binding IsTaskBarSubMenu}"
+                                   DockPanel.Dock="Right"
+                                   VerticalAlignment="Center"/>
+                    <controls:ScrollingTextBlock Text="{Binding Name}"
+                                                 VerticalAlignment="Center"
+                                                 DockPanel.Dock="Left"
+                                                 HorizontalAlignment="Stretch"/>
+                  </DockPanel>
+                </Button.Content>
+                <FlyoutBase.AttachedFlyout>
+                  <MenuFlyout Placement="RightEdgeAlignedTop"
+                              ShowMode="TransientWithDismissOnPointerMoveAway">
+                    <MenuItem Header="Item 3" />
+                    <MenuItem Header="Item 6" />
+                  </MenuFlyout>
+                </FlyoutBase.AttachedFlyout>
+              </Button>
+            </DataTemplate>
+          </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+        <!--<Button Content="{ReflectionBinding Path=Res.CommunityFix,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Classes="MenuButton"></Button>
         <Button Content="{ReflectionBinding Path=Res.ScriptConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Classes="MenuButton"></Button>
         <Button Content="{ReflectionBinding Path=Res.UserFastChange,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                Classes="MenuButton"></Button>
+                Classes="MenuButton"
+                x:Name="UserChangeMenu">
+        </Button>
         <Button Content="{ReflectionBinding Path=Res.GameList,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Classes="MenuButton"></Button>
         <Button Content="{ReflectionBinding Path=Res.LocalAuth,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Classes="MenuButton"
-                x:Name="LocalMenu">
+                x:Name="LocalAuthMenu">
           <FlyoutBase.AttachedFlyout>
-            <MenuFlyout Placement="RightEdgeAlignedTop" ShowMode="TransientWithDismissOnPointerMoveAway">
-              <MenuItem Header="Item 1">
-                <MenuItem Header="Subitem 1" />
-                <MenuItem Header="Subitem 2" />
-                <MenuItem Header="Subitem 3" />
-                <MenuItem Header="Subitem 4" />
-                <MenuItem Header="Subitem 5" />
-              </MenuItem>
-              <MenuItem Header="Item 2" InputGesture="Ctrl+A" />
+            <MenuFlyout Placement="LeftEdgeAlignedTop"
+                        ShowMode="TransientWithDismissOnPointerMoveAway">
               <MenuItem Header="Item 3" />
-              <MenuItem Header="Item 4" />
-              <MenuItem Header="Item 5" />
               <MenuItem Header="Item 6" />
             </MenuFlyout>
           </FlyoutBase.AttachedFlyout>
-        </Button>
+        </Button>-->
       </StackPanel>
       <Separator Classes="Separator"/>
       <StackPanel>
-        <Button Content="{ReflectionBinding Path=Res.About,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                Classes="MenuButton"></Button>
-        <Button Content="{ReflectionBinding Path=Res.Exit,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding MenuClickCommand}" CommandParameter="Exit"></Button>
+        <Button Content="{ReflectionBinding Path=Res.Settings,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"
+                Tag="{x:Static vm:TaskBarWindowViewModel.SettingsId}"/>
+        <Button Content="{ReflectionBinding Path=Res.Exit,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Classes="MenuButton"
+                Tag="{x:Static vm:TaskBarWindowViewModel.CommandExit}"></Button>
       </StackPanel>
     </StackPanel>
   </Panel>

@@ -17,10 +17,10 @@ using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
-    public class SteamAccountPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
+    public class SteamAccountPageViewModel : TabItemViewModel
     {
-        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
-            => MainWindowViewModel.TabItemId.SteamAccount;
+        public override TabItemId Id => TabItemId.SteamAccount;
+        public override bool IsTaskBarSubMenu => true;
 
         readonly ISteamService steamService = DI.Get<ISteamService>();
         readonly IHttpService httpService = DI.Get<IHttpService>();

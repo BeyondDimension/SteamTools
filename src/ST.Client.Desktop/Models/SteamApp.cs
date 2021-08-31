@@ -305,6 +305,7 @@ namespace System.Application.Models
                 }
                 app._originalData = array;
                 app.ClearCachedProps();
+
             }
             catch (Exception ex)
             {

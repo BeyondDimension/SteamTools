@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="600" Height="450"
+        Width="400" Height="600"
         x:Class="System.Application.UI.Views.Windows.EditAppInfoWindow"
         xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
@@ -15,12 +15,23 @@
         Title="{Binding Title}"
         x:DataType="vm:EditAppInfoWindowViewModel"
         x:CompileBindings="True">
-  <DockPanel>
+  <Panel>
     <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
-    <StackPanel>
-      <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">
-        <TextBox></TextBox>
-      </Border>
-    </StackPanel>
-  </DockPanel>
+    <Border Classes="paper"
+            Margin="{StaticResource TitleBarAfterMargin}"
+            Padding="10"
+            Background="{DynamicResource ThemeBrushKey}">
+      <Border.Styles>
+        
+      </Border.Styles>
+      <ScrollViewer>
+        <StackPanel>
+          <DockPanel>
+            <TextBlock Text="名称"/>
+            <TextBox Text="test"/>
+          </DockPanel>
+        </StackPanel>
+      </ScrollViewer>
+    </Border>
+  </Panel>
 </Window>

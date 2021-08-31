@@ -27,6 +27,10 @@ namespace System.Application.Services
                 if (cUser.HasValue()) return;
                 isDialog = false;
             }
+            else if (windowName == CustomWindow.UserProfile)
+            {
+                isDialog = false;
+            }
             else if (windowName == CustomWindow.ChangeBindPhoneNumber)
             {
                 var cUser = await userManager.GetCurrentUserAsync();

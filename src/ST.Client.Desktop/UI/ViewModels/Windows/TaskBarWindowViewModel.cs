@@ -1,5 +1,7 @@
 using ReactiveUI;
 using System.Application.Services;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
@@ -10,20 +12,11 @@ namespace System.Application.UI.ViewModels
 {
     public class TaskBarWindowViewModel : WindowViewModel
     {
-#pragma warning disable CA1822 // 将成员标记为 static
-        public new string Title => TitleString;
-#pragma warning restore CA1822 // 将成员标记为 static
-
         public static string TitleString => ThisAssembly.AssemblyTrademark;
 
         public string Version => ThisAssembly.Version;
 
-        //private ObservableCollection<TabItemViewModel> _tabs;
-        //public ObservableCollection<TabItemViewModel> Tabs
-        //{
-        //    get => _tabs;
-        //    set => this.RaiseAndSetIfChanged(ref _tabs, value);
-        //}
+        public IEnumerable<TabItemViewModel>? Tabs { get; }
 
         public async void Show(int x, int y)
         {
@@ -37,16 +30,31 @@ namespace System.Application.UI.ViewModels
             SizePosition.Y = y;
         }
 
-        public ReactiveCommand<string, Unit> MenuClickCommand { get; }
+        public ReactiveCommand<object, Unit> MenuClickCommand { get; }
 
         public TaskBarWindowViewModel()
         {
-            MenuClickCommand = ReactiveCommand.Create<string>(MenuClick);
+            MenuClickCommand = ReactiveCommand.Create<object>(MenuClick);
+            if (IWindowService.Instance.MainWindow is MainWindowViewModel mainwindow)
+            {
+                Tabs = mainwindow.TabItems.Where(x => x.Id != default);
+            }
         }
 
         public const string CommandExit = "Exit";
+        public static TabItemViewModel.TabItemId SettingsId = TabItemViewModel.TabItemId.Settings;
 
-        public void MenuClick(string tag) => OnMenuClickCore(tag, Hide);
+        public void MenuClick(object tag)
+        {
+            if (tag is string str)
+            {
+                OnMenuClickCore(str, Hide);
+            }
+            else if (tag is TabItemViewModel.TabItemId id)
+            {
+                OnMenuClickCore(string.Empty, Hide, id);
+            }
+        }
 
         static void OnMenuClick(Func<TabItemViewModel, bool> predicate, Action? hideTaskBarWindow = null)
         {
@@ -63,7 +71,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        static bool OnMenuClickCore(string tag, Action? hideTaskBarWindow = null, MainWindowViewModel.TabItemId tabItemId = default)
+        static bool OnMenuClickCore(string tag, Action? hideTaskBarWindow = null, TabItemViewModel.TabItemId tabItemId = default)
         {
             switch (tag)
             {
@@ -75,7 +83,7 @@ namespace System.Application.UI.ViewModels
                     {
                         if (tabItemId != default)
                             OnMenuClick(s =>
-                                s is MainWindowViewModel.ITabItemViewModel item &&
+                                s is TabItemViewModel item &&
                                     item.Id == tabItemId, hideTaskBarWindow);
                         else
                             OnMenuClick(s => s.Name == tag, hideTaskBarWindow);
@@ -87,12 +95,12 @@ namespace System.Application.UI.ViewModels
 
         public static bool OnMenuClick(string command)
         {
-            if (Enum.TryParse<MainWindowViewModel.TabItemId>(command, out var tabItemId))
+            if (Enum.TryParse<TabItemViewModel.TabItemId>(command, out var tabItemId))
                 return OnMenuClick(tabItemId);
             else
                 return OnMenuClickCore(command);
         }
 
-        public static bool OnMenuClick(MainWindowViewModel.TabItemId tabItemId) => OnMenuClickCore(string.Empty, tabItemId: tabItemId);
+        public static bool OnMenuClick(TabItemViewModel.TabItemId tabItemId) => OnMenuClickCore(string.Empty, tabItemId: tabItemId);
     }
 }

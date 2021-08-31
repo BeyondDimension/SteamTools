@@ -1,9 +1,9 @@
 namespace System.Application.UI.ViewModels
 {
-    partial class LocalAuthPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
+    partial class LocalAuthPageViewModel : TabItemViewModel
     {
-        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
-             => MainWindowViewModel.TabItemId.LocalAuth;
+        public override TabItemId Id => TabItemId.LocalAuth;
+        public override bool IsTaskBarSubMenu => true;
 
         public override string Name
         {

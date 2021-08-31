@@ -262,11 +262,11 @@
 
     <DrawingGroup x:Key="GameListPageSvg">
       <GeometryDrawing Brush="#8C9EFF" Geometry="M912.31 414.51C843.52 269.59 725.6 195.76 648.92 249.6c-0.14 0.1-0.29 0.2-0.43 0.31-35.38 25.12-74.75 40.74-115.72 40.74h-41.54c-40.97 0-80.34-15.62-115.72-40.74-0.14-0.1-0.29-0.2-0.43-0.31-76.67-53.84-194.6 19.99-263.39 164.91-68.79 144.92-62.4 306.05 14.27 359.89 60.52 42.5 146.72 5.43 214.19-83.34 39.88-52.47 97.07-80.37 155.82-80.37h32.05c58.75 0 115.94 27.9 155.82 80.37 67.47 88.77 153.67 125.84 214.19 83.34 76.68-53.84 83.07-214.97 14.28-359.89z"/>
-      <GeometryDrawing Brush="#546a79" Geometry="M32.786 30.268a4 4 0 1 0 8 0a4 4 0 1 0 -8 0z"/>
+      <!--<GeometryDrawing Brush="#546a79" Geometry="M32.786 30.268a4 4 0 1 0 8 0a4 4 0 1 0 -8 0z"/>
       <GeometryDrawing Brush="#ebba16" Geometry="M9.786 20.268a4 4 0 1 0 8 0a4 4 0 1 0 -8 0z"/>
       <GeometryDrawing Brush="#546a79" Geometry="M41.786 16.268a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
       <GeometryDrawing Brush="#7383bf" Geometry="M37.786 20.268a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
-      <GeometryDrawing Brush="#d75a4a" Geometry="M45.786 20.268a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
+      <GeometryDrawing Brush="#d75a4a" Geometry="M45.786 20.268a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>-->
       <GeometryDrawing Brush="#61b872" Geometry="M41.786 24.268a2 2 0 1 0 4 0a2 2 0 1 0 -4 0z"/>
       <GeometryDrawing Brush="#313FA0" Geometry="M800.33 500.89m-42 0a42 42 0 1 0 84 0 42 42 0 1 0-84 0Z"/>
       <GeometryDrawing Brush="#FFD600" Geometry="M662.6 453.75m-42 0a42 42 0 1 0 84 0 42 42 0 1 0-84 0Z"/>

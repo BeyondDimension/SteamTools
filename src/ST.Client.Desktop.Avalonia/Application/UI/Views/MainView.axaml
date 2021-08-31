@@ -168,6 +168,7 @@
                        Margin="{StaticResource TitleBarAfterMargin}"
                        Background="Transparent"
                        PaneDisplayMode="Left"
+                       IsPaneOpen="False"
                        AlwaysShowHeader="False"
                        IsSettingsVisible="False"
                        OpenPaneLength="240"
@@ -288,10 +289,20 @@
 
       <ui:NavigationView.MenuItemTemplate>
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
-          <ui:NavigationViewItem Content="{Binding Name,StringFormat={} {0}}">
+          <ui:NavigationViewItem>
+            <ui:NavigationViewItem.Content>
+              <!--<DockPanel>
+                <ui:ImageIcon DockPanel.Dock="Left">
+                  <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>
+                </ui:ImageIcon>-->
+                <controls:ScrollingTextBlock Text="{Binding Name}"
+                                             HorizontalAlignment="Stretch"
+                                             IsVisible="{ReflectionBinding Path=!!IsPaneOpen,ElementName=NavigationView}"/>
+              <!--</DockPanel>-->
+            </ui:NavigationViewItem.Content>
             <ui:NavigationViewItem.Icon>
               <!--<ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>-->
-              <ui:ImageIcon>
+              <ui:ImageIcon Margin="3 0 0 0" Width="16" Height="16">
                 <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>
               </ui:ImageIcon>
             </ui:NavigationViewItem.Icon>

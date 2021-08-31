@@ -97,11 +97,13 @@
               <DockPanel>
                 <TextBlock VerticalAlignment="Center"
                            Text="{Binding TypeFilterString}"
+                           DockPanel.Dock="Left"
                            TextTrimming="CharacterEllipsis"/>
                 <PathIcon VerticalAlignment="Center"
                           HorizontalAlignment="Right"
+                          DockPanel.Dock="Right"
                           Data="{StaticResource ChevronDownDrawing}"
-                          Width="16"></PathIcon>
+                          Width="12"></PathIcon>
               </DockPanel>
             </Button.Content>
             <Button.Styles>
@@ -185,7 +187,7 @@
           </Button>
           <Button Background="Transparent"
              Cursor="Hand"
-             Command="{ReflectionBinding OpenIdleAppWindow}"
+             Command="{Binding IdleAppCommand}"
              ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <PathIcon Data="{StaticResource TopSpeedDrawing}" />
           </Button>
@@ -275,16 +277,20 @@
                           <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
-                      <!--<MenuItem
-                                                      Header="{ReflectionBinding Path=Res.GameList_EditAppInfo,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                                      Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
-                                                      CommandParameter="{Binding}" />-->
+                      <MenuItem
+                               Header="{ReflectionBinding Path=Res.GameList_EditAppInfo,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Command="{ReflectionBinding #u.DataContext.EditAppInfoClick}"
+                               CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource EditDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
                                 CommandParameter="{Binding}" >
                         <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource TrophyDrawing}" Width="16"></PathIcon>
+                          <PathIcon Data="{StaticResource TrophyDrawing}" Width="14"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
                       <MenuItem
@@ -333,7 +339,7 @@
                           <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
-                      
+
                       <MenuItem Header="-"/>
                       <MenuItem
                          Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"

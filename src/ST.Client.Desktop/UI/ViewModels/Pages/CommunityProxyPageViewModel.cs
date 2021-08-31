@@ -16,10 +16,9 @@ using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
-    public class CommunityProxyPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
+    public class CommunityProxyPageViewModel : TabItemViewModel
     {
-        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
-            => MainWindowViewModel.TabItemId.CommunityProxy;
+        public override TabItemId Id => TabItemId.CommunityProxy;
 
         public override string Name
         {

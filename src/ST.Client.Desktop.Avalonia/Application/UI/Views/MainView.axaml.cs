@@ -48,7 +48,7 @@ namespace System.Application.UI.Views
                     });
             }
 
-            if (back != null && nav != null)
+            if (avater != null && nav != null)
             {
                 nav.GetObservable(NavigationView.IsPaneOpenProperty)
                   .Subscribe(x =>

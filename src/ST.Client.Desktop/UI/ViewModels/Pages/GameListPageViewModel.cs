@@ -21,10 +21,9 @@ using System.Application.Models.Settings;
 
 namespace System.Application.UI.ViewModels
 {
-    public class GameListPageViewModel : TabItemViewModel, MainWindowViewModel.ITabItemViewModel
+    public class GameListPageViewModel : TabItemViewModel
     {
-        MainWindowViewModel.TabItemId MainWindowViewModel.ITabItemViewModel.Id
-            => MainWindowViewModel.TabItemId.GameList;
+        public override TabItemId Id => TabItemId.GameList;
 
         public override string Name
         {
@@ -114,10 +113,18 @@ namespace System.Application.UI.ViewModels
                     this.CalcTypeCount();
                 });
 
-
-            HideAppCommand = ReactiveCommand.Create(OpenHideAppWindow);
-            IdleAppCommand = ReactiveCommand.Create(OpenIdleAppWindow);
-            SteamShutdownCommand = ReactiveCommand.Create(OpenSteamShutdownAppWindow);
+            HideAppCommand = ReactiveCommand.Create(() =>
+            {
+                IShowWindowService.Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            });
+            IdleAppCommand = ReactiveCommand.Create(() =>
+            {
+                IShowWindowService.Instance.Show(CustomWindow.IdleApp, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            });
+            SteamShutdownCommand = ReactiveCommand.Create(() =>
+            {
+                IShowWindowService.Instance.Show(CustomWindow.SteamShutdown, new SteamShutdownWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            });
 
             EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
             {
@@ -142,21 +149,6 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
 
         public MenuItemViewModel? AFKAutoUpdate { get; }
-
-        public void OpenHideAppWindow()
-        {
-            IShowWindowService.Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
-        }
-
-        public void OpenIdleAppWindow()
-        {
-            IShowWindowService.Instance.Show(CustomWindow.IdleApp, new IdleAppWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
-        }
-
-        public void OpenSteamShutdownAppWindow()
-        {
-            IShowWindowService.Instance.Show(CustomWindow.SteamShutdown, new SteamShutdownWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
-        }
 
         public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
         public ReactiveCommand<Unit, Unit> IdleAppCommand { get; }
@@ -244,6 +236,11 @@ namespace System.Application.UI.ViewModels
         {
             IsAppInfoOpen = true;
             SelectApp = app;
+        }
+
+        public void EditAppInfoClick(SteamApp app)
+        {
+            IShowWindowService.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, ResizeModeCompat.CanResize);
         }
 
         public void InstallOrStartApp(SteamApp app)

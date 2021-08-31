@@ -7,6 +7,7 @@ using FluentAvalonia.Styling;
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.Views.Windows
 {
@@ -31,13 +32,19 @@ namespace System.Application.UI.Views.Windows
             this.Opened += Window_Opened;
             this.LostFocus += Window_LostFocus;
 
-            //var localbtn = this.FindControl<Button>("LocalMenu");
-
-            //if (localbtn != null)
+            //var localAuthbtn = this.FindControl<Button>("LocalAuthMenu");
+            //var userChangebtn = this.FindControl<Button>("UserChangeMenu");
+            //if (userChangebtn != null)
             //{
-            //    localbtn.PointerEnter += MenuButton_PointerEnter;
+            //    userChangebtn.PointerEnter += MenuButton_PointerEnter;
             //    //localbtn.PointerLeave += MenuButton_PointerLeave;
             //}
+            //if (localAuthbtn != null)
+            //{
+            //    localAuthbtn.PointerEnter += MenuButton_PointerEnter;
+            //    //localbtn.PointerLeave += MenuButton_PointerLeave;
+            //}
+
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -48,27 +55,30 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        private void MenuButton_PointerLeave(object? sender, Avalonia.Input.PointerEventArgs e)
+        public void MenuButton_PointerLeave(object? sender, Avalonia.Input.PointerEventArgs e)
         {
-            if (sender is Control c)
-            {
-                var flyout = FlyoutBase.GetAttachedFlyout(c);
-                flyout?.Hide();
-                IsPointerOverSubMenu = false;
-            }
+            //if (sender is Control c)
+            //{
+            //    //var flyout = FlyoutBase.GetAttachedFlyout(c);
+            //    //flyout?.Hide();
+            //    //IsPointerOverSubMenu = false;
+            //}
         }
 
-        private void MenuButton_PointerEnter(object? sender, Avalonia.Input.PointerEventArgs e)
+        public async void MenuButton_PointerEnter(object? sender, Avalonia.Input.PointerEventArgs e)
         {
             if (sender is Control c && !IsPointerOverSubMenu)
             {
+                if (c.Tag is TabItemViewModel tab && !tab.IsTaskBarSubMenu) return;
+
                 var flyout = FlyoutBase.GetAttachedFlyout(c);
-                if (flyout is not null)
+                await Task.Delay(500);
+                if (flyout is not null && c.IsPointerOver && !IsPointerOverSubMenu)
                 {
                     flyout.ShowAt(c);
                     IsPointerOverSubMenu = flyout.IsOpen;
                     flyout.Closed += (sender, e) => IsPointerOverSubMenu = flyout.IsOpen;
-                    c.Focus();
+                    //c.Focus();
                 }
             }
         }

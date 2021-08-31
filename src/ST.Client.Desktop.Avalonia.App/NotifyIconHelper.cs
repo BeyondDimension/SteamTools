@@ -85,13 +85,13 @@ namespace System.Application.UI
         static string Exit => AppResources.Exit;
 
         static ContextMenuStrip.MenuItem? exitMenuItem;
-        static readonly Dictionary<MainWindowViewModel.ITabItemViewModel, ContextMenuStrip.MenuItem> tabItems = new();
+        static readonly Dictionary<TabItemViewModel, ContextMenuStrip.MenuItem> tabItems = new();
         static IDisposable? InitMenuItems(NotifyIcon notifyIcon)
         {
             if (IWindowService.Instance.MainWindow is MainWindowViewModel main)
             {
                 var query = from x in main.TabItems.Concat(main.FooterTabItems)
-                            let tabItem = x is MainWindowViewModel.ITabItemViewModel item ? item : null
+                            let tabItem = x is TabItemViewModel item ? item : null
                             where tabItem != null
                             select tabItem;
                 foreach (var item in query)

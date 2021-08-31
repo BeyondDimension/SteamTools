@@ -8,6 +8,23 @@ namespace System.Application.UI.ViewModels
 {
     public abstract class TabItemViewModel : ItemViewModel
     {
+        public enum TabItemId : byte
+        {
+            CommunityProxy = 1,
+            ProxyScriptManage,
+            SteamAccount,
+            GameList,
+            LocalAuth,
+            ArchiSteamFarmPlus,
+            GameRelated,
+            Settings,
+            About,
+        }
+
+        public virtual TabItemId Id { get; }
+
+        public virtual bool IsTaskBarSubMenu { get; }
+
         #region Name 変更通知
 
         public abstract string Name { get; protected set; }

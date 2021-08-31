@@ -26,6 +26,8 @@ namespace System.Application.UI.ViewModels
 {
     public class DebugPageViewModel : TabItemViewModel
     {
+        public TabItemId? Id => null;
+
         public override string Name
         {
             get => "Debug";

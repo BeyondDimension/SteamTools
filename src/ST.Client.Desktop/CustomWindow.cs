@@ -21,6 +21,7 @@ namespace System.Application
 #if !__MOBILE__
         ScriptStore,
         HideApp,
+        EditAppInfo,
         IdleApp,
         ShareManage,
         ChangeBindPhoneNumber,
