@@ -969,20 +969,8 @@
     <value>トークンを編集します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>右上隅</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>右下隅</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>トークンをインポートしていない場合は、右上のピニオン アイコンに新しいトークンを追加できます。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>あなたは、任意のトークンああをインポートしていない、あなたは{0}ピニオンアイコンで新しいトークンを追加することができます。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
@@ -1251,14 +1239,6 @@
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>更新は成功しました</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>スチームアバターをリフレッシュします</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
-    <value>Steam アカウントをバインドすると、Steam アカウントのアバターを使用して手動で同期更新できます。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -2051,6 +2031,18 @@
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>ホーム共有ライブラリが空です。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+    <value>プロキシ設定</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>画面キャプチャ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>他のアプリケーションが画面をキャプチャできるようにします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

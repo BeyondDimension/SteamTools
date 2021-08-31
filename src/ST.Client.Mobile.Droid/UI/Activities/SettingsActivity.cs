@@ -56,6 +56,8 @@ namespace System.Application.UI.Activities
                 {
                     comboBoxUISettingsTheme.Items = SettingsPageViewModel.GetThemes();
                 }
+                binding.tvGeneralSettingsCaptureScreen.Text = Settings_General_CaptureScreen;
+                binding.tvGeneralSettingsCaptureScreenDesc.Text = Settings_General_CaptureScreen_Desc;
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.SelectLanguage).SubscribeInMainThread(x =>
@@ -108,7 +110,8 @@ namespace System.Application.UI.Activities
         protected override void OnResume()
         {
             base.OnResume();
-            binding!.swOSAppNotificationSettings.Enabled = INotificationService.Instance.AreNotificationsEnabled();
+            var enabledNotification = INotificationService.Instance.AreNotificationsEnabled();
+            binding!.swOSAppNotificationSettings.Checked = enabledNotification;
         }
 
         protected override void OnClick(View view)

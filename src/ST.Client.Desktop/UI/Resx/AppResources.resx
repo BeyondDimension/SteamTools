@@ -1586,4 +1586,10 @@
   <data name="CommunityFix_ProxySettings" xml:space="preserve">
     <value>代理设置</value>
   </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>屏幕捕获</value>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>允许其他应用程序捕获你的屏幕</value>
+  </data>
 </root>

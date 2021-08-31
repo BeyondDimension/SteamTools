@@ -95,6 +95,13 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<IHostsFileService.EncodingType> HostsEncodingType { get; }
             = GetProperty(defaultValue: default(IHostsFileService.EncodingType), autoSave: true);
+#else
+
+        /// <summary>
+        /// 屏幕捕获
+        /// </summary>
+        public static SerializableProperty<bool> CaptureScreen { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
 #endif
     }
 }

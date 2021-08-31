@@ -974,21 +974,9 @@
     <value>Editar Token</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>Esquina superior derecha</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>Esquina inferior derecha</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>No ha importado ningún Token, puede añadir un Token en el icono de piñón superior derecho.</value>
     <comment>Comment=;Author=EspRoy</comment>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>Aún no ha importado ningún token, puede agregarlos en el icono de piñón {0}.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>Otras importaciones de APP</value>
@@ -1256,14 +1244,6 @@
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>Actualizar con éxito</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>Actualizar avatar</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
-    <value>Después de enlazar la cuenta de Steam, puede actualizar manualmente sincrónicamente usando avarar de la cuenta deSteam.</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -2056,6 +2036,18 @@
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>La biblioteca de recursos compartidos principal está vacía.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+    <value>Configuración del agente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>Captura de pantalla</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>Permitir que otras aplicaciones capturen la pantalla</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppName" xml:space="preserve">
-    <value>Steam++</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CalcHashing3_" xml:space="preserve">
     <value>検証中 ({1}/{2}): {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -161,16 +157,8 @@
     <value>Steam++ v{0}更新されました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>新しいアナウンスがある場合のプロンプト通知。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>新しいバージョンをダウンロードするときに、進行状況バーの通知をダウンロードします。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Name_BusinessPlatform" xml:space="preserve">
-    <value>ビジネス プラットフォームの通知</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
@@ -235,6 +223,14 @@
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
     <value>ファイルの確認に失敗しました。公式ウェブサイトを開いて手動で更新してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>新しいバージョンが利用可能になったときのプロンプト通知と、新しいバージョンがダウンロードされたときの進行状況の通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>お知らせのお知らせ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     /// <summary>
     /// 通知渠道类型(一个渠道可包含一个或多个<see cref="NotificationType"/>)
@@ -24,15 +24,15 @@
     public enum NotificationChannelType
     {
         /// <summary>
-        /// 业务平台
-        /// </summary>
-        BusinessPlatform = 1,
-
-        /// <summary>
         /// 新版本
         /// <para>例如：</para>
         /// <para>新版本下载进度</para>
         /// </summary>
-        NewVersion,
+        NewVersion = 2,
+
+        /// <summary>
+        /// 公告
+        /// </summary>
+        Announcement,
     }
 }

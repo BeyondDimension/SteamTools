@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppName" xml:space="preserve">
-    <value>Steam++</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CalcHashing3_" xml:space="preserve">
     <value>검증 중({1}/{2}):{0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -161,16 +157,8 @@
     <value>Steam++ v{0} 업데이트됩니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>새 공지가 있을 때 알림을 표시합니다.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>새 버전을 다운로드할 때 진행률 표시줄 알림을 다운로드합니다.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Name_BusinessPlatform" xml:space="preserve">
-    <value>비즈니스 플랫폼 알림</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
@@ -235,6 +223,14 @@
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
     <value>파일 유효성 검사에 실패했습니다. 공식 웹 사이트를 열어 수동으로 업데이트하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>새 버전을 사용할 수 있는 경우 프롬프트 알림 및 새 버전을 다운로드할 때의 진행률 알림입니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>공지 사항</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

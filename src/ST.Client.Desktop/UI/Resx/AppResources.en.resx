@@ -973,21 +973,9 @@
     <value>Authenticator editor</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>Top right corner</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>Lower right corner</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>No Authenticator imported. Click on gear icon in upper right corner to start import.</value>
     <comment>Comment=;Author=沙中金</comment>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>You haven&apos;t imported any tokens yet, you can add them at the {0} pinion icon.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>Import from other apps</value>
@@ -1255,14 +1243,6 @@
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>Refreshed</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>Refresh Steam avatar</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
-    <value>You can use your Steam avatar after linking your Steam account and refresh the avatar.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -2055,6 +2035,18 @@
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>The home share library is empty.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+    <value>Agent settings</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>Screen capture</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>Allow other applications to capture your screen</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -3205,6 +3205,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 屏幕捕获 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_CaptureScreen {
+            get {
+                return ResourceManager.GetString("Settings_General_CaptureScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 允许其他应用程序捕获你的屏幕 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_CaptureScreen_Desc {
+            get {
+                return ResourceManager.GetString("Settings_General_CaptureScreen_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 清理缓存文件 的本地化字符串。
         /// </summary>
         public static string Settings_General_ClearCache {

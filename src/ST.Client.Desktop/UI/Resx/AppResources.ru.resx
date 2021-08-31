@@ -226,7 +226,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
-    <value>Разблокировано в |0:yyyy-MM-dd HH:mm:ss|</value>
+    <value>Разблокировано в {0:yyyy-MM-dd HH:mm:ss}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
@@ -969,20 +969,8 @@
     <value>Отредактируйте маркер</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>В правом верхнем углу</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>В правом нижнем углу</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>Вы еще не импортли маркеры Oh, вы можете добавить маркеры на значок пинион в правом верхнем углу.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>Вы еще не импортили токены, вы можете добавить их на {0} значке пинионов.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
@@ -1251,14 +1239,6 @@
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>Обновление выполнено успешно</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>Обновите аватар Steam</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
-    <value>После привязки учетной записи Steam можно вручную синхронизировать обновление аватара с помощью учетной записи Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -2051,6 +2031,18 @@
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>Библиотека семейного доступа пуста.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+    <value>Параметры прокси-сервера</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>Захват экрана</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>Позвольте другим приложениям захватывать экраны</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -295,6 +295,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_save_black_24.xml">
       <Link>Resources\drawable\baseline_save_black_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_screenshot_black_24.xml">
+      <Link>Resources\drawable\baseline_screenshot_black_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_settings_applications_black_24.xml">
       <Link>Resources\drawable\baseline_settings_applications_black_24.xml</Link>
     </AndroidResource>
@@ -439,6 +442,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_save_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_save_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_screenshot_black_24.png">
+      <Link>Resources\drawable-hdpi\baseline_screenshot_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-hdpi\baseline_settings_applications_black_24.png">
       <Link>Resources\drawable-hdpi\baseline_settings_applications_black_24.png</Link>
     </AndroidResource>
@@ -555,6 +561,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_save_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_save_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_screenshot_black_24.png">
+      <Link>Resources\drawable-mdpi\baseline_screenshot_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-mdpi\baseline_settings_applications_black_24.png">
       <Link>Resources\drawable-mdpi\baseline_settings_applications_black_24.png</Link>
@@ -673,6 +682,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_save_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_save_black_24.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_screenshot_black_24.png">
+      <Link>Resources\drawable-xhdpi\baseline_screenshot_black_24.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xhdpi\baseline_settings_applications_black_24.png">
       <Link>Resources\drawable-xhdpi\baseline_settings_applications_black_24.png</Link>
     </AndroidResource>
@@ -789,6 +801,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_save_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_save_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_screenshot_black_24.png">
+      <Link>Resources\drawable-xxhdpi\baseline_screenshot_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\baseline_settings_applications_black_24.png">
       <Link>Resources\drawable-xxhdpi\baseline_settings_applications_black_24.png</Link>
@@ -912,6 +927,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_save_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_save_black_24.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_screenshot_black_24.png">
+      <Link>Resources\drawable-xxxhdpi\baseline_screenshot_black_24.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\baseline_settings_applications_black_24.png">
       <Link>Resources\drawable-xxxhdpi\baseline_settings_applications_black_24.png</Link>

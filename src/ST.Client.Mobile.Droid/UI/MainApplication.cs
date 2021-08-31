@@ -15,7 +15,6 @@ using System.Application.Models.Settings;
 using AndroidX.AppCompat.App;
 using System.Application.Services;
 using System.Application.Services.Implementation;
-using Android.OS;
 #if DEBUG
 using Square.LeakCanary;
 #endif
@@ -83,9 +82,6 @@ namespace System.Application.UI
             if (IsMainProcess)
             {
                 PlatformNotificationServiceImpl.InitNotificationChannels(this);
-#if DEBUG
-                INotificationService.Instance.Notify("测试内容", NotificationType.Announcement);
-#endif
                 XEVersionTracking.Track();
                 if (XEVersionTracking.IsFirstLaunchForCurrentVersion)
                 {
@@ -134,10 +130,5 @@ namespace System.Application.UI
         }
 
         public static async void ShowUnderConstructionTips() => await MessageBoxCompat.ShowAsync(AppResources.UnderConstruction, "", MessageBoxButtonCompat.OK);
-
-        /// <summary>
-        /// 是否允许截图
-        /// </summary>
-        public static bool AllowScreenshots => _ThisAssembly.Debuggable;
     }
 }

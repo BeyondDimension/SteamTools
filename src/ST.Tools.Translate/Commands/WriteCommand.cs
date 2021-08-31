@@ -68,7 +68,12 @@ namespace System.Commands
             var resxFileDictLang = GetResxDict(resxFilePathLang, ignoreStringBuilder: true);
             if (resxFileDictLang.dict.Count > resxFileDict.dict.Count) // 译文不能比原文多
             {
-                Console.WriteLine($"Error: resx file lang count incorrect, path: {resxFilePathLang}");
+                Console.WriteLine($"Error: resx file lang count incorrect, path: {resxFilePathLang}, langCount: {resxFileDictLang.dict.Count} sCount: {resxFileDict.dict.Count}");
+                var exceptData = resxFileDictLang.dict.Select(x => x.Key).Except(resxFileDict.dict.Select(x => x.Key)).ToArray();
+                foreach (var item in exceptData)
+                {
+                    Console.WriteLine(item);
+                }
                 return messages;
             }
 

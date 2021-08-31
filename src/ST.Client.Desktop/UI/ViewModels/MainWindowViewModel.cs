@@ -168,6 +168,7 @@ namespace System.Application.UI.ViewModels
             About,
         }
 
+
         public interface ITabItemViewModel
         {
             TabItemId Id { get; }

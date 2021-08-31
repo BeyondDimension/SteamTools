@@ -969,20 +969,8 @@
     <value>토큰을 편집합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>오른쪽 상단 모서리</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>오른쪽 아래 모서리</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>아직 토큰을 가져오지 않았습니다.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>아직 토큰을 가져오지 않았습니다{0}.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
@@ -1251,14 +1239,6 @@
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>새로 고침에 성공했습니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>Steam 아바타를 새로 고칩니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
-    <value>Steam 계정을 바인딩한 후 Steam 계정 아바타를 사용하여 새로 고침을 수동으로 동기화할 수 있습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -2051,6 +2031,18 @@
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>홈 공유 라이브러리가 비어 있습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+    <value>프록시 설정입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>화면 캡처</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>다른 응용 프로그램이 화면을 캡처할 수 있도록 허용합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

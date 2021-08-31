@@ -974,21 +974,9 @@ Sicuro di voler continuare?</value>
     <value>Modifica token</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>Angolo in alto a destra</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>Angolo in basso a destra</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>Non hai importato nessun token oh, puoi aggiungere un token nell&apos;angolo in alto a destra della piccola icona dell&apos;ingranaggio.</value>
     <comment>Comment=;Author=Zhengye</comment>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>Non hai ancora importato alcun token, puoi aggiungerli all&apos;icona {0} pinion.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
     <value>Altre importazioni di software</value>
@@ -1256,14 +1244,6 @@ Sicuro di voler continuare?</value>
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>Aggiornamento riuscito</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>Aggiorna l&apos;avatar di Steam</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
-    <value>Puoi aggiornare manualmente l&apos;avatar del tuo account Steam legandolo al tuo account Steam.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -2056,6 +2036,18 @@ Sicuro di voler continuare?</value>
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>La libreria di condivisione domestica è vuota.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+    <value>Impostazioni agente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>Acquisizione dello schermo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>Consentire ad altre applicazioni di acquisire lo schermo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

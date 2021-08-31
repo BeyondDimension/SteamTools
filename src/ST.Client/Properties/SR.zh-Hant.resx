@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppName" xml:space="preserve">
-    <value>Steam++</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CalcHashing3_" xml:space="preserve">
     <value>正在驗證（{1}/{2}）：{0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -161,16 +157,8 @@
     <value>Steam++ v{0} 版本更新</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>當有新公告時的提示通知。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>當下載新版本時的下載進度條通知。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Name_BusinessPlatform" xml:space="preserve">
-    <value>業務平臺通知</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
@@ -235,6 +223,14 @@
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
     <value>文件校驗失敗，請打開官網手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>當有新版本可用時的提示通知與下載新版本時的進度通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>公告通知</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -22,9 +22,9 @@ namespace System.Application
     public enum NotificationType
     {
         /// <summary>
-        /// 新版本下载进度
+        /// 新版本
         /// </summary>
-        NewVersionDownloadProgress = 1,
+        NewVersion = 1,
 
         /// <summary>
         /// 公告

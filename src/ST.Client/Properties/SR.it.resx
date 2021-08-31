@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppName" xml:space="preserve">
-    <value>Vapore++</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CalcHashing3_" xml:space="preserve">
     <value>Controllo ({1}/{2}): {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -161,16 +157,8 @@
     <value>La versione di Steam-v{0} viene aggiornata</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>Richiedi notifica quando viene fatto un nuovo annuncio.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>Scarica la notifica della barra di stato quando scarichi una nuova versione.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="NotificationChannelType_Name_BusinessPlatform" xml:space="preserve">
-    <value>Notifiche della piattaforma aziendale</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
@@ -235,6 +223,14 @@
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
     <value>Verifica del file non riuscita, aprire l&apos;aggiornamento manuale ufficiale del sito Web</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>Richiedi notifiche quando è disponibile una nuova versione e notifiche sullo stato di avanzamento quando viene scaricata una nuova versione.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>Notifica annuncio</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

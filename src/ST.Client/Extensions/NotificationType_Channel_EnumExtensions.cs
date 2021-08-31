@@ -16,8 +16,8 @@ namespace System.Application
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static NotificationChannelType GetChannel(this NotificationType value) => value switch
         {
-            NotificationType.Announcement => NotificationChannelType.BusinessPlatform,
-            NotificationType.NewVersionDownloadProgress => NotificationChannelType.NewVersion,
+            NotificationType.Announcement => NotificationChannelType.Announcement,
+            NotificationType.NewVersion => NotificationChannelType.NewVersion,
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
         };
 
@@ -31,7 +31,7 @@ namespace System.Application
         {
             return value switch
             {
-                NotificationChannelType.BusinessPlatform => SR.NotificationChannelType_Name_BusinessPlatform,
+                NotificationChannelType.Announcement => SR.NotificationChannelType_Name_Announcement,
                 NotificationChannelType.NewVersion => SR.NotificationChannelType_Name_NewVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -49,7 +49,7 @@ namespace System.Application
         {
             return value switch
             {
-                NotificationChannelType.BusinessPlatform => SR.NotificationChannelType_Description_BusinessPlatform,
+                NotificationChannelType.Announcement => SR.NotificationChannelType_Description_Announcement,
                 NotificationChannelType.NewVersion => SR.NotificationChannelType_Description_NewVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
@@ -65,7 +65,7 @@ namespace System.Application
         public static NotificationImportanceLevel GetImportanceLevel(this NotificationChannelType value)
             => value switch
             {
-                NotificationChannelType.BusinessPlatform => NotificationImportanceLevel.High,
+                NotificationChannelType.Announcement => NotificationImportanceLevel.High,
                 NotificationChannelType.NewVersion => NotificationImportanceLevel.Medium,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };

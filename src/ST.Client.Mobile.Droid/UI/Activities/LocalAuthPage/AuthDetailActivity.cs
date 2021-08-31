@@ -6,6 +6,7 @@ using Android.Views;
 using Binding;
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -94,18 +95,23 @@ namespace System.Application.UI.Activities
                 binding.layoutExport);
         }
 
-        protected override void OnPause()
-        {
-            base.OnPause();
-            TViewModel.IAutoRefreshCodeHost host = this;
-            host.StopTimer();
-        }
-
         protected override void OnResume()
         {
             base.OnResume();
+            if (!GeneralSettings.CaptureScreen.Value)
+            {
+                this.SetWindowSecure(true);
+            }
             TViewModel.IAutoRefreshCodeHost host = this;
             host.StartTimer();
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            this.SetWindowSecure(false);
+            TViewModel.IAutoRefreshCodeHost host = this;
+            host.StopTimer();
         }
 
         protected override async void OnClick(View view)

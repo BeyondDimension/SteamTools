@@ -6,6 +6,7 @@ using AndroidX.RecyclerView.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
 using ReactiveUI;
+using System.Application.Models.Settings;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
@@ -143,7 +144,7 @@ namespace System.Application.UI.Fragments
         public override void OnResume()
         {
             base.OnResume();
-            if (!MainApplication.AllowScreenshots)
+            if (!GeneralSettings.CaptureScreen.Value)
             {
                 Activity.SetWindowSecure(true);
             }

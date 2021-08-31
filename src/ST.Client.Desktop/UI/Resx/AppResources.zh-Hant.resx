@@ -969,20 +969,8 @@
     <value>編輯權杖</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="TopRightCorner" xml:space="preserve">
-    <value>右上角</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="BottomRightCorner" xml:space="preserve">
-    <value>右下角</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
     <value>你還沒有導入任何令牌哦。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_NoAuthTip_" xml:space="preserve">
-    <value>你還沒有導入任何令牌哦，可以在{0}小齒輪圖示處新增令牌。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
@@ -1251,14 +1239,6 @@
   </data>
   <data name="RefreshOK" xml:space="preserve">
     <value>刷新成功</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatar" xml:space="preserve">
-    <value>刷新 Steam 頭像</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="RefreshSteamAvatarDesc" xml:space="preserve">
-    <value>綁定 Steam 帳號後可手動同步刷新使用 Steam 帳號頭像。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -2051,6 +2031,18 @@
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
     <value>家庭共用庫為空。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxySettings" xml:space="preserve">
+    <value>代理設置</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen" xml:space="preserve">
+    <value>螢幕捕獲</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
+    <value>允許其他應用程式捕獲你的螢幕</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

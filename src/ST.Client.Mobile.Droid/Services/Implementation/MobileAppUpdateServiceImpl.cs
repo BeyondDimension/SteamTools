@@ -58,7 +58,7 @@ namespace System.Application.Services.Implementation
             {
                 progress?.Report(CC.MaxProgress);
                 progress = notification.NotifyDownload(() => ProgressString,
-                    NotificationType.NewVersionDownloadProgress);
+                    NotificationType.NewVersion);
             }
             else if (value == CC.MaxProgress)
             {

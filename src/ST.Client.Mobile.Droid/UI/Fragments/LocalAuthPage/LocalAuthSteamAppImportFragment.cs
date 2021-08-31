@@ -1,6 +1,7 @@
 using Android.Views;
 using Binding;
 using ReactiveUI;
+using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
@@ -60,7 +61,7 @@ namespace System.Application.UI.Fragments
         public override void OnResume()
         {
             base.OnResume();
-            if (!MainApplication.AllowScreenshots)
+            if (!GeneralSettings.CaptureScreen.Value)
             {
                 Activity.SetWindowSecure(true);
             }

@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Binding;
 using ReactiveUI;
+using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.IO;
@@ -39,7 +40,7 @@ namespace System.Application.UI.Activities
                 return;
             }
 
-            if (!MainApplication.AllowScreenshots)
+            if (!GeneralSettings.CaptureScreen.Value)
             {
                 this.SetWindowSecure(true);
             }

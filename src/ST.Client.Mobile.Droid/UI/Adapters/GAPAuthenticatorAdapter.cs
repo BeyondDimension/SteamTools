@@ -53,8 +53,8 @@ namespace System.Application.UI.Adapters
         }
 
         [Export]
-        [Lifecycle.Event.OnPause]
-        public void OnPause()
+        [Lifecycle.Event.OnStop]
+        public void OnStop()
         {
             TViewModel.IAutoRefreshCodeHost host = this;
             host.StopTimer();
