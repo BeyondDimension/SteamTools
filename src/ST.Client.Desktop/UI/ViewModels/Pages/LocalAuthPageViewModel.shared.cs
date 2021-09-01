@@ -69,7 +69,7 @@ namespace System.Application.UI.ViewModels
                         //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
                         new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
                             Command = ExportAuthCommand  },
-                        new MenuItemViewModel(),
+                        new MenuItemSeparator(),
                         new MenuItemViewModel(nameof(AppResources.Lock)) {IconKey="LockDrawing",
                             Command = LockCommand },
                         new MenuItemViewModel(nameof(AppResources.Refresh)) {IconKey="RefreshDrawing",

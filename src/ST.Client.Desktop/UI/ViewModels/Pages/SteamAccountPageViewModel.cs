@@ -46,7 +46,7 @@ namespace System.Application.UI.ViewModels
             {
                 new MenuItemViewModel (nameof(AppResources.Refresh))
                             { IconKey="RefreshDrawing" , Command = RefreshCommand},
-                new MenuItemViewModel (),
+                new MenuItemSeparator (),
                 new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
                             { IconKey="SteamDrawing", Command=LoginAccountCommand },
                 new MenuItemViewModel(nameof(AppResources.AccountChange_Title)){

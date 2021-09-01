@@ -88,12 +88,22 @@
                                                  HorizontalAlignment="Stretch"/>
                   </DockPanel>
                 </Button.Content>
+                <Button.DataTemplates>
+                  <DataTemplate DataType="{x:Type vm:MenuItemSeparator}">
+                    <ui:MenuFlyoutSeparator/>
+                  </DataTemplate>
+                  <DataTemplate DataType="{x:Type vm:MenuItemViewModel}">
+                    <ui:MenuFlyoutItem Text="{Binding Header}"
+                                       ToolTip.Tip="{Binding ToolTip,Mode=OneWay}"
+                                       Command="{Binding Command,Mode=OneWay}"
+                                       CommandParameter="{Binding CommandParameter,Mode=OneWay}"/>
+                  </DataTemplate>
+                </Button.DataTemplates>
                 <FlyoutBase.AttachedFlyout>
-                  <MenuFlyout Placement="RightEdgeAlignedTop"
+                  <ui:MenuFlyout Placement="RightEdgeAlignedTop"
+                              Items="{Binding MenuItems}"
                               ShowMode="TransientWithDismissOnPointerMoveAway">
-                    <MenuItem Header="Item 3" />
-                    <MenuItem Header="Item 6" />
-                  </MenuFlyout>
+                  </ui:MenuFlyout>
                 </FlyoutBase.AttachedFlyout>
               </Button>
             </DataTemplate>

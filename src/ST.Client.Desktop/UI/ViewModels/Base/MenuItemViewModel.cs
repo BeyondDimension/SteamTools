@@ -42,4 +42,12 @@ namespace System.Application.UI.ViewModels
                 IconKey = null;
         }
     }
+
+    public class MenuItemSeparator : MenuItemViewModel
+    {
+        public new string? Header => "-";
+    }
+    public class MenuItemToggle : MenuItemViewModel { }
+    public class MenuItemRadio : MenuItemViewModel { }
+    public class MenuItemSubItem : MenuItemViewModel { }
 }

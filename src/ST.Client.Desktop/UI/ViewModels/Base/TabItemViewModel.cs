@@ -25,6 +25,13 @@ namespace System.Application.UI.ViewModels
 
         public virtual bool IsTaskBarSubMenu { get; }
 
+        private IList<MenuItemViewModel>? _MenuItems;
+        public virtual IList<MenuItemViewModel>? MenuItems
+        {
+            get => _MenuItems;
+            protected set => this.RaiseAndSetIfChanged(ref _MenuItems, value);
+        }
+
         #region Name 変更通知
 
         public abstract string Name { get; protected set; }
@@ -69,13 +76,6 @@ namespace System.Application.UI.ViewModels
         //}
 
         #endregion
-
-        private IList<MenuItemViewModel>? _MenuItems;
-        public virtual IList<MenuItemViewModel>? MenuItems
-        {
-            get => _MenuItems;
-            protected set => this.RaiseAndSetIfChanged(ref _MenuItems, value);
-        }
 
         protected TabItemViewModel()
         {
