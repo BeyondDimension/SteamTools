@@ -50,6 +50,19 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _Description, value);
         }
 #endif
+        /// <summary>
+        /// 文本框最大长度输入限制，当值大于零时生效
+        /// </summary>
+        public int MaxLength
+#if !__MOBILE__
+        {
+            get => _MaxLength;
+            set => this.RaiseAndSetIfChanged(ref _MaxLength, value);
+        }
+        private int _MaxLength;
+#else
+        { get; set; }
+#endif
 
         /// <inheritdoc cref="TextBoxInputType"/>
         public TextBoxInputType InputType { get; set; }

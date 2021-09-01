@@ -121,6 +121,9 @@ namespace System.Application.Services.Implementation
                         selectionIndex = viewModel_tb.Value!.Length;
                     }
                     binding.layoutPassword.Hint = viewModel_tb.Placeholder;
+                    if (viewModel_tb.MaxLength > 0)
+                        binding.tbPassword.AddFilters(
+                            new InputFilterLengthFilter(viewModel_tb.MaxLength));
                     action?.Invoke(binding, viewModel_tb);
                     b.SetView(view);
                     return d =>

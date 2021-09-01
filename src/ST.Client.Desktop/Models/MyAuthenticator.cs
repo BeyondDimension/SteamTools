@@ -525,6 +525,7 @@ namespace System.Application.Models
             {
                 Value = Name,
                 Title = AppResources.EditName,
+                MaxLength = IGAPAuthenticatorDTO.MaxLength_Name,
             });
             if (value == null)
                 return;

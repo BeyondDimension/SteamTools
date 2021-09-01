@@ -29,7 +29,8 @@
                  Watermark="{Binding Placeholder}"
                  VerticalAlignment="Stretch"
                  HorizontalAlignment="Stretch"
-                 Text="{Binding Value}" 
+                 Text="{Binding Value}"
+                 MaxLength="{Binding MaxLength}"
                  PasswordChar="*" 
                  Classes="revealPasswordButton" />
         <TextBox x:Name="DescriptionBox" 

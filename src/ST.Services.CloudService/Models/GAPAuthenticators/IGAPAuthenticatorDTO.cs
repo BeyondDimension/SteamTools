@@ -7,6 +7,8 @@ namespace System.Application.Models
     /// </summary>
     public interface IGAPAuthenticatorDTO : IOrderGAPAuthenticator
     {
+        const int MaxLength_Name = 32;
+
         string Name { get; set; }
 
         GamePlatform Platform { get; }
