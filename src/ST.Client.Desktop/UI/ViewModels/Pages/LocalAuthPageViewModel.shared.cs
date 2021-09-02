@@ -56,30 +56,30 @@ namespace System.Application.UI.ViewModels
             });
 
 #if !__MOBILE__
-            MenuItems = new ObservableCollection<MenuItemViewModel>()
-            {
-                //new MenuItemViewModel(nameof(AppResources.LocalAuth_EditAuth))
-                //{
-                //    Items = new[]
-                //    {
-                        new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
-                            Command = AddAuthCommand },
-                        new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="ShieldLockDrawing",
-                            Command = EncryptionAuthCommand },
-                        //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
-                        new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
-                            Command = ExportAuthCommand  },
-                        new MenuItemSeparator(),
-                        new MenuItemViewModel(nameof(AppResources.Lock)) {IconKey="LockDrawing",
-                            Command = LockCommand },
-                        new MenuItemViewModel(nameof(AppResources.Refresh)) {IconKey="RefreshDrawing",
-                            Command = RefreshAuthCommand },
-                        //new MenuItemViewModel(),
-                        //new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing" },
-                        //new MenuItemViewModel(nameof(AppResources.CloudSync)) {IconKey="CloudDrawing" },
-                //    }
-                //},
-            };
+            //MenuItems = new ObservableCollection<MenuItemViewModel>()
+            //{
+            //    //new MenuItemViewModel(nameof(AppResources.LocalAuth_EditAuth))
+            //    //{
+            //    //    Items = new[]
+            //    //    {
+            //            new MenuItemViewModel(nameof(AppResources.Add)) { IconKey="AddDrawing",
+            //                Command = AddAuthCommand },
+            //            new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="ShieldLockDrawing",
+            //                Command = EncryptionAuthCommand },
+            //            //new MenuItemViewModel(nameof(AppResources.Edit)) { IconKey="EditDrawing" },
+            //            new MenuItemViewModel(nameof(AppResources.Export)) { IconKey="ExportDrawing",
+            //                Command = ExportAuthCommand  },
+            //            new MenuItemSeparator(),
+            //            new MenuItemViewModel(nameof(AppResources.Lock)) {IconKey="LockDrawing",
+            //                Command = LockCommand },
+            //            new MenuItemViewModel(nameof(AppResources.Refresh)) {IconKey="RefreshDrawing",
+            //                Command = RefreshAuthCommand },
+            //            //new MenuItemViewModel(),
+            //            //new MenuItemViewModel(nameof(AppResources.Encrypt)) {IconKey="LockDrawing" },
+            //            //new MenuItemViewModel(nameof(AppResources.CloudSync)) {IconKey="CloudDrawing" },
+            //    //    }
+            //    //},
+            //};
 #endif
 
             AuthService.Current.Authenticators
@@ -145,6 +145,24 @@ namespace System.Application.UI.ViewModels
             if (IsAuthenticatorsEmptyButHasSourceAuths)
             {
                 await AuthService.Current.InitializeAsync(auths);
+#if !__MOBILE__
+                if (Authenticators.Any())
+                {
+                    MenuItems = new ObservableCollection<MenuItemViewModel>();
+                    foreach (var auth in Authenticators)
+                    {
+                        MenuItems.Add(new MenuItemCustomName(auth.Name, AppResources.LocalAuth_Copy)
+                        {
+                            Command = ReactiveCommand.Create(() =>
+                            {
+                                auth.CopyCodeCilp();
+                                INotificationService.Instance.Notify(AppResources.LocalAuth_CopyAuthTip + auth.Name, NotificationType.Message);
+                            }),
+                        });
+                    }
+                    this.RaisePropertyChanged(nameof(IsTaskBarSubMenu));
+                }
+#endif
             }
 #if __MOBILE__
             else

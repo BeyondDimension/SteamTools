@@ -20,7 +20,7 @@ namespace System.Application.UI.ViewModels
     public class SteamAccountPageViewModel : TabItemViewModel
     {
         public override TabItemId Id => TabItemId.SteamAccount;
-        public override bool IsTaskBarSubMenu => true;
+        public override bool IsTaskBarSubMenu => MenuItems.Any_Nullable();
 
         readonly ISteamService steamService = DI.Get<ISteamService>();
         readonly IHttpService httpService = DI.Get<IHttpService>();
@@ -42,18 +42,18 @@ namespace System.Application.UI.ViewModels
             RefreshCommand = ReactiveCommand.Create(Initialize);
 
             ShareManageCommand = ReactiveCommand.Create(OpenShareManageWindow);
-            MenuItems = new ObservableCollection<MenuItemViewModel>()
-            {
-                new MenuItemViewModel (nameof(AppResources.Refresh))
-                            { IconKey="RefreshDrawing" , Command = RefreshCommand},
-                new MenuItemSeparator (),
-                new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
-                            { IconKey="SteamDrawing", Command=LoginAccountCommand },
-                new MenuItemViewModel(nameof(AppResources.AccountChange_Title)){
-                      IconKey ="ChannelShareDrawing", Command = ShareManageCommand },
-                //new MenuItemViewModel(nameof(AppResources.UserChange_RemarkReplaceName)){
-                //      IconKey ="EditDrawing", Command = ShareManageCommand },
-            };
+            //MenuItems = new ObservableCollection<MenuItemViewModel>()
+            //{
+            //    new MenuItemViewModel (nameof(AppResources.Refresh))
+            //                { IconKey="RefreshDrawing" , Command = RefreshCommand},
+            //    new MenuItemSeparator (),
+            //    new MenuItemViewModel(nameof(AppResources.UserChange_LoginNewAccount))
+            //                { IconKey="SteamDrawing", Command=LoginAccountCommand },
+            //    new MenuItemViewModel(nameof(AppResources.AccountChange_Title)){
+            //          IconKey ="ChannelShareDrawing", Command = ShareManageCommand },
+            //    //new MenuItemViewModel(nameof(AppResources.UserChange_RemarkReplaceName)){
+            //    //      IconKey ="EditDrawing", Command = ShareManageCommand },
+            //};
 
             _SteamUsersSourceList = new SourceCache<SteamUser, long>(t => t.SteamId64);
 
@@ -96,12 +96,36 @@ namespace System.Application.UI.ViewModels
             _SteamUsersSourceList.AddOrUpdate(list);
             var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
 
+            MenuItems = new ObservableCollection<MenuItemViewModel>();
+
             foreach (var user in _SteamUsersSourceList.Items)
             {
                 string? remark = null;
                 accountRemarks?.TryGetValue(user.SteamId64, out remark);
                 user.Remark = remark;
+
+                if (OperatingSystem2.IsWindows)
+                {
+                    var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
+                    if (!string.IsNullOrEmpty(user.Remark))
+                    {
+                        title = user.SteamNickName + "(" + user.Remark + ")";
+                    }
+
+                    MenuItems.Add(new MenuItemCustomName(title, AppResources.UserChange_BtnTootlip)
+                    {
+                        Command = ReactiveCommand.Create(() =>
+                        {
+                            SteamId_Click(user);
+
+                            INotificationService.Instance.Notify(string.Format(AppResources.UserChange_ChangeUserTip, title), NotificationType.Message);
+                        }),
+                    });
+
+                    DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + user.AccountName, AppResources.UserChange_BtnTootlip, this.Name);
+                }
             }
+            this.RaisePropertyChanged(nameof(IsTaskBarSubMenu));
             _SteamUsersSourceList.Refresh();
             #endregion
 
@@ -122,16 +146,6 @@ namespace System.Application.UI.ViewModels
                     user.AvatarFull = temp.AvatarFull;
                     user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
                 }
-                if (OperatingSystem2.IsWindows)
-                {
-                    var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
-                    if (!string.IsNullOrEmpty(user.Remark))
-                    {
-                        title = user.SteamNickName + "(" + user.Remark + ")";
-                    }
-
-                    DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + user.AccountName, AppResources.UserChange_BtnTootlip, this.Name);
-                }
             }
 
             _SteamUsersSourceList.Refresh();
@@ -149,7 +163,6 @@ namespace System.Application.UI.ViewModels
                     //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
                 }
             }
-
             _SteamUsersSourceList.Refresh();
             #endregion
 

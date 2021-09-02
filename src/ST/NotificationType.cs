@@ -30,5 +30,10 @@ namespace System.Application
         /// 公告
         /// </summary>
         Announcement,
+
+        /// <summary>
+        /// 消息通知
+        /// </summary>
+        Message,
     }
 }

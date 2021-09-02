@@ -1592,4 +1592,7 @@
   <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
     <value>允许其他应用程序捕获你的屏幕</value>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>切换到 {0} 登录 Steam</value>
+  </data>
 </root>

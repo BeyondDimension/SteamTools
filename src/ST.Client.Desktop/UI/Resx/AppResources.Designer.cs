@@ -4286,6 +4286,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 切换到 {0} 登录 Steam 的本地化字符串。
+        /// </summary>
+        public static string UserChange_ChangeUserTip {
+            get {
+                return ResourceManager.GetString("UserChange_ChangeUserTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 删除此账号数据 的本地化字符串。
         /// </summary>
         public static string UserChange_DeleteUser {
