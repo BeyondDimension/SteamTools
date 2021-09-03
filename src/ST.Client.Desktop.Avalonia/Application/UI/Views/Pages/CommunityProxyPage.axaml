@@ -6,9 +6,11 @@
              xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:sys="using:System"
              x:Name="u"
              x:DataType="vm:CommunityProxyPageViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -21,16 +23,18 @@
               Grid.Row="0"
               Grid.ColumnSpan="2"
               Margin="10"
-              Padding="20 10"
+              Padding="10"
               Classes="paper"
               Background="{DynamicResource ThemeBrushKey}">
-        <DockPanel>
+        <!--<DockPanel>
           <StackPanel Orientation="Horizontal"
                       Spacing="10"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center">
-            <!--<TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5"
+            -->
+        <!--<TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5"
                  Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>-->
+        <!--
             <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
             <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
             <Button Background="Transparent"
@@ -55,12 +59,11 @@
                       HorizontalAlignment="Right"
                       VerticalAlignment="Center">
             <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                       Margin="0 3 0 0"
                        VerticalAlignment="Center"/>
             <ToggleSwitch Classes="onlyToggleSwitch"
                           VerticalAlignment="Center"
                           IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
-                          Margin="10 0 15 0"/>
+                          Margin="10 -5 15 0"/>
             <Button Classes="action"
                     Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     FontSize="16"
@@ -72,9 +75,136 @@
                     Command="{Binding StartProxyButton_Click}"
                     CommandParameter="True"></Button>
 
-            <!--<ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
+            -->
+        <!--<ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
+        <!--
           </StackPanel>
-        </DockPanel>
+        </DockPanel>-->
+
+        <ui:CommandBar DefaultLabelPosition="Right">
+          <ui:CommandBar.PrimaryCommands>
+            <!--<ui:CommandBarButton
+                              Command="{Binding StartProxyButton_Click}"
+                              CommandParameter="True"
+                              ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Label="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            </ui:CommandBarButton>-->
+
+            <ui:CommandBarElementContainer>
+              <Button Classes="action"
+                   Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   FontSize="16"
+                   Margin="0 0 10 0"
+                   MinWidth="50"
+                   Width="200"
+                   MinHeight="40"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   Command="{Binding StartProxyButton_Click}"
+                   CommandParameter="True"/>
+            </ui:CommandBarElementContainer>
+
+            <ui:CommandBarSeparator/>
+
+            <ui:CommandBarElementContainer>
+              <StackPanel Orientation="Horizontal" Spacing="8" Margin="10 0">
+                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      VerticalAlignment="Center"/>
+                <ToggleSwitch Classes="onlyToggleSwitch"
+                              VerticalAlignment="Center"
+                              Margin="0 -5 0 0"
+                              IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"/>
+              </StackPanel>
+            </ui:CommandBarElementContainer>
+
+            <ui:CommandBarSeparator/>
+            <ui:CommandBarElementContainer Margin="8 0">
+              <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
+            </ui:CommandBarElementContainer>
+            <ui:CommandBarElementContainer Margin="8 0">
+              <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
+            </ui:CommandBarElementContainer>
+            <!--<ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"
+                                       Label="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                       ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"
+                                       Label="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                       ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
+
+            <ui:CommandBarSeparator/>
+            <ui:CommandBarButton
+                                 Command="{Binding ProxySettingsCommand}"
+                                 ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Label="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource SettingsDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            <!--<ui:CommandBarElementContainer>
+              <Menu Classes="BindMenu">
+                <MenuItem Items="{Binding MenuItems}"
+                          Classes="BindItem"
+                          IsVisible="{Binding !MenuItems,Converter={StaticResource IsNullConverter}}">
+                  <MenuItem.Header>
+                    <PathIcon Data="{StaticResource MoreDrawing}" Width="14"></PathIcon>
+                  </MenuItem.Header>
+                </MenuItem>
+              </Menu>
+            </ui:CommandBarElementContainer>-->
+
+          </ui:CommandBar.PrimaryCommands>
+          <ui:CommandBar.SecondaryCommands>
+            <ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy},Path=Value, Mode=TwoWay}"
+                                       Label="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript},Path=Value, Mode=TwoWay}"
+                           Label="{ReflectionBinding Path=Res.CommunityFix_ProxyOnlyOnScript,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <ui:CommandBarSeparator/>
+            <ui:CommandBarButton Icon="Refresh"
+                                 Command="{Binding RefreshCommand}"
+                                 Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <ui:CommandBarButton
+                     Command="{Binding SetupCertificateCommand}"
+                     Label="{ReflectionBinding Path=Res.CommunityFix_SetupCertificate,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource CertificateDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+
+            <ui:CommandBarButton IsVisible="{x:Static sys:OperatingSystem2.IsMacOS}"
+                     Command="{Binding TrustCerCommand}"
+                     Label="{ReflectionBinding Path=Res.CommunityFix_CertificateTrust,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource CertificateDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+
+            <ui:CommandBarButton
+         Command="{Binding DeleteCertificateCommand}"
+         Label="{ReflectionBinding Path=Res.CommunityFix_DeleteCertificate,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource CertificateDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            <ui:CommandBarButton
+         Command="{Binding OpenCertificateDirCommand}"
+         Label="{ReflectionBinding Path=Res.CommunityFix_OpenCertificateDir,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource FolderOpenDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            <ui:CommandBarSeparator/>
+            <ui:CommandBarButton
+         Command="{Binding EditHostsFileCommand}"
+         Label="{ReflectionBinding Path=Res.CommunityFix_EditHostsFile,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+
+            <ui:CommandBarSeparator/>
+          </ui:CommandBar.SecondaryCommands>
+        </ui:CommandBar>
+
       </Border>
 
       <Border Grid.Column="0"

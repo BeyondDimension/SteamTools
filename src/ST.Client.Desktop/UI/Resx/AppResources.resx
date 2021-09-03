@@ -1595,4 +1595,7 @@
   <data name="UserChange_ChangeUserTip" xml:space="preserve">
     <value>切换到 {0} 登录 Steam</value>
   </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>代理仅启用脚本功能</value>
+  </data>
 </root>

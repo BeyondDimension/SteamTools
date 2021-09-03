@@ -203,6 +203,7 @@ namespace System.Application.Services
                             if (!IsConnectToSteam && IsDisposedClient)
                             {
                                 IsDisposedClient = false;
+                                await Task.Delay(1000);
                                 if (ApiService.Initialize())
                                 {
                                     var id = ApiService.GetSteamId64();
@@ -251,7 +252,7 @@ namespace System.Application.Services
                             CurrentSteamUser = null;
                             AvaterPath = DefaultAvaterPath;
                         }
-                        Thread.Sleep(2000);
+                        await Task.Delay(3000);
                     }
                     catch (Exception ex)
                     {

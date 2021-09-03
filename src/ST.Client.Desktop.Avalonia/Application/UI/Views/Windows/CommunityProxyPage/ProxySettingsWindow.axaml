@@ -55,9 +55,15 @@
                 <Label Content="本机监听IP地址"></Label>
                 <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
-
+              
               <DockPanel>
-                <TextBlock Text="开启加速后仅启用脚本功能" ></TextBlock>
+                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
+                <ToggleSwitch
+                            IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy},Path=Value, Mode=TwoWay}"/>
+              </DockPanel>
+              
+              <DockPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyOnlyOnScript,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript},Path=Value, Mode=TwoWay}"/>
               </DockPanel>

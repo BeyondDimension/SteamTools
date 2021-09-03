@@ -295,9 +295,9 @@
                 <ui:ImageIcon DockPanel.Dock="Left">
                   <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>
                 </ui:ImageIcon>-->
-                <controls:ScrollingTextBlock Text="{Binding Name}"
-                                             HorizontalAlignment="Stretch"
-                                             IsVisible="{ReflectionBinding Path=!!IsPaneOpen,ElementName=NavigationView}"/>
+              <controls:ScrollingTextBlock Text="{Binding Name}"
+                                           HorizontalAlignment="Stretch"
+                                           IsVisible="{ReflectionBinding Path=!!IsPaneOpen,ElementName=NavigationView}"/>
               <!--</DockPanel>-->
             </ui:NavigationViewItem.Content>
             <ui:NavigationViewItem.Icon>

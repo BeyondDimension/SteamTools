@@ -31,11 +31,11 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> OpenCertificateDirCommand { get; }
         public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
         public ReactiveCommand<Unit, Unit> NetworkFixCommand { get; }
-        public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
+        //public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
         public ReactiveCommand<Unit, Unit> ProxySettingsCommand { get; }
         //public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
-        public MenuItemViewModel AutoRunProxy { get; }
+        //public MenuItemViewModel AutoRunProxy { get; }
         //public MenuItemViewModel EnableProxyScript { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
@@ -50,10 +50,10 @@ namespace System.Application.UI.ViewModels
             EditHostsFileCommand = ReactiveCommand.Create(EditHostsFile_OnClick);
             NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
             TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
-            AutoRunProxyCommand = ReactiveCommand.Create(() =>
-            {
-                AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
-            });
+            //AutoRunProxyCommand = ReactiveCommand.Create(() =>
+            //{
+            //    AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
+            //});
             OpenCertificateDirCommand = ReactiveCommand.Create(() =>
             {
                 DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.AppDataDirectory + @$"\{ThisAssembly.AssemblyProduct}.Certificate.cer");
@@ -67,41 +67,42 @@ namespace System.Application.UI.ViewModels
             //{
             //    EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);
             //});
-            MenuItems = new ObservableCollection<MenuItemViewModel>()
-            {
-                //new MenuItemViewModel(nameof(AppResources.CommunityFix_MenuName))
-                //{
-                //    Items = new[]
-                //    {
-                        (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){
-                            Command=AutoRunProxyCommand}),
+            //MenuItems = new ObservableCollection<MenuItemViewModel>()
+            //{
+            //    //new MenuItemViewModel(nameof(AppResources.CommunityFix_MenuName))
+            //    //{
+            //    //    Items = new[]
+            //    //    {
+            //            (AutoRunProxy = new MenuItemViewModel (nameof(AppResources.CommunityFix_AutoRunProxy)){
+            //                Command=AutoRunProxyCommand}),
 
-                        //(EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
-                        //new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
-                        new MenuItemViewModel (),
-                        new MenuItemViewModel (nameof(AppResources.Refresh))
-                            { IconKey="RefreshDrawing" , Command = RefreshCommand},
-                        new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
-                        {
-                            IconKey="CertificateDrawing",
-                            Items = new[]
-                            {
-                                new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)){ IconKey="CertificateDrawing", Command=SetupCertificateCommand },
-                                new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)){ IconKey="CertificateDrawing", Command=DeleteCertificateCommand },
-                                new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ IconKey="FolderOpenDrawing", Command=OpenCertificateDirCommand },
-                            }
-                        },
-                        new MenuItemViewModel (),
-                        new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
-                        //new MenuItemViewModel (nameof(AppResources.CommunityFix_NetworkFix)){ Command=NetworkFixCommand },
-                //    }
-                //},
-            };
-            if (OperatingSystem2.IsMacOS)
-            {
-                MenuItems.Add(new MenuItemViewModel(nameof(AppResources.CommunityFix_CertificateTrust)) { IconKey = "RefreshDrawing", Command = TrustCerCommand });
-            }
-            AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
+            //            //(EnableProxyScript = new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)){ Command=EnableProxyScriptCommand }),
+            //            //new MenuItemViewModel (nameof(AppResources.CommunityFix_ScriptManage)){ Command=EditHostsFileCommand ,IconKey="JavaScriptDrawing" },
+            //            new MenuItemViewModel (),
+            //            new MenuItemViewModel (nameof(AppResources.Refresh))
+            //                { IconKey="RefreshDrawing" , Command = RefreshCommand},
+            //            new MenuItemViewModel (nameof(AppResources.CommunityFix_CertificateSettings))
+            //            {
+            //                IconKey="CertificateDrawing",
+            //                Items = new[]
+            //                {
+            //                    new MenuItemViewModel(nameof(AppResources.CommunityFix_SetupCertificate)){ IconKey="CertificateDrawing", Command=SetupCertificateCommand },
+            //                    new MenuItemViewModel(nameof(AppResources.CommunityFix_DeleteCertificate)){ IconKey="CertificateDrawing", Command=DeleteCertificateCommand },
+            //                    new MenuItemViewModel(nameof(AppResources.CommunityFix_OpenCertificateDir)){ IconKey="FolderOpenDrawing", Command=OpenCertificateDirCommand },
+            //                }
+            //            },
+            //            new MenuItemViewModel (),
+            //            new MenuItemViewModel (nameof(AppResources.CommunityFix_EditHostsFile)){ Command=EditHostsFileCommand,IconKey="DocumentEditDrawing" },
+            //            //new MenuItemViewModel (nameof(AppResources.CommunityFix_NetworkFix)){ Command=NetworkFixCommand },
+            //    //    }
+            //    //},
+            //};
+
+            //if (OperatingSystem2.IsMacOS)
+            //{
+            //    MenuItems.Add(new MenuItemViewModel(nameof(AppResources.CommunityFix_CertificateTrust)) { IconKey = "RefreshDrawing", Command = TrustCerCommand });
+            //}
+            //AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value);
         }
         public void TrustCer_OnClick()
         {

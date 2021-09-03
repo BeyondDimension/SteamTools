@@ -186,7 +186,7 @@ namespace System.Application.UI
             //SettingsHost.Load();
             var windowService = IWindowService.Instance;
             windowService.Init();
-            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(compositeDisposable.Dispose);
+            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() => Shutdown());
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif
@@ -289,7 +289,7 @@ namespace System.Application.UI
                 }
 
                 IWindowService.Instance.MainWindow.Initialize();
-                 
+
                 desktop.MainWindow =
 #if !UI_DEMO
                     Program.IsMinimize ? null :
