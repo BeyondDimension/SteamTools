@@ -140,17 +140,6 @@
                 <ui:PathIcon Data="{StaticResource SettingsDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            <!--<ui:CommandBarElementContainer>
-              <Menu Classes="BindMenu">
-                <MenuItem Items="{Binding MenuItems}"
-                          Classes="BindItem"
-                          IsVisible="{Binding !MenuItems,Converter={StaticResource IsNullConverter}}">
-                  <MenuItem.Header>
-                    <PathIcon Data="{StaticResource MoreDrawing}" Width="14"></PathIcon>
-                  </MenuItem.Header>
-                </MenuItem>
-              </Menu>
-            </ui:CommandBarElementContainer>-->
 
           </ui:CommandBar.PrimaryCommands>
           <ui:CommandBar.SecondaryCommands>
@@ -200,8 +189,6 @@
                 <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-
-            <ui:CommandBarSeparator/>
           </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>
 

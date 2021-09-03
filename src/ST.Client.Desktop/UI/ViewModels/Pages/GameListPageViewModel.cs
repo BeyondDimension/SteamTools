@@ -78,7 +78,7 @@ namespace System.Application.UI.ViewModels
 
         public GameListPageViewModel()
         {
-            _IconKey = nameof(GameListPageViewModel).Replace("ViewModel", "Svg");
+            _IconKey = nameof(GameListPageViewModel);
             AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnumModels<SteamAppType>());
             AppTypeFiltres[1].Enable = true;
             AppTypeFiltres[2].Enable = true;

@@ -24,7 +24,7 @@ namespace System.Application.UI.ViewModels
         public LocalAuthPageViewModel()
         {
 #if !__MOBILE__
-            IconKey = nameof(LocalAuthPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(LocalAuthPageViewModel);
 #endif
 
             OpenBrowserCommand = ReactiveCommand.Create<string>(Services.CloudService.Constants.BrowserOpen);

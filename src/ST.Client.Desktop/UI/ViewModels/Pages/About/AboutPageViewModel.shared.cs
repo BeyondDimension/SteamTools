@@ -18,7 +18,7 @@ namespace System.Application.UI.ViewModels
         public AboutPageViewModel()
         {
 #if !__MOBILE__
-            IconKey = nameof(AboutPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(AboutPageViewModel);
 #endif
 
             OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);

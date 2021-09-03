@@ -24,7 +24,7 @@ namespace System.Application.UI.ViewModels
 
         public ArchiSteamFarmPlusPageViewModel()
         {
-            IconKey = nameof(ArchiSteamFarmPlusPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(ArchiSteamFarmPlusPageViewModel);
 
 
             ASFService.Current.SteamBotsSourceList

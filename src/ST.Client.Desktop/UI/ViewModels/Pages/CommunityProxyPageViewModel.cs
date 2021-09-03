@@ -43,7 +43,7 @@ namespace System.Application.UI.ViewModels
 
         public CommunityProxyPageViewModel()
         {
-            IconKey = nameof(CommunityProxyPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(CommunityProxyPageViewModel);
 
             SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);

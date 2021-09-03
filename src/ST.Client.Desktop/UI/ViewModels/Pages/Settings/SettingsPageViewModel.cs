@@ -67,7 +67,7 @@ namespace System.Application.UI.ViewModels
         public SettingsPageViewModel()
         {
 #if !__MOBILE__
-            IconKey = nameof(SettingsPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(SettingsPageViewModel);
 #endif
 
             SelectLanguage = R.Languages.FirstOrDefault(x => x.Key == UISettings.Language.Value);

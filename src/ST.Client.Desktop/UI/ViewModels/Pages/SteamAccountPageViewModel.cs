@@ -34,7 +34,7 @@ namespace System.Application.UI.ViewModels
 
         public SteamAccountPageViewModel()
         {
-            IconKey = nameof(SteamAccountPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(SteamAccountPageViewModel);
 
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));

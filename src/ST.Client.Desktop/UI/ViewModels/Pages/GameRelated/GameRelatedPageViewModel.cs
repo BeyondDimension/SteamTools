@@ -14,7 +14,7 @@ namespace System.Application.UI.ViewModels
 
         public GameRelatedPageViewModel()
         {
-            IconKey = nameof(GameRelatedPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(GameRelatedPageViewModel);
         }
     }
 }

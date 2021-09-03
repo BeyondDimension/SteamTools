@@ -67,7 +67,7 @@ namespace System.Application.UI.ViewModels
         public MenuItemViewModel? OnlySteamBrowser { get; }
         public ProxyScriptManagePageViewModel()
         {
-            IconKey = nameof(ProxyScriptManagePageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(ProxyScriptManagePageViewModel);
 
             ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
             EnableScriptAutoUpdateCommand = ReactiveCommand.Create(() =>

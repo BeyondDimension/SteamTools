@@ -12,7 +12,7 @@ namespace System.Application.UI.ViewModels
 
         public OtherPlatformPageViewModel() 
         {
-            IconKey = nameof(OtherPlatformPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(OtherPlatformPageViewModel);
         }
     }
 }
