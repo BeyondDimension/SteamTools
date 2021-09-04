@@ -39,6 +39,10 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
+#if IS_STORE_PACKAGE // 渠道包隐藏下载更新渠道，更新通过应用商店分发
+            binding.layoutRootGeneralSettingsUpdateChannel.Visibility = ViewStates.Gone;
+#endif
+
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
                 Title = ViewModel!.Name;

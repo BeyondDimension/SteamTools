@@ -18,6 +18,10 @@ namespace System.Application.Services.Implementation
             this.notification = notification;
         }
 
+#if __ANDROID__ && IS_STORE_PACKAGE // 渠道包不支持从服务器分发，仅通过应用商店分发
+        public override bool IsSupportedServerDistribution => false;
+#endif
+
         protected override Version OSVersion =>
 #if __ANDROID__
             new((int)Build.VERSION.SdkInt, 0, 0);

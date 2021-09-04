@@ -144,9 +144,9 @@ OS                            | Version                 | Architectures     |
 Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/milestones), and feel free to ask questions.
 
 ## ⌨️ Development Environment
-[Visual Studio 2019 Version 16.10 Or Higher](https://visualstudio.microsoft.com/vs/) Or [JetBrains Rider](https://www.jetbrains.com/rider/) Or ~~[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)~~ Or ~~[Visual Studio Code](https://code.visualstudio.com/)~~
+[Visual Studio 2019 Version 16.11 Or Higher](https://visualstudio.microsoft.com/vs/) Or [JetBrains Rider](https://www.jetbrains.com/rider/) Or ~~[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)~~ Or ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - Supported Operating Systems
-	- [Windows 10 version 2004 or higher: Home, Professional, Education, and Enterprise (LTSC and S are not supported)](https://docs.microsoft.com/en-us/visualstudio/releases/2019/system-requirements)
+	- [Windows 10 Version 2004 Or Higher: Home, Professional, Education, and Enterprise (LTSC and S are not supported)](https://docs.microsoft.com/en-us/visualstudio/releases/2019/system-requirements)
 	- [macOS 10.14 Mojave Or Higher](https://docs.microsoft.com/en-us/visualstudio/productinfo/vs2019-system-requirements-mac)
 - Workload
 	- Web and Cloud
@@ -164,8 +164,8 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
 	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
-[Android Studio 4.2+](https://developer.android.com/studio/)  
-[Xcode 13](https://developer.apple.com/xcode/)
+[Android Studio 2020.3.1 Or Higher](https://developer.android.com/studio/)  
+[Xcode 13 Or Higher](https://developer.apple.com/xcode/)
 
 ## 📄 Thanks to the following Open Source Projects
 * [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
