@@ -7,6 +7,7 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
@@ -56,7 +57,7 @@ namespace System.Application.UI.ViewModels
             //});
             OpenCertificateDirCommand = ReactiveCommand.Create(() =>
             {
-                DI.Get<IDesktopPlatformService>().OpenFolder(IOPath.AppDataDirectory + @$"\{ThisAssembly.AssemblyProduct}.Certificate.cer");
+                DI.Get<IDesktopPlatformService>().OpenFolder(Path.Combine(IOPath.AppDataDirectory, $"{ThisAssembly.AssemblyProduct}.Certificate.cer"));
             });
             ProxySettingsCommand = ReactiveCommand.Create(() =>
             {

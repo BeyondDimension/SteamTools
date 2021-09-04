@@ -44,42 +44,58 @@ namespace System.Application.Services.Implementation
                 stream.Flush();
                 stream.Close();
             }
-            using var p = new Process();
-            p.StartInfo.FileName = "/bin/bash";
-            p.StartInfo.Arguments = $"\"{file.FullName}\"";
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.Exited += (object? _, EventArgs _) =>
+            using (var p = new Process())
             {
+                p.StartInfo.FileName = "/bin/bash";
+                p.StartInfo.Arguments = $"\"{file.FullName}\"";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.Exited += (object? _, EventArgs _) =>
+                {
+                    if (file.Exists)
+                        file.Delete();
+                    if (p.ExitCode != 0)
+                    {
+                        ((IPlatformService)this).AdminShell(shell);
+                    }
+                };
+                p.Start();
+                var ret = p.StandardOutput.ReadToEnd();
+                p.Kill();
                 if (file.Exists)
                     file.Delete();
-                if (p.ExitCode != 0)
-                {
-                    ((IPlatformService)this).AdminShell(shell);
-                }
-            };
-            p.Start();
-            var ret = p.StandardOutput.ReadToEnd();
-            p.Kill();
-            if (file.Exists)
-                file.Delete();
+            }
         }
         public string GetCommandLineArgs(Process process)
         {
             return string.Empty;
         }
 
+        public const string xdg = "xdg-open";
         public void OpenFolder(string dirPath)
         {
+            if (IOPath.IsDirectory(dirPath))
+            {
+                IDesktopPlatformService.Instance.StartProcess(xdg, dirPath);
+            }
+            else
+            {
+                var path = new FileInfo(dirPath);
+                if (!string.IsNullOrWhiteSpace(path.DirectoryName))
+                    IDesktopPlatformService.Instance.StartProcess(xdg, path.DirectoryName);
+            }
         }
 
         public const string kate = "kate";
         public const string vi = "vi";
+        const string VSC = "code";
 
-        public string? GetFileName(TextReaderProvider provider)
+        public string? GetFileName(TextReaderProvider provider) => provider switch
         {
-            return vi;
-        }
+            TextReaderProvider.VSCode => VSC,
+            TextReaderProvider.Notepad => kate,
+            _ => null,
+        };
 
         public void SetSystemSessionEnding(Action action)
         {
