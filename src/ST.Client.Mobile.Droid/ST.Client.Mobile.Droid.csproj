@@ -7,6 +7,11 @@
     <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
+  <!--当前包是否为应用商店渠道包(IS_STORE_PACKAGE)-->
+  <!--<PropertyGroup>
+    <DefineConstants>IS_STORE_PACKAGE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>-->
+
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Startup2.HandleGlobalException.cs" />
@@ -1069,6 +1074,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\list_popup_window_item.xml">
       <Link>Resources\layout\list_popup_window_item.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\local_auth_appwidget.xml">
+      <Link>Resources\layout\local_auth_appwidget.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\shared_divider.xml">
       <Link>Resources\layout\shared_divider.xml</Link>
     </AndroidBoundLayout>
@@ -1177,5 +1185,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-v28\themes.xml">
       <Link>Resources\values-v28\themes.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\xml\local_auth_appwidget_info.xml">
+      <Link>Resources\xml\local_auth_appwidget_info.xml</Link>
+    </AndroidResource>
   </ItemGroup>
 </Project>
+

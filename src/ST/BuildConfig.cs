@@ -9,15 +9,14 @@ namespace System.Application
     public static class BuildConfig
     {
 #if DEBUG
-        [Obsolete("use ThisAssembly.Debuggable", true)]
+        [Obsolete("using _ThisAssembly = System.Properties.ThisAssembly;\r\n_ThisAssembly.Debuggable", true)]
         public const bool DEBUG = ThisAssembly.Debuggable;
 #endif
 
         public const string APPLICATION_ID = "net.steampp.app";
 
 #if DEBUG
-        [Obsolete("NotImplemented", true)]
-        public const string BUILD_TYPE = "";
+        public const string BUILD_TYPE = ThisAssembly.Debuggable ? "debug" : "release";
 
         [Obsolete("NotImplemented", true)]
         public const string FLAVOR = "";
@@ -25,8 +24,8 @@ namespace System.Application
         [Obsolete("NotImplemented", true)]
         public const int VERSION_CODE = default;
 
-        [Obsolete("NotImplemented", true)]
-        public const string VERSION_NAME = "";
+        [Obsolete("using _ThisAssembly = System.Properties.ThisAssembly;\r\n_ThisAssembly.Version", true)]
+        public const string VERSION_NAME = ThisAssembly.Version;
 #endif
 
 #if DEBUG

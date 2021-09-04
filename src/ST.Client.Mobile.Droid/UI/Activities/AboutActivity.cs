@@ -166,6 +166,13 @@ namespace System.Application.UI.Activities
                     b.AppendLine();
                     b.Append("[app.ver] ");
                     GetAppDisplayVersion(this, b);
+                    b.Append("[app.flavor] ");
+                    b.AppendLine(
+#if IS_STORE_PACKAGE
+                        "store"
+#else
+#endif
+                        );
                     static void GetAppDisplayVersion(Context context, StringBuilder b)
                     {
                         var info = context.PackageManager!.GetPackageInfo(context.PackageName!, default);
