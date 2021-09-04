@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NotifyIcon.Linux" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
 </Project>

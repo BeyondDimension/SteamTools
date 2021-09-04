@@ -2,7 +2,6 @@ using System;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
-using System.Windows;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -17,7 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<LinuxDesktopPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<LinuxDesktopPlatformServiceImpl>());
                 services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<LinuxDesktopPlatformServiceImpl>());
-                if (hasNotifyIcon) services.AddNotifyIcon();
             }
             else
             {
