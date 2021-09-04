@@ -48,9 +48,9 @@ namespace System.Application.Converters
                 TryReset(s);
                 return GetDecodeBitmap(s, width);
             }
-            else if (value is ImageClipStream ics)
+            else if (value is ImageSouce.ClipStream clipStream)
             {
-                return GetBitmap(ics);
+                return GetBitmap(clipStream);
             }
             else if (value is Guid imageid)
             {
