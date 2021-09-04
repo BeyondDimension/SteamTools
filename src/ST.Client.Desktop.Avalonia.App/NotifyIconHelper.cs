@@ -1,14 +1,17 @@
+#if !TRAY_INDEPENDENT_PROGRAM
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform;
 using Avalonia.Shared.PlatformSupport;
 using Avalonia.Threading;
-using ReactiveUI;
 using System.Application.Mvvm;
 using System.Application.Services;
-using System.Application.UI.Resx;
-using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Windows;
+using AvaloniaApplication = Avalonia.Application;
+#else
+using System.Application.UI.Properties;
+#endif
+using ReactiveUI;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +21,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using AvaloniaApplication = Avalonia.Application;
+using System.Application.UI.ViewModels;
+using System.Application.UI.Resx;
 #if LINUX
 using GtkApplication = Gtk.Application;
 #endif
@@ -27,6 +31,7 @@ namespace System.Application.UI
 {
     static class NotifyIconHelper
     {
+#if !TRAY_INDEPENDENT_PROGRAM
         static object GetIcon(IAssetLoader assets)
         {
             string iconPath;
@@ -46,11 +51,16 @@ namespace System.Application.UI
             var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
             return GetIcon(assets);
         }
+#endif
 
         public static object GetIcon()
         {
+#if !TRAY_INDEPENDENT_PROGRAM
             var assets = new AssetLoader(typeof(TaskBarWindow).Assembly);
             return GetIcon(assets);
+#else
+            return SR.Icon;
+#endif
         }
 
         public static (NotifyIcon notifyIcon, IDisposable? menuItemDisposable) Init(Func<object> getIcon)
@@ -58,17 +68,7 @@ namespace System.Application.UI
             IDisposable? menuItemDisposable = null;
             var notifyIcon = DI.Get<NotifyIcon>();
             notifyIcon.Text = TaskBarWindowViewModel.TitleString;
-            var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            string iconPath;
-            if (OperatingSystem2.IsMacOS)
-            {
-                iconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
-            }
-            else
-            {
-                iconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
-            }
-            notifyIcon.Icon = assets.Open(new(iconPath));
+            notifyIcon.Icon = getIcon();
 #if WINDOWS
             notifyIcon.RightClick += (_, e) =>
             {
@@ -84,53 +84,75 @@ namespace System.Application.UI
 #if !WINDOWS || DEBUG
         static string Exit => AppResources.Exit;
 
+        static void OnMenuClick(string command)
+        {
+#if TRAY_INDEPENDENT_PROGRAM
+            notifyIconPipeClient?.Append(command);
+#else
+            TaskBarWindowViewModel.OnMenuClick(command);
+#endif
+        }
+
+        static void OnMenuClick(TabItemViewModel.TabItemId tabItemId)
+        {
+#if TRAY_INDEPENDENT_PROGRAM
+            notifyIconPipeClient?.Append(tabItemId.ToString());
+#else
+            TaskBarWindowViewModel.OnMenuClick(tabItemId);
+#endif
+        }
+
         static ContextMenuStrip.MenuItem? exitMenuItem;
         static readonly Dictionary<TabItemViewModel, ContextMenuStrip.MenuItem> tabItems = new();
         static IDisposable? InitMenuItems(NotifyIcon notifyIcon)
         {
-            if (IWindowService.Instance.MainWindow is MainWindowViewModel main)
+#if !TRAY_INDEPENDENT_PROGRAM
+            if (IWindowService.Instance.MainWindow is not MainWindowViewModel main) return null;
+#else
+            MainWindowViewModel main = new();
+#endif
+            var query = from x in main.TabItems.Concat(main.FooterTabItems)
+                        let tabItem = x is TabItemViewModel item ? item : null
+                        where tabItem != null
+                        select tabItem;
+            foreach (var item in query)
             {
-                var query = from x in main.TabItems.Concat(main.FooterTabItems)
-                            let tabItem = x is TabItemViewModel item ? item : null
-                            where tabItem != null
-                            select tabItem;
-                foreach (var item in query)
+                var menuItem = new ContextMenuStrip.MenuItem
                 {
-                    var menuItem = new ContextMenuStrip.MenuItem
-                    {
-                        Text = item.Name,
-                        Command = ReactiveCommand.Create(() =>
-                        {
-                            TaskBarWindowViewModel.OnMenuClick(item.Id);
-                        }),
-                    };
-                    tabItems.Add(item, menuItem);
-                    notifyIcon.ContextMenuStrip.Items.Add(menuItem);
-                }
-                exitMenuItem = new ContextMenuStrip.MenuItem
-                {
-                    Text = Exit,
+                    Text = item.Name,
                     Command = ReactiveCommand.Create(() =>
                     {
-                        TaskBarWindowViewModel.OnMenuClick(TaskBarWindowViewModel.CommandExit);
+                        OnMenuClick(item.Id);
                     }),
                 };
-                notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
-
-                return R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
-                {
-                    if (exitMenuItem != null)
-                    {
-                        exitMenuItem.Text = Exit;
-                    }
-                    foreach (var item in tabItems)
-                    {
-                        item.Value.Text = item.Key.Name;
-                    }
-                });
+                tabItems.Add(item, menuItem);
+                notifyIcon.ContextMenuStrip.Items.Add(menuItem);
             }
+            exitMenuItem = new ContextMenuStrip.MenuItem
+            {
+                Text = Exit,
+                Command = ReactiveCommand.Create(() =>
+                {
+                    OnMenuClick(TaskBarWindowViewModel.CommandExit);
+                }),
+            };
+            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
 
+#if !TRAY_INDEPENDENT_PROGRAM
+            return R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            {
+                if (exitMenuItem != null)
+                {
+                    exitMenuItem.Text = Exit;
+                }
+                foreach (var item in tabItems)
+                {
+                    item.Value.Text = item.Key.Name;
+                }
+            });
+#else
             return null;
+#endif
         }
 #endif
         #endregion
@@ -189,16 +211,21 @@ namespace System.Application.UI
             }
         }
 
+#if !TRAY_INDEPENDENT_PROGRAM
+
+        static PipeServer? notifyIconPipeServer;
+
+        public static void StopPipeServer() => notifyIconPipeServer?.Dispose();
+
+        public static void StartPipeServer()
+        {
+            StopPipeServer();
+            notifyIconPipeServer = new();
+            notifyIconPipeServer.OnStart();
+        }
+
         public sealed class PipeServer : PipeCore
         {
-            /// <summary>
-            ///
-            /// </summary>
-            /// <param name="handle"></param>
-            /// <returns></returns>
-            static string GetArguments(string handle)
-                => $"-clt tray -handle {handle} -pid {Environment.ProcessId}";
-
             bool HandlerCommand(string command)
             {
                 switch (command)
@@ -217,15 +244,18 @@ namespace System.Application.UI
 
             protected override void OnStartCore()
             {
+                if (!OperatingSystem.IsLinux()) return;
+                var fileName = AppHelper.ProgramPath + "_LinuxTrayIcon";
+                if (!File.Exists(fileName)) return;
+
                 Process pipeClient = new();
 
-                pipeClient.StartInfo.FileName = AppHelper.ProgramPath;
+                pipeClient.StartInfo.FileName = fileName;
 
                 using (var pipeServer = new AnonymousPipeServerStream(PipeDirection.In, HandleInheritability.Inheritable))
                 {
                     // Pass the client process a handle to the server.
-                    pipeClient.StartInfo.Arguments =
-                        GetArguments(pipeServer.GetClientHandleAsString());
+                    pipeClient.StartInfo.Arguments = pipeServer.GetClientHandleAsString();
                     pipeClient.StartInfo.UseShellExecute = false;
                     pipeClient.Start();
 
@@ -265,6 +295,21 @@ namespace System.Application.UI
                 pipeClient.Close();
             }
         }
+#else
+
+        static PipeClient? notifyIconPipeClient;
+
+        public static void StopPipeClient() => notifyIconPipeClient?.Dispose();
+
+        public static void StartPipeClient(string handle)
+        {
+            StopPipeClient();
+            notifyIconPipeClient = new PipeClient(handle);
+            notifyIconPipeClient.OnStart();
+        }
+
+        public static PipeClient Client
+            => notifyIconPipeClient ?? throw new ArgumentNullException(nameof(notifyIconPipeClient));
 
         public sealed class PipeClient : PipeCore
         {
@@ -272,11 +317,9 @@ namespace System.Application.UI
             readonly string pipeHandleAsString;
             readonly ConcurrentQueue<string> queue = new();
 
-            public PipeClient(string pipeHandleAsString, int mainProcessId)
+            public PipeClient(string pipeHandleAsString)
             {
                 this.pipeHandleAsString = pipeHandleAsString;
-                mainProcess = Process.GetProcessById(mainProcessId);
-                mainProcess.Exited += MainProcess_Exited;
             }
 
             private void MainProcess_Exited(object? sender, EventArgs e) => Dispose();
@@ -295,7 +338,7 @@ namespace System.Application.UI
                         {
                             cts.Token.ThrowIfCancellationRequested();
 
-                            if (mainProcess == null || mainProcess.HasExited) break;
+                            if (!pipeClient.IsConnected) break;
 
                             if (queue.TryDequeue(out var result))
                             {
@@ -348,6 +391,8 @@ namespace System.Application.UI
 #if LINUX
                         GtkApplication.Quit();
 #endif
+
+#if !TRAY_INDEPENDENT_PROGRAM
                         if (OperatingSystem2.IsWindows)
                         {
                             if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -358,6 +403,7 @@ namespace System.Application.UI
                                 }, DispatcherPriority.MaxValue);
                             }
                         }
+#endif
                     }
 
                     // TODO: 释放未托管的资源(未托管的对象)并重写终结器
@@ -367,6 +413,7 @@ namespace System.Application.UI
                 base.Dispose(disposing);
             }
         }
+#endif
 #endif
         #endregion
     }

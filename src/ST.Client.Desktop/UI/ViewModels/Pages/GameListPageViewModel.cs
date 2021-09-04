@@ -21,16 +21,8 @@ using System.Application.Models.Settings;
 
 namespace System.Application.UI.ViewModels
 {
-    public class GameListPageViewModel : TabItemViewModel
+    public partial class GameListPageViewModel
     {
-        public override TabItemId Id => TabItemId.GameList;
-
-        public override string Name
-        {
-            get => AppResources.GameList;
-            protected set { throw new NotImplementedException(); }
-        }
-
         Func<SteamApp, bool> PredicateName(string? text)
         {
             return s =>

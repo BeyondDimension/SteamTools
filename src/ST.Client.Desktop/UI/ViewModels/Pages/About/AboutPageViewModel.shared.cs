@@ -13,8 +13,6 @@ namespace System.Application.UI.ViewModels
 {
     public partial class AboutPageViewModel
     {
-        static string TitleName => AppResources.About;
-
         public AboutPageViewModel()
         {
 #if !__MOBILE__

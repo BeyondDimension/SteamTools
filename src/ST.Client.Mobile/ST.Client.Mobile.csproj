@@ -128,6 +128,12 @@
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LocalAuthPage\*.shared.cs">
       <LinkBase>UI\ViewModels\Windows\LocalAuthPage</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Base\TabItemViewModel.DisplayName.cs">
+      <LinkBase>UI\ViewModels\Pages</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Base\TabItemViewModel.IdName.cs">
+      <LinkBase>UI\ViewModels\Pages</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

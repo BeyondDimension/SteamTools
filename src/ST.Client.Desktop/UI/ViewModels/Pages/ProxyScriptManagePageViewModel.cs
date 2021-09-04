@@ -18,16 +18,8 @@ using Xamarin.Essentials;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ProxyScriptManagePageViewModel : TabItemViewModel
+    public partial class ProxyScriptManagePageViewModel : TabItemViewModel
     {
-        public override TabItemId Id => TabItemId.ProxyScriptManage;
-
-        public override string Name
-        {
-            get => AppResources.ScriptConfig;
-            protected set { throw new NotImplementedException(); }
-        }
-
         public override void Activation()
         {
             if (IsFirstActivation)

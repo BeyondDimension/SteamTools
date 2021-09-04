@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
-    public class MainWindowViewModel : WindowViewModel
+    public partial class MainWindowViewModel : WindowViewModel
     {
         #region 更改通知
 
@@ -48,10 +48,6 @@ namespace System.Application.UI.ViewModels
         public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
 
-        readonly Dictionary<Type, Lazy<TabItemViewModel>> mTabItems = new();
-        public IEnumerable<TabItemViewModel> TabItems => mTabItems.Values.Select(x => x.Value);
-        public List<TabItemViewModel> FooterTabItems { get; set; } = new();
-
         public MainWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark;
@@ -70,45 +66,7 @@ namespace System.Application.UI.ViewModels
                 }
             });
 
-            //AddTabItem<StartPageViewModel>();
-            AddTabItem<CommunityProxyPageViewModel>();
-            AddTabItem<ProxyScriptManagePageViewModel>();
-            AddTabItem<SteamAccountPageViewModel>();
-            AddTabItem<GameListPageViewModel>();
-            AddTabItem<LocalAuthPageViewModel>();
-
-            var isVersion_2_5_OR_GREATER =
-#if DEBUG
-                true;
-#else
-                new Version(ThisAssembly.Version) >= new Version(2, 5);
-#endif
-
-            if (isVersion_2_5_OR_GREATER)
-            {
-                AddTabItem<ArchiSteamFarmPlusPageViewModel>();
-            }
-
-            //AddTabItem<SteamIdlePageViewModel>();
-            if (OperatingSystem2.IsWindows)
-                AddTabItem<GameRelatedPageViewModel>();
-            //AddTabItem<OtherPlatformPageViewModel>();
-
-            //AddTabItem(() => SettingsPageViewModel.Instance);
-            //AddTabItem(() => AboutPageViewModel.Instance);
-            FooterTabItems.Add(SettingsPageViewModel.Instance);
-            FooterTabItems.Add(AboutPageViewModel.Instance);
-
-            if (AppHelper.EnableDevtools)
-            {
-                AddTabItem<DebugPageViewModel>();
-                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
-
-                //if (AppHelper.IsSystemWebViewAvailable)
-                //{
-                //    AddTabItem<DebugWebViewPageViewModel>();
-                //}
-            }
+            FooterTabItems = InitTabItemsWithReturnFooterTabItems();
 
             _SelectedItem = TabItems.First();
 
@@ -140,19 +98,5 @@ namespace System.Application.UI.ViewModels
                 }
             });
         }
-
-        void AddTabItem<TabItemVM>() where TabItemVM : TabItemViewModel, new()
-        {
-            Lazy<TabItemViewModel> value = new(() => new TabItemVM().AddTo(this));
-            mTabItems.Add(typeof(TabItemVM), value);
-        }
-
-        //void AddTabItem<TabItemVM>(Func<TabItemVM> func) where TabItemVM : TabItemViewModel
-        //{
-        //    Lazy<TabItemViewModel> value = new(func);
-        //    mTabItems.Add(typeof(TabItemVM), value);
-        //}
-
-        TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel => (TabItemVM)mTabItems[typeof(TabItemVM)].Value;
     }
 }

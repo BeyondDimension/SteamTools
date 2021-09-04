@@ -6,23 +6,8 @@ using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
-    public abstract class TabItemViewModel : ItemViewModel
+    public abstract partial class TabItemViewModel : ItemViewModel
     {
-        public enum TabItemId : byte
-        {
-            CommunityProxy = 1,
-            ProxyScriptManage,
-            SteamAccount,
-            GameList,
-            LocalAuth,
-            ArchiSteamFarmPlus,
-            GameRelated,
-            Settings,
-            About,
-        }
-
-        public virtual TabItemId Id { get; }
-
         public virtual bool IsTaskBarSubMenu { get; }
 
         private IList<MenuItemViewModel>? _MenuItems;
@@ -31,12 +16,6 @@ namespace System.Application.UI.ViewModels
             get => _MenuItems;
             protected set => this.RaiseAndSetIfChanged(ref _MenuItems, value);
         }
-
-        #region Name 変更通知
-
-        public abstract string Name { get; protected set; }
-
-        #endregion
 
         #region Resource key 图标
         private const string DefaultIconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Icon/{0}.png";

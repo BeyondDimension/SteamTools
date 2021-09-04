@@ -10,10 +10,8 @@ using Xamarin.Essentials;
 
 namespace System.Application.UI.ViewModels
 {
-    partial class AboutPageViewModel : ViewModelBase
+    partial class AboutPageViewModel
     {
-        public string Title => TitleName;
-
         ObservableCollection<PreferenceButtonViewModel> preferenceButtons;
         public ObservableCollection<PreferenceButtonViewModel> PreferenceButtons
         {

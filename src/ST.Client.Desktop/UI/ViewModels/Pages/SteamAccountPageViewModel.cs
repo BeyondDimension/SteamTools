@@ -17,20 +17,13 @@ using static System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.ViewModels
 {
-    public class SteamAccountPageViewModel : TabItemViewModel
+    public partial class SteamAccountPageViewModel : TabItemViewModel
     {
-        public override TabItemId Id => TabItemId.SteamAccount;
         public override bool IsTaskBarSubMenu => MenuItems.Any_Nullable();
 
         readonly ISteamService steamService = DI.Get<ISteamService>();
         readonly IHttpService httpService = DI.Get<IHttpService>();
         readonly ISteamworksWebApiService webApiService = DI.Get<ISteamworksWebApiService>();
-
-        public override string Name
-        {
-            get => AppResources.UserFastChange;
-            protected set { throw new NotImplementedException(); }
-        }
 
         public SteamAccountPageViewModel()
         {

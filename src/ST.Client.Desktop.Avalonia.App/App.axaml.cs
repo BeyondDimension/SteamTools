@@ -40,10 +40,6 @@ namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
     {
-#if LINUX || DEBUG
-        NotifyIconHelper.PipeServer? notifyIconPipeServer;
-#endif
-
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
@@ -278,8 +274,7 @@ namespace System.Application.UI
                         else
                         {
 #if LINUX || DEBUG
-                            notifyIconPipeServer = new();
-                            notifyIconPipeServer.OnStart();
+                            NotifyIconHelper.StartPipeServer();
 #endif
                         }
                     }
@@ -356,7 +351,7 @@ namespace System.Application.UI
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
 #if LINUX || DEBUG
-            notifyIconPipeServer?.Dispose();
+            NotifyIconHelper.StopPipeServer();
 #endif
 
             try

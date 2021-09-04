@@ -17,16 +17,8 @@ using System.Windows;
 
 namespace System.Application.UI.ViewModels
 {
-    public class CommunityProxyPageViewModel : TabItemViewModel
+    public partial class CommunityProxyPageViewModel
     {
-        public override TabItemId Id => TabItemId.CommunityProxy;
-
-        public override string Name
-        {
-            get => AppResources.CommunityFix;
-            protected set { throw new NotImplementedException(); }
-        }
-
         public ReactiveCommand<Unit, Unit> SetupCertificateCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteCertificateCommand { get; }
         public ReactiveCommand<Unit, Unit> OpenCertificateDirCommand { get; }

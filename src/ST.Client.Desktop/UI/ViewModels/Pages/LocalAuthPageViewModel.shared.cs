@@ -19,8 +19,6 @@ namespace System.Application.UI.ViewModels
 {
     public partial class LocalAuthPageViewModel
     {
-        public static string DisplayName => AppResources.LocalAuth;
-
         public LocalAuthPageViewModel()
         {
 #if !__MOBILE__

@@ -15,29 +15,8 @@ using static System.Application.FilePicker2;
 
 namespace System.Application.UI.ViewModels
 {
-    public class SettingsPageViewModel :
-#if !__MOBILE__
-        TabItemViewModel
-#else
-        ViewModelBase
-#endif
+    public partial class SettingsPageViewModel
     {
-#if !__MOBILE__
-        public override TabItemId Id => TabItemId.Settings;
-#endif
-
-        public static SettingsPageViewModel Instance { get; } = new();
-
-        public
-#if !__MOBILE__
-            override
-#endif
-            string Name
-        {
-            get => AppResources.Settings;
-            protected set { throw new NotImplementedException(); }
-        }
-
         KeyValuePair<string, string> _SelectLanguage;
         public KeyValuePair<string, string> SelectLanguage
         {

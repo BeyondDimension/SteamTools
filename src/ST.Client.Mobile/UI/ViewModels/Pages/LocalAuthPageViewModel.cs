@@ -2,7 +2,7 @@ using System.Application.UI.Resx;
 
 namespace System.Application.UI.ViewModels
 {
-    partial class LocalAuthPageViewModel : ViewModelBase
+    partial class LocalAuthPageViewModel
     {
         public enum ActionItem
         {

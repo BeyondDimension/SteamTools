@@ -1,7 +1,6 @@
 using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
@@ -10,10 +9,8 @@ using System.Windows.Threading;
 
 namespace System.Application.UI.ViewModels
 {
-    public class TaskBarWindowViewModel : WindowViewModel
+    public partial class TaskBarWindowViewModel : WindowViewModel
     {
-        public static string TitleString => ThisAssembly.AssemblyTrademark;
-
         public string Version => ThisAssembly.Version;
 
         public IEnumerable<TabItemViewModel>? Tabs { get; }
@@ -41,8 +38,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public const string CommandExit = "Exit";
-        public static TabItemViewModel.TabItemId SettingsId = TabItemViewModel.TabItemId.Settings;
+        public const TabItemViewModel.TabItemId SettingsId = TabItemViewModel.TabItemId.Settings;
 
         public void MenuClick(object tag)
         {

@@ -1,17 +1,7 @@
 namespace System.Application.UI.ViewModels
 {
-    partial class AboutPageViewModel : TabItemViewModel
+    partial class AboutPageViewModel
     {
-        public override TabItemId Id => TabItemId.About;
-
-        public static AboutPageViewModel Instance { get; } = new();
-
-        public override string Name
-        {
-            get => TitleName;
-            protected set { throw new NotSupportedException(); }
-        }
-
         public static string RmbadminSteamLink => SteamApiUrls.MY_PROFILE_URL;
 
         public static string RmbadminLink => UrlConstants.GitHub_User_Rmbadmin;

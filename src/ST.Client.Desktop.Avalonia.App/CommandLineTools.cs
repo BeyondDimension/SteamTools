@@ -189,48 +189,6 @@ namespace System.Application.UI
                 });
                 rootCommand.AddCommand(unlock_achievement);
 
-#if LINUX || DEBUG
-                // -clt tray -handle -pid
-                var tray = new Command("tray");
-                tray.AddOption(new Option<string>("-handle"));
-                tray.AddOption(new Option<int>("-pid"));
-                tray.Handler = CommandHandler.Create((string handle, int pid) =>
-                {
-#if LINUX
-                    // https://www.mono-project.com/docs/gui/gtksharp/widgets/notification-icon/
-                    // Initialize GTK#
-                    GtkApplication.Init();
-#endif
-
-                    DI.Init(ConfigureServices);
-
-                    var notifyIconPipeClient = new NotifyIconHelper.PipeClient(handle, pid);
-                    notifyIconPipeClient.OnStart();
-
-                    (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIcon);
-                    notifyIcon.Click += (_, _) =>
-                    {
-                        notifyIconPipeClient.Append(NotifyIconHelper.PipeCore.CommandNotifyIconClick);
-                    };
-
-#if LINUX
-                    GtkApplication.Run();
-#endif
-
-                    menuItemDisposable?.Dispose();
-                    notifyIcon.Dispose();
-#if LINUX || DEBUG
-                    notifyIconPipeClient.Dispose();
-#endif
-
-                    static void ConfigureServices(IServiceCollection services)
-                    {
-                        services.AddNotifyIcon();
-                    }
-                });
-                rootCommand.AddCommand(tray);
-#endif
-
                 var r = rootCommand.InvokeAsync(args).Result;
                 return r;
             }

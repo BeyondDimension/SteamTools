@@ -62,7 +62,7 @@ namespace System.Application.UI.Activities
 
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
-                Title = ViewModel.Title;
+                Title = ViewModel.Name;
                 if (binding == null) return;
                 binding.tvAgreementAndPrivacy.TextFormatted = CreateAgreementAndPrivacy();
             }).AddTo(this);
