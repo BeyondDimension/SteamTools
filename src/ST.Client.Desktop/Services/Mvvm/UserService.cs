@@ -238,7 +238,7 @@ namespace System.Application.Services
                             if (!string.IsNullOrWhiteSpace(avatarUrl))
                             {
                                 var avatarLocalFilePath = await IHttpService.Instance.GetImageAsync(avatarUrl, ImageChannelType.SteamAvatars);
-                                AvaterPath = CircleImageStream.Convert(avatarLocalFilePath);
+                                AvaterPath = CircleImageStream.TryConvert(avatarLocalFilePath);
                             }
                             return;
                         }
@@ -260,7 +260,7 @@ namespace System.Application.Services
                     {
                         CurrentSteamUser = await ISteamworksWebApiService.Instance.GetUserInfo(User.SteamAccountId.Value);
                         CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                        var avaterStream = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
+                        var avaterStream = CircleImageStream.TryConvert(await CurrentSteamUser.AvatarStream);
                         AvaterPath = avaterStream ?? DefaultAvaterPath;
                         return true;
                     }

@@ -216,7 +216,7 @@ namespace System.Application.Services
                                     IsConnectToSteam = true;
                                     CurrentSteamUser = await DI.Get<ISteamworksWebApiService>().GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                                    AvaterPath = CircleImageStream.Convert(await CurrentSteamUser.AvatarStream);
+                                    AvaterPath = CircleImageStream.TryConvert(await CurrentSteamUser.AvatarStream);
 
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();

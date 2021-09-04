@@ -5,6 +5,8 @@ namespace System.Application.Models
 {
     public class ImageClipStream : IDisposable
     {
+        bool disposedValue;
+
         public ImageClipStream(Stream? stream)
         {
             Stream = stream;
@@ -53,9 +55,34 @@ namespace System.Application.Models
 
         public bool Circle { get; set; }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                    Stream?.Dispose();
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                // TODO: 将大型字段设置为 null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        // ~ImageClipStream()
+        // {
+        //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        //     Dispose(disposing: false);
+        // }
+
         public void Dispose()
         {
-            ((IDisposable)Stream).Dispose();
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 
@@ -72,15 +99,36 @@ namespace System.Application.Models
         }
 
         [return: NotNullIfNotNull("stream")]
-        public static CircleImageStream? Convert(Stream? stream)
+        static CircleImageStream? Convert(Stream? stream)
             => stream == null ? null : new(stream);
 
         [return: NotNullIfNotNull("stream")]
         public static implicit operator CircleImageStream?(Stream? stream) => Convert(stream);
 
         [return: NotNullIfNotNull("filePath")]
-        public static CircleImageStream? Convert(string? filePath)
+        static CircleImageStream? Convert(string? filePath)
             => filePath == null ? null : new(filePath);
+
+        /// <summary>
+        /// 将图片文件路径或 Avalonia 资源路径转为圆形图像源
+        /// </summary>
+        /// <param name="filePathOrResPath"></param>
+        /// <returns></returns>
+        public static object? TryConvert(string? filePathOrAvaloniaResPath)
+        {
+            if (filePathOrAvaloniaResPath == null)
+                return null;
+            if (filePathOrAvaloniaResPath.StartsWith("avares:"))
+                return filePathOrAvaloniaResPath;
+            try
+            {
+                return Convert(filePathOrAvaloniaResPath);
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         [return: NotNullIfNotNull("filePath")]
         public static implicit operator CircleImageStream?(string? filePath) => Convert(filePath);
