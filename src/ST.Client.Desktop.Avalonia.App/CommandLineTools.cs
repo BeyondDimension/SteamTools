@@ -5,6 +5,9 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using System.Windows;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+#if LINUX
+using GtkApplication = Gtk.Application;
+#endif
 
 namespace System.Application.UI
 {
@@ -186,6 +189,7 @@ namespace System.Application.UI
                 });
                 rootCommand.AddCommand(unlock_achievement);
 
+#if LINUX || DEBUG
                 // -clt tray -handle -pid
                 var tray = new Command("tray");
                 tray.AddOption(new Option<string>("-handle"));
@@ -200,11 +204,8 @@ namespace System.Application.UI
 
                     DI.Init(ConfigureServices);
 
-
-#if LINUX || DEBUG
                     var notifyIconPipeClient = new NotifyIconHelper.PipeClient(handle, pid);
                     notifyIconPipeClient.OnStart();
-#endif
 
                     (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIcon);
                     notifyIcon.Click += (_, _) =>
@@ -228,6 +229,7 @@ namespace System.Application.UI
                     }
                 });
                 rootCommand.AddCommand(tray);
+#endif
 
                 var r = rootCommand.InvokeAsync(args).Result;
                 return r;
