@@ -3,7 +3,9 @@ using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using Avalonia.Styling;
 using FluentAvalonia.Styling;
+using ReactiveUI;
 using System;
+using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
 
@@ -93,21 +95,27 @@ namespace Avalonia.Controls
 
                 HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
 
-                this.GetObservable(WidthProperty).Subscribe(v =>
-                {
-                    vm.SizePosition.Width = v;
-                });
-                this.GetObservable(HeightProperty).Subscribe(v =>
-                {
-                    vm.SizePosition.Height = v;
-                });
+                this.WhenAnyValue(x => x.ClientSize)
+                    .Subscribe(x =>
+                    {
+                        vm.SizePosition.Width = x.Width;
+                        vm.SizePosition.Height = x.Height;
+                    });
+
+                //this.GetObservable(WidthProperty).Subscribe(v =>
+                //{
+                //    vm.SizePosition.Width = v;
+                //});
+                //this.GetObservable(HeightProperty).Subscribe(v =>
+                //{
+                //    vm.SizePosition.Height = v;
+                //});
             }
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-
             if (OperatingSystem2.IsWindows)
             {
                 ExtendClientAreaChromeHints =

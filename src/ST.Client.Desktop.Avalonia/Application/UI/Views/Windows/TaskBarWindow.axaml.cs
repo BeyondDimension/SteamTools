@@ -124,7 +124,10 @@ namespace System.Application.UI.Views.Windows
                     });
             }
 
-            DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.HandleWindow { Handle = this.PlatformImpl.Handle.Handle });
+            if (OperatingSystem2.IsWindows)
+            {
+                DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.HandleWindow { Handle = this.PlatformImpl.Handle.Handle });
+            }
         }
 
         private void InitializeComponent()

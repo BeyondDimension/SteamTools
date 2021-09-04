@@ -44,5 +44,7 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         bool HasActiveWindow();
+
+        void SetDesktopBackgroundWindow();
     }
 }

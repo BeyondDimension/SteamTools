@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
              mc:Ignorable="d"
              x:Name="u"
              IsHitTestVisible="False"
@@ -14,6 +15,9 @@
                   Stretch="UniformToFill"
                   Opacity="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay,Converter={StaticResource IsVisibleToOpacity},ConverterParameter=0.8}"/>
     </Panel.Background>
+    <!--<Panel ZIndex="0">
+      <controls:EmptyControl/>
+    </Panel>-->
     <!--<Image IsHitTestVisible="False"
        IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay}"
        Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
@@ -28,7 +32,7 @@
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" 
+      <ExperimentalAcrylicBorder DockPanel.Dock="Bottom"
                                  x:Name="Back"
                                  IsHitTestVisible="False">
         <!--Opacity="{StaticResource ContentOpacity}"-->

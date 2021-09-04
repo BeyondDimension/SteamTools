@@ -163,8 +163,12 @@ namespace System
         public static extern IntPtr SendMessage(IntPtr hwnd, uint msg, IntPtr wParam, IntPtr lParam);
 
         public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
         [DllImport(LibraryName, ExactSpelling = true)]
         public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport(LibraryName, ExactSpelling = true)]
+        public static extern int EnumChildWindows(IntPtr hWndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
         [DllImport(LibraryName, ExactSpelling = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -211,6 +215,9 @@ namespace System
         [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetForegroundWindow")]
         //设置此窗体为活动窗体
         public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetLayeredWindowAttributes")]
+        public static extern int SetLayeredWindowAttributes(IntPtr hwnd, int crKey, int bAlpha, int dwFlags);
 
         public static void FlashWindow(IntPtr hwnd)
         {

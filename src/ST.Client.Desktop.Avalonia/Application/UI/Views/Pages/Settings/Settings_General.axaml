@@ -18,7 +18,7 @@
         </Style>
         <Style Selector="TextBlock.prompt">
           <Setter Property="FontSize" Value="12" />
-          <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
+          <!--<Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />-->
           <Setter Property="VerticalAlignment" Value="Center" />
           <Setter Property="Margin" Value="10 0" />
         </Style>

@@ -137,7 +137,7 @@ namespace System.Application.UI
                 // -clt c -silence
                 var common = new Command("c", "common");
                 common.AddOption(new Option<bool>("-silence", "静默启动（不弹窗口）"));
-                common.Handler = CommandHandler.Create((bool silence, long steamuser) =>
+                common.Handler = CommandHandler.Create((bool silence) =>
                 {
                     IsMinimize = silence;
                     MainHandlerByCLT();

@@ -463,6 +463,17 @@ namespace System.Application.UI
             return MainWindow;
         }
 
+        public void SetDesktopBackgroundWindow()
+        {
+            if (OperatingSystem2.IsWindows)
+            {
+                var window = (App.Instance.MainWindow as MainWindow);
+                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(
+                    window._backHandle, (int)App.Instance.MainWindow.Width, (int)App.Instance.MainWindow.Height);
+            }
+        }
+
+
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
         /// </summary>

@@ -63,5 +63,23 @@ namespace System.Application.Services
 
         [SupportedOSPlatform("Windows")]
         void SetActiveWindow(HandleWindow window);
+
+        /// <summary>
+        /// 设置窗口点击穿透
+        /// </summary>
+        /// <param name="window"></param>
+        void SetWindowPenetrate(IntPtr dest);
+
+        /// <summary>
+        /// 设置缩略图到指定窗口句柄
+        /// </summary>
+        [SupportedOSPlatform("Windows")]
+        IntPtr SetDesktopBackgroundToWindow(IntPtr dest, int width, int height);
+
+        [SupportedOSPlatform("Windows")]
+        void BackgroundUpdate(IntPtr dest, int width, int height);
+
+        [SupportedOSPlatform("Windows")]
+        void ReleaseBackground(IntPtr dest);
     }
 }

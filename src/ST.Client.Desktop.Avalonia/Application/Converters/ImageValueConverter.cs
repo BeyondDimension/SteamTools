@@ -81,8 +81,12 @@ namespace System.Application.Converters
             return GetDecodeBitmap(stream, width);
         }
 
-        protected static Bitmap GetDecodeBitmap(Stream s, int width)
+        protected static Bitmap? GetDecodeBitmap(Stream s, int width)
         {
+            if (s == null) 
+            {
+                return null;
+            }
             if (width < 1)
             {
                 return new Bitmap(s);
@@ -98,11 +102,13 @@ namespace System.Application.Converters
                 return null;
         }
 
-        protected static Stream OpenAssets(Uri uri)
+        protected static Stream? OpenAssets(Uri uri)
         {
             var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            var asset = assets.Open(uri);
-            return asset;
+            Stream? stream = null;
+            if (assets.Exists(uri))
+                stream = assets.Open(uri);
+            return stream;
         }
 
         protected static Uri GetResUri(string relativeUri, string? assemblyName = null)

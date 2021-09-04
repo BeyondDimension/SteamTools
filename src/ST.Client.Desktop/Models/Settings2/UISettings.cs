@@ -15,11 +15,26 @@ namespace System.Application.Models.Settings
             //Theme.ValueChanged += Theme_ValueChanged;
 #if !__MOBILE__
             AppGridSize.ValueChanged += AppGridSize_ValueChanged;
+            EnableDesktopBackground.ValueChanged += EnableDesktopBackground_ValueChanged;
 #endif
         }
 
-
 #if !__MOBILE__
+        private static void EnableDesktopBackground_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
+        {
+            if (OperatingSystem2.IsWindows)
+            {
+                if (e.NewValue)
+                {
+                    IDesktopAppService.Instance.SetDesktopBackgroundWindow();
+                }
+                else
+                {
+                    DI.Get<ISystemWindowApiService>().ResetWallerpaper();
+                }
+            }
+        }
+
         private static void AppGridSize_ValueChanged(object? sender, ValueChangedEventArgs<int> e)
         {
             SteamConnectService.Current.SteamApps.Refresh();
@@ -96,7 +111,13 @@ namespace System.Application.Models.Settings
             = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
-        /// 启用自定义背景图标
+        /// 启用动态桌面背景
+        /// </summary>
+        public static SerializableProperty<bool> EnableDesktopBackground { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
+
+        /// <summary>
+        /// 启用自定义背景图片
         /// </summary>
         public static SerializableProperty<bool> EnableCustomBackgroundImage { get; }
             = GetProperty(defaultValue: false, autoSave: true);

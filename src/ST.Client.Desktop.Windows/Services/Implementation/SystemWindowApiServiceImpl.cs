@@ -1,5 +1,6 @@
 using System.Application.Models;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
 
@@ -168,11 +169,105 @@ namespace System.Application.Services.Implementation
             //Marshal.FreeHGlobal(p);
         }
 
-
-        public void SetActiveWindow(HandleWindow window) 
+        /// <summary>
+        /// 激活窗口并置顶
+        /// </summary>
+        /// <param name="window"></param>
+        public void SetActiveWindow(HandleWindow window)
         {
             User32Window.SetActiveWindow(window.Handle);
             User32Window.SetForegroundWindow(window.Handle);
+        }
+
+        /// <summary>
+        /// 设置窗口点击穿透
+        /// </summary>
+        /// <param name="window"></param>
+        public void SetWindowPenetrate(IntPtr dest)
+        {
+            int style = User32Window.GetWindowLongA(dest, (int)WindowLongFlags.GWL_EXSTYLE);
+            User32Window.SetWindowLong(dest, (int)WindowLongFlags.GWL_EXSTYLE, style | (int)UnmanagedMethods.WindowStyles.WS_EX_TRANSPARENT | (int)UnmanagedMethods.WindowStyles.WS_EX_LAYERED);
+            User32Window.SetLayeredWindowAttributes(dest, 0, 100, 0);
+        }
+
+        /// <summary>
+        /// 设置缩略图到指定窗口句柄
+        /// </summary>
+        public IntPtr SetDesktopBackgroundToWindow(IntPtr dest, int width, int height)
+        {
+            //backgroundPath = null;
+            //IntPtr wep = IntPtr.Zero;
+            //User32Window.EnumWindows(((hwnd, e) =>
+            //{
+            //    IntPtr p = User32Window.FindWindowEx(hwnd,
+            //          IntPtr.Zero,
+            //          "SHELLDLL_DefView",
+            //          null);
+            //    if (p != IntPtr.Zero)
+            //    {
+            //        IntPtr workerw = User32Window.FindWindowEx(IntPtr.Zero,
+            //            hwnd,
+            //            "WorkerW",
+            //            null);
+
+            //        User32Window.EnumChildWindows(workerw, ((hwnd2, e2) =>
+            //        {
+            //            wep = hwnd2;
+            //            return true;
+            //        }), IntPtr.Zero);
+            //    }
+            //    return true;
+            //}), IntPtr.Zero);
+
+            //if (wep == IntPtr.Zero)
+            //{
+            //    IntPtr r = IntPtr.Zero;
+            //    MouseHook.SystemParametersInfo((uint)MouseHook.SystemParametersDesktopInfo.SPI_GETDESKWALLPAPER, 300, r, (uint)MouseHook.SystemParamtersInfoFlags.None);
+
+            //    backgroundPath = Marshal.PtrToStringAuto(r);  //默认桌面路径
+            //    return;
+            //}
+
+            IntPtr p = User32Window.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "Progman", null);
+
+            ReleaseBackground(dest);
+
+            var temp = DWMApi.DwmRegisterThumbnail(dest, p, out dest);
+
+            if (temp == 0)
+                BackgroundUpdate(dest, width, height);
+
+            return dest;
+        }
+
+        public void BackgroundUpdate(IntPtr dest, int width, int height)
+        {
+            if (dest == IntPtr.Zero)
+                return;
+
+            DWMApi.DwmQueryThumbnailSourceSize(dest, out PSIZE size);
+
+            var props = new DWM_THUMBNAIL_PROPERTIES
+            {
+                fVisible = true,
+                dwFlags = DWMApi.DWM_TNP_VISIBLE | DWMApi.DWM_TNP_RECTDESTINATION | DWMApi.DWM_TNP_OPACITY,
+                opacity = 255,
+                rcDestination = new RECT(0, 0, width, height),
+            };
+
+            if (size.x < width)
+                props.rcDestination.Right = props.rcDestination.Left + size.x;
+
+            if (size.y < height)
+                props.rcDestination.Bottom = props.rcDestination.Top + size.y;
+
+            DWMApi.DwmUpdateThumbnailProperties(dest, ref props);
+        }
+
+        public void ReleaseBackground(IntPtr dest)
+        {
+            if (dest != IntPtr.Zero)
+                DWMApi.DwmUnregisterThumbnail(dest);
         }
     }
 }

@@ -22,7 +22,7 @@
         </Style>
         <Style Selector="TextBlock.prompt">
           <Setter Property="FontSize" Value="12" />
-          <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
+          <!--<Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />-->
           <Setter Property="VerticalAlignment" Value="Center" />
           <Setter Property="Margin" Value="10 0" />
         </Style>
@@ -48,7 +48,8 @@
           <RadioButton x:Name="AccentCustom"
                        Content="{ReflectionBinding Path=Res.Settings_UI_Custom,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.GetUserThemeAccent},Path=!Value, Mode=OneWay}"/>
-          <ui:ColorPickerButton IsEnabled="{ReflectionBinding #AccentCustom.IsChecked}"
+          <ui:ColorPickerButton IsVisible="{ReflectionBinding #AccentCustom.IsChecked}"
+                                IsEnabled="{ReflectionBinding #AccentCustom.IsChecked}"
                                 Color="{ReflectionBinding Source={x:Static ms:UISettings.ThemeAccent},Converter={StaticResource ColorStringToBrush},Path=Value, Mode=TwoWay}"/>
         </StackPanel>
       </StackPanel>
@@ -106,6 +107,13 @@
       <Separator Classes="Separator"/>
 
       <StackPanel Orientation="Vertical">
+        <DockPanel>
+          <TextBlock Text="使用动态桌面背景"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </StackPanel>
+
+      <StackPanel Orientation="Vertical" IsEnabled="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=!Value, Mode=OneWay}">
         <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_CustomBackgroundImage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=TwoWay}"/>
