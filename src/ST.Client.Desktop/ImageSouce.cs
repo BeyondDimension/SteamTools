@@ -103,7 +103,7 @@ namespace System.Application
         /// </summary>
         /// <param name="filePathOrAvaloniaResPath"></param>
         /// <param name="isCircle">是否为圆形</param>
-        /// <param name="config">是否为圆形</param>
+        /// <param name="config">图像可配置选项</param>
         /// <returns></returns>
         public static object? TryParse(string? filePathOrAvaloniaResPath, bool isCircle = false, Action<ClipStream>? config = null)
         {
