@@ -72,18 +72,16 @@ namespace System.Application.Services.Implementation
         }
 
         public const string xdg = "xdg-open";
-        public void OpenFolder(string dirPath)
+
+        public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
-            if (IOPath.IsDirectory(dirPath))
-            {
-                IDesktopPlatformService.Instance.StartProcess(xdg, dirPath);
-            }
-            else
-            {
-                var path = new FileInfo(dirPath);
-                if (!string.IsNullOrWhiteSpace(path.DirectoryName))
-                    IDesktopPlatformService.Instance.StartProcess(xdg, path.DirectoryName);
-            }
+            IDesktopPlatformService.Instance.StartProcess(xdg, info.FullName);
+        }
+
+        public void OpenFolderSelectFilePath(FileInfo info)
+        {
+            if (info.DirectoryName == null) return;
+            IDesktopPlatformService.Instance.StartProcess(xdg, info.DirectoryName);
         }
 
         public const string kate = "kate";

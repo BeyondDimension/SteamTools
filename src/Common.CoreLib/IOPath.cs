@@ -218,40 +218,28 @@ namespace System
         }
 
         /// <summary>
-        /// 判断路径是否为[文件夹(Dir)]
+        /// 判断路径是否为[文件夹(Dir)]，返回 <see cref="FileInfo"/> 或 <see cref="DirectoryInfo"/>，<see langword="true"/> 为文件夹，<see langword="false"/> 为文件，路径不存在则为 <see langword="null"/>
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="fileInfo"></param>
+        /// <param name="directoryInfo"></param>
         /// <returns></returns>
-        public static bool IsDirectory(string path)
+        public static bool? IsDirectory(string path, [NotNullWhen(false)] out FileInfo? fileInfo, [NotNullWhen(true)] out DirectoryInfo? directoryInfo)
         {
-#if NET35
-            throw new PlatformNotSupportedException();
-#else
-            var attr = File.GetAttributes(path);
-            return attr.HasFlag(FileAttributes.Directory);
-#endif
-        }
-
-        /// <summary>
-        /// 获取[文件夹(Dir)]路径
-        /// <para>如果传入的参数为[文件(File)]路径，则返回当前所在[文件夹(Dir)]路径</para>
-        /// <para>如果传入的参数为[文件夹(Dir)]路径，则直接返回参数</para>
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string GetDirectoryPath(string path)
-        {
-            try
+            fileInfo = new(path);
+            if (fileInfo.Exists)
             {
-                if (!IsDirectory(path))
-                {
-                    return Path.GetDirectoryName(path) ?? string.Empty;
-                }
+                directoryInfo = null;
+                return false;
             }
-            catch
+            fileInfo = null;
+            directoryInfo = new(path);
+            if (directoryInfo.Exists)
             {
+                return true;
             }
-            return path;
+            directoryInfo = null;
+            return false;
         }
 
         static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
@@ -337,12 +325,7 @@ namespace System
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns>单位 字节</returns>
-        public static double GetFileSize(string filePath)
-        {
-            // 定义一个FileInfo对象，是指与filePath所指向的文件相关联，以获取其大小
-            FileInfo fileInfo = new(filePath);
-            return fileInfo.Length;
-        }
+        public static double GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0D;
 
         /// <summary>
         /// 获取指定路径的大小
@@ -351,21 +334,23 @@ namespace System
         /// <returns>单位 字节</returns>
         public static double GetDirectorySize(string dirPath)
         {
-            double len = 0;
+            double len = 0D;
             // 判断该路径是否存在（是否为文件夹）
-            if (!IsDirectory(dirPath))
+            var isDirectory = IsDirectory(dirPath, out var fileInfo, out var directoryInfo);
+            if (isDirectory.HasValue)
             {
-                //查询文件的大小
-                len = GetFileSize(dirPath);
-            }
-            else
-            {
-                // 定义一个DirectoryInfo对象
-                DirectoryInfo di = new(dirPath);
-                // 通过GetFiles方法，获取di目录中的所有文件的大小
-                len += di.GetFiles().Sum(x => x.Length);
-                // 获取di中所有的文件夹，并存到一个新的对象数组中，以进行递归
-                len += di.GetDirectories().Sum(x => GetDirectorySize(x.FullName));
+                if (!isDirectory.Value)
+                {
+                    //查询文件的大小
+                    len = GetFileSize(fileInfo!);
+                }
+                else
+                {
+                    // 通过GetFiles方法，获取di目录中的所有文件的大小
+                    len += directoryInfo!.GetFiles().Sum(x => x.Length);
+                    // 获取di中所有的文件夹，并存到一个新的对象数组中，以进行递归
+                    len += directoryInfo.GetDirectories().Sum(x => GetDirectorySize(x.FullName));
+                }
             }
             return len;
         }

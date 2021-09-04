@@ -127,16 +127,14 @@ namespace System.Application.Services.Implementation
 
         }
 
-        public void OpenFolder(string dirPath)
+        public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
-            if (IOPath.IsDirectory(dirPath))
-            {
-                NSWorkspace.SharedWorkspace.SelectFile(null, dirPath);
-            }
-            else
-            {
-                NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] { new NSUrl(dirPath, isDir: false) });
-            }
+            NSWorkspace.SharedWorkspace.SelectFile(null, info.FullName);
+        }
+
+        public void OpenFolderSelectFilePath(FileInfo info)
+        {
+            NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] { new NSUrl(info.FullName, isDir: false) });
         }
 
         const string TextEdit = "TextEdit";
@@ -171,7 +169,8 @@ namespace System.Application.Services.Implementation
         }
 
         public string GetLastSteamLoginUserName() => string.Empty;
-        public string? GetRegistryVdfPath() {
+        public string? GetRegistryVdfPath()
+        {
             var value = string.Format(
                     "{0}Users{0}{1}{0}Library{0}Application Support{0}Steam{0}registry.vdf",
                     Path.DirectorySeparatorChar,
@@ -191,18 +190,18 @@ namespace System.Application.Services.Implementation
                     {
                         var oldStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{autoLoginUser}\"\n";
                         var newStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{userName}\"\n";
-                        VdfHelper.UpdateValueByReplaceNoPattern(registryVdfPath, oldStr, newStr); 
+                        VdfHelper.UpdateValueByReplaceNoPattern(registryVdfPath, oldStr, newStr);
                     }
                     else
                     {
-                        Log.Error("SetCurrentUser","UpdateAuthorizedAutoLoginUser Fail(0). AutoLoginUser IsNull");
+                        Log.Error("SetCurrentUser", "UpdateAuthorizedAutoLoginUser Fail(0). AutoLoginUser IsNull");
                     }
                 }
             }
             catch (Exception e)
             {
-                Log.Error("SetCurrentUser", e, "UpdateAuthorizedAutoLoginUser Fail(0)."); 
-            } 
+                Log.Error("SetCurrentUser", e, "UpdateAuthorizedAutoLoginUser Fail(0).");
+            }
 
         }
 

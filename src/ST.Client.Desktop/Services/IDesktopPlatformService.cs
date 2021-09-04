@@ -2,6 +2,7 @@ using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Windows;
@@ -138,8 +139,32 @@ namespace System.Application.Services
         /// <summary>
         /// 使用资源管理器打开某个路径
         /// </summary>
+        /// <param name="path"></param>
+        void OpenFolder(string path)
+        {
+            var isDirectory = IOPath.IsDirectory(path, out var fileInfo, out var directoryInfo);
+            if (!isDirectory.HasValue) return;
+            if (isDirectory.Value)
+            {
+                OpenFolderByDirectoryPath(directoryInfo!);
+            }
+            else
+            {
+                OpenFolderSelectFilePath(fileInfo!);
+            }
+        }
+
+        /// <summary>
+        /// 使用资源管理器打开文件夹路径
+        /// </summary>
         /// <param name="dirPath"></param>
-        void OpenFolder(string dirPath);
+        void OpenFolderByDirectoryPath(DirectoryInfo info);
+
+        /// <summary>
+        /// 使用资源管理器选中文件路径
+        /// </summary>
+        /// <param name="filePath"></param>
+        void OpenFolderSelectFilePath(FileInfo info);
 
         /// <summary>
         /// 设置系统关闭时任务
