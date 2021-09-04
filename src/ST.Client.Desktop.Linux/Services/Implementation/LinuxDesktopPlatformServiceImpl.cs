@@ -84,14 +84,13 @@ namespace System.Application.Services.Implementation
             IDesktopPlatformService.Instance.StartProcess(xdg, info.DirectoryName);
         }
 
-        public const string kate = "kate";
         public const string vi = "vi";
         const string VSC = "code";
 
         public string? GetFileName(TextReaderProvider provider) => provider switch
         {
             TextReaderProvider.VSCode => VSC,
-            TextReaderProvider.Notepad => kate,
+            TextReaderProvider.Notepad => xdg,
             _ => null,
         };
 
