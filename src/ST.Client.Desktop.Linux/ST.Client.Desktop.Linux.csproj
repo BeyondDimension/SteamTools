@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
@@ -22,5 +22,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Steam++.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

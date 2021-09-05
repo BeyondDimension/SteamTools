@@ -2,9 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 #endif
 using System.Runtime.InteropServices;
-#if !NOT_XE
-using Xamarin.Essentials;
-#endif
 
 namespace System
 {

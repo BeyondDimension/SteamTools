@@ -20,9 +20,6 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
-      <Link>Properties\InternalsVisibleTo.cs</Link>
-    </Compile>
     <Compile Include="..\ST.Client.Desktop.Avalonia.App\NotifyIconHelper.cs" />
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\TaskBarWindowViewModel.TrayIcon.cs">
       <LinkBase>ViewModels</LinkBase>
@@ -42,16 +39,22 @@
     <Compile Include="..\ST.Client.Desktop\UI\Resx\AppResources.Designer.cs">
       <LinkBase>Resx</LinkBase>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.cs">
+      <LinkBase>Properties</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
+      <LinkBase>Properties</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\DI.cs">
+      <LinkBase>Common</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NotifyIcon.Linux" />
     <PackageReference Include="GtkSharp" />
     <PackageReference Include="ReactiveUI" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
   <ItemGroup>
