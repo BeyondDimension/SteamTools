@@ -246,7 +246,11 @@ namespace System.Application.UI
             {
                 if (!OperatingSystem.IsLinux()) return;
                 var fileName = AppHelper.ProgramPath + "_LinuxTrayIcon";
-                if (!File.Exists(fileName)) return;
+
+                var unixSetFileAccessResult = IDesktopPlatformService.Instance.UnixSetFileAccess(fileName, IDesktopPlatformService.UnixPermission.Combined755);
+
+                if (unixSetFileAccessResult != IDesktopPlatformService.UnixSetFileAccessResult.Success)
+                    return;
 
                 Process pipeClient = new();
 

@@ -6,7 +6,7 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace System
 {
-    internal static class NativeMethods
+    internal static partial class NativeMethods
     {
         [DllImport("Avrt.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr AvSetMmThreadCharacteristics(string taskName, ref uint taskIndex);
