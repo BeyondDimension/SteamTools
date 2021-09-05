@@ -90,7 +90,7 @@ namespace System.Application.Services
 
         bool UpdateAppListJson(List<SteamApp> apps, string filePath);
 
-        bool UpdateAppListJson(string appsJsonStr, string filePath); 
+        bool UpdateAppListJson(string appsJsonStr, string filePath);
         void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false);
 
         void UpdateLocalUserData(SteamUser user);
@@ -103,37 +103,6 @@ namespace System.Application.Services
         Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type);
 
         ValueTask LoadAppImageAsync(SteamApp app);
-
-        public const string LoginUsingSteamClientCookieObsolete = "获取 Steam 客户端自动登录 Cookie 自动化流程有很大概率失败，后续改为在系统默认浏览器中进行第三方账号快速登录。";
-
-        /// <summary>
-        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
-        /// </summary>
-        /// <param name="runasInvoker"></param>
-        /// <returns></returns>
-        [Obsolete(LoginUsingSteamClientCookieObsolete)]
-        Task<(LoginUsingSteamClientResultCode resultCode, CookieCollection? cookies)> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false);
-
-        /// <summary>
-        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="OperationCanceledException"></exception>
-        [Obsolete(LoginUsingSteamClientCookieObsolete)]
-        Task<(LoginUsingSteamClientResultCode resultCode, string[]? cookies)> GetLoginUsingSteamClientCookiesAsync();
-
-        [Obsolete(LoginUsingSteamClientCookieObsolete)]
-        public enum LoginUsingSteamClientResultCode
-        {
-            Success = 200,
-            Canceled = 601,
-            Exception1,
-            Exception2,
-            CantConnSteamCommunity,
-            CantConnLocalHost27060,
-            MissingCookieSteamLoginSecure,
-            EmptyOrNull,
-        }
 
         /// <summary>
         /// 获取已安装的SteamApp列表(包括正在下载的项)

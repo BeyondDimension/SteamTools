@@ -455,8 +455,9 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public string GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
+        public string? GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
         {
+            if (LibrarycacheDirPath == null) return null;
             var fileName = type switch
             {
                 SteamApp.LibCacheType.Header => $"{appId}_header.jpg",
@@ -515,334 +516,63 @@ namespace System.Application.Services.Implementation
             //}
         }
 
-        #region LoginUsingSteamClient
 
-        public async Task<(LoginUsingSteamClientResultCode resultCode, CookieCollection? cookies)> GetLoginUsingSteamClientCookieCollectionAsync(bool runasInvoker = false)
-        {
-            (LoginUsingSteamClientResultCode resultCode, string[]? cookies) result;
-            if (runasInvoker && OperatingSystem2.IsWindows && platformService.IsAdministrator)
-            {
-                result = await Task.Run(GetLoginUsingSteamClientCookies);
-            }
-            else
-            {
-                result = await GetLoginUsingSteamClientCookiesAsync();
-            }
-            CookieCollection? cookieCollection;
-            if (result.resultCode == LoginUsingSteamClientResultCode.Success)
-            {
-                cookieCollection = GetCookieCollection(uri_store_steampowered_checkclientautologin, result.cookies);
-            }
-            else
-            {
-                cookieCollection = default;
-            }
-            return (result.resultCode, cookieCollection);
-        }
-
-        async Task<(LoginUsingSteamClientResultCode resultCode, string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync()
-        {
-            LoginUsingSteamClientResultCode resultCode;
-            var canConn = await CanConnSteamCommunity();
-            if (canConn)
-            {
-                try
-                {
-                    var client = Http.Factory.CreateClient();
-                    client.Timeout = TimeSpan.FromSeconds(.85);
-                    var request = new HttpRequestMessage(HttpMethod.Get, url_localhost_auth_public);
-                    request.Headers.Add("Origin", url_store_steampowered);
-                    request.Headers.Add("Accept", MediaTypeNames.JSON);
-                    request.Headers.UserAgent.ParseAdd(Http.PlatformHelper.UserAgent);
-                    var response = await client.SendAsync(request);
-#if DEBUG
-                    Console.WriteLine("GetLoginUsingSteamClientAuthAsync");
-                    Console.WriteLine($"StatusCode: {response.StatusCode}");
-#endif
-                    if (response.IsSuccessStatusCode)
-                    {
-                        using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                        using var reader = new StreamReader(stream, Encoding.UTF8);
-                        using var json = new JsonTextReader(reader);
-                        var jsonObj = JObject.Load(json);
-                        var steamid = jsonObj["steamid"]!.ToString();
-#if DEBUG
-                        Console.WriteLine($"steamid: {steamid}");
-#endif
-                        var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
-#if DEBUG
-                        Console.WriteLine($"encrypted_loginkey: {encrypted_loginkey}");
-#endif
-                        var sessionkey = jsonObj["sessionkey"]!.ToString();
-#if DEBUG
-                        Console.WriteLine($"sessionkey: {sessionkey}");
-#endif
-                        var digest = jsonObj["digest"]!.ToString();
-#if DEBUG
-                        Console.WriteLine($"digest: {digest}");
-#endif
-                        resultCode = LoginUsingSteamClientResultCode.Success;
-                        return (resultCode, steamid, encrypted_loginkey, sessionkey, digest);
-                    }
-                    else
-                    {
-                        resultCode = (LoginUsingSteamClientResultCode)response.StatusCode;
-                    }
-                }
-                catch (OperationCanceledException)
-                {
-                    resultCode = LoginUsingSteamClientResultCode.Canceled;
-                }
-                catch (Exception)
-                {
-                    resultCode = LoginUsingSteamClientResultCode.Exception1;
-                }
-            }
-            else
-            {
-                resultCode = LoginUsingSteamClientResultCode.CantConnSteamCommunity;
-            }
-            return (resultCode, string.Empty, string.Empty, string.Empty, string.Empty);
-        }
-
-        const double url_steamcommunity_timeout_s = 5.95;
-
-        async Task<bool> CanConnSteamCommunity()
-        {
-            try
-            {
-                var client = Http.Factory.CreateClient();
-                client.Timeout = TimeSpan.FromSeconds(url_steamcommunity_timeout_s);
-                var request = new HttpRequestMessage(HttpMethod.Get, url_store_steampowered);
-                request.Headers.UserAgent.ParseAdd(Http.PlatformHelper.UserAgent);
-                var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-                return response.IsSuccessStatusCode;
-            }
-            catch (OperationCanceledException)
-            {
-            }
-            catch (Exception)
-            {
-            }
-            return default;
-        }
-
-        async Task<(LoginUsingSteamClientResultCode resultCode, string[]? cookies)> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data)
-        {
-            LoginUsingSteamClientResultCode resultCode;
-            try
-            {
-                var request = new HttpRequestMessage(HttpMethod.Post, uri_store_steampowered_checkclientautologin)
-                {
-#pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
-                    Content = new FormUrlEncodedContent(new Dictionary<string, string?>
-                {
-                    { "steamid", auth_data.steamid },
-                    { "sessionkey",  auth_data.sessionkey },
-                    { "encrypted_loginkey", auth_data.encrypted_loginkey },
-                    { "digest",  auth_data.digest },
-                }),
-#pragma warning restore CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
-                };
-                request.Headers.Add("Origin", url_store_steampowered);
-                request.Headers.Add("Accept", MediaTypeNames.JSON);
-                request.Headers.UserAgent.ParseAdd(Http.PlatformHelper.UserAgent);
-                var client = Http.Factory.CreateClient();
-                client.Timeout = TimeSpan.FromSeconds(url_steamcommunity_timeout_s);
-                var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-#if DEBUG
-                Console.WriteLine($"GetLoginUsingSteamClientCookiesAsync statusCode: {response.StatusCode}");
-#endif
-                if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
-                {
-                    var r = cookies.ToArray();
-#if DEBUG
-                    foreach (var item in r)
-                    {
-                        Console.WriteLine($"Set-Cookie: {item}");
-                    }
-                    Console.WriteLine("OK");
-#endif
-                    resultCode = LoginUsingSteamClientResultCode.Success;
-                    return (resultCode, r);
-                }
-                else
-                {
-#if DEBUG
-                    Console.WriteLine("Missing response headers set-cookie");
-#endif
-                    resultCode = response.StatusCode == HttpStatusCode.OK ?
-                        LoginUsingSteamClientResultCode.MissingCookieSteamLoginSecure :
-                        (LoginUsingSteamClientResultCode)response.StatusCode;
-                }
-            }
-            catch (Exception)
-            {
-                resultCode = LoginUsingSteamClientResultCode.Exception2;
-            }
-            return (resultCode, default);
-        }
-
-        public async Task<(LoginUsingSteamClientResultCode resultCode, string[]? cookies)> GetLoginUsingSteamClientCookiesAsync()
-        {
-            var (resultCode, steamid, encrypted_loginkey, sessionkey, digest) = await GetLoginUsingSteamClientAuthAsync();
-#if DEBUG
-            Console.WriteLine($"GetLoginUsingSteamClientAuthAsync resultCode: {resultCode}");
-#endif
-            if (resultCode != LoginUsingSteamClientResultCode.Success)
-            {
-                return (resultCode, default);
-            }
-            var cookies = await GetLoginUsingSteamClientCookiesAsync((steamid, encrypted_loginkey, sessionkey, digest));
-            return cookies;
-        }
-
-        [SupportedOSPlatform("Windows")]
-        (LoginUsingSteamClientResultCode resultCode, string[]? cookies) GetLoginUsingSteamClientCookies()
-        {
-            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE, StringComparison.OrdinalIgnoreCase))
-            {
-                var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
-                if (File.Exists(consoleProgramPath))
-                {
-                    var tempFileDirectoryName = IOPath.CacheDirectory;
-                    var tempFileName = Path.GetFileName(Path.GetTempFileName());
-                    var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
-                    var isDelTempFilePath = false;
-                    IOPath.FileIfExistsItDelete(tempFilePath);
-
-                    byte[]? value = null;
-                    using var rsa = RSA.Create(2048);
-
-                    using (var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
-                    {
-                        NotifyFilter = NotifyFilters.Attributes
-                            | NotifyFilters.CreationTime
-                            | NotifyFilters.DirectoryName
-                            | NotifyFilters.FileName
-                            | NotifyFilters.LastAccess
-                            | NotifyFilters.LastWrite
-                            | NotifyFilters.Security
-                            | NotifyFilters.Size,
-                    })
-                    {
-                        var connStr = tempFilePath;
-                        var rsaPK = rsa.ToJsonString(false);
-                        var key = Serializable.SMPB64U((connStr, rsaPK));
-                        try
-                        {
-                            var command = $"runas.exe /trustlevel:0x20000 \"\"{consoleProgramPath}\" getstmauth -key \"{key}\"\"";
-                            platformService.UnelevatedProcessStart(command);
-
-                            watcher.WaitForChanged(WatcherChangeTypes.Changed, IPC_Call_GetLoginUsingSteamClient_Timeout_MS);
-                            if (File.Exists(tempFilePath))
-                            {
-                                value = File.ReadAllBytes(tempFilePath);
-                            }
-                        }
-                        catch
-                        {
-                        }
-                    }
-
-                    if (value != null)
-                    {
-                        try
-                        {
-                            File.Delete(tempFilePath);
-                            isDelTempFilePath = true;
-                        }
-                        catch
-                        {
-                            isDelTempFilePath = false;
-                        }
-                        try
-                        {
-                            var fileBytes = Serializable.DMP<(byte[] cookiesBytes, byte[] aesKey)>(value);
-                            var aesKey = rsa.Decrypt(fileBytes.aesKey);
-                            using var aes = AESUtils.Create(aesKey);
-                            var cookiesBytes = aes.Decrypt(fileBytes.cookiesBytes);
-                            var cookies = Serializable.DMP<(LoginUsingSteamClientResultCode resultCode, string[]? result)>(cookiesBytes);
-                            return cookies;
-                        }
-                        catch
-                        {
-                        }
-                        finally
-                        {
-                            if (!isDelTempFilePath)
-                            {
-                                try
-                                {
-                                    IOPath.FileIfExistsItDelete(tempFilePath, true);
-                                }
-                                catch
-                                {
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return default;
-        }
-
-        static CookieCollection? GetCookieCollection(Uri url, IEnumerable<string>? cookies)
-        {
-            if (cookies == null) return null;
-            CookieContainer container = new();
-            foreach (var item in cookies)
-            {
-                if (string.IsNullOrWhiteSpace(item)) continue;
-                container.SetCookies(url, item);
-            }
-            var cookies2 = container.GetCookies(url);
-            return cookies2;
-        }
-
-        #endregion
-
-
-        private string[] GetLibraryPaths()
+        string[]? GetLibraryPaths()
         {
             if (string.IsNullOrEmpty(SteamDirPath) || !Directory.Exists(SteamDirPath))
             {
                 return null;
             }
 
-            List<string> paths = new List<string>()
-                {
-                    Path.Combine(SteamDirPath, "SteamApps")
-                };
-
-            string libraryFoldersPath = Path.Combine(SteamDirPath, "SteamApps", "libraryfolders.vdf");
-
-            dynamic v = VdfHelper.Read(libraryFoldersPath);
-
-            for (int i = 1; ; i++)
+            List<string> paths = new()
             {
-                dynamic pathNode = v.Value[i.ToString()];
+                Path.Combine(SteamDirPath, "SteamApps"),
+            };
 
-                if (pathNode == null) break;
+            try
+            {
 
-                if (pathNode.path != null)
+                string libraryFoldersPath = Path.Combine(SteamDirPath, "SteamApps", "libraryfolders.vdf");
+
+                dynamic v = VdfHelper.Read(libraryFoldersPath);
+
+                for (int i = 1; ; i++)
                 {
-                    // New format
-                    // Valve introduced a new format for the "libraryfolders.vdf" file
-                    // In the new format, the node "1" not only contains a single value (the path),
-                    // but multiple values: path, label, mounted, contentid
+                    try
+                    {
+                        dynamic pathNode = v.Value[i.ToString()];
 
-                    // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
-                    // We consider only the value '1' as that the path is actually enabled.
-                    if (pathNode.mounted != null && pathNode.mounted.ToString() != "1")
-                        continue;
-                    pathNode = pathNode.path;
+                        if (pathNode == null) break;
+
+                        if (pathNode.path != null)
+                        {
+                            // New format
+                            // Valve introduced a new format for the "libraryfolders.vdf" file
+                            // In the new format, the node "1" not only contains a single value (the path),
+                            // but multiple values: path, label, mounted, contentid
+
+                            // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
+                            // We consider only the value '1' as that the path is actually enabled.
+                            if (pathNode.mounted != null && pathNode.mounted.ToString() != "1")
+                                continue;
+                            pathNode = pathNode.path;
+                        }
+
+                        string path = Path.Combine(pathNode.ToString(), "SteamApps");
+
+                        if (Directory.Exists(path))
+                            paths.Add(path);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(TAG, e, "GetLibraryPaths for catch");
+                    }
                 }
 
-                string path = Path.Combine(pathNode.ToString(), "SteamApps");
-
-                if (Directory.Exists(path))
-                    paths.Add(path);
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "GetLibraryPaths Read libraryFoldersPath catch");
             }
 
             return paths.ToArray();
@@ -896,13 +626,13 @@ namespace System.Application.Services.Implementation
             var appInfos = new List<SteamApp>();
             try
             {
-                string[] libraryPaths = GetLibraryPaths();
-                if (libraryPaths.Length == 0)
+                var libraryPaths = GetLibraryPaths();
+                if (!libraryPaths.Any_Nullable())
                 {
                     Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
                 }
 
-                foreach (string path in libraryPaths)
+                foreach (string path in libraryPaths!)
                 {
                     DirectoryInfo di = new DirectoryInfo(path);
 
@@ -926,7 +656,7 @@ namespace System.Application.Services.Implementation
             return appInfos.OrderBy(x => x.Name).ToList();
         }
 
-        private uint IdFromAcfFilename(string filename)
+        static uint IdFromAcfFilename(string filename)
         {
             string filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
 
@@ -939,16 +669,18 @@ namespace System.Application.Services.Implementation
         /// </summary>
         public void InitWatchSteamDownloading(Action<uint> changedAction, Action<uint> deleteAction)
         {
-            string[] libraryPaths = GetLibraryPaths();
-            if (libraryPaths.Length == 0)
+            var libraryPaths = GetLibraryPaths();
+            if (!libraryPaths.Any_Nullable())
             {
                 Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
             }
 
-            foreach (string libraryFolder in libraryPaths)
+            foreach (string libraryFolder in libraryPaths!)
             {
-                var fsw = new FileSystemWatcher(libraryFolder, "*.acf");
-                fsw.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.CreationTime;
+                var fsw = new FileSystemWatcher(libraryFolder, "*.acf")
+                {
+                    NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.CreationTime,
+                };
                 fsw.Changed += Fsw_Changed;
                 fsw.Deleted += Fsw_Deleted;
                 fsw.EnableRaisingEvents = true;
