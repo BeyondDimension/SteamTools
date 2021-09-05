@@ -8,6 +8,7 @@
         xmlns:local="clr-namespace:System.Application.UI.Views;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
         x:Class="System.Application.UI.Views.MainWindow"
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
@@ -23,11 +24,12 @@
     </Style>
   </Window.Styles>
   <Panel Margin="{Binding #MainWindow.OffScreenMargin}">
-    <Panel ZIndex="0"
+    <!--<Panel ZIndex="0"
            HorizontalAlignment="Stretch"
            VerticalAlignment="Stretch">
-      <controls:EmptyControl x:Name="DesktopBackground"/>
-    </Panel>
+      <controls:EmptyControl x:Name="DesktopBackground" 
+           IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=Value,Mode=TwoWay}"/>
+    </Panel>-->
     <local:MainView DataContext="{Binding}"/>
     <!--<controls:WebView3 IsVisible="False" InitialUrl="chrome://version"></controls:WebView3>-->
   </Panel>

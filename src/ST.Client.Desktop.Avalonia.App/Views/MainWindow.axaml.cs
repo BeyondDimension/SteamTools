@@ -20,10 +20,10 @@ namespace System.Application.UI.Views
             //var background = this.FindControl<EmptyControl>("DesktopBackground");
             //_backHandle = background.Handle;
 
-            if (OperatingSystem2.IsWindows && !OperatingSystem2.IsWindows11AtLeast)
-            {
-                TransparencyLevelHint = WindowTransparencyLevel.Transparent;
-            }
+            //if (OperatingSystem2.IsWindows && !OperatingSystem2.IsWindows11AtLeast)
+            //{
+            //    TransparencyLevelHint = WindowTransparencyLevel.Transparent;
+            //}
 #if DEBUG
             this.AttachDevTools();
 #endif

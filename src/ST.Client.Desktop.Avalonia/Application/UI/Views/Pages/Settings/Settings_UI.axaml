@@ -106,12 +106,12 @@
 
       <Separator Classes="Separator"/>
 
-      <StackPanel Orientation="Vertical">
+      <!--<StackPanel Orientation="Vertical">
         <DockPanel>
           <TextBlock Text="使用动态桌面背景"/>
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
-      </StackPanel>
+      </StackPanel>-->
 
       <StackPanel Orientation="Vertical" IsEnabled="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=!Value, Mode=OneWay}">
         <DockPanel>

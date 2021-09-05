@@ -16,27 +16,49 @@ namespace System.Application.UI.Views.Controls
         public EmptyControl()
         {
             //this.InitializeComponent();
-            if (OperatingSystem2.IsWindows && UISettings.EnableDesktopBackground.Value)
-            {
-                this.LayoutUpdated += EmptyControl_LayoutUpdated;
-                this.AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
-                this.DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
-                window = new Window
+
+            this.GetObservable(IsVisibleProperty)
+                .Subscribe(x =>
                 {
-                    Width = this.Bounds.Width,
-                    Height = this.Bounds.Height,
-                    Background = Avalonia.Media.Brushes.Transparent,
-                    WindowStartupLocation = WindowStartupLocation.Manual,
-                    WindowState = WindowState.Normal,
-                    ExtendClientAreaToDecorationsHint = true,
-                    ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome,
-                    SystemDecorations = SystemDecorations.Full,
-                    CanResize = false,
-                    TransparencyLevelHint = WindowTransparencyLevel.Transparent,
-                    ShowInTaskbar = false,
-                    Focusable = false
-                };
-            }
+                    if (x)
+                    {
+                        if (window == null)
+                        {
+                            this.LayoutUpdated += EmptyControl_LayoutUpdated;
+                            this.AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
+                            this.DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
+                            window = new Window
+                            {
+                                Width = this.Bounds.Width,
+                                Height = this.Bounds.Height,
+                                Background = Avalonia.Media.Brushes.Transparent,
+                                WindowStartupLocation = WindowStartupLocation.Manual,
+                                WindowState = WindowState.Normal,
+                                ExtendClientAreaToDecorationsHint = true,
+                                ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome,
+                                SystemDecorations = SystemDecorations.Full,
+                                CanResize = false,
+                                TransparencyLevelHint = WindowTransparencyLevel.Transparent,
+                                ShowInTaskbar = false,
+                                Focusable = false
+                            };
+                            if (Parent != null && VisualRoot != null)
+                                EmptyControl_AttachedToVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
+                        }
+                    }
+                    else
+                    {
+                        if (window != null)
+                        {
+                            if (Parent != null && VisualRoot != null)
+                                EmptyControl_DetachedFromVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
+                            this.LayoutUpdated -= EmptyControl_LayoutUpdated;
+                            this.AttachedToVisualTree -= EmptyControl_AttachedToVisualTree;
+                            this.DetachedFromVisualTree -= EmptyControl_DetachedFromVisualTree;
+                            window = null;
+                        }
+                    }
+                });
         }
 
         private void EmptyControl_DetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
