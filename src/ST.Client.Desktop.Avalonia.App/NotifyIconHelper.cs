@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Resx;
-#if LINUX
+#if LINUX && TRAY_INDEPENDENT_PROGRAM
 using GtkApplication = Gtk.Application;
 #endif
 

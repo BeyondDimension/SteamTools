@@ -5,9 +5,6 @@ using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using System.Windows;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-#if LINUX
-using GtkApplication = Gtk.Application;
-#endif
 
 namespace System.Application.UI
 {
