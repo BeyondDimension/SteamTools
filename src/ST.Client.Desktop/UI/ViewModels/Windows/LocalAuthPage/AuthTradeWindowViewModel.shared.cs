@@ -288,57 +288,57 @@ namespace System.Application.UI.ViewModels
                 Thread.CurrentThread.IsBackground = true;
                 IsLoading = true;
                 var steam = _Authenticator.GetClient();
-                if (!IsLoggedIn)
+                try
                 {
+                    if (!IsLoggedIn)
+                    {
 #if !__MOBILE__
-                    IsLoading = false;
-                    ToastService.Current.Set(AppResources.Logining);
+                        IsLoading = false;
+                        ToastService.Current.Set(AppResources.Logining);
 #else
                     LoadingText = AppResources.Logining;
 #endif
-                    //Toast.Show(AppResources.Logining);
-                    var loginResult = steam.Login(UserName!, Password!, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
+                        //Toast.Show(AppResources.Logining);
+                        var loginResult = steam.Login(UserName!, Password!, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
 #if __MOBILE__
                     LoadingText = null;
 #endif
-                    if (!loginResult)
-                    {
-                        if (steam.Error == "Incorrect Login")
+                        if (!loginResult)
                         {
-                            Toast.Show(AppResources.User_LoginError);
-                            return;
-                        }
+                            if (steam.Error == "Incorrect Login")
+                            {
+                                Toast.Show(AppResources.User_LoginError);
+                                return;
+                            }
 
-                        if (steam.Requires2FA == true)
-                        {
-                            Toast.Show(AppResources.User_LoginError_Auth);
-                            return;
-                        }
+                            if (steam.Requires2FA == true)
+                            {
+                                Toast.Show(AppResources.User_LoginError_Auth);
+                                return;
+                            }
 
-                        if (steam.RequiresCaptcha == true)
-                        {
-                            IsRequiresCaptcha = steam.RequiresCaptcha;
-                            Toast.Show(AppResources.User_LoginError_CodeImage);
-                            CodeImage = steam.CaptchaUrl;
-                            return;
-                        }
-                        //loginButton.Enabled = true;
-                        //captchaGroup.Visible = false;
+                            if (steam.RequiresCaptcha == true)
+                            {
+                                IsRequiresCaptcha = steam.RequiresCaptcha;
+                                Toast.Show(AppResources.User_LoginError_CodeImage);
+                                CodeImage = steam.CaptchaUrl;
+                                return;
+                            }
+                            //loginButton.Enabled = true;
+                            //captchaGroup.Visible = false;
 
-                        if (string.IsNullOrEmpty(steam.Error) == false)
-                        {
-                            Toast.Show(steam.Error);
+                            if (string.IsNullOrEmpty(steam.Error) == false)
+                            {
+                                Toast.Show(steam.Error);
+                                return;
+                            }
                             return;
                         }
-                        return;
+                        Toast.Show(AppResources.User_LoiginSuccess);
+                        IsLoggedIn = true;
+                        _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
+                        AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                     }
-                    Toast.Show(AppResources.User_LoiginSuccess);
-                    IsLoggedIn = true;
-                    _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
-                    AuthService.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
-                }
-                try
-                {
                     IsLoading = true;
 #if __MOBILE__
                     LoadingText = AppResources.LocalAuth_AuthTrade_GetTip;
@@ -394,7 +394,11 @@ namespace System.Application.UI.ViewModels
                     {
                         // reset and show normal login
                         Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接Steam社区登录地址");
+#if DEBUG
+                        MessageBoxCompat.Show($"发生错误：{ex.Message}{Environment.NewLine}堆栈信息：{ex.StackTrace}");
+#else
                         Toast.Show(AppResources.LocalAuth_AuthTrade_GetError2);
+#endif
                         IsLoading = false;
                         //steam.Clear();
                         return;

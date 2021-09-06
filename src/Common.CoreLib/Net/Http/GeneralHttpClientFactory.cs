@@ -67,7 +67,7 @@ namespace System.Net.Http
         static void ConfigHttpWebRequest(HttpWebRequest request)
         {
             request.AllowAutoRedirect = true;
-            request.MaximumAutomaticRedirections = 200;
+            request.MaximumAutomaticRedirections = 1000;
         }
 
         public static HttpWebRequest Create(string requestUriString)

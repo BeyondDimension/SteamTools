@@ -158,6 +158,7 @@
                 </Panel>
             </DockPanel>
         </Panel>
+      
         <!--Toast-->
         <controls:ToastMessage />
     </Panel>

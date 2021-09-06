@@ -77,8 +77,8 @@ namespace System.Application.Services.Implementation
                 Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
             });
 
-            //proxyServer.Enable100ContinueBehaviour = true;
-            proxyServer.EnableHttp2 = true;
+            proxyServer.Enable100ContinueBehaviour = false;
+            proxyServer.EnableHttp2 = false;
             proxyServer.EnableConnectionPool = true;
             // 可选地设置证书引擎
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
