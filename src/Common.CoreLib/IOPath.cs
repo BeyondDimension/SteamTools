@@ -227,14 +227,14 @@ namespace System
         public static bool? IsDirectory(string path, [NotNullWhen(false)] out FileInfo? fileInfo, [NotNullWhen(true)] out DirectoryInfo? directoryInfo)
         {
             fileInfo = new(path);
-            if (fileInfo.Exists)
+            if (fileInfo.Exists) // 路径为文件
             {
                 directoryInfo = null;
                 return false;
             }
             fileInfo = null;
             directoryInfo = new(path);
-            if (directoryInfo.Exists)
+            if (directoryInfo.Exists) // 路径为文件夹
             {
                 return true;
             }
