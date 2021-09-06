@@ -239,7 +239,7 @@ namespace System
                 return true;
             }
             directoryInfo = null;
-            return false;
+            return null;
         }
 
         static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
