@@ -12,7 +12,7 @@
     <ApplicationManifest>..\ST.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <PlatformTarget>x64</PlatformTarget>
-    <PublishSingleFile>true</PublishSingleFile>
+    <PublishSingleFile>false</PublishSingleFile>
     <!--目前裁剪存在问题，禁用-->
     <PublishTrimmed>false</PublishTrimmed>
     <TrimMode>link</TrimMode>
