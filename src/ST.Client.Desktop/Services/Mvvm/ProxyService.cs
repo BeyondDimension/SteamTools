@@ -168,7 +168,8 @@ namespace System.Application.Services
                         httpProxyService.IsWindowsProxy = ProxySettings.EnableWindowsProxy.Value;
                         httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
 
-                        httpProxyService.ProxyIp = IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip) ? ip : IPAddress.Any;
+                        // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
+                        httpProxyService.ProxyIp = (!OperatingSystem2.IsMacOS && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
 
                         httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;

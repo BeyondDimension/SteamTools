@@ -5,12 +5,15 @@ namespace System
 {
     public static class IPAddress2
     {
+        public const string _127_0_0_1 = "127.0.0.1";
+        public const string localhost = "localhost";
+
         public static bool TryParse(
             [NotNullWhen(true)] string? ipString,
             [NotNullWhen(true)] out IPAddress? address)
         {
-            if (ipString == "127.0.0.1" ||
-                string.Equals(ipString, "localhost", StringComparison.OrdinalIgnoreCase))
+            if (ipString == _127_0_0_1 ||
+                string.Equals(ipString, localhost, StringComparison.OrdinalIgnoreCase))
             {
                 address = IPAddress.Loopback;
                 return true;
