@@ -12,15 +12,15 @@ namespace System.Application.UI
         static readonly object lock_global_ex_log = new();
 
 #if WINDOWS_DESKTOP_BRIDGE
-        //static string[] OnActivated(string[] main_args, global::Windows.ApplicationModel.Activation.IActivatedEventArgs args)
-        //{
-        //    if (args.Kind == global::Windows.ApplicationModel.Activation.ActivationKind.StartupTask)
-        //    {
-        //        // 静默启动（不弹窗口）
-        //        return IDesktopPlatformService.SystemBootRunArguments.Split(' ');
-        //    }
-        //    return main_args;
-        //}
+        static string[] OnActivated(string[] main_args, global::Windows.ApplicationModel.Activation.IActivatedEventArgs args)
+        {
+            if (args.Kind == global::Windows.ApplicationModel.Activation.ActivationKind.StartupTask)
+            {
+                // 静默启动（不弹窗口）
+                return IDesktopPlatformService.SystemBootRunArguments.Split(' ');
+            }
+            return main_args;
+        }
 #endif
 
         // Initialization code. Don't use any Avalonia, third-party APIs or any
@@ -34,8 +34,8 @@ namespace System.Application.UI
         {
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
-            //var activatedArgs = global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs();
-            //if (activatedArgs != null) args = OnActivated(args, activatedArgs);
+            var activatedArgs = global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs();
+            if (activatedArgs != null) args = OnActivated(args, activatedArgs);
 #elif !__MOBILE__
 #if MAC
             AppDelegate.Init(/*args*/);
