@@ -51,8 +51,8 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension Category="windows.fullTrustProcess" Executable="Launcher\Steam++.Launcher.exe" />
-        <desktop:Extension Category="windows.startupTask" Executable="Launcher\Steam++.Launcher.exe" EntryPoint="Windows.FullTrustApplication">
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="ST.Client.Desktop.Avalonia.App.Bridge\Steam++.exe" />
+        <desktop:Extension Category="windows.startupTask" Executable="ST.Client.Desktop.Avalonia.App.Bridge\Steam++.exe" EntryPoint="Windows.FullTrustApplication">
           <desktop:StartupTask TaskId="BootAutoStartTask" Enabled="true" DisplayName="Steam++ System Boot Run" />
         </desktop:Extension>
       </Extensions>

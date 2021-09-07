@@ -62,14 +62,15 @@
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
-    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge.Package.RefLauncher\Launcher\Launcher.csproj</EntryPointProjectUniqueName>
     <PackageCertificateKeyFile>ST.Client.Desktop.Avalonia.App.Bridge.Package_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <AppxBundle>Always</AppxBundle>
@@ -163,9 +164,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" PrivateAssets="all" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge.Package.RefLauncher\Launcher\Launcher.csproj" />
-  </ItemGroup>
   <!--<ItemGroup>
     -->
   <!--<ItemGroup Condition="'$(Platform)'=='x64'">-->
@@ -258,5 +256,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>-->
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj" />
+  </ItemGroup>
   <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
 </Project>
