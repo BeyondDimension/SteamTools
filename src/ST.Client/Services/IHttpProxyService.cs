@@ -20,7 +20,9 @@ namespace System.Application.Services
     public interface IHttpProxyService
     {
         public bool IsCertificate { get; }
+
         public void TrustCer();
+
         public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
         public IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
@@ -40,16 +42,26 @@ namespace System.Application.Services
         public bool IsWindowsProxy { get; set; }
 
         public bool IsProxyGOG { get; set; }
+
         public bool OnlyEnableProxyScript { get; set; }
 
         public bool Socks5ProxyEnable { get; set; }
+
         public int Socks5ProxyPortId { get; set; }
 
         public bool TwoLevelAgentEnable { get; set; }
+
         public ExternalProxyType TwoLevelAgentProxyType { get; set; }
-        public string TwoLevelAgentIp { get; set; }
+
+
+        public const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
+
+        public string? TwoLevelAgentIp { get; set; }
+
         public int TwoLevelAgentPortId { get; set; }
+
         public string? TwoLevelAgentUserName { get; set; }
+
         public string? TwoLevelAgentPassword { get; set; }
 
         public bool ProxyRunning { get; }

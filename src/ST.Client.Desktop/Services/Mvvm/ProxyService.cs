@@ -8,6 +8,7 @@ using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -167,15 +168,17 @@ namespace System.Application.Services
                         httpProxyService.IsWindowsProxy = ProxySettings.EnableWindowsProxy.Value;
                         httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
 
-                        IPAddress.TryParse(ProxySettings.SystemProxyIp.Value, out var ip);
-                        httpProxyService.ProxyIp = ip ?? IPAddress.Any;
+                        httpProxyService.ProxyIp = IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip) ? ip : IPAddress.Any;
 
                         httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
 
                         httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
-                        httpProxyService.TwoLevelAgentProxyType =(ExternalProxyType) ProxySettings.TwoLevelAgentProxyType.Value;
-                        httpProxyService.TwoLevelAgentIp = ProxySettings.TwoLevelAgentIp.Value ?? IPAddress.Loopback.ToString();
+
+                        httpProxyService.TwoLevelAgentProxyType = (ExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
+                        if (!httpProxyService.TwoLevelAgentProxyType.IsDefined()) httpProxyService.TwoLevelAgentProxyType = IHttpProxyService.DefaultTwoLevelAgentProxyType;
+
+                        httpProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
                         httpProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
                         httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
                         httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;

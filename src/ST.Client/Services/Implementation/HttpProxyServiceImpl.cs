@@ -25,7 +25,7 @@ namespace System.Application.Services.Implementation
 {
     public class HttpProxyServiceImpl : IHttpProxyService
     {
-        private readonly ProxyServer proxyServer = new();
+        readonly ProxyServer proxyServer = new();
 
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
 
@@ -45,19 +45,28 @@ namespace System.Application.Services.Implementation
 
         public IPAddress ProxyIp { get; set; } = IPAddress.Any;
 
-        public bool IsWindowsProxy { get; set; } = false;
-        public bool IsProxyGOG { get; set; } = false;
-        public bool OnlyEnableProxyScript { get; set; } = false;
+        public bool IsWindowsProxy { get; set; }
+
+        public bool IsProxyGOG { get; set; }
+
+        public bool OnlyEnableProxyScript { get; set; }
 
 
-        public bool Socks5ProxyEnable { get; set; } = false;
+        public bool Socks5ProxyEnable { get; set; }
+
         public int Socks5ProxyPortId { get; set; }
 
-        public bool TwoLevelAgentEnable { get; set; } = false;
-        public ExternalProxyType TwoLevelAgentProxyType { get; set; } = ExternalProxyType.Socks5;
-        public string TwoLevelAgentIp { get; set; }
+        public bool TwoLevelAgentEnable { get; set; }
+
+        public ExternalProxyType TwoLevelAgentProxyType { get; set; }
+            = IHttpProxyService.DefaultTwoLevelAgentProxyType;
+
+        public string? TwoLevelAgentIp { get; set; }
+
         public int TwoLevelAgentPortId { get; set; }
+
         public string? TwoLevelAgentUserName { get; set; }
+
         public string? TwoLevelAgentPassword { get; set; }
 
 
@@ -212,7 +221,7 @@ namespace System.Application.Services.Implementation
                         IPAddress ip;
                         if (!item.ForwardDomainIsNameOrIP)
                         {
-                            ip = IPAddress.Parse(item.ForwardDomainIP);
+                            ip = IPAddress2.Parse(item.ForwardDomainIP);
                         }
                         else
                         {
@@ -541,7 +550,7 @@ namespace System.Application.Services.Implementation
                     proxyServer.AddEndPoint(new SocksProxyEndPoint(ProxyIp, Socks5ProxyPortId, true));
                 }
 
-                if (TwoLevelAgentEnable)
+                if (TwoLevelAgentEnable && TwoLevelAgentIp != null)
                 {
                     proxyServer.UpStreamHttpsProxy = new ExternalProxy(TwoLevelAgentIp, TwoLevelAgentPortId)
                     {
@@ -741,7 +750,8 @@ namespace System.Application.Services.Implementation
                 {
                     if (dir.Contains("steam"))
                     {
-                        var pem = proxyServer.CertificateManager.RootCertificate.GetPublicPemCertificateString();
+                        var pem = proxyServer.CertificateManager.RootCertificate!.
+                            GetPublicPemCertificateString();
                         var certifi = Path.Combine(local, dir, "certifi", "cacert.pem");
                         if (File.Exists(certifi))
                         {

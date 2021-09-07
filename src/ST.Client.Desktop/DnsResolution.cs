@@ -1,4 +1,4 @@
-﻿using DnsClient;
+using DnsClient;
 using DnsClient.Protocol;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +73,7 @@ namespace System.Application
 
         public static string GetHostByIPAddress(string ip)
         {
-            var result = Dns.GetHostEntry(IPAddress.Parse(ip)).HostName;
+            var result = Dns.GetHostEntry(IPAddress2.Parse(ip)).HostName;
             return result;
         }
     }

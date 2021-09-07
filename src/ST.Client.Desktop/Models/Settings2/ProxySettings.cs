@@ -1,6 +1,8 @@
 using System.Application.Serialization;
+using System.Application.Services;
 using System.Collections.Generic;
 using System.Net;
+using Titanium.Web.Proxy.Models;
 
 namespace System.Application.Models.Settings
 {
@@ -55,6 +57,7 @@ namespace System.Application.Models.Settings
             = GetProperty(defaultValue: (IReadOnlyCollection<int>)new List<int>(), autoSave: true);
 
         #region 代理设置
+
         /// <summary>
         /// 系统代理模式端口
         /// </summary>
@@ -72,9 +75,11 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<bool> OnlyEnableProxyScript { get; }
             = GetProperty(defaultValue: false, autoSave: false);
+
         #endregion
 
         #region 本地代理设置
+
         /// <summary>
         /// Socks5 Enable
         /// </summary>
@@ -85,39 +90,50 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<int> Socks5ProxyPortId { get; }
             = GetProperty(defaultValue: 8868, autoSave: false);
+
         #endregion
 
         #region 二级代理设置
+
         /// <summary>
         /// TwoLevelAgent Enable
         /// </summary>
         public static SerializableProperty<bool> TwoLevelAgentEnable { get; }
             = GetProperty(defaultValue: false, autoSave: false);
+
         /// <summary>
         /// TwoLevelAgent Enable
         /// </summary>
         public static SerializableProperty<short> TwoLevelAgentProxyType { get; }
-            = GetProperty(defaultValue: (short)2, autoSave: false);
+            = GetProperty(defaultValue: DefaultTwoLevelAgentProxyType, autoSave: false);
+
+        public const short DefaultTwoLevelAgentProxyType =
+            (short)IHttpProxyService.DefaultTwoLevelAgentProxyType;
+
         /// <summary>
         /// 二级代理 IP
         /// </summary>
         public static SerializableProperty<string> TwoLevelAgentIp { get; }
             = GetProperty(defaultValue: IPAddress.Loopback.ToString(), autoSave: false);
+
         /// <summary>
         /// 二级代理 监听端口
         /// </summary>
         public static SerializableProperty<int> TwoLevelAgentPortId { get; }
             = GetProperty(defaultValue: 7890, autoSave: false);
+
         /// <summary>
         /// TwoLevelAgent UserName
         /// </summary>
         public static SerializableProperty<string> TwoLevelAgentUserName { get; }
             = GetProperty(defaultValue: string.Empty, autoSave: false);
+
         /// <summary>
         /// TwoLevelAgent Password
         /// </summary>
         public static SerializableProperty<string> TwoLevelAgentPassword { get; }
             = GetProperty(defaultValue: string.Empty, autoSave: false);
+
         #endregion
     }
 }
