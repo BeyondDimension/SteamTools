@@ -228,7 +228,7 @@
     </Content>
   </ItemGroup>-->
   <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <!--<ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Content Include="..\ST.Client.Desktop.Avalonia.App.Bridge\bin\Release\Publish\win10-x64\aspnetcorev2_inprocess.dll">
       <Link>aspnetcorev2_inprocess.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -257,6 +257,6 @@
       <Link>WinRT.Host.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
+  </ItemGroup>-->
   <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
 </Project>

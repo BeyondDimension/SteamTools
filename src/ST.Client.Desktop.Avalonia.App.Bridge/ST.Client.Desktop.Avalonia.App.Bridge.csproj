@@ -10,8 +10,12 @@
     <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>..\ST.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PublishSingleFile>false</PublishSingleFile>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PublishSingleFile>true</PublishSingleFile>
     <!--目前裁剪存在问题，禁用-->
     <PublishTrimmed>false</PublishTrimmed>
     <TrimMode>link</TrimMode>
@@ -26,6 +30,7 @@
     <UseSystemResourceKeys>true</UseSystemResourceKeys>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
   <ItemGroup>

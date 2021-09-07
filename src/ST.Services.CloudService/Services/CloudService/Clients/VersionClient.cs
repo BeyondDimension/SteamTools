@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -19,9 +19,9 @@ namespace System.Application.Services.CloudService.Clients
             Version osVersion,
             ArchitectureFlags abi)
         {
+            var isRunningAsUwp = platform == Platform.Windows && DesktopBridge.IsRunningAsUwp;
             var url =
-                $"api/version/checkupdate/{id}/{(int)platform}/{(int)deviceIdiom}" +
-                $"/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}/{osVersion.Build}/{(int)abi}";
+                $"api/version/checkupdate/{id}/{(int)platform}/{(int)deviceIdiom}/{(int)supportedAbis}/{osVersion.Major}/{osVersion.Minor}/{osVersion.Build}/{(int)abi}/{isRunningAsUwp}";
             return conn.SendAsync<AppVersionDTO?>(
                 isAnonymous: true,
                 method: HttpMethod.Get,
