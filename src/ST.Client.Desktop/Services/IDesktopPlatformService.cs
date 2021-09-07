@@ -32,44 +32,6 @@ namespace System.Application.Services
         /// </summary>
         string HostsFilePath => "/etc/hosts";
 
-        /// <summary>
-        /// 启动进程，传递文件名参数
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="filePath"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="ComponentModel.Win32Exception"></exception>
-        /// <exception cref="ObjectDisposedException"></exception>
-        /// <exception cref="IO.FileNotFoundException"></exception>
-        void StartProcess(string name, string filePath) => Process.Start(name, $"\"{filePath}\"");
-
-        void StartProcess(string name)
-        {
-            Process.Start(name);
-        }
-
-        Process? OpenProcess(string name)
-        {
-            return OpenProcess(name, null, true);
-        }
-
-        Process? OpenProcess(string name, string? arguments = null)
-        {
-            return OpenProcess(name, arguments, true);
-        }
-
-        Process? OpenProcess(string name, string? arguments, bool useShell)
-        {
-            var p = new ProcessStartInfo(name);
-            if (!string.IsNullOrEmpty(arguments))
-            {
-                p.Arguments = arguments;
-            }
-            p.UseShellExecute = useShell;
-            return Process.Start(p);
-        }
-
         void IPlatformService.OpenFileByTextReader(string filePath)
         {
             TextReaderProvider? userProvider = null;
@@ -90,7 +52,7 @@ namespace System.Application.Services
                         {
                             try
                             {
-                                StartProcess(value, filePath);
+                                Process2.StartPath(value, filePath);
                                 return;
                             }
                             catch (Exception e)
@@ -123,7 +85,7 @@ namespace System.Application.Services
                 {
                     var fileName = GetFileName(item);
                     if (fileName == null) continue;
-                    StartProcess(fileName, filePath);
+                    Process2.StartPath(fileName, filePath);
                     return;
                 }
                 catch (Exception e)

@@ -94,34 +94,6 @@ namespace System.Application.Services.Implementation
 
         public static void OpenFile(string appName, string filePath) => NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
 
-        void IDesktopPlatformService.StartProcess(string name, string filePath)
-        {
-            //if (name == TextEdit || name == VSC)
-            //{
-            //    // https://developer.apple.com/documentation/appkit/nsworkspace
-            //    OpenFile(filePath, name);
-            //    return;
-            //}
-
-            var pInfo = new ProcessStartInfo
-            {
-                FileName = "open",
-                Arguments = $"-a \"{name}\" \"{filePath}\"",
-            };
-            pInfo.UseShellExecute = true;
-            var p = Process.Start(pInfo);
-            if (p == null) throw new FileNotFoundException(name);
-            p.Close();
-        }
-
-        Process? IDesktopPlatformService.OpenProcess(string name, string? arguments)
-        {
-            var p = IDesktopPlatformService.Instance.OpenProcess(name, $"\"{arguments}\"", true);
-            if (p == null) throw new FileNotFoundException(name);
-            p.Close();
-            return p;
-        }
-
         public void SetSystemSessionEnding(Action action)
         {
 

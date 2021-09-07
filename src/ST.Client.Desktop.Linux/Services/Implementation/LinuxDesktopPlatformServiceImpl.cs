@@ -75,15 +75,13 @@ namespace System.Application.Services.Implementation
 
         public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
-            IDesktopPlatformService @this = this;
-            @this.StartProcess(xdg, info.FullName);
+            Process2.StartPath(xdg, info.FullName);
         }
 
         public void OpenFolderSelectFilePath(FileInfo info)
         {
             if (info.DirectoryName == null) return;
-            IDesktopPlatformService @this = this;
-            @this.StartProcess(xdg, info.DirectoryName);
+            Process2.StartPath(xdg, info.DirectoryName);
         }
 
         public const string vi = "vi";

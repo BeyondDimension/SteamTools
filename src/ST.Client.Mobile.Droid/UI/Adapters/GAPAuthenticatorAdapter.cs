@@ -96,6 +96,9 @@ namespace System.Application.UI.Adapters
             }).AddTo(this);
             ViewModel.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).SubscribeInMainThread(value =>
             {
+                var visibility = value < 0 ? ViewStates.Gone : ViewStates.Visible;
+                binding.progress.Visibility = visibility;
+                binding.tvProgress.Visibility = visibility;
                 binding.progress.Progress = value;
                 binding.tvProgress.Text = value.ToString();
             }).AddTo(this);

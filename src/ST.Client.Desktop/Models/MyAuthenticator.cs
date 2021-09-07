@@ -332,7 +332,10 @@ namespace System.Application.Models
 
 #if __MOBILE__
 
-        private int _AutoRefreshCodeTimingCurrent;
+        int _AutoRefreshCodeTimingCurrent = -1;
+        /// <summary>
+        /// 当前自动刷新倒计时值
+        /// </summary>
         public int AutoRefreshCodeTimingCurrent
         {
             get => _AutoRefreshCodeTimingCurrent;
@@ -480,7 +483,6 @@ namespace System.Application.Models
             void StartTimer()
             {
                 if (Timer != null) return;
-                var isFirst = true;
                 Timer = new((_) =>
                 {
                     Thread.CurrentThread.IsBackground = true;
@@ -492,12 +494,7 @@ namespace System.Application.Models
 #if DEBUG
                         Log.Debug("AutoRefreshCode", "while({1}), name: {0}", item.Name, value);
 #endif
-                        string? code = null;
-                        var isRefresh = isZero || isFirst;
-                        if (isRefresh)
-                        {
-                            code = item.GetNextCode();
-                        }
+                        string? code = item.GetNextCode();
                         MainThread2.BeginInvokeOnMainThread(() =>
                         {
                             item.AutoRefreshCodeTimingCurrent = value;
@@ -507,7 +504,6 @@ namespace System.Application.Models
                             }
                         });
                     }
-                    isFirst = false;
                 }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
             }
         }

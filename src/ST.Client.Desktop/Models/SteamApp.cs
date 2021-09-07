@@ -224,7 +224,9 @@ namespace System.Application.Models
 
         public Process? StartSteamAppProcess()
         {
-            return Process = IDesktopPlatformService.Instance.OpenProcess(AppHelper.ProgramPath, "-clt app -silence -id " + AppId.ToString());
+            return Process = Process2.Start(
+                AppHelper.ProgramPath,
+                $"-clt app -silence -id {AppId}");
         }
 
         public static SteamApp? FromReader(BinaryReader reader)
