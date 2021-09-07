@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 
 namespace System
 {
@@ -47,6 +48,7 @@ namespace System
         /// <param name="fileName">要在进程中运行的应用程序文件的名称</param>
         /// <param name="arguments">启动该进程时传递的命令行参数</param>
         /// <param name="useShellExecute">获取或设置指示是否使用操作系统 shell 启动进程的值</param>
+        /// <param name="workingDirectory">当 useShellExecute 属性为 <see langword="false"/> 时，将获取或设置要启动的进程的工作目录。 当 useShellExecute 为 <see langword="true"/> 时，获取或设置包含要启动的进程的目录<para>注意：当 UseShellExecute 为  <see langword="true"/> 时，是包含要启动的进程的目录的完全限定名</para></param>
         /// <returns></returns>
         /// <exception cref="ObjectDisposedException">已释放此进程对象</exception>
         /// <exception cref="Win32Exception">
@@ -55,13 +57,25 @@ namespace System
         /// <para>或 参数的长度与该进程的完整路径的长度的总和超过了 2080。 与此异常关联的错误消息可能为以下消息之一：“传递到系统调用的数据区域太小。” 或“拒绝访问。”</para>
         /// </exception>
         /// <exception cref="PlatformNotSupportedException">不支持 shell 的操作系统（如，仅适用于.NET Core 的 Nano Server）不支持此方法</exception>
-        public static Process? Start(string fileName, string? arguments = null, bool useShellExecute = false)
+        public static Process? Start(string fileName, string? arguments = null, bool useShellExecute = false, string? workingDirectory = null)
         {
             if (string.IsNullOrEmpty(fileName)) return null;
             var p = new ProcessStartInfo(fileName);
             if (!string.IsNullOrEmpty(arguments))
             {
                 p.Arguments = arguments;
+            }
+            if (!string.IsNullOrEmpty(workingDirectory))
+            {
+                p.WorkingDirectory = workingDirectory;
+            }
+            else if (!useShellExecute && fileName.Contains(Path.DirectorySeparatorChar))
+            {
+                FileInfo fileInfo = new(fileName);
+                if (fileInfo.Exists && !string.IsNullOrEmpty(fileInfo.DirectoryName))
+                {
+                    p.WorkingDirectory = fileInfo.DirectoryName;
+                }
             }
             p.UseShellExecute = useShellExecute;
             return Process.Start(p);
