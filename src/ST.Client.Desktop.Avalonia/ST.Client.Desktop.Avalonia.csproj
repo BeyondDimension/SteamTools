@@ -90,25 +90,5 @@
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" />
   </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Update="Application\UI\Styles\Window.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\ToggleSwitch.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\DateTimePicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Application\UI\Views\Windows\CommunityProxyPage\ProxySettingsWindow.axaml.cs">
-      <DependentUpon>ProxySettingsWindow.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\GameListPage\SteamShutdownWindow.axaml.cs">
-      <DependentUpon>SteamShutdownWindow.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+  
 </Project>
