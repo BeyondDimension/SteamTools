@@ -45,6 +45,9 @@ namespace System.Application.UI.ViewModels
                 if (result)
                 {
                     AuthService.Current.Authenticators.Clear();
+#if !__MOBILE__
+                    MenuItems?.Clear();
+#endif
                     Activation();
                 }
                 else

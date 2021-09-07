@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
+             xmlns:sys="using:System"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:AboutPageViewModel"
              x:CompileBindings="True"
@@ -101,6 +101,13 @@
                   Content="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}"
                   Command="{Binding OpenBrowserCommand}"
                   CommandParameter="{x:Static vm:AboutPageViewModel.ChangeLogLink}"
+                  VerticalAlignment="Center"
+                  VerticalContentAlignment="Center"/>
+          <Button Classes="Hyperlink"
+                  IsVisible="{x:Static sys:DesktopBridge.IsRunningAsUwp}"
+                  Content="{ReflectionBinding Path=Res.About_AppReview,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.MicrosoftStoreReviewLink}"
                   VerticalAlignment="Center"
                   VerticalContentAlignment="Center"/>
         </StackPanel>

@@ -132,7 +132,7 @@ namespace System.Application.Services.Implementation
         {
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {
-                Process2.Start(SteamProgramPath, arguments, true);
+                Process2.Start(SteamProgramPath, arguments);
             }
         }
 

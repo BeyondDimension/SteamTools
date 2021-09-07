@@ -70,6 +70,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 打分&amp;评价 的本地化字符串。
+        /// </summary>
+        public static string About_AppReview {
+            get {
+                return ResourceManager.GetString("About_AppReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 联系我们 的本地化字符串。
         /// </summary>
         public static string About_Contactus {

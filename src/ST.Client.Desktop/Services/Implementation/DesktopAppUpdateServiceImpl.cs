@@ -13,8 +13,6 @@ namespace System.Application.Services.Implementation
 {
     public abstract partial class DesktopAppUpdateServiceImpl : AppUpdateServiceImpl
     {
-        const string MicrosoftStoreProtocolLink = "ms-windows-store://pdp/?productid=9MTCFHS560NG";
-
         public DesktopAppUpdateServiceImpl(IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
         {
         }
@@ -100,7 +98,7 @@ namespace System.Application.Services.Implementation
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = MicrosoftStoreProtocolLink,
+                    FileName = UrlConstants.MicrosoftStoreProtocolLink,
                     UseShellExecute = true,
                 });
             }

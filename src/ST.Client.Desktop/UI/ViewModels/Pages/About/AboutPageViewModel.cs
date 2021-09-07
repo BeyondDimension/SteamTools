@@ -29,5 +29,7 @@ namespace System.Application.UI.ViewModels
         public static string ChangeLogLink => UrlConstants.OfficialWebsite_Changelog;
 
         public static string LicenseLink => UrlConstants.License_GPLv3;
+
+        public static string MicrosoftStoreReviewLink => UrlConstants.MicrosoftStoreReviewLink;
     }
 }
