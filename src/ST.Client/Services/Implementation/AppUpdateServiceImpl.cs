@@ -541,7 +541,7 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 在应用商店中打开
         /// </summary>
-        protected virtual void OpenInAppStore() => BrowserOpen(UrlConstants.OfficialWebsite);
+        protected virtual async void OpenInAppStore() => await OpenAsync(UrlConstants.OfficialWebsite);
 
         void StartUpdate()
         {

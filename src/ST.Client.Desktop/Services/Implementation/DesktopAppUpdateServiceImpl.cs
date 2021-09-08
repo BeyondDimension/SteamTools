@@ -92,15 +92,11 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        protected override void OpenInAppStore()
+        protected override async void OpenInAppStore()
         {
             if (DesktopBridge.IsRunningAsUwp)
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = UrlConstants.MicrosoftStoreProtocolLink,
-                    UseShellExecute = true,
-                });
+                await Browser2.OpenAsync(UrlConstants.MicrosoftStoreProtocolLink);
             }
             else
             {
