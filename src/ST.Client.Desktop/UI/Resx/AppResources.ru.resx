@@ -2045,4 +2045,16 @@
     <value>Позвольте другим приложениям захватывать экраны</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>Переключитесь на {0} войдите в Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>Агент включает только функцию сценария</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>Оценка и оценка</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

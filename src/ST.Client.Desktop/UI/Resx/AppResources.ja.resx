@@ -2045,4 +2045,16 @@
     <value>他のアプリケーションが画面をキャプチャできるようにします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>{0} に切り替えて Steam にサインインします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>エージェントはスクリプト機能のみを有効にします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>採点&amp;評価</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

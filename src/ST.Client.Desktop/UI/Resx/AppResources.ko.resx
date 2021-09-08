@@ -2045,4 +2045,16 @@
     <value>다른 응용 프로그램이 화면을 캡처할 수 있도록 허용합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>{0} 전환하여 Steam에 로그인합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>프록시는 스크립트 기능만 사용하도록 설정합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>점수&amp;평가</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

@@ -2049,4 +2049,16 @@
     <value>Allow other applications to capture your screen</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>Switch to {0} sign in to Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>The agent only enables scripting</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>Ratings and reviews</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

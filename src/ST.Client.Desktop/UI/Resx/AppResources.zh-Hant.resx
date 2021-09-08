@@ -2045,4 +2045,16 @@
     <value>允許其他應用程式捕獲你的螢幕</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>切換到 {0} 登錄 Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>代理僅啟用腳本功能</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>打分&amp;評價</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

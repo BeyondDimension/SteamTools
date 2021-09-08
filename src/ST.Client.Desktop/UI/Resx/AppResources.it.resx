@@ -2050,4 +2050,16 @@ Sicuro di voler continuare?</value>
     <value>Consentire ad altre applicazioni di acquisire lo schermo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>Passa a {0} accedi a Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>L&apos;agente abilita solo lo scripting</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>Valutazioni e recensioni</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

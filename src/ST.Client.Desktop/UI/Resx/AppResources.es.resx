@@ -2050,4 +2050,16 @@
     <value>Permitir que otras aplicaciones capturen la pantalla</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UserChange_ChangeUserTip" xml:space="preserve">
+    <value>Cambiar a {0} iniciar sesión en Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
+    <value>El agente solo habilita el scripting</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_AppReview" xml:space="preserve">
+    <value>Valoraciones y reseñas</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
