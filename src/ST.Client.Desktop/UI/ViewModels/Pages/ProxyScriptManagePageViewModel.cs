@@ -198,9 +198,9 @@ namespace System.Application.UI.ViewModels
 
         }
 
-        public void OpenHomeScriptItemButton(ScriptDTO script)
+        public async void OpenHomeScriptItemButton(ScriptDTO script)
         {
-            Services.CloudService.Constants.BrowserOpen(script.SourceLink);
+            await Browser2.OpenAsync(script.SourceLink);
         }
 
         public async void RefreshScriptItemButton(ScriptDTO script)

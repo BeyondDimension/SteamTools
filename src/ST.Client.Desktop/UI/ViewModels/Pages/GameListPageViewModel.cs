@@ -12,7 +12,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using static System.Application.Services.CloudService.Constants;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -255,19 +254,19 @@ namespace System.Application.UI.ViewModels
                 IDesktopPlatformService.Instance.OpenFolder(app.InstalledDir);
         }
 
-        public void OpenAppStoreUrl(SteamApp app)
+        public async void OpenAppStoreUrl(SteamApp app)
         {
-            BrowserOpen(string.Format(SteamApiUrls.STEAMSTORE_APP_URL, app.AppId));
+            await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMSTORE_APP_URL, app.AppId));
         }
 
-        public void OpenSteamDBUrl(SteamApp app)
+        public async void OpenSteamDBUrl(SteamApp app)
         {
-            BrowserOpen(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
+            await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
         }
 
-        public void OpenSteamCardUrl(SteamApp app)
+        public async void OpenSteamCardUrl(SteamApp app)
         {
-            BrowserOpen(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
+            await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
         }
 
         public void AddAFKAppList(SteamApp app)

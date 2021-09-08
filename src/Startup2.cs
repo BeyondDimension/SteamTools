@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Linq;
-using CSConst = System.Application.Services.CloudService.Constants;
+using static System.Application.Browser2;
 using System.Properties;
 using System.IO;
 using static System.Application.AppClientAttribute;
@@ -416,7 +416,7 @@ namespace System.Application
                         //                        {
                         //                            try
                         //                            {
-                        //                                var url = CSConst.Prefix_HTTPS + "localhost:5001";
+                        //                                var url = Prefix_HTTPS + "localhost:5001";
                         //                                var request = WebRequest.CreateHttp(url);
                         //                                request.Timeout = 1888;
                         //                                request.GetResponse();
@@ -431,8 +431,8 @@ namespace System.Application
                         //#endif
                         var value =
                             (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
-                            CSConst.Prefix_HTTPS + "pan.mossimo.net:8862" :
-                            CSConst.Prefix_HTTPS + "api.steampp.net";
+                            Prefix_HTTPS + "pan.mossimo.net:8862" :
+                            Prefix_HTTPS + "api.steampp.net";
                         s.ApiBaseUrl = value;
                     }
                 }

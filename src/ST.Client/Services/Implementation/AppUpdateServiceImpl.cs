@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static System.Application.Services.CloudService.Constants;
+using static System.Application.Browser2;
 using static System.Application.Services.IAppUpdateService;
 using CC = System.Common.Constants;
 

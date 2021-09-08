@@ -269,7 +269,7 @@ namespace System.Application.UI.ViewModels
                 }
             }
             var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={vm.ServerWebSocketListenerPort}&sKey={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&version={csc.Settings.AppVersionStr}&isBind={isBind}&access_token_expires={access_token_expires}&access_token={access_token}";
-            BrowserOpen(url);
+            await Browser2.OpenAsync(url);
         }
     }
 

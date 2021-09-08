@@ -19,7 +19,7 @@ namespace System.Application.UI.ViewModels
             IconKey = nameof(AboutPageViewModel);
 #endif
 
-            OpenBrowserCommand = ReactiveCommand.Create<string>(BrowserOpen);
+            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
 
             //#if !__MOBILE__
             //            CopyLinkCommand =

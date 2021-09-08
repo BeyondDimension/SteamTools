@@ -107,9 +107,9 @@ namespace System.Application.UI.ViewModels
             _AuthorizedSourceList.Refresh();
         }
 
-        public void OpenUserProfileUrl(AuthorizedDevice user)
+        public async void OpenUserProfileUrl(AuthorizedDevice user)
         {
-            BrowserOpen(user.ProfileUrl);
+            await Browser2.OpenAsync(user.ProfileUrl);
         }
 
         public void About_Click()

@@ -80,7 +80,7 @@ namespace System.Application.UI.ViewModels
         }
 
         public ICommand ManualLogin { get; }
-     
+
         private string? _CurrentSelectChannel;
         public string? CurrentSelectChannel
         {
@@ -221,7 +221,7 @@ namespace System.Application.UI.ViewModels
         public const string Agreement = "Agreement";
         public const string Privacy = "Privacy";
 
-        void OpenHyperlink_(string parameter)
+        async void OpenHyperlink_(string parameter)
         {
             if (string.IsNullOrWhiteSpace(parameter)) return;
             switch (parameter)
@@ -234,18 +234,18 @@ namespace System.Application.UI.ViewModels
                     break;
             }
 #if __MOBILE__
-            BrowserOpen(parameter);
+            await Browser2.OpenAsync(parameter);
 #else
             if (AppHelper.IsSystemWebViewAvailable)
             {
-                IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
+                await IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
                 {
                     Url = parameter,
                 }, resizeMode: ResizeModeCompat.NoResize);
             }
             else
             {
-                BrowserOpen(parameter);
+                await Browser2.OpenAsync(parameter);
             }
 #endif
         }

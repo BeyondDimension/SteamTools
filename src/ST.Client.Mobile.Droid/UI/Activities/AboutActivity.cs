@@ -68,7 +68,7 @@ namespace System.Application.UI.Activities
             }).AddTo(this);
 
             var adapter = new SmallPreferenceButtonAdapter<PreferenceButtonViewModel, PreferenceButton>(ViewModel!.PreferenceButtons);
-            adapter.ItemClick += (_, e) =>
+            adapter.ItemClick += async (_, e) =>
             {
                 switch (e.Current.Id)
                 {
@@ -77,13 +77,13 @@ namespace System.Application.UI.Activities
                         //ViewModel!.CheckUpdateCommand.Invoke();
                         break;
                     case PreferenceButton.更新日志:
-                        BrowserOpen(string.Format(
+                        await Browser2.OpenAsync(string.Format(
                             UrlConstants.OfficialWebsite_Box_Changelog_,
                             MainApplication.GetTheme(),
                             R.Language));
                         break;
                     case PreferenceButton.常见问题疑难解答:
-                        BrowserOpen(string.Format(
+                        await Browser2.OpenAsync(string.Format(
                             UrlConstants.OfficialWebsite_Box_Faq_,
                             MainApplication.GetTheme(),
                             R.Language));
@@ -96,7 +96,7 @@ namespace System.Application.UI.Activities
                         });
                         break;
                     case PreferenceButton.源码仓库:
-                        ComboBoxHelper.Dialog(this, SourceRepositories, x => BrowserOpen(x switch
+                        ComboBoxHelper.Dialog(this, SourceRepositories, async x => await Browser2.OpenAsync(x switch
                         {
                             GitHub => UrlConstants.GitHub_Repository,
                             Gitee => UrlConstants.Gitee_Repository,
@@ -104,13 +104,13 @@ namespace System.Application.UI.Activities
                         }));
                         break;
                     case PreferenceButton.产品官网:
-                        BrowserOpen(UrlConstants.OfficialWebsite);
+                        await Browser2.OpenAsync(UrlConstants.OfficialWebsite);
                         break;
                     case PreferenceButton.联系我们:
-                        BrowserOpen(UrlConstants.OfficialWebsite_Contact);
+                        await Browser2.OpenAsync(UrlConstants.OfficialWebsite_Contact);
                         break;
                     case PreferenceButton.Bug反馈:
-                        ComboBoxHelper.Dialog(this, SourceRepositories, x => BrowserOpen(x switch
+                        ComboBoxHelper.Dialog(this, SourceRepositories, async x => await Browser2.OpenAsync(x switch
                         {
                             GitHub => UrlConstants.GitHub_Issues,
                             Gitee => UrlConstants.Gitee_Issues,
@@ -438,23 +438,23 @@ namespace System.Application.UI.Activities
             StringBuilder str = new(Developers_0);
             length = str.Length;
             str.Append(At_Rmbadmin);
-            list.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                BrowserOpen(UrlConstants.GitHub_User_Rmbadmin);
+                await Browser2.OpenAsync(UrlConstants.GitHub_User_Rmbadmin);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             str.Append(Separator);
             length = str.Length;
             str.Append(At_AigioL);
-            list.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                BrowserOpen(UrlConstants.GitHub_User_AigioL);
+                await Browser2.OpenAsync(UrlConstants.GitHub_User_AigioL);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             str.Append(Separator);
             length = str.Length;
             str.Append(At_Mossimos);
-            list.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                BrowserOpen(UrlConstants.GitHub_User_Mossimos);
+                await Browser2.OpenAsync(UrlConstants.GitHub_User_Mossimos);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });
@@ -465,9 +465,9 @@ namespace System.Application.UI.Activities
             StringBuilder str = new(BusinessCooperationContact_0);
             length = str.Length;
             str.Append(At_Cliencer);
-            list.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                BrowserOpen(UrlConstants.BILI_User_Cliencer);
+                await Browser2.OpenAsync(UrlConstants.BILI_User_Cliencer);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });
@@ -478,16 +478,16 @@ namespace System.Application.UI.Activities
             StringBuilder str = new();
             length = str.Length;
             str.Append(AppResources.User_Agreement);
-            list.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                BrowserOpen(UrlConstants.OfficialWebsite_Box_Agreement);
+                await Browser2.OpenAsync(UrlConstants.OfficialWebsite_Box_Agreement);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             str.Append(Separator2);
             length = str.Length;
             str.Append(AppResources.User_Privacy);
-            list.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                BrowserOpen(UrlConstants.OfficialWebsite_Box_Privacy);
+                await Browser2.OpenAsync(UrlConstants.OfficialWebsite_Box_Privacy);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });
@@ -498,9 +498,9 @@ namespace System.Application.UI.Activities
             StringBuilder str = new(OpenSourceLicensed_0);
             length = str.Length;
             str.Append(OpenSourceLicensed_1);
-            list.Add((new HyperlinkClickableSpan(_ =>
+            list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                BrowserOpen(UrlConstants.License_GPLv3);
+                await Browser2.OpenAsync(UrlConstants.License_GPLv3);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });

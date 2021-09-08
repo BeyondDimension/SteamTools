@@ -25,7 +25,7 @@ namespace System.Application.UI.ViewModels
             IconKey = nameof(LocalAuthPageViewModel);
 #endif
 
-            OpenBrowserCommand = ReactiveCommand.Create<string>(Services.CloudService.Constants.BrowserOpen);
+            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.CreateFromTask(async () =>
             {

@@ -12,7 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using static System.Application.ForwardHelper;
-using static System.Application.Services.CloudService.Constants;
 using static System.Application.Services.IHttpService;
 
 namespace System.Application.Services.Implementation
@@ -54,7 +53,7 @@ namespace System.Application.Services.Implementation
                 request = requestFactory();
                 requestUri ??= request.RequestUri.ToString();
 
-                if (!isCheckHttpUrl && !IsHttpUrl(requestUri)) return default;
+                if (!isCheckHttpUrl && !Browser2.IsHttpUrl(requestUri)) return default;
 
                 if (enableForward && IsAllowUrl(requestUri))
                 {
@@ -178,7 +177,7 @@ namespace System.Application.Services.Implementation
             CancellationToken cancellationToken,
             string? cookie = null) where T : notnull
         {
-            if (!IsHttpUrl(requestUri)) return Task.FromResult(default(T?));
+            if (!Browser2.IsHttpUrl(requestUri)) return Task.FromResult(default(T?));
             return SendAsync<T>(isCheckHttpUrl: true, requestUri, () =>
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
@@ -347,7 +346,7 @@ namespace System.Application.Services.Implementation
 
         public async Task<string?> GetImageLocalFilePathAsync(string requestUri, string channelType, CancellationToken cancellationToken)
         {
-            if (!IsHttpUrl(requestUri)) return null;
+            if (!Browser2.IsHttpUrl(requestUri)) return null;
 
             if (get_image_pipeline.ContainsKey(channelType))
             {
@@ -377,7 +376,7 @@ namespace System.Application.Services.Implementation
 
         public async Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken)
         {
-            if (!IsHttpUrl(requestUri)) return null;
+            if (!Browser2.IsHttpUrl(requestUri)) return null;
 
             try
             {

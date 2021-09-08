@@ -220,9 +220,9 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void OpenUserProfileUrl(SteamUser user)
+        public async void OpenUserProfileUrl(SteamUser user)
         {
-            BrowserOpen(user.ProfileUrl);
+            await Browser2.OpenAsync(user.ProfileUrl);
         }
 
         public void LoginNewSteamAccount()

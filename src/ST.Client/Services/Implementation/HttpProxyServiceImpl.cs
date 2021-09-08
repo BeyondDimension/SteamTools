@@ -209,7 +209,7 @@ namespace System.Application.Services.Implementation
                         }
                         if (item.Redirect)
                         {
-                            if (CloudService.Constants.IsHttpUrl(item.ForwardDomainName))
+                            if (Browser2.IsHttpUrl(item.ForwardDomainName))
                             {
                                 e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Scheme + "://" + e.HttpClient.Request.RequestUri.Host, item.ForwardDomainName));
                                 return;
@@ -400,7 +400,7 @@ namespace System.Application.Services.Implementation
             if (OperatingSystem2.IsLinux)
             {
                 IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
-                CloudService.Constants.BrowserOpen("https://www.steampp.net/liunxSetupCer");
+                Browser2.Open("https://www.steampp.net/liunxSetupCer");
                 return true;
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
