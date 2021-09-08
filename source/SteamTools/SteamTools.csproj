@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
@@ -30,6 +30,7 @@
 		<Description>「Steam++」是一个包含多种Steam工具功能的工具箱。</Description>
 
 		<Platforms>AnyCPU;x86</Platforms>
+        <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
 
 		<Product>SteamTools</Product>
 
@@ -49,7 +50,8 @@
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|AnyCPU'">
-		<PlatformTarget>x86</PlatformTarget>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net472|x86'">

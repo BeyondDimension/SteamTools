@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
+             x:DataType="vm:StartPageViewModel"
+             x:CompileBindings="True"
+             x:Class="System.Application.UI.Views.Pages.GameRelatedPage">
+  <TabControl TabStripPlacement="Left">
+    <TabItem Header="{ReflectionBinding Path=Res.GameRelated_Borderless,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      <pages:GameRelated_BorderlessPage>
+        <pages:GameRelated_BorderlessPage.DataContext>
+          <vm:GameRelated_BorderlessPageViewModel/>
+        </pages:GameRelated_BorderlessPage.DataContext>
+      </pages:GameRelated_BorderlessPage>
+    </TabItem>
+    <!--<TabItem Header="CS:GO">
+    </TabItem>-->
+  </TabControl>
+</UserControl>

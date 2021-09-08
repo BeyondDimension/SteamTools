@@ -61,15 +61,6 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Steam++ 的本地化字符串。
-        /// </summary>
-        internal static string AppName {
-            get {
-                return ResourceManager.GetString("AppName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 正在校验：{0}% 的本地化字符串。
         /// </summary>
         internal static string CalcHashing_ {
@@ -162,14 +153,14 @@ namespace System.Application.Properties {
         /// <summary>
         ///   查找类似 当有新公告时的提示通知。 的本地化字符串。
         /// </summary>
-        internal static string NotificationChannelType_Description_BusinessPlatform {
+        internal static string NotificationChannelType_Description_Announcement {
             get {
-                return ResourceManager.GetString("NotificationChannelType_Description_BusinessPlatform", resourceCulture);
+                return ResourceManager.GetString("NotificationChannelType_Description_Announcement", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 当下载新版本时的下载进度条通知。 的本地化字符串。
+        ///   查找类似 当有新版本可用时的提示通知与下载新版本时的进度通知。 的本地化字符串。
         /// </summary>
         internal static string NotificationChannelType_Description_NewVersion {
             get {
@@ -178,11 +169,11 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 业务平台通知 的本地化字符串。
+        ///   查找类似 公告通知 的本地化字符串。
         /// </summary>
-        internal static string NotificationChannelType_Name_BusinessPlatform {
+        internal static string NotificationChannelType_Name_Announcement {
             get {
-                return ResourceManager.GetString("NotificationChannelType_Name_BusinessPlatform", resourceCulture);
+                return ResourceManager.GetString("NotificationChannelType_Name_Announcement", resourceCulture);
             }
         }
         

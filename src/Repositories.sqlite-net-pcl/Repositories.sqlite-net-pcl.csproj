@@ -10,17 +10,21 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="..\Common.CoreLib\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\references\sqlite-net\nuget\SQLite-net-std\SQLite-net-std.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
-    <PackageReference Include="Polly" Version="7.2.2" />
+    <!--<PackageReference Include="sqlite-net-pcl" />-->
+    <PackageReference Include="Polly" />
   </ItemGroup>
 </Project>

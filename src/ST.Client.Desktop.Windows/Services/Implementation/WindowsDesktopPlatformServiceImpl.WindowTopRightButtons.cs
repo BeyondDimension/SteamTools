@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
+using System.Windows;
 
 namespace System.Application.Services.Implementation
 {
@@ -13,6 +14,17 @@ namespace System.Application.Services.Implementation
         public const int SC_CLOSE = 0xF060;
         public const int SC_MINIMIZE = 0xF020;
         public const int SC_MAXIMIZE = 0xF030;
+        //public const int CS_DROPSHADOW = 0x20000;
+
+        public void FixFluentWindowStyleOnWin7(IntPtr hWnd)
+        {
+            if (!OperatingSystem2.IsWindows7) return;
+            var value = GetWindowLong(hWnd, GWL_STYLE);
+            value &= ~WS_MAXIMIZEBOX;
+            value &= ~WS_MINIMIZEBOX;
+            //value &= ~CS_DROPSHADOW;
+            _ = SetWindowLong(hWnd, GWL_STYLE, value);
+        }
 
         [DllImport("user32.dll")]
         public static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
@@ -67,16 +79,16 @@ namespace System.Application.Services.Implementation
             _ = SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) & ~WS_MAXIMIZEBOX);
         }
 
-        public void SetResizeMode(IntPtr hWnd, int value)
+        public void SetResizeMode(IntPtr hWnd, ResizeModeCompat value)
         {
             switch (value)
             {
-                case IDesktopPlatformService.ResizeMode_NoResize:
+                case ResizeModeCompat.NoResize:
                     _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MAXIMIZE, MF_BYCOMMAND);
                     _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MINIMIZE, MF_BYCOMMAND);
                     HideMinimizeAndMaximizeButtons(hWnd);
                     break;
-                case IDesktopPlatformService.ResizeMode_CanMinimize:
+                case ResizeModeCompat.CanMinimize:
                     _ = DeleteMenu(GetSystemMenu(hWnd, false), SC_MAXIMIZE, MF_BYCOMMAND);
                     DisableMaximizeButton(hWnd);
                     break;

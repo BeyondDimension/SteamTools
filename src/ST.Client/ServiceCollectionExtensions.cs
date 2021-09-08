@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application;
 using System.Application.Entities;
 using System.Application.Repositories;
@@ -9,7 +9,7 @@ using System.Application.Services.Implementation;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class IdentityServiceCollectionExtensions
+    public static partial class IdentityServiceCollectionExtensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
@@ -70,6 +70,17 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<StartupToastIntercept>();
             services.AddSingleton<IToastIntercept>(s => s.GetRequiredService<StartupToastIntercept>());
+            return services;
+        }
+
+        /// <summary>
+        /// 添加 asf 功能
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddArchiSteamFarmService(this IServiceCollection services)
+        {
+            services.AddSingleton<IArchiSteamFarmService, ArchiSteamFarmServiceImpl>();
             return services;
         }
     }

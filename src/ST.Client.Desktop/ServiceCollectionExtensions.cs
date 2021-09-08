@@ -8,7 +8,7 @@ using System.Net.Http;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
         /// <summary>
         /// 尝试添加适用于Desktop的Toast
@@ -17,22 +17,6 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection TryAddToast(this IServiceCollection services)
             => PlatformToastImpl.TryAddToast(services);
-
-        /// <summary>
-        /// 添加桌面端日志实现
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddDesktopLogging(this IServiceCollection services)
-        {
-            var (minLevel, cfg) = AppHelper.Configure();
-            services.AddLogging(cfg);
-            services.Configure<LoggerFilterOptions>(o =>
-            {
-                o.MinLevel = minLevel;
-            });
-            return services;
-        }
 
         /// <summary>
         /// 添加 hosts 文件助手服务
@@ -94,19 +78,31 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddDesktopHttpPlatformHelper(this IServiceCollection services)
+        public static IServiceCollection TryAddDesktopHttpPlatformHelper(this IServiceCollection services)
         {
-            services.AddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
+            services.TryAddSingleton<IHttpPlatformHelper, DesktopHttpPlatformHelper>();
             return services;
         }
+
         /// <summary>
-        /// 添加 Window 窗口viewmodel
+        /// 添加窗口服务
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
         public static IServiceCollection AddWindowService(this IServiceCollection services)
         {
             services.AddSingleton<IWindowService, WindowServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加适用于桌面端的 <see cref="INotificationService"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddNotificationService(this IServiceCollection services)
+        {
+            services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
             return services;
         }
     }

@@ -1,4 +1,4 @@
-﻿// Rename Serializable.DebugView / DebugViewText
+// Rename Serializable.DebugView / DebugViewText
 // Rename CrossLanguageSettings
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -15,40 +15,12 @@ namespace System
     /// </summary>
     public static class Serializable2
     {
-        static readonly Lazy<JsonSerializerSettings> mDebugViewTextSettings = new(GetDebugViewTextSettings);
-
-        static JsonSerializerSettings GetDebugViewTextSettings() => new()
-        {
-            ContractResolver = new IgnoreJsonPropertyContractResolver(),
-            Converters = new List<JsonConverter>
-            {
-                new StringEnumConverter(),
-            },
-        };
-
-        /// <summary>
-        /// 将忽略 <see cref="JsonPropertyAttribute"/> 属性
-        /// </summary>
-        sealed class IgnoreJsonPropertyContractResolver : DefaultContractResolver
-        {
-            protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-            {
-                var result = base.CreateProperties(type, memberSerialization);
-                foreach (var item in result)
-                {
-                    item.PropertyName = item.UnderlyingName;
-                }
-                return result;
-            }
-        }
-
         /// <summary>
         /// 序列化 JSON 模型，使用原键名，仅调试使用
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string S(object? value)
-            => SerializeObject(value, Formatting.Indented, mDebugViewTextSettings.Value);
+        public static string S(object? value) => Serializable.SJSON_Original(value);
 
         /// <summary>
         /// 反序列化 JSON 模型，使用原键名，仅调试使用
@@ -57,7 +29,6 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [return: MaybeNull]
-        public static T D<T>(string value)
-            => DeserializeObject<T>(value, mDebugViewTextSettings.Value);
+        public static T D<T>(string value) => Serializable.DJSON_Original<T>(value);
     }
 }

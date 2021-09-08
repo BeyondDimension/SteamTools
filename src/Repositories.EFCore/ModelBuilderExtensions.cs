@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Application.Columns;
 using System.Application.Entities;
@@ -64,7 +64,7 @@ namespace System
                 if (pOrder.IsAssignableFrom(type))
                 {
                     modelBuilder.Entity(type, p => p.HasIndex(nameof(IOrder.Order)));
-                    Log.Info(TAG, "IOrder type: {0}", type.FullName);
+                    //Log.Info(TAG, "IOrder type: {0}", type.FullName);
                 }
 
                 #endregion
@@ -73,10 +73,11 @@ namespace System
 
                 if (pSoftDeleted.IsAssignableFrom(type))
                 {
+                    // https://docs.microsoft.com/zh-cn/ef/core/querying/filters
                     modelBuilder.Entity(type, p => p.HasIndex(nameof(ISoftDeleted.SoftDeleted)));
                     modelBuilder.Entity(type).HasQueryFilter(SoftDeletedQueryFilter(type));
                     softDeleted.Add(type);
-                    Log.Info(TAG, "IsSoftDeleted type: {0}", type.FullName);
+                    //Log.Info(TAG, "IsSoftDeleted type: {0}", type.FullName);
                 }
 
                 #endregion
@@ -86,7 +87,7 @@ namespace System
                 if (pCreationTime.IsAssignableFrom(type))
                 {
                     modelBuilder.Entity(type, p => p.Property(nameof(ICreationTime.CreationTime)).HasDefaultValueSql(SQLStrings.SYSDATETIMEOFFSET).IsRequired());
-                    Log.Info(TAG, "ICreationTime type: {0}", type.FullName);
+                    //Log.Info(TAG, "ICreationTime type: {0}", type.FullName);
                 }
 
                 #endregion
@@ -98,7 +99,12 @@ namespace System
                     modelBuilder.Entity(type, p => p.Property(nameof(IUpdateTime.UpdateTime)).HasDefaultValueSql(SQLStrings.SYSDATETIMEOFFSET).IsRequired());
                     modelBuilder.Entity(type, p => p.Property(nameof(IUpdateTime.UpdateTime)).ValueGeneratedOnAddOrUpdate()
                     .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Save));
-                    Log.Info(TAG, "IUpdateTime type: {0}", type.FullName);
+                    //Log.Info(TAG, "IUpdateTime type: {0}", type.FullName);
+                }
+
+                if (pPhoneNumber.IsAssignableFrom(type))
+                {
+                    modelBuilder.Entity(type, p => p.Property(nameof(IPhoneNumber.PhoneNumber)).HasMaxLength(IPhoneNumber.Db_MaxLength_PhoneNumber));
                 }
 
                 #endregion
@@ -108,7 +114,7 @@ namespace System
                 if (pkGuid.IsAssignableFrom(type))
                 {
                     modelBuilder.Entity(type, b => b.Property(nameof(IEntity<Guid>.Id)).HasDefaultValueSql(SQLStrings.NEWSEQUENTIALID));
-                    Log.Info(TAG, "INEWSEQUENTIALID type: {0}", type.FullName);
+                    //Log.Info(TAG, "INEWSEQUENTIALID type: {0}", type.FullName);
                 }
 
                 #endregion
@@ -121,6 +127,7 @@ namespace System
         public static readonly Type pCreationTime = typeof(ICreationTime);
         public static readonly Type pUpdateTime = typeof(IUpdateTime);
         public static readonly Type pkGuid = typeof(INEWSEQUENTIALID);
+        public static readonly Type pPhoneNumber = typeof(IPhoneNumber);
         /// <summary>
         /// https://docs.microsoft.com/zh-cn/ef/core/modeling/shadow-properties#property-bag-entity-types
         /// </summary>

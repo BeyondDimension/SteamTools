@@ -1,4 +1,4 @@
-﻿namespace System.Application.Mvvm
+namespace System.Application.Mvvm
 {
     [AttributeUsage(AttributeTargets.Method)]
     internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute

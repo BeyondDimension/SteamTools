@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System.Security.Cryptography;
 
 namespace System
@@ -15,11 +15,13 @@ namespace System
             Assert.IsTrue(bytes[0] == values[0]);
         }
 
+        static CipherMode CFB => OperatingSystem2.IsAndroid ? CipherMode.CBC : CipherMode.CFB;
+
         [Test]
         public void MultipleEncrypt()
         {
             var aes_cbc_1 = AESUtils.Create();
-            var aes_cfb_1 = AESUtils.Create(mode: CipherMode.CFB);
+            var aes_cfb_1 = AESUtils.Create(mode: CFB);
             var aes_cbc_2 = AESUtils.Create();
 
             var value = DateTime.Now.ToString() + " 🔮🎮";
@@ -33,7 +35,7 @@ namespace System
 
 #pragma warning disable CA1416 // 验证平台兼容性
 #if !ANDROID && !__ANDROID__ && !__MOBILE__
-            if (DI.Platform == Platform.Windows)
+            if (OperatingSystem2.IsWindows)
             {
                 bytes_4 = ProtectedData.Protect(bytes_3, null, DataProtectionScope.LocalMachine);
 
@@ -58,22 +60,22 @@ namespace System
 
             (var key, var iv) = AESUtils.GetParameters(key_str);
 
-            var aes_ofb = AESUtils.Create(mode: CipherMode.CFB);
-            aes_ofb.Key = key;
-            aes_ofb.IV = iv;
+            var aes_cfb = AESUtils.Create(mode: CFB);
+            aes_cfb.Key = key;
+            aes_cfb.IV = iv;
 
-            var data = AESUtils.EncryptToByteArray(aes_ofb, value);
+            var data = AESUtils.EncryptToByteArray(aes_cfb, value);
 
-            var value1 = AESUtils.DecryptToString(aes_ofb, data);
+            var value1 = AESUtils.DecryptToString(aes_cfb, data);
 
             Assert.IsTrue(value == value1);
 
-            var aes_ofb_1 = AESUtils.Create(mode: CipherMode.CFB);
-            aes_ofb_1.Key = key;
-            aes_ofb_1.IV = iv;
+            var aes_cfb_1 = AESUtils.Create(mode: CFB);
+            aes_cfb_1.Key = key;
+            aes_cfb_1.IV = iv;
 
-            var value2 = AESUtils.DecryptToString(aes_ofb, data);
-            var value3 = AESUtils.DecryptToString(aes_ofb_1, data);
+            var value2 = AESUtils.DecryptToString(aes_cfb, data);
+            var value3 = AESUtils.DecryptToString(aes_cfb_1, data);
 
             Assert.IsTrue(value2 == value3);
 

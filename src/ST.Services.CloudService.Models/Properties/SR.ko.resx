@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -119,20 +119,34 @@
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
     <value>클라이언트가 오래되었습니다. 새 버전으로 업그레이드하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>로그인 자격 증명이 잘못되었습니다. 다시 로그인하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError_" xml:space="preserve">
+    <value>클라이언트 오류 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClientError__" xml:space="preserve">
+    <value>클라이언트 오류 {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
     <value>현재 실행중인 프로그램은 공식 채널이 아닙니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
     <value>네트워크 연결이 끊어졌습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
     <value>서버 오류 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
     <value>서버 오류 {0} - {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

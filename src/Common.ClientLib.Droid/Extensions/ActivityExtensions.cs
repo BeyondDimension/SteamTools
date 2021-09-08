@@ -1,11 +1,16 @@
-﻿using Android.App;
+using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.Navigation.Fragment;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -40,20 +45,22 @@ namespace System
         /// <param name="activity"></param>
         /// <param name="editText"></param>
         /// <param name="inOnCreate">是否在<see cref="Activity.OnCreate(Android.OS.Bundle?)"/>中调用</param>
-        public static void ShowSoftInput(this Activity activity, EditText editText, bool inOnCreate = false)
+        public static async void ShowSoftInput(this Activity activity, EditText editText, bool inOnCreate = false)
         {
             var imm = activity.GetSystemService<InputMethodManager>();
             if (imm != null)
             {
                 if (inOnCreate)
                 {
+                    const int millisecondsDelay = 99;
                     if (activity.Window != null)
                     {
-                        activity.Window.DecorView.PostDelayed(ShowSoftInput, 100);
+                        activity.Window.DecorView.PostDelayed(ShowSoftInput, millisecondsDelay);
                     }
                     else
                     {
-                        new Handler().PostDelayed(ShowSoftInput, 100);
+                        await Task.Delay(millisecondsDelay);
+                        MainThread.BeginInvokeOnMainThread(ShowSoftInput);
                     }
                 }
                 else
@@ -103,6 +110,33 @@ namespace System
             return null;
         }
 
+        [return: MaybeNull]
+        public static TFragment GetNavigationFragment<TFragment>(
+           this FragmentActivity activity)
+           where TFragment : Fragment
+        {
+            var fragments = activity.SupportFragmentManager.Fragments;
+            if (fragments != null)
+            {
+                foreach (var fragment in fragments)
+                {
+                    if (fragment is NavHostFragment navHostFragment)
+                    {
+                        var fragments2 = navHostFragment
+                            .ChildFragmentManager.Fragments;
+                        foreach (var fragment1 in fragments2)
+                        {
+                            if (fragment1 is TFragment t)
+                            {
+                                return t;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         #endregion
 
         public static bool HasValue(this Activity? activity)
@@ -116,5 +150,44 @@ namespace System
         public static bool IsAvailable(this Activity? activity) => activity.HasValue();
 
 #endif
+
+        public static void SetSupportActionBarWithNavigationClick(this AppCompatActivity activity, Toolbar toolbar, bool displayHomeAsUpEnabled = false)
+        {
+            activity.SetSupportActionBar(toolbar);
+            toolbar.NavigationClick += (_, _) => activity.OnBackPressed();
+            if (displayHomeAsUpEnabled) activity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+        }
+
+        /// <summary>
+        /// 设置是否禁止截屏
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <param name="value"></param>
+        public static void SetWindowSecure(this Activity activity, bool value)
+        {
+            if (activity.Window?.Attributes == null) return;
+            if (value)
+            {
+                if (activity.Window.Attributes.Flags.HasFlag(WindowManagerFlags.Secure))
+                {
+                    return;
+                }
+                else
+                {
+                    activity.Window.AddFlags(WindowManagerFlags.Secure);
+                }
+            }
+            else
+            {
+                if (activity.Window.Attributes.Flags.HasFlag(WindowManagerFlags.Secure))
+                {
+                    activity.Window.ClearFlags(WindowManagerFlags.Secure);
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
     }
 }

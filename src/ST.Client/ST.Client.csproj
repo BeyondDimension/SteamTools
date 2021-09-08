@@ -11,6 +11,9 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
@@ -20,10 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-      <PackageReference Include="ReactiveUI" Version="13.2.18" />
+    <PackageReference Include="QRCoder" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\references\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />
     <ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
     <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\ST.Services.CloudService\ST.Services.CloudService.csproj" />
@@ -45,5 +49,4 @@
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

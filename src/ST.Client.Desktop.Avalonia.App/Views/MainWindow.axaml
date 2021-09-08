@@ -3,14 +3,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        d:DesignWidth="1200" Width="995" MinWidth="995"
-        d:DesignHeight="600" Height="600" MinHeight="600"
+        d:DesignWidth="1200" Width="900" MinWidth="800"
+        d:DesignHeight="600" Height="600" MinHeight="500"
         xmlns:local="clr-namespace:System.Application.UI.Views;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
         xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
         x:Class="System.Application.UI.Views.MainWindow"
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
-        ExtendClientAreaTitleBarHeightHint="50"
+        ExtendClientAreaTitleBarHeightHint="30"
         Background="Transparent"
         Title="{Binding Title,Mode=OneWay}"
         Topmost="{Binding Topmost}"
@@ -21,8 +23,14 @@
       <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
     </Style>
   </Window.Styles>
-
   <Panel Margin="{Binding #MainWindow.OffScreenMargin}">
+    <!--<Panel ZIndex="0"
+           HorizontalAlignment="Stretch"
+           VerticalAlignment="Stretch">
+      <controls:EmptyControl x:Name="DesktopBackground" 
+           IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=Value,Mode=TwoWay}"/>
+    </Panel>-->
     <local:MainView DataContext="{Binding}"/>
+    <!--<controls:WebView3 IsVisible="False" InitialUrl="chrome://version"></controls:WebView3>-->
   </Panel>
 </Window>

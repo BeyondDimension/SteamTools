@@ -1,4 +1,4 @@
-﻿using System.Application;
+using System.Application;
 using System.Application.UI.Activities;
 using AndroidApplication = Android.App.Application;
 using JClass = Java.Lang.Class;
@@ -15,7 +15,7 @@ namespace System.Common
             /// <summary>
             /// 通知栏图标资源
             /// </summary>
-            public static int? ic_stat_notify_msg => null; // Resource.Drawable.ic_stat_notify_msg;
+            public static int? ic_stat_notify_msg => Resource.Drawable.ic_stat_notify_msg;
         }
 
         public static class activities

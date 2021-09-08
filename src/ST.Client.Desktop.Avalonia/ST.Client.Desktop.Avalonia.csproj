@@ -21,12 +21,47 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Application\UI\Assets\AppResources\gg.gif" />
+    <AvaloniaResource Remove="CefSharp\**" />
+    <AvaloniaXaml Remove="CefSharp\**" />
+    <Compile Remove="CefSharp\**" />
+    <EmbeddedResource Remove="CefSharp\**" />
+    <None Remove="CefSharp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Remove="Application\UI\Views\Controls\WebView3.axaml" />
+    <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_ChangeLog.axaml" />
+    <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml" />
+    <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml" />
+    <AvaloniaXaml Remove="Application\UI\Views\Windows\WebView3Window.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Application\UI\CefNetApp.cs" />
+    <Compile Remove="Application\UI\Views\Controls\WebView3.axaml.cs" />
+    <Compile Remove="Application\UI\Views\Controls\WebViewBase.cs" />
+    <Compile Remove="Application\UI\Views\Pages\About\About_Changelog.axaml.cs" />
+    <Compile Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml.cs" />
+    <Compile Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml.cs" />
+    <Compile Remove="Application\UI\Views\Windows\WebView3Window.axaml.cs" />
+    <Compile Remove="Extensions\CookieExtensions.cs" />
+    <Compile Remove="Extensions\WebViewExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
+    <None Remove="Application\UI\Assets\movecross.png" />
+    <None Remove="Application\UI\Styles\Controls\DateTimePicker.xaml" />
+    <None Remove="Application\UI\Styles\Controls\ToggleSwitch.xaml" />
+    <None Remove="Application\UI\Styles\Controls\Window.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
@@ -35,22 +70,25 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\references\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
-    <ProjectReference Include="..\..\references\CefNet\CefNet.Avalonia\CefNet.Avalonia.csproj" />
+    <ProjectReference Include="..\..\references\FluentAvalonia\FluentAvalonia\FluentAvalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0013977-beta" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0013977-beta" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0013977-beta" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0013977-beta" />
-    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
-    <!--<PackageReference Include="CefNet.Avalonia" Version="88.1.21022.1657" />-->
-    <PackageReference Include="LibVLCSharp.Avalonia" Version="3.5.0" />
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <!--<PackageReference Include="Avalonia.AvaloniaEdit" />-->
+    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="Avalonia.Xaml.Behaviors" />
+    <!--<PackageReference Include="CefNet.Avalonia" />-->
+    <!--<PackageReference Include="LibVLCSharp.Avalonia" />-->
+    <!--<PackageReference Include="FluentAvaloniaUI" />-->
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013977-beta" />
+    <PackageReference Include="Avalonia.Diagnostics" />
   </ItemGroup>
+  
 </Project>

@@ -1,4 +1,4 @@
-﻿using Android.Views;
+using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using System.Collections.Generic;
 
@@ -123,8 +123,7 @@ namespace System.Application.UI.Adapters
 
         public virtual TViewHolder OnCreateViewHolder(TViewType viewType, ViewGroup parent)
         {
-            int layoutResource;
-            layoutResource = GetLayoutResource(viewType).ThrowIsNull(nameof(layoutResource));
+            int layoutResource = GetLayoutResource(viewType).ThrowIsNull(nameof(layoutResource));
             var layoutInflater = LayoutInflater.From(parent.Context);
             if (layoutInflater == null) throw new ArgumentNullException(nameof(layoutInflater));
             var view = layoutInflater.Inflate(layoutResource, parent, false);

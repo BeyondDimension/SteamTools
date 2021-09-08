@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 
@@ -18,7 +18,7 @@ namespace System
             {
                 return true;
             }
-            if (DI.Platform == Platform.Android)
+            if (OperatingSystem2.IsAndroid)
             {
                 if (e.Message == "Canceled" && e.GetType().FullName == "Java.IO.IOException")
                 {

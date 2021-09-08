@@ -16,13 +16,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Properties;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
-[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark)]
 namespace System
 {
     static class Program
@@ -31,6 +29,8 @@ namespace System
         internal static readonly Process currentProcess = Process.GetCurrentProcess();
         internal static string thisFilePath = "";
         internal static string appFilePath = "";
+        internal const string binDirName = "bin";
+        internal const string win7MarkName = ".win7";
 
         /// <summary>
         /// 在浏览器中打开补丁KB3063858的下载地址

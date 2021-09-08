@@ -7,29 +7,55 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Settings\**" />
+    <EmbeddedResource Remove="Models\Settings\**" />
+    <None Remove="Models\Settings\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ServiceCollectionExtensions.AddGeneralLogging.cs" />
+    <Compile Remove="UI\ViewModels\Pages\DebugWebViewPageViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Client.Mobile\UI\ViewModels\Base\RIdTitleIconViewModel.cs">
+      <LinkBase>UI\ViewModels\Base</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Mobile\UI\ResIcon.cs">
+      <LinkBase>UI</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Mobile\UI\ViewModels\Windows\TextBoxWindowViewModel.cs">
+      <LinkBase>UI\ViewModels\Windows</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DnsClient" Version="1.4.0"/>
-    <PackageReference Include="Gameloop.Vdf" Version="0.6.1"/>
-    <PackageReference Include="NLog" Version="4.7.9"/>
-    <PackageReference Include="NLog.Extensions.Logging" Version="1.7.2"/>
-    <PackageReference Include="SharpZipLib" Version="1.3.1"/>
-    <PackageReference Include="StatefulModel.Standard" Version="0.1.0"/>
-    <!--<PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />-->
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20574.7"/>
-    <PackageReference Include="System.Drawing.Common" Version="5.0.2"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0"/>
+    <PackageReference Include="DnsClient" />
+    <PackageReference Include="Fleck" />
+    <PackageReference Include="Gameloop.Vdf" />
+    <PackageReference Include="NLog" />
+    <PackageReference Include="NLog.Extensions.Logging" />
+    <PackageReference Include="NotifyIcon.Base" />
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="Squid-Box.SevenZipSharp" />
+    <PackageReference Include="StatefulModel.Standard" />
+    <!--<PackageReference Include="Titanium.Web.Proxy" />-->
+    <PackageReference Include="System.CommandLine" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client\ST.Client.csproj"/>
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>

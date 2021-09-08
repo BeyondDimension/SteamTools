@@ -13,48 +13,62 @@
         WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight"
         MinWidth="450" MinHeight="50"
+        MaxWidth="900" MaxHeight="600"
         ShowInTaskbar="False"
         Padding="0" Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
-        CanResize="False" 
+        CanResize="False"
         Title="{Binding Title}"
         x:DataType="vm:MessageBoxWindowViewModel"
         x:CompileBindings="True">
-    <Design.DataContext>
-        <vm:MessageBoxWindowViewModel/>
-    </Design.DataContext>
-    <Grid RowDefinitions="1,30,*,Auto,1">
-        <controls:TitleBar Grid.RowSpan="5"></controls:TitleBar>
-        <!--<DockPanel HorizontalAlignment="Stretch" Grid.RowSpan="5">
+  <Design.DataContext>
+    <vm:MessageBoxWindowViewModel/>
+  </Design.DataContext>
+  <Grid RowDefinitions="1,30,*,Auto,1">
+    <controls:TitleBar Grid.RowSpan="5"></controls:TitleBar>
+    <!--<DockPanel HorizontalAlignment="Stretch" Grid.RowSpan="5">
             <ExperimentalAcrylicBorder IsHitTestVisible="False">
                 <ExperimentalAcrylicBorder.Material>
                     <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.55" TintOpacity="1"/>
                 </ExperimentalAcrylicBorder.Material>
             </ExperimentalAcrylicBorder>
         </DockPanel>-->
-        <!--<StackPanel Grid.Row="1" Margin="10 5 0 5" IsHitTestVisible="False">
+    <!--<StackPanel Grid.Row="1" Margin="10 5 0 5" IsHitTestVisible="False">
             <TextBlock Text="{Binding Title}" FontSize="16"></TextBlock>
         </StackPanel>-->
-        <StackPanel Margin="12 10 12 5" Grid.Row="2" x:Name="content">
-            <DockPanel>
-                <TextBlock Text="{Binding Content}" MaxWidth="500"
-                           Margin="12,0" FontSize="14"
-                           HorizontalAlignment="Left"
-                           TextWrapping="WrapWithOverflow"
-                           VerticalAlignment="Center"></TextBlock>
-            </DockPanel>
-            
-            <Border Margin="0 15 0 0">
-                <Separator Classes="Separator"/>
-            </Border>
-        </StackPanel>
-        <WrapPanel  Grid.Row="3"
-                   HorizontalAlignment="Right"
-                   Margin="10,0,10,0">
-            <Button MinWidth="90" Padding="30,6" Margin="6" IsDefault="True" Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
-            <Button MinWidth="90" Padding="30,6" Margin="6" IsCancel="True" Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}" IsVisible="{Binding IsCancelcBtn}"></Button>
-        </WrapPanel>
-    </Grid>
+    <StackPanel Margin="12 10 12 5" Grid.Row="2" x:Name="content">
+      <DockPanel>
+        <TextBlock Text="{Binding Content}" MaxWidth="500"
+                   Margin="12,0" FontSize="14"
+                   HorizontalAlignment="Left"
+                   TextWrapping="WrapWithOverflow"
+                   VerticalAlignment="Center"></TextBlock>
+      </DockPanel>
+
+      <Border Margin="0 15 0 0">
+        <Separator Classes="Separator"/>
+      </Border>
+    </StackPanel>
+    <DockPanel Grid.Row="3"
+               Margin="10,0,10,0">
+      <CheckBox
+                IsVisible="{Binding IsShowRememberChoose}"
+                Margin="10 0 0 0"
+                IsChecked="{Binding RememberChoose}"
+                Content="{ReflectionBinding Path=Res.RememberChooseNotToAskAgain,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      <WrapPanel  Grid.Row="3"
+           HorizontalAlignment="Right">
+        <WrapPanel.Styles>
+          <Style Selector="Button">
+            <Setter Property="MinWidth" Value="90"></Setter>
+            <Setter Property="Padding" Value="30,6"></Setter>
+            <Setter Property="Margin" Value="6"></Setter>
+            <Setter Property="IsDefault" Value="True"></Setter>
+          </Style>
+        </WrapPanel.Styles>
+        <Button Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
+        <Button Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}" IsVisible="{Binding IsCancelcBtn}"></Button>
+      </WrapPanel>
+    </DockPanel>
+  </Grid>
 </Window>

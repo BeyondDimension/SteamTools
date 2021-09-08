@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Application.Serialization;
 using System.Application.Services;
 using System.Collections.Generic;
@@ -27,11 +27,11 @@ namespace System.Application.Models.Settings
         ///  如果没有缓存，根据<see cref="create" />创建它
         /// </summary>
         /// <returns></returns>
-        protected SerializableProperty<T> Cache<T>(Func<string, SerializableProperty<T>> create, [CallerMemberName] string propertyName = "")
+        protected SerializableProperty<T> Cache<T>(Func<string, SerializableProperty<T>> create, [CallerMemberName] string propertyName = "") where T : notnull
         {
             var key = CategoryName + "." + propertyName;
 
-            if (cachedProperties.TryGetValue(key, out object obj) && obj is SerializableProperty<T> property1)
+            if (cachedProperties.TryGetValue(key, out var obj) && obj is SerializableProperty<T> property1)
                 return property1;
 
             var property = create(key);
@@ -79,11 +79,11 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static T Instance<T>() where T : SettingsHost, new()
         {
-            return instances.TryGetValue(typeof(T), out SettingsHost host) ? (T)host : new T();
+            return instances.TryGetValue(typeof(T), out var host) ? (T)host : new T();
         }
     }
 
-    public class Providers
+    public static class Providers
     {
         public static string LocalFilePath => Path.Combine(IOPath.AppDataDirectory, SettingsHost.ConfigName);
 

@@ -1,4 +1,5 @@
-﻿using System.Application.Services;
+using Avalonia.Controls;
+using System.Application.Services;
 using System.Runtime.InteropServices;
 using Window = Avalonia.Controls.Window;
 
@@ -30,7 +31,7 @@ namespace System.Windows
                     window.CanResize = true;
                     break;
             }
-            p.SetResizeMode(window.PlatformImpl.Handle.Handle, (int)value);
+            p.SetResizeMode(window.PlatformImpl.Handle.Handle, value);
         }
 
         static readonly bool IsWin32NT = Environment.OSVersion.Platform == PlatformID.Win32NT;
@@ -66,6 +67,12 @@ namespace System.Windows
             {
                 // ignored
             }
+        }
+
+        public static void ShowActivate(this Window window)
+        {
+            if (window.WindowState != WindowState.Normal) window.WindowState = WindowState.Normal;
+            window.Activate();
         }
     }
 }

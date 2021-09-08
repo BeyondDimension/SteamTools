@@ -120,6 +120,9 @@
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
     <value>服务端错误 {0} - 登录凭证失效，请重新登录</value>
   </data>
+  <data name="BindFail_UserIsNotNull" xml:space="preserve">
+    <value>绑定失败，此账号已被其他用户绑定</value>
+  </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
     <value>账号已被封禁</value>
   </data>

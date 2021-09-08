@@ -1,8 +1,8 @@
-﻿using StatefulModel.EventListeners;
+using StatefulModel.EventListeners;
 using System.ComponentModel;
 
 // ReSharper disable once CheckNamespace
-namespace System.Application
+namespace System
 {
     public static class PropertyChangedExtensions
     {

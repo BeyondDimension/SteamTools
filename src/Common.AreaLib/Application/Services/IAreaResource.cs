@@ -1,4 +1,4 @@
-﻿using System.Application.Entities;
+using System.Application.Entities;
 
 namespace System.Application.Services
 {

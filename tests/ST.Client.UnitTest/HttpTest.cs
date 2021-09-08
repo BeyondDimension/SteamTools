@@ -47,7 +47,7 @@ namespace System.Application
 #if DEBUG
 
         ///// <summary>
-        ///// 测试 登陆与注册 接口，先开服务端(私有)，再测试
+        ///// 测试 登录与注册 接口，先开服务端(私有)，再测试
         ///// </summary>
         ///// <returns></returns>
         //[Test]

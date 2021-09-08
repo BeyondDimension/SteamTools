@@ -16,17 +16,17 @@ namespace System.Application.Models.Settings
             //Theme.ValueChanged += Theme_ValueChanged;
         }
 
-        private static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
-        {
-            if (e.NewValue != e.OldValue)
-            {
-                var value = (AppTheme)e.NewValue;
-                if (value.IsDefined())
-                {
-                    AppHelper.Current.Theme = value;
-                }
-            }
-        }
+        //private static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
+        //{
+        //    if (e.NewValue != e.OldValue)
+        //    {
+        //        var value = (AppTheme)e.NewValue;
+        //        if (value.IsDefined())
+        //        {
+        //            AppHelper.Current.Theme = value;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 主题
@@ -40,6 +40,7 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<string> Language { get; }
             = new SerializableProperty<string>(GetKey(), Providers.Local, "") { AutoSave = true };
 
+#if !__MOBILE__
         /// <summary>
         /// 字体
         /// </summary>
@@ -68,13 +69,20 @@ namespace System.Application.Models.Settings
         /// 库存游戏封面大小
         /// </summary>
         public static SerializableProperty<int> AppGridSize { get; }
-            = new SerializableProperty<int>(GetKey(), Providers.Local, 200) { AutoSave = true };
+            = new SerializableProperty<int>(GetKey(), Providers.Local, 150) { AutoSave = true };
 
         /// <summary>
         /// 所有窗口位置记忆集合
         /// </summary>
         public static SerializableProperty<Dictionary<string, WindowSizePosition>> WindowSizePositions { get; }
-            = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = true };
+            = new SerializableProperty<Dictionary<string, WindowSizePosition>>(GetKey(), Providers.Local, new Dictionary<string, WindowSizePosition>()) { AutoSave = false };
+#endif
+
+        /// <summary>
+        /// 记住不再提示的窗口
+        /// </summary>
+        public static SerializableProperty<Dictionary<string, bool>> MessageBoxRememberChooseKeys { get; }
+            = new SerializableProperty<Dictionary<string, bool>>(GetKey(), Providers.Local, new Dictionary<string, bool>()) { AutoSave = false };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

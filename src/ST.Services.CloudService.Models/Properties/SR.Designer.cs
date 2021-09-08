@@ -79,6 +79,24 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 客户端错误 {0} 的本地化字符串。
+        /// </summary>
+        internal static string ClientError_ {
+            get {
+                return ResourceManager.GetString("ClientError_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 客户端错误 {0} - {1} 的本地化字符串。
+        /// </summary>
+        internal static string ClientError__ {
+            get {
+                return ResourceManager.GetString("ClientError__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当前运行的程序不是来自官方渠道 的本地化字符串。
         /// </summary>
         internal static string IsNotOfficialChannelPackageWarning {

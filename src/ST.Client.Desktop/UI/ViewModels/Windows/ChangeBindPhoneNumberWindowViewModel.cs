@@ -21,12 +21,6 @@ namespace System.Application.UI.ViewModels
                 { Step.Validation, new SendSmsUIViewModelValidation(this) },
                 { Step.New, new SendSmsUIViewModelNew(this) },
             };
-            Initialize();
-        }
-
-        public async void Initialize()
-        {
-            CurrentPhoneNumber = await DI.Get<IUserManager>().GetCurrentUserPhoneNumberAsync();
         }
 
         bool _IsLoading;
@@ -34,13 +28,6 @@ namespace System.Application.UI.ViewModels
         {
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
-        }
-
-        string? _CurrentPhoneNumber;
-        public string? CurrentPhoneNumber
-        {
-            get => _CurrentPhoneNumber;
-            set => this.RaiseAndSetIfChanged(ref _CurrentPhoneNumber, value);
         }
 
         string? _SmsCodeValidation;
@@ -155,27 +142,20 @@ namespace System.Application.UI.ViewModels
             var sendSmsUIViewModel = SendSmsUIViewModel;
             if (sendSmsUIViewModel == null) return;
 
-            if (sendSmsUIViewModel.TimeStart())
+            await sendSmsUIViewModel.SendSmsAsync(() => _CurrentStep switch
             {
-                var request = _CurrentStep switch
+                Step.Validation => new()
                 {
-                    Step.Validation => new SendSmsRequest
-                    {
-                        PhoneNumber = PhoneNumberHelper.SimulatorDefaultValue,
-                        Type = SmsCodeType.ChangePhoneNumberValidation,
-                    },
-                    Step.New => new SendSmsRequest
-                    {
-                        PhoneNumber = PhoneNumber,
-                        Type = SmsCodeType.ChangePhoneNumberNew,
-                    },
-                    _ => throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null),
-                };
-#if DEBUG
-                var response =
-#endif
-                await sendSmsUIViewModel.SendSms(request);
-            }
+                    PhoneNumber = PhoneNumberHelper.SimulatorDefaultValue,
+                    Type = SmsCodeType.ChangePhoneNumberValidation,
+                },
+                Step.New => new()
+                {
+                    PhoneNumber = PhoneNumber,
+                    Type = SmsCodeType.ChangePhoneNumberNew,
+                },
+                _ => throw new ArgumentOutOfRangeException(nameof(_CurrentStep), _CurrentStep, null),
+            });
         }
 
         public bool IsComplete { get; set; }
@@ -235,6 +215,7 @@ namespace System.Application.UI.ViewModels
                 var response = await ICloudServiceClient.Instance.Manage.ChangeBindPhoneNumber(request);
                 if (response.IsSuccess)
                 {
+                    await UserService.Current.UpdateCurrentUserPhoneNumberAsync(request.PhoneNumber!);
                     IsComplete = true;
                     var msg = AppResources.Success_.Format(AppResources.User_ChangePhoneNum);
                     Toast.Show(msg);
@@ -243,7 +224,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public Action? Close { private get; set; }
+        public new Action? Close { private get; set; }
 
         public Action? TbSmsCodeFocusValidation { get; set; }
 
@@ -280,9 +261,16 @@ namespace System.Application.UI.ViewModels
 
             public abstract bool IsUnTimeLimit { get; }
 
-            public abstract Action? TbPhoneNumberFocus { get; }
+            public virtual Action? TbPhoneNumberFocus
+            {
+                get => null;
+                set
+                {
 
-            public abstract Action? TbSmsCodeFocus { get; }
+                }
+            }
+
+            public abstract Action? TbSmsCodeFocus { get; set; }
         }
 
         class SendSmsUIViewModelValidation : SendSmsUIViewModelBase
@@ -310,9 +298,11 @@ namespace System.Application.UI.ViewModels
 
             public override bool IsUnTimeLimit => @this.IsUnTimeLimitValidation;
 
-            public override Action? TbPhoneNumberFocus => null;
-
-            public override Action? TbSmsCodeFocus => @this.TbSmsCodeFocusValidation;
+            public override Action? TbSmsCodeFocus
+            {
+                get => @this.TbSmsCodeFocusValidation;
+                set => @this.TbSmsCodeFocusValidation = value;
+            }
         }
 
         class SendSmsUIViewModelNew : SendSmsUIViewModelBase
@@ -340,9 +330,11 @@ namespace System.Application.UI.ViewModels
 
             public override bool IsUnTimeLimit => @this.IsUnTimeLimitNew;
 
-            public override Action? TbPhoneNumberFocus => null;
-
-            public override Action? TbSmsCodeFocus => @this.TbSmsCodeFocusNew;
+            public override Action? TbSmsCodeFocus
+            {
+                get => @this.TbSmsCodeFocusNew;
+                set => @this.TbSmsCodeFocusNew = value;
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -352,6 +344,16 @@ namespace System.Application.UI.ViewModels
                 CTS?.Cancel();
             }
             base.Dispose(disposing);
+        }
+
+        /// <inheritdoc cref="SendSmsUIHelper.RemoveAllDelegate(SendSmsUIHelper.IViewModel)"/>
+        public void RemoveAllDelegate()
+        {
+            Close = null;
+            foreach (var item in sendSmsUIViewModels)
+            {
+                item.Value.RemoveAllDelegate();
+            }
         }
     }
 }

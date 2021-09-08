@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.Content;
 using Android.Provider;
 using AndroidX.Core.Content;
@@ -18,10 +18,23 @@ namespace System.Application
         /// <param name="context"></param>
         public static void MockHomePressed(Context context)
         {
-            var intent = new Intent(Intent.ActionMain);
-            intent.SetFlags(ActivityFlags.NewTask);
-            intent.AddCategory(Intent.CategoryHome);
-            context.StartActivity(intent);
+            try
+            {
+                var intent = new Intent(Intent.ActionMain)
+                    .SetFlags(ActivityFlags.NewTask)
+                    .AddCategory(Intent.CategoryHome);
+                context.StartActivity(intent);
+            }
+            catch
+            {
+            }
+        }
+
+        public static string GetAuthority(Context context)
+        {
+            var packageName = context.ApplicationContext!.PackageName;
+            var value = packageName + ".fileProvider";
+            return value;
         }
 
         /// <summary>
@@ -34,9 +47,7 @@ namespace System.Application
         {
             file ??= new JFile(Path.GetTempFileName());
             // https://github.com/xamarin/Essentials/blob/1.5.3.2/Xamarin.Essentials/Types/FileProvider.android.cs
-            var imageUri = FileProvider.GetUriForFile(activity,
-                activity.ApplicationContext().PackageName + ".fileProvider",
-                file);
+            var imageUri = FileProvider.GetUriForFile(activity, GetAuthority(activity), file);
 #if DEBUG
             Android.Util.Log.Debug(nameof(Activity), $"StartCameraForResult imageUri: {imageUri}");
 #endif

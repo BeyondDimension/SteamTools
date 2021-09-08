@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:converters="clr-namespace:System.Application.Converters"
+            xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+            xmlns:resx="clr-namespace:System.Application.UI.Resx"
+            xmlns:viewmodels="clr-namespace:System.Application.UI.ViewModels"
+            xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+            x:DataType="viewmodels:LoginOrRegisterPageViewModel"
+            mc:Ignorable="d"
+            x:Class="System.Application.UI.Views.LoginOrRegisterPage"
+            Title="{Binding Title}"
+            BackgroundColor="{DynamicResource WindowBackground}"
+            Shell.NavBarIsVisible="True">
+  <ContentPage.Resources>
+    <converters:SwitchMultiValueConverter x:Key="SwitchMultiValueConverter"/>
+    <ControlTemplate x:Key="AgreementAndPrivacy">
+      <Label HorizontalOptions="Center" 
+             BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"
+             Margin="16,0"
+             FontSize="14">
+        <Label.FormattedText>
+          <FormattedString>
+            <FormattedString.Spans>
+              <Span Text="{x:Static resx:AppResources.User_RegisterAgreed}"/>
+              <Span Text=" "/>
+              <Span Text="{x:Static resx:AppResources.User_Agreement}"
+                        Style="{DynamicResource LinkText}">
+                <Span.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding OpenHyperlink}"
+                                          CommandParameter="Agreement"/>
+                </Span.GestureRecognizers>
+              </Span>
+              <Span Text=" "/>
+              <Span Text="{x:Static resx:AppResources.And}"/>
+              <Span Text=" "/>
+              <Span Text="{x:Static resx:AppResources.User_Privacy}"
+                        Style="{DynamicResource LinkText}">
+                <Span.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding OpenHyperlink}"
+                                          CommandParameter="Privacy"/>
+                </Span.GestureRecognizers>
+              </Span>
+            </FormattedString.Spans>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+    </ControlTemplate>
+    <ControlTemplate x:Key="LoginState_2">
+      <ScrollView BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
+        <ScrollView.Triggers>
+          <DataTrigger TargetType="ScrollView" Binding="{Binding IsLoading}" Value="True">
+            <Setter Property="IsVisible" Value="False" />
+          </DataTrigger>
+        </ScrollView.Triggers>
+        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
+          <Label Padding="22" FontSize="17" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
+          <StackLayout BindableLayout.ItemsSource="{Binding Channels}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate>
+                <ContentView VerticalOptions="CenterAndExpand">
+                  <controls:CardButton Padding="0" 
+                                         Margin="22,0,22,22"  
+                                         CommandParameter="{Binding Path=.}"  
+                                         Command="{Binding Path=ChooseChannel, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
+                    <StackLayout Orientation="Horizontal">
+                      <StackLayout.Resources>
+                        <converters:LoginOrRegisterChannelTextConverter x:Key="LoginOrRegisterChannelTextConverter"/>
+                        <converters:PathIconConverter x:Key="PathIconConverter"/>
+                        <converters:LoginOrRegisterChannelBackgroundColorConverter x:Key="LoginOrRegisterChannelBackgroundColorConverter"/>
+                      </StackLayout.Resources>
+                      <ContentView Padding="16" BackgroundColor="{Binding Path=., Converter={StaticResource LoginOrRegisterChannelBackgroundColorConverter}}">
+                        <Path Style="{DynamicResource PathIcon}" Data="{Binding Converter={StaticResource PathIconConverter}}"/>
+                      </ContentView>
+                      <Label Margin="16" FontSize="20">
+                        <Label.Text>
+                          <MultiBinding Converter="{StaticResource LoginOrRegisterChannelTextConverter}">
+                            <Binding Source="{x:Static resx:AppResources.User_UseFastLoginChannel_}"/>
+                            <Binding Path="."/>
+                            <Binding Source="{x:Static resx:AppResources.User_UsePhoneNumLoginChannel}"/>
+                          </MultiBinding>
+                        </Label.Text>
+                      </Label>
+                    </StackLayout>
+                  </controls:CardButton>
+                </ContentView>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </StackLayout>
+          <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
+        </StackLayout>
+      </ScrollView>
+    </ControlTemplate>
+    <ControlTemplate x:Key="LoginState_1">
+      <ScrollView BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}">
+        <ScrollView.Triggers>
+          <DataTrigger TargetType="ScrollView" Binding="{Binding IsLoading}" Value="True">
+            <Setter Property="IsVisible" Value="False" />
+          </DataTrigger>
+        </ScrollView.Triggers>
+        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
+          <Grid Margin="22,42" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="192"/>
+              <RowDefinition Height="56"/>
+              <RowDefinition Height="56"/>
+              <RowDefinition Height="56"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="106"/>
+            </Grid.ColumnDefinitions>
+            <Image Scale="2" Source="splash_logo.png" Grid.ColumnSpan="2"/>
+            <controls:TextBox x:Name="TbPhoneNumber"
+                              ReturnType="Next"
+                              ReturnCommand="{Binding TbPhoneNumberReturnCommand}"
+                              ReturnCommandParameter="{x:Reference TbSmsCode}"
+                              Margin="0,0,0,10"
+                              Placeholder="{x:Static resx:AppResources.User_Phone}"
+                              Keyboard="Telephone"
+                              MaxLength="{Binding Path=PhoneNumber, Mode=OneTime, Source={x:Static ccl_services:InputLengthConstants.Current}}"
+                              Grid.Row="1"
+                              Grid.ColumnSpan="2"/>
+            <controls:TextBox x:Name="TbSmsCode"
+                              ReturnType="Done"
+                              ReturnCommand="{Binding Submit}"
+                              Margin="0,0,0,10"
+                              Placeholder="{x:Static resx:AppResources.User_SMSCode}"
+                              MaxLength="{Binding Path=SMS_CAPTCHA, Mode=OneTime, Source={x:Static ccl_services:InputLengthConstants.Current}}"
+                              Keyboard="Numeric"
+                              Grid.Row="2"
+                              Grid.ColumnSpan="2"/>
+            <controls:TextButton Margin="0,0,0,8"
+                                 Text="{Binding BtnSendSmsCodeText}"
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Command="{Binding SendSms}"/>
+            <Button Margin="0,0,0,12"
+                  Text="{x:Static resx:AppResources.LoginAndRegister}"
+                  Command="{Binding Submit}"
+                  Grid.Row="3"
+                  Grid.ColumnSpan="2"/>
+            <ContentView Margin="0,0,0,32" Grid.Row="4" Grid.ColumnSpan="2" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
+          </Grid>
+        </StackLayout>
+      </ScrollView>
+    </ControlTemplate>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
+      <ActivityIndicator IsRunning="True"
+                           IsVisible="{Binding IsLoading}"
+                           Color="{StaticResource Primary}"
+                           VerticalOptions="CenterAndExpand"/>
+      <ContentView>
+        <ContentView.ControlTemplate>
+          <MultiBinding Converter="{StaticResource SwitchMultiValueConverter}">
+            <Binding Path="LoginState"/>
+            <Binding Source="{StaticResource LoginState_1}"/>
+            <Binding Source="{StaticResource LoginState_2}"/>
+          </MultiBinding>
+        </ContentView.ControlTemplate>
+      </ContentView>
+    </StackLayout>
+    <!--<CollectionView ItemsSource="{Binding FastLoginChannels}" HeightRequest="450" VerticalOptions="CenterAndExpand">
+      <CollectionView.Header>
+        <Label Padding="22" FontSize="16" Text="{x:Static resx:AppResources.User_FastLoginTip}"/>
+      </CollectionView.Header>
+      <CollectionView.Footer>
+        <ContentView Margin="0,0,0,22" ControlTemplate="{StaticResource AgreementAndPrivacy}"/>
+      </CollectionView.Footer>
+      <CollectionView.ItemTemplate>
+        <DataTemplate x:DataType="st_root:FastLoginChannel">
+          <ContentView>
+            <Frame Padding="16" Margin="22,0,22,22">
+              <Frame.GestureRecognizers>
+                <TapGestureRecognizer CommandParameter="{Binding}"
+                                          Command="{Binding Path=FastLogin, Source={RelativeSource AncestorType={x:Type viewmodels:LoginOrRegisterPageViewModel}}}"/>
+              </Frame.GestureRecognizers>
+              <StackLayout Spacing="16">
+                <Label Text="{Binding}"
+                           FontSize="24"/>
+              </StackLayout>
+            </Frame>
+          </ContentView>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>-->
+  </ContentPage.Content>
+</ContentPage>

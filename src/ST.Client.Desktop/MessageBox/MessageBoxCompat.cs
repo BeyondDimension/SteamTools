@@ -1,4 +1,5 @@
-﻿using System.Application;
+using System.Application;
+using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
 using System.Properties;
@@ -10,30 +11,46 @@ namespace System.Windows
     /// <summary>
     /// 显示消息框。
     /// </summary>
-    public static class MessageBoxCompat
+    public static partial class MessageBoxCompat
     {
         const string default_caption = ThisAssembly.AssemblyTrademark;
         const MessageBoxButtonCompat default_button = MessageBoxButtonCompat.OK;
+        static readonly Lazy<IMessageBoxCompatService?> mbcs =
+            new(DI.Get_Nullable<IMessageBoxCompatService>);
 
         /// <inheritdoc cref="IMessageBoxCompatService.ShowAsync(string, string, MessageBoxButtonCompat, MessageBoxImageCompat?)"/>
         public static async Task<MessageBoxResultCompat> ShowAsync(
-            string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon = null)
+            string messageBoxText, string caption, MessageBoxButtonCompat button, MessageBoxImageCompat? icon = null, MessageBoxRememberChooseCompat rememberChooseKey = MessageBoxRememberChooseCompat.Undefined)
         {
-            var f = DI.Get_Nullable<IMessageBoxCompatService>();
-
-            if (f != null)
+            if (mbcs.Value != null)
             {
-                return await f.ShowAsync(messageBoxText, caption, button, icon);
+                return await mbcs.Value.ShowAsync(messageBoxText, caption, button, icon);
+            }
+
+            var isDoNotShow = rememberChooseKey != MessageBoxRememberChooseCompat.Undefined;
+
+            if (isDoNotShow &&
+                UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == true)
+            {
+                return MessageBoxResultCompat.OK;
             }
 
             var viewModel = new MessageBoxWindowViewModel
             {
                 Content = messageBoxText,
                 IsCancelcBtn = button == MessageBoxButtonCompat.OKCancel,
+                IsShowRememberChoose = isDoNotShow,
             };
 
             var r = await IShowWindowService.Instance.ShowDialog(
                 CustomWindow.MessageBox, viewModel, caption, ResizeModeCompat.NoResize);
+
+            if (r && viewModel.RememberChoose && isDoNotShow)
+            {
+                if (UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == false)
+                    UISettings.DoNotShowMessageBoxs.Value?.Add(rememberChooseKey);
+                UISettings.DoNotShowMessageBoxs.RaiseValueChanged();
+            }
 
             return r ? MessageBoxResultCompat.OK : MessageBoxResultCompat.Cancel;
         }
@@ -58,4 +75,5 @@ namespace System.Windows
             Show(messageBoxText, caption, button, icon);
         }
     }
+
 }

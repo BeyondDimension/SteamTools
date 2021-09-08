@@ -1,34 +1,34 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conv="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
         xmlns:sys="clr-namespace:System;assembly=netstandard">
-    <Design.PreviewWith>
-        <Border Padding="20" Background="Green" Height="200" VerticalAlignment="Top">
-            <Menu>
-                <MenuItem Header="Test1">
-                    <MenuItem Header="Test1">
-                        <MenuItem Header="Test1">
-                            <MenuItem Header="Test1"></MenuItem>
-                        </MenuItem>
-                    </MenuItem>
-                    <MenuItem Header="Test1">
-                        <MenuItem Header="Test1"></MenuItem>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Header="Test1">
-                    <MenuItem Header="Test1"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Test1">
-                    <MenuItem Header="Test1"></MenuItem>
-                </MenuItem>
-                <MenuItem Header="Test1"></MenuItem>
-            </Menu>
-        </Border>
-    </Design.PreviewWith>
-    <Styles.Resources>
-    </Styles.Resources>
+  <Design.PreviewWith>
+    <Border Padding="20" Background="Green" Height="200" VerticalAlignment="Top">
+      <Menu>
+        <MenuItem Header="Test1">
+          <MenuItem Header="Test1">
+            <MenuItem Header="Test1">
+              <MenuItem Header="Test1"></MenuItem>
+            </MenuItem>
+          </MenuItem>
+          <MenuItem Header="Test1">
+            <MenuItem Header="Test1"></MenuItem>
+          </MenuItem>
+        </MenuItem>
+        <MenuItem Header="Test1">
+          <MenuItem Header="Test1"></MenuItem>
+        </MenuItem>
+        <MenuItem Header="Test1">
+          <MenuItem Header="Test1"></MenuItem>
+        </MenuItem>
+        <MenuItem Header="Test1"></MenuItem>
+      </Menu>
+    </Border>
+  </Design.PreviewWith>
+  <Styles.Resources>
+  </Styles.Resources>
 
-    <!--<Style Selector="Menu.BindMenu MenuItem">
+  <!--<Style Selector="Menu.BindMenu MenuItem">
         <Setter Property="Icon">
             <Setter.Value>
                 <Template>
@@ -45,71 +45,23 @@
         <Setter Property="Command" Value="{Binding Command}"/>
         <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
     </Style>-->
-    
-    <Style Selector="MenuItem.BindItem MenuItem">
-        <Setter Property="Icon">
-            <Setter.Value>
-                <Template>
-                    <PathIcon
-                        Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
-                        Width="14" VerticalAlignment="Center">
-                    </PathIcon>
-                </Template>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Header" Value="{Binding Header,Mode=OneWay}"/>
-        <Setter Property="Items" Value="{Binding Items,Mode=OneWay}"/>
-        <Setter Property="Command" Value="{Binding Command}"/>
-        <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
-    </Style>
 
-    <!--<Style Selector="Menu > MenuItem">
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Border Name="PART_LayoutRoot"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                    <Panel>
-                        <ContentPresenter Name="PART_HeaderPresenter"
-                                          Content="{TemplateBinding Header}"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Stretch"
-                                          Margin="{TemplateBinding Padding}">
-                            <ContentPresenter.DataTemplates>
-                                <DataTemplate DataType="sys:String">
-                                    <AccessText Text="{Binding}" />
-                                </DataTemplate>
-                            </ContentPresenter.DataTemplates>
-                        </ContentPresenter>
-                        <Popup Name="PART_Popup"
-                               WindowManagerAddShadowHint="False"
-                               MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
-                               IsLightDismissEnabled="True"
-                               IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
-                               OverlayInputPassThroughElement="{Binding $parent[Menu]}">
-                            <Border Background="{DynamicResource MenuFlyoutPresenterBackground}"
-                                    BorderBrush="{DynamicResource MenuFlyoutPresenterBorderBrush}"
-                                    BorderThickness="{DynamicResource MenuFlyoutPresenterBorderThemeThickness}"
-                                    Padding="{DynamicResource MenuFlyoutPresenterThemePadding}"
-                                    MaxWidth="{DynamicResource FlyoutThemeMaxWidth}"
-                                    MinHeight="{DynamicResource MenuFlyoutThemeMinHeight}"
-                                    HorizontalAlignment="Stretch"
-                                    CornerRadius="{DynamicResource OverlayCornerRadius}">
-                                <ScrollViewer Classes="menuscroller">
-                                    <ItemsControl Name="PART_ItemsPresenter"
-                                                    Items="{TemplateBinding Items}"
-                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
-                                                    ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                    Margin="{DynamicResource MenuFlyoutScrollerMargin}"
-                                                    Grid.IsSharedSizeScope="True" />
-                                </ScrollViewer>
-                            </Border>
-                        </Popup>
-                    </Panel>
-                </Border>
-            </ControlTemplate>
-        </Setter>
-    </Style>-->
+  <Style Selector="MenuItem.BindItem MenuItem">
+    <Setter Property="Icon">
+      <Setter.Value>
+        <Template>
+          <PathIcon
+              Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
+              Width="14" VerticalAlignment="Center">
+          </PathIcon>
+        </Template>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ToolTip.Tip" Value="{Binding ToolTip,Mode=OneWay}"/>
+    <Setter Property="Header" Value="{Binding Header,Mode=OneWay}"/>
+    <Setter Property="Items" Value="{Binding Items,Mode=OneWay}"/>
+    <Setter Property="Command" Value="{Binding Command}"/>
+    <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
+  </Style>
 
 </Styles>

@@ -1,4 +1,4 @@
-﻿using Android.OS;
+using Android.OS;
 using System.Application.Security;
 using System.Properties;
 
@@ -26,7 +26,7 @@ namespace System.Application.UI.Activities
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            if (EnableUnsupportedDeviceDetection && !DeviceSecurityCheckUtil.IsSupported(EnableEmulator))
+            if (EnableUnsupportedDeviceDetection /*&& !DeviceSecurityCheckUtil.IsSupported(EnableEmulator)*/)
             {
                 Finish();
                 return;

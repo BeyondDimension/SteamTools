@@ -5,5 +5,9 @@ namespace System.Application.Services.Implementation
         public void OpenDesktopIconsSettings()
         {
         }
+
+        public void OpenGameControllers()
+        {
+        }
     }
 }

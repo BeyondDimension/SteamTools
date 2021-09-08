@@ -5,15 +5,33 @@ namespace System.Application
     /// </summary>
     public enum CustomWindow
     {
+#if !__MOBILE__
         LoginOrRegister,
+#endif
         MessageBox,
         AddAuth,
         ShowAuth,
         AuthTrade,
+        EncryptionAuth,
+        TextBox,
+#if !__MOBILE__
+        TaskBar,
+#endif
+        ExportAuth,
+#if !__MOBILE__
         ScriptStore,
+        HideApp,
+        EditAppInfo,
+        IdleApp,
+        ShareManage,
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,
         WebView3,
+        BindPhoneNumber,
+        ASF_AddBot,
+        SteamShutdown,
+        ProxySettings,
+#endif
     }
 }

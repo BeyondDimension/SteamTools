@@ -2,11 +2,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
 using System;
-using System.Application.Columns;
 using System.Application.Models;
 using System.Application.Models.Internals;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.FileFormats;
 using System.Linq;
@@ -17,7 +15,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+using static System.Application.Services.CloudService.Constants.Headers.Request;
+using CC = System.Common.Constants;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace System.Application.Services.CloudService
@@ -45,10 +44,10 @@ namespace System.Application.Services.CloudService
         async ValueTask<JWTEntity?> SetRequestHeaderAuthorization(HttpRequestMessage request)
         {
             var authToken = await conn_helper.Auth.GetAuthTokenAsync();
-            if (authToken.HasValue())
+            var authHeaderValue = conn_helper.GetAuthenticationHeaderValue(authToken);
+            if (authHeaderValue != null)
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue(
-                    Constants.Basic, authToken?.AccessToken);
+                request.Headers.Authorization = authHeaderValue;
                 return authToken;
             }
             return null;
@@ -324,14 +323,15 @@ namespace System.Application.Services.CloudService
                             if (response is IApiResponse<ILoginResponse> loginResponse
                                   && loginResponse.Content != null)
                             {
-                                IReadOnlyPhoneNumber? phoneNumber;
-                                if (loginResponse.Content is IReadOnlyPhoneNumber phoneNumber1)
-                                    phoneNumber = phoneNumber1;
-                                else if (request is IReadOnlyPhoneNumber phoneNumber2)
-                                    phoneNumber = phoneNumber2;
-                                else
-                                    phoneNumber = null;
-                                await conn_helper.OnLoginedAsync(phoneNumber, loginResponse.Content);
+                                //IReadOnlyPhoneNumber? phoneNumber;
+                                //if (loginResponse.Content is IReadOnlyPhoneNumber phoneNumber1)
+                                //    phoneNumber = phoneNumber1;
+                                //else if (request is IReadOnlyPhoneNumber phoneNumber2)
+                                //    phoneNumber = phoneNumber2;
+                                //else
+                                //    phoneNumber = null;
+                                //await conn_helper.OnLoginedAsync(phoneNumber, loginResponse.Content);
+                                await conn_helper.OnLoginedAsync(loginResponse.Content, loginResponse.Content);
                             }
                             else if (response is IApiResponse<IReadOnlyAuthToken> authTokenResponse
                                 && authTokenResponse.Content != null)
@@ -384,28 +384,17 @@ namespace System.Application.Services.CloudService
             await GlobalResponseIntercept(method, requestUri, response, isShowResponseErrorMessage, errorAppendText);
         }
 
-        /// <summary>
-        /// 是否有网络链接
-        /// </summary>
-        bool IsConnected
-        {
-            get
-            {
-                if (DI.Platform == Platform.Windows || (DI.Platform == Platform.Apple && DI.DeviceIdiom == DeviceIdiom.Desktop) || DI.Platform == Platform.Linux || DI.Platform == Platform.Unknown) return true;
-                return Connectivity.NetworkAccess == NetworkAccess.Internet;
-            }
-        }
-
-        bool GlobalBeforeIntercept<TResponseModel>(
-            [NotNullWhen(true)] out IApiResponse<TResponseModel>? responseResult,
+        async Task<IApiResponse<TResponseModel>?> GlobalBeforeInterceptAsync<TResponseModel>(
             bool isShowResponseErrorMessage = true,
             string? errorAppendText = null)
         {
-            responseResult = null;
+            IApiResponse<TResponseModel>? responseResult = null;
 
             #region NetworkAccess
 
-            if (!IsConnected)
+            var isConnected = await http_helper.IsConnectedAsync();
+
+            if (!isConnected)
             {
                 responseResult = ApiResponse.Code<TResponseModel>(ApiResponseCode.NetworkConnectionInterruption, Constants.NetworkConnectionInterruption);
             }
@@ -417,7 +406,7 @@ namespace System.Application.Services.CloudService
                 ShowResponseErrorMessage(responseResult, errorAppendText);
             }
 
-            return responseResult != null;
+            return responseResult;
         }
 
         public Task<bool>? RefreshTokenAndAutoSaveTask { get; private set; }
@@ -512,7 +501,8 @@ namespace System.Application.Services.CloudService
 
             #endregion
 
-            if (GlobalBeforeIntercept<TResponseModel>(out var globalBeforeInterceptResponse, isShowResponseErrorMessage, errorAppendText))
+            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<TResponseModel>(isShowResponseErrorMessage, errorAppendText);
+            if (globalBeforeInterceptResponse != null)
             {
                 return globalBeforeInterceptResponse;
             }
@@ -531,15 +521,15 @@ namespace System.Application.Services.CloudService
 
                 var serializableImplType = Serializable.ImplType.MessagePack;
 
-                using var request = new HttpRequestMessage(method, requestUri)
+                var request = new HttpRequestMessage(method, requestUri)
                 {
                     Version = HttpVersion.Version20,
                     Content = GetRequestContent(
-                        isSecurity,
-                        aes,
-                        serializableImplType,
-                        requestModel,
-                        cancellationToken),
+                       isSecurity,
+                       aes,
+                       serializableImplType,
+                       requestModel,
+                       cancellationToken),
                 };
 
                 switch (serializableImplType)
@@ -565,8 +555,10 @@ namespace System.Application.Services.CloudService
                 if (isSecurity)
                 {
                     var skey_bytes = aes.ThrowIsNull(nameof(aes)).ToParamsByteArray();
-                    var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
-                    request.Headers.Add(Constants.Headers.Request.SecurityKey, skey_str);
+                    var padding = RSAUtils.DefaultPadding;
+                    var skey_str = conn_helper.RSA.EncryptToString(skey_bytes, padding);
+                    request.Headers.Add(SecurityKey, skey_str);
+                    request.Headers.Add(SecurityKeyPadding, padding.OaepHashAlgorithm.ToString() ?? string.Empty);
                 }
 
                 JWTEntity? jwt = null;
@@ -580,10 +572,10 @@ namespace System.Application.Services.CloudService
 
                 HandleHttpRequest(request);
 
-                using var response = await client.SendAsync(request,
-                    HttpCompletionOption.ResponseHeadersRead,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                var response = await client.SendAsync(request,
+                   HttpCompletionOption.ResponseHeadersRead,
+                   cancellationToken)
+                   .ConfigureAwait(false);
 
                 HandleAppObsolete(response.Headers);
 
@@ -771,7 +763,8 @@ namespace System.Application.Services.CloudService
             if (cacheDirPath == null) throw new ArgumentNullException(nameof(cacheDirPath));
             IOPath.DirCreateByNotExists(cacheDirPath);
 
-            if (GlobalBeforeIntercept<object>(out var globalBeforeInterceptResponse, isShowResponseErrorMessage, errorAppendText))
+            var globalBeforeInterceptResponse = await GlobalBeforeInterceptAsync<object>(isShowResponseErrorMessage, errorAppendText);
+            if (globalBeforeInterceptResponse != null)
             {
                 return globalBeforeInterceptResponse;
             }
@@ -780,7 +773,7 @@ namespace System.Application.Services.CloudService
             IApiResponse responseResult;
             try
             {
-                using var request = new HttpRequestMessage(method, requestUri)
+                var request = new HttpRequestMessage(method, requestUri)
                 {
                     Version = HttpVersion.Version20,
                 };
@@ -796,10 +789,10 @@ namespace System.Application.Services.CloudService
 
                 HandleHttpRequest(request);
 
-                using var response = await client.SendAsync(request,
-                    HttpCompletionOption.ResponseHeadersRead,
-                    cancellationToken)
-                    .ConfigureAwait(false);
+                var response = await client.SendAsync(request,
+                   HttpCompletionOption.ResponseHeadersRead,
+                   cancellationToken)
+                   .ConfigureAwait(false);
 
                 var code = (ApiResponseCode)response.StatusCode;
 
@@ -856,7 +849,7 @@ namespace System.Application.Services.CloudService
                                 totalRead += read;
                                 if (canReportProgress)
                                 {
-                                    var progressValue = MathF.Round((float)totalRead / total, 2, MidpointRounding.AwayFromZero);
+                                    var progressValue = MathF.Round((float)totalRead / total * CC.MaxProgress, 2, MidpointRounding.AwayFromZero);
                                     if (progressValue != lastProgressValue)
                                     {
                                         progress?.Report(progressValue);

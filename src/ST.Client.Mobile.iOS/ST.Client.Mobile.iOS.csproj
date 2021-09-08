@@ -1,15 +1,18 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFramework>Xamarin.iOS10</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>System.Application.SteamTools.Client.Mobile.iOS</AssemblyName>
+    <AssemblyName>iOSUnitTests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Startup2.cs"/>
+    <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
@@ -20,44 +23,52 @@
     <Compile Include="..\ST.Client.Mobile.Droid\Services\Implementation\PlatformHttpMessageHandlerBuilder.shared.cs">
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Mobile.Droid\ServiceCollectionExtensions.MobilePlatformServiceImpl.cs" />
+    <Compile Include="..\ST.Client.Mobile.Droid\UI\Views.Controls\*.shared.cs">
+      <LinkBase>UI\Views.Controls</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter" Version="4.2.0"/>
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0"/>
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0"/>
-    <PackageReference Include="Toast.iOS" Version="1.2.0" Aliases="NUGET_PACKAGE_TOAST_IOS"/>
+    <PackageReference Include="Microsoft.AppCenter" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" />
+    <PackageReference Include="Toast.iOS" Aliases="NUGET_PACKAGE_TOAST_IOS" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj"/>
+    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-ios-debug.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-ios-debug.pfx" Link="Resources\D3005552"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-ios-debug.pfx" Link="UI\Resources\D3005552" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-ios-release.pfx')">
-    <EmbeddedResource Include="..\..\appcenter-secret-ios-release.pfx" Link="Resources\66659DC7"/>
+    <EmbeddedResource Include="..\..\appcenter-secret-ios-release.pfx" Link="UI\Resources\66659DC7" />
   </ItemGroup>
 
   <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
-    <EmbeddedResource Include="..\..\aes-key.pfx" Link="Resources\3A613E8D"/>
+    <EmbeddedResource Include="..\..\aes-key.pfx" Link="UI\Resources\3A613E8D" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-debug.pfx')">
-    <EmbeddedResource Include="..\..\app-id-debug.pfx" Link="Resources\0093BF84"/>
+    <EmbeddedResource Include="..\..\app-id-debug.pfx" Link="UI\Resources\0093BF84" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-debug.pfx')">
-    <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" Link="Resources\6D72ED26"/>
+    <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" Link="UI\Resources\6D72ED26" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-release.pfx')">
-    <EmbeddedResource Include="..\..\app-id-release.pfx" Link="Resources\F1D827AB"/>
+    <EmbeddedResource Include="..\..\app-id-release.pfx" Link="UI\Resources\F1D827AB" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
-    <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9"/>
+    <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="UI\Resources\E88CA4F9" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\masl-client-id.pfx')">
+    <EmbeddedResource Include="..\..\masl-client-id.pfx" Link="UI\Resources\A608D029" />
   </ItemGroup>
 </Project>

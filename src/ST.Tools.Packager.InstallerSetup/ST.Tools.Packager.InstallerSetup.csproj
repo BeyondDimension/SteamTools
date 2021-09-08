@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application</RootNamespace>
@@ -37,8 +37,14 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.cs">
       <Link>Properties\ThisAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
+      <Link>Properties\ThisAssembly.Version.cs</Link>
     </Compile>
   </ItemGroup>
 
@@ -47,13 +53,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.999-cibuild0013745-beta" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0013745-beta" />
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
     <!--https://www.cnblogs.com/hez2010/p/dotnet-with-native-aot.html-->
     <!--<PackageReference Include="Microsoft.DotNet.ILCompiler" Version="6.0.0-*" />-->
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0013745-beta" />
+    <PackageReference Include="Avalonia.Diagnostics" />
   </ItemGroup>
 </Project>

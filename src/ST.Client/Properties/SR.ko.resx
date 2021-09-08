@@ -117,115 +117,120 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppName" xml:space="preserve">
-    <value>Steam++</value>
-  </data>
-  <data name="Downloading_" xml:space="preserve">
-    <value>다운로드 중 : {0} %</value>
-  </data>
-  <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>업데이트 패키지를 다운로드하지 못했습니다. 나중에 다시 시도하십시오.</value>
-  </data>
-  <data name="IsExistUpdateFalse" xml:space="preserve">
-    <value>현재 최신 버전</value>
-  </data>
-  <data name="NewVersionUpdate" xml:space="preserve">
-    <value>새 버전 업데이트</value>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>새 버전을 다운로드 할 때 다운로드 진행률 표시 줄 알림.</value>
-  </data>
-  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>새 버전 알림</value>
-  </data>
-  <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>파일 확인에 실패했습니다. 공식 웹 사이트를 열어 수동으로 업데이트하세요.</value>
-  </data>
   <data name="CalcHashing3_" xml:space="preserve">
     <value>검증 중({1}/{2}):{0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CalcHashing_" xml:space="preserve">
     <value>확인 중: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CreateCertificateFaild" xml:space="preserve">
     <value>인증서를 만들지 못했습니다</value>
+    <comment>Comment=Fail;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Decompressing_" xml:space="preserve">
     <value>압축 해제 중: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Downloading3_" xml:space="preserve">
     <value>다운로드 중({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Downloading_" xml:space="preserve">
     <value>다운로드 중: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadUpdateFail" xml:space="preserve">
     <value>업데이트 패키지를 다운로드하지 못했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
     <value>현재 최신 버전입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
     <value>새 버전이 업데이트됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
     <value>Steam++ v{0} 업데이트됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="NotificationChannelType_Description_BusinessPlatform" xml:space="preserve">
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>새 공지가 있을 때 알림을 표시합니다.</value>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>새 버전을 다운로드할 때 진행률 표시줄 알림을 다운로드합니다.</value>
-  </data>
-  <data name="NotificationChannelType_Name_BusinessPlatform" xml:space="preserve">
-    <value>비즈니스 플랫폼 알림</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
     <value>새 버전 알림입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
     <value>스크립트 종속 다운로드 오류: [{0}]_{1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildError" xml:space="preserve">
     <value>스크립트 바인딩 오류: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_CacheDeleteError" xml:space="preserve">
     <value>캐시 파일 삭제 실패: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteError" xml:space="preserve">
     <value>삭제에 실패했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteSuccess" xml:space="preserve">
     <value>삭제에 성공했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileDeleteError" xml:space="preserve">
     <value>파일 삭제 실패: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileRepeat" xml:space="preserve">
     <value>스크립트가 반복됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFile" xml:space="preserve">
     <value>스크립트: {0}_파일 손실삭제가 삭제되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
     <value>스크립트: {0}_파일이 누락되어 삭제가 실패하여 수동으로 삭제를 시도합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoKey" xml:space="preserve">
     <value>프로그램 예외 기본 키가 비어 있습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>스크립트 읽기 예외 구문에 오류가 있는지 확인합니다{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDBError" xml:space="preserve">
     <value>데이터를 저장하는 데 오류가 발생했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
     <value>추가에 성공했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateEnumOutOfRange" xml:space="preserve">
     <value>업데이트 패키지를 다운로드하지 못했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
     <value>파일 유효성 검사에 실패했습니다. 공식 웹 사이트를 열어 수동으로 업데이트하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>새 버전을 사용할 수 있는 경우 프롬프트 알림 및 새 버전을 다운로드할 때의 진행률 알림입니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>공지 사항</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -3,16 +3,28 @@
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:converters="clr-namespace:System.Application.Converters;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.Settings_UI">
-  <ScrollViewer>
+  <UserControl.Resources>
+    <converters:StringEqualsConverter x:Key="StringEqualsConverter" />
+    <converters:ColorStringToBrush x:Key="ColorStringToBrush" />
+  </UserControl.Resources>
+  <ScrollViewer Padding="10 0 10 20">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Spacing="20">
       <StackPanel.Styles>
         <Style Selector="TextBlock">
           <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
           <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
+        </Style>
+        <Style Selector="TextBlock.prompt">
+          <Setter Property="FontSize" Value="12" />
+          <!--<Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />-->
+          <Setter Property="VerticalAlignment" Value="Center" />
+          <Setter Property="Margin" Value="10 0" />
         </Style>
         <Style Selector="DockPanel > TextBlock">
           <Setter Property="Margin" Value="0 0 20 0" />
@@ -28,19 +40,26 @@
         </Style>
       </StackPanel.Styles>
 
-      <StackPanel Orientation="Vertical" Spacing="10" Margin="0 5 0 0">
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ComboBox HorizontalAlignment="Stretch" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}" Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
-          <ComboBox.ItemTemplate>
-            <DataTemplate>
-              <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
-            </DataTemplate>
-          </ComboBox.ItemTemplate>
-        </ComboBox>
+      <StackPanel Orientation="Vertical">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_ThemeAccent,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <RadioButton Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.GetUserThemeAccent},Path=Value, Mode=TwoWay}"/>
+          <RadioButton x:Name="AccentCustom"
+                       Content="{ReflectionBinding Path=Res.Settings_UI_Custom,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.GetUserThemeAccent},Path=!Value, Mode=OneWay}"/>
+          <ui:ColorPickerButton IsVisible="{ReflectionBinding #AccentCustom.IsChecked}"
+                                IsEnabled="{ReflectionBinding #AccentCustom.IsChecked}"
+                                Color="{ReflectionBinding Source={x:Static ms:UISettings.ThemeAccent},Converter={StaticResource ColorStringToBrush},Path=Value, Mode=TwoWay}"/>
+        </StackPanel>
       </StackPanel>
 
-      <StackPanel Orientation="Vertical" Spacing="10">
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      <StackPanel Orientation="Vertical" Spacing="10" Margin="0 -10 0 0">
+        <WrapPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <TextBlock Classes="prompt"
+                       Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+        </WrapPanel>
         <ComboBox x:Name="Themes"
                   SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}"
                   HorizontalAlignment="Stretch">
@@ -51,25 +70,71 @@
       </StackPanel>
 
       <StackPanel Orientation="Vertical" Spacing="10">
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <ComboBox HorizontalAlignment="Stretch" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}" Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+
+      <Separator Classes="Separator"/>
+
+      <StackPanel Orientation="Vertical" Spacing="10">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_Fonts,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <ComboBox
                   Items="{Binding Mode=OneWay,Source={x:Static resx:R.Fonts}}"
                   SelectedItem="{Binding SelectFont}"
                   HorizontalAlignment="Stretch"
-                  MaxDropDownHeight="450">
+                  AutoScrollToSelectedItem="True"
+                  MaxDropDownHeight="300">
           <ComboBox.ItemTemplate>
             <DataTemplate>
               <TextBlock Text="{Binding Key,Mode=OneWay}"
-                         FontFamily="{Binding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></TextBlock>
+                         FontFamily="{Binding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"/>
             </DataTemplate>
           </ComboBox.ItemTemplate>
         </ComboBox>
       </StackPanel>
+
+      <!--<DockPanel>
+        <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_EnableFilletUI,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableFilletUI},Path=Value, Mode=TwoWay}"/>
+      </DockPanel>-->
+
       <Separator Classes="Separator"/>
+
+      <!--<StackPanel Orientation="Vertical">
+        <DockPanel>
+          <TextBlock Text="使用动态桌面背景"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </StackPanel>-->
+
+      <StackPanel Orientation="Vertical" IsEnabled="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=!Value, Mode=OneWay}">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_CustomBackgroundImage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <Image Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                 Stretch="UniformToFill"
+                 Width="250"
+                 Height="150"/>
+          <Button Content="{ReflectionBinding Path=Res.Settings_UI_SelectImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding SelectImage_Click}"></Button>
+          <Button Content="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding ResetImage_Click}"></Button>
+        </StackPanel>
+      </StackPanel>
+
       <StackPanel Orientation="Vertical" Spacing="8">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_AcrylicTransparency,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=TwoWay}" Minimum="0" Maximum="1.0"></Slider>
       </StackPanel>
+
       <Separator Classes="Separator"/>
     </StackPanel>
   </ScrollViewer>

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Application.Services;
 using System.Collections.Generic;
@@ -29,39 +29,44 @@ namespace WinAuth
                 url += (!url.Contains("?", StringComparison.CurrentCulture) ? "?" : "&") + query;
             }
 
-            var request = new HttpRequestMessage(method, url);
-            var requestUri = request.RequestUri.ThrowIsNull(nameof(request.RequestUri));
-            request.Headers.Accept.ParseAdd("text/javascript, text/html, application/xml, text/xml, */*");
-            request.Headers.UserAgent.ParseAdd(USERAGENT);
-            request.Headers.Referrer = new Uri(COMMUNITY_BASE);
-            if (headers != null)
+            Uri requestUri = new(url);
+
+            HttpRequestMessage GetRequest()
             {
-                foreach (var item in headers.Keys)
+                var request = new HttpRequestMessage(method, requestUri);
+                request.Headers.Accept.ParseAdd("text/javascript, text/html, application/xml, text/xml, */*");
+                request.Headers.UserAgent.ParseAdd(USERAGENT);
+                request.Headers.Referrer = new Uri(COMMUNITY_BASE);
+                if (headers != null)
                 {
-                    if (item == null) continue;
-                    request.Headers.Add(item, headers[item]);
+                    foreach (var item in headers.Keys)
+                    {
+                        if (item == null) continue;
+                        request.Headers.Add(item, headers[item]);
+                    }
                 }
-            }
 
-            var cookieHeader = Session.Cookies.GetCookieHeader(requestUri);
-            if (!string.IsNullOrEmpty(cookieHeader))
-            {
-                request.Headers.Add("Cookie", cookieHeader);
-            }
+                var cookieHeader = Session.Cookies.GetCookieHeader(requestUri);
+                if (!string.IsNullOrEmpty(cookieHeader))
+                {
+                    request.Headers.Add("Cookie", cookieHeader);
+                }
 
-            if (method == HttpMethod.Post)
-            {
-                var requestStream = new StreamWriter(new MemoryStream());
-                requestStream.Write(query);
-                request.Content = new StreamContent(requestStream.BaseStream);
-                request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded; charset=UTF-8");
-                request.Content.Headers.ContentLength = query.Length;
+                if (method == HttpMethod.Post)
+                {
+                    var requestStream = new StreamWriter(new MemoryStream());
+                    requestStream.Write(query);
+                    request.Content = new StreamContent(requestStream.BaseStream);
+                    request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded; charset=UTF-8");
+                    request.Content.Headers.ContentLength = query!.Length;
+                }
+                return request;
             }
 
             HttpStatusCode? statusCode = null;
             try
             {
-                var response = await IHttpService.Instance.SendAsync<T>(url, request, null, enableForward, cancellationToken,
+                var response = await IHttpService.Instance.SendAsync<T>(url, GetRequest, null, enableForward, cancellationToken,
                     handlerResponse: rsp =>
                     {
                         statusCode = rsp.StatusCode;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
-    public class MainWindowViewModel : WindowViewModel
+    public partial class MainWindowViewModel : WindowViewModel
     {
         #region 更改通知
 
@@ -48,9 +48,6 @@ namespace System.Application.UI.ViewModels
         public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
 
-        readonly Dictionary<Type, Lazy<TabItemViewModel>> mTabItems = new();
-        public IEnumerable<TabItemViewModel> TabItems => mTabItems.Values.Select(x => x.Value);
-
         public MainWindowViewModel() : base()
         {
             Title = ThisAssembly.AssemblyTrademark;
@@ -62,74 +59,44 @@ namespace System.Application.UI.ViewModels
 
             OpenUserMenu = ReactiveCommand.Create(() =>
             {
-                IsOpenUserMenu = UserService.Current.User != null;
+                IsOpenUserMenu = UserService.Current.IsAuthenticated;
                 if (!IsOpenUserMenu)
                 {
                     UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
                 }
             });
 
-            //AddTabItem<StartPageViewModel>();
-            AddTabItem<CommunityProxyPageViewModel>();
-            AddTabItem<ProxyScriptManagePageViewModel>();
-            AddTabItem<SteamAccountPageViewModel>();
-            AddTabItem<GameListPageViewModel>();
-            AddTabItem<LocalAuthPageViewModel>();
-            //AddTabItem<SteamIdlePageViewModel>();
-            //AddTabItem<ArchiSteamFarmPlusPageViewModel>();
-            AddTabItem<GameRelatedPageViewModel>();
-            //AddTabItem<OtherPlatformPageViewModel>();
-
-            AddTabItem(() => SettingsPageViewModel.Instance);
-            AddTabItem(() => AboutPageViewModel.Instance);
-
-            if (AppHelper.EnableDevtools)
-            {
-                AddTabItem<DebugPageViewModel>();
-                AddTabItem<DebugWebViewPageViewModel>();
-            }
+            FooterTabItems = InitTabItemsWithReturnFooterTabItems();
 
             _SelectedItem = TabItems.First();
 
-            Task.Run(Initialize).ForgetAndDispose();
+            //Task.Run(Initialize).ForgetAndDispose();
 
-            this.WhenAnyValue(x => x.SelectedItem)
-                .Subscribe(x =>
-                {
-                    Task.Run(x.Activation).ForgetAndDispose();
-                });
+            //this.WhenAnyValue(x => x.SelectedItem)
+            //    .Subscribe(x =>
+            //    {
+            //        Task.Run(x.Activation).ForgetAndDispose();
+            //    });
         }
 
-        public void Initialize()
+        public override async void Initialize()
         {
-            Threading.Thread.CurrentThread.IsBackground = true;
-            SteamConnectService.Current.Initialize();
-            ProxyService.Current.Initialize();
-            AuthService.Current.Initialize();
-
-            if (!IsInitialized)
+            await Task.Run(() =>
             {
-                Parallel.ForEach(TabItems, item =>
+                Threading.Thread.CurrentThread.IsBackground = true;
+                ProxyService.Current.Initialize();
+                SteamConnectService.Current.Initialize();
+
+                if (!IsInitialized)
                 {
-                    item.Initialize();
-                    //Task.Run(item.Initialize).ForgetAndDispose();
-                });
-                IsInitialized = true;
-            }
+                    Parallel.ForEach(TabItems, item =>
+                    {
+                        item.Initialize();
+                        //Task.Run(item.Initialize).ForgetAndDispose();
+                    });
+                    IsInitialized = true;
+                }
+            });
         }
-
-        void AddTabItem<TabItemVM>() where TabItemVM : TabItemViewModel, new()
-        {
-            Lazy<TabItemViewModel> value = new(() => new TabItemVM().AddTo(this));
-            mTabItems.Add(typeof(TabItemVM), value);
-        }
-
-        void AddTabItem<TabItemVM>(Func<TabItemVM> func) where TabItemVM : TabItemViewModel
-        {
-            Lazy<TabItemViewModel> value = new(func);
-            mTabItems.Add(typeof(TabItemVM), value);
-        }
-
-        TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel => (TabItemVM)mTabItems[typeof(TabItemVM)].Value;
     }
 }

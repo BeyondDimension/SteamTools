@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.IO.FileFormats;
 
 namespace System.Net.Http
@@ -29,5 +29,11 @@ namespace System.Net.Http
         /// <param name="fileStream"></param>
         /// <returns></returns>
         (string filePath, string mime)? TryHandleUploadFile(Stream fileStream);
+
+        /// <summary>
+        /// 是否有网络链接
+        /// </summary>
+        [Obsolete("use IsConnectedAsync")]
+        bool IsConnected { get; }
     }
 }

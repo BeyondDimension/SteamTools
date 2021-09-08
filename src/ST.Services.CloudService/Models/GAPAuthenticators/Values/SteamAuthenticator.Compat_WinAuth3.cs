@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Copyright (C) 2015 Colin Mackie.
 * This software is distributed under the terms of the GNU General Public License.
 *
@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -64,9 +65,9 @@ namespace System.Application.Models
             /// <summary>
             /// URLs for all mobile services
             /// </summary>
-            static readonly string COMMUNITY_BASE = "https://steamcommunity.com";
-            static readonly string WEBAPI_BASE = "https://api.steampowered.com";
-            static readonly string SYNC_URL = "https://api.steampowered.com:443/ITwoFactorService/QueryTime/v0001";
+            const string COMMUNITY_BASE = "https://steamcommunity.com";
+            const string WEBAPI_BASE = "https://api.steampowered.com";
+            const string SYNC_URL = "https://api.steampowered.com:443/ITwoFactorService/QueryTime/v0001";
 
             /// <summary>
             /// Character set for authenticator code
@@ -232,7 +233,8 @@ namespace System.Application.Models
                     return true;
                 });
                 // call the server
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                //HttpWebRequest request = GeneralHttpClientFactory(url);
+                var request = GeneralHttpClientFactory.Create(url);
                 request.Method = method;
                 request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";
                 request.ServicePoint.Expect100Continue = false;
@@ -657,11 +659,11 @@ namespace System.Application.Models
             protected override string CalculateCode(bool resyncTime = false, long interval = -1)
             {
                 // sync time if required
-                if (resyncTime == true || ServerTimeDiff == 0)
+                if (resyncTime || ServerTimeDiff == 0)
                 {
                     if (interval > 0)
                     {
-                        ServerTimeDiff = (interval * ((long)Period * 1000L)) - CurrentTime;
+                        ServerTimeDiff = (interval * Period * 1000L) - CurrentTime;
                     }
                     else
                     {

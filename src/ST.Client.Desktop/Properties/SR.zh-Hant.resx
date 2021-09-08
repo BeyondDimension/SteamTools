@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,16 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
+    <value>文件屬性為只讀，修改失敗</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSizeTooLarge" xml:space="preserve">
+    <value>文件大小過大</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>檔案訪問被拒絕，沒有許可權</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>操作 hosts 錯誤 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
     <value>Steam++ 替換升級中...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
     <value>找不到 Steam 安裝路徑</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>更新包解壓失敗，請打開官網手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

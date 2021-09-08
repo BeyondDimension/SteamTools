@@ -340,6 +340,12 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
+
+# Ionide (cross platform F# VS Code tools) working folder
+.ionide/
+
 # macOS
 .DS_Store
 
@@ -351,3 +357,7 @@ Resource.designer.cs
 
 # csproject launchSettings
 launchSettings.json
+
+# Android KeyStore
+*.jks
+/Xamarin.Android.KeyStore.props

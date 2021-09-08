@@ -16,6 +16,9 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="..\ST.Client.Desktop.Avalonia.App\Program.BuildAvaloniaApp.cs">
       <Link>Program.BuildAvaloniaApp.cs</Link>
     </Compile>

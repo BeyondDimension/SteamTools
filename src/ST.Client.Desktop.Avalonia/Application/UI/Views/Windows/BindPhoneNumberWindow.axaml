@@ -1,0 +1,59 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignWidth="400" d:DesignHeight="370"
+        Width="400" Height="370"
+        MinWidth="400" MinHeight="370"
+        MaxWidth="400" MaxHeight="370"
+        x:Class="System.Application.UI.Views.Windows.BindPhoneNumberWindow"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ccl_services="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+        Background="Transparent"
+        ExtendClientAreaTitleBarHeightHint="30"
+        WindowStartupLocation="CenterOwner"
+        x:DataType="vm:BindPhoneNumberWindowViewModel"
+        x:CompileBindings="True"
+        Title="{Binding Title}">
+  <Panel>
+    <controls:TitleBar />
+    <Panel Margin="{StaticResource UnifyTitleBarAfterContentMargin}">
+      <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
+      <StackPanel VerticalAlignment="Center" Spacing="10" IsVisible="{Binding !IsLoading}">
+
+        <TextBox
+          x:Name="TbPhoneNumber"
+          Text="{Binding PhoneNumber}"
+          Watermark="{ReflectionBinding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          MaxLength="{ReflectionBinding Path=PhoneNumber,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
+
+        <Panel>
+          <TextBox
+            x:Name="TbSmsCode"
+            Text="{Binding SmsCode}"
+            Watermark="{ReflectionBinding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            MaxLength="{ReflectionBinding Path=SMS_CAPTCHA,Mode=OneTime,Source={x:Static ccl_services:InputLengthConstants.Current}}" />
+          <Border HorizontalAlignment="Right" Cursor="Hand">
+            <Button Classes="CodeButton"
+                    Content="{Binding BtnSendSmsCodeText}"
+                    Command="{ReflectionBinding SendSms}"
+                    IsEnabled="{Binding !IsUnTimeLimit}" />
+          </Border>
+        </Panel>
+
+        <Button Classes="action"
+          Content="{ReflectionBinding Path=Res.Btn_Text_Complete,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          Command="{ReflectionBinding Submit}"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+
+      </StackPanel>
+    </Panel>
+    <!--Toast-->
+    <controls:ToastMessage />
+  </Panel>
+</Window>

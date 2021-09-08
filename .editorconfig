@@ -4,7 +4,7 @@
 root = true
 
 # Unix-style newlines with a newline ending every file
-[*]
+[*.{sh}]
 end_of_line = lf
 insert_final_newline = true
 
@@ -17,7 +17,7 @@ charset = utf-8
 [Makefile]
 indent_style = tab
 
-[*.{js,json,xaml,axaml}]
+[*.{js,json,xaml,axaml,xml,resx,resw,csproj,wapproj,appxmanifest}]
 indent_style = space
 indent_size = 2
 
@@ -59,7 +59,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity
 
 # 修饰符首选项
-dotnet_style_require_accessibility_modifiers = for_non_interface_members
+dotnet_style_require_accessibility_modifiers = never
 
 # 表达式级首选项
 dotnet_style_coalesce_expression = true
@@ -119,7 +119,7 @@ csharp_prefer_static_local_function = true
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
 
 # 代码块首选项
-csharp_prefer_braces = true
+csharp_prefer_braces = false
 csharp_prefer_simple_using_statement = true
 
 # 表达式级首选项
@@ -225,3 +225,18 @@ dotnet_naming_style.以_i_开始.required_prefix = I
 dotnet_naming_style.以_i_开始.required_suffix = 
 dotnet_naming_style.以_i_开始.word_separator = 
 dotnet_naming_style.以_i_开始.capitalization = pascal_case
+
+# IDE0010: 添加缺失的事例
+dotnet_diagnostic.IDE0010.severity = none
+
+# IDE0011: 添加大括号
+dotnet_diagnostic.IDE0011.severity = none
+
+# IDE0040: 添加可访问性修饰符
+dotnet_diagnostic.IDE0040.severity = none
+
+# IDE0130: 命名空间与文件夹结构不匹配
+dotnet_style_namespace_match_folder = false
+
+# IDE0130: 命名空间与文件夹结构不匹配
+dotnet_diagnostic.IDE0130.severity = none

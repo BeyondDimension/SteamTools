@@ -1,7 +1,7 @@
 using System.Application.Models;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
+using static System.Application.Browser2;
 
 namespace System.Application.Services
 {
@@ -10,6 +10,16 @@ namespace System.Application.Services
     /// </summary>
     public interface ISteamService
     {
+        public const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 6500;
+        protected const string url_localhost_auth_public = Prefix_HTTP + "127.0.0.1:27060/auth/?u=public";
+        public const string url_steamcommunity_ = "steamcommunity.com";
+        public const string url_store_steampowered_ = "store.steampowered.com";
+        public const string url_steamcommunity = Prefix_HTTPS + url_steamcommunity_;
+        public const string url_store_steampowered = Prefix_HTTPS + url_store_steampowered_;
+        public const string url_store_steampowered_checkclientautologin = url_store_steampowered + "/login/checkclientautologin";
+        public const string url_steamcommunity_checkclientautologin = url_steamcommunity + "/login/checkclientautologin";
+        public static readonly Uri uri_store_steampowered_checkclientautologin = new(url_store_steampowered_checkclientautologin);
+
         public static ISteamService Instance => DI.Get<ISteamService>();
 
         /// <summary>
@@ -46,22 +56,30 @@ namespace System.Application.Services
         /// 启动 Steam
         /// </summary>
         /// <param name="arguments"></param>
-        void StartSteam(string arguments = "");
+        void StartSteam(string? arguments = null);
 
         /// <summary>
-        /// 获取最后一次自动登陆 Steam 用户名称
+        /// 获取最后一次自动登录 Steam 用户名称
         /// </summary>
         /// <returns></returns>
         string GetLastLoginUserName();
 
         /// <summary>
-        /// 获取所有记住登陆 Steam 用户信息
+        /// 获取所有记住登录 Steam 用户信息
         /// </summary>
         /// <returns></returns>
         List<SteamUser> GetRememberUserList();
 
+        bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> list);
+        bool RemoveAuthorizedDeviceList(AuthorizedDevice list);
         /// <summary>
-        /// 设置下次登陆 Steam 用户
+        /// 获取所有当前PC共享授权信息
+        /// </summary>
+        /// <returns></returns>
+        List<AuthorizedDevice> GetAuthorizedDeviceList();
+
+        /// <summary>
+        /// 设置下次登录 Steam 用户
         /// </summary>
         /// <param name="userName"></param>
         void SetCurrentUser(string userName);
@@ -71,8 +89,7 @@ namespace System.Application.Services
         bool UpdateAppListJson(List<SteamApp> apps, string filePath);
 
         bool UpdateAppListJson(string appsJsonStr, string filePath);
-
-        void DeleteLocalUserData(SteamUser user);
+        void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false);
 
         void UpdateLocalUserData(SteamUser user);
 
@@ -86,24 +103,13 @@ namespace System.Application.Services
         ValueTask LoadAppImageAsync(SteamApp app);
 
         /// <summary>
-        /// Steam 客户端自动登录
+        /// 获取已安装的SteamApp列表(包括正在下载的项)
         /// </summary>
-        /// <param name="runasInvoker"></param>
-        /// <returns></returns>
-        Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync(bool runasInvoker = false);
+        List<SteamApp> GetDownloadingAppList();
 
         /// <summary>
-        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
+        /// 监听Steam下载
         /// </summary>
-        /// <param name="auth_data"></param>
-        /// <returns></returns>
-        Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data);
-
-        /// <summary>
-        /// 获取 Steam 客户端自动登录 Cookie(用于写入到 WebView3 中免登录)
-        /// </summary>
-        /// <param name="runasInvoker"></param>
-        /// <returns></returns>
-        Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false);
+        void InitWatchSteamDownloading(Action<uint> changedAction, Action<uint> deleteAction);
     }
 }

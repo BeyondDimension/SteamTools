@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Name="u"
+             x:DataType="vm:GameRelated_BorderlessPageViewModel"
+             x:CompileBindings="True"
+             x:Class="System.Application.UI.Views.Pages.GameRelated_BorderlessPage">
+  <ScrollViewer Padding="10">
+    <StackPanel Spacing="20">
+      <!--<TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>-->
+      <WrapPanel
+          Margin="20,0,0,0">
+        <Image x:Name="move" Width="64" HorizontalAlignment="Left" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/movecross.png">
+          <i:Interaction.Behaviors>
+            <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #move}">
+              <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.Cross_MouseDown}"/>
+            </ia:EventTriggerBehavior>
+          </i:Interaction.Behaviors>
+        </Image>
+        <TextBlock Margin="10,0" VerticalAlignment="Center"
+                   Text="{ReflectionBinding Path=Res.GameRelated_Borderless_MoveMouseTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      </WrapPanel>
+
+      <StackPanel Spacing="10" IsVisible="{Binding !!SelectWindow}">
+        <WrapPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_Title,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
+          <TextBlock Text="{Binding SelectWindow.Title,Mode=OneWay}"/>
+        </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ClassName,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
+          <TextBlock Text="{Binding SelectWindow.ClassName,Mode=OneWay}"/>
+        </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_Process,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
+          <TextBlock Text="{Binding SelectWindow.Name,Mode=OneWay}"/>
+        </WrapPanel>
+        <WrapPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_Path,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"/>
+          <TextBlock Text="{Binding SelectWindow.Path,Mode=OneWay}"
+                     TextWrapping="WrapWithOverflow"/>
+        </WrapPanel>
+      </StackPanel>
+
+      <WrapPanel Orientation="Horizontal">
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_KillProcess,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding WindowKill_Click}">
+        </Button>
+        <Button Height="30" Content="{ReflectionBinding Path=Res.GameRelated_Borderless_BorderlessWindow,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding BorderlessWindow_Click}">
+        </Button>
+        <Button Height="30" Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Maximize,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding MaximizeWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Normal,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding NormalWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Hide,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding HideWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Show,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding ShowWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding ToWallerpaperWindow_Click}">
+        </Button>
+        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ResetWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding ResetWallerpaper_Click}">
+        </Button>
+      </WrapPanel>
+
+      <TextBlock TextWrapping="WrapWithOverflow" Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat=*{0}}">
+      </TextBlock>
+
+      <ListBox Items="{Binding WindowList,Mode=OneWay}"
+         Height="200" Margin="0,5" Background="{DynamicResource ThemeBrushKey}"
+         SelectedItem="{Binding SelectWindow}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <WrapPanel VerticalAlignment="Center">
+              <TextBlock Text="{Binding Name,Mode=OneWay}"/>
+              <TextBlock Text="("/>
+              <TextBlock Text="{Binding Title,Mode=OneWay}"/>
+              <TextBlock Text=")"/>
+            </WrapPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

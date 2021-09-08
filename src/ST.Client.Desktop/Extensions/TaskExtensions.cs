@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace System.Application
+// ReSharper disable once CheckNamespace
+namespace System
 {
 	public static class TaskExtensions
 	{
@@ -12,9 +13,10 @@ namespace System.Application
 			[CallerFilePath] string callerFilePath = "",
 			[CallerLineNumber] int callerLineNumber = 0)
 		{
-			return task.ContinueWith(
-				x => TaskLog.Raise(new TaskLog(callerMemberName, callerFilePath, callerLineNumber, x.Exception)),
-				TaskContinuationOptions.OnlyOnFaulted);
+            task.ContinueWith(
+                   x => TaskLog.Raise(new TaskLog(callerMemberName, callerFilePath, callerLineNumber, x.Exception)),
+                   TaskContinuationOptions.OnlyOnFaulted).ConfigureAwait(false);
+            return task;
 		}
 
 		public static void ForgetAndDispose(
@@ -25,7 +27,7 @@ namespace System.Application
 		{
 			task.ContinueWith(
 				x => TaskLog.Raise(new TaskLog(callerMemberName, callerFilePath, callerLineNumber, x.Exception)),
-				TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s=>s.Dispose());
+				TaskContinuationOptions.OnlyOnFaulted).ContinueWith(s=>s.Dispose()).ConfigureAwait(false);
 		}
 
 		public static Task WhenAll(this IEnumerable<Task> tasks)

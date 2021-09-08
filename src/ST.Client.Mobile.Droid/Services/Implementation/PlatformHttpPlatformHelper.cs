@@ -1,4 +1,5 @@
 using Android.Webkit;
+using System.Application.UI.Resx;
 using System.IO;
 using System.Net.Http;
 using AndroidApplication = Android.App.Application;
@@ -7,6 +8,8 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class PlatformHttpPlatformHelper : HttpPlatformHelper
     {
+        public override string AcceptLanguage => R.AcceptLanguage;
+
         static readonly Lazy<string?> mUserAgent = new(() =>
         {
             var userAgent = WebSettings.GetDefaultUserAgent(AndroidApplication.Context);

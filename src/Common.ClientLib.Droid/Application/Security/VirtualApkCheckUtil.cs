@@ -1,4 +1,4 @@
-﻿using Android.Content;
+using Android.Content;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -297,16 +297,25 @@ namespace System.Application.Security
                     Check(CheckByHasSameUid, CheckByMultiApkPackageName);
         }
 
-        public static string GetCheckResult(Context context)
+        public static void GetCheckResult(Context context, StringBuilder b)
         {
-            var chars = new char[] {
-                    ToChar(CheckByPrivateFilePath(context)),
-                    ToChar(CheckByOriginApkPackageName(context)),
-                    ToChar(CheckByHasSameUid()),
-                    ToChar(CheckByMultiApkPackageName()),
-                    ToChar(CheckByCreateLocalServerSocket(context)),
-                };
-            return new string(chars);
+            b.Append(ToChar(CheckByPrivateFilePath(context)));
+            b.Append(ToChar(CheckByOriginApkPackageName(context)));
+            b.Append(ToChar(CheckByHasSameUid()));
+            b.Append(ToChar(CheckByMultiApkPackageName()));
+            b.Append(ToChar(CheckByCreateLocalServerSocket(context)));
         }
+
+        //public static string GetCheckResult(Context context)
+        //{
+        //    var chars = new char[] {
+        //            ToChar(CheckByPrivateFilePath(context)),
+        //            ToChar(CheckByOriginApkPackageName(context)),
+        //            ToChar(CheckByHasSameUid()),
+        //            ToChar(CheckByMultiApkPackageName()),
+        //            ToChar(CheckByCreateLocalServerSocket(context)),
+        //        };
+        //    return new string(chars);
+        //}
     }
 }

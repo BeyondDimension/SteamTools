@@ -1,4 +1,5 @@
-﻿using Avalonia;
+using Avalonia;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -18,7 +19,7 @@ namespace System.Application.Converters
 
         public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException();
+            return BindingOperations.DoNothing;
         }
 
         [Obsolete("use HttpClient")]
@@ -44,23 +45,25 @@ namespace System.Application.Converters
             }
         }
 
-        protected static Bitmap GetBitmap(ImageClipStream ics, int width = 0)
+        protected static Bitmap? GetBitmap(ImageSouce.ClipStream clipStream, int width = 0)
         {
-            TryReset(ics.Stream);
+            if (clipStream.Stream == null)
+                return null;
+            TryReset(clipStream.Stream);
             using var ms = new MemoryStream();
-            ics.Stream.CopyTo(ms);
+            clipStream.Stream.CopyTo(ms);
             TryReset(ms);
             using var bitmapSource = SKBitmap.Decode(ms);
             using var bitmapDest = new SKBitmap(bitmapSource.Width, bitmapSource.Height, SKColorType.Bgra8888, SKAlphaType.Unpremul);
 
             using var canvas = new SKCanvas(bitmapDest);
 
-            var rect = ics.Circle ?
+            var rect = clipStream.Circle ?
                 new SKRect(0, 0, bitmapSource.Width, bitmapSource.Height) :
-                new SKRect(ics.Left, ics.Top, ics.Right, ics.Bottom);
-            var roundRect = ics.Circle ?
+                new SKRect(clipStream.Left, clipStream.Top, clipStream.Right, clipStream.Bottom);
+            var roundRect = clipStream.Circle ?
                 new SKRoundRect(rect, bitmapSource.Width / 2f, bitmapSource.Height / 2f) :
-                new SKRoundRect(rect, ics.Radius_X, ics.Radius_Y);
+                new SKRoundRect(rect, clipStream.Radius_X, clipStream.Radius_Y);
             canvas.ClipRoundRect(roundRect, antialias: true);
 
             canvas.DrawBitmap(bitmapSource, 0, 0);
@@ -78,8 +81,12 @@ namespace System.Application.Converters
             return GetDecodeBitmap(stream, width);
         }
 
-        protected static Bitmap GetDecodeBitmap(Stream s, int width)
+        protected static Bitmap? GetDecodeBitmap(Stream s, int width)
         {
+            if (s == null) 
+            {
+                return null;
+            }
             if (width < 1)
             {
                 return new Bitmap(s);
@@ -89,14 +96,19 @@ namespace System.Application.Converters
 
         protected static Bitmap GetDecodeBitmap(string s, int width)
         {
-            return GetDecodeBitmap(IOPath.OpenRead(s), width);
+            if (IOPath.TryOpenRead(s, out var stream, out var ex))
+                return GetDecodeBitmap(stream, width);
+            else
+                return null;
         }
 
-        protected static Stream OpenAssets(Uri uri)
+        protected static Stream? OpenAssets(Uri uri)
         {
             var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            var asset = assets.Open(uri);
-            return asset;
+            Stream? stream = null;
+            if (assets.Exists(uri))
+                stream = assets.Open(uri);
+            return stream;
         }
 
         protected static Uri GetResUri(string relativeUri, string? assemblyName = null)

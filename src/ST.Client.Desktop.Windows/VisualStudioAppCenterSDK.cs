@@ -1,8 +1,22 @@
-﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using System;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Security;
+using System.Threading.Tasks;
 using static System.Application.AppClientAttribute;
+#if WINDOWS
+using System.Reflection;
+using static System.Application.VisualStudioAppCenterSDK;
+using System.Text;
+using Microsoft.AppCenter.Utils;
+#if DEBUG
+using static System.Application.UI.ViewModels.DebugPageViewModel;
+#endif
+#endif
 
 namespace System.Application
 {
@@ -19,21 +33,22 @@ namespace System.Application
         /// </summary>
         public static void Init()
         {
-            var appSecret = AppSecret;
-            if (!string.IsNullOrWhiteSpace(appSecret))
+            if (TryGetAppSecret(out var appSecret))
             {
+#if WINDOWS
+                var _applicationSettingsFactory = typeof(AppCenter).GetField("_applicationSettingsFactory", BindingFlags.NonPublic | BindingFlags.Static);
+                _applicationSettingsFactory.ThrowIsNull(nameof(_applicationSettingsFactory)).SetValue(null, DI.Get<IApplicationSettingsFactory>());
+#endif
                 AppCenter.Start(appSecret, typeof(Analytics), typeof(Crashes));
             }
         }
 
-        static string? AppSecret
+        static readonly Lazy<string?> _AppSecret = new(() =>
         {
-            get
-            {
-                var assembly = typeof(VisualStudioAppCenterSDK).Assembly;
-                const string namespacePrefix = "System.Application.Resources.";
-                Stream? func(string x) => assembly.GetManifestResourceStream(x);
-                var r = GetResValue(func,
+            var assembly = typeof(VisualStudioAppCenterSDK).Assembly;
+            const string namespacePrefix = "System.Application.Resources.";
+            Stream? func(string x) => assembly!.GetManifestResourceStream(x);
+            var r = GetResValue(func,
 #if XAMARIN_MAC || MONO_MAC || MAC
                     "appcenter-secret-mac",
 #elif __ANDROID__
@@ -44,10 +59,130 @@ namespace System.Application
                     "appcenter-secret",
 #endif
                     isSingle: false,
-                    namespacePrefix,
-                    ResValueFormat.StringGuidD);
-                return r;
-            }
+                namespacePrefix,
+                ResValueFormat.StringGuidD);
+            return r;
+        });
+
+        public static bool TryGetAppSecret([NotNullWhen(true)] out string? appSecret)
+        {
+            appSecret = _AppSecret.Value;
+            return !string.IsNullOrWhiteSpace(appSecret);
         }
     }
 }
+
+#if WINDOWS
+namespace Microsoft.AppCenter.Utils
+{
+    internal sealed class ApplicationSettings : IApplicationSettings
+    {
+        static readonly object configLock = new();
+        readonly IStorage storage;
+
+        public ApplicationSettings(IStorage storage)
+        {
+            this.storage = storage;
+        }
+
+        public bool ContainsKey(string key)
+        {
+            lock (configLock)
+            {
+                Func<Task<bool>> func = () => storage.ContainsKeyAsync(key);
+                var r = func.RunSync();
+                return r;
+            }
+        }
+
+        public T? GetValue<T>(string key, T? defaultValue = default) where T : notnull
+        {
+            lock (configLock)
+            {
+                Func<Task<string?>> func = () => storage.GetAsync(key);
+                var r = func.RunSync();
+                if (r != null)
+                {
+                    try
+                    {
+                        var r2 = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(r);
+                        return r2;
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return defaultValue;
+        }
+
+        public void Remove(string key)
+        {
+            lock (configLock)
+            {
+                Func<Task> func = () => storage.RemoveAsync(key);
+                func.RunSync();
+            }
+        }
+
+        public void SetValue(string key, object value)
+        {
+            var invariant = value != null ? TypeDescriptor.GetConverter(value.GetType()).ConvertToInvariantString(value) : null;
+            lock (configLock)
+            {
+                Func<Task> func = () => storage.SetAsync(key, invariant);
+                func.RunSync();
+            }
+        }
+    }
+
+    internal sealed class ApplicationSettingsFactory : IApplicationSettingsFactory
+    {
+        public IApplicationSettings CreateApplicationSettings()
+        {
+            var r = DI.Get<IApplicationSettings>();
+            return r;
+        }
+    }
+
+#if DEBUG
+    internal sealed class TestAppCenter : ITestAppCenter
+    {
+        readonly IApplicationSettings settings;
+        public TestAppCenter(IApplicationSettings settings)
+        {
+            this.settings = settings;
+        }
+
+        public void Test(StringBuilder @string)
+        {
+            var newGuid = Guid.NewGuid();
+            settings.SetValue("IDTest", newGuid);
+            var hasIDTest = settings.ContainsKey("IDTest");
+            @string.AppendLine($"TestAppCenter.HasIDTest: {hasIDTest}");
+            var newGuid2 = settings.GetValue<Guid>("IDTest");
+            @string.AppendLine($"TestAppCenter.IDTest: {newGuid == newGuid2}");
+        }
+    }
+#endif
+}
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static partial class ServiceCollectionExtensions
+    {
+        static IServiceCollection AddMSAppCenterApplicationSettings(this IServiceCollection services)
+        {
+            if (TryGetAppSecret(out var _))
+            {
+                services.AddSingleton<IApplicationSettings, ApplicationSettings>();
+                services.AddSingleton<IApplicationSettingsFactory, ApplicationSettingsFactory>();
+#if DEBUG
+                services.AddSingleton<ITestAppCenter, TestAppCenter>();
+#endif
+            }
+            return services;
+        }
+    }
+}
+#endif

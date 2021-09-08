@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>Steam++.Console</AssemblyName>
+    <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;CONSOLEAPP;$(DefineConstants)</DefineConstants>
+    <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <PublishSingleFile>false</PublishSingleFile>
+    <!--目前裁剪存在问题，禁用-->
+    <PublishTrimmed>false</PublishTrimmed>
+    <TrimMode>link</TrimMode>
+    <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+    <!--剪裁框架库功能 https://docs.microsoft.com/zh-cn/dotnet/core/deploying/trimming-options#trimming-framework-library-features -->
+    <DebuggerSupport>false</DebuggerSupport>
+    <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+    <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+    <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+    <EventSourceSupport>false</EventSourceSupport>
+    <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Startup2.cs" />
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App\Program.InitLogDir.cs">
+      <Link>Program.InitLogDir.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App.Bridge\DesktopBridgeHelper2.cs" />
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App.Bridge\FileSystemDesktopBridge.cs" />
+    <Compile Include="..\ST.Client.Desktop.Console.App\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
+    <Reference Include="Microsoft.Windows.SDK.NET">
+      <HintPath>..\..\references\Microsoft.Windows.SDK.NET.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

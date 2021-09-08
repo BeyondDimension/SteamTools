@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
+using static Xamarin.Essentials.Permissions;
 
 namespace System.Application.Services
 {
@@ -8,29 +9,35 @@ namespace System.Application.Services
     /// </summary>
     public interface IPermissions
     {
-        /// <inheritdoc cref="Permissions.BasePlatformPermission"/>
-        public interface IPermission
+        static IPermissions Instance => DI.Get<IPermissions>();
+
+        interface IPermission
         {
-            /// <inheritdoc cref="Permissions.BasePlatformPermission.CheckStatusAsync"/>
-            Task<PermissionStatus> CheckStatusAsync();
+            BasePermission Permission { get; }
+        }
 
-            /// <inheritdoc cref="Permissions.BasePlatformPermission.RequestAsync"/>
-            Task<PermissionStatus> RequestAsync();
-
-            /// <inheritdoc cref="Permissions.BasePlatformPermission.ShouldShowRationale"/>
-            bool ShouldShowRationale();
+        interface IPermission<TPermission> : IPermission where TPermission : IPermission<TPermission>
+        {
+            static TPermission Instance => DI.Get<TPermission>();
         }
 
         /// <summary>
         /// 获取手机号码所需权限
         /// </summary>
-        public interface IGetPhoneNumber : IPermission { }
+        interface IGetPhoneNumber : IPermission<IGetPhoneNumber> { }
 
         /// <summary>
         /// 检查并申请一组权限
         /// </summary>
         /// <param name="permission"></param>
         /// <returns></returns>
-        Task<PermissionStatus> CheckAndRequestAsync(IPermission permission);
+        Task<PermissionStatus> CheckAndRequestAsync(BasePermission permission);
+
+        /// <inheritdoc cref="CheckAndRequestAsync(BasePermission)"/>
+        Task<PermissionStatus> CheckAndRequestAsync(IPermission permission)
+            => CheckAndRequestAsync(permission.Permission);
+
+        /// <inheritdoc cref="CheckAndRequestAsync(BasePermission)"/>
+        Task<PermissionStatus> CheckAndRequestAsync<TPermission>() where TPermission : BasePermission, new() => CheckAndRequestAsync(new TPermission());
     }
 }

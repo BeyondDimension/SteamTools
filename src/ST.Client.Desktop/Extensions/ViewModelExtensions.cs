@@ -1,13 +1,14 @@
-﻿using System.Application.UI.ViewModels;
+using System.Application.Mvvm;
 
-namespace System.Application
+// ReSharper disable once CheckNamespace
+namespace System
 {
     public static class ViewModelExtensions
     {
         /// <summary>
-        /// <see cref="IDisposable"/> 将对象添加到<see cref="IViewModelBase"/> 的<see cref="IViewModelBase.CompositeDisposable"/>中
+        /// 将 <see cref="IDisposable"/> 对象添加 <see cref="IDisposableHolder.CompositeDisposable"/> 中
         /// </summary>
-        public static T AddTo<T>(this T disposable, IViewModelBase vm) where T : IDisposable
+        public static T AddTo<T>(this T disposable, IDisposableHolder vm) where T : IDisposable
         {
             if (vm == null)
             {
@@ -17,11 +18,33 @@ namespace System.Application
 
             if (vm.CompositeDisposable == null)
             {
-                throw new ArgumentNullException(nameof(IViewModelBase.CompositeDisposable));
+                throw new ArgumentNullException(nameof(IDisposableHolder.CompositeDisposable));
             }
 
             vm.CompositeDisposable.Add(disposable);
             return disposable;
+        }
+
+        /// <summary>
+        /// 将 <see cref="IDisposable"/> 对象从 <see cref="IDisposableHolder.CompositeDisposable"/> 中移除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="disposable"></param>
+        /// <param name="vm"></param>
+        /// <returns></returns>
+        public static bool RemoveTo<T>(this T? disposable, IDisposableHolder vm) where T : IDisposable
+        {
+            if (disposable == null) return true;
+
+            if (vm?.CompositeDisposable == null)
+            {
+                disposable.Dispose();
+                return true;
+            }
+
+            var r = vm.CompositeDisposable.Remove(disposable);
+            disposable.Dispose();
+            return r;
         }
     }
 }

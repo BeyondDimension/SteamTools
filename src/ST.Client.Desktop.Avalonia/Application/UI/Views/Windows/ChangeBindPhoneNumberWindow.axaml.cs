@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class ChangeBindPhoneNumberWindow : FluentWindow
+    public class ChangeBindPhoneNumberWindow : FluentWindow<ChangeBindPhoneNumberWindowViewModel>
     {
         readonly TextBox TbPhoneNumber;
         readonly TextBox TbSmsCodeValidation;
@@ -39,7 +39,7 @@ namespace System.Application.UI.Views.Windows
                             TbSmsCodeNew.Focus();
                             return;
                         }
-                        ((ChangeBindPhoneNumberWindowViewModel?)DataContext)?.Submit();
+                        vm.Submit();
                     }
                 }
             }
@@ -81,6 +81,10 @@ namespace System.Application.UI.Views.Windows
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            if (DataContext is ChangeBindPhoneNumberWindowViewModel vm)
+            {
+                vm.RemoveAllDelegate();
+            }
             if (DataContext is IDisposable disposable)
             {
                 disposable.Dispose();

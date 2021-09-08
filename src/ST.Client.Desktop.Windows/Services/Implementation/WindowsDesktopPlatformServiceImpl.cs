@@ -3,13 +3,15 @@ using Microsoft.Win32;
 using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
 using System.Application.UI;
+using System.Application.UI.Resx;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Reflection;
 using System.Runtime.Versioning;
+using System.Security.Principal;
+using Windows.ApplicationModel;
 
 namespace System.Application.Services.Implementation
 {
@@ -18,7 +20,7 @@ namespace System.Application.Services.Implementation
     {
         const string TAG = "WindowsDesktopPlatformS";
         const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
-
+        public string? GetRegistryVdfPath() { return null; }
         public string GetCommandLineArgs(Process process)
         {
             try
@@ -64,17 +66,27 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        /// <summary>
-        /// 使用资源管理器打开某个路径
-        /// </summary>
-        /// <param name="dirPath"></param>
-        public void OpenFolder(string dirPath)
+        const string explorer = "explorer.exe";
+        static string Explorer => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), explorer);
+
+        public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
-            if (File.Exists(dirPath))
+            Process.Start(new ProcessStartInfo
             {
-                Process.Start("explorer.exe", "/select," + dirPath);
-            }
-            Process.Start("explorer.exe", dirPath);
+                FileName = Explorer,
+                Arguments = $"\"{info.FullName}\"",
+                UseShellExecute = false,
+            });
+        }
+
+        public void OpenFolderSelectFilePath(FileInfo info)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Explorer,
+                Arguments = $"/select,\"{info.FullName}\"",
+                UseShellExecute = false,
+            });
         }
 
         public string? GetFileName(TextReaderProvider provider)
@@ -103,41 +115,82 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public void SetBootAutoStart(bool isAutoStart, string name)
+        /// <summary>
+        /// UWP 的开机自启 TaskId，在 Package.appxmanifest 中设定
+        /// </summary>
+        const string BootAutoStartTaskId = "BootAutoStartTask";
+
+        public async void SetBootAutoStart(bool isAutoStart, string name)
         {
-            // 开机启动使用 taskschd.msc 实现
-            try
+            if (DesktopBridge.IsRunningAsUwp)
             {
+                // https://blogs.windows.com/windowsdeveloper/2017/08/01/configure-app-start-log/
+                // https://blog.csdn.net/lh275985651/article/details/109360162
+                // https://www.cnblogs.com/wpinfo/p/uwp_auto_startup.html
+                // 还需要通过 global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs() 判断为自启时最小化，不能通过参数启动
+                var startupTask = await StartupTask.GetAsync(BootAutoStartTaskId);
                 if (isAutoStart)
                 {
-                    using var td = TaskService.Instance.NewTask();
-                    td.RegistrationInfo.Description = name + " System Boot Run";
-                    td.Settings.Priority = ProcessPriorityClass.Normal;
-                    td.Settings.ExecutionTimeLimit = new TimeSpan(0);
-                    td.Settings.AllowHardTerminate = false;
-                    td.Settings.StopIfGoingOnBatteries = false;
-                    td.Settings.DisallowStartIfOnBatteries = false;
-                    td.Triggers.Add(new LogonTrigger());
-                    td.Actions.Add(new ExecAction(AppHelper.ProgramName, "-clt c -silence", Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)));
-                    if (IsAdministrator)
-                        td.Principal.RunLevel = TaskRunLevel.Highest;
-                    TaskService.Instance.RootFolder.RegisterTaskDefinition(name, td);
+                    var startupTaskState = startupTask.State;
+                    if (startupTask.State == StartupTaskState.Disabled)
+                    {
+                        startupTaskState = await startupTask.RequestEnableAsync();
+                    }
+                    if (startupTaskState != StartupTaskState.Enabled &&
+                        startupTaskState != StartupTaskState.EnabledByPolicy)
+                    {
+                        Toast.Show(AppResources.SetBootAutoStartTrueFail_.Format(startupTaskState));
+                    }
                 }
                 else
                 {
-                    TaskService.Instance.RootFolder.DeleteTask(name);
+                    startupTask.Disable();
                 }
             }
-            catch (Exception e)
+            else
             {
-                Log.Error(TAG, e,
-                    "SetBootAutoStart Fail, isAutoStart: {0}, name: {1}.", isAutoStart, name);
+                // 开机启动使用 taskschd.msc 实现
+                try
+                {
+                    var identity = WindowsIdentity.GetCurrent();
+                    var hasSid = identity.User?.IsAccountSid() ?? false;
+                    var userId = hasSid ? identity.User!.ToString() : identity.Name;
+                    var tdName = hasSid ? userId : userId.Replace(Path.DirectorySeparatorChar, '_');
+                    tdName = $"{name}_{{{tdName}}}";
+                    if (isAutoStart)
+                    {
+                        using var td = TaskService.Instance.NewTask();
+                        td.RegistrationInfo.Description = name + " System Boot Run";
+                        td.Settings.Priority = ProcessPriorityClass.Normal;
+                        td.Settings.ExecutionTimeLimit = new TimeSpan(0);
+                        td.Settings.AllowHardTerminate = false;
+                        td.Settings.StopIfGoingOnBatteries = false;
+                        td.Settings.DisallowStartIfOnBatteries = false;
+                        td.Triggers.Add(new LogonTrigger { UserId = userId });
+                        td.Actions.Add(new ExecAction(AppHelper.ProgramName,
+                            IDesktopPlatformService.SystemBootRunArguments,
+                            IOPath.BaseDirectory));
+                        if (IsAdministrator)
+                            td.Principal.RunLevel = TaskRunLevel.Highest;
+                        TaskService.Instance.RootFolder.RegisterTaskDefinition(tdName, td);
+                    }
+                    else
+                    {
+                        TaskService.Instance.RootFolder.DeleteTask(name, exceptionOnNotExists: false);
+                        TaskService.Instance.RootFolder.DeleteTask(tdName, exceptionOnNotExists: false);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e,
+                        "SetBootAutoStart Fail, isAutoStart: {0}, name: {1}.", isAutoStart, name);
+                }
             }
         }
 
         public void SetSystemSessionEnding(Action action)
         {
-            Microsoft.Win32.SystemEvents.SessionEnding += (sender, e) =>
+            SystemEvents.SessionEnding += (sender, e) =>
             {
                 //IDesktopAppService.Instance.CompositeDisposable.Dispose();
                 action.Invoke();
@@ -183,6 +236,46 @@ namespace System.Application.Services.Implementation
         {
             startInfo.FileName = $"/trustlevel:0x20000 \"{startInfo.FileName}\"";
             return Process.Start(startInfo);
+        }
+
+        public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
+        {
+            try
+            {
+                using var p = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "cmd",
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true,
+                    },
+                };
+                p.Start();
+                p.StandardInput.WriteLine($"netstat -ano|findstr \"{port}\"&exit");
+                p.StandardInput.AutoFlush = true;
+                var reader = p.StandardOutput;
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    if (line == null) break;
+                    var lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    if (lineArray.Length != 5) continue;
+                    if (!lineArray[0].Equals(isTCPorUDP ? "TCP" : "UDP", StringComparison.OrdinalIgnoreCase)) continue;
+                    if (!lineArray[3].Equals("LISTENING", StringComparison.OrdinalIgnoreCase)) continue;
+                    if (!lineArray[1].EndsWith($":{port}")) continue;
+                    if (!ushort.TryParse(lineArray[4], out var pid)) continue;
+                    p.Close();
+                    return Process.GetProcessById(pid);
+                }
+                _ = p.WaitForExit(550);
+            }
+            catch
+            {
+            }
+            return default;
         }
     }
 }

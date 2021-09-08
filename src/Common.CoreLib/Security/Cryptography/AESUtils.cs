@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -609,6 +609,11 @@ namespace System.Security.Cryptography
         public static (byte[] key, byte[] iv) GetParameters(string s)
         {
             var bytes = Encoding.UTF8.GetBytes(s);
+            return GetParameters(bytes);
+        }
+
+        public static (byte[] key, byte[] iv) GetParameters(byte[] bytes)
+        {
             var key = Hashs.ByteArray.SHA1(bytes).Concat(Hashs.ByteArray.Crc32(bytes)).ToArray();
             var iv = Hashs.ByteArray.MD5(bytes);
             return (key, iv);

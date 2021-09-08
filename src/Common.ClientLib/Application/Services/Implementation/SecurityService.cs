@@ -2,6 +2,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Application.Services.ISecurityService;
 
 namespace System.Application.Services.Implementation
 {
@@ -76,23 +77,35 @@ namespace System.Application.Services.Implementation
 
         public async ValueTask<string?> D(byte[]? value, string? secondaryPassword)
         {
-            var value2 = await DB(value, secondaryPassword);
-            if (value2 == null || !value2.Any()) return null;
+            (var content, var _) = await D2(value, secondaryPassword);
+            return content;
+        }
+
+        public async ValueTask<(string? content, DResultCode resultCode)> D2(byte[]? value, string? secondaryPassword)
+        {
+            (var content, var resultCode) = await DB2(value, secondaryPassword);
+            if (resultCode != DResultCode.Success || content == null || !content.Any()) return (null, resultCode);
             try
             {
-                return Encoding.UTF8.GetString(value2);
+                var content_ = Encoding.UTF8.GetString(content);
+                return (content_, DResultCode.Success);
             }
             catch
             {
-                return null;
+                return (null, DResultCode.UTF8GetStringFail);
             }
         }
 
         public async ValueTask<byte[]?> DB(byte[]? value, string? secondaryPassword)
         {
-            if (value == null) return value;
-            if (value.Length == 0) return value;
-            if (value.Length <= sizeof(int)) return null;
+            (var content, var _) = await DB2(value, secondaryPassword);
+            return content;
+        }
+
+        public async ValueTask<(byte[]? content, DResultCode resultCode)> DB2(byte[]? value, string? secondaryPassword)
+        {
+            if (value == null || value.Length == 0) return (value, DResultCode.Success);
+            if (value.Length <= sizeof(int)) return (null, DResultCode.IncorrectValueFail);
 
             var d_type = (EncryptionMode)BitConverter.ToInt32(value, 0);
             switch (d_type)
@@ -100,27 +113,37 @@ namespace System.Application.Services.Implementation
                 case EncryptionMode.EmbeddedAes:
                     var value_1 = UnConcat(value);
                     var value_1_r = ea.DB(value_1);
-                    return value_1_r;
+                    return (value_1_r, value_1_r == null ?
+                        DResultCode.EmbeddedAesFail : DResultCode.Success);
                 case EncryptionMode.EmbeddedAesWithLocal:
                     var value_2 = UnConcat(value);
                     var value_2_local = await local.DB(value_2);
+                    if (value_2_local == null) return (null, DResultCode.LocalFail);
                     var value_2_r = ea.DB(value_2_local);
-                    return value_2_r;
+                    return (value_2_r, value_2_r == null ?
+                        DResultCode.EmbeddedAesFail : DResultCode.Success);
                 case EncryptionMode.EmbeddedAesWithSecondaryPassword:
-                    if (string.IsNullOrWhiteSpace(secondaryPassword)) return null;
+                    if (string.IsNullOrWhiteSpace(secondaryPassword))
+                        return (null, DResultCode.SecondaryPasswordFail);
                     var value_3 = UnConcat(value);
                     var value_3_sp = sp.DB(value_3, secondaryPassword);
+                    if (value_3_sp == null) return (null, DResultCode.SecondaryPasswordFail);
                     var value_3_r = ea.DB(value_3_sp);
-                    return value_3_r;
+                    return (value_3_r, value_3_r == null ?
+                        DResultCode.EmbeddedAesFail : DResultCode.Success);
                 case EncryptionMode.EmbeddedAesWithSecondaryPasswordWithLocal:
-                    if (string.IsNullOrWhiteSpace(secondaryPassword)) return null;
+                    if (string.IsNullOrWhiteSpace(secondaryPassword))
+                        return (null, DResultCode.SecondaryPasswordFail);
                     var value_4 = UnConcat(value);
                     var value_4_local = await local.DB(value_4);
+                    if (value_4_local == null) return (null, DResultCode.LocalFail);
                     var value_4_sp = sp.DB(value_4_local, secondaryPassword);
+                    if (value_4_sp == null) return (null, DResultCode.SecondaryPasswordFail);
                     var value_4_r = ea.DB(value_4_sp);
-                    return value_4_r;
+                    return (value_4_r, value_4_r == null ?
+                        DResultCode.EmbeddedAesFail : DResultCode.Success);
                 default:
-                    return null;
+                    return (null, DResultCode.IncorrectValueFail);
             }
         }
     }

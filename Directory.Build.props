@@ -1,20 +1,17 @@
 <Project>
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <TrimMode>link</TrimMode>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <PropertyGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Unicorn.pfx') ">
     <DefineConstants>SIGN_ASSEMBLY;$(DefineConstants)</DefineConstants>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>..\..\Unicorn.pfx</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
+    <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\Unicorn.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>

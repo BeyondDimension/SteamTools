@@ -95,5 +95,14 @@ namespace System.Properties {
                 return ResourceManager.GetString("NotSupportedWin8PlatformError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 此应用仅支持 64 位操作系统 的本地化字符串。
+        /// </summary>
+        internal static string ThisAppOnlySupport64BitOS {
+            get {
+                return ResourceManager.GetString("ThisAppOnlySupport64BitOS", resourceCulture);
+            }
+        }
     }
 }

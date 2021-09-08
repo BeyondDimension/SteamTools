@@ -7,20 +7,25 @@
       </Border>
     </Border>
   </Design.PreviewWith>
+
   <Style Selector="TabControl.flat">
     <Setter Property="Padding" Value="0"></Setter>
   </Style>
   <Style Selector="TabControl.flat TabItem">
     <Setter Property="FontSize" Value="16"></Setter>
+    <Setter Property="MinHeight" Value="36"></Setter>
   </Style>
   <Style Selector="TabControl.flat /template/ DockPanel">
     <Setter Property="Margin" Value="0 -10 0 0"></Setter>
   </Style>
-  <Style Selector="TabControl.flat /template/ ItemsPresenter">
+  <!--<Style Selector="TabControl.flat /template/ ItemsPresenter">
     <Setter Property="Margin" Value="{StaticResource PageMargin}"></Setter>
+  </Style>-->
+
+
+  <Style Selector="TabControl TabItem">
+    <Setter Property="FontSize" Value="16"></Setter>
   </Style>
-
-
 
   <Style Selector="TabControl.NavBar">
     <Setter Property="TabStripPlacement" Value="Left"/>
@@ -33,7 +38,7 @@
             BorderBrush="{TemplateBinding BorderBrush}"
             BorderThickness="{TemplateBinding BorderThickness}">
           <DockPanel>
-            <ScrollViewer Width="240" Margin="0 50 0 0"
+            <ScrollViewer Width="240" Margin="0 60 0 0"
                 Name="PART_ScrollViewer"
                 HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                 VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
@@ -86,4 +91,6 @@
   <Style Selector="TabControl.NavBar > TabItem:pointerover /template/ Border#PART_LayoutRoot">
     <Setter Property="Background" Value="#3fffffff"/>
   </Style>
+
+
 </Styles>

@@ -1,6 +1,7 @@
-﻿extern alias NUGET_PACKAGE_TOAST_IOS;
+extern alias NUGET_PACKAGE_TOAST_IOS;
 
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 using iOSToast = NUGET_PACKAGE_TOAST_IOS::GlobalToast.Toast;
 
 namespace System.Application.Services.Implementation
@@ -14,11 +15,15 @@ namespace System.Application.Services.Implementation
         {
         }
 
-        protected override void PlatformShow(string text, int duration)
+        protected override async void PlatformShow(string text, int duration)
         {
-            iOSToast.ShowToast(text)
+            var toast = iOSToast.ShowToast(text)
                 .SetDuration(duration)
+                .SetShowShadow(false)
+                .SetAutoDismiss(true)
                 .Show();
+            await Task.Delay(duration);
+            toast.Dismiss();
         }
 
         internal static IServiceCollection TryAddToast(IServiceCollection services)

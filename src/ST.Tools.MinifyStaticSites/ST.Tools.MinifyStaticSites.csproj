@@ -12,8 +12,14 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.cs">
       <Link>Properties\ThisAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
+      <Link>Properties\ThisAssembly.Version.cs</Link>
     </Compile>
   </ItemGroup>
 

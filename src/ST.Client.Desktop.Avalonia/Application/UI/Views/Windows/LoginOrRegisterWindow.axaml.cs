@@ -6,7 +6,7 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class LoginOrRegisterWindow : FluentWindow
+    public class LoginOrRegisterWindow : FluentWindow<LoginOrRegisterWindowViewModel>
     {
         readonly TextBox TbPhoneNumber;
         readonly TextBox TbSmsCode;
@@ -20,6 +20,10 @@ namespace System.Application.UI.Views.Windows
             {
                 if (e.Key == Key.Return)
                 {
+                    if (DataContext is LoginOrRegisterWindowViewModel vm)
+                    {
+                        vm.SendSms.Invoke();
+                    }
                     TbSmsCode.Focus();
                 }
             };
@@ -27,7 +31,10 @@ namespace System.Application.UI.Views.Windows
             {
                 if (e.Key == Key.Return)
                 {
-                    ((LoginOrRegisterWindowViewModel?)DataContext)?.Submit();
+                    if (DataContext is LoginOrRegisterWindowViewModel vm)
+                    {
+                        vm.Submit.Invoke();
+                    }
                 }
             };
 #if DEBUG
@@ -40,7 +47,7 @@ namespace System.Application.UI.Views.Windows
             base.OnDataContextChanged(e);
             if (DataContext is LoginOrRegisterWindowViewModel vm)
             {
-                vm.Close = Close;
+                vm.Close += Close;
                 vm.TbPhoneNumberFocus = TbPhoneNumber.Focus;
                 vm.TbSmsCodeFocus = TbSmsCode.Focus;
             }
@@ -49,6 +56,10 @@ namespace System.Application.UI.Views.Windows
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            if (DataContext is LoginOrRegisterWindowViewModel vm)
+            {
+                vm.RemoveAllDelegate();
+            }
             if (DataContext is IDisposable disposable)
             {
                 disposable.Dispose();

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?android:windowBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutUser"
+        app:layout_constraintEnd_toEndOf="@+id/layoutUser"
+        app:layout_constraintStart_toStartOf="@+id/layoutUser"
+        app:layout_constraintTop_toTopOf="@+id/layoutUser" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivAvater"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/user_profile_vertical_margin"
+        android:src="@drawable/avater_default"
+        app:civ_border_color="@color/border_color"
+        app:civ_border_width="@dimen/avater_border_width"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/user_profile_avater_nickname_vertical_space"
+        android:paddingBottom="@dimen/user_profile_vertical_margin"
+        android:textColor="@color/text_primary"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvater"
+        tools:text="@string/login_and_register"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    <View
+        android:id="@+id/layoutUser"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNickName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPreferenceButtons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:paddingTop="@dimen/preference_buttons_space"
+        android:paddingBottom="@dimen/preference_buttons_space"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutUser"
+        tools:itemCount="6"
+        tools:listitem="@layout/layout_preference_large_button"
+        xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,40 +1,49 @@
 using ReactiveUI;
+using System.Application.Services;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
+using System.Properties;
 using System.Reactive.Linq;
-using System.Text.RegularExpressions;
+using AppRes = System.Application.UI.Resx.AppResources;
+#if __MOBILE__
+using Res = System.Byte;
+#else
+using Res = System.Application.UI.Resx.AppResources;
+#endif
 
 namespace System.Application.UI.Resx
 {
     public sealed class R : ReactiveObject
     {
-        public static R Current { get; }
+        public static R Current { get; } = new();
 
         public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
-        public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Fonts;
+        static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
+        public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
-        public AppResources Res { get; set; } = new AppResources();
+        public Res Res { get; set; } = new();
 
-        public static CultureInfo DefaultCurrentUICulture { get; }
+        public static CultureInfo DefaultCurrentUICulture { get; private set; }
 
         static R()
         {
-            Current = new R();
             DefaultCurrentUICulture = CultureInfo.CurrentUICulture;
-            Languages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            var languagesDict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "", "Auto" },
-                { "zh-Hans", "Chinese(Simplified)" },
-                { "zh-Hant", "Chinese(Traditional)" },
+                { "zh-Hans", "Chinese (Simplified)" },
+                { "zh-Hant", "Chinese (Traditional)" },
                 { "en", "English" },
-                { "ko", "Koreana" },
+                { "ko", "Korean" },
                 { "ja", "Japanese" },
                 { "ru", "Russian" },
-            }.ToList();
+                { "es", "Spanish" },
+                { "it", "Italian" },
+            };
+            Languages = languagesDict.ToList();
             SteamLanguages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "zh-CN", "schinese" },
@@ -44,19 +53,10 @@ namespace System.Application.UI.Resx
                 { "ko", "koreana" },
                 { "ja", "japanese" },
                 { "ru", "russian" },
+                { "es", "spanish" },
+                { "it", "italian" },
             };
-            Fonts = GetFonts();
-            AppResources.Culture = DefaultCurrentUICulture;
-        }
-
-        static IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
-        {
-            // https://docs.microsoft.com/zh-cn/typography/font-list
-            var culture = Culture;
-            InstalledFontCollection ifc = new();
-            var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
-            list.Insert(0, KeyValuePair.Create(AppResources.Default, "Default"));
-            return list;
+            AppRes.Culture = DefaultCurrentUICulture;
         }
 
         static bool IsMatch(CultureInfo cultureInfo, string cultureName)
@@ -75,23 +75,42 @@ namespace System.Application.UI.Resx
             }
         }
 
+        public static void ChangeAutoLanguage(CultureInfo? cultureInfo = null) => MainThread2.BeginInvokeOnMainThread(() => ChangeAutoLanguageCore(cultureInfo));
+
+        static void ChangeAutoLanguageCore(CultureInfo? cultureInfo = null)
+        {
+#if !__MOBILE__
+            if (!string.IsNullOrWhiteSpace(SettingsPageViewModel.Instance.SelectLanguage.Key)) return;
+#endif
+            cultureInfo ??= CultureInfo.CurrentUICulture;
+            DefaultCurrentUICulture = cultureInfo;
+            ChangeLanguageCore(cultureInfo.Name);
+        }
+
         /// <summary>
         /// 更改语言
         /// </summary>
         /// <param name="cultureName"></param>
-        public static void ChangeLanguage(string cultureName)
+        public static void ChangeLanguage(string? cultureName) => MainThread2.BeginInvokeOnMainThread(() => ChangeLanguageCore(cultureName));
+
+        static void ChangeLanguageCore(string? cultureName)
         {
-            if (IsMatch(AppResources.Culture, cultureName)) return;
-            AppResources.Culture = string.IsNullOrWhiteSpace(cultureName) ?
+            if (cultureName == null || IsMatch(AppRes.Culture, cultureName)) return;
+            AppRes.Culture = string.IsNullOrWhiteSpace(cultureName) ?
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
-            CultureInfo.CurrentUICulture = AppResources.Culture;
-            CultureInfo.DefaultThreadCurrentUICulture = AppResources.Culture;
-            CultureInfo.CurrentCulture = AppResources.Culture;
-            CultureInfo.DefaultThreadCurrentCulture = AppResources.Culture;
+            CultureInfo.DefaultThreadCurrentUICulture = AppRes.Culture;
+            CultureInfo.DefaultThreadCurrentCulture = AppRes.Culture;
+            CultureInfo.CurrentUICulture = AppRes.Culture;
+            CultureInfo.CurrentCulture = AppRes.Culture;
             mAcceptLanguage = GetAcceptLanguageCore();
             mLanguage = GetLanguageCore();
-            Current.Res = new AppResources();
+            Current.Res =
+#if __MOBILE__
+                ++Current.Res;
+#else
+                new();
+#endif
             Current.RaisePropertyChanged(nameof(Res));
         }
 
@@ -115,7 +134,7 @@ namespace System.Application.UI.Resx
             {
                 Log.Error(nameof(R), ex, nameof(GetCurrentCultureSteamLanguageName));
             }
-            return SteamLanguages["en"];
+            return "english";
         }
 
         static string GetAcceptLanguageCore()
@@ -143,30 +162,17 @@ namespace System.Application.UI.Resx
         static string GetLanguageCore()
         {
             var culture = Culture;
-            if (IsMatch(culture, "zh-Hans"))
+            foreach (var item in Languages)
             {
-                return "zh-Hans";
+                if (!string.IsNullOrWhiteSpace(item.Key))
+                {
+                    if (IsMatch(culture, item.Key))
+                    {
+                        return item.Key;
+                    }
+                }
             }
-            else if (IsMatch(culture, "zh-Hant"))
-            {
-                return "zh-Hant";
-            }
-            else if (IsMatch(culture, "ko"))
-            {
-                return "ko";
-            }
-            else if (IsMatch(culture, "ja"))
-            {
-                return "ja";
-            }
-            else if (IsMatch(culture, "ru"))
-            {
-                return "ru";
-            }
-            else
-            {
-                return "en";
-            }
+            return "en";
         }
 
         public static string Language
@@ -181,6 +187,6 @@ namespace System.Application.UI.Resx
             }
         }
 
-        public static CultureInfo Culture => AppResources.Culture ?? DefaultCurrentUICulture;
+        public static CultureInfo Culture => AppRes.Culture ?? DefaultCurrentUICulture;
     }
 }

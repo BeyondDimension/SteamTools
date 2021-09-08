@@ -70,6 +70,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 绑定失败，此账号已被其他用户绑定 的本地化字符串。
+        /// </summary>
+        internal static string BindFail_UserIsNotNull {
+            get {
+                return ResourceManager.GetString("BindFail_UserIsNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 账号已被封禁 的本地化字符串。
         /// </summary>
         internal static string UserIsBanErrorMessage {

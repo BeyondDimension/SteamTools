@@ -1,11 +1,8 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using System.Application.UI.Views;
-using System.Properties;
-using System.Reflection;
 using AvaloniaApplication = Avalonia.Application;
 
-[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark + ".Setup v" + ThisAssembly.Version)]
 namespace System.Application.UI
 {
     public class App : AvaloniaApplication

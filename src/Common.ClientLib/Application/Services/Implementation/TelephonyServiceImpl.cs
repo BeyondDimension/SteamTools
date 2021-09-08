@@ -1,17 +1,15 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="ITelephonyService"/>
     public abstract class TelephonyServiceImpl : ITelephonyService
     {
-        readonly IPermissions pf;
-        readonly IPermissions.IGetPhoneNumber p1;
+        readonly IPermissions p;
 
-        public TelephonyServiceImpl(IPermissions pf, IPermissions.IGetPhoneNumber p1)
+        public TelephonyServiceImpl(IPermissions p)
         {
-            this.pf = pf;
-            this.p1 = p1;
+            this.p = p;
         }
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace System.Application.Services.Implementation
         /// <returns></returns>
         protected virtual async Task<string?> PlatformGetPhoneNumberAsync()
         {
-            var status = await pf.CheckAndRequestAsync(p1);
+            var status = await p.CheckAndRequestAsync(IPermissions.IGetPhoneNumber.Instance);
             if (status.IsOk())
             {
                 return PlatformGetPhoneNumber();

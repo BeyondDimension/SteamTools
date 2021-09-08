@@ -21,7 +21,7 @@
 //        /// <returns></returns>
 //        public static IEnumerable<Process> GetRunningV1Processes()
 //        {
-//            var query = from p in Process.GetProcesses()
+//            var query = from p in Process.GetProcessesByName("Steam++")
 //                        where p.ProcessName == "Steam++"
 //                        let filePath = p.MainModule?.FileName
 //                        where !string.IsNullOrWhiteSpace(filePath)

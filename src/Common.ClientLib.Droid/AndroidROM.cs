@@ -1,13 +1,15 @@
-﻿using Android.OS;
+using Android.OS;
 using Java.Lang;
 using System.Collections.Generic;
 using System.Linq;
+using StringBuilder = System.Text.StringBuilder;
 
 namespace System
 {
     /// <summary>
     /// Android ROM 相关函数集
     /// </summary>
+    [Obsolete("Slow performance")]
     public static class AndroidROM
     {
         /// <summary>
@@ -40,6 +42,15 @@ namespace System
             {
                 if (HasVersionString) return $"{Type} {VersionString}";
                 return Type.ToString();
+            }
+
+            public void ToString(StringBuilder b)
+            {
+                if (HasVersionString)
+                {
+                    b.AppendFormat("{0} {1}", Type, VersionString);
+                }
+                if (Type != AndroidROMType.Unknown) b.Append(Type.ToString());
             }
 
             public static Info Unknown { get; } = new Info(AndroidROMType.Unknown, null);
@@ -124,39 +135,53 @@ namespace System
         /// <summary>
         /// 获取当前 ROM 信息
         /// </summary>
-        public static Info Current => mCurrent ?? throw new NullReferenceException("must call AndroidROM.Initialize() before using.");
+        public static Info Current
+        {
+            get
+            {
+                if (mCurrent == null)
+                {
+                    Initialize();
+                }
+                return mCurrent!;
+            }
+        }
 
         static bool isInit;
+        static readonly object initLock = new();
 
         /// <summary>
         /// 初始化 ROM 信息
         /// </summary>
-        public static void Initialize()
+        static void Initialize()
         {
-            if (isInit) return;
-            string? version = null;
-            var firstOrDefault = identify_keywords_rule_a
-                .FirstOrDefault(x => SystemProperties.TryGet(x.Key, out version));
-            if (firstOrDefault.Key != null)
+            lock (initLock)
             {
-                mCurrent = new Info(firstOrDefault.Value, version);
-            }
-            else
-            {
-                if (SystemProperties.TryGet(RO_BUILD_DISPLAY_ID, out var value))
+                if (isInit) return;
+                string? version = null;
+                var firstOrDefault = identify_keywords_rule_a
+                    .FirstOrDefault(x => SystemProperties.TryGet(x.Key, out version));
+                if (firstOrDefault.Key != null)
                 {
-                    foreach (var item in identify_keywords_rule_b)
+                    mCurrent = new Info(firstOrDefault.Value, version);
+                }
+                else
+                {
+                    if (SystemProperties.TryGet(RO_BUILD_DISPLAY_ID, out var value))
                     {
-                        if (value.Contains(item.Key, StringComparison.OrdinalIgnoreCase))
+                        foreach (var item in identify_keywords_rule_b)
                         {
-                            mCurrent = new Info(item.Value, value);
-                            break;
+                            if (value.Contains(item.Key, StringComparison.OrdinalIgnoreCase))
+                            {
+                                mCurrent = new Info(item.Value, value);
+                                break;
+                            }
                         }
                     }
                 }
+                if (mCurrent == null) mCurrent = Info.Unknown;
+                isInit = true;
             }
-            if (mCurrent == null) mCurrent = Info.Unknown;
-            isInit = true;
         }
     }
 }

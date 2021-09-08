@@ -13,8 +13,6 @@
         xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="30"
         x:DataType="vm:AuthTradeWindowViewModel"
         x:CompileBindings="True"
@@ -27,7 +25,7 @@
                           HorizontalAlignment="Center" Margin="0 0 0 25"></PathIcon>
                 <TextBox Watermark="{ReflectionBinding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}"></TextBox>
 
-                <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" PasswordChar="*" Text="{Binding Password}"></TextBox>
+                <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" PasswordChar="*" Text="{Binding Password}" Classes="revealPasswordButton"></TextBox>
 
                 <Panel Margin="2 0 6 0">
                     <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding RememberMe}"></CheckBox>
@@ -51,6 +49,7 @@
                 HorizontalAlignment="Center"
                 Margin="0 5"
                 Text="{ReflectionBinding Path=Res.LocalAuth_SteamTradeLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                TextAlignment="Center"
                 TextWrapping="WrapWithOverflow"></TextBlock>
         </Panel>
 
@@ -100,7 +99,7 @@
                                     <Panel x:Name="panel" MinWidth="100" Margin="20 0">
                                         <Border x:Name="card" Classes="paper" CornerRadius="0" Background="{DynamicResource ThemeBrushKey}">
                                             <Grid Width="{ReflectionBinding #panel.Width}"
-                                                  ColumnDefinitions="Auto,Auto,*,Auto">
+                                                  ColumnDefinitions="Auto,*,Auto">
                                                 <Panel>
                                                     <Image Width="128"
                                                            Height="128"
@@ -159,6 +158,7 @@
                 </Panel>
             </DockPanel>
         </Panel>
+      
         <!--Toast-->
         <controls:ToastMessage />
     </Panel>

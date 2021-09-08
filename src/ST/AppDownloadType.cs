@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     /// <summary>
     /// APP下载类型
@@ -11,8 +11,18 @@
         Install,
 
         /// <summary>
-        /// 压缩包
+        /// 压缩包(Tar/GZip)
         /// </summary>
-        Compressed,
+        Compressed_GZip,
+
+        /// <summary>
+        /// 压缩包(7z)
+        /// </summary>
+        Compressed_7z,
+
+        /// <summary>
+        /// 压缩包(Tar/Brotli)
+        /// </summary>
+        Compressed_Br,
     }
 }

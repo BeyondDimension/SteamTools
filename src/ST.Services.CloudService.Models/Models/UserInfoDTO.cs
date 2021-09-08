@@ -1,4 +1,7 @@
-﻿using System.Application.Columns;
+#if MVVM_VM
+using ReactiveUI;
+#endif
+using System.Application.Columns;
 using System.Diagnostics;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
@@ -6,13 +9,19 @@ using MPObject = MessagePack.MessagePackObjectAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
+using System.Collections.Generic;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
 {
     [MPObject]
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public sealed class UserInfoDTO : IUserDTO, IBirthDateTimeZone
+    public sealed class UserInfoDTO :
+
+#if MVVM_VM
+        ReactiveObject,
+#endif
+        IUserDTO, IBirthDateTimeZone
     {
         string DebuggerDisplay => IUserDTO.GetDebuggerDisplay(this);
 
@@ -24,7 +33,16 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public string NickName { get; set; } = string.Empty;
+        public string NickName
+#if MVVM_VM
+        {
+            get => _NickName;
+            set => this.RaiseAndSetIfChanged(ref _NickName, value);
+        }
+        string _NickName = string.Empty;
+#else
+        { get; set; } = string.Empty;
+#endif
 
         [MPKey(2)]
         [N_JsonProperty("2")]
@@ -74,7 +92,16 @@ namespace System.Application.Models
         [MPKey(8)]
         [N_JsonProperty("8")]
         [S_JsonProperty("8")]
-        public long? SteamAccountId { get; set; }
+        public long? SteamAccountId
+#if MVVM_VM
+        {
+            get => _SteamAccountId;
+            set => this.RaiseAndSetIfChanged(ref _SteamAccountId, value);
+        }
+        long? _SteamAccountId;
+#else
+        { get; set; }
+#endif
 
         [MPKey(9)]
         [N_JsonProperty("9")]
@@ -121,5 +148,79 @@ namespace System.Application.Models
         [N_JsonProperty("13")]
         [S_JsonProperty("13")]
         public int? AreaId { get; set; }
+
+        [MPKey(14)]
+        [N_JsonProperty("14")]
+        [S_JsonProperty("14")]
+        public string? MicrosoftAccountEmail
+#if MVVM_VM
+        {
+            get => _MicrosoftAccountEmail;
+            set => this.RaiseAndSetIfChanged(ref _MicrosoftAccountEmail, value);
+        }
+        string? _MicrosoftAccountEmail;
+#else
+        { get; set; }
+#endif
+
+        [Obsolete("use QQNickName", true)]
+        [MPKey(15)]
+        [N_JsonProperty("15")]
+        [S_JsonProperty("15")]
+        public long? QQAccountNumber
+#if MVVM_VM
+        {
+            get => _QQAccountNumber;
+            set => this.RaiseAndSetIfChanged(ref _QQAccountNumber, value);
+        }
+        long? _QQAccountNumber;
+#else
+        { get; set; }
+#endif
+
+        [MPKey(16)]
+        [N_JsonProperty("16")]
+        [S_JsonProperty("16")]
+        public string? AppleAccountEmail
+#if MVVM_VM
+        {
+            get => _AppleAccountEmail;
+            set => this.RaiseAndSetIfChanged(ref _AppleAccountEmail, value);
+        }
+        string? _AppleAccountEmail;
+#else
+        { get; set; }
+#endif
+
+        [MPKey(17)]
+        [N_JsonProperty("17")]
+        [S_JsonProperty("17")]
+        public string? QQNickName
+#if MVVM_VM
+        {
+            get => _QQNickName;
+            set => this.RaiseAndSetIfChanged(ref _QQNickName, value);
+        }
+        string? _QQNickName;
+#else
+        { get; set; }
+#endif
+
+        /// <summary>
+        /// 通过快速登录获取的头像URL
+        /// </summary>
+        [MPKey(18)]
+        [N_JsonProperty("18")]
+        [S_JsonProperty("18")]
+        public Dictionary<FastLoginChannel, string>? AvatarUrl
+#if MVVM_VM
+        {
+            get => _AvatarUrl;
+            set => this.RaiseAndSetIfChanged(ref _AvatarUrl, value);
+        }
+        Dictionary<FastLoginChannel, string>? _AvatarUrl;
+#else
+        { get; set; }
+#endif
     }
 }

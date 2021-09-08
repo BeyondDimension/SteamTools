@@ -1,9 +1,11 @@
-﻿using ICSharpCode.SharpZipLib.GZip;
+using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using CC = System.Common.Constants;
 
 namespace System.Application
 {
@@ -15,7 +17,7 @@ namespace System.Application
         /// <param name="filePath">要创建的文件路径</param>
         /// <param name="dirPath">要打包的目录</param>
         /// <param name="level">压缩等级，取值范围在 <see cref="Deflater.NO_COMPRESSION"/> ~ <see cref="Deflater.BEST_COMPRESSION"/></param>
-        /// <param name="progressMessage">进度消息监听</param>
+        /// <param name="progress">进度值监听</param>
         /// <returns></returns>
         public static bool Create(string filePath, string dirPath, int level = Deflater.BEST_COMPRESSION, ProgressMessageHandler? progress = null)
         {
@@ -65,7 +67,7 @@ namespace System.Application
         public static bool Unpack(string filePath, string dirPath,
             ProgressMessageHandler? progressMessage = null,
             IProgress<float>? progress = null,
-            float maxProgress = 100f)
+            float maxProgress = CC.MaxProgress)
         {
             if (!File.Exists(filePath)) return false;
             if (Directory.Exists(dirPath)) return false;
@@ -75,23 +77,45 @@ namespace System.Application
             // https://github.com/icsharpcode/SharpZipLib/blob/v1.3.1/src/ICSharpCode.SharpZipLib/Zip/Compression/Streams/InflaterInputStream.cs#L542
             float length = fs.Length;
             var isFinish = false;
+            CancellationTokenSource? cts = null;
             async void ProgressMonitor()
             {
-                while (!isFinish)
+                try
                 {
-                    var value = fs.Position / length * maxProgress;
-                    progress.Report(value);
-                    await Task.Delay(200);
+                    while (!isFinish)
+                    {
+                        var value = fs.Position / length * maxProgress;
+                        progress!.Report(value);
+                        await Task.Delay(200, cts.Token);
+                    }
+                }
+                catch (OperationCanceledException)
+                {
                 }
             }
             Directory.CreateDirectory(dirPath);
             using var s = new GZipInputStream(fs);
             using var archive = TarArchive.CreateInputTarArchive(s, Encoding.UTF8);
             if (progressMessage != null) archive.ProgressMessageEvent += progressMessage;
-            if (progress != null) Task.Factory.StartNew(ProgressMonitor);
+            var hasProgress = progress != null;
+            if (hasProgress)
+            {
+                cts = new();
+                try
+                {
+                    Task.Factory.StartNew(ProgressMonitor, cts.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                }
+            }
             archive.ExtractContents(dirPath);
             isFinish = true;
-            progress?.Report(maxProgress);
+            if (hasProgress)
+            {
+                cts!.Cancel();
+                progress!.Report(maxProgress);
+            }
             return true;
         }
     }

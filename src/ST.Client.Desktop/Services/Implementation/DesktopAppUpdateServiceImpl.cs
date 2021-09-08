@@ -6,11 +6,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Properties;
 using System.Text;
-using static System.Application.Services.IAppUpdateService;
+using System.Threading.Tasks;
+using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
-    public abstract class DesktopAppUpdateServiceImpl : AppUpdateServiceImpl
+    public abstract partial class DesktopAppUpdateServiceImpl : AppUpdateServiceImpl
     {
         public DesktopAppUpdateServiceImpl(IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
         {
@@ -23,7 +24,7 @@ namespace System.Application.Services.Implementation
         /// </summary>
         protected abstract void OnExit();
 
-        protected override void OverwriteUpgrade(string value, bool isIncrement)
+        protected override async void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType)
         {
             if (isIncrement) // 增量更新
             {
@@ -31,23 +32,36 @@ namespace System.Application.Services.Implementation
             }
             else // 全量更新
             {
-                var dirPath = Path.Combine(AppContext.BaseDirectory, Path.GetFileNameWithoutExtension(value));
+                var dirPath = Path.Combine(IOPath.BaseDirectory, Path.GetFileNameWithoutExtension(value));
 
                 if (Directory.Exists(dirPath))
                 {
                     Directory.Delete(dirPath, true);
                 }
 
-                if (TarGZipHelper.Unpack(value, dirPath, progress: new Progress<float>(OnReportDecompressing), maxProgress: MaxProgressValue))
+                var isOK = await Task.Run(() => downloadType switch
                 {
-                    OnReport(MaxProgressValue);
+                    AppDownloadType.Compressed_GZip
+                        => TarGZipHelper.Unpack(value, dirPath,
+                            progress: new Progress<float>(OnReportDecompressing),
+                            maxProgress: CC.MaxProgress),
+                    AppDownloadType.Compressed_7z
+                        => SevenZipHelper.Unpack(value, dirPath,
+                            progress: new Progress<float>(OnReportDecompressing),
+                            maxProgress: CC.MaxProgress),
+                    _ => false,
+                });
+                if (isOK)
+                {
+                    OnReport(CC.MaxProgress);
                     IOPath.FileTryDelete(value);
                     OverwriteUpgradePrivate(dirPath);
                 }
                 else
                 {
                     toast.Show(SR.UpdateUnpackFail);
-                    OnReport(MaxProgressValue);
+                    OnReport(CC.MaxProgress);
+                    IsNotStartUpdateing = true;
                 }
             }
 
@@ -62,12 +76,12 @@ namespace System.Application.Services.Implementation
                    SR.ProgramUpdateCmd_,
                    AppHelper.ProgramName,
                    dirPath.TrimEnd(Path.DirectorySeparatorChar),
-                   AppContext.BaseDirectory,
+                   IOPath.BaseDirectory,
                    AppHelper.ProgramPath);
 
-                updateCommand = "chcp" + Environment.NewLine + "chcp 65001" + Environment.NewLine + updateCommand;
+                updateCommand = "chcp 65001" + Environment.NewLine + updateCommand;
 
-                File.WriteAllText(updateCommandPath, updateCommand, Encoding.UTF8);
+                File.WriteAllText(updateCommandPath, updateCommand, Encoding.Default);
 
                 using var p = new Process();
                 p.StartInfo.FileName = updateCommandPath;
@@ -75,6 +89,18 @@ namespace System.Application.Services.Implementation
                 p.StartInfo.CreateNoWindow = !ThisAssembly.Debuggable; // 不显示程序窗口
                 p.StartInfo.Verb = "runas"; // 管理员权限运行
                 p.Start(); // 启动程序
+            }
+        }
+
+        protected override async void OpenInAppStore()
+        {
+            if (DesktopBridge.IsRunningAsUwp)
+            {
+                await Browser2.OpenAsync(UrlConstants.MicrosoftStoreProtocolLink);
+            }
+            else
+            {
+                base.OpenInAppStore();
             }
         }
     }

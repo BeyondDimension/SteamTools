@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -13,8 +13,17 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Common\Constants.cs">
+      <Link>Common\Constants.cs</Link>
+    </Compile>
     <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.cs">
       <Link>Properties\ThisAssembly.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
+      <Link>Properties\ThisAssembly.Version.cs</Link>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\TarGZipHelper.cs">
       <Link>Application\TarGZipHelper.cs</Link>
@@ -34,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpZipLib" Version="1.3.1" />
+    <PackageReference Include="SharpZipLib" />
   </ItemGroup>
 
 </Project>

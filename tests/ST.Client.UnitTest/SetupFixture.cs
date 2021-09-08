@@ -6,6 +6,8 @@ using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.IO;
 using System.Logging;
+using System.Net;
+using System.Net.Http;
 
 namespace System.Application
 {
@@ -79,10 +81,28 @@ namespace System.Application
             // 业务平台用户管理
             services.TryAddUserManager();
 
-            services.AddDesktopHttpPlatformHelper();
+            services.TryAddDesktopHttpPlatformHelper();
 
             // 服务端API调用
-            services.TryAddCloudServiceClient<CloudServiceClient>();
+            services.TryAddCloudServiceClient<CloudServiceClient>(c =>
+            {
+#if NETCOREAPP3_0_OR_GREATER
+                c.DefaultRequestVersion = HttpVersion.Version20;
+#endif
+#if NET5_0_OR_GREATER
+                c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+#endif
+            }, configureHandler:
+#if NETCOREAPP2_1_OR_GREATER
+            () => new SocketsHttpHandler
+            {
+                UseCookies = false,
+                AutomaticDecompression = DecompressionMethods.GZip,
+            }
+#else
+            null
+#endif
+            );
 
             // 通用 Http 服务
             services.AddHttpService();

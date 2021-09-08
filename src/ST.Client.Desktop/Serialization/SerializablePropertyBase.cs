@@ -147,7 +147,7 @@ namespace System.Application.Serialization
                 _source.ValueChanged += HandleValueChanged;
             }
 
-            private void HandleValueChanged(object sender, ValueChangedEventArgs<T> args)
+            private void HandleValueChanged(object? sender, ValueChangedEventArgs<T> args)
             {
                 _listener(args.NewValue);
             }
@@ -174,12 +174,17 @@ namespace System.Application.Serialization
 
         private readonly Dictionary<PropertyChangedEventHandler, EventHandler<ValueChangedEventArgs<T>>> _handlers = new();
 
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+        event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
         {
-            add { ValueChanged += (_handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs(nameof(Value)))); }
+            add
+            {
+                if (value == null) return;
+                ValueChanged += _handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs(nameof(Value)));
+            }
             remove
             {
-                if (_handlers.TryGetValue(value, out EventHandler<ValueChangedEventArgs<T>> handler))
+                if (value == null) return;
+                if (_handlers.TryGetValue(value, out var handler))
                 {
                     ValueChanged -= handler;
                     _handlers.Remove(value);

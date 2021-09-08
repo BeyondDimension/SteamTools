@@ -25,20 +25,24 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Application.UI.Views.Windows;
 using System.Application.Services.Implementation;
+using System.Threading.Tasks;
+using System.Application.Security;
+using Avalonia;
+using Avalonia.Platform;
+using FluentAvalonia.Styling;
+using Avalonia.Media;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
-using APIConst = System.Application.Services.CloudService.Constants;
 
 [assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
-[assembly: AssemblyTitle(ThisAssembly.AssemblyTrademark)]
 namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
-        public static DirectoryInfo RootDirectory => new(AppContext.BaseDirectory);
+        //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
 
         AppTheme mTheme = AppTheme.Dark;
         public AppTheme Theme
@@ -61,14 +65,18 @@ namespace System.Application.UI
                     if (isLightOrDarkTheme.HasValue)
                     {
                         switch_value = GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+#if DEBUG
                         dps.SetLightOrDarkThemeFollowingSystem(true);
+#endif
                         if (switch_value == mTheme) goto setValue;
                     }
                 }
                 else if (mTheme == AppTheme.FollowingSystem)
                 {
                     var dps = DI.Get<IDesktopPlatformService>();
+#if DEBUG
                     dps.SetLightOrDarkThemeFollowingSystem(false);
+#endif
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
@@ -115,6 +123,41 @@ namespace System.Application.UI
             {
                 Source = uri_1,
             };
+
+            AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = the;
+        }
+
+        public void SetThemeAccent(string? colorHex)
+        {
+            if (colorHex == null)
+            {
+                return;
+            }
+            var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+
+            if (Color.TryParse(colorHex, out var color))
+            {
+                thm.CustomAccentColor = color;
+            }
+            else
+            {
+                if (colorHex.Equals(bool.TrueString, StringComparison.OrdinalIgnoreCase))
+                {
+                    thm.CustomAccentColor = null;
+                }
+            }
+
+            if (OperatingSystem2.IsWindows)
+            {
+                if (OperatingSystem2.IsWindowsVersionAtLeast(6, 2))
+                    thm.GetUserAccentColor = true;
+                else
+                    thm.GetUserAccentColor = false;
+            }
+            else
+            {
+                thm.GetUserAccentColor = true;
+            }
         }
 
         readonly Dictionary<string, ICommand> mNotifyIconMenus = new();
@@ -136,16 +179,14 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("App.SetP");
 #endif
+            //SettingsHost.Load();
             var windowService = IWindowService.Instance;
             windowService.Init();
-            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() =>
-            {
-                compositeDisposable.Dispose();
-            });
+            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() => Shutdown());
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif
-            SettingsHost.Load();
+
 #if StartupTrace
             StartupTrace.Restart("SettingsHost.Init");
 #endif
@@ -153,14 +194,22 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Theme");
 #endif
+
+#if DEBUG
+            //实时切换主题有BUG暂且屏蔽
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+#endif
+            UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
+            UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
+            GeneralSettings.InitWindowsStartupAutoRun();
 #if StartupTrace
             StartupTrace.Restart("UISettings.Subscribe");
 #endif
             switch (windowService.MainWindow)
             {
                 case AchievementWindowViewModel window:
+                    Program.IsMinimize = false;
                     MainWindow = new AchievementWindow
                     {
                         DataContext = windowService.MainWindow,
@@ -172,13 +221,13 @@ namespace System.Application.UI
 #if !UI_DEMO
                     compositeDisposable.Add(SettingsHost.Save);
                     compositeDisposable.Add(ProxyService.Current.Dispose);
-                    compositeDisposable.Add(AuthService.Current.SaveEditNameAuthenticators);
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
+                    compositeDisposable.Add(ASFService.Current.StopASF);
                     if (GeneralSettings.IsStartupAppMinimized.Value)
                     {
                         Program.IsMinimize = true;
-                        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                            desktop.MainWindow = null;
+                        //if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                        //    desktop.MainWindow = null;
                     }
 #endif
                     #endregion
@@ -195,86 +244,46 @@ namespace System.Application.UI
 
         public ContextMenu? NotifyIconContextMenu { get; private set; }
 
-        static void IsNotOfficialChannelPackageWarning()
-        {
-            var text = APIConst.IsNotOfficialChannelPackageWarning;
-            var title = AppResources.Warning;
-            MessageBoxCompat.Show(text, title, MessageBoxButtonCompat.OK, MessageBoxImageCompat.Warning);
-        }
-
         public override void OnFrameworkInitializationCompleted()
         {
+            if (Program.IsTrayProcess)
+            {
+                base.OnFrameworkInitializationCompleted();
+                return;
+            }
+
             // 在UI预览中，ApplicationLifetime 为 null
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-#if MAC
-                AppDelegate.Init();
-#endif
+                //#if MAC
+                //                AppDelegate.Init();
+                //#endif
 
                 if (Program.IsMainProcess)
                 {
                     if (Startup.HasNotifyIcon)
                     {
-                        #region NotifyIcon
-
-                        var notifyIcon = INotifyIcon.Instance;
-                        notifyIcon.ToolTipText = ThisAssembly.AssemblyTrademark;
-                        switch (DI.Platform)
+                        if (!OperatingSystem2.IsLinux)
                         {
-                            case Platform.Windows:
-                            case Platform.Linux:
-                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
-                                break;
-                            case Platform.Apple:
-                                notifyIcon.IconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
-                                break;
+                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
+                            notifyIcon.Click += NotifyIcon_Click;
+                            notifyIcon.DoubleClick += NotifyIcon_Click;
+                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
+                            notifyIcon.AddTo(this);
                         }
-
-                        notifyIcon.DoubleClick += (s, e) =>
+                        else
                         {
-                            RestoreMainWindow();
-                        };
-
-                        NotifyIconContextMenu = new ContextMenu();
-
-                        mNotifyIconMenus.Add("Light", ReactiveCommand.Create(() =>
-                        {
-                            Theme = AppTheme.Light;
-                        }));
-
-                        mNotifyIconMenus.Add("Dark", ReactiveCommand.Create(() =>
-                        {
-                            Theme = AppTheme.Dark;
-                        }));
-
-                        mNotifyIconMenus.Add("Show",
-                            ReactiveCommand.Create(RestoreMainWindow));
-
-                        mNotifyIconMenus.Add("Exit",
-                            ReactiveCommand.Create(() => Shutdown()));
-
-                        NotifyIconContextMenu.Items = mNotifyIconMenus
-                            .Select(x => new MenuItem { Header = x.Key, Command = x.Value }).ToList();
-                        notifyIcon.ContextMenu = NotifyIconContextMenu;
-                        notifyIcon.Visible = true;
-                        notifyIcon.Click += NotifyIcon_Click;
-                        notifyIcon.DoubleClick += NotifyIcon_Click;
-                        compositeDisposable.Add(() =>
-                        {
-                            notifyIcon.IconPath = string.Empty;
-                        });
-                        #endregion
+#if LINUX || DEBUG
+                            NotifyIconHelper.StartPipeServer();
+#endif
+                        }
                     }
-
 #if WINDOWS
                     JumpLists.Init();
 #endif
-
-                    if (!AppSettings.IsOfficialChannelPackage)
-                    {
-                        IsNotOfficialChannelPackageWarning();
-                    }
                 }
+
+                IWindowService.Instance.MainWindow.Initialize();
 
                 desktop.MainWindow =
 #if !UI_DEMO
@@ -288,20 +297,35 @@ namespace System.Application.UI
 #if UI_DEMO
                     ShutdownMode.OnMainWindowClose;
 #else
-                Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnLastWindowClose;
+                Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
 #endif
             }
 
             base.OnFrameworkInitializationCompleted();
         }
 
+        /// <summary>
+        /// override RegisterServices register custom service
+        /// </summary>
+        public override void RegisterServices()
+        {
+            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            base.RegisterServices();
+        }
+
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
+            var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(Program.IsMainProcess);
+
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.Start");
 #endif
+            IsNotOfficialChannelPackageDetectionHelper.Check();
 #if WINDOWS
-            VisualStudioAppCenterSDK.Init();
+            if (isOfficialChannelPackage)
+            {
+                VisualStudioAppCenterSDK.Init();
+            }
 #endif
 #if StartupTrace
             StartupTrace.Restart("AppCenterSDK.Init");
@@ -310,23 +334,15 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
 #endif
+            Startup.OnStartup(Program.IsMainProcess);
+#if StartupTrace
             if (Program.IsMainProcess)
             {
-                Startup.ActiveUserPost(ActiveUserType.OnStartup);
-                if (GeneralSettings.IsAutoCheckUpdate.Value)
-                {
-                    IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
-                }
-#if StartupTrace
                 StartupTrace.Restart("Desktop_Startup.MainProcess");
+            }
 #endif
-            }
 
-            var startupToastIntercept = DI.Get_Nullable<StartupToastIntercept>();
-            if (startupToastIntercept != null)
-            {
-                startupToastIntercept.IsStartuped = true;
-            }
+            StartupToastIntercept.OnStartuped();
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.SetIsStartuped");
 #endif
@@ -334,6 +350,10 @@ namespace System.Application.UI
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
+#if LINUX || DEBUG
+            NotifyIconHelper.StopPipeServer();
+#endif
+
             try
             {
                 compositeDisposable.Dispose();
@@ -345,15 +365,27 @@ namespace System.Application.UI
 #if WINDOWS
             //WpfApplication.Current.Shutdown();
 #endif
-            AppHelper.Shutdown?.Invoke();
+            AppHelper.TryShutdown();
         }
 
-        void NotifyIcon_Click(object? sender, EventArgs e)
+        internal void NotifyIcon_Click(object? sender, EventArgs e)
         {
             RestoreMainWindow();
         }
 
-        public async void SetClipboardText(string? s) => await Current.Clipboard.SetTextAsync(s ?? string.Empty);
+        Task IClipboardPlatformService.PlatformSetTextAsync(string text) => Current.Clipboard.SetTextAsync(text);
+
+        Task<string> IClipboardPlatformService.PlatformGetTextAsync() => Current.Clipboard.GetTextAsync();
+
+        bool IClipboardPlatformService.PlatformHasText
+        {
+            get
+            {
+                Func<Task<string>> func = () => Current.Clipboard.GetTextAsync();
+                var value = func.RunSync();
+                return !string.IsNullOrEmpty(value);
+            }
+        }
 
         Window? mMainWindow;
 
@@ -373,7 +405,7 @@ namespace System.Application.UI
         {
             Window? mainWindow = null;
 
-            if (AvaloniaApplication.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 mainWindow = desktop.MainWindow;
                 if (mainWindow == null)
@@ -390,6 +422,8 @@ namespace System.Application.UI
 
             mainWindow.Show();
             mainWindow.WindowState = WindowState.Normal;
+            mainWindow.Topmost = true;
+            mainWindow.Topmost = false;
             mainWindow.BringIntoView();
             mainWindow.ActivateWorkaround(); // Extension method hack because of https://github.com/AvaloniaUI/Avalonia/issues/2975
             mainWindow.Focus();
@@ -424,14 +458,28 @@ namespace System.Application.UI
             return MainWindow;
         }
 
+        public void SetDesktopBackgroundWindow()
+        {
+            if (OperatingSystem2.IsWindows)
+            {
+                var window = (App.Instance.MainWindow as MainWindow);
+                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(
+                    window._backHandle, (int)App.Instance.MainWindow.Width, (int)App.Instance.MainWindow.Height);
+            }
+        }
+
+
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
         /// </summary>
         public static bool Shutdown(int exitCode = 0)
         {
-            if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.Shutdown(exitCode);
+                MainThread2.BeginInvokeOnMainThread(() =>
+                {
+                    desktop.Shutdown(exitCode);
+                });
                 return true;
             }
             return false;
@@ -439,7 +487,8 @@ namespace System.Application.UI
 
         void IDesktopAppService.Shutdown() => Shutdown();
 
-        bool IDesktopAppService.IsCefInitComplete => CefNetApp.InitState == CefNetAppInitState.Complete;
+        bool IDesktopAppService.IsCefInitComplete => false;
+        //CefNetApp.InitState == CefNetAppInitState.Complete;
 
         #region IDisposable members
 

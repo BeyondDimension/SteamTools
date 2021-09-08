@@ -1,45 +1,48 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Design.PreviewWith>
-        <Border Padding="20" Background="White">
-            <Border Padding="20" Classes="paper">
-                <TextBox Text="Code Font Family"/>
-            </Border>
-        </Border>
-    </Design.PreviewWith>
+  <Design.PreviewWith>
+    <Border Padding="20" Background="White">
+      <Border Padding="20" Classes="paper">
+        <TextBox Text="Code Font Family"/>
+      </Border>
+    </Border>
+  </Design.PreviewWith>
 
-    <Style Selector="Border.cardborder">
-        <Setter Property="BorderBrush" Value="#2F2F37"/>
-        <Setter Property="BorderThickness" Value=".88"/>
-    </Style>
-    <Style Selector="Border.cardborder:pointerover">
-        <Setter Property="BorderBrush" Value="#5E5E66"/>
-        <Setter Property="BorderThickness" Value=".88"/>
-    </Style>
+  <Style Selector="Border.cardborder">
+    <Setter Property="BorderBrush" Value="#2F2F37"/>
+    <Setter Property="BorderThickness" Value="0.88 0.88"/>
+  </Style>
+  <Style Selector="Border.cardborder:pointerover">
+    <Setter Property="BorderBrush" Value="#5E5E66"/>
+    <Setter Property="BorderThickness" Value="0.88 0.88"/>
+  </Style>
 
-    <Style Selector="Border.paper">
-        <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
-        <!--<Setter Property="CornerRadius" Value="8" />-->
-    </Style>
-    <Style Selector="Border.paper:pointerover">
-        <Setter Property="BoxShadow" Value="4 2 10 #55000000" />
-    </Style>
-    
-    <Style Selector="Border.RightPane">
-        <Setter Property="BoxShadow" Value="-4 2 10 #55000000" />
-        <!--<Setter Property="CornerRadius" Value="8" />-->
-    </Style>
-    
-    <Style Selector="Border.dialog">
-        <Setter Property="BoxShadow" Value="{StaticResource DialogBoxShadow}" />
-        <!--<Setter Property="CornerRadius" Value="8" />-->
-    </Style>
-    
-    <Style Selector="Border.button">
-        <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
-        <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
-    </Style>
-    <Style Selector="Border.button:pointerover">
-        <Setter Property="BoxShadow" Value="4 5 10 #55000000" />
-    </Style>
+  <Style Selector="Border.paper">
+    <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
+    <!--<Setter Property="CornerRadius" Value="8" />
+    <Setter Property="ClipToBounds" Value="True"/>-->
+  </Style>
+  <!--<Style Selector="Border.paper:pointerover">
+    <Setter Property="BoxShadow" Value="4 2 10 #55000000" />
+  </Style>-->
+
+  <Style Selector="Border.RightPane">
+    <Setter Property="BoxShadow" Value="-4 2 10 #55000000" />
+    <!--<Setter Property="CornerRadius" Value="5" />
+    <Setter Property="ClipToBounds" Value="True"/>-->
+  </Style>
+
+  <Style Selector="Border.dialog">
+    <Setter Property="BoxShadow" Value="{StaticResource DialogBoxShadow}" />
+    <!--<Setter Property="CornerRadius" Value="5" />
+    <Setter Property="ClipToBounds" Value="True"/>-->
+  </Style>
+
+  <Style Selector="Border.button">
+    <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
+    <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
+  </Style>
+  <Style Selector="Border.button:pointerover">
+    <Setter Property="BoxShadow" Value="4 5 10 #55000000" />
+  </Style>
 </Styles>

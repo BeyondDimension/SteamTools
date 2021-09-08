@@ -1,4 +1,4 @@
-﻿using Gameloop.Vdf;
+using Gameloop.Vdf;
 using Gameloop.Vdf.Linq;
 using System.IO;
 using System.Text;
@@ -9,7 +9,7 @@ namespace System.Application
     /// Valve Data File 格式助手类
     /// </summary>
     public static class VdfHelper
-    {
+    { 
         /// <summary>
         /// 根据路径读取 Valve Data File 内容
         /// </summary>
@@ -20,7 +20,12 @@ namespace System.Application
             var text = File.ReadAllText(filePath, Encoding.UTF8);
             return VdfConvert.Deserialize(text);
         }
-
+        public static void UpdateValueByReplaceNoPattern(string filePath, string oldVaule, string newValue)
+        {
+            var text = File.ReadAllText(filePath, Encoding.UTF8);
+            text = text.Replace(oldVaule, newValue);
+            File.WriteAllText(filePath, text, Encoding.UTF8);
+        }
         public static void UpdateValueByReplace(string filePath, string oldVaule, string newValue)
         {
             var text = File.ReadAllText(filePath, Encoding.UTF8);

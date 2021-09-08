@@ -1,4 +1,4 @@
-﻿#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 using MessagePack;
 using System.Diagnostics.CodeAnalysis;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
@@ -10,7 +10,7 @@ namespace System.Application.Models
 {
     /// <inheritdoc cref="IGAPAuthenticatorDTO"/>
     [MessagePackObject(keyAsPropertyName: true)]
-    public class GAPAuthenticatorDTO : IGAPAuthenticatorDTO, IExplicitHasValue
+    public sealed partial class GAPAuthenticatorDTO : IGAPAuthenticatorDTO, IExplicitHasValue
     {
         [MPIgnore, N_JsonIgnore, S_JsonIgnore]
         public ushort Id { get; set; }

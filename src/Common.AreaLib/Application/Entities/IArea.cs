@@ -1,4 +1,4 @@
-﻿namespace System.Application.Entities
+namespace System.Application.Entities
 {
     public partial interface IArea : IEntity<int>
     {
@@ -24,6 +24,11 @@
         /// </summary>
         string? ShortName { get; set; }
 
-        protected static string ToString(IArea area) => AreaExtensions.ToString(area);
+        protected static string ToString(IArea area)
+        {
+            if (!string.IsNullOrWhiteSpace(area.ShortName)) return area.ShortName;
+            if (!string.IsNullOrWhiteSpace(area.Name)) return area.Name;
+            return area.Id.ToString();
+        }
     }
 }

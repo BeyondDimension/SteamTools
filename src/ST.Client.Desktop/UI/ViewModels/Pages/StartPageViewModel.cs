@@ -1,4 +1,4 @@
-﻿using System.Application.UI.Resx;
+using System.Application.UI.Resx;
 
 namespace System.Application.UI.ViewModels
 {
@@ -12,7 +12,7 @@ namespace System.Application.UI.ViewModels
 
         public StartPageViewModel()
         {
-            IconKey = nameof(StartPageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(StartPageViewModel);
         }
     }
 }

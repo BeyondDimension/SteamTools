@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:System.Application.UI.Views"
+       xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+       xmlns:resx="clr-namespace:System.Application.UI.Resx"
+       Title="Steam++"
+       Visual="Material"
+       x:Class="System.Application.UI.AppShell">
+  <Shell.Resources>
+    <ResourceDictionary>
+      <Style TargetType="controls:TextBox">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{DynamicResource TextPrimary}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource TextSecondary}" />
+      </Style>
+      <Style TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+      </Style>
+      <Style TargetType="controls:TextButton">
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+      </Style>
+      <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource TextPrimary}" />
+      </Style>
+      <Style x:Key="BaseStyle" TargetType="Element">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}"/>
+        <Setter Property="Shell.ForegroundColor" Value="White"/>
+        <Setter Property="Shell.TitleColor" Value="White"/>
+        <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF"/>
+        <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF"/>
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}"/>
+        <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+        <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+        <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+      </Style>
+      <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}"/>
+      <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}"/>
+      <Style x:Key="LinkText" TargetType="Label">
+        <Setter Property="TextDecorations" Value="Underline" />
+        <Setter Property="TextColor" Value="{DynamicResource TextLink}"/>
+      </Style>
+      <Style x:Key="PathIcon" TargetType="Path">
+        <Setter Property="Aspect" Value="Uniform" />
+        <Setter Property="Fill" Value="White" />
+        <Setter Property="Stroke" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="HeightRequest" Value="32" />
+        <Setter Property="WidthRequest" Value="32" />
+      </Style>
+    </ResourceDictionary>
+  </Shell.Resources>
+  <TabBar>
+    <ShellContent Title="{x:Static resx:AppResources.Toolbox}" Icon="baseline_home_repair_service_black_24" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
+    <ShellContent Title="{x:Static resx:AppResources.My}" Icon="baseline_person_black_24" Route="MyPage" ContentTemplate="{DataTemplate local:MyPage}"/>
+  </TabBar>
+  <TabBar>
+    <ShellContent Route="LoginOrRegister" ContentTemplate="{DataTemplate local:LoginOrRegisterPage}"/>
+  </TabBar>
+</Shell>

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2011 Colin Mackie.
  * This software is distributed under the terms of the GNU General Public License.
  *
@@ -175,11 +175,11 @@ namespace System.Application.Models
         protected virtual string CalculateCode(bool resync = false, long interval = -1)
         {
             // sync time if required
-            if (resync == true || ServerTimeDiff == 0)
+            if (resync || ServerTimeDiff == 0)
             {
                 if (interval > 0)
                 {
-                    ServerTimeDiff = (interval * (Period * 1000L)) - CurrentTime;
+                    ServerTimeDiff = (interval * Period * 1000L) - CurrentTime;
                 }
                 else
                 {

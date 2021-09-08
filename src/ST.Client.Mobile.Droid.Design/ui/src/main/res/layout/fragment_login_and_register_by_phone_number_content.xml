@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:paddingTop="@dimen/fast_login_or_register_margin"
+    android:paddingBottom="@dimen/fast_login_or_register_margin">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/content_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivLogo,tbPhoneNumber,tbSmsCode,btnSendSms,btnSubmit,tvAgreementAndPrivacy"
+        xamarin:managedType="AndroidX.ConstraintLayout.Widget.Group" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="@dimen/logo_size"
+        android:layout_height="@dimen/logo_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tbPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/textbox_height"
+        android:layout_marginStart="@dimen/fast_login_or_register_margin"
+        android:layout_marginTop="@dimen/fast_login_or_register_margin"
+        android:layout_marginEnd="@dimen/fast_login_or_register_margin"
+        android:background="@drawable/bg_textbox"
+        android:paddingStart="@dimen/textbox_padding"
+        android:paddingEnd="@dimen/textbox_padding"
+        android:textSize="@dimen/input_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo"
+        tools:hint="手机号码"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatEditText" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tbSmsCode"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/textbox_height"
+        android:layout_marginStart="@dimen/fast_login_or_register_margin"
+        android:layout_marginTop="@dimen/fast_login_or_register_margin"
+        android:layout_marginEnd="@dimen/fast_login_or_register_margin"
+        android:background="@drawable/bg_textbox"
+        android:paddingStart="@dimen/textbox_padding"
+        android:paddingEnd="@dimen/textbox_padding"
+        android:textSize="@dimen/input_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbPhoneNumber"
+        tools:hint="短信验证码"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatEditText" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSendSms"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4.5dp"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/tbSmsCode"
+        app:layout_constraintEnd_toEndOf="@+id/tbSmsCode"
+        app:layout_constraintTop_toTopOf="@+id/tbSmsCode"
+        tools:text="重新获取(59)"
+        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fast_login_or_register_margin"
+        android:layout_marginTop="@dimen/fast_login_or_register_margin"
+        android:layout_marginEnd="@dimen/fast_login_or_register_margin"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="@dimen/input_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbSmsCode"
+        tools:text="登录 / 注册"
+        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAgreementAndPrivacy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fast_login_or_register_margin"
+        android:layout_marginTop="@dimen/fast_login_or_register_margin"
+        android:layout_marginEnd="@dimen/fast_login_or_register_margin"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="@color/text_primary"
+        android:textColorLink="@color/text_link"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmit"
+        tools:text="注册即代表您已阅读并同意 用户协议 和 隐私政策"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    <include layout="@layout/shared_loading" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

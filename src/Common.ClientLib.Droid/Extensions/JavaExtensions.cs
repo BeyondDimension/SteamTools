@@ -1,8 +1,11 @@
-﻿using Android.Runtime;
+using Android.Runtime;
+using System.Collections.Generic;
 using System.Common;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using JClass = Java.Lang.Class;
+using JObject = Java.Lang.Object;
 using JEnum = Java.Lang.Enum;
 using JFile = Java.IO.File;
 using JString = Java.Lang.String;
@@ -25,7 +28,7 @@ namespace System
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public static bool HasFile(this JFile file) => file != null && file.IsFile && file.Exists();
+        public static bool HasFile(this JFile? file) => file != null && file.IsFile && file.Exists();
 
         public static string GetJavaEnumName(this JEnum @enum)
         {
@@ -87,7 +90,7 @@ namespace System
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static JString ToJavaString(this string s) => new JString(s);
+        public static JString ToJavaString(this string s) => new(s);
 
         /// <inheritdoc cref="ToJavaString(string)"/>
         public static JString? ToJavaString_Nullable(this string? s)

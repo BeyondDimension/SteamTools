@@ -10,7 +10,7 @@ namespace System.Application.Models.Settings
 {
     public static class GameLibrarySettings
     {
-        public static readonly IReadOnlyCollection<uint> DefaultIgnoreList = new ReadOnlyCollection<uint>(new List<uint>
+        public static readonly Lazy<ReadOnlyCollection<uint>> DefaultIgnoreList = new(new ReadOnlyCollection<uint>(new List<uint>
         {
             5,
             7,
@@ -74,6 +74,10 @@ namespace System.Application.Models.Settings
             17585,
             17705,
             43110,
+            61800,
+            61810,
+            61820,
+            61830,
             104700,
             201700,
             224220,
@@ -152,8 +156,25 @@ namespace System.Application.Models.Settings
             605470,
             654310,
             700580
-        });
+        }));
 
+        /// <summary>
+        /// 隐藏的游戏列表
+        /// </summary>
+        public static SerializableProperty<Dictionary<uint, string?>> HideGameList { get; }
+            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = true };
+
+        /// <summary>
+        /// 挂时长游戏列表
+        /// </summary>
+        public static SerializableProperty<Dictionary<uint, string?>> AFKAppList { get; }
+            = new SerializableProperty<Dictionary<uint, string?>>(GetKey(), Providers.Local, new Dictionary<uint, string?>()) { AutoSave = true };
+
+        /// <summary>
+        /// 启用自动挂机
+        /// </summary>
+        public static SerializableProperty<bool> IsAutoAFKApps { get; }
+            = new SerializableProperty<bool>(GetKey(), Providers.Local, true) { AutoSave = true };
 
         private static string GetKey([CallerMemberName] string propertyName = "")
         {

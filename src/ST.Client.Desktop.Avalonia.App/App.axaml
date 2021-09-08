@@ -2,30 +2,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="clr-namespace:System.Application.UI"
              xmlns:converters="clr-namespace:System.Application.Converters;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+             xmlns:sty="using:FluentAvalonia.Styling"
              x:Class="System.Application.UI.App">
   <Application.DataTemplates>
     <ui:ViewLocator/>
   </Application.DataTemplates>
   <Application.Resources>
     <converters:IsNullConverter x:Key="IsNullConverter" />
+    <converters:IsVisibleToOpacity x:Key="IsVisibleToOpacity" />
     <converters:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
     <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
     <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
     <converters:StringFormatConverter x:Key="StringFormatConverter" />
+    <converters:SizeConverter x:Key="SizeConverter" />
   </Application.Resources>
   <Application.Styles>
     <FluentTheme Mode="Dark" />
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
-    <!--<StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeLight.xaml" />-->
-    <!--<StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Styles.xaml" />-->
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
+
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
-    <Style Selector="Window">
-      <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"/>
-    </Style>
+    <sty:FluentAvaloniaTheme ControlsVersion="2"
+                             RequestedTheme="Dark"
+                             DefaultToUserTheme="False"
+                             GetUserAccentColor="False"
+                             UseSegoeUIOnWindows="False"/>
+
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
+
   </Application.Styles>
   <!-- (NativeMenu.Menu) https://github.com/AvaloniaUI/Avalonia/issues/3541 -->
   <!--<NativeMenu.Menu>

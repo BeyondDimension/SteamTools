@@ -8,8 +8,7 @@ namespace System.Application.UI
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to
     // application events from iOS.
-    [Register(Name)]
-    public partial class AppDelegate : FormsApplicationDelegate
+    public abstract class AppDelegate : FormsApplicationDelegate
     {
         public const string Name = "AppDelegate";
 
@@ -32,6 +31,7 @@ namespace System.Application.UI
 
             Forms.Init();
             FormsMaterial.Init();
+            XF.Material.iOS.Material.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -12,9 +12,13 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Text;
 using System.Globalization;
+using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Newtonsoft.Json.JsonConvert;
 
@@ -22,6 +26,8 @@ namespace System.Application.UI.ViewModels
 {
     public class DebugPageViewModel : TabItemViewModel
     {
+        public TabItemId? Id => null;
+
         public override string Name
         {
             get => "Debug";
@@ -39,12 +45,62 @@ namespace System.Application.UI.ViewModels
         {
         }
 
-        public async void DebugButton_Click()
+        //async void TestHttp()
+        //{
+        //    var task1 = IHttpService.Instance.GetAsync<string>("https://developers.google.com/android");
+        //    var task2 = IHttpService.Instance.GetAsync<string>("https://developer.android.google.cn/");
+        //    var str = await Task.WhenAny(task1, task2);
+        //    DebugString = str.Result ?? string.Empty;
+        //}
+
+        public void DebugButton_Click()
+        {
+            INotificationService.Instance.Notify("aaa", NotificationType.Announcement);
+
+            //TestHttp();
+            //return;
+
+            //TestTextBoxWindow(0);
+
+            //DebugButton_Click1();
+            Parallel.For(0, 10, (_, _) =>
+            {
+                DebugButton_Click1();
+                //Task.Run(DebugButton_Click1);
+            });
+        }
+
+        static async void TestTextBoxWindow(int state)
+        {
+            string? value = null;
+            switch (state)
+            {
+                case 0:
+                    TextBoxWindowViewModel vm = new()
+                    {
+                        Title = AppResources.MacSudoPasswordTips,
+                        InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+                        Description = "TestDescription",
+                    };
+                    value = await TextBoxWindowViewModel.ShowDialogAsync(vm);
+                    break;
+                case 1:
+                    value = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
+                    break;
+            }
+            if (!string.IsNullOrEmpty(value))
+            {
+                Toast.Show(value);
+            }
+        }
+
+        public async void DebugButton_Click1()
         {
             Toast.Show(DateTime.Now.ToString());
 
             StringBuilder @string = new();
 
+            @string.AppendFormatLine("ThreadId: {0}", Thread.CurrentThread.ManagedThreadId);
             @string.AppendFormatLine("CJKTest: {0}", "中文繁體русский языкカタカナ한글");
             @string.AppendFormatLine("CLRVersion: {0}", Environment.Version);
             @string.AppendFormatLine("Culture: {0}", CultureInfo.CurrentCulture);
@@ -52,14 +108,25 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("DefaultThreadCulture: {0}", CultureInfo.DefaultThreadCurrentCulture);
             @string.AppendFormatLine("DefaultThreadUICulture: {0}", CultureInfo.DefaultThreadCurrentUICulture);
 
+            @string.AppendFormatLine("BaseDirectory: {0}", IOPath.BaseDirectory);
+            @string.AppendFormatLine("AppDataDirectory: {0}", IOPath.AppDataDirectory);
+            @string.AppendFormatLine("CacheDirectory: {0}", IOPath.CacheDirectory);
+
             @string.AppendFormatLine("UserName: {0}", Environment.UserName);
             @string.AppendFormatLine("MachineName: {0}", Environment.MachineName);
-            @string.AppendFormatLine("ApplicationData: {0}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            @string.AppendFormatLine("LocalApplicationData: {0}", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
-            @string.AppendFormatLine("UserProfile: {0}", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-            @string.AppendFormatLine("System: {0}", Environment.GetFolderPath(Environment.SpecialFolder.System));
-            @string.AppendFormatLine("SystemX86: {0}", Environment.GetFolderPath(Environment.SpecialFolder.SystemX86));
-            @string.AppendFormatLine("Windows: {0}", Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+            if (OperatingSystem2.IsLinux)
+            {
+                @string.AppendFormatLine("$HOME: {0}", Environment.GetEnvironmentVariable("HOME"));
+            }
+
+            var folders = Enum2.GetAll<Environment.SpecialFolder>()
+                .Select(x => (int)x)
+                .Distinct()
+                .Select(x => (Environment.SpecialFolder)x);
+            foreach (var folder in folders)
+            {
+                @string.AppendFormatLine("{1}: {0}", Environment.GetFolderPath(folder), folder);
+            }
 
             var dps = DI.Get<IDesktopPlatformService>();
             @string.AppendFormatLine("SteamDirPath: {0}", dps.GetSteamDirPath());
@@ -70,6 +137,9 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("MachineSecretKey.key: {0}", key.Base64UrlEncode());
             @string.AppendFormatLine("MachineSecretKey.iv: {0}", iv.Base64UrlEncode());
 
+            @string.AppendFormatLine("X509Store My: {0}", string.Join(",", new X509Store(StoreName.My, StoreLocation.CurrentUser).Certificates.Select(x => x.FriendlyName).ToArray()));
+            @string.AppendFormatLine("X509Store Root: {0}",string.Join(",",new X509Store(StoreName.Root, StoreLocation.CurrentUser).Certificates.Select(x=>x.FriendlyName).ToArray()));
+            @string.AppendFormatLine("X509Store CertificateAuthority: {0}", string.Join(",", new X509Store(StoreName.CertificateAuthority, StoreLocation.CurrentUser).Certificates.Select(x => x.FriendlyName).ToArray()));
             var stopwatch = Stopwatch.StartNew();
 
             try
@@ -206,13 +276,148 @@ namespace System.Application.UI.ViewModels
             }
             @string.AppendFormatLine("EmbeddedAes: {0}", embeddedAes);
 
-            DebugString = @string.ToString();
+#if DEBUG
+          DI.Get_Nullable<ITestAppCenter>()?.Test(@string);
+#endif
+
+            DebugString += @string.ToString() + Environment.NewLine;
         }
 
-        public async void ShowDialogButton_Click()
+        public void ShowDialogButton_Click()
+        {
+            //#if DEBUG
+            //            if (OperatingSystem2.IsWindows)
+            //            {
+            //                //IPCTest();
+            //                FileShareTest();
+            //            }
+            //#endif
+            INotificationService.Instance.Notify("测试Test🎆🎇→→", NotificationType.Announcement);
+            ShowDialogButton_Click1();
+        }
+
+#if DEBUG
+        public void IPCTest()
+        {
+            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
+            {
+                var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
+                if (File.Exists(consoleProgramPath))
+                {
+                    var pipeClient = new Process();
+                    //pipeClient.StartInfo.FileName = "runas.exe";
+                    pipeClient.StartInfo.FileName = consoleProgramPath;
+                    using (var pipeServer = new AnonymousPipeServerStream(PipeDirection.Out, HandleInheritability.Inheritable))
+                    {
+                        DebugString = string.Format("[SERVER] Current TransmissionMode: {0}.", pipeServer.TransmissionMode);
+
+                        // Pass the client process a handle to the server.
+
+                        var connStr = pipeServer.GetClientHandleAsString();
+                        connStr = Serializable.SMPB64U(connStr);
+                        //pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" ipc -key \"{connStr}\"\"";
+                        pipeClient.StartInfo.Arguments = $"ipc -key \"{connStr}\"";
+                        pipeClient.StartInfo.UseShellExecute = false;
+                        pipeClient.Start();
+
+                        pipeServer.DisposeLocalCopyOfClientHandle();
+
+                        try
+                        {
+                            // Read user input and send that to the client process.
+                            using var sw = new StreamWriter(pipeServer);
+                            sw.AutoFlush = true;
+                            // Send a 'sync message' and wait for client to receive it.
+                            sw.WriteLine("SYNC");
+                            pipeServer.WaitForPipeDrain();
+                            // Send the console input to the client process.
+                            //Console.Write("[SERVER] Enter text: ");
+                            //sw.WriteLine(Console.ReadLine());
+                            sw.WriteLine("[SERVER] Enter text: ");
+                        }
+                        // Catch the IOException that is raised if the pipe is broken
+                        // or disconnected.
+                        catch (IOException e)
+                        {
+                            DebugString += Environment.NewLine + string.Format("[SERVER] Error: {0}", e.Message);
+                        }
+                    }
+                    pipeClient.WaitForExit();
+                    pipeClient.Close();
+                    DebugString += Environment.NewLine + "[SERVER] Client quit. Server terminating.";
+                }
+            }
+        }
+
+        public void FileShareTest()
+        {
+            if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
+            {
+                var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
+                if (File.Exists(consoleProgramPath))
+                {
+                    var pipeClient = new Process();
+                    pipeClient.StartInfo.FileName = "runas.exe";
+
+                    var tempFileDirectoryName = IOPath.CacheDirectory;
+                    var tempFileName = Path.GetFileName(Path.GetTempFileName());
+                    var tempFilePath = Path.Combine(tempFileDirectoryName, tempFileName);
+                    IOPath.FileIfExistsItDelete(tempFilePath);
+
+                    using var watcher = new FileSystemWatcher(tempFileDirectoryName, tempFileName)
+                    {
+                        NotifyFilter = NotifyFilters.Attributes
+                            | NotifyFilters.CreationTime
+                            | NotifyFilters.DirectoryName
+                            | NotifyFilters.FileName
+                            | NotifyFilters.LastAccess
+                            | NotifyFilters.LastWrite
+                            | NotifyFilters.Security
+                            | NotifyFilters.Size,
+                    };
+
+                    var connStr = tempFilePath;
+                    connStr = Serializable.SMPB64U(connStr);
+                    pipeClient.StartInfo.Arguments = $"/trustlevel:0x20000 \"\"{consoleProgramPath}\" ipc2 -key \"{connStr}\"\"";
+                    pipeClient.StartInfo.UseShellExecute = false;
+                    pipeClient.Start();
+
+                    pipeClient.WaitForExit();
+                    pipeClient.Close();
+
+                    watcher.WaitForChanged(WatcherChangeTypes.Created, 950);
+                    if (File.Exists(tempFilePath))
+                    {
+                        var value = File.ReadAllText(tempFilePath);
+                        File.Delete(tempFilePath);
+                        DebugString = value;
+                    }
+                }
+            }
+        }
+#endif
+
+        public async void ShowDialogButton_Click1()
         {
 #if DEBUG
-            await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync();
+            TextBoxWindowViewModel vm = new()
+            {
+                Title = "Title",
+                InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
+                Description = @"Steam++ v1.1.2   
+                                        2021-01-29
+                                        更新内容
+                                        1、新增账号切换的状态栏右下角登录新账号功能
+                                        2、新增实时刷新获取Steam新登录的账号数据功能
+                                        3、新增FAQ常见问题疑难解答文本，可以在关于中找到它
+                                        4、优化配置文件备份机制，如果配置文件出错会提示还原上次读取成功的配置
+                                        5、优化错误日志记录，现在它更详细了
+                                        6、修复谷歌验证码代理方式为全局跳转recatpcha
+                                        7、修复配置文件加载时提示根元素错误
+                                        8、修复某些情况下开机自启失效问题",
+            };
+            await TextBoxWindowViewModel.ShowDialogAsync(vm);
+            //await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync();
 #endif
 
             //DI.Get<IDesktopPlatformService>().OpenDesktopIconsSettings();
@@ -237,17 +442,6 @@ namespace System.Application.UI.ViewModels
             //    DebugString += r + Environment.NewLine;
 
             //.ContinueWith(s => DebugString += s.Result + Environment.NewLine);
-
-            //            var result = DI.Get<IMessageWindowService>().ShowDialog(@"Steam++ v1.1.2   2021-01-29
-            //更新内容
-            //1、新增账号切换的状态栏右下角登录新账号功能
-            //2、新增实时刷新获取Steam新登录的账号数据功能
-            //3、新增FAQ常见问题疑难解答文本，可以在关于中找到它
-            //4、优化配置文件备份机制，如果配置文件出错会提示还原上次读取成功的配置
-            //5、优化错误日志记录，现在它更详细了
-            //6、修复谷歌验证码代理方式为全局跳转recatpcha
-            //7、修复配置文件加载时提示根元素错误
-            //8、修复某些情况下开机自启失效问题", "Title",true).ContinueWith(s => DebugString += s.Result + Environment.NewLine);
         }
 
         static async Task TestSecurityStorage()
@@ -397,13 +591,21 @@ namespace System.Application.UI.ViewModels
 
         public void TestFontsButton_Click()
         {
-            InstalledFontCollection ifc = new();
-            StringBuilder s = new();
-            foreach (var item in ifc.Families)
-            {
-                s.AppendLine(item.GetName(R.Culture.LCID));
-            }
-            DebugString = s.ToString();
+            IWindowService.Instance.ShowTaskBarWindow(0, 0);
+            //InstalledFontCollection ifc = new();
+            //StringBuilder s = new();
+            //foreach (var item in ifc.Families)
+            //{
+            //    s.AppendLine(item.GetName(R.Culture.LCID));
+            //}
+            //DebugString = s.ToString();
         }
+
+#if DEBUG
+        public interface ITestAppCenter
+        {
+            void Test(StringBuilder @string);
+        }
+#endif
     }
 }

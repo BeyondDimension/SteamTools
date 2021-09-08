@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace System.Application.UI.Adapters
@@ -7,12 +8,20 @@ namespace System.Application.UI.Adapters
     /// 适配器
     /// </summary>
     /// <typeparam name="TViewModel"></typeparam>
-    public interface IAdapter<TViewModel> : ICreateViewModels<TViewModel>
+    public interface IAdapter<TViewModel> : ICreateViewModels<TViewModel>, IReadOnlyViewModels<TViewModel>
     {
         /// <summary>
         /// 视图模型
         /// </summary>
-        IList<TViewModel> ViewModels { get; set; }
+        new IList<TViewModel> ViewModels { get; set; }
+
+        IReadOnlyList<TViewModel> IReadOnlyViewModels<TViewModel>.ViewModels => AsReadOnly(ViewModels);
+
+        public static IReadOnlyList<TViewModel> AsReadOnly(IList<TViewModel> viewModels)
+        {
+            if (viewModels is IReadOnlyList<TViewModel> viewModels_) return viewModels_;
+            return new ReadOnlyCollection<TViewModel>(viewModels);
+        }
 
         /// <summary>
         /// 列表项点击事件

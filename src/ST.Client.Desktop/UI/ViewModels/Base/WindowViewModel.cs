@@ -1,6 +1,6 @@
 using ReactiveUI;
-using DynamicData.Binding;
 using System.Application.Models.Settings;
+using System.Application.Services;
 using System.Runtime.Serialization;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
@@ -43,17 +43,8 @@ namespace System.Application.UI.ViewModels
         }
     }
 
-    //[DataContract]
-    public class WindowViewModel : ViewModelBase
+    partial class WindowViewModel
     {
-        string title = string.Empty;
-        [IgnoreDataMember]
-        public string Title
-        {
-            get => title;
-            set => this.RaiseAndSetIfChanged(ref title, value);
-        }
-
         //[DataMember]
         WindowSizePosition _SizePosition = new();
         public WindowSizePosition SizePosition
@@ -76,10 +67,10 @@ namespace System.Application.UI.ViewModels
                  {
                      if (x.Item1 == 0 && x.Item2 == 0 && x.Item3 == 0 && x.Item4 == 0)
                          return;
-                     if (UISettings.WindowSizePositions.Value!.ContainsKey(name))
+                     else if (UISettings.WindowSizePositions.Value!.ContainsKey(name))
                          UISettings.WindowSizePositions.Value[name] = _SizePosition;
                      else
-                         UISettings.WindowSizePositions.Value.Add(name, _SizePosition);
+                         UISettings.WindowSizePositions.Value.TryAdd(name, _SizePosition);
                      UISettings.WindowSizePositions.RaiseValueChanged();
                  });
         }
@@ -87,9 +78,36 @@ namespace System.Application.UI.ViewModels
         [IgnoreDataMember]
         public bool IsInitialized { get; protected set; }
 
-        protected void InvokeOnUIDispatcher(Action action)
+        [IgnoreDataMember]
+        public bool IsVisible =>
+            IShowWindowService.Instance.IsVisibleWindow(this);
+
+        public virtual void Initialize() 
         {
-            MainThreadDesktop.BeginInvokeOnMainThread(action);
+        }
+
+        /// <summary>
+        /// 关闭当前viewmodel绑定的窗口
+        /// </summary>
+        public virtual void Close()
+        {
+            IShowWindowService.Instance.CloseWindow(this);
+        }
+
+        /// <summary>
+        /// 显示当前viewmodel绑定的窗口
+        /// </summary>
+        public virtual void Show()
+        {
+            IShowWindowService.Instance.ShowWindow(this);
+        }
+
+        /// <summary>
+        /// 隐藏当前viewmodel绑定的窗口
+        /// </summary>
+        public virtual void Hide()
+        {
+            IShowWindowService.Instance.HideWindow(this);
         }
     }
 }

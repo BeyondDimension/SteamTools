@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xfp_controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:resx="clr-namespace:System.Application.UI.Resx"
+             x:Class="System.Application.UI.Views.MyPage"
+             BackgroundColor="{DynamicResource WindowBackground}"
+             Title="{x:Static resx:AppResources.My}">
+  <ContentPage.Resources>
+    <OnPlatform x:Key="baseline_phone_black_24"
+                x:TypeArguments="FileImageSource"
+                Default="baseline_phone_iphone_black_24">
+      <OnPlatform.Platforms>
+        <On Platform="Android" Value="baseline_phone_android_black_24"/>
+      </OnPlatform.Platforms>
+    </OnPlatform>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <StackLayout Orientation="Vertical">
+      <xfp_controls:CircleImage Source="avater_default"
+                                HeightRequest="100"
+                                WidthRequest="100"
+                                BorderColor="#C0C0C0"
+                                BorderThickness="0.5"
+                                Aspect="AspectFill"
+                                HorizontalOptions="Center"
+                                Margin="0,24,0,4"/>
+      <Label HorizontalOptions="Center"
+             Text="{x:Static resx:AppResources.LoginAndRegister}"
+             Margin="0,0,0,4"
+             FontSize="24"/>
+      <TableView>
+        <TableRoot>
+          <TableSection>
+            <ImageCell ImageSource="baseline_account_box_black_24" Text="{x:Static resx:AppResources.User_EditProfile}"/>
+            <ImageCell ImageSource="{x:StaticResource Key=baseline_phone_black_24}" Text="{x:Static resx:AppResources.User_BindPhoneNum}"/>
+            <ImageCell ImageSource="{x:StaticResource Key=baseline_phone_black_24}" Text="{x:Static resx:AppResources.User_ChangePhoneNum}"/>
+            <ImageCell ImageSource="baseline_settings_black_24" Text="{x:Static resx:AppResources.Settings}"/>
+            <ImageCell ImageSource="baseline_info_black_24" Text="{x:Static resx:AppResources.About}"/>
+          </TableSection>
+        </TableRoot>
+      </TableView>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

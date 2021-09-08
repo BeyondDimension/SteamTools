@@ -1,14 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
+using System.Application.UI.ViewModels;
 using System.Reflection;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class MessageBoxWindow : FluentWindow
+    public class MessageBoxWindow : FluentWindow<MessageBoxWindowViewModel>
     {
-        public MessageBoxWindow() : base()
+        public MessageBoxWindow() : base(false)
         {
             //if (PlatformImpl is Win32WindowImpl win)
             //{
@@ -18,6 +20,7 @@ namespace System.Application.UI.Views.Windows
             //    s_setExtendedStyle.Invoke(win, new object[] { exStyle, true });
             //}
             InitializeComponent();
+
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -26,6 +29,19 @@ namespace System.Application.UI.Views.Windows
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnOpened(EventArgs e)
+        {
+            base.OnOpened(e);
+            this.Topmost = true;
+            this.Topmost = false;
+        }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
         }
     }
 }

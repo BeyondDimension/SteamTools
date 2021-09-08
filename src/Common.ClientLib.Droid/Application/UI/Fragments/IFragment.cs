@@ -1,4 +1,4 @@
-﻿using Android.Views;
+using Android.Views;
 using AndroidX.Fragment.App;
 using System.Application.UI.Internals;
 using Fragment = AndroidX.Fragment.App.Fragment;
@@ -43,19 +43,19 @@ namespace System.Application.UI.Fragments
 
         protected static void ChangeStatusBar(IFragment f)
         {
-            var isLightStatusBar = f.IsLightStatusBar;
-            if (isLightStatusBar.HasValue)
-            {
-                var activity = f.Activity;
-                if (activity != null)
-                {
-                    if (isLightStatusBar.Value && DarkModeUtil.IsDarkModeQ)
-                    {
-                        isLightStatusBar = false;
-                    }
-                    StatusBarUtil.SetWindowLightStatusBar(activity, isLightStatusBar.Value);
-                }
-            }
+            //var isLightStatusBar = f.IsLightStatusBar;
+            //if (isLightStatusBar.HasValue)
+            //{
+            //    var activity = f.Activity;
+            //    if (activity != null)
+            //    {
+            //        if (isLightStatusBar.Value && DarkModeUtil.IsDarkModeQ)
+            //        {
+            //            isLightStatusBar = false;
+            //        }
+            //        StatusBarUtil.SetWindowLightStatusBar(activity, isLightStatusBar.Value);
+            //    }
+            //}
         }
 
         protected static View? OnCreateView(IFragment f, LayoutInflater inflater, ViewGroup container)

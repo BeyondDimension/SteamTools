@@ -1,5 +1,6 @@
 using System.Application.Serialization;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -67,7 +68,7 @@ namespace System.Application.Models.Settings
         public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
             = new SerializableProperty<IReadOnlyCollection<int>>(GetKey(), Providers.Local, new List<int>()) { AutoSave = true };
 
-
+        
         private static string GetKey([CallerMemberName] string propertyName = "")
         {
             return nameof(ProxySettings) + "." + propertyName;

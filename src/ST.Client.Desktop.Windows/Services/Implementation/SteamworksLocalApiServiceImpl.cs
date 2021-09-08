@@ -1,8 +1,9 @@
-﻿using SAM.API;
+using SAM.API;
 using SAM.API.Types;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static System.Application.Services.ISteamworksLocalApiService;
 using UserStatsReceivedCallback = SAM.API.Callbacks.UserStatsReceived;
 
@@ -19,7 +20,7 @@ namespace System.Application.Services.Implementation
             SteamClient = new Client();
         }
 
-        public bool IsSupported => true;
+        public bool IsSupported => RuntimeInformation.ProcessArchitecture.IsX86OrX64();
 
         public void DisposeSteamClient()
         {
@@ -70,8 +71,10 @@ namespace System.Application.Services.Implementation
 
         public IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps)
         {
-            if (SteamClient.SteamApps008 == null || SteamClient.SteamApps001 == null)
+            if (!apps.Any_Nullable())
                 return new List<SteamApp>();
+            if (SteamClient.SteamApps008 == null || SteamClient.SteamApps001 == null)
+                return apps;
             return apps.Where(f => SteamClient.SteamApps008.IsSubscribedApp(f.AppId))
                 .OrderBy(s => s.Name).Select((s) =>
                 {
@@ -83,10 +86,11 @@ namespace System.Application.Services.Implementation
                     ////Logo = GetAppData(s.AppId, "logo"),
                     //InstalledDir = GetAppInstallDir(s.AppId),
                     //IsInstalled = IsAppInstalled(s.AppId)
-
-                    s.IsInstalled = IsAppInstalled(s.AppId);
+                    //s.IsInstalled = IsAppInstalled(s.AppId);
+                    //s.InstalledDir = GetAppInstallDir(s.AppId);
+                    s.State = IsAppInstalled(s.AppId) ? 4 : s.State;
+                    s.InstalledDir = string.IsNullOrEmpty(s.InstalledDir) ? GetAppInstallDir(s.AppId) : s.InstalledDir;
                     s.Type = Enum.TryParse<SteamAppType>(GetAppData(s.AppId, "type"), true, out var result) ? result : SteamAppType.Unknown;
-                    s.InstalledDir = GetAppInstallDir(s.AppId);
                     return s;
                 });
         }

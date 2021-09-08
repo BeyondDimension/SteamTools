@@ -1,4 +1,5 @@
-﻿using System.Application.Models;
+using Avalonia.Data;
+using System.Application.Models;
 using System.Globalization;
 using System.IO;
 
@@ -11,10 +12,9 @@ namespace System.Application.Converters
             if (value == null)
                 return null;
             int width = 0;
-            if (parameter is string para)
+            if (parameter is int w)
             {
-                if (int.TryParse(para, out int w))
-                    width = w;
+                width = w;
             }
 
             if (value is string rawUri)
@@ -48,9 +48,9 @@ namespace System.Application.Converters
                 TryReset(s);
                 return GetDecodeBitmap(s, width);
             }
-            else if (value is ImageClipStream ics)
+            else if (value is ImageSouce.ClipStream clipStream)
             {
-                return GetBitmap(ics);
+                return GetBitmap(clipStream);
             }
             else if (value is Guid imageid)
             {
@@ -60,7 +60,7 @@ namespace System.Application.Converters
                 }
                 return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid), width);
             }
-            throw new NotSupportedException();
+            return BindingOperations.DoNothing;
         }
     }
 }

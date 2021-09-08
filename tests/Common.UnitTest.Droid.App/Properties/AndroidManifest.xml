@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.github.aigiol.steamtools.unittest" android:versionCode="1" android:versionName="1.0.0">
-  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <application android:label="Steam++(Test)" android:icon="@mipmap/ic_launcher2" android:roundIcon="@mipmap/ic_launcher_round2" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></application>
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<application android:label="Steam++(Test)" android:roundIcon="@mipmap/ic_launcher_round2" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></application>
 </manifest>

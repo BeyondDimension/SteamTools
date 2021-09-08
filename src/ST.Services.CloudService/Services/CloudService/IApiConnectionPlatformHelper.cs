@@ -1,6 +1,7 @@
 using System.Application.Columns;
 using System.Application.Models;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
@@ -24,6 +25,16 @@ namespace System.Application.Services.CloudService
         /// <param name="phoneNumber"></param>
         /// <param name="response"></param>
         Task OnLoginedAsync(IReadOnlyPhoneNumber? phoneNumber, ILoginResponse response);
+
+        AuthenticationHeaderValue? GetAuthenticationHeaderValue(JWTEntity? authToken)
+        {
+            if (authToken.HasValue())
+            {
+                var authHeaderValue = new AuthenticationHeaderValue(Constants.Basic, authToken?.AccessToken);
+                return authHeaderValue;
+            }
+            return null;
+        }
 
         #endregion
 

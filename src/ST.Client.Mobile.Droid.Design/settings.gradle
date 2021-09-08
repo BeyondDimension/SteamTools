@@ -1,0 +1,4 @@
+rootProject.name = "Steam++"
+include ':app'
+include ':ui'
+include ':ui'

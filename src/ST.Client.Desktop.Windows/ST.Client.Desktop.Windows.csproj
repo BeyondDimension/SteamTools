@@ -1,34 +1,44 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>-->
-    <TargetFramework>net6.0</TargetFramework>
-    <!--<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>-->
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
-    <!--<UseWindowsForms>false</UseWindowsForms>-->
-    <!--<UseWPF>false</UseWPF>-->
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Windows</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
+    <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Remove="Windows.winmd\**" />
+    <Compile Remove="Windows.winmd\**" />
+    <EmbeddedResource Remove="Windows.winmd\**" />
+    <None Remove="Windows.winmd\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App.Bridge\*.cs" />
+    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aigio.Avalonia.AppCenter" Version="4.2.0" />
-    <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.2.0" />
-    <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.2.0" />
-    <PackageReference Include="JumpLists.Win32.Avalonia" Version="0.0.1" Aliases="JumpLists" />
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.2.5" />
-    <PackageReference Include="TaskScheduler" Version="2.9.1" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
+    <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
+    <PackageReference Include="JumpLists.Win32.Avalonia" Aliases="JumpLists" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" />
+    <PackageReference Include="NotifyIcon.Windows" />
+    <PackageReference Include="TaskScheduler" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,12 +47,16 @@
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
 
+  <!--VisualStudioAppCenterSDK namespacePrefix = "System.Application.Resources."-->
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-debug.pfx')">
     <EmbeddedResource Include="..\..\appcenter-secret-debug.pfx" Link="Resources\7EE83DD3" />
   </ItemGroup>
-
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-release.pfx')">
     <EmbeddedResource Include="..\..\appcenter-secret-release.pfx" Link="Resources\0794704F" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Windows.SDK.NET" HintPath="..\..\references\Microsoft.Windows.SDK.NET.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,5 +73,4 @@
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

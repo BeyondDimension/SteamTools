@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
+using System.Application.Models.Settings;
 
 namespace System.Application.UI
 {
@@ -7,18 +8,26 @@ namespace System.Application.UI
     {
         // Avalonia configuration, don't remove; also used by visual designer.
         static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
+        {
+            SettingsHost.Load();
+            return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .With(new SkiaOptions
                 {
                     MaxGpuResourceSizeBytes = 8096000,
                 })
+                .With(new AvaloniaNativePlatformOptions
+                {
+                    UseGpu = AppHelper.DisableGPU ? false : GeneralSettings.UseGPURendering.Value
+                })
                 .With(new Win32PlatformOptions
                 {
-                    AllowEglInitialization = true,
+                    AllowEglInitialization = true /*!OperatingSystem2.IsMacOS*/,
+                    UseWindowsUIComposition = true
                 })
                 .LogToTrace()
                 .UseReactiveUI();
+        }
 
         static void BuildAvaloniaAppAndStartWithClassicDesktopLifetime(string[] args)
             => BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);

@@ -31,7 +31,7 @@ namespace System.Net.Http
         /// <summary>
         /// 默认超时时间，16秒
         /// </summary>
-        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(16);
+        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(45);
 
         static readonly Lazy<int> mDefaultTimeoutTotalMilliseconds = new(() => DefaultTimeout.TotalMilliseconds.ToInt32());
 
@@ -62,6 +62,26 @@ namespace System.Net.Http
             {
                 return _clientFactory.CreateClient(clientName);
             }
+        }
+
+        static void ConfigHttpWebRequest(HttpWebRequest request)
+        {
+            request.AllowAutoRedirect = true;
+            request.MaximumAutomaticRedirections = 1000;
+        }
+
+        public static HttpWebRequest Create(string requestUriString)
+        {
+            var request = WebRequest.CreateHttp(requestUriString);
+            ConfigHttpWebRequest(request);
+            return request;
+        }
+
+        public static HttpWebRequest Create(Uri requestUri)
+        {
+            var request = WebRequest.CreateHttp(requestUri);
+            ConfigHttpWebRequest(request);
+            return request;
         }
     }
 }

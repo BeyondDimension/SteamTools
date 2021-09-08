@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -23,7 +23,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -36,6 +36,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidSupportedAbis>armeabi-v7a;x86_64;arm64-v8a</AndroidSupportedAbis>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,6 +51,9 @@
   <ItemGroup>
     <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -117,21 +122,11 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>3.13.1</Version>
-    </PackageReference>
-    <PackageReference Include="nunit.xamarin">
-      <Version>3.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="PCLStorage">
-      <Version>1.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Essentials">
-      <Version>1.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2012</Version>
-    </PackageReference>
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="nunit.xamarin" />
+    <PackageReference Include="PCLStorage" />
+    <PackageReference Include="Xamarin.Essentials" />
+    <PackageReference Include="Xamarin.Forms" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Common.CoreLib\Common.CoreLib.csproj">

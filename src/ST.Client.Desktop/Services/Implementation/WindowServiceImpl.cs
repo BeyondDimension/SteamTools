@@ -15,14 +15,19 @@ namespace System.Application.Services.Implementation
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         private MainWindowViewModel mainWindow;
         private AchievementWindowViewModel achievementWindow;
+        private TaskBarWindowViewModel taskbarWindow;
         private readonly CompositeDisposable compositeDisposable = new();
 
         /// <summary>
         /// 获取为当前主窗口提供的数据。
         /// </summary>
-
         public WindowViewModel MainWindow { get; private set; }
+
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        /// <summary>
+        /// 获取为当前主窗口提供的数据。
+        /// </summary>
+        public TaskBarWindowViewModel? TaskBarWindow => taskbarWindow;
 
         public void Init()
         {
@@ -42,6 +47,11 @@ namespace System.Application.Services.Implementation
             catch (Exception ex)
             {
                 Log.Error("WindowService", ex, "Init WindowViewModel");
+                throw;
+            }
+            finally
+            {
+                taskbarWindow = new TaskBarWindowViewModel();
             }
         }
 
@@ -67,6 +77,31 @@ namespace System.Application.Services.Implementation
         //    }
         //    throw new InvalidOperationException();
         //}
+
+        /// <summary>
+        /// 打开托盘菜单窗口
+        /// </summary>
+        public void ShowTaskBarWindow(int x = 0, int y = 0)
+        {
+            try
+            {
+                //if (!taskbarWindow.IsVisible)
+                //{
+                taskbarWindow.Show(x, y);
+                //}
+                //else
+                //{
+                //    taskbarWindow.SetPosition(x, y);
+                //}
+            }
+            catch (Exception ex)
+            {
+                // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/1377813613u/overview
+                Log.Error("WindowService", ex,
+                    "ShowTaskBarWindow, taskbarWindow: {0}", taskbarWindow?.ToString() ?? "null");
+                throw;
+            }
+        }
 
         #region disposable members
 

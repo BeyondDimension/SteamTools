@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     public enum GamePlatform : byte
     {
@@ -27,6 +27,14 @@
         Google,
 
         // Add New ...
+
+        #region WinAuth3 Compat
+
+        HOTP,
+
+        TOTP,
+
+        #endregion
     }
 
 #if DEBUG

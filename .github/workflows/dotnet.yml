@@ -11,7 +11,8 @@ jobs:
     runs-on: ${{ matrix.os }}    
     strategy:
       matrix:
-        os: [ windows-latest, macOS-latest, ubuntu-latest ]        
+#        os: [ windows-latest, macOS-latest, ubuntu-latest ]
+        os: [ windows-latest ]
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET 5
@@ -21,7 +22,15 @@ jobs:
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100-preview.3.21202.5        
+        dotnet-version: 6.0.100-preview.7.21379.14
+
+#    - name: Install macOS SDK(macOS)
+#      if: matrix.os == 'macOS-latest'
+#      run: sudo dotnet workload install microsoft-macos-sdk-full
+      
+#    - name: Install macOS SDK(Windows)
+#      if: matrix.os == 'windows-latest'
+#      run: dotnet workload install microsoft-macos-sdk-full
 
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -35,13 +44,13 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: dotnet restore ./SteamToolsV2+.sln
       
-    - name: dotnet restore SteamTools.Desktop.Linux.sln
+    - name: dotnet restore SteamToolsV2+.Linux.sln
       if: matrix.os == 'ubuntu-latest'
-      run: dotnet restore ./SteamTools.Desktop.Linux.sln
+      run: dotnet restore ./SteamToolsV2+.Linux.slnf
       
-    - name: dotnet restore SteamTools.Desktop.Mac.sln
+    - name: dotnet restore SteamToolsV2+.Mac.sln
       if: matrix.os == 'macOS-latest'
-      run: dotnet restore ./SteamTools.Desktop.Mac.sln
+      run: dotnet restore ./SteamToolsV2+.Mac.slnf
       
     - name: dotnet AvaloniaApp build
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Desktop.Avalonia.App.csproj
@@ -57,4 +66,5 @@ jobs:
     - name: dotnet ST.Client.UnitTest test
       run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
     - name: dotnet ST.Client.Desktop.UnitTest test
+      if: matrix.os != 'windows-latest'
       run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj

@@ -5,9 +5,9 @@ using System.Windows.Input;
 
 namespace System.Application.Services
 {
-    public interface IDesktopAppService
+    public interface IDesktopAppService : IClipboardPlatformService
     {
-        public static IDesktopAppService Instance => DI.Get<IDesktopAppService>();
+        new static IDesktopAppService Instance => DI.Get<IDesktopAppService>();
 
         /// <summary>
         /// 当前桌面应用的主题
@@ -35,8 +35,6 @@ namespace System.Application.Services
         /// </summary>
         IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }
 
-        void SetClipboardText(string? s);
-
         bool IsCefInitComplete { get; }
 
         CompositeDisposable CompositeDisposable { get; }
@@ -46,5 +44,7 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         bool HasActiveWindow();
+
+        void SetDesktopBackgroundWindow();
     }
 }

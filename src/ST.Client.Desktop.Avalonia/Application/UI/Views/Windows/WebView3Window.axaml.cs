@@ -2,8 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CefNet;
-using CefNet.JSInterop;
-using CefNet.Net;
 using CefSharp;
 using ReactiveUI;
 using System.Application.Services;
@@ -15,10 +13,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using static System.Application.Services.CloudService.Constants;
+using static System.Application.Services.ISteamService;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class WebView3Window : FluentWindow, IDisposable
+    public class WebView3Window : FluentWindow<WebView3WindowViewModel>, IDisposable
     {
         readonly WebView3 webView;
         bool disposedValue;
@@ -30,10 +29,10 @@ namespace System.Application.UI.Views.Windows
             this.AttachDevTools();
 #endif
             webView = this.FindControl<WebView3>(nameof(webView));
-            webView.InitialUrl = WebView3WindowViewModel.AboutBlank;
-            webView.Opacity = 0;
-            webView.DocumentTitleChanged += WebView_DocumentTitleChanged;
-            webView.LoadingStateChange += WebView_LoadingStateChange;
+            webView.Browser.InitialUrl = WebView3WindowViewModel.AboutBlank;
+            webView.Browser.DocumentTitleChanged += WebView_DocumentTitleChanged;
+            webView.Browser.LoadingStateChange += WebView_LoadingStateChange;
+            webView.Browser.BrowserCreated += WebView_BrowserCreated;
         }
 
         CancellationTokenSource? cts;
@@ -58,15 +57,27 @@ namespace System.Application.UI.Views.Windows
                 }
                 if (isDelayed && vm.IsLoading)
                 {
-                    webView.Stop();
-                    Hide();
-                    await MessageBoxCompat.ShowAsync(
-                        vm.TimeoutErrorMessage!,
-                        vm.Title,
-                        MessageBoxButtonCompat.OKCancel);
-                    Close();
+                    webView.Browser.Stop();
+                    await WebViewLoadingTimeoutAsync(vm);
                 }
             }
+        }
+
+        bool isShowTimeoutErrorMessageed;
+        async Task WebViewLoadingTimeoutAsync(WebView3WindowViewModel? vm = null)
+        {
+            if (disposedValue) return;
+            if (vm == null && DataContext is WebView3WindowViewModel _vm) vm = _vm;
+            if (vm != null && !isShowTimeoutErrorMessageed && vm.TimeoutErrorMessage != null)
+            {
+                isShowTimeoutErrorMessageed = true;
+                Hide();
+                await MessageBoxCompat.ShowAsync(
+                    vm.TimeoutErrorMessage!,
+                    vm.Title,
+                    MessageBoxButtonCompat.OKCancel);
+            }
+            Close();
         }
 
         bool isFirstWebViewLoading;
@@ -94,35 +105,15 @@ namespace System.Application.UI.Views.Windows
                 }
                 if (!e.Busy)
                 {
-                    if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+                    var mainFrame = webView.Browser.GetMainFrame();
+                    if (mainFrame != null)
                     {
-                        var frame = webView.GetMainFrame();
-                        if (frame == null)
+                        var mainFrameSource = await mainFrame.GetSourceAsync(default);
+                        if (mainFrameSource == "<html><head></head><body></body></html>")
                         {
-                            LoginUsingSteamClientFinishNavigate(vm);
+                            await WebViewLoadingTimeoutAsync(vm);
+                            return;
                         }
-                        try
-                        {
-                            dynamic scriptable = await frame.GetScriptableObjectAsync(CancellationToken.None).ConfigureAwait(true);
-                            scriptable.window.eval("function V_SetCookie() {} function V_GetCookie() {}");
-                            scriptable.window.LoginUsingSteamClient("https://steamcommunity.com");
-                            loginUsingSteamClientState = LoginUsingSteamClientState.Success;
-                        }
-                        catch (Exception ex)
-                        {
-#if DEBUG
-                            Log.Error(nameof(WebView3Window), ex, "JSInterop fail.");
-#endif
-                            LoginUsingSteamClientFinishNavigate(vm);
-                        }
-                    }
-                    else if (loginUsingSteamClientState == LoginUsingSteamClientState.Success)
-                    {
-                        LoginUsingSteamClientFinishNavigate(vm);
-                    }
-                    else
-                    {
-                        if (webView.Opacity != 1) webView.Opacity = 1;
                         if (vm.IsLoading)
                         {
                             vm.IsLoading = false;
@@ -132,11 +123,20 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
+        string? initialUrl;
+        private void WebView_BrowserCreated(object? sender, EventArgs e)
+        {
+            if (initialUrl != null && webView.Browser.BrowserObject != null)
+            {
+                webView.Navigate(initialUrl);
+            }
+        }
+
         void Navigate(string url)
         {
-            if (webView.BrowserObject == null)
+            if (webView.Browser.BrowserObject == null)
             {
-                webView.InitialUrl = url;
+                initialUrl = url;
             }
             else
             {
@@ -144,43 +144,72 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        void LoginUsingSteamClientFinishNavigate(WebView3WindowViewModel? vm = null)
-        {
-            loginUsingSteamClientState = LoginUsingSteamClientState.None;
-            if (vm == null && DataContext is WebView3WindowViewModel vm2) vm = vm2;
-            Navigate(vm?.Url ?? WebView3WindowViewModel.AboutBlank);
-        }
+        //[Obsolete(LoginUsingSteamClientCookieObsolete)]
+        //async Task LoginUsingSteamClientCookiesAsync()
+        //{
+        //    var (resultCode, cookies) = await Instance.GetLoginUsingSteamClientCookieCollectionAsync(runasInvoker: DI.Platform == Platform.Windows);
+        //    if (resultCode == LoginUsingSteamClientResultCode.Success && cookies != null)
+        //    {
+        //        var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
+        //        foreach (Cookie item in cookies)
+        //        {
+        //            if (item.Domain.Equals(url_store_steampowered_, StringComparison.OrdinalIgnoreCase))
+        //            {
+        //                item.Domain = url_steamcommunity_;
+        //            }
+        //            var cookie = item.GetCefNetCookie();
+        //            var setCookieResult = await manager.SetCookieAsync(url_steamcommunity_checkclientautologin, cookie);
+        //            if (item.Name == "steamLoginSecure" && setCookieResult)
+        //            {
+        //                loginUsingSteamClientState = LoginUsingSteamClientState.Success;
+        //            }
+        //        }
+        //        foreach (Cookie item in cookies)
+        //        {
+        //            var cookie = item.GetCefNetCookie();
+        //            await manager.SetCookieAsync(url_store_steampowered_checkclientautologin, cookie);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        resultCode = resultCode ==
+        //            LoginUsingSteamClientResultCode.Success ?
+        //            LoginUsingSteamClientResultCode.EmptyOrNull :
+        //            resultCode;
+        //    }
+        //    //if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+        //    //{
+        //    //    loginUsingSteamClientState = LoginUsingSteamClientState.None;
+        //    //    resultCode = resultCode ==
+        //    //        LoginUsingSteamClientResultCode.Success ?
+        //    //        LoginUsingSteamClientResultCode.MissingCookieSteamLoginSecure :
+        //    //        resultCode;
+        //    //}
+        //    if (resultCode != LoginUsingSteamClientResultCode.Success)
+        //    {
+        //        if (resultCode == LoginUsingSteamClientResultCode.CantConnSteamCommunity)
+        //        {
+        //            await WebViewLoadingTimeoutAsync();
+        //        }
+        //        else
+        //        {
+        //            Toast.Show(AppResources.GetLoginUsingSteamClientCookiesFail_.Format((int)resultCode));
+        //        }
+        //    }
+        //}
 
-        static Task? mGetLoginUsingSteamClientCookiesAsync;
-        static async Task GetLoginUsingSteamClientCookiesAsync()
-        {
-            var value = await ISteamService.Instance.GetLoginUsingSteamClientCookiesAsync(runasInvoker: DI.Platform == Platform.Windows);
-            if (value != default)
-            {
-                var url = value.uri.ToString();
-                var cookies = value.cookies;
-                var manager = CefRequestContext.GetGlobalContext().GetCookieManager(null);
-                foreach (Cookie item in cookies)
-                {
-                    var cookie = new CefNetCookie(item.Name, item.Value);
-                    var setCookieResult = await manager.SetCookieAsync(url, cookie);
-                    if (item.Name == "steamLoginSecure" && !setCookieResult)
-                    {
-                        return;
-                    }
-                }
-            }
-        }
+        //[Obsolete(LoginUsingSteamClientCookieObsolete)]
+        //async void GetLoginUsingSteamClientCookies()
+        //{
+        //    await LoginUsingSteamClientCookiesAsync();
+        //    if (loginUsingSteamClientState == LoginUsingSteamClientState.Success
+        //        && webView.Browser.BrowserObject != null)
+        //    {
+        //        webView.Browser.Reload();
+        //    }
+        //}
 
-        async void GetLoginUsingSteamClientCookies()
-        {
-            if (mGetLoginUsingSteamClientCookiesAsync == null)
-                mGetLoginUsingSteamClientCookiesAsync = GetLoginUsingSteamClientCookiesAsync();
-            await mGetLoginUsingSteamClientCookiesAsync;
-            LoginUsingSteamClientFinishNavigate();
-        }
-
-        LoginUsingSteamClientState loginUsingSteamClientState;
+        //static LoginUsingSteamClientState loginUsingSteamClientState;
         protected override void OnDataContextChanged(EventArgs e)
         {
             base.OnDataContextChanged(e);
@@ -188,43 +217,53 @@ namespace System.Application.UI.Views.Windows
             {
                 vm.Close += Close;
                 if (!string.IsNullOrWhiteSpace(vm.Title))
-                    webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
+                {
+                    webView.Browser.DocumentTitleChanged -= WebView_DocumentTitleChanged;
+                }
                 if (vm.UseLoginUsingSteamClient)
                 {
-                    loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
-                    Navigate("https://steamcommunity.com/login/home/?goto=my/profile");
-                }
-                else if (vm.UseLoginUsingSteamClientV2)
-                {
-                    loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
-                    GetLoginUsingSteamClientCookies();
+                    //if (loginUsingSteamClientState == LoginUsingSteamClientState.None)
+                    //{
+                    //    var steamUser = SteamConnectService.Current.CurrentSteamUser;
+                    //    if (steamUser != null)
+                    //    {
+                    //        loginUsingSteamClientState = LoginUsingSteamClientState.Loading;
+                    //        //GetLoginUsingSteamClientCookies();
+                    //    }
+                    //}
                 }
                 vm.WhenAnyValue(x => x.Url).WhereNotNull().Subscribe(x =>
                 {
-                    if (loginUsingSteamClientState == default)
+                    if (x == WebView3WindowViewModel.AboutBlank)
                     {
-                        if (x == WebView3WindowViewModel.AboutBlank)
-                        {
-                            webView.Opacity = 0;
-                        }
-                        else if (IsHttpUrl(x))
-                        {
-                            if (x.StartsWith("https://steampp.net", StringComparison.OrdinalIgnoreCase))
-                                x = string.Format(
-                                    x + "?theme={0}&language={1}",
-                                    CefNetApp.GetTheme(),
-                                    R.Language);
-                            //if (webView.Opacity != 1) webView.Opacity = 1;
-                            Navigate(x);
-                        }
+                        webView.Opacity = 0;
+                    }
+                    else if (IsHttpUrl(x))
+                    {
+                        if (x.StartsWith(UrlConstants.OfficialWebsite, StringComparison.OrdinalIgnoreCase))
+                            x = string.Format(
+                                x + "?theme={0}&language={1}",
+                                CefNetApp.GetTheme(),
+                                R.Language);
+                        //if (webView.Opacity != 1) webView.Opacity = 1;
+                        Navigate(x);
                     }
                 }).AddTo(vm);
-                vm.WhenAnyValue(x => x.StreamResponseFilterUrls).Subscribe(x => webView.StreamResponseFilterUrls = x).AddTo(vm);
-                vm.WhenAnyValue(x => x.FixedSinglePage).Subscribe(x => webView.FixedSinglePage = x).AddTo(vm);
-                vm.WhenAnyValue(x => x.IsSecurity).Subscribe(x => webView.IsSecurity = x).AddTo(vm);
-                webView.OnStreamResponseFilterResourceLoadComplete += vm.OnStreamResponseFilterResourceLoadComplete;
+                vm.WhenAnyValue(x => x.StreamResponseFilterUrls).Subscribe(x => webView.Browser.StreamResponseFilterUrls = x).AddTo(vm);
+                vm.WhenAnyValue(x => x.FixedSinglePage).Subscribe(x => webView.Browser.FixedSinglePage = x).AddTo(vm);
+                vm.WhenAnyValue(x => x.IsSecurity).Subscribe(x => webView.Browser.IsSecurity = x).AddTo(vm);
+                webView.Browser.OnStreamResponseFilterResourceLoadComplete += vm.OnStreamResponseFilterResourceLoadComplete;
             }
         }
+
+        //protected override void OnOpened(EventArgs e)
+        //{
+        //    base.OnOpened(e);
+        //    //if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+        //    //{
+        //    //    Toast.Show(AppResources.GetLoginUsingSteamClientCookies);
+        //    //}
+        //}
 
         void WebView_DocumentTitleChanged(object? sender, DocumentTitleChangedEventArgs e)
         {
@@ -256,14 +295,18 @@ namespace System.Application.UI.Views.Windows
                 if (disposing)
                 {
                     // TODO: 释放托管状态(托管对象)
+                    //if (loginUsingSteamClientState == LoginUsingSteamClientState.Loading)
+                    //{
+                    //    loginUsingSteamClientState = LoginUsingSteamClientState.None;
+                    //}
                     if (webView != null)
                     {
                         cts?.Cancel();
-                        webView.DocumentTitleChanged -= WebView_DocumentTitleChanged;
-                        webView.LoadingStateChange -= WebView_LoadingStateChange;
+                        webView.Browser.DocumentTitleChanged -= WebView_DocumentTitleChanged;
+                        webView.Browser.LoadingStateChange -= WebView_LoadingStateChange;
                         if (DataContext is WebView3WindowViewModel vm)
                         {
-                            webView.OnStreamResponseFilterResourceLoadComplete -= vm.OnStreamResponseFilterResourceLoadComplete;
+                            webView.Browser.OnStreamResponseFilterResourceLoadComplete -= vm.OnStreamResponseFilterResourceLoadComplete;
                         }
                         ((IDisposable)webView).Dispose();
                     }

@@ -6,24 +6,31 @@ using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
-    public abstract class TabItemViewModel : ItemViewModel
+    public abstract partial class TabItemViewModel : ItemViewModel
     {
-        #region Name 変更通知
+        public virtual bool IsTaskBarSubMenu { get; }
 
-        public abstract string Name { get; protected set; }
+        private IList<MenuItemViewModel>? _MenuItems;
+        public virtual IList<MenuItemViewModel>? MenuItems
+        {
+            get => _MenuItems;
+            protected set => this.RaiseAndSetIfChanged(ref _MenuItems, value);
+        }
 
-        #endregion
-
-        #region IconKey 图标svg Resource key
+        #region Resource key 图标
+        private const string DefaultIconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Icon/{0}.png";
+        public virtual string? IconSource => string.Format(DefaultIconPath, IconKey);
 
         protected string? _IconKey;
-
         public virtual string? IconKey
         {
             get => _IconKey;
-            protected set => this.RaiseAndSetIfChanged(ref _IconKey, value);
+            protected set
+            {
+                this.RaiseAndSetIfChanged(ref _IconKey, value);
+                this.RaisePropertyChanged(nameof(IconSource));
+            }
         }
-
         #endregion
 
         #region Badge 変更通知
@@ -53,13 +60,6 @@ namespace System.Application.UI.ViewModels
 
         #endregion
 
-        private IList<MenuItemViewModel>? _MenuItems;
-        public virtual IList<MenuItemViewModel>? MenuItems
-        {
-            get => _MenuItems;
-            protected set => this.RaiseAndSetIfChanged(ref _MenuItems, value);
-        }
-
         protected TabItemViewModel()
         {
             if (IsInDesignMode) return;
@@ -70,19 +70,8 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        internal async virtual void Initialize()
+        public async virtual void Initialize()
         {
-            await Task.CompletedTask;
-        }
-
-        protected bool IsFirstActivation = true;
-
-        internal async virtual void Activation()
-        {
-            if (IsFirstActivation)
-            {
-                IsFirstActivation = false;
-            }
             await Task.CompletedTask;
         }
     }

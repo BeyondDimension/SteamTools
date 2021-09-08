@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
@@ -30,7 +30,7 @@ namespace System
             acceptWebP ??= httpRequest.AcceptWebP();
             if (acceptWebP.Value)
             {
-                return src.Substring(0, src.LastIndexOf(".", StringComparison.Ordinal)) + ".webp";
+                return string.Concat(src.AsSpan(0, src.LastIndexOf(".", StringComparison.Ordinal)), ".webp");
             }
             return src;
         }

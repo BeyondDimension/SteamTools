@@ -119,71 +119,98 @@
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
     <value>サービス側エラー {0} - ログイン資格情報が無効になった場合は、再度ログインしてください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="BindFail_UserIsNotNull" xml:space="preserve">
+    <value>バインドに失敗し、このアカウントは別のユーザーによってバインドされています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
     <value>アカウントはブロックされています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
     <value>コンテンツ値を空にしたり、正しくない値にしたりすることはできません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
     <value>確認コードの取得回数が今日の上限に達しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
     <value>操作が少し頻繁に、1分後にそれを試してみてください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
     <value>現在の携帯電話番号が存在しません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在" xml:space="preserve">
     <value>この携帯電話番号は既に使用されています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_换绑手机" xml:space="preserve">
     <value>この携帯電話番号は既にバインドされています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_注册" xml:space="preserve">
     <value>この携帯電話番号は既に登録されています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
     <value>新しい携帯電話番号は、古い携帯電話番号と同じにすることはできません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
     <value>ニックネームの最大長は 1 {0}を超えてください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
     <value>ユーザーが存在しません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
     <value>サービス側のエラー 5001 - SMS サービス</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
     <value>SMS 確認コードが正しくありません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入手机号码哦" xml:space="preserve">
     <value>携帯電話番号を入力してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入昵称" xml:space="preserve">
     <value>ニックネームを入力してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入正确的手机号码哦" xml:space="preserve">
     <value>正しい携帯電話番号を入力してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入正确的邀请码哦" xml:space="preserve">
     <value>正しい招待コードを入力してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入短信验证码哦" xml:space="preserve">
     <value>SMS確認コードを入力してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入邀请码哦" xml:space="preserve">
     <value>招待コードを入力してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请选择头像" xml:space="preserve">
     <value>アバターを選択してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
     <value>確認コードが正しくありません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
     <value>確認コードが間違っているか、有効期限が切れています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

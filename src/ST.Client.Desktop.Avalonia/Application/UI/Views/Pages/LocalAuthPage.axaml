@@ -8,28 +8,134 @@
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              x:Name="u"
              x:DataType="vm:LocalAuthPageViewModel"
              x:CompileBindings="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.LocalAuthPage">
-  <Panel HorizontalAlignment="Stretch">
-    <TextBlock IsVisible="{CompiledBinding IsAuthenticatorsEmpty}"
-       Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
-       TextWrapping="WrapWithOverflow"
-       VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-    <ScrollViewer  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="40 0 40 10">
-      <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
-        <ItemsRepeater.Layout>
-          <UniformGridLayout ItemsJustification="SpaceAround"
-                             MinRowSpacing="20"  MaximumRowsOrColumns="8"/>
-          <!--<WrapLayout HorizontalSpacing="40"
-                      VerticalSpacing="20" Orientation="Horizontal"></WrapLayout>-->
-        </ItemsRepeater.Layout>
-        <ItemsRepeater.ItemTemplate>
-          <DataTemplate>
-            <Panel>
-              <Border x:Name="panel" Classes="paper" Width="250" Height="250" Background="{DynamicResource ThemeBrushKey}">
+  <DockPanel>
+    <Border DockPanel.Dock="Top"
+            Classes="paper"
+            Background="{DynamicResource ThemeBrushKey}"
+            Padding="10"
+            Margin="{StaticResource ScrollMargin}">
+      <ui:CommandBar DefaultLabelPosition="Right">
+        <ui:CommandBar.PrimaryCommands>
+          <ui:CommandBarButton Icon="Add"
+                               Command="{Binding AddAuthCommand}"
+                               Label="{ReflectionBinding Path=Res.Add,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+
+          <ui:CommandBarButton
+                               Command="{Binding EncryptionAuthCommand}"
+                               Label="{ReflectionBinding Path=Res.Encrypt,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource ShieldLockDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+
+          <ui:CommandBarButton
+                               Command="{Binding ExportAuthCommand}"
+                               Label="{ReflectionBinding Path=Res.Export,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource ExportDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+
+          <ui:CommandBarSeparator/>
+
+          <ui:CommandBarButton
+                     Command="{Binding LockCommand}"
+                     Label="{ReflectionBinding Path=Res.Lock,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource LockDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+
+          <ui:CommandBarButton
+                      Command="{Binding RefreshAuthCommand}"
+                      Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+
+        </ui:CommandBar.PrimaryCommands>
+        <ui:CommandBar.SecondaryCommands>
+          <ui:CommandBarButton Icon="Help"
+                               Command="{Binding OpenBrowserCommand}"
+                               CommandParameter="https://keylol.com/t710508-1-1"
+                               Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        </ui:CommandBar.SecondaryCommands>
+      </ui:CommandBar>
+    </Border>
+
+    <Panel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
+
+      <TextBlock IsVisible="{CompiledBinding IsAuthenticatorsEmpty}"
+        Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        TextWrapping="WrapWithOverflow"
+        VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+      <!--<StackPanel IsVisible="{CompiledBinding IsAuthenticatorsEmptyAndHasPassword}" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
+      <TextBlock
+        Text="{ReflectionBinding Path=Res.LocalAuth_NoAuthTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        TextWrapping="WrapWithOverflow"></TextBlock>
+    </StackPanel>-->
+
+      <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
+                     VerticalScrollBarVisibility="Auto"
+                     Padding="10 0 10 10">
+        <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
+          <ItemsRepeater.Layout>
+            <UniformGridLayout ItemsJustification="SpaceAround"
+                               MinRowSpacing="10" 
+                               MinColumnSpacing="10"
+                               MaximumRowsOrColumns="8"/>
+            <!--<WrapLayout HorizontalSpacing="10"
+                      VerticalSpacing="10" Orientation="Horizontal"/>-->
+          </ItemsRepeater.Layout>
+          <ItemsRepeater.ItemTemplate>
+            <DataTemplate>
+              <Border x:Name="panel"
+                      Classes="paper"
+                      Width="250"
+                      Height="250"
+                      Background="{DynamicResource ThemeBrushKey}">
+                <Border.ContextMenu>
+                  <ContextMenu>
+                    <MenuItem
+                              Header="{ReflectionBinding Path=Res.LocalAuth_Copy,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}"
+                              CommandParameter="{Binding}">
+                      <MenuItem.Icon>
+                        <PathIcon Data="{StaticResource CopyDrawing}" Width="14"></PathIcon>
+                      </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="-"></MenuItem>
+                    <MenuItem
+                              Header="{ReflectionBinding Path=Res.MoveUp,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Command="{ReflectionBinding #u.DataContext.UpMoveOrderById}"
+                              CommandParameter="{Binding}">
+                      <MenuItem.Icon>
+                        <PathIcon Data="{StaticResource ChevronDownDrawing}" Width="14">
+                          <PathIcon.RenderTransform>
+                            <RotateTransform Angle="180"></RotateTransform>
+                          </PathIcon.RenderTransform>
+                        </PathIcon>
+                      </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                              Header="{ReflectionBinding Path=Res.MoveDown,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Command="{ReflectionBinding #u.DataContext.DownMoveOrderById}"
+                              CommandParameter="{Binding}">
+                      <MenuItem.Icon>
+                        <PathIcon Data="{StaticResource ChevronDownDrawing}" Width="14">
+                        </PathIcon>
+                      </MenuItem.Icon>
+                    </MenuItem>
+                  </ContextMenu>
+                </Border.ContextMenu>
                 <i:Interaction.Behaviors>
                   <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #panel}">
                     <ia:ChangePropertyAction TargetObject="{ReflectionBinding #delete_btn}" PropertyName="IsVisible" Value="True"/>
@@ -40,25 +146,29 @@
                 </i:Interaction.Behaviors>
                 <Grid RowDefinitions="30,165,Auto">
                   <DockPanel VerticalAlignment="Center">
-                    <TextBox VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center"
-                                     ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthName,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                     Text="{Binding Name,Mode=TwoWay}"
-                                     Classes="readonlybox"
-                                     DockPanel.Dock="Left"
-                                     Padding="10,5"
-                                     FontSize="16"
-                                     Foreground="{DynamicResource HighlightForegroundBrushKey}">
-                      <TextBox.InnerRightContent>
+                    <WrapPanel>
+                      <TextBlock VerticalAlignment="Center"
+                                   Text="{Binding Name,Mode=TwoWay}"
+                                   DockPanel.Dock="Left"
+                                   Padding="10,5"
+                                   FontSize="16"
+                                   Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                      <Button Command="{ReflectionBinding EditNameAsync}"
+                              Cursor="Hand"
+                              Classes="plain"
+                              ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthName,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              VerticalAlignment="Center"
+                              VerticalContentAlignment="Center">
                         <PathIcon Data="{StaticResource EditDrawing}"
-                                  Width="10" Height="10"
-                                  Opacity="0.8"
-                                  VerticalAlignment="Center" HorizontalAlignment="Left"
-                                  Margin="0">
+                                Width="10" Height="10"
+                                Opacity="0.8"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"
+                                Margin="0">
                         </PathIcon>
-                      </TextBox.InnerRightContent>
-                    </TextBox>
-                    <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      </Button>
+                    </WrapPanel>
+
+                    <Button DockPanel.Dock="Right" x:Name="delete_btn" Classes="flatbutton" IsVisible="False" Background="Transparent" HorizontalAlignment="Right" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
                             Command="{ReflectionBinding #u.DataContext.DeleteAuth}" CommandParameter="{Binding}">
                       <PathIcon Data="{DynamicResource CloseDrawing}" Width="12"></PathIcon>
                     </Button>
@@ -79,11 +189,21 @@
                     <!--<controls:ScrollingTextBlock HorizontalAlignment="Center" Width="{Binding #panel.Width}" Text="{Binding}" FontSize="14" Foreground="{DynamicResource HighlightForegroundBrushKey}" ></controls:ScrollingTextBlock>-->
 
                     <StackPanel Orientation="Horizontal" Spacing="5">
-
-                      <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowAuthCode}" CommandParameter="{Binding}"
+                      <Button Cursor="Hand"
+                              Classes="flatbutton"
+                              Command="{ReflectionBinding #u.DataContext.ShowAuthCode}"
+                              CommandParameter="{Binding}"
                               ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ShowAuthCode,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                         <PathIcon Data="{DynamicResource SearchDrawing}" Width="20"></PathIcon>
                       </Button>
+
+                      <!--<Button Cursor="Hand" 
+                            Classes="flatbutton" 
+                            Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}" 
+                            CommandParameter="{Binding}" 
+                            ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_Copy,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                      <PathIcon Data="{DynamicResource CopyDrawing}" Width="20"></PathIcon>
+                    </Button>-->
 
                       <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}"
                               ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade,Mode=OneWay,Source={x:Static resx:R.Current}}" >
@@ -95,23 +215,46 @@
                                                 <PathIcon Data="{DynamicResource CloudDrawing}" Width="20"></PathIcon>
                                             </Button>-->
 
-                      <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}" CommandParameter="{Binding}"
+                      <Button Cursor="Hand"
+                              Classes="flatbutton"
+                              Command="{ReflectionBinding #u.DataContext.ShowSteamAuthData}"
+                              CommandParameter="{Binding}"
                               ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ShowAuthInfo,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                         <PathIcon Data="{DynamicResource SlideSearchDrawing}" Width="20"></PathIcon>
                       </Button>
+
+                      <Button Cursor="Hand"
+                              Classes="flatbutton"
+                              ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ToQRCode,Mode=OneWay,Source={x:Static resx:R.Current}}" >
+                        <Button.Content>
+                          <PathIcon Data="{DynamicResource QRCodeDrawing}" Width="20"></PathIcon>
+                        </Button.Content>
+                        <Button.Flyout>
+                          <Flyout>
+                            <Image
+                                   Width="200"
+                                   Height="200"
+                                   Source="{Binding QrCodeStream^,Converter={StaticResource BitmapAssetValueConverter},Mode=OneWay}"/>
+                          </Flyout>
+                        </Button.Flyout>
+                      </Button>
                     </StackPanel>
 
-                    <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}" CommandParameter="{Binding}" HorizontalAlignment="Right"
+                    <Button Cursor="Hand"
+                            Classes="flatbutton"
+                            Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}"
+                            CommandParameter="{Binding}"
+                            HorizontalAlignment="Right"
                             ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_Copy,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                       <PathIcon Data="{DynamicResource CopyDrawing}" Width="20"></PathIcon>
                     </Button>
                   </DockPanel>
                 </Grid>
               </Border>
-            </Panel>
-          </DataTemplate>
-        </ItemsRepeater.ItemTemplate>
-      </ItemsRepeater>
-    </ScrollViewer>
-  </Panel>
+            </DataTemplate>
+          </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+      </ScrollViewer>
+    </Panel>
+  </DockPanel>
 </UserControl>

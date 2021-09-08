@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -31,9 +31,11 @@ namespace System.Application.Services.CloudService.Clients
                 cancellationToken: default);
 
         public Task<IApiResponse> DeleteAccount()
-        {
-            throw new NotImplementedException();
-        }
+            => conn.SendAsync(
+                isAnonymous: false,
+                method: HttpMethod.Delete,
+                requestUri: "api/Manage/DeleteAccount",
+                cancellationToken: default);
 
         public Task<IApiResponse<ClockInResponse>> ClockIn()
             => conn.SendAsync<ClockInRequest, ClockInResponse>(
@@ -62,6 +64,22 @@ namespace System.Application.Services.CloudService.Clients
                 isAnonymous: false,
                 method: HttpMethod.Get,
                 requestUri: "api/Manage/SignOut",
+                cancellationToken: default);
+
+        public Task<IApiResponse> BindPhoneNumber(BindPhoneNumberRequest request)
+            => conn.SendAsync(
+                isAnonymous: false,
+                isSecurity: true,
+                method: HttpMethod.Post,
+                requestUri: "api/Manage/BindPhoneNumber",
+                request: request,
+                cancellationToken: default);
+
+        public Task<IApiResponse> UnbundleAccount(FastLoginChannel channel)
+            => conn.SendAsync(
+                isAnonymous: false,
+                method: HttpMethod.Delete,
+                requestUri: $"api/Manage/UnbundleAccount/{(int)channel}",
                 cancellationToken: default);
     }
 }

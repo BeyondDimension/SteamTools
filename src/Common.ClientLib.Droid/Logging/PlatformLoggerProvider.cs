@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
 namespace System.Logging
@@ -6,6 +6,8 @@ namespace System.Logging
     [ProviderAlias("Droid")]
     public class PlatformLoggerProvider : ILoggerProvider
     {
+        private PlatformLoggerProvider() { }
+
         public ILogger CreateLogger(string name)
         {
             return new PlatformLogger(name);

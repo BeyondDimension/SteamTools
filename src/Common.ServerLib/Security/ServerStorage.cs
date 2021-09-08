@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Application.Repositories;
 using System.Linq;
 using System.Linq.Expressions;
@@ -48,6 +48,12 @@ namespace System.Security
         {
             var result = await DeleteAsync(key);
             return result > 0;
+        }
+
+        async Task<bool> IStorage.ContainsKeyAsync(string key)
+        {
+            var result = await Get(key).AnyAsync();
+            return result;
         }
     }
 }

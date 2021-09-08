@@ -2,16 +2,20 @@ using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
-using ResizeMode = System.Int32;
+using System.Windows;
 
 namespace System.Application.Services
 {
-    public interface IDesktopPlatformService
+    public partial interface IDesktopPlatformService : IPlatformService
     {
-        const string TAG = "DesktopPlatformS";
+        protected new const string TAG = "DesktopPlatformS";
 
-        void SetResizeMode(IntPtr hWnd, ResizeMode value);
+        public new static IDesktopPlatformService Instance => DI.Get<IDesktopPlatformService>();
+
+        void SetResizeMode(IntPtr hWnd, ResizeModeCompat value);
 
         /// <summary>
         /// 获取一个正在运行的进程的命令行参数。
@@ -28,19 +32,13 @@ namespace System.Application.Services
         /// </summary>
         string HostsFilePath => "/etc/hosts";
 
-        void StartProcess(string name, string filePath) => Process.Start(name, filePath);
-
-        /// <summary>
-        /// 使用文本阅读器打开文件
-        /// </summary>
-        /// <param name="filePath"></param>
-        void OpenFileByTextReader(string filePath)
+        void IPlatformService.OpenFileByTextReader(string filePath)
         {
             TextReaderProvider? userProvider = null;
             var p = GeneralSettings.TextReaderProvider.Value;
             if (p != null)
             {
-                var platform = DI.Platform;
+                var platform = DeviceInfo2.Platform;
                 if (p.ContainsKey(platform))
                 {
                     var value = p[platform];
@@ -54,7 +52,7 @@ namespace System.Application.Services
                         {
                             try
                             {
-                                StartProcess(value, filePath);
+                                Process2.StartPath(value, filePath);
                                 return;
                             }
                             catch (Exception e)
@@ -78,11 +76,16 @@ namespace System.Application.Services
 
             foreach (var item in providers)
             {
+                if (item == TextReaderProvider.VSCode && !OperatingSystem2.IsWindows)
+                {
+                    // 其他平台的 VSCode 打开方式尚未实现
+                    continue;
+                }
                 try
                 {
                     var fileName = GetFileName(item);
                     if (fileName == null) continue;
-                    StartProcess(fileName, filePath);
+                    Process2.StartPath(fileName, filePath);
                     return;
                 }
                 catch (Exception e)
@@ -98,8 +101,58 @@ namespace System.Application.Services
         /// <summary>
         /// 使用资源管理器打开某个路径
         /// </summary>
+        /// <param name="path"></param>
+        void OpenFolder(string path)
+        {
+            sbyte isDirectory = -1;
+            FileInfo? fileInfo;
+            DirectoryInfo directoryInfo = new(path);
+            if (directoryInfo.Exists) // 路径为文件夹，则打开文件夹
+            {
+                fileInfo = null;
+                isDirectory = 1;
+            }
+            else
+            {
+                fileInfo = new(path);
+                if (fileInfo.Exists) // 路径为文件，则打开文件
+                {
+                    isDirectory = 0;
+                }
+                else if (fileInfo.DirectoryName != null)
+                {
+                    directoryInfo = new(fileInfo.DirectoryName);
+                    fileInfo = null;
+                    if (directoryInfo.Exists) // 路径为文件但文件不存在，文件夹存在，则打开文件夹
+                    {
+                        fileInfo = null;
+                        isDirectory = 1;
+                    }
+                }
+            }
+
+            switch (isDirectory)
+            {
+                case 1:
+                    if (directoryInfo != null) OpenFolderByDirectoryPath(directoryInfo);
+                    break;
+                case 0:
+                    if (fileInfo != null) OpenFolderSelectFilePath(fileInfo);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 使用资源管理器打开文件夹路径
+        /// </summary>
         /// <param name="dirPath"></param>
-        void OpenFolder(string dirPath);
+        void OpenFolderByDirectoryPath(DirectoryInfo info);
+
+        /// <summary>
+        /// 使用资源管理器选中文件路径
+        /// </summary>
+        /// <param name="filePath"></param>
+        void OpenFolderSelectFilePath(FileInfo info);
 
         /// <summary>
         /// 设置系统关闭时任务
@@ -127,6 +180,7 @@ namespace System.Application.Services
 
         /// <inheritdoc cref="ISteamService.SteamProgramPath"/>
         string? GetSteamProgramPath();
+        string? GetRegistryVdfPath();
 
         /// <inheritdoc cref="ISteamService.GetLastLoginUserName"/>
         string GetLastSteamLoginUserName();
@@ -135,11 +189,6 @@ namespace System.Application.Services
         void SetCurrentUser(string userName);
 
         #endregion
-
-        public const ResizeMode ResizeMode_NoResize = 0;
-        public const ResizeMode ResizeMode_CanMinimize = 1;
-        public const ResizeMode ResizeMode_CanResize = 2;
-        public const ResizeMode ResizeMode_CanResizeWithGrip = 3;
 
         #region MachineUniqueIdentifier
 
@@ -186,15 +235,41 @@ namespace System.Application.Services
         /// <summary>
         /// 打开桌面图标设置
         /// </summary>
+        [SupportedOSPlatform("Windows")]
         void OpenDesktopIconsSettings();
+
+        [SupportedOSPlatform("Windows")]
+        void OpenGameControllers();
 
         /// <summary>
         /// 已正常权限启动进程
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
+        [SupportedOSPlatform("Windows")]
         Process StartAsInvoker(string fileName);
 
-        Process? StartAsInvoker(ProcessStartInfo startInfo);
+        /// <summary>
+        /// 获取占用端口的进程
+        /// </summary>
+        /// <param name="port"></param>
+        /// <param name="isTCPorUDP"></param>
+        /// <returns></returns>
+        [SupportedOSPlatform("Windows")]
+        Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true);
+
+        [SupportedOSPlatform("Windows")]
+        bool IsAdministrator { get; }
+
+        /// <summary>
+        /// 从管理员权限进程中降权到普通权限启动进程
+        /// </summary>
+        /// <param name="cmdArgs"></param>
+        [SupportedOSPlatform("Windows")]
+        void UnelevatedProcessStart(string cmdArgs);
+
+        void FixFluentWindowStyleOnWin7(IntPtr hWnd)
+        {
+        }
     }
 }

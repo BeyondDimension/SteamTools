@@ -1,19 +1,25 @@
 using Android.App;
 using Android.Content;
+using Android.OS;
 using AndroidX.Core.App;
 using System.Collections.Generic;
 using System.Common;
 using AndroidApplication = Android.App.Application;
+using CC = System.Common.Constants;
 using JClass = Java.Lang.Class;
 
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance}"/>
-    public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance> : INotificationService<TNotificationType, TEntrance>
+    public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance, TNotificationService> : INotificationService<TNotificationType, TEntrance, TNotificationService>
         where TNotificationType : notnull, Enum
         where TNotificationChannelType : notnull, Enum
         where TEntrance : notnull, Enum
+        where TNotificationService : INotificationService<TNotificationType, TEntrance, TNotificationService>
     {
+        public static bool IsSupportedNotificationChannel
+            => Build.VERSION.SdkInt >= BuildVersionCodes.O;
+
         protected virtual Type? GetActivityType(TEntrance entrance) => null;
 
         protected virtual int GetNotifyId(TNotificationType notificationType)
@@ -42,17 +48,26 @@ namespace System.Application.Services.Implementation
             manager.CancelAll();
         }
 
-        /// <summary>
-        /// 初始化通知渠道
-        /// </summary>
-        /// <param name="context"></param>
-        public void InitNotificationChannels(Context context)
+        void InitNotificationChannelsCore(Context context)
         {
             var manager = NotificationManagerCompat.From(context);
             var items = Enum.GetValues(typeof(TNotificationChannelType));
             foreach (TNotificationChannelType item in items)
             {
                 CreateNotificationChannel(manager, item);
+            }
+        }
+
+        /// <summary>
+        /// 初始化通知渠道
+        /// </summary>
+        /// <param name="context"></param>
+        public static void InitNotificationChannels(Context context)
+        {
+            if (IsSupportedNotificationChannel &&
+                   INotificationService<TNotificationType, TEntrance, TNotificationService>.Instance is PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance, TNotificationService> notification)
+            {
+                notification.InitNotificationChannelsCore(context);
             }
         }
 
@@ -94,9 +109,10 @@ namespace System.Application.Services.Implementation
         /// <param name="manager"></param>
         /// <param name="notificationChannelType"></param>
         /// <returns></returns>
-        protected NotificationChannel CreateNotificationChannel(NotificationManagerCompat manager,
+        protected NotificationChannel? CreateNotificationChannel(NotificationManagerCompat manager,
            TNotificationChannelType notificationChannelType)
         {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return null;
             var channelId = GetChannelId(notificationChannelType);
             var name = GetName(notificationChannelType);
             var description = GetDescription(notificationChannelType);
@@ -169,8 +185,8 @@ namespace System.Application.Services.Implementation
             IReadOnlyCollection<NotificationCompat.Action>? actions = null)
         {
             var channelType = GetChannel(notificationType);
-            var channel = CreateNotificationChannel(manager, channelType);
-            var builder = new NotificationCompat.Builder(context, channel.Id);
+            var channelId = GetChannelId(channelType);
+            var builder = new NotificationCompat.Builder(context, channelId);
             var level = GetImportanceLevel(channelType);
             builder.SetPriority(GetNotificationPriority(level));
             var status_bar_icon = R.drawable.ic_stat_notify_msg;
@@ -199,11 +215,9 @@ namespace System.Application.Services.Implementation
            TNotificationType notificationType,
            bool autoCancel,
            string? title,
-           TEntrance entrance)
+           TEntrance? entrance)
         {
-            var notificationEntrance = entrance != null ?
-                GetActivityType(entrance).GetJClass() :
-                R.activities.entrance;
+            var notificationEntrance = (entrance != null ? GetActivityType(entrance)?.GetJClass() : null) ?? R.activities.entrance;
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
             var builder = BuildNotify(context, manager, text, notificationType,
@@ -213,24 +227,25 @@ namespace System.Application.Services.Implementation
         }
 
         public Progress<float> NotifyDownload(
-            string text,
+            Func<string> text,
             TNotificationType notificationType,
             string? title)
         {
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
             var builder = BuildNotify(context, manager,
-                text: text.Format(0),
+                text: text(),
                 notificationType,
                 title: title);
             // 进度单位说明
             // 通用层采用 float 浮点数作为进度值，范围从0~100，保留两位小数
             // 平台层采用 int 整型作为进度值，范围从0~10000，转换需要 乘 100
             const int unit_convert_multiple = 100; // 从float到int转换单位倍数
-            const int PROGRESS_MAX = 100 * unit_convert_multiple; // 进度条满值
+            const float PROGRESS_MAX = CC.MaxProgress * unit_convert_multiple; // 进度条满值
+            int PROGRESS_MAX_INT32 = PROGRESS_MAX.ToInt32();
             // 发出零进度的初始通知
             // Issue the initial notification with zero progress
-            builder.SetProgress(PROGRESS_MAX, 0, false);
+            builder.SetProgress(PROGRESS_MAX_INT32, 0, false);
             var notifyId = GetNotifyId(notificationType);
             manager.Notify(notifyId, builder.Build());
             // 在这里完成跟踪进度的工作。
@@ -248,7 +263,7 @@ namespace System.Application.Services.Implementation
             void Handler(float current)
             {
                 var currentInt32 = (current * unit_convert_multiple).ToInt32();
-                if (currentInt32 >= PROGRESS_MAX)
+                if (currentInt32 >= PROGRESS_MAX_INT32)
                 {
                     // 这将使100%时直接取消通知，并不会在UI上显示
                     // 报告进度值满的操作应当是幂等的
@@ -266,8 +281,8 @@ namespace System.Application.Services.Implementation
                     // 在报告进度值满后不可再更改进度
                     if (builder == null) throw new ArgumentNullException(nameof(builder));
                     if (manager == null) throw new ArgumentNullException(nameof(manager));
-                    builder.SetProgress(PROGRESS_MAX, currentInt32, false);
-                    builder.SetContentText(text.Format(currentInt32));
+                    builder.SetProgress(PROGRESS_MAX_INT32, currentInt32, false);
+                    builder.SetContentText(text());
                     manager.Notify(notifyId, builder.Build());
                 }
             }

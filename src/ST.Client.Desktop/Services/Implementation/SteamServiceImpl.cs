@@ -1,3 +1,4 @@
+using Gameloop.Vdf.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Application.Models;
@@ -9,8 +10,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Versioning;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Application.Services.ISteamService;
 
 namespace System.Application.Services.Implementation
 {
@@ -32,31 +36,38 @@ namespace System.Application.Services.Implementation
         /// </list>
         /// </summary>
         readonly string? UserVdfPath;
+        readonly string? ConfigVdfPath;
         readonly string? AppInfoPath;
         readonly string? LibrarycacheDirPath;
         const string UserDataDirectory = "userdata";
         readonly IDesktopPlatformService platformService;
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
-        readonly string[] steamProcess = new[] { "steam", "steamservice", "steamwebhelper" };
-        readonly IHttpService http;
+        readonly string? mRegistryVdfPath;
+        readonly string[] steamProcess = new[] { "steam", "steam_osx", "steamservice", "steamwebhelper" };
+        readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
+        IHttpService Http => _http.Value;
 
-        public SteamServiceImpl(IDesktopPlatformService platformService, IHttpService http)
+        public SteamServiceImpl(IDesktopPlatformService platformService)
         {
             this.platformService = platformService;
-            this.http = http;
             mSteamDirPath = platformService.GetSteamDirPath();
             mSteamProgramPath = platformService.GetSteamProgramPath();
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
             AppInfoPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "appinfo.vdf");
             LibrarycacheDirPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "librarycache");
+            mRegistryVdfPath = platformService.GetRegistryVdfPath();// SteamDirPath == null ? null : Path.Combine(SteamDirPath, "registry.vdf");
+            //RegistryVdfPath  = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "registry.vdf");
+            ConfigVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "config.vdf");
 
             if (!File.Exists(UserVdfPath)) UserVdfPath = null;
             if (!File.Exists(AppInfoPath)) AppInfoPath = null;
+            if (!File.Exists(ConfigVdfPath)) ConfigVdfPath = null;
             if (!Directory.Exists(LibrarycacheDirPath)) LibrarycacheDirPath = null;
         }
 
         public string? SteamDirPath => mSteamDirPath;
+        public string? RegistryVdfPath => mRegistryVdfPath;
 
         public string? SteamProgramPath => mSteamProgramPath;
 
@@ -70,15 +81,15 @@ namespace System.Application.Services.Implementation
 
         public void KillSteamProcess()
         {
-            var processes = Process.GetProcesses();
-            foreach (var p in processes)
+            foreach (var p in steamProcess)
             {
-                if (steamProcess.Contains(p.ProcessName, StringComparer.OrdinalIgnoreCase))
+                var process = Process.GetProcessesByName(p);
+                foreach (var item in process)
                 {
-                    if (p.HasExited == false)
+                    if (item.HasExited == false)
                     {
-                        p.Kill();
-                        p.WaitForExit();
+                        item.Kill();
+                        item.WaitForExit();
                     }
                 }
             }
@@ -90,7 +101,6 @@ namespace System.Application.Services.Implementation
             {
                 KillSteamProcess();
                 return true;
-
                 //if (IsRunningSteamProcess)
                 //{
                 //    Process closeProc = Process.Start(new ProcessStartInfo(SteamProgramPath, "-shutdown"));
@@ -104,26 +114,25 @@ namespace System.Application.Services.Implementation
                 Log.Error(TAG, e, "KillSteamProcess Fail.");
                 return false;
             }
+            finally
+            {
+                SteamConnectService.Current.IsConnectToSteam = false;
+            }
         }
 
         public int? GetSteamProcessPid()
         {
-            var processes = Process.GetProcesses();
-            foreach (var p in processes)
-            {
-                if (string.Equals(p.ProcessName, steamProcess[0], StringComparison.OrdinalIgnoreCase))
-                {
-                    return p.Id;
-                }
-            }
+            var processes = Process.GetProcessesByName(steamProcess[0]);
+            if (processes.Any_Nullable())
+                return processes.First().Id;
             return default;
         }
 
-        public void StartSteam(string arguments)
+        public void StartSteam(string? arguments = null)
         {
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {
-                Process.Start(SteamProgramPath, arguments);
+                Process2.Start(SteamProgramPath, arguments);
             }
         }
 
@@ -183,6 +192,114 @@ namespace System.Application.Services.Implementation
             return users;
         }
 
+        public bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> model)
+        {
+            var authorizeds = new List<AuthorizedDevice>();
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
+                {
+                    dynamic v = VdfHelper.Read(ConfigVdfPath);
+                    var authorizedDevice = v.Value.AuthorizedDevice;
+                    if (authorizedDevice != null)
+                    {
+                        foreach (var item in authorizedDevice)
+                        {
+                            try
+                            {
+                                var i = item.Value;
+                                authorizeds.Add(new AuthorizedDevice(item.ToString())
+                                {
+                                    SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
+                                    Timeused = Convert.ToInt64(i.timeused.ToString()),
+                                    Description = i.description.ToString(),
+                                    Tokenid = i.tokenid.ToString(),
+                                });
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Error(TAG, e, "GetAuthorizedDeviceList Fail(0).");
+                            }
+                        }
+                        var oldStr = $"\t{{\n{string.Join("\n", authorizeds.Select(x => x.CurrentVdfString))}\n\t}}".TrimEnd("\n");
+                        //authorizedDevice.Select(x => x.ToString());
+                        var newStr = $"\t{{\n{string.Join("\n", model.OrderBy(x => x.Index).Select(x => x.CurrentVdfString))}\n\t}}".TrimEnd("\n");
+                        VdfHelper.UpdateValueByReplaceNoPattern(ConfigVdfPath, oldStr, newStr);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "UpdateAuthorizedDeviceList Fail(0).");
+                return false;
+            }
+            return false;
+        }
+        public bool RemoveAuthorizedDeviceList(AuthorizedDevice model)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
+                {
+                    VdfHelper.DeleteValueByKey(ConfigVdfPath, model.OriginVdfString.ThrowIsNull(nameof(model.OriginVdfString)));
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "RemoveAuthorizedDeviceList Fail(0).");
+                return false;
+            }
+            return false;
+        }
+        public List<AuthorizedDevice> GetAuthorizedDeviceList()
+        {
+            var authorizeds = new List<AuthorizedDevice>();
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
+                {
+                    // 注意：动态类型在移动端受限，且运行时可能抛出异常
+                    dynamic v = VdfHelper.Read(ConfigVdfPath);
+                    var authorizedDevice = v.Value.AuthorizedDevice;
+                    if (authorizedDevice != null)
+                    {
+                        var index = 0;
+                        foreach (var item in authorizedDevice)
+                        {
+                            try
+                            {
+                                var i = item.Value;
+                                authorizeds.Add(new AuthorizedDevice(item.ToString())
+                                {
+                                    Index = index,
+                                    SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
+                                    Timeused = Convert.ToInt64(i.timeused.ToString()),
+                                    Description = i.description.ToString(),
+                                    Tokenid = i.tokenid.ToString(),
+                                });
+                                index++;
+                            }
+                            catch (Exception e)
+                            {
+                                Log.Error(TAG, e, "GetAuthorizedDeviceList Fail(0).");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "GetAuthorizedDeviceList Fail(1).");
+            }
+            return authorizeds;
+        }
+
         public void SetCurrentUser(string userName) => platformService.SetCurrentUser(userName);
 
         public List<SteamApp>? GetAppListJson(string filePath)
@@ -238,7 +355,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public void DeleteLocalUserData(SteamUser user)
+        public void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false)
         {
             if (string.IsNullOrWhiteSpace(UserVdfPath) || string.IsNullOrWhiteSpace(SteamDirPath))
             {
@@ -247,10 +364,13 @@ namespace System.Application.Services.Implementation
             else
             {
                 VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
-                var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
-                if (Directory.Exists(temp))
+                if (IsDeleteUserData)
                 {
-                    Directory.Delete(temp, true);
+                    var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
+                    if (Directory.Exists(temp))
+                    {
+                        Directory.Delete(temp, true);
+                    }
                 }
             }
         }
@@ -283,44 +403,61 @@ namespace System.Application.Services.Implementation
             List<SteamApp> GetAppInfos_()
             {
                 var apps = new List<SteamApp>();
-                if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
-                    return apps;
-                using (BinaryReader binaryReader = new(File.OpenRead(AppInfoPath)))
+                try
                 {
-                    uint num = binaryReader.ReadUInt32();
-                    if (num != MagicNumber)
+                    if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
+                        return apps;
+                    using var stream = IOPath.OpenRead(AppInfoPath);
+                    if (stream == null)
                     {
-                        Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
                         return apps;
                     }
-                    SteamApp? app = new();
-                    unknownValueAtStart = binaryReader.ReadUInt32();
-                    while ((app = SteamApp.FromReader(binaryReader)) != null)
+                    using (BinaryReader binaryReader = new(stream))
                     {
-                        if (app.AppId > 0)
+                        uint num = binaryReader.ReadUInt32();
+                        if (num != MagicNumber)
                         {
-                            if (GameLibrarySettings.DefaultIgnoreList.Contains(app.AppId))
-                                continue;
-                            if (app.ParentId > 0)
+                            Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                            return apps;
+                        }
+                        SteamApp? app = new();
+                        unknownValueAtStart = binaryReader.ReadUInt32();
+                        while ((app = SteamApp.FromReader(binaryReader)) != null)
+                        {
+                            if (app.AppId > 0)
                             {
-                                var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
-                                if (parentApp != null)
-                                    parentApp.ChildApp.Add(app.AppId);
-                                //continue;
+                                //if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
+                                //    continue;
+                                if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
+                                    continue;
+                                //if (app.ParentId > 0)
+                                //{
+                                //    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
+                                //    if (parentApp != null)
+                                //        parentApp.ChildApp.Add(app.AppId);
+                                //    //continue;
+                                //}
+                                apps.Add(app);
+                                //app.Modified += (s, e) =>
+                                //{
+                                //};
                             }
-                            apps.Add(app);
-                            //app.Modified += (s, e) =>
-                            //{
-                            //};
                         }
                     }
+                    return apps;
                 }
-                return apps;
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(SteamServiceImpl), ex, nameof(GetAppInfos));
+                    GC.Collect();
+                    return apps;
+                }
             }
         }
 
-        public string GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
+        public string? GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
         {
+            if (LibrarycacheDirPath == null) return null;
             var fileName = type switch
             {
                 SteamApp.LibCacheType.Header => $"{appId}_header.jpg",
@@ -350,7 +487,7 @@ namespace System.Application.Services.Implementation
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
             if (url == null) return string.Empty;
-            var value = await http.GetImageAsync(url, ImageChannelType.SteamGames);
+            var value = await Http.GetImageAsync(url, ImageChannelType.SteamGames);
             return value ?? string.Empty;
         }
 
@@ -379,119 +516,237 @@ namespace System.Application.Services.Implementation
             //}
         }
 
-        public async Task<(string steamid, string encrypted_loginkey, string sessionkey, string digest)> GetLoginUsingSteamClientAuthAsync(bool runasInvoker = false)
+
+        string[]? GetLibraryPaths()
         {
-            if (runasInvoker)
+            if (string.IsNullOrEmpty(SteamDirPath) || !Directory.Exists(SteamDirPath))
             {
-                if (AppHelper.ProgramPath.EndsWith(FileEx.EXE))
+                return null;
+            }
+
+            List<string> paths = new()
+            {
+                Path.Combine(SteamDirPath, "SteamApps"),
+            };
+
+            try
+            {
+
+                string libraryFoldersPath = Path.Combine(SteamDirPath, "SteamApps", "libraryfolders.vdf");
+
+                dynamic v = VdfHelper.Read(libraryFoldersPath);
+
+                for (int i = 1; ; i++)
                 {
-                    var consoleProgramPath = AppHelper.ProgramPath.Substring(0, AppHelper.ProgramPath.Length - FileEx.EXE.Length) + ".Console" + FileEx.EXE;
-                    string? value = null;
-                    if (File.Exists(consoleProgramPath))
+                    try
                     {
-                        var startInfo = new ProcessStartInfo
+                        dynamic pathNode = v.Value[i.ToString()];
+
+                        if (pathNode == null) break;
+
+                        if (pathNode.path != null)
                         {
-                            FileName = consoleProgramPath + " glusca",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true,
-                        };
-                        using var p = platformService.StartAsInvoker(startInfo)!;
-                        var reader = p.StandardOutput;
-                        StringBuilder sb = new();
-                        while (!reader.EndOfStream)
-                        {
-                            sb.AppendLine(reader.ReadLine());
+                            // New format
+                            // Valve introduced a new format for the "libraryfolders.vdf" file
+                            // In the new format, the node "1" not only contains a single value (the path),
+                            // but multiple values: path, label, mounted, contentid
+
+                            // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
+                            // We consider only the value '1' as that the path is actually enabled.
+                            if (pathNode.mounted != null && pathNode.mounted.ToString() != "1")
+                                continue;
+                            pathNode = pathNode.path;
                         }
-                        value = sb.ToString();
-                        p.WaitForExit();
+
+                        string path = Path.Combine(pathNode.ToString(), "SteamApps");
+
+                        if (Directory.Exists(path))
+                            paths.Add(path);
                     }
-                    if (value != null)
+                    catch (Exception e)
+                    {
+                        Log.Error(TAG, e, "GetLibraryPaths for catch");
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "GetLibraryPaths Read libraryFoldersPath catch");
+            }
+
+            return paths.ToArray();
+        }
+
+        public SteamApp? FileToAppInfo(string filename)
+        {
+            try
+            {
+                string[] content = File.ReadAllLines(filename);
+                // Skip if file contains only NULL bytes (this can happen sometimes, example: download crashes, resulting in a corrupted file)
+                if (content.Length == 1 && string.IsNullOrWhiteSpace(content[0].TrimStart('\0'))) return null;
+
+                dynamic v = VdfHelper.Read(filename);
+
+                if (v.Value == null)
+                {
+                    Toast.Show(
+                        $"{filename}{Environment.NewLine}contains unexpected content.{Environment.NewLine}This game will be ignored.");
+                    return null;
+                }
+                v = v.Value;
+
+                SteamApp newInfo = new SteamApp
+                {
+                    AppId = uint.Parse((v.appid ?? v.appID ?? v.AppID).ToString()),
+                    Name = v.name.ToString() ?? v.installdir.ToString(),
+                    InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", v.installdir.ToString()),
+                    State = int.Parse(v.StateFlags.ToString()),
+                    SizeOnDisk = long.Parse(v.SizeOnDisk.ToString()),
+                    LastOwner = long.Parse(v.LastOwner.ToString()),
+                    BytesToDownload = long.Parse(v.BytesToDownload.ToString()),
+                    BytesDownloaded = long.Parse(v.BytesDownloaded.ToString()),
+                    lastUpdatedTicks = long.Parse(v.LastUpdated.ToString()),
+                };
+                newInfo.LastUpdated = newInfo.lastUpdatedTicks.ToDateTimeS();
+                return newInfo;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(FileToAppInfo), ex, filename);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取正在下载的SteamApp列表
+        /// </summary>
+        public List<SteamApp> GetDownloadingAppList()
+        {
+            var appInfos = new List<SteamApp>();
+            try
+            {
+                var libraryPaths = GetLibraryPaths();
+                if (!libraryPaths.Any_Nullable())
+                {
+                    Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
+                }
+
+                foreach (string path in libraryPaths!)
+                {
+                    DirectoryInfo di = new DirectoryInfo(path);
+
+                    foreach (FileInfo fileInfo in di.EnumerateFiles("*.acf"))
+                    {
+                        // Skip if file is empty
+                        if (fileInfo.Length == 0) continue;
+
+                        SteamApp? ai = FileToAppInfo(fileInfo.FullName);
+                        if (ai == null) continue;
+
+                        appInfos.Add(ai);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(GetDownloadingAppList), ex, "GetDownloadApp Error");
+            }
+            return appInfos.OrderBy(x => x.Name).ToList();
+        }
+
+        static uint IdFromAcfFilename(string filename)
+        {
+            string filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
+
+            int loc = filenameWithoutExtension.IndexOf('_');
+            return uint.Parse(filenameWithoutExtension.Substring(loc + 1));
+        }
+
+        /// <summary>
+        /// 监听Steam下载
+        /// </summary>
+        public void InitWatchSteamDownloading(Action<uint> changedAction, Action<uint> deleteAction)
+        {
+            var libraryPaths = GetLibraryPaths();
+            if (!libraryPaths.Any_Nullable())
+            {
+                Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
+            }
+
+            foreach (string libraryFolder in libraryPaths!)
+            {
+                var fsw = new FileSystemWatcher(libraryFolder, "*.acf")
+                {
+                    NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.CreationTime,
+                };
+                fsw.Changed += Fsw_Changed;
+                fsw.Deleted += Fsw_Deleted;
+                fsw.EnableRaisingEvents = true;
+            }
+
+            void Fsw_Deleted(object sender, FileSystemEventArgs e)
+            {
+                uint id = IdFromAcfFilename(e.FullPath);
+
+                //SteamApp info = Apps.FirstOrDefault(x => x.ID == id);
+                //if (info == null) return;
+
+                //var eventArgs = new AppInfoEventArgs(info);
+                deleteAction.Invoke(id);
+            }
+
+            void Fsw_Changed(object sender, FileSystemEventArgs e)
+            {
+                dynamic? v = null;
+                try
+                {
+                    // This is necessary because sometimes the file is still accessed by steam, so let's wait for 10 ms and try again.
+                    // Maximum 5 times
+                    int counter = 1;
+                    do
                     {
                         try
                         {
-                            var r = Serializable.DMPB64U<(string steamid, string encrypted_loginkey, string sessionkey, string digest)>(value);
-                            return r;
+                            v = VdfHelper.Read(e.FullPath);
+                            break;
                         }
-                        catch
+                        catch (IOException)
                         {
+                            System.Threading.Thread.Sleep(50);
                         }
                     }
+                    while (counter++ <= 5);
                 }
-            }
-            else
-            {
-                const string url_localhost_auth_public = "http://127.0.0.1:27060/auth/?u=public";
-                try
+                catch
                 {
-                    var client = http.Factory.CreateClient();
-                    client.Timeout = TimeSpan.FromSeconds(.85);
-                    var request = new HttpRequestMessage(HttpMethod.Get, url_localhost_auth_public);
-                    request.Headers.Add("Origin", "https://steamcommunity.com");
-                    request.Headers.Add("Accept", MediaTypeNames.JSON);
-                    request.Headers.UserAgent.ParseAdd(http.PlatformHelper.UserAgent);
-                    var response = await client.SendAsync(request);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                        using var reader = new StreamReader(stream, Encoding.UTF8);
-                        using var json = new JsonTextReader(reader);
-                        var jsonObj = JObject.Load(json);
-                        var steamid = jsonObj["steamid"]!.ToString();
-                        var encrypted_loginkey = jsonObj["encrypted_loginkey"]!.ToString();
-                        var sessionkey = jsonObj["sessionkey"]!.ToString();
-                        var digest = jsonObj["digest"]!.ToString();
-                        return (steamid, encrypted_loginkey, sessionkey, digest);
-                    }
+                    return;
                 }
-                catch (OperationCanceledException)
-                {
-                }
+
+                // Shouldn't happen, but might occur if Steam holds the acf file too long
+                if (v == null) return;
+
+                // Search for changed app, if null it's a new app
+                //SteamApp info = Apps.FirstOrDefault(x => x.ID == newID);
+                changedAction.Invoke((v.appid ?? v.appID ?? v.AppID));
+
+                //if (info != null) // Download state changed
+                //{
+                //    eventArgs = new AppInfoChangedEventArgs(info, info.State);
+                //    // Only update existing AppInfo
+                //    info.State = int.Parse(v.StateFlags.ToString());
+                //}
+                //else // New download started
+                //{
+                //    // Add new AppInfo
+                //    info = JsonToAppInfo(newJson);
+                //    Apps.Add(info);
+                //    eventArgs = new AppInfoChangedEventArgs(info, -1);
+                //}
+
+                //OnAppInfoChanged(info, eventArgs);
             }
-            return default;
-        }
-
-        public async Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync((string steamid, string encrypted_loginkey, string sessionkey, string digest) auth_data)
-        {
-            if (auth_data == default) return default;
-
-            const string url_steamcommunity_checkclientautologin = "https://steamcommunity.com//login/checkclientautologin";
-            var uri_steamcommunity_checkclientautologin = new Uri(url_steamcommunity_checkclientautologin);
-            var request = new HttpRequestMessage(HttpMethod.Post, uri_steamcommunity_checkclientautologin)
-            {
-#pragma warning disable CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
-                Content = new FormUrlEncodedContent(new Dictionary<string, string?>
-                    {
-                        { "steamid", auth_data.steamid },
-                        { "encrypted_loginkey", auth_data.encrypted_loginkey },
-                        { "sessionkey",  auth_data.sessionkey },
-                        { "digest",  auth_data.digest },
-                    }),
-#pragma warning restore CS8620 // 由于引用类型的可为 null 性差异，实参不能用于形参。
-            };
-            var client = http.Factory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(9.75);
-            var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-            if (response.IsSuccessStatusCode && response.Headers.TryGetValues("Set-Cookie", out var cookies))
-            {
-                CookieContainer container = new();
-                foreach (var item in cookies)
-                {
-                    if (string.IsNullOrWhiteSpace(item)) continue;
-                    container.SetCookies(uri_steamcommunity_checkclientautologin, item);
-                }
-                var cookies2 = container.GetCookies(uri_steamcommunity_checkclientautologin);
-                return (cookies2, uri_steamcommunity_checkclientautologin);
-            }
-
-            return default;
-        }
-
-        public async Task<(CookieCollection cookies, Uri uri)> GetLoginUsingSteamClientCookiesAsync(bool runasInvoker = false)
-        {
-            var auth_data = await GetLoginUsingSteamClientAuthAsync(runasInvoker);
-            var r = await GetLoginUsingSteamClientCookiesAsync(auth_data);
-            return r;
         }
     }
 }

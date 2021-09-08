@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace System.Security
@@ -29,6 +29,12 @@ namespace System.Security
         {
             var result = SecureStorage.Remove(key);
             return Task.FromResult(result);
+        }
+
+        async Task<bool> IStorage.ContainsKeyAsync(string key)
+        {
+            var result = await SecureStorage.GetAsync(key);
+            return result != null;
         }
     }
 }

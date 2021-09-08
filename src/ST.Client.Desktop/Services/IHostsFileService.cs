@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace System.Application.Services
 {
@@ -7,7 +7,7 @@ namespace System.Application.Services
     /// </summary>
     public interface IHostsFileService
     {
-        const string TAG = "HostsFileS";
+        protected const string TAG = "HostsFileS";
 
         public static IHostsFileService Instance => DI.Get<IHostsFileService>();
 
@@ -59,15 +59,34 @@ namespace System.Application.Services
         OperationResult RemoveHostsByTag();
 
         private static bool mOnExitRestoreHosts;
+        private static readonly object mOnExitRestoreHostsLock = new();
 
         /// <summary>
         /// 当程序退出时还原 hosts 文件
         /// </summary>
         static void OnExitRestoreHosts()
         {
-            if (mOnExitRestoreHosts) return;
-            Instance.RemoveHostsByTag();
-            mOnExitRestoreHosts = true;
+            lock (mOnExitRestoreHostsLock)
+            {
+                if (mOnExitRestoreHosts) return;
+                Instance.RemoveHostsByTag();
+                mOnExitRestoreHosts = true;
+            }
+        }
+
+        bool ContainsHostsByTag();
+
+        enum EncodingType : byte
+        {
+            /// <summary>
+            /// 系统的活动代码页并创建 Encoding 与其对应的对象。 
+            /// 活动代码页可能是 ANSI 代码页，其中包括 ASCII 字符集以及不同于代码页的其他字符。
+            /// </summary>
+            ANSICodePage,
+
+            UTF8,
+
+            UTF8WithBOM,
         }
     }
 }

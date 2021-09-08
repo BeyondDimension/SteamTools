@@ -1,6 +1,13 @@
-﻿using ReactiveUI;
+using ReactiveUI;
+using System.Application.Mvvm;
+using System.Application.Services;
+using System.Application.UI.Resx;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using WinAuth;
 
@@ -8,11 +15,38 @@ namespace System.Application.Models
 {
     public class MyAuthenticator : ReactiveObject
     {
+#if __MOBILE__
+        public static string CodeFormat(string? code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                return string.Empty;
+            }
+            var c3 = code.Length / 3;
+            if (code.Length % 3 == 0 && c3 > 1)
+            {
+                var list = code.ToCharArray().ToList();
+                for (int i = 1; i < c3; i++)
+                {
+                    list.Insert(i * 3, ' ');
+                }
+                return new string(list.ToArray());
+            }
+            else
+            {
+                var arr = code.ToCharArray();
+                return string.Join(' ', arr);
+            }
+        }
+#endif
+
         public MyAuthenticator()
         {
+            AuthenticatorData = new GAPAuthenticatorDTO();
+            OriginName = string.Empty;
         }
 
-        public MyAuthenticator(IGAPAuthenticatorDTO data) : this()
+        public MyAuthenticator(IGAPAuthenticatorDTO data)
         {
             AuthenticatorData = data;
             OriginName = AuthenticatorData.Name;
@@ -46,7 +80,6 @@ namespace System.Application.Models
                 this.RaisePropertyChanged();
             }
         }
-
 
         public int Index
         {
@@ -87,6 +120,7 @@ namespace System.Application.Models
             }
         }
 
+#if !__MOBILE__
         private bool _IsShowCode;
         public bool IsShowCode
         {
@@ -100,6 +134,7 @@ namespace System.Application.Models
                 this.RaisePropertyChanged();
             }
         }
+#endif
 
         private int _CodeCountdown;
         public int CodeCountdown
@@ -115,21 +150,67 @@ namespace System.Application.Models
             }
         }
 
+        string _CurrentCode = string.Empty;
+        string? _CurrentCodeCache;
+
+        string GetCurrentCode()
+        {
+            try
+            {
+                return AuthenticatorData.Value.CurrentCode;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public Task<Stream?> QrCodeStream => GetQrCodeStream();
+
         public string CurrentCode
         {
             get
             {
-                return AuthenticatorData.Value.CurrentCode;
+                if (_CurrentCodeCache == null)
+                {
+                    _CurrentCode = GetCurrentCode();
+                    return _CurrentCode;
+                }
+                else
+                {
+                    var r = _CurrentCodeCache;
+                    _CurrentCodeCache = null;
+                    return r;
+                }
             }
             set
             {
-                this.RaisePropertyChanged();
+                this.RaiseAndSetIfChanged(ref _CurrentCode, value);
             }
+        }
+
+        public string CurrentCodeCache
+        {
+            set => _CurrentCodeCache = value;
+        }
+
+        public string? GetNextCode()
+        {
+            var value = GetCurrentCode();
+            if (value != _CurrentCode) return value;
+            return null;
+        }
+
+        public void RefreshCode(string? value = null)
+        {
+            value ??= GetCurrentCode();
+            CurrentCodeCache = value;
+            CurrentCode = value;
         }
 
         public void Sync() => AuthenticatorData.Value.Sync();
 
-        public bool ReadXml(XmlReader reader, string password)
+        public bool ReadXml(XmlReader reader, string? password)
         {
             bool changed = false;
 
@@ -137,8 +218,7 @@ namespace System.Application.Models
             //{
             //    Id = id;
             //}
-            AuthenticatorData = new GAPAuthenticatorDTO();
-            string authenticatorType = reader.GetAttribute("type");
+            var authenticatorType = reader.GetAttribute("type");
             switch (authenticatorType)
             {
                 case "WinAuth.SteamAuthenticator":
@@ -232,7 +312,6 @@ namespace System.Application.Models
                             AuthenticatorData.Value.ServerTimeDiff = reader.ReadElementContentAsLong();
                             break;
 
-
                         default:
                             reader.Skip();
                             break;
@@ -250,6 +329,211 @@ namespace System.Application.Models
 
         public static List<MyAuthenticator> Get(IEnumerable<IGAPAuthenticatorDTO> items)
             => items.Select(x => new MyAuthenticator(x)).ToList();
+
+#if __MOBILE__
+
+        int _AutoRefreshCodeTimingCurrent = -1;
+        /// <summary>
+        /// 当前自动刷新倒计时值
+        /// </summary>
+        public int AutoRefreshCodeTimingCurrent
+        {
+            get => _AutoRefreshCodeTimingCurrent;
+            set => this.RaiseAndSetIfChanged(ref _AutoRefreshCodeTimingCurrent, value);
+        }
+
+        int TimingCycle
+        {
+            get
+            {
+                var value = AuthenticatorData.Value.ServerTime % Convert.ToInt64(TimeSpan.FromSeconds(Period).TotalMilliseconds);
+                return Period - Convert.ToInt32(TimeSpan.FromMilliseconds(value).TotalSeconds);
+            }
+        }
+
+#if DEBUG
+        /// <summary>
+        /// 开始自动刷新一次性密码代码
+        /// </summary>
+        /// <param name="token"></param>
+        [Obsolete("use IAutoRefreshCodeHost.StartTimer")]
+        async void StartAutoRefreshCode(CancellationToken token)
+        {
+            RefreshCode();
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    var value = TimingCycle;
+                    while (true)
+                    {
+                        var isZero = value-- <= 0;
+                        if (isZero)
+                        {
+                            value = Period;
+                        }
+#if DEBUG
+                        Log.Debug("AutoRefreshCode", "while({1}), name: {0}", Name, value);
+#endif
+                        token.ThrowIfCancellationRequested();
+                        string? code = null;
+                        if (isZero)
+                        {
+                            while (true)
+                            {
+                                code = GetNextCode();
+                                if (code != null) break;
+                                await Task.Delay(100, token);
+                            }
+                        }
+                        await MainThread2.InvokeOnMainThreadAsync(() =>
+                        {
+                            AutoRefreshCodeTimingCurrent = value;
+                            if (isZero)
+                            {
+                                RefreshCode(code);
+                            }
+                        });
+                        await Task.Delay(1000, token);
+                    }
+                });
+            }
+            catch (OperationCanceledException)
+            {
+            }
+        }
+
+        /// <summary>
+        /// 停止当前自动刷新一次性密码代码
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="noSetNull"></param>
+        [Obsolete("use IAutoRefreshCodeHost.StopTimer")]
+        public static void StopAutoRefreshCode(IAutoRefreshCode i, bool noSetNull = false)
+        {
+            if (i.AutoRefreshCode != null)
+            {
+                i.AutoRefreshCode.Cancel();
+                i.AutoRefreshCode.Dispose();
+                i.AutoRefreshCode.RemoveTo(i);
+                if (!noSetNull) i.AutoRefreshCode = null;
+#if DEBUG
+                Log.Debug("AutoRefreshCode", "Stop, name: {0}", i.ViewModel?.Name);
+#endif
+            }
+        }
+
+        /// <summary>
+        /// 开始自动刷新一次性密码代码
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="noStop"></param>
+        [Obsolete("use IAutoRefreshCodeHost.StartTimer")]
+        public static void StartAutoRefreshCode(IAutoRefreshCode i, bool noStop = false)
+        {
+            if (!noStop) StopAutoRefreshCode(i, noSetNull: true);
+            i.AutoRefreshCode = new();
+            i.AutoRefreshCode.AddTo(i);
+            i.ViewModel!.StartAutoRefreshCode(i.AutoRefreshCode.Token);
+#if DEBUG
+            Log.Debug("AutoRefreshCode", "Start, name: {0}", i.ViewModel?.Name);
+#endif
+        }
+
+        /// <summary>
+        /// 自动刷新一次性密码代码
+        /// </summary>
+        [Obsolete("use IAutoRefreshCodeHost")]
+        public interface IAutoRefreshCode : IDisposableHolder, IReadOnlyViewFor<MyAuthenticator>
+        {
+            CancellationTokenSource? AutoRefreshCode { get; set; }
+        }
+#endif
+
+        /// <summary>
+        /// 自动刷新一次性密码代码
+        /// </summary>
+        public interface IAutoRefreshCodeHost
+        {
+            /// <summary>
+            /// 当前自动刷新的 <see cref="System.Threading.Timer"/>
+            /// </summary>
+            protected Timer? Timer { get; set; }
+
+            /// <summary>
+            /// 获取当前正在显示中的视图模型组
+            /// </summary>
+            protected IEnumerable<MyAuthenticator> ViewModels { get; }
+
+            /// <summary>
+            /// 停止当前自动刷新一次性密码代码
+            /// </summary>
+            void StopTimer()
+            {
+                if (Timer != null)
+                {
+                    Timer?.Dispose();
+                    Timer = null;
+                }
+            }
+
+            /// <summary>
+            /// 开始自动刷新一次性密码代码
+            /// </summary>
+            void StartTimer()
+            {
+                if (Timer != null) return;
+                Timer = new((_) =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    foreach (var item in ViewModels)
+                    {
+                        var value = item.TimingCycle;
+                        var isZero = value <= 0;
+                        if (isZero) value = item.Period;
+#if DEBUG
+                        Log.Debug("AutoRefreshCode", "while({1}), name: {0}", item.Name, value);
+#endif
+                        string? code = item.GetNextCode();
+                        MainThread2.BeginInvokeOnMainThread(() =>
+                        {
+                            item.AutoRefreshCodeTimingCurrent = value;
+                            if (code != null)
+                            {
+                                item.RefreshCode(code);
+                            }
+                        });
+                    }
+                }, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+            }
+        }
+#endif
+
+        public Task<Stream?> GetQrCodeStream() => AuthService.GetQrCodeStreamAsync(AuthenticatorData);
+
+        /// <summary>
+        /// 编辑令牌自定义名称
+        /// </summary>
+        /// <returns></returns>
+        public async Task EditNameAsync()
+        {
+            var value = await TextBoxWindowViewModel.ShowDialogAsync(new()
+            {
+                Value = Name,
+                Title = AppResources.EditName,
+                MaxLength = IGAPAuthenticatorDTO.MaxLength_Name,
+            });
+            if (value == null)
+                return;
+            Name = value;
+            await AuthService.Current.SaveEditNameByAuthenticatorAsync(this);
+        }
+
+        public void CopyCodeCilp()
+        {
+            Clipboard2.SetText(CurrentCode);
+            Toast.Show(AppResources.LocalAuth_CopyAuthTip + Name);
+        }
     }
 
     public class ImportedSDAEntry

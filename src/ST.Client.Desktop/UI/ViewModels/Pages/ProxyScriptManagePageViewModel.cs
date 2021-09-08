@@ -5,6 +5,7 @@ using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -12,18 +13,14 @@ using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
+using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ProxyScriptManagePageViewModel : TabItemViewModel
+    public partial class ProxyScriptManagePageViewModel : TabItemViewModel
     {
-        public override string Name
-        {
-            get => AppResources.ScriptConfig;
-            protected set { throw new NotImplementedException(); }
-        }
-
-        internal override void Activation()
+        public override void Activation()
         {
             if (IsFirstActivation)
                 if (ProxySettings.IsAutoCheckScriptUpdate)
@@ -62,7 +59,7 @@ namespace System.Application.UI.ViewModels
         public MenuItemViewModel? OnlySteamBrowser { get; }
         public ProxyScriptManagePageViewModel()
         {
-            IconKey = nameof(ProxyScriptManagePageViewModel).Replace("ViewModel", "Svg");
+            IconKey = nameof(ProxyScriptManagePageViewModel);
 
             ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
             EnableScriptAutoUpdateCommand = ReactiveCommand.Create(() =>
@@ -73,6 +70,20 @@ namespace System.Application.UI.ViewModels
             {
                 OnlySteamBrowser?.CheckmarkChange(ProxyService.Current.IsOnlyWorkSteamBrowser = !ProxyService.Current.IsOnlyWorkSteamBrowser);
             });
+            AddNewScriptButton_Click = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var fileTypes =
+#if __MOBILE__
+                    (FilePickerFileType?)null;
+#else
+                    new FilePicker2.FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("JavaScript Files", new[] { "js" }),
+                        ("Text Files", new[] { "txt" }),
+                        ("All Files", new[] { "*" }),
+                    });
+#endif
+                await FilePicker2.PickAsync(ProxyService.Current.AddNewScript, fileTypes);
+            });
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
 				   //new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
@@ -80,7 +91,7 @@ namespace System.Application.UI.ViewModels
                        IconKey ="JavaScriptDrawing",Command=ScriptStoreCommand},
                    new MenuItemViewModel (),
                    (ScriptAutoUpdate=new MenuItemViewModel (nameof(AppResources.Script_AutoUpdate))
-                   {Command=EnableScriptAutoUpdateCommand }),
+                   { Command=EnableScriptAutoUpdateCommand }),
                    (OnlySteamBrowser = new MenuItemViewModel (nameof(AppResources.CommunityFix_OnlySteamBrowser)){ Command=OnlySteamBrowserCommand})
             };
 
@@ -159,22 +170,21 @@ namespace System.Application.UI.ViewModels
 
         public void EditScriptItemButton(ScriptDTO script)
         {
-
             var url = Path.Combine(IOPath.AppDataDirectory, script.FilePath);
             var fileInfo = new FileInfo(url);
             if (fileInfo.Exists)
             {
-                DI.Get<IDesktopPlatformService>().OpenFileByTextReader(url);
+                IPlatformService.Instance.OpenFileByTextReader(url);
                 var result = MessageBoxCompat.ShowAsync(@AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
                 {
                     if (s.Result == MessageBoxResultCompat.OK)
                     {
-                        var item = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
-                        if (item.state)
+                        var (state, model, msg) = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
+                        if (state)
                         {
-                            if (ProxyService.Current.ProxyScripts.Items.Any() && item.model != null)
+                            if (ProxyService.Current.ProxyScripts.Items.Any() && model != null)
                             {
-                                ProxyService.Current.ProxyScripts.Replace(script, item.model);
+                                ProxyService.Current.ProxyScripts.Replace(script, model);
                                 Toast.Show(AppResources.Success_.Format(AppResources.Script_Edit));
                             }
                         }
@@ -188,9 +198,9 @@ namespace System.Application.UI.ViewModels
 
         }
 
-        public void OpenHomeScriptItemButton(ScriptDTO script)
+        public async void OpenHomeScriptItemButton(ScriptDTO script)
         {
-            Services.CloudService.Constants.BrowserOpen(script.SourceLink);
+            await Browser2.OpenAsync(script.SourceLink);
         }
 
         public async void RefreshScriptItemButton(ScriptDTO script)
@@ -218,22 +228,22 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void OpenScriptStoreWindow()
+        public async void OpenScriptStoreWindow()
         {
             if (IUserManager.Instance.GetCurrentUser() == null)
             {
-                var result = MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith((s) =>
+                var result = await MessageBoxCompat.ShowAsync(@AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
+                if (result == MessageBoxResultCompat.OK)
                 {
-                    if (s.Result == MessageBoxResultCompat.OK)
-                    {
-                        IShowWindowService.Instance.Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
-                    }
-                });
+                    await IShowWindowService.Instance.Show(CustomWindow.LoginOrRegister, new LoginOrRegisterWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+                }
             }
             else
             {
-                IShowWindowService.Instance.Show(CustomWindow.ScriptStore, new ScriptStoreWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+                await IShowWindowService.Instance.Show(CustomWindow.ScriptStore, new ScriptStoreWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
             }
         }
+
+        public ICommand AddNewScriptButton_Click { get; }
     }
 }

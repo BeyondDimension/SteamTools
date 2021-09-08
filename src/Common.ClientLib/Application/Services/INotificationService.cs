@@ -1,14 +1,17 @@
-﻿namespace System.Application.Services
+namespace System.Application.Services
 {
     /// <summary>
     /// 通知栏服务
     /// </summary>
     /// <typeparam name="TNotificationType"></typeparam>
     /// <typeparam name="TEntrance"></typeparam>
-    public interface INotificationService<TNotificationType, TEntrance>
+    public interface INotificationService<TNotificationType, TEntrance, TNotificationService>
         where TNotificationType : notnull, Enum
         where TEntrance : notnull, Enum
+        where TNotificationService : INotificationService<TNotificationType, TEntrance, TNotificationService>
     {
+        static TNotificationService Instance => DI.Get<TNotificationService>();
+
         /// <summary>
         /// 获取是否有通知权限
         /// </summary>
@@ -28,7 +31,7 @@
             TNotificationType notificationType,
             bool autoCancel = true,
             string? title = default,
-            TEntrance entrance = default);
+            TEntrance? entrance = default);
 
         /// <summary>
         /// 取消通知
@@ -45,7 +48,7 @@
         /// 下载进度通知
         /// </summary>
         Progress<float> NotifyDownload(
-            string text,
+            Func<string> text,
             TNotificationType notificationType,
             string? title = default);
     }

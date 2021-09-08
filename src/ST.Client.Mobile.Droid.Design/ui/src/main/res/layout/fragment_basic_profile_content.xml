@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xamarin:managedType="AndroidX.ConstraintLayout.Widget.ConstraintLayout">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45"
+        xamarin:managedType="AndroidX.ConstraintLayout.Widget.Guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_begin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/activity_horizontal_margin"
+        xamarin:managedType="AndroidX.ConstraintLayout.Widget.Guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/activity_horizontal_margin"
+        xamarin:managedType="AndroidX.ConstraintLayout.Widget.Guideline" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivAvater"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/avater_default"
+        app:civ_border_color="@color/border_color"
+        app:civ_border_width="@dimen/avater_border_width"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvUploadYourAvatarDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAvater"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
+        tools:text="从您的设备上传一个文件。图片应为方形，至少为 184px x 184px"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnUploadYourAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:enabled="false"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="@dimen/input_font_size_min"
+        app:layout_constraintBottom_toTopOf="@+id/tvUploadYourAvatarDesc"
+        app:layout_constraintEnd_toEndOf="@+id/tvUploadYourAvatarDesc"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvUploadYourAvatarDesc"
+        tools:text="上传您的头像"
+        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutNickName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toEndOf="@+id/ivIconNickName"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvater"
+        tools:hint="昵称"
+        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tbNickName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIconNickName"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutNickName"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
+        app:layout_constraintTop_toTopOf="@+id/layoutNickName"
+        app:srcCompat="@drawable/baseline_person_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnModifyPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="@dimen/input_font_size_min"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutPhoneNumber"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintTop_toTopOf="@+id/layoutPhoneNumber"
+        tools:text="修改"
+        xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPhoneNumber"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:clickable="false"
+        android:enabled="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintEnd_toStartOf="@+id/btnModifyPhoneNumber"
+        app:layout_constraintStart_toEndOf="@+id/ivIconPhoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/layoutNickName"
+        tools:hint="手机号码"
+        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tbPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="phone"
+            tools:text="1XX****XXXX"
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIconPhoneNumber"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutPhoneNumber"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
+        app:layout_constraintTop_toTopOf="@+id/layoutPhoneNumber"
+        app:srcCompat="@drawable/baseline_phone_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIconArea"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutArea2"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
+        app:layout_constraintTop_toTopOf="@+id/layoutArea2"
+        app:srcCompat="@drawable/baseline_location_on_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutArea2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toEndOf="@+id/ivIconArea"
+        app:layout_constraintTop_toBottomOf="@+id/layoutPhoneNumber"
+        tools:hint="所在地"
+        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/tbArea2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="请选择"
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutArea3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toEndOf="@+id/ivIconArea"
+        app:layout_constraintTop_toBottomOf="@+id/layoutArea2"
+        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/tbArea3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="请选择"
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutArea4"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toEndOf="@+id/ivIconArea"
+        app:layout_constraintTop_toBottomOf="@+id/layoutArea3"
+        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/tbArea4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="请选择"
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIconGender"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutGender"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
+        app:layout_constraintTop_toTopOf="@+id/layoutGender"
+        app:srcCompat="@drawable/baseline_visibility_off_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutGender"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toEndOf="@+id/ivIconGender"
+        app:layout_constraintTop_toBottomOf="@+id/layoutArea4"
+        tools:hint="性别"
+        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tbGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            android:text=" "
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/rgGender"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/text_field_outlined_top_space_height"
+        android:checkedButton="@+id/rbGender0"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutGender"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toEndOf="@+id/ivIconGender"
+        app:layout_constraintTop_toTopOf="@+id/layoutGender">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbGender0"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="保密"
+            xamarin:managedType="Google.Android.Material.RadioButton.MaterialRadioButton" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbGender1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="男"
+            xamarin:managedType="Google.Android.Material.RadioButton.MaterialRadioButton" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbGender2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:text="女"
+            xamarin:managedType="Google.Android.Material.RadioButton.MaterialRadioButton" />
+
+    </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIconBirthDate"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutBirthDate"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
+        app:layout_constraintTop_toTopOf="@+id/layoutBirthDate"
+        app:srcCompat="@drawable/baseline_cake_black_24"
+        app:tint="@color/icon_background"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutBirthDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+        app:layout_constraintStart_toEndOf="@+id/ivIconGender"
+        app:layout_constraintTop_toBottomOf="@+id/layoutGender"
+        tools:hint="生日"
+        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tbBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Space
+        android:id="@+id/clickBirthDate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutBirthDate"
+        app:layout_constraintEnd_toEndOf="@id/layoutBirthDate"
+        app:layout_constraintStart_toStartOf="@+id/layoutBirthDate"
+        app:layout_constraintTop_toTopOf="@id/layoutBirthDate" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmitPlaceholder" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnSubmitPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutBirthDate"
+        xamarin:managedType="Google.Android.Material.FloatingActionButton.ExtendedFloatingActionButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 
 using Steam4NET;
@@ -17,7 +17,7 @@ namespace SteamTool.Steam4NET.Test
 
             Console.Write("Loading Steam2 and Steam3... ");
 
-            if (Steamworks.Load(true))
+            if (Steamworks.Load(false))
             {
                 Console.WriteLine("Ok");
             }
@@ -29,81 +29,81 @@ namespace SteamTool.Steam4NET.Test
 
             Console.WriteLine("\nSteam2 tests:");
 
-            ISteam006 steam006 = Steamworks.CreateSteamInterface<ISteam006>();
-            if (steam006 == null)
-            {
-                Console.WriteLine("steam006 is null !");
-                return -1;
-            }
+            //ISteam006 steam006 = Steamworks.CreateSteamInterface<ISteam006>();
+            //if (steam006 == null)
+            //{
+            //    Console.WriteLine("steam006 is null !");
+            //    return -1;
+            //}
 
 
             TSteamError steamError = new TSteamError();
 
 
-            Console.Write("GetVersion: ");
-            StringBuilder version = new StringBuilder();
-            if (steam006.GetVersion(version) != 0)
-            {
-                Console.WriteLine("Ok (" + version.ToString() + ")");
-            }
-            else
-            {
-                Console.WriteLine("Failed");
-                return -1;
-            }
+            //Console.Write("GetVersion: ");
+            //StringBuilder version = new StringBuilder();
+            //if (steam006.GetVersion(version) != 0)
+            //{
+            //    Console.WriteLine("Ok (" + version.ToString() + ")");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Failed");
+            //    return -1;
+            //}
 
-            steam006.ClearError(ref steamError);
+            //steam006.ClearError(ref steamError);
 
-            Console.Write("Startup: ");
-            if (steam006.Startup(0, ref steamError) != 0)
-            {
-                Console.WriteLine("Ok");
-            }
-            else
-            {
-                Console.WriteLine("Failed (" + steamError.szDesc + ")");
-                return -1;
-            }
+            //Console.Write("Startup: ");
+            //if (steam006.Startup(0, ref steamError) != 0)
+            //{
+            //    Console.WriteLine("Ok");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Failed (" + steamError.szDesc + ")");
+            //    return -1;
+            //}
 
-            Console.Write("OpenTmpFile: ");
-            uint hFile;
-            if ((hFile = steam006.OpenTmpFile(ref steamError)) != 0)
-            {
-                Console.WriteLine("Ok");
-            }
-            else
-            {
-                Console.WriteLine("Failed (" + steamError.szDesc + ")");
-                return -1;
-            }
+            //Console.Write("OpenTmpFile: ");
+            //uint hFile;
+            //if ((hFile = steam006.OpenTmpFile(ref steamError)) != 0)
+            //{
+            //    Console.WriteLine("Ok");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Failed (" + steamError.szDesc + ")");
+            //    return -1;
+            //}
 
-            Console.Write("WriteFile: ");
-            byte[] fileContent = System.Text.UTF8Encoding.UTF8.GetBytes("test");
-            if (steam006.WriteFile(fileContent, (uint)fileContent.Length, hFile, ref steamError) == fileContent.Length)
-            {
-                Console.WriteLine("Ok");
-            }
-            else
-            {
-                Console.WriteLine("Failed (" + steamError.szDesc + ")");
-                return -1;
-            }
+            //Console.Write("WriteFile: ");
+            //byte[] fileContent = System.Text.UTF8Encoding.UTF8.GetBytes("test");
+            //if (steam006.WriteFile(fileContent, (uint)fileContent.Length, hFile, ref steamError) == fileContent.Length)
+            //{
+            //    Console.WriteLine("Ok");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Failed (" + steamError.szDesc + ")");
+            //    return -1;
+            //}
 
-            Console.Write("CloseFile: ");
-            if (steam006.CloseFile(hFile, ref steamError) == 0)
-            {
-                Console.WriteLine("Ok");
-            }
-            else
-            {
-                Console.WriteLine("Failed (" + steamError.szDesc + ")");
-                return -1;
-            }
+            //Console.Write("CloseFile: ");
+            //if (steam006.CloseFile(hFile, ref steamError) == 0)
+            //{
+            //    Console.WriteLine("Ok");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Failed (" + steamError.szDesc + ")");
+            //    return -1;
+            //}
 
             Console.WriteLine("\nSteam3 tests:");
 
-            ISteamClient012 steamclient = Steamworks.CreateInterface<ISteamClient012>();
-            ISteamClient009 steamclient9 = Steamworks.CreateInterface<ISteamClient009>();
+            ISteamClient017 steamclient = Steamworks.CreateInterface<ISteamClient017>();
+            //ISteamClient009 steamclient9 = Steamworks.CreateInterface<ISteamClient009>();
             if (steamclient == null)
             {
                 Console.WriteLine("steamclient is null !");
@@ -161,6 +161,21 @@ namespace SteamTool.Steam4NET.Test
                 Console.WriteLine("clientuser is null !");
                 return -1;
             }
+
+            ISteamApps001 clientapps = steamclient.GetISteamApps<ISteamApps001>(user, pipe);
+            if (clientapps == null)
+            {
+                Console.WriteLine("clientapps is null !");
+                return -1;
+            }
+
+            ISteamApps006 clientapps6 = steamclient.GetISteamApps<ISteamApps006>(user, pipe);
+            if (clientapps6 == null)
+            {
+                Console.WriteLine("clientapps6 is null !");
+                return -1;
+            }
+
             IClientFriends clientfriends = clientengine.GetIClientFriends<IClientFriends>(user, pipe);
             if (clientfriends == null)
             {

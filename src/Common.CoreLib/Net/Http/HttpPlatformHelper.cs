@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.IO;
 using System.IO.FileFormats;
+using Xamarin.Essentials;
 
 namespace System.Net.Http
 {
@@ -25,5 +26,18 @@ namespace System.Net.Http
         public virtual ImageFormat[] SupportedImageFormats => mSupportedImageFormats.Value;
 
         public virtual (string filePath, string mime)? TryHandleUploadFile(Stream fileStream) => null;
+
+        public virtual bool IsConnected
+        {
+            get
+            {
+                if (DeviceInfo.Platform != DevicePlatform.Unknown)
+                {
+                    var networkAccess = Connectivity.NetworkAccess;
+                    return networkAccess == NetworkAccess.Internet;
+                }
+                return true;
+            }
+        }
     }
 }

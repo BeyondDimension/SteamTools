@@ -10,15 +10,15 @@ namespace System.Application.Services
     {
         protected const string TAG = "HttpService";
 
-        public static IHttpService Instance => DI.Get<IHttpService>();
+        static IHttpService Instance => DI.Get<IHttpService>();
 
-        public JsonSerializer Serializer { get; }
-        public IHttpClientFactory Factory { get; }
-        public IHttpPlatformHelper PlatformHelper { get; }
+        JsonSerializer Serializer { get; }
+        IHttpClientFactory Factory { get; }
+        IHttpPlatformHelper PlatformHelper { get; }
 
         Task<T?> SendAsync<T>(
             string? requestUri,
-            HttpRequestMessage request,
+            Func<HttpRequestMessage> requestFactory,
             string? accept,
             bool enableForward,
             CancellationToken cancellationToken,
@@ -68,7 +68,18 @@ namespace System.Application.Services
         /// <param name="requestUri"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        [Obsolete]
         Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken = default);
+
+        static string GetImagesCacheDirectory(string? channelType)
+        {
+            const string dirName = "Images";
+            var dirPath = !string.IsNullOrWhiteSpace(channelType) ?
+                Path.Combine(IOPath.CacheDirectory, dirName, channelType) :
+                Path.Combine(IOPath.CacheDirectory, dirName);
+            IOPath.DirCreateByNotExists(dirPath);
+            return dirPath;
+        }
     }
 
 #if DEBUG

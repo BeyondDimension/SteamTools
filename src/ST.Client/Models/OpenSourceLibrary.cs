@@ -1,4 +1,4 @@
-﻿using MessagePack;
+using MessagePack;
 using System.Collections.Generic;
 using System.Text;
 
@@ -91,6 +91,7 @@ namespace System.Application.Models
             { "https://github.com/App-vNext/Polly", ("BSD-3-Clause", "") },
             { "https://github.com/icsharpcode/SharpZipLib", ("MIT", "") },
             { "https://github.com/chromiumembedded/cef", ("BSD-licensed", "") },
+            { "https://github.com/cefsharp/CefSharp", ("BSD-3-Clause", "") },
             { "https://github.com/xamarin/essentials", ("MIT", "") },
             { "https://github.com/dotnet/efcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors") },
             { "https://github.com/dotnet/aspnetcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors") },

@@ -2,13 +2,16 @@ using Microsoft.Extensions.Options;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using static System.Application.Services.CloudService.Constants;
+using static System.Application.Browser2;
 using static System.Application.Services.IAppUpdateService;
+using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
@@ -46,7 +49,10 @@ namespace System.Application.Services.Implementation
         {
             get
             {
-                if (DI.Platform == Platform.Apple && DI.DeviceIdiom != DeviceIdiom.Desktop)
+                if (DesktopBridge.IsRunningAsUwp ||
+                    OperatingSystem2.IsOnlySupportedStore ||
+                    OperatingSystem2.IsLinux ||
+                    OperatingSystem2.IsMacOS)
                 {
                     return false;
                 }
@@ -74,7 +80,7 @@ namespace System.Application.Services.Implementation
             {
                 var value = NewVersionInfo?.Description;
                 if (string.IsNullOrWhiteSpace(value)) return string.Empty;
-                var lines = value.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                var lines = value.Split(';');
                 return string.Join(Environment.NewLine, lines);
             }
         }
@@ -88,13 +94,14 @@ namespace System.Application.Services.Implementation
 
         static bool isCheckUpdateing;
 
-        public async void CheckUpdate(bool force, bool showIsExistUpdateFalse = true)
+        public async Task CheckUpdateAsync(bool force, bool showIsExistUpdateFalse = true)
         {
             if (!force && IsExistUpdate)
             {
                 if (NewVersionInfo.HasValue())
                 {
                     OnExistNewVersion();
+                    return;
                 }
                 else
                 {
@@ -106,8 +113,8 @@ namespace System.Application.Services.Implementation
             isCheckUpdateing = true;
 
             var id = settings.AppVersion;
-            var platform = DI.Platform;
-            var deviceIdiom = DI.DeviceIdiom;
+            var platform = DeviceInfo2.Platform;
+            var deviceIdiom = DeviceInfo2.Idiom;
             if (deviceIdiom == DeviceIdiom.Tablet && platform == Platform.Apple)
             {
                 deviceIdiom = DeviceIdiom.Phone;
@@ -142,49 +149,19 @@ namespace System.Application.Services.Implementation
             isCheckUpdateing = false;
         }
 
-        /// <summary>
-        /// 升级包存放文件夹名称
-        /// </summary>
-        const string PackDirName = "UpgradePackages";
-
-        public const string FileExDownloadCache = ".download_cache";
-
-        /// <summary>
-        /// 根据新版本信息获取升级包路径名
-        /// </summary>
-        /// <param name="m"></param>
-        /// <returns></returns>
-        static string GetPackName(AppVersionDTO m, bool isDirOrFile) => $"{m.Version}@{Hashs.String.Crc32(m.Id.ToByteArray())}{(isDirOrFile ? "" : $"{FileEx.TAR_GZ}")}";
-
-        /// <summary>
-        /// 获取存放升级包缓存文件夹的目录
-        /// </summary>
-        /// <param name="clear">是否需要清理之前的缓存</param>
-        /// <returns></returns>
-        static string GetPackCacheDirPath(bool clear)
-        {
-            var dirPath = Path.Combine(IOPath.CacheDirectory, PackDirName);
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-            else if (clear)
-            {
-                var files = Directory.GetFiles(dirPath, "*" + FileExDownloadCache);
-                foreach (var item in files)
-                {
-                    IOPath.FileTryDelete(item);
-                }
-            }
-            return dirPath;
-        }
-
         static bool isDownloading;
 
         /// <summary>
         /// 是否支持断点续传
         /// </summary>
         const bool isSupportedResume = false;
+
+        bool _IsNotStartUpdateing = true;
+        public bool IsNotStartUpdateing
+        {
+            get => _IsNotStartUpdateing;
+            protected set => this.RaiseAndSetIfChanged(ref _IsNotStartUpdateing, value);
+        }
 
         float _ProgressValue;
         public float ProgressValue
@@ -206,7 +183,7 @@ namespace System.Application.Services.Implementation
         protected void OnReportCalcHashing(float value) => OnReport(value, SR.CalcHashing_.Format(MathF.Round(value, 2)));
         protected void OnReportDecompressing(float value) => OnReport(value, SR.Decompressing_.Format(MathF.Round(value, 2)));
         protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
-        protected void OnReport(float value, string str)
+        protected virtual void OnReport(float value, string str)
         {
             ProgressValue = value;
             ProgressString = str;
@@ -221,7 +198,7 @@ namespace System.Application.Services.Implementation
             onReportCalcHashing(0);
             var sha256_ = Hashs.String.SHA256(File.OpenRead(filePath));  // 改为带进度的哈希计算
             var value = string.Equals(sha256_, sha256, StringComparison.OrdinalIgnoreCase);
-            onReportCalcHashing(MaxProgressValue);
+            onReportCalcHashing(CC.MaxProgress);
             return value;
         }
 
@@ -234,6 +211,8 @@ namespace System.Application.Services.Implementation
         /// </summary>
         protected async void DownloadUpdate()
         {
+            var isCallOverwriteUpgrade = false;
+
             if (isDownloading) return;
 
             if (!IsSupportedServerDistribution) throw new PlatformNotSupportedException();
@@ -246,28 +225,71 @@ namespace System.Application.Services.Implementation
 
             if (newVersionInfo.HasValue())
             {
-                if (newVersionInfo!.IncrementalUpdate.Any_Nullable()) // 增量更新
+                if (newVersionInfo!.DisableAutomateUpdate)
                 {
-                    if (Path.DirectorySeparatorChar != '\\')
+                    OpenInAppStore();
+                    goto end;
+                }
+
+                var isAndroid = OperatingSystem2.IsAndroid;
+                var isDesktop = OperatingSystem2.IsDesktop;
+                if (!isAndroid && !isDesktop)
+                {
+                    OpenInAppStore();
+                    goto end;
+                }
+
+                if (!isAndroid && newVersionInfo.CurrentAllFiles.Any_Nullable() &&
+                    newVersionInfo.CurrentAllFiles.All(x => x.HasValue()) &&
+                    newVersionInfo.AllFiles.Any_Nullable() &&
+                    newVersionInfo.AllFiles.All(x => x.HasValue())) // 增量更新 v2
+                {
+                    if (Path.DirectorySeparatorChar != '\\') // 路径分隔符在客户端系统上与服务端纪录的值不同时，替换分隔符
                     {
-                        foreach (var item in newVersionInfo.IncrementalUpdate!)
+                        void CorrectionDirectorySeparatorChar(IEnumerable<AppVersionDTO.IncrementalUpdateDownload> items)
                         {
-                            item.FileRelativePath =
-                                item.FileRelativePath?.Replace('\\', Path.DirectorySeparatorChar);
+                            foreach (var item in items)
+                            {
+                                item.FileRelativePath =
+                                    item.FileRelativePath?.Replace('\\',
+                                        Path.DirectorySeparatorChar);
+                            }
                         }
+                        CorrectionDirectorySeparatorChar(newVersionInfo.AllFiles!);
+                        CorrectionDirectorySeparatorChar(newVersionInfo.CurrentAllFiles!);
                     }
 
                     var packDirName = GetPackName(newVersionInfo, isDirOrFile: false);
                     var packDirPath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packDirName);
+                    var packDirPathExists = Directory.Exists(packDirPath);
 
-                    var incrementalUpdate = newVersionInfo.IncrementalUpdate.ToDictionary(x => x, x => packDirPath + Path.DirectorySeparatorChar + x.FileRelativePath);
+                    string GetDownloadPath(string fileRelativePath)
+                        => packDirPath + Path.DirectorySeparatorChar + fileRelativePath;
+                    static string GetFilePath(string fileRelativePath)
+                        => IOPath.AppDataDirectory + Path.DirectorySeparatorChar + fileRelativePath;
+                    var allFiles = newVersionInfo.AllFiles.ToDictionary(x => x, x => (
+                        downloadPath: GetDownloadPath(x.FileRelativePath),
+                        filePath: GetFilePath(x.FileRelativePath)
+                    ));
+                    var currentAllFiles = newVersionInfo.CurrentAllFiles.ToDictionary(x => x,
+                        x => GetFilePath(x.FileRelativePath));
 
-                    if (Directory.Exists(packDirPath))
+                    var hashFiles = new Dictionary<(string sha256, long fileLen), string>();
+
+                    int i = 1;
+                    void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, allFiles.Count);
+                    OnReportDownloading3_(0f);
+
+                    foreach (var item in allFiles.Keys)
                     {
-                        foreach (var item in newVersionInfo.IncrementalUpdate!)
+                        var (downloadPath, filePath) = allFiles[item]; // (downloadPath)文件下载存放路径，(filePath)文件要覆盖的路径
+                        var hashFileKey = (item.SHA256!, item.Length); // 使用 sha256 与 文件大小 作为唯一标识
+                        var fileInfo = new FileInfo(filePath);
+                        if (!fileInfo.Directory.Exists) fileInfo.Directory.Create(); // 文件所在目录必须存在
+
+                        #region 当前下载更新文件缓存文件夹存在，检查是否已下载了文件
+                        if (packDirPathExists)
                         {
-                            var filePath = incrementalUpdate[item];
-                            var fileInfo = new FileInfo(filePath);
                             if (fileInfo.Exists)
                             {
                                 if (fileInfo.Length == item.Length)
@@ -276,69 +298,110 @@ namespace System.Application.Services.Implementation
                                     var sha256 = Hashs.String.SHA256(fileStream);
                                     if (sha256 == item.SHA256)
                                     {
-                                        incrementalUpdate.Remove(item);
-                                        continue;
+                                        hashFiles.Add(hashFileKey, filePath);
+                                        goto for_end; // 文件已下载，校验通过
                                     }
                                 }
-                                fileInfo.Delete();
+                                fileInfo.Delete(); // 文件已下载，校验不通过，删除文件重新下载
                             }
                         }
-                    }
+                        #endregion
 
-                    int i = 1;
-                    void OnReportDownloading3_(float value) => OnReportDownloading3(value, i, incrementalUpdate.Count);
-                    OnReportDownloading3_(0f);
-                    foreach (var item in incrementalUpdate)
-                    {
-                        var fileName = item.Value;
-                        var cacheFileName = fileName + FileExDownloadCache;
-                        var requestUri = GetSingleFileUrl(item.Key.FileId!);
+                        #region 根据当前版本文件清单匹配新版本文件清单查找相同项
+                        var query_current_files = from m in currentAllFiles
+                                                  where m.Key.SHA256 == item.SHA256 && m.Key.Length == item.Length
+                                                  let local_file_info = new FileInfo(m.Value)
+                                                  where local_file_info.Exists
+                                                  select local_file_info;
+                        if (query_current_files.Any(x => x.FullName == fileInfo.FullName)) // 如果路径相同，则忽略
+                        {
+                            goto for_end;
+                        }
+                        var query_current_file = query_current_files.FirstOrDefault();
+                        if (query_current_file != null) // 如果路径不同，则复制
+                        {
+                            hashFiles.Add(hashFileKey, query_current_file.FullName);
+                            File.Copy(query_current_file.FullName, fileInfo.FullName);
+                            goto for_end;
+                        }
+                        #endregion
+
+                        #region 根据哈希值匹配已有文件
+                        if (hashFiles.ContainsKey(hashFileKey))
+                        {
+                            var hashFilePath = hashFiles[hashFileKey];
+                            File.Copy(hashFilePath, fileInfo.FullName);
+                            goto for_end;
+                        }
+                        #endregion
+
+                        #region 下载文件，并加入 hashFiles 中
+                        var cacheFileDownloadPath = downloadPath + FileEx.DownloadCache;
+                        var requestUri = GetSingleFileUrl(item.FileId!);
 
                         var rsp = await client.Download(
                             isAnonymous: true,
                             requestUri: requestUri,
-                            cacheFileName,
+                            cacheFileDownloadPath,
                             null);
                         if (rsp.IsSuccess)
                         {
-                            File.Move(cacheFileName, fileName);
+                            File.Move(cacheFileDownloadPath, downloadPath);
 
-                            if (!UpdatePackVerification(fileName, item.Key.SHA256!, i, incrementalUpdate.Count))
+                            if (!UpdatePackVerification(downloadPath, item.SHA256!, i, allFiles.Count))
                             {
                                 Fail(SR.UpdatePackVerificationFail);
                                 break;
                             }
+
+                            hashFiles.Add(hashFileKey, downloadPath);
                         }
                         else
                         {
                             Fail(SR.DownloadUpdateFail);
                             break;
                         }
-                        i++;
-                        OnReportDownloading3_(i / (float)incrementalUpdate.Count * MaxProgressValue);
+                    #endregion
+
+                    for_end: i++;
+                        OnReportDownloading3_(i / (float)allFiles.Count * CC.MaxProgress);
                     }
 
-                    OnReport(MaxProgressValue);
+                    OnReport(CC.MaxProgress);
                     OverwriteUpgrade(packDirPath, isIncrement: true);
                 }
                 else // 全量更新
                 {
-                    var downloadType = DI.Platform switch
+                    AppVersionDTO.Download? download = null;
+                    if (newVersionInfo.Downloads != null)
                     {
-                        Platform.Windows or Platform.Linux or Platform.Apple => AppDownloadType.Compressed,
-                        Platform.Android => AppDownloadType.Install,
-                        _ => throw new PlatformNotSupportedException(),
-                    };
-                    var download = newVersionInfo.Downloads.FirstOrDefault(x => x.DownloadType == downloadType);
+                        if (isAndroid)
+                        {
+                            download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Install));
+                        }
+                        else if (isDesktop)
+                        {
+                            download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Compressed_7z));
+                            if (download == null)
+                            {
+                                download = GetByDownloadChannelSettings(newVersionInfo.Downloads.Where(x => x.DownloadType == AppDownloadType.Compressed_GZip));
+                            }
+                        }
+                        else
+                        {
+                            throw new PlatformNotSupportedException();
+                        }
+                    }
                     if (download.HasValue()) // 压缩包格式是否正确
                     {
                         var packFileName = GetPackName(newVersionInfo, isDirOrFile: true);
                         var packFilePath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packFileName);
                         if (File.Exists(packFilePath)) // 存在压缩包文件
                         {
-                            if (UpdatePackVerification(packFilePath, download.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
-                                OverwriteUpgrade(packFilePath, isIncrement: false);
+                                isCallOverwriteUpgrade = true;
+                                OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
                                 goto end;
                             }
                             else // 验证文件失败，删除源文件，将会重新下载
@@ -347,22 +410,23 @@ namespace System.Application.Services.Implementation
                             }
                         }
 
-                        string fileEx;
                         string filePlatform;
                         string fileArch;
-                        switch (newVersionInfo.Platform)
+                        var fileEx = newVersionInfo.Platform switch
                         {
-                            case Platform.Android:
-                                fileEx = FileEx.APK;
-                                break;
-                            case Platform.Windows:
-                            case Platform.Linux:
-                            case Platform.Apple:
-                                fileEx = FileEx.TAR_GZ;
-                                break;
-                            default:
-                                Fail(SR.UpdateEnumOutOfRange);
-                                goto end;
+                            Platform.Android => FileEx.APK,
+                            Platform.Windows or Platform.Linux or Platform.Apple => download!.DownloadType switch
+                            {
+                                AppDownloadType.Compressed_GZip => FileEx.TAR_GZ,
+                                AppDownloadType.Compressed_7z => FileEx._7Z,
+                                _ => string.Empty,
+                            },
+                            _ => string.Empty,
+                        };
+                        if (fileEx == string.Empty)
+                        {
+                            Fail(SR.UpdateEnumOutOfRange);
+                            goto end;
                         }
                         switch (newVersionInfo.Platform)
                         {
@@ -390,32 +454,49 @@ namespace System.Application.Services.Implementation
                             case ArchitectureFlags.Arm64:
                                 fileArch = "arm64";
                                 break;
+                            case ArchitectureFlags.Arm:
+                                fileArch = "arm";
+                                break;
                             default:
                                 fileArch = ((int)newVersionInfo.SupportedAbis).ToString();
                                 break;
                             case 0:
-                            case ArchitectureFlags.Arm:
                                 Fail(SR.UpdateEnumOutOfRange);
                                 goto end;
                         }
-                        var downloadFileName = $"{filePlatform}-{fileArch}_{newVersionInfo.Version}{fileEx}";
-                        var requestUri = GetPackFileUrl(downloadFileName);
-                        var cacheFilePath = packFilePath + FileExDownloadCache;
+
+                        string requestUri;
+                        if (string.IsNullOrWhiteSpace(download!.FileIdOrUrl))
+                        {
+                            var downloadFileName = $"{filePlatform}-{fileArch}_{newVersionInfo.Version}{fileEx}";
+                            requestUri = GetPackFileUrl(downloadFileName);
+                        }
+                        else if (IsHttpUrl(download.FileIdOrUrl))
+                        {
+                            requestUri = download.FileIdOrUrl;
+                        }
+                        else
+                        {
+                            requestUri = GetSingleFileUrl(download.FileIdOrUrl!);
+                        }
+
+                        var cacheFilePath = packFilePath + FileEx.DownloadCache;
                         OnReportDownloading(0f);
                         var rsp = await client.Download(
                             isAnonymous: true,
                             requestUri: requestUri,
                             cacheFilePath,
                             new Progress<float>(OnReportDownloading));
+                        OnReportDownloading(CC.MaxProgress);
 
                         if (rsp.IsSuccess)
                         {
                             File.Move(cacheFilePath, packFilePath);
 
-                            if (UpdatePackVerification(packFilePath, download.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
+                            if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
-                                OverwriteUpgrade(packFileName, isIncrement: false);
-                                OnReportDownloading(MaxProgressValue);
+                                isCallOverwriteUpgrade = true;
+                                OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
                             }
                             else
                             {
@@ -429,16 +510,20 @@ namespace System.Application.Services.Implementation
                     }
                     else
                     {
-                        Fail("The new version compressed package is missing, please contact the administrator.");
+                        OpenInAppStore();
                     }
                 }
             }
 
         end: isDownloading = false;
+            if (!isCallOverwriteUpgrade)
+            {
+                IsNotStartUpdateing = true;
+            }
             void Fail(string error)
             {
                 toast.Show(error);
-                OnReport(MaxProgressValue);
+                OnReport(CC.MaxProgress);
             }
         }
 
@@ -450,17 +535,21 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <param name="value"></param>
         /// <param name="isIncrement"></param>
-        protected abstract void OverwriteUpgrade(string value, bool isIncrement);
+        /// <param name="downloadType"></param>
+        protected abstract void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType = default);
 
         /// <summary>
         /// 在应用商店中打开
         /// </summary>
-        protected virtual void OpenInAppStore() => BrowserOpen("https://steampp.net/");
+        protected virtual async void OpenInAppStore() => await OpenAsync(UrlConstants.OfficialWebsite);
 
         void StartUpdate()
         {
-            if (IsSupportedServerDistribution)
+            if (IsSupportedServerDistribution &&
+                NewVersionInfo.HasValue() &&
+                !NewVersionInfo!.DisableAutomateUpdate)
             {
+                IsNotStartUpdateing = false;
                 DownloadUpdate();
             }
             else
@@ -468,5 +557,7 @@ namespace System.Application.Services.Implementation
                 OpenInAppStore();
             }
         }
+
+        protected abstract AppVersionDTO.Download? GetByDownloadChannelSettings(IEnumerable<AppVersionDTO.Download> downloads);
     }
 }
