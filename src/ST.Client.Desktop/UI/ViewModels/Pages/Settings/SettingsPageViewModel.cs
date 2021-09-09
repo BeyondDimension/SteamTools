@@ -8,6 +8,7 @@ using System.IO;
 using System.IO.FileFormats;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -146,7 +147,7 @@ namespace System.Application.UI.ViewModels
         /// <param name="isStartCacheSizeCalc"></param>
         /// <param name="sizeFormat"></param>
         /// <param name="action"></param>
-        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string sizeFormat, Action<string> action)
+        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string sizeFormat, Action<string> action, CancellationToken cancellationToken = default)
         {
             if (isStartCacheSizeCalc) return;
             isStartCacheSizeCalc = true;
@@ -166,15 +167,22 @@ namespace System.Application.UI.ViewModels
             }
             if (dirPath != null)
             {
-                Task.Run(async () =>
+                try
                 {
-                    var length = IOPath.GetDirectorySize(dirPath);
-                    var lenString = IOPath.GetSizeString(length);
-                    await MainThread2.InvokeOnMainThreadAsync(() =>
+                    Task.Run(async () =>
                     {
-                        action(sizeFormat.Format(lenString));
-                    });
-                });
+                        var length = IOPath.GetDirectorySize(dirPath);
+                        var lenString = IOPath.GetSizeString(length);
+                        await MainThread2.InvokeOnMainThreadAsync(() =>
+                        {
+                            action(sizeFormat.Format(lenString));
+                        });
+                    }, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+
+                }
             }
         }
     }

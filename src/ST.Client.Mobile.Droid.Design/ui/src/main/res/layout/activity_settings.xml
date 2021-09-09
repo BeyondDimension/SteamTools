@@ -190,6 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@null"
             android:clickable="false"
             android:focusable="false"
             tools:checked="true"
@@ -307,6 +308,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@null"
             android:clickable="false"
             android:focusable="false"
             xamarin:managedType="Google.Android.Material.SwitchMaterial.SwitchMaterial" />
@@ -337,21 +339,27 @@
             app:tint="@color/icon_background"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
-          <LinearLayout
-            android:id="@+id/layoutGeneralSettingsStorageSpace"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+          <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvGeneralSettingsStorageSpace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            tools:text="存储空间"
+            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/tvGeneralSettingsStorageSpace"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/text_primary"
-              android:textSize="16sp"
-              tools:text="存储空间"
-              xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+          <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
               android:id="@+id/tvGeneralSettingsStorageSpaceValue"
@@ -359,6 +367,15 @@
               android:layout_height="wrap_content"
               android:textColor="@color/text_secondary"
               tools:text="缓存文件已占用 xx.xx KB"
+              xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+              android:id="@+id/tvGeneralSettingsStorageSpaceValue2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:textColor="@color/text_secondary"
+              tools:text="日志文件已占用 xx.xx KB"
               xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
           </LinearLayout>
         </LinearLayout>
@@ -471,6 +488,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@null"
             android:clickable="false"
             android:focusable="false"
             tools:checked="true"

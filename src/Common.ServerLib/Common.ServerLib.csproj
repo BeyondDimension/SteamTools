@@ -19,6 +19,9 @@
     <!--<Compile Include="..\Common.ClientLib.Droid\AndroidROMType.cs">
       <Link>AndroidROMType.cs</Link>
     </Compile>-->
+    <Compile Include="..\Common.ClientLib\Application\Essentials\Browser2.isx.cs">
+      <LinkBase>Application\Essentials</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

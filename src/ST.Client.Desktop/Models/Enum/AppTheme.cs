@@ -1,4 +1,5 @@
 using System.Application.Models;
+using System.Application.UI.Resx;
 
 namespace System.Application.Models
 {
@@ -34,14 +35,28 @@ namespace System
 {
     public static partial class AppThemeEnumExtensions
     {
-        public static string ToString2(this AppTheme value)
+        /// <summary>
+        /// auto/light/dark
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string ToString2(this AppTheme value) => value switch
         {
-            return value switch
-            {
-                AppTheme.FollowingSystem => "auto",
-                AppTheme.Light => "light",
-                _ => "dark",
-            };
-        }
+            AppTheme.FollowingSystem => "auto",
+            AppTheme.Light => "light",
+            _ => "dark",
+        };
+
+        /// <summary>
+        /// Resx
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string ToString3(this AppTheme value) => value switch
+        {
+            AppTheme.FollowingSystem => AppResources.Settings_UI_SystemDefault,
+            AppTheme.Light => AppResources.Settings_UI_Light,
+            _ => AppResources.Settings_UI_Dark,
+        };
     }
 }

@@ -12,6 +12,7 @@ using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using static System.Application.UI.Resx.AppResources;
 
 namespace System.Application.UI.Activities
@@ -30,9 +31,11 @@ namespace System.Application.UI.Activities
 
         void SetIsAutoCheckUpdateChecked() => binding!.swGeneralSettingsIsAutoCheckUpdate.Checked = GeneralSettings.IsAutoCheckUpdate.Value;
         void SetUpdateChannelText() => binding!.tvGeneralSettingsUpdateChannelValue.Text = GeneralSettings.UpdateChannel.Value.ToString();
-        void SetThemeText() => binding!.tvUISettingsThemeValue.Text = ((AppTheme)UISettings.Theme.Value).ToString();
+        void SetThemeText() => binding!.tvUISettingsThemeValue.Text = ((AppTheme)UISettings.Theme.Value).ToString3();
 
         bool isStartCacheSizeCalc;
+        bool isStartLogSizeCalc;
+        readonly CancellationTokenSource cts = new();
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -98,9 +101,11 @@ namespace System.Application.UI.Activities
                 binding.layoutRootGeneralSettingsIsAutoCheckUpdate,
                 binding.layoutRootGeneralSettingsStorageSpace,
                 binding.layoutRootOSAppDetailsSettings,
-                binding.layoutRootOSAppNotificationSettings);
+                binding.layoutRootOSAppNotificationSettings,
+                binding.layoutRootGeneralSettingsCaptureScreen);
 
             SetIsAutoCheckUpdateChecked();
+            SetCaptureScreenChecked();
             SetUpdateChannelText();
             SetThemeText();
 
@@ -108,7 +113,12 @@ namespace System.Application.UI.Activities
             {
                 if (binding == null) return;
                 binding.tvGeneralSettingsStorageSpaceValue.Text = x;
-            });
+            }, cts.Token);
+            SettingsPageViewModel.StartCacheSizeCalc(ref isStartLogSizeCalc, Settings_General_LogSize, x =>
+            {
+                if (binding == null) return;
+                binding.tvGeneralSettingsStorageSpaceValue2.Text = x;
+            }, cts.Token);
         }
 
         protected override void OnResume()
@@ -146,12 +156,20 @@ namespace System.Application.UI.Activities
             {
                 this.StartActivity<ExplorerActivity>();
             }
+            else if (view.Id == Resource.Id.layoutRootGeneralSettingsCaptureScreen)
+            {
+                GeneralSettings.CaptureScreen.Value = !GeneralSettings.CaptureScreen.Value;
+                SetCaptureScreenChecked();
+            }
 
             base.OnClick(view);
         }
 
+        void SetCaptureScreenChecked() => binding!.swGeneralSettingsCaptureScreen.Checked = GeneralSettings.CaptureScreen.Value;
+
         protected override void OnDestroy()
         {
+            cts.Cancel();
             base.OnDestroy();
             foreach (var item in comboBoxs)
             {
