@@ -192,7 +192,10 @@ namespace System.Application.UI.Activities
             binding.swipeRefreshLayout.InitDefaultStyles();
             binding.swipeRefreshLayout.SetOnRefreshListener(this);
 
-            SetOnClickListener(binding.btnLogin, binding.btnCancelTrade, binding.btnConfirmTrade);
+            SetOnClickListener(binding.btnLogin,
+                binding.btnCancelTrade,
+                binding.btnConfirmTrade,
+                binding.ivCaptchaImage);
         }
 
         MenuBuilder? menuBuilder;
@@ -235,6 +238,10 @@ namespace System.Application.UI.Activities
             else if (view.Id == Resource.Id.btnConfirmTrade)
             {
                 ViewModel!.MenuItemClick(ActionItem.ConfirmAll);
+            }
+            else if (view.Id == Resource.Id.ivCaptchaImage)
+            {
+                Browser2.Open(ViewModel?.CodeImage);
             }
         }
 

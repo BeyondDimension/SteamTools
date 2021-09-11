@@ -29,7 +29,9 @@ namespace System.Application.Services.Implementation
         static bool IsSingletonWindow(CustomWindow customWindow) => customWindow switch
         {
             CustomWindow.MessageBox or
-            CustomWindow.TextBox => false,
+            CustomWindow.TextBox or
+            CustomWindow.AuthTrade or
+            CustomWindow.ShowAuth => false,
             _ => true,
         };
 

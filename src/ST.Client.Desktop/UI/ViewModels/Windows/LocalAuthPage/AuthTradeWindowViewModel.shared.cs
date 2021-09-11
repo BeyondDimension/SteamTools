@@ -296,12 +296,12 @@ namespace System.Application.UI.ViewModels
                         IsLoading = false;
                         ToastService.Current.Set(AppResources.Logining);
 #else
-                    LoadingText = AppResources.Logining;
+                        LoadingText = AppResources.Logining;
 #endif
                         //Toast.Show(AppResources.Logining);
                         var loginResult = steam.Login(UserName!, Password!, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
 #if __MOBILE__
-                    LoadingText = null;
+                        LoadingText = null;
 #endif
                         if (!loginResult)
                         {

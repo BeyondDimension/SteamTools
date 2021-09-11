@@ -69,7 +69,12 @@ namespace System.Application.UI
             }
             try
             {
-                var requestCreator = Picasso.Load(requestUri).Placeholder(new ColorDrawable(new((imageView.Context ?? Android.App.Application.Context).GetColorCompat(Resource.Color.grey_background))));
+                var ctx = imageView.Context ?? Android.App.Application.Context;
+                var placeholder = new ColorDrawable(new(ctx.GetColorCompat(Resource.Color.grey_background)));
+                var errorDrawable = new ColorDrawable(Color.DarkRed);
+                var requestCreator = Picasso.Load(requestUri)
+                    .Placeholder(placeholder)
+                    .Error(errorDrawable);
                 var useCenterCropDefault = false;
                 if (targetSize > 0)
                 {
