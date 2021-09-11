@@ -233,21 +233,21 @@ namespace System.Application.UI.ViewModels
                     parameter = UrlConstants.OfficialWebsite_Box_Privacy;
                     break;
             }
-#if __MOBILE__
+            //#if __MOBILE__
             await Browser2.OpenAsync(parameter);
-#else
-            if (AppHelper.IsSystemWebViewAvailable)
-            {
-                await IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
-                {
-                    Url = parameter,
-                }, resizeMode: ResizeModeCompat.NoResize);
-            }
-            else
-            {
-                await Browser2.OpenAsync(parameter);
-            }
-#endif
+            //#else
+            //            //if (AppHelper.IsSystemWebViewAvailable)
+            //            //{
+            //            //    await IShowWindowService.Instance.Show(CustomWindow.WebView3, new WebView3WindowViewModel
+            //            //    {
+            //            //        Url = parameter,
+            //            //    }, resizeMode: ResizeModeCompat.NoResize);
+            //            //}
+            //            //else
+            //            //{
+            //                //await Browser2.OpenAsync(parameter);
+            //            //}
+            //#endif
         }
 
         /// <summary>

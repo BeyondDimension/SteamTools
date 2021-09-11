@@ -27,6 +27,7 @@ namespace System.Application
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,
+        [Obsolete("disabled", true)]
         WebView3,
         BindPhoneNumber,
         ASF_AddBot,

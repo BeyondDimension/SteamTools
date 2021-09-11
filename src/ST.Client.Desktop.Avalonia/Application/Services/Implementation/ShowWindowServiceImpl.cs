@@ -11,6 +11,14 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class ShowWindowServiceImpl : IShowWindowService
     {
+        readonly IDesktopAvaloniaAppService daas;
+
+        public ShowWindowServiceImpl(IDesktopAvaloniaAppService daas)
+        {
+            this.daas = daas;
+        }
+
+
         static Type GetWindowType(CustomWindow customWindow)
         {
             var windowType = Type.GetType($"System.Application.UI.Views.Windows.{customWindow}Window");
@@ -20,11 +28,9 @@ namespace System.Application.Services.Implementation
 
         static bool IsSingletonWindow(CustomWindow customWindow) => customWindow switch
         {
-            CustomWindow.TaskBar or
-            CustomWindow.LoginOrRegister or
-            CustomWindow.ChangeBindPhoneNumber or
-            CustomWindow.UserProfile => true,
-            _ => false,
+            CustomWindow.MessageBox or
+            CustomWindow.TextBox => false,
+            _ => true,
         };
 
         static bool TryShowSingletonWindow(Type windowType)
@@ -35,6 +41,8 @@ namespace System.Application.Services.Implementation
                 if (window != null)
                 {
                     window.Show();
+                    if (window.WindowState == WindowState.Minimized)
+                        window.WindowState = WindowState.Normal;
                     window.Activate();
                     return true;
                 }
@@ -122,14 +130,14 @@ namespace System.Application.Services.Implementation
                 {
                     if (isDialog)
                     {
-                        await IDesktopAvaloniaAppService.Instance.ShowDialogWindow(window);
+                        await daas.ShowDialogWindow(window);
                     }
                     else
                     {
                         if (isParent)
-                            IDesktopAvaloniaAppService.Instance.ShowWindow(window);
+                            daas.ShowWindow(window);
                         else
-                            IDesktopAvaloniaAppService.Instance.ShowWindowNoParent(window);
+                            daas.ShowWindowNoParent(window);
                     }
                 }
                 catch (Exception e)
@@ -189,7 +197,7 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                IDesktopAvaloniaAppService.Instance.CloseWindow(vm);
+                daas.CloseWindow(vm);
             }
             catch (Exception e)
             {
@@ -197,11 +205,12 @@ namespace System.Application.Services.Implementation
                     "CloseWindow fail, vmType: {0}", vm.GetType().Name);
             }
         }
+
         public bool IsVisibleWindow(WindowViewModel vm)
         {
             try
             {
-                return IDesktopAvaloniaAppService.Instance.IsVisibleWindow(vm);
+                return daas.IsVisibleWindow(vm);
             }
             catch (Exception e)
             {
@@ -215,7 +224,7 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                IDesktopAvaloniaAppService.Instance.HideWindow(vm);
+                daas.HideWindow(vm);
             }
             catch (Exception e)
             {
@@ -228,7 +237,7 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                IDesktopAvaloniaAppService.Instance.ShowWindowNoParent(vm);
+                daas.ShowWindowNoParent(vm);
             }
             catch (Exception e)
             {
