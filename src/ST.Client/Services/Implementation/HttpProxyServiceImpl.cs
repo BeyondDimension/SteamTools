@@ -89,6 +89,7 @@ namespace System.Application.Services.Implementation
             proxyServer.Enable100ContinueBehaviour = false;
             proxyServer.EnableHttp2 = false;
             proxyServer.EnableConnectionPool = true;
+            proxyServer.CheckCertificateRevocation = X509RevocationMode.NoCheck;
             // 可选地设置证书引擎
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";

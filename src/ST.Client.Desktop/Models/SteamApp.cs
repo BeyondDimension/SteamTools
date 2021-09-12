@@ -88,6 +88,35 @@ namespace System.Application.Models
 
         public string? DisplayName => string.IsNullOrEmpty(EditName) ? Name : EditName;
 
+        string _baseDLSSVersion;
+        public string BaseDLSSVersion
+        {
+            get { return _baseDLSSVersion; }
+            set
+            {
+                if (_baseDLSSVersion != value)
+                {
+                    _baseDLSSVersion = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        string _currentDLSSVersion;
+        public string CurrentDLSSVersion
+        {
+            get { return _currentDLSSVersion; }
+            set
+            {
+                if (_currentDLSSVersion != value)
+                {
+                    _currentDLSSVersion = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+        public bool HasDLSS { get; set; }
+
         public string? Logo { get; set; }
 
         public string? Icon { get; set; }
@@ -121,8 +150,6 @@ namespace System.Application.Models
         /// 已下载字节数 
         /// </summary>
         public long BytesDownloaded { get; set; }
-
-
         public IList<uint> ChildApp { get; set; } = new List<uint>();
 
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
@@ -227,6 +254,135 @@ namespace System.Application.Models
             return Process = Process2.Start(
                 AppHelper.ProgramPath,
                 $"-clt app -silence -id {AppId}");
+        }
+
+        public void DetectDLSS()
+        {
+            BaseDLSSVersion = String.Empty;
+            CurrentDLSSVersion = "N/A";
+            var dlssDlls = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll", SearchOption.AllDirectories);
+            if (dlssDlls.Length > 0)
+            {
+                HasDLSS = true;
+
+                // TODO: Handle a single folder with various versions of DLSS detected.
+                // Currently we are just using the first.
+
+                foreach (var dlssDll in dlssDlls)
+                {
+                    var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
+                    CurrentDLSSVersion = dllVersionInfo.FileVersion.Replace(",", ".");
+                    break;
+                }
+
+                dlssDlls = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
+                if (dlssDlls.Length > 0)
+                {
+                    foreach (var dlssDll in dlssDlls)
+                    {
+                        var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
+                        BaseDLSSVersion = dllVersionInfo.FileVersion.Replace(",", ".");
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                HasDLSS = false;
+            }
+        }
+
+        internal bool ResetDll()
+        {
+            var foundDllBackups = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
+            if (foundDllBackups.Length == 0)
+            {
+                return false;
+            }
+
+            var versionInfo = FileVersionInfo.GetVersionInfo(foundDllBackups.First());
+            var resetToVersion = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}.{versionInfo.FilePrivatePart}";
+
+            foreach (var dll in foundDllBackups)
+            {
+                try
+                {
+                    var dllPath = Path.GetDirectoryName(dll);
+                    var targetDllPath = Path.Combine(dllPath, "nvngx_dlss.dll");
+                    File.Move(dll, targetDllPath, true);
+                }
+                catch (Exception err)
+                {
+                    System.Diagnostics.Debug.WriteLine($"ResetDll Error: {err.Message}");
+                    return false;
+                }
+            }
+
+            CurrentDLSSVersion = resetToVersion;
+            BaseDLSSVersion = String.Empty;
+
+            return true;
+        }
+
+        internal bool UpdateDll(LocalDll localDll)
+        {
+            if (localDll == null)
+            {
+                return false;
+            }
+
+            var foundDlls = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll", SearchOption.AllDirectories);
+            if (foundDlls.Length == 0)
+            {
+                return false;
+            }
+
+            var versionInfo = FileVersionInfo.GetVersionInfo(localDll.Filename);
+            var targetDllVersion = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}.{versionInfo.FilePrivatePart}";
+
+            var baseDllVersion = String.Empty;
+
+            // Backup old dlls.
+            foreach (var dll in foundDlls)
+            {
+                var dllPath = Path.GetDirectoryName(dll);
+                var targetDllPath = Path.Combine(dllPath, "nvngx_dlss.dll.dlsss");
+                if (File.Exists(targetDllPath) == false)
+                {
+                    try
+                    {
+                        var defaultVersionInfo = FileVersionInfo.GetVersionInfo(dll);
+                        baseDllVersion = $"{defaultVersionInfo.FileMajorPart}.{defaultVersionInfo.FileMinorPart}.{defaultVersionInfo.FileBuildPart}.{defaultVersionInfo.FilePrivatePart}";
+
+                        File.Copy(dll, targetDllPath, true);
+                    }
+                    catch (Exception err)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"UpdateDll Error: {err.Message}");
+                        return false;
+                    }
+                }
+            }
+
+            foreach (var dll in foundDlls)
+            {
+                try
+                {
+                    File.Copy(localDll.Filename, dll, true);
+                }
+                catch (Exception err)
+                {
+                    System.Diagnostics.Debug.WriteLine($"UpdateDll Error: {err.Message}");
+                    return false;
+                }
+            }
+
+            CurrentDLSSVersion = targetDllVersion;
+            if (String.IsNullOrEmpty(baseDllVersion) == false)
+            {
+                BaseDLSSVersion = baseDllVersion;
+            }
+            return true;
         }
 
         public static SteamApp? FromReader(BinaryReader reader)

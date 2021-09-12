@@ -79,9 +79,9 @@ namespace System.Application.UI.ViewModels
             //    });
         }
 
-        public override async void Initialize()
+        public override void Initialize()
         {
-            await Task.Run(() =>
+            Task.Run(() =>
             {
                 Threading.Thread.CurrentThread.IsBackground = true;
                 ProxyService.Current.Initialize();
@@ -96,7 +96,7 @@ namespace System.Application.UI.ViewModels
                     });
                     IsInitialized = true;
                 }
-            });
+            }).ForgetAndDispose();
         }
     }
 }
