@@ -107,7 +107,7 @@ namespace System.Application.Services.Implementation
                     }
                 }
 
-                if (OperatingSystem2.IsMacOS)
+                if (OperatingSystem2.IsMacOS||(OperatingSystem2.IsLinux&& Environment.UserName.ToLower()!="root"))
                 {
                     var editPath = Path.Combine(IOPath.CacheDirectory, "hosts");
                     var editInfo = new FileInfo(editPath);

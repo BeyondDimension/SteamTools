@@ -55,6 +55,7 @@ namespace System.Application.Services.Implementation
         public bool Socks5ProxyEnable { get; set; }
 
         public int Socks5ProxyPortId { get; set; }
+        public int HostProxyPortId { get; set; }
 
         public bool TwoLevelAgentEnable { get; set; }
 
@@ -390,17 +391,21 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
             try
             {
-                proxyServer.CertificateManager.TrustRootCertificate();
+                    proxyServer.CertificateManager.TrustRootCertificate();
             }
             catch { }
-            proxyServer.CertificateManager.EnsureRootCertificate();
+            try
+            { 
+                proxyServer.CertificateManager.EnsureRootCertificate();
+            }
+            catch { }
             if (OperatingSystem2.IsMacOS)
             {
                 TrustCer();
             }
             if (OperatingSystem2.IsLinux)
             {
-                IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
+                //IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
                 Browser2.Open("https://www.steampp.net/liunxSetupCer");
                 return true;
             }
@@ -529,7 +534,7 @@ namespace System.Application.Services.Implementation
                     //{
                     //    return false;
                     //}
-                    var transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
+                    var transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, HostProxyPortId, true)
                     {
                         // 通过不启用为每个http的域创建证书来优化性能
                         //GenericCertificate = proxyServer.CertificateManager.RootCertificate
@@ -540,8 +545,10 @@ namespace System.Application.Services.Implementation
 
                     try
                     {
+                        if (!OperatingSystem2.IsLinux) { 
                         if (PortInUse(80) == false)
                             proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
+                        }
                     }
                     catch { }
                 }
@@ -608,7 +615,7 @@ namespace System.Application.Services.Implementation
                 if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
             }
             catch (Exception ex)
-            {
+            { 
                 Log.Error("Proxy", ex, nameof(StartProxy));
                 return false;
             }
