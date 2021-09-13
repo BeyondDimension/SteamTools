@@ -1,14 +1,19 @@
 using System.Runtime.Versioning;
+using System.Linq;
 using Windows.ApplicationModel;
+using System.Application.Services;
+using Windows.ApplicationModel.Activation;
+using System.Diagnostics;
+using System.Application.UI;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application
 {
+    [SupportedOSPlatform("Windows10.0.17763.0")]
     public sealed class DesktopBridgeHelper : DesktopBridge
     {
         private DesktopBridgeHelper() => throw new NotSupportedException();
 
-        [SupportedOSPlatform("Windows10.0.10240.0")]
         public static bool Init(int min_os_build = 17763)
         {
             if (!OperatingSystem2.IsWindowsVersionAtLeast(10, 0, min_os_build)) return false;
@@ -23,6 +28,21 @@ namespace System.Application
             IsRunningAsUwp = true;
             FileSystemDesktopBridge.InitFileSystem();
             return true;
+        }
+
+        public static void OnActivated(ref string[] args)
+        {
+            var activatedArgs = AppInstance.GetActivatedEventArgs();
+            if (activatedArgs != null) OnActivated(ref args, activatedArgs);
+        }
+
+        static void OnActivated(ref string[] main_args, IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.StartupTask)
+            {
+                // 静默启动（不弹窗口）
+                main_args = IDesktopPlatformService.SystemBootRunArguments.Split(' ');
+            }
         }
     }
 }

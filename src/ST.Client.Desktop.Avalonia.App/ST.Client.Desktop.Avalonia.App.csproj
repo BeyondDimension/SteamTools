@@ -10,6 +10,10 @@
     <AssemblyName>Steam++</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <AllowedReferenceRelatedFileExtensions></AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) ">
     <OutputType>Exe</OutputType>
   </PropertyGroup>

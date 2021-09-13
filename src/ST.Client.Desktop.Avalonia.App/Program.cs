@@ -1,5 +1,4 @@
 using NLog;
-using System.Application.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Versioning;
@@ -10,18 +9,6 @@ namespace System.Application.UI
     {
         static readonly HashSet<Exception> exceptions = new();
         static readonly object lock_global_ex_log = new();
-
-#if WINDOWS_DESKTOP_BRIDGE
-        static string[] OnActivated(string[] main_args, global::Windows.ApplicationModel.Activation.IActivatedEventArgs args)
-        {
-            if (args.Kind == global::Windows.ApplicationModel.Activation.ActivationKind.StartupTask)
-            {
-                // 静默启动（不弹窗口）
-                return IDesktopPlatformService.SystemBootRunArguments.Split(' ');
-            }
-            return main_args;
-        }
-#endif
 
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -34,8 +21,7 @@ namespace System.Application.UI
         {
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
-            var activatedArgs = global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs();
-            if (activatedArgs != null) args = OnActivated(args, activatedArgs);
+            DesktopBridgeHelper.OnActivated(ref args);
 #elif !__MOBILE__
 #if MAC
             AppDelegate.Init(/*args*/);
