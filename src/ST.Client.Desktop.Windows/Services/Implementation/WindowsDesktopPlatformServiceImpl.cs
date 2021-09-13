@@ -217,7 +217,18 @@ namespace System.Application.Services.Implementation
 
         public void SetCurrentUser(string userName)
         {
-            Registry.CurrentUser.AddOrUpdate(SteamRegistryPath, "AutoLoginUser", userName, RegistryValueKind.String);
+            if (DesktopBridge.IsRunningAsUwp)
+            {
+                var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\Software\\Valve\\Steam]{Environment.NewLine}\"AutoLoginUser\"=\"{userName}\"";
+                var path = Path.Combine(IOPath.CacheDirectory, "switchuser.reg");
+                File.WriteAllText(path, reg, Text.Encoding.UTF8);
+
+                Process2.Start("regedit", $"/s \"{path}\"", true);
+            }
+            else
+            {
+                Registry.CurrentUser.AddOrUpdate(SteamRegistryPath, "AutoLoginUser", userName, RegistryValueKind.String);
+            }
         }
 
         static string GetMachineSecretKey()

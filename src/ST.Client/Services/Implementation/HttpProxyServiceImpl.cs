@@ -577,8 +577,6 @@ namespace System.Application.Services.Implementation
                 {
                     if (OperatingSystem2.IsWindows)
                     {
-                        //proxyServer.SetAsSystemHttpProxy(explicitProxyEndPoint);
-                        //proxyServer.SetAsSystemHttpsProxy(explicitProxyEndPoint);
                         proxyServer.SetAsSystemProxy(explicitProxyEndPoint, ProxyProtocolType.AllHttp);
                     }
                     else if (OperatingSystem2.IsMacOS)
