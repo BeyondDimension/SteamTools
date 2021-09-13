@@ -259,6 +259,7 @@ namespace System.Application.Services
         Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true);
 
         [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Linux")]
         bool IsAdministrator { get; }
 
         /// <summary>
