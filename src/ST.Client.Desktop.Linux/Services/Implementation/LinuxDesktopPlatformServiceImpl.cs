@@ -176,8 +176,6 @@ namespace System.Application.Services.Implementation
             return null;
         }
 
-        public bool IsAdministrator => false;
-
         public void UnelevatedProcessStart(string cmdArgs)
         {
             throw new PlatformNotSupportedException();
