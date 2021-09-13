@@ -59,6 +59,11 @@ namespace System.Application.Models.Settings
         #region 代理设置
 
         /// <summary>
+        /// Host代理模式端口
+        /// </summary>
+        public static SerializableProperty<int> HostProxyPortId { get; }
+            = GetProperty(defaultValue: 443, autoSave: false);
+        /// <summary>
         /// 系统代理模式端口
         /// </summary>
         public static SerializableProperty<int> SystemProxyPortId { get; }

@@ -55,7 +55,10 @@
                 <Label Content="本机监听IP地址"></Label>
                 <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
-              
+              <DockPanel>
+                <Label Content="监听端口"></Label>
+                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.HostProxyPortId},Path=Value, Mode=TwoWay}"></TextBox>
+              </DockPanel>
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
                 <ToggleSwitch

@@ -204,7 +204,7 @@ namespace System.Application.Services
                             //}
                             //else
                             //{
-                            var inUse = httpProxyService.PortInUse(443);
+                            var inUse = httpProxyService.PortInUse(ProxySettings.HostProxyPortId);
                             if (inUse)
                             {
                                 Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, ""));
