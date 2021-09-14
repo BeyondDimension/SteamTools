@@ -28,6 +28,6 @@ namespace System.Application.Services
         /// <summary>
         /// 设置启用或关闭系统代理
         /// </summary>
-        bool SetAsSystemProxy();
+        bool SetAsSystemProxy(bool state,string? ip=null,int? port=null);
     }
 }

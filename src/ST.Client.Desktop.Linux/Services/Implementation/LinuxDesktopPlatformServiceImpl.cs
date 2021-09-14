@@ -180,5 +180,23 @@ namespace System.Application.Services.Implementation
         {
             throw new PlatformNotSupportedException();
         }
+
+        public bool SetAsSystemProxy(bool state, string? ip, int? port)
+        {
+            var shellContent = new StringBuilder();
+            if (state)
+            {
+                shellContent.AppendLine($"gsettings set org.gnome.system.proxy mode 'manual'");
+                shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http host '{ip}'");
+                shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http port {port}");
+                shellContent.AppendLine($" gsettings set org.gnome.system.proxy.https host '{ip}'");
+                shellContent.AppendLine($"gsettings set org.gnome.system.proxy.https port {port}");
+            }
+            else { 
+                shellContent.AppendLine($"gsettings set org.gnome.system.proxy mode 'none'");
+            }
+            ((IPlatformService)this).AdminShell(shellContent.ToString(), false);
+            return true;
+        }
     }
 }

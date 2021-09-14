@@ -274,5 +274,30 @@ namespace System.Application.Services.Implementation
         {
             throw new PlatformNotSupportedException();
         }
+
+        public bool SetAsSystemProxy(bool state, string ip, int port)
+        {
+            var stringList = IPlatformService.Instance.GetMacNetworksetup();
+            var shellContent = new StringBuilder();
+            foreach (var item in stringList)
+            {
+                if (item.Trim().Length > 0)
+                {
+                    if (state)
+                    {
+                        shellContent.AppendLine($"networksetup -setwebproxy '{item}' '{ip}' {port}");
+                        shellContent.AppendLine($"networksetup -setwebproxystate '{item}' on");
+                        shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' '{ip}' {port}");
+                        shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' on");
+                    }
+                    else { 
+                        shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
+                        shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");
+                    }
+                }
+            }
+           ((IPlatformService)this).AdminShell(shellContent.ToString(), false);
+            return true;
+        }
     }
 }

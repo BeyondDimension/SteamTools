@@ -296,6 +296,23 @@ namespace System.Application.Services.Implementation
         {
             return true;
         }
+
+        const string ProxyOverride= "\"ProxyOverride\"=\"localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*\"";
+
+        public bool SetAsSystemProxy(bool state, string? ip=null, int? port=null)
+        {
+            if (DesktopBridge.IsRunningAsUwp)
+            {
+                var proxyEnable = $"\"ProxyEnable\"=dword:{(state ? "00000001" : "00000000")}";
+                var proxyServer= port.HasValue?$"\"proxyServer\"=\"{ip}:{port}\"":"";
+                var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings]{Environment.NewLine}{proxyEnable}{Environment.NewLine}{(state ? $"{ProxyOverride}{Environment.NewLine}" : "")}{proxyServer}";
+                var path = Path.Combine(IOPath.CacheDirectory, "switchproxy.reg");
+                File.WriteAllText(path, reg, Text.Encoding.UTF8);
+                var p = Process2.Start("regedit", $"/s \"{path}\"", true);
+                p?.WaitForExit();
+            }
+            return true;
+        }
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

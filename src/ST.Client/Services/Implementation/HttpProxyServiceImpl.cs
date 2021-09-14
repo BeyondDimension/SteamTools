@@ -576,41 +576,16 @@ namespace System.Application.Services.Implementation
 
                 if (IsWindowsProxy)
                 {
-                    if (OperatingSystem2.IsWindows)
+                    if (!DesktopBridge.IsRunningAsUwp&&OperatingSystem2.IsWindows)
                     {
                         proxyServer.SetAsSystemProxy(explicitProxyEndPoint, ProxyProtocolType.AllHttp);
                     }
-                    else if (OperatingSystem2.IsMacOS)
+                    if (!IPlatformService.Instance.SetAsSystemProxy(true, explicitProxyEndPoint.IpAddress.ToString(), explicitProxyEndPoint.Port))
                     {
-                        var stringList = IPlatformService.Instance.GetMacNetworksetup();
-                        var shellContent = new StringBuilder();
-                        foreach (var item in stringList)
-                        {
-                            if (item.Trim().Length > 0)
-                            {
-                                //shellContent.AppendLine($"networksetup -setsocksfirewallproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
-                                //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' on");
-                                shellContent.AppendLine($"networksetup -setwebproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
-                                shellContent.AppendLine($"networksetup -setwebproxystate '{item}' on");
-                                shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' '{explicitProxyEndPoint.IpAddress}' {explicitProxyEndPoint.Port}");
-                                shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' on");
-                            }
-                        }
-                        IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
-
-                    }
-                    else if (OperatingSystem2.IsLinux)
-                    {
-                        var shellContent = new StringBuilder();
-                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy mode 'manual'");
-                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http host '127.0.0.1'");
-                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http port {explicitProxyEndPoint.Port}");
-                        shellContent.AppendLine($" gsettings set org.gnome.system.proxy.https host '127.0.0.1'");
-                        shellContent.AppendLine($"gsettings set org.gnome.system.proxy.https port {explicitProxyEndPoint.Port}");
-                        IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
+                        Log.Error("Proxy", "系统代理开启失败");
+                        return false;
                     }
                 }
-
                 if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
             }
             catch (Exception ex)
@@ -691,60 +666,40 @@ namespace System.Application.Services.Implementation
             //}
             return Task.CompletedTask;
         }
-
-        public void StopLiunxProxy()
-        {
-            IPlatformService.Instance.AdminShell($"gsettings set org.gnome.system.proxy mode 'none'", false);
-
-        }
-        public void StopMacProxy()
-        {
-            var stringList = IPlatformService.Instance.GetMacNetworksetup();
-            var shellContent = new StringBuilder();
-            foreach (var item in stringList)
-            {
-                if (item.Trim().Length > 0)
-                {
-                    //shellContent.AppendLine($"networksetup -setsocksfirewallproxystate '{item}' off");
-                    shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
-                    shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");
-                }
-            }
-            IPlatformService.Instance.AdminShell(shellContent.ToString(), false);
-
-        }
+         
 
         public void StopProxy()
         {
+            IPlatformService.Instance.SetAsSystemProxy(false);
             if (proxyServer.ProxyRunning)
             {
                 proxyServer.BeforeRequest -= OnRequest;
                 proxyServer.BeforeResponse -= OnResponse;
                 proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
                 proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
-                if (OperatingSystem2.IsMacOS)
-                {
-                    StopMacProxy();
-                }
-                if (OperatingSystem2.IsLinux)
-                {
-                    StopLiunxProxy();
-                }
+                //if (OperatingSystem2.IsMacOS)
+                //{
+                //    StopMacProxy();
+                //}
+                //if (OperatingSystem2.IsLinux)
+                //{
+                //    StopLiunxProxy();
+                //}
                 proxyServer.Stop();
             }
 
-            if (IsWindowsProxy)
-            {
-                try
-                {
-                    proxyServer.DisableAllSystemProxies();
-                    //proxyServer.RestoreOriginalProxySettings();
-                }
-                catch
-                {
-                    //忽略异常导致的崩溃
-                }
-            }
+            //if (IsWindowsProxy)
+            //{
+            //    try
+            //    {
+            //        proxyServer.DisableAllSystemProxies();
+            //        //proxyServer.RestoreOriginalProxySettings();
+            //    }
+            //    catch
+            //    {
+            //        //忽略异常导致的崩溃
+            //    }
+            //}
         }
 
         public bool WirtePemCertificateToGoGSteamPlugins()
@@ -796,14 +751,8 @@ namespace System.Application.Services.Implementation
         {
             if (proxyServer.ProxyRunning)
             {
-                if (OperatingSystem2.IsMacOS)
-                {
-                    StopMacProxy();
-                }
-                if (OperatingSystem2.IsLinux)
-                {
-                    StopLiunxProxy();
-                }
+
+                
                 proxyServer.Stop();
             }
             proxyServer.Dispose();
