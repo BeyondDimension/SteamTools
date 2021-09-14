@@ -684,7 +684,7 @@ namespace System.Application.Services.Implementation
 
             if (IsWindowsProxy)
             {
-                if (!DesktopBridge.IsRunningAsUwp)
+                if (DesktopBridge.IsRunningAsUwp)
                 {
                     IPlatformService.Instance.SetAsSystemProxy(false);
                 }
