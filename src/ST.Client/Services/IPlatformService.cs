@@ -24,5 +24,10 @@ namespace System.Application.Services
         /// .NET Framework 中 <see cref="Encoding.Default"/> 行为
         /// </summary>
         Encoding Default => Encoding.Default;
+
+        /// <summary>
+        /// 设置启用或关闭系统代理
+        /// </summary>
+        bool SetAsSystemProxy();
     }
 }

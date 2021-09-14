@@ -391,11 +391,11 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
             try
             {
-                    proxyServer.CertificateManager.TrustRootCertificate();
+                proxyServer.CertificateManager.TrustRootCertificate();
             }
             catch { }
             try
-            { 
+            {
                 proxyServer.CertificateManager.EnsureRootCertificate();
             }
             catch { }
@@ -545,9 +545,10 @@ namespace System.Application.Services.Implementation
 
                     try
                     {
-                        if (!OperatingSystem2.IsLinux) { 
-                        if (PortInUse(80) == false)
-                            proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
+                        if (!OperatingSystem2.IsLinux)
+                        {
+                            if (PortInUse(80) == false)
+                                proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
                         }
                     }
                     catch { }
@@ -613,7 +614,7 @@ namespace System.Application.Services.Implementation
                 if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
             }
             catch (Exception ex)
-            { 
+            {
                 Log.Error("Proxy", ex, nameof(StartProxy));
                 return false;
             }

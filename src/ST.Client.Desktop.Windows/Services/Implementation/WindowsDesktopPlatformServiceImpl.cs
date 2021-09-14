@@ -222,8 +222,8 @@ namespace System.Application.Services.Implementation
                 var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\Software\\Valve\\Steam]{Environment.NewLine}\"AutoLoginUser\"=\"{userName}\"";
                 var path = Path.Combine(IOPath.CacheDirectory, "switchuser.reg");
                 File.WriteAllText(path, reg, Text.Encoding.UTF8);
-
-                Process2.Start("regedit", $"/s \"{path}\"", true);
+                var p = Process2.Start("regedit", $"/s \"{path}\"", true);
+                p?.WaitForExit();
             }
             else
             {
@@ -287,6 +287,14 @@ namespace System.Application.Services.Implementation
             {
             }
             return default;
+        }
+
+        /// <summary>
+        /// 设置启用或关闭系统代理
+        /// </summary>
+        public bool SetAsSystemProxy()
+        {
+            return true;
         }
     }
 }
