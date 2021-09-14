@@ -115,7 +115,7 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ST.Client.Desktop.Avalonia.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLite-net-std", "references\sqlite-net\nuget\SQLite-net-std\SQLite-net-std.csproj", "{B1F221F6-E19B-45D8-959D-A9CDA471C2D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Desktop.Avalonia.App.Bridge", "src\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj", "{2A66B796-7BC2-4BE0-A920-1A457BBCCC67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Steam++", "src\ST.Client.Desktop.Avalonia.App.Bridge\Steam++.csproj", "{2A66B796-7BC2-4BE0-A920-1A457BBCCC67}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Tools.DesktopBridgeLink", "src\ST.Tools.DesktopBridgeLink\ST.Tools.DesktopBridgeLink.csproj", "{137690DF-A3CB-4817-ACB8-9EAF3A52B5B5}"
 EndProject

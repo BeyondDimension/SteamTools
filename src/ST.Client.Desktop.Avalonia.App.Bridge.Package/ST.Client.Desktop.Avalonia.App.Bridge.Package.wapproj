@@ -63,7 +63,7 @@
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
     <PackageCertificateKeyFile>ST.Client.Desktop.Avalonia.App.Bridge.Package_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\ST.Client.Desktop.Avalonia.App.Bridge\Steam++.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <AppxBundle>Always</AppxBundle>
@@ -257,7 +257,7 @@
     </Content>
   </ItemGroup>-->
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge\ST.Client.Desktop.Avalonia.App.Bridge.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia.App.Bridge\Steam++.csproj" />
   </ItemGroup>
   <!--ST.Tools.DesktopBridgeLink(Release-x64)-->
 </Project>

@@ -32,7 +32,7 @@ English | [简体中文](./README.md)
 - [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
-- ~~[Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)~~
+- [Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 
 ## ✨ Functions
 1. Local reverse proxy for Steam's community webpage to enable normal access in **the Chinese Mainland, Mainland of China**

@@ -11,23 +11,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <AllowedReferenceRelatedFileExtensions></AllowedReferenceRelatedFileExtensions>
+    <AllowedReferenceRelatedFileExtensions>
+      <!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           Only *.allowedextension files will be included, which doesn't exist in my case.
+       -->
+      .allowedextension
+    </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) ">
     <OutputType>Exe</OutputType>
   </PropertyGroup>
-
-  <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <AllowedReferenceRelatedFileExtensions>
-      -->
-  <!-- Prevent default XML and PDB files copied to output in RELEASE.
-           Only *.allowedextension files will be included, which doesn't exist in my case.
-       -->
-  <!--
-      .allowedextension
-    </AllowedReferenceRelatedFileExtensions>
-  </PropertyGroup>-->
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
