@@ -576,14 +576,17 @@ namespace System.Application.Services.Implementation
 
                 if (IsWindowsProxy)
                 {
-                    if (!DesktopBridge.IsRunningAsUwp&&OperatingSystem2.IsWindows)
+                    if (!DesktopBridge.IsRunningAsUwp && OperatingSystem2.IsWindows)
                     {
                         proxyServer.SetAsSystemProxy(explicitProxyEndPoint, ProxyProtocolType.AllHttp);
                     }
-                    if (!IPlatformService.Instance.SetAsSystemProxy(true, explicitProxyEndPoint.IpAddress.ToString(), explicitProxyEndPoint.Port))
+                    else
                     {
-                        Log.Error("Proxy", "系统代理开启失败");
-                        return false;
+                        if (!IPlatformService.Instance.SetAsSystemProxy(true, explicitProxyEndPoint.IpAddress.ToString(), explicitProxyEndPoint.Port))
+                        {
+                            Log.Error("Proxy", "系统代理开启失败");
+                            return false;
+                        }
                     }
                 }
                 if (IsProxyGOG) { WirtePemCertificateToGoGSteamPlugins(); }
@@ -666,40 +669,39 @@ namespace System.Application.Services.Implementation
             //}
             return Task.CompletedTask;
         }
-         
+
 
         public void StopProxy()
         {
-            IPlatformService.Instance.SetAsSystemProxy(false);
             if (proxyServer.ProxyRunning)
             {
                 proxyServer.BeforeRequest -= OnRequest;
                 proxyServer.BeforeResponse -= OnResponse;
                 proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
                 proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
-                //if (OperatingSystem2.IsMacOS)
-                //{
-                //    StopMacProxy();
-                //}
-                //if (OperatingSystem2.IsLinux)
-                //{
-                //    StopLiunxProxy();
-                //}
                 proxyServer.Stop();
             }
 
-            //if (IsWindowsProxy)
-            //{
-            //    try
-            //    {
-            //        proxyServer.DisableAllSystemProxies();
-            //        //proxyServer.RestoreOriginalProxySettings();
-            //    }
-            //    catch
-            //    {
-            //        //忽略异常导致的崩溃
-            //    }
-            //}
+            if (IsWindowsProxy)
+            {
+                if (!DesktopBridge.IsRunningAsUwp)
+                {
+                    IPlatformService.Instance.SetAsSystemProxy(false);
+                }
+                else
+                {
+                    proxyServer.DisableAllSystemProxies();
+                    //proxyServer.RestoreOriginalProxySettings();
+                    //if (OperatingSystem2.IsMacOS)
+                    //{
+                    //    StopMacProxy();
+                    //}
+                    //if (OperatingSystem2.IsLinux)
+                    //{
+                    //    StopLiunxProxy();
+                    //}
+                }
+            }
         }
 
         public bool WirtePemCertificateToGoGSteamPlugins()
@@ -751,8 +753,6 @@ namespace System.Application.Services.Implementation
         {
             if (proxyServer.ProxyRunning)
             {
-
-                
                 proxyServer.Stop();
             }
             proxyServer.Dispose();
