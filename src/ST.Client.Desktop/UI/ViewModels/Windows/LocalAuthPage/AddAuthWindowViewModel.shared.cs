@@ -117,9 +117,33 @@ namespace System.Application.UI.ViewModels
             AuthIsLocal = repository.HasLocal(auths);
         }
 
-        public string? AuthName { get; set; }
+        string? _AuthName;
+        public string? AuthName
+        {
+            get => _AuthName;
+            set
+            {
+                if (value != null && value.Length > IGAPAuthenticatorDTO.MaxLength_Name)
+                {
+                    value = value.Substring(0, IGAPAuthenticatorDTO.MaxLength_Name);
+                }
+                _AuthName = value;
+            }
+        }
 
-        public string? UUID { get; set; }
+        string? _UUID;
+        public string? UUID
+        {
+            get => _UUID;
+            set
+            {
+                if (value != null && !value.StartsWith("android:", StringComparison.Ordinal))
+                {
+                    value = $"android:{value}";
+                }
+                _UUID = value;
+            }
+        }
 
         public string? SteamGuard { get; set; }
 

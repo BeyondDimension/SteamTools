@@ -1,6 +1,7 @@
 using Android.Views;
 using Binding;
 using ReactiveUI;
+using System.Application.Models;
 using System.Application.Models.Settings;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -38,6 +39,9 @@ namespace System.Application.UI.Fragments
             {
                 ViewModel!.SteamGuard = binding.tbGuard.Text;
             };
+
+            binding.layoutName.SetMaxLength(IGAPAuthenticatorDTO.MaxLength_Name);
+            binding.tbName.SetMaxLength(IGAPAuthenticatorDTO.MaxLength_Name);
 
             SetOnClickListener(binding!.btnImport);
         }

@@ -42,14 +42,16 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                binding!.swEncryption.Checked = value;
+                if (binding!.swEncryption.Checked != value)
+                    binding!.swEncryption.Checked = value;
                 binding.layoutPassword.Enabled = value;
                 binding.layoutPassword2.Enabled = value;
             }).AddTo(this);
 
             binding!.swEncryption.CheckedChange += (_, e) =>
             {
-                ViewModel!.IsPasswordEncrypt = e.IsChecked;
+                if (ViewModel!.IsPasswordEncrypt != e.IsChecked)
+                    ViewModel!.IsPasswordEncrypt = e.IsChecked;
             };
             binding.tbPassword.TextChanged += (_, _) =>
             {
