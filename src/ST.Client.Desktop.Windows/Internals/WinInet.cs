@@ -1,11 +1,11 @@
-﻿using System.Net;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
 namespace System
 {
-    internal class WinInet
+    internal static class WinInet
     {
         // For PInvoke: Initiates the enumeration of the cache groups in the Internet cache
         [DllImport(@"wininet",

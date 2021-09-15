@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace System
 {
-    class DWMApi
+    static class DWMApi
     {
         public const int DWM_TNP_VISIBLE = 0x8,
             DWM_TNP_OPACITY = 0x4,

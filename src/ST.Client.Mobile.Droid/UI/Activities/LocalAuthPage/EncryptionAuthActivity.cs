@@ -42,6 +42,7 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.IsPasswordEncrypt).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
+                binding!.swEncryption.Checked = value;
                 binding.layoutPassword.Enabled = value;
                 binding.layoutPassword2.Enabled = value;
             }).AddTo(this);
