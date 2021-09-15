@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
                 services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
                 services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
-                services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
+                //services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
                 if (hasNotifyIcon) services.AddNotifyIcon();
             }
             else

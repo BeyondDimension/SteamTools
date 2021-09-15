@@ -3,6 +3,7 @@ using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -181,18 +182,23 @@ namespace System.Application.Services.Implementation
             throw new PlatformNotSupportedException();
         }
 
-        public bool SetAsSystemProxy(bool state, string? ip, int? port)
+        public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
             var shellContent = new StringBuilder();
             if (state)
             {
+                var hasIpAndProt = ip != null && port >= 0;
                 shellContent.AppendLine($"gsettings set org.gnome.system.proxy mode 'manual'");
-                shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http host '{ip}'");
-                shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http port {port}");
-                shellContent.AppendLine($" gsettings set org.gnome.system.proxy.https host '{ip}'");
-                shellContent.AppendLine($"gsettings set org.gnome.system.proxy.https port {port}");
+                if (hasIpAndProt)
+                {
+                    shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http host '{ip}'");
+                    shellContent.AppendLine($"gsettings set org.gnome.system.proxy.http port {port}");
+                    shellContent.AppendLine($"gsettings set org.gnome.system.proxy.https host '{ip}'");
+                    shellContent.AppendLine($"gsettings set org.gnome.system.proxy.https port {port}");
+                }
             }
-            else { 
+            else
+            {
                 shellContent.AppendLine($"gsettings set org.gnome.system.proxy mode 'none'");
             }
             ((IPlatformService)this).AdminShell(shellContent.ToString(), false);

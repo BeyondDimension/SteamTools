@@ -61,10 +61,11 @@
 OS                                    | Version                 | Architectures   | Lifecycle
 --------------------------------------|-------------------------|-----------------|----------
 [Windows Client][Windows-client]      | 7 SP1(**\***), 8.1      | x64        | [Windows][Windows-lifecycle]
-[Windows 10 Client][Windows-client]   | Version 1607+           | x64 | [Windows][Windows-lifecycle]
+[Windows 10 Client][Windows-client]   | Version 1607+(**\***)           | x64 | [Windows][Windows-lifecycle]
 [Windows Server][Windows-Server]      | 2012+                | x64        | [Windows Server][Windows-Server-lifecycle]
 
-**\*** Windows 7 SP1 is supported with KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) installed.
+**\*** Windows 7 SP1 is supported with KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) installed.  
+**\*** Microsoft Store/Desktop Bridge Version 1809+
 
 [Windows-client]: https://www.microsoft.com/windows/
 [Windows-lifecycle]: https://support.microsoft.com/help/13853/windows-lifecycle-fact-sheet
@@ -148,6 +149,7 @@ OS                            | Version                 | Architectures     |
 - Windows Server 2008 R2 SP1
 	- 仅可使用 1.X 版本，2.X 开始不受支持，建议升级到更高版本
 - 无桌面 GUI 的 Windows Server / Linux 版本
+- Xbox or Windows Mobile / Phone
 
 ## 🌏 路线图
 查看这个 [milestones](https://github.com/SteamTools-Team/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。

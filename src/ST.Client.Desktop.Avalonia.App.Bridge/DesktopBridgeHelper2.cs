@@ -1,10 +1,7 @@
-using System.Runtime.Versioning;
-using System.Linq;
-using Windows.ApplicationModel;
 using System.Application.Services;
+using System.Runtime.Versioning;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using System.Diagnostics;
-using System.Application.UI;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application

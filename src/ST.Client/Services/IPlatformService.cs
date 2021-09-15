@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,9 @@ namespace System.Application.Services
         /// <summary>
         /// 设置启用或关闭系统代理
         /// </summary>
-        bool SetAsSystemProxy(bool state,string? ip=null,int? port=null);
+        bool SetAsSystemProxy(bool state, IPAddress? ip = null, int port = -1)
+        {
+            return false;
+        }
     }
 }

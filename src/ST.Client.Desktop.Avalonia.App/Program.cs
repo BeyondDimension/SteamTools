@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Versioning;
 
+#if WINDOWS_DESKTOP_BRIDGE
+[assembly: SupportedOSPlatform("Windows10.0.17763.0")]
+#endif
+
 namespace System.Application.UI
 {
     static partial class Program
@@ -14,9 +18,6 @@ namespace System.Application.UI
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-#if WINDOWS_DESKTOP_BRIDGE
-        [SupportedOSPlatform("Windows10.0.17763.0")]
-#endif
         static int Main(string[] args)
         {
 #if WINDOWS_DESKTOP_BRIDGE

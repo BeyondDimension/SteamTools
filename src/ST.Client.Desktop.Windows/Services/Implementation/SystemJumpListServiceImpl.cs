@@ -1,11 +1,9 @@
 extern alias JumpLists;
 using JumpLists::System.Windows.Shell;
-using System.Runtime.Versioning;
 using JumpList = System.Application.UI.JumpLists;
 
 namespace System.Application.Services.Implementation
 {
-    [SupportedOSPlatform("Windows")]
     internal sealed class SystemJumpListServiceImpl : ISystemJumpListService
     {
         public void InitJumpList()

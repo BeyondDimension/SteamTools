@@ -30,7 +30,7 @@
     <PackageVersion Include="NUnit" Version="3.13.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+    <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-rc.1.21451.13" />
     <PackageVersion Include="nunit.xamarin" Version="3.6.1" />
     <PackageVersion Include="PCLStorage" Version="1.0.2" />
     <PackageVersion Include="Xamarin.Forms" Version="5.0.0.2083" />
@@ -55,7 +55,7 @@
     <PackageVersion Include="StatefulModel.Standard" Version="0.1.0" />
     <PackageVersion Include="Titanium.Web.Proxy" Version="3.1.1397" />
     <PackageVersion Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
-    <PackageVersion Include="System.Drawing.Common" Version="5.0.2" />
+    <PackageVersion Include="System.Drawing.Common" Version="6.0.0-rc.1.21451.13" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageVersion Include="Avalonia" Version="0.10.7" />
     <PackageVersion Include="Avalonia.Desktop" Version="0.10.7" />
@@ -84,9 +84,9 @@
     <PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
     <PackageVersion Include="System.Runtime.WindowsRuntime" Version="4.7.0" />
     <PackageVersion Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.7.0" />
-    <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
     <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.0.4" />
-    <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
+    <PackageVersion Include="System.Security.Principal.Windows" Version="6.0.0-preview.5.21301.5" />
     <PackageVersion Include="BrotliSharpLib" Version="0.3.3" />
     <PackageVersion Include="System.Buffers" Version="4.5.1" />
     <PackageVersion Include="System.Memory" Version="4.5.4" />

@@ -582,7 +582,7 @@ namespace System.Application.Services.Implementation
                     }
                     else
                     {
-                        if (!IPlatformService.Instance.SetAsSystemProxy(true, explicitProxyEndPoint.IpAddress.ToString(), explicitProxyEndPoint.Port))
+                        if (!IPlatformService.Instance.SetAsSystemProxy(true, explicitProxyEndPoint.IpAddress, explicitProxyEndPoint.Port))
                         {
                             Log.Error("Proxy", "系统代理开启失败");
                             return false;
