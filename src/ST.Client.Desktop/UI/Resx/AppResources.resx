@@ -692,7 +692,7 @@
     <comment>Comment=同意 or 取消;</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>您没有权限查看确认信息. 是否启用了 'community-generated content' in Family View?</value>
+    <value>您没有权限查看确认信息. 是否启用了家庭监护功能? 或者登录状态已失效请尝试重新登录。</value>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
     <value>获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。</value>

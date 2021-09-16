@@ -1300,6 +1300,10 @@ namespace WinAuth
                     LogRequest(method, url, request.CookieContainer, data, response.StatusCode.ToString() + " " + response.StatusDescription);
 
                     // OK?
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        throw new WinAuthUnauthorisedSteamRequestException(new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription)));
+                    }
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
                         throw new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription));

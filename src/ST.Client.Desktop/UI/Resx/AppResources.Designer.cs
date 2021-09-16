@@ -1899,7 +1899,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您没有权限查看确认信息. 是否启用了 &apos;community-generated content&apos; in Family View? 的本地化字符串。
+        ///   查找类似 您没有权限查看确认信息. 是否启用了家庭监护功能? 或者登录状态已失效请尝试重新登录。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_GetError {
             get {
