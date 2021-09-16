@@ -1,9 +1,7 @@
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 #if !__MOBILE__
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
+using System.Runtime.Versioning;
 #endif
 
 namespace System.Application.Services
@@ -12,25 +10,28 @@ namespace System.Application.Services
     {
         public static IFontManager Instance => DI.Get<IFontManager>();
 
-        protected static KeyValuePair<string, string> Default { get; } = KeyValuePair.Create(AppResources.Default, "Default");
+        public static KeyValuePair<string, string> Default { get; } = KeyValuePair.Create(AppResources.Default, "Default");
 
         IReadOnlyCollection<KeyValuePair<string, string>> GetFonts();
+    }
 
-        protected static IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByGdiPlus()
-        {
+    partial interface
 #if !__MOBILE__
-            // https://docs.microsoft.com/zh-cn/typography/font-list
-            var culture = R.Culture;
-            InstalledFontCollection ifc = new();
-            var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
-            list.Insert(0, IFontManager.Default);
-            return list;
+        IDesktopPlatformService
 #else
+        IMobilePlatformService
+#endif
+    {
+        /// <summary>
+        /// 由 GDI+ 实现的获取当前系统字体数组，仅在 Windows 平台上实现，其他平台将返回空数组
+        /// </summary>
+        /// <returns></returns>
+        public IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByGdiPlus()
+        {
             // Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v1.0\Facades\System.Drawing.Common.dll
             // System.Drawing.Text.InstalledFontCollection
             // throw new PlatformNotSupportedException();
             return Array.Empty<KeyValuePair<string, string>>();
-#endif
         }
     }
 }

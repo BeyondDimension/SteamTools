@@ -40,6 +40,7 @@
     <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageVersion Include="Portable.BouncyCastle" Version="1.8.10" />
     <PackageVersion Include="QRCoder" Version="1.4.1" />
+    <PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.0-rc.1" />
     <PackageVersion Include="DnsClient" Version="1.5.0" />
     <PackageVersion Include="Fleck" Version="1.2.0" />
     <PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />
@@ -118,6 +119,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+    <PackageVersion Include="SkiaSharp" Version="2.80.3" />
   </ItemGroup>
   <ItemGroup Condition=" $(DefineConstants.Contains('_HAVE_XF_')) ">
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.7" />

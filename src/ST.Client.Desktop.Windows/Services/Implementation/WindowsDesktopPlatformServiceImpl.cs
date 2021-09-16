@@ -4,8 +4,11 @@ using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
 using System.Application.UI;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -314,6 +317,16 @@ namespace System.Application.Services.Implementation
                 p?.WaitForExit();
             }
             return true;
+        }
+
+        public IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByGdiPlus()
+        {
+            // https://docs.microsoft.com/zh-cn/typography/font-list
+            var culture = R.Culture;
+            InstalledFontCollection ifc = new();
+            var list = ifc.Families.Where(x => x.IsStyleAvailable(FontStyle.Regular)).Select(x => KeyValuePair.Create(x.GetName(culture.LCID), x.GetName(1033))).ToList();
+            list.Insert(0, IFontManager.Default);
+            return list;
         }
     }
 }

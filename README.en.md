@@ -218,6 +218,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers)
 * [ZXing.Net](https://github.com/micjahn/ZXing.Net)
 * [QRCoder](https://github.com/codebude/QRCoder)
+* [QR Code Generator for .NET](https://github.com/manuelbl/QrCodeGenerator)
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)

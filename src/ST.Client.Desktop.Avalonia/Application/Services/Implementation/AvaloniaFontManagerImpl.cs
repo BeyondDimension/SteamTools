@@ -6,34 +6,31 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class AvaloniaFontManagerImpl : FontManagerImpl
     {
-        bool useGdiPlusFirst;
-        public AvaloniaFontManagerImpl(bool useGdiPlusFirst)
+        public static bool UseGdiPlusFirst { get; set; }
+
+        public AvaloniaFontManagerImpl(IDesktopPlatformService platformService) : base(platformService)
         {
-            this.useGdiPlusFirst = useGdiPlusFirst;
         }
 
         public sealed override IReadOnlyCollection<KeyValuePair<string, string>> GetFonts()
         {
-            IReadOnlyCollection<KeyValuePair<string, string>> fonts;
-
-            if (useGdiPlusFirst)
+            if (UseGdiPlusFirst)
             {
                 try
                 {
-                    fonts = IFontManager.GetFontsByGdiPlus();
+                    var fonts = platformService.GetFontsByGdiPlus();
+                    if (fonts.Any()) return fonts;
                 }
                 catch
                 {
-                    useGdiPlusFirst = false;
-                    return GetFonts();
                 }
+                UseGdiPlusFirst = false;
+                return GetFonts();
             }
             else
             {
-                fonts = GetFontsByAvalonia();
+                return GetFontsByAvalonia();
             }
-
-            return fonts;
         }
 
         static IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByAvalonia()

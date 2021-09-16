@@ -30,7 +30,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddFontManager(this IServiceCollection services, bool useGdiPlusFirst)
         {
-            services.AddSingleton<IFontManager>(new AvaloniaFontManagerImpl(useGdiPlusFirst));
+            AvaloniaFontManagerImpl.UseGdiPlusFirst = useGdiPlusFirst;
+            services.AddSingleton<IFontManager, AvaloniaFontManagerImpl>();
             return services;
         }
     }

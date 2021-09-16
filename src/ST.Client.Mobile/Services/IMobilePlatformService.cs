@@ -1,6 +1,6 @@
 namespace System.Application.Services
 {
-    public interface IMobilePlatformService : IPlatformService
+    public partial interface IMobilePlatformService : IPlatformService
     {
         protected new const string TAG = "MobilePlatformS";
 
