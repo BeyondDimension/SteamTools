@@ -44,7 +44,10 @@ namespace System.Application.UI
 
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
 
-        AppTheme mTheme = AppTheme.Dark;
+        const AppTheme _DefaultActualTheme = AppTheme.Dark;
+        AppTheme IAppService.DefaultActualTheme => _DefaultActualTheme;
+
+        AppTheme mTheme = _DefaultActualTheme;
         public AppTheme Theme
         {
             get
@@ -53,8 +56,6 @@ namespace System.Application.UI
             }
             set
             {
-                static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
-
                 if (value == mTheme) return;
                 AppTheme switch_value = value;
 
@@ -89,6 +90,19 @@ namespace System.Application.UI
 
             setValue: mTheme = value;
             }
+        }
+
+        static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
+
+        AppTheme IAppService.GetActualThemeByFollowingSystem()
+        {
+            var dps = DI.Get<IDesktopPlatformService>();
+            var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+            if (isLightOrDarkTheme.HasValue)
+            {
+                return GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+            }
+            return _DefaultActualTheme;
         }
 
         public void SetThemeNotChangeValue(AppTheme value)

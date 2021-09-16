@@ -28,8 +28,10 @@ namespace System.Application.UI
         Theme = "@style/MainTheme",
         Icon = "@mipmap/ic_launcher",
         RoundIcon = "@mipmap/ic_launcher_round")]
-    public sealed class MainApplication : AndroidApplication
+    public sealed class MainApplication : AndroidApplication, IAppService
     {
+        public static MainApplication Instance => Context is MainApplication app ? app : throw new Exception("Impossible");
+
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
             ViewModelBase.IsInDesignMode = false;
@@ -91,15 +93,7 @@ namespace System.Application.UI
                 ImageLoader.Init(this);
                 UISettings.Theme.Subscribe(x =>
                 {
-                    var defaultNightMode = (AppTheme)x switch
-                    {
-                        AppTheme.FollowingSystem => AppCompatDelegate.ModeNightFollowSystem,
-                        AppTheme.Light => AppCompatDelegate.ModeNightNo,
-                        AppTheme.Dark => AppCompatDelegate.ModeNightYes,
-                        _ => (int?)null,
-                    };
-                    if (!defaultNightMode.HasValue) return;
-                    AppCompatDelegate.DefaultNightMode = defaultNightMode.Value;
+                    Theme = (AppTheme)x;
                 });
             }
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
@@ -120,14 +114,33 @@ namespace System.Application.UI
         /// </summary>
         public static bool IsMainProcess { get; private set; }
 
-        public static string GetTheme()
+        const AppTheme _DefaultActualTheme = AppTheme.Light;
+        AppTheme IAppService.DefaultActualTheme => _DefaultActualTheme;
+
+        public new AppTheme Theme
         {
-            if (DarkModeUtil.IsDarkMode(Context))
+            get => AppCompatDelegate.DefaultNightMode switch
             {
-                return AppTheme.Dark.ToString2();
+                AppCompatDelegate.ModeNightNo => AppTheme.Light,
+                AppCompatDelegate.ModeNightYes => AppTheme.Dark,
+                _ => AppTheme.FollowingSystem,
+            };
+            set
+            {
+                var defaultNightMode = value switch
+                {
+                    AppTheme.FollowingSystem => AppCompatDelegate.ModeNightFollowSystem,
+                    AppTheme.Light => AppCompatDelegate.ModeNightNo,
+                    AppTheme.Dark => AppCompatDelegate.ModeNightYes,
+                    _ => int.MinValue,
+                };
+                if (defaultNightMode != int.MinValue) return;
+                AppCompatDelegate.DefaultNightMode = defaultNightMode;
             }
-            return AppTheme.Light.ToString2();
         }
+
+        AppTheme IAppService.GetActualThemeByFollowingSystem()
+            => DarkModeUtil.IsDarkMode(this) ? AppTheme.Dark : AppTheme.Light;
 
         public static async void ShowUnderConstructionTips() => await MessageBoxCompat.ShowAsync(AppResources.UnderConstruction, "", MessageBoxButtonCompat.OK);
     }

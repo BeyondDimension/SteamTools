@@ -1,5 +1,7 @@
 using Net.Codecrete.QrCodeGenerator;
 using SkiaSharp;
+using System.Application.Models;
+using System.Application.Services;
 using System.IO;
 
 namespace System.Application.UI
@@ -12,9 +14,13 @@ namespace System.Application.UI
             try
             {
                 var qrCode = QrCode.EncodeBinary(bytes, level); // Make the QR code symbol
-
+                var foreground = IAppService.Instance.ActualTheme switch
+                {
+                    AppTheme.Dark => SKColors.White,
+                    _ => SKColors.Black,
+                };
                 int scale = 10, border = 4;
-                using SKBitmap bitmap = qrCode.ToBitmap(scale, border, SKColors.Black, SKColors.Transparent);
+                using SKBitmap bitmap = qrCode.ToBitmap(scale, border, foreground);
                 SKData data = bitmap.Encode(SKEncodedImageFormat.Png, 90);
 
                 return (QRCodeCreateResult.Success, data.AsStream(true), null);

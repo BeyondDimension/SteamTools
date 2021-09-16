@@ -5,14 +5,9 @@ using System.Windows.Input;
 
 namespace System.Application.Services
 {
-    public interface IDesktopAppService : IClipboardPlatformService
+    public interface IDesktopAppService : IAppService, IClipboardPlatformService
     {
         new static IDesktopAppService Instance => DI.Get<IDesktopAppService>();
-
-        /// <summary>
-        /// 当前桌面应用的主题
-        /// </summary>
-        AppTheme Theme { get; set; }
 
         /// <summary>
         /// 切换当前桌面应用的主题而不改变设置值

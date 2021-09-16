@@ -32,10 +32,13 @@ using System.Application.Models.Settings;
 #if __ANDROID__
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
+using PlatformApplication = System.Application.UI.MainApplication;
 using System.Application.UI.Resx;
 using System.Windows;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
+#elif !__MOBILE__
+using PlatformApplication = System.Application.UI.App;
 #endif
 #if StartupTrace
 using System.Diagnostics;
@@ -161,14 +164,16 @@ namespace System.Application
                 services.AddStartupToastIntercept();
 #endif
                 services.TryAddToast();
+
+                services.AddSingleton<IAppService>(_ => PlatformApplication.Instance);
 #if __MOBILE__
                 // 添加电话服务
                 services.AddTelephonyService();
 
                 services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #else
-                services.AddSingleton<IDesktopAppService>(s => App.Instance);
-                services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
+                services.AddSingleton<IDesktopAppService>(_ => PlatformApplication.Instance);
+                services.AddSingleton<IDesktopAvaloniaAppService>(_ => PlatformApplication.Instance);
                 services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<IDesktopAppService>());
 
                 // 添加管理主窗口服务
