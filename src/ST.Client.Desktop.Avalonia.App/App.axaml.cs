@@ -31,6 +31,7 @@ using Avalonia;
 using Avalonia.Platform;
 using FluentAvalonia.Styling;
 using Avalonia.Media;
+using System.Reactive.Disposables;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -474,11 +475,9 @@ namespace System.Application.UI
 
         public void SetDesktopBackgroundWindow()
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows && Instance.MainWindow is MainWindow window)
             {
-                var window = (App.Instance.MainWindow as MainWindow);
-                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(
-                    window._backHandle, (int)App.Instance.MainWindow.Width, (int)App.Instance.MainWindow.Height);
+                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(window._backHandle, (int)window.Width, (int)window.Height);
             }
         }
 

@@ -1,9 +1,4 @@
 using ReactiveUI;
-#if __MOBILE__
-using CompositeDisposable = System.Reactive.Disposables.CompositeDisposable;
-#else
-using CompositeDisposable = System.Application.Mvvm.CompositeDisposable;
-#endif
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Reactive.Disposables;

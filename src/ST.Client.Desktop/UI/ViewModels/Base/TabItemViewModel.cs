@@ -1,5 +1,4 @@
 using ReactiveUI;
-using StatefulModel.EventListeners;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -64,10 +63,10 @@ namespace System.Application.UI.ViewModels
         {
             if (IsInDesignMode) return;
 
-            CompositeDisposable?.Add(new PropertyChangedEventListener(R.Current)
+            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
             {
-                (sender, args) => this.RaisePropertyChanged(nameof(Name)),
-            });
+                this.RaisePropertyChanged(nameof(Name));
+            }).AddTo(this);
         }
 
         public async virtual void Initialize()

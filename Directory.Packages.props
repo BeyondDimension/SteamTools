@@ -120,6 +120,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.1" />
     <PackageVersion Include="SkiaSharp" Version="2.80.3" />
+    <PackageVersion Include="Nito.Disposables" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup Condition=" $(DefineConstants.Contains('_HAVE_XF_')) ">
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.7" />

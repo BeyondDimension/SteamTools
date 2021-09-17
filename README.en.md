@@ -193,6 +193,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [Costura.Fody](https://github.com/Fody/Costura)
 * [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)
 * [Nito.Comparers](https://github.com/StephenCleary/Comparers)
+* [Nito.Disposables](https://github.com/StephenCleary/Disposables)
 * [Crc32.NET](https://github.com/force-net/Crc32.NET)
 * [gfoidl.Base64](https://github.com/gfoidl/Base64)
 * [sqlite-net-pcl](https://github.com/praeclarum/sqlite-net)

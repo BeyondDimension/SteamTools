@@ -1,6 +1,6 @@
 using System.Application.Models;
-using System.Application.Mvvm;
 using System.Collections.Generic;
+using System.Reactive.Disposables;
 using System.Windows.Input;
 
 namespace System.Application.Services

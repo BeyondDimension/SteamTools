@@ -1,6 +1,7 @@
 using ReactiveUI;
 using System;
 using System.Application.Mvvm;
+using System.Reactive.Disposables;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
