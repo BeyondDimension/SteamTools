@@ -477,7 +477,9 @@ namespace System.Application.UI
         {
             if (OperatingSystem2.IsWindows && Instance.MainWindow is MainWindow window)
             {
-                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(window._backHandle, (int)window.Width, (int)window.Height);
+#pragma warning disable CA1416 // 验证平台兼容性
+                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(window._backHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));
+#pragma warning restore CA1416 // 验证平台兼容性
             }
         }
 
