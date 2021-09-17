@@ -485,8 +485,9 @@ namespace System.Application.Services.Implementation
         Encoding GetEncoding() => GeneralSettings.HostsEncodingType.Value switch
         {
             EncodingType.ANSICodePage => s.Default,
+            EncodingType.UTF8 => Encoding.Default,
             EncodingType.UTF8WithBOM => Encoding.UTF8,
-            _ => Encoding.Default,
+            _ => OperatingSystem2.IsWindows ? Encoding.UTF8 : Encoding.Default,
         };
 
         static Dictionary<string, string> ReadHostsAllLines(StreamReader fileReader)

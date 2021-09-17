@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Internals\**" />
+    <EmbeddedResource Remove="Internals\**" />
+    <None Remove="Internals\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -35,9 +41,5 @@
       <Link>Steam.ico</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Internals\" />
   </ItemGroup>
 </Project>
