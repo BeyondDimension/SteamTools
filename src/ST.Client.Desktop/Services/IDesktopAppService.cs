@@ -41,5 +41,10 @@ namespace System.Application.Services
         bool HasActiveWindow();
 
         void SetDesktopBackgroundWindow();
+
+        /// <summary>
+        /// 获取当前渲染子系统名称
+        /// </summary>
+        string RenderingSubsystemName => string.Empty;
     }
 }

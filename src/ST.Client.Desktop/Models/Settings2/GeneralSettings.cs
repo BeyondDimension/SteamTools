@@ -95,6 +95,12 @@ namespace System.Application.Models.Settings
         /// </summary>
         public static SerializableProperty<IHostsFileService.EncodingType> HostsEncodingType { get; }
             = GetProperty(defaultValue: default(IHostsFileService.EncodingType), autoSave: true);
+
+        ///// <summary>
+        ///// 使用 Direct2D1 渲染
+        ///// </summary>
+        //public static SerializableProperty<bool> UseDirect2D1 { get; }
+        //    = GetProperty(defaultValue: false, autoSave: true);
 #else
 
         /// <summary>

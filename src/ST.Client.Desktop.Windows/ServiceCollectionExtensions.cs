@@ -37,6 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<ISystemWindowApiService, SystemWindowApiServiceImpl>();
                 services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
                 if (hasNotifyIcon) services.AddNotifyIcon();
+                //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
             }
             else
             {

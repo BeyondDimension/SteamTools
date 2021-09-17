@@ -294,7 +294,9 @@ namespace System.Application.UI
                         }
                     }
 #if WINDOWS
+#pragma warning disable CA1416 // 验证平台兼容性
                     JumpLists.Init();
+#pragma warning restore CA1416 // 验证平台兼容性
 #endif
                 }
 
@@ -324,7 +326,7 @@ namespace System.Application.UI
         /// </summary>
         public override void RegisterServices()
         {
-            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
             base.RegisterServices();
         }
 
@@ -522,5 +524,7 @@ namespace System.Application.UI
         }
 
         #endregion
+
+        string IDesktopAppService.RenderingSubsystemName => Program.RenderingSubsystemName;
     }
 }

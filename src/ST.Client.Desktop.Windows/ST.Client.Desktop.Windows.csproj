@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
@@ -39,11 +39,14 @@
     <PackageReference Include="NotifyIcon.Windows" />
     <PackageReference Include="TaskScheduler" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
+    <!--<PackageReference Include="Avalonia.Direct2D1" />
+    <PackageReference Include="System.Diagnostics.Tracing" />-->
   </ItemGroup>
 
   <ItemGroup>
     <!--<ProjectReference Include="..\..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />-->
     <ProjectReference Include="..\..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
   </ItemGroup>
 

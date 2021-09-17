@@ -157,7 +157,7 @@ namespace System.Application
 #if __MOBILE__
                 services.TryAddFontManager();
 #else
-                services.AddFontManager(useGdiPlusFirst: true);
+                services.TryAddAvaloniaFontManager(useGdiPlusFirst: true);
 #endif
                 // 添加 Toast 提示服务
 #if !DEBUG
