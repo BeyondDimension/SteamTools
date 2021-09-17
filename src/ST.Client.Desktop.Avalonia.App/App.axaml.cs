@@ -339,7 +339,9 @@ namespace System.Application.UI
 #if WINDOWS
             if (isOfficialChannelPackage)
             {
+#pragma warning disable CA1416 // 验证平台兼容性
                 VisualStudioAppCenterSDK.Init();
+#pragma warning restore CA1416 // 验证平台兼容性
             }
 #endif
 #if StartupTrace
