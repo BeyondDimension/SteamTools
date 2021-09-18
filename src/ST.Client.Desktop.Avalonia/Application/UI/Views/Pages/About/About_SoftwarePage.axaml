@@ -77,7 +77,7 @@
                 Padding="{StaticResource PageMargin}">
     <DockPanel>
       <StackPanel Spacing="10" DockPanel.Dock="Top">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel x:Name="LogoPanel" Orientation="Horizontal">
           <TextBlock Name="LogoText1" Classes="h1 light">Steam++</TextBlock>
           <Panel Width="5" Height="5" />
           <TextBlock Name="LogoText2" Classes="h1 light">Tools</TextBlock>

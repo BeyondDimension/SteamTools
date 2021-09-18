@@ -1,7 +1,5 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using System.Application.UI.Resx;
-using System.Application.UI.Views.Controls;
 
 namespace System.Application.UI.Views.Pages
 {
@@ -15,6 +13,12 @@ namespace System.Application.UI.Views.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            var logoPanel = this.FindControl<StackPanel>("LogoPanel");
+            if (logoPanel != null)
+            {
+                logoPanel.PointerPressed += (_, _) => AboutAppInfoPopup.OnClick();
+            }
         }
     }
 }

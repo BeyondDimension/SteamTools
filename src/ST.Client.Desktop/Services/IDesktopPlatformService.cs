@@ -272,5 +272,23 @@ namespace System.Application.Services
         void FixFluentWindowStyleOnWin7(IntPtr hWnd)
         {
         }
+
+        /// <summary>
+        /// 获取当前 Windows 系统产品名称，例如 Windows 10 Pro
+        /// </summary>
+        [SupportedOSPlatform("Windows")]
+        string WindowsProductName => "";
+
+        /// <summary>
+        /// 获取当前 Windows 系统第四位版本号
+        /// </summary>
+        [SupportedOSPlatform("Windows")]
+        int WindowsVersionRevision => 0;
+
+        /// <summary>
+        /// 获取当前 Windows 10/11 系统显示版本，例如 21H1
+        /// </summary>
+        [SupportedOSPlatform("Windows")]
+        string WindowsReleaseIdOrDisplayVersion => "";
     }
 }
