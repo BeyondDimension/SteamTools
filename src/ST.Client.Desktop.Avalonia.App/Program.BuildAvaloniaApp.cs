@@ -31,16 +31,34 @@ namespace System.Application.UI
                 })
                 .LogToTrace()
                 .UseReactiveUI();
-//            if (OperatingSystem2.IsWindows &&
-//#if DEBUG
-//                true
-//#else
-//                GeneralSettings.UseDirect2D1.Value
-//#endif
-//                )
-//            {
-//                builder.UseDirect2D1();
-//            }
+            if (OperatingSystem2.IsMacOS)
+            {
+                builder.With(new AvaloniaNativePlatformOptions
+                {
+                    UseGpu = !AppHelper.DisableGPU && GeneralSettings.UseGPURendering.Value
+                });
+            }
+            else if (OperatingSystem2.IsWindows)
+            {
+                var useOpenGL = GeneralSettings.UseOpenGL.Value;
+                var options = new Win32PlatformOptions
+                {
+                    UseWindowsUIComposition = true,
+                    UseWgl = useOpenGL,
+                    AllowEglInitialization = !useOpenGL,
+                };
+                builder.With(options);
+            }
+            //            if (OperatingSystem2.IsWindows &&
+            //#if DEBUG
+            //                true
+            //#else
+            //                GeneralSettings.UseDirect2D1.Value
+            //#endif
+            //                )
+            //            {
+            //                builder.UseDirect2D1();
+            //            }
             RenderingSubsystemName = builder.RenderingSubsystemName;
             return builder;
         }

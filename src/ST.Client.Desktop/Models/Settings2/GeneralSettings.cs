@@ -101,6 +101,12 @@ namespace System.Application.Models.Settings
         ///// </summary>
         //public static SerializableProperty<bool> UseDirect2D1 { get; }
         //    = GetProperty(defaultValue: false, autoSave: true);
+
+        /// <summary>
+        /// Avalonia would try to use native Widows OpenGL when set to true. The default value is false.
+        /// </summary>
+        public static SerializableProperty<bool> UseOpenGL { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
 #else
 
         /// <summary>
