@@ -16,10 +16,6 @@ namespace System.Application.UI
             SettingsHost.Load();
             var builder = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .With(new SkiaOptions
-                {
-                    MaxGpuResourceSizeBytes = 8096000,
-                })
                 .LogToTrace()
                 .UseReactiveUI();
             if (OperatingSystem2.IsMacOS)
