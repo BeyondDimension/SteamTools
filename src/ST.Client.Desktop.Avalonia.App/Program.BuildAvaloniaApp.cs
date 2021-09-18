@@ -20,15 +20,6 @@ namespace System.Application.UI
                 {
                     MaxGpuResourceSizeBytes = 8096000,
                 })
-                .With(new AvaloniaNativePlatformOptions
-                {
-                    UseGpu = !AppHelper.DisableGPU && GeneralSettings.UseGPURendering.Value
-                })
-                .With(new Win32PlatformOptions
-                {
-                    AllowEglInitialization = true,
-                    UseWindowsUIComposition = true
-                })
                 .LogToTrace()
                 .UseReactiveUI();
             if (OperatingSystem2.IsMacOS)
