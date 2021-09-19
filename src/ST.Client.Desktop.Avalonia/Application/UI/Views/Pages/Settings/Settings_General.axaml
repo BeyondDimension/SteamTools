@@ -3,6 +3,7 @@
              xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:sys_os2="clr-namespace:System;assembly=System.OperatingSystem2"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -69,7 +70,7 @@
 
       <Separator Classes="Separator"/>
 
-      <DockPanel>
+      <DockPanel IsVisible="{ReflectionBinding Source={x:Static sys_os2:OperatingSystem2.IsMacOS}, Mode=OneTime}">
         <WrapPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <TextBlock Classes="prompt"
@@ -79,7 +80,17 @@
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
 
-      <Separator Classes="Separator"/>
+      <DockPanel IsVisible="{ReflectionBinding Source={x:Static sys_os2:OperatingSystem2.IsWindows}, Mode=OneTime}">
+        <WrapPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseOpenGL,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <TextBlock Classes="prompt"
+                     Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+        </WrapPanel>
+
+        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseOpenGL},Path=Value, Mode=TwoWay}"/>
+      </DockPanel>
+
+      <Separator Classes="Separator" IsVisible="{ReflectionBinding Source={x:Static sys_os2:OperatingSystem2.IsLinux}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}" />
 
       <StackPanel Orientation="Vertical" Spacing="10">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static resx:R.Current}}"/>

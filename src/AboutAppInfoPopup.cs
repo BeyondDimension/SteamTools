@@ -57,6 +57,7 @@ namespace System.Application.UI
                 if (OperatingSystem2.IsWindows)
                 {
                     var dps = IDesktopPlatformService.Instance;
+#pragma warning disable CA1416 // 验证平台兼容性
                     var productName = dps.WindowsProductName;
                     var major = Environment.OSVersion.Version.Major;
                     var minor = Environment.OSVersion.Version.Minor;
@@ -66,10 +67,11 @@ namespace System.Application.UI
                     var servicePack = Environment.OSVersion.ServicePack;
                     if (!string.IsNullOrEmpty(servicePack))
                     {
-                        b.Append(" ");
+                        b.Append(' ');
                         b.Append(servicePack);
                     }
                     var releaseId = dps.WindowsReleaseIdOrDisplayVersion;
+#pragma warning restore CA1416 // 验证平台兼容性
                     if (!string.IsNullOrWhiteSpace(releaseId))
                     {
                         b.Append(" (");
@@ -79,7 +81,7 @@ namespace System.Application.UI
                 }
                 else
                 {
-                    b.AppendFormat("{0} {1}", Environment.OSVersion.Version);
+                    b.AppendFormat("{0} {1}", DeviceInfo2.OSName, Environment.OSVersion.Version);
                 }
 #endif
                 b.AppendLine();
@@ -118,14 +120,14 @@ namespace System.Application.UI
                 b.Append("[clr.ver] ");
                 string? clrVersion;
                 try
-                {                    
+                {
                     clrVersion = typeof(object).Assembly.GetRequiredCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion.Split('+', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
                 }
                 catch
                 {
                     clrVersion = null;
                 }
-                b.Append(string.IsNullOrEmpty(clrVersion) ? Environment.Version : (object)clrVersion);
+                b.Append(string.IsNullOrEmpty(clrVersion) ? Environment.Version : clrVersion);
                 b.AppendLine();
 
 #if __ANDROID__

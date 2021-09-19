@@ -1,6 +1,4 @@
 using System.Application.Models;
-using System.Application.UI.Resx;
-using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -12,67 +10,20 @@ namespace System.Application.Services.Implementation
 {
     internal sealed partial class LinuxDesktopPlatformServiceImpl : IDesktopPlatformService
     {
+        public const string xdg = "xdg-open";
+        public const string vi = "vi";
+        public const string VSC = "code";
+
         public void SetResizeMode(IntPtr hWnd, ResizeModeCompat value)
         {
         }
-        async ValueTask IPlatformService.AdminShellAsync(string shell, bool admin)
-        {
-            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"{(admin ? "sudo" : "")}shell.sh"));
 
-            if (file.Exists)
-                file.Delete();
-            var scriptContent = new StringBuilder();
-            if (admin)
-            {
-                TextBoxWindowViewModel vm = new()
-                {
-                    Title = AppResources.MacSudoPasswordTips,
-                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-                    Description = $"sudo {shell}",
-                };
-                await TextBoxWindowViewModel.ShowDialogAsync(vm);
-                if (string.IsNullOrWhiteSpace(vm.Value))
-                    return;
-                scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {shell}");
-            }
-            else
-            {
-                scriptContent.AppendLine(shell);
-            }
-            using (var stream = file.CreateText())
-            {
-                stream.Write(scriptContent);
-                stream.Flush();
-                stream.Close();
-            }
-            using (var p = new Process())
-            {
-                p.StartInfo.FileName = "/bin/bash";
-                p.StartInfo.Arguments = $"\"{file.FullName}\"";
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.Exited += (object? _, EventArgs _) =>
-                {
-                    if (file.Exists)
-                        file.Delete();
-                    if (p.ExitCode != 0)
-                    {
-                        ((IPlatformService)this).AdminShell(shell);
-                    }
-                };
-                p.Start();
-                var ret = p.StandardOutput.ReadToEnd();
-                p.Kill();
-                if (file.Exists)
-                    file.Delete();
-            }
-        }
+        ValueTask IPlatformService.AdminShellAsync(string shell, bool admin) => UnixHelpers.AdminShellAsync(shell, admin);
+
         public string GetCommandLineArgs(Process process)
         {
             return string.Empty;
         }
-
-        public const string xdg = "xdg-open";
 
         public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
@@ -84,9 +35,6 @@ namespace System.Application.Services.Implementation
             if (info.DirectoryName == null) return;
             Process2.StartPath(xdg, info.DirectoryName);
         }
-
-        public const string vi = "vi";
-        const string VSC = "code";
 
         public string? GetFileName(TextReaderProvider provider) => provider switch
         {
@@ -110,12 +58,12 @@ namespace System.Application.Services.Implementation
             return Path.Combine(rootPath, "Steam");
         }
 
-        public string? GetSteamProgramPath()
-        {
-            return "/usr/bin/steam";
-        }
+        static readonly Lazy<string> _SteamProgramPath = new(() => string.Format("{0}usr{0}bin{0}steam", Path.DirectorySeparatorChar));
+
+        public string? GetSteamProgramPath() => _SteamProgramPath.Value;
 
         public string GetLastSteamLoginUserName() => string.Empty;
+
         public string? GetRegistryVdfPath()
         {
             var value = string.Format(
@@ -124,6 +72,7 @@ namespace System.Application.Services.Implementation
                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
             return value;
         }
+
         public void SetCurrentUser(string userName)
         {
             try
@@ -153,7 +102,7 @@ namespace System.Application.Services.Implementation
 
         static string GetMachineSecretKey()
         {
-            var filePath = "/etc/machine-id";
+            var filePath = string.Format("{0}etc{0}machine-id", Path.DirectorySeparatorChar);
             return File.ReadAllText(filePath);
         }
 

@@ -1601,4 +1601,7 @@
   <data name="About_AppReview" xml:space="preserve">
     <value>打分&amp;评价</value>
   </data>
+  <data name="Settings_General_UseOpenGL" xml:space="preserve">
+    <value>使用 OpenGL 渲染</value>
+  </data>
 </root>

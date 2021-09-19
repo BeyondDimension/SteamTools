@@ -3304,6 +3304,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 使用 OpenGL 渲染 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_UseOpenGL {
+            get {
+                return ResourceManager.GetString("Settings_General_UseOpenGL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 语言 的本地化字符串。
         /// </summary>
         public static string Settings_Language {

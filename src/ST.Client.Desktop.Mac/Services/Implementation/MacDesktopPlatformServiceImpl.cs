@@ -6,8 +6,6 @@ using AppKit;
 using Foundation;
 #endif
 using System.Application.Models;
-using System.Application.UI.Resx;
-using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -19,6 +17,9 @@ namespace System.Application.Services.Implementation
 {
     internal sealed partial class MacDesktopPlatformServiceImpl : IDesktopPlatformService
     {
+        public const string TextEdit = "TextEdit";
+        public const string VSC = "Visual Studio Code";
+
         public void SetResizeMode(IntPtr hWnd, ResizeModeCompat value)
         {
         }
@@ -41,56 +42,7 @@ namespace System.Application.Services.Implementation
             return ret.Split("\n");
         }
 
-        async ValueTask IPlatformService.AdminShellAsync(string shell, bool admin)
-        {
-            var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"{(admin ? "sudo" : "")}shell.sh"));
-
-            if (file.Exists)
-                file.Delete();
-            var scriptContent = new StringBuilder();
-            if (admin)
-            {
-                TextBoxWindowViewModel vm = new()
-                {
-                    Title = AppResources.MacSudoPasswordTips,
-                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-                    Description = $"sudo {shell}",
-                };
-                await TextBoxWindowViewModel.ShowDialogAsync(vm);
-                if (string.IsNullOrWhiteSpace(vm.Value))
-                    return;
-                scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {shell}");
-            }
-            else
-            {
-                scriptContent.AppendLine(shell);
-            }
-            using (var stream = file.CreateText())
-            {
-                stream.Write(scriptContent);
-                stream.Flush();
-                stream.Close();
-            }
-            using var p = new Process();
-            p.StartInfo.FileName = "/bin/bash";
-            p.StartInfo.Arguments = $"\"{file.FullName}\"";
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.Exited += (object? _, EventArgs _) =>
-            {
-                if (file.Exists)
-                    file.Delete();
-                if (p.ExitCode != 0)
-                {
-                    ((IPlatformService)this).AdminShell(shell);
-                }
-            };
-            p.Start();
-            var ret = p.StandardOutput.ReadToEnd();
-            p.Kill();
-            if (file.Exists)
-                file.Delete();
-        }
+        ValueTask IPlatformService.AdminShellAsync(string shell, bool admin) => UnixHelpers.AdminShellAsync(shell, admin);
 
         public static void OpenFile(string appName, string filePath) => NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
 
@@ -108,9 +60,6 @@ namespace System.Application.Services.Implementation
         {
             NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] { new NSUrl(info.FullName, isDir: false) });
         }
-
-        const string TextEdit = "TextEdit";
-        const string VSC = "Visual Studio Code";
 
         public string? GetFileName(TextReaderProvider provider) => provider switch
         {
@@ -207,7 +156,7 @@ namespace System.Application.Services.Implementation
                 {
                     value = NSString.FromHandle(valueIntPtr) ?? value;
                 }
-                IOObjectRelease(platformExpert);
+                _ = IOObjectRelease(platformExpert);
             }
 
             return value;
@@ -290,7 +239,8 @@ namespace System.Application.Services.Implementation
                         shellContent.AppendLine($"networksetup -setsecurewebproxy '{item}' '{ip}' {port}");
                         shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' on");
                     }
-                    else { 
+                    else
+                    {
                         shellContent.AppendLine($"networksetup -setwebproxystate '{item}' off");
                         shellContent.AppendLine($"networksetup -setsecurewebproxystate '{item}' off");
                     }
