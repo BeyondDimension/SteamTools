@@ -127,7 +127,10 @@ namespace System.Application.UI
                 {
                     clrVersion = null;
                 }
-                b.Append(string.IsNullOrEmpty(clrVersion) ? Environment.Version : clrVersion);
+                if (string.IsNullOrEmpty(clrVersion))
+                    b.Append(Environment.Version);
+                else
+                    b.Append(clrVersion);
                 b.AppendLine();
 
 #if __ANDROID__

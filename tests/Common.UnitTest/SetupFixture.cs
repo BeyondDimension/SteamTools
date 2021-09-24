@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using System.Logging;
@@ -33,7 +33,7 @@ namespace System
             {
                 o.MinLevel = LogLevel.Trace;
             });
-            //services.AddPinyin();
+            services.AddPinyin();
         }
     }
 }

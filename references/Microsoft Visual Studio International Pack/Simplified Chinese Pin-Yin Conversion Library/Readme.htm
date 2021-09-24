@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Visual Studio International Pack 1.0自述文件</title>
+    <style type="text/css">
+        span  {  font-size: 10pt;}
+        li  {  font-size: 10pt;}
+        ul { list-style: disc }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+    <span style="font-size: 14pt">
+        <strong>Microsoft Visual Studio International Pack 1.0自述文件</strong>
+    </span>
+    <br />
+    <br />
+    <span>
+        本文档提供了关于Visual Studio International Pack 1.0的一些基本信息，其中包括了基本功能的简介、已知的问题和相关的支持信息。
+    </span>
+    <br />
+    <br />
+    
+    <span>
+        <strong>Visual Studio International Pack 1.0有什么功能？</strong>
+    </span>
+    <br />
+    <br />
+           
+           
+    <ul>
+        <li>
+            <span><strong>East Asia Numeric Formatting Library（亚洲语系数值字符串格式化类库）</strong></span>
+            <br />
+            <br />
+            <ul><li>East Asia Numeric Formatting Library提供了一组类库以帮助程序开发人员将数值数据格式转化成亚洲语系的数值字符串，支持的语言包括了繁体中文，简体中文，日文以及韩文。</li></ul>
+            <br />
+        </li>
+        
+        <li>
+            <span><strong>Japanese Kana Conversion Library（日语假名罗马字转换类库）</strong></span>
+            <br />
+            <br />
+            <ul><li>Japanese Kana Conversion Library提供了一组类库以转换日文假名，它使用了有限状态机翻译字符串。此类库可支持转换到平假名、片假名、半角片假名和罗马字。</li></ul>
+            <br />
+        </li>
+        
+        <li>
+            <span><strong>Japanese Text Alignment Library（日语文字对齐类库）</strong></span>
+            <br />
+            <br />
+            <ul><li>Japanese Text Alignment Library提供了一组类库让应用程序可以显示以日文特有的文字对齐方式排列的字符串。</li></ul>
+            <br />
+        </li>
+        
+        <li>
+            <span><strong>Japanese Yomi Auto-Completion Library（日语Yomi输入自动完成类库）</strong></span>
+            <br />
+            <br />
+            <ul><li>Japanese Yomi Auto-Completion Library提供了一组类库以支持日文输入法的自动完成功能。这个类库可在日文输入法下使用。</li></ul>
+            <br />
+        </li>
+        
+        <li>
+            <span><strong>Korean Auto Complete TextBox Control（韩语输入自动完成TextBox控件）</strong></span>
+            <br />
+            <br />
+            <ul><li>Korean Auto Complete TextBox Control提供了TextBox控件以支持韩文输入法的自动完成以及Intellisense功能。</li></ul>
+            <br />
+        </li>
+        
+        <li>
+            <span><strong>Simplified Chinese Pin-Yin Conversion Library（简体中文拼音转换类库）</strong></span>
+            <br />
+            <br />
+            <ul><li>Simplified Chinese Pin-Yin Conversion Library提供了一组API，通过它们可以取得简体中文字符的拼音、同音字、笔画数等相关的属性。</li></ul>
+            <br />
+        </li>
+        
+        <li>
+            <span><strong>Traditional Chinese to Simplified Chinese Conversion Library and Add-In Tool（中文繁简转换类库及Visual Studio插件工具）</strong></span>
+            <br />
+            <br />
+            <ul><li>Traditional to Simplified Chinese Conversion Library and Add-In Tool 提供了一组类库以帮助程序开发人员在应用程序中将中文繁体转换到中文简体（或是中文简体至中文繁体）。为使转换的品质更好，这种转换功能使用了Microsoft Office 2007的内置功能，以进行词对词的转换。若使用的系统中没有安装Microsoft Office 2007，则此类库将使用传统的字对字转换。除此之外，此组件也包括了一个Visual Studio插件工具，可以让使用者直接转换资源文件中的中文字符串。</li></ul>
+            <br />
+        </li>
+    </ul>
+    
+    <span>
+        <strong>Visual Studio International Pack 1.0系统需求</strong>
+    </span>
+    <br />
+    <br />
+    
+    <ul>
+        <li>
+            <span>Microsoft Visual Studio 2005 或 Microsoft Visual Studio 2008</span>
+            <br />
+            <br />
+        </li>
+        <li>
+            <span>Microsoft Office 2007 – 此需求为可选的，针对Traditional to Simplified Chinese Conversion Library and Add-In Tool，为了取得更好的转换的品质，使用者必须在同一台机器上安装Microsoft Office 2007。</span>
+            <br />
+        </li>
+    </ul>
+    
+    <span><strong>Visual Studio International Pack 1.0已知问题</strong></span>
+    <br />
+    <br />
+    
+    <ul>
+        <li>
+            <span>中文繁简转换类库及Visual Studio Add-In工具：当使用者转换带有.zh-TW或.zh-CN文化特性文件名的资源文件时，繁简转换Add-In工具会产生相对应的资源名并将其文化特性的扩展名设为.zh-CHT或.zh-CHS。这样的设计是因为zh-TW和zh-CN是zh-CHT和zh-CHT的子文化特性。在中性的父文化特性（zh-CHT和zh-CHS）之下，可能会有多种不同的文化特性。而我们的繁简转换Add-In工具无法替使用者来决定哪一个子文化特性才是正确的。所以繁简转化Add-In工具会将带有子文化特性的资源文件件转换为繁/简体中文的中性文化特性。</span>
+            <br />
+        </li>
+    </ul>
+    
+    <span><strong>其他事项</strong></span>
+    <br />
+    <br />
+    
+    <ul>
+         <li>
+            <span><strong>在哪里可以下载到Visual Studio International Pack 1.0 的所有的组件？</strong></span>
+            <br />
+            <br />
+            <ul><li>请查询Microsoft下载中心网站。</li></ul>
+            <br />
+        </li>
+        
+        <li>
+            <span><strong>产品支持</strong></span>
+            <br />
+            <br />
+            <ul><li>对Visual Studio International Pack 的支持通过电子邮箱进行，如果您有关于Visual Studio International Pack 中组件的反馈意见和建议，或者需要进一步的技术支持请发送电子邮件给<a href="mailto:vsintlpk@microsoft.com">vsintlpk@microsoft.com</a>。</li></ul>
+            <br />
+        </li>
+    </ul>
+</body>
+</html>

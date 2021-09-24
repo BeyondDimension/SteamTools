@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -132,6 +132,10 @@
     <ProjectReference Include="..\..\src\Common.CoreLib\Common.CoreLib.csproj">
       <Project>{E7468FDD-75F7-4B08-BA47-B715BBCFCC11}</Project>
       <Name>Common.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Common.PinyinLib.TinyPinyin\Common.PinyinLib.TinyPinyin.csproj">
+      <Project>{d30203ac-97ab-4a51-bfa5-826251c9a28e}</Project>
+      <Name>Common.PinyinLib.TinyPinyin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common.UnitTest.Droid\Common.UnitTest.Droid.csproj">
       <Project>{0073A08E-6336-4C09-99F9-2E808889D715}</Project>
