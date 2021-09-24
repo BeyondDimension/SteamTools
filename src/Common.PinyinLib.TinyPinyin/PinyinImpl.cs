@@ -1,20 +1,31 @@
-using Android.Content;
 using System;
 using System.Linq;
-using Xamarin.Android.Bindings.TinyPinyin;
+using TinyPinyin;
+#if MONOANDROID
+using Android.Content;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services.Implementation
 {
     /// <summary>
-    /// 使用 <see cref="PinyinHelper"/>(https://github.com/promeG/TinyPinyin) 实现的拼音功能
+    /// 使用 <see cref="PinyinHelper"/>(https://github.com/promeG/TinyPinyin) or (https://github.com/hueifeng/TinyPinyin.Net) 实现的拼音功能
     /// </summary>
     internal sealed class PinyinImpl : IPinyin
     {
+        static string GetPinyin(string str, string separator)
+            => PinyinHelper.
+#if MONOANDROID
+            ToPinyin
+#else
+            GetPinyin
+#endif
+            (str, separator) ?? string.Empty;
+
         string IPinyin.GetPinyin(string s, PinyinFormat format) => format switch
         {
-            PinyinFormat.UpperVerticalBar => PinyinHelper.ToPinyin(s, Pinyin.SeparatorVerticalBar.ToString()) ?? string.Empty,
-            PinyinFormat.AlphabetSort => PinyinHelper.ToPinyin(s, string.Empty) ?? string.Empty,
+            PinyinFormat.UpperVerticalBar => GetPinyin(s, Pinyin.SeparatorVerticalBar.ToString()) ?? string.Empty,
+            PinyinFormat.AlphabetSort => GetPinyin(s, string.Empty) ?? string.Empty,
             _ => throw new ArgumentOutOfRangeException(nameof(format), format, null),
         };
 
@@ -22,7 +33,8 @@ namespace System.Application.Services.Implementation
     }
 }
 
-namespace Xamarin.Android.Bindings.TinyPinyin
+#if MONOANDROID
+namespace TinyPinyin
 {
     partial class PinyinHelper
     {
@@ -75,3 +87,4 @@ namespace Xamarin.Android.Bindings.TinyPinyin
         }
     }
 }
+#endif

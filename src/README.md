@@ -8,6 +8,10 @@
     - Common.ClientLib.iOS **适用于 iOS 的通用基础类库**
     - Common.CoreLib **全局通用基础类库**
     - Common.ServerLib **适用于服务端(AspNetCore)的通用基础类库**
+    - Common.PinyinLib **汉字转拼音库**
+    - Common.PinyinLib.CFStringTransform **仅适用于 iOS 平台，由 [CFStringTransform](https://developer.apple.com/documentation/corefoundation/1542411-cfstringtransform) 实现**
+    - Common.PinyinLib.ChnCharInfo **由 Microsoft Visual Studio International Pack 1.0 中的 Simplified Chinese Pin-Yin Conversion Library（简体中文拼音转换类库）实现，多音字将返回首个拼音**
+    - Common.PinyinLib.TinyPinyin **在 Android 上由 [TinyPinyin](https://github.com/promeG/TinyPinyin) 实现，其他平台由 [TinyPinyin.Net](https://github.com/hueifeng/TinyPinyin.Net) 实现**
     - Repositories.EFCore **EF Core 仓储层实现**
     - Repositories.sqlite-net-pcl **SQLite 仓储层实现**
     - Services.SmsSender **统一短信发送服务**

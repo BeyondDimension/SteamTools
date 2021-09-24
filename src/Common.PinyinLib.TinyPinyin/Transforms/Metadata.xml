@@ -1,4 +1,4 @@
-﻿<metadata>
+<metadata>
   <!--
   This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
   <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
@@ -15,7 +15,7 @@
   <remove-node path="/api/package[@name='com.github.promeg.tinypinyin.android.asset.lexicons']/class[@name='BuildConfig']" />
 
   <attr path="/api/package[@name='com.github.promeg.pinyinhelper']/class[@name='Pinyin']" name="managedName">PinyinHelper</attr>
-  <attr path="/api/package[@name='com.github.promeg.pinyinhelper']" name="managedName">Xamarin.Android.Bindings.TinyPinyin</attr>
-  <attr path="/api/package[@name='com.github.promeg.tinypinyin.android.asset.lexicons']" name="managedName">Xamarin.Android.Bindings.TinyPinyin</attr>
-  <attr path="/api/package[@name='com.github.promeg.tinypinyin.lexicons.android.cncity']" name="managedName">Xamarin.Android.Bindings.TinyPinyin</attr>
+  <attr path="/api/package[@name='com.github.promeg.pinyinhelper']" name="managedName">TinyPinyin</attr>
+  <attr path="/api/package[@name='com.github.promeg.tinypinyin.android.asset.lexicons']" name="managedName">TinyPinyin</attr>
+  <attr path="/api/package[@name='com.github.promeg.tinypinyin.lexicons.android.cncity']" name="managedName">TinyPinyin</attr>
 </metadata>

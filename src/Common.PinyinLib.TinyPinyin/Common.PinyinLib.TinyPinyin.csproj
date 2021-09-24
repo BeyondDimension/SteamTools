@@ -1,9 +1,12 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>MonoAndroid11.0</TargetFramework>
+    <TargetFrameworks>MonoAndroid11.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Common.PinyinLib.TinyPinyin</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
     <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
     <IsBindingProject>true</IsBindingProject>
   </PropertyGroup>
@@ -24,26 +27,22 @@
     <ProjectReference Include="..\Common.PinyinLib\Common.PinyinLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Jars\tinypinyin-lexicons-android-cncity-2.0.3.aar" />
-    <None Remove="Transforms\Metadata.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
     <EmbeddedReferenceJar Include="Jars\ahocorasick-0.3.0.jar" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedJar Include="Jars\tinypinyin-2.0.3.jar" />
     <EmbeddedJar Include="Jars\tinypinyin-android-asset-lexicons-2.0.3.jar" />
-  </ItemGroup>
-
-  <ItemGroup>
     <LibraryProjectZip Include="Jars\tinypinyin-lexicons-android-cncity-2.0.3.aar" />
+    <TransformFile Include="Transforms\Metadata.xml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <TransformFile Include="Transforms\Metadata.xml" />
+  <ItemGroup Condition=" !$(TargetFramework.StartsWith('MonoAndroid')) ">
+    <Compile Remove="Jars\**" />
+    <EmbeddedResource Remove="Jars\**" />
+    <None Remove="Jars\**" />
+    <Compile Remove="Transforms\**" />
+    <EmbeddedResource Remove="Transforms\**" />
+    <None Remove="Transforms\**" />
+    <PackageReference Include="TinyPinyin.Net" />
   </ItemGroup>
 
 </Project>
