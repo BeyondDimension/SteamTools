@@ -14,13 +14,13 @@ namespace System.Application.Services.Implementation
             return str.Transform(CFStringTransform.MandarinLatin, false);
         }
 
-        public static bool TransformMandarinLatin(char c, out CFMutableString str)
-            => TransformMandarinLatin(c.ToString(), out str);
+        public static bool GetPinyin(string s, out CFMutableString str)
+            => TransformMandarinLatin(s, out str) &&
+            str.Transform(CFStringTransform.StripDiacritics, false);
 
         string IPinyin.GetPinyin(string s, PinyinFormat format)
         {
-            if (TransformMandarinLatin(s, out var str) &&
-                str.Transform(CFStringTransform.StripDiacritics, false))
+            if (GetPinyin(s, out var str))
             {
                 s = str!;
                 s = format switch
@@ -35,8 +35,7 @@ namespace System.Application.Services.Implementation
 
         string[] IPinyin.GetPinyinArray(string s)
         {
-            if (TransformMandarinLatin(s, out var str) &&
-               str.Transform(CFStringTransform.StripDiacritics, false))
+            if (GetPinyin(s, out var str))
             {
                 s = str!;
                 return s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -45,6 +44,6 @@ namespace System.Application.Services.Implementation
         }
 
 
-        bool IPinyin.IsChinese(char c) => TransformMandarinLatin(c, out var _);
+        bool IPinyin.IsChinese(char c) => TransformMandarinLatin(c.ToString(), out var _);
     }
 }

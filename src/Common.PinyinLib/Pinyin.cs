@@ -129,13 +129,22 @@ namespace System
                             else continue;
                         }
                         // ↑ 当前字符为中文字符比较内容不正确返回比较失败。
-                        char? letter = null;
+                        char letter = default;
+
                         var indexOfUpperCase = Constants.UpperCaseLetters.IndexOf(input_item); // 大写字母搜索
                         if (indexOfUpperCase >= 0) letter = Constants.UpperCaseLetters[indexOfUpperCase];
                         var indexOfLowerCase = Constants.LowerCaseLetters.IndexOf(input_item); // 小写字母搜索
                         if (indexOfLowerCase >= 0) letter = Constants.UpperCaseLetters[indexOfLowerCase];
-                        if (!letter.HasValue && !ignoreOtherChar) return false; // 无效字符是否允许
-                        if (letter.HasValue && item_pinyin[cache_index] != letter) return false;
+
+                        var letterHasValue = letter != default;
+
+                        if (!letterHasValue && !ignoreOtherChar) return false; // 无效字符是否允许
+
+                        var item_pinyin_letter_upper = item_pinyin[cache_index];
+                        indexOfLowerCase = Constants.LowerCaseLetters.IndexOf(item_pinyin_letter_upper);
+                        if (indexOfLowerCase >= 0) item_pinyin_letter_upper = Constants.UpperCaseLetters[indexOfLowerCase];
+
+                        if (letterHasValue && item_pinyin_letter_upper != letter) return false;
                         else cache_index += 1;
                         if (cache_index >= item_pinyin.Length)
                         {
