@@ -55,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.PinyinLib.TinyPinyin\Common.PinyinLib.TinyPinyin.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 

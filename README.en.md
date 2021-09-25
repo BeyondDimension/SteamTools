@@ -220,6 +220,8 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [ZXing.Net](https://github.com/micjahn/ZXing.Net)
 * [QRCoder](https://github.com/codebude/QRCoder)
 * [QR Code Generator for .NET](https://github.com/manuelbl/QrCodeGenerator)
+* [TinyPinyin](https://github.com/promeG/TinyPinyin)
+* [TinyPinyin.Net](https://github.com/hueifeng/TinyPinyin.Net)
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)

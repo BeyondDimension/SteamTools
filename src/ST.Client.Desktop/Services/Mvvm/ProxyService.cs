@@ -254,7 +254,9 @@ namespace System.Application.Services
                                         else if (OperatingSystem2.IsMacOS)
                                         {
                                             IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
-                                        } else if (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root") {
+                                        }
+                                        else if (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root")
+                                        {
                                             IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                         }
                                     }

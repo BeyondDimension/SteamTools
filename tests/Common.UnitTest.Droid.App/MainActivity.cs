@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using NUnitApp = NUnit.Runner.App;
 using XEPlatform = Xamarin.Essentials.Platform;
-using Xamarin.Android.Bindings.TinyPinyin;
+using TinyPinyin;
 
 namespace System.UnitTest
 {

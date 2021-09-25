@@ -1,4 +1,5 @@
 using System.Application.Services;
+using System.Collections.Generic;
 using System.Common;
 
 namespace System
@@ -76,19 +77,22 @@ namespace System
         /// <summary>
         /// 搜索比较，返回是否匹配
         /// </summary>
-        /// <typeparam name="TViewModel"></typeparam>
-        /// <param name="vm"></param>
         /// <param name="inputText">输入的搜索文本内容</param>
-        /// <param name="getName">获取名称</param>
-        /// <param name="getPinyinArray">获取名称对应的拼音数组，可使用 <see cref="GetPinyinArray(string)"/> 获取，最好在模型类中定义一个属性存放 <see cref="string[]"/> 拼音数组，且当 Name 发生改变时重新赋值</param>
+        /// <param name="name">名称</param>
+        /// <param name="pinyinArray">名称对应的拼音数组，可使用 <see cref="GetPinyinArray(string)"/> 获取，最好在模型类中定义一个属性存放 <see cref="string[]"/> 拼音数组，且当 Name 发生改变时重新赋值</param>
         /// <param name="ignoreOtherChar">比较时是否忽略其他字符</param>
+        /// <param name="comparisonType"></param>
         /// <returns></returns>
-        public static bool SearchCompare<TViewModel>(TViewModel vm, string inputText, Func<TViewModel, string> getName, Func<TViewModel, string[]> getPinyinArray, bool ignoreOtherChar = true)
+        public static bool SearchCompare_Nullable(string? inputText, string name, string[] pinyinArray, bool ignoreOtherChar = true, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
         {
             if (string.IsNullOrEmpty(inputText)) return true; // 空值全部匹配。
-            var name = getName(vm);
-            if (name.Contains(inputText)) return true;
-            var pinyinArray = getPinyinArray(vm);
+            return SearchCompare(inputText, name, pinyinArray, ignoreOtherChar, comparisonType);
+        }
+
+        /// <inheritdoc cref="SearchCompare_Nullable(string?, string, string[], bool, StringComparison)"/>
+        public static bool SearchCompare(string inputText, string name, string[] pinyinArray, bool ignoreOtherChar = true, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        {
+            if (name.Contains(inputText, comparisonType)) return true;
             if (!pinyinArray.Any_Nullable()) return false;
 
             #region 汉字拼音混合比较算法
@@ -163,6 +167,20 @@ namespace System
             return true;
 
             #endregion
+        }
+
+        public static string[] GetPinyin(string s, IDictionary<string, string[]> dict)
+        {
+            string[] pinyinArray;
+            if (!dict.ContainsKey(s))
+            {
+                dict[s] = pinyinArray = GetPinyinArray(s);
+            }
+            else
+            {
+                pinyinArray = dict[s];
+            }
+            return pinyinArray;
         }
     }
 }

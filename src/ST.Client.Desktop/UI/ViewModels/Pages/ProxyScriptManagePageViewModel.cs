@@ -14,49 +14,11 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Xamarin.Essentials;
 
 namespace System.Application.UI.ViewModels
 {
     public partial class ProxyScriptManagePageViewModel : TabItemViewModel
     {
-        public override void Activation()
-        {
-            if (IsFirstActivation)
-                if (ProxySettings.IsAutoCheckScriptUpdate)
-                    ProxyService.Current.CheckUpdate();
-            base.Activation();
-        }
-
-
-        private readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
-        public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
-
-        private Func<ScriptDTO, bool> ScriptFilter(string? serachText)
-        {
-            return s =>
-            {
-                if (s == null)
-                    return false;
-                if (string.IsNullOrEmpty(serachText))
-                    return true;
-                if (s.Name.Contains(serachText, StringComparison.OrdinalIgnoreCase) ||
-                       s.Author.Contains(serachText, StringComparison.OrdinalIgnoreCase) ||
-                       s.Description.Contains(serachText, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-
-                return false;
-            };
-        }
-
-        public ReactiveCommand<Unit, Unit> EnableScriptAutoUpdateCommand { get; }
-
-        public MenuItemViewModel? ScriptAutoUpdate { get; }
-
-        public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
-        public MenuItemViewModel? OnlySteamBrowser { get; }
         public ProxyScriptManagePageViewModel()
         {
             IconKey = nameof(ProxyScriptManagePageViewModel);
@@ -109,10 +71,53 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty)));
         }
 
+        public override void Activation()
+        {
+            if (IsFirstActivation)
+                if (ProxySettings.IsAutoCheckScriptUpdate)
+                    ProxyService.Current.CheckUpdate();
+            base.Activation();
+        }
+
+        readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
+        public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
+
+        readonly Dictionary<string, string[]> dictPinYinArray = new();
+        Func<ScriptDTO, bool> ScriptFilter(string? serachText)
+        {
+            return s =>
+            {
+                if (s == null)
+                    return false;
+                if (string.IsNullOrEmpty(serachText))
+                    return true;
+                if (s.Author.Contains(serachText, StringComparison.OrdinalIgnoreCase) ||
+                    s.Description.Contains(serachText, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                var pinyinArray = Pinyin.GetPinyin(s.Name, dictPinYinArray);
+                if (Pinyin.SearchCompare(serachText, s.Name, pinyinArray))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        public ReactiveCommand<Unit, Unit> EnableScriptAutoUpdateCommand { get; }
+
+        public MenuItemViewModel? ScriptAutoUpdate { get; }
+
+        public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
+
+        public MenuItemViewModel? OnlySteamBrowser { get; }
+
         public ReactiveCommand<Unit, Unit> ScriptStoreCommand { get; }
 
-
-        private string? _SearchText;
+        string? _SearchText;
         public string? SearchText
         {
             get => _SearchText;
@@ -126,6 +131,7 @@ namespace System.Application.UI.ViewModels
             ProxyService.Current.RefreshScript();
             Toast.Show(@AppResources.Success_.Format(@AppResources.Refresh));
         }
+
         public void DownloadScriptItemButton(ScriptDTO model)
         {
             ProxyService.Current.DownloadScript(model);

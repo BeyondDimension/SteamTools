@@ -154,6 +154,7 @@ namespace System.Application
 #if !CONSOLEAPP
             if (hasGUI)
             {
+                services.AddPinyin();
 #if __MOBILE__
                 services.TryAddFontManager();
 #else

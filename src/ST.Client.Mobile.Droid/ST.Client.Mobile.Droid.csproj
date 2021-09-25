@@ -177,6 +177,7 @@
 
   <ItemGroup>
     <!--<ProjectReference Include="..\ST.Client.Mobile.Droid.Resources\ST.Client.Mobile.Droid.Resources.csproj" />-->
+    <ProjectReference Include="..\Common.PinyinLib.TinyPinyin\Common.PinyinLib.TinyPinyin.csproj" />
     <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
   </ItemGroup>
 

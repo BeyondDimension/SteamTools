@@ -1,6 +1,5 @@
 using DynamicData;
 using DynamicData.Binding;
-using Newtonsoft.Json.Linq;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
@@ -47,14 +46,17 @@ namespace System.Application.UI.ViewModels
             get => _SearchText;
             set => this.RaiseAndSetIfChanged(ref _SearchText, value);
         }
+
         public void RefreshScriptButton()
         {
             InitializeScriptList();
         }
+
         public void DownloadScriptItemButton(ScriptDTO model)
         {
             ProxyService.Current.DownloadScript(model);
         }
+
         public async void OpenHomeScriptItemButton(ScriptDTO script)
         {
             await Browser2.OpenAsync(script.SourceLink);
