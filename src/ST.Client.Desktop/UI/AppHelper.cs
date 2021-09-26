@@ -9,7 +9,15 @@ namespace System.Application.UI
     {
         public static bool EnableDevtools { get; set; } = ThisAssembly.Debuggable;
 
+        /// <summary>
+        /// 禁用 GPU 硬件加速(仅macOS)
+        /// </summary>
         public static bool DisableGPU { get; set; }
+
+        /// <summary>
+        /// 使用 OpenGL(仅 Windows)
+        /// </summary>
+        public static bool UseOpenGL { get; set; }
 
         public static bool IsSystemWebViewAvailable { get; set; }
 

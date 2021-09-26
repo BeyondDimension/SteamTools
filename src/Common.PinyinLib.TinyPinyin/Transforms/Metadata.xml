@@ -18,4 +18,11 @@
   <attr path="/api/package[@name='com.github.promeg.pinyinhelper']" name="managedName">TinyPinyin</attr>
   <attr path="/api/package[@name='com.github.promeg.tinypinyin.android.asset.lexicons']" name="managedName">TinyPinyin</attr>
   <attr path="/api/package[@name='com.github.promeg.tinypinyin.lexicons.android.cncity']" name="managedName">TinyPinyin</attr>
+
+  <attr path="/api/package[@name='com.github.promeg.pinyinhelper']/class[@name='Pinyin']/method[@name='toPinyin' and count(parameter)=1 and parameter[1][@type='char']]" name="managedName">GetPinyin</attr>
+  <attr path="/api/package[@name='com.github.promeg.pinyinhelper']/class[@name='Pinyin']/method[@name='toPinyin' and count(parameter)=2 and parameter[1][@type='java.lang.String'] and parameter[2][@type='java.lang.String']]" name="managedName">GetPinyin</attr>
+
+  <attr path="/api/package[@name='com.github.promeg.pinyinhelper']/interface[@name='SegmentationSelector']" name="visibility">public</attr>
+  <attr path="/api/package[@name='com.github.promeg.pinyinhelper']/class[@name='Engine']" name="visibility">public</attr>
+  <attr path="/api/package[@name='com.github.promeg.pinyinhelper']/class[@name='Engine']/method[@name='pinyinFromDict']" name="visibility">public</attr>
 </metadata>

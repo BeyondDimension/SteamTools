@@ -27,7 +27,7 @@ namespace System.Application.UI
             }
             else if (OperatingSystem2.IsWindows)
             {
-                var useOpenGL = GeneralSettings.UseOpenGL.Value;
+                var useOpenGL = AppHelper.UseOpenGL || GeneralSettings.UseOpenGL.Value;
                 var options = new Win32PlatformOptions
                 {
                     UseWindowsUIComposition = true,

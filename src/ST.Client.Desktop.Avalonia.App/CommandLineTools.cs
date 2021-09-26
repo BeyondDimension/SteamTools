@@ -118,12 +118,15 @@ namespace System.Application.UI
 
                 // -clt devtools
                 // -clt devtools -disable_gpu
+                // -clt devtools -use_opengl
                 var devtools = new Command("devtools");
-                devtools.AddOption(new Option<bool>("-disable_gpu", "禁用 GPU 硬件加速"));
-                devtools.Handler = CommandHandler.Create((bool disable_gpu) =>
+                devtools.AddOption(new Option<bool>("-disable_gpu", () => false, "禁用 GPU 硬件加速(仅macOS)"));
+                devtools.AddOption(new Option<bool>("-use_opengl", () => false, "使用 OpenGL(仅 Windows)"));
+                devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_opengl) =>
                 {
                     AppHelper.EnableDevtools = true;
                     AppHelper.DisableGPU = disable_gpu;
+                    AppHelper.UseOpenGL = use_opengl;
                     MainHandlerByCLT_(onInitStartuped: () =>
                     {
                         AppHelper.LoggerMinLevel = LogLevel.Debug;

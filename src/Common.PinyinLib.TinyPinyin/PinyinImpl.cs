@@ -1,9 +1,5 @@
-using System;
 using System.Linq;
 using TinyPinyin;
-#if MONOANDROID
-using Android.Content;
-#endif
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services.Implementation
@@ -14,13 +10,7 @@ namespace System.Application.Services.Implementation
     internal sealed class PinyinImpl : IPinyin
     {
         static string GetPinyin(string str, string separator)
-            => PinyinHelper.
-#if MONOANDROID
-            ToPinyin
-#else
-            GetPinyin
-#endif
-            (str, separator) ?? string.Empty;
+            => PinyinHelper.GetPinyin(str, separator) ?? string.Empty;
 
         string IPinyin.GetPinyin(string s, PinyinFormat format) => format switch
         {
@@ -30,61 +20,21 @@ namespace System.Application.Services.Implementation
         };
 
         bool IPinyin.IsChinese(char c) => PinyinHelper.IsChinese(c);
-    }
-}
 
+        string[] IPinyin.GetPinyinArray(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return Array.Empty<string>();
 #if MONOANDROID
-namespace TinyPinyin
-{
-    partial class PinyinHelper
-    {
-        /// <summary>
-        /// 使用 <see cref="CnCityDict"/> 初始化拼音库
-        /// </summary>
-        /// <param name="context"></param>
-        public static void InitWithCnCityDict(Context context)
-        {
-            var dict = CnCityDict.GetInstance(context);
-            var config = NewConfig()!.With(dict);
-            Init(config);
-        }
-
-        /// <summary>
-        /// 初始化拼音库
-        /// </summary>
-        public static void Init()
-        {
-            var config = NewConfig();
-            Init(config);
-        }
-
-        /// <summary>
-        /// 初始化拼音库
-        /// </summary>
-        /// <param name="action"></param>
-        public static void Init(Action<Config> action)
-        {
-            var config = NewConfig()!;
-            action(config);
-            Init(config);
-        }
-
-        /// <summary>
-        /// 使用词典初始化拼音库
-        /// </summary>
-        /// <param name="dicts"></param>
-        public static void InitWithDicts(params IPinyinDict[] dicts)
-        {
-            var config = NewConfig()!;
-            if (dicts.Any())
+            var trie = PinyinHelper.TrieDict;
+            var selector = PinyinHelper.Selector;
+            var pinyinDictList = PinyinHelper.PinyinDicts;
+            if (trie != null && selector != null && pinyinDictList != null)
             {
-                foreach (var dict in dicts)
-                {
-                    config.With(dict);
-                }
+                return Engine.GetPinyinArray(s, trie, pinyinDictList, selector).ToArray();
             }
-            Init(config);
+#endif
+            // 没有提供字典或选择器，按单字符转换输出
+            return s.Select(x => PinyinHelper.GetPinyin(x) ?? string.Empty).ToArray();
         }
     }
 }
-#endif

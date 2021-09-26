@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
-    <EmbeddedReferenceJar Include="Jars\ahocorasick-0.3.0.jar" />
+    <EmbeddedJar Include="Jars\ahocorasick-0.3.0.jar" />
     <EmbeddedJar Include="Jars\tinypinyin-2.0.3.jar" />
     <EmbeddedJar Include="Jars\tinypinyin-android-asset-lexicons-2.0.3.jar" />
     <LibraryProjectZip Include="Jars\tinypinyin-lexicons-android-cncity-2.0.3.aar" />
