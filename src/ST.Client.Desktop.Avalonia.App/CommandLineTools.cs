@@ -112,8 +112,10 @@ namespace System.Application.UI
                 rootCommand.AddCommand(debug);
 #endif
 
-                var main = new Command(command_main);
-                main.Handler = CommandHandler.Create(MainHandler);
+                var main = new Command(command_main)
+                {
+                    Handler = CommandHandler.Create(MainHandler)
+                };
                 rootCommand.AddCommand(main);
 
                 // -clt devtools

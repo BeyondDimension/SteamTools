@@ -106,7 +106,7 @@ namespace System.Application.Models.Settings
         /// Avalonia would try to use native Widows OpenGL when set to true. The default value is false.
         /// </summary>
         public static SerializableProperty<bool> UseOpenGL { get; }
-            = GetProperty(defaultValue: false, autoSave: true);
+            = GetProperty(defaultValue: OperatingSystem2.IsWindows7, autoSave: true);
 #else
 
         /// <summary>
