@@ -7,12 +7,16 @@ using ReactiveUI;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using System.ComponentModel;
+using System.Linq;
 
 namespace System.Application.UI.Views
 {
     public class MainWindow : FluentWindow<MainWindowViewModel>
     {
-        public IntPtr _backHandle;
+        readonly IntPtr _backHandle;
+
+        public IntPtr BackHandle => _backHandle;
+
         public MainWindow() : base()
         {
             InitializeComponent();
@@ -40,8 +44,8 @@ namespace System.Application.UI.Views
                 e.Cancel = true;
                 Hide();
 
-                if (this.ViewModel is not null)
-                    foreach (var tab in this.ViewModel.TabItems)
+                if (ViewModel is not null)
+                    foreach (var tab in ViewModel.TabItems)
                         tab.Deactivation();
             }
 #endif
@@ -50,10 +54,13 @@ namespace System.Application.UI.Views
 
         protected override void FluentWindow_Opened(object? sender, EventArgs e)
         {
-            if (this.ViewModel is not null)
-                foreach (var tab in this.ViewModel.TabItems)
-                    if (tab.IsDeactivation)
-                        tab.Activation();
+            if (ViewModel is not null)
+                foreach (var tab in from tab in ViewModel.TabItems
+                                    where tab.IsDeactivation
+                                    select tab)
+                {
+                    tab.Activation();
+                }
 
             base.FluentWindow_Opened(sender, e);
         }

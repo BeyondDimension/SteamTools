@@ -19,19 +19,31 @@ namespace System.Application.UI
         /// </summary>
         public static bool UseOpenGL { get; set; }
 
-        public static bool IsSystemWebViewAvailable { get; set; }
+        ///// <summary>
+        ///// 当前系统WebView是否可用
+        ///// </summary>
+        //public static bool IsSystemWebViewAvailable { get; set; }
 
-        public static Action? Initialized { get; set; }
+        ///// <summary>
+        ///// 初始化完成时事件
+        ///// </summary>
+        //public static Action? Initialized { get; set; }
 
-        public static Action? Shutdown { get; set; }
+        ///// <summary>
+        ///// 关闭程序时事件
+        ///// </summary>
+        //public static Action? Shutdown { get; set; }
 
-        static bool isShutdown = false;
-        public static void TryShutdown()
-        {
-            if (isShutdown) return;
-            isShutdown = true;
-            Shutdown?.Invoke();
-        }
+        //static bool isShutdown = false;
+        /// <summary>
+        /// 关闭应用程序
+        /// </summary>
+        //public static void TryShutdown()
+        //{
+        //    if (isShutdown) return;
+        //    isShutdown = true;
+        //    Shutdown?.Invoke();
+        //}
 
         static AppHelper()
         {

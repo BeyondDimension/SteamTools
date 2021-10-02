@@ -47,8 +47,7 @@ namespace System.Application
         {
             lock (lock_global_ex_log)
             {
-                if (exceptions.Contains(ex)) return;
-                exceptions.Add(ex);
+                if (!exceptions.Add(ex)) return;
             }
 
             AppHelper.TrySetLoggerMinLevel(LogLevel.Trace);
@@ -68,10 +67,11 @@ namespace System.Application
 #endif
 
 #if !__MOBILE__
-            var callTryShutdown = true;
+            //var callTryShutdown = true;
             try
             {
-                callTryShutdown = !App.Shutdown();
+                /*callTryShutdown = !*/
+                App.Shutdown();
             }
             catch (Exception ex_shutdown)
             {
@@ -79,18 +79,18 @@ namespace System.Application
                     "(App)Close exception when exception occurs");
             }
 
-            if (callTryShutdown)
-            {
-                try
-                {
-                    AppHelper.TryShutdown();
-                }
-                catch (Exception ex_shutdown_app_helper)
-                {
-                    Logger?.Error(ex_shutdown_app_helper,
-                        "(AppHelper)Close exception when exception occurs");
-                }
-            }
+            //if (callTryShutdown)
+            //{
+            //    try
+            //    {
+            //        AppHelper.TryShutdown();
+            //    }
+            //    catch (Exception ex_shutdown_app_helper)
+            //    {
+            //        Logger?.Error(ex_shutdown_app_helper,
+            //            "(AppHelper)Close exception when exception occurs");
+            //    }
+            //}
 
             try
             {

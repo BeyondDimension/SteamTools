@@ -11,9 +11,6 @@ namespace System.Application.UI
 {
     static partial class Program
     {
-        static readonly HashSet<Exception> exceptions = new();
-        static readonly object lock_global_ex_log = new();
-
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.

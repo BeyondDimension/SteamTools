@@ -30,7 +30,7 @@ namespace System.Application.Services
         /// </summary>
         IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }
 
-        bool IsCefInitComplete { get; }
+        //bool IsCefInitComplete { get; }
 
         CompositeDisposable CompositeDisposable { get; }
 

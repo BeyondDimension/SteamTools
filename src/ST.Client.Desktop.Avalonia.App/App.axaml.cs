@@ -257,7 +257,7 @@ namespace System.Application.UI
 #endif
         }
 
-        public ContextMenu? NotifyIconContextMenu { get; private set; }
+        //public ContextMenu? NotifyIconContextMenu { get; private set; }
 
         public override void OnFrameworkInitializationCompleted()
         {
@@ -349,10 +349,10 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("AppCenterSDK.Init");
 #endif
-            AppHelper.Initialized?.Invoke();
-#if StartupTrace
-            StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
-#endif
+            //            AppHelper.Initialized?.Invoke();
+            //#if StartupTrace
+            //            StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
+            //#endif
             Startup.OnStartup(Program.IsMainProcess);
 #if StartupTrace
             if (Program.IsMainProcess)
@@ -384,7 +384,7 @@ namespace System.Application.UI
 #if WINDOWS
             //WpfApplication.Current.Shutdown();
 #endif
-            AppHelper.TryShutdown();
+            //AppHelper.TryShutdown();
         }
 
         internal void NotifyIcon_Click(object? sender, EventArgs e)
@@ -482,7 +482,7 @@ namespace System.Application.UI
             if (OperatingSystem2.IsWindows && Instance.MainWindow is MainWindow window)
             {
 #pragma warning disable CA1416 // 验证平台兼容性
-                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(window._backHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));
+                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(window.BackHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));
 #pragma warning restore CA1416 // 验证平台兼容性
             }
         }
@@ -506,7 +506,7 @@ namespace System.Application.UI
 
         void IDesktopAppService.Shutdown() => Shutdown();
 
-        bool IDesktopAppService.IsCefInitComplete => false;
+        //bool IDesktopAppService.IsCefInitComplete => false;
         //CefNetApp.InitState == CefNetAppInitState.Complete;
 
         #region IDisposable members

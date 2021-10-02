@@ -85,7 +85,7 @@ namespace System.Application.Models.Settings
 
 #if !__MOBILE__
         /// <summary>
-        /// 使用硬件加速
+        /// 使用硬件加速(仅macOS)
         /// </summary>
         public static SerializableProperty<bool> UseGPURendering { get; }
             = GetProperty(defaultValue: true, autoSave: true);
@@ -97,13 +97,13 @@ namespace System.Application.Models.Settings
             = GetProperty(defaultValue: default(IHostsFileService.EncodingType), autoSave: true);
 
         ///// <summary>
-        ///// 使用 Direct2D1 渲染
+        ///// 使用 Direct2D1 渲染(仅 Windows)
         ///// </summary>
         //public static SerializableProperty<bool> UseDirect2D1 { get; }
         //    = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
-        /// Avalonia would try to use native Widows OpenGL when set to true. The default value is false.
+        /// Avalonia would try to use native Widows OpenGL when set to true. The default value is false.(仅 Windows)
         /// </summary>
         public static SerializableProperty<bool> UseOpenGL { get; }
             = GetProperty(defaultValue: OperatingSystem2.IsWindows7, autoSave: true);

@@ -4,6 +4,7 @@
              xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
              xmlns:sys_os2="clr-namespace:System;assembly=System.OperatingSystem2"
+             xmlns:sys_common_corelib="clr-namespace:System;assembly=System.Common.CoreLib"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -59,7 +60,7 @@
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
 
-      <StackPanel Orientation="Vertical" Spacing="10">
+      <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{ReflectionBinding Source={x:Static sys_common_corelib:DesktopBridge.IsRunningAsUwp}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}}">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UpdateChannel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <ComboBox x:Name="Themes"
                   Items="{Binding UpdateChannels}"
