@@ -53,7 +53,7 @@ namespace System.Application.Services.CloudService
         void ShowResponseErrorMessage(IApiResponse response)
         {
             if (response.Code == ApiResponseCode.Canceled) return;
-            var message = ApiResponse.GetMessage(response);
+            var message = response.Message;
             toast.Show(message);
         }
 

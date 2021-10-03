@@ -421,8 +421,8 @@ namespace System.Application.Services.Implementation
 
         public async Task<IApiResponse<string>> DownloadScriptAsync(string url)
         {
-            var scriptInfo = await httpService.GetAsync<string>(url);
-            if (string.IsNullOrWhiteSpace(scriptInfo))
+            var scriptStr = await httpService.GetAsync<string>(url, MediaTypeNames.JS);
+            if (string.IsNullOrWhiteSpace(scriptStr))
             {
                 logger.LogError("DownloadScript IsNullOrWhiteSpace, url:{0}", url);
                 return ApiResponse.Code(ApiResponseCode.NoResponseContentValue, null, string.Empty);
@@ -432,14 +432,14 @@ namespace System.Application.Services.Implementation
                 string? cachePath = null;
                 try
                 {
-                    var md5 = Hashs.String.MD5(scriptInfo);
+                    var md5 = Hashs.String.MD5(scriptStr);
                     cachePath = Path.Combine(IOPath.CacheDirectory, DirName, md5 + FileEx.DownloadCache);
                     var fileInfo = new FileInfo(cachePath);
                     if (!fileInfo.Directory.Exists) fileInfo.Directory.Create();
                     else if (fileInfo.Exists) fileInfo.Delete();
                     using (var stream = fileInfo.CreateText())
                     {
-                        stream.Write(scriptInfo);
+                        stream.Write(scriptStr);
                         await stream.FlushAsync();
                     }
                     return ApiResponse.Ok(cachePath);
