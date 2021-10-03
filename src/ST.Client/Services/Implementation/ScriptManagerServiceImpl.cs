@@ -412,7 +412,8 @@ namespace System.Application.Services.Implementation
                 }
                 catch (Exception e)
                 {
-                    return (false, e.ToString());
+                    Log.Error("DownloadScript", e, "文件检测出错。");
+                    return (false, string.Empty);
                 }
             }
             return (false, string.Empty);
