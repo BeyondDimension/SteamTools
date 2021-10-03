@@ -1,4 +1,4 @@
-﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
 using MPObject = MessagePack.MessagePackObjectAttribute;
@@ -32,7 +32,7 @@ namespace System.Application.Models.Internals
         [MPKey(LastMKeyIndex)]
         [NJsonProperty("🐴")]
         [SJsonProperty("🐴")]
-        public string? Message { get; set; }
+        public string? InternalMessage { get; set; }
 
         /// <summary>
         /// 最后一个 MessagePack 序列化 下标，继承自此类，新增需要序列化的字段/属性，标记此值+1，+2

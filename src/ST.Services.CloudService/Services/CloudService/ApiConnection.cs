@@ -78,22 +78,6 @@ namespace System.Application.Services.CloudService
         }
 
         /// <summary>
-        /// 根据异常获取响应并写入日志
-        /// </summary>
-        /// <typeparam name="TApiResponse"></typeparam>
-        /// <param name="ex"></param>
-        /// <param name="requestUri"></param>
-        /// <param name="new"></param>
-        /// <returns></returns>
-        TApiResponse GetRspByExceptionWithLog<TApiResponse>(Exception ex, string requestUri, Func<ApiResponseCode, string?, TApiResponse> @new)
-        {
-            (var code, var msg) = GetRspByExceptionWithLog(ex, requestUri);
-            var rsp = @new(code, msg);
-            if (rsp is ApiResponseImplBase rspImpl) rspImpl.ClientException = ex;
-            return rsp;
-        }
-
-        /// <summary>
         /// 返回 HTTP 401 未授权，清空当前 AuthToken，并调用 SignOut
         /// </summary>
         /// <param name="requestUri"></param>
@@ -666,7 +650,8 @@ namespace System.Application.Services.CloudService
             }
             catch (Exception ex)
             {
-                responseResult = GetRspByExceptionWithLog(ex, requestUri, ApiResponse.Code<TResponseModel>);
+                (var code, var msg) = GetRspByExceptionWithLog(ex, requestUri);
+                responseResult = ApiResponse.Code<TResponseModel>(code, msg, default, ex);
             }
             finally
             {
@@ -867,7 +852,8 @@ namespace System.Application.Services.CloudService
             }
             catch (Exception ex)
             {
-                responseResult = GetRspByExceptionWithLog(ex, requestUri, ApiResponse.Code);
+                (var code, var msg) = GetRspByExceptionWithLog(ex, requestUri);
+                responseResult = ApiResponse.Code(code, msg, ex);
             }
             await GlobalResponseIntercept(
                 method,

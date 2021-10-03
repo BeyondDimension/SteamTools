@@ -139,39 +139,40 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteScriptItemButton(ScriptDTO script)
         {
-
-            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            var result = MessageBoxCompat.ShowAsync(AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
-                    var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
-                    if (item.state)
+                    var item = await DI.Get<IScriptManager>().DeleteScriptAsync(script);
+                    if (item.IsSuccess)
                     {
                         if (ProxyService.Current.ProxyScripts != null)
+                        {
                             ProxyService.Current.ProxyScripts.Remove(script);
-
+                        }
                     }
-                    Toast.Show(item.msg);
+                    Toast.Show(item.Message);
                 }
             });
         }
+
         public void DeleteNoFileScriptItemButton(ScriptDTO script)
         {
-
-            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_NoFileDeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
-           {
-               if (s.Result == MessageBoxResultCompat.OK)
-               {
-                   var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
-                   if (item.state)
-                   {
-                       if (ProxyService.Current.ProxyScripts != null)
-                           ProxyService.Current.ProxyScripts.Remove(script);
-
-                   }
-                   Toast.Show(item.msg);
-               }
-           });
+            var result = MessageBoxCompat.ShowAsync(AppResources.Script_NoFileDeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    var item = await DI.Get<IScriptManager>().DeleteScriptAsync(script);
+                    if (item.IsSuccess)
+                    {
+                        if (ProxyService.Current.ProxyScripts != null)
+                        {
+                            ProxyService.Current.ProxyScripts.Remove(script);
+                        }
+                    }
+                    Toast.Show(item.Message);
+                }
+            });
         }
 
         public void EditScriptItemButton(ScriptDTO script)
@@ -185,12 +186,12 @@ namespace System.Application.UI.ViewModels
                 {
                     if (s.Result == MessageBoxResultCompat.OK)
                     {
-                        var (state, model, msg) = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
-                        if (state)
+                        var rsp = await DI.Get<IScriptManager>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
+                        if (rsp.IsSuccess)
                         {
-                            if (ProxyService.Current.ProxyScripts.Items.Any() && model != null)
+                            if (ProxyService.Current.ProxyScripts.Items.Any() && rsp.Content != null)
                             {
-                                ProxyService.Current.ProxyScripts.Replace(script, model);
+                                ProxyService.Current.ProxyScripts.Replace(script, rsp.Content);
                                 Toast.Show(AppResources.Success_.Format(AppResources.Script_Edit));
                             }
                         }
@@ -213,18 +214,18 @@ namespace System.Application.UI.ViewModels
         {
             if (script?.FilePath != null)
             {
-                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, build: script.IsBuild, ignoreCache: true);
-                if (item.state)
+                var item = await DI.Get<IScriptManager>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, build: script.IsBuild, ignoreCache: true);
+                if (item.IsSuccess)
                 {
-                    if (item.model != null)
+                    if (item.Content != null)
                     {
-                        ProxyService.Current.ProxyScripts.Replace(script, item.model);
+                        ProxyService.Current.ProxyScripts.Replace(script, item.Content);
                         Toast.Show(AppResources.RefreshOK);
                     }
                     else
                     {
                         script.Enable = false;
-                        Toast.Show(item.msg);
+                        Toast.Show(item.Message);
                     }
                 }
                 else

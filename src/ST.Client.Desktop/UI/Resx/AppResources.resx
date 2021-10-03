@@ -1604,4 +1604,10 @@
   <data name="Settings_General_UseOpenGL" xml:space="preserve">
     <value>使用 OpenGL 渲染</value>
   </data>
+  <data name="Download_ScriptError_" xml:space="preserve">
+    <value>脚本下载错误 {0}，请重试。</value>
+  </data>
+  <data name="FixNetworkComplete" xml:space="preserve">
+    <value>修复网络完成</value>
+  </data>
 </root>

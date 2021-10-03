@@ -19,7 +19,7 @@ namespace System.Application.UI.Resx {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AppResources {
@@ -945,6 +945,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 脚本下载错误 {0}，请重试。 的本地化字符串。
+        /// </summary>
+        public static string Download_ScriptError_ {
+            get {
+                return ResourceManager.GetString("Download_ScriptError_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本安装成功 的本地化字符串。
         /// </summary>
         public static string Download_ScriptOk {
@@ -1022,6 +1031,15 @@ namespace System.Application.UI.Resx {
         public static string Export {
             get {
                 return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修复网络完成 的本地化字符串。
+        /// </summary>
+        public static string FixNetworkComplete {
+            get {
+                return ResourceManager.GetString("FixNetworkComplete", resourceCulture);
             }
         }
         

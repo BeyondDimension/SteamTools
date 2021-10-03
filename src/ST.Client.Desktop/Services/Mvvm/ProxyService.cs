@@ -26,6 +26,7 @@ namespace System.Application.Services
     {
         public static ProxyService Current { get; } = new ProxyService();
         readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
+        readonly IScriptManager scriptManager = DI.Get<IScriptManager>();
 
         public ProxyService()
         {
@@ -334,7 +335,7 @@ namespace System.Application.Services
                 }
 
                 ProxyDomains.Clear();
-                ProxyDomains.AddRange(result.Content);
+                ProxyDomains.AddRange(result.Content!);
             }
 
             LoadOrSaveLocalAccelerate();
@@ -374,7 +375,7 @@ namespace System.Application.Services
             //    return;
             //}
             //new ObservableCollection<ScriptDTO>(response.Content);
-            var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+            var scriptList = await scriptManager.GetAllScriptAsync();
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
                 foreach (var item in scriptList)
@@ -452,16 +453,16 @@ namespace System.Application.Services
                 var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
                 if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
                 {
-                    var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
-                    if (jspath.state)
+                    var jspath = await scriptManager.DownloadScriptAsync(basicsInfo.Content.UpdateLink);
+                    if (jspath.IsSuccess)
                     {
-                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
-                        if (build.state)
+                        var build = await scriptManager.AddScriptAsync(jspath.Content!, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
+                        if (build.IsSuccess)
                         {
-                            if (build.model != null)
+                            if (build.Content != null)
                             {
-                                build.model.IsBasics = true;
-                                ProxyScripts.Insert(0, build.model);
+                                build.Content.IsBasics = true;
+                                ProxyScripts.Insert(0, build.Content);
                             }
                         }
                     }
@@ -556,22 +557,28 @@ namespace System.Application.Services
                 isbuild = oldInfo.IsBuild;
                 order = oldInfo.Order;
             }
-            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(fileInfo, info, oldInfo, build: isbuild, order: order);
-            if (item.state)
+            var item = await scriptManager.AddScriptAsync(fileInfo, info, oldInfo, build: isbuild, order: order);
+            if (item.IsSuccess)
             {
-                if (item.model != null)
+                if (item.Content != null)
+                {
                     if (oldInfo == null)
-                        ProxyScripts.Add(item.model);
+                    {
+                        ProxyScripts.Add(item.Content);
+                    }
                     else
-                        ProxyScripts.Replace(oldInfo, item.model);
+                    {
+                        ProxyScripts.Replace(oldInfo, item.Content);
+                    }
+                }
             }
             IsLoading = false;
-            Toast.Show(item.msg);
+            Toast.Show(item.Message);
         }
 
         public async void RefreshScript()
         {
-            var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+            var scriptList = await scriptManager.GetAllScriptAsync();
             ProxyScripts.Clear();
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
@@ -591,13 +598,13 @@ namespace System.Application.Services
         public async void DownloadScript(ScriptDTO model)
         {
             model.IsLoading = true;
-            var jspath = await DI.Get<IScriptManagerService>().DownloadScript(model.UpdateLink);
-            if (jspath.state)
+            var jspath = await scriptManager.DownloadScriptAsync(model.UpdateLink);
+            if (jspath.IsSuccess)
             {
-                var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, model, build: model.IsBuild, order: model.Order, deleteFile: true, pid: model.Id);
-                if (build.state)
+                var build = await scriptManager.AddScriptAsync(jspath.Content!, model, build: model.IsBuild, order: model.Order, deleteFile: true, pid: model.Id);
+                if (build.IsSuccess)
                 {
-                    if (build.model != null)
+                    if (build.Content != null)
                     {
                         var basicsItem = Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
                         if (basicsItem != null)
@@ -607,23 +614,27 @@ namespace System.Application.Services
                         }
                         else
                         {
-                            Current.ProxyScripts.Add(build.model);
+                            Current.ProxyScripts.Add(build.Content);
                         }
                         model.IsUpdate = false;
                         model.IsExist = true;
-                        model.UpdateLink = build.model.UpdateLink;
-                        model.FilePath = build.model.FilePath;
-                        model.Version = build.model.Version;
-                        model.Name = build.model.Name;
+                        model.UpdateLink = build.Content.UpdateLink;
+                        model.FilePath = build.Content.FilePath;
+                        model.Version = build.Content.Version;
+                        model.Name = build.Content.Name;
                         RefreshScript();
                         Toast.Show(AppResources.Download_ScriptOk);
                     }
                 }
                 else
-                    Toast.Show(build.msg);
+                {
+                    Toast.Show(build.Message);
+                }
             }
             else
-                Toast.Show(AppResources.Download_ScriptError);
+            {
+                Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
+            }
             model.IsLoading = false;
         }
 
@@ -650,7 +661,7 @@ namespace System.Application.Services
 
         public void FixNetwork()
         {
-            ProxyService.OnExitRestoreHosts();
+            OnExitRestoreHosts();
 
             if (OperatingSystem2.IsWindows)
             {
@@ -658,7 +669,7 @@ namespace System.Application.Services
                 Process.Start("cmd.exe", "netsh winsock reset");
             }
 
-            Toast.Show("修复网络完成");
+            Toast.Show(AppResources.FixNetworkComplete);
         }
     }
 }

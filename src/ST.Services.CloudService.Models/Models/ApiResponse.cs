@@ -54,7 +54,7 @@ namespace System.Application.Models
             return response.IsSuccess && content != null;
         }
 
-        public static string GetMessage(ApiResponseCode code, string? errorAppendText = null)
+        public static string GetMessage(this ApiResponseCode code, string? errorAppendText = null, string? errorFormat = null)
         {
             if (code == ApiResponseCode.Unauthorized)
             {
@@ -72,34 +72,54 @@ namespace System.Application.Models
             {
                 return Const.UserIsBanErrorMessage;
             }
-            static bool IsCEOrSE(ApiResponseCode code) => code switch
+            static bool IsClientExceptionOrServerException(ApiResponseCode code) => code switch
             {
                 ApiResponseCode.ClientException => true,
                 _ => false,
             };
-            if (string.IsNullOrWhiteSpace(errorAppendText))
-                return (IsCEOrSE(code) ? SR.ClientError_ : SR.ServerError_)
-                    .Format((int)code);
-            return (IsCEOrSE(code) ? SR.ClientError__ : SR.ServerError__)
-                .Format((int)code, errorAppendText);
-        }
-
-        public static string GetMessage(IApiResponse response, string? errorAppendText = null)
-        {
-#pragma warning disable CS0618 // 类型或成员已过时
-            var message = response.Message;
-#pragma warning restore CS0618 // 类型或成员已过时
-            if (string.IsNullOrWhiteSpace(message))
+            string message;
+            if (string.IsNullOrWhiteSpace(errorFormat))
             {
-                message = GetMessage(response.Code, errorAppendText);
+                if (string.IsNullOrWhiteSpace(errorAppendText))
+                {
+                    message = IsClientExceptionOrServerException(code) ? SR.ClientError_ : SR.ServerError_;
+                    message = message.Format((int)code);
+                }
+                else
+                {
+                    message = IsClientExceptionOrServerException(code) ? SR.ClientError__ : SR.ServerError__;
+                    message = message.Format((int)code, errorAppendText);
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(errorAppendText))
+                {
+                    message = errorFormat.Format((int)code);
+                }
+                else
+                {
+                    message = errorFormat.Format((int)code, errorAppendText);
+                }
             }
             return message;
         }
 
-        public static IApiResponse Code(ApiResponseCode code, string? message = null) => new ApiResponseImpl
+        internal static string GetMessage(this IApiResponse response, string? errorAppendText = null, string? errorFormat = null)
+        {
+            var message = response.InternalMessage;
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                message = GetMessage(response.Code, errorAppendText, errorFormat);
+            }
+            return message;
+        }
+
+        public static IApiResponse Code(ApiResponseCode code, string? message = null, Exception? exception = null) => new ApiResponseImpl
         {
             Code = code,
-            Message = message,
+            InternalMessage = message,
+            ClientException = exception,
         };
 
         static readonly Lazy<IApiResponse> okRsp = new(() => Code(ApiResponseCode.OK));
@@ -109,11 +129,13 @@ namespace System.Application.Models
         public static IApiResponse<T> Code<T>(
             ApiResponseCode code,
             string? message,
-            T? content) => new ApiResponseImpl<T>
+            T? content,
+            Exception? exception = null) => new ApiResponseImpl<T>
             {
                 Code = code,
-                Message = message,
+                InternalMessage = message,
                 Content = content,
+                ClientException = exception,
             };
 
         public static IApiResponse<T> Code<T>(
@@ -128,5 +150,11 @@ namespace System.Application.Models
 
         public static IApiResponse Fail(string? message = null)
             => Code(ApiResponseCode.Fail, message);
+
+        public static IApiResponse Exception(Exception exception)
+            => Code(ApiResponseCode.ClientException, null, exception);
+
+        public static IApiResponse<T> Exception<T>(Exception exception)
+            => Code<T>(ApiResponseCode.ClientException, null, default, exception);
     }
 }
