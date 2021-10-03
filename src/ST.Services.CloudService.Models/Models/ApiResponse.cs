@@ -54,9 +54,19 @@ namespace System.Application.Models
             return response.IsSuccess && content != null;
         }
 
+        static bool IsClientExceptionOrServerException(ApiResponseCode code) => code switch
+        {
+            ApiResponseCode.ClientException => true,
+            _ => false,
+        };
+
         public static string GetMessage(this ApiResponseCode code, string? errorAppendText = null, string? errorFormat = null)
         {
-            if (code == ApiResponseCode.Unauthorized)
+            if (code == ApiResponseCode.OK)
+            {
+                return string.Empty;
+            }
+            else if (code == ApiResponseCode.Unauthorized)
             {
                 return SR.ApiResponseCode_Unauthorized;
             }
@@ -72,35 +82,26 @@ namespace System.Application.Models
             {
                 return Const.UserIsBanErrorMessage;
             }
-            static bool IsClientExceptionOrServerException(ApiResponseCode code) => code switch
-            {
-                ApiResponseCode.ClientException => true,
-                _ => false,
-            };
             string message;
+            var notErrorAppendText = string.IsNullOrWhiteSpace(errorAppendText);
             if (string.IsNullOrWhiteSpace(errorFormat))
             {
-                if (string.IsNullOrWhiteSpace(errorAppendText))
+                if (notErrorAppendText)
                 {
-                    message = IsClientExceptionOrServerException(code) ? SR.ClientError_ : SR.ServerError_;
-                    message = message.Format((int)code);
+                    errorFormat = IsClientExceptionOrServerException(code) ? SR.ClientError_ : SR.ServerError_;
                 }
                 else
                 {
-                    message = IsClientExceptionOrServerException(code) ? SR.ClientError__ : SR.ServerError__;
-                    message = message.Format((int)code, errorAppendText);
+                    errorFormat = IsClientExceptionOrServerException(code) ? SR.ClientError__ : SR.ServerError__;
                 }
+            }
+            if (notErrorAppendText)
+            {
+                message = errorFormat.Format((int)code);
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(errorAppendText))
-                {
-                    message = errorFormat.Format((int)code);
-                }
-                else
-                {
-                    message = errorFormat.Format((int)code, errorAppendText);
-                }
+                message = errorFormat.Format((int)code, errorAppendText);
             }
             return message;
         }

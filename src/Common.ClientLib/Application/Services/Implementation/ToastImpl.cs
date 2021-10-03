@@ -31,6 +31,8 @@ namespace System.Application.Services.Implementation
 
         public void Show(string text, int? duration)
         {
+            if (string.IsNullOrEmpty(text)) return;
+
             try
             {
                 if (IsMainThread)
