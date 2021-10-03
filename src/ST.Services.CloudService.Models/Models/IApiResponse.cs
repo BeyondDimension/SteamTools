@@ -22,7 +22,7 @@ namespace System.Application.Models
         /// </summary>
         /// <param name="errorAppendText"></param>
         /// <returns></returns>
-        string GetMessageByAppendText(string errorAppendText) => ApiResponse.GetMessage(this, errorAppendText);
+        string GetMessageByAppendText(string? errorAppendText) => ApiResponse.GetMessage(this, errorAppendText);
 
         /// <summary>
         /// 通过自定义格式化文本获取显示消息
