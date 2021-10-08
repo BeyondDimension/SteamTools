@@ -34,6 +34,12 @@ namespace System.Application.Models.Internals
         [SJsonProperty("🐴")]
         public string? InternalMessage { get; set; }
 
+        string? IApiResponse.InternalMessage
+        {
+            get => InternalMessage;
+            set => InternalMessage = value;
+        }
+
         /// <summary>
         /// 最后一个 MessagePack 序列化 下标，继承自此类，新增需要序列化的字段/属性，标记此值+1，+2
         /// </summary>

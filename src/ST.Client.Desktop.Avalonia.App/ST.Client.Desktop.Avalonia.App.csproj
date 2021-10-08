@@ -19,7 +19,7 @@
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) ">
+  <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) OR '$(Configuration)'=='Debug' ">
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
