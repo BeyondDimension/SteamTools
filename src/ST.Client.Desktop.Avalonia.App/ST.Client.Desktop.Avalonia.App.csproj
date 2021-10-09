@@ -19,9 +19,9 @@
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) OR '$(Configuration)'=='Debug' ">
+  <!--<PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) OR '$(Configuration)'=='Debug' ">
     <OutputType>Exe</OutputType>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>

@@ -210,7 +210,7 @@ namespace System.Application.Services
                                     if (id == SteamUser.UndefinedId)
                                     {
                                         //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取
-                                        Current.DisposeSteamClient();
+                                        DisposeSteamClient();
                                         continue;
                                     }
                                     IsConnectToSteam = true;
@@ -226,7 +226,6 @@ namespace System.Application.Services
                                     {
                                         INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}", NotificationType.Message);
                                     }
-
 
                                     if (GameLibrarySettings.IsAutoAFKApps.Value)
                                     {
@@ -252,7 +251,6 @@ namespace System.Application.Services
                             CurrentSteamUser = null;
                             AvaterPath = DefaultAvaterPath;
                         }
-                        await Task.Delay(3000);
                     }
                     catch (Exception ex)
                     {
@@ -265,6 +263,7 @@ namespace System.Application.Services
                         {
                             DisposeSteamClient();
                         }
+                        await Task.Delay(3000);
                     }
                 }
             }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
@@ -338,6 +337,8 @@ namespace System.Application.Services
                                             return;
                                         }
                                     }
+
+                                    DisposeSteamClient();
                                 }
                                 Thread.Sleep(2000);
                             }
