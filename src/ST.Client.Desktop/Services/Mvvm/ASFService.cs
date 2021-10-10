@@ -18,8 +18,8 @@ namespace System.Application.Services
 
         private readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 
-        string _IPCUrl;
-        public string IPCUrl
+        string? _IPCUrl;
+        public string? IPCUrl
         {
             get => _IPCUrl;
             set => this.RaiseAndSetIfChanged(ref _IPCUrl, value);
@@ -46,7 +46,6 @@ namespace System.Application.Services
         public ASFService()
         {
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
-
             //InitASF();
         }
 
