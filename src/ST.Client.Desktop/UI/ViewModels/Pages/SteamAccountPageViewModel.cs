@@ -115,7 +115,7 @@ namespace System.Application.UI.ViewModels
                         }),
                     });
 
-                    DI.Get<ISystemJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + user.AccountName, AppResources.UserChange_BtnTootlip, this.Name);
+                    DI.Get<IJumpListService>().AddJumpTask(title, AppHelper.ProgramPath, AppHelper.ProgramPath, "-clt steam -account " + user.AccountName, AppResources.UserChange_BtnTootlip, this.Name);
                 }
             }
             this.RaisePropertyChanged(nameof(IsTaskBarSubMenu));

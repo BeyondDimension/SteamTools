@@ -3,11 +3,11 @@ using System.Application.Models;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class AvaloniaDesktopAppUpdateServiceImpl : DesktopAppUpdateServiceImpl
+    internal sealed class AvaloniaDesktopAppUpdateServiceImpl : PlatformApplicationUpdateServiceImpl
     {
-        readonly IDesktopAppService app;
+        readonly IDesktopApplication app;
         public AvaloniaDesktopAppUpdateServiceImpl(
-            IDesktopAppService app,
+            IDesktopApplication app,
             IToast toast,
             ICloudServiceClient client,
             IOptions<AppSettings> options) : base(toast, client, options)
@@ -17,7 +17,7 @@ namespace System.Application.Services.Implementation
 
         protected override async void OnExistNewVersion()
         {
-            var hasActiveWindow = IDesktopAppService.Instance.HasActiveWindow();
+            var hasActiveWindow = IDesktopApplication.Instance.HasActiveWindow();
             if (hasActiveWindow)
             {
                 await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion, isParent: false);

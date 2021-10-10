@@ -5,7 +5,7 @@ using System.Reactive.Subjects;
 namespace System.Application.Services
 {
     /// <summary>
-    /// 提供对显示在主窗口底部的状态栏的访问。
+    /// 提供对显示在主窗口底部的状态栏的访问
     /// </summary>
     public class ToastService : ReactiveObject
     {

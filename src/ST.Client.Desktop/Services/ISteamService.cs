@@ -35,12 +35,6 @@ namespace System.Application.Services
         bool IsRunningSteamProcess { get; }
 
         /// <summary>
-        /// 结束 Steam 进程
-        /// </summary>
-        [Obsolete("可能引发，Win32异常，拒绝访问，改为 TryKillSteamProcess false 弹窗提示用户手动关闭 Steam，true 使用 IsRunningSteamProcess 再检测一遍，返回 int(pid) 提示用户去任务管理器中结束进程，null 再进行业务逻辑", true)]
-        void KillSteamProcess();
-
-        /// <summary>
         /// 尝试结束 Steam 进程
         /// </summary>
         /// <returns></returns>
@@ -71,7 +65,9 @@ namespace System.Application.Services
         List<SteamUser> GetRememberUserList();
 
         bool UpdateAuthorizedDeviceList(IEnumerable<AuthorizedDevice> list);
+
         bool RemoveAuthorizedDeviceList(AuthorizedDevice list);
+
         /// <summary>
         /// 获取所有当前PC共享授权信息
         /// </summary>
@@ -89,6 +85,7 @@ namespace System.Application.Services
         bool UpdateAppListJson(List<SteamApp> apps, string filePath);
 
         bool UpdateAppListJson(string appsJsonStr, string filePath);
+
         void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false);
 
         void UpdateLocalUserData(SteamUser user);

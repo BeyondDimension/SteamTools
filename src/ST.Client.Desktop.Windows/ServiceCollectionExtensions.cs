@@ -34,8 +34,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }
-                services.AddSingleton<ISystemWindowApiService, SystemWindowApiServiceImpl>();
-                services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
+                services.AddSingleton<INativeWindowApiService, NativeWindowApiServiceImpl>();
+                services.AddSingleton<IJumpListService, JumpListServiceImpl>();
                 if (hasNotifyIcon) services.AddNotifyIcon();
                 //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
             }

@@ -12,14 +12,14 @@ namespace System.Application.Services.Implementation
     public class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl
     {
         readonly string _defaultFamilyName;
-        readonly IDesktopAppService appService;
+        readonly IDesktopApplication appService;
 
         readonly Typeface _defaultTypeface =
            new("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
 
         public static bool UseGdiPlusFirst { get; set; }
 
-        public AvaloniaFontManagerImpl(IDesktopPlatformService platformService, IDesktopAppService appService) : base(platformService)
+        public AvaloniaFontManagerImpl(IDesktopPlatformService platformService, IDesktopApplication appService) : base(platformService)
         {
             this.appService = appService;
             _defaultFamilyName = _defaultTypeface.FontFamily.FamilyNames.PrimaryFamilyName;

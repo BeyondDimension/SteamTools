@@ -173,7 +173,7 @@ namespace System.Application.UI
                         if (!silence)
                         {
                             Startup.Init(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
-                            IWindowService.Instance.InitUnlockAchievement(id);
+                            IDesktopWindowViewModelManager.Instance.InitUnlockAchievement(id);
                             BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
                         }
                         else

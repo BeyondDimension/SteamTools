@@ -18,13 +18,6 @@ namespace System.Application.UI.ViewModels
 {
     public partial class SettingsPageViewModel
     {
-        KeyValuePair<string, string> _SelectLanguage;
-        public KeyValuePair<string, string> SelectLanguage
-        {
-            get => _SelectLanguage;
-            set => this.RaiseAndSetIfChanged(ref _SelectLanguage, value);
-        }
-
 #if !__MOBILE__
         KeyValuePair<string, string> _SelectFont;
         public KeyValuePair<string, string> SelectFont

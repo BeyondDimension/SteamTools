@@ -9,9 +9,9 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace System
 {
-    public static class HandleWindowExtensions
+    public static partial class HandleWindowExtensions
     {
-        public static bool IsHasProcessExits(this HandleWindow window)
+        public static bool IsHasProcessExits(this NativeWindowModel window)
         {
             if (window?.Process?.HasExited == false && window.Name != Process.GetCurrentProcess().ProcessName)
             {
@@ -20,7 +20,7 @@ namespace System
             return true;
         }
 
-        public static void Kill(this HandleWindow window)
+        public static void Kill(this NativeWindowModel window)
         {
             if (!window.IsHasProcessExits())
             {

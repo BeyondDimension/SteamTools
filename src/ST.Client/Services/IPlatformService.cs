@@ -1,20 +1,27 @@
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-    public interface IPlatformService
+    public partial interface IPlatformService
     {
         protected const string TAG = "PlatformS";
 
         public static IPlatformService Instance => DI.Get<IPlatformService>();
 
-        string[] GetMacNetworksetup() => throw new PlatformNotSupportedException();
+        string[] GetMacNetworkSetup() => throw new PlatformNotSupportedException();
 
-        async void AdminShell(string str, bool admin = false) => await AdminShellAsync(str, admin);
+        /// <summary>
+        /// 运行 Shell 脚本
+        /// </summary>
+        /// <param name="script">要运行的脚本字符串</param>
+        /// <param name="admin">是否以管理员或Root权限运行</param>
+        async void RunShell(string script, bool admin = false) => await RunShellAsync(script, admin);
 
-        ValueTask AdminShellAsync(string str, bool admin = false) => throw new PlatformNotSupportedException();
+        /// <inheritdoc cref="RunShell(string, bool)"/>
+        ValueTask RunShellAsync(string script, bool admin = false) => throw new PlatformNotSupportedException();
 
         /// <summary>
         /// 使用文本阅读器打开文件
@@ -36,5 +43,15 @@ namespace System.Application.Services
         {
             return false;
         }
+
+        /// <summary>
+        /// 获取一个正在运行的进程的命令行参数
+        /// 与 <see cref="Environment.GetCommandLineArgs"/> 一样，使用此方法获取的参数是包含应用程序路径的
+        /// 关于 <see cref="Environment.GetCommandLineArgs"/> 可参见：
+        /// .NET 命令行参数包含应用程序路径吗？https://blog.walterlv.com/post/when-will-the-command-line-args-contain-the-executable-path.html
+        /// </summary>
+        /// <param name="process">一个正在运行的进程</param>
+        /// <returns>表示应用程序运行命令行参数的字符串</returns>
+        string GetCommandLineArgs(Process process);
     }
 }

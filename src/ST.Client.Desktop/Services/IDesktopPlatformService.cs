@@ -1,11 +1,10 @@
 using System.Application.Models;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
-using System.Windows;
 
 namespace System.Application.Services
 {
@@ -15,22 +14,12 @@ namespace System.Application.Services
 
         public new static IDesktopPlatformService Instance => DI.Get<IDesktopPlatformService>();
 
-        void SetResizeMode(IntPtr hWnd, ResizeModeCompat value);
-
-        /// <summary>
-        /// 获取一个正在运行的进程的命令行参数。
-        /// 与 <see cref="Environment.GetCommandLineArgs"/> 一样，使用此方法获取的参数是包含应用程序路径的。
-        /// 关于 <see cref="Environment.GetCommandLineArgs"/> 可参见：
-        /// .NET 命令行参数包含应用程序路径吗？https://blog.walterlv.com/post/when-will-the-command-line-args-contain-the-executable-path.html
-        /// </summary>
-        /// <param name="process">一个正在运行的进程。</param>
-        /// <returns>表示应用程序运行命令行参数的字符串。</returns>
-        string GetCommandLineArgs(Process process);
+        void SetResizeMode(IntPtr hWnd, ResizeMode value);
 
         /// <summary>
         /// hosts 文件所在目录
         /// </summary>
-        string HostsFilePath => "/etc/hosts";
+        string HostsFilePath => string.Format("{0}etc{0}hosts", Path.DirectorySeparatorChar);
 
         void IPlatformService.OpenFileByTextReader(string filePath)
         {

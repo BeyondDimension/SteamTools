@@ -32,7 +32,7 @@ namespace System.Application.UI.ViewModels
         public TaskBarWindowViewModel()
         {
             MenuClickCommand = ReactiveCommand.Create<object>(MenuClick);
-            if (IWindowService.Instance.MainWindow is MainWindowViewModel mainwindow)
+            if (IDesktopWindowViewModelManager.Instance.MainWindow is MainWindowViewModel mainwindow)
             {
                 Tabs = mainwindow.TabItems.Where(x => x.Id != default);
             }
@@ -54,13 +54,13 @@ namespace System.Application.UI.ViewModels
 
         static void OnMenuClick(Func<TabItemViewModel, bool> predicate, Action? hideTaskBarWindow = null)
         {
-            if (IWindowService.Instance.MainWindow is MainWindowViewModel main)
+            if (IDesktopWindowViewModelManager.Instance.MainWindow is MainWindowViewModel main)
             {
                 var tab = main.TabItems.FirstOrDefault(predicate);
                 tab ??= main.FooterTabItems.FirstOrDefault(predicate);
                 if (tab != null)
                 {
-                    DI.Get<IDesktopAppService>().RestoreMainWindow();
+                    DI.Get<IDesktopApplication>().RestoreMainWindow();
                     main.SelectedItem = tab;
                     hideTaskBarWindow?.Invoke();
                 }
@@ -72,7 +72,7 @@ namespace System.Application.UI.ViewModels
             switch (tag)
             {
                 case CommandExit:
-                    DI.Get<IDesktopAppService>().Shutdown();
+                    DI.Get<IDesktopApplication>().Shutdown();
                     return true;
                 default:
                     MainThread2.BeginInvokeOnMainThread(() =>

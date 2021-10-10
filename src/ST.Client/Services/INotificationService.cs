@@ -12,8 +12,8 @@ namespace System.Application.Services
         /// 显示从服务端获取到通知纪录
         /// </summary>
         /// <param name="notification"></param>
-        private void Notify(NotificationRecordDTO notification)
-            => Notify(notification.Content, notification.Type, title: notification.Title);
+        void Notify(NotificationRecordDTO notification)
+           => Notify(notification.Content, notification.Type, title: notification.Title);
 
         /// <summary>
         /// 显示从服务端获取到通知纪录

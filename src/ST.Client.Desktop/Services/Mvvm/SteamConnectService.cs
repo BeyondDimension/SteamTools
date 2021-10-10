@@ -1,7 +1,7 @@
 using DynamicData;
 using ReactiveUI;
 using System.Application.Models;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -215,7 +215,7 @@ namespace System.Application.Services
                                     IsConnectToSteam = true;
                                     CurrentSteamUser = await DI.Get<ISteamworksWebApiService>().GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                                    AvaterPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
+                                    AvaterPath = ImageSouceHelper.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
 
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();

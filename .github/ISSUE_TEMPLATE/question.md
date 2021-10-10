@@ -18,3 +18,7 @@ assignees: ''
 <!--
 如截图等其他信息可以贴在这里
 -->
+
+- 程序版本(Program Version):
+- 系统版本号(OS Version): <!-- example Windows 10.19042.844(see winver) -->
+- 是否为应用商店版本(Store Version): <!--是(Yes)/否(No)-->

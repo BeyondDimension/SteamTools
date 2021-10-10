@@ -72,7 +72,7 @@ namespace System.Application.UI
 #if WINDOWS
             notifyIcon.RightClick += (_, e) =>
             {
-                IWindowService.Instance.ShowTaskBarWindow(e.X, e.Y);
+                IDesktopWindowViewModelManager.Instance.ShowTaskBarWindow(e.X, e.Y);
             };
 #else
             menuItemDisposable = InitMenuItems(notifyIcon);
@@ -107,7 +107,7 @@ namespace System.Application.UI
         static IDisposable? InitMenuItems(NotifyIcon notifyIcon)
         {
 #if !TRAY_INDEPENDENT_PROGRAM
-            if (IWindowService.Instance.MainWindow is not MainWindowViewModel main) return null;
+            if (IDesktopWindowViewModelManager.Instance.MainWindow is not MainWindowViewModel main) return null;
 #else
             MainWindowViewModel main = new();
 #endif

@@ -57,14 +57,14 @@ namespace System.Application.Models
             return Version;
         }
 
-        public int CompareTo(LocalDll other)
+        public int CompareTo(LocalDll? other)
         {
             if (other == null)
             {
                 return -1;
             }
 
-            return (other.VersionNumber.CompareTo(VersionNumber));
+            return other.VersionNumber.CompareTo(VersionNumber);
         }
     }
 }

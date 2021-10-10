@@ -46,7 +46,7 @@ namespace System.Application.UI.ViewModels
             };
         }
 
-        Func<SteamApp, bool> PredicateType(IEnumerable<EnumModel<SteamAppType>> types)
+        Func<SteamApp, bool> PredicateType(IEnumerable<EnumClass<SteamAppType>> types)
         {
             //var types = AppTypeFiltres.Where(x => x.Enable);
             return (s) =>
@@ -77,7 +77,7 @@ namespace System.Application.UI.ViewModels
         public GameListPageViewModel()
         {
             _IconKey = nameof(GameListPageViewModel);
-            AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnumModels<SteamAppType>());
+            AppTypeFiltres = new ObservableCollection<EnumClass<SteamAppType>>(EnumClass.GetEnums<SteamAppType>());
             AppTypeFiltres[1].Enable = true;
             AppTypeFiltres[2].Enable = true;
 
@@ -208,15 +208,15 @@ namespace System.Application.UI.ViewModels
 
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
 
-        private ObservableCollection<EnumModel<SteamAppType>> _AppTypeFiltres = new();
-        public ObservableCollection<EnumModel<SteamAppType>> AppTypeFiltres
+        private ObservableCollection<EnumClass<SteamAppType>> _AppTypeFiltres = new();
+        public ObservableCollection<EnumClass<SteamAppType>> AppTypeFiltres
         {
             get => _AppTypeFiltres;
             set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
         }
 
-        private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres = new List<EnumModel<SteamAppType>>();
-        public IReadOnlyCollection<EnumModel<SteamAppType>> EnableAppTypeFiltres
+        private IReadOnlyCollection<EnumClass<SteamAppType>> _EnableAppTypeFiltres = new List<EnumClass<SteamAppType>>();
+        public IReadOnlyCollection<EnumClass<SteamAppType>> EnableAppTypeFiltres
         {
             get => _EnableAppTypeFiltres;
             set => this.RaiseAndSetIfChanged(ref _EnableAppTypeFiltres, value);

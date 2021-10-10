@@ -22,7 +22,7 @@ namespace System.Application.Services
             //else
             //{
             //写入本地数据库待下一次打开主窗口时显示
-            return false;
+            //return false;
             //}
         }
 

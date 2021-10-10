@@ -5,6 +5,7 @@ using MonoMac.Foundation;
 using AppKit;
 using Foundation;
 #endif
+using System.Application.Internals;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
@@ -29,7 +30,7 @@ namespace System.Application.Services.Implementation
             return string.Empty;
         }
 
-        string[] IPlatformService.GetMacNetworksetup()
+        string[] IPlatformService.GetMacNetworkSetup()
         {
             using var p = new Process();
             p.StartInfo.FileName = "networksetup";
@@ -42,7 +43,7 @@ namespace System.Application.Services.Implementation
             return ret.Split("\n");
         }
 
-        ValueTask IPlatformService.AdminShellAsync(string shell, bool admin) => UnixHelpers.AdminShellAsync(shell, admin);
+        ValueTask IPlatformService.RunShellAsync(string script, bool admin) => UnixHelper.RunShellAsync(script, admin);
 
         public static void OpenFile(string appName, string filePath) => NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
 
@@ -226,7 +227,7 @@ namespace System.Application.Services.Implementation
 
         public bool SetAsSystemProxy(bool state, string ip, int port)
         {
-            var stringList = IPlatformService.Instance.GetMacNetworksetup();
+            var stringList = IPlatformService.Instance.GetMacNetworkSetup();
             var shellContent = new StringBuilder();
             foreach (var item in stringList)
             {
@@ -246,7 +247,7 @@ namespace System.Application.Services.Implementation
                     }
                 }
             }
-           ((IPlatformService)this).AdminShell(shellContent.ToString(), false);
+           ((IPlatformService)this).RunShell(shellContent.ToString(), false);
             return true;
         }
     }

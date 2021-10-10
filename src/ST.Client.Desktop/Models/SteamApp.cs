@@ -88,7 +88,7 @@ namespace System.Application.Models
 
         public string? DisplayName => string.IsNullOrEmpty(EditName) ? Name : EditName;
 
-        string _baseDLSSVersion;
+        string _baseDLSSVersion = string.Empty;
         public string BaseDLSSVersion
         {
             get { return _baseDLSSVersion; }
@@ -102,7 +102,7 @@ namespace System.Application.Models
             }
         }
 
-        string _currentDLSSVersion;
+        string _currentDLSSVersion = string.Empty;
         public string CurrentDLSSVersion
         {
             get { return _currentDLSSVersion; }
@@ -157,7 +157,7 @@ namespace System.Application.Models
 
         public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
 
-        public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, SteamApp.LibCacheType.Library_600x900);
+        public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_600x900);
 
         public string LibraryHeaderUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
 
@@ -222,13 +222,13 @@ namespace System.Application.Models
 
         private string? _cachedSortAs;
 
-        private byte[] _stuffBeforeHash;
+        private byte[]? _stuffBeforeHash;
 
         private uint _changeNumber;
 
-        private byte[] _originalData;
+        private byte[]? _originalData;
 
-        private SteamAppPropertyTable _properties;
+        private SteamAppPropertyTable? _properties;
 
         private void ClearCachedProps()
         {
@@ -237,11 +237,11 @@ namespace System.Application.Models
             _cachedHasSortAs = null;
         }
 
-        public event EventHandler Modified;
+        public event EventHandler? Modified;
 
         private void OnEntryModified(object sender, EventArgs e)
         {
-            EventHandler modified = Modified;
+            var modified = Modified;
             if (modified == null)
             {
                 return;
@@ -258,9 +258,9 @@ namespace System.Application.Models
 
         public void DetectDLSS()
         {
-            BaseDLSSVersion = String.Empty;
+            BaseDLSSVersion = string.Empty;
             CurrentDLSSVersion = "N/A";
-            var dlssDlls = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll", SearchOption.AllDirectories);
+            var dlssDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll", SearchOption.AllDirectories);
             if (dlssDlls.Length > 0)
             {
                 HasDLSS = true;
@@ -271,17 +271,17 @@ namespace System.Application.Models
                 foreach (var dlssDll in dlssDlls)
                 {
                     var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
-                    CurrentDLSSVersion = dllVersionInfo.FileVersion.Replace(",", ".");
+                    CurrentDLSSVersion = dllVersionInfo.FileVersion?.Replace(",", ".") ?? string.Empty;
                     break;
                 }
 
-                dlssDlls = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
+                dlssDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
                 if (dlssDlls.Length > 0)
                 {
                     foreach (var dlssDll in dlssDlls)
                     {
                         var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
-                        BaseDLSSVersion = dllVersionInfo.FileVersion.Replace(",", ".");
+                        BaseDLSSVersion = dllVersionInfo.FileVersion?.Replace(",", ".") ?? string.Empty;
                         break;
                     }
                 }
@@ -294,7 +294,7 @@ namespace System.Application.Models
 
         internal bool ResetDll()
         {
-            var foundDllBackups = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
+            var foundDllBackups = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
             if (foundDllBackups.Length == 0)
             {
                 return false;
@@ -308,18 +308,18 @@ namespace System.Application.Models
                 try
                 {
                     var dllPath = Path.GetDirectoryName(dll);
-                    var targetDllPath = Path.Combine(dllPath, "nvngx_dlss.dll");
+                    var targetDllPath = Path.Combine(dllPath!, "nvngx_dlss.dll");
                     File.Move(dll, targetDllPath, true);
                 }
                 catch (Exception err)
                 {
-                    System.Diagnostics.Debug.WriteLine($"ResetDll Error: {err.Message}");
+                    Debug.WriteLine($"ResetDll Error: {err.Message}");
                     return false;
                 }
             }
 
             CurrentDLSSVersion = resetToVersion;
-            BaseDLSSVersion = String.Empty;
+            BaseDLSSVersion = string.Empty;
 
             return true;
         }
@@ -331,7 +331,7 @@ namespace System.Application.Models
                 return false;
             }
 
-            var foundDlls = Directory.GetFiles(InstalledDir, "nvngx_dlss.dll", SearchOption.AllDirectories);
+            var foundDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll", SearchOption.AllDirectories);
             if (foundDlls.Length == 0)
             {
                 return false;
@@ -340,13 +340,13 @@ namespace System.Application.Models
             var versionInfo = FileVersionInfo.GetVersionInfo(localDll.Filename);
             var targetDllVersion = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}.{versionInfo.FilePrivatePart}";
 
-            var baseDllVersion = String.Empty;
+            var baseDllVersion = string.Empty;
 
             // Backup old dlls.
             foreach (var dll in foundDlls)
             {
                 var dllPath = Path.GetDirectoryName(dll);
-                var targetDllPath = Path.Combine(dllPath, "nvngx_dlss.dll.dlsss");
+                var targetDllPath = Path.Combine(dllPath!, "nvngx_dlss.dll.dlsss");
                 if (File.Exists(targetDllPath) == false)
                 {
                     try
@@ -358,7 +358,7 @@ namespace System.Application.Models
                     }
                     catch (Exception err)
                     {
-                        System.Diagnostics.Debug.WriteLine($"UpdateDll Error: {err.Message}");
+                        Debug.WriteLine($"UpdateDll Error: {err.Message}");
                         return false;
                     }
                 }
@@ -372,13 +372,13 @@ namespace System.Application.Models
                 }
                 catch (Exception err)
                 {
-                    System.Diagnostics.Debug.WriteLine($"UpdateDll Error: {err.Message}");
+                    Debug.WriteLine($"UpdateDll Error: {err.Message}");
                     return false;
                 }
             }
 
             CurrentDLSSVersion = targetDllVersion;
-            if (String.IsNullOrEmpty(baseDllVersion) == false)
+            if (!string.IsNullOrEmpty(baseDllVersion))
             {
                 BaseDLSSVersion = baseDllVersion;
             }
@@ -404,7 +404,7 @@ namespace System.Application.Models
                 app._stuffBeforeHash = binaryReader.ReadBytes(16);
                 binaryReader.ReadBytes(20);
                 app._changeNumber = binaryReader.ReadUInt32();
-                app._properties = binaryReader.ReadPropertyTable();
+                app._properties = SteamAppPropertyHelper.ReadPropertyTable(binaryReader)!;
                 var nodes = new string[3] { NodeAppInfo, NodeCommon, string.Empty };
                 //var installpath = app._properties.GetPropertyValue<string>(null, new string[]
                 //{
@@ -421,7 +421,7 @@ namespace System.Application.Models
                 app.ParentId = (uint)app._properties.GetPropertyValue<int>(0, nodes);
 
                 nodes[2] = NodeAppType;
-                string type = app._properties.GetPropertyValue<string>("", nodes);
+                var type = app._properties.GetPropertyValue<string>("", nodes);
 
                 if (Enum.TryParse(type, true, out SteamAppType apptype))
                 {
@@ -435,7 +435,7 @@ namespace System.Application.Models
 
 
                 nodes[2] = NodePlatforms;
-                string oslist = app._properties.GetPropertyValue<string>("", NodePlatforms);
+                var oslist = app._properties.GetPropertyValue("", NodePlatforms);
 
 
 

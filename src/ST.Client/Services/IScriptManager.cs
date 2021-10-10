@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
+    /// <summary>
+    /// 脚本管理
+    /// </summary>
     public interface IScriptManager
     {
         /// <summary>

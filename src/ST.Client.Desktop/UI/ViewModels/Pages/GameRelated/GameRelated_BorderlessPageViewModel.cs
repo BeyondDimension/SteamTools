@@ -10,9 +10,9 @@ namespace System.Application.UI.ViewModels
         private readonly ISystemWindowApiService windowApi = DI.Get<ISystemWindowApiService>();
         #region SelectWindow 变更通知 
 
-        private HandleWindow? _SelectWindow;
+        private NativeWindowModel? _SelectWindow;
 
-        public HandleWindow? SelectWindow
+        public NativeWindowModel? SelectWindow
         {
             get { return this._SelectWindow; }
             set
@@ -27,8 +27,8 @@ namespace System.Application.UI.ViewModels
 
         #endregion
 
-        private ObservableCollection<HandleWindow> _WindowList = new();
-        public ObservableCollection<HandleWindow> WindowList
+        private ObservableCollection<NativeWindowModel> _WindowList = new();
+        public ObservableCollection<NativeWindowModel> WindowList
         {
             get { return this._WindowList; }
             set

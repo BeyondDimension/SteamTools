@@ -126,7 +126,7 @@ namespace System.Application.UI.Views.Windows
 
             if (OperatingSystem2.IsWindows)
             {
-                DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.HandleWindow { Handle = this.PlatformImpl.Handle.Handle });
+                DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.NativeWindowModel { Handle = this.PlatformImpl.Handle.Handle });
             }
         }
 

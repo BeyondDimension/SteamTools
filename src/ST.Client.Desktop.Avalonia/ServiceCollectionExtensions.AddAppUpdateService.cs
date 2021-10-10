@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddAppUpdateService(this IServiceCollection services)
         {
-            services.AddSingleton<IAppUpdateService, _AppUpdateServiceImpl>();
+            services.AddSingleton<IApplicationUpdateService, _AppUpdateServiceImpl>();
             return services;
         }
     }

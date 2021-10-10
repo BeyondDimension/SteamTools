@@ -19,32 +19,6 @@ namespace System.Application.UI
         /// </summary>
         public static bool UseOpenGL { get; set; }
 
-        ///// <summary>
-        ///// 当前系统WebView是否可用
-        ///// </summary>
-        //public static bool IsSystemWebViewAvailable { get; set; }
-
-        ///// <summary>
-        ///// 初始化完成时事件
-        ///// </summary>
-        //public static Action? Initialized { get; set; }
-
-        ///// <summary>
-        ///// 关闭程序时事件
-        ///// </summary>
-        //public static Action? Shutdown { get; set; }
-
-        //static bool isShutdown = false;
-        /// <summary>
-        /// 关闭应用程序
-        /// </summary>
-        //public static void TryShutdown()
-        //{
-        //    if (isShutdown) return;
-        //    isShutdown = true;
-        //    Shutdown?.Invoke();
-        //}
-
         static AppHelper()
         {
             var mainModule = Process.GetCurrentProcess().MainModule;
@@ -76,17 +50,6 @@ namespace System.Application.UI
             s.SetBootAutoStart(isAutoStart, Constants.HARDCODED_APP_NAME);
         }
 
-        public static IDesktopAppService Current => DI.Get<IDesktopAppService>();
-
-#if DEBUG
-
-        [Obsolete("use EnableLogger", true)]
-        public static bool EnableTextLog
-        {
-            get => EnableLogger;
-            set => EnableLogger = value;
-        }
-
-#endif
+        public static IDesktopApplication Current => DI.Get<IDesktopApplication>();
     }
 }

@@ -38,7 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection TryAddScriptManager(this IServiceCollection services)
         {
-            services.TryAddSingleton<IScriptManager, ScriptManagerImpl>();
+            services.TryAddSingleton<IScriptManager, ScriptManager>();
             return services;
         }
 
@@ -74,7 +74,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加 asf 功能
+        /// 添加 ArchiSteamFarm 服务
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>

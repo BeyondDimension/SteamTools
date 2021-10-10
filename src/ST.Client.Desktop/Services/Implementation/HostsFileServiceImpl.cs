@@ -1,5 +1,6 @@
-using System.Application.Models.Settings;
+using System.Application.Models;
 using System.Application.Properties;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

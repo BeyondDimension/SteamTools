@@ -7,7 +7,7 @@ namespace System.Application.UI
 {
     partial class Program
     {
-        /// <inheritdoc cref="IDesktopAppService.RenderingSubsystemName"/>
+        /// <inheritdoc cref="IDesktopApplication.RenderingSubsystemName"/>
         internal static string RenderingSubsystemName { get; private set; } = string.Empty;
 
         // Avalonia configuration, don't remove; also used by visual designer.

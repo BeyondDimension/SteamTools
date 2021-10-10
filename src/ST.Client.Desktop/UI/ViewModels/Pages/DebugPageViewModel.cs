@@ -591,7 +591,7 @@ namespace System.Application.UI.ViewModels
 
         public void TestFontsButton_Click()
         {
-            IWindowService.Instance.ShowTaskBarWindow(0, 0);
+            IDesktopWindowViewModelManager.Instance.ShowTaskBarWindow(0, 0);
             //InstalledFontCollection ifc = new();
             //StringBuilder s = new();
             //foreach (var item in ifc.Families)

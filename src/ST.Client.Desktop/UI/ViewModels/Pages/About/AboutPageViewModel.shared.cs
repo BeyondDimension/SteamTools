@@ -28,7 +28,7 @@ namespace System.Application.UI.ViewModels
 
             CheckUpdateCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                await IAppUpdateService.Instance.CheckUpdateAsync(showIsExistUpdateFalse: true);
+                await IApplicationUpdateService.Instance.CheckUpdateAsync(showIsExistUpdateFalse: true);
             });
 
             DelAccountCommand = ReactiveCommand.CreateFromTask(async () =>

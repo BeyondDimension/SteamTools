@@ -39,14 +39,14 @@ using System.Reactive.Disposables;
 [assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
 namespace System.Application.UI
 {
-    public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
+    public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopApplication, IDesktopAvaloniaAppService
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
 
         const AppTheme _DefaultActualTheme = AppTheme.Dark;
-        AppTheme IAppService.DefaultActualTheme => _DefaultActualTheme;
+        AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
         AppTheme mTheme = _DefaultActualTheme;
         public AppTheme Theme
@@ -95,7 +95,7 @@ namespace System.Application.UI
 
         static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
 
-        AppTheme IAppService.GetActualThemeByFollowingSystem()
+        AppTheme IApplication.GetActualThemeByFollowingSystem()
         {
             var dps = DI.Get<IDesktopPlatformService>();
             var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
@@ -193,7 +193,7 @@ namespace System.Application.UI
             StartupTrace.Restart("App.SetP");
 #endif
             //SettingsHost.Load();
-            var windowService = IWindowService.Instance;
+            var windowService = IDesktopWindowViewModelManager.Instance;
             windowService.Init();
             DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() => Shutdown());
 #if StartupTrace
@@ -298,7 +298,7 @@ namespace System.Application.UI
 #endif
                 }
 
-                IWindowService.Instance.MainWindow.Initialize();
+                IDesktopWindowViewModelManager.Instance.MainWindow.Initialize();
 
                 desktop.MainWindow =
 #if !UI_DEMO
@@ -505,7 +505,7 @@ namespace System.Application.UI
             return false;
         }
 
-        void IDesktopAppService.Shutdown() => Shutdown();
+        void IDesktopApplication.Shutdown() => Shutdown();
 
         //bool IDesktopAppService.IsCefInitComplete => false;
         //CefNetApp.InitState == CefNetAppInitState.Complete;
@@ -514,7 +514,7 @@ namespace System.Application.UI
 
         public readonly CompositeDisposable compositeDisposable = new();
 
-        CompositeDisposable IDesktopAppService.CompositeDisposable => compositeDisposable;
+        CompositeDisposable IDesktopApplication.CompositeDisposable => compositeDisposable;
 
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
@@ -526,6 +526,6 @@ namespace System.Application.UI
 
         #endregion
 
-        string IDesktopAppService.RenderingSubsystemName => Program.RenderingSubsystemName;
+        string IDesktopApplication.RenderingSubsystemName => Program.RenderingSubsystemName;
     }
 }

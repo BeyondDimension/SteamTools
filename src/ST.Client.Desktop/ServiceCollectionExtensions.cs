@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static partial class ServiceCollectionExtensions
     {
         /// <summary>
-        /// 尝试添加适用于Desktop的Toast
+        /// 尝试添加适用于 Desktop 的 Toast
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
@@ -91,7 +91,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddWindowService(this IServiceCollection services)
         {
-            services.AddSingleton<IWindowService, WindowServiceImpl>();
+            services.AddSingleton<IDesktopWindowViewModelManager, DesktopWindowViewModelManager>();
             return services;
         }
 

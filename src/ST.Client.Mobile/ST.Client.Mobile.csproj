@@ -17,31 +17,13 @@
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <EmbeddedResource Include="..\ST.Client.Desktop\UI\Resx\*.resx">
+    <EmbeddedResource Include="..\ST.Client.Desktop\UI\Resx\R.cs">
       <LinkBase>UI\Resx</LinkBase>
     </EmbeddedResource>
-    <Compile Include="..\ST.Client.Desktop\UI\Resx\R.cs">
-      <LinkBase>UI\Resx</LinkBase>
+    <Compile Include="..\ST.Client.Desktop\Models\MyAuthenticator.shared.cs">
+      <LinkBase>Models</LinkBase>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop\UI\Resx\AppResources.Designer.cs">
-      <LinkBase>UI\Resx</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Base\ViewModelBase.cs">
-      <Link>UI\ViewModels\Base\ViewModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Base\WindowViewModel.shared.cs">
-      <Link>UI\ViewModels\Base\PageViewModel.shared.cs</Link>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Mvvm\*.cs">
-      <LinkBase>Mvvm</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Serialization\*.cs">
-      <LinkBase>Serialization</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Security\IsNotOfficialChannelPackageDetectionHelper.cs">
-      <LinkBase>Security</LinkBase>
-    </Compile>
-    <Compile Remove="..\ST.Client.Desktop\Mvvm\CompositeDisposable.cs" />
+    
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\AreaUIHelper.cs">
       <LinkBase>UI\ViewModels</LinkBase>
     </Compile>
@@ -63,24 +45,6 @@
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\UserProfileWindowViewModel.shared.cs">
       <LinkBase>UI\ViewModels\Windows</LinkBase>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop\Extensions\TaskExtensions.cs">
-      <LinkBase>Extensions</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Extensions\ViewModelExtensions.cs">
-      <LinkBase>Extensions</LinkBase>
-    </Compile>
-    <!--<Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\StringFormatConverter.cs">
-      <LinkBase>Converters</LinkBase>
-    </Compile>-->
-    <Compile Include="..\ST.Client.Desktop\UI\AppHelper.Logger.cs">
-      <LinkBase>UI</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Services\IFontManager.cs">
-      <LinkBase>Services</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Services\Implementation\FontManagerImpl.cs">
-      <LinkBase>Services\Implementation</LinkBase>
-    </Compile>
     <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.TryAddFontManager.cs" />
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\Settings\SettingsPageViewModel.cs">
       <Link>UI\ViewModels\Pages\Settings\SettingsPageViewModel.cs</Link>
@@ -88,28 +52,9 @@
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\About\AboutPageViewModel.shared.cs">
       <Link>UI\ViewModels\Pages\About\AboutPageViewModel.shared.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop\Models\Enum\AppTheme.cs">
-      <LinkBase>Models\Enum</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Models\Settings2\SettingsHost.cs">
-      <LinkBase>Models\Settings2</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Models\Settings2\UISettings.cs">
-      <LinkBase>Models\Settings2</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Models\Settings2\GeneralSettings.cs">
-      <LinkBase>Models\Settings2</LinkBase>
-    </Compile>
     <Compile Include="..\ST.Client.Desktop\MessageBox\*.cs">
       <LinkBase>MessageBox</LinkBase>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop\Services\IMessageBoxCompatService.cs">
-      <LinkBase>Services</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Services\IShowWindowService.cs">
-      <LinkBase>Services</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\CustomWindow.cs" />
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\MessageBoxWindowViewModel.cs">
       <LinkBase>UI\ViewModels\Windows</LinkBase>
     </Compile>
@@ -121,9 +66,6 @@
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Pages\LocalAuthPageViewModel.shared.cs">
       <LinkBase>UI\ViewModels\Pages</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Models\MyAuthenticator.cs">
-      <LinkBase>Models</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LocalAuthPage\*.shared.cs">
       <LinkBase>UI\ViewModels\Windows\LocalAuthPage</LinkBase>

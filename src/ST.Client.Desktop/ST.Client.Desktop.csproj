@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Settings\**" />
-    <EmbeddedResource Remove="Models\Settings\**" />
-    <None Remove="Models\Settings\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="ServiceCollectionExtensions.AddGeneralLogging.cs" />
     <Compile Remove="UI\ViewModels\Pages\DebugWebViewPageViewModel.cs" />
   </ItemGroup>
@@ -26,15 +20,6 @@
     </Compile>
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
-    </Compile>
-    <Compile Include="..\ST.Client.Mobile\UI\ViewModels\Base\RIdTitleIconViewModel.cs">
-      <LinkBase>UI\ViewModels\Base</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Mobile\UI\ResIcon.cs">
-      <LinkBase>UI</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Mobile\UI\ViewModels\Windows\TextBoxWindowViewModel.cs">
-      <LinkBase>UI\ViewModels\Windows</LinkBase>
     </Compile>
   </ItemGroup>
 
@@ -65,21 +50,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>SR.resx</DependentUpon>
     </Compile>
-    <Compile Update="UI\Resx\AppResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AppResources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Properties\SR.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="UI\Resx\AppResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

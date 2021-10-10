@@ -166,16 +166,16 @@ namespace System.Application
 #endif
                 services.TryAddToast();
 
-                services.AddSingleton<IAppService>(_ => PlatformApplication.Instance);
+                services.AddSingleton<IApplication>(_ => PlatformApplication.Instance);
 #if __MOBILE__
                 // 添加电话服务
                 services.AddTelephonyService();
 
                 services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #else
-                services.AddSingleton<IDesktopAppService>(_ => PlatformApplication.Instance);
+                services.AddSingleton<IDesktopApplication>(_ => PlatformApplication.Instance);
                 services.AddSingleton<IDesktopAvaloniaAppService>(_ => PlatformApplication.Instance);
-                services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<IDesktopAppService>());
+                services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<IDesktopApplication>());
 
                 // 添加管理主窗口服务
                 services.AddWindowService();
@@ -534,7 +534,7 @@ namespace System.Application
                 ActiveUserPost(ActiveUserType.OnStartup);
                 if (GeneralSettings.IsAutoCheckUpdate.Value)
                 {
-                    IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                    IApplicationUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
                 }
             }
         }

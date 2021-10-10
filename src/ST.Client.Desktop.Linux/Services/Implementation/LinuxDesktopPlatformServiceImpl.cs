@@ -1,3 +1,4 @@
+using System.Application.Internals;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
@@ -18,7 +19,7 @@ namespace System.Application.Services.Implementation
         {
         }
 
-        ValueTask IPlatformService.AdminShellAsync(string shell, bool admin) => UnixHelpers.AdminShellAsync(shell, admin);
+        ValueTask IPlatformService.AdminShellAsync(string shell, bool admin) => UnixHelper.RunShellAsync(shell, admin);
 
         public string GetCommandLineArgs(Process process)
         {
@@ -150,7 +151,7 @@ namespace System.Application.Services.Implementation
             {
                 shellContent.AppendLine($"gsettings set org.gnome.system.proxy mode 'none'");
             }
-            ((IPlatformService)this).AdminShell(shellContent.ToString(), false);
+            ((IPlatformService)this).RunShell(shellContent.ToString(), false);
             return true;
         }
     }

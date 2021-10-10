@@ -62,13 +62,13 @@ namespace System.Application.Models
         /// public
         /// </summary>
         [XmlElement("privacyState")]
-        public string PrivacyState { get; set; }
+        public string? PrivacyState { get; set; }
 
         [XmlElement("avatarIcon")]
-        public string AvatarIcon { get; set; }
+        public string? AvatarIcon { get; set; }
 
         [XmlElement("avatarMedium")]
-        public string AvatarMedium { get; set; }
+        public string? AvatarMedium { get; set; }
 
         private Task<string?>? _AvatarStream;
         [XmlIgnore]
@@ -85,7 +85,7 @@ namespace System.Application.Models
         /// 注册日期
         /// </summary>
         [XmlElement("memberSince")]
-        public string MemberSince { get; set; }
+        public string? MemberSince { get; set; }
 
         /// <summary>
         /// VAC
@@ -97,7 +97,7 @@ namespace System.Application.Models
         /// 自我介绍HTML
         /// </summary>
         [XmlElement("summary")]
-        public string Summary { get; set; }
+        public string? Summary { get; set; }
 
         /// <summary>
         /// 昵称

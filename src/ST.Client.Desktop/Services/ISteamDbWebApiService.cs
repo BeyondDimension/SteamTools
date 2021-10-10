@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,13 +14,4 @@ namespace System.Application.Services
 
         Task<SteamApp> GetAppInfo(int appId);
     }
-
-#if DEBUG
-
-    [Obsolete("use ISteamDbWebApiService", true)]
-    public class SteamDbApiService
-    {
-    }
-
-#endif
 }

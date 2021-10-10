@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,24 +18,24 @@ namespace System.Application.Models
     }
     public class KeyValue
     {
-        private static readonly KeyValue _Invalid = new KeyValue();
+        private static readonly KeyValue _Invalid = new();
         public string Name = "<root>";
         public KeyValueType Type = KeyValueType.None;
-        public object Value;
+        public object? Value;
         public bool Valid;
 
-        public List<KeyValue> Children = null;
+        public List<KeyValue>? Children;
 
         public KeyValue this[string key]
         {
             get
             {
-                if (this.Children == null)
+                if (Children == null)
                 {
                     return _Invalid;
                 }
 
-                var child = this.Children.SingleOrDefault(
+                var child = Children.SingleOrDefault(
                     c => string.Compare(c.Name, key, StringComparison.InvariantCultureIgnoreCase) == 0);
 
                 if (child == null)
@@ -46,100 +47,24 @@ namespace System.Application.Models
             }
         }
 
-        public string AsString(string defaultValue)
+        public string? AsString(string defaultValue)
         {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return defaultValue;
             }
 
-            if (this.Value == null)
+            if (Value == null)
             {
                 return defaultValue;
             }
 
-            return this.Value.ToString();
+            return Value.ToString();
         }
 
         public int AsInteger(int defaultValue)
         {
-            if (this.Valid == false)
-            {
-                return defaultValue;
-            }
-
-            switch (this.Type)
-            {
-                case KeyValueType.String:
-                case KeyValueType.WideString:
-                    {
-                        if (int.TryParse((string)this.Value, out int value) == false)
-                        {
-                            return defaultValue;
-                        }
-                        return value;
-                    }
-
-                case KeyValueType.Int32:
-                    {
-                        return (int)this.Value;
-                    }
-
-                case KeyValueType.Float32:
-                    {
-                        return (int)((float)this.Value);
-                    }
-
-                case KeyValueType.UInt64:
-                    {
-                        return (int)((ulong)this.Value & 0xFFFFFFFF);
-                    }
-            }
-
-            return defaultValue;
-        }
-
-        public float AsFloat(float defaultValue)
-        {
-            if (this.Valid == false)
-            {
-                return defaultValue;
-            }
-
-            switch (this.Type)
-            {
-                case KeyValueType.String:
-                case KeyValueType.WideString:
-                    {
-                        if (float.TryParse((string)this.Value, out float value) == false)
-                        {
-                            return defaultValue;
-                        }
-                        return value;
-                    }
-
-                case KeyValueType.Int32:
-                    {
-                        return (int)this.Value;
-                    }
-
-                case KeyValueType.Float32:
-                    {
-                        return (float)this.Value;
-                    }
-
-                case KeyValueType.UInt64:
-                    {
-                        return (ulong)this.Value & 0xFFFFFFFF;
-                    }
-            }
-
-            return defaultValue;
-        }
-
-        public bool AsBoolean(bool defaultValue)
-        {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return defaultValue;
             }
@@ -149,7 +74,83 @@ namespace System.Application.Models
                 case KeyValueType.String:
                 case KeyValueType.WideString:
                     {
-                        if (int.TryParse((string)this.Value, out int value) == false)
+                        if (int.TryParse(Value?.ToString(), out int value) == false)
+                        {
+                            return defaultValue;
+                        }
+                        return value;
+                    }
+
+                case KeyValueType.Int32:
+                    {
+                        return (int)Value!;
+                    }
+
+                case KeyValueType.Float32:
+                    {
+                        return (int)(float)Value!;
+                    }
+
+                case KeyValueType.UInt64:
+                    {
+                        return (int)((ulong)Value! & 0xFFFFFFFF);
+                    }
+            }
+
+            return defaultValue;
+        }
+
+        public float AsFloat(float defaultValue)
+        {
+            if (Valid == false)
+            {
+                return defaultValue;
+            }
+
+            switch (Type)
+            {
+                case KeyValueType.String:
+                case KeyValueType.WideString:
+                    {
+                        if (float.TryParse(Value?.ToString(), out float value) == false)
+                        {
+                            return defaultValue;
+                        }
+                        return value;
+                    }
+
+                case KeyValueType.Int32:
+                    {
+                        return (int)Value!;
+                    }
+
+                case KeyValueType.Float32:
+                    {
+                        return (float)Value!;
+                    }
+
+                case KeyValueType.UInt64:
+                    {
+                        return (ulong)Value! & 0xFFFFFFFF;
+                    }
+            }
+
+            return defaultValue;
+        }
+
+        public bool AsBoolean(bool defaultValue)
+        {
+            if (Valid == false)
+            {
+                return defaultValue;
+            }
+
+            switch (Type)
+            {
+                case KeyValueType.String:
+                case KeyValueType.WideString:
+                    {
+                        if (int.TryParse(Value?.ToString(), out int value) == false)
                         {
                             return defaultValue;
                         }
@@ -158,17 +159,17 @@ namespace System.Application.Models
 
                 case KeyValueType.Int32:
                     {
-                        return ((int)this.Value) != 0;
+                        return ((int)Value!) != 0;
                     }
 
                 case KeyValueType.Float32:
                     {
-                        return ((int)((float)this.Value)) != 0;
+                        return ((int)(float)Value!) != 0;
                     }
 
                 case KeyValueType.UInt64:
                     {
-                        return ((ulong)this.Value) != 0;
+                        return ((ulong)Value!) != 0;
                     }
             }
 
@@ -177,24 +178,23 @@ namespace System.Application.Models
 
         public override string ToString()
         {
-            if (this.Valid == false)
+            if (Valid == false)
             {
                 return "<invalid>";
             }
 
-            if (this.Type == KeyValueType.None)
+            if (Type == KeyValueType.None)
             {
-                return this.Name;
+                return Name;
             }
 
-            return string.Format(
-                System.Globalization.CultureInfo.CurrentCulture,
+            return string.Format(CultureInfo.CurrentCulture,
                 "{0} = {1}",
-                this.Name,
-                this.Value);
+                Name,
+                Value);
         }
 
-        public static KeyValue LoadAsBinary(string path)
+        public static KeyValue? LoadAsBinary(string path)
         {
             if (File.Exists(path) == false)
             {
@@ -219,7 +219,7 @@ namespace System.Application.Models
 
         public bool ReadAsBinary(Stream input)
         {
-            this.Children = new List<KeyValue>();
+            Children = new List<KeyValue>();
 
             try
             {
@@ -304,10 +304,10 @@ namespace System.Application.Models
                         throw new FormatException();
                     }
 
-                    this.Children.Add(current);
+                    Children.Add(current);
                 }
 
-                this.Valid = true;
+                Valid = true;
                 return input.Position == input.Length;
             }
             catch (Exception)

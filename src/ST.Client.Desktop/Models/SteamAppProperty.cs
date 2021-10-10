@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -27,11 +27,11 @@ namespace System.Application.Models
         {
             get
             {
-                return SteamAppProperty._types[(int)_propType];
+                return _types[(int)_propType];
             }
         }
 
-        internal object Value
+        internal object? Value
         {
             get
             {
@@ -40,13 +40,12 @@ namespace System.Application.Models
             set
             {
                 _value = null;
-                if (ValueType.IsAssignableFrom(value.GetType()))
+                if (ValueType.IsAssignableFrom(value!.GetType()))
                 {
                     _value = value;
                     return;
                 }
-                string text = value as string;
-                if (text != null)
+                if (value is string text)
                 {
                     switch (_propType)
                     {
@@ -75,24 +74,23 @@ namespace System.Application.Models
             }
         }
 
-        public T GetValue<T>()
+        public T? GetValue<T>()
         {
-            T result;
-            TryGetValue<T>(out result);
+            TryGetValue<T>(out var result);
             return result;
         }
 
-        public bool TryGetValue<T>(out T result)
+        public bool TryGetValue<T>(out T? result)
         {
-            result = default(T);
+            result = default;
             bool result2 = false;
             int propType = (int)_propType;
-            if (propType >= 0 && propType < SteamAppProperty._types.Length)
+            if (propType >= 0 && propType < _types.Length)
             {
-                Type type = SteamAppProperty._types[propType];
+                Type type = _types[propType];
                 if (type != null && typeof(T).IsAssignableFrom(type))
                 {
-                    result = (T)((object)_value);
+                    result = (T)_value!;
                     result2 = true;
                 }
             }
@@ -106,7 +104,7 @@ namespace System.Application.Models
             _value = null;
         }
 
-        public SteamAppProperty(string name, SteamAppPropertyType type, object value)
+        public SteamAppProperty(string name, SteamAppPropertyType type, object? value)
         {
             Name = name;
             _propType = type;
@@ -119,7 +117,7 @@ namespace System.Application.Models
             _propType = other._propType;
             if (_propType == SteamAppPropertyType.Table)
             {
-                _value = (SteamAppPropertyTable)other._value;
+                _value = (SteamAppPropertyTable)other._value!;
                 return;
             }
             _value = other._value;
@@ -128,17 +126,16 @@ namespace System.Application.Models
         public new bool Equals(object obj)
         {
             bool result = false;
-            SteamAppProperty property = obj as SteamAppProperty;
-            if (property != null)
+            if (obj is SteamAppProperty property)
             {
-                result = (Name == property.Name && _propType == property._propType && _value.Equals(property.Value));
+                result = Name == property.Name && _propType == property._propType && _value!.Equals(property.Value);
             }
             return result;
         }
 
         public new int GetHashCode()
         {
-            return base.GetType().GetHashCode() ^ Name.GetHashCode() ^ _propType.GetHashCode() ^ _value.GetHashCode();
+            return GetType().GetHashCode() ^ Name.GetHashCode() ^ _propType.GetHashCode() ^ _value!.GetHashCode();
         }
 
         static SteamAppProperty()
@@ -151,7 +148,7 @@ namespace System.Application.Models
             array[5] = typeof(string);
             array[6] = typeof(Color);
             array[7] = typeof(ulong);
-            SteamAppProperty._types = array;
+            _types = array;
         }
 
         private static readonly Type[] _types;
@@ -160,6 +157,6 @@ namespace System.Application.Models
 
         private SteamAppPropertyType _propType;
 
-        private object _value;
+        private object? _value;
     }
 }
