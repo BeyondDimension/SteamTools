@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
-    public class UserService : Abstractions.UserService<UserService>
+    partial class UserService
     {
-        public UserService() { }
-
         public async void ShowWindow(CustomWindow windowName)
         {
             var isDialog = true;

@@ -17,11 +17,14 @@
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <EmbeddedResource Include="..\ST.Client.Desktop\UI\Resx\R.cs">
+    <EmbeddedResource Include="..\ST.Client.Desktop\UI\Resx\R.shared.cs">
       <LinkBase>UI\Resx</LinkBase>
     </EmbeddedResource>
     <Compile Include="..\ST.Client.Desktop\Models\MyAuthenticator.shared.cs">
       <LinkBase>Models</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\Services\Mvvm\*.shared.cs">
+      <LinkBase>Services\Mvvm</LinkBase>
     </Compile>
     
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\AreaUIHelper.cs">
@@ -32,12 +35,6 @@
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\SendSmsUIHelper.cs">
       <LinkBase>UI\ViewModels</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Services\Mvvm\UserService.cs">
-      <LinkBase>Services\Mvvm</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\Services\Mvvm\AuthService.cs">
-      <LinkBase>Services\Mvvm</LinkBase>
     </Compile>
     <Compile Include="..\ST.Client.Desktop\UI\ViewModels\Windows\LoginOrRegisterWindowViewModel.shared.cs">
       <LinkBase>UI\ViewModels\Windows</LinkBase>
