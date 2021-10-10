@@ -24,6 +24,7 @@ namespace System.Application.UI.ViewModels
             IconKey = nameof(ProxyScriptManagePageViewModel);
 
             ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
+            AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
             EnableScriptAutoUpdateCommand = ReactiveCommand.Create(() =>
             {
                 ScriptAutoUpdate?.CheckmarkChange(ProxySettings.IsAutoCheckScriptUpdate.Value = !ProxySettings.IsAutoCheckScriptUpdate.Value);
@@ -51,6 +52,8 @@ namespace System.Application.UI.ViewModels
 				   //new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
 				   new MenuItemViewModel (nameof(AppResources.ScriptStore)){
                        IconKey ="JavaScriptDrawing",Command=ScriptStoreCommand},
+                   new MenuItemViewModel (nameof(AppResources.Script_AllEnable)){
+                       IconKey ="JavaScriptDrawing",Command=AllEnableScriptCommand},
                    new MenuItemViewModel (),
                    (ScriptAutoUpdate=new MenuItemViewModel (nameof(AppResources.Script_AutoUpdate))
                    { Command=EnableScriptAutoUpdateCommand }),
@@ -116,7 +119,8 @@ namespace System.Application.UI.ViewModels
         public MenuItemViewModel? OnlySteamBrowser { get; }
 
         public ReactiveCommand<Unit, Unit> ScriptStoreCommand { get; }
-
+        public ReactiveCommand<Unit, Unit> AllEnableScriptCommand { get; }
+        
         string? _SearchText;
         public string? SearchText
         {
@@ -234,7 +238,6 @@ namespace System.Application.UI.ViewModels
                 }
             }
         }
-
         public async void OpenScriptStoreWindow()
         {
             if (IUserManager.Instance.GetCurrentUser() == null)
@@ -249,6 +252,12 @@ namespace System.Application.UI.ViewModels
             {
                 await IShowWindowService.Instance.Show(CustomWindow.ScriptStore, new ScriptStoreWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
             }
+        }
+
+        public void AllEnableScript()
+        {
+            ProxyService.Current.ProxyScripts.Edit(x=>x.All(e=>e.Enable=true));
+           // ProxyService.Current.ProxyScripts= ProxyService.Current.ProxyScripts.Items.Select(x=>x.Enable=true).ToList();
         }
 
         public ICommand AddNewScriptButton_Click { get; }

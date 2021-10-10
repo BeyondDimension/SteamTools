@@ -1610,4 +1610,7 @@
   <data name="FixNetworkComplete" xml:space="preserve">
     <value>修复网络完成</value>
   </data>
+  <data name="Script_AllEnable" xml:space="preserve">
+    <value>全部启用</value>
+  </data>
 </root>
