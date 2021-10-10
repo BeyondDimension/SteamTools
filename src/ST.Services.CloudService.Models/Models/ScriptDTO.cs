@@ -76,7 +76,7 @@ namespace System.Application.Models
                     script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? Includes : matchs;
                     //忽略脚本Enable启动标签默认启动
                     //var enable = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Enable)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
-                    //script.Enable = true;
+                    script.Enable = true;
                     //script.Enable = bool.TryParse(enable, out var e) && e;
                     proxyScript = script;
                     return true;
