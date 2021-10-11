@@ -9,6 +9,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="using:System.Application.UI.Views.Pages"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:gif="using:AvaloniaGif"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
@@ -20,13 +21,49 @@
              x:Class="System.Application.UI.Views.Pages.ArchiSteamFarmPlusPage">
   <DockPanel>
 
-    <Border Margin="10" 
-            Padding="10" 
-            DockPanel.Dock="Top" 
-            Classes="paper" 
+    <Border Margin="10"
+            Padding="10"
+            DockPanel.Dock="Top"
+            Classes="paper"
             Background="{DynamicResource ThemeBrushKey}">
-      <DockPanel>
-        <StackPanel
+
+      <ui:CommandBar DefaultLabelPosition="Right">
+        <ui:CommandBar.PrimaryCommands>
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding RunOrStopASF}"
+                               IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="启动ASF">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource PlayCircleDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding RunOrStopASF}"
+                               IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="停止ASF">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource PauseCircleDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+
+          <ui:CommandBarSeparator/>
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding ShowAddBotWindow}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="新增Bot">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource AddDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+        </ui:CommandBar.PrimaryCommands>
+        <ui:CommandBar.SecondaryCommands>
+
+        </ui:CommandBar.SecondaryCommands>
+      </ui:CommandBar>
+      <!--<DockPanel>
+<StackPanel
             Orientation="Horizontal"
             Spacing="8"
             HorizontalAlignment="Left"
@@ -72,7 +109,7 @@
           </Button>
 
         </StackPanel>
-      </DockPanel>
+      </DockPanel>-->
     </Border>
 
     <TabControl Classes="flat">

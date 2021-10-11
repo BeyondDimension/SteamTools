@@ -60,8 +60,7 @@ namespace System.Application.Services.Implementation
                 }
                 else
                 {
-                    if (!await ArchiSteamFarm.Program.InitCore(args).ConfigureAwait(false) ||
-                        !await ArchiSteamFarm.Program.InitASF().ConfigureAwait(false))
+                    if (!await ArchiSteamFarm.Program.InitASF().ConfigureAwait(false))
                     {
                         await Stop().ConfigureAwait(false);
                     }
@@ -77,6 +76,7 @@ namespace System.Application.Services.Implementation
 
         public async Task Stop()
         {
+            IArchiSteamFarmService.Instance.ReadLineTask?.TrySetResult("");
             await ArchiSteamFarm.Program.InitShutdownSequence();
             StartTime = null;
         }

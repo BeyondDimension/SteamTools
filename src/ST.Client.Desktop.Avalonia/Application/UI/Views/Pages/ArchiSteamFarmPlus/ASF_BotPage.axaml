@@ -119,17 +119,23 @@
                                FontSize="16"/>
                   </WrapPanel>
 
-                  <ItemsRepeater>
+                  <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
                     <ItemsRepeater.Layout>
                       <StackLayout Orientation="Horizontal" Spacing="10">
                       </StackLayout>
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
                       <DataTemplate>
-                        <gif:Image2
-                                Width="184"
-                                AutoStart="true"
-                                Stretch="Uniform"/>
+                        <Border>
+                          <StackPanel>
+                            <gif:Image2
+                              Width="184"
+                              AutoStart="true"
+                              Stretch="Uniform"/>
+                            <TextBlock Text="{Binding GameName}"/>
+                          </StackPanel>
+                        </Border>
+
                       </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                   </ItemsRepeater>
