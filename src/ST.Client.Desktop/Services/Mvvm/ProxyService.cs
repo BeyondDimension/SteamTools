@@ -80,8 +80,8 @@ namespace System.Application.Services
         {
             get
             {
-                if (!IsEnableScript)
-                    return null;
+                //if (!IsEnableScript)
+                //    return null;
                 if (!ProxyScripts.Items.Any_Nullable())
                     return null;
                 return ProxyScripts.Items!.Where(w => w.Enable).ToArray();
@@ -90,8 +90,8 @@ namespace System.Application.Services
 
         private DateTimeOffset _StartAccelerateTime;
 
-        private DateTimeOffset _AccelerateTime;
-        public DateTimeOffset AccelerateTime
+        private TimeSpan _AccelerateTime;
+        public TimeSpan AccelerateTime
         {
             get => _AccelerateTime;
             set
@@ -474,14 +474,12 @@ namespace System.Application.Services
 
         public void StartTimer()
         {
-            AccelerateTime = new DateTimeOffset().Add((DateTimeOffset.Now - _StartAccelerateTime));
-
             if (timer == null)
             {
                 timer = new Timer((state) =>
                 {
-                    Thread.CurrentThread.IsBackground = true;
-                    AccelerateTime = AccelerateTime.AddSeconds(1);
+                    AccelerateTime = (DateTimeOffset.Now - _StartAccelerateTime);
+                    //AccelerateTime = AccelerateTime.AddSeconds(1);
                 }, nameof(AccelerateTime), 1000, 1000);
             }
         }
