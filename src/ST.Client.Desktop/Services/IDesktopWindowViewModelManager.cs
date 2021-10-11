@@ -3,25 +3,25 @@ using System;
 using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace System.Application.Services
 {
-    public interface IDesktopWindowViewModelManager
+    public interface IDesktopWindowViewModelManager : IDisposableHolder
     {
-        public static IDesktopWindowViewModelManager Instance => DI.Get<IDesktopWindowViewModelManager>();
+        static IDesktopWindowViewModelManager Instance => DI.Get<IDesktopWindowViewModelManager>();
 
         /// <summary>
-        /// 获取为当前主窗口提供的数据。
+        /// 获取为当前主窗口提供的数据
         /// </summary>
         WindowViewModel MainWindow { get; }
 
         TaskBarWindowViewModel? TaskBarWindow { get; }
 
-        void Init();
+        void InitViewModels();
 
         void InitUnlockAchievement(int appid);
 
@@ -29,5 +29,8 @@ namespace System.Application.Services
         /// 打开托盘菜单窗口
         /// </summary>
         void ShowTaskBarWindow(int x = 0, int y = 0);
+
+        /// <inheritdoc cref="ShowTaskBarWindow(int, int)"/>
+        void ShowTaskBarWindow(Point point) => ShowTaskBarWindow(point.X, point.Y);
     }
 }

@@ -9,7 +9,7 @@ namespace System.Application
     /// </summary>
     public enum CustomWindow
     {
-        LoginOrRegister,
+        LoginOrRegister = 1,
         MessageBox,
         AddAuth,
         ShowAuth,

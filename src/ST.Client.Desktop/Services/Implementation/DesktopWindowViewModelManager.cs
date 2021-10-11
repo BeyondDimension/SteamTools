@@ -7,36 +7,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace System.Application.Services.Implementation
 {
-    public class DesktopWindowViewModelManager : ReactiveObject, IDesktopWindowViewModelManager, IDisposableHolder
+    public class DesktopWindowViewModelManager : ReactiveObject, IDesktopWindowViewModelManager
     {
-#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
-        private MainWindowViewModel mainWindow;
-        private AchievementWindowViewModel achievementWindow;
-        private TaskBarWindowViewModel taskbarWindow;
-        private readonly CompositeDisposable compositeDisposable = new();
+        MainWindowViewModel? mainWindow;
+        AchievementWindowViewModel? achievementWindow;
+        TaskBarWindowViewModel? taskbarWindow;
+        readonly CompositeDisposable compositeDisposable = new();
 
-        /// <summary>
-        /// 获取为当前主窗口提供的数据。
-        /// </summary>
-        public WindowViewModel MainWindow { get; private set; }
+        WindowViewModel? mMainWindow;
+        public WindowViewModel MainWindow
+        {
+            get => mMainWindow ?? throw new NullReferenceException("MainWindowViewModel is null.");
+            private set => mMainWindow = value;
+        }
 
-#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
-        /// <summary>
-        /// 获取为当前主窗口提供的数据。
-        /// </summary>
         public TaskBarWindowViewModel? TaskBarWindow => taskbarWindow;
 
-        public void Init()
+        public void InitViewModels()
         {
             try
             {
-                if (appidUnlockAchievement.HasValue)
+                if (appidUnlockAchievementHasValue)
                 {
-                    achievementWindow = new AchievementWindowViewModel(appidUnlockAchievement.Value);
+                    achievementWindow = new AchievementWindowViewModel(appidUnlockAchievement);
                     MainWindow = achievementWindow;
                 }
                 else
@@ -47,7 +43,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                Log.Error("WindowService", ex, "Init WindowViewModel");
+                Log.Error(nameof(DesktopWindowViewModelManager), ex, "Init WindowViewModel");
                 throw;
             }
             finally
@@ -56,10 +52,12 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        int? appidUnlockAchievement;
+        int appidUnlockAchievement;
+        bool appidUnlockAchievementHasValue;
         public void InitUnlockAchievement(int appid)
         {
             appidUnlockAchievement = appid;
+            appidUnlockAchievementHasValue = true;
         }
 
         //public Window GetMainWindow()
@@ -79,9 +77,6 @@ namespace System.Application.Services.Implementation
         //    throw new InvalidOperationException();
         //}
 
-        /// <summary>
-        /// 打开托盘菜单窗口
-        /// </summary>
         public void ShowTaskBarWindow(int x = 0, int y = 0)
         {
             try

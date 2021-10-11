@@ -8,12 +8,7 @@ namespace System.Application.UI.Resx
 {
     public sealed class R : Abstractions.R<R>
     {
-        static R()
-        {
-            Current = new();
-        }
-
-        private R()
+        public R()
         {
 
         }

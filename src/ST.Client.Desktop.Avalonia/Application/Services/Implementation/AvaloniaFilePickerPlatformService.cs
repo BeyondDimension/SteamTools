@@ -98,5 +98,7 @@ namespace System.Application.Services.Implementation
 
             return string.IsNullOrEmpty(fileResult) ? null : new FileResult(fileResult);
         }
+
+        bool IOpenFileDialogService.IsSupportedFileExtensionFilter => true;
     }
 }

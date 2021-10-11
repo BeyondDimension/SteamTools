@@ -7,15 +7,8 @@ using System.Reactive.Linq;
 
 namespace System.Application.UI.ViewModels
 {
-    partial class AuthTradeWindowViewModel : PageViewModel
+    partial class AuthTradeWindowViewModel
     {
-        private string? _LoadingText;
-        public string? LoadingText
-        {
-            get => _LoadingText;
-            set => this.RaiseAndSetIfChanged(ref _LoadingText, value);
-        }
-
         public enum ActionItem
         {
             ConfirmAll = 1,
@@ -80,37 +73,36 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SelectAllText, value);
         }
 
-        /// <summary>
-        /// 注册全选监听
-        /// </summary>
-        void RegisterSelectAllObservable() => this.WhenAnyValue(x => x.Confirmations)
-            .Subscribe(x => x?
-                .ToObservableChangeSet()
-                .AutoRefresh(x => x.NotChecked)
-                .ToCollection()
-                .Select(x =>
-                {
-                    var select_count = x.Count(y => y.IsOperate == 0 && !y.NotChecked);
-                    return (select_count, count: x.Count(y => y.IsOperate == 0));
-                })
-                .Subscribe(x =>
-                {
-                    if (x.count > 0)
-                    {
-                        var unselectAll = x.select_count != x.count;
-                        if (_UnselectAll != unselectAll)
-                        {
-                            _UnselectAll = unselectAll;
-                            this.RaisePropertyChanged(nameof(UnselectAll));
-                        }
-                        SelectAllText = AppResources.SelectAllText_.Format(x.select_count, x.count);
-                    }
-                    else
-                    {
-                        SelectAllText = null;
-                    }
-                })
-                .AddTo(this)
-            ).AddTo(this);
+        protected override bool IsLoadImage => false;
+
+        protected override void RegisterSelectAllObservable() => this.WhenAnyValue(x => x.Confirmations)
+              .Subscribe(x => x?
+                  .ToObservableChangeSet()
+                  .AutoRefresh(x => x.NotChecked)
+                  .ToCollection()
+                  .Select(x =>
+                  {
+                      var select_count = x.Count(y => y.IsOperate == 0 && !y.NotChecked);
+                      return (select_count, count: x.Count(y => y.IsOperate == 0));
+                  })
+                  .Subscribe(x =>
+                  {
+                      if (x.count > 0)
+                      {
+                          var unselectAll = x.select_count != x.count;
+                          if (_UnselectAll != unselectAll)
+                          {
+                              _UnselectAll = unselectAll;
+                              this.RaisePropertyChanged(nameof(UnselectAll));
+                          }
+                          SelectAllText = AppResources.SelectAllText_.Format(x.select_count, x.count);
+                      }
+                      else
+                      {
+                          SelectAllText = null;
+                      }
+                  })
+                  .AddTo(this)
+              ).AddTo(this);
     }
 }

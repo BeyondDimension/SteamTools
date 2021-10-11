@@ -14,6 +14,8 @@ namespace System.Application.Services.Implementation
 {
     partial class WindowsDesktopPlatformServiceImpl : IOpenFileDialogService
     {
+        bool IOpenFileDialogService.IsSupportedFileExtensionFilter => true;
+
         // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FilePicker/FilePicker.uwp.cs
 
         [SupportedOSPlatform("Windows10.0.10240.0")]

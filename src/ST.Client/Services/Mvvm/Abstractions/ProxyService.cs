@@ -17,12 +17,26 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using Titanium.Web.Proxy.Models;
+using Interface = System.Application.Services.ProxyService;
+using BaseClass = System.Application.Services.Abstractions.ProxyService;
+using static System.Application.Services.ProxyService;
+
+namespace System.Application.Services
+{
+#pragma warning disable IDE1006 // 命名样式
+    internal interface ProxyService
+#pragma warning restore IDE1006 // 命名样式
+    {
+        static BaseClass Current => mCurrent is BaseClass i ? i : throw new NullReferenceException("ProxyService is null.");
+
+        static BaseClass? mCurrent;
+    }
+}
 
 namespace System.Application.Services.Abstractions
 {
-    public abstract class ProxyService<T> : MvvmService<T> where T : ProxyService<T>
+    public abstract class ProxyService : ReactiveObject, Interface
     {
         protected readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
         protected readonly IScriptManager scriptManager = DI.Get<IScriptManager>();
@@ -612,6 +626,20 @@ namespace System.Application.Services.Abstractions
             }
 
             Toast.Show(AppResources.FixNetworkComplete);
+        }
+    }
+
+    public abstract class ProxyService<T> : BaseClass, Interface where T : ProxyService<T>, new()
+    {
+        public static T Current
+        {
+            get => ((T)Interface.Current)!;
+            protected set => Interface.mCurrent = value;
+        }
+
+        static ProxyService()
+        {
+            Current = new();
         }
     }
 }

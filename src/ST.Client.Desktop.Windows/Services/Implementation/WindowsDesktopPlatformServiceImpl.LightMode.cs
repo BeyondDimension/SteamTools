@@ -71,7 +71,7 @@ namespace System.Application.Services.Implementation
                                 var theme_value = value.Value ? AppTheme.Light : AppTheme.Dark;
                                 MainThread2.BeginInvokeOnMainThread(() =>
                                 {
-                                    AppHelper.Current.SetThemeNotChangeValue(theme_value);
+                                    IDesktopApplication.Instance.SetThemeNotChangeValue(theme_value);
                                 });
                             }
                         };

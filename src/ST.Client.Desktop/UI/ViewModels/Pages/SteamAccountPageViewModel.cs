@@ -2,7 +2,7 @@ using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -12,12 +12,11 @@ using System.Linq;
 using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Windows;
-using static System.Application.Services.CloudService.Constants;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public partial class SteamAccountPageViewModel : TabItemViewModel
+    partial class SteamAccountPageViewModel
     {
         public override bool IsTaskBarSubMenu => MenuItems.Any_Nullable();
 
@@ -27,8 +26,6 @@ namespace System.Application.UI.ViewModels
 
         public SteamAccountPageViewModel()
         {
-            IconKey = nameof(SteamAccountPageViewModel);
-
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
@@ -59,18 +56,21 @@ namespace System.Application.UI.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
+
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
+
         public ReactiveCommand<Unit, Unit> ShareManageCommand { get; }
+
         public void OpenShareManageWindow()
         {
-            IShowWindowService.Instance.Show(CustomWindow.ShareManage, new ShareManageViewModel(), string.Empty, ResizeModeCompat.CanResize);
+            IWindowManager.Instance.Show(CustomWindow.ShareManage, new ShareManageViewModel(), string.Empty, ResizeMode.CanResize);
         }
 
+        readonly ReadOnlyObservableCollection<SteamUser>? _SteamUsers;
+        readonly SourceCache<SteamUser, long> _SteamUsersSourceList;
         /// <summary>
-        /// steam记住的用户列表
+        /// Steam 客户端记住的用户列表
         /// </summary>
-        private ReadOnlyObservableCollection<SteamUser>? _SteamUsers;
-        private SourceCache<SteamUser, long> _SteamUsersSourceList;
         public ReadOnlyObservableCollection<SteamUser>? SteamUsers => _SteamUsers;
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
@@ -195,11 +195,11 @@ namespace System.Application.UI.ViewModels
 
         public async void DeleteUserButton_Click(SteamUser user)
         {
-            var result = await MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
-            if (result == MessageBoxResultCompat.OK)
+            var result = await MessageBox.ShowAsync(AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            if (result == MessageBox.Result.OK)
             {
-                result = await MessageBoxCompat.ShowAsync(@AppResources.UserChange_DeleteUserDataTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel);
-                if (result == MessageBoxResultCompat.OK)
+                result = await MessageBox.ShowAsync(AppResources.UserChange_DeleteUserDataTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+                if (result == MessageBox.Result.OK)
                 {
                     steamService.DeleteLocalUserData(user, true);
                 }
@@ -218,9 +218,9 @@ namespace System.Application.UI.ViewModels
 
         public void LoginNewSteamAccount()
         {
-            var result = MessageBoxCompat.ShowAsync(@AppResources.UserChange_LoginNewAccountTip, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(s =>
+            var result = MessageBox.ShowAsync(AppResources.UserChange_LoginNewAccountTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith(s =>
             {
-                if (s.Result == MessageBoxResultCompat.OK)
+                if (s.Result == MessageBox.Result.OK)
                 {
                     steamService.SetCurrentUser("");
                     steamService.TryKillSteamProcess();

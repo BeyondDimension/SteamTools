@@ -20,6 +20,8 @@ using WinAuth;
 using static System.Application.Models.GAPAuthenticatorValueDTO;
 using GAPRepository = System.Application.Repositories.IGameAccountPlatformAuthenticatorRepository;
 using Interface = System.Application.Services.AuthService;
+using BaseClass = System.Application.Services.Abstractions.AuthService;
+using static System.Application.Services.AuthService;
 
 namespace System.Application.Services
 {
@@ -27,19 +29,17 @@ namespace System.Application.Services
     internal interface AuthService
 #pragma warning restore IDE1006 // 命名样式
     {
-        static Interface Current => mCurrent is Interface i ? i : throw new NullReferenceException("AuthService is null.");
+        static BaseClass Current => mCurrent is BaseClass i ? i : throw new NullReferenceException("AuthService is null.");
 
-        static Interface? mCurrent;
-
-        Task SaveEditNameByAuthenticatorAsync(MyAuthenticator auth);
+        static BaseClass? mCurrent;
     }
 }
 
 namespace System.Application.Services.Abstractions
 {
-    public abstract class AuthService : ReactiveObject
+    public abstract class AuthService : ReactiveObject, Interface
     {
-        protected const string TAG = "AuthService";
+        public static BaseClass Current => Interface.Current;
 
         public static async Task<Stream?> GetQrCodeStreamAsync(IEnumerable<IGAPAuthenticatorDTO> datas)
         {
@@ -73,15 +73,6 @@ namespace System.Application.Services.Abstractions
         {
             IEnumerable<IGAPAuthenticatorDTO> datas_ = datas;
             return GetQrCodeStreamAsync(datas_);
-        }
-    }
-
-    public abstract class AuthService<T> : AuthService, Interface where T : AuthService<T>, new()
-    {
-        public static T Current
-        {
-            get => ((T)Interface.Current)!;
-            protected set => Interface.mCurrent = value;
         }
 
         protected abstract MyAuthenticator GetMyAuthenticator(IGAPAuthenticatorDTO dto);
@@ -445,7 +436,7 @@ namespace System.Application.Services.Abstractions
                 {
                     //WinAuthForm.ErrorDialog(this, "Invalid uuid xml: " + ex.Message);
                     //ToastService.Current.Notify("Invalid uuid xml");
-                    Log.Error(TAG, ex, nameof(ImportSteamGuard));
+                    Log.Error(nameof(AuthService), ex, nameof(ImportSteamGuard));
                     return false;
                 }
             }
@@ -484,7 +475,7 @@ namespace System.Application.Services.Abstractions
             {
                 //WinAuthForm.ErrorDialog(this, "Invalid SteamGuard JSON contents: " + ex.Message);
                 //ToastService.Current.Notify("Invalid SteamGuard JSON");
-                Log.Error(TAG, ex, nameof(ImportSteamGuard));
+                Log.Error(nameof(AuthService), ex, nameof(ImportSteamGuard));
                 return false;
             }
 
@@ -774,9 +765,23 @@ namespace System.Application.Services.Abstractions
             }
             catch (Exception ex)
             {
-                Log.Error(TAG, ex, nameof(ExportAuthenticators));
+                Log.Error(nameof(AuthService), ex, nameof(ExportAuthenticators));
                 Toast.Show(ex.Message);
             }
+        }
+    }
+
+    public abstract class AuthService<T> : BaseClass, Interface where T : AuthService<T>, new()
+    {
+        public new static T Current
+        {
+            get => ((T)Interface.Current)!;
+            protected set => Interface.mCurrent = value;
+        }
+
+        static AuthService()
+        {
+            Current = new();
         }
     }
 }

@@ -7,12 +7,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Interface = System.Application.Services.ASFService;
+using BaseClass = System.Application.Services.Abstractions.ASFService;
+
+namespace System.Application.Services
+{
+#pragma warning disable IDE1006 // 命名样式
+    internal interface ASFService
+#pragma warning restore IDE1006 // 命名样式
+    {
+        static BaseClass Current => mCurrent is BaseClass i ? i : throw new NullReferenceException("ASFService is null.");
+
+        static BaseClass? mCurrent;
+    }
+}
 
 namespace System.Application.Services.Abstractions
 {
-    public abstract class ASFService<T> : MvvmService<T> where T : ASFService<T>
+    public abstract class ASFService : ReactiveObject, Interface
     {
-        private readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
+        protected readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 
         string _IPCUrl = string.Empty;
         public string IPCUrl
@@ -92,6 +106,20 @@ namespace System.Application.Services.Abstractions
         public void RefreshConfig()
         {
             GlobalConfig = archiSteamFarmService.GetGlobalConfig();
+        }
+    }
+
+    public abstract class ASFService<T> : BaseClass, Interface where T : ASFService<T>, new()
+    {
+        public static T Current
+        {
+            get => ((T)Interface.Current)!;
+            protected set => Interface.mCurrent = value;
+        }
+
+        static ASFService()
+        {
+            Current = new();
         }
     }
 }

@@ -1,18 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Application.UI.Resx;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public class OtherPlatformPageViewModel : TabItemViewModel
+    partial class OtherPlatformPageViewModel : Abstractions.OtherPlatformPageViewModel
     {
-        public override string Name
+        public OtherPlatformPageViewModel()
         {
-            get => AppResources.OtherGamePlaform;
-            protected set { throw new NotImplementedException(); }
-        }
-
-        public OtherPlatformPageViewModel() 
-        {
-            IconKey = nameof(OtherPlatformPageViewModel);
         }
     }
 }

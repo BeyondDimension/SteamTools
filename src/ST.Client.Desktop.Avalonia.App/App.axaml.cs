@@ -194,7 +194,7 @@ namespace System.Application.UI
 #endif
             //SettingsHost.Load();
             var windowService = IDesktopWindowViewModelManager.Instance;
-            windowService.Init();
+            windowService.InitViewModels();
             DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() => Shutdown());
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");

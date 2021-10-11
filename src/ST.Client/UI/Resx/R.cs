@@ -9,6 +9,8 @@ using System.Linq;
 using System.Properties;
 using System.Reactive.Linq;
 using Interface = System.Application.UI.Resx.R;
+using BaseClass = System.Application.UI.Resx.Abstractions.R;
+using static System.Application.UI.Resx.R;
 
 namespace System.Application.UI.Resx
 {
@@ -16,23 +18,17 @@ namespace System.Application.UI.Resx
     internal interface R : IReactiveObject
 #pragma warning restore IDE1006 // 命名样式
     {
-        static Interface Current => mCurrent is Interface i ? i : throw new NullReferenceException("R is null.");
+        static BaseClass Current => mCurrent is BaseClass i ? i : throw new NullReferenceException("R is null.");
 
-        static Interface? mCurrent;
-
-        AppResources Res { get; }
+        static BaseClass? mCurrent;
     }
 }
 
 namespace System.Application.UI.Resx.Abstractions
 {
-    public abstract class R<T> : ReactiveObject, Interface where T : R<T>
+    public abstract class R : ReactiveObject, Interface
     {
-        public static T Current
-        {
-            get => ((T)Interface.Current)!;
-            protected set => Interface.mCurrent = value;
-        }
+        public static BaseClass Current => Interface.Current;
 
         public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
@@ -196,5 +192,19 @@ namespace System.Application.UI.Resx.Abstractions
         }
 
         public static CultureInfo Culture => AppResources.Culture ?? DefaultCurrentUICulture;
+    }
+
+    public abstract class R<T> : BaseClass where T : R<T>, new()
+    {
+        public static T Current
+        {
+            get => ((T)Interface.Current)!;
+            protected set => Interface.mCurrent = value;
+        }
+
+        static R()
+        {
+            Current = new();
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace System.Application.Services
     /// </summary>
     public interface IWindowManager
     {
-        public static IWindowManager Instance => DI.Get<IWindowManager>();
+        static IWindowManager Instance => DI.Get<IWindowManager>();
 
         /// <summary>
         /// 显示一个窗口
@@ -41,6 +41,14 @@ namespace System.Application.Services
             bool isDialog = false,
             bool isParent = true);
 
+        /// <inheritdoc cref="Show{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeMode, bool, bool)"/>
+        Task Show(CustomWindow customWindow,
+            PageViewModel? viewModel = null,
+            string title = "",
+            ResizeMode resizeMode = ResizeMode.NoResize,
+            bool isDialog = false,
+            bool isParent = true);
+
         /// <summary>
         /// 显示一个弹窗，返回 <see langword="true"/> 确定(仅当ViewModel继承自<see cref="DialogWindowViewModel"/>时生效)，<see langword="false"/> 取消
         /// </summary>
@@ -60,10 +68,16 @@ namespace System.Application.Services
             bool isParent = true)
             where TWindowViewModel : PageViewModel, new();
 
-
         /// <inheritdoc cref="ShowDialog{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeMode, bool, bool)"/>
         Task ShowDialog(Type typeWindowViewModel,
             CustomWindow customWindow,
+            PageViewModel? viewModel = null,
+            string title = "",
+            ResizeMode resizeMode = ResizeMode.NoResize,
+            bool isDialog = true);
+
+        /// <inheritdoc cref="ShowDialog{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeMode, bool, bool)"/>
+        Task ShowDialog(CustomWindow customWindow,
             PageViewModel? viewModel = null,
             string title = "",
             ResizeMode resizeMode = ResizeMode.NoResize,

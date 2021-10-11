@@ -1,10 +1,11 @@
+using System.Application.Models;
+using System.Application.UI.Resx;
+using System.Properties;
+
 namespace System.Application.UI.ViewModels
 {
-    partial class ShowAuthWindowViewModel : WindowViewModel
+    partial class ShowAuthWindowViewModel
     {
-#if DEBUG
-        [Obsolete("use SteamDataIndented")]
-        public string? SteamData => _Authenticator?.SteamData;
-#endif
+
     }
 }

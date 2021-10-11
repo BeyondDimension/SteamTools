@@ -39,7 +39,7 @@ namespace System.Application.UI
         public static string ProgramPath { get; }
 
         /// <summary>
-        /// 获取当前主程序文件名，例如word.exe
+        /// 获取当前主程序文件名，例如 word.exe
         /// </summary>
         public static string ProgramName { get; }
 
@@ -49,7 +49,5 @@ namespace System.Application.UI
             var s = DI.Get<IDesktopPlatformService>();
             s.SetBootAutoStart(isAutoStart, Constants.HARDCODED_APP_NAME);
         }
-
-        public static IDesktopApplication Current => DI.Get<IDesktopApplication>();
     }
 }

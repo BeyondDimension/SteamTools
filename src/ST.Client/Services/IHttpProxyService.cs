@@ -19,6 +19,8 @@ namespace System.Application.Services
 {
     public interface IHttpProxyService : IDisposable
     {
+        static IHttpProxyService Instance => DI.Get<IHttpProxyService>();
+
         bool IsCertificate { get; }
 
         void TrustCer();

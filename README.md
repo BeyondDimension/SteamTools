@@ -33,7 +33,7 @@
 - [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
-- [Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 
 ## ✨ 功能
 1. 反代 Steam 的社区网页使其能正常访问

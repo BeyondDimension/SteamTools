@@ -47,6 +47,8 @@ namespace System.Application.Services
             Task<IEnumerable<FileResult>> PlatformPickAsync(PickOptions? options, bool allowMultiple = false);
 
             static IOpenFileDialogService? Instance => DI.Get_Nullable<IOpenFileDialogService>();
+
+            bool IsSupportedFileExtensionFilter { get; }
         }
 
         public interface ISaveFileDialogService : IServiceBase

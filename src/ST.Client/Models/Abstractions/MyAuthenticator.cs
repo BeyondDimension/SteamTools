@@ -312,5 +312,19 @@ namespace System.Application.Models.Abstractions
             Clipboard2.SetText(CurrentCode);
             Toast.Show(AppResources.LocalAuth_CopyAuthTip + Name);
         }
+
+        private bool _IsShowCode;
+        public bool IsShowCode
+        {
+            get
+            {
+                return _IsShowCode;
+            }
+            set
+            {
+                _IsShowCode = value;
+                this.RaisePropertyChanged();
+            }
+        }
     }
 }

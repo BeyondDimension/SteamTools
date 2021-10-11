@@ -14,6 +14,27 @@ namespace System.Application
     /// </summary>
     public static class FilePicker2
     {
+        static readonly Lazy<bool> mIsSupportedFileExtensionFilter = new(() =>
+        {
+            if (XamarinEssentials.IsSupported)
+            {
+                return OperatingSystem2.IsWindows;
+            }
+            else
+            {
+                var s = IOpenFileDialogService.Instance;
+                if (s != null)
+                {
+                    return s.IsSupportedFileExtensionFilter;
+                }
+                return false;
+            }
+        });
+        /// <summary>
+        /// 是否支持文件扩展名过滤
+        /// </summary>
+        public static bool IsSupportedFileExtensionFilter => mIsSupportedFileExtensionFilter.Value;
+
         public static async Task<FileResult?> PickAsync(PickOptions? options = null)
         {
             if (XamarinEssentials.IsSupported)

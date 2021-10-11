@@ -2,6 +2,7 @@ using ReactiveUI;
 using System;
 using System.Application.Services;
 using System.Collections.Generic;
+using System.Properties;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -18,6 +19,18 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref title, value);
         }
 
+        protected string GetTitleByDisplayName(string displayName)
+        {
+            if (IsMobile)
+            {
+                return displayName;
+            }
+            else
+            {
+                return ThisAssembly.AssemblyTrademark + " | " + displayName;
+            }
+        }
+
         [IgnoreDataMember]
         public bool IsInitialized { get; protected set; }
 
@@ -25,11 +38,7 @@ namespace System.Application.UI.ViewModels
         {
         }
 
-        protected readonly IWindowManager windowManager;
-        public PageViewModel()
-        {
-            windowManager = IWindowManager.Instance;
-        }
+        protected readonly IWindowManager windowManager = IWindowManager.Instance;
 
         [IgnoreDataMember]
         public bool IsVisible => windowManager.IsVisibleWindow(this);

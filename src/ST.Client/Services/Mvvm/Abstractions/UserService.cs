@@ -5,12 +5,52 @@ using System.Application.UI.ViewModels;
 using System.Properties;
 using System.Linq;
 using System.Threading.Tasks;
+using Interface = System.Application.Services.UserService;
+using BaseClass = System.Application.Services.Abstractions.UserService;
+
+namespace System.Application.Services
+{
+#pragma warning disable IDE1006 // 命名样式
+    internal interface UserService
+#pragma warning restore IDE1006 // 命名样式
+    {
+        static BaseClass Current => mCurrent is BaseClass i ? i : throw new NullReferenceException("UserService is null.");
+
+        static BaseClass? mCurrent;
+    }
+}
 
 namespace System.Application.Services.Abstractions
 {
-    public abstract class UserService<T> : MvvmService<T> where T : UserService<T>
+    public abstract class UserService : ReactiveObject, Interface
     {
         protected readonly IUserManager userManager = DI.Get<IUserManager>();
+
+        public async void ShowWindow(CustomWindow windowName)
+        {
+            var isDialog = true;
+            if (windowName == CustomWindow.LoginOrRegister)
+            {
+                var cUser = await userManager.GetCurrentUserAsync();
+                if (cUser.HasValue()) return;
+                isDialog = false;
+            }
+            else if (windowName == CustomWindow.UserProfile)
+            {
+                isDialog = false;
+            }
+            else if (windowName == CustomWindow.ChangeBindPhoneNumber)
+            {
+                var cUser = await userManager.GetCurrentUserAsync();
+                if (!cUser.HasValue()) return;
+                if (string.IsNullOrWhiteSpace(cUser!.PhoneNumber)) return;
+            }
+            var vmType = Type.GetType($"System.Application.UI.ViewModels.{windowName}WindowViewModel");
+            if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
+            {
+                await IWindowManager.Instance.ShowDialog(vmType, windowName, isDialog: isDialog);
+            }
+        }
 
         public async Task SignOutAsync(Func<Task<IApiResponse>>? apiCall = null, string? message = null)
         {
@@ -255,6 +295,20 @@ namespace System.Application.Services.Abstractions
             }
             await userManager.SetCurrentUserInfoAsync(user, true);
             await RefreshUserAsync(user);
+        }
+    }
+
+    public abstract class UserService<T> : BaseClass, Interface where T : UserService<T>, new()
+    {
+        public static T Current
+        {
+            get => ((T)Interface.Current)!;
+            protected set => Interface.mCurrent = value;
+        }
+
+        static UserService()
+        {
+            Current = new();
         }
     }
 }

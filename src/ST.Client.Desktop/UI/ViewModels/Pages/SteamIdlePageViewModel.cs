@@ -1,18 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Application.UI.Resx;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public class SteamIdlePageViewModel : TabItemViewModel
+    partial class SteamIdlePageViewModel
     {
-        public override string Name
-        {
-            get => AppResources.IdleCard;
-            protected set { throw new NotImplementedException(); }
-        }
-
         public SteamIdlePageViewModel()
         {
-            IconKey = nameof(SteamIdlePageViewModel);
         }
     }
 }

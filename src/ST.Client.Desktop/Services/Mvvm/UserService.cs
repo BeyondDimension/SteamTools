@@ -11,32 +11,6 @@ namespace System.Application.Services
 {
     partial class UserService
     {
-        public async void ShowWindow(CustomWindow windowName)
-        {
-            var isDialog = true;
-            if (windowName == CustomWindow.LoginOrRegister)
-            {
-                var cUser = await userManager.GetCurrentUserAsync();
-                if (cUser.HasValue()) return;
-                isDialog = false;
-            }
-            else if (windowName == CustomWindow.UserProfile)
-            {
-                isDialog = false;
-            }
-            else if (windowName == CustomWindow.ChangeBindPhoneNumber)
-            {
-                var cUser = await userManager.GetCurrentUserAsync();
-                if (!cUser.HasValue()) return;
-                if (string.IsNullOrWhiteSpace(cUser!.PhoneNumber)) return;
-            }
-            var vmType = Type.GetType($"System.Application.UI.ViewModels.{windowName}WindowViewModel");
-            if (vmType != null && typeof(WindowViewModel).IsAssignableFrom(vmType))
-            {
-                await IWindowManager.Instance.ShowDialog(vmType, windowName, isDialog: isDialog);
-            }
-        }
-
         SteamUser? _SteamUser;
         public SteamUser? CurrentSteamUser
         {

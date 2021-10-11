@@ -30,20 +30,6 @@ namespace System.Application.Models
             }
         }
 
-        private bool _IsShowCode;
-        public bool IsShowCode
-        {
-            get
-            {
-                return _IsShowCode;
-            }
-            set
-            {
-                _IsShowCode = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
         int _AutoRefreshCodeTimingCurrent = -1;
         /// <summary>
         /// 当前自动刷新倒计时值

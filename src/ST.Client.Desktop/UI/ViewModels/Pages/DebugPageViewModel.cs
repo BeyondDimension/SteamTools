@@ -22,18 +22,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using static Newtonsoft.Json.JsonConvert;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public class DebugPageViewModel : TabItemViewModel
+    partial class DebugPageViewModel
     {
-        public TabItemId? Id => null;
-
-        public override string Name
-        {
-            get => "Debug";
-            protected set { throw new NotImplementedException(); }
-        }
-
         private string _DebugString = string.Empty;
         public string DebugString
         {
@@ -138,7 +131,7 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("MachineSecretKey.iv: {0}", iv.Base64UrlEncode());
 
             @string.AppendFormatLine("X509Store My: {0}", string.Join(",", new X509Store(StoreName.My, StoreLocation.CurrentUser).Certificates.Select(x => x.FriendlyName).ToArray()));
-            @string.AppendFormatLine("X509Store Root: {0}",string.Join(",",new X509Store(StoreName.Root, StoreLocation.CurrentUser).Certificates.Select(x=>x.FriendlyName).ToArray()));
+            @string.AppendFormatLine("X509Store Root: {0}", string.Join(",", new X509Store(StoreName.Root, StoreLocation.CurrentUser).Certificates.Select(x => x.FriendlyName).ToArray()));
             @string.AppendFormatLine("X509Store CertificateAuthority: {0}", string.Join(",", new X509Store(StoreName.CertificateAuthority, StoreLocation.CurrentUser).Certificates.Select(x => x.FriendlyName).ToArray()));
             var stopwatch = Stopwatch.StartNew();
 
@@ -277,7 +270,7 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("EmbeddedAes: {0}", embeddedAes);
 
 #if DEBUG
-          DI.Get_Nullable<ITestAppCenter>()?.Test(@string);
+            DI.Get_Nullable<ITestAppCenter>()?.Test(@string);
 #endif
 
             DebugString += @string.ToString() + Environment.NewLine;

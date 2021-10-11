@@ -86,7 +86,7 @@ namespace System.Application.Models
             }
         }
 
-        public string? DisplayName => string.IsNullOrEmpty(EditName) ? Name : EditName;
+        public string DisplayName => string.IsNullOrEmpty(EditName) ? (Name ?? string.Empty) : EditName;
 
         string _baseDLSSVersion = string.Empty;
         public string BaseDLSSVersion

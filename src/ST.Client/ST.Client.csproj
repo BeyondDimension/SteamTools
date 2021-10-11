@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -26,6 +26,7 @@
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="Net.Codecrete.QrCodeGenerator" />
     <PackageReference Include="Portable.BouncyCastle" />
+    <PackageReference Include="Fleck" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,9 +61,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\Mvvm\Abstractions\" />
   </ItemGroup>
 </Project>

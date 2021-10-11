@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <PackageReference Include="DnsClient" />
-    <PackageReference Include="Fleck" />
     <PackageReference Include="Gameloop.Vdf" />
     <PackageReference Include="NLog" />
     <PackageReference Include="NLog.Extensions.Logging" />
