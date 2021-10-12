@@ -11,8 +11,6 @@ updates:
       interval: "daily"
       time: "07:00"
       timezone: "Asia/Shanghai"
-    labels:
-      - "Automatic"
     open-pull-requests-limit: 99
   - package-ecosystem: "nuget"
     directory: "/"
@@ -20,8 +18,6 @@ updates:
       interval: "daily"
       time: "07:15"
       timezone: "Asia/Shanghai"
-    labels:
-      - "Automatic"
     open-pull-requests-limit: 99
   - package-ecosystem: "gitsubmodule"
     directory: "/"
@@ -29,6 +25,4 @@ updates:
       interval: "daily"
       time: "07:30"
       timezone: "Asia/Shanghai"
-    labels:
-      - "Automatic"
     open-pull-requests-limit: 99
