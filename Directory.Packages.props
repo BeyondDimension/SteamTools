@@ -95,7 +95,7 @@
         <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
         <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.20348.19" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.10" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
         <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.9" />
         <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
