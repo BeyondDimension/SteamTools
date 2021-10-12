@@ -67,7 +67,7 @@
         <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.7.1" />
         <PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.4" />
         <PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />
-        <PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />
+        <PackageVersion Include="LibVLCSharp.Avalonia" Version="3.6.1" />
         <PackageVersion Include="FluentAvaloniaUI" Version="1.1.3" />
         <PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
         <PackageVersion Include="JumpLists.Win32.Avalonia" Version="0.0.1" />
