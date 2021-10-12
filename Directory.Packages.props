@@ -121,7 +121,7 @@
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9" />
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.1" />
         <PackageVersion Include="SkiaSharp" Version="2.80.3" />
-        <PackageVersion Include="Nito.Disposables" Version="2.2.0" />
+        <PackageVersion Include="Nito.Disposables" Version="2.2.1" />
         <PackageVersion Include="System.Diagnostics.Tracing" Version="4.3.0" />
         <PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
     </ItemGroup>
