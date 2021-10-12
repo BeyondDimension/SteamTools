@@ -17,7 +17,7 @@
         <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
         <PackageVersion Include="Microsoft.Extensions.Http" Version="5.0.0" />
         <PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-        <PackageVersion Include="Nito.Comparers" Version="6.2.0" />
+        <PackageVersion Include="Nito.Comparers" Version="6.2.2" />
         <PackageVersion Include="Xamarin.Essentials" Version="1.7.0" />
         <PackageVersion Include="Crc32.NET" Version="1.2.0" />
         <PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
