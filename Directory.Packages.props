@@ -104,7 +104,7 @@
         <PackageVersion Include="AutoMapper" Version="10.1.1" />
         <PackageVersion Include="AutoMapper.Collection" Version="7.0.1" />
         <PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="7.0.1" />
-        <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.1" />
+        <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.2" />
         <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageVersion Include="HtmlAgilityPack" Version="1.11.36" />
         <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
