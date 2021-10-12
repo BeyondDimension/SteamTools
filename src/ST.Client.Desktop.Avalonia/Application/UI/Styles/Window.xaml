@@ -1,6 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop">
+        xmlns:ms="using:System.Application.Models.Settings">
   <Design.PreviewWith>
   </Design.PreviewWith>
   <Styles.Resources>

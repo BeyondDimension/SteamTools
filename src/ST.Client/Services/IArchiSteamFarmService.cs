@@ -23,6 +23,8 @@ namespace System.Application.Services
 
         DateTimeOffset? StartTime { get; }
 
+        public Version CurrentVersion { get; }
+
         /// <summary>
         /// 启动ASF
         /// </summary>

@@ -31,6 +31,8 @@ namespace System.Application.Services.Implementation
 
         public DateTimeOffset? StartTime { get; set; }
 
+        public Version CurrentVersion => SharedInfo.Version;
+
         private bool isFirstStart = true;
 
         public async Task Start(string[]? args = null)
