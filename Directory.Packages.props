@@ -30,7 +30,7 @@
         <PackageVersion Include="NUnit" Version="3.13.2" />
         <PackageVersion Include="NUnit3TestAdapter" Version="4.0.0" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-        <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-rc.1.21451.13" />
+        <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-s390x.1.20553.1" />
         <PackageVersion Include="nunit.xamarin" Version="3.6.1" />
         <PackageVersion Include="PCLStorage" Version="1.0.2" />
         <PackageVersion Include="Xamarin.Forms" Version="5.0.0.2083" />
