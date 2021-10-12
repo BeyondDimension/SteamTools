@@ -107,7 +107,7 @@
         <PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.1" />
         <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageVersion Include="HtmlAgilityPack" Version="1.11.36" />
-        <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
         <PackageVersion Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
         <PackageVersion Include="TextCopy" Version="4.3.1" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
