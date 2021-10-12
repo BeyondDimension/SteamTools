@@ -83,7 +83,7 @@
         <PackageVersion Include="Toast.iOS" Version="1.2.0" />
         <PackageVersion Include="NPOI" Version="2.5.4" />
         <PackageVersion Include="Octokit" Version="0.50.0" />
-        <PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />
+        <PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.194" />
         <PackageVersion Include="System.Runtime.WindowsRuntime" Version="4.7.0" />
         <PackageVersion Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.7.0" />
         <PackageVersion Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
