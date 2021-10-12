@@ -1,12 +1,10 @@
-
         name: Sync To Gitee
 
         on: 
+          pull_request:
           push:
           delete:
           create:
-          pull_request:
-            types: [ closed ]
             
         jobs:
           build:
