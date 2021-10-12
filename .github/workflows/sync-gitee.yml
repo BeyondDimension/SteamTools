@@ -1,17 +1,18 @@
         name: Sync To Gitee
 
         on: 
-          pull_request:
-          push:
+          push: 
+            branches: [ main, develop ]
           delete:
+            branches: [ main, develop ]
           create:
+            branches: [ main, develop ]
             
         jobs:
           build:
             runs-on: ubuntu-latest
             steps:
               - name: Sync to Gitee
-                if: github.event_name != 'pull_request'
                 uses: wearerequired/git-mirror-action@master
                 env:
                   SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
