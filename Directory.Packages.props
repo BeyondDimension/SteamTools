@@ -136,7 +136,7 @@
     </ItemGroup>
     <ItemGroup Condition=" !$(DefineConstants.Contains('_HAVE_XF_')) ">
         <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.1" />
-        <PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.3" />
+        <PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.5" />
         <PackageVersion Include="Xamarin.Google.Android.Material" Version="1.4.0.2" />
         <PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.0" />
         <PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.1" />
