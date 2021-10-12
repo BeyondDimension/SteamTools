@@ -98,7 +98,7 @@
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.9" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.9" />
         <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.9" />
-        <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.10" />
         <PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
         <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="5.2.9" />
         <PackageVersion Include="AutoMapper" Version="10.1.1" />
