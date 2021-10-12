@@ -59,7 +59,7 @@
         <PackageVersion Include="System.Drawing.Common" Version="6.0.0-rc.1.21451.13" />
         <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
         <PackageVersion Include="Avalonia" Version="0.10.7" />
-        <PackageVersion Include="Avalonia.Desktop" Version="0.10.7" />
+        <PackageVersion Include="Avalonia.Desktop" Version="0.10.8" />
         <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.7" />
         <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.7" />
         <PackageVersion Include="Avalonia.Direct2D1" Version="0.10.7" />
