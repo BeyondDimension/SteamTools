@@ -150,7 +150,7 @@
         <PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
         <PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.9" />
         <PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.3.1.1" />
-        <PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.1.1" />
+        <PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2" />
         <PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
         <PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.1.1" />
         <PackageVersion Include="Xamarin.Google.Dagger" Version="2.37.0" />
