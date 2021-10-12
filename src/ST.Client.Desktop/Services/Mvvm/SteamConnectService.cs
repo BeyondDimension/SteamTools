@@ -202,10 +202,9 @@ namespace System.Application.Services
                         {
                             if (!IsConnectToSteam && IsDisposedClient)
                             {
-                                IsDisposedClient = false;
-                                await Task.Delay(1000);
                                 if (ApiService.Initialize())
                                 {
+                                    IsDisposedClient = false;
                                     var id = ApiService.GetSteamId64();
                                     if (id == SteamUser.UndefinedId)
                                     {
@@ -242,6 +241,11 @@ namespace System.Application.Services
                                     //await mainViewModel.SteamAppPage.Initialize();
                                     //await mainViewModel.AccountPage.Initialize(id);
                                     #endregion
+
+                                    if (!IsDisposedClient)
+                                    {
+                                        DisposeSteamClient();
+                                    }
                                 }
                             }
                         }
@@ -259,10 +263,6 @@ namespace System.Application.Services
                     }
                     finally
                     {
-                        if (!IsDisposedClient && !_IsRefreshing)
-                        {
-                            DisposeSteamClient();
-                        }
                         await Task.Delay(3000);
                     }
                 }
@@ -320,9 +320,9 @@ namespace System.Application.Services
                             {
                                 if (SteamTool.IsRunningSteamProcess && IsDisposedClient)
                                 {
-                                    IsDisposedClient = false;
                                     if (ApiService.Initialize())
                                     {
+                                        IsDisposedClient = false;
                                         SteamApps.Clear();
                                         var apps = await ISteamService.Instance.GetAppInfos();
                                         if (apps.Any())
@@ -337,10 +337,9 @@ namespace System.Application.Services
                                             return;
                                         }
                                     }
-
                                     DisposeSteamClient();
                                 }
-                                Thread.Sleep(2000);
+                                await Task.Delay(2000);
                             }
                         }
                         catch (Exception ex)

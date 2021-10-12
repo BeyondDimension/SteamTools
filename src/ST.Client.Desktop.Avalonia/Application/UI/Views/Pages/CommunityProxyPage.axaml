@@ -325,7 +325,8 @@
           </DockPanel>
         </Border>
 
-        <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
+        <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10"
+                IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}">
           <DockPanel MinWidth="300">
             <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
             <ScrollViewer>

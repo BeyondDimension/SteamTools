@@ -132,7 +132,10 @@
                               Width="184"
                               AutoStart="true"
                               Stretch="Uniform"/>
-                            <TextBlock Text="{Binding GameName}"/>
+                            <TextBlock Text="{Binding GameName}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       TextAlignment="Center"/>
                           </StackPanel>
                         </Border>
 
