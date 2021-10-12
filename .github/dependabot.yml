@@ -22,6 +22,8 @@ updates:
       timezone: "Asia/Shanghai"
     labels:
       - "automatic"
+      - "dependencies"
+      - ".NET"
     open-pull-requests-limit: 99
   - package-ecosystem: "gitsubmodule"
     directory: "/"
@@ -31,4 +33,5 @@ updates:
       timezone: "Asia/Shanghai"
     labels:
       - "automatic"
+      - "dependencies"
     open-pull-requests-limit: 99
