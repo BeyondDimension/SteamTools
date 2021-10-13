@@ -13,6 +13,10 @@ namespace System.Application.UI
         // Avalonia configuration, don't remove; also used by visual designer.
         static AppBuilder BuildAvaloniaApp()
         {
+#if DEBUG
+            if (Reflection.Assembly.GetCallingAssembly() != Reflection.Assembly.GetExecutingAssembly())
+                FileSystemDesktop.InitFileSystem();
+#endif
             SettingsHost.Load();
             var builder = AppBuilder.Configure<App>()
                 .UsePlatformDetect()

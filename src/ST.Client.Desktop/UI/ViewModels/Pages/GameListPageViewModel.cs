@@ -101,7 +101,7 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(_ =>
                 {
                     this.RaisePropertyChanged(nameof(IsSteamAppsEmpty));
-                    this.CalcTypeCount();
+                    CalcTypeCount();
                 });
 
             HideAppCommand = ReactiveCommand.Create(() =>
@@ -153,6 +153,12 @@ namespace System.Application.UI.ViewModels
                 Task.Run(SteamConnectService.Current.RefreshGamesList).ForgetAndDispose();
             }
             base.Activation();
+        }
+
+        public override void Deactivation()
+        {
+            //SteamConnectService.Current.SteamApps.Clear();
+            base.Deactivation();
         }
 
         private bool _IsOpenFilter;
@@ -229,7 +235,7 @@ namespace System.Application.UI.ViewModels
             SelectApp = app;
         }
 
-        public void EditAppInfoClick(SteamApp app)
+        public static void EditAppInfoClick(SteamApp app)
         {
             IShowWindowService.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, ResizeModeCompat.CanResize);
         }

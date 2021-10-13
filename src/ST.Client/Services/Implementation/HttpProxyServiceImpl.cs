@@ -88,7 +88,7 @@ namespace System.Application.Services.Implementation
             });
 
             proxyServer.Enable100ContinueBehaviour = false;
-            proxyServer.EnableHttp2 = false;
+            proxyServer.EnableHttp2 = true;
             proxyServer.EnableConnectionPool = true;
             proxyServer.CheckCertificateRevocation = X509RevocationMode.NoCheck;
             // 可选地设置证书引擎
@@ -242,7 +242,9 @@ namespace System.Application.Services.Implementation
                         //e.HttpClient.Request.Host = item.ForwardDomainName ?? e.HttpClient.Request.Host;
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
                         {
-                            //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
+#if DEBUG
+                            Debug.WriteLine("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
+#endif
                             if (!string.IsNullOrEmpty(item.ServerName))
                             {
                                 var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];

@@ -189,8 +189,6 @@ namespace System.Application.UI
             StartupTrace.Restart("App.LoadXAML");
 #endif
             Name = ThisAssembly.AssemblyTrademark;
-            ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess);
 #if StartupTrace
             StartupTrace.Restart("App.SetP");
 #endif
@@ -326,6 +324,9 @@ namespace System.Application.UI
         /// </summary>
         public override void RegisterServices()
         {
+            ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
+            if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess | DILevel.GUI);
+
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
             base.RegisterServices();
         }

@@ -1,3 +1,4 @@
+using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.Steam;
 using DynamicData;
 using DynamicData.Binding;
@@ -5,6 +6,7 @@ using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Reactive.Linq;
 using System.Windows;
 
@@ -47,6 +49,20 @@ namespace System.Application.UI.ViewModels
         public void ShowAddBotWindow()
         {
             IShowWindowService.Instance.Show(CustomWindow.ASF_AddBot, new ASF_AddBotWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
+        }
+
+        public async void PauseOrResumeBotFarming(Bot bot)
+        {
+            if (bot.CardsFarmer.Paused)
+            {
+                (bool success, string message) = await bot.Actions.Pause(true).ConfigureAwait(false);
+                Toast.Show(success ? message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, message));
+            }
+            else
+            {
+                (bool success, string message) = bot.Actions.Resume();
+                Toast.Show(success ? message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, message));
+            }
         }
     }
 }
