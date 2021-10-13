@@ -3,11 +3,13 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Collections.ObjectModel;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
     public class GameRelated_BorderlessPageViewModel : ViewModelBase
     {
-        private readonly ISystemWindowApiService windowApi = DI.Get<ISystemWindowApiService>();
+        protected readonly INativeWindowApiService windowApi = INativeWindowApiService.Instance;
+
         #region SelectWindow 变更通知 
 
         private NativeWindowModel? _SelectWindow;
@@ -49,7 +51,6 @@ namespace System.Application.UI.ViewModels
                 WindowList.Add(window);
             });
         }
-
 
         public void BorderlessWindow_Click()
         {

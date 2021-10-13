@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using ReactiveUI;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
     public class MessageBoxWindowViewModel : DialogWindowViewModel

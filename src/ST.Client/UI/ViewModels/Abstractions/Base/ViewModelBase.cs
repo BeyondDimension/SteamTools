@@ -5,7 +5,7 @@ using System.Reactive.Disposables;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public class ViewModelBase : ReactiveObject, IViewModelBase, IActivatableViewModel
+    public abstract class ViewModelBase : ReactiveObject, IViewModelBase, IActivatableViewModel
     {
         [IgnoreDataMember]
         public CompositeDisposable CompositeDisposable { get; } = new();

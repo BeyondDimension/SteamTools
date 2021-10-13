@@ -7,6 +7,8 @@ namespace System.Application.Services
     /// </summary>
     public interface IAnnouncementService
     {
+        static IAnnouncementService Instance => DI.Get<IAnnouncementService>();
+
         /// <summary>
         /// 显示公告，返回是否显示
         /// </summary>

@@ -246,7 +246,11 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         public static IReadOnlyList<IArea> Group2 => mGroup2.Value;
     }
+}
 
+// ReSharper disable once CheckNamespace
+namespace System.Application.UI.ViewModels.Abstractions
+{
     partial class UserProfileWindowViewModel : AreaUIHelper.IViewModelField
     {
         IReadOnlyList<IArea>? _AreaItems2;

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
-using System.Windows;
 using System.Windows.Threading;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
     public partial class TaskBarWindowViewModel : WindowViewModel
@@ -18,7 +18,7 @@ namespace System.Application.UI.ViewModels
         public async void Show(int x, int y)
         {
             SetPosition(x, y);
-            await IShowWindowService.Instance.Show(CustomWindow.TaskBar, this, string.Empty, ResizeModeCompat.NoResize, isParent: false);
+            await IWindowManager.Instance.Show(CustomWindow.TaskBar, this, resizeMode: ResizeMode.NoResize, isParent: false);
         }
 
         public void SetPosition(int x, int y)

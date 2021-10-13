@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Application.Mvvm;
 using System.Collections.Generic;
+using System.Application.Services;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -20,6 +21,6 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         public static bool IsInDesignMode { protected get; set; } = true;
 
-        public static bool IsMobile { protected get; set; }
+        public static bool IsMobile { get; } = IPlatformService.Instance.IsMobile;
     }
 }

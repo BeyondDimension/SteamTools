@@ -4,6 +4,8 @@ namespace System.Application.Services
 {
     public interface INativeWindowApiService
     {
+        static INativeWindowApiService Instance => DI.Get<INativeWindowApiService>();
+
         /// <summary>
         /// 拖拽指针获取目标窗口
         /// </summary>

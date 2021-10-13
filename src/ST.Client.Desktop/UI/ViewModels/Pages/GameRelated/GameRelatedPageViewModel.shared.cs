@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    partial class GameRelatedPageViewModel
+    public partial class GameRelatedPageViewModel : Abstractions.GameRelatedPageViewModel
     {
-        public GameRelatedPageViewModel()
-        {
-        }
+
     }
 }

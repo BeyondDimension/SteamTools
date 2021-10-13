@@ -279,5 +279,7 @@ namespace System.Application.Services
         /// </summary>
         [SupportedOSPlatform("Windows")]
         string WindowsReleaseIdOrDisplayVersion => "";
+
+        bool IPlatformService.IsMobile => false;
     }
 }

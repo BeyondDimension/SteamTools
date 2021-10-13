@@ -118,13 +118,5 @@ namespace System.Application.Services
         {
 
         }
-
-        /// <summary>
-        /// 执行当前路由后退操作
-        /// </summary>
-        void Pop()
-        {
-
-        }
     }
 }

@@ -7,8 +7,16 @@ using System.Linq;
 
 namespace System.Application.UI.ViewModels
 {
-    public class ExplorerViewModel : ViewModelBase
+    /// <summary>
+    /// 文件资源管理器(目录浏览)视图模型
+    /// </summary>
+    public class ExplorerPageViewModel : PageViewModel
     {
+        public ExplorerPageViewModel()
+        {
+            title = DefaultTitle;
+        }
+
         string _CurrentPath = string.Empty;
         public string CurrentPath
         {
@@ -42,13 +50,6 @@ namespace System.Application.UI.ViewModels
         }
 
         static readonly string DefaultTitle = Path.DirectorySeparatorChar.ToString();
-
-        string title = DefaultTitle;
-        public string Title
-        {
-            get => title;
-            set => this.RaiseAndSetIfChanged(ref title, value);
-        }
 
         public ObservableCollection<PathInfoViewModel> PathInfos { get; } = GetRootPathInfoViewModels<ObservableCollection<PathInfoViewModel>>();
 

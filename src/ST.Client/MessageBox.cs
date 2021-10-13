@@ -1,5 +1,7 @@
 using System;
 using System.Application.Services;
+using System.Application.Settings;
+using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Properties;
 using System.Text;
@@ -103,44 +105,43 @@ namespace System.Application
         const string default_caption = ThisAssembly.AssemblyTrademark;
         const Button default_button = Button.OK;
         static readonly IMessageBoxService? mbcs = DI.Get_Nullable<IMessageBoxService>();
+        public const Button OKCancel = Button.OKCancel;
 
         /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
         public static async Task<Result> ShowAsync(
-            string messageBoxText, string caption, Button button, Image icon = default, RememberChoose rememberChooseKey = default)
+            string messageBoxText, string caption = default_caption, Button button = default_button, Image icon = default, RememberChoose rememberChooseKey = default)
         {
             if (mbcs != null)
             {
                 return await mbcs.ShowAsync(messageBoxText, caption, button, icon);
             }
 
-            throw new NotImplementedException();
+            var isDoNotShow = rememberChooseKey != RememberChoose.Undefined;
 
-            //var isDoNotShow = rememberChooseKey != default;
+            if (isDoNotShow &&
+                UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == true)
+            {
+                return Result.OK;
+            }
 
-            //if (isDoNotShow &&
-            //    UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == true)
-            //{
-            //    return MessageBoxResultCompat.OK;
-            //}
+            var viewModel = new MessageBoxWindowViewModel
+            {
+                Content = messageBoxText,
+                IsCancelcBtn = button == OKCancel,
+                IsShowRememberChoose = isDoNotShow,
+            };
 
-            //var viewModel = new MessageBoxWindowViewModel
-            //{
-            //    Content = messageBoxText,
-            //    IsCancelcBtn = button == MessageBoxButtonCompat.OKCancel,
-            //    IsShowRememberChoose = isDoNotShow,
-            //};
+            var r = await IWindowManager.Instance.ShowDialog(
+                CustomWindow.MessageBox, viewModel, caption, ResizeMode.NoResize);
 
-            //var r = await IShowWindowService.Instance.ShowDialog(
-            //    CustomWindow.MessageBox, viewModel, caption, ResizeModeCompat.NoResize);
+            if (r && viewModel.RememberChoose && isDoNotShow)
+            {
+                if (UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == false)
+                    UISettings.DoNotShowMessageBoxs.Value?.Add(rememberChooseKey);
+                UISettings.DoNotShowMessageBoxs.RaiseValueChanged();
+            }
 
-            //if (r && viewModel.RememberChoose && isDoNotShow)
-            //{
-            //    if (UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == false)
-            //        UISettings.DoNotShowMessageBoxs.Value?.Add(rememberChooseKey);
-            //    UISettings.DoNotShowMessageBoxs.RaiseValueChanged();
-            //}
-
-            //return r ? MessageBoxResultCompat.OK : MessageBoxResultCompat.Cancel;
+            return r ? Result.OK : Result.Cancel;
         }
 
         /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
@@ -150,7 +151,7 @@ namespace System.Application
         }
 
         /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
-        public static Task<Result> ShowAsync(Exception exception, string caption, Button button, Image icon = default)
+        public static Task<Result> ShowAsync(Exception exception, string caption = default_caption, Button button = default_button, Image icon = default)
         {
             var messageBoxText = exception.GetAllMessage();
             return ShowAsync(messageBoxText, caption, button, icon);
@@ -162,5 +163,7 @@ namespace System.Application
             var messageBoxText = exception.GetAllMessage();
             Show(messageBoxText, caption, button, icon);
         }
+
+        public static bool IsOK(this Result r) => r == Result.OK;
     }
 }

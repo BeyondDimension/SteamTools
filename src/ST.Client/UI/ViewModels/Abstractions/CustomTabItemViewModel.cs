@@ -172,4 +172,15 @@ namespace System.Application.UI.ViewModels.Abstractions
             protected set { throw new NotSupportedException(); }
         }
     }
+
+    abstract partial class GameRelatedPageViewModel : TabItemViewModel
+    {
+        public static string DisplayName => AppResources.GameRelated;
+
+        public override string Name
+        {
+            get => DisplayName;
+            protected set { throw new NotImplementedException(); }
+        }
+    }
 }

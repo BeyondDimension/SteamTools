@@ -53,5 +53,16 @@ namespace System.Application.Services
         /// <param name="process">一个正在运行的进程</param>
         /// <returns>表示应用程序运行命令行参数的字符串</returns>
         string GetCommandLineArgs(Process process);
+
+        bool IsMobile { get; }
+
+        ApplicationModel AppModel { get; }
+
+        public enum ApplicationModel
+        {
+            Avalonia,
+            Maui,
+            Uno,
+        }
     }
 }
