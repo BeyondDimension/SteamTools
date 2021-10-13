@@ -118,7 +118,7 @@
         <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.9" />
         <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.9" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11" />
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.1" />
         <PackageVersion Include="SkiaSharp" Version="2.80.3" />
         <PackageVersion Include="Nito.Disposables" Version="2.2.0" />
