@@ -100,7 +100,7 @@
         <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.9" />
         <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
         <PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
-        <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="5.2.9" />
+        <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="5.2.14" />
         <PackageVersion Include="AutoMapper" Version="10.1.1" />
         <PackageVersion Include="AutoMapper.Collection" Version="7.0.1" />
         <PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="7.0.1" />
