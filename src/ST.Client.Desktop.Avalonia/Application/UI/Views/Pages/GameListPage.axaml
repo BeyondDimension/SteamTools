@@ -208,6 +208,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center">
           <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   Classes="clearButton"
                    Text="{CompiledBinding SearchText,Mode=TwoWay}"
                    VerticalAlignment="Center"
                    Background="Transparent"

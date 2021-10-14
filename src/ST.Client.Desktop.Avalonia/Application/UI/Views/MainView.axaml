@@ -29,8 +29,7 @@
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False" 
-                                 CornerRadius="8"
+      <ExperimentalAcrylicBorder IsHitTestVisible="False"
                                  DockPanel.Dock="Right">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"

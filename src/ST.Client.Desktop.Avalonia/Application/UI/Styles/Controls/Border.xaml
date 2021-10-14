@@ -7,20 +7,24 @@
       </Border>
     </Border>
   </Design.PreviewWith>
+  <Styles.Resources>
+    <CornerRadius x:Key="PaperRadius">8</CornerRadius>
+    <CornerRadius x:Key="PaperRadiusLeft">8 0 0 8</CornerRadius>
+  </Styles.Resources>
 
-  <Style Selector="Border.cardborder">
+  <Style Selector="Border.card">
     <Setter Property="BorderBrush" Value="#2F2F37"/>
     <Setter Property="BorderThickness" Value="0.88 0.88"/>
   </Style>
-  <Style Selector="Border.cardborder:pointerover">
+  <Style Selector="Border.card:pointerover">
     <Setter Property="BorderBrush" Value="#5E5E66"/>
     <Setter Property="BorderThickness" Value="0.88 0.88"/>
   </Style>
 
   <Style Selector="Border.paper">
+    <Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
+    <!--<Setter Property="ClipToBounds" Value="True"/>-->
     <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
-    <!--<Setter Property="CornerRadius" Value="8" />
-    <Setter Property="ClipToBounds" Value="True"/>-->
   </Style>
   <!--<Style Selector="Border.paper:pointerover">
     <Setter Property="BoxShadow" Value="4 2 10 #55000000" />
@@ -28,13 +32,13 @@
 
   <Style Selector="Border.RightPane">
     <Setter Property="BoxShadow" Value="-4 2 10 #55000000" />
-    <!--<Setter Property="CornerRadius" Value="5" />
+    <!--<Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
     <Setter Property="ClipToBounds" Value="True"/>-->
   </Style>
 
   <Style Selector="Border.dialog">
     <Setter Property="BoxShadow" Value="{StaticResource DialogBoxShadow}" />
-    <!--<Setter Property="CornerRadius" Value="5" />
+    <!--<Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
     <Setter Property="ClipToBounds" Value="True"/>-->
   </Style>
 

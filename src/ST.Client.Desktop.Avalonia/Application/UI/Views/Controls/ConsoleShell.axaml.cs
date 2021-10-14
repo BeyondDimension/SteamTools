@@ -94,6 +94,10 @@ namespace System.Application.UI.Views.Controls
             this.GetObservable(LogTextProperty)
                   .Subscribe(x =>
                   {
+                      if (!string.IsNullOrEmpty(LogText) && !logTextbox.IsVisible)
+                      {
+                          logTextbox.IsVisible = true;
+                      }
                       logTextbox.Text = x;
                       consoleScroll.ScrollToEnd();
                   });

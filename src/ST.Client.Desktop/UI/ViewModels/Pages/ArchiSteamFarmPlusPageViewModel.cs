@@ -53,16 +53,19 @@ namespace System.Application.UI.ViewModels
 
         public async void PauseOrResumeBotFarming(Bot bot)
         {
+            (bool success, string message) r;
+
             if (bot.CardsFarmer.Paused)
             {
-                (bool success, string message) = await bot.Actions.Pause(true).ConfigureAwait(false);
-                Toast.Show(success ? message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, message));
+                r = bot.Actions.Resume();
             }
             else
             {
-                (bool success, string message) = bot.Actions.Resume();
-                Toast.Show(success ? message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, message));
+                r = await bot.Actions.Pause(true).ConfigureAwait(false);
             }
+            var message = r.success ? r.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, r.message);
+
+            Toast.Show("<" + bot.BotName + "> " + message);
         }
     }
 }

@@ -118,7 +118,9 @@
                       <PathIcon Data="{StaticResource PlayCircleDrawing}" />
                     </Button>
                     <Button ToolTip.Tip="暂停挂卡"
-                            IsVisible="{Binding !CardsFarmer.Paused}">
+                            IsVisible="{Binding !CardsFarmer.Paused}"
+                            Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
+                            CommandParameter="{Binding}">
                       <PathIcon Data="{StaticResource PauseCircleDrawing}" />
                     </Button>
                     <Button ToolTip.Tip="激活Key" >
