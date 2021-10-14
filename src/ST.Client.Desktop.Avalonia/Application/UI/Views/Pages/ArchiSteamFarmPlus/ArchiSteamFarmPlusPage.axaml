@@ -81,14 +81,13 @@
       </ui:CommandBar>
     </Border>
 
-    <Border Classes="paper" 
-            Margin="10"
+    <Border Classes="paper"
+            Margin="10 0 10 10"
             Padding="10"
-            DockPanel.Dock="Top"
             Background="{DynamicResource ThemeBrushKey}">
       <TabControl Classes="flat">
         <TabItem Header="ASF控制台">
-          <controls:ConsoleShell x:Name="ConsoleLog" Margin="10 0"
+          <controls:ConsoleShell x:Name="ConsoleLog"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                  IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
           </controls:ConsoleShell>

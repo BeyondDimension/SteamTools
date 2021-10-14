@@ -56,7 +56,7 @@
           <ItemsRepeater.Layout>
             <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-            <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
+            <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
