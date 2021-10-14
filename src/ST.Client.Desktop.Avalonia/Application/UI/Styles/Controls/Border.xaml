@@ -2,9 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Design.PreviewWith>
     <Border Padding="20" Background="White">
-      <Border Padding="20" Classes="paper">
-        <TextBox Text="Code Font Family"/>
-      </Border>
+      <WrapPanel>
+        <Border Padding="20" Classes="paper">
+          <TextBox Text="Code Font Family"/>
+        </Border>
+        
+        <Border Padding="20" Classes="card">
+          <TextBox Text="Code Font Family"/>
+        </Border>
+      </WrapPanel>
     </Border>
   </Design.PreviewWith>
   <Styles.Resources>

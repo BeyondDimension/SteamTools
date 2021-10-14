@@ -302,6 +302,15 @@
                           <PathIcon Data="{StaticResource TopSpeedDrawing}" Width="14"></PathIcon>
                         </MenuItem.Icon>
                       </MenuItem>
+                      <MenuItem Header="-"/>
+                      <MenuItem
+                                Header="{ReflectionBinding Path=Res.GameList_NavToSteamView,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                Command="{ReflectionBinding #u.DataContext.NavAppToSteamView}"
+                                CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                          <PathIcon Data="{StaticResource SteamDrawing}" Width="14"></PathIcon>
+                        </MenuItem.Icon>
+                      </MenuItem>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenFolder,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenFolder}"
@@ -315,7 +324,7 @@
                                   Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                   Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                                   CommandParameter="{Binding}" />-->
-                      <MenuItem Header="-"></MenuItem>
+                      <MenuItem Header="-"/>
                       <MenuItem
                                 Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"

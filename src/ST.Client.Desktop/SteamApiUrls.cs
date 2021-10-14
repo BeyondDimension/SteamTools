@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     public static class SteamApiUrls
     {
@@ -32,6 +32,7 @@
 
         public const string STEAM_INSTALL_URL = "steam://install/{0}";
         public const string STEAM_RUNGAME_URL = "steam://rungameid/{0}";
+        public const string STEAM_NAVGAME_URL = "steam://nav/games/details/{0}";
         public const string STEAM_OPENURL = "steam://openurl/{0}";
         public const string STEAM_RUN_KEYURL = "steam://openurl/https://store.steampowered.com/account/registerkey?key={0}";
 

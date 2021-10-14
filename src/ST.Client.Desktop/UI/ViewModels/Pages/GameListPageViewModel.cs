@@ -247,11 +247,13 @@ namespace System.Application.UI.ViewModels
                 url = string.Format(SteamApiUrls.STEAM_RUNGAME_URL, app.AppId);
             else
                 url = string.Format(SteamApiUrls.STEAM_INSTALL_URL, app.AppId);
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = url,
-                UseShellExecute = true,
-            });
+            Process2.Start(url, useShellExecute: true);
+        }
+
+        public void NavAppToSteamView(SteamApp app)
+        {
+            var url = string.Format(SteamApiUrls.STEAM_NAVGAME_URL, app.AppId);
+            Process2.Start(url, useShellExecute: true);
         }
 
         public void OpenFolder(SteamApp app)

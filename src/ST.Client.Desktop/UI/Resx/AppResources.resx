@@ -501,6 +501,9 @@
   <data name="GameList_Play" xml:space="preserve">
     <value>开始游戏</value>
   </data>
+  <data name="GameList_NavToSteamView" xml:space="preserve">
+    <value>在Steam客户端中查看</value>
+  </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
     <value>刷新游戏列表</value>
   </data>

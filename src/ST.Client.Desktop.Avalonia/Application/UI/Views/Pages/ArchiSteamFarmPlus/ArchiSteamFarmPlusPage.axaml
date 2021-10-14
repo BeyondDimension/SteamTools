@@ -81,21 +81,27 @@
       </ui:CommandBar>
     </Border>
 
-    <TabControl Classes="flat">
-      <TabItem Header="ASF控制台">
-        <controls:ConsoleShell x:Name="ConsoleLog" Margin="10 0"
-                               LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
-                               IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
-        </controls:ConsoleShell>
-      </TabItem>
+    <Border Classes="paper" 
+            Margin="10"
+            Padding="10"
+            DockPanel.Dock="Top"
+            Background="{DynamicResource ThemeBrushKey}">
+      <TabControl Classes="flat">
+        <TabItem Header="ASF控制台">
+          <controls:ConsoleShell x:Name="ConsoleLog" Margin="10 0"
+                                 LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
+                                 IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
+          </controls:ConsoleShell>
+        </TabItem>
 
-      <TabItem Header="Bot配置">
-        <pages:ASF_BotPage/>
-      </TabItem>
+        <TabItem Header="Bot配置">
+          <pages:ASF_BotPage/>
+        </TabItem>
 
-      <TabItem Header="ASF配置">
-        <pages:ASF_GlobalConfigPage/>
-      </TabItem>
-    </TabControl>
+        <TabItem Header="ASF配置">
+          <pages:ASF_GlobalConfigPage/>
+        </TabItem>
+      </TabControl>
+    </Border>
   </DockPanel>
 </UserControl>
