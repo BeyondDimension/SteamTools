@@ -159,15 +159,6 @@ namespace System.Application.UI.ViewModels
             _SteamUsersSourceList.Refresh();
             #endregion
 
-            //this.WhenAnyValue(x => x.SteamUsers)
-            //      .Subscribe(items => items?
-            //      .ToObservableChangeSet()
-            //      .AutoRefresh(x => x.Remark)
-            //      .WhenValueChanged(x => x.Remark, false)
-            //      .Subscribe(_ =>
-            //      {
-            //          SteamAccountSettings.AccountRemarks.Value = items?.Where(x => !string.IsNullOrEmpty(x.Remark)).ToDictionary(k => k.SteamId64, v => v.Remark);
-            //      }));
         }
 
         public void SteamId_Click(SteamUser user)

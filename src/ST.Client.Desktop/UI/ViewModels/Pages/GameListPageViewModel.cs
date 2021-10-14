@@ -22,6 +22,7 @@ namespace System.Application.UI.ViewModels
 {
     public partial class GameListPageViewModel
     {
+        readonly Dictionary<string, string[]> dictPinYinArray = new();
         Func<SteamApp, bool> PredicateName(string? text)
         {
             return s =>
@@ -32,6 +33,12 @@ namespace System.Application.UI.ViewModels
                     return true;
                 if (s.DisplayName.Contains(text, StringComparison.OrdinalIgnoreCase) ||
                        s.AppId.ToString().Contains(text, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                var pinyinArray = Pinyin.GetPinyin(s.DisplayName, dictPinYinArray);
+                if (Pinyin.SearchCompare(text, s.DisplayName, pinyinArray))
                 {
                     return true;
                 }
