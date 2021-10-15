@@ -113,15 +113,15 @@ namespace System.Application.UI.ViewModels
 
             HideAppCommand = ReactiveCommand.Create(() =>
             {
-                IWindowManager .Instance.Show(CustomWindow.HideApp, new HideAppWindowViewModel(), string.Empty, ResizeMode.CanResize);
+                IWindowManager.Instance.Show(CustomWindow.HideApp, resizeMode: ResizeMode.CanResize);
             });
             IdleAppCommand = ReactiveCommand.Create(() =>
             {
-                IWindowManager .Instance.Show(CustomWindow.IdleApp, new IdleAppWindowViewModel(), string.Empty, ResizeMode.CanResize);
+                IWindowManager.Instance.Show(CustomWindow.IdleApp, resizeMode: ResizeMode.CanResize);
             });
             SteamShutdownCommand = ReactiveCommand.Create(() =>
             {
-                IWindowManager .Instance.Show(CustomWindow.SteamShutdown, new SteamShutdownWindowViewModel(), string.Empty, ResizeMode.CanResize);
+                IWindowManager.Instance.Show(CustomWindow.SteamShutdown, resizeMode: ResizeMode.CanResize);
             });
 
             EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
@@ -244,7 +244,7 @@ namespace System.Application.UI.ViewModels
 
         public static void EditAppInfoClick(SteamApp app)
         {
-            IWindowManager .Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, ResizeMode.CanResize);
+            IWindowManager.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, ResizeMode.CanResize);
         }
 
         public void InstallOrStartApp(SteamApp app)
@@ -284,25 +284,23 @@ namespace System.Application.UI.ViewModels
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
         }
 
-        public void AddAFKAppList(SteamApp app)
+        public async void AddAFKAppList(SteamApp app)
         {
             try
             {
                 if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.SteamAFKMaxCount)
                 {
-                    var result = MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBox.Button.OK);
+                    await MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBox.Button.OK);
                 }
                 else
                 {
                     if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.SteamAFKMaxCount - 2)
                     {
-                        var result = MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.SteamAFKMaxCount, SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith(s =>
+                        var result = await MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.SteamAFKMaxCount, SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+                        if (result.IsOK())
                         {
-                            if (s.Result == MessageBox.Result.OK)
-                            {
-                                AddAFKAppListFunc(app);
-                            }
-                        });
+                            AddAFKAppListFunc(app);
+                        }
                     }
                     else
                     {
@@ -360,7 +358,7 @@ namespace System.Application.UI.ViewModels
                 case SteamAppType.Game:
                     var result = await MessageBox.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel,
                         rememberChooseKey: MessageBox.RememberChoose.UnLockAchievement);
-                    if (result == MessageBox.Result.OK)
+                    if (result.IsOK())
                     {
                         Toast.Show(AppResources.GameList_RuningWait);
                         app.Process = Process2.Start(
