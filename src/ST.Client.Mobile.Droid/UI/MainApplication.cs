@@ -28,7 +28,7 @@ namespace System.Application.UI
         Theme = "@style/MainTheme",
         Icon = "@mipmap/ic_launcher",
         RoundIcon = "@mipmap/ic_launcher_round")]
-    public sealed class MainApplication : AndroidApplication, IAppService
+    public sealed class MainApplication : AndroidApplication, IApplication
     {
         public static MainApplication Instance => Context is MainApplication app ? app : throw new Exception("Impossible");
 
@@ -88,7 +88,7 @@ namespace System.Application.UI
                 if (XEVersionTracking.IsFirstLaunchForCurrentVersion)
                 {
                     // 当前版本第一次启动时，清除存放升级包缓存文件夹的目录
-                    IAppUpdateService.ClearAllPackCacheDir();
+                    IApplicationUpdateService.ClearAllPackCacheDir();
                 }
                 ImageLoader.Init(this);
                 UISettings.Theme.Subscribe(x =>
@@ -115,7 +115,7 @@ namespace System.Application.UI
         public static bool IsMainProcess { get; private set; }
 
         const AppTheme _DefaultActualTheme = AppTheme.Light;
-        AppTheme IAppService.DefaultActualTheme => _DefaultActualTheme;
+        AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
         public new AppTheme Theme
         {
@@ -139,7 +139,7 @@ namespace System.Application.UI
             }
         }
 
-        AppTheme IAppService.GetActualThemeByFollowingSystem()
+        AppTheme IApplication.GetActualThemeByFollowingSystem()
             => DarkModeUtil.IsDarkMode(this) ? AppTheme.Dark : AppTheme.Light;
 
         public static async void ShowUnderConstructionTips() => await MessageBoxCompat.ShowAsync(AppResources.UnderConstruction, "", MessageBoxButtonCompat.OK);

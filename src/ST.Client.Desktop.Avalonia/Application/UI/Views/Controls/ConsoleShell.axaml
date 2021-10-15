@@ -24,6 +24,7 @@
         VerticalScrollBarVisibility="Auto">
       <Grid RowDefinitions="Auto,Auto">
         <TextBox x:Name="LogTextbox"
+                 IsVisible="False"
                  Classes="readonlybox"
                  IsReadOnly="True"
                  TextWrapping="Wrap"/>

@@ -17,71 +17,75 @@ using Titanium.Web.Proxy.Network;
 
 namespace System.Application.Services
 {
-    public interface IHttpProxyService
+    /// <summary>
+    /// Http 代理服务
+    /// </summary>
+    public interface IHttpProxyService : IService<IHttpProxyService>, IDisposable
     {
-        public bool IsCertificate { get; }
+        bool IsCertificate { get; }
 
-        public void TrustCer();
+        void TrustCer();
 
-        public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
+        IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
-        public IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
+        IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
 
-        public bool IsEnableScript { get; set; }
+        bool IsEnableScript { get; set; }
 
-        public bool IsOnlyWorkSteamBrowser { get; set; }
+        bool IsOnlyWorkSteamBrowser { get; set; }
 
-        public string CertificateName { get; set; }
+        string CertificateName { get; set; }
 
-        public CertificateEngine CertificateEngine { get; set; }
+        CertificateEngine CertificateEngine { get; set; }
 
-        public int ProxyPort { get; set; }
+        int ProxyPort { get; set; }
 
-        public IPAddress ProxyIp { get; set; }
+        IPAddress ProxyIp { get; set; }
 
-        public bool IsWindowsProxy { get; set; }
+        bool IsSystemProxy { get; set; }
 
-        public bool IsProxyGOG { get; set; }
+        [Obsolete("use IsSystemProxy", true)]
+        bool IsWindowsProxy { get => IsSystemProxy; set => IsSystemProxy = value; }
 
-        public bool OnlyEnableProxyScript { get; set; }
+        bool IsProxyGOG { get; set; }
 
-        public bool Socks5ProxyEnable { get; set; }
+        bool OnlyEnableProxyScript { get; set; }
 
-        public int Socks5ProxyPortId { get; set; }
-        public int HostProxyPortId { get; set; }
-        
+        bool Socks5ProxyEnable { get; set; }
 
-        public bool TwoLevelAgentEnable { get; set; }
-
-        public ExternalProxyType TwoLevelAgentProxyType { get; set; }
+        int Socks5ProxyPortId { get; set; }
+        int HostProxyPortId { get; set; }
 
 
-        public const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
+        bool TwoLevelAgentEnable { get; set; }
 
-        public string? TwoLevelAgentIp { get; set; }
+        ExternalProxyType TwoLevelAgentProxyType { get; set; }
 
-        public int TwoLevelAgentPortId { get; set; }
 
-        public string? TwoLevelAgentUserName { get; set; }
+        const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
 
-        public string? TwoLevelAgentPassword { get; set; }
+        string? TwoLevelAgentIp { get; set; }
 
-        public bool ProxyRunning { get; }
+        int TwoLevelAgentPortId { get; set; }
 
-        public bool SetupCertificate();
+        string? TwoLevelAgentUserName { get; set; }
 
-        public bool DeleteCertificate();
+        string? TwoLevelAgentPassword { get; set; }
+
+        bool ProxyRunning { get; }
+
+        bool SetupCertificate();
+
+        bool DeleteCertificate();
 
         bool PortInUse(int port);
 
-        public bool StartProxy();
+        bool StartProxy();
 
-        public void StopProxy();
+        void StopProxy();
 
-        public bool WirtePemCertificateToGoGSteamPlugins();
+        bool WirtePemCertificateToGoGSteamPlugins();
 
-        public bool IsCertificateInstalled(X509Certificate2? certificate2);
-
-        public void Dispose();
+        bool IsCertificateInstalled(X509Certificate2? certificate2);
     }
 }

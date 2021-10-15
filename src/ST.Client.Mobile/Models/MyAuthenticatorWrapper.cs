@@ -4,7 +4,7 @@ namespace System.Application.Models
 {
     public class MyAuthenticatorWrapper : PageViewModel, IExplicitHasValue
     {
-        public MyAuthenticator Authenticator { get; }
+        public MyAuthenticator? Authenticator { get; }
 
         public MyAuthenticatorWrapper() : base() { }
 
@@ -17,6 +17,6 @@ namespace System.Application.Models
 
         public static implicit operator MyAuthenticatorWrapper(MyAuthenticator authenticator) => new(authenticator);
 
-        public static implicit operator MyAuthenticator(MyAuthenticatorWrapper wrapper) => wrapper.Authenticator;
+        public static implicit operator MyAuthenticator?(MyAuthenticatorWrapper wrapper) => wrapper.Authenticator;
     }
 }

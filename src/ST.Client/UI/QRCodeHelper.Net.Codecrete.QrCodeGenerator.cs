@@ -14,7 +14,7 @@ namespace System.Application.UI
             try
             {
                 var qrCode = QrCode.EncodeBinary(bytes, level); // Make the QR code symbol
-                var foreground = IAppService.Instance.ActualTheme switch
+                var foreground = IApplication.Instance.ActualTheme switch
                 {
                     AppTheme.Dark => SKColors.White,
                     _ => SKColors.Black,

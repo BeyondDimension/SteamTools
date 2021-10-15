@@ -19,6 +19,30 @@ namespace System.Application.UI.ViewModels
 {
     public partial class LocalAuthPageViewModel
     {
+        readonly Dictionary<string, string[]> dictPinYinArray = new();
+        Func<MyAuthenticator, bool> PredicateName(string? serachText)
+        {
+            return s =>
+            {
+                if (s == null)
+                    return false;
+                if (string.IsNullOrEmpty(serachText))
+                    return true;
+                if (s.Name.Contains(serachText, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                var pinyinArray = Pinyin.GetPinyin(s.Name, dictPinYinArray);
+                if (Pinyin.SearchCompare(serachText, s.Name, pinyinArray))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
         public LocalAuthPageViewModel()
         {
 #if !__MOBILE__
@@ -83,9 +107,11 @@ namespace System.Application.UI.ViewModels
             //};
 #endif
 
+            var textFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
+
             AuthService.Current.Authenticators
                 .Connect()
-                //.Filter(scriptFilter)
+                .Filter(textFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<MyAuthenticator>.Ascending(x => x.Index).ThenBy(x => x.Name))
                 .Bind(out _Authenticators)
@@ -116,6 +142,15 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
+        private string _SearchText;
+        /// <summary>
+        /// 搜索文本
+        /// </summary>
+        public string SearchText
+        {
+            get => _SearchText;
+            set => this.RaiseAndSetIfChanged(ref _SearchText, value);
+        }
 #if __MOBILE__
         private bool _IsFirstLoadedAuthenticatorsEmpty;
         /// <summary>

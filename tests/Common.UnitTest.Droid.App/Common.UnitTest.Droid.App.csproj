@@ -137,10 +137,6 @@
       <Project>{d30203ac-97ab-4a51-bfa5-826251c9a28e}</Project>
       <Name>Common.PinyinLib.TinyPinyin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Common.UnitTest.Droid\Common.UnitTest.Droid.csproj">
-      <Project>{0073A08E-6336-4C09-99F9-2E808889D715}</Project>
-      <Name>Common.UnitTest.Droid</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\values\" />

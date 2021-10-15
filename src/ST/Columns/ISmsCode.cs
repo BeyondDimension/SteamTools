@@ -1,18 +1,22 @@
-﻿namespace System.Application.Columns
+namespace System.Application.Columns
 {
     /// <summary>
-    /// 短信验证码
+    /// 列 - 短信验证码
     /// </summary>
     public interface ISmsCode
     {
-        /// <inheritdoc cref="ISmsCode"/>
+        /// <summary>
+        /// 短信验证码
+        /// </summary>
         string? SmsCode { get; set; }
     }
 
-    /// <inheritdoc cref="ISmsCode"/>
+    /// <summary>
+    /// 列(只读) - 短信验证码
+    /// </summary>
     public interface IReadOnlySmsCode
     {
-        /// <inheritdoc cref="ISmsCode"/>
+        /// <inheritdoc cref="ISmsCode.SmsCode"/>
         string? SmsCode { get; }
     }
 }

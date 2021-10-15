@@ -124,6 +124,33 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 文件属性为只读，修改失败 的本地化字符串。
+        /// </summary>
+        internal static string FileAttributeIsReadOnlyModifyFail {
+            get {
+                return ResourceManager.GetString("FileAttributeIsReadOnlyModifyFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件大小过大 的本地化字符串。
+        /// </summary>
+        internal static string FileSizeTooLarge {
+            get {
+                return ResourceManager.GetString("FileSizeTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件访问被拒绝，没有权限 的本地化字符串。
+        /// </summary>
+        internal static string FileUnauthorized {
+            get {
+                return ResourceManager.GetString("FileUnauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当前已是最新版本 的本地化字符串。
         /// </summary>
         internal static string IsExistUpdateFalse {
@@ -193,6 +220,47 @@ namespace System.Application.Properties {
             get {
                 object obj = ResourceManager.GetObject("OpenSourceLibraryList", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 操作 hosts 错误 {0} 的本地化字符串。
+        /// </summary>
+        internal static string OperationHostsError_ {
+            get {
+                return ResourceManager.GetString("OperationHostsError_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 @echo off
+        ///:loop
+        ///ping -n 1 127.0.0.1 
+        ///tasklist|find /i &quot;{0}&quot;
+        ///if %errorlevel%==0 (
+        ///taskkill /im &quot;{0}&quot; /f
+        ///)
+        ///else(
+        ///taskkill /im &quot;{0}&quot; /f
+        ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
+        ///rmdir /s /q &quot;{1}&quot;
+        ///&quot;{3}&quot;
+        ///del %0
+        ///)
+        ///goto :loop 的本地化字符串。
+        /// </summary>
+        internal static string ProgramUpdateCmd_ {
+            get {
+                return ResourceManager.GetString("ProgramUpdateCmd_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam++ 替换升级中... 的本地化字符串。
+        /// </summary>
+        internal static string ProgramUpdateEcho {
+            get {
+                return ResourceManager.GetString("ProgramUpdateEcho", resourceCulture);
             }
         }
         
@@ -314,6 +382,15 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找类似 找不到 Steam 安装路径 的本地化字符串。
+        /// </summary>
+        internal static string SteamInstallPathNotFound {
+            get {
+                return ResourceManager.GetString("SteamInstallPathNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 下载更新包失败，请打开官网手动更新 的本地化字符串。
         /// </summary>
         internal static string UpdateEnumOutOfRange {
@@ -328,6 +405,15 @@ namespace System.Application.Properties {
         internal static string UpdatePackVerificationFail {
             get {
                 return ResourceManager.GetString("UpdatePackVerificationFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新包解压失败，请打开官网手动更新 的本地化字符串。
+        /// </summary>
+        internal static string UpdateUnpackFail {
+            get {
+                return ResourceManager.GetString("UpdateUnpackFail", resourceCulture);
             }
         }
     }

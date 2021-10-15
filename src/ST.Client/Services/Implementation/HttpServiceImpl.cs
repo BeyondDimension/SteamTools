@@ -22,13 +22,16 @@ namespace System.Application.Services.Implementation
         readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
 
         ICloudServiceClient Csc => _csc.Value;
+
         JsonSerializer IHttpService.Serializer => jsonSerializer;
+
         IHttpClientFactory IHttpService.Factory => _clientFactory;
-        IHttpPlatformHelper IHttpService.PlatformHelper => http_helper;
+
+        IHttpPlatformHelperService IHttpService.PlatformHelper => http_helper;
 
         public HttpServiceImpl(
             ILoggerFactory loggerFactory,
-            IHttpPlatformHelper http_helper,
+            IHttpPlatformHelperService http_helper,
             IHttpClientFactory clientFactory)
             : base(loggerFactory.CreateLogger(TAG), http_helper, clientFactory)
         {
