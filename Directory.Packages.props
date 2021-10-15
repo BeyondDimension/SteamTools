@@ -21,7 +21,7 @@
         <PackageVersion Include="Xamarin.Essentials" Version="1.7.0" />
         <PackageVersion Include="Crc32.NET" Version="1.2.0" />
         <PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
-        <PackageVersion Include="MessagePack" Version="2.3.75" />
+        <PackageVersion Include="MessagePack" Version="2.3.85" />
         <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageVersion Include="System.Text.Json" Version="5.0.2" />
         <PackageVersion Include="System.Text.Encodings.Web" Version="5.0.1" />
