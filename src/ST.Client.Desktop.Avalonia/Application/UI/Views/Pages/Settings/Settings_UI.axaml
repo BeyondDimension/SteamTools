@@ -13,7 +13,7 @@
     <converters:StringEqualsConverter x:Key="StringEqualsConverter" />
     <converters:ColorStringToBrush x:Key="ColorStringToBrush" />
   </UserControl.Resources>
-  <ScrollViewer>
+  <ScrollViewer Classes="tabscroll">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Spacing="20">
 
       <StackPanel Orientation="Vertical">

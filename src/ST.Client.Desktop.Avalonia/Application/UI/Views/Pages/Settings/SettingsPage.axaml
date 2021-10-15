@@ -12,8 +12,8 @@
       Padding="0 10"
       Background="{DynamicResource ThemeBrushKey}">
     <Border.Styles>
-      <Style Selector="ScrollViewer">
-        <Setter Property="Padding" Value="10 0 10 20"/>
+      <Style Selector="ScrollViewer.tabscroll">
+        <Setter Property="Padding" Value="20 0 20 20"/>
       </Style>
       <Style Selector="TextBlock">
         <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
