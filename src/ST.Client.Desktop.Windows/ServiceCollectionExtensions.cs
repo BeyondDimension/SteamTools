@@ -10,15 +10,13 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
+        public static IServiceCollection AddPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
         {
             if (OperatingSystem2.IsWindows)
             {
-                services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
-                services.AddSingleton<WindowsDesktopPlatformServiceImpl>();
-                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
-                services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
-                services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
+                services.AddSingleton<IHttpPlatformHelperService, WindowsClientHttpPlatformHelperServiceImpl>();
+                services.AddSingleton<WindowsPlatformServiceImpl>();
+                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<WindowsPlatformServiceImpl>());
                 if (hasSteam)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
@@ -32,10 +30,11 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<ILocalDataProtectionProvider.IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
                 if (OperatingSystem2.IsWindows10AtLeast)
                 {
+                    services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<WindowsPlatformServiceImpl>());
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }
-                services.AddSingleton<ISystemWindowApiService, SystemWindowApiServiceImpl>();
-                services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
+                services.AddSingleton<INativeWindowApiService, NativeWindowApiServiceImpl>();
+                services.AddSingleton<IJumpListService, JumpListServiceImpl>();
                 if (hasNotifyIcon) services.AddNotifyIcon();
                 //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
             }

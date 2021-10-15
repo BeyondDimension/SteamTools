@@ -105,20 +105,4 @@ namespace System.Application.Models
             //{ "", ("", "") },
         };
     }
-
-#if DEBUG
-
-    [Obsolete("待定", true)]
-    public static partial class ProductInfo
-    {
-        [Obsolete("use System.Application.Models.OpenSourceLibrary", true)]
-        public class Library
-        {
-        }
-
-        [Obsolete("use System.Application.Models.OpenSourceLibrary.Values/StringValues", true)]
-        public static IReadOnlyCollection<Library> Libraries => throw new NotImplementedException();
-    }
-
-#endif
 }

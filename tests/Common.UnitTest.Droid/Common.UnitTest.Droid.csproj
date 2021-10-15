@@ -47,7 +47,6 @@
   <ItemGroup>
     <!--<ProjectReference Include="..\..\src\Services.Pinyin.TinyPinyin\Services.Pinyin.TinyPinyin.csproj"/>
     <ProjectReference Include="..\..\src\Services.Pinyin\Services.Pinyin.csproj" />-->
-    <ProjectReference Include="..\..\src\Common.ClientLib.Droid\Common.ClientLib.Droid.csproj" />
     <ProjectReference Include="..\..\src\Common.PinyinLib.TinyPinyin\Common.PinyinLib.TinyPinyin.csproj" />
   </ItemGroup>
 </Project>

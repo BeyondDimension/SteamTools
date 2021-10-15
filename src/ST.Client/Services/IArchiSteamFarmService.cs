@@ -9,9 +9,12 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-    public interface IArchiSteamFarmService
+    /// <summary>
+    /// ASF 服务
+    /// </summary>
+    public interface IArchiSteamFarmService : IService<IArchiSteamFarmService>
     {
-        static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
+        new static IArchiSteamFarmService Instance => IService<IArchiSteamFarmService>.Instance;
 
         static Action? InitCoreLoggers { protected get; set; }
 
@@ -22,6 +25,8 @@ namespace System.Application.Services
         bool IsReadPasswordLine { get; }
 
         DateTimeOffset? StartTime { get; }
+
+        Version CurrentVersion { get; }
 
         /// <summary>
         /// 启动ASF

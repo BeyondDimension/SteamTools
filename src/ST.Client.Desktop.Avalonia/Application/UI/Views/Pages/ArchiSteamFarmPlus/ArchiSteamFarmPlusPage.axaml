@@ -1,11 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ccl_service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
-             xmlns:ms="using:System.Application.Models.Settings"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:service="using:System.Application.Services"
+             xmlns:ms="using:System.Application.Settings"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="using:System.Application.UI.Views.Pages"
@@ -57,76 +56,51 @@
               <ui:PathIcon Data="{StaticResource AddDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
+
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding ShowAddBotWindow}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="刷新">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+
+          <ui:CommandBarButton
+                     Command="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=OpenWebUIConsole}"
+                     ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     Label="打开Web控制台">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
         </ui:CommandBar.PrimaryCommands>
         <ui:CommandBar.SecondaryCommands>
 
         </ui:CommandBar.SecondaryCommands>
       </ui:CommandBar>
-      <!--<DockPanel>
-<StackPanel
-            Orientation="Horizontal"
-            Spacing="8"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center">
-          <StackPanel.Styles>
-            <Style Selector="PathIcon">
-              <Setter Property="Width" Value="20"></Setter>
-              <Setter Property="Height" Value="20"></Setter>
-            </Style>
-          </StackPanel.Styles>
-
-          <Button Background="Transparent"
-                  IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
-                  Cursor="Hand"
-                  ToolTip.Tip="启动ASF" Command="{ReflectionBinding RunOrStopASF}">
-            <PathIcon Data="{StaticResource PlayCircleDrawing}" />
-          </Button>
-
-          <Button Background="Transparent"
-                  IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
-                  Cursor="Hand"
-                  ToolTip.Tip="停止ASF" Command="{ReflectionBinding RunOrStopASF}">
-            <PathIcon Data="{StaticResource PauseCircleDrawing}" />
-          </Button>
-
-          <Button Background="Transparent"
-                  Cursor="Hand"
-                  ToolTip.Tip="新增Bot"
-                  Command="{ReflectionBinding ShowAddBotWindow}">
-            <PathIcon Data="{StaticResource AddDrawing}" />
-          </Button>
-
-          <Button Background="Transparent"
-                  Cursor="Hand"
-                  ToolTip.Tip="刷新">
-            <PathIcon Data="{StaticResource RefreshDrawing}" />
-          </Button>
-
-          <Button Background="Transparent"
-                   Cursor="Hand"
-                   ToolTip.Tip="Web UI控制台">
-            <PathIcon Data="{StaticResource GlobeSearchDrawing}" />
-          </Button>
-
-        </StackPanel>
-      </DockPanel>-->
     </Border>
 
-    <TabControl Classes="flat">
-      <TabItem Header="ASF控制台">
-        <controls:ConsoleShell x:Name="ConsoleLog" Margin="10 0"
-                               LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
-                               IsMask="{ReflectionBinding Source={x:Static ccl_service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
-        </controls:ConsoleShell>
-      </TabItem>
+    <Border Classes="paper"
+            Margin="10 0 10 10"
+            Padding="10"
+            Background="{DynamicResource ThemeBrushKey}">
+      <TabControl Classes="flat">
+        <TabItem Header="ASF控制台">
+          <controls:ConsoleShell x:Name="ConsoleLog"
+                                 LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
+                                 IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
+          </controls:ConsoleShell>
+        </TabItem>
 
-      <TabItem Header="Bot配置">
-        <pages:ASF_BotPage/>
-      </TabItem>
+        <TabItem Header="Bot配置">
+          <pages:ASF_BotPage/>
+        </TabItem>
 
-      <TabItem Header="ASF配置">
-        <pages:ASF_GlobalConfigPage/>
-      </TabItem>
-    </TabControl>
+        <TabItem Header="ASF配置">
+          <pages:ASF_GlobalConfigPage/>
+        </TabItem>
+      </TabControl>
+    </Border>
   </DockPanel>
 </UserControl>

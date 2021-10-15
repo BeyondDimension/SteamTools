@@ -68,10 +68,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Desktop.Avalonia.csproj" />
-    <ProjectReference Include="..\ST.Client.Desktop\ST.Client.Desktop.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Avalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
-    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Desktop.Windows.csproj" />
+    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
     <!--<ProjectReference Include="..\ST.Client.Desktop.Console.App.Bridge\ST.Client.Desktop.Console.App.Bridge.csproj" />-->
     <Reference Include="Microsoft.Windows.SDK.NET">
       <HintPath>..\..\references\Microsoft.Windows.SDK.NET.dll</HintPath>

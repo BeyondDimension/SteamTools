@@ -5,7 +5,7 @@ namespace System.Application.Services
     /// <summary>
     /// 公告服务
     /// </summary>
-    public interface IAnnouncementService
+    public interface IAnnouncementService : IService<IAnnouncementService>
     {
         /// <summary>
         /// 显示公告，返回是否显示
@@ -22,7 +22,7 @@ namespace System.Application.Services
             //else
             //{
             //写入本地数据库待下一次打开主窗口时显示
-            return false;
+            //return false;
             //}
         }
 

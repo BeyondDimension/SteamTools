@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Application.Repositories;

@@ -1,4 +1,4 @@
-﻿namespace System.Application
+namespace System.Application
 {
     /// <summary>
     /// 通知入口点

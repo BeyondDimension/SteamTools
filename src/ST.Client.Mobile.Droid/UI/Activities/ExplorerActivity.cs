@@ -14,7 +14,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class ExplorerActivity : BaseActivity<activity_explorer, ExplorerViewModel>
+    internal sealed class ExplorerActivity : BaseActivity<activity_explorer, ExplorerPageViewModel>
     {
         protected override int? LayoutResource => Resource.Layout.activity_explorer;
 

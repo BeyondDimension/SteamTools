@@ -50,7 +50,7 @@ namespace System.Application
                 if (!exceptions.Add(ex)) return;
             }
 
-            AppHelper.TrySetLoggerMinLevel(LogLevel.Trace);
+            IApplication.TrySetLoggerMinLevel(LogLevel.Trace);
             // NLog: catch any exception and log it.
             Logger?.Error(ex, "Stopped program because of exception, name: {1}, isTerminating: {0}", isTerminating, name);
 

@@ -79,13 +79,13 @@ namespace System.Application.UI.Activities
                     case PreferenceButton.更新日志:
                         await Browser2.OpenAsync(string.Format(
                             UrlConstants.OfficialWebsite_Box_Changelog_,
-                            IAppService.Instance.Theme.ToString2(),
+                            IApplication.Instance.Theme.ToString2(),
                             R.Language));
                         break;
                     case PreferenceButton.常见问题疑难解答:
                         await Browser2.OpenAsync(string.Format(
                             UrlConstants.OfficialWebsite_Box_Faq_,
-                            IAppService.Instance.Theme.ToString2(),
+                            IApplication.Instance.Theme.ToString2(),
                             R.Language));
                         break;
                     case PreferenceButton.开放源代码许可:

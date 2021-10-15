@@ -1,7 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>MonoAndroid11.0</TargetFramework>
+    <TargetFrameworks>net6.0-android;MonoAndroid11.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mobile.Android</AssemblyName>
     <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
@@ -178,7 +178,6 @@
   <ItemGroup>
     <!--<ProjectReference Include="..\ST.Client.Mobile.Droid.Resources\ST.Client.Mobile.Droid.Resources.csproj" />-->
     <ProjectReference Include="..\Common.PinyinLib.TinyPinyin\Common.PinyinLib.TinyPinyin.csproj" />
-    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
   </ItemGroup>
 
   <!--VisualStudioAppCenterSDK namespacePrefix = "System.Application.Resources."-->

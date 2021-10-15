@@ -45,12 +45,5 @@ namespace System.Application
             IOPath.DirCreateByNotExists(path);
             return path;
         }
-
-#if DEBUG
-
-        [Obsolete("use GetPath", true)]
-        public static string GetFolderPath(this AppFolder folder) => folder.GetPath();
-
-#endif
     }
 }

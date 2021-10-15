@@ -1,4 +1,5 @@
 using System.Application.Services;
+using System.Application.UI;
 using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
@@ -18,7 +19,7 @@ namespace System.Application.Converters
 
             if (value is string key)
             {
-                return IDesktopAvaloniaAppService.Instance.Current.FindResource(key);
+                return IAvaloniaApplication.Instance.Current.FindResource(key);
             }
             return BindingOperations.DoNothing;
         }
