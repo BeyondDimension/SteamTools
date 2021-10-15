@@ -144,7 +144,7 @@
         <PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.1" />
         <PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.10" />
         <PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.3.1" />
-        <PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.4" />
+        <PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.6" />
         <PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3" />
         <PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.3.6.1" />
         <PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
