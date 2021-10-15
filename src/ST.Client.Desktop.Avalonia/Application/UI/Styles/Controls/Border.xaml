@@ -14,8 +14,8 @@
     </Border>
   </Design.PreviewWith>
   <Styles.Resources>
-    <CornerRadius x:Key="PaperRadius">8</CornerRadius>
-    <CornerRadius x:Key="PaperRadiusLeft">8 0 0 8</CornerRadius>
+    <CornerRadius x:Key="PaperRadius">9</CornerRadius>
+    <CornerRadius x:Key="PaperRadiusLeft">9 0 0 9</CornerRadius>
   </Styles.Resources>
 
   <Style Selector="Border.card">

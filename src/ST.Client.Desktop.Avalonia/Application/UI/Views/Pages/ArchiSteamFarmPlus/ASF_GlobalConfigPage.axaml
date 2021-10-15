@@ -37,35 +37,30 @@
       </Style>
     </StackPanel.Styles>
 
-    <!--<WrapPanel>
-      <TextBlock Text="ASF可执行文件路径："/>
-      <controls:ScrollingTextBlock x:Name="asfPath" Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" DockPanel.Dock="Right"/>
-      <controls:ScrollingTextBlock  Text="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-      -->
-    <!--<i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IASFService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="True">
-              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IASFService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="False">
-              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-            </ia:DataTriggerBehavior>
-          </i:Interaction.Behaviors>-->
-    <!--
-    </WrapPanel>
-
-    <StackPanel Orientation="Horizontal" Spacing="10">
-      <Button x:Name="selectAsfPath" Content="选择路径" Width="150" HorizontalContentAlignment="Center"></Button>
-      <Button Content="下载ASF" Width="150" HorizontalContentAlignment="Center"></Button>
-    </StackPanel>-->
-
-    <StackPanel Spacing="10">
-      <WrapPanel>
-        <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-        <TextBlock Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=CurrentVersion,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
-      </WrapPanel>
-      <!--<TextBlock Text="最新 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
+    <Border>
+      <Border.Styles>
+        <Style Selector="Border">
+          <Setter Property="MinHeight" Value="50" />
+          <Setter Property="Padding" Value="15" />
+          <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+          <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+          <Setter Property="BorderThickness" Value="1" />
+          <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        </Style>
+        <Style Selector="Border:pointerover">
+          <Setter Property="Background" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
+        </Style>
+      </Border.Styles>
+      <StackPanel Spacing="10" VerticalAlignment="Center">
+        <WrapPanel>
+          <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
+          <TextBlock Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=CurrentVersion,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
+        </WrapPanel>
+        <!--<TextBlock Text="最新 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
           <TextBlock Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>-->
-    </StackPanel>
+      </StackPanel>
+    </Border>
+
 
     <Separator Classes="Separator"></Separator>
 
@@ -84,12 +79,11 @@
       <ToggleSwitch />
     </DockPanel>
 
-    <StackPanel Orientation="Vertical" Spacing="8">
+    <StackPanel Orientation="Vertical" Spacing="10">
       <TextBlock Text="IPC服务访问密码"/>
       <TextBox Watermark="设置IPC服务密码"
                PasswordChar="*"
-               Classes="revealPasswordButton"
-               UseFloatingWatermark="True">
+               Classes="revealPasswordButton">
       </TextBox>
     </StackPanel>
 
