@@ -6,7 +6,7 @@ namespace System.Application
     [SetUpFixture]
     public class SetupFixture
     {
-        bool isFirstOneTimeSetUp;
+        //bool isFirstOneTimeSetUp;
 
         //[OneTimeSetUp]
         //public void OneTimeSetUp()

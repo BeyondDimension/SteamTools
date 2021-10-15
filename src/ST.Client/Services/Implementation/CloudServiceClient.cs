@@ -15,7 +15,7 @@ namespace System.Application.Services.Implementation
         public CloudServiceClient(
             ILoggerFactory loggerFactory,
             IHttpClientFactory clientFactory,
-            IHttpPlatformHelper httpPlatformHelper,
+            IHttpPlatformHelperService httpPlatformHelper,
             IUserManager userManager,
             IToast toast,
             IOptions<AppSettings> options,

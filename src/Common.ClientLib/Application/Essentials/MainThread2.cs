@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Xamarin.Essentials;
-using static System.Application.Services.IMainThreadPlatformService;
+using System.Application.Services;
 
 namespace System.Application
 {
@@ -22,7 +22,7 @@ namespace System.Application
                 }
                 else
                 {
-                    return Instance.PlatformIsMainThread;
+                    return IMainThreadPlatformService.Instance.PlatformIsMainThread;
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace System.Application
                 }
                 else
                 {
-                    Instance.PlatformBeginInvokeOnMainThread(action, priority);
+                    IMainThreadPlatformService.Instance.PlatformBeginInvokeOnMainThread(action, priority);
                 }
             }
         }

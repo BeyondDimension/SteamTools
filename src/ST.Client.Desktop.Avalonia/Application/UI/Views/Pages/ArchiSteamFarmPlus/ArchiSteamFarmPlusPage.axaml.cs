@@ -12,7 +12,8 @@ namespace System.Application.UI.Views.Pages
 {
     public class ArchiSteamFarmPlusPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
-        private readonly ConsoleShell consoleShell;
+        readonly IArchiSteamFarmService asfService = IArchiSteamFarmService.Instance;
+        readonly ConsoleShell consoleShell;
 
         public ArchiSteamFarmPlusPage()
         {
@@ -25,13 +26,13 @@ namespace System.Application.UI.Views.Pages
 
         private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)
         {
-            if (IArchiSteamFarmService.Instance.ReadLineTask is null)
+            if (asfService.ReadLineTask is null)
             {
-                IArchiSteamFarmService.Instance.ExecuteCommand(e.Command);
+                asfService.ExecuteCommand(e.Command!);
             }
             else
             {
-                IArchiSteamFarmService.Instance.ReadLineTask.TrySetResult(e.Command);
+                asfService.ReadLineTask.TrySetResult(e.Command!);
             }
         }
 

@@ -18,7 +18,7 @@ using Avalonia.Markup.Xaml.Styling;
 using System.Application.Services;
 using System.Windows.Input;
 using System.Linq;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Application.Models;
 using System.Reflection;
@@ -39,14 +39,16 @@ using System.Reactive.Disposables;
 [assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
 namespace System.Application.UI
 {
-    public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
+    public partial class App : AvaloniaApplication, IDisposableHolder, IApplication, IAvaloniaApplication, IClipboardPlatformService
     {
+        IApplication.AppType IApplication.GetType() => IApplication.AppType.Avalonia;
+
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
 
         const AppTheme _DefaultActualTheme = AppTheme.Dark;
-        AppTheme IAppService.DefaultActualTheme => _DefaultActualTheme;
+        AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
         AppTheme mTheme = _DefaultActualTheme;
         public AppTheme Theme
@@ -62,7 +64,7 @@ namespace System.Application.UI
 
                 if (value == AppTheme.FollowingSystem)
                 {
-                    var dps = DI.Get<IDesktopPlatformService>();
+                    var dps = IPlatformService.Instance;
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
@@ -75,7 +77,7 @@ namespace System.Application.UI
                 }
                 else if (mTheme == AppTheme.FollowingSystem)
                 {
-                    var dps = DI.Get<IDesktopPlatformService>();
+                    var dps = IPlatformService.Instance;
 #if DEBUG
                     dps.SetLightOrDarkThemeFollowingSystem(false);
 #endif
@@ -95,9 +97,9 @@ namespace System.Application.UI
 
         static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
 
-        AppTheme IAppService.GetActualThemeByFollowingSystem()
+        AppTheme IApplication.GetActualThemeByFollowingSystem()
         {
-            var dps = DI.Get<IDesktopPlatformService>();
+            var dps = IPlatformService.Instance;
             var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
             if (isLightOrDarkTheme.HasValue)
             {
@@ -188,16 +190,14 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("App.LoadXAML");
 #endif
-            Name = ThisAssembly.AssemblyTrademark;
-            ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess);
+            Name = Constants.HARDCODED_APP_NAME;
 #if StartupTrace
             StartupTrace.Restart("App.SetP");
 #endif
             //SettingsHost.Load();
-            var windowService = IWindowService.Instance;
-            windowService.Init();
-            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() => Shutdown());
+            var vmService = IViewModelManager.Instance;
+            vmService.InitViewModels();
+            IPlatformService.Instance.SetSystemSessionEnding(() => Shutdown());
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif
@@ -221,13 +221,13 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("UISettings.Subscribe");
 #endif
-            switch (windowService.MainWindow)
+            switch (vmService.MainWindow)
             {
                 case AchievementWindowViewModel window:
                     Program.IsMinimize = false;
                     MainWindow = new AchievementWindow
                     {
-                        DataContext = windowService.MainWindow,
+                        DataContext = vmService.MainWindow,
                     };
                     break;
 
@@ -248,7 +248,7 @@ namespace System.Application.UI
                     #endregion
                     MainWindow = new MainWindow
                     {
-                        DataContext = windowService.MainWindow,
+                        DataContext = vmService.MainWindow,
                     };
                     break;
             }
@@ -295,12 +295,12 @@ namespace System.Application.UI
                     }
 #if WINDOWS
 #pragma warning disable CA1416 // 验证平台兼容性
-                    JumpLists.Init();
+                    IJumpListService.Instance.InitJumpList();
 #pragma warning restore CA1416 // 验证平台兼容性
 #endif
                 }
 
-                IWindowService.Instance.MainWindow.Initialize();
+                IViewModelManager.Instance.MainWindow.Initialize();
 
                 desktop.MainWindow =
 #if !UI_DEMO
@@ -326,6 +326,9 @@ namespace System.Application.UI
         /// </summary>
         public override void RegisterServices()
         {
+            IViewModelBase.IsInDesignMode = ApplicationLifetime == null;
+            if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess | DILevel.GUI);
+
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
             base.RegisterServices();
         }
@@ -414,7 +417,7 @@ namespace System.Application.UI
             set => mMainWindow = value;
         }
 
-        AvaloniaApplication IDesktopAvaloniaAppService.Current => Current;
+        AvaloniaApplication IAvaloniaApplication.Current => Current;
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
@@ -482,7 +485,7 @@ namespace System.Application.UI
             if (OperatingSystem2.IsWindows && Instance.MainWindow is MainWindow window)
             {
 #pragma warning disable CA1416 // 验证平台兼容性
-                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(window.BackHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));
+                INativeWindowApiService.Instance.SetDesktopBackgroundToWindow(window.BackHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));
 #pragma warning restore CA1416 // 验证平台兼容性
             }
         }
@@ -504,7 +507,7 @@ namespace System.Application.UI
             return false;
         }
 
-        void IDesktopAppService.Shutdown() => Shutdown();
+        void IApplication.Shutdown() => Shutdown();
 
         //bool IDesktopAppService.IsCefInitComplete => false;
         //CefNetApp.InitState == CefNetAppInitState.Complete;
@@ -513,7 +516,7 @@ namespace System.Application.UI
 
         public readonly CompositeDisposable compositeDisposable = new();
 
-        CompositeDisposable IDesktopAppService.CompositeDisposable => compositeDisposable;
+        CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
 
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
@@ -525,6 +528,6 @@ namespace System.Application.UI
 
         #endregion
 
-        string IDesktopAppService.RenderingSubsystemName => Program.RenderingSubsystemName;
+        string IAvaloniaApplication.RenderingSubsystemName => Program.RenderingSubsystemName;
     }
 }

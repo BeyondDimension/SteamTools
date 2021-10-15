@@ -25,6 +25,7 @@ namespace System.Application.Services.Implementation
 {
     public class HttpProxyServiceImpl : IHttpProxyService
     {
+        bool disposedValue;
         readonly ProxyServer proxyServer = new();
 
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
@@ -45,16 +46,16 @@ namespace System.Application.Services.Implementation
 
         public IPAddress ProxyIp { get; set; } = IPAddress.Any;
 
-        public bool IsWindowsProxy { get; set; }
+        public bool IsSystemProxy { get; set; }
 
         public bool IsProxyGOG { get; set; }
 
         public bool OnlyEnableProxyScript { get; set; }
 
-
         public bool Socks5ProxyEnable { get; set; }
 
         public int Socks5ProxyPortId { get; set; }
+
         public int HostProxyPortId { get; set; }
 
         public bool TwoLevelAgentEnable { get; set; }
@@ -69,7 +70,6 @@ namespace System.Application.Services.Implementation
         public string? TwoLevelAgentUserName { get; set; }
 
         public string? TwoLevelAgentPassword { get; set; }
-
 
         public bool ProxyRunning => proxyServer.ProxyRunning;
 
@@ -88,7 +88,7 @@ namespace System.Application.Services.Implementation
             });
 
             proxyServer.Enable100ContinueBehaviour = false;
-            proxyServer.EnableHttp2 = false;
+            proxyServer.EnableHttp2 = true;
             proxyServer.EnableConnectionPool = true;
             proxyServer.CheckCertificateRevocation = X509RevocationMode.NoCheck;
             // 可选地设置证书引擎
@@ -243,6 +243,9 @@ namespace System.Application.Services.Implementation
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
                         {
                             //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
+#if DEBUG
+                            Debug.WriteLine("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
+#endif
                             if (!string.IsNullOrEmpty(item.ServerName))
                             {
                                 var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
@@ -368,7 +371,7 @@ namespace System.Application.Services.Implementation
         public void TrustCer()
         {
             var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
-            IPlatformService.Instance.AdminShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
+            IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
 
         public bool SetupCertificate()
@@ -523,7 +526,7 @@ namespace System.Application.Services.Implementation
                 };
                 explicitProxyEndPoint.BeforeTunnelConnectRequest += ExplicitProxyEndPoint_BeforeTunnelConnectRequest;
 
-                if (IsWindowsProxy)
+                if (IsSystemProxy)
                 {
                     //explicit endpoint 是客户端知道代理存在的地方
                     proxyServer.AddEndPoint(explicitProxyEndPoint);
@@ -574,7 +577,7 @@ namespace System.Application.Services.Implementation
 
                 proxyServer.Start();
 
-                if (IsWindowsProxy)
+                if (IsSystemProxy)
                 {
                     if (!DesktopBridge.IsRunningAsUwp && OperatingSystem2.IsWindows)
                     {
@@ -670,7 +673,6 @@ namespace System.Application.Services.Implementation
             return Task.CompletedTask;
         }
 
-
         public void StopProxy()
         {
             if (proxyServer.ProxyRunning)
@@ -682,7 +684,7 @@ namespace System.Application.Services.Implementation
                 proxyServer.Stop();
             }
 
-            if (IsWindowsProxy)
+            if (IsSystemProxy)
             {
                 if (DesktopBridge.IsRunningAsUwp)
                 {
@@ -749,13 +751,31 @@ namespace System.Application.Services.Implementation
             return store.Certificates.Contains(certificate2);
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                    if (proxyServer.ProxyRunning)
+                    {
+                        proxyServer.Stop();
+                    }
+                    proxyServer.Dispose();
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                // TODO: 将大型字段设置为 null
+                disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            if (proxyServer.ProxyRunning)
-            {
-                proxyServer.Stop();
-            }
-            proxyServer.Dispose();
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

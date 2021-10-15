@@ -3,13 +3,15 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using System;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
 
 namespace System.Application.UI.Views.Controls
 {
     public class EmptyControl : TemplatedControl
     {
+        readonly INativeWindowApiService windowApiService = INativeWindowApiService.Instance;
+
         Window window;
         Window Parent;
         IntPtr _Handle;
@@ -65,7 +67,7 @@ namespace System.Application.UI.Views.Controls
         {
             if (OperatingSystem2.IsWindows && UISettings.EnableDesktopBackground.Value)
             {
-                DI.Get<ISystemWindowApiService>().ReleaseBackground(_Handle);
+                windowApiService.ReleaseBackground(_Handle);
                 Parent.PositionChanged -= Parent_PositionChanged;
                 Close();
             }
@@ -79,10 +81,10 @@ namespace System.Application.UI.Views.Controls
                 Parent = (Window)e.Root;
                 Parent.PositionChanged += Parent_PositionChanged;
                 _Handle = Handle;
-                _Handle = DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(
+                _Handle = windowApiService.SetDesktopBackgroundToWindow(
                     _Handle, (int)window.Width, (int)window.Height);
 
-                DI.Get<ISystemWindowApiService>().SetWindowPenetrate(Handle);
+                windowApiService.SetWindowPenetrate(Handle);
             }
         }
 
@@ -98,7 +100,7 @@ namespace System.Application.UI.Views.Controls
                 window.Position = this.PointToScreen(this.Bounds.Position);
                 window.Width = this.Bounds.Width;
                 window.Height = this.Bounds.Height;
-                DI.Get<ISystemWindowApiService>().BackgroundUpdate(_Handle, (int)window.Width, (int)window.Height);
+                windowApiService.BackgroundUpdate(_Handle, (int)window.Width, (int)window.Height);
             }
             //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
         }

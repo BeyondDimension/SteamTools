@@ -24,7 +24,7 @@ namespace System.Application.Services.CloudService
     internal sealed class ApiConnection : IApiConnection
     {
         readonly ILogger logger;
-        readonly IHttpPlatformHelper http_helper;
+        readonly IHttpPlatformHelperService http_helper;
         readonly IApiConnectionPlatformHelper conn_helper;
         readonly Lazy<JsonSerializer> jsonSerializer = new(() => new JsonSerializer());
         readonly IModelValidator validator;
@@ -32,7 +32,7 @@ namespace System.Application.Services.CloudService
         public ApiConnection(
             ILogger logger,
             IApiConnectionPlatformHelper conn_helper,
-            IHttpPlatformHelper http_helper,
+            IHttpPlatformHelperService http_helper,
             IModelValidator validator)
         {
             this.logger = logger;

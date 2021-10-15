@@ -1,5 +1,6 @@
 using ReactiveUI;
 using System.Application.Mvvm;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,28 @@ namespace System.Application.UI.ViewModels
 {
     partial class AboutPageViewModel
     {
+        public AboutPageViewModel()
+        {
+            preferenceButtons = new(Enum2.GetAll<PreferenceButton>().Select(x => PreferenceButtonViewModel.Create(x, this)));
+
+            UserService.Current.WhenAnyValue(x => x.User).Subscribe(value =>
+            {
+                if (value == null)
+                {
+                    PreferenceButtonViewModel.RemoveAuthorized(preferenceButtons, this);
+                }
+                else
+                {
+                    var delAccount = preferenceButtons.FirstOrDefault(x => x.Id == PreferenceButton.账号注销);
+                    if (delAccount == null)
+                    {
+                        delAccount = PreferenceButtonViewModel.Create(PreferenceButton.账号注销, this);
+                        preferenceButtons.Add(delAccount);
+                    }
+                }
+            }).AddTo(this);
+        }
+
         ObservableCollection<PreferenceButtonViewModel> preferenceButtons;
         public ObservableCollection<PreferenceButtonViewModel> PreferenceButtons
         {

@@ -111,7 +111,7 @@ namespace System.Application
         }
     }
 
-    internal sealed class PlatformToastImpl : ToastImpl
+    internal sealed class PlatformToastImpl : ToastBaseImpl
     {
         public PlatformToastImpl(IToastIntercept intercept) : base(intercept)
         {

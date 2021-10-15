@@ -5,7 +5,7 @@ using Avalonia.Styling;
 using FluentAvalonia.Styling;
 using ReactiveUI;
 using System;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
 
@@ -52,7 +52,9 @@ namespace Avalonia.Controls
             {
                 if (OperatingSystem2.IsWindows7)
                 {
-                    IDesktopPlatformService.Instance.FixFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+#pragma warning disable CA1416 // 验证平台兼容性
+                    IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+#pragma warning restore CA1416 // 验证平台兼容性
                 }
                 else if (OperatingSystem2.IsWindows10AtLeast)
                 {

@@ -2,11 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ccl_service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:service="using:System.Application.Services"
+             xmlns:ccl_service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
@@ -59,21 +59,6 @@
               <Panel Grid.Column="1" Margin="10 5">
                 <StackPanel Spacing="8">
                   <WrapPanel>
-                    <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding BotName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                      <i:Interaction.Behaviors>
-                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
-                          <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
-                        </ia:EventTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                    </controls:ScrollingTextBlock>
-                    <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
-                    <WrapPanel VerticalAlignment="Center"
-                               IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
-                      <TextBlock Text="("></TextBlock>
-                      <controls:ScrollingTextBlock Text="{Binding Nickname}">
-                      </controls:ScrollingTextBlock>
-                      <TextBlock Text=")"></TextBlock>
-                    </WrapPanel>
                     <Ellipse
                             x:Name="circle"
                             VerticalAlignment="Center"
@@ -92,6 +77,22 @@
                         </ia:DataTriggerBehavior>
                       </i:Interaction.Behaviors>
                     </Ellipse>
+                    <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding BotName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                      <i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
+                          <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
+                        </ia:EventTriggerBehavior>
+                      </i:Interaction.Behaviors>
+                    </controls:ScrollingTextBlock>
+                    <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
+                    <WrapPanel VerticalAlignment="Center"
+                               IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+                      <TextBlock Text="("></TextBlock>
+                      <controls:ScrollingTextBlock Text="{Binding Nickname}">
+                      </controls:ScrollingTextBlock>
+                      <TextBlock Text=")"></TextBlock>
+                    </WrapPanel>
+
                   </WrapPanel>
 
                   <StackPanel
@@ -104,17 +105,40 @@
                         <Setter Property="Width" Value="20"></Setter>
                         <Setter Property="Height" Value="20"></Setter>
                       </Style>
+                      <Style Selector="Button">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Setter Property="Cursor" Value="Hand"></Setter>
+                      </Style>
                     </StackPanel.Styles>
 
-                    <Button Background="Transparent"
-                            Cursor="Hand"
-                            ToolTip.Tip="启用bot" >
+                    <Button ToolTip.Tip="开始挂卡"
+                            IsVisible="{Binding CardsFarmer.Paused}"
+                            Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
+                            CommandParameter="{Binding}">
+                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                    </Button>
+                    <Button ToolTip.Tip="暂停挂卡"
+                            IsVisible="{Binding !CardsFarmer.Paused}"
+                            Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
+                            CommandParameter="{Binding}">
+                      <PathIcon Data="{StaticResource PauseCircleDrawing}" />
+                    </Button>
+                    <Button ToolTip.Tip="激活Key" >
+                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                    </Button>
+                    <Button ToolTip.Tip="两步验证" >
+                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                    </Button>
+                    <Button ToolTip.Tip="Bot配置" >
+                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                    </Button>
+                    <Button ToolTip.Tip="禁用Bot" >
                       <PathIcon Data="{StaticResource PlayCircleDrawing}" />
                     </Button>
                   </StackPanel>
 
                   <WrapPanel Orientation="Horizontal">
-                    <TextBlock
+                    <TextBlock IsVisible="{Binding !CardsFarmer.Paused}"
                                Text="正在挂卡"
                                FontSize="16"/>
                   </WrapPanel>
@@ -132,7 +156,10 @@
                               Width="184"
                               AutoStart="true"
                               Stretch="Uniform"/>
-                            <TextBlock Text="{Binding GameName}"/>
+                            <TextBlock Text="{Binding GameName}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       TextAlignment="Center"/>
                           </StackPanel>
                         </Border>
 
