@@ -81,7 +81,7 @@ namespace System.Application
             // 业务平台用户管理
             services.TryAddUserManager();
 
-            services.TryAddDesktopHttpPlatformHelper();
+            services.TryAddClientHttpPlatformHelperService();
 
             // 服务端API调用
             services.TryAddCloudServiceClient<CloudServiceClient>(c =>
