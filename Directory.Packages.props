@@ -26,7 +26,7 @@
         <PackageVersion Include="System.Text.Json" Version="5.0.2" />
         <PackageVersion Include="System.Text.Encodings.Web" Version="5.0.1" />
         <PackageVersion Include="Polly" Version="7.2.2" />
-        <PackageVersion Include="sqlite-net-pcl" Version="1.8.103-beta" />
+        <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
         <PackageVersion Include="NUnit" Version="3.13.2" />
         <PackageVersion Include="NUnit3TestAdapter" Version="4.0.0" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
