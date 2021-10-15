@@ -307,7 +307,10 @@
       <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
         <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
           <DockPanel MinWidth="300">
-            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
+            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                       FontSize="16" 
+                       Margin="0 0 0 10"
+                       DockPanel.Dock="Top"></TextBlock>
             <ScrollViewer>
               <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
                 <ItemsControl.ItemTemplate>
@@ -328,7 +331,10 @@
         <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10"
                 IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}">
           <DockPanel MinWidth="300">
-            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="16" DockPanel.Dock="Top"></TextBlock>
+            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                       FontSize="16" 
+                       Margin="0 0 0 10"
+                       DockPanel.Dock="Top"></TextBlock>
             <ScrollViewer>
               <ItemsControl Items="{ReflectionBinding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
                 <ItemsControl.ItemTemplate>

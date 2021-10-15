@@ -22,13 +22,13 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加适用于安卓的 <see cref="IHttpPlatformHelper"/>
+        /// 添加适用于安卓的 <see cref="IHttpPlatformHelperService"/>
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
         public static IServiceCollection AddPlatformHttpPlatformHelper(this IServiceCollection services)
         {
-            services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
+            services.AddSingleton<IHttpPlatformHelperService, PlatformHttpPlatformHelper>();
             return services;
         }
 

@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using static System.Properties.ThisAssembly;
 
@@ -11,3 +12,4 @@ using static System.Properties.ThisAssembly;
 [assembly: AssemblyProduct(AssemblyProduct)]
 [assembly: AssemblyCopyright(AssemblyCopyright)]
 [assembly: AssemblyCompany(AssemblyCompany)]
+[assembly: NeutralResourcesLanguage("zh-Hans")]

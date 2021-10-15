@@ -13,8 +13,10 @@ namespace System.Application.Services
         static IHttpService Instance => DI.Get<IHttpService>();
 
         JsonSerializer Serializer { get; }
+
         IHttpClientFactory Factory { get; }
-        IHttpPlatformHelper PlatformHelper { get; }
+
+        IHttpPlatformHelperService PlatformHelper { get; }
 
         Task<T?> SendAsync<T>(
             string? requestUri,
@@ -68,7 +70,7 @@ namespace System.Application.Services
         /// <param name="requestUri"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [Obsolete]
+        [Obsolete("use cached")]
         Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken = default);
 
         static string GetImagesCacheDirectory(string? channelType)
@@ -81,13 +83,4 @@ namespace System.Application.Services
             return dirPath;
         }
     }
-
-#if DEBUG
-
-    [Obsolete("use IHttpService.Instance", true)]
-    public class HttpServices
-    {
-    }
-
-#endif
 }

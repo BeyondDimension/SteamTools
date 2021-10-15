@@ -5,19 +5,23 @@
              xmlns:ui_desktop="using:System.Application.UI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
+             xmlns:pages="using:System.Application.UI.Views.Pages"
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.AboutPage">
-  <TabControl Classes="flat" Margin="0 5 0 0">
-    <TabItem Header="{ReflectionBinding Path=Res.About_ThisSoft,Mode=OneWay,Source={x:Static resx:R.Current}}">
-      <pages:About_SoftwarePage>
-        <pages:About_SoftwarePage.DataContext>
-          <vm:AboutPageViewModel/>
-        </pages:About_SoftwarePage.DataContext>
-      </pages:About_SoftwarePage>
-    </TabItem>
-    <!--<TabItem IsVisible="{ReflectionBinding Path=.,Mode=OneWay,Source={x:Static ui_desktop:AppHelper.IsSystemWebViewAvailable}}"
+  <Border Classes="paper"
+        Margin="10"
+        Padding="0 10"
+        Background="{DynamicResource ThemeBrushKey}">
+    <TabControl Classes="flat">
+      <TabItem Header="{ReflectionBinding Path=Res.About_ThisSoft,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <pages:About_SoftwarePage>
+          <pages:About_SoftwarePage.DataContext>
+            <vm:AboutPageViewModel/>
+          </pages:About_SoftwarePage.DataContext>
+        </pages:About_SoftwarePage>
+      </TabItem>
+      <!--<TabItem IsVisible="{ReflectionBinding Path=.,Mode=OneWay,Source={x:Static ui_desktop:AppHelper.IsSystemWebViewAvailable}}"
              Header="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}">
       <pages:About_ChangeLog />
     </TabItem>
@@ -25,10 +29,11 @@
              Header="{ReflectionBinding Path=Res.About_FAQ,Mode=OneWay,Source={x:Static resx:R.Current}}">
       <pages:About_FAQPage />
     </TabItem>-->
-    <TabItem Header="{ReflectionBinding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
-      <pages:About_OpenSourcePage />
-    </TabItem>
-    <!--<TabItem Header="{ReflectionBinding Path=Res.About_Contactus,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      <TabItem Header="{ReflectionBinding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <pages:About_OpenSourcePage />
+      </TabItem>
+      <!--<TabItem Header="{ReflectionBinding Path=Res.About_Contactus,Mode=OneWay,Source={x:Static resx:R.Current}}">
         </TabItem>-->
-  </TabControl>
+    </TabControl>
+  </Border>
 </UserControl>

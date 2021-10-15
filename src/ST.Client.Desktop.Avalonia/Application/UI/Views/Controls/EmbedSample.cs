@@ -1,5 +1,5 @@
 using System;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
 using System.Runtime.InteropServices;
 using Avalonia.Controls;

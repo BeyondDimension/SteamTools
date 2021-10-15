@@ -5,7 +5,7 @@
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -20,54 +20,72 @@
             Background="{DynamicResource ThemeBrushKey}"
             Padding="10"
             Margin="{StaticResource ScrollMargin}">
-      <ui:CommandBar DefaultLabelPosition="Right">
-        <ui:CommandBar.PrimaryCommands>
-          <ui:CommandBarButton Icon="Add"
-                               Command="{Binding AddAuthCommand}"
-                               Label="{ReflectionBinding Path=Res.Add,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      <DockPanel>
+        <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 DockPanel.Dock="Right"
+                 HorizontalAlignment="Right"
+                 Classes="clearButton"
+                 Text="{CompiledBinding SearchText,Mode=TwoWay}"
+                 Background="Transparent"
+                 VerticalAlignment="Center"
+                 Width="250"
+                 MinWidth="200">
+          <TextBox.InnerLeftContent>
+            <PathIcon Data="{StaticResource SearchDrawing}"
+                      Classes="TextBoxIcon"/>
+          </TextBox.InnerLeftContent>
+        </TextBox>
+        <ui:CommandBar DefaultLabelPosition="Right"
+                       DockPanel.Dock="Left"
+                       HorizontalAlignment="Left">
+          <ui:CommandBar.PrimaryCommands>
+            <ui:CommandBarButton Icon="Add"
+                                 Command="{Binding AddAuthCommand}"
+                                 Label="{ReflectionBinding Path=Res.Add,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
 
-          <ui:CommandBarButton
-                               Command="{Binding EncryptionAuthCommand}"
-                               Label="{ReflectionBinding Path=Res.Encrypt,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource ShieldLockDrawing}"/>
-            </ui:CommandBarButton.Icon>
-          </ui:CommandBarButton>
+            <ui:CommandBarButton
+                                 Command="{Binding EncryptionAuthCommand}"
+                                 Label="{ReflectionBinding Path=Res.Encrypt,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource ShieldLockDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
 
-          <ui:CommandBarButton
-                               Command="{Binding ExportAuthCommand}"
-                               Label="{ReflectionBinding Path=Res.Export,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource ExportDrawing}"/>
-            </ui:CommandBarButton.Icon>
-          </ui:CommandBarButton>
+            <ui:CommandBarButton
+                                 Command="{Binding ExportAuthCommand}"
+                                 Label="{ReflectionBinding Path=Res.Export,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource ExportDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
 
-          <ui:CommandBarSeparator/>
+            <ui:CommandBarSeparator/>
 
-          <ui:CommandBarButton
-                     Command="{Binding LockCommand}"
-                     Label="{ReflectionBinding Path=Res.Lock,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource LockDrawing}"/>
-            </ui:CommandBarButton.Icon>
-          </ui:CommandBarButton>
+            <ui:CommandBarButton
+                       Command="{Binding LockCommand}"
+                       Label="{ReflectionBinding Path=Res.Lock,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource LockDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
 
-          <ui:CommandBarButton
-                      Command="{Binding RefreshAuthCommand}"
-                      Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
-            </ui:CommandBarButton.Icon>
-          </ui:CommandBarButton>
+            <ui:CommandBarButton
+                        Command="{Binding RefreshAuthCommand}"
+                        Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
 
-        </ui:CommandBar.PrimaryCommands>
-        <ui:CommandBar.SecondaryCommands>
-          <ui:CommandBarButton Icon="Help"
-                               Command="{Binding OpenBrowserCommand}"
-                               CommandParameter="https://keylol.com/t710508-1-1"
-                               Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        </ui:CommandBar.SecondaryCommands>
-      </ui:CommandBar>
+          </ui:CommandBar.PrimaryCommands>
+          <ui:CommandBar.SecondaryCommands>
+            <ui:CommandBarButton Icon="Help"
+                                 Command="{Binding OpenBrowserCommand}"
+                                 CommandParameter="https://keylol.com/t710508-1-1"
+                                 Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          </ui:CommandBar.SecondaryCommands>
+        </ui:CommandBar>
+      </DockPanel>
     </Border>
 
     <Panel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
@@ -89,7 +107,7 @@
         <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
           <ItemsRepeater.Layout>
             <UniformGridLayout ItemsJustification="SpaceAround"
-                               MinRowSpacing="10" 
+                               MinRowSpacing="10"
                                MinColumnSpacing="10"
                                MaximumRowsOrColumns="8"/>
             <!--<WrapLayout HorizontalSpacing="10"

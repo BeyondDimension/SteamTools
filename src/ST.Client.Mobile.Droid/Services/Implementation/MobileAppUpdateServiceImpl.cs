@@ -10,7 +10,7 @@ using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed partial class MobileAppUpdateServiceImpl : AppUpdateServiceImpl
+    internal sealed partial class MobileAppUpdateServiceImpl : ApplicationUpdateServiceImpl
     {
         readonly INotificationService notification;
         public MobileAppUpdateServiceImpl(INotificationService notification, IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)

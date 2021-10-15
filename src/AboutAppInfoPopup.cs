@@ -56,13 +56,13 @@ namespace System.Application.UI
 #else
                 if (OperatingSystem2.IsWindows)
                 {
-                    var dps = IDesktopPlatformService.Instance;
+                    var platformService = IPlatformService.Instance;
 #pragma warning disable CA1416 // 验证平台兼容性
-                    var productName = dps.WindowsProductName;
+                    var productName = platformService.WindowsProductName;
                     var major = Environment.OSVersion.Version.Major;
                     var minor = Environment.OSVersion.Version.Minor;
                     var build = Environment.OSVersion.Version.Build;
-                    var revision = dps.WindowsVersionRevision;
+                    var revision = platformService.WindowsVersionRevision;
                     b.AppendFormat("{0} {1}.{2}.{3}.{4}", productName, major, minor, build, revision);
                     var servicePack = Environment.OSVersion.ServicePack;
                     if (!string.IsNullOrEmpty(servicePack))
@@ -70,7 +70,7 @@ namespace System.Application.UI
                         b.Append(' ');
                         b.Append(servicePack);
                     }
-                    var releaseId = dps.WindowsReleaseIdOrDisplayVersion;
+                    var releaseId = platformService.WindowsReleaseIdOrDisplayVersion;
 #pragma warning restore CA1416 // 验证平台兼容性
                     if (!string.IsNullOrWhiteSpace(releaseId))
                     {
@@ -375,7 +375,7 @@ namespace System.Application.UI
                 b.AppendLine();
 
                 var b_str = b.ToString();
-                MessageBoxCompat.Show(b_str, "");
+                MessageBox.Show(b_str, "");
             }
         }
     }

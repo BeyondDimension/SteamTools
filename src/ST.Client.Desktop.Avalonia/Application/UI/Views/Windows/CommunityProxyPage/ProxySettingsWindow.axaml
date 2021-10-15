@@ -53,7 +53,7 @@
             <StackPanel Spacing="10">
               <DockPanel>
                 <Label Content="本机监听IP地址"></Label>
-                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
+                <TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
               <DockPanel>
                 <Label Content="监听端口"></Label>
@@ -125,12 +125,12 @@
 
               <DockPanel>
                 <Label Content="用户名" ></Label>
-                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentUserName},Path=Value, Mode=TwoWay}"></TextBox>
+                <TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentUserName},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
               <DockPanel>
                 <Label Content="密码" ></Label>
-                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPassword},Path=Value, Mode=TwoWay}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
+                <TextBox Classes="revealPasswordButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPassword},Path=Value, Mode=TwoWay}" PasswordChar="*"></TextBox>
               </DockPanel>
 
             </StackPanel>

@@ -76,7 +76,7 @@
         <PackageVersion Include="Microsoft.Identity.Client" Version="4.35.1" />
         <PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0" />
         <PackageVersion Include="ReactiveUI.AndroidX" Version="16.2.1" />
-        <PackageVersion Include="Square.OkHttp3" Version="4.9.1" />
+        <PackageVersion Include="Square.OkHttp3" Version="4.9.2" />
         <PackageVersion Include="Square.Picasso" Version="2.71828.0" />
         <PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />
         <PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />
@@ -95,12 +95,12 @@
         <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
         <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.20348.19" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.11" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
         <PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.9" />
         <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
         <PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
-        <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="5.2.9" />
+        <PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="5.2.14" />
         <PackageVersion Include="AutoMapper" Version="10.1.1" />
         <PackageVersion Include="AutoMapper.Collection" Version="7.0.1" />
         <PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="7.0.1" />
@@ -110,15 +110,15 @@
         <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
         <PackageVersion Include="Microsoft.PowerShell.5.ReferenceAssemblies" Version="1.1.0" />
         <PackageVersion Include="TextCopy" Version="4.3.1" />
-        <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.11" />
         <PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.0" />
         <PackageVersion Include="AspNet.Security.OAuth.Apple" Version="5.0.11" />
         <PackageVersion Include="AspNet.Security.OAuth.QQ" Version="5.0.11" />
         <PackageVersion Include="AspNet.Security.OpenId.Steam" Version="5.0.0" />
-        <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.9" />
-        <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.11" />
+        <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.11" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.9" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11" />
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.1" />
         <PackageVersion Include="SkiaSharp" Version="2.80.3" />
         <PackageVersion Include="Nito.Disposables" Version="2.2.0" />
@@ -154,6 +154,6 @@
         <PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
         <PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.1.1" />
         <PackageVersion Include="Xamarin.Google.Dagger" Version="2.37.0" />
-        <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2" />
+        <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.1" />
     </ItemGroup>
 </Project>

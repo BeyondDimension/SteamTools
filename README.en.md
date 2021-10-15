@@ -11,7 +11,7 @@
 [![GitHub Fork](https://img.shields.io/github/forks/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/network/members)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/rmbadmin/SteamTools?style=flat-square&color=3cb371)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
-[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://devblogs.microsoft.com/dotnet/announcing-net-6-release-candidate-1)
+[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://devblogs.microsoft.com/dotnet/announcing-net-6-release-candidate-2)
 [![C# 10.0](https://img.shields.io/badge/c%23-10.0-green.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10)
 
 [![Desktop UI](https://img.shields.io/badge/ui@desktop-AvaloniaUI-purple.svg?style=flat-square&color=8c45ab)](https://github.com/AvaloniaUI/Avalonia)
@@ -32,7 +32,7 @@ English | [简体中文](./README.md)
 - [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
-- [Microsoft Store](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 
 ## ✨ Functions
 1. Local reverse proxy for Steam's community webpage to enable normal access in **the Chinese Mainland, Mainland of China**

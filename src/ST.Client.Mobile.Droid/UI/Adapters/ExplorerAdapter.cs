@@ -2,13 +2,13 @@ using Android.Views;
 using Binding;
 using System.Application.UI.ViewModels;
 using TViewHolder = System.Application.UI.Adapters.ExplorerViewHolder;
-using TViewModel = System.Application.UI.ViewModels.ExplorerViewModel.PathInfoViewModel;
+using TViewModel = System.Application.UI.ViewModels.ExplorerPageViewModel.PathInfoViewModel;
 
 namespace System.Application.UI.Adapters
 {
     internal sealed class ExplorerAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>
     {
-        public ExplorerAdapter(ExplorerViewModel viewModel) : base(viewModel.PathInfos)
+        public ExplorerAdapter(ExplorerPageViewModel viewModel) : base(viewModel.PathInfos)
         {
         }
 

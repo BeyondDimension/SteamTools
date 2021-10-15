@@ -1,4 +1,3 @@
-﻿using MessagePack;
 using System.Application.Properties;
 using System.Collections.Generic;
 
