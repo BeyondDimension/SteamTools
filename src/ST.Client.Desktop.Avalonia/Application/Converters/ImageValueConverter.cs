@@ -27,7 +27,7 @@ namespace System.Application.Converters
         {
             if (url == null) return null;
             using var web = new WebClient();
-            var ua = DI.Get<IHttpPlatformHelper>().UserAgent;
+            var ua = DI.Get<IHttpPlatformHelperService>().UserAgent;
             web.Headers.Add("User-Agent", ua);
             var bt = web.DownloadData(url);
             using var stream = new MemoryStream(bt);

@@ -67,8 +67,8 @@ namespace System.Application.UI.Views.Windows
             {
                 // 进入第二步时，如果关闭窗口，则需二次确认
                 e.Cancel = true;
-                var r = await MessageBoxCompat.ShowAsync(AppResources.UnsavedEditingWillBeDiscarded, AppResources.Warning, MessageBoxButtonCompat.OKCancel);
-                if (r == MessageBoxResultCompat.OK)
+                var r = await MessageBox.ShowAsync(AppResources.UnsavedEditingWillBeDiscarded, AppResources.Warning, MessageBox.Button.OKCancel);
+                if (r.IsOK())
                 {
                     vm.IsComplete = true;
                     Close();

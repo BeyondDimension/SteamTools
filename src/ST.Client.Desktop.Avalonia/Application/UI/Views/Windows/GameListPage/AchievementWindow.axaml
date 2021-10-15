@@ -5,12 +5,12 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         Width="750" Height="500"
         x:Class="System.Application.UI.Views.Windows.AchievementWindow"
-        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:resx="using:System.Application.UI.Resx"
+        xmlns:vm="using:System.Application.UI.ViewModels"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:models="clr-namespace:System.Application.Models;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
+        xmlns:ms="using:System.Application.Settings"
+        xmlns:models="using:System.Application.Models"
+        xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
@@ -86,6 +86,7 @@
     </Menu>
     <TextBox ZIndex="2"
               Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              Classes="clearButton"
               Text="{Binding SearchText,Mode=TwoWay}"
               Margin="0 35 10 0"
               HorizontalAlignment="Right"
@@ -98,7 +99,8 @@
     </TextBox>
 
     <TabControl Classes="flat" ZIndex="1">
-      <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}"
+               Margin="0 0 0 6">
         <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
           <DataGrid.Columns>
             <!--CheckBox-->
@@ -181,7 +183,8 @@
           </DataGrid.Columns>
         </DataGrid>
       </TabItem>
-      <TabItem Header="{ReflectionBinding Path=Res.Achievement_StatsEdit,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      <TabItem Header="{ReflectionBinding Path=Res.Achievement_StatsEdit,Mode=OneWay,Source={x:Static resx:R.Current}}"
+               Margin="0 0 0 6">
         <DataGrid Items="{Binding Statistics}" IsReadOnly="False">
           <DataGrid.Columns>
             <DataGridTextColumn Header="Id" x:DataType="models:StatInfo"

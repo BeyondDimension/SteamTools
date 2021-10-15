@@ -1,9 +1,9 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:converters="clr-namespace:System.Application.Converters;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:ms="using:System.Application.Settings"
+             xmlns:converters="using:System.Application.Converters"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,32 +13,8 @@
     <converters:StringEqualsConverter x:Key="StringEqualsConverter" />
     <converters:ColorStringToBrush x:Key="ColorStringToBrush" />
   </UserControl.Resources>
-  <ScrollViewer Padding="10 0 10 20">
+  <ScrollViewer>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Spacing="20">
-      <StackPanel.Styles>
-        <Style Selector="TextBlock">
-          <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-          <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-        </Style>
-        <Style Selector="TextBlock.prompt">
-          <Setter Property="FontSize" Value="12" />
-          <!--<Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />-->
-          <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="Margin" Value="10 0" />
-        </Style>
-        <Style Selector="DockPanel > TextBlock">
-          <Setter Property="Margin" Value="0 0 20 0" />
-          <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="(DockPanel.Dock)"  Value="Left" />
-        </Style>
-        <Style Selector="DockPanel > ToggleSwitch">
-          <Setter Property="Margin" Value="0 0 -12 0" />
-          <Setter Property="HorizontalAlignment" Value="Right" />
-          <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="OnContent" Value="{x:Null}" />
-          <Setter Property="OffContent" Value="{x:Null}" />
-        </Style>
-      </StackPanel.Styles>
 
       <StackPanel Orientation="Vertical">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_ThemeAccent,Mode=OneWay,Source={x:Static resx:R.Current}}"/>

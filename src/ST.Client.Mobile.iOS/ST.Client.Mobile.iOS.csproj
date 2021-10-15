@@ -36,10 +36,6 @@
     <PackageReference Include="Toast.iOS" Aliases="NUGET_PACKAGE_TOAST_IOS" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
-  </ItemGroup>
-
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-ios-debug.pfx')">
     <EmbeddedResource Include="..\..\appcenter-secret-ios-debug.pfx" Link="UI\Resources\D3005552" />
   </ItemGroup>

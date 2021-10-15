@@ -10,17 +10,15 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
+        public static IServiceCollection AddPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
         {
             if (OperatingSystem2.IsMacOS)
             {
-                services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
+                services.AddSingleton<IHttpPlatformHelperService, MacClientHttpPlatformHelperServiceImpl>();
                 services.AddSingleton(AppDelegate.Instance!);
-                services.AddSingleton<MacDesktopPlatformServiceImpl>();
-                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
-                services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
-                services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<MacDesktopPlatformServiceImpl>());
-                //services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
+                services.AddSingleton<MacPlatformServiceImpl>();
+                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());
+                services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());
                 if (hasNotifyIcon) services.AddNotifyIcon();
             }
             else

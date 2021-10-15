@@ -1,18 +1,25 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
+using System.Reflection;
 
 namespace System.Application.UI
 {
     partial class Program
     {
-        /// <inheritdoc cref="IDesktopAppService.RenderingSubsystemName"/>
+        /// <inheritdoc cref="IDesktopApplication.RenderingSubsystemName"/>
         internal static string RenderingSubsystemName { get; private set; } = string.Empty;
 
         // Avalonia configuration, don't remove; also used by visual designer.
         static AppBuilder BuildAvaloniaApp()
         {
+#if DEBUG
+            if (Assembly.GetCallingAssembly() != Assembly.GetExecutingAssembly())
+            {
+                FileSystemDesktop.InitFileSystem();
+            }
+#endif
             SettingsHost.Load();
             var builder = AppBuilder.Configure<App>()
                 .UsePlatformDetect()
@@ -22,12 +29,12 @@ namespace System.Application.UI
             {
                 builder.With(new AvaloniaNativePlatformOptions
                 {
-                    UseGpu = !AppHelper.DisableGPU && GeneralSettings.UseGPURendering.Value
+                    UseGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value
                 });
             }
             else if (OperatingSystem2.IsWindows)
             {
-                var useOpenGL = AppHelper.UseOpenGL || GeneralSettings.UseOpenGL.Value;
+                var useOpenGL = IApplication.UseOpenGL || GeneralSettings.UseOpenGL.Value;
                 var options = new Win32PlatformOptions
                 {
                     UseWindowsUIComposition = true,

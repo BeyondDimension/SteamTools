@@ -200,7 +200,6 @@ namespace WinAuth
             public string Image { get; set; } = string.Empty;
 
             private Task<string?>? _ImageStream;
-            [Obsolete("use httpUrl in Mobile")]
             public Task<string?>? ImageStream
             {
                 get => _ImageStream;

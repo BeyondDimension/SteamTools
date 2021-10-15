@@ -163,8 +163,9 @@ namespace System.Application.Services
                         //httpProxyService.ProxyDomains = EnableProxyDomains;
                         //}
                         httpProxyService.ProxyDomains = EnableProxyDomains;
-                        httpProxyService.Scripts = EnableProxyScripts;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
+                        httpProxyService.Scripts = EnableProxyScripts;
+
                         httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
                         httpProxyService.IsWindowsProxy = ProxySettings.EnableWindowsProxy.Value;
                         httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;

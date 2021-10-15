@@ -1,16 +1,22 @@
-﻿namespace System.Application.Columns
+using SmsCodeTypeEnum = System.Application.SmsCodeType;
+
+namespace System.Application.Columns
 {
-    /// <inheritdoc cref="SmsCodeType"/>
+    /// <summary>
+    /// 列 - 短信验证码类型
+    /// </summary>
     public interface ISmsCodeType
     {
-        /// <inheritdoc cref="SmsCodeType"/>
-        SmsCodeType SmsCodeType { get; set; }
+        /// <inheritdoc cref="SmsCodeTypeEnum"/>
+        SmsCodeTypeEnum SmsCodeType { get; set; }
     }
 
-    /// <inheritdoc cref="SmsCodeType"/>
+    /// <summary>
+    /// 列(只读) - 短信验证码类型
+    /// </summary>
     public interface IReadOnlySmsCodeType
     {
-        /// <inheritdoc cref="SmsCodeType"/>
-        SmsCodeType SmsCodeType { get; }
+        /// <inheritdoc cref="SmsCodeTypeEnum"/>
+        SmsCodeTypeEnum SmsCodeType { get; }
     }
 }

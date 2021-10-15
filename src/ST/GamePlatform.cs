@@ -26,8 +26,6 @@ namespace System.Application
 
         Google,
 
-        // Add New ...
-
         #region WinAuth3 Compat
 
         HOTP,
@@ -35,14 +33,7 @@ namespace System.Application
         TOTP,
 
         #endregion
+
+        // Add New ...
     }
-
-#if DEBUG
-
-    [Obsolete("use GamePlatform", true)]
-    public enum GamePlatformEnum
-    {
-    }
-
-#endif
 }

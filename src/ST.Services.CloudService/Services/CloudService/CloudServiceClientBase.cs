@@ -58,7 +58,7 @@ namespace System.Application.Services.CloudService
         public CloudServiceClientBase(
             ILogger logger,
             IHttpClientFactory clientFactory,
-            IHttpPlatformHelper http_helper,
+            IHttpPlatformHelperService http_helper,
             IToast toast,
             IAuthHelper authHelper,
             IOptions<ICloudServiceSettings> options,
@@ -84,7 +84,7 @@ namespace System.Application.Services.CloudService
             #endregion
         }
 
-        /// <inheritdoc cref="IHttpPlatformHelper.UserAgent"/>
+        /// <inheritdoc cref="IHttpPlatformHelperService.UserAgent"/>
         internal string UserAgent => http_helper.UserAgent;
 
         IAuthHelper IApiConnectionPlatformHelper.Auth => authHelper;

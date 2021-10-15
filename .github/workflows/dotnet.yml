@@ -1,4 +1,4 @@
-name: .NET
+name: .NET Build
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100-rc.1.21458.32
+        dotnet-version: 6.0.100-rc.2.21505.57
 
 #    - name: Install macOS SDK(macOS)
 #      if: matrix.os == 'macOS-latest'
@@ -57,18 +57,18 @@ jobs:
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
       
     - name: dotnet AvaloniaApp build
-      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Desktop.Avalonia.App.csproj
+      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj
     - name: dotnet CommonUnit build
       run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
     - name: dotnet ST.Client.UnitTest build
       run: dotnet build ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
-    - name: dotnet ST.Client.Desktop.UnitTest build
-      run: dotnet build ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
+#    - name: dotnet ST.Client.Desktop.UnitTest build
+#      run: dotnet build ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
       
     - name: dotnet CommonUnit test
       run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj
     - name: dotnet ST.Client.UnitTest test
       run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
-    - name: dotnet ST.Client.Desktop.UnitTest test
-      if: matrix.os != 'windows-latest'
-      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
+#    - name: dotnet ST.Client.Desktop.UnitTest test
+#      if: matrix.os != 'windows-latest'
+#      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
