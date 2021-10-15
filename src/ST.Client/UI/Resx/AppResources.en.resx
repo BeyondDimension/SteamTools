@@ -2061,4 +2061,148 @@
     <value>Ratings and reviews</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CalcHashing3_" xml:space="preserve">
+    <value>Checking ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CalcHashing_" xml:space="preserve">
+    <value>Checking: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CreateCertificateFaild" xml:space="preserve">
+    <value>Failed to create the certificate</value>
+    <comment>Comment=Fail;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Decompressing_" xml:space="preserve">
+    <value>Decompressing: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading3_" xml:space="preserve">
+    <value>Downloading ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading_" xml:space="preserve">
+    <value>Downloading: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>The download of the update package failed, please try again later</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>It is currently the latest version</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>The new version is updated</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateTitle_" xml:space="preserve">
+    <value>The {0} version of Steam?v is updated</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
+    <value>Prompt notification when a new announcement is made.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>New version notifications</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildDownloadError" xml:space="preserve">
+    <value>Script dependency download error: {0} {1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildError" xml:space="preserve">
+    <value>Script binding error: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_CacheDeleteError" xml:space="preserve">
+    <value>Cache file deletion failed: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteError" xml:space="preserve">
+    <value>The deletion failed</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteSuccess" xml:space="preserve">
+    <value>The deletion was successful</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileDeleteError" xml:space="preserve">
+    <value>File deletion failed: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileRepeat" xml:space="preserve">
+    <value>The script repeats</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFile" xml:space="preserve">
+    <value>Script: {0} file is missing and deleted</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFileDeleteError" xml:space="preserve">
+    <value>Script: {0} file is missing, deletion fails to attempt to delete manually</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoKey" xml:space="preserve">
+    <value>Program Exception The primary key is empty</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_ReadFileError" xml:space="preserve">
+    <value>Script read exception Check syntax for errors: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDBError" xml:space="preserve">
+    <value>There was an error saving the data</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDbSuccess" xml:space="preserve">
+    <value>The addition was successful</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>Failed to download the update package, please open the official website to manually update</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>The file check failed, please open the official website to manually update</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>Prompt notifications when a new version is available and progress notifications when a new version is downloaded.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>Announcement notification</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
+    <value>The file property is read-only and the modification fails</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSizeTooLarge" xml:space="preserve">
+    <value>The file size is too large</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>File access was denied without permission</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OperationHostsError_" xml:space="preserve">
+    <value>Action hosts error {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProgramUpdateEcho" xml:space="preserve">
+    <value>Steam?replacement upgrade...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamInstallPathNotFound" xml:space="preserve">
+    <value>The Steam installation path could not be found</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>The update package unzip failed, please open the official website to manually update</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

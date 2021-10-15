@@ -6,10 +6,8 @@ namespace System.Application.Services
     /// <summary>
     /// 用户管理
     /// </summary>
-    public interface IUserManager : IAuthHelper
+    public interface IUserManager : IService<IUserManager>, IAuthHelper
     {
-        public static IUserManager Instance => DI.Get<IUserManager>();
-
         /// <inheritdoc cref="GetCurrentUserAsync"/>
         CurrentUser? GetCurrentUser();
 

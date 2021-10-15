@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using System.Application.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,7 +67,7 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            var fileResults = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
+            var fileResults = await fileDialog.ShowAsync(IAvaloniaApplication.Instance.MainWindow);
 
             return fileResults.Any_Nullable() ? fileResults.Select(x => new FileResult(x)) : Array.Empty<FileResult>();
         }
@@ -94,7 +95,7 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            var fileResult = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
+            var fileResult = await fileDialog.ShowAsync(IAvaloniaApplication.Instance.MainWindow);
 
             return string.IsNullOrEmpty(fileResult) ? null : new FileResult(fileResult);
         }

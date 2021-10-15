@@ -2057,4 +2057,148 @@
     <value>Оценка и оценка</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CalcHashing3_" xml:space="preserve">
+    <value>Проверка ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CalcHashing_" xml:space="preserve">
+    <value>Проверка: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CreateCertificateFaild" xml:space="preserve">
+    <value>Не удалось создать сертификат</value>
+    <comment>Comment=Fail;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Decompressing_" xml:space="preserve">
+    <value>Распаковка: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading3_" xml:space="preserve">
+    <value>Загрузка ({1}/{2}): {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading_" xml:space="preserve">
+    <value>Загрузка: {0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>Не удалось загрузить пакет обновления, повторите попытку позже</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>В настоящее время это последняя версия</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>Обновление новой версии</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateTitle_" xml:space="preserve">
+    <value>Обновление версии Steam++ {0} версии</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
+    <value>Уведомление о подсказке при появлении нового объявления.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>Уведомление о новой версии</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildDownloadError" xml:space="preserve">
+    <value>Сценарий зависит от ошибки загрузки: [{0}]_{1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildError" xml:space="preserve">
+    <value>Ошибка привязки скрипта: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_CacheDeleteError" xml:space="preserve">
+    <value>Сбой удаления кэшированных файлов: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteError" xml:space="preserve">
+    <value>Не удалось удалить</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteSuccess" xml:space="preserve">
+    <value>Удаление выполнено успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileDeleteError" xml:space="preserve">
+    <value>Сбой удаления файла: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileRepeat" xml:space="preserve">
+    <value>Сценарий повторяется</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFile" xml:space="preserve">
+    <value>Сценарий: {0} файл был удален</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFileDeleteError" xml:space="preserve">
+    <value>Сценарий: {0} файл отсутствует, удаление завершается неудачей, чтобы попытаться удалить вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoKey" xml:space="preserve">
+    <value>Основной ключ исключения программы пуст</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_ReadFileError" xml:space="preserve">
+    <value>Сценарий читает исключение, проверьте синтаксис на наличие ошибок: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDBError" xml:space="preserve">
+    <value>Повторите попытку, если сохраненные данные неверна</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDbSuccess" xml:space="preserve">
+    <value>Добавление выполнено успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>Не удалось загрузить пакет обновления, откройте официальный сайт для обновления вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>Проверка файлов завершается неудачей, откройте официальный сайт, чтобы обновить вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>Уведомление о ходе выполнения при загрузке новой версии, когда доступна новая версия.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>Уведомление о объявлении</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
+    <value>Свойства файла доступен только для чтения, и изменение завершается неудачей</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSizeTooLarge" xml:space="preserve">
+    <value>Размер файла слишком большой</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>Доступ к файлам отклоняется без разрешений</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OperationHostsError_" xml:space="preserve">
+    <value>Ошибка действия hosts {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProgramUpdateEcho" xml:space="preserve">
+    <value>В обновлении замены Steam++ ...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamInstallPathNotFound" xml:space="preserve">
+    <value>Не удалось найти путь установки Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>Пакет обновления не удалось распаковки, пожалуйста, откройте официальный сайт для обновления вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

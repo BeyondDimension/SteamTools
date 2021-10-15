@@ -36,7 +36,7 @@ namespace System.Application.UI
             IsMainProcess = args.Length == 0;
             IsCLTProcess = !IsMainProcess && args.FirstOrDefault() == "-clt";
 
-            AppHelper.InitLogDir();
+            IApplication.InitLogDir();
 #if StartupTrace
             StartupTrace.Restart("InitLogDir");
 #endif

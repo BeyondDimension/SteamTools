@@ -5,10 +5,11 @@ using System.Text;
 
 namespace System.Application.Services
 {
-    public interface IFontManager
+    /// <summary>
+    /// 字体管理
+    /// </summary>
+    public interface IFontManager : IService<IFontManager>
     {
-        public static IFontManager Instance => DI.Get<IFontManager>();
-
         public static KeyValuePair<string, string> Default { get; } = KeyValuePair.Create(AppResources.Default, "Default");
 
         IReadOnlyCollection<KeyValuePair<string, string>> GetFonts();

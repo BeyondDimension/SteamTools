@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -94,14 +94,6 @@
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj">
       <Project>{e7468fdd-75f7-4b08-ba47-b715bbcfcc11}</Project>
       <Name>Common.CoreLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ST.Client.Mobile.Droid\ST.Client.Mobile.Droid.csproj">
-      <Project>{bd0441c0-2fa4-4f50-a3d6-12dc468193ac}</Project>
-      <Name>ST.Client.Mobile.Droid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj">
-      <Project>{32C3BEF2-D9F2-470E-9814-A7D6E1E142A9}</Project>
-      <Name>ST.Client.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

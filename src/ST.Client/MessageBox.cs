@@ -102,9 +102,9 @@ namespace System.Application
             Abort = 1000,
         }
 
-        const string default_caption = ThisAssembly.AssemblyTrademark;
+        const string default_caption = Constants.HARDCODED_APP_NAME;
         const Button default_button = Button.OK;
-        static readonly IMessageBoxService? mbcs = DI.Get_Nullable<IMessageBoxService>();
+        static readonly IMessageBoxService? mbcs = IMessageBoxService.Instance;
         public const Button OKCancel = Button.OKCancel;
 
         /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>

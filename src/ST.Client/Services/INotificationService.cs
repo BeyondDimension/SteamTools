@@ -5,7 +5,7 @@ using static System.Application.KeyConstants;
 
 namespace System.Application.Services
 {
-    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance}"/>
+    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance, TNotificationService}"/>
     public interface INotificationService : INotificationService<NotificationType, Entrance, INotificationService>
     {
         /// <summary>

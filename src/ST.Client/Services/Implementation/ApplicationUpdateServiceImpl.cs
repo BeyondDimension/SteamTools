@@ -2,11 +2,17 @@ using Microsoft.Extensions.Options;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
+using System.Application.Settings;
+using System.Application.UI;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Properties;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.Browser2;
@@ -43,7 +49,14 @@ namespace System.Application.Services.Implementation
 
         protected ArchitectureFlags SupportedAbis { get; }
 
-        protected abstract Version OSVersion { get; }
+        protected virtual Version OSVersion => Environment.OSVersion.Version;
+
+        /// <summary>
+        /// 当更新下载完毕并校验完成时，即将退出程序之前
+        /// </summary>
+        protected virtual void OnExit()
+        {
+        }
 
         public virtual bool IsSupportedServerDistribution
         {
@@ -536,12 +549,88 @@ namespace System.Application.Services.Implementation
         /// <param name="value"></param>
         /// <param name="isIncrement"></param>
         /// <param name="downloadType"></param>
-        protected abstract void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType = default);
+        protected virtual async void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType = default)
+        {
+            if (isIncrement) // 增量更新
+            {
+                OverwriteUpgradePrivate(value);
+            }
+            else // 全量更新
+            {
+                var dirPath = Path.Combine(IOPath.BaseDirectory, Path.GetFileNameWithoutExtension(value));
+
+                if (Directory.Exists(dirPath))
+                {
+                    Directory.Delete(dirPath, true);
+                }
+
+                var isOK = await Task.Run(() => downloadType switch
+                {
+                    AppDownloadType.Compressed_GZip
+                        => TarGZipHelper.Unpack(value, dirPath,
+                            progress: new Progress<float>(OnReportDecompressing),
+                            maxProgress: CC.MaxProgress),
+                    AppDownloadType.Compressed_7z
+                        => SevenZipHelper.Unpack(value, dirPath,
+                            progress: new Progress<float>(OnReportDecompressing),
+                            maxProgress: CC.MaxProgress),
+                    _ => false,
+                });
+                if (isOK)
+                {
+                    OnReport(CC.MaxProgress);
+                    IOPath.FileTryDelete(value);
+                    OverwriteUpgradePrivate(dirPath);
+                }
+                else
+                {
+                    toast.Show(SR.UpdateUnpackFail);
+                    OnReport(CC.MaxProgress);
+                    IsNotStartUpdateing = true;
+                }
+            }
+
+            void OverwriteUpgradePrivate(string dirPath)
+            {
+                OnExit();
+
+                var updateCommandPath = Path.Combine(IOPath.CacheDirectory, "update.cmd");
+                IOPath.FileIfExistsItDelete(updateCommandPath);
+
+                var updateCommand = string.Format(
+                   SR.ProgramUpdateCmd_,
+                   IApplication.ProgramName,
+                   dirPath.TrimEnd(Path.DirectorySeparatorChar),
+                   IOPath.BaseDirectory,
+                   IApplication.ProgramPath);
+
+                updateCommand = "chcp 65001" + Environment.NewLine + updateCommand;
+
+                File.WriteAllText(updateCommandPath, updateCommand, Encoding.Default);
+
+                using var p = new Process();
+                p.StartInfo.FileName = updateCommandPath;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = !ThisAssembly.Debuggable; // 不显示程序窗口
+                p.StartInfo.Verb = "runas"; // 管理员权限运行
+                p.Start(); // 启动程序
+            }
+        }
 
         /// <summary>
         /// 在应用商店中打开
         /// </summary>
-        protected virtual async void OpenInAppStore() => await OpenAsync(UrlConstants.OfficialWebsite);
+        protected virtual async void OpenInAppStore()
+        {
+            if (DesktopBridge.IsRunningAsUwp)
+            {
+                await OpenAsync(UrlConstants.MicrosoftStoreProtocolLink);
+            }
+            else
+            {
+                await OpenAsync(UrlConstants.OfficialWebsite);
+            }
+        }
 
         void StartUpdate()
         {
@@ -558,6 +647,20 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        protected abstract AppVersionDTO.Download? GetByDownloadChannelSettings(IEnumerable<AppVersionDTO.Download> downloads);
+        protected virtual AppVersionDTO.Download? GetByDownloadChannelSettings(IEnumerable<AppVersionDTO.Download> downloads)
+        {
+            var channel = GeneralSettings.UpdateChannel.Value;
+            switch (channel)
+            {
+                case UpdateChannelType.GitHub:
+                case UpdateChannelType.Gitee:
+                    break;
+                default:
+                    channel = R.Language.StartsWith("zh") ? UpdateChannelType.Gitee : UpdateChannelType.GitHub;
+                    break;
+            }
+            return downloads.FirstOrDefault(x => x.DownloadChannelType == channel)
+                ?? downloads.FirstOrDefault();
+        }
     }
 }

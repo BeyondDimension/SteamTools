@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using static System.Application.Services.IClipboardPlatformService;
+using System.Application.Services;
 
 namespace System.Application
 {
@@ -19,7 +19,7 @@ namespace System.Application
             }
             else
             {
-                await Instance.PlatformSetTextAsync(text ?? string.Empty);
+                await IClipboardPlatformService.Instance.PlatformSetTextAsync(text ?? string.Empty);
             }
         }
 
@@ -33,7 +33,7 @@ namespace System.Application
             }
             else
             {
-                return await Instance.PlatformGetTextAsync();
+                return await IClipboardPlatformService.Instance.PlatformGetTextAsync();
             }
         }
 
@@ -47,7 +47,7 @@ namespace System.Application
                 }
                 else
                 {
-                    return Instance.PlatformHasText;
+                    return IClipboardPlatformService.Instance.PlatformHasText;
                 }
             }
         }

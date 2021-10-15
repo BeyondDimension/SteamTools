@@ -9,7 +9,7 @@ namespace System
     /// </summary>
     public static class ProcessExtensions
     {
-        /// <inheritdoc cref="IDesktopPlatformService.GetCommandLineArgs(Process)"/>
+        /// <inheritdoc cref="IPlatformService.GetCommandLineArgs(Process)"/>
         public static string GetCommandLineArgs(this Process process)
         {
             try

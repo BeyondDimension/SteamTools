@@ -11,7 +11,7 @@ namespace System.Application.UI
     partial class Program
     {
         const string command_main = "main";
-        static ApplicationInstance? appInstance;
+        static IApplication.SingletonInstance? appInstance;
 
         /// <summary>
         /// 命令行工具(Command Line Tools/CLT)
@@ -39,18 +39,18 @@ namespace System.Application.UI
                     if (IsMainProcess)
                     {
                         var isInitAppInstanceReset = false;
-                    initAppInstance: appInstance = new ApplicationInstance();
+                    initAppInstance: appInstance = new();
                         if (!appInstance.IsFirst)
                         {
                             //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
-                            if (ApplicationInstance.SendMessage(string.Empty))
+                            if (IApplication.SingletonInstance.SendMessage(string.Empty))
                             {
                                 return;
                             }
                             else
                             {
                                 if (!isInitAppInstanceReset &&
-                                    ApplicationInstance.TryKillCurrentAllProcess())
+                                    IApplication.SingletonInstance.TryKillCurrentAllProcess())
                                 {
                                     isInitAppInstanceReset = true;
                                     appInstance.Dispose();
@@ -126,12 +126,12 @@ namespace System.Application.UI
                 devtools.AddOption(new Option<bool>("-use_opengl", () => false, "使用 OpenGL(仅 Windows)"));
                 devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_opengl) =>
                 {
-                    AppHelper.EnableDevtools = true;
-                    AppHelper.DisableGPU = disable_gpu;
-                    AppHelper.UseOpenGL = use_opengl;
+                    IApplication.EnableDevtools = true;
+                    IApplication.DisableGPU = disable_gpu;
+                    IApplication.UseOpenGL = use_opengl;
                     MainHandlerByCLT_(onInitStartuped: () =>
                     {
-                        AppHelper.LoggerMinLevel = LogLevel.Debug;
+                        IApplication.LoggerMinLevel = LogLevel.Debug;
                     });
                 });
                 rootCommand.AddCommand(devtools);
@@ -173,7 +173,7 @@ namespace System.Application.UI
                         if (!silence)
                         {
                             Startup.Init(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
-                            IDesktopWindowViewModelManager.Instance.InitUnlockAchievement(id);
+                            IViewModelManager.Instance.InitUnlockAchievement(id);
                             BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
                         }
                         else

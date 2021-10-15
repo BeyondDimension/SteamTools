@@ -1,7 +1,8 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
+using System.Reflection;
 
 namespace System.Application.UI
 {
@@ -14,8 +15,10 @@ namespace System.Application.UI
         static AppBuilder BuildAvaloniaApp()
         {
 #if DEBUG
-            if (Reflection.Assembly.GetCallingAssembly() != Reflection.Assembly.GetExecutingAssembly())
+            if (Assembly.GetCallingAssembly() != Assembly.GetExecutingAssembly())
+            {
                 FileSystemDesktop.InitFileSystem();
+            }
 #endif
             SettingsHost.Load();
             var builder = AppBuilder.Configure<App>()
@@ -26,12 +29,12 @@ namespace System.Application.UI
             {
                 builder.With(new AvaloniaNativePlatformOptions
                 {
-                    UseGpu = !AppHelper.DisableGPU && GeneralSettings.UseGPURendering.Value
+                    UseGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value
                 });
             }
             else if (OperatingSystem2.IsWindows)
             {
-                var useOpenGL = AppHelper.UseOpenGL || GeneralSettings.UseOpenGL.Value;
+                var useOpenGL = IApplication.UseOpenGL || GeneralSettings.UseOpenGL.Value;
                 var options = new Win32PlatformOptions
                 {
                     UseWindowsUIComposition = true,

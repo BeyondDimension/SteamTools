@@ -242,6 +242,7 @@ namespace System.Application.Services.Implementation
                         //e.HttpClient.Request.Host = item.ForwardDomainName ?? e.HttpClient.Request.Host;
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
                         {
+                            //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
 #if DEBUG
                             Debug.WriteLine("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
 #endif

@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-    public interface IMessageBoxService
+    /// <summary>
+    /// MessageBox 自定义实现服务(可选)
+    /// </summary>
+    public interface IMessageBoxService : IOptionalService<IMessageBoxService>
     {
         /// <summary>
         /// 显示一个消息框，该消息框包含消息、标题栏标题、按钮和图标，并且返回结果

@@ -1,41 +1,21 @@
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
-using System.Application.UI.ViewModels.Abstractions;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using System.Properties;
 using System.Reactive.Linq;
-using Interface = System.Application.UI.Resx.R;
-using BaseClass = System.Application.UI.Resx.Abstractions.R;
-using static System.Application.UI.Resx.R;
 
 namespace System.Application.UI.Resx
 {
-#pragma warning disable IDE1006 // 命名样式
-    internal interface R : IReactiveObject
-#pragma warning restore IDE1006 // 命名样式
+    public sealed class R : MvvmService<R>
     {
-        static BaseClass Current => mCurrent is BaseClass i ? i : throw new NullReferenceException("R is null.");
-
-        static BaseClass? mCurrent;
-    }
-}
-
-namespace System.Application.UI.Resx.Abstractions
-{
-    public abstract class R : ReactiveObject, Interface
-    {
-        public static BaseClass Current => Interface.Current;
-
         public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
         static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
         public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
-        public AppResources Res { get; protected set; } = new();
+        public AppResources Res { get; private set; } = new();
 
         public static CultureInfo DefaultCurrentUICulture { get; private set; }
 
@@ -192,19 +172,5 @@ namespace System.Application.UI.Resx.Abstractions
         }
 
         public static CultureInfo Culture => AppResources.Culture ?? DefaultCurrentUICulture;
-    }
-
-    public abstract class R<T> : BaseClass where T : R<T>, new()
-    {
-        public static T Current
-        {
-            get => ((T)Interface.Current)!;
-            protected set => Interface.mCurrent = value;
-        }
-
-        static R()
-        {
-            Current = new();
-        }
     }
 }

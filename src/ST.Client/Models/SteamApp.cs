@@ -252,7 +252,7 @@ namespace System.Application.Models
         public Process? StartSteamAppProcess()
         {
             return Process = Process2.Start(
-                AppHelper.ProgramPath,
+                IApplication.ProgramPath,
                 $"-clt app -silence -id {AppId}");
         }
 
@@ -309,7 +309,11 @@ namespace System.Application.Models
                 {
                     var dllPath = Path.GetDirectoryName(dll);
                     var targetDllPath = Path.Combine(dllPath!, "nvngx_dlss.dll");
+#if NETSTANDARD
+                    File.Move(dll, targetDllPath);
+#else
                     File.Move(dll, targetDllPath, true);
+#endif
                 }
                 catch (Exception err)
                 {

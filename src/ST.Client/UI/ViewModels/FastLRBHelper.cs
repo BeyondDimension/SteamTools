@@ -218,11 +218,7 @@ namespace System.Application.UI.ViewModels
             await Browser2.OpenAsync(url);
         }
     }
-}
 
-// ReSharper disable once CheckNamespace
-namespace System.Application.UI.ViewModels.Abstractions
-{
     partial class LoginOrRegisterWindowViewModel : IViewModel
     {
         WebSocketServer? IViewModel.WebSocketServer { get; set; }

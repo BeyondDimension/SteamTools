@@ -15,7 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddGeneralLogging(this IServiceCollection services)
         {
-            var (minLevel, action) = AppHelper.ConfigureLogging();
+            var (minLevel, action) = IApplication.ConfigureLogging();
             services.AddLogging(b =>
             {
                 action(b);

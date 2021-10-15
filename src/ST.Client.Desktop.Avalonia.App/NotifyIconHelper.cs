@@ -72,7 +72,7 @@ namespace System.Application.UI
 #if WINDOWS
             notifyIcon.RightClick += (_, e) =>
             {
-                IDesktopWindowViewModelManager.Instance.ShowTaskBarWindow(e.X, e.Y);
+                IViewModelManager.Instance.ShowTaskBarWindow(e.X, e.Y);
             };
 #else
             menuItemDisposable = InitMenuItems(notifyIcon);
@@ -107,7 +107,7 @@ namespace System.Application.UI
         static IDisposable? InitMenuItems(NotifyIcon notifyIcon)
         {
 #if !TRAY_INDEPENDENT_PROGRAM
-            if (IDesktopWindowViewModelManager.Instance.MainWindow is not MainWindowViewModel main) return null;
+            if (IViewModelManager.Instance.MainWindow is not MainWindowViewModel main) return null;
 #else
             MainWindowViewModel main = new();
 #endif
@@ -245,11 +245,11 @@ namespace System.Application.UI
             protected override void OnStartCore()
             {
                 if (!OperatingSystem.IsLinux()) return;
-                var fileName = AppHelper.ProgramPath + "_LinuxTrayIcon";
+                var fileName = IApplication.ProgramPath + "_LinuxTrayIcon";
 
-                var unixSetFileAccessResult = IDesktopPlatformService.Instance.UnixSetFileAccess(fileName, IDesktopPlatformService.UnixPermission.Combined755);
+                var unixSetFileAccessResult = IPlatformService.Instance.UnixSetFileAccess(fileName, IPlatformService.UnixPermission.Combined755);
 
-                if (unixSetFileAccessResult != IDesktopPlatformService.UnixSetFileAccessResult.Success)
+                if (unixSetFileAccessResult != IPlatformService.UnixSetFileAccessResult.Success)
                     return;
 
                 Process pipeClient = new();

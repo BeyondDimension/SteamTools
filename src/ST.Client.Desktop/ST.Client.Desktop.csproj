@@ -57,4 +57,17 @@
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Services\Implementation\" />
+    <Folder Include="Services\Mvvm\" />
+    <Folder Include="UI\Resx\" />
+    <Folder Include="UI\ViewModels\Pages\About\" />
+    <Folder Include="UI\ViewModels\Pages\GameRelated\" />
+    <Folder Include="UI\ViewModels\Pages\Settings\" />
+    <Folder Include="UI\ViewModels\Windows\ArchiSteamFarmPlus\" />
+    <Folder Include="UI\ViewModels\Windows\CommunityProxyPage\" />
+    <Folder Include="UI\ViewModels\Windows\LocalAuthPage\" />
+  </ItemGroup>
 </Project>

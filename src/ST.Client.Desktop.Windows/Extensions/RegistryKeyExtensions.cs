@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System.Runtime.Versioning;
 
 // ReSharper disable once CheckNamespace
@@ -46,23 +46,4 @@ namespace System
             }
         }
     }
-
-#if DEBUG
-
-    [Obsolete("use RegistryKeyExtensions", true)]
-    public class RegistryKeyService
-    {
-        [Obsolete("use registryKey.Read", true)]
-        public string ReadRegistryKey(RegistryKey registryKey, string path, string key)
-        {
-            return string.Empty;
-        }
-
-        [Obsolete("use registryKey.AddOrUpdate", true)]
-        public void AddOrUpdateRegistryKey(RegistryKey registryKey, string path, string key, string value, RegistryValueKind registryValueKind)
-        {
-        }
-    }
-
-#endif
 }

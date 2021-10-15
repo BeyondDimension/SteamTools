@@ -2057,4 +2057,148 @@
     <value>打分&amp;評價</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CalcHashing3_" xml:space="preserve">
+    <value>正在驗證（{1}/{2}）：{0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CalcHashing_" xml:space="preserve">
+    <value>正在檢查：{0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CreateCertificateFaild" xml:space="preserve">
+    <value>建立證書失敗</value>
+    <comment>Comment=Fail;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Decompressing_" xml:space="preserve">
+    <value>解壓：{0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading3_" xml:space="preserve">
+    <value>下載（{1}/{2}）：{0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloading_" xml:space="preserve">
+    <value>正在下載：{0}%</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>下載更新包失敗，請稍後重試</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="IsExistUpdateFalse" xml:space="preserve">
+    <value>當前已是最新版本</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdate" xml:space="preserve">
+    <value>新版本更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateTitle_" xml:space="preserve">
+    <value>Steam++ v{0} 版本更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
+    <value>當有新公告時的提示通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
+    <value>新版本通知</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildDownloadError" xml:space="preserve">
+    <value>腳本依賴下載出錯：[{0}]_{1}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_BuildError" xml:space="preserve">
+    <value>文本繫結錯誤：{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_CacheDeleteError" xml:space="preserve">
+    <value>快取檔案刪除失敗：{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteError" xml:space="preserve">
+    <value>刪除失敗</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_DeleteSuccess" xml:space="preserve">
+    <value>刪除成功</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileDeleteError" xml:space="preserve">
+    <value>檔案刪除失敗：{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_FileRepeat" xml:space="preserve">
+    <value>腳本重複</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFile" xml:space="preserve">
+    <value>文本：{0}_檔丟失已刪除</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoFileDeleteError" xml:space="preserve">
+    <value>文本：{0}_檔丟失，刪除失敗去嘗試手動刪除</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_NoKey" xml:space="preserve">
+    <value>程序異常 主鍵為空</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_ReadFileError" xml:space="preserve">
+    <value>文稿讀取異常請檢查語法是否有錯誤：{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDBError" xml:space="preserve">
+    <value>保存數據出錯請重試</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_SaveDbSuccess" xml:space="preserve">
+    <value>添加成功</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>下載更新包失敗，請打開官網手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>文件校驗失敗，請打開官網手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
+    <value>當有新版本可用時的提示通知與下載新版本時的進度通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
+    <value>公告通知</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
+    <value>文件屬性為只讀，修改失敗</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileSizeTooLarge" xml:space="preserve">
+    <value>文件大小過大</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileUnauthorized" xml:space="preserve">
+    <value>檔案訪問被拒絕，沒有許可權</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OperationHostsError_" xml:space="preserve">
+    <value>操作 hosts 錯誤 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProgramUpdateEcho" xml:space="preserve">
+    <value>Steam++ 替換升級中...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamInstallPathNotFound" xml:space="preserve">
+    <value>找不到 Steam 安裝路徑</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>更新包解壓失敗，請打開官網手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

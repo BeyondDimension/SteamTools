@@ -28,7 +28,7 @@ using System.Net;
 using System.Diagnostics;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 #if __ANDROID__
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
@@ -143,7 +143,7 @@ namespace System.Application
             var hasSteam = level.HasFlag(DILevel.Steam);
 #if !UI_DEMO && !__MOBILE__
             // 桌面平台服务 此项放在其他通用业务实现服务之前
-            services.AddDesktopPlatformService(hasSteam, hasGUI, HasNotifyIcon);
+            services.AddPlatformService(hasSteam, hasGUI, HasNotifyIcon);
 #endif
 #if __MOBILE__
             services.AddMobilePlatformService(hasGUI);
@@ -173,12 +173,12 @@ namespace System.Application
 
                 services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #else
-                services.AddSingleton<IDesktopApplication>(_ => PlatformApplication.Instance);
-                services.AddSingleton<IDesktopAvaloniaAppService>(_ => PlatformApplication.Instance);
-                services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<IDesktopApplication>());
+                services.AddSingleton<IApplication>(_ => PlatformApplication.Instance);
+                services.AddSingleton<IAvaloniaApplication>(_ => PlatformApplication.Instance);
+                services.TryAddSingleton<IClipboardPlatformService>(_ => PlatformApplication.Instance);
 
                 // 添加管理主窗口服务
-                services.AddWindowService();
+                services.AddViewModelManager();
 
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
@@ -204,7 +204,7 @@ namespace System.Application
                  *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
                  *  - 某些图标图片与枚举值不太匹配，例如 Information
                  */
-                services.AddShowWindowService();
+                services.AddWindowManager();
 
 #if WINDOWS
                 // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
@@ -230,7 +230,7 @@ namespace System.Application
                 services.AddPlatformHttpPlatformHelper();
 #else
                 // 添加 Http 平台助手桌面端实现
-                services.TryAddDesktopHttpPlatformHelper();
+                services.TryAddClientHttpPlatformHelperService();
 #endif
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.HttpPlatformHelper");
@@ -325,7 +325,7 @@ namespace System.Application
 #if !__MOBILE__
                 if (!Program.IsMainProcess) return;
 #endif
-                services.AddNotificationService();
+                services.TryAddNotificationService();
             }
 #endif
 #if !__MOBILE__
@@ -364,7 +364,7 @@ namespace System.Application
             if (hasMainProcessRequired)
             {
                 // 应用程序更新服务
-                services.AddAppUpdateService();
+                services.AddApplicationUpdateService();
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.AppUpdateService");
 #endif

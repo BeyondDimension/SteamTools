@@ -16,7 +16,7 @@ namespace System.Application.Services
 
         IHttpClientFactory Factory { get; }
 
-        IHttpPlatformHelper PlatformHelper { get; }
+        IHttpPlatformHelperService PlatformHelper { get; }
 
         Task<T?> SendAsync<T>(
             string? requestUri,

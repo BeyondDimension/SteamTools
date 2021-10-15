@@ -9,9 +9,9 @@ namespace System.Application.Services
     /// <summary>
     /// 应用程序更新服务
     /// </summary>
-    public interface IApplicationUpdateService
+    public interface IApplicationUpdateService : IService<IApplicationUpdateService>
     {
-        static IApplicationUpdateService Instance => DI.Get<IApplicationUpdateService>();
+        new static IApplicationUpdateService Instance => IService<IApplicationUpdateService>.Instance;
 
         /// <summary>
         /// 升级包存放文件夹名称

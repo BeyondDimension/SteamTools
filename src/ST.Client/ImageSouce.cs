@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Diagnostics.CodeAnalysis;
+using System.Application.UI;
 
 namespace System.Application
 {
@@ -99,6 +100,31 @@ namespace System.Application
                     return null;
                 }
             }
+        }
+
+        /// <summary>
+        /// 将图片文件本地路径或资源路径转为图像源
+        /// </summary>
+        /// <param name="filePathOrResUri"></param>
+        /// <param name="isCircle">是否为圆形</param>
+        /// <param name="config">图像可配置选项</param>
+        /// <returns></returns>
+        public static object? TryParse(string? filePathOrResUri, bool isCircle = false, Action<ClipStream>? config = null)
+        {
+            if (filePathOrResUri == null)
+                return null;
+            if (IApplication.Type == IApplication.AppType.Avalonia)
+            {
+                if (filePathOrResUri.StartsWith("avares:"))
+                    return filePathOrResUri;
+            }
+            ClipStream? clipStream = filePathOrResUri;
+            if (clipStream != null)
+            {
+                clipStream.Circle = isCircle;
+                config?.Invoke(clipStream);
+            }
+            return clipStream;
         }
     }
 }

@@ -2,6 +2,7 @@ using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Skia;
 using SkiaSharp;
+using System.Application.UI;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,16 +13,16 @@ namespace System.Application.Services.Implementation
     public class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl
     {
         readonly string _defaultFamilyName;
-        readonly IDesktopApplication appService;
+        readonly IAvaloniaApplication application;
 
         readonly Typeface _defaultTypeface =
            new("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
 
         public static bool UseGdiPlusFirst { get; set; }
 
-        public AvaloniaFontManagerImpl(IDesktopPlatformService platformService, IDesktopApplication appService) : base(platformService)
+        public AvaloniaFontManagerImpl(IPlatformService platformService, IAvaloniaApplication application) : base(platformService)
         {
-            this.appService = appService;
+            this.application = application;
             _defaultFamilyName = _defaultTypeface.FontFamily.FamilyNames.PrimaryFamilyName;
         }
 
@@ -93,7 +94,7 @@ namespace System.Application.Services.Implementation
 
         protected virtual IEnumerable<string> GetInstalledFontFamilyNamesByDirect2D1(bool checkForUpdates) => throw new NotSupportedException();
 
-        public IEnumerable<string> GetInstalledFontFamilyNames(bool checkForUpdates = false) => appService.RenderingSubsystemName switch
+        public IEnumerable<string> GetInstalledFontFamilyNames(bool checkForUpdates = false) => application.RenderingSubsystemName switch
         {
             Skia => GetInstalledFontFamilyNamesBySkia(checkForUpdates),
             Direct2D1 => GetInstalledFontFamilyNamesByDirect2D1(checkForUpdates),
@@ -166,7 +167,7 @@ namespace System.Application.Services.Implementation
         CultureInfo culture, out Typeface fontKey) => throw new NotSupportedException();
 
         public bool TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontFamily fontFamily,
-          CultureInfo culture, out Typeface fontKey) => appService.RenderingSubsystemName switch
+          CultureInfo culture, out Typeface fontKey) => application.RenderingSubsystemName switch
           {
               Skia => TryMatchCharacterBySkia(codepoint, fontStyle, fontWeight, fontFamily, culture, out fontKey),
               Direct2D1 => TryMatchCharacterByDirect2D1(codepoint, fontStyle, fontWeight, fontFamily, culture, out fontKey),
@@ -242,7 +243,7 @@ namespace System.Application.Services.Implementation
 
         protected virtual IGlyphTypefaceImpl CreateGlyphTypefaceByDirect2D1(Typeface typeface) => throw new NotSupportedException();
 
-        public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface) => appService.RenderingSubsystemName switch
+        public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface) => application.RenderingSubsystemName switch
         {
             Skia => CreateGlyphTypefaceBySkia(typeface),
             Direct2D1 => CreateGlyphTypefaceByDirect2D1(typeface),

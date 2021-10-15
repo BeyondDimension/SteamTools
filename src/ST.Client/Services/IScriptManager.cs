@@ -11,7 +11,7 @@ namespace System.Application.Services
     /// <summary>
     /// 脚本管理
     /// </summary>
-    public interface IScriptManager
+    public interface IScriptManager : IService<IScriptManager>
     {
         /// <summary>
         /// 绑定JS

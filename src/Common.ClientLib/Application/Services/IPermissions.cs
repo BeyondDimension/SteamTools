@@ -7,10 +7,8 @@ namespace System.Application.Services
     /// <summary>
     /// 运行时权限
     /// </summary>
-    public interface IPermissions
+    public interface IPermissions : IService<IPermissions>
     {
-        static IPermissions Instance => DI.Get<IPermissions>();
-
         interface IPermission
         {
             BasePermission Permission { get; }

@@ -27,11 +27,11 @@ namespace System.Application.Services.Implementation
 
         IHttpClientFactory IHttpService.Factory => _clientFactory;
 
-        IHttpPlatformHelper IHttpService.PlatformHelper => http_helper;
+        IHttpPlatformHelperService IHttpService.PlatformHelper => http_helper;
 
         public HttpServiceImpl(
             ILoggerFactory loggerFactory,
-            IHttpPlatformHelper http_helper,
+            IHttpPlatformHelperService http_helper,
             IHttpClientFactory clientFactory)
             : base(loggerFactory.CreateLogger(TAG), http_helper, clientFactory)
         {

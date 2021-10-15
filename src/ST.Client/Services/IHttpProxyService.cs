@@ -17,10 +17,11 @@ using Titanium.Web.Proxy.Network;
 
 namespace System.Application.Services
 {
-    public interface IHttpProxyService : IDisposable
+    /// <summary>
+    /// Http 代理服务
+    /// </summary>
+    public interface IHttpProxyService : IService<IHttpProxyService>, IDisposable
     {
-        static IHttpProxyService Instance => DI.Get<IHttpProxyService>();
-
         bool IsCertificate { get; }
 
         void TrustCer();
@@ -42,6 +43,9 @@ namespace System.Application.Services
         IPAddress ProxyIp { get; set; }
 
         bool IsSystemProxy { get; set; }
+
+        [Obsolete("use IsSystemProxy", true)]
+        bool IsWindowsProxy { get => IsSystemProxy; set => IsSystemProxy = value; }
 
         bool IsProxyGOG { get; set; }
 

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Application.UI.ViewModels;
+using System.Reflection;
 
 namespace System.Application.Services
 {
     /// <summary>
-    /// 窗口服务
+    /// 窗口管理
     /// </summary>
-    public interface IWindowManager
+    public interface IWindowManager : IService<IWindowManager>
     {
-        static IWindowManager Instance => DI.Get<IWindowManager>();
-
         /// <summary>
         /// 显示一个窗口
         /// </summary>
@@ -30,12 +29,12 @@ namespace System.Application.Services
             ResizeMode resizeMode = ResizeMode.NoResize,
             bool isDialog = false,
             bool isParent = true)
-            where TWindowViewModel : PageViewModel, new();
+            where TWindowViewModel : WindowViewModel, new();
 
         /// <inheritdoc cref="Show{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeMode, bool, bool)"/>
         Task Show(Type typeWindowViewModel,
             CustomWindow customWindow,
-            PageViewModel? viewModel = null,
+            WindowViewModel? viewModel = null,
             string title = "",
             ResizeMode resizeMode = ResizeMode.NoResize,
             bool isDialog = false,
@@ -43,7 +42,7 @@ namespace System.Application.Services
 
         /// <inheritdoc cref="Show{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeMode, bool, bool)"/>
         Task Show(CustomWindow customWindow,
-            PageViewModel? viewModel = null,
+            WindowViewModel? viewModel = null,
             string title = "",
             ResizeMode resizeMode = ResizeMode.NoResize,
             bool isDialog = false,
@@ -66,19 +65,19 @@ namespace System.Application.Services
             ResizeMode resizeMode = ResizeMode.NoResize,
             bool isDialog = true,
             bool isParent = true)
-            where TWindowViewModel : PageViewModel, new();
+            where TWindowViewModel : WindowViewModel, new();
 
         /// <inheritdoc cref="ShowDialog{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeMode, bool, bool)"/>
         Task ShowDialog(Type typeWindowViewModel,
             CustomWindow customWindow,
-            PageViewModel? viewModel = null,
+            WindowViewModel? viewModel = null,
             string title = "",
             ResizeMode resizeMode = ResizeMode.NoResize,
             bool isDialog = true);
 
         /// <inheritdoc cref="ShowDialog{TWindowViewModel}(CustomWindow, TWindowViewModel?, string, ResizeMode, bool, bool)"/>
         Task ShowDialog(CustomWindow customWindow,
-            PageViewModel? viewModel = null,
+            WindowViewModel? viewModel = null,
             string title = "",
             ResizeMode resizeMode = ResizeMode.NoResize,
             bool isDialog = true);
@@ -87,7 +86,7 @@ namespace System.Application.Services
         /// 根据视图模型关闭窗口
         /// </summary>
         /// <param name="vm"></param>
-        void CloseWindow(PageViewModel vm)
+        void CloseWindow(WindowViewModel vm)
         {
 
         }
@@ -97,7 +96,7 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="vm"></param>
         /// <returns></returns>
-        bool IsVisibleWindow(PageViewModel vm)
+        bool IsVisibleWindow(WindowViewModel vm)
         {
             return default;
         }
@@ -106,7 +105,7 @@ namespace System.Application.Services
         /// 根据视图模型隐藏窗口
         /// </summary>
         /// <param name="vm"></param>
-        void HideWindow(PageViewModel vm)
+        void HideWindow(WindowViewModel vm)
         {
         }
 
@@ -114,9 +113,60 @@ namespace System.Application.Services
         /// 根据视图模型显示窗口
         /// </summary>
         /// <param name="vm"></param>
-        void ShowWindow(PageViewModel vm)
+        void ShowWindow(WindowViewModel vm)
         {
 
+        }
+    }
+
+    /// <inheritdoc cref="IWindowManager"/>
+    public interface IWindowManagerImpl : IWindowManager
+    {
+        Type WindowType { get; }
+
+        Type GetWindowType(CustomWindow customWindow, params Assembly[]? assemblies)
+        {
+            IEnumerable<Assembly>? assemblies_ = assemblies;
+            return GetWindowType(customWindow, assemblies_);
+        }
+
+        Type GetWindowType(CustomWindow customWindow, IEnumerable<Assembly>? assemblies)
+        {
+            var typeName = $"System.Application.UI.Views.Windows.{customWindow}Window";
+            const string errMsg = "GetWindowType fail.";
+            return GetType(typeName, WindowType, errMsg, customWindow, assemblies);
+        }
+
+        Type GetWindowViewModelType(CustomWindow customWindow, params Assembly[]? assemblies)
+        {
+            IEnumerable<Assembly>? assemblies_ = assemblies;
+            return GetWindowViewModelType(customWindow, assemblies_);
+        }
+
+        Type GetWindowViewModelType(CustomWindow customWindow, IEnumerable<Assembly>? assemblies)
+        {
+            var typeName = $"System.Application.UI.ViewModels.{customWindow}WindowViewModel";
+            const string errMsg = "GetWindowViewModelType fail.";
+            return GetType(typeName, typeof(WindowViewModel), errMsg, customWindow, assemblies);
+        }
+
+        private Type GetType(string typeName, Type baseType, string errMsg, CustomWindow customWindow, IEnumerable<Assembly>? assemblies)
+        {
+            Type? type = null;
+            if (assemblies.Any_Nullable())
+            {
+                foreach (var item in assemblies!)
+                {
+                    type = item.GetType(typeName);
+                    if (type != null) break;
+                }
+            }
+            else
+            {
+                type = Type.GetType(typeName);
+            }
+            if (type != null && baseType.IsAssignableFrom(type)) return type;
+            throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, errMsg);
         }
     }
 }

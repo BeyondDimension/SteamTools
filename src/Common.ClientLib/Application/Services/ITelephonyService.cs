@@ -5,10 +5,8 @@ namespace System.Application.Services
     /// <summary>
     /// 电话服务
     /// </summary>
-    public interface ITelephonyService
+    public interface ITelephonyService : IService<ITelephonyService>
     {
-        public static ITelephonyService Instance => DI.Get<ITelephonyService>();
-
         /// <summary>
         /// 获取当前设备的手机号码(Only Android)
         /// </summary>

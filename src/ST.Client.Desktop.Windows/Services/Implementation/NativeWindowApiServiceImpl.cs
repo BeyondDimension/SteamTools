@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
+using System.Windows;
 
 namespace System.Application.Services.Implementation
 {
@@ -15,7 +16,7 @@ namespace System.Application.Services.Implementation
         /// <param name="action">目标窗口回调</param>
         public void GetMoveMouseDownWindow(Action<NativeWindowModel> action)
         {
-            void MouseHook_OnMouseUp(object? sender, PointDouble p)
+            void MouseHook_OnMouseUp(object? sender, Point p)
             {
                 //Point GetMousePos = Mouse.GetPosition(App.Current.MainWindow);
                 //Name = System.Windows.Forms.Cursor.Position.X + "," + System.Windows.Forms.Cursor.Position.Y;

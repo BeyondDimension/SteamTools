@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FluentAvalonia.Styling;
 using ReactiveUI;
+using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
 using System.Threading.Tasks;
@@ -29,8 +30,8 @@ namespace System.Application.UI.Views.Windows
             CanResize = false;
             ShowInTaskbar = false;
 
-            this.Opened += Window_Opened;
-            this.LostFocus += Window_LostFocus;
+            Opened += Window_Opened;
+            LostFocus += Window_LostFocus;
 
             //var localAuthbtn = this.FindControl<Button>("LocalAuthMenu");
             //var userChangebtn = this.FindControl<Button>("UserChangeMenu");
@@ -85,18 +86,18 @@ namespace System.Application.UI.Views.Windows
 
         private void Window_LostFocus(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            if (!this.IsPointerOver && !IsPointerOverSubMenu)
+            if (!IsPointerOver && !IsPointerOverSubMenu)
             {
-                if (this.DataContext is TaskBarWindowViewModel vm)
+                if (DataContext is TaskBarWindowViewModel vm)
                 {
-                    this.Hide();
+                    Hide();
                 }
             }
         }
 
         private void Window_Opened(object? sender, EventArgs e)
         {
-            if (this.DataContext is TaskBarWindowViewModel vm)
+            if (DataContext is TaskBarWindowViewModel vm)
             {
                 //if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
                 //{
@@ -106,27 +107,27 @@ namespace System.Application.UI.Views.Windows
                 vm.WhenAnyValue(x => x.SizePosition.X, x => x.SizePosition.Y)
                     .Subscribe(x =>
                     {
-                        var screen = this.Screens.ScreenFromPoint(new PixelPoint(x.Item1, x.Item2));
-                        var heightPoint = x.Item2 - (int)(this.Height * screen.PixelDensity);
+                        var screen = Screens.ScreenFromPoint(new PixelPoint(x.Item1, x.Item2));
+                        var heightPoint = x.Item2 - (int)(Height * screen.PixelDensity);
 
                         if (heightPoint < 0)
                         {
-                            this.Position = new PixelPoint(x.Item1, x.Item2);
+                            Position = new PixelPoint(x.Item1, x.Item2);
                         }
-                        else if ((x.Item1 + (int)this.Width + 30) > screen.WorkingArea.Width)
+                        else if ((x.Item1 + (int)Width + 30) > screen.WorkingArea.Width)
                         {
-                            this.Position = new PixelPoint(x.Item1 - (int)(this.Width * screen.PixelDensity), heightPoint);
+                            Position = new PixelPoint(x.Item1 - (int)(Width * screen.PixelDensity), heightPoint);
                         }
                         else
                         {
-                            this.Position = new PixelPoint(x.Item1, heightPoint);
+                            Position = new PixelPoint(x.Item1, heightPoint);
                         }
                     });
             }
 
             if (OperatingSystem2.IsWindows)
             {
-                DI.Get<ISystemWindowApiService>().SetActiveWindow(new Models.NativeWindowModel { Handle = this.PlatformImpl.Handle.Handle });
+                INativeWindowApiService.Instance.SetActiveWindow(new() { Handle = PlatformImpl.Handle.Handle });
             }
         }
 
