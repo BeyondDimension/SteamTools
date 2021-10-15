@@ -87,7 +87,7 @@
         <PackageVersion Include="System.Runtime.WindowsRuntime" Version="4.7.0" />
         <PackageVersion Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.7.0" />
         <PackageVersion Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
-        <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.0.4" />
+        <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.0.6" />
         <PackageVersion Include="System.Security.Principal.Windows" Version="6.0.0-preview.5.21301.5" />
         <PackageVersion Include="BrotliSharpLib" Version="0.3.3" />
         <PackageVersion Include="System.Buffers" Version="4.5.1" />
