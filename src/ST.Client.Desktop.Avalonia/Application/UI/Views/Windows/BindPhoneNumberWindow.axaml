@@ -12,7 +12,7 @@
         xmlns:resx="using:System.Application.UI.Resx"
         xmlns:ccl_services="using:System.Application.Services"
         xmlns:vm="using:System.Application.UI.ViewModels"
-        xmlns:ms="using:System.Application.Models.Settings"
+        xmlns:ms="using:System.Application.Settings"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"

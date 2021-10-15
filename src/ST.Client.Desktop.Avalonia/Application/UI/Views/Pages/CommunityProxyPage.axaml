@@ -3,7 +3,7 @@
              xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:service="using:System.Application.Services"
-             xmlns:ms="using:System.Application.Models.Settings"
+             xmlns:ms="using:System.Application.Settings"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"

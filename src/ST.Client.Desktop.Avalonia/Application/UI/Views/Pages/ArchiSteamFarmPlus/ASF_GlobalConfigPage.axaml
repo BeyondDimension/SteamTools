@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:controls="using:System.Application.UI.Views.Controls"
-             xmlns:ms="using:System.Application.Models.Settings"
+             xmlns:ms="using:System.Application.Settings"
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"

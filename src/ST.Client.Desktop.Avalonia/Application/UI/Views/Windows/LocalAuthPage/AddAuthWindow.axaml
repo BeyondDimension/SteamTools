@@ -11,7 +11,7 @@
         xmlns:vm="using:System.Application.UI.ViewModels"
         xmlns:service="using:System.Application.Services"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:ms="using:System.Application.Models.Settings"
+        xmlns:ms="using:System.Application.Settings"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         WindowStartupLocation="CenterOwner"
         ExtendClientAreaTitleBarHeightHint="30"

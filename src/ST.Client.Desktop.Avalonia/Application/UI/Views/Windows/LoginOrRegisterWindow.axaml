@@ -14,7 +14,7 @@
         xmlns:ccl_services="using:System.Application.Services"
         xmlns:service="using:System.Application.Services"
         xmlns:vm="using:System.Application.UI.ViewModels"
-        xmlns:ms="using:System.Application.Models.Settings"
+        xmlns:ms="using:System.Application.Settings"
         xmlns:i="using:Avalonia.Xaml.Interactivity"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"

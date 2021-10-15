@@ -427,9 +427,9 @@ namespace System.Application.UI.ViewModels
             //DebugString += ToastService.Current.Message + Environment.NewLine;
             //DebugString += ToastService.Current.IsVisible + Environment.NewLine;
 
-            //await IShowWindowService.Instance.Show(typeof(object), CustomWindow.NewVersion);
+            //await IWindowManager .Instance.Show(typeof(object), CustomWindow.NewVersion);
 
-            //    var r = await MessageBoxCompat.ShowAsync(@"Steam++ v1.1.2   2021-01-29
+            //    var r = await MessageBox.ShowAsync(@"Steam++ v1.1.2   2021-01-29
             //更新内容
             //1、新增账号切换的状态栏右下角登录新账号功能
             //2、新增实时刷新获取Steam新登录的账号数据功能
@@ -438,7 +438,7 @@ namespace System.Application.UI.ViewModels
             //5、优化错误日志记录，现在它更详细了
             //6、修复谷歌验证码代理方式为全局跳转recatpcha
             //7、修复配置文件加载时提示根元素错误
-            //8、修复某些情况下开机自启失效问题", "Steam++", MessageBoxButtonCompat.OKCancel);
+            //8、修复某些情况下开机自启失效问题", "Steam++", MessageBox.Button.OKCancel);
 
             //    DebugString += r + Environment.NewLine;
 
