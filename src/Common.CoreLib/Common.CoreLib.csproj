@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;netcoreapp3.1;net5.0</TargetFrameworks>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Common.CoreLib</AssemblyName>
   </PropertyGroup>
@@ -35,4 +35,5 @@
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
 </Project>

@@ -45,6 +45,6 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public static LocalAuthPageViewModel Current { get; } = new();
+        public static LocalAuthPageViewModel Current => DI.Get<LocalAuthPageViewModel>();
     }
 }

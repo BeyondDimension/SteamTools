@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <RootNamespace>System.Application</RootNamespace>
+    <AssemblyName>System.Application.SteamTools.Client.Desktop.Linux</AssemblyName>
+    <DefineConstants>LINUX;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Internals\**" />
+    <EmbeddedResource Remove="Internals\**" />
+    <None Remove="Internals\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
+      <Link>Properties\InternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
+    <Compile Include="..\ST.Client.Desktop.Mac\Internals\UnixHelper.cs">
+      <LinkBase>Internals</LinkBase>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Steam++.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Exit.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico">
+      <Link>Steam.ico</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
+  </ItemGroup>
+</Project>

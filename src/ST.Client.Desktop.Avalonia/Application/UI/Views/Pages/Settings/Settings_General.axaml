@@ -1,48 +1,17 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:sys_os2="clr-namespace:System;assembly=System.OperatingSystem2"
-             xmlns:sys_common_corelib="clr-namespace:System;assembly=System.Common.CoreLib"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:ms="using:System.Application.Settings"
+             xmlns:sys="using:System"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.Settings_General">
-  <ScrollViewer Padding="{StaticResource PageMargin}">
+  <ScrollViewer>
     <StackPanel Orientation="Vertical"
             HorizontalAlignment="Stretch"
             Spacing="20">
-      <StackPanel.Styles>
-        <Style Selector="TextBlock">
-          <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-          <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-        </Style>
-        <Style Selector="TextBlock.prompt">
-          <Setter Property="FontSize" Value="12" />
-          <!--<Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />-->
-          <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="Margin" Value="10 0" />
-        </Style>
-        <Style Selector="DockPanel > WrapPanel">
-          <Setter Property="Margin" Value="0 0 20 0" />
-          <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="(DockPanel.Dock)"  Value="Left" />
-        </Style>
-        <Style Selector="DockPanel > TextBlock">
-          <Setter Property="Margin" Value="0 0 20 0" />
-          <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="(DockPanel.Dock)"  Value="Left" />
-        </Style>
-        <Style Selector="DockPanel > ToggleSwitch">
-          <Setter Property="Margin" Value="0 0 -12 0" />
-          <Setter Property="HorizontalAlignment" Value="Right" />
-          <Setter Property="VerticalAlignment" Value="Center" />
-          <Setter Property="OnContent" Value="{x:Null}" />
-          <Setter Property="OffContent" Value="{x:Null}" />
-        </Style>
-      </StackPanel.Styles>
-
       <DockPanel>
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StartAutoRun,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
@@ -60,7 +29,7 @@
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
 
-      <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{ReflectionBinding Source={x:Static sys_common_corelib:DesktopBridge.IsRunningAsUwp}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}}">
+      <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{ReflectionBinding Source={x:Static sys:DesktopBridge.IsRunningAsUwp}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}}">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UpdateChannel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <ComboBox x:Name="Themes"
                   Items="{Binding UpdateChannels}"
@@ -71,7 +40,7 @@
 
       <Separator Classes="Separator"/>
 
-      <DockPanel IsVisible="{ReflectionBinding Source={x:Static sys_os2:OperatingSystem2.IsMacOS}, Mode=OneTime}">
+      <DockPanel IsVisible="{x:Static sys:OperatingSystem2.IsMacOS}">
         <WrapPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <TextBlock Classes="prompt"
@@ -81,7 +50,7 @@
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
 
-      <DockPanel IsVisible="{ReflectionBinding Source={x:Static sys_os2:OperatingSystem2.IsWindows}, Mode=OneTime}">
+      <DockPanel IsVisible="{x:Static sys:OperatingSystem2.IsWindows}">
         <WrapPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseOpenGL,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <TextBlock Classes="prompt"
@@ -91,7 +60,7 @@
         <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseOpenGL},Path=Value, Mode=TwoWay}"/>
       </DockPanel>
 
-      <Separator Classes="Separator" IsVisible="{ReflectionBinding Source={x:Static sys_os2:OperatingSystem2.IsLinux}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}" />
+      <Separator Classes="Separator" IsVisible="{ReflectionBinding Source={x:Static sys:OperatingSystem2.IsLinux}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}" />
 
       <StackPanel Orientation="Vertical" Spacing="10">
         <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static resx:R.Current}}"/>

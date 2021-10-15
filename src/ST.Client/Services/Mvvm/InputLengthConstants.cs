@@ -1,7 +1,9 @@
-﻿namespace System.Application.Services
+namespace System.Application.Services
 {
-    public class InputLengthConstants
+    public sealed class InputLengthConstants
     {
+        private InputLengthConstants() { }
+
         public static InputLengthConstants Current { get; } = new();
 
         /// <inheritdoc cref="ModelValidatorProvider.Lengths.PhoneNumber"/>

@@ -38,7 +38,7 @@ namespace System.Application
             if (args.Kind == ActivationKind.StartupTask)
             {
                 // 静默启动（不弹窗口）
-                main_args = IDesktopPlatformService.SystemBootRunArguments.Split(' ');
+                main_args = IPlatformService.SystemBootRunArguments.Split(' ');
             }
         }
     }

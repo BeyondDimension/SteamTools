@@ -11,7 +11,7 @@ namespace System.Application.UI.ViewModels
     /// <summary>
     /// 我的页面视图模型
     /// </summary>
-    public class MyPageViewModel : ViewModelBase
+    public partial class MyPageViewModel : PageViewModel
     {
         public static string DisplayName => AppResources.My;
 

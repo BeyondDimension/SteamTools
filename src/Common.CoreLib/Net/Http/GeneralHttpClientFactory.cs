@@ -8,12 +8,12 @@ namespace System.Net.Http
     public abstract class GeneralHttpClientFactory
     {
         protected readonly ILogger logger;
-        protected readonly IHttpPlatformHelper http_helper;
+        protected readonly IHttpPlatformHelperService http_helper;
         protected readonly IHttpClientFactory _clientFactory;
 
         public GeneralHttpClientFactory(
             ILogger logger,
-            IHttpPlatformHelper http_helper,
+            IHttpPlatformHelperService http_helper,
             IHttpClientFactory clientFactory)
         {
             this.logger = logger;

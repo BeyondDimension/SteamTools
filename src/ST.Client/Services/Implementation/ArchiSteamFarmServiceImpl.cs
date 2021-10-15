@@ -31,6 +31,8 @@ namespace System.Application.Services.Implementation
 
         public DateTimeOffset? StartTime { get; set; }
 
+        public Version CurrentVersion => SharedInfo.Version;
+
         private bool isFirstStart = true;
 
         public async Task Start(string[]? args = null)
@@ -55,12 +57,12 @@ namespace System.Application.Services.Implementation
                         return result;
                     };
 
-                    await ArchiSteamFarm.Program.Init(args).ConfigureAwait(false);
+                    await Program.Init(args).ConfigureAwait(false);
                     isFirstStart = false;
                 }
                 else
                 {
-                    if (!await ArchiSteamFarm.Program.InitASF().ConfigureAwait(false))
+                    if (!await Program.InitASF().ConfigureAwait(false))
                     {
                         await Stop().ConfigureAwait(false);
                     }
@@ -76,8 +78,8 @@ namespace System.Application.Services.Implementation
 
         public async Task Stop()
         {
-            IArchiSteamFarmService.Instance.ReadLineTask?.TrySetResult("");
-            await ArchiSteamFarm.Program.InitShutdownSequence();
+            ReadLineTask?.TrySetResult("");
+            await Program.InitShutdownSequence();
             StartTime = null;
         }
 
@@ -85,7 +87,7 @@ namespace System.Application.Services.Implementation
         {
             ArchiSteamFarm.NLog.Logging.InitHistoryLogger();
 
-            HistoryTarget? historyTarget = ArchiSteamFarm.LogManager.Configuration.AllTargets.OfType<HistoryTarget>().FirstOrDefault();
+            HistoryTarget? historyTarget = LogManager.Configuration.AllTargets.OfType<HistoryTarget>().FirstOrDefault();
 
             if (historyTarget != null)
                 historyTarget.NewHistoryEntry += (object? sender, HistoryTarget.NewHistoryEntryArgs newHistoryEntryArgs) =>
@@ -112,7 +114,7 @@ namespace System.Application.Services.Implementation
 
             ASF.ArchiLogger.LogGenericInfo(Strings.Executing);
 
-            ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? ArchiSteamFarm.Storage.GlobalConfig.DefaultSteamOwnerID;
+            ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? GlobalConfig.DefaultSteamOwnerID;
 
             string? response = await targetBot.Commands.Response(steamOwnerID, command!);
 

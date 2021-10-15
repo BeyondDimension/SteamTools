@@ -10,7 +10,7 @@ namespace System.Application.Services.Implementation
     /// <summary>
     /// https://developer.android.google.cn/guide/topics/ui/notifiers/toasts
     /// </summary>
-    internal sealed class PlatformToastImpl : ToastImpl
+    internal sealed class PlatformToastImpl : ToastBaseImpl
     {
         public PlatformToastImpl(IToastIntercept intercept) : base(intercept)
         {

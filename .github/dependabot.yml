@@ -12,7 +12,7 @@ updates:
       time: "07:00"
       timezone: "Asia/Shanghai"
     labels:
-      - "Automatic"
+      - "automatic"
     open-pull-requests-limit: 99
   - package-ecosystem: "nuget"
     directory: "/"
@@ -21,7 +21,9 @@ updates:
       time: "07:15"
       timezone: "Asia/Shanghai"
     labels:
-      - "Automatic"
+      - "automatic"
+      - "dependencies"
+      - ".NET"
     open-pull-requests-limit: 99
   - package-ecosystem: "gitsubmodule"
     directory: "/"
@@ -30,5 +32,6 @@ updates:
       time: "07:30"
       timezone: "Asia/Shanghai"
     labels:
-      - "Automatic"
+      - "automatic"
+      - "dependencies"
     open-pull-requests-limit: 99

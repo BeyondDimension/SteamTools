@@ -7,7 +7,7 @@ namespace System.Application
     /// <summary>
     /// Enum 扩展 <see cref="NotificationType"/> AND <see cref="NotificationChannelType"/>
     /// </summary>
-    public static class NotificationType_Channel_EnumExtensions
+    public static partial class NotificationType_Channel_EnumExtensions
     {
         /// <summary>
         /// 获取所属的通知渠道

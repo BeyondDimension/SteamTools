@@ -21,7 +21,7 @@ namespace System.Application.Repositories
         /// </summary>
         /// <param name="secondaryPassword"></param>
         /// <returns></returns>
-        [Obsolete("use GetAllSourceAsync")]
+        [Obsolete("use GetAllSourceAsync()")]
         Task<List<IGAPAuthenticatorDTO>> GetAllAsync(string? secondaryPassword = null);
 
         /// <summary>
