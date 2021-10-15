@@ -93,7 +93,11 @@
         <ItemsRepeater Items="{Binding ProxyScripts}">
           <ItemsRepeater.Layout>
             <StackLayout Spacing="10" Orientation="Vertical"/>
-            <!--<UniformGridLayout ItemsJustification="Start" ItemsStretch="Uniform" MinColumnSpacing="20" MinRowSpacing="20" MaximumRowsOrColumns="2" Orientation="Horizontal"/>-->
+            <!--<UniformGridLayout ItemsStretch="Uniform" 
+                               MinColumnSpacing="10" 
+                               MinRowSpacing="10" 
+                               MaximumRowsOrColumns="2" 
+                               Orientation="Horizontal"/>-->
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>

@@ -143,7 +143,7 @@ namespace System.Application.Services
         }
         #endregion
 
-        private bool _IsLoadingGameList = true;
+        private bool _IsLoadingGameList;
         public bool IsLoadingGameList
         {
             get => _IsLoadingGameList;
@@ -283,11 +283,9 @@ namespace System.Application.Services
 
         public async void InitializeGameList()
         {
-            IsLoadingGameList = true;
             LoadGames(await ISteamService.Instance.GetAppInfos());
             //UpdateGamesImage();
             InitializeDownloadGameList();
-            IsLoadingGameList = false;
         }
 
         public void InitializeDownloadGameList()
@@ -300,13 +298,11 @@ namespace System.Application.Services
             }
         }
 
-        private bool _IsRefreshing;
-
         public /*async*/ void RefreshGamesList()
         {
-            if (_IsRefreshing == false)
+            if (IsLoadingGameList == false)
             {
-                _IsRefreshing = true;
+                IsLoadingGameList = true;
                 if (SteamTool.IsRunningSteamProcess)
                 {
                     Task.Factory.StartNew(async () =>
@@ -330,7 +326,6 @@ namespace System.Application.Services
                                             Toast.Show(AppResources.GameList_RefreshGamesListSucess);
                                             DisposeSteamClient();
                                             IsLoadingGameList = false;
-                                            _IsRefreshing = false;
                                             return;
                                         }
                                     }
@@ -350,7 +345,7 @@ namespace System.Application.Services
                 {
                     InitializeGameList();
                     Toast.Show(AppResources.GameList_RefreshGamesListSucess);
-                    _IsRefreshing = false;
+                    IsLoadingGameList = false;
                 }
             }
         }

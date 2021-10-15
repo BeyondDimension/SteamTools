@@ -63,8 +63,7 @@ namespace System.Application.UI.ViewModels
             //});
             OpenCertificateDirCommand = ReactiveCommand.Create(() =>
             {
-                const string fileName = "SteamTools.Certificate.cer";
-                platformService.OpenFolder(Path.Combine(IOPath.AppDataDirectory, fileName));
+                platformService.OpenFolder(Path.Combine(IOPath.AppDataDirectory, $@"{httpProxyService.CertificateName}.Certificate.pfx"));
             });
             ProxySettingsCommand = ReactiveCommand.Create(() =>
             {

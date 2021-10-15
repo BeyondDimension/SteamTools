@@ -97,6 +97,9 @@ namespace System.Application.UI.ViewModels
                           this.RaisePropertyChanged(nameof(TypeFilterString));
                       }));
 
+            SteamConnectService.Current.WhenValueChanged(x => x.IsLoadingGameList, false)
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamAppsEmpty)));
+
             SteamConnectService.Current.SteamApps
                 .Connect()
                 .Filter(nameFilter)
@@ -124,29 +127,30 @@ namespace System.Application.UI.ViewModels
                 IWindowManager.Instance.Show(CustomWindow.SteamShutdown, resizeMode: ResizeMode.CanResize);
             });
 
-            EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
-            {
-                AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value = !GameLibrarySettings.IsAutoAFKApps.Value);
-            });
+            //EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
+            //{
+            //    AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value = !GameLibrarySettings.IsAutoAFKApps.Value);
+            //});
 
-            MenuItems = new ObservableCollection<MenuItemViewModel>()
-            {
-                  (AFKAutoUpdate=new MenuItemViewModel (nameof(AppResources.GameList_AutoAFK))
-                   {Command=EnableAFKAutoUpdateCommand }),
-                  new MenuItemViewModel (),
-                  new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
-                      IconKey ="EyeHideDrawing", Command = HideAppCommand },
-                  new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){
-                      IconKey ="TopSpeedDrawing", Command = IdleAppCommand },
-                  //new MenuItemViewModel (nameof(AppResources.GameList_SteamShutdown)){
-                  //    IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
-            };
+            //MenuItems = new ObservableCollection<MenuItemViewModel>()
+            //{
+            //      (AFKAutoUpdate=new MenuItemViewModel (nameof(AppResources.GameList_AutoAFK))
+            //       {Command=EnableAFKAutoUpdateCommand }),
+            //      new MenuItemViewModel (),
+            //      new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
+            //          IconKey ="EyeHideDrawing", Command = HideAppCommand },
+            //      new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){
+            //          IconKey ="TopSpeedDrawing", Command = IdleAppCommand },
+            //      //new MenuItemViewModel (nameof(AppResources.GameList_SteamShutdown)){
+            //      //    IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
+            //};
 
-            AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value);
+            //AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value);
         }
-        public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
 
-        public MenuItemViewModel? AFKAutoUpdate { get; }
+        //public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
+
+        //public MenuItemViewModel? AFKAutoUpdate { get; }
 
         public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
         public ReactiveCommand<Unit, Unit> IdleAppCommand { get; }

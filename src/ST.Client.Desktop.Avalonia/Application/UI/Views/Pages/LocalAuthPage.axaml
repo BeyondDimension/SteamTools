@@ -106,10 +106,8 @@
                      Padding="10 0 10 10">
         <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
           <ItemsRepeater.Layout>
-            <UniformGridLayout ItemsJustification="SpaceAround"
-                               MinRowSpacing="10"
-                               MinColumnSpacing="10"
-                               MaximumRowsOrColumns="8"/>
+            <UniformGridLayout MinRowSpacing="10"
+                               MinColumnSpacing="10"/>
             <!--<WrapLayout HorizontalSpacing="10"
                       VerticalSpacing="10" Orientation="Horizontal"/>-->
           </ItemsRepeater.Layout>
