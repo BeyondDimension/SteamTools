@@ -3,8 +3,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Text;
+using CoreFoundation;
 using Microsoft.Extensions.Logging;
-using OSLog = CoreFoundation.OSLog;
 
 // ReSharper disable once CheckNamespace
 namespace Uno.Extensions.Logging
@@ -85,7 +85,7 @@ namespace Uno.Extensions.Logging
                         _ => OSLogLevel.Default,
                     };
 
-                    OSLog.Default.Log(osLogLevel, formattedMessage);
+                    global::CoreFoundation.OSLog.Default.Log(osLogLevel, formattedMessage);
                 }
                 catch (Exception ex)
                 {
