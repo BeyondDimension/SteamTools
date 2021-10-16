@@ -83,7 +83,7 @@ namespace System.Application.UI.ViewModels
                         ("All Files", new[] { "*" }),
                     }),
                         InitialFileName = DefaultExportAuthFileName,
-                        PickerTitle = Constants.HARDCODED_APP_NAME,
+                        PickerTitle = ThisAssembly.AssemblyTrademark,
                     });
                     Path = result?.FullPath;
                 });
