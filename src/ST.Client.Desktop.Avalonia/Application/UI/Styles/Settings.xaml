@@ -1,4 +1,5 @@
 <Styles xmlns="https://github.com/avaloniaui"
+        xmlns:sys="using:System"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Design.PreviewWith>
     <Border Padding="20">
@@ -49,6 +50,9 @@
       </StackPanel>
     </Border>
   </Design.PreviewWith>
+  <Styles.Resources>
+    <sys:Double x:Key="SettingsRightContentWidth">250</sys:Double>
+  </Styles.Resources>
 
   <Style Selector="StackPanel.Settings">
     <Setter Property="Spacing" Value="5" />
@@ -77,6 +81,10 @@
 
   <Style Selector="Border.Item:pointerover">
     <Setter Property="Background" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
+  </Style>
+
+  <Style Selector="StackPanel.Settings Expander">
+    <Setter Property="IsExpanded" Value="True" />
   </Style>
 
   <Style Selector="StackPanel.Settings Expander ToggleButton.ExpanderToggleButton /template/ ContentPresenter#ContentPresenter">
@@ -129,21 +137,21 @@
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > TextBox">
-    <Setter Property="Width" Value="280" />
+    <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment"  Value="Right" />
     <Setter Property="(DockPanel.Dock)"  Value="Right" />
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > ComboBox">
-    <Setter Property="Width" Value="280" />
+    <!--<Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />-->
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment"  Value="Right" />
     <Setter Property="(DockPanel.Dock)"  Value="Right" />
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > Slider">
-    <Setter Property="Width" Value="280" />
+    <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
     <Setter Property="Margin" Value="0 -15 0 0" />
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment"  Value="Right" />
@@ -173,4 +181,5 @@
     <Setter Property="HorizontalAlignment" Value="Left" />
     <Setter Property="(DockPanel.Dock)"  Value="Left" />
   </Style>
+
 </Styles>

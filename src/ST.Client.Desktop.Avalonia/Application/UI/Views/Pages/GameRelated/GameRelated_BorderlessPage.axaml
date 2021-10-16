@@ -49,28 +49,34 @@
       </StackPanel>
 
       <WrapPanel Orientation="Horizontal">
-        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_KillProcess,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <WrapPanel.Styles>
+          <Style Selector="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="3"/>
+          </Style>
+        </WrapPanel.Styles>
+        <Button Content="{ReflectionBinding Path=Res.GameRelated_Borderless_KillProcess,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding WindowKill_Click}">
         </Button>
-        <Button Height="30" Content="{ReflectionBinding Path=Res.GameRelated_Borderless_BorderlessWindow,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button Content="{ReflectionBinding Path=Res.GameRelated_Borderless_BorderlessWindow,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding BorderlessWindow_Click}">
         </Button>
-        <Button Height="30" Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Maximize,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Maximize,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding MaximizeWindow_Click}">
         </Button>
-        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Normal,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Normal,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding NormalWindow_Click}">
         </Button>
-        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Hide,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Hide,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding HideWindow_Click}">
         </Button>
-        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Show,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_Show,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding ShowWindow_Click}">
         </Button>
-        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding ToWallerpaperWindow_Click}">
         </Button>
-        <Button Height="30"  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ResetWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}"
+        <Button  Content="{ReflectionBinding Path=Res.GameRelated_Borderless_ResetWallerpaper,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Command="{ReflectionBinding ResetWallerpaper_Click}">
         </Button>
       </WrapPanel>

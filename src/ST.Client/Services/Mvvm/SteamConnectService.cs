@@ -283,9 +283,11 @@ namespace System.Application.Services
 
         public async void InitializeGameList()
         {
+            SteamApps.Clear();
             LoadGames(await ISteamService.Instance.GetAppInfos());
             //UpdateGamesImage();
             InitializeDownloadGameList();
+            IsLoadingGameList = false;
         }
 
         public void InitializeDownloadGameList()
@@ -298,54 +300,53 @@ namespace System.Application.Services
             }
         }
 
-        public /*async*/ void RefreshGamesList()
+        public async void RefreshGamesList()
         {
             if (IsLoadingGameList == false)
             {
                 IsLoadingGameList = true;
                 if (SteamTool.IsRunningSteamProcess)
                 {
-                    Task.Factory.StartNew(async () =>
-                    {
-                        try
-                        {
-                            while (true)
-                            {
-                                if (SteamTool.IsRunningSteamProcess && IsDisposedClient)
-                                {
-                                    if (ApiService.Initialize())
-                                    {
-                                        IsDisposedClient = false;
-                                        SteamApps.Clear();
-                                        var apps = await ISteamService.Instance.GetAppInfos();
-                                        if (apps.Any())
-                                        {
-                                            var temps = ApiService.OwnsApps(apps);
-                                            LoadGames(temps);
-                                            InitializeDownloadGameList();
-                                            Toast.Show(AppResources.GameList_RefreshGamesListSucess);
-                                            DisposeSteamClient();
-                                            IsLoadingGameList = false;
-                                            return;
-                                        }
-                                    }
-                                    DisposeSteamClient();
-                                }
-                                await Task.Delay(2000);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
-                            ToastService.Current.Notify(ex.Message);
-                        }
-                    }, TaskCreationOptions.DenyChildAttach).Forget().ConfigureAwait(false);
+                    await Task.Factory.StartNew(async () =>
+                     {
+                         try
+                         {
+                             while (true)
+                             {
+                                 if (SteamTool.IsRunningSteamProcess && IsDisposedClient)
+                                 {
+                                     if (ApiService.Initialize())
+                                     {
+                                         IsDisposedClient = false;
+                                         SteamApps.Clear();
+                                         var apps = await ISteamService.Instance.GetAppInfos();
+                                         if (apps.Any())
+                                         {
+                                             var temps = ApiService.OwnsApps(apps);
+                                             LoadGames(temps);
+                                             InitializeDownloadGameList();
+                                             Toast.Show(AppResources.GameList_RefreshGamesListSucess);
+                                             DisposeSteamClient();
+                                             IsLoadingGameList = false;
+                                             return;
+                                         }
+                                     }
+                                     DisposeSteamClient();
+                                 }
+                                 await Task.Delay(2000);
+                             }
+                         }
+                         catch (Exception ex)
+                         {
+                             Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
+                             ToastService.Current.Notify(ex.Message);
+                         }
+                     }, TaskCreationOptions.DenyChildAttach).Forget().ConfigureAwait(false);
                 }
                 else
                 {
-                    InitializeGameList();
+                    await Task.Run(InitializeGameList);
                     Toast.Show(AppResources.GameList_RefreshGamesListSucess);
-                    IsLoadingGameList = false;
                 }
             }
         }

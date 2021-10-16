@@ -36,6 +36,11 @@
               <Setter Property="VerticalAlignment" Value="Center" />
               <Setter Property="(DockPanel.Dock)" Value="Bottom"></Setter>
             </Style>
+            <Style Selector="DockPanel > ui|ComboBox">
+              <Setter Property="VerticalAlignment" Value="Center" />
+              <Setter Property="HorizontalAlignment" Value="Stretch" />
+              <Setter Property="(DockPanel.Dock)" Value="Bottom"></Setter>
+            </Style>
             <Style Selector="DockPanel > TextBlock">
               <Setter Property="Margin" Value="0 0 20 0" />
               <Setter Property="VerticalAlignment" Value="Center" />
@@ -54,6 +59,13 @@
               <DockPanel>
                 <Label Content="本机监听IP地址"></Label>
                 <TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
+                <!--<ui:ComboBox IsEditable="True"
+                             Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}">
+                  <ui:ComboBox.Items>
+                    <ui:ComboBoxItem>0.0.0.0</ui:ComboBoxItem>
+                    <ui:ComboBoxItem>127.0.0.1</ui:ComboBoxItem>
+                  </ui:ComboBox.Items>
+                </ui:ComboBox>-->
               </DockPanel>
               <DockPanel>
                 <Label Content="监听端口"></Label>
@@ -64,7 +76,7 @@
                 <ToggleSwitch
                             IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
-              
+
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyOnlyOnScript,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
                 <ToggleSwitch

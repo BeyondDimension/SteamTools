@@ -80,13 +80,6 @@ namespace Avalonia.Controls
             _isOpenWindow = true;
             if (DataContext is WindowViewModel vm)
             {
-                if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
-                {
-                    var point = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
-                    if (Screens.Primary.WorkingArea.Contains(point))
-                        Position = point;
-                }
-
                 if (vm.SizePosition.Width > 0
                     && Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
                     Width = vm.SizePosition.Width;
@@ -94,6 +87,17 @@ namespace Avalonia.Controls
                 if (vm.SizePosition.Height > 0
                     && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
                     Height = vm.SizePosition.Height;
+
+                if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
+                {
+                    var leftTopPoint = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
+                    var rightBottomPoint = new PixelPoint(vm.SizePosition.X + (int)Width, vm.SizePosition.Y + (int)Height);
+                    if (Screens.Primary.WorkingArea.Contains(leftTopPoint) &&
+                        Screens.Primary.WorkingArea.Contains(rightBottomPoint))
+                    {
+                        Position = leftTopPoint;
+                    }
+                }
 
                 HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
 
