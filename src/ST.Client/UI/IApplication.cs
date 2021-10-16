@@ -99,5 +99,11 @@ namespace System.Application.UI
             [Obsolete]
             WinUI3_Desktop,
         }
+
+        /// <summary>
+        /// 获取当前平台 UI Host
+        /// <para>reference to the ViewController (if using Xamarin.iOS), Activity (if using Xamarin.Android) IWin32Window or IntPtr (if using .Net Framework).</para>
+        /// </summary>
+        object CurrentPlatformUIHost { get; }
     }
 }

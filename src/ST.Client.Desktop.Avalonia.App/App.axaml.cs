@@ -529,5 +529,7 @@ namespace System.Application.UI
         #endregion
 
         string IAvaloniaApplication.RenderingSubsystemName => Program.RenderingSubsystemName;
+
+        object IApplication.CurrentPlatformUIHost => MainWindow;
     }
 }

@@ -8,8 +8,10 @@ namespace System.Application.UI.ViewModels
 {
     public partial class MyAuthenticatorWindowViewModel : WindowViewModel, IExplicitHasValue
     {
-        protected readonly MyAuthenticator? MyAuthenticator;
+        protected readonly MyAuthenticator? _MyAuthenticator;
         protected readonly GAPAuthenticatorValueDTO.SteamAuthenticator? _Authenticator;
+
+        public MyAuthenticator? MyAuthenticator => _MyAuthenticator;
 
         public MyAuthenticatorWindowViewModel()
         {
@@ -18,7 +20,7 @@ namespace System.Application.UI.ViewModels
 
         public MyAuthenticatorWindowViewModel(MyAuthenticator? auth) : this()
         {
-            MyAuthenticator = auth;
+            _MyAuthenticator = auth;
             if (auth?.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
             {
                 _Authenticator = authenticator;
@@ -27,6 +29,9 @@ namespace System.Application.UI.ViewModels
 
         protected virtual void InitializeComponent() { }
 
-        public virtual bool ExplicitHasValue() => MyAuthenticator != null && _Authenticator != null;
+        public virtual bool ExplicitHasValue()
+            => _MyAuthenticator != null &&
+                (_MyAuthenticator.AuthenticatorData.Platform != GamePlatform.Steam
+                    || _Authenticator != null);
     }
 }

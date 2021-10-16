@@ -16,7 +16,7 @@ namespace System.Application
     {
         static readonly Lazy<bool> mIsSupportedFileExtensionFilter = new(() =>
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return OperatingSystem2.IsWindows;
             }
@@ -48,7 +48,7 @@ namespace System.Application
 
         public static async Task<FileResult?> PickAsync(PickOptions? options = null)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return await FilePicker.PickAsync(options);
             }
@@ -137,7 +137,7 @@ namespace System.Application
 
         public static async Task<IEnumerable<FileResult>> PickMultipleAsync(PickOptions? options = null)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return await FilePicker.PickMultipleAsync(options);
             }
@@ -286,7 +286,7 @@ namespace System.Application
         {
             static readonly Lazy<FilePickerFileType> _FileTypes = new(() =>
             {
-                if (XamarinEssentials.IsSupported)
+                if (Essentials.IsSupported)
                 {
                     return FilePickerFileType.Images;
                 }

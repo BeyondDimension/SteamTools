@@ -16,7 +16,7 @@ namespace System.Application
         {
             get
             {
-                if (XamarinEssentials.IsSupported)
+                if (Essentials.IsSupported)
                 {
                     return MainThread.IsMainThread;
                 }
@@ -29,7 +29,7 @@ namespace System.Application
 
         public static void BeginInvokeOnMainThread(Action action, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 MainThread.BeginInvokeOnMainThread(action);
             }
@@ -48,7 +48,7 @@ namespace System.Application
 
         public static Task InvokeOnMainThreadAsync(Action action, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(action);
             }
@@ -85,7 +85,7 @@ namespace System.Application
 
         public static Task<T> InvokeOnMainThreadAsync<T>(Func<T> func, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(func);
             }
@@ -117,7 +117,7 @@ namespace System.Application
 
         public static Task InvokeOnMainThreadAsync(Func<Task> funcTask, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(funcTask);
             }
@@ -150,7 +150,7 @@ namespace System.Application
 
         public static Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(funcTask);
             }

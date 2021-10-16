@@ -496,12 +496,5 @@ namespace System.Application.UI.ViewModels
         public ICommand SdaBtn_Click { get; }
 
         public ICommand WinAuthBtn_Click { get; }
-
-        string? _LoginSteamLoadingText;
-        public string? LoginSteamLoadingText
-        {
-            get => _LoginSteamLoadingText;
-            set => this.RaiseAndSetIfChanged(ref _LoginSteamLoadingText, value);
-        }
     }
 }

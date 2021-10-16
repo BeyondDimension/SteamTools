@@ -13,7 +13,7 @@ namespace System.Application
     {
         public static async Task SetTextAsync(string? text)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 await Clipboard.SetTextAsync(text);
             }
@@ -27,7 +27,7 @@ namespace System.Application
 
         public static async Task<string> GetTextAsync()
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return await Clipboard.GetTextAsync();
             }
@@ -41,7 +41,7 @@ namespace System.Application
         {
             get
             {
-                if (XamarinEssentials.IsSupported)
+                if (Essentials.IsSupported)
                 {
                     return Clipboard.HasText;
                 }

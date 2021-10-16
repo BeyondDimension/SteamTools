@@ -358,20 +358,8 @@ namespace System.Application.UI
                 b.AppendLine();
 #endif
 
-                b.Append("[xamarin.essentials.supported] ");
-                static bool? GetXamarinEssentialsIsSupported()
-                {
-                    try
-                    {
-                        if (typeof(MainThread2).Assembly.GetType("System.Application.XamarinEssentials").GetProperty("IsSupported", BindingFlags.Public | BindingFlags.Static).GetValue(null) is bool b)
-                            return b;
-                    }
-                    catch
-                    {
-                    }
-                    return null;
-                }
-                b.Append(GetXamarinEssentialsIsSupported().ToLowerString());
+                b.Append("[essentials] ");
+                b.Append(Essentials.IsSupported.ToLowerString());
                 b.AppendLine();
 
                 var b_str = b.ToString();

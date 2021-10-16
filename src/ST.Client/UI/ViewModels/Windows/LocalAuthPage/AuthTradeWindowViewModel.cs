@@ -22,7 +22,6 @@ namespace System.Application.UI.ViewModels
     {
         public AuthTradeWindowViewModel() : base()
         {
-
         }
 
         public AuthTradeWindowViewModel(MyAuthenticator? auth) : base(auth)
@@ -71,14 +70,6 @@ namespace System.Application.UI.ViewModels
             IApplication.AppType.PlatformUI_Android => false,
             _ => true,
         };
-
-        /// <summary>
-        /// 注册全选监听
-        /// </summary>
-        void RegisterSelectAllObservable()
-        {
-            if (!IApplication.IsMobileLayout) return;
-        }
 
         private string? AuthPassword;
         private bool AuthIsLocal;

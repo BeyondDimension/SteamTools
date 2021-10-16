@@ -13,7 +13,7 @@ using static System.Application.FilePicker2;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public class ExportAuthWindowViewModel : WindowViewModel
+    public partial class ExportAuthWindowViewModel : WindowViewModel
     {
         public static string DisplayName => AppResources.LocalAuth_ExportAuth;
 

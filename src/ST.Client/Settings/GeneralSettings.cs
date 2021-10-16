@@ -104,5 +104,11 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<bool> UseOpenGL { get; }
             = GetProperty(defaultValue: OperatingSystem2.IsWindows7, autoSave: true);
+
+        /// <summary>
+        /// 屏幕捕获(允许截图)
+        /// </summary>
+        public static SerializableProperty<bool> CaptureScreen { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
     }
 }

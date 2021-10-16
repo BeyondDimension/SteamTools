@@ -5,7 +5,6 @@ using MonoMac.Foundation;
 using AppKit;
 using Foundation;
 #endif
-using System.Application.Internals;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
@@ -166,7 +165,7 @@ namespace System.Application.Services.Implementation
         static string GetSerialNumber() => GetIOPlatformExpertDevice("IOPlatformSerialNumber");
 
 #if DEBUG
-        public static string GetPlatformUUID() => GetIOPlatformExpertDevice("IOPlatformUUID");
+        static string GetPlatformUUID() => GetIOPlatformExpertDevice("IOPlatformUUID");
 #endif
 
         static string GetMachineSecretKey()

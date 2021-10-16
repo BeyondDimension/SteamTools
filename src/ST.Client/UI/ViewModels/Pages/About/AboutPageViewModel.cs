@@ -39,6 +39,28 @@ namespace System.Application.UI.ViewModels
                     await UserService.Current.DelAccountAsync();
                 }
             });
+
+            if (IApplication.IsMobileLayout)
+            {
+                preferenceButtons = new(Enum2.GetAll<PreferenceButton>().Select(x => PreferenceButtonViewModel.Create(x, this)));
+
+                UserService.Current.WhenAnyValue(x => x.User).Subscribe(value =>
+                {
+                    if (value == null)
+                    {
+                        PreferenceButtonViewModel.RemoveAuthorized(preferenceButtons, this);
+                    }
+                    else
+                    {
+                        var delAccount = preferenceButtons.FirstOrDefault(x => x.Id == PreferenceButton.账号注销);
+                        if (delAccount == null)
+                        {
+                            delAccount = PreferenceButtonViewModel.Create(PreferenceButton.账号注销, this);
+                            preferenceButtons.Add(delAccount);
+                        }
+                    }
+                }).AddTo(this);
+            }
         }
 
         public string VersionDisplay => $"{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName} ({RuntimeInformation.ProcessArchitecture})";

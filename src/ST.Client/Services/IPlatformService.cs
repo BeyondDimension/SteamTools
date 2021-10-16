@@ -7,6 +7,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Application.Models;
 using System.Application.Settings;
+using Xamarin.Essentials;
 #if NETSTANDARD
 using JustArchiNET.Madness;
 #else
@@ -272,7 +273,28 @@ namespace System.Application.Services
             return GetMachineSecretKey(value);
         });
 
-        (byte[] key, byte[] iv) MachineSecretKey { get; }
+        protected static (byte[] key, byte[] iv) GetMachineSecretKeyBySecureStorage()
+        {
+            if (!Essentials.IsSupported) throw new PlatformNotSupportedException();
+            const string KEY_MACHINE_SECRET = "KEY_MACHINE_SECRET_2105";
+            var guid = GetMachineSecretKeyGuid();
+            static Guid GetMachineSecretKeyGuid()
+            {
+                Func<Task<string>> getAsync = () => SecureStorage.GetAsync(KEY_MACHINE_SECRET);
+                var guidStr = getAsync.RunSync();
+                if (Guid.TryParse(guidStr, out var guid)) return guid;
+                guid = Guid.NewGuid();
+                guidStr = guid.ToString();
+                Func<Task> setAsync = () => SecureStorage.SetAsync(KEY_MACHINE_SECRET, guidStr);
+                setAsync.RunSync();
+                return guid;
+            }
+            var r = AESUtils.GetParameters(guid.ToByteArray());
+            return r;
+        }
+
+        protected static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKeyBySecureStorage = new(GetMachineSecretKeyBySecureStorage);
+        (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKeyBySecureStorage.Value;
 
         #endregion
 

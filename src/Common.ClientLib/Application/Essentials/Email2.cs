@@ -21,7 +21,7 @@ namespace System.Application
 
         public static async Task ComposeAsync(EmailMessage? message)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 await Email.ComposeAsync(message);
             }

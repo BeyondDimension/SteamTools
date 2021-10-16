@@ -4,7 +4,7 @@ using Xamarin.Essentials;
 
 namespace System.Application
 {
-    internal static class XamarinEssentials
+    public static class Essentials
     {
         static readonly Lazy<bool> _IsSupported = new(() =>
         {
