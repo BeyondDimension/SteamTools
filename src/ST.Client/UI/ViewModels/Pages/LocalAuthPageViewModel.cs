@@ -233,7 +233,7 @@ namespace System.Application.UI.ViewModels
         {
             var (success, _) = await AuthService.Current.HasPasswordEncryptionShowPassWordWindow();
             if (!success) return;
-            var r = await MessageBox.ShowAsync(AppResources.LocalAuth_DeleteAuthTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            var r = await MessageBox.ShowAsync(AppResources.LocalAuth_DeleteAuthTip, button: MessageBox.Button.OKCancel);
             if (r == MessageBox.Result.OK)
             {
                 AuthService.DeleteSaveAuthenticators(auth);

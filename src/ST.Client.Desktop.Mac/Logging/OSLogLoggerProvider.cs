@@ -7,6 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 
+// ReSharper disable once CheckNamespace
 namespace Uno.Extensions.Logging
 {
     /// <summary>

@@ -38,7 +38,7 @@ namespace System.Application.Services.Implementation
         {
             if (OperatingSystem2.IsWindows)
             {
-                title ??= ThisAssembly.AssemblyTrademark;
+                title ??= Constants.HARDCODED_APP_NAME;
                 // 调用托盘显示通知
                 notifyIcon.ShowBalloonTip(title, text, ToolTipIcon.None);
             }

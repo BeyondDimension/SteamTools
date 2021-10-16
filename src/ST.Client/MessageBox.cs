@@ -102,7 +102,7 @@ namespace System.Application
             Abort = 1000,
         }
 
-        const string default_caption = Constants.HARDCODED_APP_NAME;
+        const string default_caption = ThisAssembly.AssemblyTrademark;
         const Button default_button = Button.OK;
         static readonly IMessageBoxService? mbcs = IMessageBoxService.Instance;
         public const Button OKCancel = Button.OKCancel;

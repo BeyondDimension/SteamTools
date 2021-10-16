@@ -156,7 +156,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteScriptItemButton(ScriptDTO script)
         {
-            var result = MessageBox.ShowAsync(AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith(async (s) =>
+            var result = MessageBox.ShowAsync(AppResources.Script_DeleteItem, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
             {
                 if (s.Result == MessageBox.Result.OK)
                 {
@@ -175,7 +175,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteNoFileScriptItemButton(ScriptDTO script)
         {
-            var result = MessageBox.ShowAsync(AppResources.Script_NoFileDeleteItem, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith(async (s) =>
+            var result = MessageBox.ShowAsync(AppResources.Script_NoFileDeleteItem, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
             {
                 if (s.Result == MessageBox.Result.OK)
                 {
@@ -199,7 +199,7 @@ namespace System.Application.UI.ViewModels
             if (fileInfo.Exists)
             {
                 IPlatformService.Instance.OpenFileByTextReader(url);
-                var result = MessageBox.ShowAsync(AppResources.Script_EditTxt, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith(async (s) =>
+                var result = MessageBox.ShowAsync(AppResources.Script_EditTxt, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
                 {
                     if (s.Result == MessageBox.Result.OK)
                     {
@@ -257,7 +257,7 @@ namespace System.Application.UI.ViewModels
             CustomWindow window = default;
             if (IUserManager.Instance.GetCurrentUser() == null)
             {
-                var result = await MessageBox.ShowAsync(AppResources.ScriptShop_NoLogin, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+                var result = await MessageBox.ShowAsync(AppResources.ScriptShop_NoLogin, button: MessageBox.Button.OKCancel);
                 if (result == MessageBox.Result.OK)
                 {
                     window = CustomWindow.LoginOrRegister;

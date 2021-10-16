@@ -114,7 +114,7 @@ namespace System.Application.UI.ViewModels
 
         public async void About_Click()
         {
-            await MessageBox.ShowAsync(AppResources.AccountChange_ShareManageAboutTips, ThisAssembly.AssemblyTrademark, MessageBox.Button.OK);
+            await MessageBox.ShowAsync(AppResources.AccountChange_ShareManageAboutTips, button: MessageBox.Button.OK);
         }
 
         public void SetFirstButton_Click(AuthorizedDevice item)
@@ -157,7 +157,7 @@ namespace System.Application.UI.ViewModels
         {
             if (_AuthorizedList != null)
                 steamService.UpdateAuthorizedDeviceList(_AuthorizedList);
-            var result = await MessageBox.ShowAsync(AppResources.AccountChange_RestartSteam, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            var result = await MessageBox.ShowAsync(AppResources.AccountChange_RestartSteam, button: MessageBox.Button.OKCancel);
             if (result.IsOK())
             {
                 steamService.TryKillSteamProcess();

@@ -294,13 +294,13 @@ namespace System.Application.UI.ViewModels
             {
                 if (GameLibrarySettings.AFKAppList.Value?.Count >= SteamConnectService.SteamAFKMaxCount)
                 {
-                    await MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBox.Button.OK);
+                    await MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsMaxCountTips.Format(SteamConnectService.SteamAFKMaxCount), button: MessageBox.Button.OK);
                 }
                 else
                 {
                     if (GameLibrarySettings.AFKAppList.Value?.Count == SteamConnectService.SteamAFKMaxCount - 2)
                     {
-                        var result = await MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.SteamAFKMaxCount, SteamConnectService.SteamAFKMaxCount), ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+                        var result = await MessageBox.ShowAsync(AppResources.GameList_AddAFKAppsWarningCountTips.Format(SteamConnectService.SteamAFKMaxCount, SteamConnectService.SteamAFKMaxCount), button: MessageBox.Button.OKCancel);
                         if (result.IsOK())
                         {
                             AddAFKAppListFunc(app);
@@ -360,7 +360,7 @@ namespace System.Application.UI.ViewModels
             {
                 case SteamAppType.Application:
                 case SteamAppType.Game:
-                    var result = await MessageBox.ShowAsync(AppResources.Achievement_RiskWarning, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel,
+                    var result = await MessageBox.ShowAsync(AppResources.Achievement_RiskWarning, button: MessageBox.Button.OKCancel,
                         rememberChooseKey: MessageBox.RememberChoose.UnLockAchievement);
                     if (result.IsOK())
                     {

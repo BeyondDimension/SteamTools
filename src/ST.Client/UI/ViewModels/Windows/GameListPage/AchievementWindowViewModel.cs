@@ -136,7 +136,7 @@ namespace System.Application.UI.ViewModels
             AppId = appid;
             string name = ISteamworksLocalApiService.Instance.GetAppData((uint)appid, "name");
             name ??= appid.ToString();
-            Title = ThisAssembly.AssemblyTrademark + " | " + name;
+            Title = Constants.HARDCODED_APP_NAME + " | " + name;
             ToastService.Current.Set(AppResources.Achievement_LoadData);
 
             ISteamworksLocalApiService.Instance.AddUserStatsReceivedCallback((param) =>

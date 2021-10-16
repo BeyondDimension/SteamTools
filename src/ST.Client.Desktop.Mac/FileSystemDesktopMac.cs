@@ -15,8 +15,8 @@ namespace System.Application
         public static void InitFileSystem()
         {
             // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FileSystem/FileSystem.ios.tvos.watchos.macos.cs
-            var appDataPath = Path.Combine(GetDirectory(NSSearchPathDirectory.LibraryDirectory), ThisAssembly.AssemblyTrademark);
-            var cachePath = Path.Combine(GetDirectory(NSSearchPathDirectory.CachesDirectory), ThisAssembly.AssemblyTrademark);
+            var appDataPath = Path.Combine(GetDirectory(NSSearchPathDirectory.LibraryDirectory), Constants.HARDCODED_APP_NAME);
+            var cachePath = Path.Combine(GetDirectory(NSSearchPathDirectory.CachesDirectory), Constants.HARDCODED_APP_NAME);
             IOPath.DirCreateByNotExists(appDataPath);
             IOPath.DirCreateByNotExists(cachePath);
             IOPath.InitFileSystem(GetAppDataDirectory, GetCacheDirectory);

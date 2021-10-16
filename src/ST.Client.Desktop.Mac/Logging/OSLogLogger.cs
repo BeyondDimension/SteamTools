@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Extensions.Logging;
 using OSLog = CoreFoundation.OSLog;
 
+// ReSharper disable once CheckNamespace
 namespace Uno.Extensions.Logging
 {
     internal class OSLogLogger : ILogger<object>, ILogger

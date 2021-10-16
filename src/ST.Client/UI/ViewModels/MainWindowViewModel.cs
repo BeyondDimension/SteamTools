@@ -60,7 +60,7 @@ namespace System.Application.UI.ViewModels
 
         public MainWindowViewModel()
         {
-            Title = ThisAssembly.AssemblyTrademark;
+            Title = Constants.HARDCODED_APP_NAME;
 
             IUserManager.Instance.OnSignOut += () =>
             {

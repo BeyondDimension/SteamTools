@@ -209,7 +209,7 @@ namespace System.Application.UI.ViewModels
 
             if (IsLoading) return;
 
-            var r = await MessageBox.ShowAsync(AppResources.User_UnbundleAccountTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            var r = await MessageBox.ShowAsync(AppResources.User_UnbundleAccountTip, button: MessageBox.Button.OKCancel);
             if (r.IsOK())
             {
                 IsLoading = true;

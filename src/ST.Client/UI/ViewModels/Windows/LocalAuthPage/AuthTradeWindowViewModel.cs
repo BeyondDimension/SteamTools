@@ -282,7 +282,7 @@ namespace System.Application.UI.ViewModels
 
         public async void Logout_Click()
         {
-            var r = await MessageBox.ShowAsync(AppResources.LocalAuth_LogoutTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            var r = await MessageBox.ShowAsync(AppResources.LocalAuth_LogoutTip, button: MessageBox.Button.OKCancel);
             if (r == MessageBox.Result.OK)
             {
                 var steam = _Authenticator!.GetClient();
@@ -568,7 +568,7 @@ namespace System.Application.UI.ViewModels
 
             var str = accept ? AppResources.Agree : AppResources.Cancel;
 
-            var result = await MessageBox.ShowAsync(AppResources.LocalAuth_AuthTrade_MessageBoxTip.Format(str), ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            var result = await MessageBox.ShowAsync(AppResources.LocalAuth_AuthTrade_MessageBoxTip.Format(str), button: MessageBox.Button.OKCancel);
 
             if (result == MessageBox.Result.OK)
             {

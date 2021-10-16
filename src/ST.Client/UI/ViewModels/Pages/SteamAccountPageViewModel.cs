@@ -196,10 +196,10 @@ namespace System.Application.UI.ViewModels
 
         public async void DeleteUserButton_Click(SteamUser user)
         {
-            var result = await MessageBox.ShowAsync(AppResources.UserChange_DeleteUserTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            var result = await MessageBox.ShowAsync(AppResources.UserChange_DeleteUserTip, button: MessageBox.Button.OKCancel);
             if (result == MessageBox.Result.OK)
             {
-                result = await MessageBox.ShowAsync(AppResources.UserChange_DeleteUserDataTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+                result = await MessageBox.ShowAsync(AppResources.UserChange_DeleteUserDataTip, button: MessageBox.Button.OKCancel);
                 if (result == MessageBox.Result.OK)
                 {
                     steamService.DeleteLocalUserData(user, true);
@@ -219,7 +219,7 @@ namespace System.Application.UI.ViewModels
 
         public void LoginNewSteamAccount()
         {
-            var result = MessageBox.ShowAsync(AppResources.UserChange_LoginNewAccountTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith(s =>
+            var result = MessageBox.ShowAsync(AppResources.UserChange_LoginNewAccountTip, button: MessageBox.Button.OKCancel).ContinueWith(s =>
             {
                 if (s.Result == MessageBox.Result.OK)
                 {

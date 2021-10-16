@@ -79,7 +79,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteAllButton_Click()
         {
-            var result = MessageBox.ShowAsync(AppResources.GameList_DeleteAll, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith((s) =>
+            var result = MessageBox.ShowAsync(AppResources.GameList_DeleteAll, button: MessageBox.Button.OKCancel).ContinueWith((s) =>
             {
                 if (s.Result.IsOK())
                 {
@@ -116,7 +116,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteButton_Click(SteamApp app)
         {
-            var result = MessageBox.ShowAsync(AppResources.GameList_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith((s) =>
+            var result = MessageBox.ShowAsync(AppResources.GameList_DeleteItem, button: MessageBox.Button.OKCancel).ContinueWith((s) =>
             {
                 if (s.Result.IsOK())
                 {
@@ -217,7 +217,7 @@ namespace System.Application.UI.ViewModels
             }
             else
             {
-                await MessageBox.ShowAsync(AppResources.GameList_SteamNotRuning, ThisAssembly.AssemblyTrademark, MessageBox.Button.OK);
+                await MessageBox.ShowAsync(AppResources.GameList_SteamNotRuning, button: MessageBox.Button.OK);
             }
         }
 
@@ -242,7 +242,7 @@ namespace System.Application.UI.ViewModels
             }
             else
             {
-                await MessageBox.ShowAsync(AppResources.GameList_SteamNotRuning, ThisAssembly.AssemblyTrademark, MessageBox.Button.OK);
+                await MessageBox.ShowAsync(AppResources.GameList_SteamNotRuning, button: MessageBox.Button.OK);
             }
         }
 

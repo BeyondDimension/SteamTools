@@ -62,7 +62,7 @@ namespace System.Application.Services
         public async void SignOut()
         {
             if (!IsAuthenticated) return;
-            var r = await MessageBox.ShowAsync(AppResources.User_SignOutTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel);
+            var r = await MessageBox.ShowAsync(AppResources.User_SignOutTip, button: MessageBox.Button.OKCancel);
             if (r == MessageBox.Result.OK)
             {
                 await SignOutAsync(csc.Manage.SignOut);

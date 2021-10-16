@@ -516,13 +516,13 @@ namespace System.Application.Services
                     var scriptItem = ProxyScripts.Items.FirstOrDefault(x => x.Name == info.Name);
                     if (scriptItem != null)
                     {
-                        var result = MessageBox.ShowAsync(@AppResources.Script_ReplaceTips, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel).ContinueWith(async (s) =>
-                        {
-                            if (s.Result == MessageBox.Result.OK)
-                            {
-                                await AddNewScript(fileInfo, info, scriptItem);
-                            }
-                        });
+                        var result = MessageBox.ShowAsync(AppResources.Script_ReplaceTips, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
+                         {
+                             if (s.Result == MessageBox.Result.OK)
+                             {
+                                 await AddNewScript(fileInfo, info, scriptItem);
+                             }
+                         });
                     }
                     else
                     {
