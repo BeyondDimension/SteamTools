@@ -30,7 +30,10 @@ namespace System.Application.Services
         async void RunShell(string script, bool admin = false) => await RunShellAsync(script, admin);
 
         /// <inheritdoc cref="RunShell(string, bool)"/>
-        ValueTask RunShellAsync(string script, bool admin = false) => throw new PlatformNotSupportedException();
+        ValueTask RunShellAsync(string script, bool admin = false)
+        {
+            return new();
+        }
 
         /// <summary>
         /// 使用文本阅读器打开文件
@@ -182,32 +185,47 @@ namespace System.Application.Services
         /// 使用资源管理器打开文件夹路径
         /// </summary>
         /// <param name="dirPath"></param>
-        void OpenFolderByDirectoryPath(DirectoryInfo info) => throw new PlatformNotSupportedException();
+        void OpenFolderByDirectoryPath(DirectoryInfo info)
+        {
+
+        }
 
         /// <summary>
         /// 使用资源管理器选中文件路径
         /// </summary>
         /// <param name="filePath"></param>
-        void OpenFolderSelectFilePath(FileInfo info) => throw new PlatformNotSupportedException();
+        void OpenFolderSelectFilePath(FileInfo info)
+        {
+
+        }
 
         /// <summary>
         /// 设置系统关闭时任务
         /// </summary>
-        void SetSystemSessionEnding(Action action) => throw new PlatformNotSupportedException();
+        void SetSystemSessionEnding(Action action)
+        {
+
+        }
 
         /// <summary>
         /// 获取文本阅读器提供商程序文件路径或文件名(如果提供程序已注册环境变量)
         /// </summary>
         /// <param name="provider"></param>
         /// <returns></returns>
-        string? GetFileName(TextReaderProvider provider) => throw new PlatformNotSupportedException();
+        string? GetFileName(TextReaderProvider provider)
+        {
+            return null;
+        }
 
         /// <summary>
         /// 设置开机自启动
         /// </summary>
         /// <param name="isAutoStart">开启<see langword="true"/>、关闭<see langword="false"/></param>
         /// <param name="name"></param>
-        void SetBootAutoStart(bool isAutoStart, string name) => throw new PlatformNotSupportedException();
+        void SetBootAutoStart(bool isAutoStart, string name)
+        {
+
+        }
 
         #region Steam
 

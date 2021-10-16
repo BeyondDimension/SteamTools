@@ -12,6 +12,9 @@ namespace System.Application.Services
     partial interface IPlatformService
     {
         [SupportedOSPlatform("MacOS")]
-        string[] GetMacNetworkSetup() => throw new PlatformNotSupportedException();
+        string[] GetMacNetworkSetup()
+        {
+            return Array.Empty<string>();
+        }
     }
 }

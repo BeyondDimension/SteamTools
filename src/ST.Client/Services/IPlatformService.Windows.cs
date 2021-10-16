@@ -13,10 +13,16 @@ namespace System.Application.Services
         /// 打开桌面图标设置
         /// </summary>
         [SupportedOSPlatform("Windows")]
-        void OpenDesktopIconsSettings() => throw new PlatformNotSupportedException();
+        void OpenDesktopIconsSettings()
+        {
+
+        }
 
         [SupportedOSPlatform("Windows")]
-        void OpenGameControllers() => throw new PlatformNotSupportedException();
+        void OpenGameControllers()
+        {
+
+        }
 
         /// <summary>
         /// 已正常权限启动进程
@@ -24,7 +30,10 @@ namespace System.Application.Services
         /// <param name="fileName"></param>
         /// <returns></returns>
         [SupportedOSPlatform("Windows")]
-        Process StartAsInvoker(string fileName) => throw new PlatformNotSupportedException();
+        Process StartAsInvoker(string fileName)
+        {
+            return Process.Start(fileName);
+        }
 
         /// <summary>
         /// 获取占用端口的进程
@@ -33,34 +42,43 @@ namespace System.Application.Services
         /// <param name="isTCPorUDP"></param>
         /// <returns></returns>
         [SupportedOSPlatform("Windows")]
-        Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true) => throw new PlatformNotSupportedException();
+        Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
+        {
+            return null;
+        }
 
         /// <summary>
         /// 从管理员权限进程中降权到普通权限启动进程
         /// </summary>
         /// <param name="cmdArgs"></param>
         [SupportedOSPlatform("Windows")]
-        void UnelevatedProcessStart(string cmdArgs) => throw new PlatformNotSupportedException();
+        void UnelevatedProcessStart(string cmdArgs)
+        {
+
+        }
 
         [SupportedOSPlatform("Windows")]
-        void FixAvaloniaFluentWindowStyleOnWin7(IntPtr hWnd) => throw new PlatformNotSupportedException();
+        void FixAvaloniaFluentWindowStyleOnWin7(IntPtr hWnd)
+        {
+
+        }
 
         /// <summary>
         /// 获取当前 Windows 系统产品名称，例如 Windows 10 Pro
         /// </summary>
         [SupportedOSPlatform("Windows")]
-        string WindowsProductName => throw new PlatformNotSupportedException();
+        string WindowsProductName => string.Empty;
 
         /// <summary>
         /// 获取当前 Windows 系统第四位版本号
         /// </summary>
         [SupportedOSPlatform("Windows")]
-        int WindowsVersionRevision => throw new PlatformNotSupportedException();
+        int WindowsVersionRevision => default;
 
         /// <summary>
         /// 获取当前 Windows 10/11 系统显示版本，例如 21H1
         /// </summary>
         [SupportedOSPlatform("Windows")]
-        string WindowsReleaseIdOrDisplayVersion => throw new PlatformNotSupportedException();
+        string WindowsReleaseIdOrDisplayVersion => string.Empty;
     }
 }

@@ -16,7 +16,7 @@ namespace System.Application.Services.Implementation
         public const int SC_MAXIMIZE = 0xF030;
         //public const int CS_DROPSHADOW = 0x20000;
 
-        public void FixFluentWindowStyleOnWin7(IntPtr hWnd)
+        public void FixAvaloniaFluentWindowStyleOnWin7(IntPtr hWnd)
         {
             if (!OperatingSystem2.IsWindows7) return;
             var value = GetWindowLong(hWnd, GWL_STYLE);

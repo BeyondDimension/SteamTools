@@ -50,15 +50,18 @@ namespace Avalonia.Controls
 
             if (!ViewModelBase.IsInDesignMode)
             {
-                if (OperatingSystem2.IsWindows7)
+                if (OperatingSystem2.IsWindows)
                 {
+                    if (OperatingSystem2.IsWindows7)
+                    {
 #pragma warning disable CA1416 // 验证平台兼容性
-                    IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+                        IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
 #pragma warning restore CA1416 // 验证平台兼容性
-                }
-                else if (OperatingSystem2.IsWindows10AtLeast)
-                {
-                    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
+                    }
+                    else if (OperatingSystem2.IsWindows10AtLeast)
+                    {
+                        AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
+                    }
                 }
             }
         }

@@ -94,6 +94,12 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup Condition=" ($(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`)))) And $(DefineConstants.Contains(`PUBLISH_WIN7`)) ">
+    <None Include="..\..\references\runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets\api-ms-win-core-winrt-l1-1-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <!--<ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) And $(DefineConstants.Contains(`PUBLISH`)) ">
     <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms"/>
   </ItemGroup>-->

@@ -9,7 +9,7 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public class PageViewModel : ViewModelBase
+    public class PageViewModel : ViewModelBase, IPageViewModel
     {
         protected string title = string.Empty;
         [IgnoreDataMember]

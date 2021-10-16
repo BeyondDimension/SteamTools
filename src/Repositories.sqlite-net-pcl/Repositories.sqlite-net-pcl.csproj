@@ -19,12 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\references\sqlite-net\nuget\SQLite-net-std\SQLite-net-std.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="sqlite-net-pcl" />-->
+    <PackageReference Include="sqlite-net-pcl" />
     <PackageReference Include="Polly" />
   </ItemGroup>
 </Project>

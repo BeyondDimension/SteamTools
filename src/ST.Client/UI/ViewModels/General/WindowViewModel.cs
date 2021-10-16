@@ -10,9 +10,9 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public class WindowViewModel : PageViewModel
+    public class WindowViewModel : PageViewModel, IWindowViewModel
     {
-        public static bool IsSupportedSizePosition { get; set; } = true;
+        public static bool IsSupportedSizePosition => IWindowViewModel.IsSupportedSizePosition;
 
         protected SizePosition? _SizePosition;
         public SizePosition SizePosition
