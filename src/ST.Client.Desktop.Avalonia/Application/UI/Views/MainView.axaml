@@ -26,143 +26,28 @@
                                  DockPanel.Dock="Left"
                                  Width="240">
         <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
-        </ExperimentalAcrylicBorder.Material>
-      </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False"
-                                 DockPanel.Dock="Right">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
+      <!--<ExperimentalAcrylicBorder IsHitTestVisible="False"
+                                 DockPanel.Dock="Right">
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
+                                       MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
+                                       TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+      </ExperimentalAcrylicBorder>-->
+      <ExperimentalAcrylicBorder IsHitTestVisible="False"
+                                 DockPanel.Dock="Right">
+          <ExperimentalAcrylicBorder.Material>
+            <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
+                                         MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
+                                         TintOpacity="1"/>
+          </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
     </DockPanel>
-
-    <!--<Grid ColumnDefinitions="240,*,Auto">
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
-        <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
-        <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="20" Margin="8,0,0,0"/>
-      </StackPanel>
-      <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding SelectedItem.Name}" Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                 Padding="15 8 0 0" FontSize="24" FontWeight="Regular"/>
-      <StackPanel Grid.Column="2" x:Name="titleMenu" Orientation="Horizontal" VerticalAlignment="Top">
-
-        <Menu Items="{Binding SelectedItem.MenuItems}" IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}" Classes="BindMenu">
-        </Menu>
-
-        <Menu Classes="BindMenu">
-          <MenuItem Items="{Binding SelectedItem.MenuItems}" Classes="BindItem"
-              IsVisible="{Binding !SelectedItem.MenuItems,Converter={StaticResource IsNullConverter}}">
-            <MenuItem.Header>
-              <PathIcon Data="{StaticResource SettingsDrawing}" Width="14"></PathIcon>
-            </MenuItem.Header>
-          </MenuItem>
-
-          <MenuItem x:Name="userBtn" Command="{Binding OpenUserMenu}">
-            <MenuItem.Header>
-              <Image
-                  Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=20}"
-                  Stretch="Uniform"
-                  Height="20"
-                  Width="20">
-
-                <Image.Clip>
-                  <EllipseGeometry Rect="0,0,20,20" />
-                </Image.Clip>
-
-              </Image>
-            </MenuItem.Header>
-          </MenuItem>
-        </Menu>
-        <Popup IsOpen="{Binding IsOpenUserMenu,Mode=TwoWay, FallbackValue=False}"
-               StaysOpen="False"
-               PlacementTarget="userBtn"
-               Width="250"
-               HorizontalOffset="-205"
-               IsLightDismissEnabled="True">
-          <Border Background="{DynamicResource MenuFlyoutPresenterBackground}"
-                     HorizontalAlignment="Stretch"
-                     CornerRadius="{DynamicResource OverlayCornerRadius}">
-            <StackPanel>
-              <Panel x:Name="UserMenu" Width="250" Margin="0 20">
-                <StackPanel>
-                  <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
-                         Stretch="Uniform"
-                         Height="100"
-                         Width="100"
-                         HorizontalAlignment="Center">
-
-                    <Image.Clip>
-                      <EllipseGeometry Rect="0,0,80,80" />
-                    </Image.Clip>
-
-                  </Image>
-                  <TextBlock
-                    Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
-                    Margin="0 10 0 0"
-                    FontSize="14"
-                    HorizontalAlignment="Center"
-                    Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                </StackPanel>
-              </Panel>
-              <Separator Classes="Separator"></Separator>
-              <ListBox SelectionMode="Single"
-                       Classes="metro"
-                       Background="Transparent"
-                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListBox.Styles>
-                  <Style Selector="Button">
-                    <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
-                    <Setter Property="Width" Value="{Binding #UserMenu.Width}"></Setter>
-                  </Style>
-                  <Style Selector="Button > TextBlock">
-                    <Setter Property="Margin" Value="10 0 0 0"></Setter>
-                  </Style>
-                </ListBox.Styles>
-                <ListBoxItem>
-                  <Button
-                        Classes="CodeButton"
-                        Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
-                        CommandParameter="UserProfile"></Button>
-                </ListBoxItem>
-                <ListBoxItem IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}">
-                  <Button
-                        Classes="CodeButton"
-                        Content="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
-                        CommandParameter="ChangeBindPhoneNumber"></Button>
-                </ListBoxItem>
-                <ListBoxItem IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}">
-                  <Button
-                        Classes="CodeButton"
-                        Content="{ReflectionBinding Path=Res.User_BindPhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
-                        CommandParameter="BindPhoneNumber"></Button>
-                </ListBoxItem>
-
-                <ListBoxItem>
-                  <Button
-                      Classes="CodeButton"
-                      Content="{ReflectionBinding Path=Res.DelAccount,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                      Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
-                      CommandParameter="ChangeBindPhoneNumber"></Button>
-                </ListBoxItem>
-
-                <ListBoxItem>
-                  <Button
-                      Classes="CodeButton"
-                      Content="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                      Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}"></Button>
-                </ListBoxItem>
-              </ListBox>
-            </StackPanel>
-          </Border>
-        </Popup>
-      </StackPanel>
-    </Grid>-->
 
     <!--Content-->
     <ui:NavigationView x:Name="NavigationView"
@@ -319,66 +204,6 @@
       </ui:NavigationView.MenuItemTemplate>
     </ui:NavigationView>
 
-    <!--<TabControl
-                        Items="{Binding TabItems}"
-                        SelectedItem="{Binding SelectedItem}"
-                        Margin="0 22 0 0"
-                        Classes="NavBar">
-      <TabControl.DataTemplates>
-        -->
-    <!--<DataTemplate DataType="vm:DebugWebViewPageViewModel">
-          <pages:DebugWebViewPage/>
-        </DataTemplate>-->
-    <!--
-        <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
-          <pages:ProxyScriptManagePage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:DebugPageViewModel">
-          <pages:DebugPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:AboutPageViewModel">
-          <pages:AboutPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:SettingsPageViewModel">
-          <pages:SettingsPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:StartPageViewModel">
-          <pages:StartPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:SteamAccountPageViewModel">
-          <pages:SteamAccountPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:GameListPageViewModel">
-          <pages:GameListPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:CommunityProxyPageViewModel">
-          <pages:CommunityProxyPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:LocalAuthPageViewModel">
-          <pages:LocalAuthPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:GameRelatedPageViewModel">
-          <pages:GameRelatedPage/>
-        </DataTemplate>
-        <DataTemplate DataType="vm:ArchiSteamFarmPlusPageViewModel">
-          <pages:ArchiSteamFarmPlusPage/>
-        </DataTemplate>
-      </TabControl.DataTemplates>
-      <TabControl.ItemTemplate>
-        <DataTemplate>
-          <DockPanel>
-            <PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"
-                  Width="18" Height="18"
-                  HorizontalAlignment="Left"
-                  Margin="0 0 10 0"></PathIcon>
-            <controls:ScrollingTextBlock
-                Text="{Binding Name}"
-                FontSize="14"
-                FontWeight="Regular"></controls:ScrollingTextBlock>
-          </DockPanel>
-        </DataTemplate>
-      </TabControl.ItemTemplate>
-    </TabControl>-->
     <!--Toast-->
     <controls:ToastMessage />
   </Panel>

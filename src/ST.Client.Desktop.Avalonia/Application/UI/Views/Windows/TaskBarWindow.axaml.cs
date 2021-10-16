@@ -52,7 +52,7 @@ namespace System.Application.UI.Views.Windows
 
             if (OperatingSystem2.IsWindows10AtLeast)
             {
-                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
+                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
             }
         }
 

@@ -1,22 +1,41 @@
 <Style xmlns="https://github.com/avaloniaui"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:sys="using:System">
+  <Design.PreviewWith>
+    <StackPanel Spacing="5" Background="Transparent">
+      <StackPanel.Styles>
+        <Style Selector="Border">
+          <Setter Property="Width" Value="200"/>
+          <Setter Property="Height" Value="30"/>
+        </Style>
+      </StackPanel.Styles>
+      <Border Classes="paper"
+              Background="{DynamicResource BackgroundBrushKey}"/>
+      <Border Classes="paper"
+              Background="{DynamicResource ThemeColorKey}"/>
+      <Border Classes="paper"
+              Background="{DynamicResource BorderBrushKey}"/>
+      <Border Classes="paper"
+              Background="{DynamicResource ForegroundBrushKey}"/>
+    </StackPanel>
+  </Design.PreviewWith>
+  
   <Style.Resources>
-    <Color x:Key="ThemeColorKey">#88FCFCFC</Color>
+    <Color x:Key="ThemeColorKey">#66FCFCFC</Color>
     <SolidColorBrush x:Key="ThemeBrushKey"
-                     Color="#88FCFCFC" />
+                     Color="{StaticResource ThemeColorKey}" />
 
-    <Color x:Key="BackgroundColorKey">#FFD7D7DC</Color>
+    <Color x:Key="BackgroundColorKey">#FFF7F7F7</Color>
     <SolidColorBrush x:Key="BackgroundBrushKey"
-                     Color="#FFD7D7DC" />
+                     Color="{StaticResource BackgroundColorKey}" />
 
     <Color x:Key="BorderColorKey">#FFB9B9C0</Color>
     <SolidColorBrush x:Key="BorderBrushKey"
-                     Color="#FFB9B9C0" />
+                     Color="{StaticResource BorderColorKey}" />
 
     <Color x:Key="ForegroundColorKey">#FF363636</Color>
     <SolidColorBrush x:Key="ForegroundBrushKey"
-                     Color="#FF363636" />
+                     Color="{StaticResource ForegroundColorKey}" />
 
 
 

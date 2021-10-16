@@ -58,7 +58,7 @@ namespace Avalonia.Controls
                 }
                 else if (OperatingSystem2.IsWindows10AtLeast)
                 {
-                    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
+                    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
                 }
             }
         }
