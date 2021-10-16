@@ -8,40 +8,46 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.Settings_Steam">
   <ScrollViewer Classes="tabscroll">
-    <StackPanel Orientation="Vertical"
-            HorizontalAlignment="Stretch"
-            Spacing="20">
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+    <StackPanel Classes="Settings">
 
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_RuningMinimize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamMinimized},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_AutoRunSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsAutoRunSteam},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
 
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_NotCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamNoCheckUpdate},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_RuningMinimize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamMinimized},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
 
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_CheckSteamRuningNotification,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsEnableSteamLaunchNotification},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_NotCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsRunSteamNoCheckUpdate},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_Steam_CheckSteamRuningNotification,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:SteamSettings.IsEnableSteamLaunchNotification},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
 
       <Separator Classes="Separator"/>
 
-      <StackPanel Spacing="10">
-        <!--<TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />-->
-        <TextBox Watermark="{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                 UseFloatingWatermark="True"
-                 Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
-                 MinHeight="150"
-                 AcceptsReturn="True"
-                 TextWrapping="Wrap"></TextBox>
-      </StackPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text= "{ReflectionBinding Path=Res.Settings_Steam_SteamStratParameter,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+          <TextBox Classes="clearButton"
+                   Text="{ReflectionBinding Source={x:Static ms:SteamSettings.SteamStratParameter},Path=Value, Mode=TwoWay}"
+                   TextWrapping="Wrap"/>
+        </DockPanel>
+      </Border>
 
       <Separator Classes="Separator"/>
     </StackPanel>

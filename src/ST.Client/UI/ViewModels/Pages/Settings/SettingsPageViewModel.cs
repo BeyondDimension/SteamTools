@@ -88,16 +88,13 @@ namespace System.Application.UI.ViewModels
                 IOPath.DirName_AppData => IOPath.AppDataDirectory,
                 IOPath.DirName_Cache => IOPath.CacheDirectory,
                 IApplication.LogDirName => IApplication.LogDirPath,
-                _ => null,
+                _ => IOPath.BaseDirectory,
             };
-            if (path != null)
-            {
-                var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
-                var now = DateTime.Now;
-                if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
-                IPlatformService.Instance.OpenFolder(path);
-                if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
-            }
+            var hasKey = clickTimeRecord.TryGetValue(path, out var dt);
+            var now = DateTime.Now;
+            if (hasKey && (now - dt).TotalSeconds <= clickInterval) return;
+            IPlatformService.Instance.OpenFolder(path);
+            if (!clickTimeRecord.TryAdd(path, now)) clickTimeRecord[path] = now;
         }
 
         public void SetBackgroundImagePath(string? imagePath)

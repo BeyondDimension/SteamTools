@@ -9,92 +9,111 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.Settings_General">
   <ScrollViewer Classes="tabscroll">
-    <StackPanel Orientation="Vertical"
-            HorizontalAlignment="Stretch"
-            Spacing="20">
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StartAutoRun,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+    <StackPanel Classes="Settings">
 
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_RuningMinimize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsStartupAppMinimized},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StartAutoRun,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.WindowsStartupAutoRun},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
 
-      <Separator Classes="Separator"/>
-
-      <DockPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
-
-      <StackPanel Orientation="Vertical" Spacing="10" IsVisible="{ReflectionBinding Source={x:Static sys:DesktopBridge.IsRunningAsUwp}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}}">
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UpdateChannel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <ComboBox x:Name="Themes"
-                  Items="{Binding UpdateChannels}"
-                  SelectedItem="{Binding Source={x:Static ms:GeneralSettings.UpdateChannel},Path=Value, Mode=TwoWay}"
-                  HorizontalAlignment="Stretch">
-        </ComboBox>
-      </StackPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_RuningMinimize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsStartupAppMinimized},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
 
       <Separator Classes="Separator"/>
 
-      <DockPanel IsVisible="{x:Static sys:OperatingSystem2.IsMacOS}">
-        <WrapPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-          <TextBlock Classes="prompt"
-                     Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-        </WrapPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_AutoCheckUpdate,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsAutoCheckUpdate},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+      <Border Classes="Item"
+              IsVisible="{ReflectionBinding Source={x:Static sys:DesktopBridge.IsRunningAsUwp}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}}">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UpdateChannel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ComboBox x:Name="Themes"
+                    Items="{Binding UpdateChannels}"
+                    SelectedItem="{Binding Source={x:Static ms:GeneralSettings.UpdateChannel},Path=Value, Mode=TwoWay}">
+          </ComboBox>
+        </DockPanel>
+      </Border>
 
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+      <Separator Classes="Separator"/>
 
-      <DockPanel IsVisible="{x:Static sys:OperatingSystem2.IsWindows}">
-        <WrapPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseOpenGL,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-          <TextBlock Classes="prompt"
-                     Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-        </WrapPanel>
+      <Border Classes="Item"
+              IsVisible="{x:Static sys:OperatingSystem2.IsMacOS}">
+        <DockPanel>
+          <StackPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <TextBlock Classes="prompt"
+                       Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+          </StackPanel>
 
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseOpenGL},Path=Value, Mode=TwoWay}"/>
-      </DockPanel>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item"
+              IsVisible="{x:Static sys:OperatingSystem2.IsWindows}">
+        <DockPanel>
+          <StackPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseOpenGL,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <TextBlock Classes="prompt"
+                       Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          </StackPanel>
+
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseOpenGL},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
 
       <Separator Classes="Separator" IsVisible="{ReflectionBinding Source={x:Static sys:OperatingSystem2.IsLinux}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}" />
 
-      <StackPanel Orientation="Vertical" Spacing="10">
-        <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      <Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=App}"
+                    Command="{ReflectionBinding OpenFolder}"/>
+          </DockPanel>
+        </Expander.Header>
 
-        <StackPanel
-                    Orientation="Horizontal"
-                    Spacing="10">
-          <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=AppData}"
-                  Command="{ReflectionBinding OpenFolder}"
-                  CommandParameter="AppData"/>
-          <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Cache}"
-                  Command="{ReflectionBinding OpenFolder}"
-                  CommandParameter="Cache"/>
-          <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Logs}"
-                  Command="{ReflectionBinding OpenFolder}"
-                  CommandParameter="Logs"/>
+        <StackPanel Orientation="Vertical" Spacing="10">
+          <StackPanel
+                      Orientation="Horizontal"
+                      Spacing="10">
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=AppData}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="AppData"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Cache}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="Cache"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Logs}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="Logs"/>
+          </StackPanel>
+
+          <WrapPanel>
+            <TextBlock x:Name="CacheSize" VerticalAlignment="Center"/>
+            <!--<Button VerticalContentAlignment="Center"
+                  VerticalAlignment="Center"
+                  Margin="10 0 0 0"
+                  Content="{ReflectionBinding Path=Res.Settings_General_ClearCache,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
+          </WrapPanel>
+          <WrapPanel>
+            <TextBlock x:Name="LogSize" VerticalAlignment="Center"/>
+            <!--<Button VerticalContentAlignment="Center"
+                  VerticalAlignment="Center"
+                  Margin="10 0 0 0"
+                  Content="{ReflectionBinding Path=Res.Settings_General_ClearCache,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
+          </WrapPanel>
         </StackPanel>
-
-        <WrapPanel>
-          <TextBlock x:Name="CacheSize" VerticalAlignment="Center"/>
-          <!--<Button VerticalContentAlignment="Center"
-                  VerticalAlignment="Center"
-                  Margin="10 0 0 0"
-                  Content="{ReflectionBinding Path=Res.Settings_General_ClearCache,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
-        </WrapPanel>
-        <WrapPanel>
-          <TextBlock x:Name="LogSize" VerticalAlignment="Center"/>
-          <!--<Button VerticalContentAlignment="Center"
-                  VerticalAlignment="Center"
-                  Margin="10 0 0 0"
-                  Content="{ReflectionBinding Path=Res.Settings_General_ClearCache,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
-        </WrapPanel>
-      </StackPanel>
-
+      </Expander>
     </StackPanel>
   </ScrollViewer>
 </UserControl>

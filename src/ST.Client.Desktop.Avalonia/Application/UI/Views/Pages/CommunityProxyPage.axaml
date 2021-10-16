@@ -26,61 +26,6 @@
               Padding="10"
               Classes="paper"
               Background="{DynamicResource ThemeBrushKey}">
-        <!--<DockPanel>
-          <StackPanel Orientation="Horizontal"
-                      Spacing="10"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Center">
-            -->
-        <!--<TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode,Mode=OneWay,Source={x:Static resx:R.Current}}" Margin="0 5"
-                 Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>-->
-        <!--
-            <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
-            <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
-            <Button Background="Transparent"
-                    Command="{Binding ProxySettingsCommand}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}">
-              <StackPanel Orientation="Horizontal" Spacing="5">
-                <PathIcon Data="{StaticResource SettingsDrawing}"/>
-                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-              </StackPanel>
-            </Button>
-            <Menu Classes="BindMenu">
-              <MenuItem Items="{Binding MenuItems}"
-                        Classes="BindItem"
-                        IsVisible="{Binding !MenuItems,Converter={StaticResource IsNullConverter}}">
-                <MenuItem.Header>
-                  <PathIcon Data="{StaticResource MoreDrawing}" Width="14"></PathIcon>
-                </MenuItem.Header>
-              </MenuItem>
-            </Menu>
-          </StackPanel>
-          <StackPanel Orientation="Horizontal"
-                      HorizontalAlignment="Right"
-                      VerticalAlignment="Center">
-            <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                       VerticalAlignment="Center"/>
-            <ToggleSwitch Classes="onlyToggleSwitch"
-                          VerticalAlignment="Center"
-                          IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
-                          Margin="10 -5 15 0"/>
-            <Button Classes="action"
-                    Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                    FontSize="16"
-                    MinWidth="50"
-                    Width="200"
-                    MinHeight="40"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Command="{Binding StartProxyButton_Click}"
-                    CommandParameter="True"></Button>
-
-            -->
-        <!--<ToggleSwitch Content="{ReflectionBinding Path=Res.CommunityFix_StartProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus}"></ToggleSwitch>-->
-        <!--
-          </StackPanel>
-        </DockPanel>-->
-
         <ui:CommandBar DefaultLabelPosition="Right">
           <ui:CommandBar.PrimaryCommands>
             <!--<ui:CommandBarButton
@@ -194,7 +139,6 @@
             </ui:CommandBarButton>
           </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>
-
       </Border>
 
       <Border Grid.Column="0"

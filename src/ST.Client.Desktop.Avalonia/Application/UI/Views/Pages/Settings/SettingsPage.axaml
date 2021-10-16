@@ -13,34 +13,7 @@
       Background="{DynamicResource ThemeBrushKey}">
     <Border.Styles>
       <Style Selector="ScrollViewer.tabscroll">
-        <Setter Property="Padding" Value="20 0 20 20"/>
-      </Style>
-      <Style Selector="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-        <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-      </Style>
-      <Style Selector="TextBlock.prompt">
-        <Setter Property="FontSize" Value="12" />
-        <!--<Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />-->
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="10 0" />
-      </Style>
-      <Style Selector="DockPanel > WrapPanel">
-        <Setter Property="Margin" Value="0 0 20 0" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="(DockPanel.Dock)"  Value="Left" />
-      </Style>
-      <Style Selector="DockPanel > TextBlock">
-        <Setter Property="Margin" Value="0 0 20 0" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="(DockPanel.Dock)"  Value="Left" />
-      </Style>
-      <Style Selector="DockPanel > ToggleSwitch">
-        <Setter Property="Margin" Value="0 0 -12 0" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="OnContent" Value="{x:Null}" />
-        <Setter Property="OffContent" Value="{x:Null}" />
+        <Setter Property="Padding" Value="0 0 0 20"/>
       </Style>
     </Border.Styles>
     <TabControl Classes="flat">

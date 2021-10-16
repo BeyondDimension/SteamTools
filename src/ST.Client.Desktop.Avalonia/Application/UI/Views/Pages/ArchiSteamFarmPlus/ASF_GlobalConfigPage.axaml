@@ -17,40 +17,8 @@
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_GlobalConfigPage">
-  <StackPanel Spacing="20" Margin="10 0">
-    <StackPanel.Styles>
-      <Style Selector="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-        <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-      </Style>
-      <Style Selector="DockPanel > TextBlock">
-        <Setter Property="Margin" Value="0 0 20 0" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="(DockPanel.Dock)"  Value="Left" />
-      </Style>
-      <Style Selector="DockPanel > ToggleSwitch">
-        <Setter Property="Margin" Value="0 0 -12 0" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="OnContent" Value="{x:Null}" />
-        <Setter Property="OffContent" Value="{x:Null}" />
-      </Style>
-    </StackPanel.Styles>
-
-    <Border>
-      <Border.Styles>
-        <Style Selector="Border">
-          <Setter Property="MinHeight" Value="50" />
-          <Setter Property="Padding" Value="15" />
-          <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
-          <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
-          <Setter Property="BorderThickness" Value="1" />
-          <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-        </Style>
-        <Style Selector="Border:pointerover">
-          <Setter Property="Background" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
-        </Style>
-      </Border.Styles>
+  <StackPanel Classes="Settings">
+    <Border Classes="Item">
       <StackPanel Spacing="10" VerticalAlignment="Center">
         <WrapPanel>
           <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
@@ -61,32 +29,31 @@
       </StackPanel>
     </Border>
 
+    <Separator Classes="Separator"/>
 
-    <Separator Classes="Separator"></Separator>
+    <Border Classes="Item">
+      <DockPanel>
+        <TextBlock Text="程序启动时自动运行ASF"/>
+        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
+      </DockPanel>
+    </Border>
 
-    <DockPanel>
-      <TextBlock Text="程序启动时自动运行ASF"/>
-      <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
-    </DockPanel>
+    <Border Classes="Item">
+      <DockPanel>
+        <TextBlock Text="启用IPC"/>
+        <ToggleSwitch />
+      </DockPanel>
+    </Border>
 
-    <DockPanel>
-      <TextBlock Text="ASF自动更新"/>
-      <ToggleSwitch />
-    </DockPanel>
+    <Border Classes="Item">
+      <DockPanel>
+        <TextBlock Text="IPC服务访问密码"/>
+        <TextBox PasswordChar="●"
+                 Classes="revealPasswordButton">
+        </TextBox>
+      </DockPanel>
+    </Border>
 
-    <DockPanel>
-      <TextBlock Text="启用IPC"/>
-      <ToggleSwitch />
-    </DockPanel>
-
-    <StackPanel Orientation="Vertical" Spacing="10">
-      <TextBlock Text="IPC服务访问密码"/>
-      <TextBox Watermark="设置IPC服务密码"
-               PasswordChar="*"
-               Classes="revealPasswordButton">
-      </TextBox>
-    </StackPanel>
-
-    <Separator Classes="Separator"></Separator>
+    <Separator Classes="Separator"/>
   </StackPanel>
 </UserControl>

@@ -19,8 +19,10 @@
     <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0,0,0,0</CornerRadius>
     <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
   </Styles.Resources>
-  <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
   <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Settings.xaml" />
+
   <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
