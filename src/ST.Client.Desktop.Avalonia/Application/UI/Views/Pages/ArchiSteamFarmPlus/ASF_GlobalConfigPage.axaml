@@ -17,43 +17,50 @@
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_GlobalConfigPage">
-  <StackPanel Classes="Settings">
-    <Border Classes="Item">
-      <StackPanel Spacing="10" VerticalAlignment="Center">
-        <WrapPanel>
+  <ScrollViewer>
+    <StackPanel Classes="Settings">
+      <Border Classes="Item">
+        <WrapPanel VerticalAlignment="Center">
           <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
           <TextBlock Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=CurrentVersion,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
         </WrapPanel>
-        <!--<TextBlock Text="最新 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-          <TextBlock Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>-->
-      </StackPanel>
-    </Border>
+      </Border>
 
-    <Separator Classes="Separator"/>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="程序启动时自动运行ASF"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
+        </DockPanel>
+      </Border>
 
-    <Border Classes="Item">
-      <DockPanel>
-        <TextBlock Text="程序启动时自动运行ASF"/>
-        <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
-      </DockPanel>
-    </Border>
+      <Separator Classes="Separator"/>
 
-    <Border Classes="Item">
-      <DockPanel>
-        <TextBlock Text="启用IPC"/>
-        <ToggleSwitch />
-      </DockPanel>
-    </Border>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="启用IPC"/>
+          <ToggleSwitch />
+        </DockPanel>
+      </Border>
 
-    <Border Classes="Item">
-      <DockPanel>
-        <TextBlock Text="IPC服务访问密码"/>
-        <TextBox PasswordChar="●"
-                 Classes="revealPasswordButton">
-        </TextBox>
-      </DockPanel>
-    </Border>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="IPC监听地址"/>
+          <TextBox
+                   Classes="clearButton">
+          </TextBox>
+        </DockPanel>
+      </Border>
 
-    <Separator Classes="Separator"/>
-  </StackPanel>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="IPC服务访问密码"/>
+          <TextBox PasswordChar="●"
+                   Classes="revealPasswordButton">
+          </TextBox>
+        </DockPanel>
+      </Border>
+
+      <Separator Classes="Separator"/>
+    </StackPanel>
+  </ScrollViewer>
 </UserControl>

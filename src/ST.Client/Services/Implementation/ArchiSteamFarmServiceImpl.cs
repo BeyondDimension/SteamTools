@@ -190,7 +190,7 @@ namespace System.Application.Services.Implementation
             bool result = await GlobalConfig.Write(filePath, config).ConfigureAwait(false);
         }
 
-        public string GetAvatarUrl(Bot bot)
+        public async Task<string?> GetAvatarUrl(Bot bot)
         {
             if (!string.IsNullOrEmpty(bot.AvatarHash))
             {

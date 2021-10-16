@@ -106,7 +106,8 @@
                      Padding="10 0 10 10">
         <ItemsRepeater Items="{Binding Authenticators,Mode=OneWay}">
           <ItemsRepeater.Layout>
-            <UniformGridLayout MinRowSpacing="10"
+            <UniformGridLayout ItemsJustification="SpaceEvenly"
+                               MinRowSpacing="10"
                                MinColumnSpacing="10"/>
             <!--<WrapLayout HorizontalSpacing="10"
                       VerticalSpacing="10" Orientation="Horizontal"/>-->
@@ -221,7 +222,9 @@
                       <PathIcon Data="{DynamicResource CopyDrawing}" Width="20"></PathIcon>
                     </Button>-->
 
-                      <Button Cursor="Hand" Classes="flatbutton" Command="{ReflectionBinding #u.DataContext.ShowSteamAuthTrade}" CommandParameter="{Binding}"
+                      <Button Cursor="Hand" Classes="flatbutton" 
+                              Command="{ReflectionBinding #u.DataContext.ShowSteamAuthTrade}" 
+                              CommandParameter="{Binding}"
                               ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade,Mode=OneWay,Source={x:Static resx:R.Current}}" >
                         <PathIcon Data="{DynamicResource TradeDrawing}" Width="20"></PathIcon>
                       </Button>

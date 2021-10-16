@@ -18,13 +18,15 @@ namespace System.Application.UI.ViewModels
             InitializeComponent();
         }
 
-        public MyAuthenticatorWindowViewModel(MyAuthenticator? auth) : this()
+        public MyAuthenticatorWindowViewModel(MyAuthenticator? auth)
         {
             _MyAuthenticator = auth;
             if (auth?.AuthenticatorData.Value is GAPAuthenticatorValueDTO.SteamAuthenticator authenticator)
             {
                 _Authenticator = authenticator;
             }
+
+            InitializeComponent();
         }
 
         protected virtual void InitializeComponent() { }
