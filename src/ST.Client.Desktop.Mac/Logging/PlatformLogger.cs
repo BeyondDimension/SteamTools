@@ -1,3 +1,4 @@
+#if MONO_MAC
 using Microsoft.Extensions.Logging;
 #if MONO_MAC
 using MonoMac.Foundation;
@@ -43,3 +44,4 @@ namespace System.Logging
         }
     }
 }
+#endif

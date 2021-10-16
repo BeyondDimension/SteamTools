@@ -1,26 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <!--<Project Sdk="MSBuild.Sdk.Extras">-->
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
-    <!--<TargetFrameworks>Xamarin.Mac20;net5.0</TargetFrameworks>-->
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net6.0-macos</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
   </PropertyGroup>
 
-  <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <AllowedReferenceRelatedFileExtensions>
-      -->
-  <!-- Prevent default XML and PDB files copied to output in RELEASE.
-           Only *.allowedextension files will be included, which doesn't exist in my case.
-       -->
-  <!--
-      .allowedextension
-    </AllowedReferenceRelatedFileExtensions>
-  </PropertyGroup>-->
-
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.EndsWith('-macos'))">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac'))">
     <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
@@ -41,13 +27,13 @@
     <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
+  <ItemGroup Condition=" $(DefineConstants.Contains('XAMARIN_MAC')) ">
     <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
       <Link>VisualStudioAppCenterSDK.cs</Link>
     </Compile>
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) ">
+  <ItemGroup Condition=" $(DefineConstants.Contains('XAMARIN_MAC')) ">
     <PackageReference Include="nor0x.AppCenter" />
     <PackageReference Include="nor0x.AppCenter.Analytics" />
     <PackageReference Include="nor0x.AppCenter.Crashes" />
@@ -61,20 +47,6 @@
   <ItemGroup>
     <PackageReference Include="NotifyIcon.Mac" />
   </ItemGroup>
-
-  <!--<ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <Reference Include="Xamarin.Mac">
-      <HintPath>$(MSBuildExtensionsPath)\..\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.Mac\v2.0\Xamarin.Mac.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' ">
-    -->
-  <!--<Reference Include="Xamarin.Mac">
-      <HintPath>$(MSBuildExtensionsPath)/???/Xamarin.Mac.dll</HintPath>
-    </Reference>-->
-  <!--
-  </ItemGroup>-->
 
   <!--VisualStudioAppCenterSDK namespacePrefix = "System.Application.Resources."-->
   <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-mac-debug.pfx')">

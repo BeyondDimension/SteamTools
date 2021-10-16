@@ -25,9 +25,10 @@ namespace Microsoft.Extensions.DependencyInjection
                     // Android Logcat Provider Impl
                     b.AddProvider(PlatformLoggerProvider.Instance);
                 }
-#endif
-#if XAMARIN_MAC || MONO_MAC
+#elif MONO_MAC
                 b.AddProvider(PlatformLoggerProvider.Instance);
+#elif XAMARIN_MAC
+                b.AddProvider(global::Uno.Extensions.Logging.OSLogLoggerProvider.Instance);
 #endif
             });
             services.Configure<LoggerFilterOptions>(o =>
