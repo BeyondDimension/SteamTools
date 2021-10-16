@@ -26,11 +26,11 @@ jobs:
 
     - name: Install macOS SDK(macOS)
       if: matrix.os == 'macOS-latest'
-      run: sudo dotnet workload install microsoft-macos-sdk-full
+      run: sudo dotnet workload install macos
       
     - name: Install macOS SDK(Windows)
       if: matrix.os == 'windows-latest'
-      run: dotnet workload install microsoft-macos-sdk-full
+      run: dotnet workload install macos
 
     - name: Install Maui(Windows)
       if: matrix.os == 'windows-latest'
