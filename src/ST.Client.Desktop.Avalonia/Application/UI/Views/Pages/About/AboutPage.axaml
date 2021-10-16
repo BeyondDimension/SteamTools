@@ -9,10 +9,8 @@
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.AboutPage">
-  <Border Classes="paper"
-        Margin="10"
-        Padding="0 10"
-        Background="{DynamicResource ThemeBrushKey}">
+  <Border 
+        Padding="0 10">
     <TabControl Classes="flat">
       <TabItem Header="{ReflectionBinding Path=Res.About_ThisSoft,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <pages:About_SoftwarePage>

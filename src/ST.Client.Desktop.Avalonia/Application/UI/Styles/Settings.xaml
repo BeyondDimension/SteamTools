@@ -52,6 +52,11 @@
   </Design.PreviewWith>
   <Styles.Resources>
     <sys:Double x:Key="SettingsRightContentWidth">250</sys:Double>
+
+    <SolidColorBrush  x:Key="ExpanderBorderPointerOverBrush"
+              Color="{DynamicResource CardStrokeColorDefault}" />
+    <SolidColorBrush  x:Key="ExpanderBorderBrush"
+                    Color="{DynamicResource CardStrokeColorDefault}" />
   </Styles.Resources>
 
   <Style Selector="StackPanel.Settings">
@@ -80,7 +85,7 @@
   </Style>
 
   <Style Selector="Border.Item:pointerover">
-    <Setter Property="Background" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
   </Style>
 
   <Style Selector="StackPanel.Settings Expander">
@@ -91,6 +96,10 @@
     <Setter Property="Height" Value="65" />
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
+  </Style>
+
+  <Style Selector="StackPanel.Settings Expander ToggleButton.ExpanderToggleButton /template/ ContentPresenter#ContentPresenter > TextBlock">
+    <Setter Property="VerticalAlignment" Value="Center"/>
   </Style>
 
   <Style Selector="StackPanel.Settings TextBlock">
@@ -110,6 +119,12 @@
     <Setter Property="VerticalAlignment" Value="Center" />
     <!--<Setter Property="Margin" Value="10 0" />-->
     <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style Selector="StackPanel.Settings DockPanel > Label">
+    <Setter Property="Margin" Value="0 0 20 0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="(DockPanel.Dock)"  Value="Left" />
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > TextBlock">
@@ -144,6 +159,13 @@
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > ComboBox">
+    <!--<Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />-->
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="HorizontalAlignment"  Value="Right" />
+    <Setter Property="(DockPanel.Dock)"  Value="Right" />
+  </Style>
+
+  <Style Selector="StackPanel.Settings DockPanel > NumericUpDown">
     <!--<Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />-->
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment"  Value="Right" />

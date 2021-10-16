@@ -10,7 +10,8 @@
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.DebugPage">
-  <Grid RowDefinitions="*,Auto">
+  <Grid RowDefinitions="*,Auto"
+        Margin="10">
     <TextBox Grid.Row="0" Text="{Binding DebugString}" AcceptsReturn="True" />
     <StackPanel Grid.Row="1" Orientation="Horizontal">
       <Button Height="35" MinWidth="200" Content="Debug Button"

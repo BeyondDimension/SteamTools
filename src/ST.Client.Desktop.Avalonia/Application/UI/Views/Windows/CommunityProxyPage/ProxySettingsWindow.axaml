@@ -17,43 +17,10 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
-    <Border Classes="paper"
-            Background="{DynamicResource ThemeBrushKey}"
+    <Border Background="{DynamicResource ThemeBrushKey}"
             Margin="{StaticResource TitleBarAfterMargin}">
       <ScrollViewer Padding="10">
-        <StackPanel Spacing="20">
-          <StackPanel.Styles>
-            <Style Selector="Expander">
-              <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            </Style>
-            <Style Selector="DockPanel > Label">
-              <Setter Property="Padding" Value="0" />
-              <Setter Property="Margin" Value="0 0 0 5" />
-              <Setter Property="VerticalAlignment" Value="Center" />
-              <Setter Property="(DockPanel.Dock)" Value="Top"></Setter>
-            </Style>
-            <Style Selector="DockPanel > TextBox">
-              <Setter Property="VerticalAlignment" Value="Center" />
-              <Setter Property="(DockPanel.Dock)" Value="Bottom"></Setter>
-            </Style>
-            <Style Selector="DockPanel > ui|ComboBox">
-              <Setter Property="VerticalAlignment" Value="Center" />
-              <Setter Property="HorizontalAlignment" Value="Stretch" />
-              <Setter Property="(DockPanel.Dock)" Value="Bottom"></Setter>
-            </Style>
-            <Style Selector="DockPanel > TextBlock">
-              <Setter Property="Margin" Value="0 0 20 0" />
-              <Setter Property="VerticalAlignment" Value="Center" />
-              <Setter Property="(DockPanel.Dock)"  Value="Left" />
-            </Style>
-            <Style Selector="DockPanel > ToggleSwitch">
-              <Setter Property="Margin" Value="0 0 -12 0" />
-              <Setter Property="HorizontalAlignment" Value="Right" />
-              <Setter Property="VerticalAlignment" Value="Center" />
-              <Setter Property="OnContent" Value="{x:Null}" />
-              <Setter Property="OffContent" Value="{x:Null}" />
-            </Style>
-          </StackPanel.Styles>
+        <StackPanel Spacing="20" Classes="Settings">
           <Expander Header="加速设置" IsExpanded="True">
             <StackPanel Spacing="10">
               <DockPanel>
@@ -69,7 +36,8 @@
               </DockPanel>
               <DockPanel>
                 <Label Content="监听端口"></Label>
-                <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.HostProxyPortId},Path=Value, Mode=TwoWay}"></TextBox>
+                <NumericUpDown Value="{ReflectionBinding Source={x:Static ms:ProxySettings.HostProxyPortId},Path=Value, Mode=TwoWay}" 
+                               Maximum="65535"/>
               </DockPanel>
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
@@ -94,13 +62,19 @@
             </StackPanel>
           </Expander>
 
-          <Expander Header="Socks5本地代理" IsExpanded="True">
+          <Expander IsExpanded="True">
+            <Expander.Header>
+              <DockPanel HorizontalAlignment="Stretch">
+                <TextBlock Text="Socks5本地代理"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
+              </DockPanel>
+            </Expander.Header>
             <StackPanel Spacing="10">
-              <DockPanel>
+              <!--<DockPanel>
                 <TextBlock Text="启用" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
-              </DockPanel>
+              </DockPanel>-->
               <DockPanel>
                 <Label Content="监听端口"></Label>
                 <NumericUpDown Maximum="65535"
@@ -109,18 +83,23 @@
             </StackPanel>
           </Expander>
 
-          <Expander Header="二级代理" IsExpanded="True">
+          <Expander IsExpanded="True">
+            <Expander.Header>
+              <DockPanel HorizontalAlignment="Stretch">
+                <TextBlock Text="二级代理"/>
+                <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentEnable},Path=Value, Mode=TwoWay}"/>
+              </DockPanel>
+            </Expander.Header>
             <StackPanel Spacing="10">
-              <DockPanel>
+              <!--<DockPanel>
                 <TextBlock Text="启用" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentEnable},Path=Value, Mode=TwoWay}"/>
-              </DockPanel>
+              </DockPanel>-->
 
               <DockPanel>
                 <Label Content="代理类型"></Label>
-                <ComboBox HorizontalAlignment="Stretch"
-                          Items="{Binding ProxyTypes}"
+                <ComboBox Items="{Binding ProxyTypes}"
                           SelectedIndex="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentProxyType},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
 

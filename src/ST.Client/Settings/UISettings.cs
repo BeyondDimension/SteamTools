@@ -139,5 +139,11 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<bool> GetUserThemeAccent { get; }
             = GetProperty(defaultValue: true, autoSave: true);
+
+        /// <summary>
+        /// 主菜单展开状态
+        /// </summary>
+        public static SerializableProperty<bool> MainMenuExpandedState { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
     }
 }

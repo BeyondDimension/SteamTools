@@ -431,7 +431,7 @@
                           <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
                         </ia:EventTriggerBehavior>
                       </i:Interaction.Behaviors>-->
-                      <Border CornerRadius="9"
+                      <Border CornerRadius="{DynamicResource ControlCornerRadius}"
                               ClipToBounds="True">
                         <Panel 
                           Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">

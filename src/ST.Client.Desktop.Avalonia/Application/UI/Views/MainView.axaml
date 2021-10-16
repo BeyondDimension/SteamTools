@@ -31,22 +31,22 @@
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <!--<ExperimentalAcrylicBorder IsHitTestVisible="False"
+      <ExperimentalAcrylicBorder IsHitTestVisible="False"
                                  DockPanel.Dock="Right">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
-      </ExperimentalAcrylicBorder>-->
-      <ExperimentalAcrylicBorder IsHitTestVisible="False"
+      </ExperimentalAcrylicBorder>
+      <!--<ExperimentalAcrylicBorder IsHitTestVisible="False"
                                  DockPanel.Dock="Right">
           <ExperimentalAcrylicBorder.Material>
             <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
                                          MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                          TintOpacity="1"/>
           </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
+        </ExperimentalAcrylicBorder>-->
     </DockPanel>
 
     <!--Content-->
@@ -54,8 +54,8 @@
                        Margin="{StaticResource TitleBarAfterMargin}"
                        Background="Transparent"
                        PaneDisplayMode="Left"
-                       IsPaneOpen="False"
-                       AlwaysShowHeader="False"
+                       IsPaneOpen="{ReflectionBinding Source={x:Static ms:UISettings.MainMenuExpandedState},Path=Value,Mode=TwoWay}"
+                       AlwaysShowHeader="True"
                        IsSettingsVisible="False"
                        OpenPaneLength="240"
                        MenuItems="{Binding TabItems}"
@@ -63,6 +63,14 @@
                        IsBackButtonVisible="False"
                        IsBackEnabled="{Binding #frame.CanGoBack}"
                        SelectedItem="{Binding SelectedItem}">
+      <!--<ui:NavigationView.Styles>
+        <Style Selector="ui|NavigationView:minimal /template/ SplitView Rectangle#ContentLeftPadding">
+          <Setter Property="Grid.Row" Value="0" />
+        </Style>
+        <Style Selector="ui|NavigationView:minimal /template/ SplitView Rectangle#ContentTopPadding">
+          <Setter Property="IsVisible" Value="False" />
+        </Style>
+      </ui:NavigationView.Styles>-->
       <!--<ui:NavigationView.PaneHeader>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
           <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>
@@ -71,7 +79,7 @@
       </ui:NavigationView.PaneHeader>-->
 
       <ui:NavigationView.Content>
-        <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}">
+        <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}" Margin="-10 0 0 0">
           <ui:Frame.DataTemplates>
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
               <pages:ProxyScriptManagePage/>

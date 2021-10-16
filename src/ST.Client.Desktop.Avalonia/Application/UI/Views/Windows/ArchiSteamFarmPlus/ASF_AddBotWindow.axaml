@@ -22,7 +22,6 @@
             Margin="{StaticResource TitleBarAfterMargin}">
       <DockPanel LastChildFill="True">
         <Button Content="保存"
-                Classes="action"
                 Margin="10"
                 Height="40"
                 FontSize="16"
