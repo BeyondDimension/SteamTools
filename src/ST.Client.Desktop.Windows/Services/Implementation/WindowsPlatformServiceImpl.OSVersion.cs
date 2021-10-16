@@ -15,7 +15,7 @@ namespace System.Application.Services.Implementation
         {
             const string subkey = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion";
             using var ndpKey = Registry.LocalMachine.OpenSubKey(subkey);
-            var productName = ndpKey?.GetValue("ProductName")?.ToString();
+            var productName = ndpKey?.GetValue("ProductName")?.ToString() ?? string.Empty;
             var revision = ndpKey?.GetValue("UBR")?.ToString();
             var revisionInt32 = 0;
             if (!int.TryParse(revision, out revisionInt32))
@@ -34,7 +34,7 @@ namespace System.Application.Services.Implementation
                 if (!string.IsNullOrWhiteSpace(displayVersion))
                     releaseId = displayVersion;
             }
-            return (productName, revisionInt32, releaseId);
+            return (productName, revisionInt32, releaseId ?? string.Empty);
         }
 
         static readonly Lazy<(string productName, int revision, string releaseIdOrDisplayVersion)> _WinNTCurrentVersion = new(GetWinNTCurrentVersion);
