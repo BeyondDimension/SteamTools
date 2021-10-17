@@ -25,11 +25,14 @@ namespace System.Application.UI
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();
+
+            var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;
+
             if (OperatingSystem2.IsMacOS)
             {
                 builder.With(new AvaloniaNativePlatformOptions
                 {
-                    UseGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value
+                    UseGpu = useGpu
                 });
             }
             else if (OperatingSystem2.IsWindows)
@@ -39,20 +42,17 @@ namespace System.Application.UI
                 {
                     UseWindowsUIComposition = true,
                     UseWgl = useOpenGL,
-                    AllowEglInitialization = !useOpenGL,
+                    AllowEglInitialization = useGpu,
                 };
                 builder.With(options);
             }
-            //            if (OperatingSystem2.IsWindows &&
-            //#if DEBUG
-            //                true
-            //#else
-            //                GeneralSettings.UseDirect2D1.Value
-            //#endif
-            //                )
-            //            {
-            //                builder.UseDirect2D1();
-            //            }
+            else if (OperatingSystem2.IsLinux)
+            {
+                builder.With(new X11PlatformOptions
+                {
+                    UseGpu = useGpu
+                });
+            }
             RenderingSubsystemName = builder.RenderingSubsystemName;
             return builder;
         }

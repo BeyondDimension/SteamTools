@@ -20,7 +20,7 @@
     </StackPanel>
   </Design.PreviewWith>
   <Style.Resources>
-    <Color x:Key="ThemeColorKey">#66000000</Color>
+    <Color x:Key="ThemeColorKey">#44202020</Color>
     <SolidColorBrush x:Key="ThemeBrushKey"
                      Color="{StaticResource ThemeColorKey}" />
 

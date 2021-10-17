@@ -46,8 +46,7 @@
 
       <Separator Classes="Separator"/>
 
-      <Border Classes="Item"
-              IsVisible="{x:Static sys:OperatingSystem2.IsMacOS}">
+      <Border Classes="Item">
         <DockPanel>
           <StackPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
