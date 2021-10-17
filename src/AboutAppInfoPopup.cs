@@ -121,7 +121,7 @@ namespace System.Application.UI
                 string? clrVersion;
                 try
                 {
-                    clrVersion = typeof(object).Assembly.GetRequiredCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion.Split('+', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+                    clrVersion = GetAssemblyVersion(typeof(object).Assembly);
                 }
                 catch
                 {
@@ -178,24 +178,24 @@ namespace System.Application.UI
                 }
 #endif
 
-                b.Append("[time] ");
-                GetTime(b);
-                static void GetTime(StringBuilder b)
+                b.Append("[time.start] ");
+                GetStartTime(b);
+                static void GetStartTime(StringBuilder b)
                 {
-                    string timeString;
+                    string startTimeStr;
                     const string f = "yy-MM-dd HH:mm:ss";
                     const string f2 = "HH:mm:ss";
                     const string f3 = "dd HH:mm:ss";
-                    var time = Process.GetCurrentProcess().StartTime;
-                    time = time.ToLocalTime();
-                    var utc_time = time.ToUniversalTime();
+                    var starttime = Process.GetCurrentProcess().StartTime;
+                    starttime = starttime.ToLocalTime();
+                    var utc_time = starttime.ToUniversalTime();
                     var local = TimeZoneInfo.Local;
-                    timeString = utc_time.Hour == time.Hour
-                        ? time.ToString(time.Year >= 2100 ? DateTimeFormat.Standard : f)
-                        : utc_time.Day == time.Day
-                        ? $"{utc_time.ToString(f)}({time.ToString(f2)} {local.StandardName})"
-                        : $"{utc_time.ToString(f)}({time.ToString(f3)} {local.StandardName})";
-                    b.Append(timeString);
+                    startTimeStr = utc_time.Hour == starttime.Hour
+                        ? starttime.ToString(starttime.Year >= 2100 ? DateTimeFormat.Standard : f)
+                        : utc_time.Day == starttime.Day
+                        ? $"{utc_time.ToString(f)}({starttime.ToString(f2)} {local.StandardName})"
+                        : $"{utc_time.ToString(f)}({starttime.ToString(f3)} {local.StandardName})";
+                    b.Append(startTimeStr);
                 }
                 b.AppendLine();
 
@@ -358,7 +358,13 @@ namespace System.Application.UI
                 b.AppendLine();
 #endif
 
-                b.Append("[essentials] ");
+#if AVALONIA
+                b.Append("[avalonia.ver] ");
+                b.Append(GetAssemblyVersion(typeof(global::Avalonia.Application).Assembly));
+                b.AppendLine();
+#endif
+
+                b.Append("[essentials.supported] ");
                 b.Append(Essentials.IsSupported.ToLowerString());
                 b.AppendLine();
 
@@ -366,5 +372,11 @@ namespace System.Application.UI
                 MessageBox.Show(b_str, "");
             }
         }
+
+        static string? GetAssemblyVersion(Assembly assembly)
+            => assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            .InformationalVersion
+            .Split('+', StringSplitOptions.RemoveEmptyEntries)
+            .FirstOrDefault();
     }
 }

@@ -1,4 +1,4 @@
-using System.Windows.Threading;
+using static System.Application.MainThread2;
 
 namespace System.Application.Services
 {
@@ -9,6 +9,6 @@ namespace System.Application.Services
     {
         bool PlatformIsMainThread { get; }
 
-        void PlatformBeginInvokeOnMainThread(Action action, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal);
+        void PlatformBeginInvokeOnMainThread(Action action, DispatcherPriority priority = DispatcherPriority.Normal);
     }
 }

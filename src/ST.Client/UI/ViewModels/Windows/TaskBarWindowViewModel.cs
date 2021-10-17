@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
-using System.Windows.Threading;
+using static System.Application.MainThread2;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -75,7 +75,7 @@ namespace System.Application.UI.ViewModels
                     IApplication.Instance.Shutdown();
                     return true;
                 default:
-                    MainThread2.BeginInvokeOnMainThread(() =>
+                    BeginInvokeOnMainThread(() =>
                     {
                         if (tabItemId != default)
                             OnMenuClick(s =>
@@ -83,7 +83,7 @@ namespace System.Application.UI.ViewModels
                                     item.Id == tabItemId, hideTaskBarWindow);
                         else
                             OnMenuClick(s => s.Name == tag, hideTaskBarWindow);
-                    }, DispatcherPriorityCompat.MaxValue);
+                    }, DispatcherPriority.MaxValue);
                     break;
             }
             return false;
