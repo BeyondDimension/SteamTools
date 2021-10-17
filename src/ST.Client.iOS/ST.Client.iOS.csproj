@@ -1,9 +1,11 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-ios;Xamarin.iOS10</TargetFrameworks>
+    <TargetFrameworks>Xamarin.iOS10</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.iOS</AssemblyName>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-ios'))">14.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-maccatalyst'))">14.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>

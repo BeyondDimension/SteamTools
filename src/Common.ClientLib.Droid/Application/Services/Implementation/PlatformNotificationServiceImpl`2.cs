@@ -2,6 +2,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
+using System.Application.UI;
 using System.Collections.Generic;
 using System.Common;
 using AndroidApplication = Android.App.Application;
@@ -10,7 +11,7 @@ using JClass = Java.Lang.Class;
 
 namespace System.Application.Services.Implementation
 {
-    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance}"/>
+    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance, TNotificationService}"/>
     public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance, TNotificationService> : INotificationService<TNotificationType, TEntrance, TNotificationService>
         where TNotificationType : notnull, Enum
         where TNotificationChannelType : notnull, Enum
@@ -189,9 +190,9 @@ namespace System.Application.Services.Implementation
             var builder = new NotificationCompat.Builder(context, channelId);
             var level = GetImportanceLevel(channelType);
             builder.SetPriority(GetNotificationPriority(level));
-            var status_bar_icon = R.drawable.ic_stat_notify_msg;
+            var status_bar_icon = IAndroidApplication.Instance.NotificationSmallIconResId;
             if (status_bar_icon.HasValue) builder.SetSmallIcon(status_bar_icon.Value);
-            title ??= R.@string.app_name;
+            title ??= Constants.HARDCODED_APP_NAME;
             builder.SetContentTitle(title);
             builder.SetContentText(text);
             if (autoCancel.HasValue) builder.SetAutoCancel(autoCancel.Value);
@@ -217,7 +218,7 @@ namespace System.Application.Services.Implementation
            string? title,
            TEntrance? entrance)
         {
-            var notificationEntrance = (entrance != null ? GetActivityType(entrance)?.GetJClass() : null) ?? R.activities.entrance;
+            var notificationEntrance = (entrance != null ? GetActivityType(entrance)?.GetJClass() : null) ?? IAndroidApplication.Instance.NotificationEntrance;
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
             var builder = BuildNotify(context, manager, text, notificationType,

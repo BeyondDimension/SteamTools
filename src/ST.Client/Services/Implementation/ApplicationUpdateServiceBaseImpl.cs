@@ -21,7 +21,8 @@ using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
-    public abstract class ApplicationUpdateServiceImpl : ReactiveObject, IApplicationUpdateService
+    /// <inheritdoc cref="IApplicationUpdateService"/>
+    public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplicationUpdateService
     {
         protected readonly ICloudServiceClient client;
         protected readonly AppSettings settings;
@@ -29,7 +30,7 @@ namespace System.Application.Services.Implementation
 
         public ICommand StartUpdateCommand { get; }
 
-        public ApplicationUpdateServiceImpl(
+        public ApplicationUpdateServiceBaseImpl(
             IToast toast,
             ICloudServiceClient client,
             IOptions<AppSettings> options)
@@ -103,7 +104,14 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 当存在新的版本时，重写此方法实现弹窗提示用户
         /// </summary>
-        protected abstract void OnExistNewVersion();
+        protected virtual async void OnExistNewVersion()
+        {
+            var result = await MessageBox.ShowAsync(NewVersionInfoDesc, AppResources.UpdateContent, MessageBox.Button.OKCancel);
+            if (result.IsOK())
+            {
+                StartUpdateCommand.Invoke();
+            }
+        }
 
         static bool isCheckUpdateing;
 

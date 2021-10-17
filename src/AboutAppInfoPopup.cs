@@ -6,6 +6,7 @@ using Android.Util;
 using Android.Opengl;
 using XEPlatform = Xamarin.Essentials.Platform;
 using Process = System.Diagnostics.Process;
+using AndroidApplication = Android.App.Application;
 #endif
 using System.Properties;
 using System.Text;
@@ -134,8 +135,6 @@ namespace System.Application.UI
                 b.AppendLine();
 
 #if __ANDROID__
-                b.Append("[app.starttime] ");
-                b.AppendLine(MainApplication.ElapsedMilliseconds + "ms");
 
                 //if (_ThisAssembly.Debuggable)
                 //{

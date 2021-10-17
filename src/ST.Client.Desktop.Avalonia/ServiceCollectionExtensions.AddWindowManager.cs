@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddWindowManager(this IServiceCollection services)
         {
-            services.AddSingleton<IWindowManager, WindowManagerImpl>();
+            services.AddSingleton<IWindowManager, AvaloniaWindowManagerImpl>();
             return services;
         }
     }

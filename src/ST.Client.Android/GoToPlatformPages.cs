@@ -5,7 +5,7 @@ using AndroidX.Core.Content;
 using AndroidUri = Android.Net.Uri;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using JFile = Java.IO.File;
-using Settings = Android.Provider.Settings;
+using ASettings = Android.Provider.Settings;
 
 namespace System.Application
 {
@@ -39,20 +39,14 @@ namespace System.Application
             return value;
         }
 
-        public static void StartActivity(this Activity activity, Type activityType)
-        {
-            var intent = new Intent(activity, activityType);
-            activity.StartActivity(intent);
-        }
-
         public static void StartActivity<TActivity>(this Activity activity) where TActivity : Activity
-            => StartActivity(activity, typeof(TActivity));
+            => activity.StartActivity(typeof(TActivity));
 
         public static void StartActivity(this Fragment fragment, Type activityType)
         {
             var activity = fragment.Activity;
             if (activity == null) return;
-            StartActivity(activity, activityType);
+            activity.StartActivity(activityType);
         }
 
         public static void StartActivity<TActivity>(this Fragment fragment) where TActivity : Activity
@@ -172,7 +166,7 @@ namespace System.Application
             context.StartActivity(intent);
         }
 
-        public static void SystemSettings(Context context) => StartNewTaskActivity(context, Settings.ActionSettings);
+        public static void SystemSettings(Context context) => StartNewTaskActivity(context, ASettings.ActionSettings);
 
         public static void AppDetailsSettings(Context context)
         {
@@ -194,7 +188,7 @@ namespace System.Application
             var sdkInt = sdkInt_ ?? (int)Build.VERSION.SdkInt;
             if (sdkInt >= 9)
             {
-                intent.SetAction(Settings.ActionApplicationDetailsSettings);
+                intent.SetAction(ASettings.ActionApplicationDetailsSettings);
                 intent.AddCategory(Intent.CategoryDefault);
                 intent.SetData(AndroidUri.FromParts("package", context.PackageName, null));
             }
@@ -222,14 +216,14 @@ namespace System.Application
                 if (sdkInt >= (int)BuildVersionCodes.O) // >=8.0
                 {
                     // APP通知设置详情
-                    intent.SetAction(Settings.ActionAppNotificationSettings); // ACTION_APP_NOTIFICATION_SETTINGS
-                    intent.PutExtra(Settings.ExtraAppPackage, context.PackageName);
-                    intent.PutExtra(Settings.ExtraChannelId, context.ApplicationInfo!.Uid);
+                    intent.SetAction(ASettings.ActionAppNotificationSettings); // ACTION_APP_NOTIFICATION_SETTINGS
+                    intent.PutExtra(ASettings.ExtraAppPackage, context.PackageName);
+                    intent.PutExtra(ASettings.ExtraChannelId, context.ApplicationInfo!.Uid);
                 }
                 else if (sdkInt >= (int)BuildVersionCodes.Lollipop && sdkInt < (int)BuildVersionCodes.O) // >=5.0 && <8.0
                 {
                     // APP通知设置详情
-                    intent.SetAction(Settings.ActionAppNotificationSettings); // ACTION_APP_NOTIFICATION_SETTINGS
+                    intent.SetAction(ASettings.ActionAppNotificationSettings); // ACTION_APP_NOTIFICATION_SETTINGS
                     intent.PutExtra("app_package", context.PackageName);
                     intent.PutExtra("app_uid", context.ApplicationInfo!.Uid);
                 }

@@ -1,10 +1,11 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-android;MonoAndroid11.0</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid11.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Android</AssemblyName>
     <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <!--当前包是否为应用商店渠道包(IS_STORE_PACKAGE)-->
@@ -22,11 +23,106 @@
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <!--<Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />-->
+    <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
+      <Link>VisualStudioAppCenterSDK.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\Permissions\GetPhoneNumberPermission.cs">
+      <LinkBase>Services\Implementation\Permissions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformToastImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformTelephonyServiceImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformNotificationServiceImpl`2.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Logging\LogHelper.cs">
+      <LinkBase>Logging</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Logging\PlatformLogger.cs">
+      <LinkBase>Logging</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Logging\PlatformLoggerProvider.cs">
+      <LinkBase>Logging</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Diagnostics\PlatformDebuggerDisplayImpl.cs">
+      <LinkBase>Diagnostics</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
+    <Compile Include="..\Common.ClientLib.Droid\ServiceCollectionExtensions.cs">
+      <Link>ServiceCollectionExtensions.Link.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\UriExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\MenuExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\ContextExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\ActivityExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\ActivityManagerExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\JObjectExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\JavaExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\LogLevelEnumExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\DimenUnitConverterExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\TextViewExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\EditTextExtensions.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Application\DarkModeUtil.cs" />
+    <AndroidResource Include="Resources\values\strings_.xml" />
+    <Compile Include="..\AboutAppInfoPopup.cs">
+      <LinkBase>UI</LinkBase>
+    </Compile>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\textbox_password.xml">
+      <Link>Resources\layout\textbox_password.xml</Link>
+    </AndroidBoundLayout>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" />
+    <PackageReference Include="Xamarin.Google.Android.Material" />
+    <!--dependencies implementation-->
+    <PackageReference Include="Microsoft.AppCenter" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" />
+    <PackageReference Include="Xamarin.AndroidX.Activity" />
+    <PackageReference Include="Xamarin.AndroidX.Biometric" />
+    <PackageReference Include="Xamarin.AndroidX.ExifInterface" />
+    <PackageReference Include="Xamarin.AndroidX.Fragment" />
+    <PackageReference Include="Xamarin.AndroidX.Migration" />
+    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" />
+    <PackageReference Include="Xamarin.AndroidX.Camera.Camera2" />
+    <PackageReference Include="Xamarin.AndroidX.Camera.View" />
+    <PackageReference Include="Xamarin.AndroidX.Camera.Lifecycle" />
+    <PackageReference Include="Xamarin.Google.Dagger" />
+    <PackageReference Include="Xamarin.Google.MLKit.BarcodeScanning" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI\Activities\" />
   </ItemGroup>
 </Project>

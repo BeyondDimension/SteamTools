@@ -22,7 +22,7 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate(savedInstanceState);
             //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
-            this.StartActivity<MainActivity>();
+            StartActivity(IAndroidApplication.Instance.MainActivityType);
             OverridePendingTransition(Resource.Animation.abc_fade_in, Resource.Animation.abc_fade_out);
         }
 

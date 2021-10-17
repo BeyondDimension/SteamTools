@@ -2,6 +2,7 @@ using Android.App;
 
 namespace System.Application.Services.Implementation
 {
+    /// <inheritdoc cref="INotificationService"/>
     internal sealed class PlatformNotificationServiceImpl : PlatformNotificationServiceImpl<NotificationType, NotificationChannelType, Entrance, INotificationService>, INotificationService
     {
         protected override void CreateNotificationChannel(NotificationChannelType notificationChannelType, NotificationChannel notificationChannel)

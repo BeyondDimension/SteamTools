@@ -5,24 +5,24 @@ using Android.Views;
 using Binding;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.TextField;
-using System.Application.Models;
-using System.Application.UI.Activities;
+using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using System.Windows;
 using Xamarin.Essentials;
 using static Xamarin.Essentials.Platform;
 using AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class ShowWindowServiceImpl : IShowWindowService
+    /// <inheritdoc cref="IWindowManager"/>
+    public abstract class AndroidWindowManagerBaseImpl : IWindowManagerImpl
     {
-        static string PositiveButtonText => AppResources.Confirm;
-        static string NegativeButtonText => AppResources.Cancel;
+        protected static string PositiveButtonText => AppResources.Confirm;
+        protected static string NegativeButtonText => AppResources.Cancel;
 
-        async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
+        protected async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
             Activity currentActivity;
             do
@@ -36,41 +36,41 @@ namespace System.Application.Services.Implementation
             });
         }
 
-        Task<bool> PlatformShowWindowCore(Activity currentActivity, CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
+        protected Task<bool> PlatformShowWindowCore(Activity currentActivity, CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
-            switch (customWindow)
-            {
-                case CustomWindow.ShowAuth:
-                case CustomWindow.AuthTrade:
-                    if (viewModel is MyAuthenticatorWrapper viewModel_auth_w)
-                    {
-                        switch (customWindow)
-                        {
-                            case CustomWindow.ShowAuth:
-                                // Android Activity 传参需要序列化后再反序列化，不能直接传递
-                                // 所以此处传递 Id，在 Activity 中从关联的集合中根据 Id 取值
-                                SteamAuthDataActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
-                                break;
-                            case CustomWindow.AuthTrade:
-                                SteamAuthTradeActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
-                                break;
-                        }
-                    }
-                    return Task.FromResult(false);
-            }
+            //switch (customWindow)
+            //{
+            //    case CustomWindow.ShowAuth:
+            //    case CustomWindow.AuthTrade:
+            //        if (viewModel is MyAuthenticatorWrapper viewModel_auth_w)
+            //        {
+            //            switch (customWindow)
+            //            {
+            //                case CustomWindow.ShowAuth:
+            //                    // Android Activity 传参需要序列化后再反序列化，不能直接传递
+            //                    // 所以此处传递 Id，在 Activity 中从关联的集合中根据 Id 取值
+            //                    SteamAuthDataActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
+            //                    break;
+            //                case CustomWindow.AuthTrade:
+            //                    SteamAuthTradeActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
+            //                    break;
+            //            }
+            //        }
+            //        return Task.FromResult(false);
+            //}
 
-            var activityType = customWindow switch
-            {
-                CustomWindow.AddAuth => typeof(AddAuthActivity),
-                CustomWindow.ExportAuth => typeof(ExportAuthActivity),
-                CustomWindow.EncryptionAuth => typeof(EncryptionAuthActivity),
-                _ => null,
-            };
-            if (activityType != null)
-            {
-                currentActivity.StartActivity(activityType);
-                return Task.FromResult(false);
-            }
+            //var activityType = customWindow switch
+            //{
+            //    CustomWindow.AddAuth => typeof(AddAuthActivity),
+            //    CustomWindow.ExportAuth => typeof(ExportAuthActivity),
+            //    CustomWindow.EncryptionAuth => typeof(EncryptionAuthActivity),
+            //    _ => null,
+            //};
+            //if (activityType != null)
+            //{
+            //    currentActivity.StartActivity(activityType);
+            //    return Task.FromResult(false);
+            //}
 
             TaskCompletionSource<bool> tcs = new();
             try
@@ -203,26 +203,64 @@ namespace System.Application.Services.Implementation
             return tcs.Task;
         }
 
-        public async Task Show<TWindowViewModel>(CustomWindow customWindow, TWindowViewModel? viewModel = null, string title = "", ResizeModeCompat resizeMode = default, bool isDialog = false, bool isParent = true) where TWindowViewModel : PageViewModel, new()
+        public virtual Type? WindowType => typeof(Activity);
+
+        public virtual Task Show<TWindowViewModel>(CustomWindow customWindow, TWindowViewModel? viewModel = null, string title = "", ResizeMode resizeMode = ResizeMode.NoResize, bool isDialog = false, bool isParent = true) where TWindowViewModel : WindowViewModel, new()
         {
-            await PlatformShowWindow(customWindow, viewModel, title);
+            return PlatformShowWindow(customWindow, viewModel, title);
         }
 
-        public async Task Show(Type typeWindowViewModel, CustomWindow customWindow, PageViewModel? viewModel = null, string title = "", ResizeModeCompat resizeMode = default, bool isDialog = false, bool isParent = true)
+        public virtual Task Show(Type typeWindowViewModel, CustomWindow customWindow, WindowViewModel? viewModel = null, string title = "", ResizeMode resizeMode = ResizeMode.NoResize, bool isDialog = false, bool isParent = true)
         {
-            await PlatformShowWindow(customWindow, viewModel, title);
+            return PlatformShowWindow(customWindow, viewModel, title);
         }
 
-        public async Task<bool> ShowDialog<TWindowViewModel>(CustomWindow customWindow, TWindowViewModel? viewModel = null, string title = "", ResizeModeCompat resizeMode = default, bool isDialog = true, bool isParent = true) where TWindowViewModel : PageViewModel, new()
+        public virtual Task Show(CustomWindow customWindow, WindowViewModel? viewModel = null, string title = "", ResizeMode resizeMode = ResizeMode.NoResize, bool isDialog = false, bool isParent = true)
         {
-            return await PlatformShowWindow(customWindow, viewModel, title);
+            return PlatformShowWindow(customWindow, viewModel, title);
         }
 
-        public async Task ShowDialog(Type typeWindowViewModel, CustomWindow customWindow, PageViewModel? viewModel = null, string title = "", ResizeModeCompat resizeMode = default, bool isDialog = true)
+        public virtual Task<bool> ShowDialog<TWindowViewModel>(CustomWindow customWindow, TWindowViewModel? viewModel = null, string title = "", ResizeMode resizeMode = ResizeMode.NoResize, bool isDialog = true, bool isParent = true) where TWindowViewModel : WindowViewModel, new()
         {
-            await PlatformShowWindow(customWindow, viewModel, title);
+            return PlatformShowWindow(customWindow, viewModel, title);
         }
 
-        public void Pop() => CurrentActivity?.OnBackPressed();
+        public virtual Task ShowDialog(Type typeWindowViewModel, CustomWindow customWindow, WindowViewModel? viewModel = null, string title = "", ResizeMode resizeMode = ResizeMode.NoResize, bool isDialog = true)
+        {
+            return PlatformShowWindow(customWindow, viewModel, title);
+        }
+
+        public virtual Task ShowDialog(CustomWindow customWindow, WindowViewModel? viewModel = null, string title = "", ResizeMode resizeMode = ResizeMode.NoResize, bool isDialog = true)
+        {
+            return PlatformShowWindow(customWindow, viewModel, title);
+        }
+
+        protected bool IsMatchCurrentActivityViewModel(object vm, [NotNullWhen(true)] out Activity? activity)
+        {
+            activity = CurrentActivity;
+            return activity is IViewFor vf && vf.ViewModel == vm;
+        }
+
+        public virtual void CloseWindow(WindowViewModel vm)
+        {
+            if (IsMatchCurrentActivityViewModel(vm, out var activity))
+            {
+                activity.OnBackPressed();
+            }
+        }
+
+        public virtual bool IsVisibleWindow(WindowViewModel vm)
+        {
+            if (IsMatchCurrentActivityViewModel(vm, out var activity))
+            {
+                return activity.HasValue();
+            }
+            return default;
+        }
+
+        public virtual void HideWindow(WindowViewModel vm)
+        {
+            CloseWindow(vm);
+        }
     }
 }

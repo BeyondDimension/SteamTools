@@ -1,7 +1,0 @@
-{
-  "profiles": {
-    "ST.Client.Desktop.Avalonia": {
-      "commandName": "Project"
-    }
-  }
-}

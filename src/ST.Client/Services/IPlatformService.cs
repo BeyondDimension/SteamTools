@@ -231,18 +231,21 @@ namespace System.Application.Services
         #region Steam
 
         /// <inheritdoc cref="ISteamService.SteamDirPath"/>
-        string? GetSteamDirPath();
+        string? GetSteamDirPath() => null;
 
         /// <inheritdoc cref="ISteamService.SteamProgramPath"/>
-        string? GetSteamProgramPath();
+        string? GetSteamProgramPath() => null;
 
-        string? GetRegistryVdfPath();
+        string? GetRegistryVdfPath() => null;
 
         /// <inheritdoc cref="ISteamService.GetLastLoginUserName"/>
-        string GetLastSteamLoginUserName();
+        string GetLastSteamLoginUserName() => "";
 
         /// <inheritdoc cref="ISteamService.SetCurrentUser(string)"/>
-        void SetCurrentUser(string userName);
+        void SetCurrentUser(string userName)
+        {
+
+        }
 
         #endregion
 

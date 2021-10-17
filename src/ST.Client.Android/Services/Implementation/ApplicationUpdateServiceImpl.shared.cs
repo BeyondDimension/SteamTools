@@ -3,17 +3,16 @@ using Android.OS;
 #endif
 using Microsoft.Extensions.Options;
 using System.Application.Models;
-using System.Windows;
 using XEPlatform = Xamarin.Essentials.Platform;
-using static System.Application.UI.Resx.AppResources;
 using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed partial class MobileAppUpdateServiceImpl : ApplicationUpdateServiceImpl
+    /// <inheritdoc cref="IApplicationUpdateService"/>
+    internal sealed partial class ApplicationUpdateServiceImpl : ApplicationUpdateServiceBaseImpl
     {
         readonly INotificationService notification;
-        public MobileAppUpdateServiceImpl(INotificationService notification, IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
+        public ApplicationUpdateServiceImpl(INotificationService notification, IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
         {
             this.notification = notification;
         }
@@ -28,15 +27,6 @@ namespace System.Application.Services.Implementation
 #else
             Xamarin.Essentials.DeviceInfo.Version;
 #endif
-
-        protected override async void OnExistNewVersion()
-        {
-            var result = await MessageBoxCompat.ShowAsync(NewVersionInfoDesc, UpdateContent, MessageBoxButtonCompat.OKCancel);
-            if (result == MessageBoxResultCompat.OK)
-            {
-                StartUpdateCommand.Invoke();
-            }
-        }
 
         protected override void OverwriteUpgrade(string value, bool isIncrement, AppDownloadType downloadType = AppDownloadType.Install)
         {

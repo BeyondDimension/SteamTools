@@ -11,16 +11,16 @@ using AvaloniaApplication = Avalonia.Application;
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="IWindowManager"/>
-    internal sealed class WindowManagerImpl : IWindowManagerImpl
+    internal sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
     {
         readonly IAvaloniaApplication app;
 
-        public WindowManagerImpl(IAvaloniaApplication app)
+        public AvaloniaWindowManagerImpl(IAvaloniaApplication app)
         {
             this.app = app;
         }
 
-        Type IWindowManagerImpl.WindowType => typeof(Window);
+        Type? IWindowManagerImpl.WindowType => typeof(Window);
 
         Type GetWindowType(CustomWindow customWindow)
         {
@@ -152,7 +152,7 @@ namespace System.Application.Services.Implementation
                 }
                 catch (Exception e)
                 {
-                    Log.Error(nameof(WindowManagerImpl), e,
+                    Log.Error(nameof(AvaloniaWindowManagerImpl), e,
                         "Show fail, windowType: {0}", window?.GetType().Name);
                 }
             });
@@ -226,7 +226,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error(nameof(WindowManagerImpl), e,
+                Log.Error(nameof(AvaloniaWindowManagerImpl), e,
                     "CloseWindow fail, vmType: {0}", vm.GetType().Name);
             }
         }
@@ -239,7 +239,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error(nameof(WindowManagerImpl), e,
+                Log.Error(nameof(AvaloniaWindowManagerImpl), e,
                     "HideWindow fail, vmType: {0}", vm.GetType().Name);
                 return false;
             }
@@ -253,7 +253,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error(nameof(WindowManagerImpl), e,
+                Log.Error(nameof(AvaloniaWindowManagerImpl), e,
                     "HideWindow fail, vmType: {0}", vm.GetType().Name);
             }
         }
@@ -266,7 +266,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error(nameof(WindowManagerImpl), e,
+                Log.Error(nameof(AvaloniaWindowManagerImpl), e,
                     "ShowWindowNoParent fail, vmType: {0}", vm.GetType().Name);
             }
         }

@@ -4,7 +4,8 @@ using System.Application.UI;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class AvaloniaApplicationUpdateServiceImpl : ApplicationUpdateServiceImpl
+    /// <inheritdoc cref="IApplicationUpdateService"/>
+    internal sealed class AvaloniaApplicationUpdateServiceImpl : ApplicationUpdateServiceBaseImpl
     {
         readonly IAvaloniaApplication app;
         readonly IWindowManager windowManager;

@@ -113,16 +113,20 @@ namespace System.Application.Services
         /// 根据视图模型显示窗口
         /// </summary>
         /// <param name="vm"></param>
-        void ShowWindow(WindowViewModel vm)
+        async void ShowWindow(WindowViewModel vm)
         {
-
+            var windowName = vm.GetType().Name.TrimEnd(nameof(WindowViewModel));
+            if (Enum.TryParse<CustomWindow>(windowName, out var customWindow))
+            {
+                await Show(customWindow, vm);
+            }
         }
     }
 
     /// <inheritdoc cref="IWindowManager"/>
     public interface IWindowManagerImpl : IWindowManager
     {
-        Type WindowType { get; }
+        Type? WindowType { get; }
 
         Type GetWindowType(CustomWindow customWindow, params Assembly[]? assemblies)
         {
@@ -150,7 +154,7 @@ namespace System.Application.Services
             return GetType(typeName, typeof(WindowViewModel), errMsg, customWindow, assemblies);
         }
 
-        private Type GetType(string typeName, Type baseType, string errMsg, CustomWindow customWindow, IEnumerable<Assembly>? assemblies)
+        private Type GetType(string typeName, Type? baseType, string errMsg, CustomWindow customWindow, IEnumerable<Assembly>? assemblies)
         {
             Type? type = null;
             if (assemblies.Any_Nullable())
@@ -165,7 +169,7 @@ namespace System.Application.Services
             {
                 type = Type.GetType(typeName);
             }
-            if (type != null && baseType.IsAssignableFrom(type)) return type;
+            if (type != null && (baseType == null || baseType.IsAssignableFrom(type))) return type;
             throw new ArgumentOutOfRangeException(nameof(customWindow), customWindow, errMsg);
         }
     }
