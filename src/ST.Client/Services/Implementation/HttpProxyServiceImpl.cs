@@ -56,8 +56,6 @@ namespace System.Application.Services.Implementation
 
         public int Socks5ProxyPortId { get; set; }
 
-        public int HostProxyPortId { get; set; }
-
         public bool TwoLevelAgentEnable { get; set; }
 
         public ExternalProxyType TwoLevelAgentProxyType { get; set; }
@@ -537,13 +535,30 @@ namespace System.Application.Services.Implementation
                     //{
                     //    return false;
                     //}
-                    var transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, HostProxyPortId, true)
-                    {
-                        // 通过不启用为每个http的域创建证书来优化性能
-                        //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-                    };
-                    transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
 
+
+                    TransparentProxyEndPoint transparentProxyEndPoint;
+                    if (OperatingSystem2.IsLinux && Environment.UserName != "root")
+                    {
+                        var freeport = GetRandomUnusedPort();
+                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
+                        {
+                            // 通过不启用为每个http的域创建证书来优化性能
+                            //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                        };
+
+                        MessageBox.Show($"Liunx Hosts 代理模式 需要 Root 权限，或使用 “sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port {freeport}” 映射到其他端口且修改代理设置监听端口");
+                    }
+                    else
+                    {
+                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
+                        {
+                            // 通过不启用为每个http的域创建证书来优化性能
+                            //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                        };
+                    }
+
+                    transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
                     proxyServer.AddEndPoint(transparentProxyEndPoint);
 
                     try

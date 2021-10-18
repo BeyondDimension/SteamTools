@@ -44,9 +44,6 @@ namespace System.Application.Services
 
         bool IsSystemProxy { get; set; }
 
-        [Obsolete("use IsSystemProxy", true)]
-        bool IsWindowsProxy { get => IsSystemProxy; set => IsSystemProxy = value; }
-
         bool IsProxyGOG { get; set; }
 
         bool OnlyEnableProxyScript { get; set; }
@@ -54,8 +51,6 @@ namespace System.Application.Services
         bool Socks5ProxyEnable { get; set; }
 
         int Socks5ProxyPortId { get; set; }
-        int HostProxyPortId { get; set; }
-
 
         bool TwoLevelAgentEnable { get; set; }
 

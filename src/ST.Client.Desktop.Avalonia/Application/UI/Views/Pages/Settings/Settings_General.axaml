@@ -58,7 +58,7 @@
         </DockPanel>
       </Border>
 
-      <Border Classes="Item"
+      <!--<Border Classes="Item"
               IsVisible="{x:Static sys:OperatingSystem2.IsWindows}">
         <DockPanel>
           <StackPanel>
@@ -69,7 +69,7 @@
 
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseOpenGL},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
-      </Border>
+      </Border>-->
 
       <Separator Classes="Separator" IsVisible="{ReflectionBinding Source={x:Static sys:OperatingSystem2.IsLinux}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}" />
 

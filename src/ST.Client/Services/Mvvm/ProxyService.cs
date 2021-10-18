@@ -176,7 +176,7 @@ namespace System.Application.Services
                         httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
 
-                        httpProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
+                        //httpProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
                         httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
 
                         httpProxyService.TwoLevelAgentProxyType = (ExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
@@ -207,15 +207,10 @@ namespace System.Application.Services
                             //}
                             //else
                             //{
-                            if (OperatingSystem2.IsLinux && ProxySettings.HostProxyPortId == 443 && Environment.UserName != "root")
-                            {
-                                Toast.Show("Liunx Hosts 代理模式 需要 Root 权限，或使用 “sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443” 映射到其他端口且修改代理设置监听端口");
-                                return;
-                            }
-                            var inUse = httpProxyService.PortInUse(ProxySettings.HostProxyPortId);
+                            var inUse = httpProxyService.PortInUse(443);
                             if (inUse)
                             {
-                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, ProxySettings.HostProxyPortId, ""));
+                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, 443, ""));
                                 return;
                             }
                             //}
