@@ -87,9 +87,8 @@ namespace System.Application.UI.Views.Controls
             //              //consoleScroll.Offset = new Vector(double.NegativeInfinity, consoleScroll.Viewport.Height);
             //          }
             //      });
-
             this.GetObservable(IsMaskProperty)
-                  .Subscribe(x => commandTextbox.PasswordChar = x ? '*' : default);
+                  .Subscribe(x => commandTextbox.PasswordChar = x ? '●' : default);
 
             this.GetObservable(LogTextProperty)
                   .Subscribe(x =>

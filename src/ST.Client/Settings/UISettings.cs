@@ -96,7 +96,7 @@ namespace System.Application.Settings
         /// 库存游戏封面大小
         /// </summary>
         public static SerializableProperty<int> AppGridSize { get; }
-            = GetProperty(defaultValue: 180, autoSave: true);
+            = GetProperty(defaultValue: 150, autoSave: true);
 
         /// <summary>
         /// Steam账号备注替换名称显示

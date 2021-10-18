@@ -50,7 +50,7 @@
                            Width="184"
                            AutoStart="true"
                            Stretch="Uniform"
-                           Source="{Binding AvatarUrl}">
+                           Source="{Binding AvatarUrl^}">
                 </gif:Image2>
                 <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
                        Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">

@@ -34,7 +34,7 @@
         <Border Classes="Item">
           <DockPanel>
             <TextBlock Text="IPC服务访问密码"/>
-            <TextBox PasswordChar="●"
+            <TextBox PasswordChar="{StaticResource PasswordChar}"
                      Classes="revealPasswordButton">
             </TextBox>
           </DockPanel>

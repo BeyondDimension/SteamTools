@@ -15,9 +15,11 @@
     <Thickness x:Key="ContentMargin">34, 0, 34, 0</Thickness>
     <sys:Double x:Key="IconElementThemeHeight">16</sys:Double>
 
+    <sys:Char x:Key="PasswordChar">•</sys:Char>
     <SolidColorBrush x:Key="NavigationViewContentBackground">#00000000</SolidColorBrush>
     <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0,0,0,0</CornerRadius>
     <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
+    <Thickness x:Key="NavigationViewHeaderMargin">10,0,0,0</Thickness>
   </Styles.Resources>
   <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Window.xaml" />

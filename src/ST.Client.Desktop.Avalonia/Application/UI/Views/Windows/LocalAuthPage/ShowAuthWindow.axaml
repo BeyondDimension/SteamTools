@@ -31,7 +31,7 @@
            FontSize="20"
            Foreground="{DynamicResource ActiveForegroundBrushKey}" />
 
-          <TextBox Classes="revealPasswordButton" FontSize="20" BorderThickness="0" Text="{Binding RecoveryCode,Mode=OneTime}" PasswordChar="*" IsReadOnly="True"></TextBox>
+          <TextBox Classes="revealPasswordButton" FontSize="20" BorderThickness="0" Text="{Binding RecoveryCode,Mode=OneTime}" PasswordChar="{StaticResource PasswordChar}" IsReadOnly="True"></TextBox>
         </DockPanel>
 
         <StackPanel Margin="0,12">

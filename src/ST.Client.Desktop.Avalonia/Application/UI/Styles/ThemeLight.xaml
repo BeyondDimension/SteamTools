@@ -10,9 +10,9 @@
         </Style>
       </StackPanel.Styles>
       <Border Classes="paper"
-              Background="{DynamicResource BackgroundBrushKey}"/>
-      <Border Classes="paper"
               Background="{DynamicResource ThemeColorKey}"/>
+      <Border Classes="paper"
+              Background="{DynamicResource BackgroundBrushKey}"/>
       <Border Classes="paper"
               Background="{DynamicResource BorderBrushKey}"/>
       <Border Classes="paper"
@@ -21,7 +21,7 @@
   </Design.PreviewWith>
   
   <Style.Resources>
-    <Color x:Key="ThemeColorKey">#66FCFCFC</Color>
+    <Color x:Key="ThemeColorKey">#AAFCFCFC</Color>
     <SolidColorBrush x:Key="ThemeBrushKey"
                      Color="{StaticResource ThemeColorKey}" />
 

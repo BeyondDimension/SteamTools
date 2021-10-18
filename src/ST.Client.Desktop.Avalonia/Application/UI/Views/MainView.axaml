@@ -63,14 +63,6 @@
                        IsBackButtonVisible="False"
                        IsBackEnabled="{Binding #frame.CanGoBack}"
                        SelectedItem="{Binding SelectedItem}">
-      <!--<ui:NavigationView.Styles>
-        <Style Selector="ui|NavigationView:minimal /template/ SplitView Rectangle#ContentLeftPadding">
-          <Setter Property="Grid.Row" Value="0" />
-        </Style>
-        <Style Selector="ui|NavigationView:minimal /template/ SplitView Rectangle#ContentTopPadding">
-          <Setter Property="IsVisible" Value="False" />
-        </Style>
-      </ui:NavigationView.Styles>-->
       <!--<ui:NavigationView.PaneHeader>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="110" VerticalAlignment="Top">
           <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="-8,0,0,0"/>

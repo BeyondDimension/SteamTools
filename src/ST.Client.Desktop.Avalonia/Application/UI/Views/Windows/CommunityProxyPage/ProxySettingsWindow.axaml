@@ -121,7 +121,7 @@
 
               <DockPanel>
                 <Label Content="密码" ></Label>
-                <TextBox Classes="revealPasswordButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPassword},Path=Value, Mode=TwoWay}" PasswordChar="*"></TextBox>
+                <TextBox Classes="revealPasswordButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPassword},Path=Value, Mode=TwoWay}" PasswordChar="{StaticResource PasswordChar}"></TextBox>
               </DockPanel>
 
             </StackPanel>

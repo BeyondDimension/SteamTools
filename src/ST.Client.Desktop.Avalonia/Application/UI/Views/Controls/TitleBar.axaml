@@ -42,8 +42,16 @@
       </ExperimentalAcrylicBorder>
     </DockPanel>
     <StackPanel x:Name="title" Orientation="Horizontal" VerticalAlignment="Top" Margin="10 6 10 6">
-      <Image Source="/Application/UI/Assets/Icon.ico" Height="18" Width="18" Margin="0,0,10,0"/>
-      <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{ReflectionBinding $parent[Window].Title}" VerticalAlignment="Center" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="14"/>
+      <Image Source="/Application/UI/Assets/Icon.ico" 
+             Height="18" 
+             Width="18" 
+             VerticalAlignment="Center"
+             Margin="0,0,10,0"/>
+      <TextBlock IsHitTestVisible="False" Grid.Column="1"
+                 Text="{ReflectionBinding $parent[Window].Title}"
+                 VerticalAlignment="Center"
+                 Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                 FontSize="15"/>
     </StackPanel>
   </Panel>
 </UserControl>

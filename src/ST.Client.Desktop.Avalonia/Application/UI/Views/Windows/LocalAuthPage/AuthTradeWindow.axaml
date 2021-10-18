@@ -26,7 +26,7 @@
                   HorizontalAlignment="Center" Margin="0 0 0 25"></PathIcon>
         <TextBox Watermark="{ReflectionBinding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}"></TextBox>
 
-        <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" PasswordChar="*" Text="{Binding Password}" Classes="revealPasswordButton"></TextBox>
+        <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" PasswordChar="{StaticResource PasswordChar}" Text="{Binding Password}" Classes="revealPasswordButton"></TextBox>
 
         <Panel Margin="2 0 6 0">
           <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding RememberMe}"></CheckBox>

@@ -57,8 +57,8 @@
 
         <StackPanel Spacing="10" IsEnabled="{Binding IsPasswordEncrypt}">
           <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ExportPassword,Source={x:Static resx:R.Current},Mode=OneWay}" TextWrapping="WrapWithOverflow"></TextBlock>
-          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding Password}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
-          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding VerifyPassword}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
+          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding Password}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
+          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding VerifyPassword}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
         </StackPanel>
         <Separator Classes="Separator"></Separator>
 

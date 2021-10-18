@@ -31,7 +31,7 @@
                  HorizontalAlignment="Stretch"
                  Text="{Binding Value}"
                  MaxLength="{Binding MaxLength}"
-                 PasswordChar="*" 
+                 PasswordChar="{StaticResource PasswordChar}" 
                  Classes="revealPasswordButton" />
         <TextBox x:Name="DescriptionBox" 
                  MaxWidth="{ReflectionBinding #u.MaxWidth}"

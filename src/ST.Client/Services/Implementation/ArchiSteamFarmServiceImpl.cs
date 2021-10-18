@@ -18,6 +18,13 @@ namespace System.Application.Services.Implementation
 {
     public class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
     {
+        readonly IHttpService httpService;
+
+        public ArchiSteamFarmServiceImpl(IHttpService http)
+        {
+            httpService = http;
+        }
+
         public Action<string>? GetConsoleWirteFunc { get; set; }
 
         public TaskCompletionSource<string>? ReadLineTask { get; set; }
@@ -194,7 +201,7 @@ namespace System.Application.Services.Implementation
         {
             if (!string.IsNullOrEmpty(bot.AvatarHash))
             {
-                return $"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarHash.Substring(0, 2)}/{bot.AvatarHash}_full.jpg";
+                return await httpService.GetImageAsync($"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarHash.Substring(0, 2)}/{bot.AvatarHash}_full.jpg", ImageChannelType.SteamAvatars);
             }
             else
             {
