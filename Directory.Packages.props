@@ -62,7 +62,7 @@
     <!--Avalonia Start-->
     <PackageVersion Include="Avalonia" Version="0.10.999-cibuild0016079-beta" />
     <PackageVersion Include="Avalonia.Desktop" Version="0.10.999-cibuild0016079-beta" />
-    <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0016079-beta" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0016110-beta" />
     <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0016079-beta" />
     <PackageVersion Include="Avalonia.Direct2D1" Version="0.10.999-cibuild0016079-beta" />
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0016079-beta" />
