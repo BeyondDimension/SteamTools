@@ -89,8 +89,8 @@ namespace System.Application.UI
                 menuItemDisposable = InitMenuItems(menu);
                 TrayIcon trayIcon = new()
                 {
-                    Icon = new(GetIconByCurrentAvaloniaLocator()),
-                    ToolTipText = TaskBarWindowViewModel.TitleString,
+                    Icon = new(icon),
+                    ToolTipText = text,
                     Menu = menu,
                 };
                 trayIcon.Clicked += notifyIconClick;
