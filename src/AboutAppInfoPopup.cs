@@ -21,6 +21,7 @@ namespace System.Application.UI
 {
     static class AboutAppInfoPopup
     {
+        static readonly IPlatformService platformService = IPlatformService.Instance;
         static int show_runtime_info_counter;
         static DateTime show_runtime_info_last_click_time;
         const int show_runtime_info_counter_max = 5;
@@ -57,7 +58,6 @@ namespace System.Application.UI
 #else
                 if (OperatingSystem2.IsWindows)
                 {
-                    var platformService = IPlatformService.Instance;
 #pragma warning disable CA1416 // 验证平台兼容性
                     var productName = platformService.WindowsProductName;
                     var major = Environment.OSVersion.Version.Major;
@@ -80,10 +80,25 @@ namespace System.Application.UI
                         b.Append(')');
                     }
                 }
+                else if (OperatingSystem2.IsLinux)
+                {
+#pragma warning disable CA1416 // 验证平台兼容性
+                    var linuxIssue = platformService.LinuxIssue;
+                    if (!string.IsNullOrWhiteSpace(linuxIssue))
+                    {
+                        b.Append(linuxIssue);
+                    }
+                    else
+                    {
+                        AppendOSName();
+                    }
+#pragma warning restore CA1416 // 验证平台兼容性
+                }
                 else
                 {
-                    b.AppendFormat("{0} {1}", DeviceInfo2.OSName, Environment.OSVersion.Version);
+                    AppendOSName();
                 }
+                void AppendOSName() => b.AppendFormat("{0} {1}", DeviceInfo2.OSName, Environment.OSVersion.Version);
 #endif
                 b.AppendLine();
 

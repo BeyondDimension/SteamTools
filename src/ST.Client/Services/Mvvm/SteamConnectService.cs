@@ -87,7 +87,7 @@ namespace System.Application.Services
             }
         }
 
-        const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
+        const string DefaultAvaterPath = "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
         object? _AvaterPath = DefaultAvaterPath;
         public object? AvaterPath
         {

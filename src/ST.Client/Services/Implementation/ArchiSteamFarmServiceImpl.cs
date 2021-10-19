@@ -205,7 +205,7 @@ namespace System.Application.Services.Implementation
             }
             else
             {
-                return "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
+                return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
             }
         }
     }

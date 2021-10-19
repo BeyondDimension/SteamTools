@@ -5,7 +5,7 @@
     <RootNamespace>System</RootNamespace>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
-    <AssemblyName>System.Application.SteamTools.Client.Desktop.Avalonia</AssemblyName>
+    <AssemblyName>System.Application.SteamTools.Client.Avalonia</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
@@ -78,6 +78,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.ReactiveUI" />

@@ -19,8 +19,8 @@
   </Application.Resources>
   <Application.Styles>
     <FluentTheme Mode="Dark" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
 
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
@@ -30,7 +30,7 @@
                              GetUserAccentColor="False"
                              UseSegoeUIOnWindows="False"/>
 
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Controls.xaml" />
 
   </Application.Styles>
   <!-- (NativeMenu.Menu) https://github.com/AvaloniaUI/Avalonia/issues/3541 -->

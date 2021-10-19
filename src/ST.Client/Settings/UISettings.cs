@@ -126,7 +126,7 @@ namespace System.Application.Settings
         /// 背景图片路径
         /// </summary>
         public static SerializableProperty<string> BackgroundImagePath { get; }
-            = GetProperty(defaultValue: "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png", autoSave: true);
+            = GetProperty(defaultValue: "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png", autoSave: true);
 
         /// <summary>
         /// 主题颜色(十六进制字符串)

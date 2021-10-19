@@ -11,7 +11,7 @@
     </Border>
   </Design.PreviewWith>
   <Styles.Resources>
-    <FontFamily x:Key="UnicodeFont">avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei</FontFamily>
+    <FontFamily x:Key="UnicodeFont">avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei</FontFamily>
 
     <Thickness x:Key="TextBoxIconMargin">12,0,0,0</Thickness>
 

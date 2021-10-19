@@ -186,7 +186,7 @@
         </TextBox>
 
         <!--<WrapPanel>
-          <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>
+          <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>
         </WrapPanel>-->
       </StackPanel>
 

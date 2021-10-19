@@ -16,7 +16,7 @@ namespace System.Application.Services.Implementation
         readonly IAvaloniaApplication application;
 
         readonly Typeface _defaultTypeface =
-           new("avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
+           new("avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
 
         public static bool UseGdiPlusFirst { get; set; }
 

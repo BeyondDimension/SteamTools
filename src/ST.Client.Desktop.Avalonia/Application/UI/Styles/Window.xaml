@@ -17,7 +17,7 @@
     <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></Setter>
     <Setter Property="Background" Value="Transparent"></Setter>
     <Setter Property="TransparencyLevelHint" Value="AcrylicBlur"></Setter>
-    <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"/>
+    <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico"/>
   </Style>
 
 </Styles>

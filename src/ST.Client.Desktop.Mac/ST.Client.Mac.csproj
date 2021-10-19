@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net6.0-macos</TargetFrameworks>
+    <!--<TargetFrameworks>net6.0;net6.0-macos</TargetFrameworks>-->
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>System.Application.SteamTools.Client.Desktop.Mac</AssemblyName>
+    <AssemblyName>System.Application.SteamTools.Client.Mac</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac'))">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac')) ">
     <DefineConstants>XAMARIN_MAC;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
@@ -27,20 +28,20 @@
     <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(DefineConstants.Contains('XAMARIN_MAC')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac')) ">
     <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
       <Link>VisualStudioAppCenterSDK.cs</Link>
     </Compile>
   </ItemGroup>
 
-  <ItemGroup Condition=" $(DefineConstants.Contains('XAMARIN_MAC')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac')) ">
     <PackageReference Include="nor0x.AppCenter" />
     <PackageReference Include="nor0x.AppCenter.Analytics" />
     <PackageReference Include="nor0x.AppCenter.Crashes" />
   </ItemGroup>
 
  
-  <ItemGroup Condition=" $(DefineConstants.Contains('MONO_MAC')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.EndsWith('net5.0')) OR $(TargetFramework.EndsWith('net6.0')) ">
     <PackageReference Include="MonoMac.NetStandard" />
   </ItemGroup>
 

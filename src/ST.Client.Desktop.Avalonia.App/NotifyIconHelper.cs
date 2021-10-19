@@ -20,15 +20,13 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-#if WINDOWS
 using System.Windows;
-#endif
 using System.Application.UI.ViewModels;
 using System.Application.UI.Resx;
 using Avalonia.Controls;
-#if LINUX && TRAY_INDEPENDENT_PROGRAM
-using GtkApplication = Gtk.Application;
-#endif
+//#if LINUX && TRAY_INDEPENDENT_PROGRAM
+//using GtkApplication = Gtk.Application;
+//#endif
 
 namespace System.Application.UI
 {
@@ -43,11 +41,11 @@ namespace System.Application.UI
             string iconPath;
             if (OperatingSystem2.IsMacOS)
             {
-                iconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon_16.png";
+                iconPath = "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon_16.png";
             }
             else
             {
-                iconPath = "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico";
+                iconPath = "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico";
             }
             return assets.Open(new(iconPath));
         }
@@ -85,6 +83,29 @@ namespace System.Application.UI
             else
 #endif
             {
+                if (OperatingSystem2.IsLinux)
+                {
+#pragma warning disable CA1416 // 验证平台兼容性
+                    if (IPlatformService.Instance.IsDeepin)
+#pragma warning restore CA1416 // 验证平台兼容性
+                    {
+                        // Deepin catch.
+                        // Unhandled exception: System.Reflection.TargetInvocationException: Arg_TargetInvocationException
+                        //---> Tmds.DBus.DBusException: com.deepin.DBus.Error.Unnamed: notifier item has been registered
+                        //  at Tmds.DBus.DBusConnection.CallMethodAsync(Message msg, Boolean checkConnected, Boolean checkReplyType)
+                        //  at Tmds.DBus.Connection.CallMethodAsync(Message message)
+                        //  at Tmds.DBus.CodeGen.DBusObjectProxy.SendMethodReturnReaderAsync(String iface, String member, Nullable`1 inSignature, MessageWriter writer)
+                        //  at Avalonia.X11.X11TrayIconImpl.CreateTrayIcon() in /_/src/Avalonia.X11/X11TrayIconImpl.cs:line 85
+                        //  at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__127_0(Object state)
+                        //  at Avalonia.Threading.AvaloniaSynchronizationContext.<>c__DisplayClass5_0.<Post>b__0() in /_/src/Avalonia.Base/Threading/AvaloniaSynchronizationContext.cs:line 33
+                        //  at Avalonia.Threading.JobRunner.Job.Avalonia.Threading.JobRunner.IJob.Run() in /_/src/Avalonia.Base/Threading/JobRunner.cs:line 166
+                        //  at Avalonia.Threading.JobRunner.RunJobs(Nullable`1 priority) in /_/src/Avalonia.Base/Threading/JobRunner.cs:line 37
+                        //  at Avalonia.X11.X11PlatformThreading.CheckSignaled() in /_/src/Avalonia.X11/X11PlatformThreading.cs:line 164
+                        //  at Avalonia.X11.X11PlatformThreading.RunLoop(CancellationToken cancellationToken) in /_/src/Avalonia.X11/X11PlatformThreading.cs:line 244
+                        //  at Avalonia.Threading.Dispatcher.MainLoop(CancellationToken cancellationToken) in /_/src/Avalonia.Base/Threading/Dispatcher.cs:line 61
+                        return null;
+                    }
+                }
                 NativeMenu menu = new();
                 menuItemDisposable = InitMenuItems(menu);
                 TrayIcon trayIcon = new()
@@ -98,6 +119,10 @@ namespace System.Application.UI
                 {
                     trayIcon,
                 });
+                if (OperatingSystem2.IsMacOS)
+                {
+                    NativeMenu.SetMenu(app, menu);
+                }
             }
             if (menuItemDisposable != null) menuItemDisposable.AddTo(app);
             return notifyIcon;
@@ -138,7 +163,6 @@ namespace System.Application.UI
         //        }
 
         #region 仅在非 Windows 上使用平台原生托盘菜单
-#if !WINDOWS || DEBUG
         static string Exit => AppResources.Exit;
 
         static void OnMenuClick(string command)
@@ -212,7 +236,7 @@ namespace System.Application.UI
         //#endif
         //        }
         static NativeMenuItem? exitMenuItem;
-        static readonly Dictionary<TabItemViewModel, NativeMenuItem> tabItems = new();
+        static Dictionary<TabItemViewModel, NativeMenuItem>? tabItems;
         static IDisposable? InitMenuItems(NativeMenu menu)
         {
 #if !TRAY_INDEPENDENT_PROGRAM
@@ -224,6 +248,7 @@ namespace System.Application.UI
                         let tabItem = x is TabItemViewModel item ? item : null
                         where tabItem != null
                         select tabItem;
+            tabItems = new();
             foreach (var item in query)
             {
                 var menuItem = new NativeMenuItem
@@ -263,7 +288,6 @@ namespace System.Application.UI
             return null;
 #endif
         }
-#endif
         #endregion
 
         //        #region 仅在 Linux 上使用管道 IPC 调用托盘菜单项点击事件

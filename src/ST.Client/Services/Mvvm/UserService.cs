@@ -106,7 +106,7 @@ namespace System.Application.Services
             {
                 if (IApplication.Type == IApplication.AppType.Avalonia)
                 {
-                    return "avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
+                    return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
                 }
                 return string.Empty;
             }

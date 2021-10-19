@@ -17,7 +17,7 @@
       <!--<TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>-->
       <WrapPanel
           Margin="20,0,0,0">
-        <Image x:Name="move" Width="64" HorizontalAlignment="Left" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/movecross.png">
+        <Image x:Name="move" Width="64" HorizontalAlignment="Left" Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/movecross.png">
           <i:Interaction.Behaviors>
             <ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{ReflectionBinding #move}">
               <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.Cross_MouseDown}"/>

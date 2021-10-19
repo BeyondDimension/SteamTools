@@ -15,7 +15,7 @@
 [![C# 10.0](https://img.shields.io/badge/c%23-10.0-green.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10)
 
 [![Desktop UI](https://img.shields.io/badge/ui@desktop-AvaloniaUI-purple.svg?style=flat-square&color=8c45ab)](https://github.com/AvaloniaUI/Avalonia)
-![Mobile UI](https://img.shields.io/badge/ui@mobile-Platform_Native_UI-blue.svg?style=flat-square&color=3498db)
+[![Mobile GUI](https://img.shields.io/badge/gui@mobile-Xamarin.Forms-blue.svg?style=flat-square&color=3498db)](https://github.com/xamarin/Xamarin.Forms)
 [![Official WebSite](https://img.shields.io/badge/website@official-Ant%20Design%20of%20React-blue.svg?style=flat-square&color=61dafb)](https://github.com/ant-design/ant-design)
 [![BackManage WebSite](https://img.shields.io/badge/website@back_manage-Ant%20Design%20of%20Blazor-purple.svg?style=flat-square&color=512bd4)](https://github.com/ant-design-blazor/ant-design-blazor)
 
@@ -230,6 +230,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [AppCenter-XMac](https://github.com/nor0x/AppCenter-XMac)
 * [MSBuild.Sdk.Extras](https://github.com/novotnyllc/MSBuildSdkExtras)
 * [Xamarin.Essentials](https://github.com/xamarin/essentials)
+* [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms)
 * [Open Source Components for Xamarin](https://github.com/xamarin/XamarinComponents)
 * [Google Play Services / Firebase / ML Kit for Xamarin.Android](https://github.com/xamarin/GooglePlayServicesComponents)
 * [Picasso](https://github.com/square/picasso)

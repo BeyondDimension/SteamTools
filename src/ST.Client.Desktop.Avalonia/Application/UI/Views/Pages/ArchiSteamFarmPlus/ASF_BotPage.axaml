@@ -53,7 +53,7 @@
                            Source="{Binding AvatarUrl^}">
                 </gif:Image2>
                 <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                       Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
+                       Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
                 </Image>-->
               </Panel>
               <Panel Grid.Column="1" Margin="10 5">
