@@ -13,15 +13,22 @@
   <Grid RowDefinitions="*,Auto"
         Margin="10">
     <TextBox Grid.Row="0" Text="{Binding DebugString}" AcceptsReturn="True" />
-    <StackPanel Grid.Row="1" Orientation="Horizontal">
-      <Button Height="35" MinWidth="200" Content="Debug Button"
+    <WrapPanel Grid.Row="1" Orientation="Horizontal">
+      <WrapPanel.Styles>
+        <Style Selector="Button">
+          <Setter Property="Height" Value="35"/>
+          <Setter Property="MinWidth" Value="150"/>
+        </Style>
+      </WrapPanel.Styles>
+      <Button Content="Debug Button"
               Command="{Binding DebugButton_Click}" />
-      <Button Height="35" MinWidth="200" Content="Test Dialog"
+      <Button Content="Test Dialog"
               Command="{Binding ShowDialogButton_Click}" />
-      <Button Height="35" MinWidth="200" Content="Test Server Api"
+      <Button Content="Test Server Api"
               Command="{Binding TestServerApiButton_Click}" />
-      <Button Height="35" MinWidth="200" Content="Test Fonts"
+      <Button Content="Test Fonts"
               Command="{Binding TestFontsButton_Click}" />
-    </StackPanel>
+      <Button x:Name="TestWindow" Content="Test Window"/>
+    </WrapPanel>
   </Grid>
 </UserControl>

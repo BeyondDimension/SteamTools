@@ -24,6 +24,7 @@
       <ExperimentalAcrylicBorder x:Name="NavBarBackground"
                                  IsHitTestVisible="False"
                                  DockPanel.Dock="Left"
+                                 HorizontalAlignment="Left"
                                  Width="240">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
@@ -58,6 +59,7 @@
                        AlwaysShowHeader="True"
                        IsSettingsVisible="False"
                        OpenPaneLength="240"
+                       CompactPaneLength="48"
                        MenuItems="{Binding TabItems}"
                        FooterMenuItems="{Binding FooterTabItems}"
                        IsBackButtonVisible="False"
@@ -177,7 +179,7 @@
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
           <ui:NavigationViewItem>
             <ui:NavigationViewItem.Resources>
-              <x:Double x:Key="NavigationViewItemOnLeftIconBoxHeight">26</x:Double>
+              <x:Double x:Key="NavigationViewItemOnLeftIconBoxHeight">30</x:Double>
             </ui:NavigationViewItem.Resources>
             <ui:NavigationViewItem.Content>
               <!--<DockPanel>
@@ -193,7 +195,7 @@
               <!--<ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>-->
               <ui:BitmapIcon UriSource="{Binding IconSource}"
                              HorizontalAlignment="Center"
-                             Width="26" Height="26"/>
+                             Width="30" Height="30"/>
               <!--<ui:ImageIcon Margin="3 0 0 0"
                             Width="16" Height="16">
                             <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>

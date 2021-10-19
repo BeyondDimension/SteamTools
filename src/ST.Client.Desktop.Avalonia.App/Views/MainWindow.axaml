@@ -13,7 +13,7 @@
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaTitleBarHeightHint="30"
-        Background="Transparent"
+        Background="{x:Null}"
         Title="{Binding Title,Mode=OneWay}"
         Topmost="{Binding Topmost}"
         x:DataType="vm:MainWindowViewModel"

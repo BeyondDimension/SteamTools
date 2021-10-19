@@ -80,10 +80,10 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Desktop" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" />
-    <!--<PackageReference Include="Avalonia.AvaloniaEdit" />-->
     <PackageReference Include="Avalonia.ReactiveUI" />
     <PackageReference Include="Avalonia.Xaml.Behaviors" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <!--<PackageReference Include="Avalonia.AvaloniaEdit" />-->
     <!--<PackageReference Include="CefNet.Avalonia" />-->
     <!--<PackageReference Include="LibVLCSharp.Avalonia" />-->
     <!--<PackageReference Include="FluentAvaloniaUI" />-->

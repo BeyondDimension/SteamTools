@@ -79,14 +79,6 @@ namespace System.Application.UI.ViewModels
             FooterTabItems = InitTabItemsWithReturnFooterTabItems();
 
             _SelectedItem = TabItems.First();
-
-            //Task.Run(Initialize).ForgetAndDispose();
-
-            //this.WhenAnyValue(x => x.SelectedItem)
-            //    .Subscribe(x =>
-            //    {
-            //        Task.Run(x.Activation).ForgetAndDispose();
-            //    });
         }
 
         public override void Initialize()

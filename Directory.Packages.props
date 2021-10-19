@@ -58,19 +58,23 @@
         <PackageVersion Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
         <PackageVersion Include="System.Drawing.Common" Version="6.0.0-rc.2.21480.5" />
         <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
-        <PackageVersion Include="Avalonia" Version="0.10.7" />
-        <PackageVersion Include="Avalonia.Desktop" Version="0.10.7" />
-        <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.7" />
-        <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.7" />
-        <PackageVersion Include="Avalonia.Direct2D1" Version="0.10.7" />
-        <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.7" />
-        <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.7.1" />
-        <PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.4" />
+        
+        <!--Avalonia Start-->
+        <PackageVersion Include="Avalonia" Version="0.10.999-cibuild0016079-beta" />
+        <PackageVersion Include="Avalonia.Desktop" Version="0.10.999-cibuild0016079-beta" />
+        <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0016079-beta" />
+        <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0016079-beta" />
+        <PackageVersion Include="Avalonia.Direct2D1" Version="0.10.999-cibuild0016079-beta" />
+        <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0016079-beta" />
+        <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.8" />
+        <!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.4" />-->
         <!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
         <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-        <PackageVersion Include="FluentAvaloniaUI" Version="1.1.3" />
-        <PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
+        <!--<PackageVersion Include="FluentAvaloniaUI" Version="1.1.3" />-->
         <PackageVersion Include="JumpLists.Win32.Avalonia" Version="0.0.1" />
+        <!--Avalonia End-->
+        
+        <PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
         <PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.3.5" />
         <PackageVersion Include="TaskScheduler" Version="2.9.2" />
         <!--<PackageVersion Include="Microsoft.Identity.Client" Version="4.35.1" />-->
