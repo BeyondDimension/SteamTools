@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup>
     <PackageVersion Include="ReactiveUI" Version="16.2.6" />
-    <PackageVersion Include="DynamicData" Version="7.3.1" />
+    <PackageVersion Include="DynamicData" Version="7.4.1" />
     <PackageVersion Include="Splat" Version="13.1.22" />
     <PackageVersion Include="OperatingSystem2" Version="1.3.0" />
     <PackageVersion Include="Microsoft.AppCenter" Version="4.4.0" />
