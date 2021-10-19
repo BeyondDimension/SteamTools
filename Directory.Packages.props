@@ -38,7 +38,7 @@
     <PackageVersion Include="Moq" Version="4.16.1" />
     <PackageVersion Include="AutoMapper" Version="10.1.1" />
     <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageVersion Include="Portable.BouncyCastle" Version="1.8.10" />
+    <PackageVersion Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageVersion Include="QRCoder" Version="1.4.1" />
     <PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.0-rc.1" />
     <PackageVersion Include="DnsClient" Version="1.5.0" />
