@@ -273,20 +273,21 @@ namespace System.Application.UI
                 {
                     if (Startup.HasNotifyIcon)
                     {
-                        if (!OperatingSystem2.IsLinux)
-                        {
-                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
-                            notifyIcon.Click += NotifyIcon_Click;
-                            notifyIcon.DoubleClick += NotifyIcon_Click;
-                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
-                            notifyIcon.AddTo(this);
-                        }
-                        else
-                        {
-#if LINUX || DEBUG
-                            NotifyIconHelper.StartPipeServer();
-#endif
-                        }
+                        NotifyIconHelper.Init(this, NotifyIcon_Click);
+                        //                        if (!OperatingSystem2.IsLinux)
+                        //                        {
+                        //                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
+                        //                            notifyIcon.Click += NotifyIcon_Click;
+                        //                            notifyIcon.DoubleClick += NotifyIcon_Click;
+                        //                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
+                        //                            notifyIcon.AddTo(this);
+                        //                        }
+                        //                        else
+                        //                        {
+                        //#if LINUX || DEBUG
+                        //                            NotifyIconHelper.StartPipeServer();
+                        //#endif
+                        //                        }
                     }
 #if WINDOWS
 #pragma warning disable CA1416 // 验证平台兼容性
@@ -367,9 +368,9 @@ namespace System.Application.UI
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
-#if LINUX || DEBUG
-            NotifyIconHelper.StopPipeServer();
-#endif
+            //#if LINUX || DEBUG
+            //            NotifyIconHelper.StopPipeServer();
+            //#endif
 
             try
             {
