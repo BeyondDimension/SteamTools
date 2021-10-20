@@ -59,7 +59,6 @@
                        AlwaysShowHeader="True"
                        IsSettingsVisible="False"
                        OpenPaneLength="240"
-                       CompactPaneLength="48"
                        MenuItems="{Binding TabItems}"
                        FooterMenuItems="{Binding FooterTabItems}"
                        IsBackButtonVisible="False"

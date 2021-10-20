@@ -89,11 +89,11 @@ namespace System.Application.UI.ViewModels
             Task.Run(() =>
             {
                 Threading.Thread.CurrentThread.IsBackground = true;
-                Task.Run(ProxyService.Current.Initialize).ForgetAndDispose();
-                Task.Run(SteamConnectService.Current.Initialize).ForgetAndDispose();
-
                 if (!IsInitialized)
                 {
+                    ProxyService.Current.Initialize();
+                    SteamConnectService.Current.Initialize();
+
                     Parallel.ForEach(TabItems, item =>
                     {
                         item.Initialize();
