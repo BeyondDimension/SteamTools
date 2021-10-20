@@ -1,8 +1,8 @@
 using System.Application.Services;
-#if __MOBILE__
-using _AppUpdateServiceImpl = System.Application.Services.Implementation.MobileAppUpdateServiceImpl;
+#if AVALONIA
+using AppUpdateServiceImpl = System.Application.Services.Implementation.AvaloniaApplicationUpdateServiceImpl;
 #else
-using _AppUpdateServiceImpl = System.Application.Services.Implementation.AvaloniaApplicationUpdateServiceImpl;
+using AppUpdateServiceImpl = System.Application.Services.Implementation.ApplicationUpdateServiceImpl;
 #endif
 
 // ReSharper disable once CheckNamespace
@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddApplicationUpdateService(this IServiceCollection services)
         {
-            services.AddSingleton<IApplicationUpdateService, _AppUpdateServiceImpl>();
+            services.AddSingleton<IApplicationUpdateService, AppUpdateServiceImpl>();
             return services;
         }
     }

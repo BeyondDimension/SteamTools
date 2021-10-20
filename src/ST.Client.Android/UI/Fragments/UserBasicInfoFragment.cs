@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace System.Application.UI.Fragments
 {
-    internal sealed class UserBasicInfoFragment : BaseFragment<fragment_basic_profile, UserProfilePageViewModel>
+    internal sealed class UserBasicInfoFragment : BaseFragment<fragment_basic_profile, UserProfileWindowViewModel>
     {
         protected override int? LayoutResource => Resource.Layout.fragment_basic_profile;
 

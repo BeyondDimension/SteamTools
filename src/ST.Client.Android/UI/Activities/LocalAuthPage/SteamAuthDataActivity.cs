@@ -4,7 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Binding;
 using ReactiveUI;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;

@@ -6,7 +6,7 @@ using Android.Views;
 using Binding;
 using ReactiveUI;
 using System.Application.Models;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading;
 using static System.Application.UI.Resx.AppResources;
 using TViewModel = System.Application.Models.MyAuthenticator;
+using System.Application.UI.Fragments;
 
 namespace System.Application.UI.Activities
 {
@@ -22,9 +23,9 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class AuthDetailActivity : BaseActivity<activity_detail_auth, MyAuthenticatorWrapper>, TViewModel.IAutoRefreshCodeHost, IReadOnlyViewFor<TViewModel>
+    internal sealed class AuthDetailActivity : BaseActivity<activity_detail_auth, MyAuthenticatorWindowViewModel>, TViewModel.IAutoRefreshCodeHost, IReadOnlyViewFor<TViewModel>
     {
-        TViewModel IReadOnlyViewFor<TViewModel>.ViewModel => ViewModel!;
+        TViewModel IReadOnlyViewFor<TViewModel>.ViewModel => ViewModel!.MyAuthenticator!;
 
         Timer? TViewModel.IAutoRefreshCodeHost.Timer { get; set; }
 
@@ -32,16 +33,17 @@ namespace System.Application.UI.Activities
         {
             get
             {
-                yield return ViewModel!;
+                yield return ViewModel!.MyAuthenticator!;
             }
         }
 
         protected override int? LayoutResource => Resource.Layout.activity_detail_auth;
 
-        protected override MyAuthenticatorWrapper? OnCreateViewModel()
+        protected override MyAuthenticatorWindowViewModel? OnCreateViewModel()
         {
             var vm = AuthService.Current.Authenticators.Items.FirstOrDefault(x => x.Id == this.GetViewModel<ushort>());
-            return vm!;
+            if (vm == null) return null;
+            return new(vm);
         }
 
         protected override void OnCreate(Bundle? savedInstanceState)
@@ -56,19 +58,19 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
-            ViewModel!.Authenticator.WhenAnyValue(x => x.Name).SubscribeInMainThread(value =>
+            ViewModel!.MyAuthenticator.WhenAnyValue(x => x.Name).SubscribeInMainThread(value =>
             {
                 Title = value;
             }).AddTo(this);
-            ViewModel.Authenticator.WhenAnyValue(x => x.CurrentCode).SubscribeInMainThread(value =>
+            ViewModel.MyAuthenticator.WhenAnyValue(x => x.CurrentCode).SubscribeInMainThread(value =>
             {
                 binding.tvValue.Text = TViewModel.CodeFormat(value);
             }).AddTo(this);
-            ViewModel.Authenticator.WhenAnyValue(x => x.Period).SubscribeInMainThread(value =>
+            ViewModel.MyAuthenticator.WhenAnyValue(x => x.Period).SubscribeInMainThread(value =>
             {
                 binding.progress.Max = value;
             }).AddTo(this);
-            ViewModel.Authenticator.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).SubscribeInMainThread(value =>
+            ViewModel.MyAuthenticator.WhenAnyValue(x => x.AutoRefreshCodeTimingCurrent).SubscribeInMainThread(value =>
             {
                 binding.progress.Progress = value;
                 binding.tvProgress.Text = value.ToString();
@@ -119,30 +121,30 @@ namespace System.Application.UI.Activities
             base.OnClick(view);
             if (view.Id == Resource.Id.layoutValue)
             {
-                ViewModel!.Authenticator.CopyCodeCilp();
+                ViewModel!.MyAuthenticator!.CopyCodeCilp();
             }
             else if (view.Id == Resource.Id.layoutEditName)
             {
-                await ViewModel!.Authenticator.EditNameAsync();
+                await ViewModel!.MyAuthenticator!.EditNameAsync();
             }
             else if (view.Id == Resource.Id.layoutConfirmTrade)
             {
-                LocalAuthPageViewModel.Current.ShowSteamAuthTrade(ViewModel!.Authenticator);
+                LocalAuthPageViewModel.Current.ShowSteamAuthTrade(ViewModel!.MyAuthenticator!);
             }
             else if (view.Id == Resource.Id.layoutSeeData)
             {
-                LocalAuthPageViewModel.Current.ShowSteamAuthData(ViewModel!.Authenticator);
+                LocalAuthPageViewModel.Current.ShowSteamAuthData(ViewModel!.MyAuthenticator!);
             }
             else if (view.Id == Resource.Id.layoutDelete)
             {
-                LocalAuthPageViewModel.Current.DeleteAuthCore(ViewModel!.Authenticator, () =>
+                LocalAuthPageViewModel.Current.DeleteAuthCore(ViewModel!.MyAuthenticator!, () =>
                 {
                     Finish();
                 });
             }
             else if (view.Id == Resource.Id.layoutExport)
             {
-                ExportAuthActivity.StartActivity(this, ViewModel!.Authenticator.Id);
+                ExportAuthActivity.StartActivity(this, ViewModel!.MyAuthenticator!.Id);
             }
         }
 

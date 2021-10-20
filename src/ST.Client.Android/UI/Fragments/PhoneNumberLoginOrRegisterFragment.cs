@@ -13,7 +13,7 @@ using System.Application.UI.ViewModels;
 namespace System.Application.UI.Fragments
 {
     [Register(JavaPackageConstants.Fragments + nameof(PhoneNumberLoginOrRegisterFragment))]
-    internal sealed class PhoneNumberLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_phone_number, LoginOrRegisterPageViewModel>, TextView.IOnEditorActionListener
+    internal sealed class PhoneNumberLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_phone_number, LoginOrRegisterWindowViewModel>, TextView.IOnEditorActionListener
     {
         protected override int? LayoutResource => Resource.Layout.fragment_login_and_register_by_phone_number;
 
@@ -54,7 +54,7 @@ namespace System.Application.UI.Fragments
                 binding.tvAgreementAndPrivacy.TextFormatted = LoginOrRegisterActivity.CreateAgreementAndPrivacy(ViewModel!);
                 if (!ViewModel!.IsUnTimeLimit)
                 {
-                    binding.btnSendSms.Text = LoginOrRegisterPageViewModel.DefaultBtnSendSmsCodeText;
+                    binding.btnSendSms.Text = LoginOrRegisterWindowViewModel.DefaultBtnSendSmsCodeText;
                 }
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsLoading).SubscribeInMainThread(value =>

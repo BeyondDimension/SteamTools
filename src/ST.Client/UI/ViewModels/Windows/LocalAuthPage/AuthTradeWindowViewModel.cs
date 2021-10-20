@@ -67,7 +67,7 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         static bool IsLoadImage => IApplication.Type switch
         {
-            IApplication.AppType.PlatformUI_Android => false,
+            IApplication.AppType.NativeAndroid => false,
             _ => true,
         };
 

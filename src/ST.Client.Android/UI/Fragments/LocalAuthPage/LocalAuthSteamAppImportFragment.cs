@@ -2,7 +2,7 @@ using Android.Views;
 using Binding;
 using ReactiveUI;
 using System.Application.Models;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;

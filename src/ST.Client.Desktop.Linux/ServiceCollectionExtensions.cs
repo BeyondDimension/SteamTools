@@ -1,4 +1,5 @@
 using System;
+using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
@@ -8,7 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
+        public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
             if (OperatingSystem2.IsLinux)
             {

@@ -17,7 +17,7 @@ using AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="IWindowManager"/>
-    public abstract class AndroidWindowManagerBaseImpl : IWindowManagerImpl
+    public class AndroidWindowManagerImpl : IWindowManagerImpl
     {
         protected static string PositiveButtonText => AppResources.Confirm;
         protected static string NegativeButtonText => AppResources.Cancel;

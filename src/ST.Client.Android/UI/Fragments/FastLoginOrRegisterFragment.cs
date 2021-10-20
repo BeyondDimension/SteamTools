@@ -7,12 +7,12 @@ using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using static System.Application.UI.ViewModels.LoginOrRegisterPageViewModel;
+using static System.Application.UI.ViewModels.LoginOrRegisterWindowViewModel;
 
 namespace System.Application.UI.Fragments
 {
     [Register(JavaPackageConstants.Fragments + nameof(FastLoginOrRegisterFragment))]
-    internal sealed class FastLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_fast, LoginOrRegisterPageViewModel>
+    internal sealed class FastLoginOrRegisterFragment : BaseFragment<fragment_login_and_register_by_fast, LoginOrRegisterWindowViewModel>
     {
         protected override int? LayoutResource => Resource.Layout.fragment_login_and_register_by_fast;
 

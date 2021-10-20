@@ -13,7 +13,7 @@ using WinAuth;
 
 namespace System.Application.Models
 {
-    public sealed class MyAuthenticator : ReactiveObject
+    public sealed partial class MyAuthenticator : ReactiveObject
     {
         public static List<MyAuthenticator> Get(IEnumerable<IGAPAuthenticatorDTO> items)
             => items.Select(x => new MyAuthenticator(x)).ToList();

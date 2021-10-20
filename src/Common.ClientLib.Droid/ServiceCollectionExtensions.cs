@@ -16,7 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection TryAddToast(this IServiceCollection services)
+        public static IServiceCollection TryAddAndroidToast(this IServiceCollection services)
             => PlatformToastImpl.TryAddToast(services);
 
         /// <summary>

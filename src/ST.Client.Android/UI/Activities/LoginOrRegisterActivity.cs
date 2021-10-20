@@ -8,15 +8,11 @@ using Android.Text.Style;
 using AndroidX.Navigation.Fragment;
 using AndroidX.Navigation.UI;
 using Binding;
-using Com.Tencent.Tauth;
-using Microsoft.Identity.Client;
-using Org.Json;
 using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Text;
-using JObject = Java.Lang.Object;
 
 namespace System.Application.UI.Activities
 {
@@ -24,7 +20,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
           LaunchMode = LaunchMode.SingleTask,
           ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterPageViewModel>, FastLRBHelper.IPlatformUIHost, IUiListener
+    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterWindowViewModel>
     {
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
@@ -34,17 +30,14 @@ namespace System.Application.UI.Activities
             { Resource.Id.navigation_login_or_register_phone_number, () => AppResources.User_PhoneLogin },
         };
 
-        protected override LoginOrRegisterPageViewModel? OnCreateViewModel()
+        protected override LoginOrRegisterWindowViewModel? OnCreateViewModel()
         {
             return new() { Close = Finish };
         }
 
-        Tencent? tencent;
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            tencent = TencentOpenApiSDK.GetTencent(this);
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
@@ -67,28 +60,7 @@ namespace System.Application.UI.Activities
             }).AddTo(this);
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            tencent = null;
-        }
-
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent? data)
-        {
-            var resultCode_ = (int)resultCode;
-            if (requestCode == Com.Tencent.Connect.Common.Constants.RequestLogin)
-            {
-                Tencent.OnActivityResultData(requestCode, resultCode_, data, this);
-                return;
-            }
-
-            // Return control to MSAL
-            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
-
-            base.OnActivityResult(requestCode, resultCode, data);
-        }
-
-        public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterPageViewModel viewModel) => RichTextHelper.CreateSpannableString(list =>
+        public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterWindowViewModel viewModel) => RichTextHelper.CreateSpannableString(list =>
         {
             int length;
             StringBuilder str = new(AppResources.User_RegisterAgreed);
@@ -97,7 +69,7 @@ namespace System.Application.UI.Activities
             str.Append(AppResources.User_Agreement);
             list.Add((new HyperlinkClickableSpan(_ =>
             {
-                viewModel.OpenHyperlink.Invoke(LoginOrRegisterPageViewModel.Agreement);
+                viewModel.OpenHyperlink.Invoke(LoginOrRegisterWindowViewModel.Agreement);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             str.Append(" ");
             str.Append(AppResources.And);
@@ -106,30 +78,9 @@ namespace System.Application.UI.Activities
             str.Append(AppResources.User_Privacy);
             list.Add((new HyperlinkClickableSpan(_ =>
             {
-                viewModel.OpenHyperlink.Invoke(LoginOrRegisterPageViewModel.Privacy);
+                viewModel.OpenHyperlink.Invoke(LoginOrRegisterWindowViewModel.Privacy);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });
-
-        void FastLRBHelper.IPlatformUIHost.QQLogin() => tencent!.LoginServerSide(this);
-
-        void IUiListener.OnCancel()
-        {
-        }
-
-        void IUiListener.OnComplete(JObject? p0)
-        {
-            if (p0 != null && p0 is JSONObject jsonObj)
-            {
-                var jsonStr = jsonObj.ToString();
-                Toast.Show(jsonStr);
-            }
-        }
-
-        void IUiListener.OnError(UiError? p0) => p0.ShowError();
-
-        void IUiListener.OnWarning(int p0)
-        {
-        }
     }
 }

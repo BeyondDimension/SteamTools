@@ -27,7 +27,7 @@ namespace System.Application.UI.Activities
 
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
-                Title = EncryptionAuthWindowViewModel.TitleName;
+                Title = EncryptionAuthWindowViewModel.DisplayName;
                 if (binding != null)
                 {
                     binding.tvProtectionAuthInfo.Text = LocalAuth_ProtectionAuth_Info;

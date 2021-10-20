@@ -3,18 +3,19 @@ using Android.Runtime;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Diagnostics;
-using System.Windows;
 using Xamarin.Essentials;
 using _ThisAssembly = System.Properties.ThisAssembly;
-using AndroidApplication = Android.App.Application;
 using AppTheme = System.Application.Models.AppTheme;
 using XEFileProvider = Xamarin.Essentials.FileProvider;
 using XEPlatform = Xamarin.Essentials.Platform;
 using XEVersionTracking = Xamarin.Essentials.VersionTracking;
-using System.Application.Models.Settings;
+using System.Application.Settings;
 using AndroidX.AppCompat.App;
 using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Windows.Input;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
 #if DEBUG
 using Square.LeakCanary;
 #endif
@@ -28,13 +29,13 @@ namespace System.Application.UI
         Theme = "@style/MainTheme",
         Icon = "@mipmap/ic_launcher",
         RoundIcon = "@mipmap/ic_launcher_round")]
-    public sealed class MainApplication : AndroidApplication, IApplication
+    public sealed partial class MainApplication : IApplication
     {
         public static MainApplication Instance => Context is MainApplication app ? app : throw new Exception("Impossible");
 
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
-            ViewModelBase.IsInDesignMode = false;
+            IViewModelBase.IsInDesignMode = false;
         }
 
 #if DEBUG
@@ -61,7 +62,7 @@ namespace System.Application.UI
 #endif
             var stopwatch = Stopwatch.StartNew();
 
-            AppHelper.InitLogDir();
+            IApplication.InitLogDir();
 
             Startup.InitGlobalExceptionHandler();
 
@@ -142,6 +143,35 @@ namespace System.Application.UI
         AppTheme IApplication.GetActualThemeByFollowingSystem()
             => DarkModeUtil.IsDarkMode(this) ? AppTheme.Dark : AppTheme.Light;
 
-        public static async void ShowUnderConstructionTips() => await MessageBoxCompat.ShowAsync(AppResources.UnderConstruction, "", MessageBoxButtonCompat.OK);
+        public static async void ShowUnderConstructionTips() => await MessageBox.ShowAsync(AppResources.UnderConstruction);
+
+        bool IApplication.HasActiveWindow() => XEPlatform.CurrentActivity.HasValue();
+
+        IApplication.AppType IApplication.GetType() => IApplication.AppType.HybridAndroid;
+
+        #region Compat
+
+        void IApplication.SetThemeNotChangeValue(AppTheme value) => Theme = value;
+
+        object IApplication.CurrentPlatformUIHost => XEPlatform.CurrentActivity;
+
+        void IApplication.Shutdown()
+        {
+
+        }
+
+        void IApplication.RestoreMainWindow()
+        {
+
+        }
+
+        readonly Dictionary<string, ICommand> _NotifyIconMenus = new();
+        IReadOnlyDictionary<string, ICommand> IApplication.NotifyIconMenus => _NotifyIconMenus;
+
+        readonly CompositeDisposable compositeDisposable = new();
+
+        CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
+
+        #endregion
     }
 }

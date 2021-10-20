@@ -4,13 +4,13 @@ using ReactiveUI;
 using System.Application.UI.ViewModels;
 using Xamarin.Essentials;
 using TViewHolder = System.Application.UI.Adapters.FastLoginChannelViewHolder;
-using TViewModel = System.Application.UI.ViewModels.LoginOrRegisterPageViewModel.FastLoginChannelViewModel;
+using TViewModel = System.Application.UI.ViewModels.LoginOrRegisterWindowViewModel.FastLoginChannelViewModel;
 
 namespace System.Application.UI.Adapters
 {
     internal sealed class FastLoginChannelAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>
     {
-        public FastLoginChannelAdapter(LoginOrRegisterPageViewModel viewModel) : base(viewModel.FastLoginChannels)
+        public FastLoginChannelAdapter(LoginOrRegisterWindowViewModel viewModel) : base(viewModel.FastLoginChannels)
         {
         }
 

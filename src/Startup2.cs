@@ -62,44 +62,47 @@ namespace System.Application
 #if StartupTrace
                 StartupTrace.Restart("Startup.InitFileSystem");
 #endif
-                if (level.HasFlag(DILevel.ServerApiClient))
+                var options = new StartupOptions(level);
+                if (options.HasServerApiClient)
                 {
                     ModelValidatorProvider.Init();
 #if StartupTrace
                     StartupTrace.Restart("ModelValidatorProvider.Init");
 #endif
                 }
-                InitDI(level);
+                InitDI(options);
 #if StartupTrace
                 StartupTrace.Restart($"InitDI: {level}");
 #endif
-                static void InitDI(DILevel level)
-                {
-#if UI_DEMO
-                    DI.Init(new MockServiceProvider(ConfigureDemoServices));
-#else
-                    DI.Init(s => ConfigureServices(s, level));
-                    static void ConfigureServices(IServiceCollection services, DILevel level)
-                    {
-                        ConfigureRequiredServices(services);
-#if StartupTrace
-                        StartupTrace.Restart("DI.ConfigureRequiredServices");
-#endif
-                        ConfigureDemandServices(services, level);
-#if StartupTrace
-                        StartupTrace.Restart("DI.ConfigureDemandServices");
-#endif
-                    }
-#endif
-                }
             }
+        }
+        static void InitDI(StartupOptions options)
+        {
+#if UI_DEMO
+            DI.Init(new MockServiceProvider(ConfigureDemoServices));
+#else
+            DI.Init(s => ConfigureServices(s, options));
+#endif
+        }
+
+
+        static void ConfigureServices(IServiceCollection services, StartupOptions options)
+        {
+            ConfigureRequiredServices(services, options);
+#if StartupTrace
+            StartupTrace.Restart("DI.ConfigureRequiredServices");
+#endif
+            ConfigureDemandServices(services, options);
+#if StartupTrace
+            StartupTrace.Restart("DI.ConfigureDemandServices");
+#endif
         }
 
         /// <summary>
         /// 配置任何进程都必要的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureRequiredServices(IServiceCollection services)
+        static void ConfigureRequiredServices(IServiceCollection services, StartupOptions options)
         {
             // 添加日志实现
             services.AddGeneralLogging();
@@ -123,36 +126,17 @@ namespace System.Application
         /// 配置按需使用的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureDemandServices(IServiceCollection services, DILevel level)
+        static void ConfigureDemandServices(IServiceCollection services, StartupOptions options)
         {
-            var hasMainProcessRequired = level.HasFlag(DILevel.MainProcessRequired);
-#if !__MOBILE__
-#if !CONSOLEAPP
-            HasNotifyIcon = hasMainProcessRequired;
-#endif
-#endif
-#if !CONSOLEAPP
-            var hasGUI = level.HasFlag(DILevel.GUI);
-            var hasServerApiClient = level.HasFlag(DILevel.ServerApiClient);
-#endif
-            var hasHttpClientFactory = level.HasFlag(DILevel.HttpClientFactory);
-#if !CONSOLEAPP
-            var hasHttpProxy = level.HasFlag(DILevel.HttpProxy);
-#endif
-            var hasHosts = level.HasFlag(DILevel.Hosts);
-            var hasSteam = level.HasFlag(DILevel.Steam);
-#if !UI_DEMO && !__MOBILE__
-            // 桌面平台服务 此项放在其他通用业务实现服务之前
-            services.AddPlatformService(hasSteam, hasGUI, HasNotifyIcon);
-#endif
-#if __MOBILE__
-            services.AddMobilePlatformService(hasGUI);
+#if !UI_DEMO 
+            // 平台服务 此项放在其他通用业务实现服务之前
+            services.AddPlatformService(options);
 #endif
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
 #if !CONSOLEAPP
-            if (hasGUI)
+            if (options.HasGUI)
             {
                 services.AddPinyin();
 #if __MOBILE__
@@ -171,7 +155,7 @@ namespace System.Application
                 // 添加电话服务
                 services.AddTelephonyService();
 
-                services.AddMSALPublicClientApp(AppSettings.MASLClientId);
+                //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #else
                 services.AddSingleton<IApplication>(_ => PlatformApplication.Instance);
                 services.AddSingleton<IAvaloniaApplication>(_ => PlatformApplication.Instance);
@@ -204,7 +188,7 @@ namespace System.Application
                  *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
                  *  - 某些图标图片与枚举值不太匹配，例如 Information
                  */
-                services.AddWindowManager();
+                services.TryAddWindowManager();
 
 #if WINDOWS
                 // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
@@ -219,25 +203,20 @@ namespace System.Application
 #endif
             }
 #endif
-            if (hasHttpClientFactory
+            if (options.HasHttpClientFactory
 #if !CONSOLEAPP
-                || hasServerApiClient
+                || options.HasServerApiClient
 #endif
                 )
             {
-#if __MOBILE__
-                // 添加 Http 平台助手移动端实现
-                services.AddPlatformHttpPlatformHelper();
-#else
-                // 添加 Http 平台助手桌面端实现
+                // 添加 Http 平台助手桌面端或移动端实现
                 services.TryAddClientHttpPlatformHelperService();
-#endif
 #if StartupTrace
-                StartupTrace.Restart("DI.ConfigureDemandServices.HttpPlatformHelper");
+                StartupTrace.Restart("DI.ConfigureDemandServices.ClientHttpPlatformHelperService");
 #endif
             }
 
-            if (hasHttpClientFactory)
+            if (options.HasHttpClientFactory)
             {
 #if __MOBILE__
                 // 添加 HttpClientFactory 平台原生实现
@@ -257,7 +236,7 @@ namespace System.Application
 #endif
 
 #if !CONSOLEAPP && !__MOBILE__
-            if (hasHttpProxy)
+            if (options.HasHttpProxy)
             {
                 // 通用 Http 代理服务
                 services.AddHttpProxyService();
@@ -267,7 +246,7 @@ namespace System.Application
             }
 #endif
 #if !CONSOLEAPP
-            if (hasServerApiClient)
+            if (options.HasServerApiClient)
             {
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.AppSettings");
@@ -330,7 +309,7 @@ namespace System.Application
 #endif
 #if !__MOBILE__
 #if !CONSOLEAPP
-            if (hasHosts)
+            if (options.HasHosts)
             {
                 // hosts 文件助手服务
                 services.AddHostsFileService();
@@ -339,7 +318,7 @@ namespace System.Application
 #endif
             }
 #endif
-            if (hasSteam)
+            if (options.HasSteam)
             {
                 // Steam 相关助手、工具类服务
                 services.AddSteamService();
@@ -361,7 +340,7 @@ namespace System.Application
             }
 #endif
 #if !CONSOLEAPP
-            if (hasMainProcessRequired)
+            if (options.HasMainProcessRequired)
             {
                 // 应用程序更新服务
                 services.AddApplicationUpdateService();
@@ -397,9 +376,7 @@ namespace System.Application
                         AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
                         AesSecret = GetResValue("aes-key", isSingle: true, ResValueFormat.String),
                         RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
-#if __MOBILE__
-                        MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResValueFormat.StringGuidN),
-#endif
+                        //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResValueFormat.StringGuidN),
                     };
                     SetApiBaseUrl(mAppSettings);
 #if StartupTrace
@@ -445,10 +422,6 @@ namespace System.Application
                 return mAppSettings;
             }
         }
-#endif
-
-#if !__MOBILE__ && !CONSOLEAPP
-        public static bool HasNotifyIcon { get; private set; }
 #endif
 
 #if UI_DEMO

@@ -15,7 +15,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme,
          LaunchMode = LaunchMode.SingleTask,
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class UserProfileActivity : BaseActivity<activity_toolbar_tablayout_viewpager2, UserProfilePageViewModel>, ViewPagerWithTabLayoutAdapter.IHost
+    internal sealed class UserProfileActivity : BaseActivity<activity_toolbar_tablayout_viewpager2, UserProfileWindowViewModel>, ViewPagerWithTabLayoutAdapter.IHost
     {
         protected override int? LayoutResource => Resource.Layout.activity_toolbar_tablayout_viewpager2;
 

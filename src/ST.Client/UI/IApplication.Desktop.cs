@@ -13,7 +13,7 @@ namespace System.Application.UI
         /// 切换当前桌面应用的主题而不改变设置值
         /// </summary>
         /// <param name="switch_value"></param>
-        void SetThemeNotChangeValue(AppTheme switch_value);
+        void SetThemeNotChangeValue(AppTheme value);
 
         /// <summary>
         /// 退出整个程序
@@ -38,6 +38,9 @@ namespace System.Application.UI
         /// <returns></returns>
         bool HasActiveWindow();
 
-        void SetDesktopBackgroundWindow();
+        void SetDesktopBackgroundWindow()
+        {
+
+        }
     }
 }

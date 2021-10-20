@@ -1,3 +1,4 @@
+using System.Application.Services;
 using System.Application.UI.Resx;
 
 // ReSharper disable once CheckNamespace
@@ -43,6 +44,18 @@ namespace System.Application.UI.ViewModels
                 case ActionItem.Refresh:
                     RefreshAuthCommand.Invoke();
                     break;
+            }
+        }
+
+        public static LocalAuthPageViewModel Current
+        {
+            get
+            {
+                if (IViewModelManager.Instance.MainWindow is MainWindowViewModel mainWindowViewModel)
+                {
+                    return mainWindowViewModel.LocalAuthPage;
+                }
+                throw new NotSupportedException();
             }
         }
     }

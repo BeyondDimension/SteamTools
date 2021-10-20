@@ -1,4 +1,5 @@
 using System;
+using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
@@ -10,18 +11,18 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
+        public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
             if (OperatingSystem2.IsWindows)
             {
                 services.AddSingleton<IHttpPlatformHelperService, WindowsClientHttpPlatformHelperServiceImpl>();
                 services.AddSingleton<WindowsPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<WindowsPlatformServiceImpl>());
-                if (hasSteam)
+                if (options.HasSteam)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
                 }
-                if (hasGUI)
+                if (options.HasGUI)
                 {
                     services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
                 }
@@ -35,7 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 services.AddSingleton<INativeWindowApiService, NativeWindowApiServiceImpl>();
                 services.AddSingleton<IJumpListService, JumpListServiceImpl>();
-                if (hasNotifyIcon) services.AddNotifyIcon();
+                if (options.HasMainProcessRequired) services.AddNotifyIcon();
                 //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
             }
             else

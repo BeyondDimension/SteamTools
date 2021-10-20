@@ -132,7 +132,7 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
-        private string _SearchText;
+        private string _SearchText = "";
         /// <summary>
         /// 搜索文本
         /// </summary>

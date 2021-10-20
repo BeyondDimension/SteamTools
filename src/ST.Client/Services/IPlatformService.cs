@@ -316,5 +316,12 @@ namespace System.Application.Services
         /// 当前程序是否以 Administrator 或 Root 权限运行
         /// </summary>
         bool IsAdministrator => false;
+
+        /// <summary>
+        /// 获取当前默认字体
+        /// </summary>
+        /// <param name="fontWeight"></param>
+        /// <returns></returns>
+        string? GetDefaultFontFamily(FontWeight fontWeight = FontWeight.Normal) => null;
     }
 }

@@ -271,7 +271,7 @@ namespace System.Application.UI
 
                 if (Program.IsMainProcess)
                 {
-                    if (Startup.HasNotifyIcon)
+                    if (StartupOptions.Value.HasNotifyIcon)
                     {
                         NotifyIconHelper.Init(this, NotifyIcon_Click);
                         //                        if (!OperatingSystem2.IsLinux)
@@ -310,7 +310,7 @@ namespace System.Application.UI
 #if UI_DEMO
                     ShutdownMode.OnMainWindowClose;
 #else
-                Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
+                StartupOptions.Value.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
 #endif
             }
 

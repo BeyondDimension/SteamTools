@@ -1,5 +1,10 @@
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
-using System.Application.Services.Implementation;
+#if __ANDROID__
+using WindowManagerImpl_ = System.Application.Services.Implementation.AndroidWindowManagerImpl;
+#elif AVALONIA
+using WindowManagerImpl_ = System.Application.Services.Implementation.AvaloniaWindowManagerImpl;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -11,9 +16,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddWindowManager(this IServiceCollection services)
+        public static IServiceCollection TryAddWindowManager(this IServiceCollection services)
         {
-            services.AddSingleton<IWindowManager, AvaloniaWindowManagerImpl>();
+            services.TryAddSingleton<IWindowManager, WindowManagerImpl_>();
             return services;
         }
     }

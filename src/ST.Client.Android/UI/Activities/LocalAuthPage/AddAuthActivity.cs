@@ -34,7 +34,7 @@ namespace System.Application.UI.Activities
 
             R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
             {
-                Title = AddAuthWindowViewModel.TitleName;
+                Title = AddAuthWindowViewModel.DisplayName;
             }).AddTo(this);
         }
 

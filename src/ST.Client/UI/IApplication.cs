@@ -40,7 +40,7 @@ namespace System.Application.UI
 
         protected AppType GetType();
 
-        enum AppType
+        enum AppType : byte
         {
             /// <summary>
             /// https://github.com/AvaloniaUI/Avalonia
@@ -48,25 +48,37 @@ namespace System.Application.UI
             Avalonia = 1,
 
             /// <summary>
+            /// Maui / Xamarin Forms + Platform Native UI
+            /// <para>https://github.com/dotnet/maui</para>
+            /// <para>https://developer.android.google.cn/training/basics/firstapp/building-ui</para>
+            /// </summary>
+            HybridAndroid,
+
+            /// <summary>
+            /// Maui / Xamarin Forms
+            /// <para></para>
             /// https://github.com/dotnet/maui
             /// </summary>
+            [Obsolete]
             Maui,
 
             /// <summary>
             /// https://github.com/unoplatform/uno
             /// </summary>
+            [Obsolete]
             Uno,
 
             /// <summary>
             /// https://developer.android.google.cn/training/basics/firstapp/building-ui
             /// </summary>
-            PlatformUI_Android,
+            [Obsolete]
+            NativeAndroid,
 
             /// <summary>
             /// https://docs.microsoft.com/zh-cn/xamarin/ios/user-interface/ios-ui
             /// </summary>
             [Obsolete]
-            PlatformUI_iOS,
+            NativeiOS,
 
             /// <summary>
             /// https://github.com/dotnet/winforms
@@ -74,30 +86,29 @@ namespace System.Application.UI
             /// https://github.com/mono/winforms
             /// </summary>
             [Obsolete]
-            WindowsForms,
+            WinForms,
 
             /// <summary>
             /// https://github.com/dotnet/wpf
             /// </summary>
             [Obsolete]
-            WinUI1_WPF,
+            WPF,
 
             /// <summary>
+            /// WinUI 2
+            /// <para></para>
             /// https://github.com/Microsoft/microsoft-ui-xaml
             /// <para></para>
             /// https://docs.microsoft.com/zh-cn/windows/apps/winui/winui2
             /// </summary>
             [Obsolete]
-            WinUI2_UWP,
-
-            [Obsolete]
-            WinUI3_UWP,
+            UWP,
 
             /// <summary>
             /// https://docs.microsoft.com/zh-cn/windows/apps/winui/winui3/desktop-winui3-app-with-basic-interop
             /// </summary>
             [Obsolete]
-            WinUI3_Desktop,
+            WinUI3,
         }
 
         /// <summary>

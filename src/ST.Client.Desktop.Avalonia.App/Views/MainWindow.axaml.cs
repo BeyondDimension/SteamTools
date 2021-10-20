@@ -38,7 +38,7 @@ namespace System.Application.UI.Views
         protected override void OnClosing(CancelEventArgs e)
         {
 #if !UI_DEMO
-            if (Startup.HasNotifyIcon)
+            if (StartupOptions.Value.HasNotifyIcon)
             {
                 _isOpenWindow = false;
                 e.Cancel = true;

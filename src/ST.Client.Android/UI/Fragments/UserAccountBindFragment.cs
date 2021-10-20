@@ -5,11 +5,11 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
-using static System.Application.UI.ViewModels.UserProfilePageViewModel;
+using static System.Application.UI.ViewModels.UserProfileWindowViewModel;
 
 namespace System.Application.UI.Fragments
 {
-    internal sealed class UserAccountBindFragment : BaseFragment<fragment_account_binding, UserProfilePageViewModel>
+    internal sealed class UserAccountBindFragment : BaseFragment<fragment_account_binding, UserProfileWindowViewModel>
     {
         protected override int? LayoutResource => Resource.Layout.fragment_account_binding;
 

@@ -11,14 +11,14 @@ namespace System
         {
             var resId = icon switch
             {
-                ResIcon.avater_default => Resource.Drawable.avater_default,
-                ResIcon.baseline_account_box_black_24 => Resource.Drawable.baseline_account_box_black_24,
-                ResIcon.baseline_info_black_24 => Resource.Drawable.baseline_info_black_24,
-                ResIcon.baseline_person_black_24 => Resource.Drawable.baseline_person_black_24,
-                ResIcon.baseline_phone_black_24 => Resource.Drawable.baseline_phone_android_black_24,
-                ResIcon.baseline_settings_black_24 => Resource.Drawable.baseline_settings_black_24,
-                ResIcon.baseline_sports_esports_black_24 => Resource.Drawable.baseline_sports_esports_black_24,
-                ResIcon.baseline_verified_user_black_24 => Resource.Drawable.baseline_verified_user_black_24,
+                ResIcon.AvaterDefault => Resource.Drawable.avater_default,
+                ResIcon.AccountBox => Resource.Drawable.baseline_account_box_black_24,
+                ResIcon.Info => Resource.Drawable.baseline_info_black_24,
+                ResIcon.Person => Resource.Drawable.baseline_person_black_24,
+                ResIcon.PlatformPhone => Resource.Drawable.baseline_phone_android_black_24,
+                ResIcon.Settings => Resource.Drawable.baseline_settings_black_24,
+                ResIcon.SportsEsports => Resource.Drawable.baseline_sports_esports_black_24,
+                ResIcon.VerifiedUser => Resource.Drawable.baseline_verified_user_black_24,
                 ResIcon.Steam => Resource.Drawable.icon_steam_24,
                 ResIcon.Xbox => Resource.Drawable.icon_xbox_24,
                 ResIcon.Apple => Resource.Drawable.icon_apple_24,

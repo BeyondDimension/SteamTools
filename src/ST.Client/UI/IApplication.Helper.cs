@@ -15,7 +15,7 @@ namespace System.Application.UI
         /// </summary>
         public static bool IsMobileLayout => Type switch
         {
-            AppType.Maui or AppType.PlatformUI_Android => true,
+            AppType.Maui or AppType.NativeAndroid => true,
             _ => false,
         };
 

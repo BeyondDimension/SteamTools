@@ -136,8 +136,8 @@ namespace System.Application.UI.ViewModels
                 var icon = id switch
                 {
                     PreferenceButton.UserProfile => ResIcon.AccountBox,
-                    PreferenceButton.BindPhoneNumber => ResIcon.Phone,
-                    PreferenceButton.ChangePhoneNumber => ResIcon.Phone,
+                    PreferenceButton.BindPhoneNumber => ResIcon.PlatformPhone,
+                    PreferenceButton.ChangePhoneNumber => ResIcon.PlatformPhone,
                     PreferenceButton.Settings => ResIcon.Settings,
                     PreferenceButton.About => ResIcon.Info,
                     _ => default,
