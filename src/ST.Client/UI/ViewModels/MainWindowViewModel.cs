@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
@@ -58,9 +59,11 @@ namespace System.Application.UI.ViewModels
 
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
 
+        protected static readonly IPlatformService platformService = IPlatformService.Instance;
         public MainWindowViewModel()
         {
-            Title = ThisAssembly.AssemblyTrademark;
+            var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows ? " (Administrator)" : " (Root)") : string.Empty;
+            Title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
 
             IUserManager.Instance.OnSignOut += () =>
             {

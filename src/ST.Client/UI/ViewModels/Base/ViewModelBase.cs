@@ -29,7 +29,7 @@ namespace System.Application.UI.ViewModels
             {
                 Activation();
                 Disposable.Create(() => { Deactivation(); })
-                                  .DisposeWith(disposables);
+                    .DisposeWith(disposables);
             });
         }
 
