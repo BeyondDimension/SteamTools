@@ -61,7 +61,7 @@ namespace System.Application.UI.ViewModels
 #if DEBUG
             yield return FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Apple), this);
 #endif
-            if (IApplication.IsMobileLayout)
+            if (IsMobileLayout)
             {
                 yield return FastLoginChannelViewModel.Create(FastLoginChannelViewModel.PhoneNumber, this);
             }
@@ -137,7 +137,7 @@ namespace System.Application.UI.ViewModels
                 if (_LoginState == value) return;
                 _LoginState = value;
                 this.RaisePropertyChanged();
-                if (IApplication.IsMobileLayout)
+                if (IsMobileLayout)
                 {
                     Title = _LoginState == 1 ? AppResources.User_PhoneLogin : AppResources.LoginAndRegister;
                 }

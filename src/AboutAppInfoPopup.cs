@@ -373,10 +373,19 @@ namespace System.Application.UI
 #endif
 
 #if AVALONIA
-                b.Append("[avalonia.ver] ");
-                b.Append(GetAssemblyVersion(typeof(global::Avalonia.Application).Assembly));
-                b.AppendLine();
+                if (IApplication.IsAvaloniaApp)
+                {
+                    b.Append("[avalonia.ver] ");
+                    b.Append(GetAssemblyVersion(Type.GetType(IApplication.TypeNames.Avalonia)!.Assembly));
+                    b.AppendLine();
+                }
 #endif
+                if (IApplication.IsXamarinForms)
+                {
+                    b.Append("[forms.ver] ");
+                    b.Append(GetAssemblyVersion(Type.GetType(IApplication.TypeNames.XamarinForms)!.Assembly));
+                    b.AppendLine();
+                }
 
                 b.Append("[essentials.supported] ");
                 b.Append(Essentials.IsSupported.ToLowerString());

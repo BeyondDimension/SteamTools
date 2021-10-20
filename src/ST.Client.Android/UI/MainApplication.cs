@@ -36,6 +36,10 @@ namespace System.Application.UI
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
             IViewModelBase.IsInDesignMode = false;
+            IViewModelBase.IsMobileLayout = true;
+
+            // 此页面当前使用 Square.Picasso 库加载图片
+            AuthTradeWindowViewModel.IsLoadImage = false;
         }
 
 #if DEBUG
@@ -146,8 +150,6 @@ namespace System.Application.UI
         public static async void ShowUnderConstructionTips() => await MessageBox.ShowAsync(AppResources.UnderConstruction);
 
         bool IApplication.HasActiveWindow() => XEPlatform.CurrentActivity.HasValue();
-
-        IApplication.AppType IApplication.GetType() => IApplication.AppType.HybridAndroid;
 
         #region Compat
 

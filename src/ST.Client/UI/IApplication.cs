@@ -38,83 +38,22 @@ namespace System.Application.UI
         /// <returns></returns>
         protected AppTheme GetActualThemeByFollowingSystem();
 
-        protected AppType GetType();
-
-        enum AppType : byte
-        {
-            /// <summary>
-            /// https://github.com/AvaloniaUI/Avalonia
-            /// </summary>
-            Avalonia = 1,
-
-            /// <summary>
-            /// Maui / Xamarin Forms + Platform Native UI
-            /// <para>https://github.com/dotnet/maui</para>
-            /// <para>https://developer.android.google.cn/training/basics/firstapp/building-ui</para>
-            /// </summary>
-            HybridAndroid,
-
-            /// <summary>
-            /// Maui / Xamarin Forms
-            /// <para></para>
-            /// https://github.com/dotnet/maui
-            /// </summary>
-            [Obsolete]
-            Maui,
-
-            /// <summary>
-            /// https://github.com/unoplatform/uno
-            /// </summary>
-            [Obsolete]
-            Uno,
-
-            /// <summary>
-            /// https://developer.android.google.cn/training/basics/firstapp/building-ui
-            /// </summary>
-            [Obsolete]
-            NativeAndroid,
-
-            /// <summary>
-            /// https://docs.microsoft.com/zh-cn/xamarin/ios/user-interface/ios-ui
-            /// </summary>
-            [Obsolete]
-            NativeiOS,
-
-            /// <summary>
-            /// https://github.com/dotnet/winforms
-            /// <para></para>
-            /// https://github.com/mono/winforms
-            /// </summary>
-            [Obsolete]
-            WinForms,
-
-            /// <summary>
-            /// https://github.com/dotnet/wpf
-            /// </summary>
-            [Obsolete]
-            WPF,
-
-            /// <summary>
-            /// WinUI 2
-            /// <para></para>
-            /// https://github.com/Microsoft/microsoft-ui-xaml
-            /// <para></para>
-            /// https://docs.microsoft.com/zh-cn/windows/apps/winui/winui2
-            /// </summary>
-            [Obsolete]
-            UWP,
-
-            /// <summary>
-            /// https://docs.microsoft.com/zh-cn/windows/apps/winui/winui3/desktop-winui3-app-with-basic-interop
-            /// </summary>
-            [Obsolete]
-            WinUI3,
-        }
-
         /// <summary>
         /// 获取当前平台 UI Host
         /// <para>reference to the ViewController (if using Xamarin.iOS), Activity (if using Xamarin.Android) IWin32Window or IntPtr (if using .Net Framework).</para>
         /// </summary>
         object CurrentPlatformUIHost { get; }
+
+        private static readonly Lazy<bool> mIsAvaloniaApp = new(() => Type.GetType(TypeNames.Avalonia) != null);
+        static bool IsAvaloniaApp => mIsAvaloniaApp.Value;
+
+        private static readonly Lazy<bool> mIsXamarinForms = new(() => Type.GetType(TypeNames.XamarinForms) != null);
+        static bool IsXamarinForms => mIsXamarinForms.Value;
+
+        static class TypeNames
+        {
+            public const string Avalonia = "Avalonia.Application, Avalonia.Controls";
+            public const string XamarinForms = "Xamarin.Forms.Application, Xamarin.Forms.Core";
+        }
     }
 }

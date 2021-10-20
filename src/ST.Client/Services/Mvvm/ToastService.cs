@@ -5,6 +5,7 @@ using ReactiveUI;
 using System.Reactive.Subjects;
 using System.Reactive.Linq;
 using System.Application.UI;
+using System.Application.Services.Implementation;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
@@ -14,11 +15,8 @@ namespace System.Application.Services
     /// </summary>
     public sealed class ToastService : MvvmService<ToastService>
     {
-        public static bool IsSupported => IApplication.Type switch
-        {
-            IApplication.AppType.Avalonia => true,
-            _ => false,
-        };
+        static readonly Lazy<bool> mIsSupported = new(() => DI.Get<IToast>() is ToastImpl);
+        public static bool IsSupported => mIsSupported.Value;
 
         private readonly Subject<string> notifier;
         private string persisitentMessage = "";

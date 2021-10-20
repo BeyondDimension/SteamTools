@@ -239,7 +239,6 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [AndroidX for Xamarin.Android](https://github.com/xamarin/AndroidX)
 * [Android Jetpack](https://github.com/androidx/androidx)
 * [ConstraintLayout](https://github.com/androidx/constraintlayout)
-* [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet)
 * [Entity Framework Core](https://github.com/dotnet/efcore)
 * [ASP.NET Core](https://github.com/dotnet/aspnetcore)
 * [Windows Forms](https://github.com/dotnet/winforms)

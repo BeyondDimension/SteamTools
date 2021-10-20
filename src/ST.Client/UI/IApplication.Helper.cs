@@ -7,18 +7,6 @@ namespace System.Application.UI
 {
     partial interface IApplication
     {
-        static readonly Lazy<AppType> mType = new(() => Instance.GetType());
-        public static AppType Type => mType.Value;
-
-        /// <summary>
-        /// 是否使用移动端布局
-        /// </summary>
-        public static bool IsMobileLayout => Type switch
-        {
-            AppType.Maui or AppType.NativeAndroid => true,
-            _ => false,
-        };
-
         public static bool EnableDevtools { get; set; } = ThisAssembly.Debuggable;
 
         /// <summary>

@@ -20,5 +20,10 @@ namespace System.Application.UI.ViewModels
         /// 是否在设计器的上下文中运行
         /// </summary>
         public static bool IsInDesignMode { protected get; set; } = true;
+
+        /// <summary>
+        /// 是否使用移动端布局
+        /// </summary>
+        public static bool IsMobileLayout { protected get; set; }
     }
 }

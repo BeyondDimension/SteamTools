@@ -16,6 +16,9 @@ namespace System.Application.UI.ViewModels
         /// <inheritdoc cref="IViewModelBase.IsInDesignMode"/>
         public static bool IsInDesignMode => IViewModelBase.IsInDesignMode;
 
+        /// <inheritdoc cref="IViewModelBase.IsMobileLayout"/>
+        public static bool IsMobileLayout => IViewModelBase.IsMobileLayout;
+
         public ViewModelActivator Activator { get; }
 
         public ViewModelBase()

@@ -6,6 +6,7 @@ using Binding;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.TextField;
 using ReactiveUI;
+using System.Application.UI.Activities;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Diagnostics.CodeAnalysis;
@@ -38,39 +39,39 @@ namespace System.Application.Services.Implementation
 
         protected Task<bool> PlatformShowWindowCore(Activity currentActivity, CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
-            //switch (customWindow)
-            //{
-            //    case CustomWindow.ShowAuth:
-            //    case CustomWindow.AuthTrade:
-            //        if (viewModel is MyAuthenticatorWrapper viewModel_auth_w)
-            //        {
-            //            switch (customWindow)
-            //            {
-            //                case CustomWindow.ShowAuth:
-            //                    // Android Activity 传参需要序列化后再反序列化，不能直接传递
-            //                    // 所以此处传递 Id，在 Activity 中从关联的集合中根据 Id 取值
-            //                    SteamAuthDataActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
-            //                    break;
-            //                case CustomWindow.AuthTrade:
-            //                    SteamAuthTradeActivity.StartActivity(currentActivity, viewModel_auth_w.Authenticator.Id);
-            //                    break;
-            //            }
-            //        }
-            //        return Task.FromResult(false);
-            //}
+            switch (customWindow)
+            {
+                case CustomWindow.ShowAuth:
+                case CustomWindow.AuthTrade:
+                    if (viewModel is MyAuthenticatorWindowViewModel viewModel_auth_w && viewModel_auth_w.MyAuthenticator != null)
+                    {
+                        switch (customWindow)
+                        {
+                            case CustomWindow.ShowAuth:
+                                // Android Activity 传参需要序列化后再反序列化，不能直接传递
+                                // 所以此处传递 Id，在 Activity 中从关联的集合中根据 Id 取值
+                                SteamAuthDataActivity.StartActivity(currentActivity, viewModel_auth_w.MyAuthenticator.Id);
+                                break;
+                            case CustomWindow.AuthTrade:
+                                SteamAuthTradeActivity.StartActivity(currentActivity, viewModel_auth_w.MyAuthenticator.Id);
+                                break;
+                        }
+                    }
+                    return Task.FromResult(false);
+            }
 
-            //var activityType = customWindow switch
-            //{
-            //    CustomWindow.AddAuth => typeof(AddAuthActivity),
-            //    CustomWindow.ExportAuth => typeof(ExportAuthActivity),
-            //    CustomWindow.EncryptionAuth => typeof(EncryptionAuthActivity),
-            //    _ => null,
-            //};
-            //if (activityType != null)
-            //{
-            //    currentActivity.StartActivity(activityType);
-            //    return Task.FromResult(false);
-            //}
+            var activityType = customWindow switch
+            {
+                CustomWindow.AddAuth => typeof(AddAuthActivity),
+                CustomWindow.ExportAuth => typeof(ExportAuthActivity),
+                CustomWindow.EncryptionAuth => typeof(EncryptionAuthActivity),
+                _ => null,
+            };
+            if (activityType != null)
+            {
+                currentActivity.StartActivity(activityType);
+                return Task.FromResult(false);
+            }
 
             TaskCompletionSource<bool> tcs = new();
             try

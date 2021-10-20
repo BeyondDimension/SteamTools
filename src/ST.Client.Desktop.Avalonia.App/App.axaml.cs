@@ -36,8 +36,6 @@ namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IApplication, IAvaloniaApplication, IClipboardPlatformService
     {
-        IApplication.AppType IApplication.GetType() => IApplication.AppType.Avalonia;
-
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);

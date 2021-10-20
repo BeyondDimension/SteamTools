@@ -21,7 +21,7 @@ namespace System.Application.UI.ViewModels
 
         protected static string GetTitleByDisplayName(string displayName)
         {
-            if (IApplication.Type == IApplication.AppType.Avalonia)
+            if (IApplication.IsAvaloniaApp)
             {
                 return Constants.HARDCODED_APP_NAME + " | " + displayName;
             }

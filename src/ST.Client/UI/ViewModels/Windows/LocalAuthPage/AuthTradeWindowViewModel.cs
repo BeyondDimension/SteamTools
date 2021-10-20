@@ -7,6 +7,7 @@ using System.Text;
 using System.Application.Repositories;
 using System.Application.Services;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Properties;
 using System.Reactive.Linq;
@@ -63,13 +64,9 @@ namespace System.Application.UI.ViewModels
         }
 
         /// <summary>
-        /// 是否加载确认物品图片
+        /// 是否使用 <see cref="IHttpService"/> 加载确认物品图片 <see cref="Stream"/>
         /// </summary>
-        static bool IsLoadImage => IApplication.Type switch
-        {
-            IApplication.AppType.NativeAndroid => false,
-            _ => true,
-        };
+        public static bool IsLoadImage { protected get; set; } = true;
 
         private string? AuthPassword;
         private bool AuthIsLocal;
