@@ -8,9 +8,9 @@ using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.UI
 {
-    public interface IAvaloniaApplication : IService<IAvaloniaApplication>, IApplication
+    public interface IAvaloniaApplication : IApplication
     {
-        static new IAvaloniaApplication Instance => IService<IAvaloniaApplication>.Instance;
+        static new IAvaloniaApplication Instance => DI.Get<IAvaloniaApplication>();
 
         Window MainWindow { get; }
 

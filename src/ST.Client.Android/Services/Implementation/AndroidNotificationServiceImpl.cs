@@ -4,27 +4,31 @@ using Android.OS;
 using AndroidX.Core.App;
 using System.Application.UI;
 using System.Collections.Generic;
-using System.Common;
 using AndroidApplication = Android.App.Application;
 using CC = System.Common.Constants;
 using JClass = Java.Lang.Class;
 
 namespace System.Application.Services.Implementation
 {
-    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance, TNotificationService}"/>
-    public abstract class PlatformNotificationServiceImpl<TNotificationType, TNotificationChannelType, TEntrance, TNotificationService> : INotificationService<TNotificationType, TEntrance, TNotificationService>
-        where TNotificationType : notnull, Enum
-        where TNotificationChannelType : notnull, Enum
-        where TEntrance : notnull, Enum
-        where TNotificationService : INotificationService<TNotificationType, TEntrance, TNotificationService>
+    /// <inheritdoc cref="INotificationService"/>
+    internal sealed class AndroidNotificationServiceImpl : INotificationService
     {
+        readonly IAndroidApplication app;
+        public AndroidNotificationServiceImpl(IAndroidApplication app)
+        {
+            this.app = app;
+        }
+
         public static bool IsSupportedNotificationChannel
             => Build.VERSION.SdkInt >= BuildVersionCodes.O;
 
-        protected virtual Type? GetActivityType(TEntrance entrance) => null;
+        Type? GetActivityType(Entrance entrance) => entrance switch
+        {
+            Entrance.Main => app.MainActivityType,
+            _ => null,
+        };
 
-        protected virtual int GetNotifyId(TNotificationType notificationType)
-            => Enum2.ConvertToInt32(notificationType);
+        static int GetNotifyId(NotificationType notificationType) => Enum2.ConvertToInt32(notificationType);
 
         public bool AreNotificationsEnabled()
         {
@@ -34,7 +38,7 @@ namespace System.Application.Services.Implementation
             return manager.AreNotificationsEnabled();
         }
 
-        public void Cancel(TNotificationType notificationType)
+        public void Cancel(NotificationType notificationType)
         {
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
@@ -49,27 +53,17 @@ namespace System.Application.Services.Implementation
             manager.CancelAll();
         }
 
-        void InitNotificationChannelsCore(Context context)
-        {
-            var manager = NotificationManagerCompat.From(context);
-            var items = Enum.GetValues(typeof(TNotificationChannelType));
-            foreach (TNotificationChannelType item in items)
-            {
-                CreateNotificationChannel(manager, item);
-            }
-        }
-
         /// <summary>
         /// 初始化通知渠道
         /// </summary>
         /// <param name="context"></param>
         public static void InitNotificationChannels(Context context)
         {
-            var notificationService = INotificationService.Instance;
-            if (IsSupportedNotificationChannel &&
-                notificationService is PlatformNotificationServiceImpl notificationServiceImpl)
+            var manager = NotificationManagerCompat.From(context);
+            var items = Enum.GetValues(typeof(NotificationChannelType));
+            foreach (NotificationChannelType item in items)
             {
-                notificationServiceImpl.InitNotificationChannelsCore(context);
+                CreateNotificationChannel(manager, item);
             }
         }
 
@@ -79,31 +73,26 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <param name="notificationChannelType"></param>
         /// <returns></returns>
-        protected virtual string GetChannelId(TNotificationChannelType notificationChannelType)
+        static string GetChannelId(NotificationChannelType notificationChannelType)
         {
             var valueInt = Enum2.ConvertToInt32(notificationChannelType);
             return "chan_" + valueInt;
         }
 
-        /// <summary>
-        /// 获取渠道的用户可见名称
-        /// <para>建议的最大长度为40个字符，如果该值太长，可能会被截断</para>
-        /// <para>参考：https://developer.android.google.cn/reference/android/app/NotificationChannel?hl=en#setName%28java.lang.CharSequence%29 </para>
-        /// </summary>
-        /// <param name="notificationChannelType"></param>
-        /// <returns></returns>
-        protected abstract string GetName(TNotificationChannelType notificationChannelType);
-
-        /// <summary>
-        /// 获取渠道的用户可见描述
-        /// <para>建议的最大长度为300个字符，如果该值太长，可能会被截断</para>
-        /// <para>参考：https://developer.android.google.cn/reference/android/app/NotificationChannel?hl=en#setDescription%28java.lang.String%29 </para>
-        /// </summary>
-        /// <param name="notificationChannelType"></param>
-        /// <returns></returns>
-        protected abstract string GetDescription(TNotificationChannelType notificationChannelType);
-
-        protected abstract void CreateNotificationChannel(TNotificationChannelType notificationChannelType, NotificationChannel notificationChannel);
+        static void CreateNotificationChannel(NotificationChannelType notificationChannelType, NotificationChannel notificationChannel)
+        {
+            switch (notificationChannelType)
+            {
+                case NotificationChannelType.NewVersion:
+                    // 设置绕过请勿打扰模式
+                    notificationChannel.SetBypassDnd(true);
+                    // 设置显示桌面Launcher的消息角标
+                    notificationChannel.SetShowBadge(false);
+                    // 设置通知出现时的震动（如果 android 设备支持的话）
+                    notificationChannel.EnableVibration(false);
+                    break;
+            }
+        }
 
         /// <summary>
         /// 创建通知渠道 >= Android O
@@ -111,14 +100,14 @@ namespace System.Application.Services.Implementation
         /// <param name="manager"></param>
         /// <param name="notificationChannelType"></param>
         /// <returns></returns>
-        protected NotificationChannel? CreateNotificationChannel(NotificationManagerCompat manager,
-           TNotificationChannelType notificationChannelType)
+        static NotificationChannel? CreateNotificationChannel(NotificationManagerCompat manager,
+            NotificationChannelType notificationChannelType)
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.O) return null;
             var channelId = GetChannelId(notificationChannelType);
-            var name = GetName(notificationChannelType);
-            var description = GetDescription(notificationChannelType);
-            var level = GetNotificationImportance(GetImportanceLevel(notificationChannelType));
+            var name = notificationChannelType.GetName();
+            var description = notificationChannelType.GetDescription();
+            var level = GetNotificationImportance(notificationChannelType.GetImportanceLevel());
             var notificationChannel = manager.GetNotificationChannel(channelId);
             if (notificationChannel == null)
             {
@@ -131,20 +120,6 @@ namespace System.Application.Services.Implementation
             }
             return notificationChannel;
         }
-
-        /// <summary>
-        /// 获取所属的通知渠道
-        /// </summary>
-        /// <param name="notificationType"></param>
-        /// <returns></returns>
-        protected abstract TNotificationChannelType GetChannel(TNotificationType notificationType);
-
-        /// <summary>
-        /// 获取渠道的重要性级别
-        /// </summary>
-        /// <param name="notificationChannelType"></param>
-        /// <returns></returns>
-        protected abstract NotificationImportanceLevel GetImportanceLevel(TNotificationChannelType notificationChannelType);
 
         /// <summary>
         /// 获取渠道的优先级 Android 7.1 and lower
@@ -176,20 +151,19 @@ namespace System.Application.Services.Implementation
             _ => throw new ArgumentOutOfRangeException(nameof(level), level, null),
         };
 
-        protected NotificationCompat.Builder BuildNotify(
+        NotificationCompat.Builder BuildNotify(
             Context context,
-            NotificationManagerCompat manager,
             string text,
-            TNotificationType notificationType,
+            NotificationType notificationType,
             bool? autoCancel = null,
             string? title = null,
             JClass? entrance = null,
             IReadOnlyCollection<NotificationCompat.Action>? actions = null)
         {
-            var channelType = GetChannel(notificationType);
+            var channelType = notificationType.GetChannel();
             var channelId = GetChannelId(channelType);
             var builder = new NotificationCompat.Builder(context, channelId);
-            var level = GetImportanceLevel(channelType);
+            var level = channelType.GetImportanceLevel();
             builder.SetPriority(GetNotificationPriority(level));
             var status_bar_icon = IAndroidApplication.Instance.NotificationSmallIconResId;
             if (status_bar_icon.HasValue) builder.SetSmallIcon(status_bar_icon.Value);
@@ -214,15 +188,15 @@ namespace System.Application.Services.Implementation
         }
 
         public void Notify(string text,
-           TNotificationType notificationType,
+           NotificationType notificationType,
            bool autoCancel,
            string? title,
-           TEntrance? entrance)
+           Entrance entrance)
         {
-            var notificationEntrance = (entrance != null ? GetActivityType(entrance)?.GetJClass() : null) ?? IAndroidApplication.Instance.NotificationEntrance;
+            var notificationEntrance = (entrance != default ? GetActivityType(entrance)?.GetJClass() : null) ?? app.NotificationEntrance;
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
-            var builder = BuildNotify(context, manager, text, notificationType,
+            var builder = BuildNotify(context, text, notificationType,
                 autoCancel, title, entrance: notificationEntrance);
             var notifyId = GetNotifyId(notificationType);
             manager.Notify(notifyId, builder.Build());
@@ -230,12 +204,12 @@ namespace System.Application.Services.Implementation
 
         public Progress<float> NotifyDownload(
             Func<string> text,
-            TNotificationType notificationType,
+            NotificationType notificationType,
             string? title)
         {
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
-            var builder = BuildNotify(context, manager,
+            var builder = BuildNotify(context,
                 text: text(),
                 notificationType,
                 title: title);

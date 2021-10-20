@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-    public interface IViewModelManager : IService<IViewModelManager>, IDisposableHolder, IDisposable
+    public interface IViewModelManager : IDisposableHolder, IDisposable
     {
+        static IViewModelManager Instance => DI.Get<IViewModelManager>();
+
         /// <summary>
         /// 获取为当前主窗口提供的数据
         /// </summary>

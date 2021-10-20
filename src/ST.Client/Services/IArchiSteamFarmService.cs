@@ -12,9 +12,9 @@ namespace System.Application.Services
     /// <summary>
     /// ASF 服务
     /// </summary>
-    public interface IArchiSteamFarmService : IService<IArchiSteamFarmService>
+    public interface IArchiSteamFarmService
     {
-        new static IArchiSteamFarmService Instance => IService<IArchiSteamFarmService>.Instance;
+        static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
 
         static Action? InitCoreLoggers { protected get; set; }
 

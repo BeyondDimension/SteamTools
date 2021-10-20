@@ -5,8 +5,10 @@ namespace System.Application.Services
     /// <summary>
     /// 平台 Window API 服务
     /// </summary>
-    public interface INativeWindowApiService : IService<INativeWindowApiService>
+    public interface INativeWindowApiService
     {
+        static INativeWindowApiService Instance => DI.Get<INativeWindowApiService>();
+
         /// <summary>
         /// 拖拽指针获取目标窗口
         /// </summary>

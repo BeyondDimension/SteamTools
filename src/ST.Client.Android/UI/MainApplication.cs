@@ -4,7 +4,6 @@ using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using Xamarin.Essentials;
-using _ThisAssembly = System.Properties.ThisAssembly;
 using AppTheme = System.Application.Models.AppTheme;
 using XEFileProvider = Xamarin.Essentials.FileProvider;
 using XEPlatform = Xamarin.Essentials.Platform;
@@ -24,12 +23,11 @@ namespace System.Application.UI
 {
     [Register(JavaPackageConstants.UI + nameof(MainApplication))]
     [Application(
-        Debuggable = _ThisAssembly.Debuggable,
         Label = "@string/app_name",
         Theme = "@style/MainTheme",
         Icon = "@mipmap/ic_launcher",
         RoundIcon = "@mipmap/ic_launcher_round")]
-    public sealed partial class MainApplication : IApplication
+    public sealed partial class MainApplication
     {
         public static MainApplication Instance => Context is MainApplication app ? app : throw new Exception("Impossible");
 
@@ -83,12 +81,14 @@ namespace System.Application.UI
             }
             IsMainProcess = GetIsMainProcess();
 
+            SettingsHost.Load();
+
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
             Startup.Init(level);
             if (IsMainProcess)
             {
-                PlatformNotificationServiceImpl.InitNotificationChannels(this);
+                AndroidNotificationServiceImpl.InitNotificationChannels(this);
                 XEVersionTracking.Track();
                 if (XEVersionTracking.IsFirstLaunchForCurrentVersion)
                 {
@@ -104,6 +104,12 @@ namespace System.Application.UI
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
             Startup.OnStartup(IsMainProcess);
+
+            if (IsMainProcess)
+            {
+                var vmService = IViewModelManager.Instance;
+                vmService.InitViewModels();
+            }
 
             stopwatch.Stop();
             ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;

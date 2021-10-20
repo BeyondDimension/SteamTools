@@ -7,8 +7,10 @@ namespace System.Application.Services
     /// <summary>
     /// Steamworks Web API 服务
     /// </summary>
-    public interface ISteamworksWebApiService : IService<ISteamworksWebApiService>
+    public interface ISteamworksWebApiService
     {
+        static ISteamworksWebApiService Instance => DI.Get<ISteamworksWebApiService>();
+
         Task<string> GetAllSteamAppsString();
 
         Task<List<SteamApp>> GetAllSteamAppList();

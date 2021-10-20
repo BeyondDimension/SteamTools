@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -59,8 +59,7 @@
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <AndroidLinkMode>None</AndroidLinkMode>
     <MandroidI18n />
-    <AndroidSupportedAbis>
-    </AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;x86_64;arm64-v8a</AndroidSupportedAbis>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <ItemGroup>
@@ -94,6 +93,14 @@
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj">
       <Project>{e7468fdd-75f7-4b08-ba47-b715bbcfcc11}</Project>
       <Name>Common.CoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ST.Client.Android\ST.Client.Android.csproj">
+      <Project>{def239e4-ac40-4bd8-8d36-5aa6b36ab86b}</Project>
+      <Name>ST.Client.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj">
+      <Project>{6c907586-bc27-4bed-ad6d-52f0755172cb}</Project>
+      <Name>ST.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

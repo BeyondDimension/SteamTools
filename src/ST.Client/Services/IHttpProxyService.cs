@@ -20,8 +20,10 @@ namespace System.Application.Services
     /// <summary>
     /// Http 代理服务
     /// </summary>
-    public interface IHttpProxyService : IService<IHttpProxyService>, IDisposable
+    public interface IHttpProxyService : IDisposable
     {
+        static IHttpProxyService Instance => DI.Get<IHttpProxyService>();
+
         bool IsCertificate { get; }
 
         void TrustCer();

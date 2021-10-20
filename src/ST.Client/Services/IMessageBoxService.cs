@@ -8,8 +8,10 @@ namespace System.Application.Services
     /// <summary>
     /// MessageBox 自定义实现服务(可选)
     /// </summary>
-    public interface IMessageBoxService : IOptionalService<IMessageBoxService>
+    public interface IMessageBoxService
     {
+        static IMessageBoxService? Instance => DI.Get_Nullable<IMessageBoxService>();
+
         /// <summary>
         /// 显示一个消息框，该消息框包含消息、标题栏标题、按钮和图标，并且返回结果
         /// </summary>

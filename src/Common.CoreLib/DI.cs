@@ -1,5 +1,6 @@
 #if !NOT_DI
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 #endif
 using System.Runtime.InteropServices;
 
@@ -40,7 +41,12 @@ namespace System
 
 #if !NOT_DI
 
-        static Exception GetDIGetFailException(Type serviceType) => new($"DI.Get* fail, serviceType: {serviceType}");
+        static Exception GetDIGetFailException(Type serviceType)
+        {
+            var msg = $"DI.Get* fail, serviceType: {serviceType}";
+            Debug.WriteLine(msg);
+            return new(msg);
+        }
 
         /// <summary>
         /// 获取依赖注入服务
@@ -90,7 +96,9 @@ namespace System
         {
             if (value == null)
             {
-                throw new Exception("DI.CreateScope fail.");
+                var msg = "DI.CreateScope fail.";
+                Debug.WriteLine(msg);
+                throw new Exception(msg);
             }
             return value.CreateScope();
         }

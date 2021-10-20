@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <!--<PackageReference Include="NotifyIcon.Mac" />-->
+    <PackageReference Include="JustArchiNET.Madness" />
   </ItemGroup>
 
   <!--VisualStudioAppCenterSDK namespacePrefix = "System.Application.Resources."-->

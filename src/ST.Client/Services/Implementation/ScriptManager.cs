@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Linq;
 using System.Application.Properties;
+using System.Application.UI.Resx;
 
 namespace System.Application.Services.Implementation
 {
@@ -57,7 +58,7 @@ namespace System.Application.Services.Implementation
             }
             else
             {
-                var msg = SR.Script_NoFile.Format(filePath);// $"文件不存在:{filePath}";
+                var msg = AppResources.Script_NoFile.Format(filePath);// $"文件不存在:{filePath}";
                 logger.LogError(msg);
                 return ApiResponse.Fail<ScriptDTO?>(msg);
             }
@@ -77,7 +78,7 @@ namespace System.Application.Services.Implementation
                         {
                             if (await scriptRepository.ExistsScript(md5, sha512))
                             {
-                                return ApiResponse.Fail<ScriptDTO?>(SR.Script_FileRepeat);
+                                return ApiResponse.Fail<ScriptDTO?>(AppResources.Script_FileRepeat);
                             }
                         }
                         var fileName = md5 + FileEx.JS;
@@ -106,7 +107,7 @@ namespace System.Application.Services.Implementation
                                 var state = await DeleteScriptAsync(oldInfo, false);
                                 if (!state.IsSuccess)
                                 {
-                                    return ApiResponse.Fail<ScriptDTO?>(SR.Script_FileDeleteError.Format(oldInfo.FilePath));
+                                    return ApiResponse.Fail<ScriptDTO?>(AppResources.Script_FileDeleteError.Format(oldInfo.FilePath));
                                 }
                             }
                         }
@@ -137,16 +138,16 @@ namespace System.Application.Services.Implementation
                             info.LocalId = db.Id;
                             if (isSuccess)
                             {
-                                return ApiResponse.Code<ScriptDTO?>(ApiResponseCode.OK, SR.Script_SaveDbSuccess, info);
+                                return ApiResponse.Code<ScriptDTO?>(ApiResponseCode.OK, AppResources.Script_SaveDbSuccess, info);
                             }
                             else
                             {
-                                return ApiResponse.Fail<ScriptDTO?>(SR.Script_SaveDBError);
+                                return ApiResponse.Fail<ScriptDTO?>(AppResources.Script_SaveDBError);
                             }
                         }
                         else
                         {
-                            var msg = SR.Script_BuildError.Format(fileInfo.FullName);
+                            var msg = AppResources.Script_BuildError.Format(fileInfo.FullName);
                             logger.LogError(msg);
                             toast.Show(msg);
                             return ApiResponse.Fail<ScriptDTO?>(msg);
@@ -154,7 +155,7 @@ namespace System.Application.Services.Implementation
                     }
                     else
                     {
-                        var msg = SR.Script_ReadFileError.Format(fileInfo.FullName);
+                        var msg = AppResources.Script_ReadFileError.Format(fileInfo.FullName);
                         logger.LogError(msg);
                         toast.Show(msg);
                         return ApiResponse.Fail<ScriptDTO?>(msg);
@@ -162,14 +163,14 @@ namespace System.Application.Services.Implementation
                 }
                 catch (Exception e)
                 {
-                    var msg = SR.Script_ReadFileError.Format(e.GetAllMessage());
+                    var msg = AppResources.Script_ReadFileError.Format(e.GetAllMessage());
                     logger.LogError(e, msg);
                     return ApiResponse.Code<ScriptDTO?>(ApiResponseCode.Fail, msg, default, e);
                 }
             }
             else
             {
-                var msg = string.Format(SR.Script_ReadFileError, fileInfo.FullName); //$"文件解析失败，请检查格式:{filePath}";
+                var msg = string.Format(AppResources.Script_ReadFileError, fileInfo.FullName); //$"文件解析失败，请检查格式:{filePath}";
                 logger.LogError(msg);
                 return ApiResponse.Fail<ScriptDTO?>(msg);
             }
@@ -194,7 +195,7 @@ namespace System.Application.Services.Implementation
                             }
                             catch (Exception e)
                             {
-                                var errorMsg = SR.Script_BuildDownloadError.Format(model.Name, item);
+                                var errorMsg = AppResources.Script_BuildDownloadError.Format(model.Name, item);
                                 logger.LogError(e, errorMsg);
                                 toast.Show(errorMsg);
                             }
@@ -235,7 +236,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                var msg = SR.Script_BuildError.Format(e.GetAllMessage());
+                var msg = AppResources.Script_BuildError.Format(e.GetAllMessage());
                 logger.LogError(e, msg);
                 toast.Show(msg);
             }
@@ -259,7 +260,7 @@ namespace System.Application.Services.Implementation
                     }
                     catch (Exception e)
                     {
-                        var msg = SR.Script_CacheDeleteError.Format(e.GetAllMessage());
+                        var msg = AppResources.Script_CacheDeleteError.Format(e.GetAllMessage());
                         logger.LogError(e, "path:{0}, msg: {1}", cachePath, msg);
                         return ApiResponse.Fail(msg);
                     }
@@ -273,7 +274,7 @@ namespace System.Application.Services.Implementation
                     }
                     catch (Exception e)
                     {
-                        var msg = SR.Script_FileDeleteError.Format(e.GetAllMessage());
+                        var msg = AppResources.Script_FileDeleteError.Format(e.GetAllMessage());
                         logger.LogError(e, "path:{0}, msg: {1}", savePath, msg);
                         return ApiResponse.Fail(msg);
                     }
@@ -283,18 +284,18 @@ namespace System.Application.Services.Implementation
                         await scriptRepository.DeleteAsync(item.LocalId);
                     }
 
-                    return ApiResponse.Ok(SR.Script_DeleteSuccess);
+                    return ApiResponse.Ok(AppResources.Script_DeleteSuccess);
                 }
                 else
                 {
                     logger.LogError("DeleteScriptAsync not found, localId:{0}", item.LocalId);
-                    return ApiResponse.Code(ApiResponseCode.NotFound, SR.Script_DeleteError);
+                    return ApiResponse.Code(ApiResponseCode.NotFound, AppResources.Script_DeleteError);
                 }
             }
             else
             {
                 logger.LogError("DeleteScriptAsync not key, localId:{0}", item.LocalId);
-                return ApiResponse.Fail(SR.Script_NoKey);
+                return ApiResponse.Fail(AppResources.Script_NoKey);
             }
         }
 
@@ -319,7 +320,7 @@ namespace System.Application.Services.Implementation
                     }
                     else
                     {
-                        toast.Show(SR.Script_ReadFileError.Format(item.Name));
+                        toast.Show(AppResources.Script_ReadFileError.Format(item.Name));
                     }
 
                 }
@@ -329,12 +330,12 @@ namespace System.Application.Services.Implementation
                     if (temp.IsSuccess)
                     {
                         //$"脚本:{item.Name}_文件丢失已删除"
-                        toast.Show(SR.Script_NoFile.Format(item.Name));
+                        toast.Show(AppResources.Script_NoFile.Format(item.Name));
                     }
                     else
                     {
                         //toast.Show($"脚本:{item.Name}_文件丢失，删除失败去尝试手动删除");
-                        toast.Show(SR.Script_NoFileDeleteError.Format(item.Name));
+                        toast.Show(AppResources.Script_NoFileDeleteError.Format(item.Name));
                     }
                 }
             }
@@ -392,7 +393,7 @@ namespace System.Application.Services.Implementation
                             }
                             else
                             {
-                                var basicsInfo = await csc.Script.Basics(SR.Script_NoFile.Format(item.FilePath));
+                                var basicsInfo = await csc.Script.Basics(AppResources.Script_NoFile.Format(item.FilePath));
                                 if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
                                 {
                                     var jspath = await DownloadScriptAsync(basicsInfo.Content.UpdateLink);
@@ -413,7 +414,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                var errorMsg = SR.Script_ReadFileError.Format(e.GetAllMessage());//$"文件读取出错:[{e}]";
+                var errorMsg = AppResources.Script_ReadFileError.Format(e.GetAllMessage());//$"文件读取出错:[{e}]";
                 logger.LogError(e, errorMsg);
                 toast.Show(errorMsg);
             }

@@ -13,8 +13,11 @@ namespace System.Application.Services
     /// <summary>
     /// 提供对显示在主窗口底部的状态栏的访问
     /// </summary>
-    public sealed class ToastService : MvvmService<ToastService>
+    public sealed class ToastService : ReactiveObject
     {
+        static ToastService? mCurrent;
+        public static ToastService Current => mCurrent ?? new();
+
         static readonly Lazy<bool> mIsSupported = new(() => DI.Get<IToast>() is ToastImpl);
         public static bool IsSupported => mIsSupported.Value;
 
@@ -52,6 +55,8 @@ namespace System.Application.Services
 
         public ToastService()
         {
+            mCurrent = this;
+
             notifier = new Subject<string>();
             notifier
                 .Do(x =>

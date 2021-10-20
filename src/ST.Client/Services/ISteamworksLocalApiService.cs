@@ -6,8 +6,10 @@ namespace System.Application.Services
     /// <summary>
     /// Steamworks 本地 API 服务
     /// </summary>
-    public interface ISteamworksLocalApiService : IService<ISteamworksLocalApiService>
+    public interface ISteamworksLocalApiService
     {
+        static ISteamworksLocalApiService Instance => DI.Get<ISteamworksLocalApiService>();
+
         protected const string TAG = "SteamworksLocalApiS";
 
         /// <summary>

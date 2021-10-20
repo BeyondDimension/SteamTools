@@ -5,8 +5,10 @@ namespace System.Application.Services
     /// <summary>
     /// hosts 文件助手服务
     /// </summary>
-    public interface IHostsFileService : IService<IHostsFileService>
+    public interface IHostsFileService
     {
+        static IHostsFileService Instance => DI.Get<IHostsFileService>();
+
         protected const string TAG = "HostsFileS";
 
         /// <summary>

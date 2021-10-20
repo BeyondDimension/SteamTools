@@ -14,6 +14,7 @@ using Avalonia.Markup.Xaml.Styling;
 using System.Application.Services;
 using System.Windows.Input;
 using System.Linq;
+using System.Properties;
 using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Application.Models;
@@ -183,7 +184,7 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("App.LoadXAML");
 #endif
-            Name = Constants.HARDCODED_APP_NAME;
+            Name = ThisAssembly.AssemblyTrademark;
 #if StartupTrace
             StartupTrace.Restart("App.SetP");
 #endif

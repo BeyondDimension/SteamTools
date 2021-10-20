@@ -1,5 +1,6 @@
 using System.Application.Properties;
 using System.Application.Services;
+using System.Application.UI.Resx;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application
@@ -32,8 +33,8 @@ namespace System.Application
         {
             return value switch
             {
-                NotificationChannelType.Announcement => SR.NotificationChannelType_Name_Announcement,
-                NotificationChannelType.NewVersion => SR.NotificationChannelType_Name_NewVersion,
+                NotificationChannelType.Announcement => AppResources.NotificationChannelType_Name_Announcement,
+                NotificationChannelType.NewVersion => AppResources.NotificationChannelType_Name_NewVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -50,8 +51,8 @@ namespace System.Application
         {
             return value switch
             {
-                NotificationChannelType.Announcement => SR.NotificationChannelType_Description_Announcement,
-                NotificationChannelType.NewVersion => SR.NotificationChannelType_Description_NewVersion,
+                NotificationChannelType.Announcement => AppResources.NotificationChannelType_Description_Announcement,
+                NotificationChannelType.NewVersion => AppResources.NotificationChannelType_Description_NewVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }

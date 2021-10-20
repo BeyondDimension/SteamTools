@@ -10,8 +10,11 @@ using System.Application.UI;
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
-    public sealed class UserService : MvvmService<UserService>
+    public sealed class UserService : ReactiveObject
     {
+        static UserService? mCurrent;
+        public static UserService Current => mCurrent ?? new();
+
         readonly IUserManager userManager = IUserManager.Instance;
         readonly ICloudServiceClient csc = ICloudServiceClient.Instance;
         readonly IHttpService httpService = IHttpService.Instance;
@@ -122,6 +125,8 @@ namespace System.Application.Services
 
         public UserService()
         {
+            mCurrent = this;
+
             this.WhenAnyValue(x => x.User)
                   .Subscribe(_ => this.RaisePropertyChanged(nameof(AvaterPath)));
 

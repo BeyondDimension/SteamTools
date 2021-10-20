@@ -20,7 +20,6 @@ namespace System.Application.Services.Implementation
         public WindowViewModel MainWindow
         {
             get => mMainWindow ?? throw new NullReferenceException("MainWindowViewModel is null.");
-            private set => mMainWindow = value;
         }
 
         public TaskBarWindowViewModel? TaskBarWindow => taskbarWindow;
@@ -32,12 +31,12 @@ namespace System.Application.Services.Implementation
                 if (appidUnlockAchievementHasValue)
                 {
                     achievementWindow = new AchievementWindowViewModel(appidUnlockAchievement);
-                    MainWindow = achievementWindow;
+                    mMainWindow = achievementWindow;
                 }
                 else
                 {
                     mainWindow = new MainWindowViewModel();
-                    MainWindow = mainWindow;
+                    mMainWindow = mainWindow;
                 }
             }
             catch (Exception ex)
@@ -83,7 +82,7 @@ namespace System.Application.Services.Implementation
             {
                 //if (!taskbarWindow.IsVisible)
                 //{
-                taskbarWindow.Show(x, y);
+                taskbarWindow?.Show(x, y);
                 //}
                 //else
                 //{

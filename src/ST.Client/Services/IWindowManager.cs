@@ -10,8 +10,10 @@ namespace System.Application.Services
     /// <summary>
     /// 窗口管理
     /// </summary>
-    public interface IWindowManager : IService<IWindowManager>
+    public interface IWindowManager
     {
+        static IWindowManager Instance => DI.Get<IWindowManager>();
+
         /// <summary>
         /// 显示一个窗口
         /// </summary>

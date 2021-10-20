@@ -22,8 +22,11 @@ using GAPRepository = System.Application.Repositories.IGameAccountPlatformAuthen
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
-    public sealed class AuthService : MvvmService<AuthService>
+    public sealed class AuthService : ReactiveObject
     {
+        static AuthService? mCurrent;
+        public static AuthService Current => mCurrent ?? new();
+
         public static async Task<Stream?> GetQrCodeStreamAsync(IEnumerable<IGAPAuthenticatorDTO> datas)
         {
             var qrCode = await Task.Run(() =>
@@ -66,6 +69,8 @@ namespace System.Application.Services
 
         public AuthService()
         {
+            mCurrent = this;
+
             Authenticators = new(t => t.Id);
         }
 

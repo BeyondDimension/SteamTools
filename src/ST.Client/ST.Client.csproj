@@ -38,6 +38,7 @@
     <PackageReference Include="Net.Codecrete.QrCodeGenerator" />
     <PackageReference Include="Portable.BouncyCastle" />
     <PackageReference Include="Fleck" />
+    <PackageReference Include="JustArchiNET.Madness" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,8 +70,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="UI\Resx\SR.AppResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+    <EmbeddedResource Update="UI\Resx\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

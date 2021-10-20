@@ -99,7 +99,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public string NewVersionInfoTitle => SR.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version);
+        public string NewVersionInfoTitle => AppResources.NewVersionUpdateTitle_.Format(NewVersionInfo?.Version);
 
         /// <summary>
         /// 当存在新的版本时，重写此方法实现弹窗提示用户
@@ -153,7 +153,7 @@ namespace System.Application.Services.Implementation
                 if (!rsp.Content.HasValue())
                 {
                     IsExistUpdate = false;
-                    if (showIsExistUpdateFalse) toast.Show(SR.IsExistUpdateFalse);
+                    if (showIsExistUpdateFalse) toast.Show(AppResources.IsExistUpdateFalse);
                 }
                 else
                 {
@@ -198,11 +198,11 @@ namespace System.Application.Services.Implementation
             protected set => this.RaiseAndSetIfChanged(ref _ProgressString, value);
         }
 
-        protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, SR.Downloading3_.Format(MathF.Round(value, 2), current, count));
-        protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, SR.CalcHashing3_.Format(MathF.Round(value, 2), current, count));
-        protected void OnReportDownloading(float value) => OnReport(value, SR.Downloading_.Format(MathF.Round(value, 2)));
-        protected void OnReportCalcHashing(float value) => OnReport(value, SR.CalcHashing_.Format(MathF.Round(value, 2)));
-        protected void OnReportDecompressing(float value) => OnReport(value, SR.Decompressing_.Format(MathF.Round(value, 2)));
+        protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, AppResources.Downloading3_.Format(MathF.Round(value, 2), current, count));
+        protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, AppResources.CalcHashing3_.Format(MathF.Round(value, 2), current, count));
+        protected void OnReportDownloading(float value) => OnReport(value, AppResources.Downloading_.Format(MathF.Round(value, 2)));
+        protected void OnReportCalcHashing(float value) => OnReport(value, AppResources.CalcHashing_.Format(MathF.Round(value, 2)));
+        protected void OnReportDecompressing(float value) => OnReport(value, AppResources.Decompressing_.Format(MathF.Round(value, 2)));
         protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
         protected virtual void OnReport(float value, string str)
         {
@@ -371,7 +371,7 @@ namespace System.Application.Services.Implementation
 
                             if (!UpdatePackVerification(downloadPath, item.SHA256!, i, allFiles.Count))
                             {
-                                Fail(SR.UpdatePackVerificationFail);
+                                Fail(AppResources.UpdatePackVerificationFail);
                                 break;
                             }
 
@@ -379,7 +379,7 @@ namespace System.Application.Services.Implementation
                         }
                         else
                         {
-                            Fail(SR.DownloadUpdateFail);
+                            Fail(AppResources.DownloadUpdateFail);
                             break;
                         }
                     #endregion
@@ -446,7 +446,7 @@ namespace System.Application.Services.Implementation
                         };
                         if (fileEx == string.Empty)
                         {
-                            Fail(SR.UpdateEnumOutOfRange);
+                            Fail(AppResources.UpdateEnumOutOfRange);
                             goto end;
                         }
                         switch (newVersionInfo.Platform)
@@ -461,7 +461,7 @@ namespace System.Application.Services.Implementation
                                 filePlatform = "android";
                                 break;
                             default:
-                                Fail(SR.UpdateEnumOutOfRange);
+                                Fail(AppResources.UpdateEnumOutOfRange);
                                 goto end;
                         }
                         switch (newVersionInfo.SupportedAbis)
@@ -482,7 +482,7 @@ namespace System.Application.Services.Implementation
                                 fileArch = ((int)newVersionInfo.SupportedAbis).ToString();
                                 break;
                             case 0:
-                                Fail(SR.UpdateEnumOutOfRange);
+                                Fail(AppResources.UpdateEnumOutOfRange);
                                 goto end;
                         }
 
@@ -521,12 +521,12 @@ namespace System.Application.Services.Implementation
                             }
                             else
                             {
-                                Fail(SR.UpdatePackVerificationFail);
+                                Fail(AppResources.UpdatePackVerificationFail);
                             }
                         }
                         else // 下载失败，进度条填满，可能服务器崩了
                         {
-                            Fail(SR.DownloadUpdateFail);
+                            Fail(AppResources.DownloadUpdateFail);
                         }
                     }
                     else
@@ -592,7 +592,7 @@ namespace System.Application.Services.Implementation
                 }
                 else
                 {
-                    toast.Show(SR.UpdateUnpackFail);
+                    toast.Show(AppResources.UpdateUnpackFail);
                     OnReport(CC.MaxProgress);
                     IsNotStartUpdateing = true;
                 }

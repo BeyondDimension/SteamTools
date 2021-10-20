@@ -37,9 +37,6 @@
     <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformTelephonyServiceImpl.cs">
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
-    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformNotificationServiceImpl`2.cs">
-      <LinkBase>Services\Implementation</LinkBase>
-    </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Logging\LogHelper.cs">
       <LinkBase>Logging</LinkBase>
     </Compile>

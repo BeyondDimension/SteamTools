@@ -175,6 +175,7 @@ OS                            | Version                 | Architectures     |
 	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
 	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
+[OpenJDK 11](https://docs.microsoft.com/zh-cn/java/openjdk/download#openjdk-11)  
 [Android Studio 2020.3.1 或更高版本](https://developer.android.google.cn/studio/)  
 [Xcode 13 或更高版本](https://developer.apple.com/xcode/)
 

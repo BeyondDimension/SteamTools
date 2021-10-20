@@ -19,8 +19,10 @@ namespace System.Application.Services
     /// <summary>
     /// 由平台实现的服务
     /// </summary>
-    public partial interface IPlatformService : IService<IPlatformService>
+    public partial interface IPlatformService
     {
+        static IPlatformService Instance => DI.Get<IPlatformService>();
+
         protected const string TAG = "PlatformS";
 
         /// <summary>

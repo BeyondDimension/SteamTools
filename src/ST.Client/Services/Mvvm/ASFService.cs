@@ -11,8 +11,11 @@ using System.Threading.Tasks;
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
-    public sealed class ASFService : MvvmService<ASFService>
+    public sealed class ASFService : ReactiveObject
     {
+        static ASFService? mCurrent;
+        public static ASFService Current => mCurrent ?? new();
+
         readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 
         string? _IPCUrl;
@@ -42,6 +45,8 @@ namespace System.Application.Services
 
         public ASFService()
         {
+            mCurrent = this;
+
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
             //InitASF();

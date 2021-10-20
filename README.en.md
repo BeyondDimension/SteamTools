@@ -166,6 +166,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
 	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
+[OpenJDK 11](https://docs.microsoft.com/java/openjdk/download#openjdk-11)  
 [Android Studio 2020.3.1 Or Higher](https://developer.android.com/studio/)  
 [Xcode 13 Or Higher](https://developer.apple.com/xcode/)
 

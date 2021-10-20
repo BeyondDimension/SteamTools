@@ -1,67 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="6" android:versionName="2.4.14" package="net.steampp.app" android:installLocation="auto">
-  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30"/>
-  <application android:fullBackupContent="@xml/auto_backup_rules">
-    <activity android:name="microsoft.identity.client.BrowserTabActivity" android:configChanges="orientation|screenSize">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="msal9972665d-dac3-4525-b11d-eac3d79c173b" android:host="auth"/>
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="msauth" android:host="net.steampp.app" android:path="/4SrCEIfuM++ddKXQh34fqEsxXsI="/>
-      </intent-filter>
-    </activity>
-    <activity
-      android:name="com.tencent.tauth.AuthActivity"
-      android:noHistory="true"
-      android:launchMode="singleTask">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="tencent101953775"/>
-      </intent-filter>
-    </activity>
-    <activity
-           android:name="com.tencent.connect.common.AssistActivity"
-           android:configChanges="orientation|keyboardHidden"
-           android:screenOrientation="behind"
-    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-  </application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="6" android:versionName="2.5.0" package="net.steampp.app" android:installLocation="auto">
+  <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
+  <application android:fullBackupContent="@xml/auto_backup_rules"></application>
   <!-- Required for API Level 30 to make sure the app can detect browsers and other apps where communication is needed.-->
   <!--https://developer.android.com/training/basics/intents/package-visibility-use-cases-->
   <queries>
-    <package android:name="com.azure.authenticator"/>
-    <package android:name="net.steampp.app"/>
-    <package android:name="com.microsoft.windowsintune.companyportal"/>
+    <package android:name="net.steampp.app" />
     <!-- Required for API Level 30 to make sure the app detect browsers
       (that don't support custom tabs) -->
     <intent>
-      <action android:name="android.intent.action.VIEW"/>
-      <category android:name="android.intent.category.BROWSABLE"/>
-      <data android:scheme="https"/>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="https" />
     </intent>
     <!-- Required for API Level 30 to make sure the app can detect browsers that support custom tabs -->
     <!-- https://developers.google.com/web/updates/2020/07/custom-tabs-android-11#detecting_browsers_that_support_custom_tabs -->
     <intent>
-      <action android:name="android.support.customtabs.action.CustomTabsService"/>
+      <action android:name="android.support.customtabs.action.CustomTabsService" />
     </intent>
     <intent>
-      <action android:name="android.intent.action.VIEW"/>
-      <data android:scheme="http"/>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="http" />
     </intent>
     <intent>
-      <action android:name="android.intent.action.VIEW"/>
-      <data android:scheme="https"/>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="https" />
     </intent>
     <intent>
-      <action android:name="android.intent.action.SENDTO"/>
-      <data android:scheme="mailto"/>
+      <action android:name="android.intent.action.SENDTO" />
+      <data android:scheme="mailto" />
     </intent>
   </queries>
 </manifest>

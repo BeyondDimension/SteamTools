@@ -9,8 +9,10 @@ namespace System.Application.UI
     /// <summary>
     /// 当前应用程序
     /// </summary>
-    public partial interface IApplication : IService<IApplication>
+    public partial interface IApplication
     {
+        static IApplication Instance => DI.Get<IApplication>();
+
         /// <summary>
         /// 获取或设置当前应用的主题
         /// </summary>

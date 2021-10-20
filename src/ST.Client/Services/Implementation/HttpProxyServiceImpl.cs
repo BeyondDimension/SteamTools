@@ -1,5 +1,6 @@
 using System.Application.Models;
 using System.Application.Properties;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -382,8 +383,8 @@ namespace System.Application.Services.Implementation
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             if (!result || proxyServer.CertificateManager.RootCertificate == null)
             {
-                Log.Error("Proxy", SR.CreateCertificateFaild);
-                Toast.Show(SR.CreateCertificateFaild);
+                Log.Error("Proxy", AppResources.CreateCertificateFaild);
+                Toast.Show(AppResources.CreateCertificateFaild);
                 return false;
             }
 

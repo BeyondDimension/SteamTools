@@ -122,7 +122,7 @@ namespace System.Application.Services.Implementation
                 {
                     if (fileInfo.Length > MaxFileLength)
                     {
-                        message = SR.FileSizeTooLarge;
+                        message = AppResources.FileSizeTooLarge;
                         return false;
                     }
                 }
@@ -137,7 +137,7 @@ namespace System.Application.Services.Implementation
                         }
                         catch (Exception)
                         {
-                            message = SR.FileAttributeIsReadOnlyModifyFail;
+                            message = AppResources.FileAttributeIsReadOnlyModifyFail;
                             return false;
                         }
                         removeReadOnly = true;
@@ -461,7 +461,7 @@ namespace System.Application.Services.Implementation
                     result.AppendData = ex;
                     if (ex is UnauthorizedAccessException || ex is SecurityException)
                     {
-                        result.Message = SR.FileUnauthorized;
+                        result.Message = AppResources.FileUnauthorized;
                     }
                     else
                     {

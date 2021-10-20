@@ -8,6 +8,8 @@ namespace System.Application.Services
     /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance, TNotificationService}"/>
     public interface INotificationService : INotificationService<NotificationType, Entrance, INotificationService>
     {
+        static INotificationService Instance => DI.Get<INotificationService>();
+
         /// <summary>
         /// 显示从服务端获取到通知纪录
         /// </summary>

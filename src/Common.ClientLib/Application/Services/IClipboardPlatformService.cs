@@ -2,8 +2,10 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-    public interface IClipboardPlatformService : IService<IClipboardPlatformService>
+    public interface IClipboardPlatformService
     {
+        static IClipboardPlatformService Instance => DI.Get<IClipboardPlatformService>();
+
         Task PlatformSetTextAsync(string text);
 
         Task<string> PlatformGetTextAsync();

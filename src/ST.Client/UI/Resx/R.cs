@@ -8,8 +8,16 @@ using System.Reactive.Linq;
 
 namespace System.Application.UI.Resx
 {
-    public sealed class R : MvvmService<R>
+    public sealed class R : ReactiveObject
     {
+        static R? mCurrent;
+        public static R Current => mCurrent ?? new();
+
+        public R()
+        {
+            mCurrent = this;
+        }
+
         public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
         public static readonly Dictionary<string, string> SteamLanguages;
         static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());

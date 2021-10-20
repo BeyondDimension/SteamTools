@@ -17,8 +17,11 @@ using System.Threading.Tasks;
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
-    public sealed class SteamConnectService : MvvmService<SteamConnectService>, IDisposable
+    public sealed class SteamConnectService : ReactiveObject, IDisposable
     {
+        static SteamConnectService? mCurrent;
+        public static SteamConnectService Current => mCurrent ?? new();
+
         readonly ISteamworksLocalApiService ApiService = ISteamworksLocalApiService.Instance;
         //readonly ISteamworksWebApiService SteamworksWebApiService = ISteamworksWebApiService.Instance;
         //readonly ISteamDbWebApiService steamDbApiService = ISteamDbWebApiService.Instance;
@@ -27,6 +30,8 @@ namespace System.Application.Services
 
         public SteamConnectService()
         {
+            mCurrent = this;
+
             SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
             DownloadApps = new SourceCache<SteamApp, uint>(t => t.AppId);
 

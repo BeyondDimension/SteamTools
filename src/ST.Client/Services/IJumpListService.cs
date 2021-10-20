@@ -6,8 +6,10 @@ namespace System.Application.Services
     /// <para>Taskbar Extensions</para>
     /// <para><see cref="https://docs.microsoft.com/zh-cn/windows/win32/shell/taskbar-extensions?redirectedfrom=MSDN"/></para>
     /// </summary>
-    public interface IJumpListService : IService<IJumpListService>
+    public interface IJumpListService
     {
+        static IJumpListService Instance => DI.Get<IJumpListService>();
+
         void InitJumpList();
 
         void AddJumpTask(string title, string applicationPath, string iconResourcePath, string arguments = "", string description = "", string customCategory = "");

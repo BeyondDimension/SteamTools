@@ -8,8 +8,10 @@ namespace System.Application.Services
     /// <summary>
     /// Steam 相关助手、工具类服务
     /// </summary>
-    public interface ISteamService : IService<ISteamService>
+    public interface ISteamService
     {
+        static ISteamService Instance => DI.Get<ISteamService>();
+
         const int IPC_Call_GetLoginUsingSteamClient_Timeout_MS = 6500;
         protected const string url_localhost_auth_public = Prefix_HTTP + "127.0.0.1:27060/auth/?u=public";
         const string url_steamcommunity_ = "steamcommunity.com";

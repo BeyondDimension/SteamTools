@@ -3,8 +3,10 @@ using Xamarin.Essentials;
 
 namespace System.Application.Services
 {
-    public interface IEmailPlatformService : IService<IEmailPlatformService>
+    public interface IEmailPlatformService
     {
+        static IEmailPlatformService Instance => DI.Get<IEmailPlatformService>();
+
         Task PlatformComposeAsync(EmailMessage? message);
     }
 }

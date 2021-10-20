@@ -42,15 +42,19 @@ namespace System.Application.Services
             }
         }
 
-        public interface IOpenFileDialogService : IServiceBase, IOptionalService<IOpenFileDialogService>
+        public interface IOpenFileDialogService : IServiceBase
         {
+            static IOpenFileDialogService? Instance => DI.Get_Nullable<IOpenFileDialogService>();
+
             Task<IEnumerable<FileResult>> PlatformPickAsync(PickOptions? options, bool allowMultiple = false);
 
             bool IsSupportedFileExtensionFilter { get; }
         }
 
-        public interface ISaveFileDialogService : IServiceBase, IOptionalService<ISaveFileDialogService>
+        public interface ISaveFileDialogService : IServiceBase
         {
+            static ISaveFileDialogService? Instance => DI.Get_Nullable<ISaveFileDialogService>();
+
             Task<FileResult?> PlatformSaveAsync(SaveOptions? options);
         }
     }

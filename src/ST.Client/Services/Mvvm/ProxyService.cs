@@ -22,8 +22,11 @@ using Titanium.Web.Proxy.Models;
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
-    public sealed class ProxyService : MvvmService<ProxyService>, IDisposable
+    public sealed class ProxyService : ReactiveObject, IDisposable
     {
+        static ProxyService? mCurrent;
+        public static ProxyService Current => mCurrent ?? new();
+
         readonly IHttpProxyService httpProxyService = IHttpProxyService.Instance;
         readonly IScriptManager scriptManager = IScriptManager.Instance;
         readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
@@ -31,6 +34,8 @@ namespace System.Application.Services
 
         public ProxyService()
         {
+            mCurrent = this;
+
             ProxyDomains = new SourceList<AccelerateProjectGroupDTO>();
             ProxyScripts = new SourceList<ScriptDTO>();
 
@@ -242,7 +247,7 @@ namespace System.Application.Services
 
                                     if (r.ResultType != OperationResultType.Success)
                                     {
-                                        Toast.Show(SR.OperationHostsError_.Format(r.Message));
+                                        Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
                                         httpProxyService.StopProxy();
                                         return;
                                     }
@@ -278,7 +283,7 @@ namespace System.Application.Services
 
                                 if (r.ResultType != OperationResultType.Success)
                                 {
-                                    Toast.Show(SR.OperationHostsError_.Format(r.Message));
+                                    Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
                                     //return;
                                 }
                                 else if (OperatingSystem2.IsMacOS && !ProxySettings.EnableWindowsProxy.Value)

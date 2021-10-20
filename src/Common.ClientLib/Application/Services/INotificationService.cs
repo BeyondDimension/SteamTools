@@ -5,7 +5,7 @@ namespace System.Application.Services
     /// </summary>
     /// <typeparam name="TNotificationType"></typeparam>
     /// <typeparam name="TEntrance"></typeparam>
-    public interface INotificationService<TNotificationType, TEntrance, TNotificationService> : IService<TNotificationService>
+    public interface INotificationService<TNotificationType, TEntrance, TNotificationService>
         where TNotificationType : notnull, Enum
         where TEntrance : notnull, Enum
         where TNotificationService : INotificationService<TNotificationType, TEntrance, TNotificationService>

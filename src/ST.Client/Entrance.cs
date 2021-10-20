@@ -5,6 +5,6 @@ namespace System.Application
     /// </summary>
     public enum Entrance : byte
     {
-        Main,
+        Main = 1,
     }
 }

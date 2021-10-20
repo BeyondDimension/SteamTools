@@ -4,6 +4,7 @@ using System;
 using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Application.UI;
 using System.Net.Http;
 
 // ReSharper disable once CheckNamespace
@@ -17,6 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.AddSingleton<AndroidPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<AndroidPlatformServiceImpl>());
+                services.AddPlatformNotificationService();
                 services.TryAddAndroidClientHttpPlatformHelperService();
                 services.TryAddAndroidToast();
                 if (options.HasGUI)
@@ -60,9 +62,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddNotificationService(this IServiceCollection services)
+        static IServiceCollection AddPlatformNotificationService(this IServiceCollection services)
         {
-            services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
+            services.AddSingleton<INotificationService, AndroidNotificationServiceImpl>();
             return services;
         }
     }

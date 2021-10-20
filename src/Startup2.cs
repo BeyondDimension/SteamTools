@@ -151,18 +151,17 @@ namespace System.Application
                 services.TryAddToast();
 
                 services.AddSingleton<IApplication>(_ => PlatformApplication.Instance);
+#if __ANDROID__
+                services.AddSingleton<IAndroidApplication>(_ => PlatformApplication.Instance);
+#endif
 #if __MOBILE__
                 // 添加电话服务
                 services.AddTelephonyService();
 
                 //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #else
-                services.AddSingleton<IApplication>(_ => PlatformApplication.Instance);
                 services.AddSingleton<IAvaloniaApplication>(_ => PlatformApplication.Instance);
                 services.TryAddSingleton<IClipboardPlatformService>(_ => PlatformApplication.Instance);
-
-                // 添加管理主窗口服务
-                services.AddViewModelManager();
 
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
@@ -197,6 +196,9 @@ namespace System.Application
 
                 #endregion
 
+                // 添加管理主窗口服务
+                services.AddViewModelManager();
+
                 services.TryAddBiometricService();
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.GUI");
@@ -228,14 +230,12 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.HttpClientFactory");
 #endif
             }
-#if !__MOBILE__
             services.TryAddScriptManager();
-#endif
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.ScriptManager");
 #endif
 
-#if !CONSOLEAPP && !__MOBILE__
+#if !CONSOLEAPP
             if (options.HasHttpProxy)
             {
                 // 通用 Http 代理服务
@@ -258,10 +258,10 @@ namespace System.Application
                 services.TryAddCloudServiceClient<CloudServiceClient>(c =>
                 {
 #if NETCOREAPP3_0_OR_GREATER
-                    c.DefaultRequestVersion = HttpVersion.Version20;
+                        c.DefaultRequestVersion = HttpVersion.Version20;
 #endif
 #if NET5_0_OR_GREATER
-                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+                        c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
 #endif
                 }, configureHandler:
 #if NETCOREAPP2_1_OR_GREATER
@@ -302,12 +302,11 @@ namespace System.Application
             void AddNotificationService()
             {
 #if !__MOBILE__
-                if (!Program.IsMainProcess) return;
+                    if (!Program.IsMainProcess) return;
 #endif
                 services.TryAddNotificationService();
             }
 #endif
-#if !__MOBILE__
 #if !CONSOLEAPP
             if (options.HasHosts)
             {
@@ -338,7 +337,6 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.Steam");
 #endif
             }
-#endif
 #if !CONSOLEAPP
             if (options.HasMainProcessRequired)
             {
@@ -460,7 +458,7 @@ namespace System.Application
             try
             {
 #if !__MOBILE__
-                var screens = App.Instance.MainWindow.Screens;
+                var screens = PlatformApplication.Instance.MainWindow.Screens;
 #else
                 var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
                 var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
@@ -500,14 +498,25 @@ namespace System.Application
         }
 #endif
 
-        public static void OnStartup(bool isMainProcess)
+        public static async void OnStartup(bool isMainProcess)
         {
             if (isMainProcess)
             {
                 ActiveUserPost(ActiveUserType.OnStartup);
                 if (GeneralSettings.IsAutoCheckUpdate.Value)
                 {
-                    IApplicationUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                    //if (!OperatingSystem2.IsAndroid)
+                    {
+                        try
+                        {
+                            var appUpdateService = IApplicationUpdateService.Instance;
+                            await appUpdateService.CheckUpdateAsync(showIsExistUpdateFalse: false);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error(nameof(Startup), e, "OnStartup");
+                        }
+                    }
                 }
             }
         }

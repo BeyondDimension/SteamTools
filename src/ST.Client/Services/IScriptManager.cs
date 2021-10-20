@@ -11,8 +11,10 @@ namespace System.Application.Services
     /// <summary>
     /// 脚本管理
     /// </summary>
-    public interface IScriptManager : IService<IScriptManager>
+    public interface IScriptManager
     {
+        static IScriptManager Instance => DI.Get<IScriptManager>();
+
         /// <summary>
         /// 绑定JS
         /// </summary>
