@@ -14,7 +14,7 @@ namespace System.Application.Settings
     {
         static UISettings()
         {
-            //Theme.ValueChanged += Theme_ValueChanged;
+            Theme.ValueChanged += Theme_ValueChanged;
             AppGridSize.ValueChanged += AppGridSize_ValueChanged;
             EnableDesktopBackground.ValueChanged += EnableDesktopBackground_ValueChanged;
 
@@ -44,17 +44,19 @@ namespace System.Application.Settings
             SteamConnectService.Current.SteamApps.Refresh();
         }
 
-        //static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
-        //{
-        //    if (e.NewValue != e.OldValue)
-        //    {
-        //        var value = (AppTheme)e.NewValue;
-        //        if (value.IsDefined())
-        //        {
-        //            AppHelper.Current.Theme = value;
-        //        }
-        //    }
-        //}
+        static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
+        {
+            // 当前 Avalonia App 主题切换存在问题
+            if (OperatingSystem2.Application.UseAvalonia) return;
+            if (e.NewValue != e.OldValue)
+            {
+                var value = (AppTheme)e.NewValue;
+                if (value.IsDefined())
+                {
+                    IApplication.Instance.Theme = value;
+                }
+            }
+        }
 
         /// <summary>
         /// 主题

@@ -48,15 +48,6 @@ namespace System.Application.UI.ViewModels
         }
 
         public static LocalAuthPageViewModel Current
-        {
-            get
-            {
-                if (IViewModelManager.Instance.MainWindow is MainWindowViewModel mainWindowViewModel)
-                {
-                    return mainWindowViewModel.LocalAuthPage;
-                }
-                throw new NotSupportedException();
-            }
-        }
+            => IViewModelManager.Instance.GetMainPageViewModel<LocalAuthPageViewModel>();
     }
 }

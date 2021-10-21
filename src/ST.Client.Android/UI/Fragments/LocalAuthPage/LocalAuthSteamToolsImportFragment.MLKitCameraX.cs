@@ -1,6 +1,7 @@
 using System.Application.UI.Activities;
 using System.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.Fragments
 {
     partial class LocalAuthSteamToolsImportFragment

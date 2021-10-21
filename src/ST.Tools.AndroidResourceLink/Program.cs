@@ -5,8 +5,8 @@ using System.Text;
 
 const string Mark = "<!--ST.Tools.AndroidResourceLink-->";
 var resPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + string.Join(Path.DirectorySeparatorChar, new[] { "ST.Client.Mobile.Droid.Design", "ui", "src", "main", "res" });
-var androidProjPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + "ST.Client.Mobile.Droid";
-var androidProjFilePath = androidProjPath + Path.DirectorySeparatorChar + "ST.Client.Mobile.Droid.csproj";
+var androidProjPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + "ST.Client.Android";
+var androidProjFilePath = androidProjPath + Path.DirectorySeparatorChar + "ST.Client.Android.csproj";
 
 var csprojContent = File.ReadAllText(androidProjFilePath);
 var csprojContentLines = csprojContent.Split(Environment.NewLine);

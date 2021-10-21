@@ -14,6 +14,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Application.Services;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI
@@ -101,6 +102,7 @@ namespace System.Application.UI
 #endif
                 b.AppendLine();
 
+                b.Append("[app.ver] ");
 #if __ANDROID__
                 GetAppDisplayVersion(activity, b);
                 static void GetAppDisplayVersion(Context context, StringBuilder b)
@@ -112,7 +114,7 @@ namespace System.Application.UI
 #pragma warning restore CS0618 // 类型或成员已过时
                 }
 #else
-                b.AppendFormat("[app.ver] {0}", ThisAssembly.DynamicVersion);
+                b.Append(ThisAssembly.DynamicVersion);
 #endif
                 b.AppendLine();
 
@@ -393,6 +395,10 @@ namespace System.Application.UI
                     b.Append(GetAssemblyVersion(controllerType.Assembly));
                     b.AppendLine();
                 }
+
+                b.Append("[di.ver] ");
+                b.Append(GetAssemblyVersion(typeof(ServiceCollection).Assembly));
+                b.AppendLine();
 
                 b.Append("[essentials.supported] ");
                 b.Append(Essentials.IsSupported.ToLowerString());

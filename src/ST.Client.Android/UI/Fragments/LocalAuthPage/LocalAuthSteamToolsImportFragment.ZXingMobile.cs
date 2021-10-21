@@ -1,6 +1,7 @@
 //using Android.Views;
 //using ZXing.Mobile;
 
+//// ReSharper disable once CheckNamespace
 //namespace System.Application.UI.Fragments
 //{
 //    partial class LocalAuthSteamToolsImportFragment

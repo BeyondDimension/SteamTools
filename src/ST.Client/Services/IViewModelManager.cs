@@ -32,5 +32,14 @@ namespace System.Application.Services
 
         /// <inheritdoc cref="ShowTaskBarWindow(int, int)"/>
         void ShowTaskBarWindow(Point point) => ShowTaskBarWindow(point.X, point.Y);
+
+        T GetMainPageViewModel<T>() where T : TabItemViewModel
+        {
+            if (MainWindow is MainWindowViewModel mainWindowViewModel)
+            {
+                return mainWindowViewModel.GetTabItemVM<T>();
+            }
+            throw new NotSupportedException();
+        }
     }
 }

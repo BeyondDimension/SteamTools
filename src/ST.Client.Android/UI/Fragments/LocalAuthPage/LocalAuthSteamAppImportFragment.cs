@@ -7,6 +7,7 @@ using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.Fragments
 {
     internal sealed class LocalAuthSteamAppImportFragment : BaseFragment<fragment_local_auth_import_steam_app, AddAuthWindowViewModel>

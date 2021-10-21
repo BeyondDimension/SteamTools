@@ -75,6 +75,6 @@ namespace System.Application.UI.ViewModels
         //    mTabItems.Add(typeof(TabItemVM), value);
         //}
 
-        TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel => (TabItemVM)mTabItems[typeof(TabItemVM)].Value;
+        internal TabItemVM GetTabItemVM<TabItemVM>() where TabItemVM : TabItemViewModel => (TabItemVM)mTabItems[typeof(TabItemVM)].Value;
     }
 }

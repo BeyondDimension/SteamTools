@@ -6,6 +6,7 @@ using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
 using static System.Application.UI.ViewModels.AddAuthWindowViewModel;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.Fragments
 {
     internal sealed class LocalAuthOtherImportFragment : BaseFragment<fragment_local_auth_import_other, AddAuthWindowViewModel>

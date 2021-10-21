@@ -145,7 +145,7 @@ namespace System.Application.UI
                     AppTheme.Dark => AppCompatDelegate.ModeNightYes,
                     _ => int.MinValue,
                 };
-                if (defaultNightMode != int.MinValue) return;
+                if (defaultNightMode == int.MinValue) return;
                 AppCompatDelegate.DefaultNightMode = defaultNightMode;
             }
         }

@@ -15,6 +15,7 @@ using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
 using static System.Application.UI.ViewModels.LocalAuthPageViewModel;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application.UI.Fragments
 {
     [Register(JavaPackageConstants.Fragments + nameof(LocalAuthFragment))]
