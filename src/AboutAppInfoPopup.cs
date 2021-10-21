@@ -10,7 +10,6 @@ using AndroidApplication = Android.App.Application;
 #endif
 using System.Properties;
 using System.Text;
-using System.Windows;
 using System.Linq;
 using System.Diagnostics;
 using System.Application.Services;
@@ -373,17 +372,25 @@ namespace System.Application.UI
 #endif
 
 #if AVALONIA
-                if (IApplication.IsAvaloniaApp)
+                if (OperatingSystem2.Application.UseAvalonia)
                 {
                     b.Append("[avalonia.ver] ");
-                    b.Append(GetAssemblyVersion(Type.GetType(IApplication.TypeNames.Avalonia)!.Assembly));
+                    b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.Avalonia!.Assembly));
                     b.AppendLine();
                 }
 #endif
-                if (IApplication.IsXamarinForms)
+                if (OperatingSystem2.Application.UseXamarinForms)
                 {
                     b.Append("[forms.ver] ");
-                    b.Append(GetAssemblyVersion(Type.GetType(IApplication.TypeNames.XamarinForms)!.Assembly));
+                    b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.XamarinForms!.Assembly));
+                    b.AppendLine();
+                }
+
+                var controllerType = Type.GetType("Microsoft.AspNetCore.Mvc.ControllerBase, Microsoft.AspNetCore.Mvc.Core");
+                if (controllerType != null)
+                {
+                    b.Append("[mvc.ver] ");
+                    b.Append(GetAssemblyVersion(controllerType.Assembly));
                     b.AppendLine();
                 }
 

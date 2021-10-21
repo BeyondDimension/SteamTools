@@ -45,17 +45,5 @@ namespace System.Application.UI
         /// <para>reference to the ViewController (if using Xamarin.iOS), Activity (if using Xamarin.Android) IWin32Window or IntPtr (if using .Net Framework).</para>
         /// </summary>
         object CurrentPlatformUIHost { get; }
-
-        private static readonly Lazy<bool> mIsAvaloniaApp = new(() => Type.GetType(TypeNames.Avalonia) != null);
-        static bool IsAvaloniaApp => mIsAvaloniaApp.Value;
-
-        private static readonly Lazy<bool> mIsXamarinForms = new(() => Type.GetType(TypeNames.XamarinForms) != null);
-        static bool IsXamarinForms => mIsXamarinForms.Value;
-
-        static class TypeNames
-        {
-            public const string Avalonia = "Avalonia.Application, Avalonia.Controls";
-            public const string XamarinForms = "Xamarin.Forms.Application, Xamarin.Forms.Core";
-        }
     }
 }

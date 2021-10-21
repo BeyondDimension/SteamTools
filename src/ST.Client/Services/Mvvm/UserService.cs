@@ -107,7 +107,7 @@ namespace System.Application.Services
         {
             get
             {
-                if (IApplication.IsAvaloniaApp)
+                if (OperatingSystem2.Application.UseAvalonia)
                 {
                     return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
                 }

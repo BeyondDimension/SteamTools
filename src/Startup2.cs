@@ -505,17 +505,14 @@ namespace System.Application
                 ActiveUserPost(ActiveUserType.OnStartup);
                 if (GeneralSettings.IsAutoCheckUpdate.Value)
                 {
-                    //if (!OperatingSystem2.IsAndroid)
+                    try
                     {
-                        try
-                        {
-                            var appUpdateService = IApplicationUpdateService.Instance;
-                            await appUpdateService.CheckUpdateAsync(showIsExistUpdateFalse: false);
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Error(nameof(Startup), e, "OnStartup");
-                        }
+                        var appUpdateService = IApplicationUpdateService.Instance;
+                        await appUpdateService.CheckUpdateAsync(showIsExistUpdateFalse: false);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(nameof(Startup), e, "OnStartup");
                     }
                 }
             }

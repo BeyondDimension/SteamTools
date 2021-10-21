@@ -158,25 +158,25 @@ namespace System
 #if !NET35
         #region BaseDirectory
 
-        public const string DirName_Bin = "Bin";
+        //public const string DirName_Bin = "Bin";
 
-        static readonly Lazy<string> _BaseDirectory = new(() =>
-        {
-            var value = AppContext.BaseDirectory;
-            if (OperatingSystem2.IsWindows && !DesktopBridge.IsRunningAsUwp) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
-            {
-                var value2 = new DirectoryInfo(value);
-                if (value2.Parent != null && string.Equals(value2.Name, DirName_Bin, StringComparison.OrdinalIgnoreCase))
-                {
-                    value = value2.Parent.FullName;
-                }
-            }
-            return value;
-        });
+        //static readonly Lazy<string> _BaseDirectory = new(() =>
+        //{
+        //    var value = AppContext.BaseDirectory;
+        //    if (OperatingSystem2.IsWindows && !DesktopBridge.IsRunningAsUwp) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
+        //    {
+        //        var value2 = new DirectoryInfo(value);
+        //        if (value2.Parent != null && string.Equals(value2.Name, DirName_Bin, StringComparison.OrdinalIgnoreCase))
+        //        {
+        //            value = value2.Parent.FullName;
+        //        }
+        //    }
+        //    return value;
+        //});
 
         public static string BaseDirectory =>
-        //AppContext.BaseDirectory;
-        _BaseDirectory.Value;
+            AppContext.BaseDirectory;
+        //_BaseDirectory.Value;
 
         #endregion
 #endif
