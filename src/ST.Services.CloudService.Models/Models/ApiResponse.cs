@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Const = System.Application.ModelValidatorProvider.Constants;
 
 namespace System.Application.Models
 {
@@ -80,7 +79,7 @@ namespace System.Application.Models
             }
             else if (code == ApiResponseCode.UserIsBan)
             {
-                return Const.UserIsBanErrorMessage;
+                return ModelValidatorErrorDescriber.UserIsBanErrorMessage;
             }
             string message;
             var notErrorAppendText = string.IsNullOrWhiteSpace(errorAppendText);

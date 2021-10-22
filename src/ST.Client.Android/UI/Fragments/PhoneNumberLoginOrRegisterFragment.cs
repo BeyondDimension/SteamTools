@@ -33,13 +33,13 @@ namespace System.Application.UI.Fragments
             // https://developer.android.google.cn/reference/android/widget/TextView.html#protected-methods
             binding!.tbPhoneNumber.SetRawInputType(InputTypes.ClassPhone);
             binding!.tbPhoneNumber.SetDigitsKeyListener();
-            binding!.tbPhoneNumber.SetMaxLength(InputLengthConstants.Current.PhoneNumber);
+            binding!.tbPhoneNumber.SetMaxLength(ModelValidatorLengths.PhoneNumber);
             binding!.tbPhoneNumber.ImeOptions = ImeAction.Next;
             binding!.tbPhoneNumber.SetOnEditorActionListener(this);
 
             binding!.tbSmsCode.SetRawInputType(InputTypes.ClassNumber | InputTypes.NumberVariationNormal);
             binding!.tbSmsCode.SetDigitsKeyListener();
-            binding!.tbSmsCode.SetMaxLength(InputLengthConstants.Current.SMS_CAPTCHA);
+            binding!.tbSmsCode.SetMaxLength(ModelValidatorLengths.SMS_CAPTCHA);
             binding!.tbSmsCode.ImeOptions = ImeAction.Done;
             binding!.tbSmsCode.SetOnEditorActionListener(this);
 
