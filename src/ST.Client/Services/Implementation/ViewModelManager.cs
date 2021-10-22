@@ -38,15 +38,12 @@ namespace System.Application.Services.Implementation
                     mainWindow = new MainWindowViewModel();
                     mMainWindow = mainWindow;
                 }
+                taskbarWindow = new TaskBarWindowViewModel(mainWindow);
             }
             catch (Exception ex)
             {
                 Log.Error(nameof(ViewModelManager), ex, "Init WindowViewModel");
                 throw;
-            }
-            finally
-            {
-                taskbarWindow = new TaskBarWindowViewModel();
             }
         }
 

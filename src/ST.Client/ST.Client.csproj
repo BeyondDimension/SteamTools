@@ -38,6 +38,8 @@
     <PackageReference Include="Net.Codecrete.QrCodeGenerator" />
     <PackageReference Include="Portable.BouncyCastle" />
     <PackageReference Include="Fleck" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <PackageReference Include="JustArchiNET.Madness" />
   </ItemGroup>
 

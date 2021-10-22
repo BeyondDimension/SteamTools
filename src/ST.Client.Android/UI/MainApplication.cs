@@ -33,6 +33,8 @@ namespace System.Application.UI
 
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
+            FileSystem2.InitFileSystem();
+
             IViewModelBase.IsInDesignMode = false;
             IViewModelBase.IsMobileLayout = true;
 

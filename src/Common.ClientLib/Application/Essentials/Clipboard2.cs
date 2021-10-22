@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using System.Application.Services;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application
 {
     /// <summary>

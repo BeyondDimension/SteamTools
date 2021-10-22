@@ -2,6 +2,7 @@
 //using System.Runtime.Versioning;
 using Xamarin.Essentials;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application
 {
     public static class Essentials

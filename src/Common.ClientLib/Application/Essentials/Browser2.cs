@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application
 {
     public static partial class Browser2

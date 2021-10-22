@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-#if !NOT_XE
-using Xamarin.Essentials;
-#endif
+using System.Collections.Generic;
 
 namespace System
 {
@@ -56,26 +53,5 @@ namespace System
         {
             return platform != Platform.Unknown && Enum.IsDefined(typeof(Platform), platform);
         }
-
-#if !NOT_XE
-
-        static readonly IReadOnlyDictionary<DevicePlatform, Platform> mapping = new Dictionary<DevicePlatform, Platform>
-        {
-            { DevicePlatform.Android, Platform.Android },
-            { DevicePlatform.iOS, Platform.Apple },
-            { DevicePlatform.UWP, Platform.UWP },
-            { DevicePlatform.tvOS, Platform.Apple },
-            { DevicePlatform.Tizen, Platform.Linux },
-            { DevicePlatform.watchOS, Platform.Apple },
-        };
-
-        /// <summary>
-        /// 将 <see cref="DevicePlatform"/> 转换为 <see cref="Platform"/>
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static Platform Convert(this DevicePlatform value) => mapping.ContainsKey(value) ? mapping[value] : Platform.Unknown;
-
-#endif
     }
 }

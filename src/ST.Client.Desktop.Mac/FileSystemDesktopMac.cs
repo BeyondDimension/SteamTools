@@ -9,8 +9,10 @@ using System.Properties;
 namespace System.Application
 {
     /// <inheritdoc cref="FileSystemDesktop"/>
-    public static class FileSystemDesktopMac
+    public sealed class FileSystemDesktopMac : IOPath.FileSystemBase
     {
+        private FileSystemDesktopMac() => throw new NotSupportedException();
+
         /// <inheritdoc cref="FileSystemDesktop.InitFileSystem"/>
         public static void InitFileSystem()
         {
@@ -19,7 +21,7 @@ namespace System.Application
             var cachePath = Path.Combine(GetDirectory(NSSearchPathDirectory.CachesDirectory), Constants.HARDCODED_APP_NAME);
             IOPath.DirCreateByNotExists(appDataPath);
             IOPath.DirCreateByNotExists(cachePath);
-            IOPath.InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+            InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
             string GetAppDataDirectory() => appDataPath;
             string GetCacheDirectory() => cachePath;
         }

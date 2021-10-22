@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFrameworks>net6.0;net6.0-macos</TargetFrameworks>-->
-    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <!--<TargetFrameworks>net6.0-macos</TargetFrameworks>-->
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mac</AssemblyName>
   </PropertyGroup>
@@ -47,7 +47,6 @@
 
   <ItemGroup>
     <!--<PackageReference Include="NotifyIcon.Mac" />-->
-    <PackageReference Include="JustArchiNET.Madness" />
   </ItemGroup>
 
   <!--VisualStudioAppCenterSDK namespacePrefix = "System.Application.Resources."-->

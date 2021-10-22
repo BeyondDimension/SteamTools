@@ -336,7 +336,7 @@ namespace System.Application.UI
             StartupTrace.Restart("Desktop_Startup.Start");
 #endif
             IsNotOfficialChannelPackageDetectionHelper.Check();
-#if WINDOWS
+#if WINDOWS || XAMARIN_MAC
             if (isOfficialChannelPackage)
             {
 #pragma warning disable CA1416 // 验证平台兼容性

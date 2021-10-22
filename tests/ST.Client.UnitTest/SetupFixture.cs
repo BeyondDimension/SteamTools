@@ -26,6 +26,19 @@ namespace System.Application
                 ModelValidatorProvider.Init();
                 DI.Init(ConfigureServices);
 
+                FileSystemTest.InitFileSystem();
+            }
+        }
+
+        sealed class FileSystemTest : IOPath.FileSystemBase
+        {
+            private FileSystemTest() => throw new NotSupportedException();
+
+            /// <summary>
+            /// 初始化文件系统
+            /// </summary>
+            public static void InitFileSystem()
+            {
                 var path = AppContext.BaseDirectory;
                 var path1 = Path.Combine(path, "AppData");
                 IOPath.DirCreateByNotExists(path1);
@@ -33,7 +46,7 @@ namespace System.Application
                 IOPath.DirCreateByNotExists(path2);
                 string GetAppDataDirectory() => path1;
                 string GetCacheDirectory() => path2;
-                IOPath.InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+                InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
             }
         }
 

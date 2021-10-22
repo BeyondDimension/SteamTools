@@ -5,6 +5,7 @@ using Xamarin.Essentials;
 using static System.Application.Services.IFilePickerPlatformService;
 using _ThisAssembly = System.Properties.ThisAssembly;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application
 {
     /// <summary>

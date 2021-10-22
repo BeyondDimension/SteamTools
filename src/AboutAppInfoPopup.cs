@@ -8,6 +8,7 @@ using XEPlatform = Xamarin.Essentials.Platform;
 using Process = System.Diagnostics.Process;
 using AndroidApplication = Android.App.Application;
 #endif
+using Xamarin.Essentials;
 using System.Properties;
 using System.Text;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Diagnostics;
 using System.Application.Services;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI
@@ -326,18 +328,46 @@ namespace System.Application.UI
                 b.Append("[device] ");
                 b.Append(Build.Device ?? "");
                 b.AppendLine();
-                b.Append("[device.model] ");
-                b.Append(Build.Model ?? "");
+#endif
+                b.Append("[device.name] ");
+                b.Append(DeviceInfo2.Name);
                 b.AppendLine();
+                b.Append("[device.model] ");
+                b.Append(
+#if __ANDROID__
+                    Build.Model ?? ""
+#else
+                    DeviceInfo2.Model
+#endif
+                    );
+                b.AppendLine();
+                b.Append("[device.ver] ");
+                b.Append(DeviceInfo2.VersionString);
+                b.AppendLine();
+                b.Append("[device.idiom] ");
+                b.Append(DeviceInfo2.Idiom);
+                b.AppendLine();
+                b.Append("[device.type] ");
+                b.Append(DeviceInfo2.DeviceType);
+                b.AppendLine();
+#if __ANDROID__
                 b.Append("[device.product] ");
                 b.Append(Build.Product ?? "");
                 b.AppendLine();
                 b.Append("[device.brand] ");
                 b.Append(Build.Brand ?? "");
                 b.AppendLine();
+#endif
                 b.Append("[device.manufacturer] ");
-                b.Append(Build.Manufacturer ?? "");
+                b.Append(
+#if __ANDROID__
+                    Build.Manufacturer ?? ""
+#else
+                    DeviceInfo2.Manufacturer
+#endif
+                    );
                 b.AppendLine();
+#if __ANDROID__
                 b.Append("[device.fingerprint] ");
                 b.Append(Build.Fingerprint ?? "");
                 b.AppendLine();
@@ -370,6 +400,37 @@ namespace System.Application.UI
                 b.AppendLine();
                 b.Append("[device.biometric] ");
                 b.Append(IBiometricService.Instance.IsSupportedAsync().Result.ToLowerString());
+                b.AppendLine();
+                b.Append("[device.abis]");
+                IEnumerable<string>? supportedAbis;
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+                {
+                    supportedAbis = Build.SupportedAbis;
+                }
+                else
+                {
+                    supportedAbis = new[] {
+#pragma warning disable CS0618 // 类型或成员已过时
+                        Build.CpuAbi!,
+                        Build.CpuAbi2!,
+#pragma warning restore CS0618 // 类型或成员已过时
+                    };
+                }
+                if (supportedAbis != null)
+                {
+                    supportedAbis = supportedAbis.Where(x => !string.IsNullOrWhiteSpace(x));
+                    var supportedAbisCount = supportedAbis.Count();
+                    var i = 0;
+                    foreach (var item in supportedAbis)
+                    {
+                        b.Append(item);
+                        if (i != supportedAbisCount - 1)
+                        {
+                            b.Append(", ");
+                        }
+                        i++;
+                    }
+                }
                 b.AppendLine();
 #endif
 

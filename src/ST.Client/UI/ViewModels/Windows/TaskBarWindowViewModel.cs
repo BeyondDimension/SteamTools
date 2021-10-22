@@ -29,13 +29,23 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<object, Unit> MenuClickCommand { get; }
 
-        public TaskBarWindowViewModel()
+        public TaskBarWindowViewModel() : this(IViewModelManager.Instance.MainWindow)
+        {
+
+        }
+
+        public TaskBarWindowViewModel(MainWindowViewModel? mainwindow)
         {
             MenuClickCommand = ReactiveCommand.Create<object>(MenuClick);
-            if (IViewModelManager.Instance.MainWindow is MainWindowViewModel mainwindow)
+            if (mainwindow != null)
             {
                 Tabs = mainwindow.TabItems.Where(x => x.Id != default);
             }
+        }
+
+        TaskBarWindowViewModel(WindowViewModel? mainwindow) : this(mainwindow is MainWindowViewModel mainwindow2 ? mainwindow2 : null)
+        {
+
         }
 
         public const TabItemViewModel.TabItemId SettingsId = TabItemViewModel.TabItemId.Settings;

@@ -12,7 +12,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Nito.Comparers" />
     <PackageReference Include="OperatingSystem2" />
-    <PackageReference Include="Xamarin.Essentials" />
     <PackageReference Include="Crc32.NET" />
     <PackageReference Include="gfoidl.Base64" />
     <PackageReference Include="MessagePack" />

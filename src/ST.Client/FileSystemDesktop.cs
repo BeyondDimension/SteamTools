@@ -9,8 +9,10 @@ namespace System.Application
     /// 适用于桌面端的文件系统帮助类，参考 Xamarin.Essentials.FileSystem
     /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/file-system-helpers?tabs=uwp"/></para>
     /// </summary>
-    public static class FileSystemDesktop
+    public sealed class FileSystemDesktop : IOPath.FileSystemBase
     {
+        private FileSystemDesktop() => throw new NotSupportedException();
+
         /// <summary>
         /// 初始化文件系统
         /// </summary>
@@ -36,7 +38,7 @@ namespace System.Application
             var cachePath = Path.Combine(appDataRootPath, IOPath.DirName_Cache);
             IOPath.DirCreateByNotExists(appDataPath);
             IOPath.DirCreateByNotExists(cachePath);
-            IOPath.InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+            InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
             string GetAppDataDirectory() => appDataPath;
             string GetCacheDirectory() => cachePath;
         }
