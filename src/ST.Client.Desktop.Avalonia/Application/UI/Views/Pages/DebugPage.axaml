@@ -18,6 +18,7 @@
         <Style Selector="Button">
           <Setter Property="Height" Value="35"/>
           <Setter Property="MinWidth" Value="150"/>
+          <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
       </WrapPanel.Styles>
       <Button Content="Debug Button"

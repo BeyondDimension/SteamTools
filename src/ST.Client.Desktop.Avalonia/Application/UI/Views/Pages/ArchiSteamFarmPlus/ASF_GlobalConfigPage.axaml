@@ -8,8 +8,7 @@
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"
-             xmlns:i="using:Avalonia.Xaml.Interactivity"
-             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              x:Name="u"
              mc:Ignorable="d"
              d:DesignWidth="800"
@@ -25,7 +24,6 @@
           <TextBlock Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=CurrentVersion,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
         </WrapPanel>
       </Border>
-
       <Border Classes="Item">
         <DockPanel>
           <TextBlock Text="程序启动时自动运行ASF"/>
@@ -33,19 +31,68 @@
         </DockPanel>
       </Border>
 
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="跳转到 WebUI 全局设置"/>
+
+          <Button Classes="plain"
+                  Command="{ReflectionBinding OpenFolder}">
+            <ui:SymbolIcon Symbol="Open"
+                           FontSize="24"/>
+          </Button>
+        </DockPanel>
+      </Border>
+
       <Separator Classes="Separator"/>
+      
+      <Expander>
+        <Expander.Header>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,StringFormat=ASF {0},Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     VerticalAlignment="Center"/>
+        </Expander.Header>
+
+        <StackPanel Orientation="Vertical" Spacing="10">
+          <StackPanel
+                      Orientation="Horizontal"
+                      Spacing="10">
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF Config}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="config"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF Plugin}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="plugin"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF Log}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="Logs"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF WebUI}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="www"/>
+          </StackPanel>
+
+        </StackPanel>
+      </Expander>
 
       <Border Classes="Item">
         <DockPanel>
+          <TextBlock Text="导入已有的 ASF Bot 文件"/>
+          <Button Content="选择文件"
+                  Command="{ReflectionBinding OpenFolder}"/>
+        </DockPanel>
+      </Border>
+
+      <Separator Classes="Separator"/>
+
+      <!--<Border Classes="Item">
+        <DockPanel>
           <TextBlock Text="启用IPC"/>
-          <ToggleSwitch />
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IPCEnable,Mode=TwoWay}"/>
         </DockPanel>
       </Border>
 
       <Border Classes="Item">
         <DockPanel>
           <TextBlock Text="IPC监听地址"/>
-          <TextBox
+          <TextBox Text="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IPCUrl,Mode=TwoWay}"
                    Classes="clearButton">
           </TextBox>
         </DockPanel>
@@ -60,7 +107,7 @@
         </DockPanel>
       </Border>
 
-      <Separator Classes="Separator"/>
+      <Separator Classes="Separator"/>-->
     </StackPanel>
   </ScrollViewer>
 </UserControl>

@@ -41,7 +41,6 @@ namespace System.Application.Services.Implementation
         public Version CurrentVersion => SharedInfo.Version;
 
         private bool isFirstStart = true;
-
         public async Task Start(string[]? args = null)
         {
             try
@@ -159,6 +158,16 @@ namespace System.Application.Services.Implementation
             return ASF.GlobalConfig;
         }
 
+        public async void SaveGlobalConfig(GlobalConfig config)
+        {
+            string filePath = ASF.GetFilePath(ASF.EFileType.Config);
+            bool result = await GlobalConfig.Write(filePath, config).ConfigureAwait(false);
+            if (result)
+            {
+                Toast.Show("SaveGlobalConfig  " + result);
+            }
+        }
+
         public string GetIPCUrl()
         {
             var defaultUrl = "http://" + IPAddress.Loopback + ":1242";
@@ -189,12 +198,6 @@ namespace System.Application.Services.Implementation
             {
                 return defaultUrl;
             }
-        }
-
-        public async void SaveGlobalConfig(GlobalConfig config)
-        {
-            string filePath = ASF.GetFilePath(ASF.EFileType.Config);
-            bool result = await GlobalConfig.Write(filePath, config).ConfigureAwait(false);
         }
 
         public async Task<string?> GetAvatarUrl(Bot bot)

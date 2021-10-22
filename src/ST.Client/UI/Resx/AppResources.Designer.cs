@@ -2638,7 +2638,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。 的本地化字符串。
+        ///   查找类似 确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。
+        ///    (如果没有开Steam网络加速会导致无法登录成功) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamTradeLoginTip {
             get {
@@ -3642,6 +3643,87 @@ namespace System.Application.UI.Resx {
         public static string Settings_Language {
             get {
                 return ResourceManager.GetString("Settings_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 地址 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_IPAddress {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_IPAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_Password {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 端口 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_Port {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_Port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 监听端口 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_ProxyPort {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_ProxyPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 代理类型 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_ProxyType {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_ProxyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Socks5本地代理 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_Socks5Proxy {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_Socks5Proxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 代理监听IP地址 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_SystemProxyIp {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_SystemProxyIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 二级代理 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_TwoLevelAgent {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_TwoLevelAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户名 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_UserName {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_UserName", resourceCulture);
             }
         }
         

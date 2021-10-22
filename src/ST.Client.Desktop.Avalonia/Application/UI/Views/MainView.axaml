@@ -178,7 +178,7 @@
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
           <ui:NavigationViewItem>
             <ui:NavigationViewItem.Resources>
-              <x:Double x:Key="NavigationViewItemOnLeftIconBoxHeight">30</x:Double>
+              <x:Double x:Key="NavigationViewItemOnLeftIconBoxHeight">26</x:Double>
             </ui:NavigationViewItem.Resources>
             <ui:NavigationViewItem.Content>
               <!--<DockPanel>
@@ -194,7 +194,7 @@
               <!--<ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>-->
               <ui:BitmapIcon UriSource="{Binding IconSource}"
                              HorizontalAlignment="Center"
-                             Width="30" Height="30"/>
+                             Width="26" Height="26"/>
               <!--<ui:ImageIcon Margin="3 0 0 0"
                             Width="16" Height="16">
                             <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>

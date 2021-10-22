@@ -226,15 +226,22 @@ namespace System.Application.Services.Implementation
                         }
                         else
                         {
-                            var iPs = await Dns.GetHostAddressesAsync(item.ForwardDomainName);
-                            if (!iPs.Any_Nullable())
+                            //var iPs = await Dns.GetHostAddressesAsync(item.ForwardDomainName);
+                            //if (!iPs.Any_Nullable())
+                            //    return;
+                            //if (IPAddress.IsLoopback(iPs.FirstOrDefault()))
+                            //    return;
+                            //ip = iPs.First();
+                            if (!OperatingSystem2.IsWindows)
+                                ip = await DnsAnalysis.AnalysisDomainIpByAliDns(item.ForwardDomainName);
+                            else
+                                ip = await DnsAnalysis.AnalysisDomainIp(item.ForwardDomainName);
+
+                            if (IPAddress.IsLoopback(ip))
                                 return;
-                            if (IPAddress.IsLoopback(iPs.FirstOrDefault()))
-                                return;
-                            ip = iPs.First();
                             //Logger.Info("Proxy IP: " + iP);
                         }
-                        if (ip != null)
+                        if (ip != null && !IPAddress.IsLoopback(ip) && ip != IPAddress.Any)
                         {
                             e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
                         }

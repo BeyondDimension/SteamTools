@@ -21,10 +21,10 @@
             Margin="{StaticResource TitleBarAfterMargin}">
       <ScrollViewer Padding="10">
         <StackPanel Spacing="20" Classes="Settings">
-          <Expander Header="加速设置" IsExpanded="True">
+          <Expander Header="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}" IsExpanded="True">
             <StackPanel Spacing="10">
               <DockPanel>
-                <Label Content="本机监听IP地址"></Label>
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_SystemProxyIp,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                 <TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
                 <!--<ui:ComboBox IsEditable="True"
                              Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}">
@@ -34,13 +34,14 @@
                   </ui:ComboBox.Items>
                 </ui:ComboBox>-->
               </DockPanel>
-              
+
               <!--<DockPanel>
                 <Label Content="监听端口"></Label>
                 <NumericUpDown Value="{ReflectionBinding Source={x:Static ms:ProxySettings.HostProxyPortId},Path=Value, Mode=TwoWay}" 
+                               FormatString="0"
                                Maximum="65535"/>
               </DockPanel>-->
-              
+
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AutoRunProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
                 <ToggleSwitch
@@ -67,7 +68,7 @@
           <Expander IsExpanded="True">
             <Expander.Header>
               <DockPanel HorizontalAlignment="Stretch">
-                <TextBlock Text="Socks5本地代理"/>
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_Socks5Proxy,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                 <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
             </Expander.Header>
@@ -78,8 +79,9 @@
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
               </DockPanel>-->
               <DockPanel>
-                <Label Content="监听端口"></Label>
-                <NumericUpDown Maximum="65535"
+                <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyPort,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
+                <NumericUpDown Maximum="65535" 
+                               FormatString="0"
                                Value="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyPortId},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
             </StackPanel>
@@ -88,7 +90,7 @@
           <Expander IsExpanded="True">
             <Expander.Header>
               <DockPanel HorizontalAlignment="Stretch">
-                <TextBlock Text="二级代理"/>
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_TwoLevelAgent,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                 <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentEnable},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
             </Expander.Header>
@@ -100,29 +102,30 @@
               </DockPanel>-->
 
               <DockPanel>
-                <Label Content="代理类型"></Label>
+                <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyType,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
                 <ComboBox Items="{Binding ProxyTypes}"
                           SelectedIndex="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentProxyType},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
 
               <DockPanel>
-                <Label Content="地址"></Label>
+                <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_IPAddress,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
                 <TextBox Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentIp},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
               <DockPanel>
-                <Label Content="端口" ></Label>
+                <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_Port,Mode=OneWay,Source={x:Static resx:R.Current}}" ></Label>
                 <NumericUpDown Maximum="65535"
+                               FormatString="0"
                                Value="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPortId},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
 
               <DockPanel>
-                <Label Content="用户名" ></Label>
+                <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_UserName,Mode=OneWay,Source={x:Static resx:R.Current}}" ></Label>
                 <TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentUserName},Path=Value, Mode=TwoWay}"></TextBox>
               </DockPanel>
 
               <DockPanel>
-                <Label Content="密码" ></Label>
+                <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" ></Label>
                 <TextBox Classes="revealPasswordButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPassword},Path=Value, Mode=TwoWay}" PasswordChar="{StaticResource PasswordChar}"></TextBox>
               </DockPanel>
 

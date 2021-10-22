@@ -134,8 +134,10 @@
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > Button">
-    <Setter Property="Padding" Value="25 3" />
+    <Setter Property="Padding" Value="30 5" />
     <Setter Property="Height" Value="30" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ExpanderBorderBrush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="HorizontalAlignment"  Value="Right" />
     <Setter Property="HorizontalContentAlignment"  Value="Right" />
     <Setter Property="VerticalContentAlignment" Value="Center" />

@@ -67,7 +67,7 @@
           </ui:CommandBarButton>
 
           <ui:CommandBarButton
-                     Command="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=OpenWebUIConsole}"
+                     Command="{ReflectionBinding OpenBrowser}"
                      ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
                      Label="打开Web控制台">
             <ui:CommandBarButton.Icon>
@@ -75,8 +75,25 @@
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
         </ui:CommandBar.PrimaryCommands>
+        
         <ui:CommandBar.SecondaryCommands>
+          <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
+                               CommandParameter="Wiki"
+                               ToolTip.Tip="ArchiSteamFarm Wiki"
+                               Label="ArchiSteamFarm Wiki">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
 
+          <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
+                               CommandParameter="Repo"
+                               ToolTip.Tip="ArchiSteamFarm Github"
+                               Label="ArchiSteamFarm Github">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
         </ui:CommandBar.SecondaryCommands>
       </ui:CommandBar>
     </Border>
@@ -86,18 +103,21 @@
             Padding="10"
             Background="{DynamicResource ThemeBrushKey}">
       <TabControl Classes="flat">
-        <TabItem Header="ASF控制台">
+        <TabItem Header="ASF 运行状态">
+
+        </TabItem>
+        <TabItem Header="ASF 控制台">
           <controls:ConsoleShell x:Name="ConsoleLog"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                  IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
           </controls:ConsoleShell>
         </TabItem>
 
-        <TabItem Header="Bot配置">
+        <TabItem Header="Bot 配置">
           <pages:ASF_BotPage/>
         </TabItem>
 
-        <TabItem Header="ASF配置">
+        <TabItem Header="ASF 配置">
           <pages:ASF_GlobalConfigPage/>
         </TabItem>
       </TabControl>

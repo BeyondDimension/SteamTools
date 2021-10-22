@@ -99,10 +99,5 @@ namespace System.Application.Services
         {
             GlobalConfig = archiSteamFarmService.GetGlobalConfig();
         }
-
-        public void OpenWebUIConsole()
-        {
-            Browser2.Open(archiSteamFarmService.GetIPCUrl());
-        }
     }
 }

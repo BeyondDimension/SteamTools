@@ -880,7 +880,8 @@
     <value>导入Steam++ V2版本的导出的令牌数据</value>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
-    <value>确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。</value>
+    <value>确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。
+    (如果没有开Steam网络加速会导致无法登录成功)</value>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
     <value>Steam账号导入</value>
@@ -1588,6 +1589,33 @@
   </data>
   <data name="CommunityFix_ProxySettings" xml:space="preserve">
     <value>代理设置</value>
+  </data>
+  <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
+    <value>代理监听IP地址</value>
+  </data>
+  <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
+    <value>Socks5本地代理</value>
+  </data>
+  <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
+    <value>监听端口</value>
+  </data>
+  <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
+    <value>二级代理</value>
+  </data>
+  <data name="Settings_Proxy_ProxyType" xml:space="preserve">
+    <value>代理类型</value>
+  </data>
+  <data name="Settings_Proxy_IPAddress" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="Settings_Proxy_Port" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="Settings_Proxy_UserName" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="Settings_Proxy_Password" xml:space="preserve">
+    <value>密码</value>
   </data>
   <data name="Settings_General_CaptureScreen" xml:space="preserve">
     <value>屏幕捕获</value>

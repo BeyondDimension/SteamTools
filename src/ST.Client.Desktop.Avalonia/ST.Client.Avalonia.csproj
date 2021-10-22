@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
     <None Remove="Application\UI\Assets\movecross.png" />
   </ItemGroup>
