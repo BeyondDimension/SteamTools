@@ -24,7 +24,7 @@ namespace Avalonia.Controls
             ExtendClientAreaTitleBarHeightHint = -1;
 
             //}
-            TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+            TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
             SystemDecorations = SystemDecorations.Full;
 
             this.GetObservable(WindowStateProperty)
@@ -58,7 +58,7 @@ namespace Avalonia.Controls
                         IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
 #pragma warning restore CA1416 // 验证平台兼容性
                     }
-                    else if (OperatingSystem2.IsWindows10AtLeast)
+                    else if (OperatingSystem2.IsWindows11AtLeast)
                     {
                         AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
                     }

@@ -322,7 +322,8 @@ namespace System.Application.UI
         public override void RegisterServices()
         {
             IViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess | DILevel.GUI);
+            if (ViewModelBase.IsInDesignMode)
+                Startup.Init(DILevel.MainProcess | DILevel.GUI);
 
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
             base.RegisterServices();
@@ -484,7 +485,20 @@ namespace System.Application.UI
 #pragma warning restore CA1416 // 验证平台兼容性
             }
         }
-
+        /// <summary>
+        /// 设置当前打开窗口的AvaloniaWinodw背景透明材质
+        /// </summary>
+        /// <param name="level"></param>
+        public void SetAllWindowransparencyMateria(int level)
+        {
+            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                foreach (var window in desktop.Windows.Where(x => x.IsActive))
+                {
+                    window.TransparencyLevelHint = (WindowTransparencyLevel)level;
+                }
+            }
+        }
 
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.

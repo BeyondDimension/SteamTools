@@ -222,7 +222,11 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                app.CloseWindow(vm);
+                if (app.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    var window = desktop.Windows.FirstOrDefault(x => x.DataContext == vm);
+                    window?.Close();
+                }
             }
             catch (Exception e)
             {
@@ -235,7 +239,12 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                return app.IsVisibleWindow(vm);
+                if (app.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    var window = desktop.Windows.FirstOrDefault(x => x.DataContext == vm);
+                    return window?.IsVisible == true;
+                }
+                return false;
             }
             catch (Exception e)
             {
@@ -249,7 +258,11 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                app.HideWindow(vm);
+                if (app.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    var window = desktop.Windows.FirstOrDefault(x => x.DataContext == vm);
+                    window?.Hide();
+                }
             }
             catch (Exception e)
             {
@@ -262,7 +275,11 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                app.ShowWindowNoParent(vm);
+                if (app.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    var window = desktop.Windows.FirstOrDefault(x => x.DataContext == vm);
+                    window?.Show();
+                }
             }
             catch (Exception e)
             {

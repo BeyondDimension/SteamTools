@@ -1566,6 +1566,9 @@
   <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
     <value>自定义背景图片</value>
   </data>
+  <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
+    <value>窗口背景透明材质</value>
+  </data>
   <data name="Reset" xml:space="preserve">
     <value>重置</value>
   </data>

@@ -16,7 +16,16 @@ namespace System.Application.Settings
         {
             Theme.ValueChanged += Theme_ValueChanged;
             AppGridSize.ValueChanged += AppGridSize_ValueChanged;
-            EnableDesktopBackground.ValueChanged += EnableDesktopBackground_ValueChanged;
+
+            if (OperatingSystem2.IsWindows)
+            {
+                EnableDesktopBackground.ValueChanged += EnableDesktopBackground_ValueChanged;
+            }
+
+            if (OperatingSystem2.IsWindows11AtLeast)
+            {
+                WindowBackgroundMateria.ValueChanged += WindowBackgroundMateria_ValueChanged;
+            }
 
             if (WindowViewModel.IsSupportedSizePosition)
             {
@@ -24,18 +33,20 @@ namespace System.Application.Settings
             }
         }
 
+        static void WindowBackgroundMateria_ValueChanged(object sender, ValueChangedEventArgs<int> e)
+        {
+            IApplication.Instance.SetAllWindowransparencyMateria(e.NewValue);
+        }
+
         static void EnableDesktopBackground_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
         {
-            if (OperatingSystem2.IsWindows)
+            if (e.NewValue)
             {
-                if (e.NewValue)
-                {
-                    IApplication.Instance.SetDesktopBackgroundWindow();
-                }
-                else
-                {
-                    INativeWindowApiService.Instance.ResetWallerpaper();
-                }
+                IApplication.Instance.SetDesktopBackgroundWindow();
+            }
+            else
+            {
+                INativeWindowApiService.Instance.ResetWallerpaper();
             }
         }
 
@@ -57,6 +68,8 @@ namespace System.Application.Settings
                 }
             }
         }
+
+
 
         /// <summary>
         /// 主题
@@ -89,10 +102,16 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: "Default", autoSave: true);
 
         /// <summary>
-        /// 窗口毛玻璃背景透明度
+        /// 窗口背景透明度
         /// </summary>
         public static SerializableProperty<double> AcrylicOpacity { get; }
             = GetProperty(defaultValue: .8, autoSave: true);
+
+        /// <summary>
+        /// 窗口背景材质
+        /// </summary>
+        public static SerializableProperty<int> WindowBackgroundMateria { get; }
+            = GetProperty(defaultValue: 3, autoSave: true);
 
         /// <summary>
         /// 库存游戏封面大小

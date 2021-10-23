@@ -3890,6 +3890,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 窗口背景透明材质 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_WindowTransparencyMaterial {
+            get {
+                return ResourceManager.GetString("Settings_UI_WindowTransparencyMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 退出登录 的本地化字符串。
         /// </summary>
         public static string SignOut {

@@ -7,6 +7,7 @@ using FluentAvalonia.Styling;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace System.Application.UI.Views.Windows
             ExtendClientAreaTitleBarHeightHint = -1;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
             //SystemDecorations = SystemDecorations.None;
-            TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+            TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
             SizeToContent = Avalonia.Controls.SizeToContent.Height;
             CanResize = false;
             ShowInTaskbar = false;

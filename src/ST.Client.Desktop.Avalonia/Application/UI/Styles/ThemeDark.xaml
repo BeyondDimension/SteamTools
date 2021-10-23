@@ -46,9 +46,9 @@
     <SolidColorBrush x:Key="SemiactiveBorderBrushKey"
                      Color="#FF3F3F46" />
 
-    <Color x:Key="SemiActiveForegroundColorKey">#FFA0A0A0</Color>
+    <Color x:Key="SemiActiveForegroundColorKey">#FFCFCFCF</Color>
     <SolidColorBrush x:Key="SemiActiveForegroundBrushKey"
-                     Color="#FFA1A0A0" />
+                     Color="{StaticResource SemiActiveForegroundColorKey}" />
 
 
 

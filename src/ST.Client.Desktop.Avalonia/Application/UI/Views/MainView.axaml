@@ -32,22 +32,22 @@
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
       </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder IsHitTestVisible="False"
+      <!--<ExperimentalAcrylicBorder IsHitTestVisible="False"
                                  DockPanel.Dock="Right">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
-      </ExperimentalAcrylicBorder>
-      <!--<ExperimentalAcrylicBorder IsHitTestVisible="False"
+      </ExperimentalAcrylicBorder>-->
+      <ExperimentalAcrylicBorder IsHitTestVisible="False"
                                  DockPanel.Dock="Right">
-          <ExperimentalAcrylicBorder.Material>
-            <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
-                                         MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
-                                         TintOpacity="1"/>
-          </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>-->
+        <ExperimentalAcrylicBorder.Material>
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
+                                       MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
+                                       TintOpacity="1"/>
+        </ExperimentalAcrylicBorder.Material>
+      </ExperimentalAcrylicBorder>
     </DockPanel>
 
     <!--Content-->
@@ -72,7 +72,7 @@
       </ui:NavigationView.PaneHeader>-->
 
       <ui:NavigationView.Content>
-        <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}" Margin="-10 0 0 0">
+        <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}">
           <ui:Frame.DataTemplates>
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
               <pages:ProxyScriptManagePage/>

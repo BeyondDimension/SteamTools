@@ -5,13 +5,10 @@
     <Border Padding="20">
       <StackPanel Classes="Settings">
         <Border Classes="Item">
-          <StackPanel Spacing="10" VerticalAlignment="Center">
-            <WrapPanel>
-              <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-              <TextBlock Text="V5.0.1.0" VerticalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <!--<TextBlock Text="最新 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-          <TextBlock Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>-->
+          <StackPanel>
+            <TextBlock Text="程序启动时自动运行ASF"/>
+            <TextBlock Classes="prompt"
+                         Text="程序启动时自动运行ASF"/>
           </StackPanel>
         </Border>
 
@@ -115,7 +112,7 @@
 
   <Style Selector="StackPanel.Settings TextBlock.prompt">
     <Setter Property="FontSize" Value="{StaticResource FontSizeH8}" />
-    <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
+    <Setter Property="Foreground" Value="{DynamicResource SemiActiveForegroundColorKey}" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <!--<Setter Property="Margin" Value="10 0" />-->
     <Setter Property="TextWrapping" Value="Wrap" />

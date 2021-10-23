@@ -21,11 +21,11 @@
   </Design.PreviewWith>
   
   <Style.Resources>
-    <Color x:Key="ThemeColorKey">#AAFCFCFC</Color>
+    <Color x:Key="ThemeColorKey">#AAFFFFFF</Color>
     <SolidColorBrush x:Key="ThemeBrushKey"
                      Color="{StaticResource ThemeColorKey}" />
 
-    <Color x:Key="BackgroundColorKey">#FFF7F7F7</Color>
+    <Color x:Key="BackgroundColorKey">#FFFCFCFC</Color>
     <SolidColorBrush x:Key="BackgroundBrushKey"
                      Color="{StaticResource BackgroundColorKey}" />
 

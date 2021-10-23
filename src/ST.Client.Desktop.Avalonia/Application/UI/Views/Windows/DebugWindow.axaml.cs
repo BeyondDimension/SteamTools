@@ -11,15 +11,15 @@ namespace System.Application.UI.Views.Windows
         {
             InitializeComponent();
 
-            ExtendClientAreaToDecorationsHint = false;
+            ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
-            TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+            TransparencyLevelHint = WindowTransparencyLevel.Mica;
             SystemDecorations = SystemDecorations.Full;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
 
-            if (OperatingSystem2.IsWindows10AtLeast)
+            if (OperatingSystem2.IsWindows11AtLeast)
             {
-                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Light");
+                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
             }
 #if DEBUG
             this.AttachDevTools();
