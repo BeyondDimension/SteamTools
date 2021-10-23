@@ -292,67 +292,77 @@ namespace System.Application.UI.ViewModels
         {
             if (IsLoading || _Authenticator == null)
                 return;
+            IsLoading = true;
             Task.Run(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                IsLoading = true;
                 var steam = _Authenticator.GetClient();
                 try
                 {
                     if (!IsLoggedIn)
                     {
-                        IsLoading = false;
-                        if (ToastService.IsSupported)
+                        MainThread2.BeginInvokeOnMainThread(() =>
                         {
-                            ToastService.Current.Set(AppResources.Logining);
-                        }
-                        LoadingText = AppResources.Logining;
-                        if (string.IsNullOrEmpty(codeChar)) 
-                        {
-                            captchaId = null;
-                        }
+                            IsLoading = false;
+                            if (ToastService.IsSupported)
+                            {
+                                ToastService.Current.Set(AppResources.Logining);
+                            }
+                            LoadingText = AppResources.Logining;
+                            if (string.IsNullOrEmpty(codeChar))
+                            {
+                                captchaId = null;
+                            }
+                        });
                         var loginResult = steam.Login(UserName!, Password!, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
-                        LoadingText = null;
-                        if (!loginResult)
+                        MainThread2.BeginInvokeOnMainThread(() =>
                         {
-                            if (steam.Error == "Incorrect Login")
+                            LoadingText = null;
+                            if (!loginResult)
                             {
-                                Toast.Show(AppResources.User_LoginError);
-                                return;
-                            }
+                                if (steam.Error == "Incorrect Login")
+                                {
+                                    Toast.Show(AppResources.User_LoginError);
+                                    return;
+                                }
 
-                            if (steam.Requires2FA == true)
-                            {
-                                Toast.Show(AppResources.User_LoginError_Auth);
-                                return;
-                            }
+                                if (steam.Requires2FA == true)
+                                {
+                                    Toast.Show(AppResources.User_LoginError_Auth);
+                                    return;
+                                }
 
-                            if (steam.RequiresCaptcha == true)
-                            {
-                                IsRequiresCaptcha = steam.RequiresCaptcha;
-                                captchaId = steam.CaptchaId;
-                                CodeImage = steam.CaptchaUrl;
-                                Toast.Show(AppResources.User_LoginError_CodeImage);
-                                return;
-                            }
-                            //loginButton.Enabled = true;
-                            //captchaGroup.Visible = false;
+                                if (steam.RequiresCaptcha == true)
+                                {
+                                    IsRequiresCaptcha = steam.RequiresCaptcha;
+                                    captchaId = steam.CaptchaId;
+                                    CodeImage = steam.CaptchaUrl;
+                                    Toast.Show(AppResources.User_LoginError_CodeImage);
+                                    return;
+                                }
+                                //loginButton.Enabled = true;
+                                //captchaGroup.Visible = false;
 
-                            if (string.IsNullOrEmpty(steam.Error) == false)
-                            {
-                                Toast.Show(steam.Error);
+                                if (string.IsNullOrEmpty(steam.Error) == false)
+                                {
+                                    Toast.Show(steam.Error);
+                                    return;
+                                }
                                 return;
                             }
-                            return;
-                        }
-                        Toast.Show(AppResources.User_LoiginSuccess);
-                        IsLoggedIn = true;
-                        _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
-                        AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                            Toast.Show(AppResources.User_LoiginSuccess);
+                            IsLoggedIn = true;
+                            _Authenticator.SessionData = RememberMe ? steam.Session.ToString() : null;
+                            AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                        });
                     }
-                    IsLoading = true;
-                    LoadingText = AppResources.LocalAuth_AuthTrade_GetTip;
-                    //Toast.Show(AppResources.LocalAuth_AuthTrade_GetTip);
+
+                    MainThread2.BeginInvokeOnMainThread(() =>
+                    {
+                        IsLoading = true;
+                        LoadingText = AppResources.LocalAuth_AuthTrade_GetTip;
+                        //Toast.Show(AppResources.LocalAuth_AuthTrade_GetTip);
+                    });
                     var list = steam.GetConfirmations();
 
                     if (IsLoadImage)
@@ -362,22 +372,28 @@ namespace System.Application.UI.ViewModels
                             confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
                         });
                     }
-
-                    _ConfirmationsSourceList.Clear();
-                    _ConfirmationsSourceList.AddRange(list);
-
-                    // 获取新交易后保存
-                    if (!string.IsNullOrEmpty(_Authenticator.SessionData))
+                    MainThread2.BeginInvokeOnMainThread(() =>
                     {
-                        AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
-                    }
-                    IsLoading = false;
+                        _ConfirmationsSourceList.Clear();
+                        _ConfirmationsSourceList.AddRange(list);
+
+                        // 获取新交易后保存
+                        if (!string.IsNullOrEmpty(_Authenticator.SessionData))
+                        {
+                            AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
+                        }
+
+                        IsLoading = false;
+                    });
                 }
                 catch (WinAuthUnauthorisedSteamRequestException)
                 {
-                    // Family view is probably on
-                    Toast.Show(AppResources.LocalAuth_AuthTrade_GetError);
-                    IsLoading = false;
+                    MainThread2.BeginInvokeOnMainThread(() =>
+                    {
+                        // Family view is probably on
+                        Toast.Show(AppResources.LocalAuth_AuthTrade_GetError);
+                        IsLoading = false;
+                    });
                     return;
                 }
                 catch (WinAuthInvalidSteamRequestException)
@@ -396,21 +412,27 @@ namespace System.Application.UI.ViewModels
                             });
                         }
 
-                        _ConfirmationsSourceList.Clear();
-                        _ConfirmationsSourceList.AddRange(list);
+                        MainThread2.BeginInvokeOnMainThread(() =>
+                        {
+                            _ConfirmationsSourceList.Clear();
+                            _ConfirmationsSourceList.AddRange(list);
 
-                        IsLoading = false;
+                            IsLoading = false;
+                        });
                     }
                     catch (Exception ex)
                     {
                         // reset and show normal login
                         Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接Steam社区登录地址");
+                        MainThread2.BeginInvokeOnMainThread(() =>
+                        {
 #if DEBUG
-                        MessageBox.Show($"发生错误：{ex.Message}{Environment.NewLine}堆栈信息：{ex.StackTrace}");
+                            MessageBox.Show($"发生错误：{ex.Message}{Environment.NewLine}堆栈信息：{ex.StackTrace}");
 #else
-                        Toast.Show(AppResources.LocalAuth_AuthTrade_GetError2);
+                            Toast.Show(AppResources.LocalAuth_AuthTrade_GetError2);
 #endif
-                        IsLoading = false;
+                            IsLoading = false;
+                        });
                         //steam.Clear();
                         return;
                     }
