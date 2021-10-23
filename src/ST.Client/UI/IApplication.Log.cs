@@ -148,6 +148,8 @@ namespace System.Application.UI
         /// </summary>
         public static string LogDirPath { get; private set; } = string.Empty;
 
+        public static string LogDirPathASF { get; private set; } = string.Empty;
+
         /// <summary>
         /// 日志文件夹是否存放在缓存文件夹中，通常日志文件夹将存放在基目录上，因某些平台基目录为只读，则只能放在缓存文件夹中
         /// </summary>
@@ -218,20 +220,20 @@ namespace System.Application.UI
 #endif
             NLogManager.Configuration = objConfig;
 
+            LogDirPathASF = ASFPathHelper.GetLogDirectory(logDirPath_);
             IArchiSteamFarmService.InitCoreLoggers = () =>
             {
                 if (ArchiSteamFarm.LogManager.Configuration != null) return;
                 LoggingConfiguration config = new();
-                var logDirPath_ASF = ASFPathHelper.GetLogDirectory(logDirPath_);
                 FileTarget fileTarget = new("File")
                 {
-                    ArchiveFileName = ASFPathHelper.GetNLogArchiveFileName(logDirPath_ASF),
+                    ArchiveFileName = ASFPathHelper.GetNLogArchiveFileName(LogDirPathASF),
                     ArchiveNumbering = ArchiveNumberingMode.Rolling,
                     ArchiveOldFileOnStartup = true,
                     CleanupFileName = false,
                     ConcurrentWrites = false,
                     DeleteOldFileOnStartup = true,
-                    FileName = ASFPathHelper.GetNLogFileName(logDirPath_ASF),
+                    FileName = ASFPathHelper.GetNLogFileName(LogDirPathASF),
                     Layout = ASFPathHelper.NLogGeneralLayout,
                     ArchiveAboveSize = 10485760,
                     MaxArchiveFiles = 10,

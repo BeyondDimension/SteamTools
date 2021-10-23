@@ -35,7 +35,7 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// ASF bots
         /// </summary>
-        private ReadOnlyObservableCollection<Bot> _SteamBots;
+        private readonly ReadOnlyObservableCollection<Bot> _SteamBots;
         public ReadOnlyObservableCollection<Bot> SteamBots => _SteamBots;
 
         public void RunOrStopASF()
@@ -71,15 +71,21 @@ namespace System.Application.UI.ViewModels
             Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
         }
 
+        static string GetFolderPath(string path)
+        {
+            IOPath.DirCreateByNotExists(path);
+            return path;
+        }
+
         public void OpenFolder(string tag)
         {
             var path = tag switch
             {
                 "asf" => ASFPathHelper.AppDataDirectory,
-                "config" => Path.Combine(ASFPathHelper.AppDataDirectory, SharedInfo.ConfigDirectory),
-                "plugin" => Path.Combine(ASFPathHelper.AppDataDirectory, SharedInfo.PluginsDirectory),
+                "config" => GetFolderPath(SharedInfo.ConfigDirectory),
+                "plugin" => GetFolderPath(SharedInfo.PluginsDirectory),
                 "www" => ASFPathHelper.WebsiteDirectory,
-                IApplication.LogDirName => Path.Combine(IApplication.LogDirPath, "ASF"),
+                IApplication.LogDirName => IApplication.LogDirPathASF,
                 _ => ASFPathHelper.AppDataDirectory,
             };
 
