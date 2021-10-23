@@ -709,22 +709,13 @@ namespace System.Application.Services.Implementation
 
             if (IsSystemProxy)
             {
-                if (DesktopBridge.IsRunningAsUwp)
+                if (DesktopBridge.IsRunningAsUwp || !OperatingSystem2.IsWindows)
                 {
                     IPlatformService.Instance.SetAsSystemProxy(false);
                 }
                 else
                 {
                     proxyServer.DisableAllSystemProxies();
-                    //proxyServer.RestoreOriginalProxySettings();
-                    //if (OperatingSystem2.IsMacOS)
-                    //{
-                    //    StopMacProxy();
-                    //}
-                    //if (OperatingSystem2.IsLinux)
-                    //{
-                    //    StopLiunxProxy();
-                    //}
                 }
             }
         }

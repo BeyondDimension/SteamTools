@@ -238,7 +238,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(CodeImageChar))
                 {
-                    Process(_Authenticator!.GetClient().CaptchaId, CodeImageChar);
+                    Process(CodeImageChar);
                 }
                 else
                 {
@@ -285,7 +285,10 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private void Process(string? captchaId = null, string? codeChar = null)
+
+        private string? captchaId;
+
+        private void Process(string? codeChar = null)
         {
             if (IsLoading || _Authenticator == null)
                 return;
@@ -304,6 +307,10 @@ namespace System.Application.UI.ViewModels
                             ToastService.Current.Set(AppResources.Logining);
                         }
                         LoadingText = AppResources.Logining;
+                        if (string.IsNullOrEmpty(codeChar)) 
+                        {
+                            captchaId = null;
+                        }
                         var loginResult = steam.Login(UserName!, Password!, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
                         LoadingText = null;
                         if (!loginResult)
@@ -323,8 +330,9 @@ namespace System.Application.UI.ViewModels
                             if (steam.RequiresCaptcha == true)
                             {
                                 IsRequiresCaptcha = steam.RequiresCaptcha;
-                                Toast.Show(AppResources.User_LoginError_CodeImage);
+                                captchaId = steam.CaptchaId;
                                 CodeImage = steam.CaptchaUrl;
+                                Toast.Show(AppResources.User_LoginError_CodeImage);
                                 return;
                             }
                             //loginButton.Enabled = true;

@@ -132,15 +132,15 @@ namespace System.Application.Services.Implementation
         {
             if (!string.IsNullOrEmpty(SteamProgramPath))
             {
-                //if (OperatingSystem2.IsWindows && IDesktopPlatformService.Instance.IsAdministrator)
-                //{
-                //    //Process2.Start("explorer.exe", $"\"{SteamProgramPath}\" \"{arguments}\"");
-                //    Process2.Start("runas.exe", $"/trustlevel:0x20000 \"{SteamProgramPath} \\\"{arguments}\\\"\"", useShellExecute: true);
-                //}
-                //else
-                //{
-                Process2.Start(SteamProgramPath, arguments, workingDirectory: SteamDirPath);
-                //}
+                if (OperatingSystem2.IsWindows && string.IsNullOrEmpty(arguments))
+                {
+                    Process2.Start("explorer.exe", $"\"{SteamProgramPath}\"");
+                    //Process2.Start("runas.exe", $"/trustlevel:0x20000 \"{SteamProgramPath} \\\"{arguments}\\\"\"", useShellExecute: true);
+                }
+                else
+                {
+                    Process2.Start(SteamProgramPath, arguments, useShellExecute: true);
+                }
             }
         }
 

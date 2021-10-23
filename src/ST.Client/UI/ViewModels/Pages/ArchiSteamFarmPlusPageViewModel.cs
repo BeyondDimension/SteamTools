@@ -104,6 +104,12 @@ namespace System.Application.UI.ViewModels
                 _ => IPCUrl,
             };
 
+            if (url?.Contains(IPCUrl) == true && !ASFService.Current.IsASFRuning)
+            {
+                Toast.Show("请先运行ASF功能");
+                return;
+            }
+
             Browser2.Open(url);
         }
     }

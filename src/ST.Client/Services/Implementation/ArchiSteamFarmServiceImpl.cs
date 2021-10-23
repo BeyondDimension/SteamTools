@@ -45,6 +45,7 @@ namespace System.Application.Services.Implementation
         {
             try
             {
+                StartTime = DateTimeOffset.Now;
                 if (isFirstStart)
                 {
                     IArchiSteamFarmService.InitCoreLoggers?.Invoke();
@@ -73,20 +74,19 @@ namespace System.Application.Services.Implementation
                         await Stop().ConfigureAwait(false);
                     }
                 }
-
-                StartTime = DateTimeOffset.Now;
             }
             catch (Exception ex)
             {
                 Toast.Show(ex.Message);
+                await Stop().ConfigureAwait(false);
             }
         }
 
         public async Task Stop()
         {
+            StartTime = null;
             ReadLineTask?.TrySetResult("");
             await Program.InitShutdownSequence();
-            StartTime = null;
         }
 
         private void InitHistoryLogger()

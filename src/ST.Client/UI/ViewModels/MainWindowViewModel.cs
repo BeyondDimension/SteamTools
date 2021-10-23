@@ -63,7 +63,7 @@ namespace System.Application.UI.ViewModels
         public MainWindowViewModel()
         {
             var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows ? " (Administrator)" : " (Root)") : string.Empty;
-            Title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
+            Title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
 
             IUserManager.Instance.OnSignOut += () =>
             {
