@@ -53,7 +53,8 @@ namespace System.Application.Services.Implementation
 
         public void OpenFolderByDirectoryPath(DirectoryInfo info)
         {
-            NSWorkspace.SharedWorkspace.SelectFile(null, info.FullName);
+            //NSWorkspace.SharedWorkspace.SelectFile(string.Empty, info.FullName);
+            NSWorkspace.SharedWorkspace.ActivateFileViewer(new[] { new NSUrl(info.FullName, isDir: true) });
         }
 
         public void OpenFolderSelectFilePath(FileInfo info)
