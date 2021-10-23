@@ -37,6 +37,7 @@
         </TextBox>
         <ui:CommandBar DefaultLabelPosition="Right"
                        DockPanel.Dock="Left"
+                       IsSticky="False"
                        HorizontalAlignment="Left">
           <ui:CommandBar.PrimaryCommands>
             <ui:CommandBarButton Icon="Add"

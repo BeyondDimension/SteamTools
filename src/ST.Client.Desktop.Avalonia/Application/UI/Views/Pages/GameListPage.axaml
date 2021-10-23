@@ -93,6 +93,7 @@
         </TextBox>
         <ui:CommandBar DefaultLabelPosition="Bottom"
                        DockPanel.Dock="Left"
+                       IsSticky="False"
                        HorizontalAlignment="Stretch">
           <ui:CommandBar.PrimaryCommands>
 

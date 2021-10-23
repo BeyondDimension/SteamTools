@@ -26,7 +26,8 @@
             Classes="paper"
             Background="{DynamicResource ThemeBrushKey}">
 
-      <ui:CommandBar DefaultLabelPosition="Right">
+      <ui:CommandBar DefaultLabelPosition="Right"
+                     IsSticky="False">
         <ui:CommandBar.PrimaryCommands>
           <ui:CommandBarButton
                                Command="{ReflectionBinding RunOrStopASF}"

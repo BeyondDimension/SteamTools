@@ -20,7 +20,8 @@
             Background="{DynamicResource ThemeBrushKey}"
             Padding="10"
             Margin="{StaticResource ScrollMargin}">
-      <ui:CommandBar DefaultLabelPosition="Right">
+      <ui:CommandBar DefaultLabelPosition="Right" 
+                     IsSticky="False">
         <ui:CommandBar.PrimaryCommands>
           <ui:CommandBarButton Icon="Add"
                                Command="{Binding LoginAccountCommand}"

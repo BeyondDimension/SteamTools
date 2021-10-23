@@ -111,7 +111,7 @@ namespace System.Application.Settings
         /// 窗口背景材质
         /// </summary>
         public static SerializableProperty<int> WindowBackgroundMateria { get; }
-            = GetProperty(defaultValue: 3, autoSave: true);
+            = GetProperty(defaultValue: OperatingSystem2.IsWindows11AtLeast ? 4 : 3, autoSave: true);
 
         /// <summary>
         /// 库存游戏封面大小
