@@ -52,6 +52,12 @@ namespace System
         }
 
         #region TryParse
+        /// <summary>
+        /// 尝试将数字的字符串表示形式转换为 双精度浮点型
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static double? TryParseDouble(this string value) => double.TryParse(value, out var temp) ? temp : null;
 
         /// <summary>
         /// 尝试将数字的字符串表示形式转换为它的等效 16 位有符号整数

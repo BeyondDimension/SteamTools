@@ -12,7 +12,7 @@ namespace System.Application.Models
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
