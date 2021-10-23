@@ -120,6 +120,13 @@ namespace System.Application.UI
 #endif
                 b.AppendLine();
 
+#if __ANDROID__
+                b.Append("[app.time] ");
+                b.Append(MainApplication.ElapsedMilliseconds);
+                b.Append("ms");
+                b.AppendLine();
+#endif
+
                 b.Append("[app.flavor] ");
 #if __ANDROID__
                 b.AppendLine(

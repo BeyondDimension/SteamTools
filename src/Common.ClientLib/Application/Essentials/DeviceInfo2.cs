@@ -7,7 +7,8 @@ namespace System.Application
 {
     public static class DeviceInfo2
     {
-        static readonly IDeviceInfoPlatformService? @interface = DI.Get_Nullable<IDeviceInfoPlatformService>();
+        static readonly Lazy<IDeviceInfoPlatformService?> @interface = new(DI.Get_Nullable<IDeviceInfoPlatformService>);
+        static IDeviceInfoPlatformService? Interface => @interface.Value;
 
         /// <inheritdoc cref="DeviceInfo.Model"/>
         public static string Model
@@ -20,7 +21,7 @@ namespace System.Application
                 }
                 else
                 {
-                    return @interface?.Model ?? string.Empty;
+                    return Interface?.Model ?? string.Empty;
                 }
             }
         }
@@ -34,9 +35,9 @@ namespace System.Application
                 {
                     return DeviceInfo.Manufacturer;
                 }
-                else if (@interface != null)
+                else if (Interface != null)
                 {
-                    return @interface.Manufacturer;
+                    return Interface.Manufacturer;
                 }
                 else
                 {
@@ -60,7 +61,7 @@ namespace System.Application
                 }
                 else
                 {
-                    return @interface?.Name ?? string.Empty;
+                    return Interface?.Name ?? string.Empty;
                 }
             }
         }
@@ -76,7 +77,7 @@ namespace System.Application
                 }
                 else
                 {
-                    return @interface?.VersionString ?? string.Empty;
+                    return Interface?.VersionString ?? string.Empty;
                 }
             }
         }
@@ -198,9 +199,9 @@ namespace System.Application
         {
             get
             {
-                if (@interface != null)
+                if (Interface != null)
                 {
-                    return @interface.DeviceType;
+                    return Interface.DeviceType;
                 }
                 return DeviceInfo.DeviceType;
             }

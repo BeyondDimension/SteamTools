@@ -47,6 +47,9 @@ namespace System.Application.UI
         /// 设置当前打开窗口的AvaloniaWinodw背景透明材质
         /// </summary>
         /// <param name="level"></param>
-        void SetAllWindowransparencyMateria(int level);
+        void SetAllWindowransparencyMateria(int level)
+        {
+
+        }
     }
 }
