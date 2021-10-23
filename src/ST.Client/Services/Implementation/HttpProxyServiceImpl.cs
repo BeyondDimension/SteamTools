@@ -549,7 +549,7 @@ namespace System.Application.Services.Implementation
                     if (OperatingSystem2.IsLinux && Environment.UserName != "root")
                     {
                         var freeport = GetRandomUnusedPort();
-                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
+                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, freeport, true)
                         {
                             // 通过不启用为每个http的域创建证书来优化性能
                             //GenericCertificate = proxyServer.CertificateManager.RootCertificate
