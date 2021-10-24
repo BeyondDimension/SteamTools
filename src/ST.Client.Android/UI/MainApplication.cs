@@ -34,8 +34,6 @@ namespace System.Application.UI
 
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
-            FileSystem2.InitFileSystem();
-
             IViewModelBase.IsInDesignMode = false;
             IViewModelBase.IsMobileLayout = true;
 
@@ -68,10 +66,16 @@ namespace System.Application.UI
             var stopwatch = Stopwatch.StartNew();
             var startTrace = new StringBuilder();
 
+            FileSystem2.InitFileSystem();
+
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init FileSystem {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
+
             IApplication.InitLogDir();
 
             stopwatch.Stop();
-            startTrace.AppendFormatLine("init LogDir {0}ms", stopwatch.ElapsedMilliseconds);
+            startTrace.AppendFormatLine("init NLog {0}ms", stopwatch.ElapsedMilliseconds);
             stopwatch.Restart();
 
             Startup.InitGlobalExceptionHandler();
