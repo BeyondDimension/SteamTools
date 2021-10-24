@@ -87,6 +87,10 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" />
+  </ItemGroup>
+
   <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
     <EmbeddedResource Include="..\..\aes-key.pfx" Link="Resources\3A613E8D" />
   </ItemGroup>

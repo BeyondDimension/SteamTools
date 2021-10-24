@@ -99,7 +99,7 @@ namespace System.Application.UI.ViewModels
             var textFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
             AuthService.Current.Authenticators
                 .Connect()
-               .Filter(textFilter)
+                .Filter(textFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<MyAuthenticator>.Ascending(x => x.Index).ThenBy(x => x.Name))
                 .Bind(out _Authenticators)

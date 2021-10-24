@@ -115,13 +115,13 @@ namespace System.Application.UI.ViewModels
 
             //AddTabItem<SteamIdlePageViewModel>();
 #if !TRAY_INDEPENDENT_PROGRAM
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows && useAvalonia)
                 AddTabItem<GameRelatedPageViewModel>();
 #endif
             //AddTabItem<OtherPlatformPageViewModel>();
 
 #if !TRAY_INDEPENDENT_PROGRAM
-            if (IApplication.EnableDevtools)
+            if (IApplication.EnableDevtools && useAvalonia)
             {
                 AddTabItem<DebugPageViewModel>();
                 //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
