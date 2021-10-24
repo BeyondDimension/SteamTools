@@ -38,7 +38,10 @@ namespace System.Application.Services.Implementation
                     mainWindow = new MainWindowViewModel();
                     mMainWindow = mainWindow;
                 }
-                taskbarWindow = new TaskBarWindowViewModel(mainWindow);
+                if (OperatingSystem2.IsWindows)
+                {
+                    taskbarWindow = new TaskBarWindowViewModel(mainWindow);
+                }
             }
             catch (Exception ex)
             {

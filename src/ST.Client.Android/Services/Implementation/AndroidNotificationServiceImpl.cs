@@ -54,20 +54,6 @@ namespace System.Application.Services.Implementation
         }
 
         /// <summary>
-        /// 初始化通知渠道
-        /// </summary>
-        /// <param name="context"></param>
-        public static void InitNotificationChannels(Context context)
-        {
-            var manager = NotificationManagerCompat.From(context);
-            var items = Enum.GetValues(typeof(NotificationChannelType));
-            foreach (NotificationChannelType item in items)
-            {
-                CreateNotificationChannel(manager, item);
-            }
-        }
-
-        /// <summary>
         /// 获取渠道的ID
         /// <para>参考：https://developer.android.google.cn/reference/android/app/NotificationChannel?hl=en#public-constructors </para>
         /// </summary>
@@ -101,16 +87,16 @@ namespace System.Application.Services.Implementation
         /// <param name="notificationChannelType"></param>
         /// <returns></returns>
         static NotificationChannel? CreateNotificationChannel(NotificationManagerCompat manager,
-            NotificationChannelType notificationChannelType)
+            NotificationChannelType notificationChannelType, out string channelId)
         {
+            channelId = GetChannelId(notificationChannelType);
             if (Build.VERSION.SdkInt < BuildVersionCodes.O) return null;
-            var channelId = GetChannelId(notificationChannelType);
-            var name = notificationChannelType.GetName();
-            var description = notificationChannelType.GetDescription();
-            var level = GetNotificationImportance(notificationChannelType.GetImportanceLevel());
             var notificationChannel = manager.GetNotificationChannel(channelId);
             if (notificationChannel == null)
             {
+                var name = notificationChannelType.GetName();
+                var description = notificationChannelType.GetDescription();
+                var level = GetNotificationImportance(notificationChannelType.GetImportanceLevel());
                 notificationChannel = new NotificationChannel(channelId, name, level)
                 {
                     Description = description,
@@ -153,6 +139,7 @@ namespace System.Application.Services.Implementation
 
         NotificationCompat.Builder BuildNotify(
             Context context,
+            NotificationManagerCompat manager,
             string text,
             NotificationType notificationType,
             bool? autoCancel = null,
@@ -161,7 +148,7 @@ namespace System.Application.Services.Implementation
             IReadOnlyCollection<NotificationCompat.Action>? actions = null)
         {
             var channelType = notificationType.GetChannel();
-            var channelId = GetChannelId(channelType);
+            CreateNotificationChannel(manager, channelType, out var channelId);
             var builder = new NotificationCompat.Builder(context, channelId);
             var level = channelType.GetImportanceLevel();
             builder.SetPriority(GetNotificationPriority(level));
@@ -196,7 +183,7 @@ namespace System.Application.Services.Implementation
             var notificationEntrance = (entrance != default ? GetActivityType(entrance)?.GetJClass() : null) ?? app.NotificationEntrance;
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
-            var builder = BuildNotify(context, text, notificationType,
+            var builder = BuildNotify(context, manager, text, notificationType,
                 autoCancel, title, entrance: notificationEntrance);
             var notifyId = GetNotifyId(notificationType);
             manager.Notify(notifyId, builder.Build());
@@ -209,7 +196,7 @@ namespace System.Application.Services.Implementation
         {
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
-            var builder = BuildNotify(context,
+            var builder = BuildNotify(context, manager,
                 text: text(),
                 notificationType,
                 title: title);

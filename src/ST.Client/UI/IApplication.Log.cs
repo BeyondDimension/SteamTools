@@ -11,6 +11,7 @@ using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using NInternalLogger = NLog.Common.InternalLogger;
 using NLogLevel = NLog.LogLevel;
 using NLogManager = NLog.LogManager;
+using ASFNLogManager = ArchiSteamFarm.LogManager;
 
 namespace System.Application.UI
 {
@@ -223,7 +224,7 @@ namespace System.Application.UI
             LogDirPathASF = ASFPathHelper.GetLogDirectory(logDirPath_);
             IArchiSteamFarmService.InitCoreLoggers = () =>
             {
-                if (ArchiSteamFarm.LogManager.Configuration != null) return;
+                if (ASFNLogManager.Configuration != null) return;
                 LoggingConfiguration config = new();
                 FileTarget fileTarget = new("File")
                 {
@@ -241,7 +242,7 @@ namespace System.Application.UI
                 };
                 config.AddTarget(fileTarget);
                 config.LoggingRules.Add(new LoggingRule("*", defMinLevel, fileTarget));
-                LogManager.Configuration = config;
+                ASFNLogManager.Configuration = config;
             };
 
             LogDirPath = logDirPath;

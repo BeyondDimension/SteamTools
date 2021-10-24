@@ -18,23 +18,49 @@ namespace System.Application
         static readonly HashSet<Exception> exceptions = new();
         static readonly object lock_global_ex_log = new();
 
+#if __ANDROID__
+        sealed class UncaughtExceptionHandler : Java.Lang.Object, Java.Lang.Thread.IUncaughtExceptionHandler
+        {
+            readonly Action<Java.Lang.Thread, Java.Lang.Throwable> action;
+            readonly Java.Lang.Thread.IUncaughtExceptionHandler? @interface;
+            public UncaughtExceptionHandler(Action<Java.Lang.Thread, Java.Lang.Throwable> action, Java.Lang.Thread.IUncaughtExceptionHandler? @interface = null)
+            {
+                this.action = action;
+                this.@interface = @interface;
+            }
+
+            public void UncaughtException(Java.Lang.Thread t, Java.Lang.Throwable e)
+            {
+                @interface?.UncaughtException(t, e);
+                action(t, e);
+            }
+        }
+#endif
+
         /// <summary>
         /// 初始化全局异常处理
         /// </summary>
         public static void InitGlobalExceptionHandler()
         {
+#if __ANDROID__
+            Java.Lang.Thread.DefaultUncaughtExceptionHandler = new UncaughtExceptionHandler((_, ex) =>
+            {
+                GlobalExceptionHandler(ex, nameof(Java));
+            }, Java.Lang.Thread.DefaultUncaughtExceptionHandler);
+#else
             AppDomain.CurrentDomain.UnhandledException += (_, e) =>
             {
                 if (e.ExceptionObject is Exception ex)
                 {
-                    GlobalExceptionHandler(ex, nameof(AppDomain.UnhandledException), e.IsTerminating);
+                    GlobalExceptionHandler(ex, nameof(AppDomain), e.IsTerminating);
                 }
             };
             RxApp.DefaultExceptionHandler = Observer.Create<Exception>(ex =>
             {
                 // https://github.com/AvaloniaUI/Avalonia/issues/5290#issuecomment-760751036
-                GlobalExceptionHandler(ex, nameof(RxApp.DefaultExceptionHandler));
+                GlobalExceptionHandler(ex, nameof(RxApp));
             });
+#endif
         }
 
         /// <summary>

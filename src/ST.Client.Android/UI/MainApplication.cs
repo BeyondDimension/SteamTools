@@ -3,6 +3,7 @@ using Android.Runtime;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Diagnostics;
+using System.Text;
 using Xamarin.Essentials;
 using AppTheme = System.Application.Models.AppTheme;
 using XEFileProvider = Xamarin.Essentials.FileProvider;
@@ -65,15 +66,32 @@ namespace System.Application.UI
             SetupLeakCanary();
 #endif
             var stopwatch = Stopwatch.StartNew();
+            var startTrace = new StringBuilder();
 
             IApplication.InitLogDir();
 
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init LogDir {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
+
             Startup.InitGlobalExceptionHandler();
+
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init ExceptionHandler {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
 
             VisualStudioAppCenterSDK.Init();
 
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init AppCenter {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
+
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
             XEPlatform.Init(this); // 初始化 Xamarin.Essentials.Platform.Init
+
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init Essentials {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
 
             bool GetIsMainProcess()
             {
@@ -83,44 +101,81 @@ namespace System.Application.UI
             }
             IsMainProcess = GetIsMainProcess();
 
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init IsMainProcess {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
+
             SettingsHost.Load();
+
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init SettingsHost {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
 
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
             Startup.Init(level);
+
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init Startup {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
+
             if (IsMainProcess)
             {
-                AndroidNotificationServiceImpl.InitNotificationChannels(this);
                 XEVersionTracking.Track();
+
+                stopwatch.Stop();
+                startTrace.AppendFormatLine("init VersionTracking {0}ms", stopwatch.ElapsedMilliseconds);
+                stopwatch.Restart();
+
                 if (XEVersionTracking.IsFirstLaunchForCurrentVersion)
                 {
                     // 当前版本第一次启动时，清除存放升级包缓存文件夹的目录
                     IApplicationUpdateService.ClearAllPackCacheDir();
+
+                    stopwatch.Stop();
+                    startTrace.AppendFormatLine("init ClearAllPackCacheDir {0}ms", stopwatch.ElapsedMilliseconds);
+                    stopwatch.Restart();
                 }
-                ImageLoader.Init(this);
+
                 UISettings.Theme.Subscribe(x =>
                 {
                     Theme = (AppTheme)x;
                 });
+
+                stopwatch.Stop();
+                startTrace.AppendFormatLine("init Theme.Subscribe {0}ms", stopwatch.ElapsedMilliseconds);
+                stopwatch.Restart();
             }
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init Language.Subscribe {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
+
             Startup.OnStartup(IsMainProcess);
+
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init OnStartup {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
 
             if (IsMainProcess)
             {
                 var vmService = IViewModelManager.Instance;
                 vmService.InitViewModels();
+
+                stopwatch.Stop();
+                startTrace.AppendFormatLine("init ViewModels {0}ms", stopwatch.ElapsedMilliseconds);
+                stopwatch.Restart();
             }
 
             stopwatch.Stop();
-            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+            StartupTrack = startTrace.ToString();
 #if DEBUG
             Log.Warn("Application", $"OnCreate Complete({stopwatch.ElapsedMilliseconds}ms");
 #endif
         }
 
-        public static long ElapsedMilliseconds { get; private set; }
+        public static string? StartupTrack { get; private set; }
 
         /// <summary>
         /// 当前是否是主进程

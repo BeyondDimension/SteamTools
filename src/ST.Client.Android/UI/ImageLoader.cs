@@ -7,6 +7,7 @@ using System.Application.Services;
 using System.IO;
 using System.Properties;
 using JFile = Java.IO.File;
+using AndroidApplication = Android.App.Application;
 
 namespace System.Application.UI
 {
@@ -14,12 +15,10 @@ namespace System.Application.UI
     {
         const string TAG = nameof(ImageLoader);
 
-        static Picasso? _Picasso;
-        public static Picasso Picasso => _Picasso ?? throw new NullReferenceException("ImageLoader.Init must be called.");
-
-        public static void Init(Context context)
+        static readonly Lazy<Picasso> _Picasso = new(GetPicasso);
+        static Picasso GetPicasso()
         {
-            Picasso.Builder picassoBuilder = new(context);
+            Picasso.Builder picassoBuilder = new(AndroidApplication.Context);
             picassoBuilder.IndicatorsEnabled(ThisAssembly.Debuggable);
             static JFile CreateDefaultCacheDir()
             {
@@ -34,8 +33,10 @@ namespace System.Application.UI
             }
             OkHttp3Downloader downloader = new(CreateDefaultCacheDir());
             picassoBuilder.Downloader(downloader);
-            _Picasso = picassoBuilder.Build();
+            return picassoBuilder.Build();
         }
+
+        public static Picasso Picasso => _Picasso.Value;
 
         public static void SetImageSource(this ImageView imageView,
             Stream? stream)

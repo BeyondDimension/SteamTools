@@ -120,13 +120,6 @@ namespace System.Application.UI
 #endif
                 b.AppendLine();
 
-#if __ANDROID__
-                b.Append("[app.time] ");
-                b.Append(MainApplication.ElapsedMilliseconds);
-                b.Append("ms");
-                b.AppendLine();
-#endif
-
                 b.Append("[app.flavor] ");
 #if __ANDROID__
                 b.AppendLine(
@@ -471,6 +464,13 @@ namespace System.Application.UI
                 b.Append("[essentials.supported] ");
                 b.Append(Essentials.IsSupported.ToLowerString());
                 b.AppendLine();
+
+#if __ANDROID__
+                b.Append("[startup.track] ");
+                b.AppendLine();
+                b.Append(MainApplication.StartupTrack);
+                b.AppendLine();
+#endif
 
                 var b_str = b.ToString();
                 MessageBox.Show(b_str, "");

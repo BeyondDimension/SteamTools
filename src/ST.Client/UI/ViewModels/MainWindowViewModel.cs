@@ -35,7 +35,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsOpenUserMenu, value);
         }
 
-        public ReactiveCommand<Unit, Unit> OpenUserMenu { get; }
+        public ReactiveCommand<Unit, Unit>? OpenUserMenu { get; }
 
         #endregion
 
@@ -62,24 +62,78 @@ namespace System.Application.UI.ViewModels
         protected static readonly IPlatformService platformService = IPlatformService.Instance;
         public MainWindowViewModel()
         {
-            var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows ? " (Administrator)" : " (Root)") : string.Empty;
-            Title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
-
-            IUserManager.Instance.OnSignOut += () =>
+            var useAvalonia = OperatingSystem2.Application.UseAvalonia;
+            if (useAvalonia)
             {
-                IsOpenUserMenu = false;
-            };
+                var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows ? " (Administrator)" : " (Root)") : string.Empty;
+                Title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
 
-            OpenUserMenu = ReactiveCommand.Create(() =>
-            {
-                IsOpenUserMenu = UserService.Current.IsAuthenticated;
-                if (!IsOpenUserMenu)
+                IUserManager.Instance.OnSignOut += () =>
                 {
-                    UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
-                }
-            });
+                    IsOpenUserMenu = false;
+                };
 
-            FooterTabItems = InitTabItemsWithReturnFooterTabItems();
+                OpenUserMenu = ReactiveCommand.Create(() =>
+                {
+                    IsOpenUserMenu = UserService.Current.IsAuthenticated;
+                    if (!IsOpenUserMenu)
+                    {
+                        UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
+                    }
+                });
+
+
+                FooterTabItems = new List<TabItemViewModel>
+                {
+                    SettingsPageViewModel.Instance,
+                    AboutPageViewModel.Instance,
+                };
+            }
+
+            #region InitTabItems
+
+            if (useAvalonia)
+            {
+                //AddTabItem<StartPageViewModel>();
+                AddTabItem<CommunityProxyPageViewModel>();
+                AddTabItem<ProxyScriptManagePageViewModel>();
+                AddTabItem<SteamAccountPageViewModel>();
+                AddTabItem<GameListPageViewModel>();
+            }
+            AddTabItem<LocalAuthPageViewModel>();
+            var isVersion_2_5_OR_GREATER =
+#if DEBUG
+                true;
+#else
+                new Version(global::System.Properties.ThisAssembly.Version) >= new Version(2, 5);
+#endif
+
+            if (isVersion_2_5_OR_GREATER)
+            {
+                AddTabItem<ArchiSteamFarmPlusPageViewModel>();
+            }
+
+            //AddTabItem<SteamIdlePageViewModel>();
+#if !TRAY_INDEPENDENT_PROGRAM
+            if (OperatingSystem2.IsWindows)
+                AddTabItem<GameRelatedPageViewModel>();
+#endif
+            //AddTabItem<OtherPlatformPageViewModel>();
+
+#if !TRAY_INDEPENDENT_PROGRAM
+            if (IApplication.EnableDevtools)
+            {
+                AddTabItem<DebugPageViewModel>();
+                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
+
+                //if (AppHelper.IsSystemWebViewAvailable)
+                //{
+                //    AddTabItem<DebugWebViewPageViewModel>();
+                //}
+            }
+#endif
+
+            #endregion
 
             _SelectedItem = TabItems.First();
         }

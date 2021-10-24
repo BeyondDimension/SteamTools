@@ -35,6 +35,7 @@ using Program = System.Application.UI.MainApplication;
 using PlatformApplication = System.Application.UI.MainApplication;
 using System.Application.UI.Resx;
 using System.Windows;
+using System.Threading.Tasks;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
@@ -452,7 +453,7 @@ namespace System.Application
 
 #if !CONSOLEAPP
         /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
-        internal static async void ActiveUserPost(ActiveUserType type)
+        static async void ActiveUserPost(ActiveUserType type)
         {
             if (!Program.IsMainProcess) return;
             try
@@ -502,19 +503,14 @@ namespace System.Application
         {
             if (isMainProcess)
             {
-                ActiveUserPost(ActiveUserType.OnStartup);
-                if (GeneralSettings.IsAutoCheckUpdate.Value)
+                await Task.Run(() =>
                 {
-                    try
+                    ActiveUserPost(ActiveUserType.OnStartup);
+                    if (GeneralSettings.IsAutoCheckUpdate.Value)
                     {
-                        var appUpdateService = IApplicationUpdateService.Instance;
-                        await appUpdateService.CheckUpdateAsync(showIsExistUpdateFalse: false);
+                        IApplicationUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
                     }
-                    catch (Exception e)
-                    {
-                        Log.Error(nameof(Startup), e, "OnStartup");
-                    }
-                }
+                });
             }
         }
     }
