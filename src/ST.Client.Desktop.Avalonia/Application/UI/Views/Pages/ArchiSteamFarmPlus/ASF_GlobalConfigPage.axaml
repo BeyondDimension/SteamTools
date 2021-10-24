@@ -36,7 +36,8 @@
           <TextBlock Text="跳转到 WebUI 全局设置"/>
 
           <Button Classes="plain"
-                  Command="{ReflectionBinding OpenFolder}">
+                  Command="{ReflectionBinding OpenBrowser}"
+                  CommandParameter="WebConfig">
             <ui:SymbolIcon Symbol="Open"
                            FontSize="24"/>
           </Button>
@@ -44,7 +45,15 @@
       </Border>
 
       <Separator Classes="Separator"/>
-      
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="导入已有的 ASF Bot 文件"/>
+          <Button Content="选择文件"
+                  Command="{Binding SelectBotFiles}"/>
+        </DockPanel>
+      </Border>
+
       <Expander>
         <Expander.Header>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,StringFormat=ASF {0},Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -71,14 +80,6 @@
 
         </StackPanel>
       </Expander>
-
-      <Border Classes="Item">
-        <DockPanel>
-          <TextBlock Text="导入已有的 ASF Bot 文件"/>
-          <Button Content="选择文件"
-                  Command="{ReflectionBinding OpenFolder}"/>
-        </DockPanel>
-      </Border>
 
       <Separator Classes="Separator"/>
 

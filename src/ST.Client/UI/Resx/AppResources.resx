@@ -1756,4 +1756,7 @@
   <data name="Script_AllEnable" xml:space="preserve">
     <value>全部启用</value>
   </data>
+  <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
+    <value>成功导入了 {0} 个文件</value>
+  </data>
 </root>

@@ -50,7 +50,8 @@
 
           <ui:CommandBarSeparator/>
           <ui:CommandBarButton
-                               Command="{ReflectionBinding ShowAddBotWindow}"
+                               Command="{ReflectionBinding OpenBrowser}"
+                               CommandParameter="WebAddBot"
                                ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Label="新增Bot">
             <ui:CommandBarButton.Icon>
@@ -70,7 +71,7 @@
           <ui:CommandBarButton
                      Command="{ReflectionBinding OpenBrowser}"
                      ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                     Label="打开Web控制台">
+                     Label="打开 WebUI 控制台">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
             </ui:CommandBarButton.Icon>
@@ -104,9 +105,10 @@
             Padding="10"
             Background="{DynamicResource ThemeBrushKey}">
       <TabControl Classes="flat">
-        <TabItem Header="ASF 运行状态">
+        <!--<TabItem Header="ASF 运行状态">
 
-        </TabItem>
+        </TabItem>-->
+        
         <TabItem Header="ASF 控制台">
           <controls:ConsoleShell x:Name="ConsoleLog"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"

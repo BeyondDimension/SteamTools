@@ -1,9 +1,13 @@
+using ArchiSteamFarm;
 using ArchiSteamFarm.Steam;
+using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.Storage;
 using DynamicData;
 using ReactiveUI;
 using System;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +102,25 @@ namespace System.Application.Services
         public void RefreshConfig()
         {
             GlobalConfig = archiSteamFarmService.GetGlobalConfig();
+        }
+
+        public async void ImportBotFiles(IEnumerable<string> files)
+        {
+
+            foreach (var filename in files)
+            {
+                var file = new FileInfo(filename);
+                if (file.Exists)
+                {
+                    var bot = await BotConfig.Load(file.FullName).ConfigureAwait(false);
+                    if (bot.BotConfig != null)
+                    {
+                        file.CopyTo(Path.Combine(SharedInfo.ConfigDirectory, file.Name), true);
+                    }
+                }
+            }
+
+            Toast.Show(string.Format(AppResources.LocalAuth_ImportSuccessTip, files.Count()));
         }
     }
 }

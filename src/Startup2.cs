@@ -29,13 +29,13 @@ using System.Diagnostics;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Settings;
+using System.Threading.Tasks;
 #if __ANDROID__
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
 using PlatformApplication = System.Application.UI.MainApplication;
 using System.Application.UI.Resx;
 using System.Windows;
-using System.Threading.Tasks;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__

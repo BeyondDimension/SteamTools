@@ -2287,6 +2287,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 成功导入了 {0} 个文件 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_ImportSuccessTip {
+            get {
+                return ResourceManager.GetString("LocalAuth_ImportSuccessTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在加载令牌数据... 的本地化字符串。
         /// </summary>
         public static string LocalAuth_Loading {

@@ -6,10 +6,13 @@ using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Reactive.Linq;
+using System.Windows.Input;
+using static System.Application.FilePicker2;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -21,6 +24,15 @@ namespace System.Application.UI.ViewModels
         public ArchiSteamFarmPlusPageViewModel()
         {
             IconKey = nameof(ArchiSteamFarmPlusPageViewModel);
+
+            SelectBotFiles = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var fileTypes = new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                    ("Json Files", new[] { SharedInfo.JsonConfigExtension, }),
+                    ("All Files", new[] { "*" }),
+                });
+                await PickMultipleAsync(ASFService.Current.ImportBotFiles, fileTypes);
+            });
 
             ASFService.Current.SteamBotsSourceList
                       .Connect()
@@ -37,6 +49,8 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         private readonly ReadOnlyObservableCollection<Bot> _SteamBots;
         public ReadOnlyObservableCollection<Bot> SteamBots => _SteamBots;
+
+        public ICommand SelectBotFiles { get; }
 
         public void RunOrStopASF()
         {
@@ -100,7 +114,7 @@ namespace System.Application.UI.ViewModels
                 "Wiki" => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
                 "ConfigGenerator" => "https://justarchinet.github.io/ASF-WebConfigGenerator/",
                 "WebConfig" => IPCUrl + "/asf-config",
-                "WebAddBot" => IPCUrl + "/asf-config",
+                "WebAddBot" => IPCUrl + "/bot/new",
                 _ => IPCUrl,
             };
 
@@ -112,5 +126,6 @@ namespace System.Application.UI.ViewModels
 
             Browser2.Open(url);
         }
+
     }
 }
