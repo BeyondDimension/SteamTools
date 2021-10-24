@@ -23,7 +23,7 @@
     <PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
     <PackageVersion Include="MessagePack" Version="2.3.85" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageVersion Include="System.Text.Json" Version="6.0.0-rc.2.21480.5" />
+    <PackageVersion Include="System.Text.Json" Version="6.0.0-s390x.1.20553.1" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0-rc.2.21480.5" />
     <PackageVersion Include="Polly" Version="7.2.2" />
     <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
