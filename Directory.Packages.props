@@ -16,7 +16,7 @@
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-rc.2.21480.5" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0-rc.2.21480.5" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0-rc.2.21480.5" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0-s390x.1.20553.1" />
     <PackageVersion Include="Nito.Comparers" Version="6.2.2" />
     <PackageVersion Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageVersion Include="Crc32.NET" Version="1.2.0" />
