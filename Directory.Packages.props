@@ -44,7 +44,7 @@
     <PackageVersion Include="DnsClient" Version="1.5.0" />
     <PackageVersion Include="Fleck" Version="1.2.0" />
     <PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />
-    <PackageVersion Include="NLog" Version="4.7.11" />
+    <PackageVersion Include="NLog" Version="4.7.12" />
     <PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
     <PackageVersion Include="NotifyIcon.Base" Version="1.0.2" />
     <!--<PackageVersion Include="NotifyIcon.Linux" Version="1.0.2" />-->
