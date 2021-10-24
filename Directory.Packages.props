@@ -57,7 +57,7 @@
     <PackageVersion Include="Titanium.Web.Proxy" Version="3.1.1397" />
     <PackageVersion Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
     <PackageVersion Include="System.Drawing.Common" Version="6.0.0-rc.2.21480.5" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0-rc.2.21480.5" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0-s390x.1.20553.1" />
 
     <!--Avalonia Start-->
     <PackageVersion Include="Avalonia" Version="0.10.999-cibuild0016079-beta" />
