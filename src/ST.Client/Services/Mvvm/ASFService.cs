@@ -59,14 +59,14 @@ namespace System.Application.Services
 
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
-            archiSteamFarmService.OnConsoleWirte += OnConsoleWirte;
+            archiSteamFarmService.OnConsoleWirteLine += OnConsoleWirteLine;
 
             //InitASF();
         }
 
-        void OnConsoleWirte(string message)
+        void OnConsoleWirteLine(string message)
         {
-            ConsoleLogBuilder.Append(message);
+            ConsoleLogBuilder.AppendLine(message);
             ConsoleLogText = ConsoleLogBuilder.ToString();
         }
 
