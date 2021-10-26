@@ -15,7 +15,7 @@ namespace System
         {
             var maxLine = 5;
             IConsoleBuilder builder = new ConsoleBuilder() { MaxLine = maxLine, };
-            Enumerable.Range(0, 10).ToList().ForEach(x => builder.AppendLine(x.ToString()));
+            Enumerable.Range(0, 10).ToList().ForEach(x => builder.AppendLine(x.ToString() + "_" + Random2.GenerateRandomString(Random2.Next(1, x + 2))));
             var str = builder.ToString();
             var array = str.Split(Environment.NewLine);
             TestContext.Write(str);

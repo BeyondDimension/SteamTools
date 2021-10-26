@@ -38,7 +38,13 @@ namespace System.Text
                         lineCountIndex.Add(builder.Length + index);
                         if (MaxLine > 0 && lineCountIndex.Count > MaxLine)
                         {
-                            builder.Remove(0, lineCountIndex.First());
+                            var firstLineIndex = lineCountIndex.First();
+                            builder.Remove(0, firstLineIndex);
+                            lineCountIndex.RemoveAt(0);
+                            for (int i = 0; i < lineCountIndex.Count; i++)
+                            {
+                                lineCountIndex[i] = lineCountIndex[i] - firstLineIndex;
+                            }
                         }
                         valueSpan = valueSpan[index..];
                     }
