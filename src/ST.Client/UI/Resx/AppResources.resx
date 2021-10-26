@@ -695,10 +695,13 @@
     <comment>Comment=同意 or 取消;</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>您没有权限查看确认信息. 是否启用了家庭监护功能? 或者登录状态已失效请尝试重新登录。</value>
+    <value>您没有权限查看确认信息. 是否启用了家庭监护功能？暂时不支持管理启用家庭监护功能后的交易确认。</value>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
     <value>获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。</value>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
+    <value>登录状态已失效请尝试重新登录。</value>
   </data>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
     <value>正在获取最新的交易报价信息...</value>
@@ -1471,7 +1474,7 @@
     <value>扫码导入</value>
   </data>
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
-    <value>确定要注销登录当前令牌？</value>
+    <value>确定要注销当前令牌登录的账号信息吗？</value>
   </data>
   <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
     <value>导出为二维码</value>

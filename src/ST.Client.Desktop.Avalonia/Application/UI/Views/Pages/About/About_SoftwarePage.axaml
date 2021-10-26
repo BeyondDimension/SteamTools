@@ -67,7 +67,6 @@
     </Style>
     <Style Selector="TextBox.Content">
       <Setter Property="Padding" Value="0" />
-      <Setter Property="FontSize" Value="{StaticResource FontSizeH6}" />
       <Setter Property="VerticalAlignment" Value="Center" />
       <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>

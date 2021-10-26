@@ -46,12 +46,16 @@
                     <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
                   </ia:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
-                <gif:Image2
+                <!--<gif:Image2
                            Width="184"
                            AutoStart="true"
                            Stretch="Uniform"
-                           Source="{Binding AvatarUrl^}">
-                </gif:Image2>
+                           Source="{Binding AvatarUrl}">
+                </gif:Image2>-->
+                <Image Width="184"
+                       Stretch="Uniform"
+                       Source="{Binding AvatarUrl,Converter={StaticResource BitmapAssetValueConverter}}">
+                </Image>
                 <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
                        Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
                 </Image>-->
@@ -152,9 +156,8 @@
                       <DataTemplate>
                         <Border>
                           <StackPanel>
-                            <gif:Image2
+                            <Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
                               Width="184"
-                              AutoStart="true"
                               Stretch="Uniform"/>
                             <TextBlock Text="{Binding GameName}"
                                        HorizontalAlignment="Center"
@@ -167,13 +170,6 @@
                     </ItemsRepeater.ItemTemplate>
                   </ItemsRepeater>
                 </StackPanel>
-
-                <!--<WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">
-                      <PathIcon Data="{StaticResource ClockDrawing}" Width="16" VerticalAlignment="Center" Margin="5 0" Foreground="{DynamicResource InactiveForegroundBrushKey}">
-                      </PathIcon>
-                      <TextBlock Text="{Binding LastLoginTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource InactiveF
-                      oregroundBrushKey}"/>
-                    </WrapPanel>-->
               </Panel>
             </Grid>
           </Border>

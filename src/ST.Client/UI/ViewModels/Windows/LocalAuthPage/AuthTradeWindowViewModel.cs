@@ -396,27 +396,32 @@ namespace System.Application.UI.ViewModels
                     });
                     return;
                 }
-                catch (WinAuthInvalidSteamRequestException)
+                catch (WinAuthInvalidSteamRequestException e)
                 {
                     // likely a bad session so try a refresh first
                     try
                     {
-                        steam.Refresh();
-                        var list = steam.GetConfirmations();
-
-                        if (IsLoadImage)
+                        if (steam.IsLoggedIn())
                         {
-                            Parallel.ForEach(list, confirmation =>
+                            steam.Refresh();
+                            var list = steam.GetConfirmations();
+
+                            if (IsLoadImage)
                             {
-                                confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
+                                Parallel.ForEach(list, confirmation =>
+                                {
+                                    confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
+                                });
+                            }
+
+                            MainThread2.BeginInvokeOnMainThread(() =>
+                            {
+                                _ConfirmationsSourceList.Clear();
+                                _ConfirmationsSourceList.AddRange(list);
                             });
                         }
-
                         MainThread2.BeginInvokeOnMainThread(() =>
                         {
-                            _ConfirmationsSourceList.Clear();
-                            _ConfirmationsSourceList.AddRange(list);
-
                             IsLoading = false;
                         });
                     }
@@ -424,6 +429,19 @@ namespace System.Application.UI.ViewModels
                     {
                         // reset and show normal login
                         Log.Error(nameof(Process), ex, "可能是没有开加速器导致无法连接Steam社区登录地址");
+
+                        if (ex.InnerException != null &&
+                            ex.Message.Contains("302"))
+                        {
+                            MainThread2.BeginInvokeOnMainThread(() =>
+                            {
+                                Toast.Show(AppResources.LocalAuth_AuthTrade_GetError3);
+                                IsLoading = false;
+                            });
+                            steam.Clear();
+                            return;
+                        }
+
                         MainThread2.BeginInvokeOnMainThread(() =>
                         {
 #if DEBUG
@@ -433,7 +451,6 @@ namespace System.Application.UI.ViewModels
 #endif
                             IsLoading = false;
                         });
-                        //steam.Clear();
                         return;
                     }
                 }

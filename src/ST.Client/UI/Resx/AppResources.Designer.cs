@@ -2025,7 +2025,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您没有权限查看确认信息. 是否启用了家庭监护功能? 或者登录状态已失效请尝试重新登录。 的本地化字符串。
+        ///   查找类似 您没有权限查看确认信息. 是否启用了家庭监护功能？暂时不支持管理启用家庭监护功能后的交易确认。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_GetError {
             get {
@@ -2039,6 +2039,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_AuthTrade_GetError2 {
             get {
                 return ResourceManager.GetString("LocalAuth_AuthTrade_GetError2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 登录状态已失效请尝试重新登录。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_AuthTrade_GetError3 {
+            get {
+                return ResourceManager.GetString("LocalAuth_AuthTrade_GetError3", resourceCulture);
             }
         }
         
@@ -2314,7 +2323,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要注销登录当前令牌？ 的本地化字符串。
+        ///   查找类似 确定要注销当前令牌登录的账号信息吗？ 的本地化字符串。
         /// </summary>
         public static string LocalAuth_LogoutTip {
             get {

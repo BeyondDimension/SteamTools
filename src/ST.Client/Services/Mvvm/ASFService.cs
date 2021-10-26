@@ -104,7 +104,7 @@ namespace System.Application.Services
 
         public async void ImportBotFiles(IEnumerable<string> files)
         {
-
+            var num = 0;
             foreach (var filename in files)
             {
                 var file = new FileInfo(filename);
@@ -113,12 +113,19 @@ namespace System.Application.Services
                     var bot = await BotConfig.Load(file.FullName).ConfigureAwait(false);
                     if (bot.BotConfig != null)
                     {
-                        file.CopyTo(Path.Combine(SharedInfo.ConfigDirectory, file.Name), true);
+                        try
+                        {
+                            file.CopyTo(Path.Combine(SharedInfo.ConfigDirectory, file.Name), true);
+                            num++;
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(nameof(ASFService), ex, nameof(ImportBotFiles));
+                        }
                     }
                 }
             }
-
-            Toast.Show(string.Format(AppResources.LocalAuth_ImportSuccessTip, files.Count()));
+            Toast.Show(string.Format(AppResources.LocalAuth_ImportSuccessTip, num));
         }
     }
 }

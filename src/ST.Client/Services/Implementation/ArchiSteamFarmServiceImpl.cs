@@ -134,11 +134,11 @@ namespace System.Application.Services.Implementation
         public IReadOnlyDictionary<string, Bot>? GetReadOnlyAllBots()
         {
             var bots = Bot.Bots;
-            if (bots is not null)
-                foreach (var bot in bots.Values)
-                {
-                    bot.AvatarUrl = GetAvatarUrl(bot);
-                }
+            //if (bots is not null)
+            //    foreach (var bot in bots.Values)
+            //    {
+            //        bot.AvatarUrl = GetAvatarUrl(bot);
+            //    }
             return bots;
         }
 
@@ -202,9 +202,9 @@ namespace System.Application.Services.Implementation
 
         public async Task<string?> GetAvatarUrl(Bot bot)
         {
-            if (!string.IsNullOrEmpty(bot.AvatarHash))
+            if (!string.IsNullOrEmpty(bot.AvatarUrl))
             {
-                return await httpService.GetImageAsync($"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarHash.Substring(0, 2)}/{bot.AvatarHash}_full.jpg", ImageChannelType.SteamAvatars);
+                return await httpService.GetImageAsync($"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarUrl.Substring(0, 2)}/{bot.AvatarUrl}_full.jpg", ImageChannelType.SteamAvatars);
             }
             else
             {
