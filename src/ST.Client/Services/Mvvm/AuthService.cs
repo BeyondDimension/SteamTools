@@ -176,8 +176,9 @@ namespace System.Application.Services
         }
 
         /// <inheritdoc cref="ImportAuthenticatorFile(string, bool, string?, string?)"/>
-        public void ImportWinAuthenticators(IEnumerable<string> urls, bool isLocal, string? password)
+        public bool ImportWinAuthenticators(IEnumerable<string> urls, bool isLocal, string? password)
         {
+            var isOK = false;
             int linenumber = 0;
             try
             {
@@ -342,6 +343,7 @@ namespace System.Application.Services
                     AddOrUpdateSaveAuthenticators(importedAuthenticator, isLocal, password);
                 }
                 Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
+                isOK = true;
             }
             catch (UriFormatException)
             {
@@ -351,6 +353,7 @@ namespace System.Application.Services
             {
                 Toast.Show(string.Format("Error importing at line {0}", ex.Message));
             }
+            return isOK;
         }
 
         static IEnumerable<string> ReadUrlsByFilePath(string filePath)
@@ -376,10 +379,10 @@ namespace System.Application.Services
         /// <summary>
         /// WinAuth令牌导入
         /// </summary>
-        public void ImportWinAuthenticators(string filePath, bool isLocal, string? password)
+        public bool ImportWinAuthenticators(string filePath, bool isLocal, string? password)
         {
             var urls = ReadUrlsByFilePath(filePath);
-            ImportWinAuthenticators(urls, isLocal, password);
+            return ImportWinAuthenticators(urls, isLocal, password);
         }
 
         /// <summary>
@@ -544,8 +547,9 @@ namespace System.Application.Services
         }
 
         /// <inheritdoc cref="ImportAuthenticatorFile(string, bool, string?, string?)"/>
-        public async void ImportAuthenticatorFile(byte[] bt, bool isLocal, string? password, string? exportPassword = null)
+        public async Task<bool> ImportAuthenticatorFile(byte[] bt, bool isLocal, string? password, string? exportPassword = null)
         {
+            var isOK = false;
         Run:
             var result = await repository.ImportAsync(exportPassword, bt!);
 
@@ -557,6 +561,7 @@ namespace System.Application.Services
                 }
 
                 Toast.Show(AppResources.LocalAuth_AddAuthSuccess);
+                isOK = true;
             }
             else if (result.resultCode == GAPRepository.ImportResultCode.PartSuccess)
             {
@@ -565,24 +570,26 @@ namespace System.Application.Services
                     AddOrUpdateSaveAuthenticators(new MyAuthenticator(item), isLocal, password);
                 }
                 Toast.Show(AppResources.LocalAuth_AddAuth_PartSuccess);
+                isOK = true;
             }
             else if (result.resultCode == GAPRepository.ImportResultCode.SecondaryPasswordFail)
             {
                 Toast.Show(AppResources.LocalAuth_ProtectionAuth_PasswordErrorTip);
                 exportPassword = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
-                if (exportPassword == null) return; // 当值为 null 时代表取消
+                if (exportPassword == null) return false; // 当值为 null 时代表取消
                 else goto Run;
             }
             else
             {
                 Toast.Show(AppResources.LocalAuth_ExportAuth_Error.Format(result.resultCode));
             }
+            return isOK;
         }
 
         /// <summary>
         /// 导入Steam++导出的令牌数据文件 V2
         /// </summary>
-        public async void ImportAuthenticatorFile(string file, bool isLocal, string? password, string? exportPassword = null)
+        public async Task<bool> ImportAuthenticatorFile(string file, bool isLocal, string? password, string? exportPassword = null)
         {
             if (File.Exists(file))
             {
@@ -590,14 +597,16 @@ namespace System.Application.Services
                 if (!success)
                 {
                     //Toast.Show($"Import authenticator file fail, exception: {ex}");
-                    return;
+                    return false;
                 }
-                ImportAuthenticatorFile(bt!, isLocal, password, exportPassword);
+                return await ImportAuthenticatorFile(bt!, isLocal, password, exportPassword);
             }
+            return false;
         }
 
-        public void ImportSteamToolsV1Authenticator(string file, bool isLocal, string? password)
+        public bool ImportSteamToolsV1Authenticator(string file, bool isLocal, string? password)
         {
+            var isOK = false;
             if (IOPath.TryReadAllText(file, out var content, out var _))
             {
                 string authString;
@@ -607,7 +616,7 @@ namespace System.Application.Services
                 }
                 catch
                 {
-                    return;
+                    return false;
                 }
                 if (!string.IsNullOrEmpty(authString))
                 {
@@ -631,6 +640,7 @@ namespace System.Application.Services
                                 var wa = new MyAuthenticator();
                                 wa.ReadXml(reader, null);
                                 AddOrUpdateSaveAuthenticators(wa, isLocal, password);
+                                isOK = true;
                             }
                         }
                         else
@@ -641,6 +651,7 @@ namespace System.Application.Services
                     }
                 }
             }
+            return isOK;
         }
 
         public void AddOrUpdateSaveAuthenticators(GAPAuthenticatorDTO auth, bool isLocal, string? password)

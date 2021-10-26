@@ -126,5 +126,15 @@ namespace System.Application
             }
             return clipStream;
         }
+
+        public static bool IsImage(string extension)
+        {
+            return string.Equals(extension, FileEx.JPG, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(extension, FileEx.JPEG, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(extension, FileEx.PNG, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(extension, FileEx.WEBP, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(extension, FileEx.HEIC, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(extension, FileEx.HEIF, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

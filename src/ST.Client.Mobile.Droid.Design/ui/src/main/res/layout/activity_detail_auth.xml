@@ -103,7 +103,7 @@
           tools:progress="25"
           xamarin:managedType="Google.Android.Material.ProgressIndicator.CircularProgressIndicator" />
 
-        <com.github.wwluo14.nospacetextview.NoSpaceTextView
+        <androidx.appcompat.widget.AppCompatTextView
           android:id="@+id/tvProgress"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
           app:layout_constraintStart_toStartOf="@+id/progress"
           app:layout_constraintTop_toTopOf="@+id/progress"
           tools:text="12"
-          xamarin:managedType="System.Application.UI.Views.Controls.NoSpaceTextView" />
+          xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
         <androidx.appcompat.widget.AppCompatImageView
           android:layout_width="24dp"
@@ -129,11 +129,10 @@
           app:tint="@color/grey"
           xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
-        <com.github.wwluo14.nospacetextview.NoSpaceTextView
+        <androidx.appcompat.widget.AppCompatTextView
           android:id="@+id/tvValue"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/gap_space_min"
           android:clickable="false"
           android:focusable="false"
           android:fontFamily="sans-serif-light"
@@ -143,7 +142,7 @@
           app:layout_constraintStart_toStartOf="@+id/tvValueTitle"
           app:layout_constraintTop_toBottomOf="@+id/tvValueTitle"
           tools:text="1 2 3 4 5 6"
-          xamarin:managedType="System.Application.UI.Views.Controls.NoSpaceTextView" />
+          xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
       </androidx.constraintlayout.widget.ConstraintLayout>
 
       <View

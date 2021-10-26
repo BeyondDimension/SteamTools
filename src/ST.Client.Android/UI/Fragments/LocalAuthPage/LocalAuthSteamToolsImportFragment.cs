@@ -3,6 +3,7 @@ using Binding;
 using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.IO;
 using static System.Application.UI.Resx.AppResources;
 
 // ReSharper disable once CheckNamespace
@@ -45,20 +46,22 @@ namespace System.Application.UI.Fragments
             return base.OnClick(view);
         }
 
-        async void OnBtnImportByFilePickerClick() => await FilePicker2.PickAsync(filePath => ViewModel!.ImportAuto(filePath, extension =>
+        async void OnBtnImportByFilePickerClick() => await FilePicker2.PickAsync(async filePath =>
         {
-            if (string.Equals(extension, FileEx.JPG, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.JPEG, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.PNG, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.WEBP, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.HEIC, StringComparison.OrdinalIgnoreCase) || string.Equals(extension, FileEx.HEIF, StringComparison.OrdinalIgnoreCase))
+            var extension = Path.GetExtension(filePath);
+            if (ImageSouce.IsImage(extension))
             {
-                try
+                Analyze(filePath);
+            }
+            else
+            {
+                var isOK = await ViewModel!.ImportAutoAsnyc(filePath, extension);
+                if (isOK)
                 {
-                    Analyze(filePath);
-                    return true;
-                }
-                catch
-                {
+                    // 导入成功，关闭添加令牌页
+                    Activity?.Finish();
                 }
             }
-            return false;
-        }));
+        });
     }
 }

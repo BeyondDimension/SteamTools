@@ -395,11 +395,12 @@ namespace System.Application.UI.ViewModels
             AuthService.Current.ImportSteamToolsV1Authenticator(filePath, AuthIsLocal, AuthPassword);
         }
 
-        public void ImportSteamPlusPlusV2(string filePath)
+        public async void ImportSteamPlusPlusV2(string filePath)
         {
-            AuthService.Current.ImportAuthenticatorFile(filePath, AuthIsLocal, AuthPassword);
+            await AuthService.Current.ImportAuthenticatorFile(filePath, AuthIsLocal, AuthPassword);
         }
 
+        [Obsolete("use bool ImportAutoAsnyc(..", true)]
         public void ImportAuto(string filePath, Func<string, bool>? func = null)
         {
             var extension = Path.GetExtension(filePath);
@@ -425,6 +426,28 @@ namespace System.Application.UI.ViewModels
             }
         }
 
+        public async Task<bool> ImportAutoAsnyc(string filePath, string? extension = null)
+        {
+            extension ??= Path.GetExtension(filePath);
+            if (string.Equals(extension, FileEx.TXT, StringComparison.OrdinalIgnoreCase))
+            {
+                return AuthService.Current.ImportWinAuthenticators(filePath, AuthIsLocal, AuthPassword);
+            }
+            else if (string.Equals(extension, FileEx.MPO, StringComparison.OrdinalIgnoreCase))
+            {
+                return await AuthService.Current.ImportAuthenticatorFile(filePath, AuthIsLocal, AuthPassword);
+            }
+            else if (string.Equals(extension, ".dat", StringComparison.OrdinalIgnoreCase))
+            {
+                return AuthService.Current.ImportSteamToolsV1Authenticator(filePath, AuthIsLocal, AuthPassword);
+            }
+            else if (string.Equals(extension, ".maFile", StringComparison.OrdinalIgnoreCase))
+            {
+                return AuthService.Current.ImportSDAFile(filePath, AuthIsLocal, AuthPassword);
+            }
+            return false;
+        }
+
         IEnumerable<string>? ToUrls(byte[] bytes)
         {
             var bytes_decompress_br = bytes.DecompressByteArrayByBrotli();
@@ -437,7 +460,10 @@ namespace System.Application.UI.ViewModels
             return null;
         }
 
-        public void ImportSteamPlusPlusV2(byte[] bytes)
+        [Obsolete("use bool ImportSteamPlusPlusV2B(..", true)]
+        public void ImportSteamPlusPlusV2(byte[] bytes) => ImportSteamPlusPlusV2B(bytes);
+
+        public bool ImportSteamPlusPlusV2B(byte[] bytes)
         {
             var isOK = false;
             try
@@ -451,15 +477,19 @@ namespace System.Application.UI.ViewModels
             }
             catch (Exception e)
             {
-                Log.Error(nameof(ImportSteamPlusPlusV2), e, string.Empty);
+                Log.Error(nameof(ImportSteamPlusPlusV2B), e, string.Empty);
             }
             if (!isOK)
             {
                 Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, ImportResultCode.IncorrectFormat));
             }
+            return isOK;
         }
 
-        public void ImportSteamPlusPlusV2(IEnumerable<byte[]> items)
+        [Obsolete("use bool ImportSteamPlusPlusV2B(..", true)]
+        public void ImportSteamPlusPlusV2(IEnumerable<byte[]> items) => ImportSteamPlusPlusV2B(items);
+
+        public bool ImportSteamPlusPlusV2B(IEnumerable<byte[]> items)
         {
             var isOK = false;
             List<string> list = new();
@@ -475,7 +505,7 @@ namespace System.Application.UI.ViewModels
                 }
                 catch (Exception e)
                 {
-                    Log.Error(nameof(ImportSteamPlusPlusV2), e, string.Empty);
+                    Log.Error(nameof(ImportSteamPlusPlusV2B), e, string.Empty);
                 }
             }
             if (list.Any())
@@ -487,6 +517,7 @@ namespace System.Application.UI.ViewModels
             {
                 Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_Error, ImportResultCode.IncorrectFormat));
             }
+            return isOK;
         }
 
         public ICommand SppV2Btn_Click { get; }

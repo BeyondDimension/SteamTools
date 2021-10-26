@@ -57,6 +57,9 @@ namespace System.Application.UI.Fragments
                     binding!.tbName.Text = string.Empty;
                     binding.tbSteamUUIDKey.Text = string.Empty;
                     binding.tbGuard.Text = string.Empty;
+
+                    // 导入成功，关闭添加令牌页
+                    Activity?.Finish();
                 }
                 return true;
             }
