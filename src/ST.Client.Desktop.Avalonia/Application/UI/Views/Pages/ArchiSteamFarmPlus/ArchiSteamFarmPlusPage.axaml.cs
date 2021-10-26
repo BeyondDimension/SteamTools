@@ -26,16 +26,8 @@ namespace System.Application.UI.Views.Pages
 
         private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)
         {
-            if (asfService.ReadLineTask is null)
-            {
-                asfService.ExecuteCommand(e.Command!);
-            }
-            else
-            {
-                asfService.ReadLineTask.TrySetResult(e.Command!);
-            }
+            if (e.Command != null) asfService.CommandSubmit(e.Command);
         }
-
 
         private void InitializeComponent()
         {

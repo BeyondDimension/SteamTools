@@ -55,5 +55,17 @@ namespace System.Application.Services
         IReadOnlyDictionary<string, Bot>? GetReadOnlyAllBots();
 
         GlobalConfig? GetGlobalConfig();
+
+        void CommandSubmit(string command)
+        {
+            if (ReadLineTask is null)
+            {
+                ExecuteCommand(command);
+            }
+            else
+            {
+                ReadLineTask.TrySetResult(command);
+            }
+        }
     }
 }

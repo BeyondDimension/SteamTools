@@ -66,6 +66,17 @@ namespace System.Application.UI.Fragments
 
         void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            var actionItem = MenuIdResToEnum(item.ItemId);
+            if (actionItem.IsDefined())
+            {
+                ViewModel!.MenuItemClick(actionItem);
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
         static ActionItem MenuIdResToEnum(int resId)
         {
             if (resId == Resource.Id.menu_start)
