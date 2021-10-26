@@ -37,6 +37,7 @@
       android:orientation="horizontal">
 
       <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvArrow"
         android:layout_width="12dp"
         android:layout_height="wrap_content"
         android:gravity="end"

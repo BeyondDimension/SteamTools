@@ -66,5 +66,11 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: DefaultConsoleMaxLine, autoSave: true);
 
         #endregion
+
+        /// <summary>
+        /// 控制台字体大小，默认值 14，Android 上单位为 sp
+        /// </summary>
+        public static SerializableProperty<int> ConsoleFontSize { get; }
+            = GetProperty(defaultValue: 14, autoSave: true);
     }
 }
