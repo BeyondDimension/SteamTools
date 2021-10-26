@@ -63,7 +63,7 @@
     <PackageVersion Include="Avalonia" Version="0.10.999-cibuild0016214-beta" />
     <PackageVersion Include="Avalonia.Desktop" Version="0.10.999-cibuild0016214-beta" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0016214-beta" />
-    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0016214-beta" />
+    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0016266-beta" />
     <!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.999-cibuild0016214-beta" />-->
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.999-cibuild0016214-beta" />
     <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.8" />
