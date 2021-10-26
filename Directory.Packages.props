@@ -60,7 +60,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0-rc.2.21480.5" />
 
     <!--Avalonia Start-->
-    <PackageVersion Include="Avalonia" Version="0.10.999-cibuild0016214-beta" />
+    <PackageVersion Include="Avalonia" Version="0.10.999-cibuild0016266-beta" />
     <PackageVersion Include="Avalonia.Desktop" Version="0.10.999-cibuild0016214-beta" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0016214-beta" />
     <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.999-cibuild0016214-beta" />
