@@ -86,6 +86,15 @@ namespace System.Application.UI.ViewModels
             var auths = await repository.GetAllSourceAsync();
             AuthIsLocal = repository.HasLocal(auths);
         }
+        public override void Deactivation()
+        {
+            var steam = _Authenticator!.GetClient();
+            if (!steam.IsLoggedIn())
+            {
+                steam.Clear();
+            }
+            base.Deactivation();
+        }
 
         #region LoginData
 

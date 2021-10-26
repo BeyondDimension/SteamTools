@@ -27,7 +27,7 @@
                                  HorizontalAlignment="Left"
                                  Width="240">
         <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
@@ -35,7 +35,7 @@
       <ExperimentalAcrylicBorder IsHitTestVisible="False"
                                  DockPanel.Dock="Right">
         <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
@@ -43,7 +43,7 @@
       <!--<ExperimentalAcrylicBorder IsHitTestVisible="False"
                                  DockPanel.Dock="Right">
         <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
+          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"
                                        TintOpacity="1"/>
         </ExperimentalAcrylicBorder.Material>
@@ -72,7 +72,7 @@
       </ui:NavigationView.PaneHeader>-->
 
       <ui:NavigationView.Content>
-        <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}" Margin="-10 -10 0 0">
+        <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}" Margin="-10 0 0 0">
           <ui:Frame.DataTemplates>
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
               <pages:ProxyScriptManagePage/>

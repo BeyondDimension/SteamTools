@@ -20,7 +20,7 @@
   <Panel>
     <ExperimentalAcrylicBorder IsHitTestVisible="True">
       <ExperimentalAcrylicBorder.Material>
-        <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
+        <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
       </ExperimentalAcrylicBorder.Material>
     </ExperimentalAcrylicBorder>
     <StackPanel Spacing="8" Background="Transparent">
