@@ -6,15 +6,15 @@ using System.Text;
 
 static partial class NativeMethods
 {
-    [DllImport("Avrt.dll", CharSet = CharSet.Unicode)]
-    public static extern IntPtr AvSetMmThreadCharacteristics(string taskName, ref uint taskIndex);
+    //[DllImport("Avrt.dll", CharSet = CharSet.Unicode)]
+    //public static extern IntPtr AvSetMmThreadCharacteristics(string taskName, ref uint taskIndex);
 
-    [DllImport("psapi.dll", CharSet = CharSet.Unicode)]
-    public static extern uint GetProcessImageFileName(
-        IntPtr hProcess,
-        [Out] StringBuilder lpImageFileName,
-        [In][MarshalAs(UnmanagedType.U4)] int nSize
-    );
+    //[DllImport("psapi.dll", CharSet = CharSet.Unicode)]
+    //public static extern uint GetProcessImageFileName(
+    //    IntPtr hProcess,
+    //    [Out] StringBuilder lpImageFileName,
+    //    [In][MarshalAs(UnmanagedType.U4)] int nSize
+    //);
 
     [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
     public static extern bool QueryFullProcessImageName([In] IntPtr hProcess, [In] int dwFlags, [Out] StringBuilder lpExeName, ref int lpdwSize);

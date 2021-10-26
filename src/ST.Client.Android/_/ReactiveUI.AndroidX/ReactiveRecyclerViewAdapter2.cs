@@ -11,6 +11,7 @@ using System.Reactive.Linq;
 
 // https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI.AndroidX/ReactiveRecyclerViewAdapter.cs
 
+// ReSharper disable once CheckNamespace
 namespace ReactiveUI.AndroidX
 {
     /// <summary>

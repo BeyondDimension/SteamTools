@@ -1,22 +1,22 @@
 ### 新增内容
-1. 新增 Desktop 上网络加速代理设置
-2. 新增 Android 上屏幕捕获设置项，用于允许截图或录制视频
-3. 新增 Windows 托盘菜单支持切换账号与复制令牌
-4. 新增 Linux/macOS 托盘菜单改进与完善
+1. CLR 更新至 6.0 RC2
+2. 新增 ASF Plus 本地挂卡
+3. 新增 本地令牌搜索框
+4. 新增 库存游戏右键菜单导航到 Steam 客户端
+5. 改进 桌面端 UI 适配 Windows 11 风格
+6. 新增 Windows 11 上可设置材质 [云母(Mica)](https://docs.microsoft.com/zh-cn/windows/apps/design/style/mica)
+7. 改进 Android UI
+8. 改进 Android 冷启动速度
+9. 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备
+10. 改进 Windows 上现使用单文件打包，不再需要 ```Bin``` 文件夹
+11. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
 
 ### 修复问题
-1. 修复 Desktop 上用户头像应当为圆形而不是方形
-2. 修复 Android 上切换系统语言可能引发的闪退
-3. 修复 Windows 10 上启动时可能出现的网络连接中断提示
-4. 修复 Android 上令牌倒计时可能引发的闪退
-5. 修复 Desktop 上库存游戏刷新可能引发的闪退
-6. 修复 Desktop 上可能少加载了部分已安装游戏
-7. 修复 Android 上暗色模式下某些区域背景为白色
-8. 改进 Android 上令牌刷新倒计时
-9. 改进 本地令牌名称最大长度限制 32 个字符
-10. 改进 Desktop 上网络加速 UI
-11. 修复 Desktop 上默认头像可能引发的闪退
-12. 改进 Desktop 上左侧菜单图标
+1. 修复 本地令牌中确认交易时 Http 302 重定向错误
+2. 修复 Linux 与 macOS 上代理错误
+3. 修复 库存游戏无限加载
+4. 修复 脚本未启用时保存状态会全部未启用
+5. 修复 Android 上屏幕捕获设置项不生效
 
 ### 已知问题
 - Desktop 
@@ -25,7 +25,7 @@
 		- 某些窗口顶部会有两个标题栏
 		- 自动更新不可用
 	- Linux
-		- 当使用 root 权限运行时托盘不生效，可通过 Exit.sh 退出程序
+		- 在 Deepin 中托盘不生效，可通过 Exit.sh 退出程序
 		- 窗口弹出位置不正确
 		- 窗口顶部会有两个标题栏
 		- 自动更新不可用
@@ -33,13 +33,10 @@
 		- 主题切换需重启软件后生效，且跟随系统暂不可用
 - Mobile
 	- Android
-		- 确认交易列表刷新后数据显示不正确
+		- 确认交易列表刷新后数据有时会显示不正确
 		- 自动更新暂不可用
 
 ***
-
-<!-- 1. 新增 ASF Plus 本地挂卡
-3. 改进 新增守护进程，当程序闪退时将自动重启 -->
 
 |  RuntimeIdentifier  |  Available  |  Edition  |
 |  ----  |  ----  |  ----  |
@@ -48,11 +45,13 @@
 | linux-x64  | ✅ | α |
 | android-arm64  | ✅ | α |
 | android-arm  | ✅ | α |
+| android-x86  | ✅ | α |
 | linux-arm64  | ✅ | α |
 | linux-arm  | ✅ | α |
 | osx-arm64  | ❌ |  |
 | win-arm64  | ❌ |  |
 | ios-arm64  | ❌ |  |
+| android-x64  | ❌ |  |
 
 ## 下载指南
 - Windows
@@ -69,22 +68,24 @@
 - Android
 	- 如果你使用 ARM64 芯片的设备（较为**普遍**）则下载文件名中带有 **android_arm64_v8a** 的文件
 	- 如果你使用 ARM32 芯片的设备（较为**稀有**）通常为 **14** 年下半年之前生产的设备，则下载文件名中带有 **android_armeabi_v7a** 的文件
+	- 如果你使用 Intel、AMD 的 x86 芯片的设备（较为**稀有**）则下载文件名中带有 **android_x86** 的文件
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.4.12.7z  | SHA256 |
-| Steam++_win_x64_v2.4.12.exe  | SHA256 |
+| Steam++_win_x64_v2.5.0.7z  | SHA256 |
+| Steam++_win_x64_v2.5.0.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.4.12.7z  | SHA256 |
-| Steam++_linux_arm64_v2.4.12.7z  | SHA256 |
-| Steam++_linux_arm_v2.4.12.7z  | SHA256 |
+| Steam++_linux_x64_v2.5.0.7z  | SHA256 |
+| Steam++_linux_arm64_v2.5.0.7z  | SHA256 |
+| Steam++_linux_arm_v2.5.0.7z  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.4.12.dmg  | SHA256 |
-| Steam++_macos_x64_v2.4.12.app.zip  | SHA256 |
-| Steam++_macos_x64_v2.4.12.7z  | SHA256 |
+| Steam++_macos_x64_v2.5.0.dmg  | SHA256 |
+| Steam++_macos_x64_v2.5.0.app.zip  | SHA256 |
+| Steam++_macos_x64_v2.5.0.7z  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.4.12.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.4.12.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.5.0.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.5.0.apk  | SHA256 |
+| Steam++_android_x86_v2.5.0.apk  | SHA256 |
 
 <!-- ***
 

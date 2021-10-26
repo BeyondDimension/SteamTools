@@ -106,7 +106,7 @@ namespace System.Application.UI.ViewModels
             IPlatformService.Instance.OpenFolder(path);
         }
 
-        public void OpenBrowser(string tag)
+        public void OpenBrowser(string? tag)
         {
             var url = tag switch
             {

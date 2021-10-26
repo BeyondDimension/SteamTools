@@ -5,6 +5,7 @@ using ArchiSteamFarm.Storage;
 using DynamicData;
 using ReactiveUI;
 using System;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
@@ -36,6 +37,11 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
         }
 
+        public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder()
+        {
+            MaxLine = ASFSettings.ConsoleMaxLine,
+        };
+
         public SourceCache<Bot, string> SteamBotsSourceList;
 
         public bool IsASFRuning => archiSteamFarmService.StartTime != null;
@@ -53,28 +59,20 @@ namespace System.Application.Services
 
             SteamBotsSourceList = new SourceCache<Bot, string>(t => t.BotName);
 
+            archiSteamFarmService.OnConsoleWirte += OnConsoleWirte;
+
             //InitASF();
+        }
+
+        void OnConsoleWirte(string message)
+        {
+            ConsoleLogBuilder.Append(message);
+            ConsoleLogText = ConsoleLogBuilder.ToString();
         }
 
         public async void InitASF()
         {
-            IArchiSteamFarmService.Instance.GetConsoleWirteFunc = (message) =>
-            {
-                if (!string.IsNullOrEmpty(ConsoleLogText))
-                {
-                    var lines = ConsoleLogText.Split(Environment.NewLine, StringSplitOptions.None).ToList();
-                    if (lines.Count >= 200)
-                    {
-                        lines.RemoveAt(0);
-                        lines.Add(message);
-                        ConsoleLogText = string.Join(Environment.NewLine, lines);
-                        return;
-                    }
-                }
-                ConsoleLogText += Environment.NewLine + message;
-            };
-
-            await IArchiSteamFarmService.Instance.Start();
+            await archiSteamFarmService.Start();
 
             RefreshBots();
 
@@ -85,7 +83,7 @@ namespace System.Application.Services
 
         public async void StopASF()
         {
-            await IArchiSteamFarmService.Instance.Stop();
+            await archiSteamFarmService.Stop();
 
             this.RaisePropertyChanged(nameof(IsASFRuning));
         }

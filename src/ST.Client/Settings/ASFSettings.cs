@@ -1,4 +1,5 @@
 using System;
+using System.Application.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -10,6 +11,7 @@ namespace System.Application.Settings
     {
         static ASFSettings()
         {
+            ConsoleMaxLine.ValueChanged += ConsoleMaxLine_ValueChanged;
         }
 
         /// <summary>
@@ -25,6 +27,11 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: false, autoSave: true);
 
         #region ConsoleMaxLine
+
+        static void ConsoleMaxLine_ValueChanged(object sender, ValueChangedEventArgs<int> e)
+        {
+            ASFService.Current.ConsoleLogBuilder.MaxLine = GetConsoleMaxLineValue(e.NewValue);
+        }
 
         /// <summary>
         /// 控制台默认最大行数
@@ -46,15 +53,13 @@ namespace System.Application.Settings
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static int ConsoleMaxLineValue
+        public static int ConsoleMaxLineValue => GetConsoleMaxLineValue(ConsoleMaxLine.Value);
+
+        static int GetConsoleMaxLineValue(int value)
         {
-            get
-            {
-                var value = ConsoleMaxLine.Value;
-                if (value < MinRangeConsoleMaxLine) return MinRangeConsoleMaxLine;
-                if (value > MaxRangeConsoleMaxLine) return MaxRangeConsoleMaxLine;
-                return value;
-            }
+            if (value < MinRangeConsoleMaxLine) return MinRangeConsoleMaxLine;
+            if (value > MaxRangeConsoleMaxLine) return MaxRangeConsoleMaxLine;
+            return value;
         }
 
         public static SerializableProperty<int> ConsoleMaxLine { get; }

@@ -15,11 +15,11 @@ internal static class User32Window
     [DllImport(LibraryName, CharSet = CharSet.Auto)]
     public static extern bool ShowWindow(IntPtr hWnd, short State);
 
-    [DllImport(LibraryName, CharSet = CharSet.Auto)]
-    internal static extern IntPtr GetOpenClipboardWindow();
+    //[DllImport(LibraryName, CharSet = CharSet.Auto)]
+    //internal static extern IntPtr GetOpenClipboardWindow();
 
-    [DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Auto)]
-    internal static extern int GetWindowTextLength(IntPtr hWnd);
+    //[DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Auto)]
+    //internal static extern int GetWindowTextLength(IntPtr hWnd);
 
     public enum Cmd_SHOWWINDOWS : short
     {
@@ -165,47 +165,47 @@ internal static class User32Window
     [DllImport(LibraryName, ExactSpelling = true)]
     public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern int EnumChildWindows(IntPtr hWndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
+    //[DllImport(LibraryName, ExactSpelling = true)]
+    //public static extern int EnumChildWindows(IntPtr hWndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
     [DllImport(LibraryName, ExactSpelling = true)]
     public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
-    [DllImport(LibraryName, ExactSpelling = true)]
-    public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
+    //[DllImport(LibraryName, ExactSpelling = true)]
+    //public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
 
     // This static method is required because Win32 does not support
     // GetWindowLongPtr directly
-    public static IntPtr GetWindowLongPtr(IntPtr hwnd, int nIndex)
-    {
-        return IntPtr.Size > 4
-            ? GetWindowLongPtr_x64(hwnd, nIndex)
-            : new IntPtr(GetWindowLong(hwnd, nIndex));
-    }
+    //public static IntPtr GetWindowLongPtr(IntPtr hwnd, int nIndex)
+    //{
+    //    return IntPtr.Size > 4
+    //        ? GetWindowLongPtr_x64(hwnd, nIndex)
+    //        : new IntPtr(GetWindowLong(hwnd, nIndex));
+    //}
 
     [DllImport(LibraryName, CharSet = CharSet.Auto)]
     public static extern int GetWindowLongA(IntPtr hWnd, int nIndex);
 
-    [DllImport(LibraryName, CharSet = CharSet.Auto)]
-    static extern int GetWindowLong(IntPtr hwnd, int nIndex);
+    //[DllImport(LibraryName, CharSet = CharSet.Auto)]
+    //static extern int GetWindowLong(IntPtr hwnd, int nIndex);
 
-    [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "GetWindowLongPtr")]
-    static extern IntPtr GetWindowLongPtr_x64(IntPtr hwnd, int nIndex);
+    //[DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "GetWindowLongPtr")]
+    //static extern IntPtr GetWindowLongPtr_x64(IntPtr hwnd, int nIndex);
 
     // This static method is required because Win32 does not support
     // GetWindowLongPtr directly
-    public static IntPtr SetWindowLongPtr(IntPtr hwnd, int nIndex, IntPtr dwNewLong)
-    {
-        return IntPtr.Size > 4
-            ? SetWindowLongPtr_x64(hwnd, nIndex, dwNewLong)
-            : new IntPtr(SetWindowLong(hwnd, nIndex, dwNewLong.ToInt32()));
-    }
+    //public static IntPtr SetWindowLongPtr(IntPtr hwnd, int nIndex, IntPtr dwNewLong)
+    //{
+    //    return IntPtr.Size > 4
+    //        ? SetWindowLongPtr_x64(hwnd, nIndex, dwNewLong)
+    //        : new IntPtr(SetWindowLong(hwnd, nIndex, dwNewLong.ToInt32()));
+    //}
 
     [DllImport(LibraryName, CharSet = CharSet.Auto)]
     public static extern int SetWindowLong(IntPtr hwnd, int nIndex, int dwNewLong);
 
-    [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetWindowLongPtr")]
-    public static extern IntPtr SetWindowLongPtr_x64(IntPtr hwnd, int nIndex, IntPtr dwNewLong);
+    //[DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetWindowLongPtr")]
+    //public static extern IntPtr SetWindowLongPtr_x64(IntPtr hwnd, int nIndex, IntPtr dwNewLong);
 
     [DllImport(LibraryName, CharSet = CharSet.Auto)]
     public static extern IntPtr SetActiveWindow(IntPtr hWnd);
@@ -217,16 +217,16 @@ internal static class User32Window
     [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetLayeredWindowAttributes")]
     public static extern int SetLayeredWindowAttributes(IntPtr hwnd, int crKey, int bAlpha, int dwFlags);
 
-    public static void FlashWindow(IntPtr hwnd)
-    {
-        //ShowWindow(hwnd, (short)Cmd_SHOWWINDOWS.SW_NORMAL);
-        //直接调用FlashWindow即可
-        FlashWindow(hwnd, true);
-    }
+    //public static void FlashWindow(IntPtr hwnd)
+    //{
+    //    //ShowWindow(hwnd, (short)Cmd_SHOWWINDOWS.SW_NORMAL);
+    //    //直接调用FlashWindow即可
+    //    FlashWindow(hwnd, true);
+    //}
 
-    public static void FlashWindow(ref FLASHWINFO f)
-    {
-        //直接调用FlashWindow即可
-        FlashWindowEx(ref f);
-    }
+    //public static void FlashWindow(ref FLASHWINFO f)
+    //{
+    //    //直接调用FlashWindow即可
+    //    FlashWindowEx(ref f);
+    //}
 }

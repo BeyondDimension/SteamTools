@@ -25,7 +25,7 @@ namespace System.Application.Services.Implementation
             httpService = http;
         }
 
-        public Action<string>? GetConsoleWirteFunc { get; set; }
+        public event Action<string>? OnConsoleWirte;
 
         public TaskCompletionSource<string>? ReadLineTask { get; set; }
 
@@ -98,7 +98,7 @@ namespace System.Application.Services.Implementation
             if (historyTarget != null)
                 historyTarget.NewHistoryEntry += (object? sender, HistoryTarget.NewHistoryEntryArgs newHistoryEntryArgs) =>
                 {
-                    GetConsoleWirteFunc?.Invoke(newHistoryEntryArgs.Message);
+                    OnConsoleWirte?.Invoke(newHistoryEntryArgs.Message);
                 };
         }
 

@@ -3,6 +3,7 @@ using Android.Runtime;
 using Android.Util;
 using System;
 
+// ReSharper disable once CheckNamespace
 namespace AndroidX.RecyclerView.Widget
 {
     public class LinearLayoutManager2 : LinearLayoutManager

@@ -131,7 +131,7 @@ OS                            | Version                   | Architectures     |
 
 OS                            | Version                 | Architectures     |
 ------------------------------|-------------------------|-------------------|
-[Android][Android]            | 5.0(API 21)+                 | [Arm32](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a), [Arm64](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) |
+[Android][Android]            | 5.0(API 21)+                 | [x86](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#x86), [Arm32](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a), [Arm64](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) |
 
 [Android]: https://support.google.com/android
 

@@ -18,7 +18,7 @@ namespace System.Application.Services
 
         static Action? InitCoreLoggers { protected get; set; }
 
-        Action<string>? GetConsoleWirteFunc { get; set; }
+        event Action<string>? OnConsoleWirte;
 
         TaskCompletionSource<string>? ReadLineTask { get; }
 
