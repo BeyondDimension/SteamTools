@@ -55,7 +55,7 @@ namespace System.Application.Settings
         static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
         {
             // 当前 Avalonia App 主题切换存在问题
-            if (OperatingSystem2.Application.UseAvalonia) return;
+            //if (OperatingSystem2.Application.UseAvalonia) return;
             if (e.NewValue != e.OldValue)
             {
                 var value = (AppTheme)e.NewValue;

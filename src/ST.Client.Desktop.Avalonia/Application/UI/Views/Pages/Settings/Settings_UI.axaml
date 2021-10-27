@@ -38,10 +38,10 @@
 
       <Border Classes="Item">
         <DockPanel>
-          <StackPanel>
+          <StackPanel VerticalAlignment="Center">
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_Theme,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <TextBlock Classes="prompt"
-                         Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <!--<TextBlock Classes="prompt"
+                         Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
           </StackPanel>
           <ComboBox x:Name="Themes"
                     SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}">
