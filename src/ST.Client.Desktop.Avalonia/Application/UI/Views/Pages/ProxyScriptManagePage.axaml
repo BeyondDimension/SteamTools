@@ -70,7 +70,7 @@
                    Text="{CompiledBinding SearchText,Mode=TwoWay}"
                    Background="Transparent"
                    VerticalAlignment="Center"
-                   Width="300"
+                   Width="250"
                    MinWidth="200">
             <TextBox.InnerLeftContent>
               <PathIcon Data="{StaticResource SearchDrawing}"

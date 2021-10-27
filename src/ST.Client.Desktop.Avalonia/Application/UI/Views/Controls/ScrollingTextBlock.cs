@@ -154,8 +154,8 @@ namespace System.Application.UI.Views.Controls
 
                         if (nC.Intersects(nR))
                             using (context.PushPostTransform(Matrix.CreateTranslation(offset, padding.Top)))
-                                TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
-                        //TextLayout.Draw(context);
+                                //TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
+                                TextLayout.Draw(context);
                     }
                 }
                 else
@@ -163,8 +163,8 @@ namespace System.Application.UI.Views.Controls
                     _animate = false;
 
                     using (context.PushPostTransform(Matrix.CreateTranslation(padding.Left, padding.Top)))
-                        TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
-                    //TextLayout.Draw(context);
+                        //TextLayout.Draw(context, new Point(Padding.Left, Padding.Top));
+                        TextLayout.Draw(context);
                 }
             }
         }

@@ -130,11 +130,10 @@ namespace System.Application.UI
             {
                 Mode = mode,
             };
-            Styles[1] = new StyleInclude(uri_1)
+            Styles[2] = new StyleInclude(uri_1)
             {
                 Source = uri_1,
             };
-
             AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = the;
         }
 
@@ -321,11 +320,16 @@ namespace System.Application.UI
         /// </summary>
         public override void RegisterServices()
         {
-            IViewModelBase.IsInDesignMode = ApplicationLifetime == null;
+            IViewModelBase.IsInDesignMode = Design.IsDesignMode;
             if (ViewModelBase.IsInDesignMode)
                 Startup.Init(DILevel.MainProcess | DILevel.GUI);
 
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
+
+            //if (OperatingSystem2.IsWindows10AtLeast)
+            //{
+            //    AvaloniaLocator.CurrentMutable.Bind<IWindowImpl>().ToConstant<IWindowImpl>(new AvaloniaWin32WindowImpl());
+            //}
             base.RegisterServices();
         }
 
@@ -485,6 +489,7 @@ namespace System.Application.UI
 #pragma warning restore CA1416 // 验证平台兼容性
             }
         }
+
         /// <summary>
         /// 设置当前打开窗口的AvaloniaWinodw背景透明材质
         /// </summary>
@@ -493,7 +498,7 @@ namespace System.Application.UI
         {
             if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                foreach (var window in desktop.Windows.Where(x => x.IsActive))
+                foreach (var window in desktop.Windows)
                 {
                     window.TransparencyLevelHint = (WindowTransparencyLevel)level;
                 }

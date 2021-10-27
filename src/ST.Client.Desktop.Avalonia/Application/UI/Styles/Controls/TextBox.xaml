@@ -2,11 +2,14 @@
         xmlns:resx="using:System.Application.UI.Resx"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Design.PreviewWith>
-    <Border Padding="20" Background="Green">
+    <Border Padding="20">
       <StackPanel Spacing="5">
-        <TextBox Classes="readonlybox" Text="Code Font Family" />
-        <TextBox Classes="selectable_text_block" Text="Code Font Family" />
-        <TextBox Text="Code Font Family" />
+        <TextBox />
+        <TextBox Text="Hello Down there"/>
+        <TextBox Watermark="Watermark" />
+        <TextBox Text="Test" IsEnabled="False" />
+        <TextBox Text="Test Clear" Classes="clearButton" />
+        <TextBox Text="Test Password" Classes="revealPasswordButton" PasswordChar="*" />
       </StackPanel>
     </Border>
   </Design.PreviewWith>
@@ -52,7 +55,6 @@
   <Style Selector="TextBox">
     <!--<Setter Property="FontFamily" Value="Microsoft YaHei UI,Microsoft YaHei,Simsun,苹方-简,宋体-简"></Setter>-->
     <!--<Setter Property="FontFamily" Value="{StaticResource UnicodeFont}" />-->
-    <Setter Property="MinHeight" Value="38"/>
     <Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" />
 
     <Setter Property="Template">
@@ -61,15 +63,15 @@
           <Panel>
             <!-- This is flipped (scaleY(-1)) for the elevation brush effect
                         -->
-            <Border
+					<Border
                           Name="PART_BorderElement"
                           Background="{TemplateBinding Background}"
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
                           MinWidth="{TemplateBinding MinWidth}"
                           MinHeight="{TemplateBinding MinHeight}"
-                          RenderTransform="scaleY(-1)">
-            </Border>
+                          RenderTransform="scaleY(-1)"
+						  CornerRadius="{TemplateBinding CornerRadius}"/>
 
             <Border
                           Margin="{TemplateBinding BorderThickness}">

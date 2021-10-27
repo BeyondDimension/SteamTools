@@ -20,7 +20,7 @@ namespace System.Application.UI.Views.Pages
             }
         }
 
-        private void TestWindow_Tapped(object? sender, Avalonia.Input.TappedEventArgs e)
+        private void TestWindow_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             new DebugWindow().Show();
         }

@@ -93,17 +93,24 @@
 
       <Separator Classes="Separator"/>
 
-      <Border Classes="Item" IsVisible="{x:Static sys:OperatingSystem2.IsWindows11AtLeast}">
+      <Border Classes="Item">
         <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_WindowTransparencyMaterial,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
 
           <ComboBox SelectedIndex="{Binding Source={x:Static ms:UISettings.WindowBackgroundMateria},Path=Value, Mode=TwoWay}">
             <ComboBoxItem Content="不透明" IsVisible="False"/>
-            <ComboBoxItem Content="完全透明" IsVisible="False"/>
-            <ComboBoxItem Content="高斯模糊" IsVisible="False"/>
+            <ComboBoxItem Content="Transparent"/>
+            <ComboBoxItem Content="Blur" IsVisible="False"/>
             <ComboBoxItem Content="Win10 Acrylic"/>
-            <ComboBoxItem Content="Win11 Mica"/>
+            <ComboBoxItem Content="Win11 Mica" IsVisible="{x:Static sys:OperatingSystem2.IsWindows11AtLeast}"/>
           </ComboBox>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_AcrylicTransparency,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=TwoWay}" Minimum="0" Maximum="1.0"/>
         </DockPanel>
       </Border>
 
@@ -134,13 +141,6 @@
           </StackPanel>
         </StackPanel>
       </Expander>
-
-      <Border Classes="Item">
-        <DockPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_AcrylicTransparency,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-          <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=TwoWay}" Minimum="0" Maximum="1.0"/>
-        </DockPanel>
-      </Border>
 
       <Separator Classes="Separator"/>
     </StackPanel>

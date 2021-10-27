@@ -22,10 +22,7 @@ namespace System.Application.Settings
                 EnableDesktopBackground.ValueChanged += EnableDesktopBackground_ValueChanged;
             }
 
-            if (OperatingSystem2.IsWindows11AtLeast)
-            {
-                WindowBackgroundMateria.ValueChanged += WindowBackgroundMateria_ValueChanged;
-            }
+            WindowBackgroundMateria.ValueChanged += WindowBackgroundMateria_ValueChanged;
 
             if (WindowViewModel.IsSupportedSizePosition)
             {

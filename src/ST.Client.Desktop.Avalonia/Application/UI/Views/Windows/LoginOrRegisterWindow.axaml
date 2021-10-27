@@ -74,12 +74,14 @@
             </Image>
             <TextBox
               x:Name="TbPhoneNumber"
+              Height="38"
               Watermark="{ReflectionBinding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
               Text="{Binding PhoneNumber}"
               MaxLength="{x:Static sys_app:ModelValidatorLengths.PhoneNumber}" />
             <Panel>
               <TextBox
                 x:Name="TbSmsCode"
+                Height="38"
                 Watermark="{ReflectionBinding Path=Res.User_SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
                 Text="{Binding SmsCode}"
                 VerticalContentAlignment="Center"
@@ -99,6 +101,7 @@
                 </Panel>-->
 
             <Button Classes="action"
+                    Height="38"
                     Content="{ReflectionBinding Path=Res.LoginAndRegister,Mode=OneWay,Source={x:Static resx:R.Current}}"
                     Command="{Binding Submit}"
                     HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">

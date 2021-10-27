@@ -19,16 +19,15 @@
   </Application.Resources>
   <Application.Styles>
     <FluentTheme Mode="Dark" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
-    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
-
-    <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
-    <sty:FluentAvaloniaTheme ControlsVersion="2"
-                             RequestedTheme="Dark"
+    <sty:FluentAvaloniaTheme RequestedTheme="Dark"
                              DefaultToUserTheme="False"
                              GetUserAccentColor="False"
-                             UseSegoeUIOnWindows="False"/>
+                             UseSegoeUIOnWindows="True"/>
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
+    
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+    <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
 
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Controls.xaml" />
 

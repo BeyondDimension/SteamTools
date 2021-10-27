@@ -1,13 +1,21 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Design.PreviewWith>
-    <Border Padding="20" Background="White">
+    <Border Padding="20">
+      <StackPanel Spacing="5">
+        <ToggleSwitch Content="Button" />
+        <WrapPanel>
+          <TextBlock Text="OnlyToggleSwitch" VerticalAlignment="Center"/>
+          <ToggleSwitch Classes="onlyToggleSwitch" VerticalAlignment="Center"/>
+          <TextBlock Text="test margin" VerticalAlignment="Center"/>
+        </WrapPanel>
+      </StackPanel>
     </Border>
   </Design.PreviewWith>
 
-  <Styles.Resources>
-    <x:Double x:Key="ToggleSwitchThemeMinWidth">0</x:Double>
-  </Styles.Resources>
+  <Style Selector="ToggleSwitch">
+    <Setter Property="MinWidth" Value="0"></Setter>
+  </Style>
   
   <Style Selector="ToggleSwitch.onlyToggleSwitch">
     <Setter Property="Content" Value=""></Setter>
