@@ -472,7 +472,7 @@ namespace System.Application.Models
                             state.OAuthToken = null; // force new login
                             state.RequiresLogin = true;
                             state.Cookies = null;
-                            state.Error = "您的Steam帐户必须附有支持短信的电话号码, " + Environment.NewLine + "请到Steam客户端或Steam网站的帐户详细信息添加电话号码。";
+                            state.Error = "您的Steam帐户必须附有支持短信的手机号码, " + Environment.NewLine + "请到Steam客户端或Steam网站的帐户详细信息添加电话号码。";
                             return false;
                         }
 
@@ -494,7 +494,7 @@ namespace System.Application.Models
                             state.OAuthToken = null; // force new login
                             state.RequiresLogin = true;
                             state.Cookies = null;
-                            state.Error = "无法发送短信， 检查您的电话已在您的Steam帐户中注册。";
+                            state.Error = "无法发送短信,检查您的手机号已在您的Steam帐户中注册。";
                             return false;
                         }
                         if (response.IndexOf("shared_secret") == -1)
@@ -582,7 +582,7 @@ namespace System.Application.Models
                     }
                     if (state.RequiresActivation == true)
                     {
-                        state.Error = "注册时出现问题！Steam服务器可能存在问题， 请稍后再试。";
+                        state.Error = "注册时出现问题！Steam服务器可能存在问题，请稍后再试。";
                         return false;
                     }
 

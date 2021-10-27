@@ -889,6 +889,9 @@
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
     <value>Steam账号导入</value>
   </data>
+  <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
+    <value>你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可。</value>
+  </data>
   <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
     <value>无法将添加身份验证器添加到您的帐户， 请稍后再试。</value>
   </data>
@@ -971,7 +974,7 @@
     <value>我已经写下了我的恢复代码</value>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>您的身份验证器已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
+    <value>您的令牌已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>

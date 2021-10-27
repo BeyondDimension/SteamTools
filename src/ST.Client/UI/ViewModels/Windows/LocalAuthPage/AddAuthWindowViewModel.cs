@@ -220,8 +220,8 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private Stream? _CaptchaImage;
-        public Stream? CaptchaImage
+        private string? _CaptchaImage;
+        public string? CaptchaImage
         {
             get => _CaptchaImage;
             set => this.RaiseAndSetIfChanged(ref _CaptchaImage, value);
@@ -305,6 +305,7 @@ namespace System.Application.UI.ViewModels
                         //ToastService.Current.Notify(_Enroll.Error);
                     }
 
+                    //已有令牌无法导入
                     if (_Enroll.Requires2FA == true)
                     {
                         MessageBox.Show(AppResources.LocalAuth_SteamUser_Requires2FA);
@@ -312,17 +313,19 @@ namespace System.Application.UI.ViewModels
                         return;
                     }
 
+                    //频繁登录会需要验证码
                     if (_Enroll.RequiresCaptcha == true)
                     {
                         CaptchaText = null;
                         CaptchaImage = null;
-                        using var web = new WebClient();
-                        var bt = web.DownloadData(_Enroll.CaptchaUrl);
-                        using var stream = new MemoryStream(bt);
-                        CaptchaImage = stream;
+                        //using var web = new WebClient();
+                        //var bt = web.DownloadData(_Enroll.CaptchaUrl);
+                        //using var stream = new MemoryStream(bt);
+                        CaptchaImage = _Enroll.CaptchaUrl;
                         return;
                     }
 
+                    //需要邮箱验证
                     if (_Enroll.RequiresEmailAuth == true)
                     {
                         RequiresLogin = false;
@@ -332,17 +335,12 @@ namespace System.Application.UI.ViewModels
                         return;
                     }
 
+                    //需要短信验证 此步骤导入还没有结束
                     if (_Enroll.RequiresActivation == true)
                     {
                         EmailDomain = null;
                         _Enroll.Error = null;
                         RequiresLogin = false;
-
-                        AuthService.Current.AddOrUpdateSaveAuthenticators(new GAPAuthenticatorDTO
-                        {
-                            Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
-                            Value = _SteamAuthenticator
-                        }, AuthIsLocal, AuthPassword);
 
                         RequiresActivation = true;
                         RevocationCode = _Enroll.RevocationCode;
@@ -362,8 +360,20 @@ namespace System.Application.UI.ViewModels
                     MessageBox.Show(_Enroll.Error!);
                     return;
                 }
-                RequiresActivation = false;
-                RequiresAdd = true;
+                else
+                {
+                    RequiresActivation = false;
+                    RequiresAdd = true;
+
+                    //导入成功，添加令牌
+                    AuthService.Current.AddOrUpdateSaveAuthenticators(new GAPAuthenticatorDTO
+                    {
+                        Name = nameof(GamePlatform.Steam) + "(" + UserName + ")",
+                        Value = _SteamAuthenticator
+                    }, AuthIsLocal, AuthPassword);
+
+                    Toast.Show(AppResources.LocalAuth_SteamUserImportSuccess);
+                }
             }).ContinueWith(s =>
             {
                 Log.Error(nameof(AddAuthWindowViewModel), s.Exception, nameof(LoginSteamImport));

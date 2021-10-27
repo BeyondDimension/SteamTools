@@ -2693,6 +2693,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可。 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_SteamUserImportSuccess {
+            get {
+                return ResourceManager.GetString("LocalAuth_SteamUserImportSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设备ID(uuid)： 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUUID {
@@ -3026,7 +3035,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您的身份验证器已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
+        ///   查找类似 您的令牌已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
         /// </summary>
         public static string RecoveryCode_RememberTip {
             get {

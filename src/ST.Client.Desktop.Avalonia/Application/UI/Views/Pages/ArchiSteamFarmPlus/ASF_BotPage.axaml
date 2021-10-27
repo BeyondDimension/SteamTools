@@ -152,28 +152,31 @@
                     </Button>
                   </StackPanel>
 
-                  <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
-                    <ItemsRepeater.Layout>
-                      <StackLayout Orientation="Horizontal" Spacing="10">
-                      </StackLayout>
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
-                      <DataTemplate>
-                        <Border>
-                          <Panel>
-                            <Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
-                              Width="184"
-                              Stretch="Uniform"/>
-                            <TextBlock Text="{Binding GameName}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Bottom"
-                                       TextAlignment="Center"/>
-                          </Panel>
-                        </Border>
+                  <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                                HorizontalScrollBarVisibility="Auto"
+                                HorizontalAlignment="Left">
+                    <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
+                      <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Horizontal" Spacing="10"/>
+                      </ItemsRepeater.Layout>
+                      <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                          <Border>
+                            <Panel>
+                              <Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
+                                Width="184"
+                                Stretch="Uniform"/>
+                              <TextBlock Text="{Binding GameName}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Bottom"
+                                         TextAlignment="Center"/>
+                            </Panel>
+                          </Border>
+                        </DataTemplate>
+                      </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                  </ScrollViewer>
 
-                      </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                  </ItemsRepeater>
                 </StackPanel>
               </Panel>
             </Grid>
