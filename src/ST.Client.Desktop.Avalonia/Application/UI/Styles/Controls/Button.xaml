@@ -25,10 +25,10 @@
     <Setter Property="Cursor" Value="Hand" />
   </Style>
   <Style Selector="Button.CodeButton /template/ ContentPresenter">
-    <Setter Property="CornerRadius" Value="0" />
+    <!--<Setter Property="CornerRadius" Value="0" />-->
     <Setter Property="Padding" Value="8 10" />
   </Style>
-  <Style Selector="Button.CodeButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <!--<Style Selector="Button.CodeButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="CornerRadius" Value="0" />
   </Style>
   <Style Selector="Button.CodeButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
@@ -39,7 +39,7 @@
   </Style>
   <Style Selector="Button.CodeButton:pointerover /template/ ContentPresenter#BorderElement">
     <Setter Property="CornerRadius" Value="0" />
-  </Style>
+  </Style>-->
 
   <Style Selector="Button.Hyperlink">
     <Setter Property="Background" Value="{DynamicResource HyperlinkButtonBackground}" />
@@ -103,7 +103,7 @@
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderBrush" Value="Transparent"/>
   </Style>
-  <Style Selector="Button.flatbutton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <!--<Style Selector="Button.flatbutton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="CornerRadius" Value="0" />
   </Style>
   <Style Selector="Button.flatbutton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
@@ -114,7 +114,7 @@
   </Style>
   <Style Selector="Button.flatbutton:pointerover /template/ ContentPresenter#BorderElement">
     <Setter Property="CornerRadius" Value="0" />
-  </Style>
+  </Style>-->
 
 
   <Style Selector="Button.action /template/ Border#BorderElement">
