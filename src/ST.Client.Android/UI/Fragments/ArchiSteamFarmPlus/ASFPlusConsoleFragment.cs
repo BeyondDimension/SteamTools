@@ -1,5 +1,7 @@
 using Android.Util;
 using Android.Views;
+using Android.Views.InputMethods;
+using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using Binding;
 using ReactiveUI;
@@ -13,7 +15,7 @@ using static System.Application.UI.Resx.AppResources;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Fragments
 {
-    internal sealed class ASFPlusConsoleFragment : ASFPlusFragment<fragment_asf_plus_console>
+    internal sealed class ASFPlusConsoleFragment : ASFPlusFragment<fragment_asf_plus_console>, TextView.IOnEditorActionListener
     {
         protected override int? LayoutResource => Resource.Layout.fragment_asf_plus_console;
 
@@ -29,6 +31,8 @@ namespace System.Application.UI.Fragments
 
             SetConsoleFontSize(ASFSettings.ConsoleFontSize.Value);
             ASFSettings.ConsoleFontSize.ValueChanged += ConsoleFontSize_ValueChanged;
+
+            binding!.tbInput.SetOnEditorActionListener(this);
         }
 
         public override void OnDestroyView()
@@ -48,6 +52,29 @@ namespace System.Application.UI.Fragments
         void ConsoleFontSize_ValueChanged(object sender, ValueChangedEventArgs<int> e)
         {
             SetConsoleFontSize(e.NewValue);
+        }
+
+        void CommandSubmit()
+        {
+            var command = binding!.tbInput.Text?.Trim();
+            if (!string.IsNullOrEmpty(command))
+            {
+                binding.tbInput.Text = string.Empty;
+                IArchiSteamFarmService.Instance.CommandSubmit(command!);
+            }
+        }
+
+        bool TextView.IOnEditorActionListener.OnEditorAction(TextView? view, ImeAction actionId, KeyEvent? e)
+        {
+            if (view != null && binding != null && ((e != null && e.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter) || e == null))
+            {
+                if (view.Id == Resource.Id.tbInput)
+                {
+                    CommandSubmit();
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

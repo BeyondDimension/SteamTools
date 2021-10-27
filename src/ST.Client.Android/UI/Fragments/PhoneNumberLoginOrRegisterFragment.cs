@@ -134,16 +134,18 @@ namespace System.Application.UI.Fragments
 
         bool TextView.IOnEditorActionListener.OnEditorAction(TextView? view, ImeAction actionId, KeyEvent? e)
         {
-            if (view != null && binding != null)
+            if (view != null && binding != null && ((e != null && e.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter) || e == null))
             {
                 if (view.Id == Resource.Id.tbPhoneNumber)
                 {
                     OnClick(binding.btnSendSms);
                     binding.tbSmsCode.RequestFocus();
+                    return true;
                 }
                 else if (view.Id == Resource.Id.tbSmsCode)
                 {
                     OnClick(binding.btnSubmit);
+                    return true;
                 }
             }
             return false;

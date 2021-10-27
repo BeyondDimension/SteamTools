@@ -55,12 +55,18 @@
         android:layout_height="match_parent"
         android:background="@null"
         android:gravity="top"
+        android:imeActionLabel="Enter"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:minLines="1"
         android:paddingStart="2dp"
         android:paddingTop="3dp"
         android:paddingEnd="12dp"
         android:paddingBottom="3dp"
         android:textSize="14sp"
-        tools:text="InputTextBox"
+        tools:text="InputTextBoxInputTextBoxInputTextBoxInputTextBoxInputTextBoxInputTextBoxInputTextBoxInputTextBox"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatEditText" />
     </LinearLayout>
   </LinearLayout>
