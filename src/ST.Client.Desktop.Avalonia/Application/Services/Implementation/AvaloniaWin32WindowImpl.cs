@@ -7,9 +7,10 @@ using Avalonia.ReactiveUI;
 using Avalonia.Rendering;
 using Avalonia.Styling;
 using FluentAvalonia.Interop;
+using System;
 using System.Runtime.InteropServices;
 
-namespace System.Application.Services.Implementation
+namespace Avalonia.Controls
 {
     public class AvaloniaWin32WindowImpl : Avalonia.Win32.WindowImpl
     {
@@ -65,7 +66,7 @@ namespace System.Application.Services.Implementation
 
                         newSize.left += 8;
                         newSize.right -= 8;
-                        newSize.bottom -= 8;
+                        //newSize.bottom -= 8;
 
                         ncParams.rgrc[0] = newSize;
 
@@ -73,8 +74,7 @@ namespace System.Application.Services.Implementation
 
                         return IntPtr.Zero;
                     }
-
-                    return IntPtr.Zero;
+                    break;
 
                 //case WM.NCHITTEST:
                 //    return HandleNCHitTest(lParam);
@@ -83,11 +83,15 @@ namespace System.Application.Services.Implementation
                     EnsureExtended();
                     break;
 
+                case WM.ACTIVATE:
+                    EnsureExtended();
+                    break;
+
                 case WM.NCMOUSEMOVE:
                     if (_fakingMaximizeButton)
                     {
                         var point = PointToClient(PointFromLParam(lParam));
-                        //_owner.FakeMaximizeHover(_owner.HitTestMaximizeButton(point));
+                        _owner.FakeMaximizeHover(_owner.HitTestMaximizeButton(point));
                         return IntPtr.Zero;
                     }
                     break;
@@ -96,7 +100,7 @@ namespace System.Application.Services.Implementation
                     if (_fakingMaximizeButton)
                     {
                         var point = PointToClient(PointFromLParam(lParam));
-                        //_owner.FakeMaximizePressed(_owner.HitTestMaximizeButton(point));
+                        _owner.FakeMaximizePressed(_owner.HitTestMaximizeButton(point));
                         _wasFakeMaximizeDown = true;
 
                         // This is important. If we don't tell the System we've handled this, we'll get that
@@ -109,9 +113,9 @@ namespace System.Application.Services.Implementation
                     if (_fakingMaximizeButton && _wasFakeMaximizeDown)
                     {
                         var point = PointToClient(PointFromLParam(lParam));
-                        //_owner.FakeMaximizePressed(false);
+                        _owner.FakeMaximizePressed(false);
                         _wasFakeMaximizeDown = false;
-                        //_owner.FakeMaximizeClick();
+                        _owner.FakeMaximizeClick();
                         return IntPtr.Zero;
                     }
                     break;
@@ -120,7 +124,7 @@ namespace System.Application.Services.Implementation
             return base.WndProc(hWnd, msg, wParam, lParam);
         }
 
-        internal void SetOwner(Window wnd)
+        internal void SetOwner(CoreWindow wnd)
         {
             _owner = wnd;
 
@@ -154,7 +158,8 @@ namespace System.Application.Services.Implementation
             var marg = new Win32Interop.MARGINS();
 
             // WS_OVERLAPPEDWINDOW
-            var style = 0x00000000L | 0x00C00000L | 0x00080000L | 0x00040000L | 0x00020000L | 0x00010000L;
+            // 0x00C00000L 会导致标题栏有奇怪的白边
+            var style = 0x00000000L | 0x00080000L | 0x00040000L | 0x00020000L | 0x00010000L;
 
             // This is causing the window to appear solid but is completely transparent. Weird...
             //Win32Interop.GetWindowLongPtr(Hwnd, -16).ToInt32();
@@ -167,83 +172,83 @@ namespace System.Application.Services.Implementation
             Win32Interop.DwmExtendFrameIntoClientArea(Handle.Handle, ref marg);
         }
 
-        //protected IntPtr HandleNCHitTest(IntPtr lParam)
-        //{
-        //    // Because we still have the System Border (which technically extends beyond the actual window
-        //    // into where the Drop shadows are), we can use DefWindowProc here to handle resizing, except
-        //    // on the top. We'll handle that below
-        //    var originalRet = Win32Interop.DefWindowProc(Hwnd, (uint)WM.NCHITTEST, IntPtr.Zero, lParam);
-        //    if (originalRet != new IntPtr(1))
-        //    {
-        //        return originalRet;
-        //    }
+        protected IntPtr HandleNCHitTest(IntPtr lParam)
+        {
+            // Because we still have the System Border (which technically extends beyond the actual window
+            // into where the Drop shadows are), we can use DefWindowProc here to handle resizing, except
+            // on the top. We'll handle that below
+            var originalRet = Win32Interop.DefWindowProc(Hwnd, (uint)WM.NCHITTEST, IntPtr.Zero, lParam);
+            if (originalRet != new IntPtr(1))
+            {
+                return originalRet;
+            }
 
-        //    // At this point, we know that the cursor is inside the client area so it
-        //    // has to be either the little border at the top of our custom title bar,
-        //    // the drag bar or something else in the XAML island. But the XAML Island
-        //    // handles WM_NCHITTEST on its own so actually it cannot be the XAML
-        //    // Island. Then it must be the drag bar or the little border at the top
-        //    // which the user can use to move or resize the window.
+            // At this point, we know that the cursor is inside the client area so it
+            // has to be either the little border at the top of our custom title bar,
+            // the drag bar or something else in the XAML island. But the XAML Island
+            // handles WM_NCHITTEST on its own so actually it cannot be the XAML
+            // Island. Then it must be the drag bar or the little border at the top
+            // which the user can use to move or resize the window.
 
-        //    var point = PointToClient(PointFromLParam(lParam));
+            var point = PointToClient(PointFromLParam(lParam));
 
-        //    RECT rcWindow;
-        //    Win32Interop.GetWindowRect(Hwnd, out rcWindow);
+            RECT rcWindow;
+            Win32Interop.GetWindowRect(Hwnd, out rcWindow);
 
-        //    // On the Top border, the resize handle overlaps with the Titlebar area, which matches
-        //    // a typical Win32 window or modern app window
-        //    var resizeBorderHeight = GetResizeHandleHeight();
-        //    bool isOnResizeBorder = point.Y < resizeBorderHeight;
+            // On the Top border, the resize handle overlaps with the Titlebar area, which matches
+            // a typical Win32 window or modern app window
+            var resizeBorderHeight = GetResizeHandleHeight();
+            bool isOnResizeBorder = point.Y < resizeBorderHeight;
 
-        //    // Make sure the caption buttons still get precedence
-        //    // This is where things get tricky too. On Win11, we still want to suppor the snap
-        //    // layout feature when hovering over the Maximize button. Unfortunately no API exists
-        //    // yet to call that manually if using a custom titlebar. But, if we return HT_MAXBUTTON
-        //    // here, the pointer events no longer enter the window
-        //    // See https://github.com/dotnet/wpf/issues/4825 for more on this...
-        //    // To hack our way into making this work, we'll return HT_MAXBUTTON here, but manually
-        //    // manage the state and handle stuff through the WM_NCLBUTTON... events
-        //    // This only applies on Windows 11, Windows 10 will work normally b/c no snap layout thing
+            // Make sure the caption buttons still get precedence
+            // This is where things get tricky too. On Win11, we still want to suppor the snap
+            // layout feature when hovering over the Maximize button. Unfortunately no API exists
+            // yet to call that manually if using a custom titlebar. But, if we return HT_MAXBUTTON
+            // here, the pointer events no longer enter the window
+            // See https://github.com/dotnet/wpf/issues/4825 for more on this...
+            // To hack our way into making this work, we'll return HT_MAXBUTTON here, but manually
+            // manage the state and handle stuff through the WM_NCLBUTTON... events
+            // This only applies on Windows 11, Windows 10 will work normally b/c no snap layout thing
 
-        //    if (_owner.HitTestCaptionButtons(point))
-        //    {
-        //        if (_isWindows11)
-        //        {
-        //            var result = _owner.HitTestMaximizeButton(point);
+            if (_owner.HitTestCaptionButtons(point))
+            {
+                if (_isWindows11)
+                {
+                    var result = _owner.HitTestMaximizeButton(point);
 
-        //            if (result)
-        //            {
-        //                _fakingMaximizeButton = true;
-        //                return new IntPtr(9);
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (_fakingMaximizeButton)
-        //        {
-        //            _fakingMaximizeButton = false;
-        //            _owner.FakeMaximizeHover(false);
-        //            _owner.FakeMaximizePressed(false);
-        //        }
+                    if (result)
+                    {
+                        _fakingMaximizeButton = true;
+                        return new IntPtr(9);
+                    }
+                }
+            }
+            else
+            {
+                if (_fakingMaximizeButton)
+                {
+                    _fakingMaximizeButton = false;
+                    _owner.FakeMaximizeHover(false);
+                    _owner.FakeMaximizePressed(false);
+                }
 
-        //        if (WindowState != WindowState.Maximized && isOnResizeBorder)
-        //            return new IntPtr(12); // HT_TOP
+                if (WindowState != WindowState.Maximized && isOnResizeBorder)
+                    return new IntPtr(12); // HT_TOP
 
-        //        if (_owner.HitTestTitleBarRegion(point))
-        //            return new IntPtr(2); //HT_CAPTION
-        //    }
+                if (_owner.HitTestTitleBarRegion(point))
+                    return new IntPtr(2); //HT_CAPTION
+            }
 
-        //    if (_fakingMaximizeButton)
-        //    {
-        //        _fakingMaximizeButton = false;
-        //        _owner.fakemaximizehover(false);
-        //        _owner.fakemaximizepressed(false);
-        //    }
-        //    _fakingMaximizeButton = false;
-        //    // return HT_CLIENT, we're in the normal window
-        //    return new IntPtr(1);
-        //}
+            if (_fakingMaximizeButton)
+            {
+                _fakingMaximizeButton = false;
+                _owner.FakeMaximizeHover(false);
+                _owner.FakeMaximizePressed(false);
+            }
+            _fakingMaximizeButton = false;
+            // return HT_CLIENT, we're in the normal window
+            return new IntPtr(1);
+        }
 
         private PixelPoint PointFromLParam(IntPtr lParam)
         {
@@ -261,7 +266,7 @@ namespace System.Application.Services.Implementation
         private bool _wasFakeMaximizeDown;
         private bool _fakingMaximizeButton;
         private bool _isWindows11 = false;
-        private Window _owner;
+        private CoreWindow _owner;
         private Win32Interop.OSVERSIONINFOEX _version;
     }
 }

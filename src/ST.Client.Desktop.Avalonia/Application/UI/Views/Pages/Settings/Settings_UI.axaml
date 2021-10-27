@@ -98,9 +98,9 @@
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_WindowTransparencyMaterial,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
 
           <ComboBox SelectedIndex="{Binding Source={x:Static ms:UISettings.WindowBackgroundMateria},Path=Value, Mode=TwoWay}">
-            <ComboBoxItem Content="不透明" IsVisible="False"/>
+            <ComboBoxItem Content="None"/>
             <ComboBoxItem Content="Transparent"/>
-            <ComboBoxItem Content="Blur" IsVisible="False"/>
+            <ComboBoxItem Content="Blur"/>
             <ComboBoxItem Content="Win10 Acrylic"/>
             <ComboBoxItem Content="Win11 Mica" IsVisible="{x:Static sys:OperatingSystem2.IsWindows11AtLeast}"/>
           </ComboBox>

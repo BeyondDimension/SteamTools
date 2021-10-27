@@ -22,10 +22,10 @@ namespace System.Application.UI.Views.Windows
             InitializeComponent();
             Topmost = true;
 
-            //ExtendClientAreaToDecorationsHint = true;
+            ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
-            SystemDecorations = SystemDecorations.BorderOnly;
+            SystemDecorations = SystemDecorations.Full;
             TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
             SizeToContent = Avalonia.Controls.SizeToContent.Height;
             CanResize = false;
@@ -47,10 +47,10 @@ namespace System.Application.UI.Views.Windows
             //    //localbtn.PointerLeave += MenuButton_PointerLeave;
             //}
 
-            //if (OperatingSystem2.IsWindows11AtLeast)
-            //{
-            //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
-            //}
+            if (OperatingSystem2.IsWindows11AtLeast)
+            {
+                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
+            }
 #if DEBUG
             this.AttachDevTools();
 #endif

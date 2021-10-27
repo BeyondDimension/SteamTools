@@ -14,7 +14,7 @@
         xmlns:i="using:Avalonia.Xaml.Interactivity"
         xmlns:service="using:System.Application.Services"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-        ExtendClientAreaTitleBarHeightHint="30"
+        Background="{x:Null}"
         x:DataType="vm:IdleAppWindowViewModel"
         x:CompileBindings="True">
   <Panel>

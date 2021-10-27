@@ -12,7 +12,7 @@ using System.Application.UI.ViewModels;
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
 {
-    public abstract class FluentWindow<TViewModel> : ReactiveWindow<TViewModel>, IStyleable where TViewModel : class
+    public abstract class FluentWindow<TViewModel> : CoreWindow<TViewModel>, IStyleable where TViewModel : class
     {
         Type IStyleable.StyleKey => typeof(Window);
 
@@ -41,11 +41,26 @@ namespace Avalonia.Controls
             //        //TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
             //    });
 
-            if (isSaveStatus)
+            if (isSaveStatus && CanResize)
             {
                 Opened += FluentWindow_Opened;
-                if (CanResize)
-                    PositionChanged += FluentWindow_PositionChanged;
+                PositionChanged += FluentWindow_PositionChanged;
+            }
+
+            if (OperatingSystem2.IsWindows)
+            {
+                ExtendClientAreaChromeHints =
+                    ExtendClientAreaChromeHints.PreferSystemChrome;
+            }
+            else if (OperatingSystem2.IsMacOS)
+            {
+                ExtendClientAreaChromeHints =
+                    ExtendClientAreaChromeHints.PreferSystemChrome;
+            }
+            else
+            {
+                ExtendClientAreaChromeHints =
+                    ExtendClientAreaChromeHints.SystemChrome;
             }
 
             if (!ViewModelBase.IsInDesignMode)
@@ -58,10 +73,10 @@ namespace Avalonia.Controls
                         IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
 #pragma warning restore CA1416 // 验证平台兼容性
                     }
-                    else if (OperatingSystem2.IsWindows11AtLeast)
-                    {
-                        AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
-                    }
+                    //else if (OperatingSystem2.IsWindows10AtLeast)
+                    //{
+                    //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
+                    //}
                 }
             }
         }
@@ -125,21 +140,6 @@ namespace Avalonia.Controls
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-            if (OperatingSystem2.IsWindows)
-            {
-                ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.PreferSystemChrome;
-            }
-            else if (OperatingSystem2.IsMacOS)
-            {
-                ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.PreferSystemChrome;
-            }
-            else
-            {
-                ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.SystemChrome;
-            }
         }
 
         protected override void OnClosed(EventArgs e)

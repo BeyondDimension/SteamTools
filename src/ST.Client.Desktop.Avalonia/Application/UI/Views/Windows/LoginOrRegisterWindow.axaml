@@ -233,7 +233,7 @@
 
           </StackPanel>
 
-          <WrapPanel HorizontalAlignment="Center" Margin="2 0 6 0">
+          <WrapPanel HorizontalAlignment="Center">
             <TextBlock Text="{ReflectionBinding Path=Res.User_RegisterAgreed,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="12"/>
             <Button FontSize="12"
                     Classes="Hyperlink"
@@ -277,13 +277,13 @@
           <!--
           </Button>
           <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>-->
-          <Button Classes="plain"
+          <Button Classes="Hyperlink"
                   HorizontalContentAlignment="Center"
                   Command="{ReflectionBinding ChangeLoginState}" CommandParameter="2">
             <TextBlock Text="{ReflectionBinding Path=Res.User_FastLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
           </Button>
-          <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"></Separator>
-          <Button Classes="plain"
+          <Separator Classes="Separator" Height="{ReflectionBinding $parent.Height}" Width="0.88"/>
+          <Button Classes="Hyperlink"
                   HorizontalContentAlignment="Center"
                   Command="{ReflectionBinding ChangeLoginState}" CommandParameter="1">
             <TextBlock Text="{ReflectionBinding Path=Res.User_PhoneLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>

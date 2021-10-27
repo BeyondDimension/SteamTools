@@ -20,6 +20,7 @@ namespace System.Application.UI.Views.Windows
             //    s_setExtendedStyle.Invoke(win, new object[] { exStyle, true });
             //}
             InitializeComponent();
+            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
 
 #if DEBUG
             this.AttachDevTools();
@@ -41,7 +42,6 @@ namespace System.Application.UI.Views.Windows
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
-            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
         }
     }
 }
