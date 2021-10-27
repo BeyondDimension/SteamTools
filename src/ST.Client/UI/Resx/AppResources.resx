@@ -1765,4 +1765,16 @@
   <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
     <value>成功导入了 {0} 个文件</value>
   </data>
+  <data name="DelAccount_VerifyDesc_NickName" xml:space="preserve">
+    <value>请输入昵称进行验证</value>
+  </data>
+  <data name="DelAccount_VerifyDesc_PhoneNumber" xml:space="preserve">
+    <value>请输入手机号码进行验证</value>
+  </data>
+  <data name="DelAccount_VerifyError_NickName" xml:space="preserve">
+    <value>输入的昵称不正确，请重新输入</value>
+  </data>
+  <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
+    <value>输入的手机号码不正确，请重新输入</value>
+  </data>
 </root>

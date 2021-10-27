@@ -11,6 +11,7 @@
 10. 改进 Windows 上现使用单文件打包，不再需要 ```Bin``` 文件夹
 11. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
 12. 改进 Android 导入令牌成功后回到列表页
+13. 改进 账号注销现需要通过手机号或昵称验证
 
 ### 修复问题
 1. 修复 本地令牌中确认交易时 Http 302 重定向错误
@@ -74,20 +75,20 @@
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.5.0.7z  | SHA256 |
-| Steam++_win_x64_v2.5.0.exe  | SHA256 |
+| Steam++_win_x64_v2.6.0.7z  | SHA256 |
+| Steam++_win_x64_v2.6.0.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.5.0.7z  | SHA256 |
-| Steam++_linux_arm64_v2.5.0.7z  | SHA256 |
-| Steam++_linux_arm_v2.5.0.7z  | SHA256 |
+| Steam++_linux_x64_v2.6.0.7z  | SHA256 |
+| Steam++_linux_arm64_v2.6.0.7z  | SHA256 |
+| Steam++_linux_arm_v2.6.0.7z  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.5.0.dmg  | SHA256 |
-| Steam++_macos_x64_v2.5.0.app.zip  | SHA256 |
-| Steam++_macos_x64_v2.5.0.7z  | SHA256 |
+| Steam++_macos_x64_v2.6.0.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.0.app.zip  | SHA256 |
+| Steam++_macos_x64_v2.6.0.7z  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.5.0.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.5.0.apk  | SHA256 |
-| Steam++_android_x86_v2.5.0.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.6.0.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.6.0.apk  | SHA256 |
+| Steam++_android_x86_v2.6.0.apk  | SHA256 |
 
 <!-- ***
 

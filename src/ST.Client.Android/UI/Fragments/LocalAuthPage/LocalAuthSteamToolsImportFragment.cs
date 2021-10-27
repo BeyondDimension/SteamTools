@@ -29,7 +29,7 @@ namespace System.Application.UI.Fragments
 
         protected abstract void OnBtnImportV2ByQRCodeClick();
 
-        protected abstract void Analyze(string filePath);
+        protected abstract void QRCodeAnalyze(string filePath);
 
         protected override bool OnClick(View view)
         {
@@ -51,7 +51,14 @@ namespace System.Application.UI.Fragments
             var extension = Path.GetExtension(filePath);
             if (ImageSouce.IsImage(extension))
             {
-                Analyze(filePath);
+                try
+                {
+                    QRCodeAnalyze(filePath);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(nameof(QRCodeAnalyze), e, nameof(OnBtnImportByFilePickerClick));
+                }
             }
             else
             {

@@ -19,7 +19,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref title, value);
         }
 
-        protected static string GetTitleByDisplayName(string displayName)
+        public static string GetTitleByDisplayName(string displayName)
         {
             if (OperatingSystem2.Application.UseAvalonia)
             {

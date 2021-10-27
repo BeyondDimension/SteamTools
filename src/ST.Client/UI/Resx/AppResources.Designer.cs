@@ -927,6 +927,42 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 请输入昵称进行验证 的本地化字符串。
+        /// </summary>
+        public static string DelAccount_VerifyDesc_NickName {
+            get {
+                return ResourceManager.GetString("DelAccount_VerifyDesc_NickName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入手机号码进行验证 的本地化字符串。
+        /// </summary>
+        public static string DelAccount_VerifyDesc_PhoneNumber {
+            get {
+                return ResourceManager.GetString("DelAccount_VerifyDesc_PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 输入的昵称不正确，请重新输入 的本地化字符串。
+        /// </summary>
+        public static string DelAccount_VerifyError_NickName {
+            get {
+                return ResourceManager.GetString("DelAccount_VerifyError_NickName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 输入的手机号码不正确，请重新输入 的本地化字符串。
+        /// </summary>
+        public static string DelAccount_VerifyError_PhoneNumber {
+            get {
+                return ResourceManager.GetString("DelAccount_VerifyError_PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 您现有的账号信息将被删除，且无法以原先的身份信息重新登录，是否确定注销？ 的本地化字符串。
         /// </summary>
         public static string DelAccountTips {

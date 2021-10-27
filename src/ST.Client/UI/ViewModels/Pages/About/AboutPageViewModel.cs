@@ -33,10 +33,42 @@ namespace System.Application.UI.ViewModels
             DelAccountCommand = ReactiveCommand.CreateFromTask(async () =>
             {
                 if (!UserService.Current.IsAuthenticated) return;
-                var r = await MessageBox.ShowAsync(AppResources.DelAccountTips, button: MessageBox.OKCancel);
+                var title = PageViewModel.GetTitleByDisplayName(AppResources.DelAccount);
+                var r = await MessageBox.ShowAsync(AppResources.DelAccountTips, title, button: MessageBox.OKCancel);
                 if (r.IsOK())
                 {
-                    await UserService.Current.DelAccountAsync();
+                    var phoneNumber = (await IUserManager.Instance.GetCurrentUserAsync())?.PhoneNumber;
+                    string verifyString, description, errorMessage;
+                    if (!string.IsNullOrEmpty(phoneNumber))
+                    {
+                        verifyString = phoneNumber;
+                        description = AppResources.DelAccount_VerifyDesc_PhoneNumber;
+                        errorMessage = AppResources.DelAccount_VerifyError_PhoneNumber;
+                    }
+                    else
+                    {
+                        verifyString = UserService.Current.User?.NickName ?? string.Empty;
+                        description = AppResources.DelAccount_VerifyDesc_NickName;
+                        errorMessage = AppResources.DelAccount_VerifyError_NickName;
+                    }
+                    while (true)
+                    {
+                        var inputString = await TextBoxWindowViewModel.ShowDialogAsync(new()
+                        {
+                            Title = title,
+                            Description = description,
+                        });
+                        if (inputString == null) break;
+                        else if (inputString == verifyString)
+                        {
+                            await UserService.Current.DelAccountAsync();
+                            break;
+                        }
+                        else
+                        {
+                            Toast.Show(errorMessage);
+                        }
+                    }
                 }
             });
 

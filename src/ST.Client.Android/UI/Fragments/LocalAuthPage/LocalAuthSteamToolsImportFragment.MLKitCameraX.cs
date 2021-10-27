@@ -21,7 +21,7 @@ namespace System.Application.UI.Fragments
                     });
             }
 
-            protected override void Analyze(string filePath)
+            protected override void QRCodeAnalyze(string filePath)
                 => BarcodeScannerActivity.Analyze(filePath, (barCodes, _, _) =>
                 {
                     var bytes = barCodes.Select(x => x.GetRawBytes());
