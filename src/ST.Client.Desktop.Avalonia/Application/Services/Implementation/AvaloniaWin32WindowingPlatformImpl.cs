@@ -65,20 +65,21 @@ namespace System.Application.Services.Implementation
         {
             public WindowImpl2()
             {
-                Win32Interop.OSVERSIONINFOEX version = new Win32Interop.OSVERSIONINFOEX
-                {
-                    OSVersionInfoSize = Marshal.SizeOf<Win32Interop.OSVERSIONINFOEX>()
-                };
+                //Win32Interop.OSVERSIONINFOEX version = new Win32Interop.OSVERSIONINFOEX
+                //{
+                //    OSVersionInfoSize = Marshal.SizeOf<Win32Interop.OSVERSIONINFOEX>()
+                //};
 
-                Win32Interop.RtlGetVersion(ref version);
+                //Win32Interop.RtlGetVersion(ref version);
 
-                if (version.MajorVersion < 10)
+                //if (version.MajorVersion < 10)
+                if (!OperatingSystem2.IsWindows10AtLeast)
                 {
                     throw new NotSupportedException("Windows versions earlier than 10 are not supported");
                 }
 
-                _isWindows11 = version.BuildNumber >= 22000;
-                _version = version;
+                //_isWindows11 = version.BuildNumber >= 22000;
+                //_version = version;
             }
 
             protected override IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
@@ -177,7 +178,8 @@ namespace System.Application.Services.Implementation
             {
                 _owner = wnd;
 
-                if (_version.BuildNumber > 22000)
+                //if (_version.BuildNumber > 22000)
+                if (OperatingSystem2.IsWindows11AtLeast)
                 {
                     ((IPseudoClasses)_owner.Classes).Set(":windows11", true);
                 }
@@ -189,7 +191,8 @@ namespace System.Application.Services.Implementation
 
             private int GetResizeHandleHeight()
             {
-                if (_version.BuildNumber >= 14393)
+                //if (_version.BuildNumber >= 14393)
+                if (OperatingSystem2.IsWindowsVersionAtLeast(10, 0, 14393))
                 {
                     return Win32Interop.GetSystemMetricsForDpi(92 /*SM_CXPADDEDBORDER*/, (uint)(RenderScaling * 96)) +
                         Win32Interop.GetSystemMetricsForDpi(33 /* SM_CYSIZEFRAME */, (uint)(RenderScaling * 96));
@@ -259,7 +262,7 @@ namespace System.Application.Services.Implementation
                 // manage the state and handle stuff through the WM_NCLBUTTON... events
                 // This only applies on Windows 11, Windows 10 will work normally b/c no snap layout thing
 
-                if (_owner.HitTestCaptionButtons(point))
+                if (_owner!.HitTestCaptionButtons(point))
                 {
                     if (_isWindows11)
                     {
@@ -314,9 +317,10 @@ namespace System.Application.Services.Implementation
 
             private bool _wasFakeMaximizeDown;
             private bool _fakingMaximizeButton;
-            private bool _isWindows11 = false;
+            //private bool _isWindows11 = false;
+            private bool _isWindows11 => OperatingSystem2.IsWindows11AtLeast;
             private ICoreWindow? _owner;
-            private Win32Interop.OSVERSIONINFOEX _version;
+            //private Win32Interop.OSVERSIONINFOEX _version;
         }
     }
 }
