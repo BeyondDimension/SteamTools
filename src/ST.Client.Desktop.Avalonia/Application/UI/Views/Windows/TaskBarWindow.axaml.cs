@@ -21,7 +21,7 @@ namespace System.Application.UI.Views.Windows
         {
             InitializeComponent();
             Topmost = true;
-
+            
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
@@ -47,10 +47,10 @@ namespace System.Application.UI.Views.Windows
             //    //localbtn.PointerLeave += MenuButton_PointerLeave;
             //}
 
-            if (OperatingSystem2.IsWindows11AtLeast)
-            {
-                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
-            }
+            //if (OperatingSystem2.IsWindows11AtLeast)
+            //{
+            //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
+            //}
 #if DEBUG
             this.AttachDevTools();
 #endif

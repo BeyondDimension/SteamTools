@@ -12,6 +12,7 @@
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         x:DataType="vm:TaskBarWindowViewModel"
+        CanResize="False"
         x:CompileBindings="True"
         x:Name="taskbarWindow"
         Background="{x:Null}"

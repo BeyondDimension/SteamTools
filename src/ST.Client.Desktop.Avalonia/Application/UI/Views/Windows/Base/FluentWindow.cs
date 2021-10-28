@@ -32,15 +32,15 @@ namespace Avalonia.Controls
             {
                 PseudoClasses.Set(":windows", true);
 
-                if (this.PlatformImpl is AvaloniaWin32WindowingPlatformImpl.WindowImpl2 cwi)
+                if (OperatingSystem2.IsWindows10AtLeast)
                 {
-                    cwi.SetOwner(this);
+                    if (this.PlatformImpl is AvaloniaWin32WindowingPlatformImpl.WindowImpl2 cwi)
+                    {
+#pragma warning disable CA1416 // 验证平台兼容性
+                        cwi.SetOwner(this);
+#pragma warning restore CA1416 // 验证平台兼容性
+                    }
                 }
-
-                ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-                ExtendClientAreaToDecorationsHint = true;
-                //TransparencyLevelHint = WindowTransparencyLevel.Mica;
-                TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
             }
 
             //if (OperatingSystem2.IsWindows)

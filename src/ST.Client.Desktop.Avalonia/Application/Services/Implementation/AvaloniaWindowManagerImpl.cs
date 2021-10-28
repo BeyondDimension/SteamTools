@@ -77,6 +77,7 @@ namespace System.Application.Services.Implementation
                 }
                 var window = (Window?)Activator.CreateInstance(windowType);
                 if (window == null) return;
+                window.SetResizeMode(resizeMode);
                 if (viewModel == null && typeWindowViewModel != typeof(object))
                 {
                     viewModel = (WindowViewModel?)Activator.CreateInstance(typeWindowViewModel);
@@ -87,7 +88,6 @@ namespace System.Application.Services.Implementation
                 }
                 if (isParent)
                     window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                window.SetResizeMode(resizeMode);
                 if (typeof(DialogWindowViewModel).IsAssignableFrom(typeWindowViewModel))
                 {
                     static void BindingDialogWindowViewModel(Window window, DialogWindowViewModel dialogWindowViewModel, Action<DialogWindowViewModel>? actionDialogWindowViewModel)

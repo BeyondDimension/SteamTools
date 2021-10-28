@@ -96,7 +96,7 @@ namespace System.Application.Services.Implementation
                         // I retain the SystemBorder & ability resize the window in the transparent
                         // area over the drop shadows, meaning resize handles don't overlap the window
 
-                        if (wParam != IntPtr.Zero)
+                        if (wParam != IntPtr.Zero && _owner?.Window.CanResize == true)
                         {
                             var ncParams = Marshal.PtrToStructure<NCCALCSIZE_PARAMS>(lParam);
 
@@ -109,14 +109,17 @@ namespace System.Application.Services.Implementation
                             var newSize = ncParams.rgrc[0];
                             newSize.top = originalTop;
 
-                            if (WindowState == WindowState.Maximized)
+                            if (WindowState == WindowState.Maximized || 
+                                WindowState == WindowState.FullScreen )
                             {
-                                newSize.top += GetResizeHandleHeight();
+                                //newSize.top += GetResizeHandleHeight();
                             }
-
-                            newSize.left += 8;
-                            newSize.right -= 8;
-                            //newSize.bottom -= 8;
+                            else
+                            {
+                                newSize.left += 8;
+                                newSize.right -= 8;
+                                newSize.bottom -= 8;
+                            }
 
                             ncParams.rgrc[0] = newSize;
 
