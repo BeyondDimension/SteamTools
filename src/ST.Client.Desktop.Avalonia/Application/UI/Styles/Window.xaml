@@ -13,16 +13,17 @@
     <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></Setter>
   </Style>
 
-  <Style Selector="Window">
+  <Style Selector=":is(Window)">
     <Setter Property="Title" Value="{Binding Title,Mode=OneWay}"/>
     <!--<Setter Property="FontSize" Value="14"></Setter>-->
-    <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></Setter>
-    <Setter Property="Background" Value="Transparent"></Setter>
-    <Setter Property="TransparencyLevelHint" Value="AcrylicBlur"></Setter>
+    <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"/>
+    <Setter Property="Background" Value="{x:Null}"/>
+    <Setter Property="WindowStartupLocation" Value="CenterScreen"/>
+    <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="{StaticResource TitleBarHeight}"/>
     <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico"/>
   </Style>
 
-  <Style Selector="Button.SystemCaption">
+  <!--<Style Selector="Button.SystemCaption">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderBrush" Value="{x:Null}" />
     <Setter Property="BorderThickness" Value="0" />
@@ -49,14 +50,16 @@
 
   <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window)[IsActive=False] local|MinMaxCloseControl /template/ Button">
     <Setter Property="Foreground" Value="#858585" />
-  </Style>
+  </Style>-->
 
   <!--<Style Selector="Window:windows">
     <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
     <Setter Property="Template">
       <ControlTemplate>
         <VisualLayerManager>
-          --><!-- Because we use the System Border, we don't specify anything like that here.--><!--
+          -->
+  <!-- Because we use the System Border, we don't specify anything like that here.-->
+  <!--
           <Border Background="{TemplateBinding Background}"
               Padding="{TemplateBinding Padding}"
               Name="RootBorder">
@@ -65,12 +68,14 @@
                    Background="Transparent"
                    Height="30"
                    VerticalAlignment="Top">
-                --><!--<TextBlock Name="TitleText"
+                -->
+  <!--<TextBlock Name="TitleText"
                        Text="{TemplateBinding Title}"
                        Margin="70 0 0 0"
                        FontSize="12"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Left" />--><!--
+                       HorizontalAlignment="Left" />-->
+  <!--
               </Panel>
 
               <ContentPresenter Name="PART_ContentPresenter"
@@ -81,7 +86,9 @@
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}" />
 
-              --><!-- Add the Caption Buttons, these should ALWAYS overlay the window --><!--
+              -->
+  <!-- Add the Caption Buttons, these should ALWAYS overlay the window -->
+  <!--
               <local:MinMaxCloseControl HorizontalAlignment="Right"
                           VerticalAlignment="Top"
                           Name="SystemCaptionButtons"/>
@@ -92,23 +99,29 @@
       </ControlTemplate>
     </Setter>
   </Style>-->
-  
-  <Style Selector="Window:windows:windows11">
+
+  <!--<Style Selector="Window:windows:windows11">
     <Setter Property="Background">
       <SolidColorBrush Color="{DynamicResource SolidBackgroundFillColorTertiary}" Opacity="0.945" />
     </Setter>
   </Style>
+  -->
   <!-- Windows 10 doesn't have Mica, so we use a solid background color, which matches what WinUI does too -->
+  <!--
   <Style Selector="Window:windows:windows10">
     <Setter Property="Background" Value="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
   </Style>
+  -->
   <!-- 
 		Windows 10 is really a pain in the ass with custom window frames
 		For whatever reason, the top border of the window frame hides under WinUI Comp, so we have to 
 		fake it or else it looks weird. This isn't perfect, but better than nothing
 		-->
+  <!--
   <Style Selector="Window:windows:windows10 /template/ Border#RootBorder">
-    <!-- This will show if custom accent color setting is used in Settings page-->
+    -->
+  <!-- This will show if custom accent color setting is used in Settings page-->
+  <!--
     <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}" />
     <Setter Property="BorderThickness" Value="0 0.5 0 0" />
   </Style>
@@ -126,6 +139,6 @@
   <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window):windows:extended:customtitlebar /template/ Panel#DefaultTitleBar">
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="Width" Value="10" />
-  </Style>
+  </Style>-->
 
 </Styles>

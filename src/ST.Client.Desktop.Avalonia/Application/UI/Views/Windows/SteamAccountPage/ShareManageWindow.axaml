@@ -23,7 +23,8 @@
   <Panel>
     <controls:TitleBar></controls:TitleBar>
     <Menu
-               Margin="0 0 145 0" Height="30"
+               Margin="{StaticResource CaptionButtonMargin}" 
+               Height="30"
                HorizontalAlignment="Right"
                VerticalAlignment="Top">
       <MenuItem Width="50" Command="{ReflectionBinding About_Click}"

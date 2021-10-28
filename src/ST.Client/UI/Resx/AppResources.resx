@@ -796,13 +796,13 @@
     <value>自定义密码保护</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
-    <value>*您的认证器将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的认证器将无法访问。</value>
+    <value>*注意：你的令牌将使用您自己的密码进行加密，您需要输入您的密码才能打开你被加密的令牌。如果您忘记了密码，并且没有备份，您的令牌将无法访问，你只能使用恢复代码解绑或忘记账号解除此令牌。</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
     <value>保存加密选项出现错误</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
-    <value>强烈建议使用密码保护你的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但你的令牌数据会有被盗取的风险。</value>
+    <value>非常建议您使用密码保护您的令牌，否则您的数据可能会被您电脑上运行的恶意软件读取和窃取。当然，你也可以不启用任何加密，这不是强制性的，但您的令牌数据会有被盗取的风险!!!</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
     <value>令牌仅在这台电脑上可解密</value>

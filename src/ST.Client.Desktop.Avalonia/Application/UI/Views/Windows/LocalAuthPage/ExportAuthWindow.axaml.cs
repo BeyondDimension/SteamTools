@@ -22,29 +22,6 @@ namespace System.Application.UI.Views.Windows
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            //var selectPathButton = this.FindControl<Button>("SelectPathButton");
-            //selectPathButton.Click += SelectPathButton_Click;
         }
-
-        //private async void SelectPathButton_Click(object? sender, RoutedEventArgs e)
-        //{
-        //    var fileDialog = new SaveFileDialog
-        //    {
-        //        Filters = new List<FileDialogFilter> {
-        //            new FileDialogFilter { Name = "MsgPack Files", Extensions = new List<string> { "mpo" } },
-        //            new FileDialogFilter { Name = "Data Files", Extensions = new List<string> { "dat" } },
-        //            new FileDialogFilter { Name = "All Files", Extensions = new List<string> { "*" } },
-        //        },
-        //        Title = ThisAssembly.AssemblyTrademark,
-        //        InitialFileName = ExportAuthWindowViewModel.DefaultExportAuthFileName,
-        //    };
-        //    var result = await fileDialog.ShowAsync(IDesktopAvaloniaAppService.Instance.MainWindow);
-
-        //    if (this.DataContext is ExportAuthWindowViewModel vm)
-        //    {
-        //        vm.Path = result;
-        //    }
-        //}
     }
 }

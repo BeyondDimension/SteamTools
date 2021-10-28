@@ -48,7 +48,7 @@
     </Border>
   </Design.PreviewWith>
   <Styles.Resources>
-    <sys:Double x:Key="SettingsRightContentWidth">250</sys:Double>
+    <sys:Double x:Key="SettingsRightContentWidth">240</sys:Double>
 
     <SolidColorBrush  x:Key="ExpanderBorderPointerOverBrush"
               Color="{DynamicResource CardStrokeColorDefault}" />
@@ -65,15 +65,15 @@
     <Setter Property="Height" Value="0.88" />
     <Setter Property="Background" Value="{DynamicResource SystemControlHighlightBaseLowBrush}" />
     <Setter Property="Opacity" Value="0.5" />
-    <Setter Property="Margin" Value="0 20" />
+    <Setter Property="Margin" Value="0 10" />
   </Style>
 
   <Style Selector="Border.Item:pointerover">
-    <Setter Property="Background" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
+    <Setter Property="Background" Value="{DynamicResource ControlStrokeColorSecondaryBrush}"/>
   </Style>
 
   <Style Selector="Border.Item">
-    <Setter Property="Height" Value="65" />
+    <Setter Property="MinHeight" Value="65" />
     <Setter Property="Padding" Value="15" />
     <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
     <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
@@ -83,6 +83,12 @@
 
   <Style Selector="Border.Item:pointerover">
     <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
+  </Style>
+
+  <Style Selector="StackPanel.Settings Button.primary">
+    <Setter Property="Height" Value="38" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
   </Style>
 
   <Style Selector="StackPanel.Settings Expander">
@@ -115,7 +121,7 @@
     <Setter Property="Foreground" Value="{DynamicResource SemiActiveForegroundColorKey}" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <!--<Setter Property="Margin" Value="10 0" />-->
-    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="TextWrapping" Value="WrapWithOverflow" />
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > Label">
@@ -143,15 +149,17 @@
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > ToggleSwitch">
-    <Setter Property="Margin" Value="0 0 -12 0" />
+    <!--<Setter Property="Margin" Value="0 0 -12 0" />-->
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="OnContent" Value="{x:Null}" />
     <Setter Property="OffContent" Value="{x:Null}" />
+    <Setter Property="Width" Value="40" />
+    <Setter Property="(DockPanel.Dock)"  Value="Right" />
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > TextBox">
-    <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+    <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment"  Value="Right" />
     <Setter Property="(DockPanel.Dock)"  Value="Right" />
@@ -180,24 +188,19 @@
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel > WrapPanel">
-    <Setter Property="Margin" Value="0 0 20 0" />
+    <Setter Property="Margin" Value="0 0 100 0" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="(DockPanel.Dock)"  Value="Left" />
   </Style>
 
-  <Style Selector="StackPanel.Settings DockPanel StackPanel.right">
+  <Style Selector="StackPanel.Settings DockPanel :is(Control).right">
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="(DockPanel.Dock)"  Value="Right" />
   </Style>
 
-  <Style Selector="StackPanel.Settings DockPanel Control.right">
-    <Setter Property="VerticalAlignment" Value="Center" />
-    <Setter Property="HorizontalAlignment" Value="Right" />
-    <Setter Property="(DockPanel.Dock)"  Value="Right" />
-  </Style>
-
-  <Style Selector="StackPanel.Settings DockPanel Control.left">
+  <Style Selector="StackPanel.Settings DockPanel :is(Control).left">
+    <Setter Property="Margin" Value="0 0 100 0" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="HorizontalAlignment" Value="Left" />
     <Setter Property="(DockPanel.Dock)"  Value="Left" />

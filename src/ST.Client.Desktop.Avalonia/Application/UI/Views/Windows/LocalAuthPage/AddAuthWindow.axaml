@@ -5,7 +5,7 @@
         mc:Ignorable="d" 
         d:DesignWidth="720" d:DesignHeight="400"
         MinWidth="720" MinHeight="400"
-        Width="720" Height="400"
+        Width="720" Height="550"
         x:Class="System.Application.UI.Views.Windows.AddAuthWindow"
         xmlns:resx="using:System.Application.UI.Resx"
         xmlns:vm="using:System.Application.UI.ViewModels"

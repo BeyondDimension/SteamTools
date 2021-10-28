@@ -137,9 +137,7 @@ namespace System.Application.Services.Implementation
                         break;
 
                     case WM.ACTIVATE:
-                        var marg = new Win32Interop.MARGINS();
-                        Win32Interop.DwmExtendFrameIntoClientArea(Handle.Handle, ref marg);
-                        //EnsureExtended();
+                        EnsureExtended();
                         break;
 
                     case WM.NCMOUSEMOVE:

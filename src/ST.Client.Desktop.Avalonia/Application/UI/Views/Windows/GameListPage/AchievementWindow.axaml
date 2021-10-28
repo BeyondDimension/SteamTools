@@ -11,7 +11,6 @@
         xmlns:ms="using:System.Application.Settings"
         xmlns:models="using:System.Application.Models"
         xmlns:gif="using:AvaloniaGif"
-        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
@@ -19,38 +18,11 @@
         x:DataType="vm:AchievementWindowViewModel"
         x:CompileBindings="True"
         WindowStartupLocation="CenterScreen">
-  <Window.Styles>
-    <Style Selector="TabControl.flat">
-      <Setter Property="Margin" Value="0 20 0 0"></Setter>
-    </Style>
-    <Style Selector="TabControl.flat /template/ ItemsPresenter">
-      <Setter Property="Margin" Value="0,0,0,0"></Setter>
-    </Style>
-    <Style Selector="TabControl.flat /template/ ContentPresenter">
-      <Setter Property="Margin" Value="0,4,0,0"></Setter>
-    </Style>
-  </Window.Styles>
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
-    <!--<DockPanel HorizontalAlignment="Stretch">
-            <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="80">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
-                    <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24" Margin="0,0,10,0"/>
-                    <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalAlignment="Center"/>
-                </StackPanel>
-            </ExperimentalAcrylicBorder>
-            <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False" Opacity="{StaticResource ContentOpacity}">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-            </ExperimentalAcrylicBorder>
-        </DockPanel>-->
     <!--Header-->
     <Menu
-               Margin="0 0 145 0" Height="30"
+               Margin="{StaticResource CaptionButtonMargin}" Height="30"
                HorizontalAlignment="Right"
                VerticalAlignment="Top">
       <MenuItem Width="50" Command="{ReflectionBinding RefreshStats_Click}"
@@ -98,9 +70,10 @@
       </TextBox.InnerLeftContent>
     </TextBox>
 
-    <TabControl Classes="flat" ZIndex="1">
-      <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}"
-               Margin="0 0 0 6">
+    <TabControl Classes="flat"
+                Margin="0 20 0 0"
+                ZIndex="1">
+      <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
           <DataGrid.Columns>
             <!--CheckBox-->
@@ -183,8 +156,7 @@
           </DataGrid.Columns>
         </DataGrid>
       </TabItem>
-      <TabItem Header="{ReflectionBinding Path=Res.Achievement_StatsEdit,Mode=OneWay,Source={x:Static resx:R.Current}}"
-               Margin="0 0 0 6">
+      <TabItem Header="{ReflectionBinding Path=Res.Achievement_StatsEdit,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <DataGrid Items="{Binding Statistics}" IsReadOnly="False">
           <DataGrid.Columns>
             <DataGridTextColumn Header="Id" x:DataType="models:StatInfo"

@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="600" Height="480"
+        Width="550" Height="570"
         x:Class="System.Application.UI.Views.Windows.EncryptionAuthWindow"
         xmlns:resx="using:System.Application.UI.Resx"
         xmlns:vm="using:System.Application.UI.ViewModels"
@@ -17,57 +17,52 @@
         x:CompileBindings="True">
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
-    <Border Padding="10" Margin="{StaticResource TitleBarAfterMargin}">
-      <StackPanel Spacing="10">
-        <StackPanel.Styles>
-          <Style Selector="TextBlock">
-            <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-            <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-          </Style>
-          <Style Selector="DockPanel > TextBlock">
-            <Setter Property="Margin" Value="0 0 20 0" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="(DockPanel.Dock)"  Value="Left" />
-          </Style>
-          <Style Selector="DockPanel > ToggleSwitch">
-            <Setter Property="Margin" Value="0 0 -12 0" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="OnContent" Value="{x:Null}" />
-            <Setter Property="OffContent" Value="{x:Null}" />
-          </Style>
-        </StackPanel.Styles>
 
-        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Info,Source={x:Static resx:R.Current},Mode=OneWay}" TextWrapping="WrapWithOverflow">
-        </TextBlock>
+    <ScrollViewer Padding="10" Margin="{StaticResource TitleBarAfterMargin}">
+      <StackPanel Classes="Settings">
+        <Border Classes="Item">
+          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Info,Source={x:Static resx:R.Current},Mode=OneWay}"
+                     TextWrapping="Wrap">
+          </TextBlock>
+        </Border>
 
-        <DockPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_EnablePassword,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-          <ToggleSwitch IsChecked="{Binding IsPasswordEncrypt}"/>
-        </DockPanel>
+        <Expander>
+          <Expander.Header>
+            <DockPanel>
+              <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_EnablePassword,Source={x:Static resx:R.Current},Mode=OneWay}"/>
+              <ToggleSwitch IsChecked="{Binding IsPasswordEncrypt}"/>
+            </DockPanel>
+          </Expander.Header>
+          <StackPanel Spacing="10" IsEnabled="{Binding IsPasswordEncrypt}">
+            <TextBlock Classes="prompt"
+                       Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_EnablePasswordTip,Source={x:Static resx:R.Current},Mode=OneWay}"></TextBlock>
+            <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding Password}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
+            <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding VerifyPassword}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
+          </StackPanel>
+        </Expander>
 
-        <StackPanel Spacing="10" IsEnabled="{Binding IsPasswordEncrypt}">
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_EnablePasswordTip,Source={x:Static resx:R.Current},Mode=OneWay}" Foreground="{DynamicResource InactiveForegroundBrushKey}" TextWrapping="WrapWithOverflow"></TextBlock>
-          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding Password}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
-          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding VerifyPassword}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
-        </StackPanel>
+        <Border Classes="Item">
+          <DockPanel>
+            <Border Classes="left">
+              <StackPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt,Source={x:Static resx:R.Current},Mode=OneWay}"/>
+                <TextBlock Classes="prompt"
+                           Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip,Source={x:Static resx:R.Current},Mode=OneWay}">
+                </TextBlock>
+              </StackPanel>
+            </Border>
 
+            <ToggleSwitch IsChecked="{Binding IsOnlyCurrentComputerEncrypt}"/>
+          </DockPanel>
+        </Border>
 
         <Separator Classes="Separator"></Separator>
-        <DockPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-          <ToggleSwitch IsChecked="{Binding IsOnlyCurrentComputerEncrypt}"/>
-        </DockPanel>
 
-        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip,Source={x:Static resx:R.Current},Mode=OneWay}" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource InactiveForegroundBrushKey}" >
-        </TextBlock>
-
-        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+        <Button Classes="action primary"
                 Command="{ReflectionBinding EncryptionAuth}"
-                Content="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Source={x:Static resx:R.Current},Mode=OneWay}"></Button>
+                Content="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Source={x:Static resx:R.Current},Mode=OneWay}"/>
       </StackPanel>
-    </Border>
-
+    </ScrollViewer>
 
     <!--Toast-->
     <controls:ToastMessage />

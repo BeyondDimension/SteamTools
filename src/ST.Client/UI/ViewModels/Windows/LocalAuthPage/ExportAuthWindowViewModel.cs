@@ -71,26 +71,7 @@ namespace System.Application.UI.ViewModels
 
         public ExportAuthWindowViewModel()
         {
-            if (IsSupportedSaveFileDialog)
-            {
-                SelectPathButton_Click = ReactiveCommand.CreateFromTask(async () =>
-                {
-                    var result = await SaveAsync(new SaveOptions
-                    {
-                        FileTypes = new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                        ("MsgPack Files", new[] { "mpo" }),
-                        ("Data Files", new[] { "dat" }),
-                        ("All Files", new[] { "*" }),
-                    }),
-                        InitialFileName = DefaultExportAuthFileName,
-                        PickerTitle = ThisAssembly.AssemblyTrademark,
-                    });
-                    Path = result?.FullPath;
-                });
-            }
         }
-
-        public ICommand? SelectPathButton_Click { get; }
 
         private bool _IsPasswordEncrypt;
         public bool IsPasswordEncrypt
@@ -170,10 +151,33 @@ namespace System.Application.UI.ViewModels
                 Close();
             }
 
-            if (!ignorePath && string.IsNullOrEmpty(Path))
+            if (!ignorePath)
             {
-                Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
-                return;
+                if (IsSupportedSaveFileDialog)
+                {
+                    var result = await SaveAsync(new SaveOptions
+                    {
+                        FileTypes = new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                        ("MsgPack Files", new[] { "mpo" }),
+                        ("Data Files", new[] { "dat" }),
+                        ("All Files", new[] { "*" }),
+                    }),
+                        InitialFileName = DefaultExportAuthFileName,
+                        PickerTitle = ThisAssembly.AssemblyTrademark,
+                    });
+                    Path = result?.FullPath;
+
+                    if (string.IsNullOrEmpty(Path))
+                    {
+                        Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
+                        return;
+                    }
+                }
+                else
+                {
+                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
+                    return;
+                }
             }
 
             if (!ignorePassword)
