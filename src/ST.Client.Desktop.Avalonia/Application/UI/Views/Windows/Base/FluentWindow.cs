@@ -8,16 +8,41 @@ using System;
 using System.Application.Settings;
 using System.Application.Services;
 using System.Application.UI.ViewModels;
+using System.Application.Services.Implementation;
+using System.Application.UI.Views.Controls;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
 {
-    public abstract class FluentWindow<TViewModel> : CoreWindow<TViewModel>, IStyleable where TViewModel : class
+    public abstract class FluentWindow<TViewModel> : ReactiveWindow<TViewModel>, IStyleable, ICoreWindow where TViewModel : class
     {
+        Control? _defaultTitleBar;
+        MinMaxCloseControl? _systemCaptionButtons;
+
         Type IStyleable.StyleKey => typeof(Window);
 
-        public FluentWindow(bool isSaveStatus = true)
+        public FluentWindow() : this(true)
         {
+
+        }
+
+        public FluentWindow(bool isSaveStatus)
+        {
+            if (OperatingSystem2.IsWindows)
+            {
+                PseudoClasses.Set(":windows", true);
+
+                if (this.PlatformImpl is AvaloniaWin32WindowingPlatformImpl.WindowImpl2 cwi)
+                {
+                    cwi.SetOwner(this);
+                }
+
+                ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+                ExtendClientAreaToDecorationsHint = true;
+                //TransparencyLevelHint = WindowTransparencyLevel.Mica;
+                TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+            }
+
             //if (OperatingSystem2.IsWindows)
             //{
             ExtendClientAreaToDecorationsHint = true;
@@ -140,6 +165,19 @@ namespace Avalonia.Controls
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
+            _systemCaptionButtons = e.NameScope.Find<MinMaxCloseControl>("SystemCaptionButtons");
+            if (_systemCaptionButtons != null)
+            {
+                _systemCaptionButtons.Height = 30;
+            }
+
+            _defaultTitleBar = e.NameScope.Find<Control>("DefaultTitleBar");
+            if (_defaultTitleBar != null)
+            {
+                _defaultTitleBar.Margin = new Thickness(0, 0, 138 /* 46x3 */, 0);
+                _defaultTitleBar.Height = 30;
+            }
+
         }
 
         protected override void OnClosed(EventArgs e)
@@ -147,6 +185,14 @@ namespace Avalonia.Controls
             base.OnClosed(e);
             if (DataContext is IDisposable disposable) disposable.Dispose();
         }
+
+        #region CoreWindow
+
+        Window ICoreWindow.Window => this;
+
+        MinMaxCloseControl? ICoreWindow.SystemCaptionButtons => _systemCaptionButtons;
+
+        #endregion
     }
 
     public abstract class FluentWindow : FluentWindow<WindowViewModel>

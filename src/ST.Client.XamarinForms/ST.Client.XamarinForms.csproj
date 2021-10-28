@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -21,6 +21,10 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" />
     <PackageReference Include="Xamarin.Forms.Visual.Material" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
 </Project>

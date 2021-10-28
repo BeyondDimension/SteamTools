@@ -46,8 +46,8 @@
   <Style Selector="Button.SystemCaption:pointerover /template/ Border">
     <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
   </Style>
-  
-  <Style Selector="wnd|CoreWindow[IsActive=False] local|MinMaxCloseControl /template/ Button">
+
+  <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window)[IsActive=False] local|MinMaxCloseControl /template/ Button">
     <Setter Property="Foreground" Value="#858585" />
   </Style>
 
@@ -120,10 +120,10 @@
     <Setter Property="BorderThickness" Value="0 0 0 0" />
   </Style>
 
-  <Style Selector="wnd|CoreWindow:windows:extended /template/ TextBlock#TitleText">
+  <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window):windows:extended /template/ TextBlock#TitleText">
     <Setter Property="IsVisible" Value="False" />
   </Style>
-  <Style Selector="wnd|CoreWindow:windows:extended:customtitlebar /template/ Panel#DefaultTitleBar">
+  <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window):windows:extended:customtitlebar /template/ Panel#DefaultTitleBar">
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="Width" Value="10" />
   </Style>

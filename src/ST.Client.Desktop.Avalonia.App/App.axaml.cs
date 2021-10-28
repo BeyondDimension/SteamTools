@@ -318,10 +318,12 @@ namespace System.Application.UI
 
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
 
-            //if (OperatingSystem2.IsWindows10AtLeast)
-            //{
-            //    AvaloniaLocator.CurrentMutable.Bind<IWindowImpl>().ToConstant<IWindowImpl>(new AvaloniaWin32WindowImpl());
-            //}
+            if (OperatingSystem2.IsWindows10AtLeast)
+            {
+#pragma warning disable CA1416 // 验证平台兼容性
+                AvaloniaLocator.CurrentMutable.Bind<IWindowingPlatform>().ToConstant(new AvaloniaWin32WindowingPlatformImpl());
+#pragma warning restore CA1416 // 验证平台兼容性
+            }
             base.RegisterServices();
         }
 
