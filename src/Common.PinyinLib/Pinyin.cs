@@ -143,7 +143,7 @@ namespace System
 
                         var letterHasValue = letter != default;
 
-                        if (!letterHasValue && !ignoreOtherChar && index != 0) return false; // 无效字符是否允许
+                        if (!letterHasValue && !(ignoreOtherChar && index != 0)) return false; // 无效字符是否允许
 
                         var item_pinyin_letter_upper = item_pinyin[cache_index];
                         indexOfLowerCase = Constants.LowerCaseLetters.IndexOf(item_pinyin_letter_upper);
