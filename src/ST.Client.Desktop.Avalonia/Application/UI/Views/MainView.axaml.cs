@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Templates;
+using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Controls;
@@ -64,6 +65,12 @@ namespace System.Application.UI.Views
                           avater.Width = 64;
                           avater.Height = 64;
                           avater.Margin = new Thickness(10, 0);
+                      }
+
+
+                      if (avater.Clip is EllipseGeometry ellipse)
+                      {
+                          ellipse.Rect = new Rect(0, 0, avater.Width, avater.Height);
                       }
                   });
             }

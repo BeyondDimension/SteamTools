@@ -42,7 +42,6 @@ namespace Avalonia.Controls
                     }
                 }
             }
-
             //if (OperatingSystem2.IsWindows)
             //{
             ExtendClientAreaToDecorationsHint = true;
@@ -66,7 +65,7 @@ namespace Avalonia.Controls
             //        //TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
             //    });
 
-            if (isSaveStatus && CanResize)
+            if (isSaveStatus)
             {
                 Opened += FluentWindow_Opened;
                 PositionChanged += FluentWindow_PositionChanged;
@@ -123,14 +122,6 @@ namespace Avalonia.Controls
             _isOpenWindow = true;
             if (DataContext is WindowViewModel vm)
             {
-                if (vm.SizePosition.Width > 0
-                    && Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
-                    Width = vm.SizePosition.Width;
-
-                if (vm.SizePosition.Height > 0
-                    && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
-                    Height = vm.SizePosition.Height;
-
                 if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
                 {
                     var leftTopPoint = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
@@ -142,14 +133,28 @@ namespace Avalonia.Controls
                     }
                 }
 
-                HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
+                if (CanResize)
+                {
+                    if (vm.SizePosition.Width > 0
+                        && Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
+                        Width = vm.SizePosition.Width + 16;
 
-                this.WhenAnyValue(x => x.ClientSize)
-                    .Subscribe(x =>
-                    {
-                        vm.SizePosition.Width = x.Width;
-                        vm.SizePosition.Height = x.Height;
-                    });
+                    if (vm.SizePosition.Height > 0
+                        && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
+                        Height = vm.SizePosition.Height + 8;
+
+                    HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
+
+
+                    this.WhenAnyValue(x => x.ClientSize)
+                        .Subscribe(x =>
+                        {
+                            vm.SizePosition.Width = x.Width;
+                            vm.SizePosition.Height = x.Height;
+                        });
+                }
+
+
 
                 //this.GetObservable(WidthProperty).Subscribe(v =>
                 //{

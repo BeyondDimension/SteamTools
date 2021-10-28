@@ -22,25 +22,21 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar></controls:TitleBar>
-    <Menu
-               Margin="{StaticResource CaptionButtonMargin}" 
-               Height="30"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Top">
-      <MenuItem Width="50" Command="{ReflectionBinding About_Click}"
-               ToolTip.Tip="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}">
+    <Menu Classes="BarMenu">
+      <MenuItem Command="{ReflectionBinding About_Click}"
+                ToolTip.Tip="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <ui:SymbolIcon Symbol="Help" FontSize="18"/>
         </MenuItem.Header>
       </MenuItem>
-      <MenuItem Width="50" Command="{ReflectionBinding Refresh_Click}"
-                 ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      <MenuItem Command="{ReflectionBinding Refresh_Click}"
+                ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
-      <MenuItem Width="50" Command="{ReflectionBinding SetActivity_Click}"
-               ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      <MenuItem Command="{ReflectionBinding SetActivity_Click}"
+                ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>

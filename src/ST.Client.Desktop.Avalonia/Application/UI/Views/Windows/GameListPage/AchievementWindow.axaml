@@ -21,40 +21,25 @@
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
     <!--Header-->
-    <Menu
-               Margin="{StaticResource CaptionButtonMargin}" Height="30"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Top">
-      <MenuItem Width="50" Command="{ReflectionBinding RefreshStats_Click}"
+    <Menu Classes="BarMenu">
+      <MenuItem Command="{ReflectionBinding RefreshStats_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
-      <MenuItem Width="50" Command="{ReflectionBinding ResetAllStats_Click}"
+      <MenuItem Command="{ReflectionBinding ResetAllStats_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource ResetDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
-      <MenuItem Width="50" Command="{ReflectionBinding SaveChange_Click}"
+      <MenuItem Command="{ReflectionBinding SaveChange_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
-      <!--<Button Command="{ReflectionBinding save}">
-                <PathIcon Data="{StaticResource RefreshDrawing}"
-                          Width="18" Height="18"/>
-            </Button>
-            <Button Command="{ReflectionBinding save}">
-                <PathIcon Data="{StaticResource ResetDrawing}"
-                          Width="18" Height="18"/>
-            </Button>
-            <Button Command="{ReflectionBinding save}">
-                <PathIcon Data="{StaticResource SaveDrawing}"
-                          Width="18" Height="18"/>
-            </Button>-->
     </Menu>
     <TextBox ZIndex="2"
               Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"

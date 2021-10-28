@@ -125,13 +125,17 @@
                       HorizontalAlignment="Stretch">
             <!--<Image x:Name="avater" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
             <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="18" Margin="8,0,0,0"/>-->
-            <Image x:Name="avater"
+            <Image x:Name="avater" Clip=""
                    Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=64}"
                    Stretch="Uniform"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Height="64"
-                   Width="64"/>
+                   Width="64">
+              <Image.Clip>
+                <EllipseGeometry Rect="0,0,64,64" />
+              </Image.Clip>
+            </Image>
             <StackPanel Spacing="5" VerticalAlignment="Center">
               <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"

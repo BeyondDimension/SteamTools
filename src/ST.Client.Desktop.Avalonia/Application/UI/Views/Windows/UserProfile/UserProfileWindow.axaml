@@ -5,8 +5,8 @@
         xmlns:sys="using:System"
         mc:Ignorable="d"
         d:DesignWidth="450" d:DesignHeight="600"
-        Width="450" Height="600"
-        MinWidth="450" MinHeight="600"
+        Width="450" Height="520"
+        MinWidth="450" MinHeight="520"
         x:Class="System.Application.UI.Views.Windows.UserProfileWindow"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:resx="using:System.Application.UI.Resx"
@@ -45,7 +45,7 @@
         <Setter Property="Width" Value="116"/>
       </Style>
       <Style Selector="Button.Secondary">
-        <Setter Property="Padding" Value="20 10"/>
+        <Setter Property="Padding" Value="20 7"/>
       </Style>
       <Style Selector="Button.SecondaryMin">
         <Setter Property="Padding" Value="16 8"/>
@@ -59,18 +59,27 @@
       </Style>
     </Panel.Styles>
     <controls:TitleBar/>
-    <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}"/>
-    <TabControl Margin="0 10 0 0" Padding="0" IsVisible="{Binding !IsLoading}">
-      <TabControl.Styles>
-        <Style Selector="TabItem">
-          <Setter Property="FontSize" Value="16"></Setter>
-        </Style>
-      </TabControl.Styles>
+
+    <controls:ProgressRing IsIndeterminate="True"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Height="100"
+                           Width="100"
+                           IsVisible="{Binding IsLoading}"/>
+
+    <TabControl Margin="0 10 0 0"
+                Padding="0"
+                IsVisible="{Binding !IsLoading}">
       <TabItem Header="{ReflectionBinding Path=Res.User_BasicInfo,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Panel Margin="{StaticResource ContentMargin}">
-          <StackPanel Margin="0 -38 0 0" VerticalAlignment="Center">
+          <StackPanel VerticalAlignment="Center">
             <DockPanel>
-              <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=184}" Width="184" Height="184"/>
+              <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=184}"
+                     Width="184" Height="184">
+                <Image.Clip>
+                  <EllipseGeometry Rect="0,0,184,184"/>
+                </Image.Clip>
+              </Image>
               <StackPanel Orientation="Vertical" Margin="16,0,0,0">
                 <Button Content="{ReflectionBinding Path=Res.AsyncSteamAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         Opacity="0"
@@ -189,10 +198,12 @@
               <TextBlock Classes="FormItemLabel"
                          Text="{ReflectionBinding Path=Res.UserProfile_BirthDate,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          Grid.Row="9"/>
-              <DatePicker Height="36"
+              <DatePicker HorizontalAlignment="Stretch"
                           SelectedDate="{Binding BirthDate, Mode=TwoWay}"
                           Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3"/>
-
+              <!--<CalendarDatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}"
+                                  HorizontalAlignment="Stretch"
+                          Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3"/>-->
             </Grid>
             <Button Classes="action WidthUnify"
                     HorizontalAlignment="Center"
@@ -225,7 +236,9 @@
                                    Height="100">
             </controls:ProgressRing>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 40">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0 0 0 20">
               <Button Classes="plain"
                       Margin="0 0 25 0"
                       HorizontalContentAlignment="Center"
@@ -238,14 +251,13 @@
                       Command="{Binding OnBindFastLoginClick}"
                       CommandParameter="{Binding CurrentSelectChannel}"/>
             </StackPanel>
-            <WrapPanel HorizontalAlignment="Center" Margin="20 0 0 20">
-              <Button Classes="plain"
-                      Margin="0 0 25 0"
-                      HorizontalContentAlignment="Center"
-                      Content="{ReflectionBinding Path=Res.Login_ManualLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                      Command="{ReflectionBinding OnManualLoginClick}"
+            
+            <Button Classes="Hyperlink"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Content="{ReflectionBinding Path=Res.Login_ManualLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Command="{ReflectionBinding OnManualLoginClick}"
                      />
-            </WrapPanel>
           </StackPanel>
 
           <Grid Margin="{StaticResource ContentMargin}"

@@ -21,12 +21,9 @@
   <Panel>
     <controls:TitleBar></controls:TitleBar>
     <!--Header-->
-    <Menu
-               Margin="{StaticResource CaptionButtonMargin}" Height="30"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Top">
-     <MenuItem Width="50" Command="{ReflectionBinding Refresh_Click}"
-                ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,Mode=OneWay,Source={x:Static resx:R.Current}}">
+    <Menu Classes="BarMenu">
+      <MenuItem  Command="{ReflectionBinding Refresh_Click}"
+                 ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
@@ -38,7 +35,7 @@
           <PathIcon Data="{StaticResource ResetDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>-->
-      <MenuItem Width="50" Command="{ReflectionBinding SaveChange_Click}"
+      <MenuItem Command="{ReflectionBinding SaveChange_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_SaveApply,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
@@ -50,7 +47,7 @@
           TextWrapping="WrapWithOverflow"
           VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                  VerticalScrollBarVisibility="Auto" 
+                  VerticalScrollBarVisibility="Auto"
                   Padding="{StaticResource TitleBarAfterMargin}">
       <StackPanel>
         <!--<TextBox Watermark="{ReflectionBinding Path=Res.Search,Source={x:Static resx:R.Current},Mode=OneWay}" Margin="20 10"></TextBox>-->
@@ -58,12 +55,12 @@
                  VerticalAlignment="Center"
                  HorizontalAlignment="Right"
                  Foreground="{DynamicResource HighlightForegroundBrushKey}"></Button>-->
-        <Border DockPanel.Dock="Bottom" 
-                Grid.Column="1" 
-                Grid.Row="1" 
-                Classes="paper" 
-                Margin="10" 
-                Padding="20 0" 
+        <Border DockPanel.Dock="Bottom"
+                Grid.Column="1"
+                Grid.Row="1"
+                Classes="paper"
+                Margin="10"
+                Padding="20 0"
                 Background="{DynamicResource ThemeBrushKey}">
           <!--<DockPanel Margin="0 10">
             -->

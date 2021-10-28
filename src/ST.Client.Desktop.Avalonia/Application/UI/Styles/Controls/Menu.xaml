@@ -26,6 +26,7 @@
     </Border>
   </Design.PreviewWith>
   <Styles.Resources>
+    <Thickness x:Key="CaptionButtonMargin">0 0 190 0</Thickness>
   </Styles.Resources>
 
   <!--<Style Selector="Menu.BindMenu MenuItem">
@@ -64,4 +65,15 @@
     <Setter Property="CommandParameter" Value="{Binding CommandParameter}"/>
   </Style>
 
+  <Style Selector="Menu.BarMenu">
+    <Setter Property="Margin" Value="{StaticResource CaptionButtonMargin}"/>
+    <Setter Property="Height" Value="{StaticResource TitleBarHeight}"/>
+    <Setter Property="HorizontalAlignment" Value="Right"/>
+    <Setter Property="VerticalAlignment" Value="Top"/>
+  </Style>
+
+  <Style Selector="Menu.BarMenu MenuItem">
+    <Setter Property="Width" Value="50"/>
+    <Setter Property="Margin" Value="0"/>
+  </Style>
 </Styles>

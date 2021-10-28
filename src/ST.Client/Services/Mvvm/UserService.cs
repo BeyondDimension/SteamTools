@@ -109,7 +109,7 @@ namespace System.Application.Services
             {
                 if (OperatingSystem2.Application.UseAvalonia)
                 {
-                    return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater_default.png";
+                    return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
                 }
                 return string.Empty;
             }

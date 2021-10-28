@@ -4,11 +4,11 @@
     <DatePicker Header="48" />
   </Design.PreviewWith>
 
-  <Style Selector="DatePicker">
+  <!--<Style Selector="DatePicker">
     <Setter Property="YearFormat" Value="yyyy"/>
     <Setter Property="MonthFormat" Value="MM"/>
     <Setter Property="DayFormat" Value="dd"/>
-  </Style>
+  </Style>-->
 
   <Style Selector="DatePicker /template/ TextBlock#DayText">
     <!--<Setter Property="Text" Value="天"/>-->
