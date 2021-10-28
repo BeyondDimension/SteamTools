@@ -82,10 +82,10 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: (IReadOnlyDictionary<Platform, string>?)null, autoSave: true);
 
         /// <summary>
-        /// 使用硬件加速(仅macOS)
+        /// 使用硬件加速
         /// </summary>
         public static SerializableProperty<bool> UseGPURendering { get; }
-            = GetProperty(defaultValue: true, autoSave: true);
+            = GetProperty(defaultValue: !OperatingSystem2.IsWindows7, autoSave: true);
 
         /// <summary>
         /// Hosts 文件编码类型
@@ -100,10 +100,10 @@ namespace System.Application.Settings
         //    = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
-        /// Avalonia would try to use native Widows OpenGL when set to true. The default value is false.(仅 Windows)
+        /// (仅 Windows)Avalonia would try to use native Widows OpenGL when set to true. The default value is false.
         /// </summary>
-        public static SerializableProperty<bool> UseOpenGL { get; }
-            = GetProperty(defaultValue: OperatingSystem2.IsWindows7, autoSave: true);
+        public static SerializableProperty<bool> UseWgl { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
         /// 屏幕捕获(允许截图)

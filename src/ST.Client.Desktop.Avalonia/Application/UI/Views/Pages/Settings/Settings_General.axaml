@@ -46,7 +46,7 @@
 
       <Separator Classes="Separator"/>
 
-      <Border Classes="Item">
+      <Border Classes="Item" IsVisible="{ReflectionBinding Source={x:Static sys:OperatingSystem2.IsWindows7}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}">
         <DockPanel>
           <StackPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static resx:R.Current}}"/>

@@ -38,11 +38,10 @@ namespace System.Application.UI
             }
             else if (OperatingSystem2.IsWindows)
             {
-                var useOpenGL = IApplication.UseOpenGL || GeneralSettings.UseOpenGL.Value;
+                var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;
                 var options = new Win32PlatformOptions
                 {
-                    UseWindowsUIComposition = true,
-                    UseWgl = useOpenGL,
+                    UseWgl = useWgl,
                     AllowEglInitialization = useGpu,
                 };
                 builder.With(options);
