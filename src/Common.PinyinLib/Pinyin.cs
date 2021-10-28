@@ -83,14 +83,14 @@ namespace System
         /// <param name="ignoreOtherChar">比较时是否忽略其他字符</param>
         /// <param name="comparisonType"></param>
         /// <returns></returns>
-        public static bool SearchCompare_Nullable(string? inputText, string name, string[] pinyinArray, bool ignoreOtherChar = true, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        public static bool SearchCompare_Nullable(string? inputText, string name, string[] pinyinArray, bool ignoreOtherChar = false, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
         {
             if (string.IsNullOrEmpty(inputText)) return true; // 空值全部匹配。
             return SearchCompare(inputText, name, pinyinArray, ignoreOtherChar, comparisonType);
         }
 
         /// <inheritdoc cref="SearchCompare_Nullable(string?, string, string[], bool, StringComparison)"/>
-        public static bool SearchCompare(string inputText, string name, string[] pinyinArray, bool ignoreOtherChar = true, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
+        public static bool SearchCompare(string inputText, string name, string[] pinyinArray, bool ignoreOtherChar = false, StringComparison comparisonType = StringComparison.OrdinalIgnoreCase)
         {
             if (name.Contains(inputText, comparisonType)) return true;
             if (!pinyinArray.Any_Nullable()) return false;
@@ -113,6 +113,7 @@ namespace System
                         var input_item = inputText[index]; // 当前输入内容字符
                         if (input_item == Separator || input_item == SeparatorZH) // 拼音分隔分号字符无视
                         {
+                            if (index == 0) return false; // 第一个字符不能是分隔分号开头
                             if (i < pinyinArray.Length - 1) // 前面的可以输入分隔符跳过
                             {
                                 if (ignore_separator)
@@ -142,7 +143,7 @@ namespace System
 
                         var letterHasValue = letter != default;
 
-                        if (!letterHasValue && !ignoreOtherChar) return false; // 无效字符是否允许
+                        if (!letterHasValue && !ignoreOtherChar && index != 0) return false; // 无效字符是否允许
 
                         var item_pinyin_letter_upper = item_pinyin[cache_index];
                         indexOfLowerCase = Constants.LowerCaseLetters.IndexOf(item_pinyin_letter_upper);
