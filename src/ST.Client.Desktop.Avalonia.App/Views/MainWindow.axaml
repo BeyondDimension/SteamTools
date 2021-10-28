@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        d:DesignWidth="1200" Width="830" MinWidth="800"
+        d:DesignWidth="1200" Width="900" MinWidth="800"
         d:DesignHeight="600" Height="600" MinHeight="500"
         xmlns:local="using:System.Application.UI.Views"
         xmlns:vm="using:System.Application.UI.ViewModels"
