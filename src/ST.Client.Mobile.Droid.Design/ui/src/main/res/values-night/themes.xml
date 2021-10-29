@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="MainTheme.Base" parent="MainTheme.Base.Shared">
+    <style name="MainTheme2.Base" parent="MainTheme2.Base.Shared">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_200</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -12,7 +12,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="MainTheme.V23" parent="MainTheme.Base">
+    <style name="MainTheme2.V23" parent="MainTheme2.Base">
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/status_bar_color</item>
     </style>

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/controlBackground"
-        app:tabTextAppearance="@style/MainTheme.TabLayoutTextStyle"
+        app:tabTextAppearance="@style/MainTheme2.TabLayoutTextStyle"
         xamarin:managedType="Google.Android.Material.Tabs.TabLayout" />
 
     <androidx.viewpager2.widget.ViewPager2

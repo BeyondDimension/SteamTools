@@ -17,7 +17,7 @@ using System.Text;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(LoginOrRegisterActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
           LaunchMode = LaunchMode.SingleTask,
           ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterWindowViewModel>

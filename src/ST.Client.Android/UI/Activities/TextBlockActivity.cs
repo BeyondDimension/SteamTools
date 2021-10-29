@@ -13,7 +13,7 @@ using static Android.Content.Intent;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(TextBlockActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
       LaunchMode = LaunchMode.SingleTask,
       ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     [IntentFilter(new[] { ActionView }, Categories = new[] { CategoryDefault }, DataMimeType = MediaTypeNames.TXT)]

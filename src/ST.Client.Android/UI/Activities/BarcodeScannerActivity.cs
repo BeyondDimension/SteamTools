@@ -29,7 +29,7 @@ using XEPlatform = Xamarin.Essentials.Platform;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(BarcodeScannerActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
          LaunchMode = LaunchMode.SingleTask,
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class BarcodeScannerActivity : BaseActivity<activity_barcode_scanner>, ViewTreeObserver.IOnGlobalLayoutListener

@@ -77,6 +77,11 @@ namespace System.Application.UI.ViewModels
         {
             _IconKey = nameof(GameListPageViewModel);
 
+            if (IsMobileLayout)
+            {
+                return;
+            }
+
             AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnums<SteamAppType>());
             AppTypeFiltres[1].Enable = true;
             AppTypeFiltres[2].Enable = true;
@@ -152,9 +157,9 @@ namespace System.Application.UI.ViewModels
 
         //public MenuItemViewModel? AFKAutoUpdate { get; }
 
-        public ReactiveCommand<Unit, Unit> HideAppCommand { get; }
-        public ReactiveCommand<Unit, Unit> IdleAppCommand { get; }
-        public ReactiveCommand<Unit, Unit> SteamShutdownCommand { get; }
+        public ReactiveCommand<Unit, Unit>? HideAppCommand { get; }
+        public ReactiveCommand<Unit, Unit>? IdleAppCommand { get; }
+        public ReactiveCommand<Unit, Unit>? SteamShutdownCommand { get; }
 
         public override void Activation()
         {
@@ -200,8 +205,8 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SelectApp, value);
         }
 
-        private readonly ReadOnlyObservableCollection<SteamApp> _SteamApps;
-        public ReadOnlyObservableCollection<SteamApp> SteamApps => _SteamApps;
+        private readonly ReadOnlyObservableCollection<SteamApp>? _SteamApps;
+        public ReadOnlyObservableCollection<SteamApp>? SteamApps => _SteamApps;
 
         private string? _SearchText;
         public string? SearchText

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client"
+       xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
+       xmlns:local="clr-namespace:System.Application.UI.Views"
+       x:DataType="vm:MainWindowViewModel"
+       x:Class="System.Application.UI.AppShell">
+
+  <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+  <Shell.Resources>
+    <ResourceDictionary>
+      <Style x:Key="BaseStyle" TargetType="Element">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.ForegroundColor" Value="White" />
+        <Setter Property="Shell.TitleColor" Value="White" />
+        <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+        <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+        <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+        <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+      </Style>
+      <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+      <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+      <!--
+            Default Styles for all Flyout Items
+            https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
+            -->
+      <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="White"></Setter>
+      </Style>
+      <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+          <VisualStateGroupList>
+            <VisualStateGroup x:Name="CommonStates">
+              <VisualState x:Name="Normal">
+                <VisualState.Setters>
+                  <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
+                  <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                </VisualState.Setters>
+              </VisualState>
+              <VisualState x:Name="Selected">
+                <VisualState.Setters>
+                  <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+          </VisualStateGroupList>
+        </Setter>
+      </Style>
+
+      <!--
+            Custom Style you can apply to any Flyout Item
+            -->
+      <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+          <VisualStateGroupList>
+            <VisualStateGroup x:Name="CommonStates">
+              <VisualState x:Name="Normal">
+                <VisualState.Setters>
+                  <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+          </VisualStateGroupList>
+        </Setter>
+      </Style>
+      <!--<DataTemplate x:Key="MenuItemAbout">
+        <MenuItem Text="{x:Static resx:AppResources.About}" 
+                      IconImageSource="AboutPageViewModel" />
+      </DataTemplate>
+      <DataTemplate x:Key="MenuItemSettings">
+        <MenuItem Text="{x:Static resx:AppResources.Settings}" 
+                      IconImageSource="SettingsPageViewModel" />
+      </DataTemplate>-->
+    </ResourceDictionary>
+  </Shell.Resources>
+
+  <!-- 
+        When the Flyout is visible this defines the content to display in the flyout.
+        FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
+        https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
+    -->
+  <!--<FlyoutItem Title="{x:Static resx:AppResources.CommunityFix}" 
+              Icon="CommunityProxyPageViewModel" 
+              BindingContext="{x:Binding Path=CommunityProxyPage,Mode=OneWay}">
+    <ShellContent Route="CommunityProxyPage" 
+                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
+  </FlyoutItem>
+  <FlyoutItem Title="{x:Static resx:AppResources.ScriptConfig}" 
+              Icon="ProxyScriptManagePageViewModel" 
+              BindingContext="{x:Binding Path=ProxyScriptPage,Mode=OneWay}">
+    <ShellContent Route="ProxyScriptManagePage" 
+                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
+  </FlyoutItem>
+  <FlyoutItem Title="{x:Static resx:AppResources.GameList}" 
+              Icon="GameListPageViewModel" 
+              BindingContext="{x:Binding Path=GameListPage,Mode=OneWay}">
+    <ShellContent Route="GameListPage" 
+                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
+  </FlyoutItem>
+  <FlyoutItem Title="{x:Static resx:AppResources.LocalAuth}" 
+              Icon="LocalAuthPageViewModel"
+              BindingContext="{x:Binding Path=LocalAuthPage,Mode=OneWay}">
+    <ShellContent Route="LocalAuthPage" 
+                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
+  </FlyoutItem>
+  <FlyoutItem Title="{x:Static resx:AppResources.ArchiSteamFarmPlus}" 
+              Icon="ArchiSteamFarmPlusPageViewModel" 
+              BindingContext="{x:Binding Path=ASFPage,Mode=OneWay}">
+    <ShellContent Route="ArchiSteamFarmPlusPage" 
+                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
+  </FlyoutItem>
+
+  <MenuItem 
+          Text="{x:Static resx:AppResources.Settings}" 
+          IconImageSource="SettingsPageViewModel" />
+  <FlyoutItem Title="{x:Static resx:AppResources.Settings}" 
+              Icon="SettingsPageViewModel"
+              BindingContext="{Binding Mode=OneWay,Source={x:Static vm:SettingsPageViewModel.Instance}}">
+    <ShellContent Route="SettingsPage" 
+                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
+  </FlyoutItem>-->
+  <!--<OnPlatform>
+    <On Platform="Android">
+      <MenuItem 
+          Text="{x:Static resx:AppResources.Settings}" 
+          IconImageSource="SettingsPageViewModel" />
+    </On>
+    <On>
+     
+    </On>
+  </OnPlatform>
+  <OnPlatform>
+    <On Platform="Android">
+    </On>
+    <On>
+      <FlyoutItem Title="{x:Static resx:AppResources.About}" 
+              Icon="AboutPageViewModel" 
+              BindingContext="{Binding Mode=OneWay,Source={x:Static vm:AboutPageViewModel.Instance}}">
+        <ShellContent Route="AboutPage"
+                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
+      </FlyoutItem>
+    </On>
+  </OnPlatform>-->
+
+  <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
+  <!--<MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    </MenuItem>-->
+
+  <!--
+        TabBar lets you define content that won't show up in a flyout menu. When this content is active
+        the flyout menu won't be available. This is useful for creating areas of the application where 
+        you don't want users to be able to navigate away from. If you would like to navigate to this 
+        content you can do so by calling 
+        await Shell.Current.GoToAsync("//LoginPage");
+    -->
+  <!--<TabBar>
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </TabBar>-->
+
+  <!-- Optional Templates 
+    // These may be provided inline as below or as separate classes.
+
+    // This header appears at the top of the Flyout.
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>ContentHere</Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    // ItemTemplate is for ShellItems as displayed in a Flyout
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Title, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    // MenuItemTemplate is for MenuItems as displayed in a Flyout
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Text, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    -->
+
+</Shell>

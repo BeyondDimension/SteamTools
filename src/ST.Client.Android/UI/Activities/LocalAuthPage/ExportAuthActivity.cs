@@ -15,7 +15,7 @@ using static System.Application.UI.ViewModels.ExportAuthWindowViewModel;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(ExportAuthActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class ExportAuthActivity : BaseActivity<activity_export_auth, ExportAuthWindowViewModel>

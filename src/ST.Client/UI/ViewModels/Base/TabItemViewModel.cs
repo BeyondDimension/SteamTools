@@ -7,7 +7,12 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public abstract partial class TabItemViewModel<TabItemId> : ItemViewModel where TabItemId : struct, Enum
+    public abstract partial class TabItemViewModel<TabItemId> : TabItemViewModelBase where TabItemId : struct, Enum
+    {
+        public virtual TabItemId Id { get; }
+    }
+
+    public abstract partial class TabItemViewModelBase : ItemViewModel
     {
         public virtual bool IsTaskBarSubMenu { get; }
 
@@ -63,7 +68,7 @@ namespace System.Application.UI.ViewModels
 
         #endregion
 
-        protected TabItemViewModel()
+        protected TabItemViewModelBase()
         {
             if (IsInDesignMode) return;
 
@@ -76,8 +81,6 @@ namespace System.Application.UI.ViewModels
         public virtual void Initialize()
         {
         }
-
-        public virtual TabItemId Id { get; }
 
         public abstract string Name { get; protected set; }
     }

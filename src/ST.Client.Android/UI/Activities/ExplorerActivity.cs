@@ -11,7 +11,7 @@ using System.Application.UI.ViewModels;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(ExplorerActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class ExplorerActivity : BaseActivity<activity_explorer, ExplorerPageViewModel>

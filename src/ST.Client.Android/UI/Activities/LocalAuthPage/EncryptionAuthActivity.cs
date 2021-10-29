@@ -12,7 +12,7 @@ using static System.Application.UI.Resx.AppResources;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(EncryptionAuthActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class EncryptionAuthActivity : BaseActivity<activity_encryption_auth, EncryptionAuthWindowViewModel>

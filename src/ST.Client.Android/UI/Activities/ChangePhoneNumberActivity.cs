@@ -5,7 +5,7 @@ using Android.Runtime;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(ChangePhoneNumberActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme,
+    [Activity(Theme = ManifestConstants.MainTheme2,
          LaunchMode = LaunchMode.SingleTask,
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class ChangePhoneNumberActivity : BaseActivity

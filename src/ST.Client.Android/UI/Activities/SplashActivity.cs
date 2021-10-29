@@ -11,7 +11,7 @@ namespace System.Application.UI.Activities
     /// 页面 - 启动屏幕
     /// </summary>
     [Register(JavaPackageConstants.Activities + nameof(SplashActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_Splash,
+    [Activity(Theme = ManifestConstants.MainTheme2_Splash,
         MainLauncher = true,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges,

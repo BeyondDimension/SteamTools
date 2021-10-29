@@ -41,6 +41,11 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(ProxyScriptManagePageViewModel);
 
+            if (IsMobileLayout)
+            {
+                return;
+            }
+
             ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
             AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
             EnableScriptAutoUpdateCommand = ReactiveCommand.Create(() =>
@@ -94,8 +99,8 @@ namespace System.Application.UI.ViewModels
             base.Activation();
         }
 
-        protected readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
-        public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
+        protected readonly ReadOnlyObservableCollection<ScriptDTO>? _ProxyScripts;
+        public ReadOnlyObservableCollection<ScriptDTO>? ProxyScripts => _ProxyScripts;
 
         protected readonly Dictionary<string, string[]> dictPinYinArray = new();
         Func<ScriptDTO, bool> ScriptFilter(string? serachText)
@@ -122,17 +127,17 @@ namespace System.Application.UI.ViewModels
             };
         }
 
-        public ReactiveCommand<Unit, Unit> EnableScriptAutoUpdateCommand { get; }
+        public ReactiveCommand<Unit, Unit>? EnableScriptAutoUpdateCommand { get; }
 
         public MenuItemViewModel? ScriptAutoUpdate { get; }
 
         public MenuItemViewModel? OnlySteamBrowser { get; }
 
-        public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
+        public ReactiveCommand<Unit, Unit>? OnlySteamBrowserCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> ScriptStoreCommand { get; }
+        public ReactiveCommand<Unit, Unit>? ScriptStoreCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> AllEnableScriptCommand { get; }
+        public ReactiveCommand<Unit, Unit>? AllEnableScriptCommand { get; }
 
         string? _SearchText;
         public string? SearchText
@@ -281,6 +286,6 @@ namespace System.Application.UI.ViewModels
             // ProxyService.Current.ProxyScripts= ProxyService.Current.ProxyScripts.Items.Select(x=>x.Enable=true).ToList();
         }
 
-        public ICommand AddNewScriptButton_Click { get; }
+        public ICommand? AddNewScriptButton_Click { get; }
     }
 }

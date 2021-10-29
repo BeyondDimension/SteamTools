@@ -12,7 +12,7 @@ using Fragment = AndroidX.Fragment.App.Fragment;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(UserProfileActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme,
+    [Activity(Theme = ManifestConstants.MainTheme2,
          LaunchMode = LaunchMode.SingleTask,
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class UserProfileActivity : BaseActivity<activity_toolbar_tablayout_viewpager2, UserProfileWindowViewModel>, ViewPagerWithTabLayoutAdapter.IHost

@@ -15,7 +15,7 @@ using Fragment = AndroidX.Fragment.App.Fragment;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(AddAuthActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class AddAuthActivity : BaseActivity<activity_toolbar_tablayout_viewpager2, AddAuthWindowViewModel>, ViewPagerWithTabLayoutAdapter.IHost

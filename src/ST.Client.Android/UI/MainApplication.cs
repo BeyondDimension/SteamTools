@@ -25,7 +25,7 @@ namespace System.Application.UI
     [Register(JavaPackageConstants.UI + nameof(MainApplication))]
     [Application(
         Label = "@string/app_name",
-        Theme = "@style/MainTheme",
+        Theme = "@style/MainTheme2",
         Icon = "@mipmap/ic_launcher",
         RoundIcon = "@mipmap/ic_launcher_round")]
     public sealed partial class MainApplication

@@ -22,19 +22,19 @@ namespace System.Application.UI.ViewModels
         readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
         readonly IPlatformService platformService = IPlatformService.Instance;
 
-        public ReactiveCommand<Unit, Unit> SetupCertificateCommand { get; }
+        public ReactiveCommand<Unit, Unit>? SetupCertificateCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> DeleteCertificateCommand { get; }
+        public ReactiveCommand<Unit, Unit>? DeleteCertificateCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> OpenCertificateDirCommand { get; }
+        public ReactiveCommand<Unit, Unit>? OpenCertificateDirCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> EditHostsFileCommand { get; }
+        public ReactiveCommand<Unit, Unit>? EditHostsFileCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> NetworkFixCommand { get; }
+        public ReactiveCommand<Unit, Unit>? NetworkFixCommand { get; }
 
         //public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> ProxySettingsCommand { get; }
+        public ReactiveCommand<Unit, Unit>? ProxySettingsCommand { get; }
 
         //public ReactiveCommand<Unit, Unit> EnableProxyScriptCommand { get; }
 
@@ -42,15 +42,20 @@ namespace System.Application.UI.ViewModels
 
         //public MenuItemViewModel EnableProxyScript { get; }
 
-        public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
+        public ReactiveCommand<Unit, Unit>? RefreshCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> TrustCerCommand { get; }
+        public ReactiveCommand<Unit, Unit>? TrustCerCommand { get; }
 
         protected readonly IHttpProxyService httpProxyService = IHttpProxyService.Instance;
 
         public CommunityProxyPageViewModel()
         {
             IconKey = nameof(CommunityProxyPageViewModel);
+
+            if (IsMobileLayout)
+            {
+                return;
+            }
 
             SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);

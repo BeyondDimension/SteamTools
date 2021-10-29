@@ -33,7 +33,7 @@ using Process = System.Diagnostics.Process;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(AboutActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
          LaunchMode = LaunchMode.SingleTask,
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class AboutActivity : BaseActivity<activity_about, AboutPageViewModel>

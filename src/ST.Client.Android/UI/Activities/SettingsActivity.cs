@@ -18,7 +18,7 @@ using static System.Application.UI.Resx.AppResources;
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(SettingsActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme_NoActionBar,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
          LaunchMode = LaunchMode.SingleTask,
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class SettingsActivity : BaseActivity<activity_settings, SettingsPageViewModel>

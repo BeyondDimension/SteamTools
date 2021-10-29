@@ -1,11 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Base application theme. -->
-  <style name="MainTheme.Base.Shared" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+  <style name="MainTheme2.Base.Shared" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
     <!-- Customize your theme here. -->
-    <item name="actionOverflowMenuStyle">@style/MainTheme.OverflowMenu</item>
+    <item name="actionOverflowMenuStyle">@style/MainTheme2.OverflowMenu</item>
   </style>
 
-  <style name="MainTheme.Base" parent="MainTheme.Base.Shared">
+  <style name="MainTheme2.Base" parent="MainTheme2.Base.Shared">
     <!-- Primary brand color. -->
     <item name="colorPrimary">@color/blue_500</item>
     <item name="colorPrimaryVariant">@color/blue_700</item>
@@ -16,14 +16,14 @@
     <item name="colorOnSecondary">@color/black</item>
   </style>
 
-  <style name="MainTheme.V23" parent="MainTheme.Base">
+  <style name="MainTheme2.V23" parent="MainTheme2.Base">
     <!-- Status bar color. -->
     <item name="android:statusBarColor">?colorPrimaryVariant</item>
   </style>
 
-  <style name="MainTheme" parent="MainTheme.V23" />
+  <style name="MainTheme2" parent="MainTheme2.V23" />
 
-  <style name="MainTheme.Splash.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+  <style name="MainTheme2.Splash.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     <item name="android:windowBackground">@drawable/splash_screen</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
@@ -31,20 +31,20 @@
     <item name="android:windowActionBar">true</item>
   </style>
 
-  <style name="MainTheme.Splash.Base.V28" parent="MainTheme.Splash.Base" />
+  <style name="MainTheme2.Splash.Base.V28" parent="MainTheme2.Splash.Base" />
 
-  <style name="MainTheme.Splash" parent="MainTheme.Splash.Base.V28" />
+  <style name="MainTheme2.Splash" parent="MainTheme2.Splash.Base.V28" />
 
-  <style name="MainTheme.NoActionBar" parent="MainTheme">
+  <style name="MainTheme2.NoActionBar" parent="MainTheme2">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
 
-  <style name="MainTheme.TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+  <style name="MainTheme2.TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
     <item name="textAllCaps">false</item>
   </style>
 
-  <style name="MainTheme.OverflowMenu" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
+  <style name="MainTheme2.OverflowMenu" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
     <item name="android:overlapAnchor">false</item>
   </style>
 </resources>

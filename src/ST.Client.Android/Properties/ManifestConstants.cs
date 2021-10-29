@@ -15,8 +15,8 @@ namespace System.Application
             ConfigChanges.LayoutDirection |
             ConfigChanges.SmallestScreenSize;
 
-        public const string MainTheme = "@style/MainTheme";
-        public const string MainTheme_NoActionBar = "@style/MainTheme.NoActionBar";
-        public const string MainTheme_Splash = "@style/MainTheme.Splash";
+        public const string MainTheme2 = "@style/MainTheme2";
+        public const string MainTheme2_NoActionBar = "@style/MainTheme2.NoActionBar";
+        public const string MainTheme2_Splash = "@style/MainTheme2.Splash";
     }
 }

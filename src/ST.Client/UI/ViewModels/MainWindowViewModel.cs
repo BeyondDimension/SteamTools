@@ -81,25 +81,25 @@ namespace System.Application.UI.ViewModels
                         UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
                     }
                 });
-
-
-                FooterTabItems = new List<TabItemViewModel>
-                {
-                    SettingsPageViewModel.Instance,
-                    AboutPageViewModel.Instance,
-                };
             }
+
+            FooterTabItems = new List<TabItemViewModel>
+            {
+                SettingsPageViewModel.Instance,
+                AboutPageViewModel.Instance,
+            };
 
             #region InitTabItems
 
+
+            //AddTabItem<StartPageViewModel>();
+            AddTabItem<CommunityProxyPageViewModel>();
+            AddTabItem<ProxyScriptManagePageViewModel>();
             if (useAvalonia)
             {
-                //AddTabItem<StartPageViewModel>();
-                AddTabItem<CommunityProxyPageViewModel>();
-                AddTabItem<ProxyScriptManagePageViewModel>();
                 AddTabItem<SteamAccountPageViewModel>();
-                AddTabItem<GameListPageViewModel>();
             }
+            AddTabItem<GameListPageViewModel>();
             AddTabItem<LocalAuthPageViewModel>();
             var isVersion_2_5_OR_GREATER =
 #if DEBUG

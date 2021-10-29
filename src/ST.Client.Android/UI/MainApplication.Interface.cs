@@ -1,4 +1,5 @@
 using System;
+using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Collections.Generic;
 using System.Text;
@@ -10,8 +11,8 @@ namespace System.Application.UI
     {
         int? IAndroidApplication.NotificationSmallIconResId => Resource.Drawable.ic_stat_notify_msg;
 
-        JClass IAndroidApplication.NotificationEntrance => typeof(MainActivity).GetJClass();
+        JClass IAndroidApplication.NotificationEntrance => ((IAndroidApplication)this).MainActivityType.GetJClass();
 
-        Type IAndroidApplication.MainActivityType => typeof(MainActivity);
+        Type IAndroidApplication.MainActivityType => typeof(MainActivity2);
     }
 }

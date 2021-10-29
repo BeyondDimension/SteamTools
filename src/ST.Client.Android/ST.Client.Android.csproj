@@ -98,7 +98,7 @@
     <Compile Include="..\Common.ClientLib.Droid\Application\DarkModeUtil.cs" />
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddWindowManager.cs" />
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddApplicationUpdateService.cs" />
-    <AndroidResource Include="Resources\values\strings_.xml" />
+    <AndroidResource Include="Resources\**\*" />
     <Compile Include="..\AboutAppInfoPopup.cs">
       <LinkBase>UI</LinkBase>
     </Compile>
@@ -140,6 +140,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
