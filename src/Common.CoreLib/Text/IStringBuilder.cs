@@ -5,7 +5,7 @@ namespace System.Text
     public interface IStringBuilder<TBuilder>
     {
 #pragma warning disable IDE1006 // 命名样式
-        TBuilder @this { get; }
+        protected TBuilder @this { get; }
 #pragma warning restore IDE1006 // 命名样式
 
         TBuilder Append(string? value);
