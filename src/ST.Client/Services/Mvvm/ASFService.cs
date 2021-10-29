@@ -66,8 +66,12 @@ namespace System.Application.Services
 
         void OnConsoleWirteLine(string message)
         {
-            ConsoleLogBuilder.AppendLine(message);
-            ConsoleLogText = ConsoleLogBuilder.ToString();
+            MainThread2.InvokeOnMainThreadAsync(() =>
+            {
+                ConsoleLogBuilder.AppendLine(message);
+                var text = ConsoleLogBuilder.ToString();
+                ConsoleLogText = text;
+            });
         }
 
         public async void InitASF()
