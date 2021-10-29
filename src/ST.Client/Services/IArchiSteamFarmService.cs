@@ -56,11 +56,17 @@ namespace System.Application.Services
 
         GlobalConfig? GetGlobalConfig();
 
-        void CommandSubmit(string command)
+        async void CommandSubmit(string command)
         {
+            if (string.IsNullOrEmpty(command))
+                return;
             if (ReadLineTask is null)
             {
-                ExecuteCommand(command);
+                if (command[0] == '!')
+                {
+                    command = command.Remove(0, 1);
+                }
+                await ExecuteCommand(command);
             }
             else
             {

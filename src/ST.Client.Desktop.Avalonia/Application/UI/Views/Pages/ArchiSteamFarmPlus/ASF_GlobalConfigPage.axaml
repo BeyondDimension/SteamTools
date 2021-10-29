@@ -83,6 +83,13 @@
 
       <Separator Classes="Separator"/>
 
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="AutoCompleteBox"/>
+          <AutoCompleteBox Text=""/>
+        </DockPanel>
+      </Border>
+
       <!--<Border Classes="Item">
         <DockPanel>
           <TextBlock Text="启用IPC"/>

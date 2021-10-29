@@ -124,6 +124,8 @@ namespace System.Application.Services.Implementation
 
             string? response = await targetBot.Commands.Response(steamOwnerID, command!);
 
+            if (!string.IsNullOrEmpty(response))
+                ASF.ArchiLogger.LogGenericInfo(response);
             return response;
         }
 

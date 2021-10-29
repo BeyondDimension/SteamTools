@@ -26,6 +26,8 @@ namespace System.Application.Services.Implementation
                 return CreateWin10Window();
 #pragma warning restore CA1416 // 验证平台兼容性
             }
+
+            //return PlatformManager.CreateWindow();
             return ((IWindowingPlatform)Win32Platform).CreateWindow();
         }
 

@@ -318,7 +318,7 @@ namespace System.Application.UI
 
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
 
-            if (OperatingSystem2.IsWindows10AtLeast)
+            if (!ViewModelBase.IsInDesignMode && OperatingSystem2.IsWindows10AtLeast)
             {
 #pragma warning disable CA1416 // 验证平台兼容性
                 AvaloniaLocator.CurrentMutable.Bind<IWindowingPlatform>().ToConstant(new AvaloniaWin32WindowingPlatformImpl());

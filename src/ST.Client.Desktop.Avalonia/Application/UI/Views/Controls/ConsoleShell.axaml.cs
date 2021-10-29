@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
@@ -78,6 +79,20 @@ namespace System.Application.UI.Views.Controls
             commandTextbox = this.FindControl<TextBox>("CommandTextbox");
             commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
+            commandTextbox.GetObservable(TextBox.TextProperty)
+                .Subscribe(x =>
+                {
+                    if (!string.IsNullOrEmpty(x))
+                    {
+                        var i = x.IndexOf(Environment.NewLine);
+                        if (i >= 1)
+                        {
+                            //OnCommandSubmit(x.Substring(0, i));
+                            x = x.Substring(0, i);
+                        }
+                    }
+                });
+
             //this.logTextbox.GetObservable(TextBox.TextProperty)
             //      .Subscribe(x =>
             //      {
@@ -99,6 +114,7 @@ namespace System.Application.UI.Views.Controls
                       }
                       logTextbox.Text = x;
                       consoleScroll.ScrollToEnd();
+                      consoleScroll.PageDown();
                   });
         }
 
@@ -141,6 +157,7 @@ namespace System.Application.UI.Views.Controls
             if (!string.IsNullOrEmpty(LogText))
             {
                 consoleScroll.ScrollToEnd();
+                consoleScroll.PageDown();
             }
         }
     }
