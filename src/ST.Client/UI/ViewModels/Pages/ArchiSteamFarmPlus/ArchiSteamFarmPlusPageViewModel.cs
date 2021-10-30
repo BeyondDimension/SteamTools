@@ -75,11 +75,11 @@ namespace System.Application.UI.ViewModels
 
             if (bot.CardsFarmer.Paused)
             {
-                result = await bot.Actions.Pause(true).ConfigureAwait(false);
+                result = bot.Actions.Resume();
             }
             else
             {
-                result = bot.Actions.Resume();
+                result = await bot.Actions.Pause(true).ConfigureAwait(false);
             }
 
             Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));

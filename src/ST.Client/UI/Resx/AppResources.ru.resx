@@ -1761,7 +1761,7 @@
     <value>Пожалуйста, сначала получите проверочный код</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="User_SteamAvaterTip" xml:space="preserve">
+  <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>Нажмите на аватар, чтобы быстро войти в систему</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>

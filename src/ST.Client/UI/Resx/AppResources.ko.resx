@@ -1761,7 +1761,7 @@
     <value>먼저 확인 코드를 받으십시오</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="User_SteamAvaterTip" xml:space="preserve">
+  <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>아바타를 클릭하여 빠르게 로그인합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>

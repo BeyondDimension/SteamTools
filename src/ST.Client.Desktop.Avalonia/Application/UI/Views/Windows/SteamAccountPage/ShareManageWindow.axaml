@@ -83,7 +83,7 @@
                          Source="{Binding AvatarStream^}">
                   </gif:Image2>
                   <Image Width="92" Stretch="UniformToFill" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                         Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
+                         Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                   </Image>
                   <!--<gif:Image2 Width="184" Height="184" 
                                             AutoStart="true"

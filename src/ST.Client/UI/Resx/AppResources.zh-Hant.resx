@@ -1761,7 +1761,7 @@
     <value>請先獲取驗證碼</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="User_SteamAvaterTip" xml:space="preserve">
+  <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>點擊頭像快速登錄</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>

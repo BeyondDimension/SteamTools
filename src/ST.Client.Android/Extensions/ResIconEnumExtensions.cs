@@ -11,7 +11,7 @@ namespace System
         {
             var resId = icon switch
             {
-                ResIcon.AvaterDefault => Resource.Drawable.avater_default,
+                ResIcon.AvatarDefault => Resource.Drawable.avatar_default,
                 ResIcon.AccountBox => Resource.Drawable.baseline_account_box_black_24,
                 ResIcon.Info => Resource.Drawable.baseline_info_black_24,
                 ResIcon.Person => Resource.Drawable.baseline_person_black_24,

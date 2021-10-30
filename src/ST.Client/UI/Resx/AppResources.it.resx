@@ -1766,7 +1766,7 @@ Sicuro di voler continuare?</value>
     <value>Ottieni prima il codice di verifica</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="User_SteamAvaterTip" xml:space="preserve">
+  <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>Clicca sul tuo avatar per accedere rapidamente</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>

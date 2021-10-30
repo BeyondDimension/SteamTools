@@ -32,13 +32,13 @@
         xamarin:managedType="AndroidX.ConstraintLayout.Widget.Guideline" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivAvater"
+        android:id="@+id/ivAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:src="@drawable/avater_default"
+        android:src="@drawable/avatar_default"
         app:civ_border_color="@color/border_color"
-        app:civ_border_width="@dimen/avater_border_width"
+        app:civ_border_width="@dimen/avatar_border_width"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/text_primary"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivAvater"
+        app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
         tools:text="从您的设备上传一个文件。图片应为方形，至少为 184px x 184px"
@@ -81,7 +81,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
         app:layout_constraintStart_toEndOf="@+id/ivIconNickName"
-        app:layout_constraintTop_toBottomOf="@+id/ivAvater"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
         tools:hint="昵称"
         xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
 

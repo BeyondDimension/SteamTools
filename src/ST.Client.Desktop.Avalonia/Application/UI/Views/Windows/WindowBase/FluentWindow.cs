@@ -46,7 +46,6 @@ namespace Avalonia.Controls
             //{
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
-
             //}
             TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
             SystemDecorations = SystemDecorations.Full;
@@ -137,11 +136,11 @@ namespace Avalonia.Controls
                 {
                     if (vm.SizePosition.Width > 0
                         && Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
-                        Width = vm.SizePosition.Width + 16;
+                        Width = vm.SizePosition.Width + (((ICoreWindow)this).IsNewSizeWindow ? 16 : 0);
 
                     if (vm.SizePosition.Height > 0
                         && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
-                        Height = vm.SizePosition.Height + 8;
+                        Height = vm.SizePosition.Height + (((ICoreWindow)this).IsNewSizeWindow ? 8 : 0);
 
                     HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
 
@@ -196,6 +195,8 @@ namespace Avalonia.Controls
         Window ICoreWindow.Window => this;
 
         MinMaxCloseControl? ICoreWindow.SystemCaptionButtons => _systemCaptionButtons;
+
+        bool ICoreWindow.IsNewSizeWindow { get; set; }
 
         #endregion
     }

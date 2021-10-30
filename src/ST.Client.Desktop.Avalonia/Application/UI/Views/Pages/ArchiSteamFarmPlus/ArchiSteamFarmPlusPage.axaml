@@ -60,7 +60,7 @@
           </ui:CommandBarButton>
 
           <ui:CommandBarButton
-                               Command="{ReflectionBinding ShowAddBotWindow}"
+                               Command="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=RefreshBots,Mode=OneWay}"
                                ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Label="刷新">
             <ui:CommandBarButton.Icon>
@@ -77,7 +77,7 @@
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
         </ui:CommandBar.PrimaryCommands>
-        
+
         <ui:CommandBar.SecondaryCommands>
           <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
                                CommandParameter="Wiki"
@@ -108,7 +108,7 @@
         <!--<TabItem Header="ASF 运行状态">
 
         </TabItem>-->
-        
+
         <TabItem Header="ASF 控制台">
           <controls:ConsoleShell x:Name="ConsoleLog"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"

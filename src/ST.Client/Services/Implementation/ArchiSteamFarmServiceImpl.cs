@@ -55,9 +55,11 @@ namespace System.Application.Services.Implementation
                     {
                         ReadLineTask = new(TaskCreationOptions.AttachedToParent);
                         IsReadPasswordLine = isPassword;
-
+#if NET6_0_OR_GREATER
+                        var result = await ReadLineTask.Task.WaitAsync(TimeSpan.FromSeconds(20));
+#else
                         var result = await ReadLineTask.Task;
-
+#endif
                         if (IsReadPasswordLine)
                             IsReadPasswordLine = false;
                         ReadLineTask = null;
@@ -202,16 +204,16 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public async Task<string?> GetAvatarUrl(Bot bot)
-        {
-            if (!string.IsNullOrEmpty(bot.AvatarUrl))
-            {
-                return await httpService.GetImageAsync($"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarUrl.Substring(0, 2)}/{bot.AvatarUrl}_full.jpg", ImageChannelType.SteamAvatars);
-            }
-            else
-            {
-                return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
-            }
-        }
+        //public async Task<string?> GetAvatarUrl(Bot bot)
+        //{
+        //    if (!string.IsNullOrEmpty(bot.AvatarUrl))
+        //    {
+        //        return await httpService.GetImageAsync($"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarUrl.Substring(0, 2)}/{bot.AvatarUrl}_full.jpg", ImageChannelType.SteamAvatars);
+        //    }
+        //    else
+        //    {
+        //        return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg";
+        //    }
+        //}
     }
 }

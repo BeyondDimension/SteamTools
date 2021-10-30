@@ -1766,7 +1766,7 @@
     <value>Por favor, obtenga el Código de verificación primero</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="User_SteamAvaterTip" xml:space="preserve">
+  <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>Haga clic en inicio de sesión rápido</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>

@@ -48,7 +48,7 @@
 
       <DockPanel Margin="0 8 0 0">
         <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="10 0" DockPanel.Dock="Left"/>
-        <!--<Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
+        <!--<Image Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
                          Stretch="Uniform"
                          Height="100" Width="100"
                          HorizontalAlignment="Center">

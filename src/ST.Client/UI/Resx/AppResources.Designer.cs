@@ -4721,9 +4721,9 @@ namespace System.Application.UI.Resx {
         /// <summary>
         ///   查找类似 点击头像快速登录 的本地化字符串。
         /// </summary>
-        public static string User_SteamAvaterTip {
+        public static string User_SteamAvatarTip {
             get {
-                return ResourceManager.GetString("User_SteamAvaterTip", resourceCulture);
+                return ResourceManager.GetString("User_SteamAvatarTip", resourceCulture);
             }
         }
         

@@ -319,7 +319,7 @@
                 <StackPanel Spacing="5">
                   <Border DockPanel.Dock="Top"
                           Cursor="Hand"
-                          x:Name="AppAvater"
+                          x:Name="AppAvatar"
                           Classes="paper"
                           Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
                     <FlyoutBase.AttachedFlyout>

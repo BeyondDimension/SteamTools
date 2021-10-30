@@ -6,7 +6,7 @@ namespace System.Application.UI
     public enum ResIcon
     {
         None,
-        AvaterDefault,
+        AvatarDefault,
         AccountBox,
         Info,
         Person,

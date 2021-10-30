@@ -5,6 +5,7 @@
              xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:converters="using:System.Application.Converters"
              xmlns:service="using:System.Application.Services"
              xmlns:ccl_service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"
@@ -17,6 +18,9 @@
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_BotPage">
+  <UserControl.Resources>
+    <converters:BotStatusConverter x:Key="BotStatusConverter"/>
+  </UserControl.Resources>
   <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto"
             Padding="0 0 0 10">
@@ -24,7 +28,7 @@
       <ItemsRepeater.Layout>
         <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-        <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
+        <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
       </ItemsRepeater.Layout>
       <ItemsRepeater.ItemTemplate>
         <DataTemplate>
@@ -57,12 +61,18 @@
                        Source="{Binding AvatarUrl,Converter={StaticResource BitmapAssetValueConverter}}">
                 </Image>
                 <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                       Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
+                       Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                 </Image>-->
               </Panel>
               <Panel Grid.Column="1" Margin="10 5">
                 <StackPanel Spacing="8">
                   <DockPanel>
+                    <DockPanel.Styles>
+                      <Style Selector="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="24"/>
+                      </Style>
+                    </DockPanel.Styles>
                     <WrapPanel DockPanel.Dock="Left">
                       <Ellipse
                               x:Name="circle"
@@ -82,29 +92,32 @@
                           </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                       </Ellipse>
-                      <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding BotName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                        <i:Interaction.Behaviors>
+                      <controls:ScrollingTextBlock x:Name="nickname"
+                                                   Text="{Binding BotName}"
+                                                   FontSize="24"
+                                                   Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                                   VerticalAlignment="Center"
+                                                   Cursor="Hand"
+                                                   ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                        <!--<i:Interaction.Behaviors>
                           <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
                             <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
                           </ia:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
+                        </i:Interaction.Behaviors>-->
                       </controls:ScrollingTextBlock>
-                      <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
-                      <WrapPanel VerticalAlignment="Center"
-                                 IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+                      <WrapPanel IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
                         <TextBlock Text="("></TextBlock>
-                        <controls:ScrollingTextBlock Text="{Binding Nickname}">
-                        </controls:ScrollingTextBlock>
+                        <controls:ScrollingTextBlock Text="{Binding Nickname}"
+                                                   FontSize="24"/>
                         <TextBlock Text=")"></TextBlock>
                       </WrapPanel>
-
-
                     </WrapPanel>
 
                     <WrapPanel DockPanel.Dock="Right">
-                      <TextBlock IsVisible="{Binding !CardsFarmer.Paused}"
-                      Text="正在挂卡"
-                      FontSize="16"/>
+                      <TextBlock Text="-"
+                                 Margin="5 0"/>
+                      <TextBlock VerticalAlignment="Center"
+                        Text="{Binding Converter={StaticResource BotStatusConverter}}"/>
                     </WrapPanel>
                   </DockPanel>
 
@@ -161,7 +174,8 @@
                       </ItemsRepeater.Layout>
                       <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
-                          <Border>
+                          <Border Classes="paper"
+                                  ClipToBounds="True">
                             <Panel>
                               <Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
                                 Width="184"

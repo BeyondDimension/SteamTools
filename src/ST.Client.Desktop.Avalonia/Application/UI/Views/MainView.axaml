@@ -123,10 +123,10 @@
                    Command="{Binding OpenUserMenu}">
           <DockPanel
                       HorizontalAlignment="Stretch">
-            <!--<Image x:Name="avater" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
+            <!--<Image x:Name="avatar" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
             <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="18" Margin="8,0,0,0"/>-->
-            <Image x:Name="avater" Clip=""
-                   Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=64}"
+            <Image x:Name="avatar" Clip=""
+                   Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=64}"
                    Stretch="Uniform"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
@@ -158,7 +158,7 @@
           <ui:Button.Flyout>
             <ui:MenuFlyout Placement="RightEdgeAlignedTop">
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                 Command="{ReflectionBinding Path=RefreshUserAvaterAsync,Source={x:Static service:UserService.Current}}"/>
+                                 Command="{ReflectionBinding Path=RefreshUserAvatarAsync,Source={x:Static service:UserService.Current}}"/>
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                                  CommandParameter="UserProfile"/>

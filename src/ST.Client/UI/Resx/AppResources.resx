@@ -1407,7 +1407,7 @@
   <data name="User_SMSCode_Error" xml:space="preserve">
     <value>请先获取验证码</value>
   </data>
-  <data name="User_SteamAvaterTip" xml:space="preserve">
+  <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>点击头像快速登录</value>
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">

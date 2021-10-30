@@ -111,19 +111,19 @@
             <!--<i:Interaction.Behaviors>
               <ia:DataTriggerBehavior Binding="{Binding SteamUser}" ComparisonCondition="Equal" Value="{x:Null}">
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="True"/>
-                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvater}" PropertyName="IsVisible" Value="False"/>
+                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvatar}" PropertyName="IsVisible" Value="False"/>
               </ia:DataTriggerBehavior>
               <ia:DataTriggerBehavior Binding="{Binding SteamUser}" ComparisonCondition="NotEqual" Value="{x:Null}">
-                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvater}" PropertyName="IsVisible" Value="True"/>
+                <ia:ChangePropertyAction TargetObject="{ReflectionBinding #UserAvatar}" PropertyName="IsVisible" Value="True"/>
                 <ia:ChangePropertyAction TargetObject="{ReflectionBinding #SteamLogo}" PropertyName="IsVisible" Value="False"/>
               </ia:DataTriggerBehavior>
             </i:Interaction.Behaviors>-->
 
-            <Button x:Name="UserAvater" Classes="plain" Command="{ReflectionBinding FastLogin}" IsVisible="False" CommandParameter="Steam">
+            <Button x:Name="UserAvatar" Classes="plain" Command="{ReflectionBinding FastLogin}" IsVisible="False" CommandParameter="Steam">
               <Image
-                        Source="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=AvaterPath,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=128}"
+                        Source="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=AvatarPath,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=128}"
                         Height="128" Width="128" HorizontalAlignment="Center" Margin="0 0 0 25"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.User_SteamAvaterTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                        ToolTip.Tip="{ReflectionBinding Path=Res.User_SteamAvatarTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
               </Image>
             </Button>
 

@@ -103,24 +103,24 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _SteamUser, value);
         }
 
-        public string DefaultAvaterPath
+        public string DefaultAvatarPath
         {
             get
             {
                 if (OperatingSystem2.Application.UseAvalonia)
                 {
-                    return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avater.jpg";
+                    return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg";
                 }
                 return string.Empty;
             }
         }
 
-        object? _AvaterPath;
+        object? _AvatarPath;
 
-        public object? AvaterPath
+        public object? AvatarPath
         {
-            get => _AvaterPath ?? DefaultAvaterPath;
-            set => this.RaiseAndSetIfChanged(ref _AvaterPath, value);
+            get => _AvatarPath ?? DefaultAvatarPath;
+            set => this.RaiseAndSetIfChanged(ref _AvatarPath, value);
         }
 
         public UserService()
@@ -128,13 +128,13 @@ namespace System.Application.Services
             mCurrent = this;
 
             this.WhenAnyValue(x => x.User)
-                  .Subscribe(_ => this.RaisePropertyChanged(nameof(AvaterPath)));
+                  .Subscribe(_ => this.RaisePropertyChanged(nameof(AvatarPath)));
 
             userManager.OnSignOut += () =>
             {
                 User = null;
                 CurrentSteamUser = null;
-                AvaterPath = DefaultAvaterPath;
+                AvatarPath = DefaultAvatarPath;
             };
 
             Task.Run(Initialize).ForgetAndDispose();
@@ -183,7 +183,7 @@ namespace System.Application.Services
             User = user;
             this.RaisePropertyChanged(nameof(IsAuthenticated));
 
-            await RefreshUserAvaterAsync();
+            await RefreshUserAvatarAsync();
 
             var currentUser = await userManager.GetCurrentUserAsync();
             RefreshCurrentUser(currentUser);
@@ -195,7 +195,7 @@ namespace System.Application.Services
             await RefreshUserAsync(user);
         }
 
-        public async Task RefreshUserAvaterAsync()
+        public async Task RefreshUserAvatarAsync()
         {
             if (User != null)
             {
@@ -216,31 +216,31 @@ namespace System.Application.Services
                             if (!string.IsNullOrWhiteSpace(avatarUrl))
                             {
                                 var avatarLocalFilePath = await httpService.GetImageAsync(avatarUrl, ImageChannelType.SteamAvatars);
-                                var avaterSouce = ImageSouce.TryParse(avatarLocalFilePath, isCircle: true);
-                                AvaterPath = avaterSouce ?? DefaultAvaterPath;
+                                var avatarSouce = ImageSouce.TryParse(avatarLocalFilePath, isCircle: true);
+                                AvatarPath = avatarSouce ?? DefaultAvatarPath;
                             }
                             return;
                         }
                         else if (item == FastLoginChannel.Steam
-                            && await RefreshSteamUserAvaterAsync())
+                            && await RefreshSteamUserAvatarAsync())
                         {
                             return;
                         }
                     }
                 }
-                else if (await RefreshSteamUserAvaterAsync())
+                else if (await RefreshSteamUserAvatarAsync())
                 {
                     return;
                 }
 
-                async Task<bool> RefreshSteamUserAvaterAsync()
+                async Task<bool> RefreshSteamUserAvatarAsync()
                 {
                     if (User != null && User.SteamAccountId.HasValue)
                     {
                         CurrentSteamUser = await steamworksWebApiService.GetUserInfo(User.SteamAccountId.Value);
                         CurrentSteamUser.AvatarStream = httpService.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                        var avaterSouce = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
-                        AvaterPath = avaterSouce ?? DefaultAvaterPath;
+                        var avatarSouce = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
+                        AvatarPath = avatarSouce ?? DefaultAvatarPath;
                         return true;
                     }
                     else
@@ -250,7 +250,7 @@ namespace System.Application.Services
                 }
             }
 
-            AvaterPath = DefaultAvaterPath;
+            AvatarPath = DefaultAvatarPath;
         }
 
         /// <summary>

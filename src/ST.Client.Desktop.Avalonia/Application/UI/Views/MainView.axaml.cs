@@ -28,7 +28,7 @@ namespace System.Application.UI.Views
             //    else
             //        sp.Margin = new Avalonia.Thickness(0, 6, 10, 0);
 
-            var avater = this.FindControl<Image>("avater");
+            var avatar = this.FindControl<Image>("avatar");
             var nav = this.FindControl<NavigationView>("NavigationView");
             var back = this.FindControl<ExperimentalAcrylicBorder>("NavBarBackground");
 
@@ -49,28 +49,28 @@ namespace System.Application.UI.Views
                     });
             }
 
-            if (avater != null && nav != null)
+            if (avatar != null && nav != null)
             {
                 nav.GetObservable(NavigationView.IsPaneOpenProperty)
                   .Subscribe(x =>
                   {
                       if (!x)
                       {
-                          avater.Width = 26;
-                          avater.Height = 26;
-                          avater.Margin = new Thickness(-4, 0, 10, 0);
+                          avatar.Width = 26;
+                          avatar.Height = 26;
+                          avatar.Margin = new Thickness(-4, 0, 10, 0);
                       }
                       else
                       {
-                          avater.Width = 64;
-                          avater.Height = 64;
-                          avater.Margin = new Thickness(10, 0);
+                          avatar.Width = 64;
+                          avatar.Height = 64;
+                          avatar.Margin = new Thickness(10, 0);
                       }
 
 
-                      if (avater.Clip is EllipseGeometry ellipse)
+                      if (avatar.Clip is EllipseGeometry ellipse)
                       {
-                          ellipse.Rect = new Rect(0, 0, avater.Width, avater.Height);
+                          ellipse.Rect = new Rect(0, 0, avatar.Width, avatar.Height);
                       }
                   });
             }

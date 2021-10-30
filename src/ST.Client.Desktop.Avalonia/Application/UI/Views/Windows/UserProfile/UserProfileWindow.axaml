@@ -74,7 +74,7 @@
         <Panel Margin="{StaticResource ContentMargin}">
           <StackPanel VerticalAlignment="Center">
             <DockPanel>
-              <Image Source="{ReflectionBinding Path=AvaterPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=184}"
+              <Image Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=184}"
                      Width="184" Height="184">
                 <Image.Clip>
                   <EllipseGeometry Rect="0,0,184,184"/>

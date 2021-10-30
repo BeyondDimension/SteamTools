@@ -1765,7 +1765,7 @@
     <value>Please request for an SMS code first.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="User_SteamAvaterTip" xml:space="preserve">
+  <data name="User_SteamAvatarTip" xml:space="preserve">
     <value>Click on the avatar to quickly log in</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>

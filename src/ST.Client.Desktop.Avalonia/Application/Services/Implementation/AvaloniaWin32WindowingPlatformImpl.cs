@@ -111,8 +111,8 @@ namespace System.Application.Services.Implementation
                             var newSize = ncParams.rgrc[0];
                             newSize.top = originalTop;
 
-                            if (WindowState == WindowState.Maximized || 
-                                WindowState == WindowState.FullScreen )
+                            if (WindowState == WindowState.Maximized ||
+                                WindowState == WindowState.FullScreen)
                             {
                                 //newSize.top += GetResizeHandleHeight();
                             }
@@ -121,6 +121,8 @@ namespace System.Application.Services.Implementation
                                 newSize.left += 8;
                                 newSize.right -= 8;
                                 newSize.bottom -= 8;
+
+                                _owner.IsNewSizeWindow = true;
                             }
 
                             ncParams.rgrc[0] = newSize;

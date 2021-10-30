@@ -18,6 +18,8 @@ namespace Avalonia.Controls
     {
         Window Window { get; }
 
+        bool IsNewSizeWindow { get; set; }
+
         MinMaxCloseControl? SystemCaptionButtons { get; }
 
         bool HitTestTitleBarRegion(APoint windowPoint)
