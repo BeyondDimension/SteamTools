@@ -222,5 +222,12 @@ namespace System.Application.Models
 #else
         { get; set; }
 #endif
+        /// <summary>
+        /// 用户类型
+        /// </summary>
+        [MPKey(19)]
+        [N_JsonProperty("19")]
+        [S_JsonProperty("19")]
+        public UserType UserType { get; set; }
     }
 }
