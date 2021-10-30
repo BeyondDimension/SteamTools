@@ -1,7 +1,7 @@
 <Project>
     <ItemGroup>
         <PackageVersion Include="ReactiveUI" Version="16.2.6" />
-        <PackageVersion Include="ReactiveUI.Fody" Version="16.2.6" />
+        <!--<PackageVersion Include="ReactiveUI.Fody" Version="16.2.6" />-->
         <PackageVersion Include="DynamicData" Version="7.4.1" />
         <PackageVersion Include="Splat" Version="13.1.30" />
         <PackageVersion Include="OperatingSystem2" Version="1.4.2" />
@@ -126,7 +126,7 @@
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <PackageVersion Include="SkiaSharp" Version="2.80.3" />
         <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
-        <PackageVersion Include="Nito.Disposables" Version="2.2.1" />
+        <!--<PackageVersion Include="Nito.Disposables" Version="2.2.1" />-->
         <PackageVersion Include="System.Diagnostics.Tracing" Version="4.3.0" />
         <PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
         <PackageVersion Include="JustArchiNET.Madness" Version="1.4.0" />
