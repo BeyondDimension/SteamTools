@@ -9,6 +9,7 @@
              xmlns:service="using:System.Application.Services"
              xmlns:ccl_service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:Name="u"
@@ -152,16 +153,16 @@
                       <PathIcon Data="{StaticResource PauseCircleDrawing}" />
                     </Button>
                     <Button ToolTip.Tip="激活Key" >
-                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                      <PathIcon Data="{StaticResource keyDrawing}" />
                     </Button>
                     <Button ToolTip.Tip="两步验证" >
-                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                      <PathIcon Data="{StaticResource ShieldLockDrawing}" />
                     </Button>
                     <Button ToolTip.Tip="Bot配置" >
-                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                      <PathIcon Data="{StaticResource SettingsDrawing}" />
                     </Button>
                     <Button ToolTip.Tip="禁用Bot" >
-                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                      <ui:SymbolIcon Symbol="BlockContact"/>
                     </Button>
                   </StackPanel>
 

@@ -224,11 +224,7 @@ namespace System.Application.UI
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
                     compositeDisposable.Add(ASFService.Current.StopASF);
                     if (GeneralSettings.IsStartupAppMinimized.Value)
-                    {
                         Program.IsMinimize = true;
-                        //if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                        //    desktop.MainWindow = null;
-                    }
 #endif
                     #endregion
                     MainWindow = new MainWindow

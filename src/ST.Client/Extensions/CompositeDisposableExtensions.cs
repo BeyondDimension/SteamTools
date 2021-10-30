@@ -1,5 +1,5 @@
-using Nito.Disposables;
 using System.Reactive.Disposables;
+using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -8,8 +8,12 @@ namespace System
     {
         public static void Add(this CompositeDisposable @this, Action releaseAction)
         {
-            AnonymousDisposable disposable = new(releaseAction);
-            @this.Add(disposable);
+            @this.Add(Disposable.Create(releaseAction));
+        }
+
+        public static void Add(this CompositeDisposable @this, Func<Task> asyncFunc)
+        {
+            @this.Add(Disposable.Create(asyncFunc.RunSync));
         }
     }
 }

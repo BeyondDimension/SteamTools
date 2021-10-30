@@ -74,7 +74,7 @@ namespace System.Application.Services
             });
         }
 
-        public async void InitASF()
+        public async Task InitASF()
         {
             await archiSteamFarmService.Start();
 
@@ -85,7 +85,7 @@ namespace System.Application.Services
             this.RaisePropertyChanged(nameof(IsASFRuning));
         }
 
-        public async void StopASF()
+        public async Task StopASF()
         {
             await archiSteamFarmService.Stop();
 
