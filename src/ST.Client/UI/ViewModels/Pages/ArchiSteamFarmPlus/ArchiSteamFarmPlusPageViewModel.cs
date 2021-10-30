@@ -85,14 +85,41 @@ namespace System.Application.UI.ViewModels
             Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
         }
 
-        static string GetFolderPath(string path)
+        public void EnableOrDisableBot(Bot bot)
         {
-            IOPath.DirCreateByNotExists(path);
-            return path;
+            (bool success, string message) result;
+
+            if (bot.CardsFarmer.Paused)
+            {
+                result = bot.Actions.Stop();
+            }
+            else
+            {
+                result = bot.Actions.Start();
+            }
+
+            Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
+        }
+
+        public async void RedeemKeyBot(Bot bot)
+        {
+            var result = await bot.Actions.RedeemKey("");
+
+        }
+
+        public void GoToBotSettings(Bot bot)
+        {
+            OpenBrowser("WebBotConfig", bot.BotName);
         }
 
         public void OpenFolder(string tag)
         {
+            static string GetFolderPath(string path)
+            {
+                IOPath.DirCreateByNotExists(path);
+                return path;
+            }
+
             var path = tag switch
             {
                 "asf" => ASFPathHelper.AppDataDirectory,
@@ -106,7 +133,7 @@ namespace System.Application.UI.ViewModels
             IPlatformService.Instance.OpenFolder(path);
         }
 
-        public void OpenBrowser(string? tag)
+        public void OpenBrowser(string? tag, string? botName = null)
         {
             var url = tag switch
             {
@@ -115,6 +142,7 @@ namespace System.Application.UI.ViewModels
                 "ConfigGenerator" => "https://justarchinet.github.io/ASF-WebConfigGenerator/",
                 "WebConfig" => IPCUrl + "/asf-config",
                 "WebAddBot" => IPCUrl + "/bot/new",
+                "WebBotConfig" => IPCUrl + "/bot/" + botName,
                 _ => IPCUrl,
             };
 
