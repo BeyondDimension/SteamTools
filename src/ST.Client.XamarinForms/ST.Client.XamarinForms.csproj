@@ -21,16 +21,11 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" />
     <PackageReference Include="Xamarin.Forms.Visual.Material" />
+    <PackageReference Include="ReactiveUI.XamForms" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="UI\Views\UnderConstructionPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

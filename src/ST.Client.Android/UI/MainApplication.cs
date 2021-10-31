@@ -16,6 +16,7 @@ using System.Application.Services.Implementation;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
+using Xamarin.Forms;
 #if DEBUG
 using Square.LeakCanary;
 #endif
@@ -30,7 +31,8 @@ namespace System.Application.UI
         RoundIcon = "@mipmap/ic_launcher_round")]
     public sealed partial class MainApplication
     {
-        public static MainApplication Instance => Context is MainApplication app ? app : throw new Exception("Impossible");
+        public static MainApplication Instance => Context is MainApplication app ? app :
+            throw new NullReferenceException("Mainapplication cannot be null.");
 
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
@@ -141,15 +143,6 @@ namespace System.Application.UI
                     startTrace.AppendFormatLine("init ClearAllPackCacheDir {0}ms", stopwatch.ElapsedMilliseconds);
                     stopwatch.Restart();
                 }
-
-                UISettings.Theme.Subscribe(x =>
-                {
-                    Theme = (AppTheme)x;
-                });
-
-                stopwatch.Stop();
-                startTrace.AppendFormatLine("init Theme.Subscribe {0}ms", stopwatch.ElapsedMilliseconds);
-                stopwatch.Restart();
             }
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
@@ -171,6 +164,19 @@ namespace System.Application.UI
                 stopwatch.Stop();
                 startTrace.AppendFormatLine("init ViewModels {0}ms", stopwatch.ElapsedMilliseconds);
                 stopwatch.Restart();
+
+                Forms.Init(this, null);
+                FormsMaterial.Init(this, null);
+
+                stopwatch.Stop();
+                startTrace.AppendFormatLine("init XF {0}ms", stopwatch.ElapsedMilliseconds);
+                stopwatch.Restart();
+
+                _Current = new();
+
+                stopwatch.Stop();
+                startTrace.AppendFormatLine("init XFApp {0}ms", stopwatch.ElapsedMilliseconds);
+                stopwatch.Restart();
             }
 
             stopwatch.Stop();
@@ -179,6 +185,10 @@ namespace System.Application.UI
             Log.Warn("Application", $"OnCreate Complete({stopwatch.ElapsedMilliseconds}ms");
 #endif
         }
+
+        static App? _Current;
+        public static App Current => _Current ??
+            throw new NullReferenceException("XFApplication Create in main process only.");
 
         public static string? StartupTrack { get; private set; }
 

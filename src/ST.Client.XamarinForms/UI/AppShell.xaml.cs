@@ -43,7 +43,7 @@ namespace System.Application.UI
                         tab_item.Items.Add(new ShellContent
                         {
                             Route = tab.IconKey!.TrimEnd("ViewModel"),
-                            ContentTemplate = new DataTemplate(typeof(UnderConstructionPage)),
+                            ContentTemplate = new DataTemplate(GetPageType(tab)),
                         });
                         Items.Add(tab_item);
                     }
@@ -54,9 +54,24 @@ namespace System.Application.UI
             //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
 
-        private /*async*/ void OnMenuItemClicked(object sender, EventArgs e)
+        static Type GetPageType(TabItemViewModel tabItem)
         {
-            //await Shell.Current.GoToAsync("//LoginPage");
+            if (OperatingSystem2.IsAndroid)
+            {
+                switch (tabItem.Id)
+                {
+                    case TabItemViewModel.TabItemId.LocalAuth:
+                        return typeof(LocalAuthPage);
+                    case TabItemViewModel.TabItemId.ArchiSteamFarmPlus:
+                        return typeof(ArchiSteamFarmPlusPage);
+                }
+            }
+            return typeof(UnderConstructionPage);
         }
+
+        //private /*async*/ void OnMenuItemClicked(object sender, EventArgs e)
+        //{
+        //    //await Shell.Current.GoToAsync("//LoginPage");
+        //}
     }
 }

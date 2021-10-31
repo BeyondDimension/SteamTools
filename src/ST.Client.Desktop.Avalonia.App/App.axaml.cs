@@ -198,7 +198,7 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Theme");
 #endif
-            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+            //UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
             UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
             UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));

@@ -39,7 +39,8 @@ namespace System.Application.Services
             {
                 return mainWindowViewModel.GetTabItemVM<T>();
             }
-            throw new NotSupportedException();
+            throw new NotSupportedException(
+                "IViewModelManager.MainWindow is not MainWindowViewModel.");
         }
     }
 }
