@@ -51,16 +51,15 @@
                     <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
                   </ia:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
-                <!--<gif:Image2
+                <gif:Image2
                            Width="184"
-                           AutoStart="true"
                            Stretch="Uniform"
                            Source="{Binding AvatarUrl}">
-                </gif:Image2>-->
-                <Image Width="184"
+                </gif:Image2>
+                <!--<Image Width="184"
                        Stretch="Uniform"
                        Source="{Binding AvatarUrl,Converter={StaticResource BitmapAssetValueConverter}}">
-                </Image>
+                </Image>-->
                 <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
                        Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                 </Image>-->
@@ -125,7 +124,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Right">
                       <TextBlock VerticalAlignment="Center"
-                                 Text="{Binding WalletBalance,StringFormat={}{0:C}}"/>
+                                 Text="{Binding WalletBalanceM,StringFormat={}{0:C}}"/>
                     </WrapPanel>
                   </DockPanel>
 
@@ -167,7 +166,16 @@
                     <Button ToolTip.Tip="Bot配置" >
                       <PathIcon Data="{StaticResource SettingsDrawing}" />
                     </Button>
-                    <Button ToolTip.Tip="禁用Bot" >
+                    <Button ToolTip.Tip="启用"
+                            IsVisible="{Binding !KeepRunning}"
+                            Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
+                            CommandParameter="{Binding}">
+                      <PathIcon Data="{StaticResource BlockDrawing}" />
+                    </Button>
+                    <Button ToolTip.Tip="禁用"
+                            IsVisible="{Binding KeepRunning}"
+                            Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
+                            CommandParameter="{Binding}">
                       <PathIcon Data="{StaticResource BlockDrawing}" />
                     </Button>
                   </StackPanel>
@@ -184,9 +192,15 @@
                           <Border Classes="paper"
                                   ClipToBounds="True">
                             <Panel>
-                              <Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
+                              <gif:Image2
+                                MaxWidth="184"
+                                MaxHeight="86"
+                                Stretch="Uniform"
+                                Source="{Binding ImageUrl}">
+                              </gif:Image2>
+                              <!--<Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
                                 Width="184"
-                                Stretch="Uniform"/>
+                                Stretch="Uniform"/>-->
                               <Border VerticalAlignment="Bottom"
                                       HorizontalAlignment="Stretch"
                                       Background="{DynamicResource ThemeColorKey}">
