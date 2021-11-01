@@ -89,7 +89,7 @@ namespace System.Application.UI.ViewModels
         {
             (bool success, string message) result;
 
-            if (bot.CardsFarmer.Paused)
+            if (bot.KeepRunning)
             {
                 result = bot.Actions.Stop();
             }
@@ -109,7 +109,12 @@ namespace System.Application.UI.ViewModels
 
         public void GoToBotSettings(Bot bot)
         {
-            OpenBrowser("WebBotConfig", bot.BotName);
+            if (!ASFService.Current.IsASFRuning)
+            {
+                Toast.Show("请先运行ASF功能");
+                return;
+            }
+            Browser2.Open(IPCUrl + "/bot/" + bot.BotName);
         }
 
         public void OpenFolder(string tag)
@@ -133,7 +138,7 @@ namespace System.Application.UI.ViewModels
             IPlatformService.Instance.OpenFolder(path);
         }
 
-        public void OpenBrowser(string? tag, string? botName = null)
+        public void OpenBrowser(string? tag)
         {
             var url = tag switch
             {
@@ -142,7 +147,6 @@ namespace System.Application.UI.ViewModels
                 "ConfigGenerator" => "https://justarchinet.github.io/ASF-WebConfigGenerator/",
                 "WebConfig" => IPCUrl + "/asf-config",
                 "WebAddBot" => IPCUrl + "/bot/new",
-                "WebBotConfig" => IPCUrl + "/bot/" + botName,
                 _ => IPCUrl,
             };
 

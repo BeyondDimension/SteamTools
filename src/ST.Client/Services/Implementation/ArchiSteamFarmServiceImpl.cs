@@ -56,7 +56,7 @@ namespace System.Application.Services.Implementation
                         ReadLineTask = new(TaskCreationOptions.AttachedToParent);
                         IsReadPasswordLine = isPassword;
 #if NET6_0_OR_GREATER
-                        var result = await ReadLineTask.Task.WaitAsync(TimeSpan.FromSeconds(20));
+                        var result = await ReadLineTask.Task.WaitAsync(TimeSpan.FromSeconds(60));
 #else
                         var result = await ReadLineTask.Task;
 #endif
