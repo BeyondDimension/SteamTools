@@ -2,6 +2,7 @@ using System;
 using System.Application.Columns;
 using System.Application.Services;
 using System.Collections.Generic;
+using System.Application.UI;
 using IPAddress = System.Net.IPAddress;
 #if NETSTANDARD
 using JustArchiNET.Madness;
