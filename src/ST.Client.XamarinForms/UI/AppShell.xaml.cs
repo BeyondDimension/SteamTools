@@ -1,5 +1,7 @@
+using ReactiveUI;
 using System;
 using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
 using System.Collections.Generic;
@@ -23,6 +25,7 @@ namespace System.Application.UI
                 InitTabItems(mainWindow, TabItemId.LocalAuth, TabItemId.ArchiSteamFarmPlus);
             }
 
+            AddPage<MyPage, MyPageViewModel>(MyPageViewModel.Instance, isVisible: false);
             //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
@@ -76,19 +79,51 @@ namespace System.Application.UI
             }
         }
 
+        void AddPage<TPage, TPageViewModel>(TPageViewModel viewModel, bool isVisible = true, bool rSubscribe = true)
+            where TPageViewModel : PageViewModel
+            where TPage : Page
+        {
+            var tab_item = new FlyoutItem
+            {
+                BindingContext = viewModel,
+                FlyoutItemIsVisible = isVisible,
+            };
+            tab_item.SetBinding(BaseShellItem.TitleProperty, nameof(PageViewModel.Title), BindingMode.OneWay);
+            var pageType = typeof(TPage);
+            tab_item.Items.Add(new ShellContent
+            {
+                Route = pageType.Name,
+                ContentTemplate = new DataTemplate(pageType),
+            });
+            Items.Add(tab_item);
+            if (rSubscribe)
+            {
+                R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+                {
+                    viewModel.RaisePropertyChanged(nameof(PageViewModel.Title));
+                }).AddTo(viewModel);
+            }
+        }
+
         static Type GetPageType(TabItemViewModel tabItem)
         {
             if (OperatingSystem2.IsAndroid)
             {
                 switch (tabItem.Id)
                 {
-                    case TabItemViewModel.TabItemId.LocalAuth:
+                    case TabItemId.LocalAuth:
                         return typeof(LocalAuthPage);
-                    case TabItemViewModel.TabItemId.ArchiSteamFarmPlus:
+                    case TabItemId.ArchiSteamFarmPlus:
                         return typeof(ArchiSteamFarmPlusPage);
                 }
             }
             return typeof(UnderConstructionPage);
+        }
+
+        async void OnFlyoutHeaderTapped(object? sender, EventArgs e)
+        {
+            Current.FlyoutIsPresented = false;
+            await Current.GoToAsync("//MyPage");
         }
 
         //private /*async*/ void OnMenuItemClicked(object sender, EventArgs e)

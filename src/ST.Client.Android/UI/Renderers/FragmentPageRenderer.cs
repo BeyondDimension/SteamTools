@@ -10,7 +10,7 @@ using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(LocalAuthPage), typeof(FragmentPageRenderer<LocalAuthFragment>))]
 [assembly: ExportRenderer(typeof(ArchiSteamFarmPlusPage), typeof(FragmentPageRenderer<ASFPlusFragment>))]
-[assembly: ExportRenderer(typeof(MyPage), typeof(FragmentPageRenderer<ASFPlusFragment>))]
+[assembly: ExportRenderer(typeof(MyPage), typeof(FragmentPageRenderer<MyFragment>))]
 
 namespace System.Application.UI.Renderers
 {

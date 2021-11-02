@@ -11,7 +11,10 @@ namespace System.Application.UI.Views
 {
     public abstract class BaseContentPage<TViewModel> : ReactiveContentPage<TViewModel> where TViewModel : ViewModelBase
     {
-        public virtual string TitlePropertyPath => nameof(TabItemViewModelBase.Name);
+        public virtual string TitlePropertyPath
+            => typeof(TViewModel).IsSubclassOf(typeof(TabItemViewModelBase)) ?
+                nameof(TabItemViewModelBase.Name) :
+                nameof(PageViewModel.Title);
 
         public BaseContentPage()
         {

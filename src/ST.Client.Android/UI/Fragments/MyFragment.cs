@@ -16,6 +16,8 @@ namespace System.Application.UI.Fragments
     {
         protected override int? LayoutResource => Resource.Layout.fragment_my;
 
+        protected override MyPageViewModel? OnCreateViewModel() => Instance;
+
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);

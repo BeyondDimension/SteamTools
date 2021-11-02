@@ -14,7 +14,15 @@ namespace System.Application.UI.ViewModels
     /// </summary>
     public partial class MyPageViewModel : PageViewModel
     {
+        public static MyPageViewModel Instance { get; } = new();
+
         public static string DisplayName => AppResources.My;
+
+        public override string Title
+        {
+            get => DisplayName;
+            set => throw new NotSupportedException();
+        }
 
         public MyPageViewModel()
         {

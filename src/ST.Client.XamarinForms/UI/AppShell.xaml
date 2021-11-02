@@ -82,7 +82,25 @@
       </DataTemplate>-->
     </ResourceDictionary>
   </Shell.Resources>
-
+  <Shell.FlyoutHeaderTemplate>
+    <DataTemplate>
+      <StackLayout Orientation="Horizontal" Padding="14">
+        <StackLayout.GestureRecognizers>
+          <TapGestureRecognizer Tapped="OnFlyoutHeaderTapped"/>
+        </StackLayout.GestureRecognizers>
+        <Image Source="avatar_default"
+               HeightRequest="64" 
+               WidthRequest="64" />
+        <Label Text="一二三四五六七八九十未登录一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十" 
+               TextColor="Black" 
+               Margin="14,0,0,0" 
+               VerticalTextAlignment="Center" 
+               FontSize="16"
+               MaxLines="2" 
+               LineBreakMode="TailTruncation" />
+      </StackLayout>
+    </DataTemplate>
+  </Shell.FlyoutHeaderTemplate>
   <!-- 
         When the Flyout is visible this defines the content to display in the flyout.
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
@@ -163,8 +181,8 @@
         await Shell.Current.GoToAsync("//LoginPage");
     -->
   <!--<TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>-->
+    <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+  </TabBar>-->
 
   <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
