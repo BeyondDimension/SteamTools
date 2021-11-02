@@ -1582,6 +1582,9 @@
   <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
     <value>自定义背景图片</value>
   </data>
+  <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
+    <value>选择的图片格式不正确</value>
+  </data>
   <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
     <value>窗口背景透明材质</value>
   </data>

@@ -3908,6 +3908,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 选择的图片格式不正确 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_CustomBackgroundImage_Error {
+            get {
+                return ResourceManager.GetString("Settings_UI_CustomBackgroundImage_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 深色 的本地化字符串。
         /// </summary>
         public static string Settings_UI_Dark {

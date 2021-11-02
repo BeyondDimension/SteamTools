@@ -116,7 +116,7 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             }
-            Toast.Show("选择的图片格式不正确");
+            Toast.Show(AppResources.Settings_UI_CustomBackgroundImage_Error);
         }
 
         public static string[] GetThemes() => new[]

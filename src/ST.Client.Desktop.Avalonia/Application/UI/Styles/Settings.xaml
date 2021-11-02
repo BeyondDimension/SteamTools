@@ -181,7 +181,7 @@
 
   <Style Selector="StackPanel.Settings DockPanel > Slider">
     <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
-    <Setter Property="Margin" Value="0 -15 0 0" />
+    <!--<Setter Property="Margin" Value="0 -15 0 0" />-->
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="HorizontalAlignment"  Value="Right" />
     <Setter Property="(DockPanel.Dock)"  Value="Right" />

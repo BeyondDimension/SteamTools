@@ -142,41 +142,21 @@ namespace Avalonia.Controls
 
                 if (CanResize && !IsHideWindow)
                 {
-                    if (vm.SizePosition.Width > 0
-                        && Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
+                    if (vm.SizePosition.Width > 0 &&
+                        Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
                         Width = vm.SizePosition.Width;
 
-                    if (vm.SizePosition.Height > 0
-                        && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
+                    if (vm.SizePosition.Height > 0 &&
+                        Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
                         Height = vm.SizePosition.Height;
 
-
-                    if (IsNewSizeWindow)
-                    {
-                        HandleResized(new Size(Width + (IsNewSizeWindow ? 16 : 0), Height + (IsNewSizeWindow ? 8 : 0)), PlatformResizeReason.Application);
-                    }
-                    else
-                    {
-                        HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
-                    }
+                    HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
 
                     this.WhenAnyValue(x => x.ClientSize)
                         .Subscribe(x =>
                         {
                             vm.SizePosition.Width = x.Width;
                             vm.SizePosition.Height = x.Height;
-                        });
-
-                    this.GetObservable(WindowStateProperty)
-                        .Subscribe(x =>
-                        {
-                            if (!_isFirstOpenWindow)
-                            {
-                                if (x == WindowState.Normal)
-                                {
-                                    HandleResized(new Size(Width + (IsNewSizeWindow ? 32 : 0), Height + (IsNewSizeWindow ? 16 : 0)), PlatformResizeReason.Application);
-                                }
-                            }
                         });
                 }
             }
