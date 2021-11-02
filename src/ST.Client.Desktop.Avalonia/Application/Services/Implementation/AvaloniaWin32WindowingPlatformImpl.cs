@@ -114,7 +114,8 @@ namespace System.Application.Services.Implementation
                             newSize.top = originalTop;
 
                             if (WindowState == WindowState.Maximized ||
-                                WindowState == WindowState.FullScreen)
+                                WindowState == WindowState.FullScreen ||
+                                WindowState == WindowState.Minimized)
                             {
                                 //newSize.top += GetResizeHandleHeight();
 

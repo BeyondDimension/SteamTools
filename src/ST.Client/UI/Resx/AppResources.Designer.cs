@@ -3926,6 +3926,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 不支持在背景透明材质为{0}时启用此功能 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_EnableDesktopBackground_Error {
+            get {
+                return ResourceManager.GetString("Settings_UI_EnableDesktopBackground_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 *实验性功能(开启此功能时建议将透明材质设置为Transparent或AcrylicBlur)
         ///这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。背景仅在主窗口生效，其它窗口会默认使用图片背景。使用时注意自行根据壁纸亮暗色情况切换对应主题以获得更好的效果。 的本地化字符串。
         /// </summary>

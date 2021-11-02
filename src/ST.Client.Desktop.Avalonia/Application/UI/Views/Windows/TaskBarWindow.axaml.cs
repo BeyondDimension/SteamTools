@@ -128,14 +128,16 @@ namespace System.Application.UI.Views.Windows
                         {
                             Position = new PixelPoint(x.Item1, heightPoint);
                         }
-                        Topmost = false;
-                        Topmost = true;
                     });
             }
 
             if (OperatingSystem2.IsWindows)
             {
                 INativeWindowApiService.Instance.SetActiveWindow(new() { Handle = PlatformImpl.Handle.Handle });
+                Topmost = false;
+                Topmost = true;
+                IAvaloniaApplication.Instance.MainWindow.Topmost = true;
+                IAvaloniaApplication.Instance.MainWindow.Topmost = false;
             }
         }
 

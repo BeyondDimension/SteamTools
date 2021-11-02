@@ -22,9 +22,7 @@
     <Thickness x:Key="NavigationViewHeaderMargin">10,0,0,0</Thickness>
   </Styles.Resources>
   <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Settings.xaml" />
-
+  
   <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
@@ -39,4 +37,7 @@
   <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRingArc.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRing.xaml" />
   <StyleInclude Source="/Application/UI/Styles/Controls/ToggleSwitch.xaml" />
+  
+  <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
+  <StyleInclude Source="/Application/UI/Styles/Settings.xaml" />
 </Styles>

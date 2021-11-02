@@ -33,7 +33,10 @@
     <Setter Property="IsVisible" Value="False"/>
     <Setter Property="Opacity" Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
   </Style>
-
+  
+  <Style Selector=":is(Window):windows Menu.BarMenu">
+    <Setter Property="Margin" Value="{StaticResource CaptionButtonMargin}"/>
+  </Style>
 
   <!--<Style Selector="Button.SystemCaption">
     <Setter Property="Background" Value="Transparent" />

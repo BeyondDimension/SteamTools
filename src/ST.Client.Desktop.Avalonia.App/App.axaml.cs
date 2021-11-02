@@ -328,12 +328,24 @@ namespace System.Application.UI
 
             UISettings.WindowBackgroundMateria.Subscribe(x => SetAllWindowransparencyMateria(x), false);
 
-            if (OperatingSystem2.IsWindows)
-            {
-                UISettings.EnableDesktopBackground.Subscribe(x =>
+                if (OperatingSystem2.IsWindows)
                 {
-                    if (x) SetDesktopBackgroundWindow();
-                }, false);
+                    UISettings.EnableDesktopBackground.Subscribe(x =>
+                    {
+                        if (x)
+                        {
+                            //var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+                            //if (t == WindowTransparencyLevel.None ||
+                            //    t == WindowTransparencyLevel.Mica)
+                            //{
+                            //    UISettings.EnableDesktopBackground.Value = false;
+                            //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error, t));
+                            //    return;
+                            //}
+                            SetDesktopBackgroundWindow();
+                        }
+                    }, false);
+                }
             }
         }
 

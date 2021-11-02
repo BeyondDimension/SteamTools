@@ -150,13 +150,29 @@ namespace Avalonia.Controls
                         && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
                         Height = vm.SizePosition.Height;
 
-                    HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
+
+                    if (IsNewSizeWindow)
+                    {
+                        HandleResized(new Size(Width + (IsNewSizeWindow ? 16 : 0), Height + (IsNewSizeWindow ? 8 : 0)), PlatformResizeReason.Application);
+                    }
+                    else
+                    {
+                        HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
+                    }
 
                     this.WhenAnyValue(x => x.ClientSize)
                         .Subscribe(x =>
                         {
-                            vm.SizePosition.Width = x.Width + (IsNewSizeWindow ? 16 : 0);
-                            vm.SizePosition.Height = x.Height + (IsNewSizeWindow ? 8 : 0);
+                            vm.SizePosition.Width = x.Width;
+                            vm.SizePosition.Height = x.Height;
+                        });
+                    this.GetObservable(WindowStateProperty)
+                        .Subscribe(x =>
+                        {
+                            if (x == WindowState.Normal)
+                            {
+                                HandleResized(new Size(Width + (IsNewSizeWindow ? 32 : 0), Height +             (IsNewSizeWindow ?  16 :  0)), PlatformResizeReason.Application);
+                            }
                         });
                 }
             }

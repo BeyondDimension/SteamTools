@@ -22,7 +22,8 @@
   <Panel>
     <controls:TitleBar></controls:TitleBar>
     
-    <TabControl Margin="0 10 0 0">
+    <TabControl Classes="flat" 
+                Margin="0 20 0 0">
       <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamUserImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Panel>
           <Grid IsVisible="{Binding RequiresLogin}" RowDefinitions="Auto,*,Auto" Margin="10">
