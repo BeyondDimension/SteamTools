@@ -26,7 +26,7 @@ namespace System.Application.UI.Views
             where TViewModel : ViewModelBase, IActionItem<TEnum>
         {
             var query = Enum2.GetAll<TEnum>().AsEnumerable();
-            if (except != null) query = query.Except(except);
+            if (except.Any_Nullable()) query = query.Except(except);
             var command = ReactiveCommand.Create<TEnum>(viewModel.MenuItemClick);
             var dict = query.ToDictionary(x => x, x =>
             {

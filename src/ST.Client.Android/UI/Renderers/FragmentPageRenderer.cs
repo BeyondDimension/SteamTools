@@ -1,23 +1,22 @@
 using Android.Content;
 using Android.Views;
-using Android.Widget;
 using AndroidX.Fragment.App;
-using System;
-using System.Application.UI.Activities;
 using System.Application.UI.Fragments;
+using System.Application.UI.Renderers;
 using System.Application.UI.Views;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-namespace System.Application.UI.Views
+[assembly: ExportRenderer(typeof(LocalAuthPage), typeof(FragmentPageRenderer<LocalAuthFragment>))]
+[assembly: ExportRenderer(typeof(ArchiSteamFarmPlusPage), typeof(FragmentPageRenderer<ASFPlusFragment>))]
+[assembly: ExportRenderer(typeof(MyPage), typeof(FragmentPageRenderer<ASFPlusFragment>))]
+
+namespace System.Application.UI.Renderers
 {
-    internal abstract class BaseFragmentPageRenderer<TFragment> : PageRenderer where TFragment : Fragment, new()
+    internal class FragmentPageRenderer<TFragment> : PageRenderer where TFragment : Fragment, new()
     {
-        public TFragment Fragment { get; private set; } = new TFragment();
+        public TFragment? Fragment { get; private set; } = new TFragment();
 
         public FormsAppCompatActivity Activity { get; }
 
@@ -25,7 +24,7 @@ namespace System.Application.UI.Views
 
         public FragmentContainerView? FragmentContainerView { get; private set; }
 
-        public BaseFragmentPageRenderer(Context context) : base(context)
+        public FragmentPageRenderer(Context context) : base(context)
         {
             if (context is FormsAppCompatActivity activity) Activity = activity;
             else throw new InvalidCastException("context is not FormsAppCompatActivity");
@@ -91,7 +90,7 @@ namespace System.Application.UI.Views
                 if (Fragment != null)
                 {
                     Fragment.Dispose();
-                    Fragment = null!;
+                    Fragment = null;
                 }
             }
             base.Dispose(disposing);
