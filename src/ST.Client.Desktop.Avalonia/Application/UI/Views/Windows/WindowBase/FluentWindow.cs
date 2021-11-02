@@ -124,7 +124,7 @@ namespace Avalonia.Controls
                 vm.SizePosition.Y = e.Point.Y;
             }
         }
-        bool _isFirstOpenWindow = true;
+
         protected virtual void FluentWindow_Opened(object? sender, EventArgs e)
         {
             if (DataContext is WindowViewModel vm)
@@ -161,7 +161,6 @@ namespace Avalonia.Controls
                 }
             }
 
-            _isFirstOpenWindow = false;
             IsHideWindow = false;
         }
 

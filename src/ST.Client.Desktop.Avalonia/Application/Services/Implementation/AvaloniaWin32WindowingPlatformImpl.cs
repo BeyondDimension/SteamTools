@@ -124,7 +124,6 @@ namespace System.Application.Services.Implementation
                                 WindowState == WindowState.FullScreen)
                             {
                                 //newSize.top += GetResizeHandleHeight();
-                                //_owner.IsNewSizeWindow = false;
                             }
                             else
                             {
@@ -133,8 +132,6 @@ namespace System.Application.Services.Implementation
                                     newSize.left += 8;
                                     newSize.right -= 8;
                                     newSize.bottom -= 8;
-
-                                    _owner.IsNewSizeWindow = true;
                                 }
                             }
 
