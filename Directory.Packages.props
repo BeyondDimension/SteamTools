@@ -3,7 +3,7 @@
         <PackageVersion Include="ReactiveUI" Version="16.3.5" />
         <!--<PackageVersion Include="ReactiveUI.Fody" Version="16.3.5" /> -->
         <PackageVersion Include="ReactiveUI.XamForms" Version="16.3.5" />
-        <PackageVersion Include="DynamicData" Version="7.4.1" />
+        <PackageVersion Include="DynamicData" Version="7.4.3" />
         <PackageVersion Include="Splat" Version="13.1.30" />
         <PackageVersion Include="OperatingSystem2" Version="1.4.2" />
         <PackageVersion Include="Microsoft.AppCenter" Version="4.4.0" />
