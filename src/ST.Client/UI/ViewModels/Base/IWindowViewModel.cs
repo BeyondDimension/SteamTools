@@ -10,6 +10,7 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 是否支持窗口大小与位置
         /// </summary>
-        public static bool IsSupportedSizePosition { protected get; set; } = true;
+        public static bool IsSupportedSizePosition { protected get; set; }
+            = IApplication.IsDesktopPlatform;
     }
 }

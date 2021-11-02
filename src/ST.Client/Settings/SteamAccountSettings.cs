@@ -16,7 +16,7 @@ namespace System.Application.Settings
     {
         #region Compat
 
-        readonly static SerializableProperty<ConcurrentDictionary<long, string?>>? _AccountRemarks = IsDesktopPlatform ? Compat.GetProperty(defaultValue: new ConcurrentDictionary<long, string?>(), autoSave: false) : null;
+        readonly static SerializableProperty<ConcurrentDictionary<long, string?>>? _AccountRemarks = IApplication.IsDesktopPlatform ? Compat.GetProperty(defaultValue: new ConcurrentDictionary<long, string?>(), autoSave: false) : null;
         /// <summary>
         /// Steam账号备注字典
         /// </summary>

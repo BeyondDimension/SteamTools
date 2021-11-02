@@ -36,10 +36,6 @@ namespace System.Application.UI
 
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
-            IViewModelBase.IsInDesignMode = false;
-            IViewModelBase.IsMobileLayout = true;
-            IWindowViewModel.IsSupportedSizePosition = false;
-
             // 此页面当前使用 Square.Picasso 库加载图片
             AuthTradeWindowViewModel.IsLoadImage = false;
         }

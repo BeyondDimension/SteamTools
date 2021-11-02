@@ -13,7 +13,7 @@ namespace System.Application.Settings
 {
     partial class GameLibrarySettings
     {
-        static readonly SerializableProperty<Dictionary<uint, string?>>? _HideGameList = IsDesktopPlatform ? GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true) : null;
+        static readonly SerializableProperty<Dictionary<uint, string?>>? _HideGameList = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true) : null;
         /// <summary>
         /// 隐藏的游戏列表
         /// </summary>
@@ -22,7 +22,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<Dictionary<uint, string?>> HideGameList => _HideGameList ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<Dictionary<uint, string?>>? _AFKAppList = IsDesktopPlatform ? GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true) : null;
+        readonly static SerializableProperty<Dictionary<uint, string?>>? _AFKAppList = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true) : null;
         /// <summary>
         /// 挂时长游戏列表
         /// </summary>
@@ -32,7 +32,7 @@ namespace System.Application.Settings
         public static SerializableProperty<Dictionary<uint, string?>> AFKAppList => _AFKAppList ?? throw new PlatformNotSupportedException();
 
         readonly static SerializableProperty<bool>? _IsAutoAFKApps
-            = IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
+            = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
         /// <summary>
         /// 启用自动挂机
         /// </summary>
@@ -44,7 +44,7 @@ namespace System.Application.Settings
         // [SupportedOSPlatform("Windows")]
         // [SupportedOSPlatform("macOS")]
         // [SupportedOSPlatform("Linux")]
-        // public static readonly Lazy<ReadOnlyCollection<uint>>? DefaultIgnoreList = IsDesktopPlatform ? new(new ReadOnlyCollection<uint>(new uint[]
+        // public static readonly Lazy<ReadOnlyCollection<uint>>? DefaultIgnoreList = IApplication.IsDesktopPlatform ? new(new ReadOnlyCollection<uint>(new uint[]
         // {
         //     5,
         //     7,
