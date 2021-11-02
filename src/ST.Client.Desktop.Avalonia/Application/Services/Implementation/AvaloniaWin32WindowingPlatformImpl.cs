@@ -127,6 +127,11 @@ namespace System.Application.Services.Implementation
                                 newSize.right -= 8;
                                 newSize.bottom -= 8;
 
+                                //if (_owner.IsNewSizeWindow)
+                                //{
+                                //    _owner.Resized(new Size(ncParams.rgrc[1].Width, ncParams.rgrc[1].Height), PlatformResizeReason.Layout);
+                                //}
+
                                 _owner.IsNewSizeWindow = true;
                             }
 

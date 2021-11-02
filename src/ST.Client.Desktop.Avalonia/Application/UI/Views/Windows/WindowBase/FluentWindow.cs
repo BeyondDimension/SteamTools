@@ -124,7 +124,7 @@ namespace Avalonia.Controls
                 vm.SizePosition.Y = e.Point.Y;
             }
         }
-
+        bool _isFirstOpenWindow = true;
         protected virtual void FluentWindow_Opened(object? sender, EventArgs e)
         {
             if (DataContext is WindowViewModel vm)
@@ -166,17 +166,22 @@ namespace Avalonia.Controls
                             vm.SizePosition.Width = x.Width;
                             vm.SizePosition.Height = x.Height;
                         });
+
                     this.GetObservable(WindowStateProperty)
                         .Subscribe(x =>
                         {
-                            if (x == WindowState.Normal)
+                            if (!_isFirstOpenWindow)
                             {
-                                HandleResized(new Size(Width + (IsNewSizeWindow ? 32 : 0), Height +             (IsNewSizeWindow ?  16 :  0)), PlatformResizeReason.Application);
+                                if (x == WindowState.Normal)
+                                {
+                                    HandleResized(new Size(Width + (IsNewSizeWindow ? 32 : 0), Height + (IsNewSizeWindow ? 16 : 0)), PlatformResizeReason.Application);
+                                }
                             }
                         });
                 }
             }
 
+            _isFirstOpenWindow = false;
             IsHideWindow = false;
         }
 
@@ -206,6 +211,11 @@ namespace Avalonia.Controls
         }
 
         #region CoreWindow
+
+        public void Resized(Size clientSize, PlatformResizeReason reason)
+        {
+            HandleResized(clientSize, reason);
+        }
 
         Window ICoreWindow.Window => this;
 

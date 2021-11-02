@@ -1,5 +1,6 @@
 using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.Platform;
 using Avalonia.Rendering;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
@@ -23,6 +24,8 @@ namespace Avalonia.Controls
         public bool IsHideWindow { get; set; }
 
         MinMaxCloseControl? SystemCaptionButtons { get; }
+
+        public void Resized(Size clientSize, PlatformResizeReason reason);
 
         bool HitTestTitleBarRegion(APoint windowPoint)
         {
