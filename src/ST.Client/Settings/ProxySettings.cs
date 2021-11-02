@@ -6,7 +6,7 @@ using IPAddress = System.Net.IPAddress;
 
 namespace System.Application.Settings
 {
-    public sealed class ProxySettings : SettingsHost2<ProxySettings>
+    public sealed partial class ProxySettings : SettingsHost2<ProxySettings>
     {
         /// <summary>
         /// 启用脚本自动检查更新
@@ -37,24 +37,6 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
             = GetProperty(defaultValue: (IReadOnlyCollection<int>)new List<int>(), autoSave: true);
-
-        /// <summary>
-        /// 启用GOG插件代理
-        /// </summary>
-        public static SerializableProperty<bool> IsProxyGOG { get; }
-            = GetProperty(defaultValue: false, autoSave: true);
-
-        /// <summary>
-        /// 启用系统代理模式
-        /// </summary>
-        public static SerializableProperty<bool> EnableWindowsProxy { get; }
-            = GetProperty(defaultValue: false, autoSave: true);
-
-        /// <summary>
-        /// 是否只针对Steam内置浏览器启用脚本
-        /// </summary>
-        public static SerializableProperty<bool> IsOnlyWorkSteamBrowser { get; }
-            = GetProperty(defaultValue: false, autoSave: true);
 
         #region 代理设置
 

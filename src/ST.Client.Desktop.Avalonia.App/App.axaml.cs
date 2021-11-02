@@ -197,7 +197,7 @@ namespace System.Application.UI
 #endif
             InitSettingSubscribe();
 #if StartupTrace
-            StartupTrace.Restart("UISettings.Subscribe");
+            StartupTrace.Restart("InitSettingSubscribe");
 #endif
             switch (vmService.MainWindow)
             {
@@ -316,30 +316,24 @@ namespace System.Application.UI
             base.RegisterServices();
         }
 
+        /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
         void InitSettingSubscribe()
         {
-            //            Theme = (AppTheme)UISettings.Theme.Value;
-            //#if StartupTrace
-            //            StartupTrace.Restart("Theme");
-            //#endif
-            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+            ((IApplication)this).InitSettingSubscribe();
             UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
             UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
             UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
             GeneralSettings.WindowsStartupAutoRun.Subscribe(x => IApplication.SetBootAutoStart(x));
 
-            if (OperatingSystem2.Application.UseAvalonia)
-            {
-                UISettings.WindowBackgroundMateria.Subscribe(x => SetAllWindowransparencyMateria(x), false);
+            UISettings.WindowBackgroundMateria.Subscribe(x => SetAllWindowransparencyMateria(x), false);
 
-                if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows)
+            {
+                UISettings.EnableDesktopBackground.Subscribe(x =>
                 {
-                    UISettings.EnableDesktopBackground.Subscribe(x =>
-                    {
-                        if (x) SetDesktopBackgroundWindow();
-                    }, false);
-                }
+                    if (x) SetDesktopBackgroundWindow();
+                }, false);
             }
         }
 
@@ -419,12 +413,12 @@ namespace System.Application.UI
             }
         }
 
-        Window? mMainWindow;
+        Window? _MainWindow;
 
         public Window MainWindow
         {
-            get => mMainWindow ?? null;
-            set => mMainWindow = value;
+            get => _MainWindow ?? throw new ArgumentNullException("MainWindow is null.");
+            set => _MainWindow = value;
         }
 
         AvaloniaApplication IAvaloniaApplication.Current => Current;

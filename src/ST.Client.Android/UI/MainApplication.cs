@@ -118,6 +118,12 @@ namespace System.Application.UI
             startTrace.AppendFormatLine("init SettingsHost {0}ms", stopwatch.ElapsedMilliseconds);
             stopwatch.Restart();
 
+            InitSettingSubscribe();
+
+            stopwatch.Stop();
+            startTrace.AppendFormatLine("init SettingSubscribe {0}ms", stopwatch.ElapsedMilliseconds);
+            stopwatch.Restart();
+
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
             Startup.Init(level);
@@ -253,5 +259,11 @@ namespace System.Application.UI
         CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
 
         #endregion
+
+        /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
+        void InitSettingSubscribe()
+        {
+            ((IApplication)this).InitSettingSubscribe();
+        }
     }
 }

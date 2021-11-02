@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace System.Application.Settings
 {
-    public sealed class ASFSettings : SettingsHost2<ASFSettings>
+    public sealed partial class ASFSettings : SettingsHost2<ASFSettings>
     {
-        static ASFSettings()
-        {
-        }
-
         /// <summary>
         /// ASF路径
         /// </summary>

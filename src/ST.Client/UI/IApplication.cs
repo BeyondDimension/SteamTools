@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Application.Models;
 using System.Application.Services;
+using System.Application.Settings;
 
 namespace System.Application.UI
 {
@@ -45,5 +46,13 @@ namespace System.Application.UI
         /// <para>reference to the ViewController (if using Xamarin.iOS), Activity (if using Xamarin.Android) IWin32Window or IntPtr (if using .Net Framework).</para>
         /// </summary>
         object CurrentPlatformUIHost { get; }
+
+        /// <summary>
+        /// 初始化设置项变更时监听
+        /// </summary>
+        void InitSettingSubscribe()
+        {
+            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+        }
     }
 }
