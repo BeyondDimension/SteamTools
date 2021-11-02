@@ -195,15 +195,7 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("SettingsHost.Init");
 #endif
-            Theme = (AppTheme)UISettings.Theme.Value;
-#if StartupTrace
-            StartupTrace.Restart("Theme");
-#endif
-            //UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
-            UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
-            UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
-            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
-            GeneralSettings.InitWindowsStartupAutoRun();
+            InitSettingSubscribe();
 #if StartupTrace
             StartupTrace.Restart("UISettings.Subscribe");
 #endif
@@ -324,6 +316,33 @@ namespace System.Application.UI
             base.RegisterServices();
         }
 
+        void InitSettingSubscribe()
+        {
+            //            Theme = (AppTheme)UISettings.Theme.Value;
+            //#if StartupTrace
+            //            StartupTrace.Restart("Theme");
+            //#endif
+            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+            UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
+            UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
+            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
+
+            GeneralSettings.WindowsStartupAutoRun.Subscribe(x => IApplication.SetBootAutoStart(x));
+
+            if (OperatingSystem2.Application.UseAvalonia)
+            {
+                UISettings.WindowBackgroundMateria.Subscribe(x => SetAllWindowransparencyMateria(x), false);
+
+                if (OperatingSystem2.IsWindows)
+                {
+                    UISettings.EnableDesktopBackground.Subscribe(x =>
+                    {
+                        if (x) SetDesktopBackgroundWindow();
+                    }, false);
+                }
+            }
+        }
+
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
             var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(Program.IsMainProcess);
@@ -404,7 +423,7 @@ namespace System.Application.UI
 
         public Window MainWindow
         {
-            get => mMainWindow ?? throw new ArgumentNullException(nameof(mMainWindow));
+            get => mMainWindow ?? null;
             set => mMainWindow = value;
         }
 

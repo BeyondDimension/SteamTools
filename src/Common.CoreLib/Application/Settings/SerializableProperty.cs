@@ -111,9 +111,10 @@ namespace System.Application.Settings
             return Serializable.DMP<T>(temp);
         }
 
-        public virtual IDisposable Subscribe(Action<T?> listener)
+        public virtual IDisposable Subscribe(Action<T?> listener, bool isInitInvoke = true)
         {
-            listener(Value);
+            if (isInitInvoke)
+                listener(Value);
             return new ValueChangedEventListener(this, listener);
         }
 

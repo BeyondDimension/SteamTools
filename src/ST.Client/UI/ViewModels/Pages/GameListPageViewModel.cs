@@ -9,13 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Windows;
-using System.Properties;
 using System.Application.Settings;
 
 namespace System.Application.UI.ViewModels
@@ -131,26 +125,6 @@ namespace System.Application.UI.ViewModels
             {
                 IWindowManager.Instance.Show(CustomWindow.SteamShutdown, resizeMode: ResizeMode.CanResize);
             });
-
-            //EnableAFKAutoUpdateCommand = ReactiveCommand.Create(() =>
-            //{
-            //    AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value = !GameLibrarySettings.IsAutoAFKApps.Value);
-            //});
-
-            //MenuItems = new ObservableCollection<MenuItemViewModel>()
-            //{
-            //      (AFKAutoUpdate=new MenuItemViewModel (nameof(AppResources.GameList_AutoAFK))
-            //       {Command=EnableAFKAutoUpdateCommand }),
-            //      new MenuItemViewModel (),
-            //      new MenuItemViewModel(nameof(AppResources.GameList_HideGameManger)){
-            //          IconKey ="EyeHideDrawing", Command = HideAppCommand },
-            //      new MenuItemViewModel (nameof(AppResources.GameList_IdleGamesManger)){
-            //          IconKey ="TopSpeedDrawing", Command = IdleAppCommand },
-            //      //new MenuItemViewModel (nameof(AppResources.GameList_SteamShutdown)){
-            //      //    IconKey ="ClockArrowDownloadDrawing", Command = SteamShutdownCommand },
-            //};
-
-            //AFKAutoUpdate?.CheckmarkChange(GameLibrarySettings.IsAutoAFKApps.Value);
         }
 
         //public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
@@ -167,13 +141,18 @@ namespace System.Application.UI.ViewModels
             {
                 //SteamConnectService.Current.Initialize();
                 Task.Run(SteamConnectService.Current.RefreshGamesList).ForgetAndDispose();
+
+                UISettings.AppGridSize.Subscribe(x =>
+                {
+                    SteamConnectService.Current.SteamApps.Refresh();
+                }).AddTo(this);
+
             }
             base.Activation();
         }
 
         public override void Deactivation()
         {
-            //SteamConnectService.Current.SteamApps.Clear();
             base.Deactivation();
         }
 
@@ -366,7 +345,7 @@ namespace System.Application.UI.ViewModels
                 case SteamAppType.Application:
                 case SteamAppType.Game:
                     var result = await MessageBox.ShowAsync(AppResources.Achievement_RiskWarning, button: MessageBox.Button.OKCancel,
-                        rememberChooseKey: MessageBox.RememberChoose.UnLockAchievement);
+                        rememberChooseKey: MessageBox.DontPromptType.UnLockAchievement);
                     if (result.IsOK())
                     {
                         Toast.Show(AppResources.GameList_RuningWait);

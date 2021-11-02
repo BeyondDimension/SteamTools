@@ -14,58 +14,34 @@ namespace System.Application.Settings
     {
         static UISettings()
         {
-            Theme.ValueChanged += Theme_ValueChanged;
-            AppGridSize.ValueChanged += AppGridSize_ValueChanged;
 
-            if (OperatingSystem2.IsWindows)
-            {
-                EnableDesktopBackground.ValueChanged += EnableDesktopBackground_ValueChanged;
-            }
-
-            WindowBackgroundMateria.ValueChanged += WindowBackgroundMateria_ValueChanged;
-
-            if (WindowViewModel.IsSupportedSizePosition)
-            {
-                _WindowSizePositions = GetProperty(defaultValue: new ConcurrentDictionary<string, SizePosition>(), autoSave: false);
-            }
         }
 
-        static void WindowBackgroundMateria_ValueChanged(object sender, ValueChangedEventArgs<int> e)
-        {
-            IApplication.Instance.SetAllWindowransparencyMateria(e.NewValue);
-        }
+        //static void EnableDesktopBackground_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
+        //{
+        //    if (e.NewValue)
+        //    {
+        //        IApplication.Instance.SetDesktopBackgroundWindow();
+        //    }
+        //    else
+        //    {
+        //        INativeWindowApiService.Instance.ResetWallerpaper();
+        //    }
+        //}
 
-        static void EnableDesktopBackground_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
-        {
-            if (e.NewValue)
-            {
-                IApplication.Instance.SetDesktopBackgroundWindow();
-            }
-            else
-            {
-                INativeWindowApiService.Instance.ResetWallerpaper();
-            }
-        }
-
-        static void AppGridSize_ValueChanged(object? sender, ValueChangedEventArgs<int> e)
-        {
-            SteamConnectService.Current.SteamApps.Refresh();
-        }
-
-        static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
-        {
-            // 当前 Avalonia App 主题切换存在问题
-            //if (OperatingSystem2.Application.UseAvalonia) return;
-            if (e.NewValue != e.OldValue)
-            {
-                var value = (AppTheme)e.NewValue;
-                if (value.IsDefined())
-                {
-                    IApplication.Instance.Theme = value;
-                }
-            }
-        }
-
+        //static void Theme_ValueChanged(object sender, ValueChangedEventArgs<short> e)
+        //{
+        //    // 当前 Avalonia App 主题切换存在问题
+        //    //if (OperatingSystem2.Application.UseAvalonia) return;
+        //    if (e.NewValue != e.OldValue)
+        //    {
+        //        var value = (AppTheme)e.NewValue;
+        //        if (value.IsDefined())
+        //        {
+        //            IApplication.Instance.Theme = value;
+        //        }
+        //    }
+        //}
 
 
         /// <summary>
@@ -83,14 +59,15 @@ namespace System.Application.Settings
         /// <summary>
         /// 不再提示的消息框数组
         /// </summary>
-        public static SerializableProperty<List<MessageBox.RememberChoose>> DoNotShowMessageBoxs { get; }
-            = GetProperty(defaultValue: new List<MessageBox.RememberChoose>(), autoSave: false);
+        public static SerializableProperty<List<MessageBox.DontPromptType>> DoNotShowMessageBoxs { get; }
+            = GetProperty(defaultValue: new List<MessageBox.DontPromptType>(), autoSave: false);
 
-        static readonly SerializableProperty<ConcurrentDictionary<string, SizePosition>>? _WindowSizePositions;
+
         /// <summary>
         /// 所有窗口位置记忆字典集合
         /// </summary>
-        public static SerializableProperty<ConcurrentDictionary<string, SizePosition>> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<ConcurrentDictionary<string, SizePosition>> WindowSizePositions { get; }
+            = WindowViewModel.IsSupportedSizePosition ? GetProperty(defaultValue: new ConcurrentDictionary<string, SizePosition>(), autoSave: false) : throw new PlatformNotSupportedException();
 
         /// <summary>
         /// 字体

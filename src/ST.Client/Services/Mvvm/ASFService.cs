@@ -37,10 +37,7 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
         }
 
-        public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder()
-        {
-            MaxLine = ASFSettings.ConsoleMaxLine,
-        };
+        public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder();
 
         public SourceCache<Bot, string> SteamBotsSourceList;
 
@@ -61,7 +58,13 @@ namespace System.Application.Services
 
             archiSteamFarmService.OnConsoleWirteLine += OnConsoleWirteLine;
 
-            //InitASF();
+            ASFSettings.ConsoleMaxLine.Subscribe(x =>
+            {
+                var line = x;
+                if (x < ASFSettings.MinRangeConsoleMaxLine) line = ASFSettings.MinRangeConsoleMaxLine;
+                if (x > ASFSettings.MaxRangeConsoleMaxLine) line = ASFSettings.MaxRangeConsoleMaxLine;
+                ConsoleLogBuilder.MaxLine = line;
+            });
         }
 
         void OnConsoleWirteLine(string message)

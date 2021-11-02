@@ -133,17 +133,16 @@
             <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=TwoWay}"/>
           </DockPanel>
         </Expander.Header>
-        <StackPanel Orientation="Vertical" IsEnabled="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=!Value, Mode=OneWay}">
-          <StackPanel Orientation="Horizontal" Spacing="10">
-            <Image Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
-                   Stretch="UniformToFill"
-                   Width="250"
-                   Height="150"/>
-            <Button Content="{ReflectionBinding Path=Res.Settings_UI_SelectImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                    Command="{Binding SelectImage_Click}"></Button>
-            <Button Content="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                    Command="{Binding ResetImage_Click}"></Button>
-          </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Spacing="10">
+          <Image Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                 Stretch="UniformToFill"
+                 Width="250"
+                 Height="150"/>
+          <Button Content="{ReflectionBinding Path=Res.Settings_UI_SelectImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding SelectImage_Click}"></Button>
+          <Button Content="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding ResetImage_Click}"></Button>
         </StackPanel>
       </Expander>
 

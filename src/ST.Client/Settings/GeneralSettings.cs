@@ -13,18 +13,7 @@ namespace System.Application.Settings
     {
         static GeneralSettings()
         {
-            WindowsStartupAutoRun.ValueChanged += WindowsStartupAutoRun_ValueChanged;
-            //CreateDesktopShortcut.ValueChanged += CreateDesktopShortcut_ValueChanged;
-        }
 
-        static void WindowsStartupAutoRun_ValueChanged(object? sender, ValueChangedEventArgs<bool> e)
-        {
-            IApplication.SetBootAutoStart(e.NewValue);
-        }
-
-        public static void InitWindowsStartupAutoRun()
-        {
-            WindowsStartupAutoRun_ValueChanged(null, new(default, WindowsStartupAutoRun.Value));
         }
 
         /// <summary>

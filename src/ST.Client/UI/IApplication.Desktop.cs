@@ -37,19 +37,5 @@ namespace System.Application.UI
         /// </summary>
         /// <returns></returns>
         bool HasActiveWindow();
-
-        void SetDesktopBackgroundWindow()
-        {
-
-        }
-
-        /// <summary>
-        /// 设置当前打开窗口的AvaloniaWinodw背景透明材质
-        /// </summary>
-        /// <param name="level"></param>
-        void SetAllWindowransparencyMateria(int level)
-        {
-
-        }
     }
 }

@@ -75,7 +75,7 @@ namespace System.Application
         /// <summary>
         /// 指定弹框是否可选不再显示。 用作 <see cref="MessageBox"/>.Show... 方法的参数。
         /// </summary>
-        public enum RememberChoose
+        public enum DontPromptType
         {
             Undefined = 0,
 
@@ -109,14 +109,14 @@ namespace System.Application
 
         /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
         public static async Task<Result> ShowAsync(
-            string messageBoxText, string caption = default_caption, Button button = default_button, Image icon = default, RememberChoose rememberChooseKey = default)
+            string messageBoxText, string caption = default_caption, Button button = default_button, Image icon = default, DontPromptType rememberChooseKey = default)
         {
             if (mbcs != null)
             {
                 return await mbcs.ShowAsync(messageBoxText, caption, button, icon);
             }
 
-            var isDoNotShow = rememberChooseKey != RememberChoose.Undefined;
+            var isDoNotShow = rememberChooseKey != DontPromptType.Undefined;
 
             if (isDoNotShow &&
                 UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == true)
