@@ -1,6 +1,6 @@
 <Project>
     <ItemGroup>
-        <PackageVersion Include="ReactiveUI" Version="16.3.5" />
+        <PackageVersion Include="ReactiveUI" Version="16.3.9" />
         <!--<PackageVersion Include="ReactiveUI.Fody" Version="16.3.5" /> -->
         <PackageVersion Include="ReactiveUI.XamForms" Version="16.3.5" />
         <PackageVersion Include="DynamicData" Version="7.4.1" />
