@@ -17,7 +17,7 @@ namespace System.Application.Settings
 {
     partial class GeneralSettings
     {
-        readonly static SerializableProperty<bool>? _WindowsStartupAutoRun = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _WindowsStartupAutoRun = IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 程序是否开机自启动
         /// </summary>
@@ -26,7 +26,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> WindowsStartupAutoRun => _WindowsStartupAutoRun ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _IsStartupAppMinimized = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _IsStartupAppMinimized = IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 程序启动时最小化
         /// </summary>
@@ -36,7 +36,7 @@ namespace System.Application.Settings
         public static SerializableProperty<bool>? IsStartupAppMinimized => _IsStartupAppMinimized ?? throw new PlatformNotSupportedException();
 
         readonly static SerializableProperty<bool>? _IsSteamAppListLocalCache
-            = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: true, autoSave: true) : null;
+            = IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
         /// <summary>
         /// 启用游戏列表本地缓存
         /// </summary>
@@ -45,7 +45,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool>? IsSteamAppListLocalCache => _IsSteamAppListLocalCache ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<IReadOnlyDictionary<Platform, string>>? _TextReaderProvider = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: (IReadOnlyDictionary<Platform, string>?)null, autoSave: true) : null;
+        readonly static SerializableProperty<IReadOnlyDictionary<Platform, string>>? _TextReaderProvider = IsDesktopPlatform ? GetProperty(defaultValue: (IReadOnlyDictionary<Platform, string>?)null, autoSave: true) : null;
         /// <summary>
         /// 用户设置的文本阅读器提供商，根据平台值不同，值格式为 枚举字符串 或 程序路径
         /// </summary>
@@ -54,7 +54,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<IReadOnlyDictionary<Platform, string>> TextReaderProvider => _TextReaderProvider ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<IHostsFileService.EncodingType>? _HostsEncodingType = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: default(IHostsFileService.EncodingType), autoSave: true) : null;
+        readonly static SerializableProperty<IHostsFileService.EncodingType>? _HostsEncodingType = IsDesktopPlatform ? GetProperty(defaultValue: default(IHostsFileService.EncodingType), autoSave: true) : null;
         /// <summary>
         /// Hosts 文件编码类型
         /// </summary>
@@ -63,7 +63,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<IHostsFileService.EncodingType> HostsEncodingType => _HostsEncodingType ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _UseGPURendering = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: !OperatingSystem2.IsWindows7, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _UseGPURendering = IsDesktopPlatform ? GetProperty(defaultValue: !OperatingSystem2.IsWindows7, autoSave: true) : null;
         /// <summary>
         /// 使用硬件加速
         /// </summary>

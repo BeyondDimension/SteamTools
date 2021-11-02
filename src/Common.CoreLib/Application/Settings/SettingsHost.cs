@@ -6,6 +6,8 @@ namespace System.Application.Settings
 {
     public abstract class SettingsHostBase
     {
+        protected static readonly bool IsDesktopPlatform = OperatingSystem2.IsWindows || OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !OperatingSystem2.IsAndroid);
+
         static readonly Dictionary<Type, SettingsHostBase> instances = new();
 
         public string CategoryName => GetCategoryName();

@@ -26,7 +26,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<ConcurrentDictionary<string, SizePosition>> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<string>? _FontName = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: "Default", autoSave: true) : null;
+        readonly static SerializableProperty<string>? _FontName = IsDesktopPlatform ? GetProperty(defaultValue: "Default", autoSave: true) : null;
         /// <summary>
         /// 字体
         /// </summary>
@@ -35,7 +35,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string> FontName => _FontName ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<double>? _AcrylicOpacity = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: .8, autoSave: true) : null;
+        readonly static SerializableProperty<double>? _AcrylicOpacity = IsDesktopPlatform ? GetProperty(defaultValue: .8, autoSave: true) : null;
         /// <summary>
         /// 窗口背景透明度
         /// </summary>
@@ -44,7 +44,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<double> AcrylicOpacity => _AcrylicOpacity ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<int>? _WindowBackgroundMateria = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: OperatingSystem2.IsWindows11AtLeast ? 4 : 3, autoSave: true) : null;
+        readonly static SerializableProperty<int>? _WindowBackgroundMateria = IsDesktopPlatform ? GetProperty(defaultValue: OperatingSystem2.IsWindows11AtLeast ? 4 : 3, autoSave: true) : null;
         /// <summary>
         /// 窗口背景材质
         /// </summary>
@@ -53,7 +53,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<int> WindowBackgroundMateria => _WindowBackgroundMateria ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<int>? _AppGridSize = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: 150, autoSave: true) : null;
+        readonly static SerializableProperty<int>? _AppGridSize = IsDesktopPlatform ? GetProperty(defaultValue: 150, autoSave: true) : null;
         /// <summary>
         /// 库存游戏封面大小
         /// </summary>
@@ -62,7 +62,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<int> AppGridSize => _AppGridSize ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _SteamAccountRemarkReplaceName = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _SteamAccountRemarkReplaceName = IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// Steam账号备注替换名称显示
         /// </summary>
@@ -71,7 +71,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> SteamAccountRemarkReplaceName => _SteamAccountRemarkReplaceName ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _EnableFilletUI = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _EnableFilletUI = IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 启用圆角界面
         /// </summary>
@@ -80,7 +80,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> EnableFilletUI => _EnableFilletUI ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _EnableDesktopBackground = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _EnableDesktopBackground = IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 启用动态桌面背景
         /// </summary>
@@ -90,7 +90,7 @@ namespace System.Application.Settings
         public static SerializableProperty<bool> EnableDesktopBackground => _EnableDesktopBackground ?? throw new PlatformNotSupportedException();
 
         readonly static SerializableProperty<bool>? _EnableCustomBackgroundImage
-            = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+            = IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 启用自定义背景图片
         /// </summary>
@@ -99,7 +99,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> EnableCustomBackgroundImage => _EnableCustomBackgroundImage ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<string>? _BackgroundImagePath = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png", autoSave: true) : null;
+        readonly static SerializableProperty<string>? _BackgroundImagePath = IsDesktopPlatform ? GetProperty(defaultValue: "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png", autoSave: true) : null;
         /// <summary>
         /// 背景图片路径
         /// </summary>
@@ -108,7 +108,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string> BackgroundImagePath => _BackgroundImagePath ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<string>? _ThemeAccent = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: "#FF0078D7", autoSave: true) : null;
+        readonly static SerializableProperty<string>? _ThemeAccent = IsDesktopPlatform ? GetProperty(defaultValue: "#FF0078D7", autoSave: true) : null;
         /// <summary>
         /// 主题颜色(十六进制字符串)
         /// </summary>
@@ -117,7 +117,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string> ThemeAccent => _ThemeAccent ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _GetUserThemeAccent = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: true, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _GetUserThemeAccent = IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
         /// <summary>
         /// 主题颜色从系统获取
         /// </summary>
@@ -126,7 +126,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> GetUserThemeAccent => _GetUserThemeAccent ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _MainMenuExpandedState = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+        readonly static SerializableProperty<bool>? _MainMenuExpandedState = IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 主菜单展开状态
         /// </summary>
