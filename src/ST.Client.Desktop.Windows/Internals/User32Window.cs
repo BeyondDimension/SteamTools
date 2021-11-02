@@ -171,6 +171,9 @@ internal static class User32Window
     [DllImport(LibraryName, ExactSpelling = true)]
     public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
+    [DllImport(LibraryName, CharSet = CharSet.Auto)]
+    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, UnmanagedMethods.SetWindowPosFlags uFlags);
+
     //[DllImport(LibraryName, ExactSpelling = true)]
     //public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
 

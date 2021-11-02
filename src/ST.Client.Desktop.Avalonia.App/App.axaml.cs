@@ -28,6 +28,7 @@ using Avalonia.Platform;
 using FluentAvalonia.Styling;
 using Avalonia.Media;
 using System.Reactive.Disposables;
+using System.Application.UI.Views.Controls;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -491,6 +492,17 @@ namespace System.Application.UI
                 foreach (var window in desktop.Windows)
                 {
                     window.TransparencyLevelHint = (WindowTransparencyLevel)level;
+
+                    if (window.TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
+                        window.TransparencyLevelHint == WindowTransparencyLevel.None ||
+                        window.TransparencyLevelHint == WindowTransparencyLevel.Blur)
+                    {
+                        ((IPseudoClasses)window.Classes).Set(":transparent", true);
+                    }
+                    else
+                    {
+                        ((IPseudoClasses)window.Classes).Set(":transparent", false);
+                    }
                 }
             }
         }

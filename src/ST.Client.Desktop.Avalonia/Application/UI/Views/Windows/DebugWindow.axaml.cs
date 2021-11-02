@@ -13,7 +13,7 @@ namespace System.Application.UI.Views.Windows
 
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
-            TransparencyLevelHint = WindowTransparencyLevel.Mica;
+            TransparencyLevelHint = WindowTransparencyLevel.Transparent;
             SystemDecorations = SystemDecorations.Full;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
 

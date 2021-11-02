@@ -42,12 +42,22 @@ namespace Avalonia.Controls
                     }
                 }
             }
-            //if (OperatingSystem2.IsWindows)
-            //{
+
+            TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+
+            if (TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
+                TransparencyLevelHint == WindowTransparencyLevel.None ||
+                TransparencyLevelHint == WindowTransparencyLevel.Blur)
+            {
+                PseudoClasses.Set(":transparent", true);
+            }
+            else
+            {
+                PseudoClasses.Set(":transparent", false);
+            }
+
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
-            //}
-            TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
             SystemDecorations = SystemDecorations.Full;
 
             this.GetObservable(WindowStateProperty)
@@ -106,7 +116,7 @@ namespace Avalonia.Controls
 
         private void FluentWindow_PositionChanged(object? sender, PixelPointEventArgs e)
         {
-            if (_isOpenWindow == false)
+            if (IsHideWindow)
                 return;
             if (DataContext is WindowViewModel vm)
             {
@@ -115,10 +125,8 @@ namespace Avalonia.Controls
             }
         }
 
-        protected bool _isOpenWindow;
         protected virtual void FluentWindow_Opened(object? sender, EventArgs e)
         {
-            _isOpenWindow = true;
             if (DataContext is WindowViewModel vm)
             {
                 if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
@@ -132,43 +140,34 @@ namespace Avalonia.Controls
                     }
                 }
 
-                if (CanResize)
+                if (CanResize && !IsHideWindow)
                 {
                     if (vm.SizePosition.Width > 0
                         && Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
-                        Width = vm.SizePosition.Width + (((ICoreWindow)this).IsNewSizeWindow ? 16 : 0);
+                        Width = vm.SizePosition.Width;
 
                     if (vm.SizePosition.Height > 0
                         && Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
-                        Height = vm.SizePosition.Height + (((ICoreWindow)this).IsNewSizeWindow ? 8 : 0);
+                        Height = vm.SizePosition.Height;
 
                     HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
-
 
                     this.WhenAnyValue(x => x.ClientSize)
                         .Subscribe(x =>
                         {
-                            vm.SizePosition.Width = x.Width;
-                            vm.SizePosition.Height = x.Height;
+                            vm.SizePosition.Width = x.Width + (IsNewSizeWindow ? 16 : 0);
+                            vm.SizePosition.Height = x.Height + (IsNewSizeWindow ? 8 : 0);
                         });
                 }
-
-
-
-                //this.GetObservable(WidthProperty).Subscribe(v =>
-                //{
-                //    vm.SizePosition.Width = v;
-                //});
-                //this.GetObservable(HeightProperty).Subscribe(v =>
-                //{
-                //    vm.SizePosition.Height = v;
-                //});
             }
+
+            IsHideWindow = false;
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
+
             _systemCaptionButtons = e.NameScope.Find<MinMaxCloseControl>("SystemCaptionButtons");
             if (_systemCaptionButtons != null)
             {
@@ -196,8 +195,9 @@ namespace Avalonia.Controls
 
         MinMaxCloseControl? ICoreWindow.SystemCaptionButtons => _systemCaptionButtons;
 
-        bool ICoreWindow.IsNewSizeWindow { get; set; }
+        public bool IsNewSizeWindow { get; set; }
 
+        public bool IsHideWindow { get; set; }
         #endregion
     }
 

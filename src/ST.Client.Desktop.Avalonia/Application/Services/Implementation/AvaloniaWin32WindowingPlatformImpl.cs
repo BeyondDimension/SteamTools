@@ -98,7 +98,9 @@ namespace System.Application.Services.Implementation
                         // I retain the SystemBorder & ability resize the window in the transparent
                         // area over the drop shadows, meaning resize handles don't overlap the window
 
-                        if (wParam != IntPtr.Zero && _owner?.Window.CanResize == true)
+                        if (wParam != IntPtr.Zero &&
+                            _owner?.Window.CanResize == true &&
+                            _owner?.IsHideWindow == false)
                         {
                             var ncParams = Marshal.PtrToStructure<NCCALCSIZE_PARAMS>(lParam);
 
@@ -115,6 +117,8 @@ namespace System.Application.Services.Implementation
                                 WindowState == WindowState.FullScreen)
                             {
                                 //newSize.top += GetResizeHandleHeight();
+
+                                _owner.IsNewSizeWindow = false;
                             }
                             else
                             {
@@ -217,8 +221,9 @@ namespace System.Application.Services.Implementation
                 var marg = new Win32Interop.MARGINS();
 
                 // WS_OVERLAPPEDWINDOW
-                // 0x00C00000L 会导致标题栏有奇怪的白边
-                var style = 0x00000000L | 0x00080000L | 0x00040000L | 0x00020000L | 0x00010000L;
+                // 0x00C00000L 0x00080000L 不需要标题栏
+                // 0x00040000L 创建一个具有粗框的窗口可以用来调整窗口的大小
+                var style = 0x00000000L | 0X00800000L | 0x00020000L | 0x00010000L;
 
                 // This is causing the window to appear solid but is completely transparent. Weird...
                 //Win32Interop.GetWindowLongPtr(Hwnd, -16).ToInt32();

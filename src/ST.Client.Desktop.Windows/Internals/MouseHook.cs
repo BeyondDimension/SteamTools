@@ -120,8 +120,8 @@ static class MouseHook
     public const uint OCR_HAND = 32649;
 
     [DllImport(User32Window.LibraryName, CharSet = CharSet.Auto)]
-    public static extern bool SystemParametersInfo(uint uiAction, uint uiParam,
-    IntPtr pvParam, uint fWinIni);
+    public static extern bool SystemParametersInfo(uint uAction, uint uParam,
+    IntPtr lpvParam, uint init);
 
     public enum SystemParametersDesktopInfo : uint
     {

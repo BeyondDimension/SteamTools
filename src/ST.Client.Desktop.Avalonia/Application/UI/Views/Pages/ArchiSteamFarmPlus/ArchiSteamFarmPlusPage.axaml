@@ -19,7 +19,6 @@
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ArchiSteamFarmPlusPage">
   <DockPanel>
-
     <Border Margin="10"
             Padding="10"
             DockPanel.Dock="Top"
@@ -60,9 +59,10 @@
           </ui:CommandBarButton>
 
           <ui:CommandBarButton
+            
                                Command="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=RefreshBots,Mode=OneWay}"
                                ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                               Label="刷新">
+                               Label="刷新Bot">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
             </ui:CommandBarButton.Icon>

@@ -20,8 +20,20 @@
     <Setter Property="Background" Value="{x:Null}"/>
     <Setter Property="WindowStartupLocation" Value="CenterScreen"/>
     <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="{StaticResource TitleBarHeight}"/>
+    <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource BackgroundColorKey}" />
     <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico"/>
   </Style>
+
+  <Style Selector="ExperimentalAcrylicBorder">
+    <Setter Property="IsHitTestVisible" Value="False"/>
+    <Setter Property="IsVisible" Value="True"/>
+  </Style>
+
+  <Style Selector=":is(Window):transparent ExperimentalAcrylicBorder">
+    <Setter Property="IsVisible" Value="False"/>
+    <Setter Property="Opacity" Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
+  </Style>
+
 
   <!--<Style Selector="Button.SystemCaption">
     <Setter Property="Background" Value="Transparent" />
@@ -133,10 +145,10 @@
     <Setter Property="BorderThickness" Value="0 0 0 0" />
   </Style>
 
-  <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window):windows:extended /template/ TextBlock#TitleText">
+  <Style Selector=":is(wnd|Window):windows:extended /template/ TextBlock#TitleText">
     <Setter Property="IsVisible" Value="False" />
   </Style>
-  <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window):windows:extended:customtitlebar /template/ Panel#DefaultTitleBar">
+  <Style Selector=":is(wnd|Window):windows:extended:customtitlebar /template/ Panel#DefaultTitleBar">
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="Width" Value="10" />
   </Style>-->

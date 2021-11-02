@@ -50,6 +50,7 @@ namespace System.Application.UI.ViewModels
             });
 
             ResetImage_Click = ReactiveCommand.Create(() => SetBackgroundImagePath(null));
+
         }
 
         public static SettingsPageViewModel Instance { get; } = new();

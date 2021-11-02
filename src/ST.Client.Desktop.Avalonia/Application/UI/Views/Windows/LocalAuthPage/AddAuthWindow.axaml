@@ -21,22 +21,7 @@
         Title="{Binding Title}">
   <Panel>
     <controls:TitleBar></controls:TitleBar>
-    <!--<DockPanel HorizontalAlignment="Stretch">
-      <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="95">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
-        </ExperimentalAcrylicBorder.Material>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
-          <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24" Margin="0,0,10,0"/>
-          <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="20"/>
-        </StackPanel>
-      </ExperimentalAcrylicBorder>
-      <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False" Opacity="{StaticResource ContentOpacity}">
-        <ExperimentalAcrylicBorder.Material>
-          <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
-        </ExperimentalAcrylicBorder.Material>
-      </ExperimentalAcrylicBorder>
-    </DockPanel>-->
+    
     <TabControl Margin="0 10 0 0">
       <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamUserImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Panel>

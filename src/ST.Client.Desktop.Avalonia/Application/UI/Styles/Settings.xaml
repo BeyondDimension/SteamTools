@@ -187,13 +187,14 @@
     <Setter Property="(DockPanel.Dock)"  Value="Right" />
   </Style>
 
-  <Style Selector="StackPanel.Settings DockPanel > WrapPanel">
+  <Style Selector="StackPanel.Settings DockPanel > StackPanel">
     <Setter Property="Margin" Value="0 0 100 0" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="(DockPanel.Dock)"  Value="Left" />
   </Style>
 
   <Style Selector="StackPanel.Settings DockPanel :is(Control).right">
+    <Setter Property="Margin" Value="0" />
     <Setter Property="VerticalAlignment" Value="Center" />
     <Setter Property="HorizontalAlignment" Value="Right" />
     <Setter Property="(DockPanel.Dock)"  Value="Right" />

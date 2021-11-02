@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Windows;
+using static UnmanagedMethods;
 
 namespace System.Application.Services.Implementation
 {
@@ -144,7 +145,7 @@ namespace System.Application.Services.Implementation
                     }
                     return true;
                 }), IntPtr.Zero);
-                User32Window.SetParent(window.Handle, workerw);
+                SetParentWindow(window.Handle, workerw);
 
 
                 int p1 = User32Window.GetWindowLongA(window.Handle, (int)WindowLongFlags.GWL_STYLE);
@@ -160,6 +161,15 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        public string? GetWallerpaperImagePath()
+        {
+            IntPtr p = IntPtr.Zero;
+            MouseHook.SystemParametersInfo((uint)MouseHook.SystemParametersDesktopInfo.SPI_GETDESKWALLPAPER, 300, p, (uint)MouseHook.SystemParamtersInfoFlags.None);
+            var result = Marshal.PtrToStringAuto(p);  //默认桌面路径
+            Marshal.FreeHGlobal(p);
+            return result;
+        }
+
         public void ResetWallerpaper()
         {
             //string result = string.Empty;
@@ -167,7 +177,13 @@ namespace System.Application.Services.Implementation
             MouseHook.SystemParametersInfo((uint)MouseHook.SystemParametersDesktopInfo.SPI_GETDESKWALLPAPER, 300, p, (uint)MouseHook.SystemParamtersInfoFlags.None);
             //result = Marshal.PtrToStringAuto(p);  //默认桌面路径
             MouseHook.SystemParametersInfo((uint)MouseHook.SystemParametersDesktopInfo.SPI_SETDESKWALLPAPER, 1, p, (uint)MouseHook.SystemParamtersInfoFlags.SPIF_UPDATEINIFILE | (uint)MouseHook.SystemParamtersInfoFlags.SPIF_SENDWININICHANGE);
-            //Marshal.FreeHGlobal(p);
+            Marshal.FreeHGlobal(p);
+        }
+
+        public void SetParentWindow(IntPtr source, IntPtr dest)
+        {
+            User32Window.SetParent(source, dest);
+            //User32Window.SetWindowLong(source, (int)WindowLongParam.GWL_HWNDPARENT, (int)dest);
         }
 
         /// <summary>
@@ -188,7 +204,8 @@ namespace System.Application.Services.Implementation
         {
             int style = User32Window.GetWindowLongA(dest, (int)WindowLongFlags.GWL_EXSTYLE);
             User32Window.SetWindowLong(dest, (int)WindowLongFlags.GWL_EXSTYLE, style | (int)UnmanagedMethods.WindowStyles.WS_EX_TRANSPARENT | (int)UnmanagedMethods.WindowStyles.WS_EX_LAYERED);
-            User32Window.SetLayeredWindowAttributes(dest, 0, 100, 0);
+            User32Window.SetLayeredWindowAttributes(dest, 0, 255, 0x2);
+            //User32Window.SetLayeredWindowAttributes(dest, 0, 100, 0);
         }
 
         /// <summary>
@@ -228,6 +245,8 @@ namespace System.Application.Services.Implementation
             //    backgroundPath = Marshal.PtrToStringAuto(r);  //默认桌面路径
             //    return;
             //}
+            //User32Window.SetWindowPos(dest, HWND_BOTTOM, 0, 0, 0, 0,
+            //    SetWindowPosFlags.SWP_NOSIZE | SetWindowPosFlags.SWP_NOMOVE | SetWindowPosFlags.SWP_NOACTIVATE | SetWindowPosFlags.SWP_SHOWWINDOW);
 
             IntPtr p = User32Window.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "Progman", null);
 
@@ -237,7 +256,6 @@ namespace System.Application.Services.Implementation
 
             if (temp == 0)
                 BackgroundUpdate(dest, width, height);
-
             return dest;
         }
 

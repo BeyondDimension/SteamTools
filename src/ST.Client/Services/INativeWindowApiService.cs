@@ -52,10 +52,18 @@ namespace System.Application.Services
         void ToWallerpaperWindow(NativeWindowModel window);
 
         /// <summary>
-        /// 刷新壁纸
+        /// 获取桌面壁纸图片路径
+        /// </summary>
+        /// <returns></returns>
+        string? GetWallerpaperImagePath();
+
+        /// <summary>
+        /// 刷新桌面壁纸
         /// </summary>
         /// <param name="window"></param>
         void ResetWallerpaper();
+
+        void SetParentWindow(IntPtr source, IntPtr dest);
 
         void SetActiveWindow(NativeWindowModel window);
 

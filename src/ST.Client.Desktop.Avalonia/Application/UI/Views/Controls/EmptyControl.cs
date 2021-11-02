@@ -13,79 +13,116 @@ namespace System.Application.UI.Views.Controls
         readonly INativeWindowApiService windowApiService = INativeWindowApiService.Instance;
 
         Window window;
-        Window Parent;
+        Window ParentWindow;
         IntPtr _Handle;
+        IntPtr _DwmHandle;
         public EmptyControl()
         {
             //this.InitializeComponent();
 
-            this.GetObservable(IsVisibleProperty)
-                .Subscribe(x =>
-                {
-                    if (x)
+            if (OperatingSystem2.IsWindows)
+            {
+                this.GetObservable(IsVisibleProperty)
+                    .Subscribe(x =>
                     {
-                        if (window == null)
+                        if (x)
                         {
-                            this.LayoutUpdated += EmptyControl_LayoutUpdated;
-                            this.AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
-                            this.DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
-                            window = new Window
+                            if (window == null)
                             {
-                                Width = this.Bounds.Width,
-                                Height = this.Bounds.Height,
-                                Background = Avalonia.Media.Brushes.Transparent,
-                                WindowStartupLocation = WindowStartupLocation.Manual,
-                                WindowState = WindowState.Normal,
-                                ExtendClientAreaToDecorationsHint = true,
-                                ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome,
-                                SystemDecorations = SystemDecorations.Full,
-                                CanResize = false,
-                                TransparencyLevelHint = WindowTransparencyLevel.Transparent,
-                                ShowInTaskbar = false,
-                                Focusable = false
-                            };
-                            if (Parent != null && VisualRoot != null)
-                                EmptyControl_AttachedToVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
+                                this.LayoutUpdated += EmptyControl_LayoutUpdated;
+                                this.AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
+                                this.DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
+                                window = new Window
+                                {
+                                    Width = this.Bounds.Width,
+                                    Height = this.Bounds.Height,
+                                    Background = null,
+                                    WindowStartupLocation = WindowStartupLocation.Manual,
+                                    WindowState = WindowState.Normal,
+                                    ExtendClientAreaToDecorationsHint = true,
+                                    ExtendClientAreaTitleBarHeightHint = -1,
+                                    ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome,
+                                    SystemDecorations = SystemDecorations.Full,
+                                    CanResize = false,
+                                    TransparencyLevelHint = WindowTransparencyLevel.Transparent,
+                                    ShowInTaskbar = false,
+                                    Topmost = false,
+                                    Focusable = false,
+                                    IsEnabled = false,
+                                    ShowActivated = false,
+                                    IsTabStop = false,
+                                    IsHitTestVisible = false,
+                                };
+                                window.GotFocus += Window_GotFocus;
+                                if (Parent != null && VisualRoot != null)
+                                    EmptyControl_AttachedToVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (window != null)
+                        else
                         {
-                            if (Parent != null && VisualRoot != null)
-                                EmptyControl_DetachedFromVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
-                            this.LayoutUpdated -= EmptyControl_LayoutUpdated;
-                            this.AttachedToVisualTree -= EmptyControl_AttachedToVisualTree;
-                            this.DetachedFromVisualTree -= EmptyControl_DetachedFromVisualTree;
-                            window = null;
+                            if (window != null)
+                            {
+                                if (Parent != null && VisualRoot != null)
+                                    EmptyControl_DetachedFromVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
+                                this.LayoutUpdated -= EmptyControl_LayoutUpdated;
+                                this.AttachedToVisualTree -= EmptyControl_AttachedToVisualTree;
+                                this.DetachedFromVisualTree -= EmptyControl_DetachedFromVisualTree;
+                                window = null;
+                            }
                         }
-                    }
-                });
+                    });
+            }
+        }
+
+        private void Window_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
+        {
+            ParentWindow.Focus();
         }
 
         private void EmptyControl_DetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
-            if (OperatingSystem2.IsWindows && UISettings.EnableDesktopBackground.Value)
-            {
-                windowApiService.ReleaseBackground(_Handle);
-                Parent.PositionChanged -= Parent_PositionChanged;
-                Close();
-            }
+            windowApiService.ReleaseBackground(_DwmHandle);
+            ParentWindow.PositionChanged -= Parent_PositionChanged;
+            ParentWindow.Closing -= ParentWindow_Closing;
+            ParentWindow.GotFocus -= ParentWindow_GotFocus;
+            Close();
         }
 
         private void EmptyControl_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
-            if (OperatingSystem2.IsWindows && UISettings.EnableDesktopBackground.Value)
-            {
-                Show();
-                Parent = (Window)e.Root;
-                Parent.PositionChanged += Parent_PositionChanged;
-                _Handle = Handle;
-                _Handle = windowApiService.SetDesktopBackgroundToWindow(
-                    _Handle, (int)window.Width, (int)window.Height);
+            ParentWindow = (Window)e.Root;
+            ParentWindow.Topmost = true;
+            Show();
+            ParentWindow.Topmost = false;
+            ParentWindow.PositionChanged += Parent_PositionChanged;
+            ParentWindow.Closing += ParentWindow_Closing;
+            ParentWindow.GotFocus += ParentWindow_GotFocus;
+            ParentWindow.Opened += ParentWindow_Opened;
+            _Handle = window.PlatformImpl.Handle.Handle;
+            windowApiService.SetWindowPenetrate(_Handle);
+            //windowApiService.SetParentWindow(_Handle, ParentWindow.PlatformImpl.Handle.Handle);
+            _DwmHandle = windowApiService.SetDesktopBackgroundToWindow(
+                _Handle, (int)window.Width, (int)window.Height);
+        }
 
-                windowApiService.SetWindowPenetrate(Handle);
-            }
+        private void ParentWindow_Opened(object? sender, EventArgs e)
+        {
+            if (window != null)
+                Show();
+        }
+
+        private void ParentWindow_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
+        {
+            window.Topmost = true;
+            window.Topmost = false;
+            ParentWindow.Topmost = true;
+            ParentWindow.Topmost = false;
+        }
+
+        private void ParentWindow_Closing(object? sender, ComponentModel.CancelEventArgs e)
+        {
+            if (window != null)
+                window.Hide();
         }
 
         private void Parent_PositionChanged(object? sender, PixelPointEventArgs e)
@@ -95,13 +132,10 @@ namespace System.Application.UI.Views.Controls
 
         private void EmptyControl_LayoutUpdated(object? sender, System.EventArgs e)
         {
-            if (OperatingSystem2.IsWindows && UISettings.EnableDesktopBackground.Value)
-            {
-                window.Position = this.PointToScreen(this.Bounds.Position);
-                window.Width = this.Bounds.Width;
-                window.Height = this.Bounds.Height;
-                windowApiService.BackgroundUpdate(_Handle, (int)window.Width, (int)window.Height);
-            }
+            window.Position = this.PointToScreen(this.Bounds.Position);
+            window.Width = this.Bounds.Width;
+            window.Height = this.Bounds.Height;
+            windowApiService.BackgroundUpdate(_DwmHandle, (int)window.Width, (int)window.Height);
             //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
         }
 
@@ -118,7 +152,7 @@ namespace System.Application.UI.Views.Controls
 
         public IntPtr Handle
         {
-            get { return window.PlatformImpl.Handle.Handle; }
+            get { return _Handle; }
         }
 
         public void Close()

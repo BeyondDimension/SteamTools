@@ -21,13 +21,9 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 
-            //var background = this.FindControl<EmptyControl>("DesktopBackground");
-            //_backHandle = background.Handle;
+            var background = this.FindControl<EmptyControl>("DesktopBackground");
+            _backHandle = background.Handle;
 
-            //if (OperatingSystem2.IsWindows && !OperatingSystem2.IsWindows11AtLeast)
-            //{
-            //    TransparencyLevelHint = WindowTransparencyLevel.Transparent;
-            //}
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -35,12 +31,13 @@ namespace System.Application.UI.Views
             StartupTrace.Restart("MainWindow.ctor");
 #endif
         }
+
         protected override void OnClosing(CancelEventArgs e)
         {
 #if !UI_DEMO
             if (StartupOptions.Value.HasNotifyIcon)
             {
-                _isOpenWindow = false;
+                IsHideWindow = true;
                 e.Cancel = true;
                 Hide();
 
@@ -49,7 +46,7 @@ namespace System.Application.UI.Views
                         tab.Deactivation();
             }
 #endif
-            base.OnClosed(e);
+            base.OnClosing(e);
         }
 
         protected override void FluentWindow_Opened(object? sender, EventArgs e)

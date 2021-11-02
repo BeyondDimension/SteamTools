@@ -20,17 +20,23 @@ namespace System.Application.UI.Views.Windows
         public TaskBarWindow()
         {
             InitializeComponent();
-            Topmost = true;
-            
+
+            TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+
+            if (TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
+                TransparencyLevelHint == WindowTransparencyLevel.None ||
+                TransparencyLevelHint == WindowTransparencyLevel.Blur)
+            {
+                TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
+            }
+
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
             SystemDecorations = SystemDecorations.Full;
-            TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
             SizeToContent = Avalonia.Controls.SizeToContent.Height;
-            CanResize = false;
-            ShowInTaskbar = false;
 
+            //Initialized += Window_Opened;
             Opened += Window_Opened;
             LostFocus += Window_LostFocus;
 
@@ -122,6 +128,8 @@ namespace System.Application.UI.Views.Windows
                         {
                             Position = new PixelPoint(x.Item1, heightPoint);
                         }
+                        Topmost = false;
+                        Topmost = true;
                     });
             }
 

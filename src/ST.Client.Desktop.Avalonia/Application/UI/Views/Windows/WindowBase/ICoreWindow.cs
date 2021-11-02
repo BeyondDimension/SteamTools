@@ -18,7 +18,9 @@ namespace Avalonia.Controls
     {
         Window Window { get; }
 
-        bool IsNewSizeWindow { get; set; }
+        public bool IsNewSizeWindow { get; set; }
+
+        public bool IsHideWindow { get; set; }
 
         MinMaxCloseControl? SystemCaptionButtons { get; }
 

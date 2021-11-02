@@ -26,16 +26,7 @@
   </Design.DataContext>
   <Grid RowDefinitions="1,30,*,Auto,1">
     <controls:TitleBar Grid.RowSpan="5"></controls:TitleBar>
-    <!--<DockPanel HorizontalAlignment="Stretch" Grid.RowSpan="5">
-            <ExperimentalAcrylicBorder IsHitTestVisible="False">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="0.55" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-            </ExperimentalAcrylicBorder>
-        </DockPanel>-->
-    <!--<StackPanel Grid.Row="1" Margin="10 5 0 5" IsHitTestVisible="False">
-            <TextBlock Text="{Binding Title}" FontSize="16"></TextBlock>
-        </StackPanel>-->
+    
     <StackPanel Margin="12 10 12 5" Grid.Row="2" x:Name="content">
       <DockPanel>
         <TextBlock Text="{Binding Content}" MaxWidth="500"

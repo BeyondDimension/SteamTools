@@ -109,11 +109,6 @@ namespace System.Application.UI.ViewModels
 
         public void GoToBotSettings(Bot bot)
         {
-            if (!ASFService.Current.IsASFRuning)
-            {
-                Toast.Show("请先运行ASF功能");
-                return;
-            }
             Browser2.Open(IPCUrl + "/bot/" + bot.BotName);
         }
 

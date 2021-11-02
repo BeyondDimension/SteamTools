@@ -8,7 +8,9 @@ using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
+using System.Application.Settings;
 using System.Application.UI.ViewModels;
+using System.Application.UI.Views.Controls;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -17,16 +19,11 @@ namespace System.Application.UI.Views
 {
     public class MainView : ReactiveUserControl<MainWindowViewModel>
     {
+        private readonly IBrush? _backgroundTemp;
+
         public MainView()
         {
             InitializeComponent();
-
-            //var sp = this.FindControl<StackPanel>("titleMenu");
-            //if (sp != null)
-            //    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            //        sp.Margin = new Avalonia.Thickness(0, 0, 140, 0);
-            //    else
-            //        sp.Margin = new Avalonia.Thickness(0, 6, 10, 0);
 
             var avatar = this.FindControl<Image>("avatar");
             var nav = this.FindControl<NavigationView>("NavigationView");
@@ -97,6 +94,28 @@ namespace System.Application.UI.Views
                             }
                         }
                     });
+            }
+
+            //UISettings.EnableDesktopBackground.Subscribe(x =>
+            //{
+            //    Background = x ? null : _BackGroundTemp;
+            //});
+
+            var title = this.FindControl<TitleBar>("title");
+            if (title != null)
+            {
+                _backgroundTemp = title.Background;
+                UISettings.EnableDesktopBackground.Subscribe(x =>
+                {
+                    var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+                    if (t == WindowTransparencyLevel.Transparent)
+                    {
+                        title.Background = x ? null : _backgroundTemp;
+                        if (x)
+                            UISettings.EnableCustomBackgroundImage.Value = x;
+                    }
+
+                });
             }
         }
 

@@ -3917,6 +3917,25 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 使用动态桌面背景 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_EnableDesktopBackground {
+            get {
+                return ResourceManager.GetString("Settings_UI_EnableDesktopBackground", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 *实验性功能(开启此功能时建议将透明材质设置为Transparent或AcrylicBlur)
+        ///这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。该效果只在主窗口生效，其它窗口会默认使用图片背景。 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_EnableDesktopBackground_Tip {
+            get {
+                return ResourceManager.GetString("Settings_UI_EnableDesktopBackground_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用圆角界面 的本地化字符串。
         /// </summary>
         public static string Settings_UI_EnableFilletUI {
