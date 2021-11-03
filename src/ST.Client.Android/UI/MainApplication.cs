@@ -20,6 +20,9 @@ using Xamarin.Forms;
 #if DEBUG
 using Square.LeakCanary;
 #endif
+using ImageCircle.Forms.Plugin.Droid;
+using XFApplication = Xamarin.Forms.Application;
+using XEAppTheme = Xamarin.Essentials.AppTheme;
 
 namespace System.Application.UI
 {
@@ -169,6 +172,7 @@ namespace System.Application.UI
 
                 Forms.Init(this, null);
                 FormsMaterial.Init(this, null);
+                ImageCircleRenderer.Init();
 
                 stopwatch.Stop();
                 startTrace.AppendFormatLine("init XF {0}ms", stopwatch.ElapsedMilliseconds);
@@ -202,6 +206,8 @@ namespace System.Application.UI
         const AppTheme _DefaultActualTheme = AppTheme.Light;
         AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
+        public bool IsRuntimeSwitchXFAppTheme { get; set; } = true;
+
         public new AppTheme Theme
         {
             get => AppCompatDelegate.DefaultNightMode switch
@@ -212,14 +218,34 @@ namespace System.Application.UI
             };
             set
             {
-                var defaultNightMode = value switch
+                int defaultNightMode;
+                OSAppTheme theme;
+                switch (value)
                 {
-                    AppTheme.FollowingSystem => AppCompatDelegate.ModeNightFollowSystem,
-                    AppTheme.Light => AppCompatDelegate.ModeNightNo,
-                    AppTheme.Dark => AppCompatDelegate.ModeNightYes,
-                    _ => int.MinValue,
-                };
-                if (defaultNightMode == int.MinValue) return;
+                    case AppTheme.Light:
+                        defaultNightMode = AppCompatDelegate.ModeNightNo;
+                        theme = OSAppTheme.Light;
+                        break;
+                    case AppTheme.Dark:
+                        defaultNightMode = AppCompatDelegate.ModeNightYes;
+                        theme = OSAppTheme.Dark;
+                        break;
+                    case AppTheme.FollowingSystem:
+                        defaultNightMode = AppCompatDelegate.ModeNightFollowSystem;
+                        theme = AppInfo.RequestedTheme switch
+                        {
+                            XEAppTheme.Light => OSAppTheme.Light,
+                            XEAppTheme.Dark => OSAppTheme.Dark,
+                            _ => OSAppTheme.Unspecified,
+                        };
+                        break;
+                    default:
+                        return;
+                }
+                if (IsRuntimeSwitchXFAppTheme && XFApplication.Current is App app)
+                {
+                    app.AppTheme = theme;
+                }
                 AppCompatDelegate.DefaultNightMode = defaultNightMode;
             }
         }

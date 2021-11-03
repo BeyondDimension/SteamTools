@@ -9,12 +9,14 @@ using Xamarin.Forms;
 
 namespace System.Application.UI.Views
 {
-    public abstract class BaseContentPage<TViewModel> : ReactiveContentPage<TViewModel> where TViewModel : ViewModelBase
+    public abstract class BaseContentPage<TViewModel> : ReactiveContentPage<TViewModel>, IPage where TViewModel : ViewModelBase
     {
         public virtual string TitlePropertyPath
             => typeof(TViewModel).IsSubclassOf(typeof(TabItemViewModelBase)) ?
                 nameof(TabItemViewModelBase.Name) :
                 nameof(PageViewModel.Title);
+
+        Page IPage.@this => this;
 
         public BaseContentPage()
         {

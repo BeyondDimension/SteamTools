@@ -247,6 +247,7 @@ OS                            | Version                 | Architectures     |
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)
 * [Toast messages for Xamarin.iOS](https://github.com/andrius-k/Toast)
+* [ImageCirclePlugin](https://github.com/jamesmontemagno/ImageCirclePlugin)
 * [Visual Studio App Center SDK for .NET](https://github.com/microsoft/appcenter-sdk-dotnet)
 * [AppCenter-XMac](https://github.com/nor0x/AppCenter-XMac)
 * [MSBuild.Sdk.Extras](https://github.com/novotnyllc/MSBuildSdkExtras)

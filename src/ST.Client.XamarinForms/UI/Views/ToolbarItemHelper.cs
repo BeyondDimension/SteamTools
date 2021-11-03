@@ -68,17 +68,17 @@ namespace System.Application.UI.Views
         }
     }
 
-    partial class LocalAuthPage
+    public interface ILocalAuthPage : IViewFor<LocalAuthPageViewModel>, IPage
     {
-        public IReadOnlyDictionary<LocalAuthPageViewModel.ActionItem, ToolbarItem> Actions { get; }
+        IReadOnlyDictionary<LocalAuthPageViewModel.ActionItem, ToolbarItem> Actions { get; }
 
-        IReadOnlyDictionary<LocalAuthPageViewModel.ActionItem, ToolbarItem> InitToolbarItems() => ViewModel!.InitToolbarItems(LocalAuthPageViewModel.ActionItem.Refresh).AddToPage(this);
+        protected static IReadOnlyDictionary<LocalAuthPageViewModel.ActionItem, ToolbarItem> InitToolbarItems(ILocalAuthPage page) => page.ViewModel!.InitToolbarItems(LocalAuthPageViewModel.ActionItem.Refresh).AddToPage(page.@this);
     }
 
-    partial class ArchiSteamFarmPlusPage
+    public interface IArchiSteamFarmPlusPage : IViewFor<ArchiSteamFarmPlusPageViewModel>, IPage
     {
-        public IReadOnlyDictionary<ArchiSteamFarmPlusPageViewModel.ActionItem, ToolbarItem> Actions { get; }
+        IReadOnlyDictionary<ArchiSteamFarmPlusPageViewModel.ActionItem, ToolbarItem> Actions { get; }
 
-        IReadOnlyDictionary<ArchiSteamFarmPlusPageViewModel.ActionItem, ToolbarItem> InitToolbarItems() => ViewModel!.InitToolbarItems(ArchiSteamFarmPlusPageViewModel.ActionItem.Refresh).AddToPage(this);
+        protected static IReadOnlyDictionary<ArchiSteamFarmPlusPageViewModel.ActionItem, ToolbarItem> InitToolbarItems(IArchiSteamFarmPlusPage page) => page.ViewModel!.InitToolbarItems(ArchiSteamFarmPlusPageViewModel.ActionItem.Refresh).AddToPage(page.@this);
     }
 }

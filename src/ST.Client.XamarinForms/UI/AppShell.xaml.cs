@@ -7,7 +7,9 @@ using System.Application.UI.Views;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
+using n = System.Application.UI.Views.Native;
 using static System.Application.UI.ViewModels.TabItemViewModel;
+using System.Threading.Tasks;
 
 namespace System.Application.UI
 {
@@ -25,7 +27,7 @@ namespace System.Application.UI
                 InitTabItems(mainWindow, TabItemId.LocalAuth, TabItemId.ArchiSteamFarmPlus);
             }
 
-            AddPage<MyPage, MyPageViewModel>(MyPageViewModel.Instance, isVisible: false);
+            AddPage<n.MyPage, MyPageViewModel>(MyPageViewModel.Instance, isVisible: false);
             //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
@@ -112,9 +114,9 @@ namespace System.Application.UI
                 switch (tabItem.Id)
                 {
                     case TabItemId.LocalAuth:
-                        return typeof(LocalAuthPage);
+                        return typeof(n.LocalAuthPage);
                     case TabItemId.ArchiSteamFarmPlus:
-                        return typeof(ArchiSteamFarmPlusPage);
+                        return typeof(n.ArchiSteamFarmPlusPage);
                 }
             }
             return typeof(UnderConstructionPage);
@@ -130,5 +132,13 @@ namespace System.Application.UI
         //{
         //    //await Shell.Current.GoToAsync("//LoginPage");
         //}
+
+        public static Task PopAsync()
+        {
+            // https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/shell/navigation#backwards-navigation
+            return Current.GoToAsync("..");
+        }
+
+        public static async void Pop() => await PopAsync();
     }
 }

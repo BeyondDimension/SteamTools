@@ -3,14 +3,20 @@ using Android.Views;
 using AndroidX.Fragment.App;
 using System.Application.UI.Fragments;
 using System.Application.UI.Renderers;
-using System.Application.UI.Views;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using n = System.Application.UI.Views.Native;
 
-[assembly: ExportRenderer(typeof(LocalAuthPage), typeof(FragmentPageRenderer<LocalAuthFragment>))]
-[assembly: ExportRenderer(typeof(ArchiSteamFarmPlusPage), typeof(FragmentPageRenderer<ASFPlusFragment>))]
-[assembly: ExportRenderer(typeof(MyPage), typeof(FragmentPageRenderer<MyFragment>))]
+[assembly: ExportRenderer(
+    typeof(n.LocalAuthPage),
+    typeof(FragmentPageRenderer<LocalAuthFragment>))]
+[assembly: ExportRenderer(
+    typeof(n.ArchiSteamFarmPlusPage),
+    typeof(FragmentPageRenderer<ASFPlusFragment>))]
+[assembly: ExportRenderer(
+    typeof(n.MyPage),
+    typeof(FragmentPageRenderer<MyFragment>))]
 
 namespace System.Application.UI.Renderers
 {
