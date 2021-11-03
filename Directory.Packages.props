@@ -9,12 +9,12 @@
         <PackageVersion Include="Microsoft.AppCenter" Version="4.4.0" />
         <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
         <PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
-        <PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.3.1" />
-        <PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.3.1" />
-        <PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.3.1" />
-        <PackageVersion Include="nor0x.AppCenter" Version="4.3.1-XMAC" />
-        <PackageVersion Include="nor0x.AppCenter.Analytics" Version="4.3.1-XMAC" />
-        <PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.3.1-XMAC" />
+        <PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.4.0" />
+        <PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.4.0" />
+        <PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.4.0" />
+        <PackageVersion Include="nor0x.AppCenter" Version="4.4.0-XMAC" />
+        <PackageVersion Include="nor0x.AppCenter.Analytics" Version="4.4.0-XMAC" />
+        <PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />
         <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
         <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-rc.2.21480.5" />
         <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0-rc.2.21480.5" />
