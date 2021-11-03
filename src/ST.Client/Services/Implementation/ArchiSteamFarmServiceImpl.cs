@@ -203,17 +203,5 @@ namespace System.Application.Services.Implementation
                 return defaultUrl;
             }
         }
-
-        //public async Task<string?> GetAvatarUrl(Bot bot)
-        //{
-        //    if (!string.IsNullOrEmpty(bot.AvatarUrl))
-        //    {
-        //        return await httpService.GetImageAsync($"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/{bot.AvatarUrl.Substring(0, 2)}/{bot.AvatarUrl}_full.jpg", ImageChannelType.SteamAvatars);
-        //    }
-        //    else
-        //    {
-        //        return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg";
-        //    }
-        //}
     }
 }

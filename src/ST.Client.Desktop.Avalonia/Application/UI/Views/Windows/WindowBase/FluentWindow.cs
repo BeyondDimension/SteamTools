@@ -150,7 +150,10 @@ namespace Avalonia.Controls
                         Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
                         Height = vm.SizePosition.Height;
 
-                    HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
+                    if (ClientSize.Width != Width || ClientSize.Height != Height)
+                    {
+                        HandleResized(new Size(Width += 16, Height += 8), PlatformResizeReason.Application);
+                    }
 
                     this.WhenAnyValue(x => x.ClientSize)
                         .Subscribe(x =>
