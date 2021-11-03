@@ -107,14 +107,7 @@ namespace System.Application.UI.Views
                 _backgroundTemp = title.Background;
                 UISettings.EnableDesktopBackground.Subscribe(x =>
                 {
-                    var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
-                    if (t == WindowTransparencyLevel.Transparent)
-                    {
-                        title.Background = x ? null : _backgroundTemp;
-                        if (x)
-                            UISettings.EnableCustomBackgroundImage.Value = x;
-                    }
-
+                    title.Background = x ? null : _backgroundTemp;
                 });
             }
         }

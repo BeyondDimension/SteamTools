@@ -99,8 +99,7 @@ namespace System.Application.Services.Implementation
                         // area over the drop shadows, meaning resize handles don't overlap the window
 
                         if (wParam != IntPtr.Zero &&
-                            _owner?.Window.CanResize == true &&
-                            _owner?.IsHideWindow == false)
+                            _owner?.Window.CanResize == true)
                         {
                             var ncParams = Marshal.PtrToStructure<NCCALCSIZE_PARAMS>(lParam);
 
@@ -111,34 +110,34 @@ namespace System.Application.Services.Implementation
                                 return ret;
 
                             var newSize = ncParams.rgrc[0];
+
+                            if (newSize.Width == ncParams.rgrc[1].Width &&
+                                newSize.Height == ncParams.rgrc[1].Height)
+                            {
+                                Marshal.StructureToPtr(ncParams, lParam, true);
+                                return IntPtr.Zero;
+                            }
+
                             newSize.top = originalTop;
 
                             if (WindowState == WindowState.Maximized ||
-                                WindowState == WindowState.FullScreen ||
-                                WindowState == WindowState.Minimized)
+                                WindowState == WindowState.FullScreen)
                             {
                                 //newSize.top += GetResizeHandleHeight();
-
-                                _owner.IsNewSizeWindow = false;
                             }
                             else
                             {
-                                newSize.left += 8;
-                                newSize.right -= 8;
-                                newSize.bottom -= 8;
-
-                                //if (_owner.IsNewSizeWindow)
-                                //{
-                                //    _owner.Resized(new Size(ncParams.rgrc[1].Width, ncParams.rgrc[1].Height), PlatformResizeReason.Layout);
-                                //}
-
-                                _owner.IsNewSizeWindow = true;
+                                if (_owner != null)
+                                {
+                                    newSize.left += 8;
+                                    newSize.right -= 8;
+                                    newSize.bottom -= 8;
+                                }
                             }
 
                             ncParams.rgrc[0] = newSize;
 
                             Marshal.StructureToPtr(ncParams, lParam, true);
-
                             return IntPtr.Zero;
                         }
                         break;
@@ -194,6 +193,20 @@ namespace System.Application.Services.Implementation
             internal void SetOwner(ICoreWindow wnd)
             {
                 _owner = wnd;
+
+                _owner.Window.Opened += (s, e) =>
+                {
+                    //_owner.Resized(new Size(_owner.Window.Width += 32, _owner.Window.Height += 16), PlatformResizeReason.Layout);
+
+                    _owner.Window.GetObservable(Window.WindowStateProperty)
+                        .Subscribe(x =>
+                        {
+                            if (x == WindowState.Normal)
+                            {
+                                _owner.Resized(new Size(_owner.Window.Width += 32, _owner.Window.Height += 16), PlatformResizeReason.Layout);
+                            }
+                        });
+                };
 
                 //if (_version.BuildNumber > 22000)
                 if (OperatingSystem2.IsWindows11AtLeast)

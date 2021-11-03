@@ -56,7 +56,7 @@
         <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.Settings_Language,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <ComboBox SelectedItem="{Binding SelectLanguage, Mode=TwoWay}"
-                    Items="{Binding Mode=OneWay,Source={x:Static resx:R.Languages}}" >
+                    Items="{x:Static resx:R.Languages}" >
             <ComboBox.ItemTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding Value,Mode=OneWay}"></TextBlock>
