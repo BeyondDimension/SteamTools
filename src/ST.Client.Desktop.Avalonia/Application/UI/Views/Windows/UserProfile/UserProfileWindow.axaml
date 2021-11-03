@@ -68,17 +68,18 @@
                            Width="100"
                            IsVisible="{Binding IsLoading}"/>
 
-    <TabControl Margin="0 10 0 0"
-                Padding="0"
+    <TabControl Classes="flat"
+                Margin="0 20 0 0"
                 IsVisible="{Binding !IsLoading}">
       <TabItem Header="{ReflectionBinding Path=Res.User_BasicInfo,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Panel Margin="{StaticResource ContentMargin}">
           <StackPanel VerticalAlignment="Center">
             <DockPanel>
-              <gif:Image2 Source="{ReflectionBinding Path=AvatarPath,Source={x:Static service:UserService.Current},Mode=OneWay}"
+              <gif:Image2 Source="{ReflectionBinding Path=AvatarPath,Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
                   Stretch="Uniform"
                   Height="184"
                   Width="184"
+                  DecodeWidth="184"
                   FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                 <gif:Image2.Clip>
                   <EllipseGeometry Rect="0,0,184,184" />
