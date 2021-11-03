@@ -133,13 +133,29 @@
                                Height="10"
                                Width="10"
                                StrokeThickness="0"
+                               Fill="#adadad"
                                ToolTip.Tip="{Binding OnlineState}">
                           <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="online">
-                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
+                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}"
+                                                    ComparisonCondition="Equal"
+                                                    Value="online">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}"
+                                                       PropertyName="Fill"
+                                                       Value="#6AC3E7"/>
                             </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}" ComparisonCondition="Equal" Value="offline">
-                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
+                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}"
+                                                    ComparisonCondition="Equal"
+                                                    Value="in-game">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}"
+                                                       PropertyName="Fill"
+                                                       Value="#90BA3C"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}"
+                                                    ComparisonCondition="Equal"
+                                                    Value="offline">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}"
+                                                       PropertyName="Fill"
+                                                       Value="#adadad"/>
                             </ia:DataTriggerBehavior>
                           </i:Interaction.Behaviors>
                         </Ellipse>
@@ -157,7 +173,7 @@
                         </controls:ScrollingTextBlock>
                         <TextBlock VerticalAlignment="Center"
                                 Margin="5 0"
-                                Text="{Binding Remark,Mode=TwoWay}"
+                                Text="{Binding Remark,Mode=OneWay}"
                                 Foreground="{DynamicResource InactiveForegroundBrushKey}">
                         </TextBlock>
                         <Button Cursor="Hand"
@@ -194,6 +210,25 @@
                                  VerticalAlignment="Center"></TextBox>
                         <TextBlock Text=")"/>
                       </WrapPanel>
+
+                      <Border>
+                        <WrapPanel VerticalAlignment="Center">
+                          <TextBlock Margin="0 0 10 0"
+                                     FontSize="18"
+                                     VerticalAlignment="Center"
+                            Text="{Binding MiniProfile.Level,StringFormat=Lv.{0}}"/>
+
+                          <WrapPanel VerticalAlignment="Center"
+                                     IsVisible="{Binding MiniProfile,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+                            <TextBlock Foreground="#90BA3C"
+                                     Text="游戏中 "
+                                     IsVisible="{Binding MiniProfile.InGame,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Foreground="#90BA3C"
+                                 Text="{Binding MiniProfile.InGame.Name}"/>
+                          </WrapPanel>
+                        </WrapPanel>
+                      </Border>
                     </StackPanel>
 
                     <DockPanel VerticalAlignment="Bottom">

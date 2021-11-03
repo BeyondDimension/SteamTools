@@ -158,6 +158,8 @@ namespace System.Application.UI.ViewModels
 
                     if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
                         miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+
+                    //item.Level = miniProfile.Level;
                 }
             }
             _SteamUsersSourceList.Refresh();

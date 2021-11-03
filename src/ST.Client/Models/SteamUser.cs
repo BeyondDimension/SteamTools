@@ -52,6 +52,16 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _OnlineState, value);
         }
 
+        private int? _Level;
+        /// <summary>
+        /// Steam等级
+        /// </summary>
+        [XmlIgnore]
+        public int? Level
+        {
+            get => _Level;
+            set => this.RaiseAndSetIfChanged(ref _Level, value);
+        }
 
         [XmlIgnore]
         public string? IPCountry { get; set; }
