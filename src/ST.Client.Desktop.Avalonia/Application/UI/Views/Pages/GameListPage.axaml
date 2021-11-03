@@ -288,7 +288,7 @@
       </DockPanel>
     </Border>
     <!--</Expander>-->
-    
+
     <Border >
       <Panel>
         <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=IsLoadingGameList,Mode=OneWay}"
@@ -425,7 +425,7 @@
                         </MenuItem>
                       </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
-                    <Panel x:Name="app" 
+                    <Panel x:Name="app"
                           Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
                       <!--<i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
@@ -434,17 +434,18 @@
                       </i:Interaction.Behaviors>-->
                       <Border CornerRadius="{DynamicResource ControlCornerRadius}"
                               ClipToBounds="True">
-                        <Panel 
+                        <Panel
                           Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
                           <gif:Image2 x:Name="library"
                                       Stretch="UniformToFill"
                                       DecodeWidth="{ReflectionBinding $parent.Width}"
-                                      Source="{Binding LibraryLogoStream^}">
+                                      Source="{Binding LibraryLogoStream^}"
+                                      FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
                           </gif:Image2>
-                          <Image Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
+                          <!--<Image Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
                                  Stretch="UniformToFill"
                                  IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
-                          </Image>
+                          </Image>-->
                         </Panel>
                       </Border>
 

@@ -105,12 +105,9 @@
                       <gif:Image2 x:Name="library"
                                   Stretch="UniformToFill"
                                   DecodeWidth="{ReflectionBinding $parent[StackPanel].Width}"
-                                  Source="{Binding LibraryLogoStream^}">
+                                  Source="{Binding LibraryLogoStream^}"
+                                  FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
                       </gif:Image2>
-                      <Image Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
-                             Stretch="UniformToFill"
-                             IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
-                      </Image>
                       <TextBlock
                         Text="{Binding DisplayName}"
                         VerticalAlignment="Center"
