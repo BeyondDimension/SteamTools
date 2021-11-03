@@ -317,7 +317,14 @@ namespace System.Application.Services
         {
             #region 加载代理服务数据
             var client = ICloudServiceClient.Instance.Accelerate;
+#if DEBUG
+            var stopwatch = Stopwatch.StartNew();
+#endif
             var result = await client.All();
+#if DEBUG
+            stopwatch.Stop();
+            Toast.Show($"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Count：{result.Content?.Count}");
+#endif
             if (result.IsSuccess)
             {
                 if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && result.Content.Any_Nullable())
