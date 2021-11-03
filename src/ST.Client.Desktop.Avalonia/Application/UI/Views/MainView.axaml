@@ -120,17 +120,18 @@
                       HorizontalAlignment="Stretch">
             <!--<Image x:Name="avatar" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
             <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="18" Margin="8,0,0,0"/>-->
-            <Image x:Name="avatar" Clip=""
-                   Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=64}"
+            <gif:Image2 x:Name="avatar"
+                   Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay}"
                    Stretch="Uniform"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Height="64"
-                   Width="64">
-              <Image.Clip>
+                   Width="64"
+                   FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
+              <gif:Image2.Clip>
                 <EllipseGeometry Rect="0,0,64,64" />
-              </Image.Clip>
-            </Image>
+              </gif:Image2.Clip>
+            </gif:Image2>
             <StackPanel Spacing="5" VerticalAlignment="Center">
               <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"

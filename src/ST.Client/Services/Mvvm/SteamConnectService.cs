@@ -92,8 +92,7 @@ namespace System.Application.Services
             }
         }
 
-        const string DefaultAvatarPath = "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg";
-        object? _AvatarPath = DefaultAvatarPath;
+        object? _AvatarPath;
         public object? AvatarPath
         {
             get => _AvatarPath;
@@ -254,7 +253,6 @@ namespace System.Application.Services
                         {
                             IsConnectToSteam = false;
                             CurrentSteamUser = null;
-                            AvatarPath = DefaultAvatarPath;
                         }
                     }
                     catch (Exception ex)

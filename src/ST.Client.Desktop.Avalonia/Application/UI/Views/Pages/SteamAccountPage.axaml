@@ -20,7 +20,7 @@
             Background="{DynamicResource ThemeBrushKey}"
             Padding="10"
             Margin="{StaticResource ScrollMargin}">
-      <ui:CommandBar DefaultLabelPosition="Right" 
+      <ui:CommandBar DefaultLabelPosition="Right"
                      IsSticky="False">
         <ui:CommandBar.PrimaryCommands>
           <ui:CommandBarButton Icon="Add"
@@ -95,7 +95,7 @@
                   </ia:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
 
-                <Grid Height="184"
+                <Grid Height="224"
                       ColumnDefinitions="Auto,*">
                   <Border CornerRadius="{StaticResource PaperRadiusLeft}"
                           ClipToBounds="True">
@@ -112,18 +112,15 @@
                              Width="184"
                              AutoStart="true"
                              Stretch="Uniform"
-                             Source="{Binding AvatarStream^}">
+                             Source="{Binding AvatarStream^}"
+                             FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                       </gif:Image2>
-                      <Image Width="184"
-                             Stretch="Uniform"
-                             IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                             Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
-                      </Image>
-                      <!--<gif:Image2 Width="184" Height="184" 
-                                            AutoStart="true"
-                                            Source="{Binding MiniProfile.AvatarFrameStream^}"
-                                            Stretch="Uniform" 
-                                            IsVisible="{Binding MiniProfile.AvatarFrameStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
+                      <gif:Image2 Width="224"
+                                  Height="224"
+                                  AutoStart="true"
+                                  Source="{Binding MiniProfile.AvatarFrameStream^}"
+                                  Stretch="Uniform"
+                                  IsVisible="{Binding MiniProfile.AvatarFrameStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
                     </Panel>
                   </Border>
                   <Panel Grid.Column="1" Margin="10 0 0 0">

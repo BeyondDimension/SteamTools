@@ -8,7 +8,7 @@ using System.Application.Services;
 
 namespace System.Application.UI.Views.Controls
 {
-    public class EmptyControl : TemplatedControl
+    public class WallpaperControl : TemplatedControl
     {
         readonly INativeWindowApiService windowApiService = INativeWindowApiService.Instance;
 
@@ -16,7 +16,7 @@ namespace System.Application.UI.Views.Controls
         Window ParentWindow;
         IntPtr _Handle;
         IntPtr _DwmHandle;
-        public EmptyControl()
+        public WallpaperControl()
         {
             //this.InitializeComponent();
 

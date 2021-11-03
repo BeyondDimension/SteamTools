@@ -21,7 +21,7 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 
-            var background = this.FindControl<EmptyControl>("DesktopBackground");
+            var background = this.FindControl<WallpaperControl>("DesktopBackground");
             _backHandle = background.Handle;
 
 #if DEBUG

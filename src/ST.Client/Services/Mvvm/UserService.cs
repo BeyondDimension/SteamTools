@@ -103,23 +103,10 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _SteamUser, value);
         }
 
-        public string DefaultAvatarPath
-        {
-            get
-            {
-                if (OperatingSystem2.Application.UseAvalonia)
-                {
-                    return "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg";
-                }
-                return string.Empty;
-            }
-        }
-
         object? _AvatarPath;
-
         public object? AvatarPath
         {
-            get => _AvatarPath ?? DefaultAvatarPath;
+            get => _AvatarPath;
             set => this.RaiseAndSetIfChanged(ref _AvatarPath, value);
         }
 
@@ -134,7 +121,7 @@ namespace System.Application.Services
             {
                 User = null;
                 CurrentSteamUser = null;
-                AvatarPath = DefaultAvatarPath;
+                AvatarPath = null;
             };
 
             Task.Run(Initialize).ForgetAndDispose();
@@ -217,7 +204,7 @@ namespace System.Application.Services
                             {
                                 var avatarLocalFilePath = await httpService.GetImageAsync(avatarUrl, ImageChannelType.SteamAvatars);
                                 var avatarSouce = ImageSouce.TryParse(avatarLocalFilePath, isCircle: true);
-                                AvatarPath = avatarSouce ?? DefaultAvatarPath;
+                                AvatarPath = avatarSouce;
                             }
                             return;
                         }
@@ -240,7 +227,7 @@ namespace System.Application.Services
                         CurrentSteamUser = await steamworksWebApiService.GetUserInfo(User.SteamAccountId.Value);
                         CurrentSteamUser.AvatarStream = httpService.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
                         var avatarSouce = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
-                        AvatarPath = avatarSouce ?? DefaultAvatarPath;
+                        AvatarPath = avatarSouce;
                         return true;
                     }
                     else
@@ -250,7 +237,7 @@ namespace System.Application.Services
                 }
             }
 
-            AvatarPath = DefaultAvatarPath;
+            AvatarPath = null;
         }
 
         /// <summary>

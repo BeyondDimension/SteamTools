@@ -54,15 +54,9 @@
                 <gif:Image2
                            Width="184"
                            Stretch="Uniform"
-                           Source="{Binding AvatarUrl}">
+                           Source="{Binding AvatarUrl}"
+                           FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
                 </gif:Image2>
-                <!--<Image Width="184"
-                       Stretch="Uniform"
-                       Source="{Binding AvatarUrl,Converter={StaticResource BitmapAssetValueConverter}}">
-                </Image>-->
-                <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                       Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
-                </Image>-->
               </Panel>
               <Panel Grid.Column="1" Margin="10 5">
                 <StackPanel Spacing="8">

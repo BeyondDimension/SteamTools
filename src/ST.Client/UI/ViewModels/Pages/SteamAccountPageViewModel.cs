@@ -155,7 +155,9 @@ namespace System.Application.UI.ViewModels
                 {
                     if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
                         item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-                    //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+
+                    if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
+                        miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
                 }
             }
             _SteamUsersSourceList.Refresh();

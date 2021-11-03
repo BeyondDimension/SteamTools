@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.ReactiveUI;
+using AvaloniaGif;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using System.Application.Settings;
@@ -25,7 +26,7 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 
-            var avatar = this.FindControl<Image>("avatar");
+            var avatar = this.FindControl<Image2>("avatar");
             var nav = this.FindControl<NavigationView>("NavigationView");
             var back = this.FindControl<ExperimentalAcrylicBorder>("NavBarBackground");
 

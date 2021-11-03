@@ -66,31 +66,27 @@
                     Margin="10 0">
               <Grid Height="92"
                     ColumnDefinitions="Auto,*,Auto">
-                <Panel x:Name="avatar"
-                       Cursor="Hand"
-                       ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                  <!--OpenUserProfileUrl-->
-                  <i:Interaction.Behaviors>
-                    <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
-                      <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
-                    </ia:EventTriggerBehavior>
-                  </i:Interaction.Behaviors>
-                  <gif:Image2
-                         Width="92"
-                         AutoStart="true"
-                         Stretch="UniformToFill"
-                         StretchDirection="Both"
-                         Source="{Binding AvatarStream^}">
-                  </gif:Image2>
-                  <Image Width="92" Stretch="UniformToFill" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                         Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
-                  </Image>
-                  <!--<gif:Image2 Width="184" Height="184" 
-                                            AutoStart="true"
-                                            Source="{Binding MiniProfile.AvatarFrameStream^}"
-                                            Stretch="Uniform" 
-                                            IsVisible="{Binding MiniProfile.AvatarFrameStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
-                </Panel>
+                <Border CornerRadius="{StaticResource PaperRadiusLeft}"
+                        ClipToBounds="True">
+                  <Panel x:Name="avatar"
+                         Cursor="Hand"
+                         ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <!--OpenUserProfileUrl-->
+                    <i:Interaction.Behaviors>
+                      <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
+                        <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
+                      </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                    <gif:Image2
+                           Width="92"
+                           AutoStart="true"
+                           Stretch="UniformToFill"
+                           StretchDirection="Both"
+                           Source="{Binding AvatarStream^}"
+                           FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
+                    </gif:Image2>
+                  </Panel>
+                </Border>
                 <Panel Grid.Column="1" Margin="10 5">
                   <StackPanel>
                     <DockPanel LastChildFill="True">
