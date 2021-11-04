@@ -43,7 +43,7 @@ namespace System.Application.UI.Fragments
             binding!.tbSmsCode.ImeOptions = ImeAction.Done;
             binding!.tbSmsCode.SetOnEditorActionListener(this);
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 if (binding == null) return;
                 binding.tbPhoneNumber.Hint = AppResources.User_Phone;

@@ -17,11 +17,13 @@ namespace System.Application.UI.ViewModels
         /// <returns></returns>
         protected virtual void OnBind(IDisposableHolder vm)
         {
-            disposable = R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
-            {
-                Title = GetTitleById(id);
-            });
+            disposable = R.Subscribe(OnResChanged);
             disposable.AddTo(vm);
+        }
+
+        protected virtual void OnResChanged()
+        {
+            Title = GetTitleById(id);
         }
 
         /// <summary>

@@ -192,7 +192,7 @@ namespace System.Application.UI
         //#else
         //            MainWindowViewModel main = new();
         //#endif
-        //            var query = from x in main.TabItems.Concat(main.FooterTabItems)
+        //            var query = from x in main.AllTabItems
         //                        let tabItem = x is TabItemViewModel item ? item : null
         //                        where tabItem != null
         //                        select tabItem;
@@ -220,7 +220,7 @@ namespace System.Application.UI
         //            notifyIcon.ContextMenuStrip.Items.Add(exitMenuItem);
 
         //#if !TRAY_INDEPENDENT_PROGRAM
-        //            return R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+        //            return R.Subscribe(() =>
         //            {
         //                if (exitMenuItem != null)
         //                {
@@ -244,7 +244,7 @@ namespace System.Application.UI
 #else
             MainWindowViewModel main = new();
 #endif
-            var query = from x in main.TabItems.Concat(main.FooterTabItems)
+            var query = from x in main.AllTabItems
                         let tabItem = x is TabItemViewModel item ? item : null
                         where tabItem != null
                         select tabItem;
@@ -273,7 +273,7 @@ namespace System.Application.UI
             menu.Add(exitMenuItem);
 
 #if !TRAY_INDEPENDENT_PROGRAM
-            return R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            return R.Subscribe(() =>
             {
                 if (exitMenuItem != null)
                 {

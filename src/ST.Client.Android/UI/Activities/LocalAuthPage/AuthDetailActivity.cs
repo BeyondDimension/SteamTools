@@ -76,7 +76,7 @@ namespace System.Application.UI.Activities
                 binding.tvProgress.Text = value.ToString();
             }).AddTo(this);
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 if (binding == null) return;
                 binding.tvInfoTitle.Text = LocalAuth_Code_Title;

@@ -75,6 +75,10 @@ namespace System.Application.UI.Fragments
 
         protected virtual TViewModel? OnCreateViewModel()
         {
+            if (Activity is IViewFor<TViewModel> vmHost)
+            {
+                return vmHost.ViewModel;
+            }
             return null;
         }
 

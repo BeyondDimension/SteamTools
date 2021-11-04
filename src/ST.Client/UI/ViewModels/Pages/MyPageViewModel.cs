@@ -18,12 +18,6 @@ namespace System.Application.UI.ViewModels
 
         public static string DisplayName => AppResources.My;
 
-        public override string Title
-        {
-            get => DisplayName;
-            set => throw new NotSupportedException();
-        }
-
         public MyPageViewModel()
         {
             preferenceButtons = new()
@@ -39,8 +33,7 @@ namespace System.Application.UI.ViewModels
                 if (value == null)
                 {
                     nickNameNullValLangChangeSubscribe?.RemoveTo(this);
-                    nickNameNullValLangChangeSubscribe = R.Current.WhenAnyValue(x => x.Res)
-                    .Subscribe(_ =>
+                    nickNameNullValLangChangeSubscribe = R.Subscribe(() =>
                     {
                         // 未登录时显示的文本，多语言绑定
                         NickName = NickNameNullVal;
@@ -80,6 +73,11 @@ namespace System.Application.UI.ViewModels
                         item.Id = id;
                     }
                 }
+            }).AddTo(this);
+
+            R.Subscribe(() =>
+            {
+                Title = DisplayName;
             }).AddTo(this);
         }
 

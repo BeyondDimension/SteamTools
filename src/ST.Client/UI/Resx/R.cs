@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading;
 
 namespace System.Application.UI.Resx
 {
@@ -96,6 +97,8 @@ namespace System.Application.UI.Resx
             AppResources.Culture = string.IsNullOrWhiteSpace(cultureName) ?
                 DefaultCurrentUICulture :
                 CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
+            Thread.CurrentThread.CurrentUICulture = AppResources.Culture;
+            Thread.CurrentThread.CurrentCulture = AppResources.Culture;
             CultureInfo.DefaultThreadCurrentUICulture = AppResources.Culture;
             CultureInfo.DefaultThreadCurrentCulture = AppResources.Culture;
             CultureInfo.CurrentUICulture = AppResources.Culture;
@@ -104,6 +107,7 @@ namespace System.Application.UI.Resx
             mLanguage = GetLanguageCore();
             Current.Res = new();
             Current.RaisePropertyChanged(nameof(Res));
+            ChangedHandler?.Invoke();
         }
 
         public static string GetCurrentCultureSteamLanguageName()
@@ -180,5 +184,30 @@ namespace System.Application.UI.Resx
         }
 
         public static CultureInfo Culture => AppResources.Culture ?? DefaultCurrentUICulture;
+
+        static event Action? ChangedHandler;
+
+        sealed class ChangedEventListener : IDisposable
+        {
+            readonly Action _listener;
+            public ChangedEventListener(Action listener)
+            {
+                _listener = listener;
+                ChangedHandler += Handle;
+            }
+
+            void Handle() => _listener.Invoke();
+
+            public void Dispose()
+            {
+                ChangedHandler -= Handle;
+            }
+        }
+
+        public static IDisposable Subscribe(Action action, bool notifyOnInitialValue = true)
+        {
+            if (notifyOnInitialValue) action();
+            return new ChangedEventListener(action);
+        }
     }
 }

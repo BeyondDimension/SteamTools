@@ -46,7 +46,7 @@ namespace System.Application.UI.Activities
             binding.layoutRootGeneralSettingsUpdateChannel.Visibility = ViewStates.Gone;
 #endif
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 Title = ViewModel!.Name;
                 if (binding == null) return;

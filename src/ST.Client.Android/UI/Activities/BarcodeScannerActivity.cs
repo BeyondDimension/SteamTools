@@ -46,7 +46,7 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 Title = AppResources.ScanQRCode;
             }).AddTo(this);

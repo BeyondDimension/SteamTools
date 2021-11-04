@@ -28,6 +28,10 @@ namespace System.Application.UI
             }
 
             AddPage<n.MyPage, MyPageViewModel>(MyPageViewModel.Instance, isVisible: false);
+#if DEBUG
+            AddPage<LoginOrRegisterPage, LoginOrRegisterWindowViewModel>(new());
+#endif
+
             //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
@@ -40,7 +44,7 @@ namespace System.Application.UI
 
         void InitTabItems(MainWindowViewModel mainWindow, IEnumerable<TabItemId>? topTabs = null)
         {
-            var tabItems = mainWindow.TabItems.Concat(mainWindow.FooterTabItems);
+            var tabItems = mainWindow.AllTabItems;
             if (topTabs.Any_Nullable())
             {
                 tabItems = tabItems.Where(x => topTabs.Contains(x.Id)).Concat(tabItems.Where(x => !topTabs.Contains(x.Id)));
@@ -100,7 +104,7 @@ namespace System.Application.UI
             Items.Add(tab_item);
             if (rSubscribe)
             {
-                R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+                R.Subscribe(() =>
                 {
                     viewModel.RaisePropertyChanged(nameof(PageViewModel.Title));
                 }).AddTo(viewModel);

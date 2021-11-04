@@ -60,7 +60,7 @@ namespace System.Application.UI.Activities
             binding!.tvCopyright.Text = ViewModel.Copyright;
             //binding!.tvContributors.TextFormatted = CreateContributors();
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 Title = ViewModel.Name;
                 if (binding == null) return;

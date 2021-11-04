@@ -99,6 +99,7 @@
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddWindowManager.cs" />
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddApplicationUpdateService.cs" />
     <AndroidResource Include="Resources\**\*" />
+    <None Remove="Resources\layout\controls_btntext.xml" />
     <Compile Include="..\AboutAppInfoPopup.cs">
       <LinkBase>UI</LinkBase>
     </Compile>

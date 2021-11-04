@@ -40,7 +40,7 @@ namespace System.Application.UI.Views
 
                 return item;
             });
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 foreach (var item in dict)
                 {

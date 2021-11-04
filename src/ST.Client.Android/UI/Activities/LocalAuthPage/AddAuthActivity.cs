@@ -32,7 +32,7 @@ namespace System.Application.UI.Activities
             var adapter = new ViewPagerWithTabLayoutAdapter(this, this);
             binding!.pager.SetupWithTabLayout(binding!.tab_layout, adapter);
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 Title = AddAuthWindowViewModel.DisplayName;
             }).AddTo(this);

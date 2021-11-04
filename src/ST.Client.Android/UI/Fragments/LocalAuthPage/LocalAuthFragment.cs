@@ -60,7 +60,7 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 if (binding == null) return;
                 binding.tvEmptyTip.Text = LocalAuth_NoAuthTip;

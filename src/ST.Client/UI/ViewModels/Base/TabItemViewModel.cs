@@ -71,17 +71,12 @@ namespace System.Application.UI.ViewModels
         protected TabItemViewModelBase()
         {
             if (IsInDesignMode) return;
-
-            R.Current.WhenAnyValue(x => x.Res).Subscribe(_ =>
-            {
-                this.RaisePropertyChanged(nameof(Name));
-            }).AddTo(this);
         }
 
         public virtual void Initialize()
         {
         }
 
-        public abstract string Name { get; protected set; }
+        public abstract string Name { get; }
     }
 }

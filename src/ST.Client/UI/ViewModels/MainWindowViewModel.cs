@@ -1,5 +1,6 @@
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Properties;
@@ -136,6 +137,14 @@ namespace System.Application.UI.ViewModels
             #endregion
 
             _SelectedItem = TabItems.First();
+
+            R.Subscribe(() =>
+            {
+                foreach (var item in AllTabItems)
+                {
+                    item.RaisePropertyChanged(nameof(TabItemViewModelBase.Name));
+                }
+            }).AddTo(this);
         }
 
         public override void Initialize()

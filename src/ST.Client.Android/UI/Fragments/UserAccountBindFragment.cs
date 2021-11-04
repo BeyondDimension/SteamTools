@@ -53,7 +53,7 @@ namespace System.Application.UI.Fragments
                 }
             }).AddTo(this);
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 if (binding == null) return;
                 foreach (var item in tbAccountBinds)

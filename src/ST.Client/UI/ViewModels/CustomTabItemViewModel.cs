@@ -29,7 +29,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -42,7 +41,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -55,7 +53,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -68,7 +65,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -81,7 +77,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -94,7 +89,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -107,7 +101,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -120,7 +113,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 
@@ -133,7 +125,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotSupportedException(); }
         }
     }
 
@@ -144,7 +135,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotSupportedException(); }
         }
     }
 
@@ -155,7 +145,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotSupportedException(); }
         }
     }
 
@@ -166,7 +155,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotSupportedException(); }
         }
     }
 
@@ -177,7 +165,6 @@ namespace System.Application.UI.ViewModels
         public override string Name
         {
             get => DisplayName;
-            protected set { throw new NotImplementedException(); }
         }
     }
 }

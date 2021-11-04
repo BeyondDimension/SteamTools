@@ -1,5 +1,6 @@
 using Android.Runtime;
 using Android.Views;
+using AndroidX.AppCompat.App;
 using AndroidX.RecyclerView.Widget;
 using Binding;
 using ReactiveUI;
@@ -22,13 +23,11 @@ namespace System.Application.UI.Fragments
 
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
-                if (binding != null)
-                {
-                    binding.tvTip.Text = AppResources.User_FastLoginTip;
-                    binding.tvAgreementAndPrivacy.TextFormatted = LoginOrRegisterActivity.CreateAgreementAndPrivacy(ViewModel!);
-                }
+                if (binding == null) return;
+                binding.tvTip.Text = AppResources.User_FastLoginTip;
+                binding.tvAgreementAndPrivacy.TextFormatted = LoginOrRegisterActivity.CreateAgreementAndPrivacy(ViewModel!);
             }).AddTo(this);
 
             var adapter = new FastLoginChannelAdapter(ViewModel!);
@@ -48,6 +47,11 @@ namespace System.Application.UI.Fragments
             binding.rvFastLoginChannels.SetLayoutManager(layout);
             binding.rvFastLoginChannels.AddItemDecoration(new VerticalItemDecoration(Context.Resources!.GetDimensionPixelSize(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding)));
             binding.rvFastLoginChannels.SetAdapter(adapter);
+
+            if (Activity is AppCompatActivity activity)
+            {
+                activity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            }
         }
 
         void GoToUsePhoneNumberPage(View? view)

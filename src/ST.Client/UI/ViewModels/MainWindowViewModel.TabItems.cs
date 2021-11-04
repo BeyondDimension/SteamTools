@@ -11,6 +11,15 @@ namespace System.Application.UI.ViewModels
 
         public IReadOnlyList<TabItemViewModel>? FooterTabItems { get; private set; }
 
+        public IEnumerable<TabItemViewModel> AllTabItems
+        {
+            get
+            {
+                if (FooterTabItems == null) return TabItems;
+                else return TabItems.Concat(FooterTabItems);
+            }
+        }
+
         void AddTabItem<TabItemVM>() where TabItemVM : TabItemViewModel, new()
         {
             Lazy<TabItemViewModel> value = new(() => new TabItemVM()

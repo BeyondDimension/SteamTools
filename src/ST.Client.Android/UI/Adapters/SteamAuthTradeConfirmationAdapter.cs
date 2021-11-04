@@ -70,7 +70,7 @@ namespace System.Application.UI.Adapters
         {
             base.OnBind();
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 //binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
                 //binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;

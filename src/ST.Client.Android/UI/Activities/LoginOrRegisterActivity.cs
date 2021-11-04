@@ -12,6 +12,7 @@ using ReactiveUI;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.Application.UI.Fragments;
 using System.Text;
 
 namespace System.Application.UI.Activities
@@ -45,7 +46,7 @@ namespace System.Application.UI.Activities
             navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
 
-            R.Current.WhenAnyValue(x => x.Res).SubscribeInMainThread(_ =>
+            R.Subscribe(() =>
             {
                 var currentDestinationId = navController.CurrentDestination.Id;
                 foreach (var item in title_strings)
