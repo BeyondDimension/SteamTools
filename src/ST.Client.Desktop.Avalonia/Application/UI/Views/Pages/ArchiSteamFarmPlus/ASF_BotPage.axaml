@@ -22,217 +22,222 @@
   <UserControl.Resources>
     <converters:BotStatusConverter x:Key="BotStatusConverter"/>
   </UserControl.Resources>
-  <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
-            VerticalScrollBarVisibility="Auto"
-            Padding="0 0 0 10">
-    <ItemsRepeater Items="{CompiledBinding SteamBots}">
-      <ItemsRepeater.Layout>
-        <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+  <Panel>
+    <ui:ContentDialog x:Name="RedeemKeyDialog"
+          Title="激活Key"
+          IsVisible="True"
+          PrimaryButtonText="确认"
+          CloseButtonText="取消"
+          DefaultButton="Close">
+      <ui:ContentDialog.Content>
+        <TextBox Text="test"/>
+      </ui:ContentDialog.Content>
+    </ui:ContentDialog>
+
+    <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
+              VerticalScrollBarVisibility="Auto"
+              Padding="0 0 0 10">
+      <ItemsRepeater Items="{CompiledBinding SteamBots}">
+        <ItemsRepeater.Layout>
+          <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-        <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
-      </ItemsRepeater.Layout>
-      <ItemsRepeater.ItemTemplate>
-        <DataTemplate>
-          <Border x:Name="card"
-                  Margin="10 0"
-                  Classes="paper"
-                  Background="{DynamicResource ThemeBrushKey}">
-            <!--<Border.Background>
+          <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
+        </ItemsRepeater.Layout>
+        <ItemsRepeater.ItemTemplate>
+          <DataTemplate>
+            <Border x:Name="card"
+                    Margin="10 0"
+                    Classes="paper"
+                    Background="{DynamicResource ThemeBrushKey}">
+              <!--<Border.Background>
                 <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
                                  Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
               </Border.Background>-->
-            <Grid Height="184"
-                  ColumnDefinitions="Auto,*,Auto">
-              <Border CornerRadius="{StaticResource PaperRadiusLeft}"
-                      ClipToBounds="True">
-                <Panel x:Name="avatar" Cursor="Hand">
-                  <gif:Image2
-                             Width="184"
-                             Stretch="Uniform"
-                             Source="{Binding AvatarUrl}"
-                             FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
-                  </gif:Image2>
-                </Panel>
-              </Border>
+              <Grid Height="184"
+                    ColumnDefinitions="Auto,*,Auto">
+                <Border CornerRadius="{StaticResource PaperRadiusLeft}"
+                        ClipToBounds="True">
+                  <Panel x:Name="avatar" Cursor="Hand">
+                    <gif:Image2
+                               Width="184"
+                               Stretch="Uniform"
+                               Source="{Binding AvatarUrl}"
+                               FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
+                    </gif:Image2>
+                  </Panel>
+                </Border>
 
-              <DockPanel Grid.Column="1" Margin="10 5">
-                <StackPanel Spacing="8"
-                            DockPanel.Dock="Top">
-                  <DockPanel>
-                    <DockPanel.Styles>
-                      <Style Selector="TextBlock">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="FontSize" Value="24"/>
-                      </Style>
-                    </DockPanel.Styles>
-                    <WrapPanel DockPanel.Dock="Left"
-                               VerticalAlignment="Center">
-                      <Ellipse
-                              x:Name="circle"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center"
-                              Margin="5 0 12 0"
-                              Height="10"
-                              Width="10"
-                              StrokeThickness="0"
-                              ToolTip.Tip="{Binding Converter={StaticResource BotStatusConverter}}">
-                        <i:Interaction.Behaviors>
-                          <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="True">
-                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
-                          </ia:DataTriggerBehavior>
-                          <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="False">
-                            <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
-                          </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
-                      </Ellipse>
-                      <controls:ScrollingTextBlock x:Name="nickname"
-                                                   Text="{Binding BotName}"
-                                                   FontSize="24"
-                                                   Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                                   VerticalAlignment="Center"
-                                                   Cursor="Hand"
-                                                   ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                        <!--<i:Interaction.Behaviors>
+                <DockPanel Grid.Column="1" Margin="10 5">
+                  <StackPanel Spacing="8"
+                              DockPanel.Dock="Top">
+                    <DockPanel>
+                      <DockPanel.Styles>
+                        <Style Selector="TextBlock">
+                          <Setter Property="VerticalAlignment" Value="Center"/>
+                          <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                      </DockPanel.Styles>
+                      <WrapPanel DockPanel.Dock="Left"
+                                 VerticalAlignment="Center">
+                        <Ellipse
+                                x:Name="circle"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="5 0 12 0"
+                                Height="10"
+                                Width="10"
+                                StrokeThickness="0"
+                                ToolTip.Tip="{Binding Converter={StaticResource BotStatusConverter}}">
+                          <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="True">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="False">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
+                            </ia:DataTriggerBehavior>
+                          </i:Interaction.Behaviors>
+                        </Ellipse>
+                        <controls:ScrollingTextBlock x:Name="nickname"
+                                                     Text="{Binding BotName}"
+                                                     FontSize="24"
+                                                     Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                                     VerticalAlignment="Center"
+                                                     Cursor="Hand"
+                                                     ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <!--<i:Interaction.Behaviors>
                           <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
                             <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
                           </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>-->
-                      </controls:ScrollingTextBlock>
-                      <WrapPanel IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
-                        <TextBlock Text="("></TextBlock>
-                        <controls:ScrollingTextBlock Text="{Binding Nickname}"
-                                                   FontSize="24"/>
-                        <TextBlock Text=")"></TextBlock>
+                        </controls:ScrollingTextBlock>
+                        <WrapPanel IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+                          <TextBlock Text="("></TextBlock>
+                          <controls:ScrollingTextBlock Text="{Binding Nickname}"
+                                                     FontSize="24"/>
+                          <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel DockPanel.Dock="Right">
+                          <TextBlock Text="-"
+                                     Margin="5 0"/>
+                          <TextBlock VerticalAlignment="Center"
+                            Text="{Binding Converter={StaticResource BotStatusConverter}}"/>
+                        </WrapPanel>
                       </WrapPanel>
-                      <WrapPanel DockPanel.Dock="Right">
-                        <TextBlock Text="-"
-                                   Margin="5 0"/>
+
+                      <WrapPanel DockPanel.Dock="Right"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Right">
                         <TextBlock VerticalAlignment="Center"
-                          Text="{Binding Converter={StaticResource BotStatusConverter}}"/>
+                                   Text="{Binding WalletBalanceM,StringFormat={}{0:C}}"/>
                       </WrapPanel>
-                    </WrapPanel>
-
-                    <WrapPanel DockPanel.Dock="Right"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Right">
-                      <TextBlock VerticalAlignment="Center"
-                                 Text="{Binding WalletBalanceM,StringFormat={}{0:C}}"/>
-                    </WrapPanel>
-                  </DockPanel>
+                    </DockPanel>
 
 
-                  <StackPanel
-                              Orientation="Horizontal"
-                              Spacing="8"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center">
-                    <StackPanel.Styles>
-                      <Style Selector="PathIcon">
-                        <Setter Property="Width" Value="20"></Setter>
-                        <Setter Property="Height" Value="20"></Setter>
-                      </Style>
-                      <Style Selector="Button">
-                        <Setter Property="Background" Value="Transparent"></Setter>
-                        <Setter Property="Cursor" Value="Hand"></Setter>
-                      </Style>
-                    </StackPanel.Styles>
+                    <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="8"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                      <StackPanel.Styles>
+                        <Style Selector="PathIcon">
+                          <Setter Property="Width" Value="20"></Setter>
+                          <Setter Property="Height" Value="20"></Setter>
+                        </Style>
+                        <Style Selector="Button">
+                          <Setter Property="Background" Value="Transparent"></Setter>
+                          <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Style>
+                      </StackPanel.Styles>
 
-                    <Button ToolTip.Tip="开始挂卡"
-                            IsVisible="{Binding CardsFarmer.Paused}"
-                            Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
-                            CommandParameter="{Binding}">
-                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
-                    </Button>
-                    
-                    <Button ToolTip.Tip="暂停挂卡"
-                            IsVisible="{Binding !CardsFarmer.Paused}"
-                            Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
-                            CommandParameter="{Binding}">
-                      <PathIcon Data="{StaticResource PauseCircleDrawing}" />
-                    </Button>
-                    
-                    <ui:ContentDialog x:Name="RedeemKeyDialog"
-                             Title="激活Key"
-                             PrimaryButtonText="确认"
-                             CloseButtonText="取消"
-                             DefaultButton="Close">
-                      <ui:ContentDialog.Content>
-                        <TextBox Text="test"/>
-                      </ui:ContentDialog.Content>
-                    </ui:ContentDialog>
-                    
-                    <Button ToolTip.Tip="激活Key">
-                      <PathIcon Data="{StaticResource KeyDrawing}" />
-                    </Button>
-                    
-                    <!--<Button ToolTip.Tip="两步验证" >
+                      <Button ToolTip.Tip="开始挂卡"
+                              IsVisible="{Binding CardsFarmer.Paused}"
+                              Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                      </Button>
+
+                      <Button ToolTip.Tip="暂停挂卡"
+                              IsVisible="{Binding !CardsFarmer.Paused}"
+                              Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource PauseCircleDrawing}" />
+                      </Button>
+
+                      <Button ToolTip.Tip="激活Key"
+                              Command="{ReflectionBinding #u.DataContext.RedeemKeyBot}"
+                              CommandParameter="{Binding ElementName=RedeemKeyDialog}">
+                        <PathIcon Data="{StaticResource KeyDrawing}" />
+                      </Button>
+
+                      <!--<Button ToolTip.Tip="两步验证" >
                       <PathIcon Data="{StaticResource ShieldLockDrawing}" />
                     </Button>-->
-                    
-                    <Button ToolTip.Tip="Bot配置"
-                            Command="{ReflectionBinding #u.DataContext.GoToBotSettings}"
-                            CommandParameter="{Binding}">
-                      <PathIcon Data="{StaticResource SettingsDrawing}" />
-                    </Button>
-                    
-                    <Button ToolTip.Tip="启用"
-                            IsVisible="{Binding !KeepRunning}"
-                            Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
-                            CommandParameter="{Binding}">
-                      <PathIcon Data="{StaticResource ShutdownDrawing}" />
-                    </Button>
-                    
-                    <Button ToolTip.Tip="禁用"
-                            IsVisible="{Binding KeepRunning}"
-                            Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
-                            CommandParameter="{Binding}">
-                      <PathIcon Data="{StaticResource ShutdownDrawing}" />
-                    </Button>
-                  </StackPanel>
-                </StackPanel>
 
-                <ScrollViewer VerticalScrollBarVisibility="Disabled"
-                              HorizontalScrollBarVisibility="Auto"
-                              DockPanel.Dock="Bottom"
-                              VerticalAlignment="Bottom"
-                              HorizontalAlignment="Left">
-                  <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
-                    <ItemsRepeater.Layout>
-                      <StackLayout Orientation="Horizontal" Spacing="10"/>
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
-                      <DataTemplate>
-                        <Border Classes="paper"
-                                ClipToBounds="True">
-                          <Panel>
-                            <gif:Image2
-                              MaxWidth="184"
-                              MaxHeight="86"
-                              Stretch="Uniform"
-                              Source="{Binding ImageUrl}"
-                              FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/applogo.jpg">
-                            </gif:Image2>
-                            <!--<Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
+                      <Button ToolTip.Tip="Bot配置"
+                              Command="{ReflectionBinding #u.DataContext.GoToBotSettings}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource SettingsDrawing}" />
+                      </Button>
+
+                      <Button ToolTip.Tip="启用"
+                              IsVisible="{Binding !KeepRunning}"
+                              Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource ShutdownDrawing}" />
+                      </Button>
+
+                      <Button ToolTip.Tip="禁用"
+                              IsVisible="{Binding KeepRunning}"
+                              Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource ShutdownDrawing}" />
+                      </Button>
+                    </StackPanel>
+                  </StackPanel>
+
+                  <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                                HorizontalScrollBarVisibility="Auto"
+                                DockPanel.Dock="Bottom"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left">
+                    <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
+                      <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Horizontal" Spacing="10"/>
+                      </ItemsRepeater.Layout>
+                      <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                          <Border Classes="paper"
+                                  ClipToBounds="True">
+                            <Panel>
+                              <gif:Image2
+                                MaxWidth="184"
+                                MaxHeight="86"
+                                Stretch="Uniform"
+                                Source="{Binding ImageUrl}"
+                                FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/applogo.jpg">
+                              </gif:Image2>
+                              <!--<Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
                                 Width="184"
                                 Stretch="Uniform"/>-->
-                            <Border VerticalAlignment="Bottom"
-                                    HorizontalAlignment="Stretch"
-                                    Background="{DynamicResource ThemeColorKey}">
-                              <TextBlock Text="{Binding GameName}"
-                                         HorizontalAlignment="Center"
-                                         TextAlignment="Center"/>
-                            </Border>
-                          </Panel>
-                        </Border>
-                      </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                  </ItemsRepeater>
-                </ScrollViewer>
-              </DockPanel>
-            </Grid>
-          </Border>
-        </DataTemplate>
-      </ItemsRepeater.ItemTemplate>
-    </ItemsRepeater>
-  </ScrollViewer>
+                              <Border VerticalAlignment="Bottom"
+                                      HorizontalAlignment="Stretch"
+                                      Background="{DynamicResource ThemeColorKey}">
+                                <TextBlock Text="{Binding GameName}"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"/>
+                              </Border>
+                            </Panel>
+                          </Border>
+                        </DataTemplate>
+                      </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                  </ScrollViewer>
+                </DockPanel>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsRepeater.ItemTemplate>
+      </ItemsRepeater>
+    </ScrollViewer>
+  </Panel>
 </UserControl>

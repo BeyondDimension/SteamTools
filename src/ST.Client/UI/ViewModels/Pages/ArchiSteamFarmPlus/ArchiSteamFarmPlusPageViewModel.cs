@@ -52,6 +52,13 @@ namespace System.Application.UI.ViewModels
 
         public ICommand SelectBotFiles { get; }
 
+        private bool _IsRedeemKeyDialogOpen;
+        public bool IsRedeemKeyDialogOpen
+        {
+            get => _IsRedeemKeyDialogOpen;
+            set => this.RaiseAndSetIfChanged(ref _IsRedeemKeyDialogOpen, value);
+        }
+
         public void RunOrStopASF()
         {
             if (!ASFService.Current.IsASFRuning)
@@ -103,7 +110,7 @@ namespace System.Application.UI.ViewModels
 
         public async void RedeemKeyBot(Bot bot)
         {
-            var result = await bot.Actions.RedeemKey("");
+            //var result = await bot.Actions.RedeemKey("");
 
         }
 

@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
+using FluentAvalonia.UI.Controls;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Pages
@@ -16,6 +17,15 @@ namespace System.Application.UI.Views.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            //var dialog = this.FindControl<ContentDialog>("RedeemKeyDialog");
+
+
+            //if (dialog != null)
+            //{
+            //    dialog.ShowAsync();
+            //}
         }
+
     }
 }
