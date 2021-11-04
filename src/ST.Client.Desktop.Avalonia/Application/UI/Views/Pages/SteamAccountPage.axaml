@@ -1,301 +1,383 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:System.Application.UI.ViewModels"
-             xmlns:resx="using:System.Application.UI.Resx"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="using:System.Application.UI.Views.Controls"
-             xmlns:gif="using:AvaloniaGif"
-             xmlns:i="using:Avalonia.Xaml.Interactivity"
-             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-             xmlns:ui="using:FluentAvalonia.UI.Controls"
-             x:Name="u"
-             x:DataType="vm:SteamAccountPageViewModel"
-             x:CompileBindings="True"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="System.Application.UI.Views.Pages.SteamAccountPage">
-  <DockPanel>
-    <Border DockPanel.Dock="Top"
-            Classes="paper"
-            Background="{DynamicResource ThemeBrushKey}"
+<UserControl
+    x:Class="System.Application.UI.Views.Pages.SteamAccountPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:System.Application.UI.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:gif="using:AvaloniaGif"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="using:System.Application.UI.Resx"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:System.Application.UI.ViewModels"
+    x:Name="u"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="vm:SteamAccountPageViewModel"
+    mc:Ignorable="d">
+    <DockPanel>
+        <Border
+            Margin="{StaticResource ScrollMargin}"
             Padding="10"
-            Margin="{StaticResource ScrollMargin}">
-      <ui:CommandBar DefaultLabelPosition="Right"
-                     IsSticky="False">
-        <ui:CommandBar.PrimaryCommands>
-          <ui:CommandBarButton Icon="Add"
-                               Command="{Binding LoginAccountCommand}"
-                               Label="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-          <ui:CommandBarButton Icon="Refresh"
-                               Command="{Binding RefreshCommand}"
-                               Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-          <ui:CommandBarSeparator/>
-          <ui:CommandBarButton
-                               Command="{Binding ShareManageCommand}"
-                               Label="{ReflectionBinding Path=Res.AccountChange_Title,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <ui:CommandBarButton.Icon>
-              <ui:PathIcon Data="{StaticResource ChannelShareDrawing}"/>
-            </ui:CommandBarButton.Icon>
-          </ui:CommandBarButton>
-        </ui:CommandBar.PrimaryCommands>
-        <!--<ui:CommandBar.SecondaryCommands>
+            Background="{DynamicResource ThemeBrushKey}"
+            Classes="paper"
+            DockPanel.Dock="Top">
+            <ui:CommandBar DefaultLabelPosition="Right" IsSticky="False">
+                <ui:CommandBar.PrimaryCommands>
+                    <ui:CommandBarButton
+                        Command="{Binding LoginAccountCommand}"
+                        Icon="Add"
+                        Label="{ReflectionBinding Path=Res.UserChange_LoginNewAccount,
+                                                  Mode=OneWay,
+                                                  Source={x:Static resx:R.Current}}" />
+                    <ui:CommandBarButton
+                        Command="{Binding RefreshCommand}"
+                        Icon="Refresh"
+                        Label="{ReflectionBinding Path=Res.Refresh,
+                                                  Mode=OneWay,
+                                                  Source={x:Static resx:R.Current}}" />
+                    <ui:CommandBarSeparator />
+                    <ui:CommandBarButton Command="{Binding ShareManageCommand}" Label="{ReflectionBinding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static resx:R.Current}}">
+                        <ui:CommandBarButton.Icon>
+                            <ui:PathIcon Data="{StaticResource ChannelShareDrawing}" />
+                        </ui:CommandBarButton.Icon>
+                    </ui:CommandBarButton>
+                </ui:CommandBar.PrimaryCommands>
+                <!--<ui:CommandBar.SecondaryCommands>
           <ui:CommandBarButton Icon="Help"
                                Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         </ui:CommandBar.SecondaryCommands>-->
-      </ui:CommandBar>
-    </Border>
+            </ui:CommandBar>
+        </Border>
 
-    <Panel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
-      <TextBlock IsVisible="{Binding IsUserEmpty}"
-                 Text="{ReflectionBinding Path=Res.UserChange_NoUserTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                 TextWrapping="WrapWithOverflow"
-                 VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-      <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
-                     VerticalScrollBarVisibility="Auto"
-                     Padding="0 0 0 10">
-        <ItemsRepeater Items="{CompiledBinding SteamUsers}">
-          <ItemsRepeater.Layout>
-            <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+        <Panel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsVisible="{Binding IsUserEmpty}"
+                Text="{ReflectionBinding Path=Res.UserChange_NoUserTip,
+                                         Mode=OneWay,
+                                         Source={x:Static resx:R.Current}}"
+                TextWrapping="WrapWithOverflow" />
+            <ScrollViewer
+                Padding="0,0,0,10"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <ItemsRepeater Items="{CompiledBinding SteamUsers}">
+                    <ItemsRepeater.Layout>
+                        <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-            <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
-          </ItemsRepeater.Layout>
-          <ItemsRepeater.ItemTemplate>
-            <DataTemplate>
-              <Border x:Name="card"
-                      Margin="10 0"
-                      Classes="paper"
-                      Background="{DynamicResource ThemeBrushKey}">
-                <!--<Border.Background>
+                        <StackLayout Orientation="Vertical" Spacing="10" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                x:Name="card"
+                                Margin="10,0"
+                                Background="{DynamicResource ThemeBrushKey}"
+                                Classes="paper">
+                                <!--<Border.Background>
                 <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
                                  Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
               </Border.Background>-->
-                <Border.ContextMenu>
-                  <ContextMenu>
-                    <MenuItem
-                              Header="{ReflectionBinding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                              Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
-                              CommandParameter="{Binding}" />
-                    <MenuItem
-                              Header="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                              Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
-                              CommandParameter="{Binding}" />
-                    <MenuItem Header="-"></MenuItem>
-                    <MenuItem
-                              Header="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                              Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
-                              CommandParameter="{Binding}" />
-                  </ContextMenu>
-                </Border.ContextMenu>
-                <i:Interaction.Behaviors>
-                  <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
-                    <ia:ChangePropertyAction TargetObject="{ReflectionBinding #delete_btn}" PropertyName="IsVisible" Value="True"/>
-                  </ia:EventTriggerBehavior>
-                  <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #card}">
-                    <ia:ChangePropertyAction TargetObject="{ReflectionBinding #delete_btn}" PropertyName="IsVisible" Value="False"/>
-                  </ia:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem
+                                            Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
+                                            CommandParameter="{Binding}"
+                                            Header="{ReflectionBinding Path=Res.UserChange_BtnText,
+                                                                       Mode=OneWay,
+                                                                       Source={x:Static resx:R.Current}}" />
+                                        <MenuItem
+                                            Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
+                                            CommandParameter="{Binding}"
+                                            Header="{ReflectionBinding Path=Res.UserChange_OfflineBtn,
+                                                                       Mode=OneWay,
+                                                                       Source={x:Static resx:R.Current}}" />
+                                        <MenuItem Header="-" />
+                                        <MenuItem
+                                            Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                            CommandParameter="{Binding}"
+                                            Header="{ReflectionBinding Path=Res.UserChange_DeleteUser,
+                                                                       Mode=OneWay,
+                                                                       Source={x:Static resx:R.Current}}" />
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                                <i:Interaction.Behaviors>
+                                    <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
+                                        <ia:ChangePropertyAction
+                                            PropertyName="IsVisible"
+                                            TargetObject="{ReflectionBinding #delete_btn}"
+                                            Value="True" />
+                                    </ia:EventTriggerBehavior>
+                                    <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #card}">
+                                        <ia:ChangePropertyAction
+                                            PropertyName="IsVisible"
+                                            TargetObject="{ReflectionBinding #delete_btn}"
+                                            Value="False" />
+                                    </ia:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
 
-                <Grid Height="184"
-                      ColumnDefinitions="Auto,*">
-                  <Border CornerRadius="{StaticResource PaperRadiusLeft}"
-                          ClipToBounds="True">
-                    <Panel x:Name="avatar"
-                           Cursor="Hand"
-                           ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                      <!--OpenUserProfileUrl-->
-                      <i:Interaction.Behaviors>
-                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
-                          <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
-                        </ia:EventTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                      <gif:Image2
-                             Width="144"
-                             AutoStart="true"
-                             Stretch="Uniform"
-                             Source="{Binding AvatarStream^}"
-                             FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
-                      </gif:Image2>
-                      <gif:Image2 Width="184"
-                                  Height="184"
-                                  AutoStart="true"
-                                  Source="{Binding MiniProfile.AvatarFrameStream^}"
-                                  Stretch="Uniform"
-                                  IsVisible="{Binding MiniProfile.AvatarFrameStream^,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
-                    </Panel>
-                  </Border>
-                  <Panel Grid.Column="1" Margin="10 0 0 0">
-                    <StackPanel Margin="0 5 0 0">
-                      <WrapPanel VerticalAlignment="Center">
-                        <Ellipse VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               x:Name="circle"
-                               Margin="5 0 12 0"
-                               Height="10"
-                               Width="10"
-                               StrokeThickness="0"
-                               Fill="#adadad"
-                               ToolTip.Tip="{Binding OnlineState}">
-                          <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="online">
-                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}"
-                                                       PropertyName="Fill"
-                                                       Value="#6AC3E7"/>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="in-game">
-                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}"
-                                                       PropertyName="Fill"
-                                                       Value="#90BA3C"/>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding OnlineState}"
-                                                    ComparisonCondition="Equal"
-                                                    Value="offline">
-                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}"
-                                                       PropertyName="Fill"
-                                                       Value="#adadad"/>
-                            </ia:DataTriggerBehavior>
-                          </i:Interaction.Behaviors>
-                        </Ellipse>
-                        <controls:ScrollingTextBlock x:Name="nickname"
-                                           Text="{Binding SteamNickName}"
-                                           FontSize="24"
-                                           Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                           Cursor="Hand"
-                                           ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
-                              <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
-                            </ia:EventTriggerBehavior>
-                          </i:Interaction.Behaviors>
-                        </controls:ScrollingTextBlock>
-                        <TextBlock VerticalAlignment="Center"
-                                Margin="5 0"
-                                Text="{Binding Remark,Mode=OneWay}"
-                                Foreground="{DynamicResource InactiveForegroundBrushKey}">
-                        </TextBlock>
-                        <Button Cursor="Hand"
-                                Command="{ReflectionBinding #u.DataContext.EditRemarkAsync}"
-                                CommandParameter="{Binding}"
-                                Classes="plain"
-                                ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_EditRemark,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                VerticalAlignment="Center"
-                                VerticalContentAlignment="Center">
-                          <PathIcon Data="{StaticResource EditDrawing}"
-                                    Width="10" Height="10"
-                                    Opacity="0.8"
-                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                    Margin="0"/>
-                        </Button>
-                      </WrapPanel>
+                                <Grid Height="184" ColumnDefinitions="Auto,*">
+                                    <Border ClipToBounds="True" CornerRadius="{StaticResource PaperRadiusLeft}">
+                                        <Panel
+                                            x:Name="avatar"
+                                            Cursor="Hand"
+                                            ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,
+                                                                            Mode=OneWay,
+                                                                            Source={x:Static resx:R.Current}}">
+                                            <!--  OpenUserProfileUrl  -->
+                                            <i:Interaction.Behaviors>
+                                                <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
+                                                    <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}" />
+                                                </ia:EventTriggerBehavior>
+                                            </i:Interaction.Behaviors>
+                                            <gif:Image2
+                                                Width="144"
+                                                AutoStart="true"
+                                                FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
+                                                Source="{Binding AvatarStream^}"
+                                                Stretch="Uniform" />
+                                            <gif:Image2
+                                                Width="184"
+                                                Height="184"
+                                                AutoStart="true"
+                                                IsVisible="{Binding MiniProfile.AvatarFrameStream^, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                Source="{Binding MiniProfile.AvatarFrameStream^}"
+                                                Stretch="Uniform" />
+                                        </Panel>
+                                    </Border>
+                                    <Panel Grid.Column="1" Margin="10,0,0,0">
+                                        <StackPanel Margin="0,5,0,0">
+                                            <WrapPanel VerticalAlignment="Center">
+                                                <Ellipse
+                                                    x:Name="circle"
+                                                    Width="10"
+                                                    Height="10"
+                                                    Margin="5,0,12,0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Fill="#adadad"
+                                                    StrokeThickness="0"
+                                                    ToolTip.Tip="{Binding OnlineState}">
+                                                    <i:Interaction.Behaviors>
+                                                        <ia:DataTriggerBehavior
+                                                            Binding="{Binding OnlineState}"
+                                                            ComparisonCondition="Equal"
+                                                            Value="online">
+                                                            <ia:ChangePropertyAction
+                                                                PropertyName="Fill"
+                                                                TargetObject="{ReflectionBinding #circle}"
+                                                                Value="#6AC3E7" />
+                                                        </ia:DataTriggerBehavior>
+                                                        <ia:DataTriggerBehavior
+                                                            Binding="{Binding OnlineState}"
+                                                            ComparisonCondition="Equal"
+                                                            Value="in-game">
+                                                            <ia:ChangePropertyAction
+                                                                PropertyName="Fill"
+                                                                TargetObject="{ReflectionBinding #circle}"
+                                                                Value="#90BA3C" />
+                                                        </ia:DataTriggerBehavior>
+                                                        <ia:DataTriggerBehavior
+                                                            Binding="{Binding OnlineState}"
+                                                            ComparisonCondition="Equal"
+                                                            Value="offline">
+                                                            <ia:ChangePropertyAction
+                                                                PropertyName="Fill"
+                                                                TargetObject="{ReflectionBinding #circle}"
+                                                                Value="#adadad" />
+                                                        </ia:DataTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </Ellipse>
+                                                <controls:ScrollingTextBlock
+                                                    x:Name="nickname"
+                                                    Cursor="Hand"
+                                                    FontSize="24"
+                                                    Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                                    Text="{Binding SteamNickName}"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,
+                                                                                    Mode=OneWay,
+                                                                                    Source={x:Static resx:R.Current}}">
+                                                    <i:Interaction.Behaviors>
+                                                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
+                                                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}" />
+                                                        </ia:EventTriggerBehavior>
+                                                    </i:Interaction.Behaviors>
+                                                </controls:ScrollingTextBlock>
+                                                <TextBlock
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                                    Text="{Binding Remark, Mode=OneWay}" />
+                                                <Button
+                                                    VerticalAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    Classes="plain"
+                                                    Command="{ReflectionBinding #u.DataContext.EditRemarkAsync}"
+                                                    CommandParameter="{Binding}"
+                                                    Cursor="Hand"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_EditRemark,
+                                                                                    Mode=OneWay,
+                                                                                    Source={x:Static resx:R.Current}}">
+                                                    <PathIcon
+                                                        Width="10"
+                                                        Height="10"
+                                                        Margin="0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Data="{StaticResource EditDrawing}"
+                                                        Opacity="0.8" />
+                                                </Button>
+                                            </WrapPanel>
 
-                      <WrapPanel Orientation="Horizontal">
-                        <WrapPanel.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="FontSize" Value="16"/>
-                            <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}"/>
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                          </Style>
-                        </WrapPanel.Styles>
-                        <TextBlock Text="{Binding AccountName}"/>
-                        <TextBlock Text="("/>
-                        <TextBox Text="{Binding SteamId64,Mode=OneWay}"
-                                 Classes="readonlybox"
-                                 Padding="0"
-                                 IsReadOnly="True"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"
-                                 VerticalContentAlignment="Center"
-                                 VerticalAlignment="Center"></TextBox>
-                        <TextBlock Text=")"/>
-                      </WrapPanel>
+                                            <WrapPanel Orientation="Horizontal">
+                                                <WrapPanel.Styles>
+                                                    <Style Selector="TextBlock">
+                                                        <Setter Property="FontSize" Value="16" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
+                                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                                    </Style>
+                                                </WrapPanel.Styles>
+                                                <TextBlock Text="{Binding AccountName}" />
+                                                <TextBlock Text="(" />
+                                                <TextBox
+                                                    Padding="0"
+                                                    VerticalAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    Classes="readonlybox"
+                                                    Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                                    IsReadOnly="True"
+                                                    Text="{Binding SteamId64, Mode=OneWay}" />
+                                                <TextBlock Text=")" />
+                                            </WrapPanel>
 
-                      <Border>
-                        <WrapPanel VerticalAlignment="Center">
-                          <TextBlock Margin="0 0 10 0"
-                                     FontSize="18"
-                                     VerticalAlignment="Center"
-                            Text="{Binding MiniProfile.Level,StringFormat=Lv.{0}}"/>
+                                            <Border>
+                                                <WrapPanel VerticalAlignment="Center">
+                                                    <TextBlock
+                                                        Margin="0,0,10,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="18"
+                                                        Text="{Binding MiniProfile.Level, StringFormat=Lv.{0}}" />
 
-                          <WrapPanel VerticalAlignment="Center"
-                                     IsVisible="{Binding MiniProfile,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
-                            <TextBlock Foreground="#90BA3C"
-                                     Text="游戏中 "
-                                     IsVisible="{Binding MiniProfile.InGame,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>
-                            <TextBlock VerticalAlignment="Center"
-                                       Foreground="#90BA3C"
-                                 Text="{Binding MiniProfile.InGame.Name}"/>
-                          </WrapPanel>
-                        </WrapPanel>
-                      </Border>
-                    </StackPanel>
+                                                    <WrapPanel VerticalAlignment="Center" IsVisible="{Binding MiniProfile, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                                                        <TextBlock
+                                                            Margin="5,0"
+                                                            Foreground="#90BA3C"
+                                                            IsVisible="{Binding MiniProfile.InGame, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                            Text="{ReflectionBinding Path=Res.UserChange_InGame,
+                                                                                     Mode=OneWay,
+                                                                                     Source={x:Static resx:R.Current}}" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            Foreground="#90BA3C"
+                                                            Text="{Binding MiniProfile.InGame.Name}" />
+                                                    </WrapPanel>
+                                                </WrapPanel>
+                                            </Border>
+                                        </StackPanel>
 
-                    <DockPanel VerticalAlignment="Bottom">
-                      <WrapPanel>
-                        <PathIcon Data="{StaticResource ClockDrawing}" Width="16" VerticalAlignment="Center" Margin="5 0" Foreground="{DynamicResource InactiveForegroundBrushKey}">
-                        </PathIcon>
-                        <TextBlock Text="{Binding LastLoginTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                      </WrapPanel>
+                                        <DockPanel VerticalAlignment="Bottom">
+                                            <WrapPanel>
+                                                <PathIcon
+                                                    Width="16"
+                                                    Margin="5,0"
+                                                    VerticalAlignment="Center"
+                                                    Data="{StaticResource ClockDrawing}"
+                                                    Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    FontSize="16"
+                                                    Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                                    Text="{Binding LastLoginTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+                                            </WrapPanel>
 
-                      <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <Button Classes="flatbutton" Cursor="Hand" HorizontalAlignment="Stretch" MaxWidth="200" Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}" CommandParameter="{Binding}">
-                            <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_OfflineBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                          </Button>
-                        </Border>
-                        <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <Button Classes="flatbutton" Cursor="Hand" MaxWidth="250" HorizontalAlignment="Stretch" Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}">
-                            <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_BtnText,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                          </Button>
-                        </Border>
-                      </WrapPanel>
-                    </DockPanel>
+                                            <WrapPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                                <Border
+                                                    BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
+                                                    BorderThickness=".66,.66,.66,0"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OfflineBtn,
+                                                                                    Mode=OneWay,
+                                                                                    Source={x:Static resx:R.Current}}">
+                                                    <Button
+                                                        MaxWidth="200"
+                                                        HorizontalAlignment="Stretch"
+                                                        Classes="flatbutton"
+                                                        Command="{ReflectionBinding #u.DataContext.OfflineModeButton_Click}"
+                                                        CommandParameter="{Binding}"
+                                                        Cursor="Hand">
+                                                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_OfflineBtn, Mode=OneWay, Source={x:Static resx:R.Current}}" />
+                                                    </Button>
+                                                </Border>
+                                                <Border
+                                                    BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
+                                                    BorderThickness="0,.66,0,0"
+                                                    ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,
+                                                                                    Mode=OneWay,
+                                                                                    Source={x:Static resx:R.Current}}">
+                                                    <Button
+                                                        MaxWidth="250"
+                                                        HorizontalAlignment="Stretch"
+                                                        Classes="flatbutton"
+                                                        Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
+                                                        CommandParameter="{Binding}"
+                                                        Cursor="Hand">
+                                                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.UserChange_BtnText, Mode=OneWay, Source={x:Static resx:R.Current}}" />
+                                                    </Button>
+                                                </Border>
+                                            </WrapPanel>
+                                        </DockPanel>
 
-                    <Panel>
-                      <Button Classes="flatbutton"
-                              IsVisible="False"
-                              x:Name="delete_btn"
-                              Background="Transparent"
-                              Cursor="Hand"
-                              ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Top"
-                              Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
-                              CommandParameter="{Binding}">
-                        <PathIcon Width="12" Data="{DynamicResource CloseDrawing}"/>
-                      </Button>
-                      <StackPanel HorizontalAlignment="Right"
-                                  Spacing="10"
-                                  Orientation="Vertical"
-                                  Margin="0 30 10 0">
-                        <StackPanel.Styles>
-                          <Style Selector="PathIcon">
-                            <Setter Property="Height" Value="10"/>
-                            <Setter Property="Margin" Value="0 0 5 0"/>
-                          </Style>
-                          <Style Selector="WrapPanel">
-                            <Setter Property="HorizontalAlignment" Value="Right"/>
-                          </Style>
-                        </StackPanel.Styles>
-                        <StackPanel Orientation="Horizontal" IsVisible="{Binding MostRecent}">
-                          <PathIcon Data="{StaticResource CheckmarkDrawing}"/>
-                          <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                        </StackPanel>
+                                        <Panel>
+                                            <Button
+                                                x:Name="delete_btn"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Background="Transparent"
+                                                Classes="flatbutton"
+                                                Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
+                                                CommandParameter="{Binding}"
+                                                Cursor="Hand"
+                                                IsVisible="False"
+                                                ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,
+                                                                                Mode=OneWay,
+                                                                                Source={x:Static resx:R.Current}}">
+                                                <PathIcon Width="12" Data="{DynamicResource CloseDrawing}" />
+                                            </Button>
+                                            <StackPanel
+                                                Margin="0,30,10,0"
+                                                HorizontalAlignment="Right"
+                                                Orientation="Vertical"
+                                                Spacing="10">
+                                                <StackPanel.Styles>
+                                                    <Style Selector="PathIcon">
+                                                        <Setter Property="Height" Value="10" />
+                                                        <Setter Property="Margin" Value="0 0 5 0" />
+                                                    </Style>
+                                                    <Style Selector="WrapPanel">
+                                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                                    </Style>
+                                                </StackPanel.Styles>
+                                                <StackPanel IsVisible="{Binding MostRecent}" Orientation="Horizontal">
+                                                    <PathIcon Data="{StaticResource CheckmarkDrawing}" />
+                                                    <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static resx:R.Current}}" />
+                                                </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" IsVisible="{Binding RememberPassword}">
-                          <PathIcon Data="{StaticResource CheckmarkDrawing}"/>
-                          <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RememberMe,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                        </StackPanel>
-                      </StackPanel>
-                    </Panel>
-                  </Panel>
-                </Grid>
-              </Border>
-            </DataTemplate>
-          </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
-      </ScrollViewer>
-    </Panel>
-  </DockPanel>
+                                                <StackPanel IsVisible="{Binding RememberPassword}" Orientation="Horizontal">
+                                                    <PathIcon Data="{StaticResource CheckmarkDrawing}" />
+                                                    <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RememberMe, Mode=OneWay, Source={x:Static resx:R.Current}}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Panel>
+                                    </Panel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </Panel>
+    </DockPanel>
 </UserControl>

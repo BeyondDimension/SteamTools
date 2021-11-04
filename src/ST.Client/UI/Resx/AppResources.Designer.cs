@@ -4909,6 +4909,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 游戏中 的本地化字符串。
+        /// </summary>
+        public static string UserChange_InGame {
+            get {
+                return ResourceManager.GetString("UserChange_InGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 登录新 Steam 账号 的本地化字符串。
         /// </summary>
         public static string UserChange_LoginNewAccount {

@@ -1,43 +1,44 @@
-<Styles xmlns="https://github.com/avaloniaui"
-         xmlns:sys="using:System"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Styles.Resources>
-    <BoxShadows x:Key="DialogBoxShadow">4 11 30 1 #3F000000</BoxShadows>
-    <BoxShadows x:Key="InfoBoxShadow">2 2 5 #3F000000</BoxShadows>
-    <Thickness x:Key="ScrollMargin">10 10 10 10</Thickness>
-    <Thickness x:Key="PageMargin">10 0 10 0</Thickness>
-    <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
-    <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
-    <sys:Double x:Key="TitleBarHeight">30</sys:Double>
-    <sys:Double x:Key="ContentOpacity">0.85</sys:Double>
-    <Thickness x:Key="TitleBarAfterMargin">0, 30, 0, 0</Thickness>
-    <Thickness x:Key="UnifyTitleBarAfterContentMargin">34, 30, 34, 0</Thickness>
-    <Thickness x:Key="ContentMargin">34, 0, 34, 0</Thickness>
-    <sys:Double x:Key="IconElementThemeHeight">16</sys:Double>
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="using:System">
+    <Styles.Resources>
+        <BoxShadows x:Key="DialogBoxShadow">4 11 30 1 #3F000000</BoxShadows>
+        <BoxShadows x:Key="InfoBoxShadow">2 2 5 #3F000000</BoxShadows>
+        <Thickness x:Key="ScrollMargin">10 10 10 10</Thickness>
+        <Thickness x:Key="PageMargin">10 0 10 0</Thickness>
+        <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>
+        <KeySpline x:Key="FluentKeySpline">0.4,0,0.6,1</KeySpline>
+        <sys:Double x:Key="TitleBarHeight">30</sys:Double>
+        <sys:Double x:Key="ContentOpacity">0.85</sys:Double>
+        <Thickness x:Key="TitleBarAfterMargin">0, 30, 0, 0</Thickness>
+        <Thickness x:Key="UnifyTitleBarAfterContentMargin">34, 30, 34, 0</Thickness>
+        <Thickness x:Key="ContentMargin">34, 0, 34, 0</Thickness>
+        <sys:Double x:Key="IconElementThemeHeight">16</sys:Double>
 
-    <sys:Char x:Key="PasswordChar">•</sys:Char>
-    <SolidColorBrush x:Key="NavigationViewContentBackground">#00000000</SolidColorBrush>
-    <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0,0,0,0</CornerRadius>
-    <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
-    <Thickness x:Key="NavigationViewHeaderMargin">10,0,0,0</Thickness>
-  </Styles.Resources>
-  <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
-  
-  <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/Button.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/Menu.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/DateTimePicker.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRingArc.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRing.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Controls/ToggleSwitch.xaml" />
-  
-  <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
-  <StyleInclude Source="/Application/UI/Styles/Settings.xaml" />
+        <sys:Char x:Key="PasswordChar">•</sys:Char>
+        <SolidColorBrush x:Key="NavigationViewContentBackground">#00000000</SolidColorBrush>
+        <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0,0,0,0</CornerRadius>
+        <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
+        <Thickness x:Key="NavigationViewHeaderMargin">10,0,0,0</Thickness>
+    </Styles.Resources>
+    <StyleInclude Source="/Application/UI/Styles/DrawingSvg.xaml" />
+
+    <StyleInclude Source="/Application/UI/Styles/Controls/FontSizes.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/Separator.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/TabControl.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/TextBox.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/Border.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/Button.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/Menu.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/CheckBox.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/ListBox.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/DateTimePicker.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRingArc.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/ProgressRing.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Controls/ToggleSwitch.xaml" />
+
+    <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
+    <StyleInclude Source="/Application/UI/Styles/Settings.xaml" />
 </Styles>

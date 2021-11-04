@@ -1261,6 +1261,9 @@
   <data name="UploadYourAvatarDesc" xml:space="preserve">
     <value>从您的设备上传一个文件。图片应为方形，至少为 184px x 184px</value>
   </data>
+  <data name="UserChange_InGame" xml:space="preserve">
+    <value>游戏中</value>
+  </data>
   <data name="UserChange_BtnText" xml:space="preserve">
     <value>一键登录Steam</value>
   </data>

@@ -109,7 +109,7 @@ namespace System.Application.UI.ViewModels
 
         public void GoToBotSettings(Bot bot)
         {
-            Browser2.Open(IPCUrl + "/bot/" + bot.BotName);
+            Browser2.Open(IPCUrl + "/bot/" + bot.BotName + "/config");
         }
 
         public void OpenFolder(string tag)

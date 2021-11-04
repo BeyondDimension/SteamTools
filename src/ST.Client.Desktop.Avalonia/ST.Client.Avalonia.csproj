@@ -95,4 +95,10 @@
     <PackageReference Include="Avalonia.Diagnostics" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Pages\SteamAccountPage.xaml.cs">
+      <DependentUpon>SteamAccountPage.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

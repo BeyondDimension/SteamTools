@@ -43,23 +43,21 @@
               </Border.Background>-->
             <Grid Height="184"
                   ColumnDefinitions="Auto,*,Auto">
-              <Panel x:Name="avatar" Cursor="Hand"
-                       ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <!--OpenUserProfileUrl-->
-                <i:Interaction.Behaviors>
-                  <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
-                    <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
-                  </ia:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-                <gif:Image2
-                           Width="184"
-                           Stretch="Uniform"
-                           Source="{Binding AvatarUrl}"
-                           FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
-                </gif:Image2>
-              </Panel>
-              <Panel Grid.Column="1" Margin="10 5">
-                <StackPanel Spacing="8">
+              <Border CornerRadius="{StaticResource PaperRadiusLeft}"
+                      ClipToBounds="True">
+                <Panel x:Name="avatar" Cursor="Hand">
+                  <gif:Image2
+                             Width="184"
+                             Stretch="Uniform"
+                             Source="{Binding AvatarUrl}"
+                             FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
+                  </gif:Image2>
+                </Panel>
+              </Border>
+
+              <DockPanel Grid.Column="1" Margin="10 5">
+                <StackPanel Spacing="8"
+                            DockPanel.Dock="Top">
                   <DockPanel>
                     <DockPanel.Styles>
                       <Style Selector="TextBlock">
@@ -145,12 +143,14 @@
                             CommandParameter="{Binding}">
                       <PathIcon Data="{StaticResource PlayCircleDrawing}" />
                     </Button>
+                    
                     <Button ToolTip.Tip="暂停挂卡"
                             IsVisible="{Binding !CardsFarmer.Paused}"
                             Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
                             CommandParameter="{Binding}">
                       <PathIcon Data="{StaticResource PauseCircleDrawing}" />
                     </Button>
+                    
                     <ui:ContentDialog x:Name="RedeemKeyDialog"
                              Title="激活Key"
                              PrimaryButtonText="确认"
@@ -160,23 +160,28 @@
                         <TextBox Text="test"/>
                       </ui:ContentDialog.Content>
                     </ui:ContentDialog>
+                    
                     <Button ToolTip.Tip="激活Key">
                       <PathIcon Data="{StaticResource KeyDrawing}" />
                     </Button>
+                    
                     <!--<Button ToolTip.Tip="两步验证" >
                       <PathIcon Data="{StaticResource ShieldLockDrawing}" />
                     </Button>-->
+                    
                     <Button ToolTip.Tip="Bot配置"
                             Command="{ReflectionBinding #u.DataContext.GoToBotSettings}"
                             CommandParameter="{Binding}">
                       <PathIcon Data="{StaticResource SettingsDrawing}" />
                     </Button>
+                    
                     <Button ToolTip.Tip="启用"
                             IsVisible="{Binding !KeepRunning}"
                             Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
                             CommandParameter="{Binding}">
                       <PathIcon Data="{StaticResource ShutdownDrawing}" />
                     </Button>
+                    
                     <Button ToolTip.Tip="禁用"
                             IsVisible="{Binding KeepRunning}"
                             Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
@@ -184,43 +189,46 @@
                       <PathIcon Data="{StaticResource ShutdownDrawing}" />
                     </Button>
                   </StackPanel>
+                </StackPanel>
 
-                  <ScrollViewer VerticalScrollBarVisibility="Disabled"
-                                HorizontalScrollBarVisibility="Auto"
-                                HorizontalAlignment="Left">
-                    <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
-                      <ItemsRepeater.Layout>
-                        <StackLayout Orientation="Horizontal" Spacing="10"/>
-                      </ItemsRepeater.Layout>
-                      <ItemsRepeater.ItemTemplate>
-                        <DataTemplate>
-                          <Border Classes="paper"
-                                  ClipToBounds="True">
-                            <Panel>
-                              <gif:Image2
-                                MaxWidth="184"
-                                MaxHeight="86"
-                                Stretch="Uniform"
-                                Source="{Binding ImageUrl}">
-                              </gif:Image2>
-                              <!--<Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
+                <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                              HorizontalScrollBarVisibility="Auto"
+                              DockPanel.Dock="Bottom"
+                              VerticalAlignment="Bottom"
+                              HorizontalAlignment="Left">
+                  <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
+                    <ItemsRepeater.Layout>
+                      <StackLayout Orientation="Horizontal" Spacing="10"/>
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                      <DataTemplate>
+                        <Border Classes="paper"
+                                ClipToBounds="True">
+                          <Panel>
+                            <gif:Image2
+                              MaxWidth="184"
+                              MaxHeight="86"
+                              Stretch="Uniform"
+                              Source="{Binding ImageUrl}"
+                              FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/applogo.jpg">
+                            </gif:Image2>
+                            <!--<Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
                                 Width="184"
                                 Stretch="Uniform"/>-->
-                              <Border VerticalAlignment="Bottom"
-                                      HorizontalAlignment="Stretch"
-                                      Background="{DynamicResource ThemeColorKey}">
-                                <TextBlock Text="{Binding GameName}"
-                                           HorizontalAlignment="Center"
-                                           TextAlignment="Center"/>
-                              </Border>
-                            </Panel>
-                          </Border>
-                        </DataTemplate>
-                      </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-                  </ScrollViewer>
-                </StackPanel>
-              </Panel>
+                            <Border VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{DynamicResource ThemeColorKey}">
+                              <TextBlock Text="{Binding GameName}"
+                                         HorizontalAlignment="Center"
+                                         TextAlignment="Center"/>
+                            </Border>
+                          </Panel>
+                        </Border>
+                      </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                  </ItemsRepeater>
+                </ScrollViewer>
+              </DockPanel>
             </Grid>
           </Border>
         </DataTemplate>
