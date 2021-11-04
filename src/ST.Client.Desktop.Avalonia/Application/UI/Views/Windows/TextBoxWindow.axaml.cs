@@ -19,7 +19,7 @@ namespace System.Application.UI.Views.Windows
 
         protected override void OnOpened(EventArgs e)
         {
-            var descriptionBox = this.FindControl<TextBox>("DescriptionBox");
+            //var descriptionBox = this.FindControl<TextBox>("DescriptionBox");
             var passwordBox = this.FindControl<TextBox>("PasswordBox");
 
             switch (ViewModel?.InputType)
@@ -38,6 +38,8 @@ namespace System.Application.UI.Views.Windows
                     passwordBox.IsVisible = false;
                     break;
             }
+
+            passwordBox.Focus();
 
             base.OnOpened(e);
         }
