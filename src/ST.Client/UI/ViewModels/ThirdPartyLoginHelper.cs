@@ -86,7 +86,7 @@ namespace System.Application.UI.ViewModels
                 return;
             }
             var rsp = ApiResponse.Deserialize<LoginOrRegisterResponse>(byteArray);
-            var webRsp = new FastLRBWebResponse();
+            var webRsp = new WebResponseDTO();
             if (rsp.IsSuccess && rsp.Content == null)
             {
                 webRsp.Msg = ApiResponse.GetMessage(ApiResponseCode.NoResponseContent);
@@ -226,6 +226,16 @@ namespace System.Application.UI.ViewModels
             }
             var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={port}&sKey={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&version={csc.Settings.AppVersionStr}&isBind={isBind}&access_token_expires={access_token_expires}&access_token={access_token}";
             await Browser2.OpenAsync(url);
+        }
+
+        /// <summary>
+        /// 用于 WebSocket 传递给 Web 端的响应数据模型
+        /// </summary>
+        public sealed class WebResponseDTO
+        {
+            public bool State { get; set; }
+
+            public string Msg { get; set; } = string.Empty;
         }
     }
 
