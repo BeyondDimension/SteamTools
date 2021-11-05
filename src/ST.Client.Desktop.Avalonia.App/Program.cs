@@ -24,6 +24,8 @@ namespace System.Application.UI
 #if MAC
             AppDelegate.Init(/*args*/);
             FileSystemDesktopMac.InitFileSystem();
+#elif LINUX
+            FileSystemDesktopXDG.InitFileSystem();
 #else
             FileSystemDesktop.InitFileSystem();
 #endif
