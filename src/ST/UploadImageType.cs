@@ -11,6 +11,11 @@ namespace System.Application
         /// </summary>
         Avatar = 0x1,
 
+        /// <summary>
+        /// 通知封面，内容图片
+        /// </summary>
+        Notice = 0x4,
+
         //占位符1 = 0x2,
         //占位符2 = 0x4,
         //占位符3 = 0x8,
