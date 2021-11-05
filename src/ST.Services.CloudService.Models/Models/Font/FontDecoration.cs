@@ -9,15 +9,16 @@ namespace System.Application.Models
         /// <summary>
         /// 无
         /// </summary>
-        None=1,
+        None = 1,
 
         /// <summary>
         /// 下划线
         /// </summary>
-        Underline=4,
+        Underline = 4,
+
         /// <summary>
         /// 删除线
         /// </summary>
-        LineThrough=8
+        LineThrough = 8
     }
 }

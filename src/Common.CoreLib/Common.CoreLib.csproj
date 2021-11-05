@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Platform.cs">
-      <Generator>DtsGenerator</Generator>
-      <LastGenOutput>Platform.cs.d.ts</LastGenOutput>
-    </Compile>
     <Compile Update="Properties\SR.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -37,6 +33,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Platform.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Platform.cs.d.ts</LastGenOutput>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

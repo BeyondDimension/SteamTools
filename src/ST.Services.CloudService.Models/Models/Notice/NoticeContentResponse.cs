@@ -7,13 +7,12 @@ using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 namespace System.Application.Models
 {
     [MPObj]
-    public  class NoticeContentResponse
+    public class NoticeContentResponse
     {
-
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        public string Content  { get; set; } = string.Empty;
+        public string Content { get; set; } = string.Empty;
 
         [MPKey(1)]
         [N_JsonProperty("1")]

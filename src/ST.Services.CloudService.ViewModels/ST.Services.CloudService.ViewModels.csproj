@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -17,16 +17,9 @@
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Services.CloudService.Models\*.cs" />
-    <Compile Include="..\ST.Services.CloudService.Models\Models\*.cs">
-      <LinkBase>Models</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Services.CloudService.Models\Models\Internals\*.cs">
-      <LinkBase>Models\Internals</LinkBase>
-    </Compile>
-    <Compile Include="..\ST.Services.CloudService.Models\Services.CloudService\*.cs">
-      <LinkBase>Services.CloudService</LinkBase>
-    </Compile>
+    <Compile Include="..\ST.Services.CloudService.Models\**\*.cs" />
+    <Compile Remove="..\ST.Services.CloudService.Models\bin\**" />
+    <Compile Remove="..\ST.Services.CloudService.Models\obj\**" />
   </ItemGroup>
 
   <ItemGroup>
