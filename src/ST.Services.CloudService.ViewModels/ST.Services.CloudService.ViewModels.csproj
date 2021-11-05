@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -26,9 +26,6 @@
     <EmbeddedResource Include="..\ST.Services.CloudService.Models\Properties\*.resx">
       <LinkBase>Properties</LinkBase>
     </EmbeddedResource>
-    <Compile Include="..\ST.Services.CloudService.Models\Properties\SR.Designer.cs">
-      <LinkBase>Properties</LinkBase>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

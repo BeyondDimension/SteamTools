@@ -160,7 +160,9 @@ namespace System.Application.UI.ViewModels
                 Disposable.Create(() =>
                 {
                     ws?.Dispose();
+                    ws = null;
                     tempAes?.Dispose();
+                    tempAes = null;
                 }).AddTo(dh);
             }
             ws.Start(socket =>
@@ -205,8 +207,7 @@ namespace System.Application.UI.ViewModels
                     ThirdPartyLoginHelper.vm = null;
                 }
             }).AddTo(vm);
-            tempAes?.Dispose();
-            tempAes = AESUtils.Create(); // 每次创建新的之前的会失效
+            if (tempAes == null) tempAes = AESUtils.Create(); // 每次创建新的之前的会失效
             var skey_bytes = tempAes.ToParamsByteArray();
             var skey_str = conn_helper.RSA.EncryptToString(skey_bytes);
             var csc = DI.Get<CloudServiceClientBase>();
