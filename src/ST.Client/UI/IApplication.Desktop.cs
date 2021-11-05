@@ -33,6 +33,8 @@ namespace System.Application.UI
 
         new CompositeDisposable CompositeDisposable { get; }
 
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => CompositeDisposable;
+
         /// <summary>
         /// 是否有活动窗口
         /// </summary>

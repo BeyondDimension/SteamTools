@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Net.Sockets;
 using System.Runtime.Versioning;
 using System.Security.Principal;
 using Windows.ApplicationModel;
@@ -261,45 +262,53 @@ namespace System.Application.Services.Implementation
             return Process.Start(startInfo);
         }
 
-        public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
-        {
-            try
-            {
-                using var p = new Process
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = "cmd",
-                        UseShellExecute = false,
-                        RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        CreateNoWindow = true,
-                    },
-                };
-                p.Start();
-                p.StandardInput.WriteLine($"netstat -ano|findstr \"{port}\"&exit");
-                p.StandardInput.AutoFlush = true;
-                var reader = p.StandardOutput;
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    if (line == null) break;
-                    var lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    if (lineArray.Length != 5) continue;
-                    if (!lineArray[0].Equals(isTCPorUDP ? "TCP" : "UDP", StringComparison.OrdinalIgnoreCase)) continue;
-                    if (!lineArray[3].Equals("LISTENING", StringComparison.OrdinalIgnoreCase)) continue;
-                    if (!lineArray[1].EndsWith($":{port}")) continue;
-                    if (!ushort.TryParse(lineArray[4], out var pid)) continue;
-                    p.Close();
-                    return Process.GetProcessById(pid);
-                }
-                _ = p.WaitForExit(550);
-            }
-            catch
-            {
-            }
-            return default;
-        }
+        //public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
+        //{
+        //    if (isTCPorUDP)
+        //    {
+        //        return SocketHelper.GetProcessByTcpPort(port);
+        //    }
+        //    else
+        //    {
+        //        throw new NotSupportedException();
+        //    }
+        //    //try
+        //    //{
+        //    //    using var p = new Process
+        //    //    {
+        //    //        StartInfo = new ProcessStartInfo
+        //    //        {
+        //    //            FileName = "cmd",
+        //    //            UseShellExecute = false,
+        //    //            RedirectStandardInput = true,
+        //    //            RedirectStandardOutput = true,
+        //    //            CreateNoWindow = true,
+        //    //        },
+        //    //    };
+        //    //    p.Start();
+        //    //    p.StandardInput.WriteLine($"netstat -ano|findstr \"{port}\"&exit");
+        //    //    p.StandardInput.AutoFlush = true;
+        //    //    var reader = p.StandardOutput;
+        //    //    while (!reader.EndOfStream)
+        //    //    {
+        //    //        var line = reader.ReadLine();
+        //    //        if (line == null) break;
+        //    //        var lineArray = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        //    //        if (lineArray.Length != 5) continue;
+        //    //        if (!lineArray[0].Equals(isTCPorUDP ? "TCP" : "UDP", StringComparison.OrdinalIgnoreCase)) continue;
+        //    //        if (!lineArray[3].Equals("LISTENING", StringComparison.OrdinalIgnoreCase)) continue;
+        //    //        if (!lineArray[1].EndsWith($":{port}")) continue;
+        //    //        if (!ushort.TryParse(lineArray[4], out var pid)) continue;
+        //    //        p.Close();
+        //    //        return Process.GetProcessById(pid);
+        //    //    }
+        //    //    _ = p.WaitForExit(550);
+        //    //}
+        //    //catch
+        //    //{
+        //    //}
+        //    //return default;
+        //}
 
         /// <summary>
         /// 设置启用或关闭系统代理

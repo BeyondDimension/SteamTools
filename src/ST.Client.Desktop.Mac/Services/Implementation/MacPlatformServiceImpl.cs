@@ -213,10 +213,10 @@ namespace System.Application.Services.Implementation
             return Process.Start(fileName);
         }
 
-        public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
-        {
-            return null;
-        }
+        //public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
+        //{
+        //    return null;
+        //}
 
         public void UnelevatedProcessStart(string cmdArgs)
         {

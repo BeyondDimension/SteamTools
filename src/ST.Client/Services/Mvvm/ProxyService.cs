@@ -12,6 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Properties;
 using System.Reactive.Linq;
 using System.Text;
@@ -197,28 +198,23 @@ namespace System.Application.Services
 
                         if (!httpProxyService.IsSystemProxy)
                         {
-                            //if (OperatingSystem2.IsWindows)
-                            //{
-                            //    var inUse = httpProxyService.PortInUse(443);
-                            //    if (inUse)
-                            //    {
-                            //        var p = DI.Get<IDesktopPlatformService>().GetProcessByPortOccupy(443, true);
-                            //        if (p != null)
-                            //        {
-                            //            Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, p.ProcessName));
-                            //            return;
-                            //        }
-                            //    }
-                            //}
-                            //else
-                            //{
-                            var inUse = httpProxyService.PortInUse(443);
+                            const ushort httpsPort = 443;
+                            var inUse = httpProxyService.PortInUse(httpsPort);
                             if (inUse)
                             {
-                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, 443, ""));
+                                string? error_CommunityFix_StartProxyFaild443 = null;
+                                if (OperatingSystem2.IsWindows)
+                                {
+                                    var p = SocketHelper.GetProcessByTcpPort(httpsPort);
+                                    if (p != null)
+                                    {
+                                        error_CommunityFix_StartProxyFaild443 = AppResources.CommunityFix_StartProxyFaild443.Format(httpsPort, p.ProcessName);
+                                    }
+                                }
+                                error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443.Format(httpsPort, string.Empty);
+                                Toast.Show(error_CommunityFix_StartProxyFaild443);
                                 return;
                             }
-                            //}
                         }
 
                         var isRun = httpProxyService.StartProxy();

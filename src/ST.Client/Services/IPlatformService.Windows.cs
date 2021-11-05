@@ -35,17 +35,17 @@ namespace System.Application.Services
             return Process.Start(fileName);
         }
 
-        /// <summary>
-        /// 获取占用端口的进程
-        /// </summary>
-        /// <param name="port"></param>
-        /// <param name="isTCPorUDP"></param>
-        /// <returns></returns>
-        [SupportedOSPlatform("Windows")]
-        Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
-        {
-            return null;
-        }
+        ///// <summary>
+        ///// 获取占用端口的进程
+        ///// </summary>
+        ///// <param name="port"></param>
+        ///// <param name="isTCPorUDP"></param>
+        ///// <returns></returns>
+        //[SupportedOSPlatform("Windows")]
+        //Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
+        //{
+        //    return null;
+        //}
 
         /// <summary>
         /// 从管理员权限进程中降权到普通权限启动进程

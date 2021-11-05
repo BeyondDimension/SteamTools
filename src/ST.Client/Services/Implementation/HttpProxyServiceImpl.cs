@@ -460,29 +460,7 @@ namespace System.Application.Services.Implementation
 
         public int GetRandomUnusedPort() => SocketHelper.GetRandomUnusedPort(ProxyIp);
 
-        public bool PortInUse(int port)
-        {
-            try
-            {
-                return IPGlobalProperties.GetIPGlobalProperties()
-                    .GetActiveTcpListeners()
-                    .Any(x => x.Port == port);
-            }
-            catch
-            {
-                try
-                {
-                    var listener = new TcpListener(IPAddress.Loopback, port);
-                    listener.Start();
-                    listener.Stop();
-                    return false;
-                }
-                catch
-                {
-                    return true;
-                }
-            }
-        }
+        public bool PortInUse(int port) => SocketHelper.IsUsePort(port);
 
         public bool StartProxy()
         {

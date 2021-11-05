@@ -558,8 +558,6 @@ namespace System.Application.UI
 
         CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
 
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
-
         void IDisposable.Dispose()
         {
             compositeDisposable.Dispose();
