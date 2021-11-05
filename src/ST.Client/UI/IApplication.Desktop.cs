@@ -4,10 +4,11 @@ using System.Text;
 using System.Application.Models;
 using System.Reactive.Disposables;
 using System.Windows.Input;
+using System.Application.Mvvm;
 
 namespace System.Application.UI
 {
-    partial interface IApplication
+    partial interface IApplication : IDisposableHolder
     {
         /// <summary>
         /// 切换当前桌面应用的主题而不改变设置值
@@ -30,7 +31,7 @@ namespace System.Application.UI
         /// </summary>
         IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }
 
-        CompositeDisposable CompositeDisposable { get; }
+        new CompositeDisposable CompositeDisposable { get; }
 
         /// <summary>
         /// 是否有活动窗口

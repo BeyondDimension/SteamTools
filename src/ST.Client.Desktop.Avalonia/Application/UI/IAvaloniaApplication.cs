@@ -9,7 +9,7 @@ using System.Application.Mvvm;
 
 namespace System.Application.UI
 {
-    public interface IAvaloniaApplication : IApplication, IDisposableHolder
+    public interface IAvaloniaApplication : IApplication
     {
         static new IAvaloniaApplication Instance => DI.Get<IAvaloniaApplication>();
 
