@@ -53,6 +53,8 @@
     <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
     <None Remove="Application\UI\Assets\movecross.png" />
+    <None Remove="Application\UI\Styles\Controls\PathIcon.xaml" />
+    <None Remove="Application\UI\Styles\Controls\TitleBar.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -93,6 +95,15 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\PathIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\TitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
   </ItemGroup>
 
   <ItemGroup>

@@ -102,32 +102,29 @@ namespace System.Application.UI
         public void SetThemeNotChangeValue(AppTheme value)
         {
             string? the;
-            FluentThemeMode mode;
+            //FluentThemeMode mode;
 
             switch (value)
             {
                 case AppTheme.Light:
                     the = "Light";
-                    mode = FluentThemeMode.Light;
+                    //mode = FluentThemeMode.Light;
                     break;
                 case AppTheme.Dark:
-                    the = "Dark";
-                    mode = FluentThemeMode.Dark;
-                    break;
                 default:
                     the = "Dark";
-                    mode = FluentThemeMode.Dark;
+                    //mode = FluentThemeMode.Dark;
                     break;
             }
 
-            var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
+            //var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
             var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Theme{the}.xaml");
 
-            Styles[0] = new FluentTheme(uri_0)
-            {
-                Mode = mode,
-            };
-            Styles[2] = new StyleInclude(uri_1)
+            //Styles[0] = new FluentTheme(uri_0)
+            //{
+            //    Mode = mode,
+            //};
+            Styles[1] = new StyleInclude(uri_1)
             {
                 Source = uri_1,
             };

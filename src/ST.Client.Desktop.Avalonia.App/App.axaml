@@ -18,7 +18,7 @@
     <converters:SizeConverter x:Key="SizeConverter" />
   </Application.Resources>
   <Application.Styles>
-    <FluentTheme Mode="Dark" />
+    <!--<FluentTheme Mode="Dark" />-->
     <sty:FluentAvaloniaTheme RequestedTheme="Dark"
                              DefaultToUserTheme="False"
                              GetUserAccentColor="False"
@@ -26,7 +26,7 @@
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     
-    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+    <!--<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>-->
     <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
 
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Controls.xaml" />

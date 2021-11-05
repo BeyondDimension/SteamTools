@@ -1,10 +1,26 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles xmlns="https://github.com/avaloniaui">
     <Design.PreviewWith>
-        <Border Padding="20" MinWidth="200">
+        <Border MinWidth="200" Padding="20">
             <Separator />
         </Border>
     </Design.PreviewWith>
+
+    <Style Selector="Separator">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Height="{TemplateBinding Height}"
+                    Padding="{TemplateBinding Margin}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
+            </ControlTemplate>
+        </Setter>
+    </Style>
 
     <Style Selector="Separator.Separator">
         <Setter Property="Height" Value="0.88" />
