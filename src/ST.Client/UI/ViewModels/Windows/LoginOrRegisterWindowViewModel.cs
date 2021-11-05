@@ -30,7 +30,7 @@ namespace System.Application.UI.ViewModels
                 {
                     CurrentSelectChannel = channel_;
                     ChangeLoginState(3);
-                    await this.StartLRBAsync(channel);
+                    await ThirdPartyLoginHelper.StartAsync(this, channel, isBind: false);
                 }
                 else
                 {
@@ -42,7 +42,7 @@ namespace System.Application.UI.ViewModels
                     }
                 }
             });
-            ManualLogin = ReactiveCommand.CreateFromTask(this.ManualLoginAsync);
+            ManualLogin = ThirdPartyLoginHelper.ManualLogin;
             SendSms = ReactiveCommand.CreateFromTask(SendSmsAsync);
             Submit = ReactiveCommand.CreateFromTask(SubmitAsync);
             OpenHyperlink = ReactiveCommand.Create<string>(OpenHyperlink_);

@@ -458,32 +458,30 @@ namespace System.Application.Services.Implementation
             return true;
         }
 
-        public int GetRandomUnusedPort()
-        {
-            var listener = new TcpListener(ProxyIp, 0);
-            listener.Start();
-            var port = ((IPEndPoint)listener.LocalEndpoint).Port;
-            listener.Stop();
-            return port;
-        }
+        public int GetRandomUnusedPort() => SocketHelper.GetRandomUnusedPort(ProxyIp);
 
         public bool PortInUse(int port)
         {
-            bool inUse = false;
-
-            var ipProperties = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties();
-            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
-
-            foreach (IPEndPoint endPoint in ipEndPoints)
+            try
             {
-                if (endPoint.Port == port)
+                return IPGlobalProperties.GetIPGlobalProperties()
+                    .GetActiveTcpListeners()
+                    .Any(x => x.Port == port);
+            }
+            catch
+            {
+                try
                 {
-                    inUse = true;
-                    break;
+                    var listener = new TcpListener(IPAddress.Loopback, port);
+                    listener.Start();
+                    listener.Stop();
+                    return false;
+                }
+                catch
+                {
+                    return true;
                 }
             }
-
-            return inUse;
         }
 
         public bool StartProxy()

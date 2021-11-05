@@ -5,10 +5,11 @@ using System.Linq;
 using System.Application.UI.ViewModels;
 using System.Application.Services;
 using AvaloniaApplication = Avalonia.Application;
+using System.Application.Mvvm;
 
 namespace System.Application.UI
 {
-    public interface IAvaloniaApplication : IApplication
+    public interface IAvaloniaApplication : IApplication, IDisposableHolder
     {
         static new IAvaloniaApplication Instance => DI.Get<IAvaloniaApplication>();
 

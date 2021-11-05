@@ -66,13 +66,10 @@ namespace System.Application.UI.ViewModels
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
                 {
                     CurrentSelectChannel = channel_;
-                    await this.StartLRBAsync(channel);
+                    await ThirdPartyLoginHelper.StartAsync(this, channel, isBind: true);
                 }
             });
-            OnManualLoginClick = ReactiveCommand.CreateFromTask(async () =>
-            {
-                await this.ManualLoginAsync();
-            });
+            OnManualLoginClick = ThirdPartyLoginHelper.ManualLogin;
             OnUnbundleFastLoginClick = ReactiveCommand.CreateFromTask<string>(async channel_ =>
             {
                 if (Enum.TryParse<FastLoginChannel>(channel_, out var channel))
