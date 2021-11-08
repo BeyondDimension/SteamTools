@@ -117,9 +117,9 @@
         <PackageVersion Include="TextCopy" Version="4.3.1" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
         <PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.60" />
+        <PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
         <PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.0" />
         <PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.0" />
-        <PackageVersion Include="AspNet.Security.OpenId.Steam" Version="5.0.0" />
         <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.11" />
         <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.11" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0" />
