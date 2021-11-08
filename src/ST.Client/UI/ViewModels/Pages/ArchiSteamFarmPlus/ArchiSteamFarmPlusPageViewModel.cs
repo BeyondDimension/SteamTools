@@ -1,4 +1,5 @@
 using ArchiSteamFarm;
+using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.Steam;
 using DynamicData;
@@ -8,9 +9,11 @@ using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.FilePicker2;
 
@@ -108,10 +111,33 @@ namespace System.Application.UI.ViewModels
             Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
         }
 
-        public async void RedeemKeyBot(Bot bot)
+        public async Task<Dictionary<string, string>?> GetUsedAndUnusedKeys(Bot bot)
         {
-            //var result = await bot.Actions.RedeemKey("");
+            var result = await bot.GetUsedAndUnusedKeys();
+            return result.UsedKeys;
+        }
 
+        public void RedeemKeyBot(Bot bot, IOrderedDictionary keys)
+        {
+            var validGamesToRedeemInBackground = Bot.ValidateGamesToRedeemInBackground(keys);
+
+            if (validGamesToRedeemInBackground.Count == 0)
+            {
+                Toast.Show(string.Format(CultureInfo.CurrentCulture, Strings.ErrorIsEmpty, nameof(validGamesToRedeemInBackground)));
+                return;
+            }
+
+            bot.AddGamesToRedeemInBackground(validGamesToRedeemInBackground);
+
+            Toast.Show("已将" + validGamesToRedeemInBackground.Count + "个Key添加到激活队列");
+            //var result = await bot.Actions.RedeemKey(keys);
+            //if (result != null)
+            //{
+            //    if (result.Result == SteamKit2.EResult.OK)
+            //    {
+
+            //    }
+            //}
         }
 
         public void GoToBotSettings(Bot bot)

@@ -16,6 +16,9 @@ namespace System.Application.Converters
         {
             if (value is Bot bot && bot != null)
             {
+                if (!bot.KeepRunning &&
+                    bot.RequiredInput != ArchiSteamFarm.Core.ASF.EUserInputType.None)
+                    return "请输入 " + bot.RequiredInput.ToString();
                 if (!bot.KeepRunning)
                     return "未启用";
                 if (!bot.IsConnectedAndLoggedOn)
