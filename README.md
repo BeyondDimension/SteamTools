@@ -155,7 +155,10 @@ OS                            | Version                 | Architectures     |
 查看这个 [milestones](https://github.com/SteamTools-Team/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
 
 ## ⌨️ 开发环境
-[Visual Studio 2022 版本 17.0 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/preview/) 或 ~~[Visual Studio 2019 版本 16.11 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/)~~ 或 [JetBrains Rider](https://www.jetbrains.com/rider/) 或 ~~[Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/)~~ 或 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
+[Visual Studio 2022 版本 17.0 或更高版本](https://visualstudio.microsoft.com/zh-hans/vs/)   
+[JetBrains Rider](https://www.jetbrains.com/rider/)  
+~~[Visual Studio for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/)~~  
+~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - 系统要求
 	- [Windows 10 版本 2004 或更高版本：家庭版、专业版、教育版和企业版（不支持 LTSC 和 Windows 10 S，在较早的操作系统上可能不受支持）](https://docs.microsoft.com/zh-cn/visualstudio/releases/2019/system-requirements)
 	- [macOS 10.14 Mojave 或更高版本](https://docs.microsoft.com/zh-cn/visualstudio/productinfo/vs2019-system-requirements-mac)
