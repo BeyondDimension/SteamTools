@@ -39,19 +39,6 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
-                var isUnderConstruction = e.Current.Id switch
-                {
-                    PreferenceButton.UserProfile or
-                    PreferenceButton.BindPhoneNumber or
-                    PreferenceButton.ChangePhoneNumber => true,
-                    _ => false,
-                };
-                if (isUnderConstruction)
-                {
-                    MainApplication.ShowUnderConstructionTips();
-                    return;
-                }
-
                 var activityType = e.Current.Id switch
                 {
                     PreferenceButton.UserProfile => typeof(UserProfileActivity),
@@ -73,11 +60,6 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
-#if !DEBUG
-                MainApplication.ShowUnderConstructionTips();
-                return true;
-#endif
-
                 this.StartActivity<LoginOrRegisterActivity>();
                 return true;
             }
