@@ -30,7 +30,7 @@
         <PackageVersion Include="Polly" Version="7.2.2" />
         <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
         <PackageVersion Include="NUnit" Version="3.13.2" />
-        <PackageVersion Include="NUnit3TestAdapter" Version="4.0.0" />
+        <PackageVersion Include="NUnit3TestAdapter" Version="4.1.0" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
         <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-rc.2.21480.5" />
         <PackageVersion Include="nunit.xamarin" Version="3.6.1" />
