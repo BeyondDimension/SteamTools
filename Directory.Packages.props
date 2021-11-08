@@ -16,23 +16,23 @@
         <PackageVersion Include="nor0x.AppCenter.Analytics" Version="4.4.0-XMAC" />
         <PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />
         <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
-        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0-rc.2.21480.5" />
-        <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0-rc.2.21480.5" />
-        <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0-rc.2.21480.5" />
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
         <PackageVersion Include="Nito.Comparers" Version="6.2.2" />
         <PackageVersion Include="Xamarin.Essentials" Version="1.7.0" />
         <PackageVersion Include="Crc32.NET" Version="1.2.0" />
         <PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
         <PackageVersion Include="MessagePack" Version="2.3.85" />
         <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageVersion Include="System.Text.Json" Version="6.0.0-rc.2.21480.5" />
-        <PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0-rc.2.21480.5" />
+        <PackageVersion Include="System.Text.Json" Version="6.0.0" />
+        <PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0" />
         <PackageVersion Include="Polly" Version="7.2.2" />
         <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
         <PackageVersion Include="NUnit" Version="3.13.2" />
         <PackageVersion Include="NUnit3TestAdapter" Version="4.1.0" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-        <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0-rc.2.21480.5" />
+        <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
         <PackageVersion Include="nunit.xamarin" Version="3.6.1" />
         <PackageVersion Include="PCLStorage" Version="1.0.2" />
         <PackageVersion Include="Xamarin.Forms" Version="5.0.0.2196" />
@@ -58,8 +58,8 @@
         <PackageVersion Include="StatefulModel.Standard" Version="0.1.0" />
         <PackageVersion Include="Titanium.Web.Proxy" Version="3.1.1397" />
         <PackageVersion Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
-        <PackageVersion Include="System.Drawing.Common" Version="6.0.0-rc.2.21480.5" />
-        <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0-rc.2.21480.5" />
+        <PackageVersion Include="System.Drawing.Common" Version="6.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
 
         <!--Avalonia Start-->
         <PackageVersion Include="Avalonia" Version="0.10.10" />
@@ -130,7 +130,7 @@
         <!--<PackageVersion Include="Nito.Disposables" Version="2.2.1" />-->
         <PackageVersion Include="System.Diagnostics.Tracing" Version="4.3.0" />
         <PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
-        <PackageVersion Include="JustArchiNET.Madness" Version="1.4.0" />
+        <PackageVersion Include="JustArchiNET.Madness" Version="1.5.0" />
         <PackageVersion Include="Xam.Plugins.Forms.ImageCircle" Version="3.1.1.1-beta" />
     </ItemGroup>
     <ItemGroup Condition=" $(DefineConstants.Contains('_HAVE_XF_')) ">
