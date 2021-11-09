@@ -1,5 +1,5 @@
 ### 新增内容
-1. CLR 更新至 6.0 RC2
+1. CLR 更新至 6.0 RTM
 2. 新增 ASF Plus 本地挂卡
 3. 新增 本地令牌搜索框
 4. 新增 库存游戏右键菜单导航到 Steam 客户端
@@ -13,7 +13,13 @@
 12. 改进 Android 导入令牌成功后回到列表页
 13. 改进 账号注销现需要通过手机号或昵称验证
 14. 新增 搜索框支持拼音搜索
-15. 改进 令牌账号导入与提示
+15. 改进 令牌账号导入与提示 UI
+16. 新增 Windows 上将动态壁纸设置为程序背景
+17. 改进 支持 Steam 头像框显示与等级和游戏中信息
+18. 改进 文本框窗口弹出时将自动设置焦点
+19. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
+20. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+21. 改进 主题切换时响应速度
 
 ### 修复问题
 1. 修复 本地令牌中确认交易时 Http 302 重定向错误
