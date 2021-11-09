@@ -29,7 +29,7 @@
     <PackageReference Include="NLog.Extensions.Logging" />
     <PackageReference Include="NotifyIcon.Base" />
     <PackageReference Include="SharpZipLib" />
-    <PackageReference Include="Squid-Box.SevenZipSharp" />
+    <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
     <!--<PackageReference Include="Titanium.Web.Proxy" />-->
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
     <!--<PackageReference Include="Nito.Disposables" />-->
