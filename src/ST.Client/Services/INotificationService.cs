@@ -56,5 +56,19 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         static Task<Guid?> GetLastNotificationRecordId() => IStorage.Instance.GetAsync<Guid?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
+
+        /// <summary>
+        /// NotifyIcon / TrayIcon 右下角托盘菜单助手类
+        /// </summary>
+        public abstract class NotifyIconHelper
+        {
+            protected NotifyIconHelper() => throw new NotSupportedException();
+
+            /// <summary>
+            /// 托盘初始化是否完成
+            /// <para>注意：在 Windows 上托盘初始化之前调用气泡消息会导致托盘不显示</para>
+            /// </summary>
+            public static bool IsInitialized { get; protected set; }
+        }
     }
 }

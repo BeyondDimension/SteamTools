@@ -30,11 +30,11 @@ using Avalonia.Controls;
 
 namespace System.Application.UI
 {
-    /// <summary>
-    /// NotifyIcon / TrayIcon 右下角托盘菜单助手类
-    /// </summary>
-    static class NotifyIconHelper
+    /// <inheritdoc cref="INotificationService.NotifyIconHelper"/>
+    sealed class NotifyIconHelper : INotificationService.NotifyIconHelper
     {
+        private NotifyIconHelper() => throw new NotSupportedException();
+
 #if !TRAY_INDEPENDENT_PROGRAM
         static Stream GetIcon(IAssetLoader assets)
         {
@@ -58,6 +58,7 @@ namespace System.Application.UI
 
         public static NotifyIcon? Init(App app, EventHandler notifyIconClick)
         {
+            if (IsInitialized) return null;
             NotifyIcon? notifyIcon = null;
             IDisposable? menuItemDisposable = null;
             var icon = GetIconByCurrentAvaloniaLocator();
@@ -125,6 +126,7 @@ namespace System.Application.UI
                 }
             }
             if (menuItemDisposable != null) menuItemDisposable.AddTo(app);
+            IsInitialized = true;
             return notifyIcon;
         }
 

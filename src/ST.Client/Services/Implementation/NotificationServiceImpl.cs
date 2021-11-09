@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Properties;
 using System.Windows;
+using static System.Application.Services.INotificationService;
 
 namespace System.Application.Services.Implementation
 {
@@ -20,7 +21,7 @@ namespace System.Application.Services.Implementation
 
         void INotificationService<NotificationType, Entrance, INotificationService>.Cancel(NotificationType notificationType)
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
             {
                 notifyIcon.HideBalloonTip();
             }
@@ -28,7 +29,7 @@ namespace System.Application.Services.Implementation
 
         void INotificationService<NotificationType, Entrance, INotificationService>.CancelAll()
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
             {
                 notifyIcon.HideBalloonTip();
             }
@@ -36,7 +37,7 @@ namespace System.Application.Services.Implementation
 
         void INotificationService<NotificationType, Entrance, INotificationService>.Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance)
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
             {
                 title ??= ThisAssembly.AssemblyTrademark;
                 // 调用托盘显示通知
