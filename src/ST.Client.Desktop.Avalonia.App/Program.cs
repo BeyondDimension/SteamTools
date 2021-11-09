@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Versioning;
 
-#if WINDOWS_DESKTOP_BRIDGE
+#if MAC
+[assembly: SupportedOSPlatform("macOS")]
+#elif LINUX
+[assembly: SupportedOSPlatform("Linux")]
+#elif WINDOWS_DESKTOP_BRIDGE
+[assembly: SupportedOSPlatform("Windows")]
+#elif WINDOWS
 [assembly: SupportedOSPlatform("Windows10.0.17763.0")]
 #endif
 

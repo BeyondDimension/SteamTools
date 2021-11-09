@@ -40,7 +40,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Windows")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<bool>? IsAutoAFKApps => _IsAutoAFKApps ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<bool> IsAutoAFKApps => _IsAutoAFKApps ?? throw new PlatformNotSupportedException();
 
         // [SupportedOSPlatform("Windows")]
         // [SupportedOSPlatform("macOS")]

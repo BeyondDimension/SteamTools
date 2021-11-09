@@ -29,30 +29,28 @@ namespace System.Application.UI
 
             var useGpu = !IApplication.DisableGPU && GeneralSettings.UseGPURendering.Value;
 
-            if (OperatingSystem2.IsMacOS)
+#if MAC
+            builder.With(new AvaloniaNativePlatformOptions
             {
-                builder.With(new AvaloniaNativePlatformOptions
-                {
-                    UseGpu = useGpu
-                });
-            }
-            else if (OperatingSystem2.IsWindows)
+                UseGpu = useGpu
+            });
+#elif LINUX
+            builder.With(new X11PlatformOptions
             {
-                var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;
-                var options = new Win32PlatformOptions
-                {
-                    UseWgl = useWgl,
-                    AllowEglInitialization = useGpu,
-                };
-                builder.With(options);
-            }
-            else if (OperatingSystem2.IsLinux)
+                UseGpu = useGpu
+            });
+#elif WINDOWS
+            var useWgl = IApplication.UseWgl || GeneralSettings.UseWgl.Value;
+            var options = new Win32PlatformOptions
             {
-                builder.With(new X11PlatformOptions
-                {
-                    UseGpu = useGpu
-                });
-            }
+                UseWgl = useWgl,
+                AllowEglInitialization = useGpu,
+            };
+            builder.With(options);
+#else
+            throw new PlatformNotSupportedException();
+#endif
+
             RenderingSubsystemName = builder.RenderingSubsystemName;
             return builder;
         }

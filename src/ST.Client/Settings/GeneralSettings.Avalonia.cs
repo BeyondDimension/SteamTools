@@ -33,7 +33,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Windows")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<bool>? IsStartupAppMinimized => _IsStartupAppMinimized ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<bool> IsStartupAppMinimized => _IsStartupAppMinimized ?? throw new PlatformNotSupportedException();
 
         readonly static SerializableProperty<bool>? _IsSteamAppListLocalCache
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
@@ -43,7 +43,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Windows")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<bool>? IsSteamAppListLocalCache => _IsSteamAppListLocalCache ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<bool> IsSteamAppListLocalCache => _IsSteamAppListLocalCache ?? throw new PlatformNotSupportedException();
 
         readonly static SerializableProperty<IReadOnlyDictionary<Platform, string>>? _TextReaderProvider = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: (IReadOnlyDictionary<Platform, string>?)null, autoSave: true) : null;
         /// <summary>
@@ -70,14 +70,14 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Windows")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<bool>? UseGPURendering => _UseGPURendering ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<bool> UseGPURendering => _UseGPURendering ?? throw new PlatformNotSupportedException();
 
         readonly static SerializableProperty<bool>? _UseWgl = OperatingSystem2.IsWindows ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// (仅 Windows)Avalonia would try to use native Widows OpenGL when set to true. The default value is false.
         /// </summary>
         [SupportedOSPlatform("Windows")]
-        public static SerializableProperty<bool>? UseWgl => _UseWgl ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<bool> UseWgl => _UseWgl ?? throw new PlatformNotSupportedException();
 
 
         ///// <summary>
