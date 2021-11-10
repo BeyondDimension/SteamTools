@@ -1562,7 +1562,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>Загрузите файл с устройства. Изображение должно быть квадратным, по крайней мере 184px x 184px</value>
+    <value>Загрузите файл с устройства. Изображение должно быть квадратным, по крайней мере 400px x 400px</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">

@@ -1567,7 +1567,7 @@ Sicuro di voler continuare?</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>Carica un file dal tuo dispositivo. L&apos;immagine deve essere quadrata e almeno 184px x 184px</value>
+    <value>Carica un file dal tuo dispositivo. L&apos;immagine deve essere quadrata e almeno 400px x 400px</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">

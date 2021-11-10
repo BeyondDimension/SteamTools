@@ -1562,7 +1562,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>기기에서 파일을 업로드합니다. 그림은 정사각형이어야 하며 최소 184px x 184px여야 합니다</value>
+    <value>기기에서 파일을 업로드합니다. 그림은 정사각형이어야 하며 최소 400px x 400px여야 합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">

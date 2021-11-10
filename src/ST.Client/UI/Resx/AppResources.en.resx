@@ -1566,7 +1566,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>Upload a picture from your device. The picture should be square in shape and at least 184px*184px</value>
+    <value>Upload a picture from your device. The picture should be square in shape and at least 400px*400px</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">

@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_end"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
-        tools:text="从您的设备上传一个文件。图片应为方形，至少为 184px x 184px\n该功能正在开发中，敬请期待"
+        tools:text="从您的设备上传一个文件。图片应为方形，至少为 400px x 400px\n该功能正在开发中，敬请期待"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
     <com.google.android.material.button.MaterialButton

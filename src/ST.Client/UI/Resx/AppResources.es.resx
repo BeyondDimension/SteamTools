@@ -1567,7 +1567,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>Suba un archivo de su dispositivo.La imagen debe ser cuadrada, al menos 184px X 184px</value>
+    <value>Suba un archivo de su dispositivo.La imagen debe ser cuadrada, al menos 400px X 400px</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">

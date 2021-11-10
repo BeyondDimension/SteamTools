@@ -1562,7 +1562,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>從您的裝置上傳一個檔。 圖片應為方形，至少為 184px x 184px</value>
+    <value>從您的裝置上傳一個檔。 圖片應為方形，至少為 400px x 400px</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">

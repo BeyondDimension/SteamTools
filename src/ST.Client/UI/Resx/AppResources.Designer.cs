@@ -4498,7 +4498,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 从您的设备上传一个文件。图片应为方形，至少为 184px x 184px 的本地化字符串。
+        ///   查找类似 从您的设备上传一个文件。图片应为方形，至少为 400px x 400px 的本地化字符串。
         /// </summary>
         public static string UploadYourAvatarDesc {
             get {
