@@ -1,10 +1,7 @@
-using Android.Runtime;
 using Android.Views;
 using Binding;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Properties;
-using System.Windows;
 
 namespace System.Application.UI.Fragments
 {
@@ -15,6 +12,20 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
+
+            R.Subscribe(() =>
+            {
+                if (binding == null) return;
+                binding.btnUploadYourAvatar.Text = AppResources.UploadYourAvatar;
+                binding.tvUploadYourAvatarDesc.Text = $"{AppResources.UploadYourAvatarDesc}{Environment.NewLine}{AppResources.UnderConstruction}";
+                binding.layoutNickName.Hint = AppResources.NickName;
+                binding.layoutPhoneNumber.Hint = AppResources.User_Phone;
+                binding.btnModifyPhoneNumber.Text = AppResources.Modify;
+                binding.layoutArea2.Hint = AppResources.UserProfile_Location;
+                binding.layoutGender.Hint = AppResources.Gender;
+                binding.layoutBirthDate.Hint = AppResources.UserProfile_BirthDate;
+                binding.btnSubmit.Text = AppResources.SaveChanges;
+            }).AddTo(this);
         }
     }
 }
