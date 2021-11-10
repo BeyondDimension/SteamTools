@@ -128,7 +128,7 @@ namespace System.Application.UI.ViewModels
 
             bot.AddGamesToRedeemInBackground(validGamesToRedeemInBackground);
 
-            Toast.Show("已将" + validGamesToRedeemInBackground.Count + "个Key添加到激活队列");
+            Toast.Show(string.Format(AppResources.ASF_RedeemKeyBotSuccessTip, validGamesToRedeemInBackground.Count));
             //var result = await bot.Actions.RedeemKey(keys);
             //if (result != null)
             //{
@@ -184,7 +184,7 @@ namespace System.Application.UI.ViewModels
 
             if (url?.Contains(IPCUrl) == true && !ASFService.Current.IsASFRuning)
             {
-                Toast.Show("请先运行ASF功能");
+                Toast.Show(AppResources.ASF_RequirRunASF);
                 return;
             }
 

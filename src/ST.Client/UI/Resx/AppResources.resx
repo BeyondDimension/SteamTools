@@ -257,6 +257,51 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
     <value>{0}未使用</value>
   </data>
+  <data name="ASF_Start" xml:space="preserve">
+    <value>启动ASF</value>
+  </data>
+  <data name="ASF_Stop" xml:space="preserve">
+    <value>停止ASF</value>
+  </data>
+  <data name="ASF_AddBot" xml:space="preserve">
+    <value>新增Bot</value>
+  </data>
+  <data name="ASF_RefreshBot" xml:space="preserve">
+    <value>刷新Bot</value>
+  </data>
+  <data name="ASF_OpenWebUIConsole" xml:space="preserve">
+    <value>打开 WebUI 控制台</value>
+  </data>
+  <data name="ASF_Console" xml:space="preserve">
+    <value>ASF 控制台</value>
+  </data>
+  <data name="ASF_BotManage" xml:space="preserve">
+    <value>Bot 配置</value>
+  </data>
+  <data name="ASF_GlobalConfig" xml:space="preserve">
+    <value>ASF 配置</value>
+  </data>
+  <data name="ASF_VersionNum" xml:space="preserve">
+    <value>当前 ArchiSteamFarm 版本 :  </value>
+  </data>
+  <data name="ASF_AutoRunASF" xml:space="preserve">
+    <value>程序启动时自动运行ASF</value>
+  </data>
+  <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
+    <value>跳转到 WebUI 全局设置</value>
+  </data>
+  <data name="ASF_ImportBotFile" xml:space="preserve">
+    <value>导入已有的 ASF Bot 文件</value>
+  </data>
+  <data name="ASF_RequirRunASF" xml:space="preserve">
+    <value>请先运行ASF功能</value>
+  </data>
+  <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
+    <value>已将{0}个Key添加到激活队列，队列中的Key会自动排队激活。</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>选择文件</value>
+  </data>
   <data name="Bind" xml:space="preserve">
     <value>绑定</value>
   </data>

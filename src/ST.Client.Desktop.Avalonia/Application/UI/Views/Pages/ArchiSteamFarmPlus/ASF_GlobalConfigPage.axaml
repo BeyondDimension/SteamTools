@@ -20,20 +20,20 @@
     <StackPanel Classes="Settings">
       <Border Classes="Item">
         <WrapPanel VerticalAlignment="Center">
-          <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_VersionNum,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
           <TextBlock Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=CurrentVersion,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
         </WrapPanel>
       </Border>
       <Border Classes="Item">
         <DockPanel>
-          <TextBlock Text="程序启动时自动运行ASF"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_AutoRunASF,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
         </DockPanel>
       </Border>
 
       <Border Classes="Item">
         <DockPanel>
-          <TextBlock Text="跳转到 WebUI 全局设置"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_OpenWebUIGlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
 
           <Button Classes="plain"
                   Command="{ReflectionBinding OpenBrowser}"
@@ -48,8 +48,8 @@
 
       <Border Classes="Item">
         <DockPanel>
-          <TextBlock Text="导入已有的 ASF Bot 文件"/>
-          <Button Content="选择文件"
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ImportBotFile,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <Button Content="{ReflectionBinding Path=Res.SelectFile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                   Command="{Binding SelectBotFiles}"/>
         </DockPanel>
       </Border>

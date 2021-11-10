@@ -414,6 +414,78 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 新增Bot 的本地化字符串。
+        /// </summary>
+        public static string ASF_AddBot {
+            get {
+                return ResourceManager.GetString("ASF_AddBot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 程序启动时自动运行ASF 的本地化字符串。
+        /// </summary>
+        public static string ASF_AutoRunASF {
+            get {
+                return ResourceManager.GetString("ASF_AutoRunASF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Bot 配置 的本地化字符串。
+        /// </summary>
+        public static string ASF_BotManage {
+            get {
+                return ResourceManager.GetString("ASF_BotManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASF 控制台 的本地化字符串。
+        /// </summary>
+        public static string ASF_Console {
+            get {
+                return ResourceManager.GetString("ASF_Console", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASF 配置 的本地化字符串。
+        /// </summary>
+        public static string ASF_GlobalConfig {
+            get {
+                return ResourceManager.GetString("ASF_GlobalConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导入已有的 ASF Bot 文件 的本地化字符串。
+        /// </summary>
+        public static string ASF_ImportBotFile {
+            get {
+                return ResourceManager.GetString("ASF_ImportBotFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 WebUI 控制台 的本地化字符串。
+        /// </summary>
+        public static string ASF_OpenWebUIConsole {
+            get {
+                return ResourceManager.GetString("ASF_OpenWebUIConsole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 跳转到 WebUI 全局设置 的本地化字符串。
+        /// </summary>
+        public static string ASF_OpenWebUIGlobalConfig {
+            get {
+                return ResourceManager.GetString("ASF_OpenWebUIGlobalConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 批量激活Key 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKey {
@@ -471,11 +543,65 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已将{0}个Key添加到激活队列，队列中的Key会自动排队激活。 的本地化字符串。
+        /// </summary>
+        public static string ASF_RedeemKeyBotSuccessTip {
+            get {
+                return ResourceManager.GetString("ASF_RedeemKeyBotSuccessTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷新Bot 的本地化字符串。
+        /// </summary>
+        public static string ASF_RefreshBot {
+            get {
+                return ResourceManager.GetString("ASF_RefreshBot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先运行ASF功能 的本地化字符串。
+        /// </summary>
+        public static string ASF_RequirRunASF {
+            get {
+                return ResourceManager.GetString("ASF_RequirRunASF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ASF已经运行 的本地化字符串。
         /// </summary>
         public static string ASF_RuningTip {
             get {
                 return ResourceManager.GetString("ASF_RuningTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动ASF 的本地化字符串。
+        /// </summary>
+        public static string ASF_Start {
+            get {
+                return ResourceManager.GetString("ASF_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止ASF 的本地化字符串。
+        /// </summary>
+        public static string ASF_Stop {
+            get {
+                return ResourceManager.GetString("ASF_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前 ArchiSteamFarm 版本 :   的本地化字符串。
+        /// </summary>
+        public static string ASF_VersionNum {
+            get {
+                return ResourceManager.GetString("ASF_VersionNum", resourceCulture);
             }
         }
         
@@ -3547,6 +3673,15 @@ namespace System.Application.UI.Resx {
         public static string SelectAllText_ {
             get {
                 return ResourceManager.GetString("SelectAllText_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择文件 的本地化字符串。
+        /// </summary>
+        public static string SelectFile {
+            get {
+                return ResourceManager.GetString("SelectFile", resourceCulture);
             }
         }
         

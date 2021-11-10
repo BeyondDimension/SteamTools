@@ -31,8 +31,8 @@
           <ui:CommandBarButton
                                Command="{ReflectionBinding RunOrStopASF}"
                                IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
-                               ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                               Label="启动ASF">
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Start,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_Start,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource PlayCircleDrawing}"/>
             </ui:CommandBarButton.Icon>
@@ -40,8 +40,8 @@
           <ui:CommandBarButton
                                Command="{ReflectionBinding RunOrStopASF}"
                                IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
-                               ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                               Label="停止ASF">
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Stop,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_Stop,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource PauseCircleDrawing}"/>
             </ui:CommandBarButton.Icon>
@@ -51,18 +51,17 @@
           <ui:CommandBarButton
                                Command="{ReflectionBinding OpenBrowser}"
                                CommandParameter="WebAddBot"
-                               ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                               Label="新增Bot">
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_AddBot,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_AddBot,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource AddDrawing}"/>
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
 
           <ui:CommandBarButton
-            
                                Command="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=RefreshBots,Mode=OneWay}"
-                               ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                               Label="刷新Bot">
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_RefreshBot,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_RefreshBot,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
             </ui:CommandBarButton.Icon>
@@ -70,8 +69,8 @@
 
           <ui:CommandBarButton
                      Command="{ReflectionBinding OpenBrowser}"
-                     ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                     Label="打开 WebUI 控制台">
+                     ToolTip.Tip="{ReflectionBinding Path=Res.ASF_OpenWebUIConsole,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     Label="{ReflectionBinding Path=Res.ASF_OpenWebUIConsole,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
             </ui:CommandBarButton.Icon>
@@ -108,19 +107,18 @@
         <!--<TabItem Header="ASF 运行状态">
 
         </TabItem>-->
-
-        <TabItem Header="ASF 控制台">
+        <TabItem Header="{ReflectionBinding Path=Res.ASF_Console,Mode=OneWay,Source={x:Static resx:R.Current}}">
           <controls:ConsoleShell x:Name="ConsoleLog"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                  IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
           </controls:ConsoleShell>
         </TabItem>
 
-        <TabItem Header="Bot 配置">
+        <TabItem Header="{ReflectionBinding Path=Res.ASF_BotManage,Mode=OneWay,Source={x:Static resx:R.Current}}">
           <pages:ASF_BotPage/>
         </TabItem>
 
-        <TabItem Header="ASF 配置">
+        <TabItem Header="{ReflectionBinding Path=Res.ASF_GlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}">
           <pages:ASF_GlobalConfigPage/>
         </TabItem>
       </TabControl>
