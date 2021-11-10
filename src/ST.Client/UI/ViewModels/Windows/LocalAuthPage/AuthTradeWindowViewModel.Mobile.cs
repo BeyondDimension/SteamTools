@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
+using System;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Text;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels

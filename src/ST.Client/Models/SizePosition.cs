@@ -1,7 +1,7 @@
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ReactiveUI;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 

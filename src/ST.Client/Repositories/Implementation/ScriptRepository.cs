@@ -1,10 +1,10 @@
+using AutoMapper;
 using System;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 
 namespace System.Application.Repositories.Implementation
 {

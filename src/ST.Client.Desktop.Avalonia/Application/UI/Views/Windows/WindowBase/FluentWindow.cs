@@ -5,11 +5,12 @@ using Avalonia.Styling;
 using FluentAvalonia.Styling;
 using ReactiveUI;
 using System;
-using System.Application.Settings;
 using System.Application.Services;
-using System.Application.UI.ViewModels;
 using System.Application.Services.Implementation;
+using System.Application.Settings;
+using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
+using System.ComponentModel;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
@@ -34,7 +35,7 @@ namespace Avalonia.Controls
 
                 if (OperatingSystem2.IsWindows10AtLeast)
                 {
-                    if (this.PlatformImpl is AvaloniaWin32WindowingPlatformImpl.WindowImpl2 cwi)
+                    if (PlatformImpl is AvaloniaWin32WindowingPlatformImpl.WindowImpl2 cwi)
                     {
 #pragma warning disable CA1416 // 验证平台兼容性
                         cwi.SetOwner(this);
@@ -77,7 +78,8 @@ namespace Avalonia.Controls
             if (isSaveStatus)
             {
                 Opened += FluentWindow_Opened;
-                PositionChanged += FluentWindow_PositionChanged;
+                Closing += FluentWindow_Closing;
+                //PositionChanged += FluentWindow_PositionChanged;
             }
 
             if (OperatingSystem2.IsWindows)
@@ -114,16 +116,27 @@ namespace Avalonia.Controls
             }
         }
 
-        private void FluentWindow_PositionChanged(object? sender, PixelPointEventArgs e)
+        private void FluentWindow_Closing(object? sender, CancelEventArgs e)
         {
-            if (IsHideWindow)
+            if (IsHideWindow || e.Cancel)
                 return;
             if (DataContext is WindowViewModel vm)
             {
-                vm.SizePosition.X = e.Point.X;
-                vm.SizePosition.Y = e.Point.Y;
+                vm.SizePosition.X = Position.X;
+                vm.SizePosition.Y = Position.Y;
             }
         }
+
+        //private void FluentWindow_PositionChanged(object? sender, PixelPointEventArgs e)
+        //{
+        //    if (IsHideWindow)
+        //        return;
+        //    if (DataContext is WindowViewModel vm)
+        //    {
+        //        vm.SizePosition.X = e.Point.X;
+        //        vm.SizePosition.Y = e.Point.Y;
+        //    }
+        //}
 
         protected virtual void FluentWindow_Opened(object? sender, EventArgs e)
         {

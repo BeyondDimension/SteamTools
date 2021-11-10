@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
-using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
+using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
+using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
 {

@@ -5,12 +5,12 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using SkiaSharp;
 using System.Application.Models;
+using System.Application.Services;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
-using System.Application.Services;
 using System.Threading.Tasks;
 
 namespace System.Application.Converters

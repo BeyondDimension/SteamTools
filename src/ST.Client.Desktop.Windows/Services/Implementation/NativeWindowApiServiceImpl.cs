@@ -80,7 +80,7 @@ namespace System.Application.Services.Implementation
             {
                 int p1 = User32Window.GetWindowLongA(window.Handle, (int)WindowLongFlags.GWL_STYLE);
                 p1 &= ~13500416;
-                User32Window.SetWindowLong(window.Handle, (int)WindowLongFlags.GWL_STYLE, (int)p1);
+                User32Window.SetWindowLong(window.Handle, (int)WindowLongFlags.GWL_STYLE, p1);
             }
         }
 
@@ -99,7 +99,7 @@ namespace System.Application.Services.Implementation
             {
                 User32Window.ShowWindow(window.Handle, (short)User32Window.Cmd_SHOWWINDOWS.SW_RESTORE);
                 int p1 = User32Window.GetWindowLongA(window.Handle, (int)WindowLongFlags.GWL_STYLE);
-                User32Window.SetWindowLong(window.Handle, (int)WindowLongFlags.GWL_STYLE, (int)p1);
+                User32Window.SetWindowLong(window.Handle, (int)WindowLongFlags.GWL_STYLE, p1);
             }
         }
 

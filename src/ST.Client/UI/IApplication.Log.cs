@@ -4,14 +4,14 @@ using Microsoft.Extensions.Options;
 using NLog.Config;
 using NLog.Extensions.Logging;
 using NLog.Targets;
+using System.Application.Services;
 using System.IO;
 using System.Properties;
-using System.Application.Services;
+using ASFNLogManager = ArchiSteamFarm.LogManager;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using NInternalLogger = NLog.Common.InternalLogger;
 using NLogLevel = NLog.LogLevel;
 using NLogManager = NLog.LogManager;
-using ASFNLogManager = ArchiSteamFarm.LogManager;
 
 namespace System.Application.UI
 {

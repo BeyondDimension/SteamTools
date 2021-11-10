@@ -14,7 +14,7 @@ namespace System.Application.Settings
 {
     partial class ProxySettings
     {
-        readonly static SerializableProperty<bool>? _IsProxyGOG
+        static readonly SerializableProperty<bool>? _IsProxyGOG
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 启用GOG插件代理
@@ -24,7 +24,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsProxyGOG => _IsProxyGOG ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _EnableWindowsProxy
+        static readonly SerializableProperty<bool>? _EnableWindowsProxy
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 启用系统代理模式
@@ -34,7 +34,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> EnableWindowsProxy => _EnableWindowsProxy ?? throw new PlatformNotSupportedException();
 
-        readonly static SerializableProperty<bool>? _IsOnlyWorkSteamBrowser
+        static readonly SerializableProperty<bool>? _IsOnlyWorkSteamBrowser
              = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 是否只针对Steam内置浏览器启用脚本

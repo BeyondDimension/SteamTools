@@ -32,7 +32,7 @@ namespace System.Logging
         }
 
         [DllImport("/System/Library/Frameworks/Foundation.framework/Foundation")]
-        extern static void NSLog(IntPtr format, [MarshalAs(UnmanagedType.LPWStr)] string s);
+        static extern void NSLog(IntPtr format, [MarshalAs(UnmanagedType.LPWStr)] string s);
 
         static void NSLog(string format, params object[]? args)
         {

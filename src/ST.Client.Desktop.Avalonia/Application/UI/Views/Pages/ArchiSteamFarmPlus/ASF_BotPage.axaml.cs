@@ -4,21 +4,21 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Controls;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text.RegularExpressions;
 using System.Linq;
-using System.Application.UI.Resx;
+using System.Text.RegularExpressions;
 
 namespace System.Application.UI.Views.Pages
 {
     public partial class ASF_BotPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
-        private ContentDialog keyDialog;
-        private TextBox keyText;
-        private DataGrid UsedKeysDataGrid;
-        private DataGrid UnusedKeysDataGrid;
+        private readonly ContentDialog keyDialog;
+        private readonly TextBox keyText;
+        private readonly DataGrid UsedKeysDataGrid;
+        private readonly DataGrid UnusedKeysDataGrid;
 
         public ASF_BotPage()
         {

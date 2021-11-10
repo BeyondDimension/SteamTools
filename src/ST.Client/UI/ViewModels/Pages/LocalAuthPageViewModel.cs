@@ -162,7 +162,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsRefreshing, value);
         }
 
-        public async override void Activation()
+        public override async void Activation()
         {
             var auths = await AuthService.Current.Repository.GetAllSourceAsync();
             SourceAuthCount = auths.Length;

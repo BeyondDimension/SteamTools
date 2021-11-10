@@ -9,23 +9,17 @@ using Xamarin.Essentials;
 using Moq;
 #endif
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using System.Application.Models;
 using System.Application.Services;
-using System.Application.Services.CloudService;
 using System.Application.Services.Implementation;
 using System.Application.UI;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Linq;
 using static System.Application.Browser2;
-using System.Properties;
 using System.IO;
 using static System.Application.AppClientAttribute;
 using System.Net;
-using System.Diagnostics;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Settings;
@@ -259,10 +253,10 @@ namespace System.Application
                 services.TryAddCloudServiceClient<CloudServiceClient>(c =>
                 {
 #if NETCOREAPP3_0_OR_GREATER
-                        c.DefaultRequestVersion = HttpVersion.Version20;
+                    c.DefaultRequestVersion = HttpVersion.Version20;
 #endif
 #if NET5_0_OR_GREATER
-                        c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
 #endif
                 }, configureHandler:
 #if NETCOREAPP2_1_OR_GREATER
@@ -303,7 +297,7 @@ namespace System.Application
             void AddNotificationService()
             {
 #if !__MOBILE__
-                    if (!Program.IsMainProcess) return;
+                if (!Program.IsMainProcess) return;
 #endif
                 services.TryAddNotificationService();
             }

@@ -12,7 +12,7 @@ namespace System.Application
     /// </summary>
     public static class DnsAnalysis
     {
-        private static LookupClient lookupClient = new();
+        private static readonly LookupClient lookupClient = new();
 
         public static int PingHostname(string url)
         {
@@ -43,12 +43,12 @@ namespace System.Application
             return new List<ARecord>();
         }
 
-        public async static Task<IPAddress> AnalysisDomainIp(string url)
+        public static async Task<IPAddress> AnalysisDomainIp(string url)
         {
             return await AnalysisDomainIpByCustomDns(url);
         }
 
-        public async static Task<IPAddress> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
+        public static async Task<IPAddress> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
         {
             if (!string.IsNullOrEmpty(url))
             {
@@ -71,27 +71,27 @@ namespace System.Application
             return IPAddress.Any;
         }
 
-        public async static Task<IPAddress> AnalysisDomainIpByGoogleDns(string url)
+        public static async Task<IPAddress> AnalysisDomainIpByGoogleDns(string url)
         {
             return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address });
         }
 
-        public async static Task<IPAddress> AnalysisDomainIpByCloudflare(string url)
+        public static async Task<IPAddress> AnalysisDomainIpByCloudflare(string url)
         {
             return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address });
         }
 
-        public async static Task<IPAddress> AnalysisDomainIpByDnspod(string url)
+        public static async Task<IPAddress> AnalysisDomainIpByDnspod(string url)
         {
             return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse("119.29.29.29"), IPAddress.Parse("182.254.116.116") });
         }
 
-        public async static Task<IPAddress> AnalysisDomainIpByAliDns(string url)
+        public static async Task<IPAddress> AnalysisDomainIpByAliDns(string url)
         {
             return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse("223.5.5.5"), IPAddress.Parse("223.6.6.6") });
         }
 
-        public async static Task<string?> GetHostByIPAddress(IPAddress ip)
+        public static async Task<string?> GetHostByIPAddress(IPAddress ip)
         {
             //var hostName = Dns.GetHostEntry(IPAddress2.Parse(ip)).HostName;
             var client = lookupClient;

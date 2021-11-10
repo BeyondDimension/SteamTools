@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
-using System.Properties;
 using System.Application.Services;
 using System.Application.UI;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Properties;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Application.Settings
 {

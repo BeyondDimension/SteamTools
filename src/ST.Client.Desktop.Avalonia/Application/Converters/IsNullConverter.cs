@@ -1,5 +1,5 @@
-using System.Globalization;
 using Avalonia.Data.Converters;
+using System.Globalization;
 
 namespace System.Application.Converters
 {
@@ -28,7 +28,7 @@ namespace System.Application.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType == typeof(string)) 
+            if (targetType == typeof(string))
             {
                 return value.ToString();
             }

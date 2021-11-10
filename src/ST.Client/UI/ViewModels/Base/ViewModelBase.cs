@@ -1,6 +1,6 @@
 using ReactiveUI;
-using System.Runtime.Serialization;
 using System.Reactive.Disposables;
+using System.Runtime.Serialization;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels

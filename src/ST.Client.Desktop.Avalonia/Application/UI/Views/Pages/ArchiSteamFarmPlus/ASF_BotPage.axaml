@@ -275,6 +275,30 @@
                               CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource ShutdownDrawing}" />
                       </Button>
+
+                      <Separator Height="{ReflectionBinding $parent.Height}" Classes="Separator"/>
+
+                      <RelativePanel>
+                        <ui:SymbolIcon Symbol="Games"
+                                       FontSize="24"/>
+                        <TextBlock Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
+                                   VerticalAlignment="Center"/>
+                      </RelativePanel>
+
+                      <DockPanel>
+                        <ui:SymbolIcon Symbol="Clock"
+                                       FontSize="24"/>
+                        <TextBlock Text="{Binding CardsFarmer.TimeRemaining}"
+                                   VerticalAlignment="Center"/>
+                      </DockPanel>
+
+                      <DockPanel>
+                        <ui:SymbolIcon Symbol="Page"
+                                       FontSize="24"/>
+                        <TextBlock Text="{Binding CardsFarmer.CardsRemaining}"
+                                   VerticalAlignment="Center"/>
+                      </DockPanel>
+
                     </StackPanel>
                   </StackPanel>
 

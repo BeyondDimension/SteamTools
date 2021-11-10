@@ -1,7 +1,7 @@
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System;
 using PointDouble = System.Windows.Point;
 using PointInt32 = System.Drawing.Point;
 

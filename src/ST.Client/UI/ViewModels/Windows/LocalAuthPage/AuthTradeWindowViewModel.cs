@@ -1,20 +1,20 @@
+using DynamicData;
 using ReactiveUI;
 using System;
 using System.Application.Models;
-using System.Application.UI.Resx;
-using System.Collections.Generic;
-using System.Text;
 using System.Application.Repositories;
 using System.Application.Services;
+using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Properties;
 using System.Reactive.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WinAuth;
-using DynamicData;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels

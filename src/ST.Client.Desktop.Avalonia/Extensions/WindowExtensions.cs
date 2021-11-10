@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using System.Application.Services;
 using System.Application;
+using System.Application.Services;
 using System.Application.UI;
 using System.Runtime.InteropServices;
 using Window = Avalonia.Controls.Window;

@@ -1,7 +1,7 @@
 extern alias JumpLists;
 using JumpLists::System.Windows.Shell;
-using AvaloniaApplication = Avalonia.Application;
 using System.Linq;
+using AvaloniaApplication = Avalonia.Application;
 
 namespace System.Application.Services.Implementation
 {

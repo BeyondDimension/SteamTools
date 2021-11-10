@@ -3,8 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using System;
-using System.Application.Settings;
 using System.Application.Services;
+using System.Application.Settings;
 
 namespace System.Application.UI.Views.Controls
 {
@@ -29,13 +29,13 @@ namespace System.Application.UI.Views.Controls
                         {
                             if (window == null)
                             {
-                                this.LayoutUpdated += EmptyControl_LayoutUpdated;
-                                this.AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
-                                this.DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
+                                LayoutUpdated += EmptyControl_LayoutUpdated;
+                                AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
+                                DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
                                 window = new Window
                                 {
-                                    Width = this.Bounds.Width,
-                                    Height = this.Bounds.Height,
+                                    Width = Bounds.Width,
+                                    Height = Bounds.Height,
                                     Background = null,
                                     WindowStartupLocation = WindowStartupLocation.Manual,
                                     WindowState = WindowState.Normal,
@@ -64,9 +64,9 @@ namespace System.Application.UI.Views.Controls
                             {
                                 if (Parent != null && VisualRoot != null)
                                     EmptyControl_DetachedFromVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
-                                this.LayoutUpdated -= EmptyControl_LayoutUpdated;
-                                this.AttachedToVisualTree -= EmptyControl_AttachedToVisualTree;
-                                this.DetachedFromVisualTree -= EmptyControl_DetachedFromVisualTree;
+                                LayoutUpdated -= EmptyControl_LayoutUpdated;
+                                AttachedToVisualTree -= EmptyControl_AttachedToVisualTree;
+                                DetachedFromVisualTree -= EmptyControl_DetachedFromVisualTree;
                                 window = null;
                             }
                         }
@@ -127,14 +127,14 @@ namespace System.Application.UI.Views.Controls
 
         private void Parent_PositionChanged(object? sender, PixelPointEventArgs e)
         {
-            window.Position = this.PointToScreen(this.Bounds.Position);
+            window.Position = this.PointToScreen(Bounds.Position);
         }
 
         private void EmptyControl_LayoutUpdated(object? sender, System.EventArgs e)
         {
-            window.Position = this.PointToScreen(this.Bounds.Position);
-            window.Width = this.Bounds.Width;
-            window.Height = this.Bounds.Height;
+            window.Position = this.PointToScreen(Bounds.Position);
+            window.Width = Bounds.Width;
+            window.Height = Bounds.Height;
             windowApiService.BackgroundUpdate(_DwmHandle, (int)window.Width, (int)window.Height);
             //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
         }

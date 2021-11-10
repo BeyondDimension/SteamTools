@@ -189,8 +189,8 @@ internal static class UnmanagedMethods
     /// </summary>
     public enum CustomWindowsMessage : uint
     {
-        WM_TRAYICON = (uint)WindowsMessage.WM_APP + 1024,
-        WM_TRAYMOUSE = (uint)WindowsMessage.WM_USER + 1024
+        WM_TRAYICON = WindowsMessage.WM_APP + 1024,
+        WM_TRAYMOUSE = WindowsMessage.WM_USER + 1024
     }
 
     public enum SysCommands : int

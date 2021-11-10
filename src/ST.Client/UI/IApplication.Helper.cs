@@ -1,7 +1,7 @@
-using System.Properties;
-using System.IO;
-using System.Diagnostics;
 using System.Application.Services;
+using System.Diagnostics;
+using System.IO;
+using System.Properties;
 
 namespace System.Application.UI
 {

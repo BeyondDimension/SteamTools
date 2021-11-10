@@ -1,9 +1,9 @@
 using ReactiveUI;
+using System.Application.Mvvm;
+using System.Application.Services;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reactive.Disposables;
-using System.Application.Mvvm;
-using System.Collections.Generic;
-using System.Application.Services;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels

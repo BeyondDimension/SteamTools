@@ -1,5 +1,5 @@
-using Avalonia.Controls;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Rendering;
@@ -38,7 +38,7 @@ namespace System.Application.UI.Views.Controls
         {
             base.OnAttachedToVisualTree(e);
 
-            _owner = this.VisualRoot as ICoreWindow;
+            _owner = VisualRoot as ICoreWindow;
 
             if (_owner != null)
             {

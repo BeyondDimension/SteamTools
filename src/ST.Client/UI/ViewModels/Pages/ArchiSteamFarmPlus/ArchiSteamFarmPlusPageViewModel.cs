@@ -62,15 +62,15 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsRedeemKeyDialogOpen, value);
         }
 
-        public void RunOrStopASF()
+        public async void RunOrStopASF()
         {
             if (!ASFService.Current.IsASFRuning)
             {
-                ASFService.Current.InitASF();
+                await ASFService.Current.InitASF();
             }
             else
             {
-                ASFService.Current.StopASF();
+                await ASFService.Current.StopASF();
             }
         }
 

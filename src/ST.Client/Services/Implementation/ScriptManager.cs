@@ -3,16 +3,16 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Application.Entities;
 using System.Application.Models;
+using System.Application.Properties;
 using System.Application.Repositories;
+using System.Application.UI.Resx;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Security.Cryptography;
-using System.Linq;
-using System.Application.Properties;
-using System.Application.UI.Resx;
 
 namespace System.Application.Services.Implementation
 {

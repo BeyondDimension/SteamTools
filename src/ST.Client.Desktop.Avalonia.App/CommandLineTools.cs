@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.Invocation;

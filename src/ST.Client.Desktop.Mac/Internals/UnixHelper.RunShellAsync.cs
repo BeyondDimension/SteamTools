@@ -1,11 +1,11 @@
 using System;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Application.Services;
 
 static partial class UnixHelper
 {

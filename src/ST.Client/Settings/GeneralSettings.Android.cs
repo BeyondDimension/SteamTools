@@ -11,7 +11,7 @@ namespace System.Application.Settings
 {
     partial class GeneralSettings
     {
-        readonly static SerializableProperty<bool>? _CaptureScreen = OperatingSystem2.IsAndroid ? GetProperty(defaultValue: false, autoSave: true) : null;
+        static readonly SerializableProperty<bool>? _CaptureScreen = OperatingSystem2.IsAndroid ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>
         /// 屏幕捕获(允许截图)
         /// </summary>

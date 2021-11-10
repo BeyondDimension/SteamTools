@@ -1,10 +1,10 @@
 using ReactiveUI;
 using System;
+using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using System.Application.Services;
-using System.Application.UI.Resx;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels

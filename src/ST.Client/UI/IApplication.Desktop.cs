@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Application.Models;
-using System.Reactive.Disposables;
-using System.Windows.Input;
 using System.Application.Mvvm;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
+using System.Text;
+using System.Windows.Input;
 
 namespace System.Application.UI
 {

@@ -37,10 +37,10 @@ namespace System.Application.Services.Implementation
                     WS_MINIMIZEBOX = 0x20000;
 
         [DllImport("user32.dll")]
-        public extern static int GetWindowLong(IntPtr hwnd, int index);
+        public static extern int GetWindowLong(IntPtr hwnd, int index);
 
         [DllImport("user32.dll")]
-        public extern static int SetWindowLong(IntPtr hwnd, int index, int value);
+        public static extern int SetWindowLong(IntPtr hwnd, int index, int value);
 
         public const int WS_SYSMENU = 0x80000;
 

@@ -1,12 +1,12 @@
+using DynamicData;
 using System;
 using System.Application.Models;
+using System.Application.Services;
 using System.Application.UI;
 using System.Application.UI.ViewModels;
-using System.Application.Services;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
-using DynamicData;
 
 namespace System.Application.Settings
 {

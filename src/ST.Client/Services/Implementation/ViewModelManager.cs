@@ -1,9 +1,9 @@
 using ReactiveUI;
 using System.Application.Mvvm;
-using System.Reactive.Disposables;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,15 +38,26 @@ namespace System.Application.Services.Implementation
                     mainWindow = new MainWindowViewModel();
                     mMainWindow = mainWindow;
                 }
-                if (OperatingSystem2.IsWindows)
-                {
-                    taskbarWindow = new TaskBarWindowViewModel(mainWindow);
-                }
             }
             catch (Exception ex)
             {
                 Log.Error(nameof(ViewModelManager), ex, "Init WindowViewModel");
                 throw;
+            }
+            finally
+            {
+                try
+                {
+                    if (OperatingSystem2.IsWindows && StartupOptions.Value.HasNotifyIcon)
+                    {
+                        taskbarWindow = new TaskBarWindowViewModel(mainWindow);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(ViewModelManager), ex, "Init TaskBarWindowViewModel");
+                    throw;
+                }
             }
         }
 

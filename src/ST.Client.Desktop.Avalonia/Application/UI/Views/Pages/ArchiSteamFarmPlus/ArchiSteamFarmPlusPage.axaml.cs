@@ -1,12 +1,12 @@
 using Avalonia.Controls;
-using Avalonia.ReactiveUI;
 using Avalonia.Markup.Xaml;
-using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Properties;
+using Avalonia.ReactiveUI;
 using System.Application.Services;
-using System.IO;
+using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
+using System.Collections.Generic;
+using System.IO;
+using System.Properties;
 
 namespace System.Application.UI.Views.Pages
 {
@@ -28,7 +28,7 @@ namespace System.Application.UI.Views.Pages
         {
             if (e.Command != null)
             {
-               asfService.CommandSubmit(e.Command);
+                asfService.CommandSubmit(e.Command);
             }
         }
 

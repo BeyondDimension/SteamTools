@@ -8,16 +8,16 @@ using XEPlatform = Xamarin.Essentials.Platform;
 using Process = System.Diagnostics.Process;
 using AndroidApplication = Android.App.Application;
 #endif
-using Xamarin.Essentials;
-using System.Properties;
-using System.Text;
-using System.Linq;
-using System.Diagnostics;
-using System.Application.Services;
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
+using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Properties;
+using System.Reflection;
+using System.Text;
+using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI

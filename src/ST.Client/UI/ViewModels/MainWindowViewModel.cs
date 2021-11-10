@@ -1,5 +1,6 @@
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
@@ -154,7 +155,14 @@ namespace System.Application.UI.ViewModels
                 Threading.Thread.CurrentThread.IsBackground = true;
                 if (!IsInitialized)
                 {
-                    ProxyService.Current.Initialize();
+                    Task.Run(async () =>
+                    {
+                        await ProxyService.Current.Initialize();
+                        if (ASFSettings.AutoRunArchiSteamFarm.Value)
+                        {
+                            await ASFService.Current.InitASF();
+                        }
+                    });
                     SteamConnectService.Current.Initialize();
 
                     Parallel.ForEach(TabItems, item =>

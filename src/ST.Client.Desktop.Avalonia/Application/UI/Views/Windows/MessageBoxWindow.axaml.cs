@@ -35,8 +35,8 @@ namespace System.Application.UI.Views.Windows
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);
-            this.Topmost = true;
-            this.Topmost = false;
+            Topmost = true;
+            Topmost = false;
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

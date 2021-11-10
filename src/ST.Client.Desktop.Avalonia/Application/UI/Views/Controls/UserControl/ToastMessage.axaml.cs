@@ -15,7 +15,7 @@ namespace System.Application.UI.Views.Controls
             {
                 if (value == true)
                 {
-                    var window = this.VisualRoot as Window;
+                    var window = VisualRoot as Window;
                     if (window.IsActiveWindow())
                     {
                         return;

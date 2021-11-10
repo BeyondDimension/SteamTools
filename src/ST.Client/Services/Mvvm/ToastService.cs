@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using ReactiveUI;
-using System.Reactive.Subjects;
-using System.Reactive.Linq;
-using System.Application.UI;
+using System;
 using System.Application.Services.Implementation;
+using System.Application.UI;
+using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using System.Text;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services

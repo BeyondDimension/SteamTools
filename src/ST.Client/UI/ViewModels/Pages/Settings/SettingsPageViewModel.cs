@@ -1,7 +1,7 @@
 using DynamicData.Binding;
 using ReactiveUI;
-using System.Application.Settings;
 using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;

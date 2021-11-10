@@ -1,8 +1,8 @@
 using Avalonia;
 using Avalonia.Animation;
+using Avalonia.Animation.Animators;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Animation.Animators;
 using Avalonia.Threading;
 using ReactiveUI;
 
@@ -36,7 +36,7 @@ namespace System.Application.UI.Views.Controls
             if (Clock is null) Clock = new Clock();
             Clock.Subscribe(Tick);
 
-            this.TextWrapping = TextWrapping.NoWrap;
+            TextWrapping = TextWrapping.NoWrap;
         }
 
         private void OnTextChanged(string obj)
@@ -84,7 +84,7 @@ namespace System.Application.UI.Views.Controls
 
         private double _textWidth;
         private double _textHeight;
-        private double[] _offsets = new double[3];
+        private readonly double[] _offsets = new double[3];
 
         private void Tick(TimeSpan curFrameTime)
         {
@@ -95,7 +95,7 @@ namespace System.Application.UI.Views.Controls
             {
                 _waitCounter += frameDelta;
 
-                if (_waitCounter >= this.Delay)
+                if (_waitCounter >= Delay)
                 {
                     _waitCounter = TimeSpan.Zero;
                     _waiting = false;
@@ -104,9 +104,9 @@ namespace System.Application.UI.Views.Controls
             }
             else if (_animate)
             {
-                _offset += this.MarqueeSpeed;
+                _offset += MarqueeSpeed;
 
-                if (_offset >= ((_textWidth + this.TextGap) * 2))
+                if (_offset >= ((_textWidth + TextGap) * 2))
                 {
                     _offset = 0;
                     _waiting = true;
@@ -132,7 +132,7 @@ namespace System.Application.UI.Views.Controls
                 _textWidth = TextLayout.Size.Width;
                 _textHeight = TextLayout.Size.Height;
 
-                var constraints = this.Bounds.Deflate(Padding);
+                var constraints = Bounds.Deflate(Padding);
                 var constraintsWidth = constraints.Width;
 
                 //让文字不要在宽度合适的时候滚动
@@ -144,8 +144,8 @@ namespace System.Application.UI.Views.Controls
                     var tOffset = padding.Left - _offset;
 
                     _offsets[0] = tOffset;
-                    _offsets[1] = tOffset + _textWidth + this.TextGap;
-                    _offsets[2] = tOffset + (_textWidth + this.TextGap) * 2;
+                    _offsets[1] = tOffset + _textWidth + TextGap;
+                    _offsets[2] = tOffset + (_textWidth + TextGap) * 2;
 
                     foreach (var offset in _offsets)
                     {

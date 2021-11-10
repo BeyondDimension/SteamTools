@@ -1,6 +1,6 @@
-using System.Globalization;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
+using System.Globalization;
 
 namespace System.Application.Converters
 {

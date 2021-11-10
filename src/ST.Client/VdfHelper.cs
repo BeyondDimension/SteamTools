@@ -9,7 +9,7 @@ namespace System.Application
     /// Valve Data File 格式助手类
     /// </summary>
     public static class VdfHelper
-    { 
+    {
         /// <summary>
         /// 根据路径读取 Valve Data File 内容
         /// </summary>

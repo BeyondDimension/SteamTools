@@ -66,9 +66,9 @@ namespace System.Application.UI.Views.Controls
         /// </summary>
         public event EventHandler<CommandEventArgs>? CommandSubmit;
 
-        private TextBox commandTextbox;
-        private TextBox logTextbox;
-        private ScrollViewer consoleScroll;
+        private readonly TextBox commandTextbox;
+        private readonly TextBox logTextbox;
+        private readonly ScrollViewer consoleScroll;
 
         public ConsoleShell()
         {

@@ -1,18 +1,18 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ArchiSteamFarm;
 using ArchiSteamFarm.Core;
-using ArchiSteamFarm.Storage;
+using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.NLog.Targets;
 using ArchiSteamFarm.Steam;
-using System.IO;
-using ArchiSteamFarm;
-using Microsoft.Extensions.Configuration;
-using System.Net;
 using ArchiSteamFarm.Steam.Storage;
-using ArchiSteamFarm.Localization;
+using ArchiSteamFarm.Storage;
+using Microsoft.Extensions.Configuration;
 using ReactiveUI;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {

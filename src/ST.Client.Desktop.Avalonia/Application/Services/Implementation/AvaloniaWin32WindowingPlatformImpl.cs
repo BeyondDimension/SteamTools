@@ -1,5 +1,4 @@
 using Avalonia;
-using Avalonia.Win32;
 using Avalonia.Controls;
 using Avalonia.Controls.Platform;
 using Avalonia.Controls.Primitives;
@@ -7,11 +6,12 @@ using Avalonia.Platform;
 using Avalonia.ReactiveUI;
 using Avalonia.Rendering;
 using Avalonia.Styling;
+using Avalonia.Win32;
 using FluentAvalonia.Interop;
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using System.Reflection;
 
 namespace System.Application.Services.Implementation
 {

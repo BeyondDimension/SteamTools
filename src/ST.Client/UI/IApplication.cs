@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.Settings;
+using System.Collections.Generic;
+using System.Text;
 
 namespace System.Application.UI
 {

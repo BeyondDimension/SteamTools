@@ -1,25 +1,16 @@
 #if !TRAY_INDEPENDENT_PROGRAM
 using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform;
 using Avalonia.Shared.PlatformSupport;
-using Avalonia.Threading;
-using System.Application.Mvvm;
 using System.Application.Services;
 using System.Application.UI.Views.Windows;
-using AvaloniaApplication = Avalonia.Application;
 #else
 using System.Application.UI.Properties;
 #endif
 using ReactiveUI;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.IO.Pipes;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Resx;

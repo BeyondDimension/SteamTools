@@ -1,34 +1,32 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Media;
+using Avalonia.Platform;
+using FluentAvalonia.Styling;
+using System.Application.Models;
 using System.Application.Mvvm;
+using System.Application.Security;
+using System.Application.Services;
+using System.Application.Services.Implementation;
+using System.Application.Settings;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
+using System.Application.UI.Views.Windows;
 using System.Collections.Generic;
+using System.Linq;
+using System.Properties;
+using System.Reactive.Disposables;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using AvaloniaApplication = Avalonia.Application;
 using ShutdownMode = Avalonia.Controls.ShutdownMode;
 using Window = Avalonia.Controls.Window;
 using WindowState = Avalonia.Controls.WindowState;
-using Avalonia.Themes.Fluent;
-using Avalonia.Markup.Xaml.Styling;
-using System.Application.Services;
-using System.Windows.Input;
-using System.Linq;
-using System.Properties;
-using System.Application.Settings;
-using System.Application.UI.Resx;
-using System.Application.Models;
-using System.Runtime.InteropServices;
-using System.Application.UI.Views.Windows;
-using System.Application.Services.Implementation;
-using System.Threading.Tasks;
-using System.Application.Security;
-using Avalonia;
-using Avalonia.Platform;
-using FluentAvalonia.Styling;
-using Avalonia.Media;
-using System.Reactive.Disposables;
-using System.Application.UI.Views.Controls;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -198,12 +196,9 @@ namespace System.Application.UI
 #endif
             switch (vmService.MainWindow)
             {
-                case AchievementWindowViewModel window:
+                case AchievementWindowViewModel:
                     Program.IsMinimize = false;
-                    MainWindow = new AchievementWindow
-                    {
-                        DataContext = vmService.MainWindow,
-                    };
+                    MainWindow = new AchievementWindow();
                     break;
 
                 default:
@@ -217,12 +212,12 @@ namespace System.Application.UI
                         Program.IsMinimize = true;
 #endif
                     #endregion
-                    MainWindow = new MainWindow
-                    {
-                        DataContext = vmService.MainWindow,
-                    };
+                    MainWindow = new MainWindow();
                     break;
             }
+
+            MainWindow.DataContext = vmService.MainWindow;
+            vmService.MainWindow.Initialize();
 #if StartupTrace
             StartupTrace.Restart("Set MainWindow");
 #endif
@@ -244,7 +239,6 @@ namespace System.Application.UI
                 //#if MAC
                 //                AppDelegate.Init();
                 //#endif
-
                 if (Program.IsMainProcess)
                 {
                     if (StartupOptions.Value.HasNotifyIcon)
@@ -271,8 +265,6 @@ namespace System.Application.UI
 #pragma warning restore CA1416 // 验证平台兼容性
 #endif
                 }
-
-                IViewModelManager.Instance.MainWindow.Initialize();
 
                 desktop.MainWindow =
 #if !UI_DEMO

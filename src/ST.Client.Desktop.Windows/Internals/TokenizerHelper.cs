@@ -18,7 +18,7 @@ namespace MS.Internal
     {
         // Helper to get the numeric list separator for a given IFormatProvider.
         // Separator is a comma [,] if the decimal separator is not a comma, or a semicolon [;] otherwise.
-        static internal char GetNumericListSeparator(IFormatProvider provider)
+        internal static char GetNumericListSeparator(IFormatProvider provider)
         {
             char numericSeparator = ',';
 

@@ -1,7 +1,7 @@
 using ReactiveUI;
 using System.Application.Models;
-using System.Application.Settings;
 using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
 using System.Linq;

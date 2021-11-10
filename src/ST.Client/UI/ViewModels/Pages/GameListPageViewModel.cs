@@ -1,8 +1,9 @@
-using ReactiveUI;
 using DynamicData;
 using DynamicData.Binding;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Application.Settings;
 
 namespace System.Application.UI.ViewModels
 {

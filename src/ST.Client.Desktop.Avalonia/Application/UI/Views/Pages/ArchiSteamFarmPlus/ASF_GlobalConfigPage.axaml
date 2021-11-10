@@ -35,7 +35,7 @@
         <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.ASF_OpenWebUIGlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
 
-          <Button Classes="plain"
+          <Button Classes="right plain"
                   Command="{ReflectionBinding OpenBrowser}"
                   CommandParameter="WebConfig">
             <ui:SymbolIcon Symbol="Open"

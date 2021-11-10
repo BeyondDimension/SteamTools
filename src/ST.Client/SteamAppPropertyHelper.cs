@@ -55,7 +55,7 @@ namespace System.Application
             int red = reader.ReadByte();
             byte green = reader.ReadByte();
             byte blue = reader.ReadByte();
-            return Color.FromArgb(red, (int)green, (int)blue);
+            return Color.FromArgb(red, green, blue);
         }
 
         public static void Write(BinaryWriter writer, Color color)
