@@ -252,10 +252,10 @@ AAAAA-BBBBB-CCCC2
 AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
-    <value>{0}已使用</value>
+    <value>已使用</value>
   </data>
   <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
-    <value>{0}未使用</value>
+    <value>未使用</value>
   </data>
   <data name="ASF_Start" xml:space="preserve">
     <value>启动ASF</value>
@@ -298,6 +298,51 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
     <value>已将{0}个Key添加到激活队列，队列中的Key会自动排队激活。</value>
+  </data>
+  <data name="ASF_CardsRemaining" xml:space="preserve">
+    <value>剩余卡片</value>
+  </data>
+  <data name="ASF_TimeRemaining" xml:space="preserve">
+    <value>剩余时间</value>
+  </data>
+  <data name="ASF_GamesRemaining" xml:space="preserve">
+    <value>剩余游戏</value>
+  </data>
+  <data name="ASF_RunCardFarming" xml:space="preserve">
+    <value>开始挂卡</value>
+  </data>
+  <data name="ASF_StopCardFarming" xml:space="preserve">
+    <value>停止挂卡</value>
+  </data>
+  <data name="ASF_Enable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="ASF_Disable" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="ASF_Offline" xml:space="preserve">
+    <value>离线</value>
+  </data>
+  <data name="ASF_Online" xml:space="preserve">
+    <value>在线</value>
+  </data>
+  <data name="ASF_NowCardFarming" xml:space="preserve">
+    <value>正在挂卡</value>
+  </data>
+  <data name="ASF_RequiredInput" xml:space="preserve">
+    <value>需要输入</value>
+  </data>
+  <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
+    <value>令牌</value>
+  </data>
+  <data name="ASF_RequiredInput_Login" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="ASF_RequiredInput_Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
+    <value>家庭监护代码</value>
   </data>
   <data name="SelectFile" xml:space="preserve">
     <value>选择文件</value>

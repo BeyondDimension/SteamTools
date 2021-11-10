@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using FluentAvalonia.UI.Controls;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
@@ -67,7 +68,6 @@ namespace System.Application.UI.Views.Pages
             }
         }
 
-
         private static IOrderedDictionary ExtractKeysFromString(string source)
         {
             MatchCollection m = Regex.Matches(source, "([0-9A-Z]{5})(?:\\-[0-9A-Z]{5}){2,4}",
@@ -81,6 +81,12 @@ namespace System.Application.UI.Views.Pages
                 }
             }
             return dictKeys;
+        }
+
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            ASFService.Current.RefreshBots();
+            base.OnAttachedToVisualTree(e);
         }
     }
 }

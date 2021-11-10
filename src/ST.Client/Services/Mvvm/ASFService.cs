@@ -97,11 +97,12 @@ namespace System.Application.Services
 
         public void RefreshBots()
         {
-            SteamBotsSourceList.Clear();
-
             var bots = archiSteamFarmService.GetReadOnlyAllBots();
+            SteamBotsSourceList.Clear();
             if (bots.Any_Nullable())
+            {
                 SteamBotsSourceList.AddOrUpdate(bots!.Values);
+            }
         }
 
         public void RefreshConfig()

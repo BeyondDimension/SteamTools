@@ -172,10 +172,13 @@
                                 StrokeThickness="0"
                                 ToolTip.Tip="{Binding Converter={StaticResource BotStatusConverter}}">
                           <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="True">
-                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
+                            <ia:DataTriggerBehavior Binding="{Binding Converter={StaticResource BotStatusConverter}}" ComparisonCondition="Equal" Value="{ReflectionBinding Path=Res.ASF_Online,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#6AC3E7"/>
                             </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="False">
+                            <ia:DataTriggerBehavior Binding="{Binding Converter={StaticResource BotStatusConverter}}" ComparisonCondition="Equal" Value="{ReflectionBinding Path=Res.ASF_NowCardFarming,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#90BA3C"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding Converter={StaticResource BotStatusConverter}}" ComparisonCondition="NotEqual" Value="{ReflectionBinding Path=Res.ASF_Online,Mode=OneWay,Source={x:Static resx:R.Current}}">
                               <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
                             </ia:DataTriggerBehavior>
                           </i:Interaction.Behaviors>
@@ -232,21 +235,21 @@
                         </Style>
                       </StackPanel.Styles>
 
-                      <Button ToolTip.Tip="开始挂卡"
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_RunCardFarming,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               IsVisible="{Binding CardsFarmer.Paused}"
                               Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
                               CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource PlayCircleDrawing}" />
                       </Button>
 
-                      <Button ToolTip.Tip="暂停挂卡"
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_StopCardFarming,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               IsVisible="{Binding !CardsFarmer.Paused}"
                               Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
                               CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource PauseCircleDrawing}" />
                       </Button>
 
-                      <Button ToolTip.Tip="激活Key"
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_RedeemKey,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Tag="{Binding}"
                               Click="RedeemKeyBot_Click">
                         <PathIcon Data="{StaticResource KeyDrawing}" />
@@ -256,20 +259,20 @@
                       <PathIcon Data="{StaticResource ShieldLockDrawing}" />
                     </Button>-->
 
-                      <Button ToolTip.Tip="Bot配置"
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_BotManage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Command="{ReflectionBinding #u.DataContext.GoToBotSettings}"
                               CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource SettingsDrawing}" />
                       </Button>
 
-                      <Button ToolTip.Tip="启用"
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Enable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               IsVisible="{Binding !KeepRunning}"
                               Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
                               CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource ShutdownDrawing}" />
                       </Button>
 
-                      <Button ToolTip.Tip="禁用"
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Disable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               IsVisible="{Binding KeepRunning}"
                               Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
                               CommandParameter="{Binding}">
@@ -278,25 +281,40 @@
 
                       <Separator Height="{ReflectionBinding $parent.Height}" Classes="Separator"/>
 
-                      <RelativePanel>
+                      <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 VerticalAlignment="Center">
                         <ui:SymbolIcon Symbol="Games"
-                                       FontSize="24"/>
+                                       Margin="5 0"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"
+                                       FontSize="30"/>
                         <TextBlock Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
-                                   VerticalAlignment="Center"/>
-                      </RelativePanel>
-
-                      <DockPanel>
-                        <ui:SymbolIcon Symbol="Clock"
-                                       FontSize="24"/>
-                        <TextBlock Text="{Binding CardsFarmer.TimeRemaining}"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   DockPanel.Dock="Right"/>
                       </DockPanel>
 
-                      <DockPanel>
-                        <ui:SymbolIcon Symbol="Page"
+                      <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 VerticalAlignment="Center">
+                        <ui:SymbolIcon Symbol="Page2"
+                                       Margin="5 0"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"
                                        FontSize="24"/>
                         <TextBlock Text="{Binding CardsFarmer.CardsRemaining}"
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   DockPanel.Dock="Right"/>
+                      </DockPanel>
+
+                      <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 VerticalAlignment="Center">
+                        <ui:SymbolIcon Symbol="Clock"
+                                       Margin="5 0"
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"
+                                       FontSize="24"/>
+                        <TextBlock Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}"
+                                   VerticalAlignment="Center"
+                                   DockPanel.Dock="Right"/>
                       </DockPanel>
 
                     </StackPanel>

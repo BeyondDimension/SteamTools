@@ -441,11 +441,47 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 剩余卡片 的本地化字符串。
+        /// </summary>
+        public static string ASF_CardsRemaining {
+            get {
+                return ResourceManager.GetString("ASF_CardsRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ASF 控制台 的本地化字符串。
         /// </summary>
         public static string ASF_Console {
             get {
                 return ResourceManager.GetString("ASF_Console", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 禁用 的本地化字符串。
+        /// </summary>
+        public static string ASF_Disable {
+            get {
+                return ResourceManager.GetString("ASF_Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用 的本地化字符串。
+        /// </summary>
+        public static string ASF_Enable {
+            get {
+                return ResourceManager.GetString("ASF_Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 剩余游戏 的本地化字符串。
+        /// </summary>
+        public static string ASF_GamesRemaining {
+            get {
+                return ResourceManager.GetString("ASF_GamesRemaining", resourceCulture);
             }
         }
         
@@ -464,6 +500,33 @@ namespace System.Application.UI.Resx {
         public static string ASF_ImportBotFile {
             get {
                 return ResourceManager.GetString("ASF_ImportBotFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在挂卡 的本地化字符串。
+        /// </summary>
+        public static string ASF_NowCardFarming {
+            get {
+                return ResourceManager.GetString("ASF_NowCardFarming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 离线 的本地化字符串。
+        /// </summary>
+        public static string ASF_Offline {
+            get {
+                return ResourceManager.GetString("ASF_Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在线 的本地化字符串。
+        /// </summary>
+        public static string ASF_Online {
+            get {
+                return ResourceManager.GetString("ASF_Online", resourceCulture);
             }
         }
         
@@ -525,7 +588,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 {0}未使用 的本地化字符串。
+        ///   查找类似 未使用 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKey_UnusedKey {
             get {
@@ -534,7 +597,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 {0}已使用 的本地化字符串。
+        ///   查找类似 已使用 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKey_UsedKeys {
             get {
@@ -561,11 +624,65 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 需要输入 的本地化字符串。
+        /// </summary>
+        public static string ASF_RequiredInput {
+            get {
+                return ResourceManager.GetString("ASF_RequiredInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户名 的本地化字符串。
+        /// </summary>
+        public static string ASF_RequiredInput_Login {
+            get {
+                return ResourceManager.GetString("ASF_RequiredInput_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码 的本地化字符串。
+        /// </summary>
+        public static string ASF_RequiredInput_Password {
+            get {
+                return ResourceManager.GetString("ASF_RequiredInput_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 家庭监护代码 的本地化字符串。
+        /// </summary>
+        public static string ASF_RequiredInput_SteamParentalCode {
+            get {
+                return ResourceManager.GetString("ASF_RequiredInput_SteamParentalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 令牌 的本地化字符串。
+        /// </summary>
+        public static string ASF_RequiredInput_TwoFactorAuthentication {
+            get {
+                return ResourceManager.GetString("ASF_RequiredInput_TwoFactorAuthentication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请先运行ASF功能 的本地化字符串。
         /// </summary>
         public static string ASF_RequirRunASF {
             get {
                 return ResourceManager.GetString("ASF_RequirRunASF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开始挂卡 的本地化字符串。
+        /// </summary>
+        public static string ASF_RunCardFarming {
+            get {
+                return ResourceManager.GetString("ASF_RunCardFarming", resourceCulture);
             }
         }
         
@@ -593,6 +710,24 @@ namespace System.Application.UI.Resx {
         public static string ASF_Stop {
             get {
                 return ResourceManager.GetString("ASF_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止挂卡 的本地化字符串。
+        /// </summary>
+        public static string ASF_StopCardFarming {
+            get {
+                return ResourceManager.GetString("ASF_StopCardFarming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 剩余时间 的本地化字符串。
+        /// </summary>
+        public static string ASF_TimeRemaining {
+            get {
+                return ResourceManager.GetString("ASF_TimeRemaining", resourceCulture);
             }
         }
         

@@ -118,8 +118,6 @@ namespace Avalonia.Controls
 
         private void FluentWindow_Closing(object? sender, CancelEventArgs e)
         {
-            if (IsHideWindow || e.Cancel)
-                return;
             if (DataContext is WindowViewModel vm)
             {
                 vm.SizePosition.X = Position.X;
