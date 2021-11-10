@@ -28,13 +28,17 @@ namespace System.Application.UI.Resx
 
         public static CultureInfo DefaultCurrentUICulture { get; private set; }
 
+        public static bool IsChineseSimplified => IsMatch(Culture, zh_Hans);
+
+        const string zh_Hans = "zh-Hans";
+
         static R()
         {
             DefaultCurrentUICulture = CultureInfo.CurrentUICulture;
             var languagesDict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "", "Auto" },
-                { "zh-Hans", "Chinese (Simplified)" },
+                { zh_Hans, "Chinese (Simplified)" },
                 { "zh-Hant", "Chinese (Traditional)" },
                 { "en", "English" },
                 { "ko", "Korean" },
@@ -47,7 +51,7 @@ namespace System.Application.UI.Resx
             SteamLanguages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "zh-CN", "schinese" },
-                { "zh-Hans", "schinese" },
+                { zh_Hans, "schinese" },
                 { "zh-Hant", "tchinese" },
                 { "en","english"},
                 { "ko", "koreana" },

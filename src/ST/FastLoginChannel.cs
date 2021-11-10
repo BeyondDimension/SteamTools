@@ -1,3 +1,5 @@
+using System.Application;
+
 namespace System.Application
 {
     /// <summary>
@@ -51,5 +53,30 @@ namespace System.Application
 
 
         Xbox = Microsoft,
+    }
+}
+
+// ReSharper disable once CheckNamespace
+namespace System
+{
+    public static class FastLoginChannelEnumExtensions
+    {
+        /// <summary>
+        /// 当前快速登录渠道是否已支持
+        /// </summary>
+        /// <param name="fastLoginChannel"></param>
+        /// <returns></returns>
+        public static bool IsSupported(this FastLoginChannel fastLoginChannel)
+#if DEBUG
+            => true;
+#else
+            => fastLoginChannel switch
+            {
+                FastLoginChannel.Steam or
+                FastLoginChannel.Microsoft or
+                FastLoginChannel.QQ => true,
+                _ => false,
+            };
+#endif
     }
 }

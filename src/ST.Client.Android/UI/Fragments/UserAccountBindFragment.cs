@@ -1,4 +1,5 @@
 using Android.Views;
+using Android.Widget;
 using Binding;
 using ReactiveUI;
 using System.Application.Services;
@@ -13,43 +14,76 @@ namespace System.Application.UI.Fragments
     {
         protected override int? LayoutResource => Resource.Layout.fragment_account_binding;
 
-        static readonly Dictionary<int, FastLoginChannel> btnAccountBindDict = new()
-        {
-            { Resource.Id.btnAccountBindSteam, FastLoginChannel.Steam },
-            { Resource.Id.btnAccountBindMicrosoft, FastLoginChannel.Microsoft },
-            { Resource.Id.btnAccountBindApple, FastLoginChannel.Apple },
-            { Resource.Id.btnAccountBindQQ, FastLoginChannel.QQ },
-        };
-        static readonly Dictionary<int, FastLoginChannel> tbAccountBindDict = new()
-        {
-            { Resource.Id.tbAccountBindSteam, FastLoginChannel.Steam },
-            { Resource.Id.tbAccountBindMicrosoft, FastLoginChannel.Microsoft },
-            { Resource.Id.tbAccountBindApple, FastLoginChannel.Apple },
-            { Resource.Id.tbAccountBindQQ, FastLoginChannel.QQ },
-        };
+        Button[]? btnAccountBinds;
+        EditText[]? tbAccountBinds;
+        ImageView[]? ivIconAccountBinds;
 
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
 
-            var btnAccountBinds = new[] { binding!.btnAccountBindSteam, binding.btnAccountBindMicrosoft, binding.btnAccountBindApple, binding.btnAccountBindQQ, };
-            var tbAccountBinds = new[] { binding.tbAccountBindSteam, binding.tbAccountBindMicrosoft, binding.tbAccountBindApple, binding.tbAccountBindQQ, };
+            btnAccountBinds = new[] {
+                binding!.btnAccountBind0,
+                binding.btnAccountBind1,
+                binding.btnAccountBind2,
+                binding.btnAccountBind3,
+            };
+            tbAccountBinds = new[] {
+                binding.tbAccountBind0,
+                binding.tbAccountBind1,
+                binding.tbAccountBind2,
+                binding.tbAccountBind3,
+            };
+            ivIconAccountBinds = new[]
+            {
+                binding.ivIconAccountBind0,
+                binding.ivIconAccountBind1,
+                binding.ivIconAccountBind2,
+                binding.ivIconAccountBind3,
+            };
+
+            for (int i = 0; i < ivIconAccountBinds.Length; i++)
+            {
+                var iconResId = ThirdPartyLoginHelper.FastLoginChannels[i]
+                    .ToIcon().ToImageResource();
+                if (iconResId.HasValue)
+                {
+                    ivIconAccountBinds[i].SetImageResource(iconResId.Value);
+                }
+            }
 
             UserService.Current.WhenAnyValue(x => x.HasPhoneNumber).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                foreach (var item in btnAccountBinds)
+                for (int i = 0; i < btnAccountBinds.Length; i++)
                 {
-                    item.Enabled = value;
+                    var item = btnAccountBinds[i];
+                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                    if (cha.IsSupported())
+                    {
+                        if (item.Enabled != value)
+                        {
+                            item.Enabled = value;
+                        }
+                    }
+                    else if (item.Enabled)
+                    {
+                        item.Enabled = false;
+                    }
                 }
             }).AddTo(this);
 
             UserService.Current.WhenAnyValue(x => x.User).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                foreach (var item in tbAccountBinds)
+                for (int i = 0; i < tbAccountBinds.Length; i++)
                 {
-                    item.Text = GetIsBindOrUnbundleTbText(tbAccountBindDict[item.Id]) ?? string.Empty;
+                    var item = tbAccountBinds[i];
+                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                    if (cha.IsSupported())
+                    {
+                        item.Text = GetIsBindOrUnbundleTbText(cha) ?? string.Empty;
+                    }
                 }
             }).AddTo(this);
 
@@ -63,9 +97,18 @@ namespace System.Application.UI.Fragments
 
                 binding.tvAccountBindTip.Text = AppResources.User_AccountBindTip;
 
-                foreach (var item in btnAccountBinds)
+                for (int i = 0; i < btnAccountBinds.Length; i++)
                 {
-                    item.Text = GetIsBindOrUnbundleBtnText(btnAccountBindDict[item.Id]);
+                    var item = btnAccountBinds[i];
+                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                    if (cha.IsSupported())
+                    {
+                        item.Text = GetIsBindOrUnbundleBtnText(cha);
+                    }
+                    else
+                    {
+                        item.Text = AppResources.UnderConstruction;
+                    }
                 }
             }).AddTo(this);
 
@@ -74,10 +117,18 @@ namespace System.Application.UI.Fragments
 
         protected override bool OnClick(View view)
         {
-            if (btnAccountBindDict.ContainsKey(view.Id))
+            for (int i = 0; i < btnAccountBinds!.Length; i++)
             {
-                ViewModel!.OnBindOrUnbundleFastLoginClick(btnAccountBindDict[view.Id]);
-                return true;
+                var item = btnAccountBinds[i];
+                if (item.Id == view.Id)
+                {
+                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                    if (cha.IsSupported())
+                    {
+                        ViewModel!.OnBindOrUnbundleFastLoginClick(cha);
+                        return true;
+                    }
+                }
             }
             return base.OnClick(view);
         }

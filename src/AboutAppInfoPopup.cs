@@ -17,6 +17,7 @@ using System.Application.Services;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using System.Application.Services.Implementation;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI
@@ -135,6 +136,10 @@ namespace System.Application.UI
                 }
                 b.AppendLine();
 #endif
+
+                b.Append("[app.updcha] ");
+                b.Append(ApplicationUpdateServiceBaseImpl.UpdateChannelType);
+                b.AppendLine();
 
                 b.Append("[clr.ver] ");
                 string? clrVersion;

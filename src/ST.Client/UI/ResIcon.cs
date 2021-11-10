@@ -1,3 +1,6 @@
+using System.Application;
+using System.Application.UI;
+
 namespace System.Application.UI
 {
     /// <summary>
@@ -22,5 +25,22 @@ namespace System.Application.UI
         /// 根据当前平台使用平台对应的📱图标，目前支持材料设计中 Android Phone 与 iPhone
         /// </summary>
         PlatformPhone,
+    }
+}
+
+// ReSharper disable once CheckNamespace
+namespace System
+{
+    public static class ResIconEnumExtensions
+    {
+        public static ResIcon ToIcon(this FastLoginChannel fastLoginChannel)
+            => fastLoginChannel switch
+            {
+                FastLoginChannel.Steam => ResIcon.Steam,
+                FastLoginChannel.Microsoft => ResIcon.Xbox,
+                FastLoginChannel.QQ => ResIcon.QQ,
+                FastLoginChannel.Apple => ResIcon.Apple,
+                _ => throw new ArgumentOutOfRangeException(nameof(fastLoginChannel), fastLoginChannel, null),
+            };
     }
 }

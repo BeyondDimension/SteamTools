@@ -239,6 +239,14 @@ namespace System.Application.UI.ViewModels
 
             public string Msg { get; set; } = string.Empty;
         }
+
+        public static FastLoginChannel[] FastLoginChannels = new[] // 更改此数组可控制UI列表的顺序
+        {
+            FastLoginChannel.QQ,
+            FastLoginChannel.Steam,
+            FastLoginChannel.Microsoft,
+            FastLoginChannel.Apple,
+       };
     }
 
     partial class UserProfileWindowViewModel : IBindWindowViewModel

@@ -36,8 +36,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 services.AddSingleton<INativeWindowApiService, NativeWindowApiServiceImpl>();
                 services.AddSingleton<IJumpListService, JumpListServiceImpl>();
-                if (options.HasMainProcessRequired) services.AddNotifyIcon();
+                if (options.HasMainProcessRequired)
+                {
+                    services.AddNotifyIcon();
+                }
                 //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
+                services.AddSingleton<ISevenZipHelper, SevenZipHelper>();
             }
             else
             {

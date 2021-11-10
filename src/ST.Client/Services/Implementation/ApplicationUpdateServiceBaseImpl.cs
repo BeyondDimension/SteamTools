@@ -24,6 +24,7 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="IApplicationUpdateService"/>
     public abstract class ApplicationUpdateServiceBaseImpl : ReactiveObject, IApplicationUpdateService
     {
+        protected const string TAG = "AppUpdateS";
         protected readonly ICloudServiceClient client;
         protected readonly AppSettings settings;
         protected readonly IToast toast;
@@ -572,17 +573,28 @@ namespace System.Application.Services.Implementation
                     Directory.Delete(dirPath, true);
                 }
 
-                var isOK = await Task.Run(() => downloadType switch
+                var isOK = await Task.Run(() =>
                 {
-                    AppDownloadType.Compressed_GZip
-                        => TarGZipHelper.Unpack(value, dirPath,
-                            progress: new Progress<float>(OnReportDecompressing),
-                            maxProgress: CC.MaxProgress),
-                    AppDownloadType.Compressed_7z
-                        => SevenZipHelper.Unpack(value, dirPath,
-                            progress: new Progress<float>(OnReportDecompressing),
-                            maxProgress: CC.MaxProgress),
-                    _ => false,
+                    try
+                    {
+                        return downloadType switch
+                        {
+                            AppDownloadType.Compressed_GZip
+                                => TarGZipHelper.Unpack(value, dirPath,
+                                    progress: new Progress<float>(OnReportDecompressing),
+                                    maxProgress: CC.MaxProgress),
+                            AppDownloadType.Compressed_7z
+                                => ISevenZipHelper.Instance.Unpack(value, dirPath,
+                                    progress: new Progress<float>(OnReportDecompressing),
+                                    maxProgress: CC.MaxProgress),
+                            _ => false,
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(TAG, ex, "Compressed unpack catch.");
+                        return false;
+                    }
                 });
                 if (isOK)
                 {
@@ -655,18 +667,30 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        /// <summary>
+        /// 当前应用设置的更新渠道
+        /// </summary>
+        public static UpdateChannelType UpdateChannelType
+        {
+            get
+            {
+                var channel = GeneralSettings.UpdateChannel.Value;
+                switch (channel)
+                {
+                    case UpdateChannelType.GitHub:
+                    case UpdateChannelType.Gitee:
+                        break;
+                    default:
+                        channel = R.IsChineseSimplified ? UpdateChannelType.Gitee : UpdateChannelType.GitHub;
+                        break;
+                }
+                return channel;
+            }
+        }
+
         protected virtual AppVersionDTO.Download? GetByDownloadChannelSettings(IEnumerable<AppVersionDTO.Download> downloads)
         {
-            var channel = GeneralSettings.UpdateChannel.Value;
-            switch (channel)
-            {
-                case UpdateChannelType.GitHub:
-                case UpdateChannelType.Gitee:
-                    break;
-                default:
-                    channel = R.Language.StartsWith("zh") ? UpdateChannelType.Gitee : UpdateChannelType.GitHub;
-                    break;
-            }
+            var channel = UpdateChannelType;
             return downloads.FirstOrDefault(x => x.DownloadChannelType == channel)
                 ?? downloads.FirstOrDefault();
         }

@@ -55,12 +55,18 @@ namespace System.Application.UI.ViewModels
 
         IEnumerable<FastLoginChannelViewModel> GetFastLoginChannels()
         {
-            yield return FastLoginChannelViewModel.Create(nameof(FastLoginChannel.QQ), this);
-            yield return FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Steam), this);
-            yield return FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Xbox), this);
-#if DEBUG
-            yield return FastLoginChannelViewModel.Create(nameof(FastLoginChannel.Apple), this);
-#endif
+            foreach (var item in ThirdPartyLoginHelper.FastLoginChannels)
+            {
+                if (item.IsSupported())
+                {
+                    yield return FastLoginChannelViewModel.Create(item switch
+                    {
+                        FastLoginChannel.Microsoft => nameof(FastLoginChannel.Xbox),
+                        _ => item.ToString(),
+                    }, this);
+                }
+            }
+
             if (IsMobileLayout)
             {
                 yield return FastLoginChannelViewModel.Create(FastLoginChannelViewModel.PhoneNumber, this);
