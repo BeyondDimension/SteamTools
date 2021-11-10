@@ -231,13 +231,31 @@
     <value>和</value>
   </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
-    <value>ASF Plus</value>
+    <value>自动挂卡</value>
   </data>
-  <data name="ASF_ExeNoExists" xml:space="preserve">
-    <value>未检测到ASF路径，请手动指定目录或下载asf</value>
+  <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
+    <value>未检测到有效的Key格式，请确认输入了正确的Key</value>
   </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>ASF已经运行</value>
+  </data>
+  <data name="ASF_RedeemKey" xml:space="preserve">
+    <value>批量激活Key</value>
+  </data>
+  <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
+    <value>输入Key</value>
+  </data>
+  <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
+    <value>你可以键入任何文本只要其中包含SteamKey就会被自动识别添加到激活列表，也可以按以下格式输入：
+AAAAA-BBBBB-CCCC1
+AAAAA-BBBBB-CCCC2
+AAAAA-BBBBB-CCCC3</value>
+  </data>
+  <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
+    <value>{0}已使用</value>
+  </data>
+  <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
+    <value>{0}未使用</value>
   </data>
   <data name="Bind" xml:space="preserve">
     <value>绑定</value>

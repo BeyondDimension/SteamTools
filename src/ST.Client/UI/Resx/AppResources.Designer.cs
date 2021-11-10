@@ -405,7 +405,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 ASF Plus 的本地化字符串。
+        ///   查找类似 自动挂卡 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmPlus {
             get {
@@ -414,11 +414,59 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 未检测到ASF路径，请手动指定目录或下载asf 的本地化字符串。
+        ///   查找类似 批量激活Key 的本地化字符串。
         /// </summary>
-        public static string ASF_ExeNoExists {
+        public static string ASF_RedeemKey {
             get {
-                return ResourceManager.GetString("ASF_ExeNoExists", resourceCulture);
+                return ResourceManager.GetString("ASF_RedeemKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 输入Key 的本地化字符串。
+        /// </summary>
+        public static string ASF_RedeemKey_InputKey {
+            get {
+                return ResourceManager.GetString("ASF_RedeemKey_InputKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 你可以键入任何文本只要其中包含SteamKey就会被自动识别添加到激活列表，也可以按以下格式输入：
+        ///AAAAA-BBBBB-CCCC1
+        ///AAAAA-BBBBB-CCCC2
+        ///AAAAA-BBBBB-CCCC3 的本地化字符串。
+        /// </summary>
+        public static string ASF_RedeemKey_InputKey_Watermark {
+            get {
+                return ResourceManager.GetString("ASF_RedeemKey_InputKey_Watermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未检测到有效的Key格式，请确认输入了正确的Key 的本地化字符串。
+        /// </summary>
+        public static string ASF_RedeemKey_NoValidkey {
+            get {
+                return ResourceManager.GetString("ASF_RedeemKey_NoValidkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0}未使用 的本地化字符串。
+        /// </summary>
+        public static string ASF_RedeemKey_UnusedKey {
+            get {
+                return ResourceManager.GetString("ASF_RedeemKey_UnusedKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 {0}已使用 的本地化字符串。
+        /// </summary>
+        public static string ASF_RedeemKey_UsedKeys {
+            get {
+                return ResourceManager.GetString("ASF_RedeemKey_UsedKeys", resourceCulture);
             }
         }
         

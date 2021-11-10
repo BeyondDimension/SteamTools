@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Application.UI.Resx;
 
 namespace System.Application.UI.Views.Pages
 {
@@ -16,7 +17,8 @@ namespace System.Application.UI.Views.Pages
     {
         private ContentDialog keyDialog;
         private TextBox keyText;
-        private DataGrid keysDataGrid;
+        private DataGrid UsedKeysDataGrid;
+        private DataGrid UnusedKeysDataGrid;
 
         public ASF_BotPage()
         {
@@ -24,7 +26,8 @@ namespace System.Application.UI.Views.Pages
 
             keyDialog = this.FindControl<ContentDialog>("RedeemKeyDialog");
             keyText = this.FindControl<TextBox>("keyText");
-            keysDataGrid = this.FindControl<DataGrid>("keysDataGrid");
+            UsedKeysDataGrid = this.FindControl<DataGrid>("UsedKeysDataGrid");
+            UnusedKeysDataGrid = this.FindControl<DataGrid>("UnusedKeysDataGrid");
         }
 
         private void InitializeComponent()
@@ -38,17 +41,28 @@ namespace System.Application.UI.Views.Pages
                 keyDialog != null &&
                 (sender as Avalonia.Controls.Button)?.Tag is Bot bot)
             {
-                keysDataGrid.Items = await ViewModel.GetUsedAndUnusedKeys(bot);
+                var k = await ViewModel.GetUsedAndUnusedKeys(bot);
 
-                if (await keyDialog.ShowAsync() == ContentDialogResult.Primary)
+                UsedKeysDataGrid.Items = k.UsedKeys;
+                UnusedKeysDataGrid.Items = k.UnusedKeys;
+
+                var r = await keyDialog.ShowAsync();
+                if (r == ContentDialogResult.Primary)
                 {
                     if (string.IsNullOrEmpty(keyText.Text))
                         return;
                     var keys = ExtractKeysFromString(keyText.Text);
                     if (keys.Count == 0)
+                    {
+                        Toast.Show(AppResources.ASF_RedeemKey_NoValidkey);
                         return;
+                    }
 
                     ViewModel.RedeemKeyBot(bot, keys);
+                }
+                else if (r == ContentDialogResult.Secondary)
+                {
+                    ViewModel.ResetbotRedeemedKeysRecord(bot);
                 }
             }
         }
@@ -56,7 +70,7 @@ namespace System.Application.UI.Views.Pages
 
         private static IOrderedDictionary ExtractKeysFromString(string source)
         {
-            MatchCollection m = Regex.Matches(source, "([0-9A-Z]{5})(?:\\-[0-9A-Z]{5}){2,3}",
+            MatchCollection m = Regex.Matches(source, "([0-9A-Z]{5})(?:\\-[0-9A-Z]{5}){2,4}",
                   RegexOptions.IgnoreCase | RegexOptions.Singleline);
             var dictKeys = new OrderedDictionary();
             if (m.Count > 0)

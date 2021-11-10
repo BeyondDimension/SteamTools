@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Application.Services.ISteamService;
 
@@ -755,6 +756,26 @@ namespace System.Application.Services.Implementation
 
                 //OnAppInfoChanged(info, eventArgs);
             }
+        }
+
+        /// <summary>
+        /// 从任意文本中匹配批量提取Steamkey
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public IEnumerable<string> ExtractKeysFromString(string source)
+        {
+            MatchCollection m = Regex.Matches(source, "([0-9A-Z]{5})(?:\\-[0-9A-Z]{5}){2,4}",
+                  RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            var keys = new List<string>();
+            if (m.Count > 0)
+            {
+                foreach (Match v in m)
+                {
+                    keys.Add(v.Value);
+                }
+            }
+            return keys;
         }
     }
 }

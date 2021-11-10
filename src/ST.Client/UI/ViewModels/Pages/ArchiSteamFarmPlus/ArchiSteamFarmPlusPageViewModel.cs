@@ -111,10 +111,9 @@ namespace System.Application.UI.ViewModels
             Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
         }
 
-        public async Task<Dictionary<string, string>?> GetUsedAndUnusedKeys(Bot bot)
+        public async Task<(IReadOnlyDictionary<string, string>? UnusedKeys, IReadOnlyDictionary<string, string>? UsedKeys)> GetUsedAndUnusedKeys(Bot bot)
         {
-            var result = await bot.GetUsedAndUnusedKeys();
-            return result.UsedKeys;
+            return await bot.GetUsedAndUnusedKeys();
         }
 
         public void RedeemKeyBot(Bot bot, IOrderedDictionary keys)
@@ -138,6 +137,11 @@ namespace System.Application.UI.ViewModels
 
             //    }
             //}
+        }
+
+        public bool ResetbotRedeemedKeysRecord(Bot bot)
+        {
+            return bot.DeleteRedeemedKeysFiles();
         }
 
         public void GoToBotSettings(Bot bot)

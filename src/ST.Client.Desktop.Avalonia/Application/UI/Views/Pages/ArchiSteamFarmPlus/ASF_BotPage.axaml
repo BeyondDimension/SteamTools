@@ -24,63 +24,96 @@
   </UserControl.Resources>
   <Panel>
     <ui:ContentDialog x:Name="RedeemKeyDialog"
-          Title="激活Key"
+          Title="{ReflectionBinding Path=Res.ASF_RedeemKey,Mode=OneWay,Source={x:Static resx:R.Current}}"
           IsVisible="False"
-          PrimaryButtonText="确认"
-          CloseButtonText="取消"
+          PrimaryButtonText="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          SecondaryButtonText="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          CloseButtonText="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
           DefaultButton="Primary">
       <ui:ContentDialog.Content>
-        <DockPanel>
-
-          <Panel>
-            
-          </Panel>
-          <TextBox x:Name="keyText"
-                   Watermark="AAAAA-BBBBB-CCCC1&#13;AAAAA-BBBBB-CCCC2&#13;AAAAA-BBBBB-CCCC3&#13;"
-                   AcceptsReturn="True"
-                   TextWrapping="Wrap"
-                   MinHeight="250"
-                   MaxHeight="300"/>
-
-          <DataGrid x:Name="keysDataGrid"
-                    IsReadOnly="True"
-                    IsVisible="False"
+        <TabControl
                     MinHeight="250"
                     MaxHeight="300">
-            <DataGrid.Columns>
+          <TabItem Header="{ReflectionBinding Path=Res.ASF_RedeemKey_InputKey,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <TextBox x:Name="keyText"
+                    Watermark="{ReflectionBinding Path=Res.ASF_RedeemKey_InputKey_Watermark,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"/>
+          </TabItem>
+          <TabItem Header="{ReflectionBinding Path=Res.ASF_RedeemKey_UsedKeys,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <DataGrid x:Name="UsedKeysDataGrid"
+                   IsReadOnly="True">
+              <DataGrid.Columns>
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Value">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Name"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Value}"
+                                 VerticalAlignment="Center"/>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-              <DataGridTemplateColumn
-                                  Width="2*"
-                                  CanUserSort="True"
-                                  SortMemberPath="Value">
-                <DataGridTemplateColumn.Header>
-                  <controls:ScrollingTextBlock Text="Name"/>
-                </DataGridTemplateColumn.Header>
-                <DataGridTemplateColumn.CellTemplate>
-                  <DataTemplate>
-                    <TextBlock Text="{ReflectionBinding Value}"
-                               VerticalAlignment="Center"/>
-                  </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-              </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Key">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Key"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Key}"></TextBlock>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-              <DataGridTemplateColumn
-                                  Width="*"
-                                  CanUserSort="True"
-                                  SortMemberPath="Key">
-                <DataGridTemplateColumn.Header>
-                  <controls:ScrollingTextBlock Text="Key"/>
-                </DataGridTemplateColumn.Header>
-                <DataGridTemplateColumn.CellTemplate>
-                  <DataTemplate>
-                    <TextBlock Text="{ReflectionBinding Key}"></TextBlock>
-                  </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-              </DataGridTemplateColumn>
+              </DataGrid.Columns>
+            </DataGrid>
+          </TabItem>
 
-            </DataGrid.Columns>
-          </DataGrid>
-        </DockPanel>
+          <TabItem Header="{ReflectionBinding Path=Res.ASF_RedeemKey_UnusedKey,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <DataGrid x:Name="UnusedKeysDataGrid"
+                   IsReadOnly="True">
+              <DataGrid.Columns>
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Value">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Name"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Value}"
+                                 VerticalAlignment="Center"/>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Key">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Key"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Key}"></TextBlock>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+              </DataGrid.Columns>
+            </DataGrid>
+          </TabItem>
+        </TabControl>
       </ui:ContentDialog.Content>
     </ui:ContentDialog>
 
