@@ -37,12 +37,15 @@
 		- 某些窗口顶部会有两个标题栏
 		- 自动更新不可用
 	- Linux
-		- 在 Deepin 中托盘不生效，可通过 Exit.sh 退出程序
+		- 在 Deepin 中托盘不生效，可通过 ```Exit.sh``` 退出程序
 		- 窗口弹出位置不正确
 		- 窗口顶部会有两个标题栏
 		- 自动更新不可用
+	- Windows
+		- 在 CPU 不受支持的 Win11 上无法启动，Windows 日志中显示 ```Failed to create CoreCLR, HRESULT: 0x80004005```
+			- 仅 .NET 6.0 受此影响，在几周后的 Insider 中会修复，见 [issue](https://github.com/dotnet/core/issues/6733)
+			- **解决方案：** 可尝试使用早期版本，例如 v2.3.0
 	- Shared
-		- 主题切换需重启软件后生效，且跟随系统暂不可用
 		- 拼音搜索不能正确的识别多音字
 - Mobile
 	- Android
