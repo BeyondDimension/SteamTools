@@ -11,6 +11,7 @@ using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace System.Application.UI.Activities
 {
+    [Authorize]
     [Register(JavaPackageConstants.Activities + nameof(UserProfileActivity))]
     [Activity(Theme = ManifestConstants.MainTheme2,
          LaunchMode = LaunchMode.SingleTask,
@@ -19,9 +20,9 @@ namespace System.Application.UI.Activities
     {
         protected override int? LayoutResource => Resource.Layout.activity_toolbar_tablayout_viewpager2;
 
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate2(Bundle? savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate2(savedInstanceState);
 
             var adapter = new ViewPagerWithTabLayoutAdapter(this, this);
             binding!.pager.SetupWithTabLayout(binding!.tab_layout, adapter);

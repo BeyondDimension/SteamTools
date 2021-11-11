@@ -40,9 +40,9 @@ namespace System.Application.UI.Activities
         IListenableFuture? cameraProviderFuture;
         QRCodeAnalyser? analyser;
 
-        protected override async void OnCreate(Bundle? savedInstanceState)
+        protected override async void OnCreate2(Bundle? savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate2(savedInstanceState);
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 

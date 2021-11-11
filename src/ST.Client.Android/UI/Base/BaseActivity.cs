@@ -8,7 +8,9 @@ using ReactiveUI.AndroidX;
 using System.Application.Mvvm;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Disposables;
+using System.Reflection;
 using XEPlatform = Xamarin.Essentials.Platform;
 
 // ReSharper disable once CheckNamespace
@@ -25,11 +27,21 @@ namespace System.Application.UI.Activities
     /// </summary>
     public abstract partial class BaseActivity : AppCompatActivity, View.IOnClickListener
     {
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected sealed override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            if (AuthorizeAttribute.HasAuthorize(this))
+            {
+                if (!this.IsAuthenticated()) return;
+            }
             //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             SetContentView(this, LayoutResource);
+            OnCreate2(savedInstanceState);
+        }
+
+        protected virtual void OnCreate2(Bundle? savedInstanceState)
+        {
+
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
@@ -67,9 +79,8 @@ namespace System.Application.UI.Activities
         readonly CompositeDisposable disposables = new();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate2(Bundle? savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
             OnCreateViewBinding();
         }
 
@@ -100,13 +111,23 @@ namespace System.Application.UI.Activities
         readonly CompositeDisposable disposables = new();
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected sealed override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            if (AuthorizeAttribute.HasAuthorize(this))
+            {
+                if (!this.IsAuthenticated()) return;
+            }
             //if (!DeviceSecurityCheckUtil.IsAllowStart(this)) return;
             BaseActivity.SetContentView(this, LayoutResource);
             OnCreateViewBinding();
             this.SetViewModel(OnCreateViewModel());
+            OnCreate2(savedInstanceState);
+        }
+
+        protected virtual void OnCreate2(Bundle? savedInstanceState)
+        {
+
         }
 
         protected virtual TViewModel? OnCreateViewModel()
@@ -168,4 +189,4 @@ namespace System
             view.WhenActivated(disposables => { });
         }
     }
-} 
+}

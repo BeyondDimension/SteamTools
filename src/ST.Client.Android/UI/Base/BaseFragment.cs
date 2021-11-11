@@ -3,6 +3,7 @@ using Android.Views;
 using ReactiveUI;
 using ReactiveUI.AndroidX;
 using System.Application.Mvvm;
+using System.Application.Services;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
@@ -27,12 +28,21 @@ namespace System.Application.UI.Fragments
         {
         }
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View? OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            if (AuthorizeAttribute.HasAuthorize(this))
+            {
+                if (!UserService.Current.IsAuthenticated)
+                {
+                    return null;
+                }
+            }
+
             var view = CreateView(LayoutResource, inflater, container);
-            if (view == null)
-                return base.OnCreateView(inflater, container, savedInstanceState);
-            OnCreateView(view);
+            if (view != null)
+            {
+                OnCreateView(view);
+            }
             return view;
         }
 
@@ -84,11 +94,18 @@ namespace System.Application.UI.Fragments
 
         //protected bool UseGetViewModelByActivity => false;
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View? OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            if (AuthorizeAttribute.HasAuthorize(this))
+            {
+                if (!UserService.Current.IsAuthenticated)
+                {
+                    return null;
+                }
+            }
+
             var view = BaseFragment.CreateView(LayoutResource, inflater, container);
-            if (view == null)
-                return base.OnCreateView(inflater, container, savedInstanceState);
+            if (view == null) return null;
             var ignoreDisposableHolder = false;
             var viewModel = OnCreateViewModel();
             //if (UseGetViewModelByActivity && viewModel == null)

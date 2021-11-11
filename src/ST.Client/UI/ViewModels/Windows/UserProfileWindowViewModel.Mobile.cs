@@ -1,5 +1,6 @@
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Linq.Expressions;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -17,12 +18,12 @@ namespace System.Application.UI.ViewModels
             _ => throw new ArgumentOutOfRangeException(nameof(channel), channel.ToString()),
         };
 
-        public static string? GetIsBindOrUnbundleTbText(FastLoginChannel channel) => channel switch
+        public static Expression<Func<UserService, object?>> GetIsBindOrUnbundleExpression(FastLoginChannel channel) => channel switch
         {
-            FastLoginChannel.Steam => UserService.Current.User?.SteamAccountId?.ToString(),
-            FastLoginChannel.Microsoft => UserService.Current.User?.MicrosoftAccountEmail,
-            FastLoginChannel.Apple => UserService.Current.User?.AppleAccountEmail,
-            FastLoginChannel.QQ => UserService.Current.User?.QQNickName,
+            FastLoginChannel.Steam => x => x.User!.SteamAccountId,
+            FastLoginChannel.Microsoft => x => x.User!.MicrosoftAccountEmail,
+            FastLoginChannel.Apple => x => x.User!.AppleAccountEmail,
+            FastLoginChannel.QQ => x => x.User!.QQNickName,
             _ => throw new ArgumentOutOfRangeException(nameof(channel), channel.ToString()),
         };
 

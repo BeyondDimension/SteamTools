@@ -18,9 +18,9 @@ namespace System.Application.UI.Activities
     {
         protected override int? LayoutResource => Resource.Layout.activity_explorer;
 
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate2(Bundle? savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate2(savedInstanceState);
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 

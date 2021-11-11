@@ -39,9 +39,9 @@ namespace System.Application.UI.Activities
             this.SetNavigationGraphTitle(resId, value_);
         }
 
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate2(Bundle? savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate2(savedInstanceState);
 
             SetSupportActionBar(binding!.toolbar);
 

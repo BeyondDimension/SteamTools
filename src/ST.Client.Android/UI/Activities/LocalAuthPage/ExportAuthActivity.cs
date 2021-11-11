@@ -28,9 +28,9 @@ namespace System.Application.UI.Activities
             return new() { SelectId = selectId };
         }
 
-        protected override void OnCreate(Bundle? savedInstanceState)
+        protected override void OnCreate2(Bundle? savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate2(savedInstanceState);
 
             var externalPath = GetExternalFilesDir(null)?.CanonicalPath;
             if (string.IsNullOrWhiteSpace(externalPath) || !Directory.Exists(externalPath))

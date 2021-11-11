@@ -8,6 +8,7 @@ using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Fragments
 {
+    [Authorize]
     internal sealed class UserBasicInfoFragment : BaseFragment<fragment_basic_profile, UserProfileWindowViewModel>, DatePickerHelper.IOnPositiveButtonClickListener
     {
         protected override int? LayoutResource => Resource.Layout.fragment_basic_profile;
@@ -57,6 +58,11 @@ namespace System.Application.UI.Fragments
                 var text = binding.tbNickName.Text;
                 if (text != ViewModel.NickName) ViewModel.NickName = text;
             };
+
+            ViewModel!.WhenAnyValue(x => x.Gender).SubscribeInMainThread(value =>
+            {
+                Gender = value;
+            }).AddTo(this);
 
             UserService.Current.WhenAnyValue(x => x.HasPhoneNumber).SubscribeInMainThread(value =>
             {

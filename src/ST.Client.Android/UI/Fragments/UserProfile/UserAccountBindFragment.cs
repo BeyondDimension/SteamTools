@@ -10,6 +10,7 @@ using static System.Application.UI.ViewModels.UserProfileWindowViewModel;
 
 namespace System.Application.UI.Fragments
 {
+    [Authorize]
     internal sealed class UserAccountBindFragment : BaseFragment<fragment_account_binding, UserProfileWindowViewModel>
     {
         protected override int? LayoutResource => Resource.Layout.fragment_account_binding;
@@ -73,19 +74,20 @@ namespace System.Application.UI.Fragments
                 }
             }).AddTo(this);
 
-            UserService.Current.WhenAnyValue(x => x.User).SubscribeInMainThread(value =>
+            for (int i = 0; i < ThirdPartyLoginHelper.FastLoginChannels.Length; i++)
             {
-                if (binding == null) return;
-                for (int i = 0; i < tbAccountBinds.Length; i++)
+                var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                if (cha.IsSupported())
                 {
-                    var item = tbAccountBinds[i];
-                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
-                    if (cha.IsSupported())
+                    var expression = GetIsBindOrUnbundleExpression(cha);
+                    UserService.Current.WhenAnyValue(expression).SubscribeInMainThread(value =>
                     {
-                        item.Text = GetIsBindOrUnbundleTbText(cha) ?? string.Empty;
-                    }
+                        if (binding == null) return;
+                        var item = tbAccountBinds[i];
+                        item.Text = value?.ToString() ?? string.Empty;
+                    }).AddTo(this);
                 }
-            }).AddTo(this);
+            }
 
             R.Subscribe(() =>
             {
