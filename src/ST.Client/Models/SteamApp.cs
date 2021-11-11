@@ -125,7 +125,6 @@ namespace System.Application.Models
 
         public uint ParentId { get; set; }
 
-        public long lastUpdatedTicks;
         /// <summary>
         /// 最后更新日期
         /// </summary>

@@ -56,27 +56,24 @@ namespace System.Application.UI.Fragments
             UserService.Current.WhenAnyValue(x => x.HasPhoneNumber).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                if (!value)
+                for (int i = 0; i < btnAccountBinds.Length; i++)
                 {
-                    for (int i = 0; i < btnAccountBinds.Length; i++)
+                    var item = btnAccountBinds[i];
+                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                    if (cha.IsSupported())
                     {
-                        var item = btnAccountBinds[i];
-                        var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
-                        if (cha.IsSupported())
+                        if (!value && !IsBindOrUnbundle(cha)) // 无手机号不能解绑
                         {
-                            if (!IsBindOrUnbundle(cha)) // 无手机号不能解绑
+                            if (item.Enabled)
                             {
-                                if (item.Enabled)
-                                {
-                                    item.Enabled = false;
-                                }
+                                item.Enabled = false;
                             }
-                            else
+                        }
+                        else
+                        {
+                            if (!item.Enabled) // 绑定时启用按钮
                             {
-                                if (!item.Enabled) // 绑定时启用按钮
-                                {
-                                    item.Enabled = true;
-                                }
+                                item.Enabled = true;
                             }
                         }
                     }

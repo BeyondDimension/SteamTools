@@ -6,6 +6,7 @@ using System.Application.Settings;
 using System.Application.UI;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -484,7 +485,7 @@ namespace System.Application.Services.Implementation
         public async Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type)
         {
             var cacheFilePath = GetAppLibCacheFilePath(app.AppId, type);
-            if (File.Exists(cacheFilePath)) return cacheFilePath;
+            if (File.Exists(cacheFilePath)) return cacheFilePath!;
             var url = type switch
             {
                 SteamApp.LibCacheType.Header => app.HeaderLogoUrl,
@@ -587,6 +588,33 @@ namespace System.Application.Services.Implementation
             return paths.ToArray();
         }
 
+        static int GetInt32(dynamic value)
+        {
+            if (value is VValue vvalue) return GetInt32(vvalue.Value!);
+            if (value is int value2) return value2;
+            if (value is IConvertible convertible)
+                return convertible.ToInt32(CultureInfo.InvariantCulture);
+            return int.Parse(value.ToString());
+        }
+
+        static uint GetUInt32(dynamic value)
+        {
+            if (value is VValue vvalue) return GetUInt32(vvalue.Value!);
+            if (value is uint value2) return value2;
+            if (value is IConvertible convertible)
+                return convertible.ToUInt32(CultureInfo.InvariantCulture);
+            return uint.Parse(value.ToString());
+        }
+
+        static long GetInt64(dynamic value)
+        {
+            if (value is VValue vvalue) return GetInt64(vvalue.Value!);
+            if (value is long value2) return value2;
+            if (value is IConvertible convertible)
+                return convertible.ToInt64(CultureInfo.InvariantCulture);
+            return long.Parse(value.ToString());
+        }
+
         public SteamApp? FileToAppInfo(string filename)
         {
             try
@@ -605,19 +633,19 @@ namespace System.Application.Services.Implementation
                 }
                 v = v.Value;
 
-                SteamApp newInfo = new SteamApp
+                var installdir = v.installdir.ToString();
+                var newInfo = new SteamApp
                 {
-                    AppId = uint.Parse((v.appid ?? v.appID ?? v.AppID).ToString()),
-                    Name = v.name.ToString() ?? v.installdir.ToString(),
-                    InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", v.installdir.ToString()),
-                    State = int.Parse(v.StateFlags.ToString()),
-                    SizeOnDisk = long.Parse(v.SizeOnDisk.ToString()),
-                    LastOwner = long.Parse(v.LastOwner.ToString()),
-                    BytesToDownload = long.Parse(v.BytesToDownload.ToString()),
-                    BytesDownloaded = long.Parse(v.BytesDownloaded.ToString()),
-                    lastUpdatedTicks = long.Parse(v.LastUpdated.ToString()),
+                    AppId = GetUInt32(v.appid ?? v.appID ?? v.AppID),
+                    Name = v.name.ToString() ?? installdir,
+                    InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", installdir),
+                    State = GetInt32(v.StateFlags),
+                    SizeOnDisk = GetInt64(v.SizeOnDisk),
+                    LastOwner = GetInt64(v.LastOwner),
+                    BytesToDownload = GetInt64(v.BytesToDownload),
+                    BytesDownloaded = GetInt64(v.BytesDownloaded),
+                    LastUpdated = GetInt64(v.LastUpdated).ToDateTimeS(),
                 };
-                newInfo.LastUpdated = newInfo.lastUpdatedTicks.ToDateTimeS();
                 return newInfo;
             }
             catch (Exception ex)
