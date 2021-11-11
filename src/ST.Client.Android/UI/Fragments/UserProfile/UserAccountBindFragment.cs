@@ -43,7 +43,7 @@ namespace System.Application.UI.Fragments
                 binding.ivIconAccountBind3,
             };
 
-            for (int i = 0; i < ivIconAccountBinds.Length; i++)
+            for (int i = 0; i < ivIconAccountBinds.Length; i++) // 设置 Icon
             {
                 var iconResId = ThirdPartyLoginHelper.FastLoginChannels[i]
                     .ToIcon().ToImageResource();
@@ -56,20 +56,29 @@ namespace System.Application.UI.Fragments
             UserService.Current.WhenAnyValue(x => x.HasPhoneNumber).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                for (int i = 0; i < btnAccountBinds.Length; i++)
+                if (!value)
                 {
-                    var item = btnAccountBinds[i];
-                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
-                    if (cha.IsSupported())
+                    for (int i = 0; i < btnAccountBinds.Length; i++)
                     {
-                        if (item.Enabled != value)
+                        var item = btnAccountBinds[i];
+                        var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                        if (cha.IsSupported())
                         {
-                            item.Enabled = value;
+                            if (!IsBindOrUnbundle(cha)) // 无手机号不能解绑
+                            {
+                                if (item.Enabled)
+                                {
+                                    item.Enabled = false;
+                                }
+                            }
+                            else
+                            {
+                                if (!item.Enabled) // 绑定时启用按钮
+                                {
+                                    item.Enabled = true;
+                                }
+                            }
                         }
-                    }
-                    else if (item.Enabled)
-                    {
-                        item.Enabled = false;
                     }
                 }
             }).AddTo(this);
@@ -77,7 +86,7 @@ namespace System.Application.UI.Fragments
             for (int i = 0; i < ThirdPartyLoginHelper.FastLoginChannels.Length; i++)
             {
                 var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
-                if (cha.IsSupported())
+                if (cha.IsSupported()) // 绑定文本框值
                 {
                     var expression = GetIsBindOrUnbundleExpression(cha);
                     UserService.Current.WhenAnyValue(expression).SubscribeInMainThread(value =>
@@ -86,6 +95,14 @@ namespace System.Application.UI.Fragments
                         var item = tbAccountBinds[i];
                         item.Text = value?.ToString() ?? string.Empty;
                     }).AddTo(this);
+                }
+                else
+                {
+                    var item = btnAccountBinds[i];
+                    if (item.Enabled) // 禁用尚未支持的渠道按钮
+                    {
+                        item.Enabled = false;
+                    }
                 }
             }
 
@@ -99,7 +116,7 @@ namespace System.Application.UI.Fragments
 
                 binding.tvAccountBindTip.Text = AppResources.User_AccountBindTip;
 
-                for (int i = 0; i < btnAccountBinds.Length; i++)
+                for (int i = 0; i < btnAccountBinds.Length; i++) // 设置按钮文本
                 {
                     var item = btnAccountBinds[i];
                     var cha = ThirdPartyLoginHelper.FastLoginChannels[i];

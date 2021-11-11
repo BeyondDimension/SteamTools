@@ -25,6 +25,11 @@ namespace System.Application.UI.Fragments
             binding!.layoutNickName.SetMaxLength(ModelValidatorLengths.NickName);
             binding.tbNickName.SetMaxLength(ModelValidatorLengths.NickName);
 
+            // Gender 双向绑定
+            ViewModel!.WhenAnyValue(x => x.Gender).SubscribeInMainThread(value =>
+            {
+                Gender = value;
+            }).AddTo(this);
             binding.rgGender.CheckedChange += RgGender_CheckedChange;
 
             binding.tbPhoneNumber.Text = UserService.Current.PhoneNumber;
@@ -47,6 +52,7 @@ namespace System.Application.UI.Fragments
                 binding.btnSubmit.Text = AppResources.SaveChanges;
             }).AddTo(this);
 
+            // NickName 双向绑定
             ViewModel!.WhenAnyValue(x => x.NickName).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
@@ -59,25 +65,9 @@ namespace System.Application.UI.Fragments
                 if (text != ViewModel.NickName) ViewModel.NickName = text;
             };
 
-            ViewModel!.WhenAnyValue(x => x.Gender).SubscribeInMainThread(value =>
-            {
-                Gender = value;
-            }).AddTo(this);
-
             UserService.Current.WhenAnyValue(x => x.HasPhoneNumber).SubscribeInMainThread(value =>
             {
                 SetPhoneNumberBindOrModifyText(value);
-                //binding.btnModifyPhoneNumber.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
-                //if (binding.layoutPhoneNumber.LayoutParameters is ViewGroup.MarginLayoutParams layout)
-                //{
-                //    // android-sdk\sources\android-30\android\view\ViewGroup.java#8469
-                //    var marginEnd = value ? Resources.GetDimensionPixelSize(Resource.Dimension.activity_horizontal_margin) : 0;
-                //    if (layout.MarginEnd != marginEnd)
-                //    {
-                //        layout.MarginEnd = marginEnd;
-                //        binding.layoutPhoneNumber.LayoutParameters = layout;
-                //    }
-                //}
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.IsModify).SubscribeInMainThread(value =>
@@ -172,7 +162,7 @@ namespace System.Application.UI.Fragments
                 }
                 else if (view.Id == Resource.Id.clickBirthDate)
                 {
-                    this.ShowBirthDatePicker();
+                    this.ShowBirthDatePicker(ViewModel.BirthDate?.DateTime ?? default);
                     return true;
                 }
                 else if (view.Id == Resource.Id.btnSubmit)

@@ -67,15 +67,15 @@ namespace System.Application.UI
             return dialogFragment;
         }
 
-        static MaterialDatePicker GetBirthDatePicker(object listener)
+        static MaterialDatePicker GetBirthDatePicker(object listener, DateTime selected = default)
             => GetDatePicker(listener,
                 AppResources.UserProfile_BirthDate,
-                IBirthDate.DefaultSelected,
+                selected == default ? IBirthDate.DefaultSelected : selected,
                 IBirthDate.SelectionRange);
 
-        static void ShowBirthDatePicker(this FragmentManager fragmentManager, object listener)
+        static void ShowBirthDatePicker(this FragmentManager fragmentManager, object listener, DateTime selected = default)
         {
-            var dialogFragment = GetBirthDatePicker(listener);
+            var dialogFragment = GetBirthDatePicker(listener, selected);
             dialogFragment.Show(fragmentManager, dialogFragment.ToString());
         }
 
@@ -83,17 +83,19 @@ namespace System.Application.UI
         /// 显示生日日期选择
         /// </summary>
         /// <param name="fragment"></param>
+        /// <param name="selected"></param>
         /// <param name="listener"></param>
-        public static void ShowBirthDatePicker(this Fragment fragment, object? listener = null)
-            => ShowBirthDatePicker(fragment.Activity, listener ?? fragment);
+        public static void ShowBirthDatePicker(this Fragment fragment, DateTime selected = default, object? listener = null)
+            => ShowBirthDatePicker(fragment.Activity, selected, listener ?? fragment);
 
         /// <summary>
         /// 显示生日日期选择
         /// </summary>
         /// <param name="activity"></param>
+        /// <param name="selected"></param>
         /// <param name="listener"></param>
-        public static void ShowBirthDatePicker(this FragmentActivity activity, object? listener = null)
-            => ShowBirthDatePicker(activity.SupportFragmentManager, listener ?? activity);
+        public static void ShowBirthDatePicker(this FragmentActivity activity, DateTime selected = default, object? listener = null)
+            => ShowBirthDatePicker(activity.SupportFragmentManager, listener ?? activity, selected);
 
         /// <summary>
         /// 日期选择确定按钮点击时监听
