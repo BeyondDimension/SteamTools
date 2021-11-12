@@ -28,3 +28,6 @@
 [submodule "references/FluentAvalonia"]
 	path = references/FluentAvalonia
 	url = https://github.com/SteamTools-Team/FluentAvalonia.git
+[submodule "references/reactive"]
+	path = references/reactive
+	url = https://github.com/SteamTools-Team/reactive.git
