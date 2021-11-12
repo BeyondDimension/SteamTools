@@ -4,7 +4,8 @@ using System.Text;
 
 namespace System.Application
 {
-    public enum UserType : short
+    [Flags]
+    public enum UserType : long
     {
         /// <summary>
         /// 普通用户
