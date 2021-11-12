@@ -1901,4 +1901,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
     <value>输入的手机号码不正确，请重新输入</value>
   </data>
+  <data name="About_Donate" xml:space="preserve">
+    <value>捐助</value>
+  </data>
 </root>

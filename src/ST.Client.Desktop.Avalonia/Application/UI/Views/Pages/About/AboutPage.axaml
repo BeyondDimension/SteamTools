@@ -27,6 +27,9 @@
              Header="{ReflectionBinding Path=Res.About_FAQ,Mode=OneWay,Source={x:Static resx:R.Current}}">
       <pages:About_FAQPage />
     </TabItem>-->
+      <TabItem Header="{ReflectionBinding Path=Res.About_Donate,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <pages:About_DonatePage />
+      </TabItem>
       <TabItem Header="{ReflectionBinding Path=Res.About_OpenSource,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <pages:About_OpenSourcePage />
       </TabItem>

@@ -88,6 +88,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 捐助 的本地化字符串。
+        /// </summary>
+        public static string About_Donate {
+            get {
+                return ResourceManager.GetString("About_Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 常见问题疑难解答 的本地化字符串。
         /// </summary>
         public static string About_FAQ {
