@@ -281,41 +281,44 @@
 
                       <Separator Height="{ReflectionBinding $parent.Height}" Classes="Separator"/>
 
-                      <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                 VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="Games"
-                                       Margin="5 0"
-                                       VerticalAlignment="Center"
-                                       DockPanel.Dock="Left"
-                                       FontSize="30"/>
-                        <TextBlock Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
-                                   VerticalAlignment="Center"
-                                   DockPanel.Dock="Right"/>
-                      </DockPanel>
+                      <StackPanel IsVisible="{Binding CardsFarmer.GamesToFarmReadOnly.Count,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                                  Orientation="Horizontal">
+                        <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                             VerticalAlignment="Center">
+                          <ui:SymbolIcon Symbol="Games"
+                                         Margin="5 0"
+                                         VerticalAlignment="Center"
+                                         DockPanel.Dock="Left"
+                                         FontSize="30"/>
+                          <TextBlock Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
+                                     VerticalAlignment="Center"
+                                     DockPanel.Dock="Right"/>
+                        </DockPanel>
 
-                      <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                 VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="Page2"
-                                       Margin="5 0"
-                                       VerticalAlignment="Center"
-                                       DockPanel.Dock="Left"
-                                       FontSize="24"/>
-                        <TextBlock Text="{Binding CardsFarmer.CardsRemaining}"
-                                   VerticalAlignment="Center"
-                                   DockPanel.Dock="Right"/>
-                      </DockPanel>
+                        <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center">
+                          <ui:SymbolIcon Symbol="Page2"
+                                         Margin="5 0"
+                                         VerticalAlignment="Center"
+                                         DockPanel.Dock="Left"
+                                         FontSize="24"/>
+                          <TextBlock Text="{Binding CardsFarmer.CardsRemaining}"
+                                     VerticalAlignment="Center"
+                                     DockPanel.Dock="Right"/>
+                        </DockPanel>
 
-                      <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                 VerticalAlignment="Center">
-                        <ui:SymbolIcon Symbol="Clock"
-                                       Margin="5 0"
-                                       VerticalAlignment="Center"
-                                       DockPanel.Dock="Left"
-                                       FontSize="24"/>
-                        <TextBlock Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}"
-                                   VerticalAlignment="Center"
-                                   DockPanel.Dock="Right"/>
-                      </DockPanel>
+                        <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center">
+                          <ui:SymbolIcon Symbol="Clock"
+                                         Margin="5 0"
+                                         VerticalAlignment="Center"
+                                         DockPanel.Dock="Left"
+                                         FontSize="24"/>
+                          <TextBlock Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}"
+                                     VerticalAlignment="Center"
+                                     DockPanel.Dock="Right"/>
+                        </DockPanel>
+                      </StackPanel>
 
                     </StackPanel>
                   </StackPanel>
