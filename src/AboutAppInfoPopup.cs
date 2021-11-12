@@ -141,6 +141,10 @@ namespace System.Application.UI
                 b.Append(ApplicationUpdateServiceBaseImpl.UpdateChannelType);
                 b.AppendLine();
 
+                b.Append("[deploy.mode] ");
+                b.Append(IApplication.Instance.DeploymentMode);
+                b.AppendLine();
+
                 b.Append("[clr.ver] ");
                 string? clrVersion;
                 try

@@ -560,7 +560,7 @@ namespace System.Application.UI
         object IApplication.CurrentPlatformUIHost => MainWindow;
 
         DeploymentMode IApplication.DeploymentMode => DeploymentMode.
-#if FRAMEWORK_DEPENDENT
+#if FRAMEWORK_DEPENDENT || !PUBLISH
             FDE
 #else
             SCD
