@@ -4,6 +4,7 @@ using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Collections.Generic;
 using System.IO.FileFormats;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -108,6 +109,16 @@ namespace System.Application.Services.CloudService
         }
 
         public Task<IApiResponse<AppVersionDTO?>> CheckUpdate(Guid id, Platform platform, DeviceIdiom deviceIdiom, ArchitectureFlags supportedAbis, Version osVersion, ArchitectureFlags abi)
+        {
+            return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
+        }
+
+        public Task<IApiResponse<AppVersionDTO?>> CheckUpdate2(Guid id,
+            Platform platform,
+            DeviceIdiom deviceIdiom,
+            Version version,
+            Architecture architecture,
+            DeploymentMode deploymentMode)
         {
             return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
         }

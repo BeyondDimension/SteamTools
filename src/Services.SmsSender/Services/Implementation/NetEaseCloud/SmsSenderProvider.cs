@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Application.Models;
 using System.Application.Models.Abstractions;
@@ -82,7 +82,7 @@ namespace System.Application.Services.Implementation.NetEaseCloud
         /// 当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String)
         /// </summary>
         /// <returns></returns>
-        static string CurTime() => UnixTimestamp.ToTimestampS(DateTime.UtcNow).ToString();
+        static string CurTime() => DateTime.UtcNow.ToUnixTimeSeconds().ToString();
 
         static string Nonce() => Guid.NewGuid().ToStringN() + DateTime.Now.Ticks;
 

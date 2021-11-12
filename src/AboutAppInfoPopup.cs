@@ -18,6 +18,7 @@ using System.Properties;
 using System.Reflection;
 using System.Text;
 using Xamarin.Essentials;
+using System.Runtime.InteropServices;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI
@@ -143,6 +144,14 @@ namespace System.Application.UI
 
                 b.Append("[deploy.mode] ");
                 b.Append(IApplication.Instance.DeploymentMode);
+                b.AppendLine();
+
+                b.Append("[arch.os] ");
+                b.Append(RuntimeInformation.OSArchitecture);
+                b.AppendLine();
+
+                b.Append("[arch.proc] ");
+                b.Append(RuntimeInformation.ProcessArchitecture);
                 b.AppendLine();
 
                 b.Append("[clr.ver] ");

@@ -28,28 +28,22 @@ namespace System.Application.Services.Implementation
         protected readonly ICloudServiceClient client;
         protected readonly AppSettings settings;
         protected readonly IToast toast;
+        protected readonly IApplication application;
 
         public ICommand StartUpdateCommand { get; }
 
         public ApplicationUpdateServiceBaseImpl(
+            IApplication application,
             IToast toast,
             ICloudServiceClient client,
             IOptions<AppSettings> options)
         {
             this.toast = toast;
             this.client = client;
+            this.application = application;
             settings = options.Value;
-            SupportedAbis = GetSupportedAbis();
             StartUpdateCommand = ReactiveCommand.Create(StartUpdate);
         }
-
-        protected virtual ArchitectureFlags GetSupportedAbis()
-        {
-            var architecture = RuntimeInformation.OSArchitecture;
-            return architecture.Convert(hasFlags: true);
-        }
-
-        protected ArchitectureFlags SupportedAbis { get; }
 
         protected virtual Version OSVersion => Environment.OSVersion.Version;
 
@@ -141,14 +135,16 @@ namespace System.Application.Services.Implementation
             {
                 deviceIdiom = DeviceIdiom.Phone;
             }
-            var supportedAbis = SupportedAbis;
             var osVersion = OSVersion;
-            var abi = RuntimeInformation.ProcessArchitecture.Convert(hasFlags: false);
-            var rsp = await client.Version.CheckUpdate(id,
+            var architecture = OperatingSystem2.IsWindows ?
+                RuntimeInformation.ProcessArchitecture :
+                RuntimeInformation.OSArchitecture;
+            var deploymentMode = application.DeploymentMode;
+            var rsp = await client.Version.CheckUpdate2(id,
                 platform, deviceIdiom,
-                supportedAbis,
                 osVersion,
-                abi);
+                architecture,
+                deploymentMode);
             if (rsp.IsSuccess)
             {
                 if (!rsp.Content.HasValue())

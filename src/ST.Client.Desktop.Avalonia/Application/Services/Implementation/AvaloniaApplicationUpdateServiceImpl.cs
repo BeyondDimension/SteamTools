@@ -14,7 +14,7 @@ namespace System.Application.Services.Implementation
             IWindowManager windowManager,
             IToast toast,
             ICloudServiceClient client,
-            IOptions<AppSettings> options) : base(toast, client, options)
+            IOptions<AppSettings> options) : base(app, toast, client, options)
         {
             this.app = app;
             this.windowManager = windowManager;

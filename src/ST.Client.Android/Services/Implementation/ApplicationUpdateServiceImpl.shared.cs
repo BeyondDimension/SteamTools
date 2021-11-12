@@ -12,7 +12,12 @@ namespace System.Application.Services.Implementation
     internal sealed partial class ApplicationUpdateServiceImpl : ApplicationUpdateServiceBaseImpl
     {
         readonly INotificationService notification;
-        public ApplicationUpdateServiceImpl(INotificationService notification, IToast toast, ICloudServiceClient client, IOptions<AppSettings> options) : base(toast, client, options)
+        public ApplicationUpdateServiceImpl(
+            IApplication application,
+            INotificationService notification,
+            IToast toast,
+            ICloudServiceClient client,
+            IOptions<AppSettings> options) : base(application, toast, client, options)
         {
             this.notification = notification;
         }
