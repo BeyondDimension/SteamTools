@@ -9,7 +9,7 @@
     <PackageVersion Include="Microsoft.AppCenter" Version="4.4.0" />
     <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
     <PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
-    <PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.4.0" />
+    <PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.4.0.1" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.4.0" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.4.0" />
     <PackageVersion Include="nor0x.AppCenter" Version="4.4.0-XMAC" />
@@ -91,9 +91,9 @@
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
     <PackageVersion Include="System.Runtime.WindowsRuntime" Version="4.7.0" />
     <PackageVersion Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.7.0" />
-    <PackageVersion Include="Microsoft.Win32.Registry" Version="6.0.0-preview.5.21301.5" />
+    <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.0.7" />
-    <PackageVersion Include="System.Security.Principal.Windows" Version="6.0.0-preview.5.21301.5" />
+    <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
     <PackageVersion Include="BrotliSharpLib" Version="0.3.3" />
     <PackageVersion Include="System.Buffers" Version="4.5.1" />
     <PackageVersion Include="System.Memory" Version="4.5.4" />

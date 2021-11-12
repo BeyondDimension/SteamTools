@@ -558,5 +558,13 @@ namespace System.Application.UI
         string IAvaloniaApplication.RenderingSubsystemName => Program.RenderingSubsystemName;
 
         object IApplication.CurrentPlatformUIHost => MainWindow;
+
+        DeploymentMode IApplication.DeploymentMode => DeploymentMode.
+#if FRAMEWORK_DEPENDENT
+            FDE
+#else
+            SCD
+#endif
+            ;
     }
 }

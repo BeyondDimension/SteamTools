@@ -23,6 +23,7 @@
     <PackageReference Include="Splat" />
     <PackageReference Include="DynamicData" />
     <PackageReference Include="Xamarin.Essentials" />
+    <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,12 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows10.0.19041.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Windows</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
     <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(TargetFramework.Contains('-windows')) ">
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
+    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,13 +42,17 @@
     <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
     <PackageReference Include="JumpLists.Win32.Avalonia" Aliases="JumpLists" />
-    <PackageReference Include="Microsoft.Windows.CsWinRT" />
     <PackageReference Include="NotifyIcon.Windows" />
     <PackageReference Include="TaskScheduler" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
     <!--<PackageReference Include="Avalonia.Direct2D1" />
     <PackageReference Include="System.Diagnostics.Tracing" />-->
     <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
+    <PackageReference Include="Microsoft.Windows.CsWinRT" />
+    <Reference Include="Microsoft.Windows.SDK.NET" HintPath="..\..\references\Microsoft.Windows.SDK.NET.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,10 +67,6 @@
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\appcenter-secret-release.pfx')">
     <EmbeddedResource Include="..\..\appcenter-secret-release.pfx" Link="Resources\0794704F" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Windows.SDK.NET" HintPath="..\..\references\Microsoft.Windows.SDK.NET.dll" />
   </ItemGroup>
 
   <ItemGroup>

@@ -59,5 +59,7 @@ namespace System.Application.UI
         {
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
         }
+
+        DeploymentMode DeploymentMode => DeploymentMode.SCD;
     }
 }
