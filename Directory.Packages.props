@@ -74,6 +74,10 @@
     <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
     <PackageVersion Include="FluentAvaloniaUI" Version="1.1.5" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="0.0.1" />
+    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.155" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.155" />
+    <PackageVersion Include="SkiaSharp" Version="2.88.0-preview.155" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.155" />
     <!--Avalonia End-->
 
     <PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
@@ -126,8 +130,6 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    <PackageVersion Include="SkiaSharp" Version="2.80.3" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
     <!--<PackageVersion Include="Nito.Disposables" Version="2.2.1" />-->
     <PackageVersion Include="System.Diagnostics.Tracing" Version="4.3.0" />
     <PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />

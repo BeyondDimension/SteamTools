@@ -48,7 +48,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(DefineConstants.Contains(`PUBLISH`)) ">
-    <SelfContained>true</SelfContained>
     <!--目前裁剪存在问题，禁用-->
     <PublishTrimmed>false</PublishTrimmed>
     <TrimMode>link</TrimMode>

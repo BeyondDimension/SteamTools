@@ -479,6 +479,16 @@ namespace System.Application.UI
                 b.Append(GetAssemblyVersion(typeof(ServiceCollection).Assembly));
                 b.AppendLine();
 
+                b.Append("[skia.ver] ");
+                b.Append(GetAssemblyVersion(typeof(SkiaSharp.SKColor).Assembly));
+                b.AppendLine();
+
+#if AVALONIA
+                b.Append("[harfbuzz.ver] ");
+                b.Append(GetAssemblyVersion(typeof(HarfBuzzSharp.NativeObject).Assembly));
+                b.AppendLine();
+#endif
+
                 b.Append("[essentials.supported] ");
                 b.Append(Essentials.IsSupported.ToLowerString());
                 b.AppendLine();
@@ -498,7 +508,7 @@ namespace System.Application.UI
         static string? GetAssemblyVersion(Assembly assembly)
             => assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
             .InformationalVersion
-            .Split('+', StringSplitOptions.RemoveEmptyEntries)
+            .Split(new[] { '+', '-' }, StringSplitOptions.RemoveEmptyEntries)
             .FirstOrDefault();
     }
 }
