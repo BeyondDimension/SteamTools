@@ -133,7 +133,7 @@
     <!--<PackageVersion Include="Nito.Disposables" Version="2.2.1" />-->
     <PackageVersion Include="System.Diagnostics.Tracing" Version="4.3.0" />
     <PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
-    <PackageVersion Include="JustArchiNET.Madness" Version="1.5.0" />
+    <PackageVersion Include="JustArchiNET.Madness" Version="2.0.0" />
     <PackageVersion Include="Xam.Plugins.Forms.ImageCircle" Version="3.1.1.1-beta" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.3" />
     <PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.5" />
