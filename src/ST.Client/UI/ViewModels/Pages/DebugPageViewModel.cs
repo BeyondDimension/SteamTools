@@ -496,47 +496,10 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public /*async*/ void TestServerApiButton_Click()
+        public async void TestServerApiButton_Click()
         {
-#if DEBUG
-            //DebugString = string.Empty;
-            //var client = ICloudServiceClient.Instance;
-
-            //var req1 = new SendSmsRequest
-            //{
-            //    PhoneNumber = "00011112222",
-            //    Type = SmsCodeType.LoginOrRegister,
-            //};
-
-            //var rsp1 = await client.AuthMessage.SendSms(req1);
-
-            //if (!rsp1.IsSuccess)
-            //{
-            //    DebugString = $"SendSms: Fail({rsp1.Code}).";
-            //    return;
-            //}
-
-            //var req2 = new LoginOrRegisterRequest
-            //{
-            //    PhoneNumber = req1.PhoneNumber,
-            //    SmsCode = "666666",
-            //};
-            //var rsp2 = await ICloudServiceClient.Instance.Account.LoginOrRegister(req2);
-
-            //if (!rsp2.IsSuccess)
-            //{
-            //    DebugString = $"LoginOrRegister: Fail({rsp2.Code}).";
-            //    return;
-            //}
-
-            //var jsonStr = Serializable2.S(rsp2.Content);
-
-            //DebugString = $"JSON: {jsonStr}";
-
-#else
-            //await Task.Delay(300);
-            //DebugString = nameof(TestServerApiButton_Click);
-#endif
+            var infoStr = await ICloudServiceClient.Instance.Info();
+            DebugString += infoStr + Environment.NewLine;
         }
 
         /// <summary>

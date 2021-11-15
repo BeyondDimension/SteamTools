@@ -228,6 +228,11 @@ namespace System.Application.Services.CloudService
             await Task.Delay(1500);
             return ApiResponse.Ok();
         }
+
+        Task<string> ICloudServiceClient.Info()
+        {
+            return Task.FromResult(string.Empty);
+        }
     }
 }
 #endif

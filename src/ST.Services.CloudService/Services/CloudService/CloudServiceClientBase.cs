@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using System.Application.Columns;
 using System.Application.Models;
 using System.Application.Security;
@@ -114,6 +115,28 @@ namespace System.Application.Services.CloudService
         {
             request.RequestUri = new Uri(ForwardHelper.GetForwardRelativeUrl(request), UriKind.Relative);
             return connection.SendAsync(request, completionOption, cancellationToken);
+        }
+
+        async Task<string> ICloudServiceClient.Info()
+        {
+            var api = await connection.GetHtml(default, "/info");
+            var str = api.Content;
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                try
+                {
+                    var jsonObj = JObject.Parse(str);
+                    return Serializable.SJSON(Serializable.JsonImplType.NewtonsoftJson, jsonObj, writeIndented: true);
+                }
+                catch
+                {
+                    return str;
+                }
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

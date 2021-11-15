@@ -30,6 +30,8 @@ namespace System.Application.Services
         /// <returns></returns>
         Task<HttpResponseMessage> Forward(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default);
 
+        Task<string> Info();
+
         public static ICloudServiceClient Instance => DI.Get<ICloudServiceClient>();
     }
 }
