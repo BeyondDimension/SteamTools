@@ -81,6 +81,12 @@
         <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}" />
     </Style>
 
+    <Style Selector="StackPanel.Settings &gt; Button.plain">
+        <Setter Property="Cursor" Value="Arrow" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+
     <Style Selector="StackPanel.Settings Button.primary">
         <Setter Property="Height" Value="38" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -101,10 +107,12 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style Selector="StackPanel.Settings TextBlock">
+    <!--<Style Selector="StackPanel.Settings TextBlock">
         <Setter Property="FontSize" Value="{StaticResource FontSizeH7}" />
-        <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-    </Style>
+    -->
+    <!--<Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />-->
+    <!--
+    </Style>-->
 
     <Style Selector="StackPanel.Settings TextBlock.title">
         <Setter Property="FontSize" Value="{StaticResource FontSizeH7}" />

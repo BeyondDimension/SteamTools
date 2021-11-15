@@ -7,8 +7,58 @@
              xmlns:models="using:System.Application.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.About_DonatePage">
-  <ScrollViewer HorizontalAlignment="Stretch"
-                Padding="{StaticResource PageMargin}">
+  <ScrollViewer HorizontalAlignment="Stretch">
+    <StackPanel Classes="Settings">
+      <StackPanel.Styles>
+        <Style Selector="TextBlock">
+          <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+      </StackPanel.Styles>
+      <Border Classes="Item">
+        <StackPanel>
+          <TextBlock Text="捐助" Classes="h3"/>
+          <TextBlock Text="「Steam++」当前版本的发布离不开大家的支持，如果Steam++有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护Steam++。"/>
+        </StackPanel>
+      </Border>
 
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="捐助方式"/>
+          <StackPanel Orientation="Horizontal"
+                      Classes="right"
+                      Spacing="10">
+            <Button Classes="Hyperlink"
+                 Content="爱发电"
+                 Command="{Binding OpenBrowserCommand}"
+                 CommandParameter="https://afdian.net/@rmbgame"/>
+            <Button Classes="Hyperlink"
+                 Content="Ko-fi"
+                 Command="{Binding OpenBrowserCommand}"
+                 CommandParameter="https://ko-fi.com/rmbgame"/>
+            <Button Classes="Hyperlink"
+                 Content="Patreon"
+                 Command="{Binding OpenBrowserCommand}"
+                 CommandParameter="https://www.patreon.com/rmbgame"/>
+          </StackPanel>
+        </DockPanel>
+      </Border>
+
+
+      <Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="捐助记录"/>
+            <DatePicker Classes="right" DayVisible="False"/>
+          </DockPanel>
+        </Expander.Header>
+
+        <ScrollViewer>
+          <ItemsRepeater>
+
+          </ItemsRepeater>
+        </ScrollViewer>
+      </Expander>
+
+    </StackPanel>
   </ScrollViewer>
 </UserControl>

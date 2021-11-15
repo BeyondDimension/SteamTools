@@ -31,18 +31,19 @@
         </DockPanel>
       </Border>
 
-      <Border Classes="Item">
-        <DockPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.ASF_OpenWebUIGlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      <Button Classes="plain"
+              Command="{ReflectionBinding OpenBrowser}"
+              CommandParameter="WebConfig">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.ASF_OpenWebUIGlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
 
-          <Button Classes="right plain"
-                  Command="{ReflectionBinding OpenBrowser}"
-                  CommandParameter="WebConfig">
-            <ui:SymbolIcon Symbol="Open"
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
                            FontSize="24"/>
-          </Button>
-        </DockPanel>
-      </Border>
+          </DockPanel>
+        </Border>
+      </Button>
 
       <Separator Classes="Separator"/>
 

@@ -17,7 +17,7 @@ namespace System.Application.UI.Views.Pages
             var logoPanel = this.FindControl<StackPanel>("LogoPanel");
             if (logoPanel != null)
             {
-                logoPanel.PointerPressed += (_, _) => AboutAppInfoPopup.OnClick();
+                logoPanel.Tapped += (_, _) => AboutAppInfoPopup.OnClick();
             }
         }
     }
