@@ -11,6 +11,7 @@ namespace System.Application
         /// 普通用户
         /// </summary>
         Ordinary = 1,
+
         /// <summary>
         /// 赞助用户
         /// </summary>

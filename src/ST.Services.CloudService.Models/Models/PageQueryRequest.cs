@@ -9,13 +9,18 @@ using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
 {
+    /// <summary>
+    /// 分页查询请求
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [MPObj]
-    public class BasePageRequest<T>
+    public class PageQueryRequest<T>
     {
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
         public int Current { get; set; }
+
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
