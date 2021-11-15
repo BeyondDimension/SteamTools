@@ -47,7 +47,7 @@ namespace System
                 if (hasTablePrefix)
                 {
                     var oldTableName = entityType.GetTableName();
-                    if (!oldTableName.StartsWith(settings.TablePrefix))
+                    if (oldTableName != null && !oldTableName.StartsWith(settings.TablePrefix!))
                     {
                         var tableName = settings.TablePrefix + oldTableName;
                         modelBuilder.Entity(type, b => b.ToTable(tableName));

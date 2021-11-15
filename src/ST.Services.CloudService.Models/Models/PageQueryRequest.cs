@@ -14,7 +14,7 @@ namespace System.Application.Models
     /// </summary>
     /// <typeparam name="T"></typeparam>
     [MPObj]
-    public class PageQueryRequest<T>
+    public class PageQueryRequest<T> : IPageQueryRequest, IPageQueryRequest<T>
     {
         [MPKey(0)]
         [N_JsonProperty("0")]
@@ -30,5 +30,17 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public T? Params { get; set; }
+    }
+
+    public interface IPageQueryRequest
+    {
+        int Current { get; set; }
+
+        int PageSize { get; set; }
+    }
+
+    public interface IPageQueryRequest<T> : IPageQueryRequest
+    {
+        T? Params { get; set; }
     }
 }
