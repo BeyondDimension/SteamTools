@@ -39,10 +39,11 @@ namespace System.Application.Steps
                 var isLinux = item.Name.StartsWith("linux");
                 if (!isLinux) continue;
                 var rpmPath = GetPackPath(item, FileEx.RPM);
-                var cpioPath = GetPackPath(item, FileEx.CPIO);
+                //var cpioPath = GetPackPath(item, FileEx.CPIO);
 
                 using var targetStream = File.Open(rpmPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
-                using var cpioStream = File.Open(cpioPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+                //using var cpioStream = File.Open(cpioPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+                using var cpioStream = new MemoryStream();
 
                 ArchiveBuilder2 archiveBuilder2 = new()
                 {

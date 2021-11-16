@@ -3,7 +3,6 @@ using Microsoft.Build.Utilities;
 using Packaging.Targets;
 using Packaging.Targets.Deb;
 using Packaging.Targets.IO;
-using Packaging.Targets.Rpm;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.CommandLine;
@@ -35,10 +34,11 @@ namespace System.Application.Steps
                 var isLinux = item.Name.StartsWith("linux");
                 if (!isLinux) continue;
                 var debPath = GetPackPath(item, FileEx.DEB);
-                var debTarPath = GetPackPath(item, FileEx.DEB_TAR);
+                //var debTarPath = GetPackPath(item, FileEx.DEB_TAR);
                 var debTarXzPath = GetPackPath(item, FileEx.DEB_TAR_XZ);
                 using var targetStream = File.Open(debPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
-                using var tarStream = File.Open(debTarPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+                //using var tarStream = File.Open(debTarPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+                using var tarStream = new MemoryStream();
 
                 ArchiveBuilder2 archiveBuilder2 = new()
                 {
@@ -98,7 +98,7 @@ namespace System.Application.Steps
                 // needs to be disposed to finish compression, etc),
                 // So we are doing compression in a separate step
                 using (var tarXzStream = File.Open(debTarXzPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
-                using (var xzStream = new XZOutputStream(tarXzStream))
+                using (var xzStream = new XZOutputStream(tarXzStream, XZOutputStream.DefaultThreads, XZOutputStream.DefaultPreset, true))
                 {
                     tarStream.CopyTo(xzStream);
                 }
@@ -106,27 +106,27 @@ namespace System.Application.Steps
                 using (var tarXzStream = File.Open(debTarXzPath, FileMode.Open, FileAccess.Read, FileShare.None))
                 {
                     var pkg = DebPackageCreator.BuildDebPackage(
-                        archiveEntries,
-                        LinuxPackConstants.PackageName,
-                        LinuxPackConstants.Description,
-                        LinuxPackConstants.DebMaintainer,
-                        Utils.Version,
-                        DebTask.GetPackageArchitecture(item.Name),
-                        LinuxPackConstants.CreateUser,
-                        LinuxPackConstants.UserName,
-                        LinuxPackConstants.InstallService,
-                        LinuxPackConstants.ServiceName,
-                        LinuxPackConstants.Prefix,
-                        LinuxPackConstants.DebSection,
-                        LinuxPackConstants.DebPriority,
-                        LinuxPackConstants.DebHomepage,
-                        LinuxPackConstants.PreInstallScript,
-                        LinuxPackConstants.PostInstallScript,
-                        LinuxPackConstants.PreRemoveScript,
-                        LinuxPackConstants.PostRemoveScript,
-                        dependencies,
-                        recommends,
-                        null!);
+                    archiveEntries,
+                    LinuxPackConstants.PackageName,
+                    LinuxPackConstants.Description,
+                    LinuxPackConstants.DebMaintainer,
+                    Utils.Version,
+                    DebTask.GetPackageArchitecture(item.Name),
+                    LinuxPackConstants.CreateUser,
+                    LinuxPackConstants.UserName,
+                    LinuxPackConstants.InstallService,
+                    LinuxPackConstants.ServiceName,
+                    LinuxPackConstants.Prefix,
+                    LinuxPackConstants.DebSection,
+                    LinuxPackConstants.DebPriority,
+                    LinuxPackConstants.DebHomepage,
+                    LinuxPackConstants.PreInstallScript,
+                    LinuxPackConstants.PostInstallScript,
+                    LinuxPackConstants.PreRemoveScript,
+                    LinuxPackConstants.PostRemoveScript,
+                    dependencies,
+                    recommends,
+                    null!);
 
                     DebPackageCreator.WriteDebPackage(
                         archiveEntries,
@@ -134,6 +134,8 @@ namespace System.Application.Steps
                         targetStream,
                         pkg);
                 }
+
+                File.Delete(debTarXzPath);
             }
 
             Console.WriteLine("完成");

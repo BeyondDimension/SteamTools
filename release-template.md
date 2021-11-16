@@ -53,23 +53,6 @@
 		- 确认交易列表刷新后数据有时会显示不正确
 		- 自动更新暂不可用
 
-***
-
-|  RuntimeIdentifier  |  Available  |  Edition  |
-|  ----  |  ----  |  ----  |
-| win-x64  | ✅ | Stable |
-| osx-x64  | ✅ | β |
-| linux-x64  | ✅ | α |
-| android-arm64  | ✅ | α |
-| android-arm  | ✅ | α |
-| android-x86  | ✅ | α |
-| linux-arm64  | ✅ | α |
-| linux-arm  | ✅ | α |
-| osx-arm64  | ❌ |  |
-| win-arm64  | ❌ |  |
-| ios-arm64  | ❌ |  |
-| android-x64  | ❌ |  |
-
 ## 下载指南
 - Desktop
 	- Windows
@@ -95,8 +78,9 @@
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
 | Steam++_win_x64_v2.6.0.7z  | SHA256 |
-| Steam++_win_x64_v2.6.0.exe  | SHA256 |
 | Steam++_win_x64_fde_v2.6.0.7z  | SHA256 |
+| | |
+| Steam++_win_x64_v2.6.0.exe  | SHA256 |
 | Steam++_win_x64_fde_v2.6.0.exe  | SHA256 |
 | | |
 | Steam++_linux_x64_v2.6.0.7z  | SHA256 |
@@ -106,12 +90,29 @@
 | Steam++_linux_arm64_fde_v2.6.0.7z  | SHA256 |
 | Steam++_linux_arm_fde_v2.6.0.7z  | SHA256 |
 | | |
+| Steam++_linux_x64_v2.6.0.deb  | SHA256 |
+| Steam++_linux_arm64_v2.6.0.deb  | SHA256 |
+| Steam++_linux_arm_v2.6.0.deb  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.0.deb  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.0.deb  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.0.deb  | SHA256 |
+| | |
+| Steam++_linux_x64_v2.6.0.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.6.0.rpm  | SHA256 |
+| Steam++_linux_arm_v2.6.0.rpm  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.0.rpm  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.0.rpm  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.0.rpm  | SHA256 |
+| | |
 | Steam++_macos_x64_v2.6.0.dmg  | SHA256 |
-| Steam++_macos_x64_v2.6.0.app.zip  | SHA256 |
-| Steam++_macos_x64_v2.6.0.7z  | SHA256 |
 | Steam++_macos_x64_fde_v2.6.0.dmg  | SHA256 |
-| Steam++_macos_x64_fde_v2.6.0.app.zip  | SHA256 |
+| Steam++_macos_arm64_v2.6.0.dmg  | SHA256 |
+| Steam++_macos_arm64_fde_v2.6.0.dmg  | SHA256 |
+| | |
+| Steam++_macos_x64_v2.6.0.7z  | SHA256 |
 | Steam++_macos_x64_fde_v2.6.0.7z  | SHA256 |
+| Steam++_macos_arm64_v2.6.0.7z  | SHA256 |
+| Steam++_macos_arm64_fde_v2.6.0.7z  | SHA256 |
 | | |
 | Steam++_android_arm64_v8a_v2.6.0.apk  | SHA256 |
 | Steam++_android_armeabi_v7a_v2.6.0.apk  | SHA256 |

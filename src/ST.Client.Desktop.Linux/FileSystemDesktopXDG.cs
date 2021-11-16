@@ -90,10 +90,10 @@ namespace System.Application
             }
         }
 
-        const string HOME = "$HOME";
+        const string HOME = "HOME";
 
-        const string XDG_DATA_HOME = "$XDG_DATA_HOME";
+        const string XDG_DATA_HOME = "XDG_DATA_HOME";
 
-        const string XDG_CACHE_HOME = "$XDG_CACHE_HOME";
+        const string XDG_CACHE_HOME = "XDG_CACHE_HOME";
     }
 }
