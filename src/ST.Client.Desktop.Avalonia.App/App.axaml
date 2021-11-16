@@ -13,6 +13,7 @@
     <converters:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
     <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
+    <converters:GuidToUrlConverter x:Key="GuidToUrlConverter" />
     <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
     <converters:StringFormatConverter x:Key="StringFormatConverter" />
     <converters:SizeConverter x:Key="SizeConverter" />

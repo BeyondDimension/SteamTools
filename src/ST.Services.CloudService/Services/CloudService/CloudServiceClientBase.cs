@@ -26,6 +26,7 @@ namespace System.Application.Services.CloudService
         public IVersionClient Version { get; }
         public IActiveUserClient ActiveUser { get; }
         public IAccelerateClient Accelerate { get; }
+        public IDonateRankingClient DonateRanking { get; }
 
         #endregion
 
@@ -81,6 +82,7 @@ namespace System.Application.Services.CloudService
             ActiveUser = new ActiveUserClient(connection);
             Accelerate = new AccelerateClient(connection);
             Script = new ScriptClient(connection);
+            DonateRanking = new DonateRankingClient(connection);
 
             #endregion
         }

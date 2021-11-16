@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
 {
-    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, IScriptClient
+    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, IScriptClient, IDonateRankingClient
     {
         readonly IToast toast;
         readonly IModelValidator validator;
@@ -31,6 +31,7 @@ namespace System.Application.Services.CloudService
         public IVersionClient Version => this;
         public IActiveUserClient ActiveUser => this;
         public IAccelerateClient Accelerate => this;
+        public IDonateRankingClient DonateRanking => this;
 
         #region ModelValidator
 
@@ -232,6 +233,12 @@ namespace System.Application.Services.CloudService
         Task<string> ICloudServiceClient.Info()
         {
             return Task.FromResult(string.Empty);
+        }
+
+        public async Task<IApiResponse<PagedModel<RankingResponse>>> RangeQuery(PageQueryRequest<RankingRequest> model)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new PagedModel<RankingResponse> { });
         }
     }
 }

@@ -8,6 +8,8 @@
              xmlns:pages="using:System.Application.UI.Views.Pages"
              mc:Ignorable="d"
              d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:AboutPageViewModel"
+             x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.AboutPage">
   <Border 
           Padding="0 10">

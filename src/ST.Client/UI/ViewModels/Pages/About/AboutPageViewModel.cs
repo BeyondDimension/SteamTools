@@ -1,6 +1,9 @@
+using DynamicData.Binding;
 using ReactiveUI;
+using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Properties;
 using System.Reactive;
@@ -18,6 +21,22 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
         public ReactiveCommand<Unit, Unit> DelAccountCommand { get; }
+
+        private ObservableCollection<RankingResponse>? _DonateList;
+        public ObservableCollection<RankingResponse>? DonateList
+        {
+            get => _DonateList;
+            set => this.RaiseAndSetIfChanged(ref _DonateList, value);
+        }
+
+        private DateTimeOffset _DonateFliterDate;
+        public DateTimeOffset DonateFliterDate
+        {
+            get => _DonateFliterDate;
+            set => this.RaiseAndSetIfChanged(ref _DonateFliterDate, value);
+        }
+
+        private const int DonateListPageSize = 50;
 
         public AboutPageViewModel()
         {
@@ -72,6 +91,11 @@ namespace System.Application.UI.ViewModels
                 }
             });
 
+            DonateFliterDate = DateTimeOffset.Now.GetCurrentMonth();
+
+            this.WhenValueChanged(x => x.DonateFliterDate, false)
+                .Subscribe(x => LoadDonateRankListData(true));
+
             if (IsMobileLayout)
             {
                 preferenceButtons = new(Enum2.GetAll<PreferenceButton>().Select(x => PreferenceButtonViewModel.Create(x, this)));
@@ -92,6 +116,56 @@ namespace System.Application.UI.ViewModels
                         }
                     }
                 }).AddTo(this);
+            }
+        }
+
+        public override void Activation()
+        {
+            LoadDonateRankListData(true);
+            base.Activation();
+        }
+
+        public override void Deactivation()
+        {
+            DonateList = null;
+            base.Deactivation();
+        }
+
+        public async void LoadDonateRankListData(bool refresh = false, bool nextPage = false)
+        {
+            if (refresh)
+                DonateList = null;
+
+            DonateList ??= new();
+
+            var pageIndex = 0;
+
+            if (nextPage)
+                pageIndex = DonateList.Count;
+
+
+            var result = await ICloudServiceClient.Instance.DonateRanking.RangeQuery(new PageQueryRequest<RankingRequest>
+            {
+                Current = pageIndex,
+                PageSize = DonateListPageSize,
+                Params = new RankingRequest()
+                {
+                    TimeRange = new[] {
+                        DonateFliterDate,DonateFliterDate.GetCurrentMonthLastDay(),
+                    }
+                }
+            });
+
+            if (result?.IsSuccess == true && result.Content != null)
+            {
+                if (DonateList.Count <= result.Content.Total)
+                {
+                    DonateList.AddRange(result.Content.DataSource);
+                }
+            }
+            else
+            {
+                Toast.Show("加载捐助列表数据出错：" + result.Message);
             }
         }
 

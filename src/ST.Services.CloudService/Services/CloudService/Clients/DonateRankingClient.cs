@@ -12,8 +12,9 @@ namespace System.Application.Services.CloudService.Clients
         public DonateRankingClient(IApiConnection conn) : base(conn)
         {
         }
-        public Task<IApiResponse<PagedModel<RankingResponse>>> Scripts(RankingRequest model)
-           => conn.SendAsync<RankingRequest, PagedModel<RankingResponse>>(
+
+        public Task<IApiResponse<PagedModel<RankingResponse>>> RangeQuery(PageQueryRequest<RankingRequest> model)
+           => conn.SendAsync<PageQueryRequest<RankingRequest>, PagedModel<RankingResponse>>(
                isPolly: true,
                isAnonymous: true,
                isSecurity: false,

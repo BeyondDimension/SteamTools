@@ -28,7 +28,7 @@ namespace System.Application.UI.ViewModels
             this.WhenActivated(disposables =>
             {
                 Activation();
-                Disposable.Create(() => { Deactivation(); })
+                Disposable.Create(Deactivation)
                     .DisposeWith(disposables);
             });
         }

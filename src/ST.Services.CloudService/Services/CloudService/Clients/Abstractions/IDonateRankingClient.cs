@@ -6,6 +6,6 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
 {
     public interface IDonateRankingClient
     {
-        Task<IApiResponse<PagedModel<RankingResponse>>> Scripts(RankingRequest model);
+        Task<IApiResponse<PagedModel<RankingResponse>>> RangeQuery(PageQueryRequest<RankingRequest> model);
     }
 }
