@@ -5,6 +5,7 @@
              xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:controls="using:System.Application.UI.Views.Controls"
              xmlns:ms="using:System.Application.Settings"
+             xmlns:models="using:System.Application.Models"
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"
@@ -87,7 +88,9 @@
       <Border Classes="Item">
         <DockPanel>
           <TextBlock Text="AutoCompleteBox"/>
-          <AutoCompleteBox Text=""/>
+          <AutoCompleteBox Items="{ReflectionBinding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
+                           FilterMode="StartsWithOrdinal"
+                           ValueMemberBinding="{ReflectionBinding CommandText}"/>
         </DockPanel>
       </Border>
 

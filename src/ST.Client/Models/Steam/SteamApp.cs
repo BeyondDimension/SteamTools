@@ -327,7 +327,7 @@ namespace System.Application.Models
             return true;
         }
 
-        internal bool UpdateDll(LocalDll localDll)
+        internal bool UpdateDll(LocalDlssDll localDll)
         {
             if (localDll == null)
             {

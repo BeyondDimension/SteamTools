@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Models
 {
-    public class LocalDll : IComparable<LocalDll>
+    public class LocalDlssDll : IComparable<LocalDlssDll>
     {
         public string Filename { get; }
 
@@ -22,7 +22,7 @@ namespace System.Application.Models
 
         public string MD5Hash { get; }
 
-        public LocalDll(string filename)
+        public LocalDlssDll(string filename)
         {
             Filename = filename;
 
@@ -57,7 +57,7 @@ namespace System.Application.Models
             return Version;
         }
 
-        public int CompareTo(LocalDll? other)
+        public int CompareTo(LocalDlssDll? other)
         {
             if (other == null)
             {
