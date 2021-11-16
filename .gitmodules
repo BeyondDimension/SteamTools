@@ -31,3 +31,6 @@
 [submodule "references/reactive"]
 	path = references/reactive
 	url = https://github.com/SteamTools-Team/reactive.git
+[submodule "references/dotnet-packaging"]
+	path = references/dotnet-packaging
+	url = https://github.com/qmfrederik/dotnet-packaging.git
