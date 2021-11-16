@@ -65,7 +65,7 @@ namespace System.Application
                 Console.WriteLine("错误：必须输入一个版本号！");
                 return false;
             }
-            else if (!Version.TryParse(value, out var _))
+            else if (!System.Version.TryParse(value, out var _))
             {
                 Console.WriteLine("错误：输入的版本号格式不正确！");
                 return false;
