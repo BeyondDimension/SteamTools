@@ -1,0 +1,273 @@
+using ICSharpCode.SharpZipLib.GZip;
+using ICSharpCode.SharpZipLib.Tar;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
+using Packaging.Targets;
+using Packaging.Targets.IO;
+using SevenZip;
+using System.Application.Models;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Properties;
+using System.Security.Cryptography;
+using System.Text;
+using NCompressionMode = System.IO.Compression.CompressionMode;
+
+namespace System.Application
+{
+    internal static partial class Utils
+    {
+        static Utils()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                var sevenZipLibraryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
+                SevenZipBase.SetLibraryPath(sevenZipLibraryPath);
+                SevenZipCompressor.LzmaDictionarySize = 805306368; // 768MB
+            }
+        }
+
+        //public static void AddDeploymentModeOption(Command command, string alias = "-d")
+        //{
+        //    var o = new Option<DeploymentMode>(alias, () => DeploymentMode.SCD, DeploymentModeDesc);
+        //    command.AddOption(o);
+        //}
+
+        public const string InputPubDirNameDesc = "(必填)输入发布文件夹名";
+        public const string InputPubDirNameError = "错误：必须输入发布文件夹名";
+        public const string DevDesc = "是否为开发环境，默认值否";
+        //const string DeploymentModeDesc = "应用部署模式，默认为SCD";
+        //public const string DevTablePrefix = "";
+        public const string PublishJsonFileName = "Publish.json";
+
+        static readonly Lazy<string> mPublishJsonFilePath = new(() => Path.Combine(IOPath.AppDataDirectory, PublishJsonFileName));
+        public static string PublishJsonFilePath => mPublishJsonFilePath.Value;
+
+        public static readonly string[] ignoreDirNames = new[] {
+            IOPath.DirName_AppData,
+            IOPath.DirName_Cache,
+            "CEF"
+        };
+
+        /// <summary>
+        /// 检查版本号字符串是否符合要求
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool CheckVersion(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                Console.WriteLine("错误：必须输入一个版本号！");
+                return false;
+            }
+            else if (!Version.TryParse(value, out var _))
+            {
+                Console.WriteLine("错误：输入的版本号格式不正确！");
+                return false;
+            }
+            return true;
+        }
+
+        static readonly Lazy<bool> mIsAigioPC = new(() =>
+        {
+            return Hashs.String.Crc32(Environment.MachineName, false) == "88DF9AB0" ||
+            Hashs.String.Crc32(Environment.UserName, false) == "8AA383BC";
+        });
+        public static bool IsAigioPC => mIsAigioPC.Value;
+
+        public static string GetInfoVersion(string assemblyFile)
+        {
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(assemblyFile);
+            return fileVersionInfo?.FileVersion ?? string.Empty;
+            //var a = Assembly.LoadFrom(assemblyFile);
+            //var attr = a.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+            //return attr?.InformationalVersion ?? string.Empty;
+        }
+
+        public static void ScanPath(string dirPath, List<PublishFileInfo>? list = null, string? relativeTo = null, string[]? ignoreRootDirNames = null)
+        {
+            list ??= new List<PublishFileInfo>();
+            relativeTo ??= dirPath;
+            var files = Directory.GetFiles(dirPath).Where(x =>
+                Path.GetExtension(x) != ".pdb" &&
+                (Path.GetExtension(x) != ".xml" || x.EndsWith(".VisualElementsManifest.xml", StringComparison.OrdinalIgnoreCase)) &&
+                !x.EndsWith(".runtimeconfig.dev.json", StringComparison.OrdinalIgnoreCase));
+            if (files.Any())
+            {
+                var files2 = files.Select(x => new PublishFileInfo(x, relativeTo));
+                list.AddRange(files2);
+            }
+            var dirs = Directory.GetDirectories(dirPath);
+            foreach (var dir in dirs)
+            {
+                if (ignoreRootDirNames != null && ignoreRootDirNames.Contains(Path.GetDirectoryName(dir)))
+                {
+                    // 忽略顶级文件夹
+                    continue;
+                }
+                ScanPath(dir, list, relativeTo);
+            }
+        }
+
+        public static void CreatePack(string packPath, IEnumerable<PublishFileInfo> files)
+        {
+            using var fs = File.Create(packPath);
+            using var s = new GZipOutputStream(fs);
+            s.SetLevel(Deflater.BEST_COMPRESSION);
+            using var archive = TarArchive.CreateOutputTarArchive(s,
+                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+            foreach (var file in files)
+            {
+                Console.WriteLine($"正在压缩：{file.Path}");
+                var entry = TarEntry.CreateEntryFromFile(file.Path);
+                entry.Name = file.RelativePath;
+                archive.WriteEntry(entry, false);
+            }
+        }
+
+        public static void CreateBrotliPack(string packPath, IEnumerable<PublishFileInfo> files)
+        {
+            using var fs = File.Create(packPath);
+            using var s = new BrotliStream(fs, NCompressionMode.Compress);
+            using var archive = TarArchive.CreateOutputTarArchive(s,
+                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+            foreach (var file in files)
+            {
+                Console.WriteLine($"正在压缩：{file.Path}");
+                var entry = TarEntry.CreateEntryFromFile(file.Path);
+                entry.Name = file.RelativePath;
+                archive.WriteEntry(entry, false);
+            }
+        }
+
+        public static void CreateSevenZipPack(string packPath, IEnumerable<PublishFileInfo> files)
+        {
+            SevenZipCompressor compressor = new();
+            compressor.ArchiveFormat = OutArchiveFormat.SevenZip;
+            compressor.CompressionLevel = SevenZip.CompressionLevel.Ultra;
+            compressor.CompressionMethod = CompressionMethod.Lzma2;
+            compressor.FastCompression = false;
+            compressor.ScanOnlyWritable = true;
+            compressor.DirectoryStructure = true;
+            compressor.FileCompressionStarted += (_, e) =>
+            {
+                Console.WriteLine($"正在压缩：{e.FileName}");
+            };
+            var dict = files.ToDictionary(x => x.RelativePath, x => x.Path);
+            compressor.CompressFileDictionary(dict, packPath);
+        }
+
+        public static void SavePublishJson(IEnumerable<PublishDirInfo> dirNames, bool removeFiles = false)
+        {
+            if (removeFiles)
+            {
+                foreach (var item in dirNames)
+                {
+                    item.Files.Clear();
+                }
+            }
+            var publish_json_str = Serializable.SJSON(dirNames);
+            IOPath.FileIfExistsItDelete(PublishJsonFilePath);
+            File.WriteAllText(PublishJsonFilePath, publish_json_str);
+        }
+
+        public static string Version
+        {
+            get
+            {
+                var mainDllPath = ProjectPathUtil.projPath + ProjectPathUtil.MainDllPath;
+                var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;
+                var versionArray = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                if (versionArray.Length > 3) version = string.Join('.', versionArray.Take(3));
+                return version;
+            }
+        }
+
+        public static string GetFileName(PublishDirInfo item, string fileEx)
+        {
+            var version = Version;
+            var fileName = item.DeploymentMode switch
+            {
+                DeploymentMode.SCD =>
+                    $"Steam++_{item.Name.Replace("-", "_")}_v{version}{fileEx}",
+                DeploymentMode.FDE =>
+                    $"Steam++_{item.Name.Replace("-", "_")}_fde_v{version}{fileEx}",
+                _ => throw new ArgumentOutOfRangeException(nameof(item.DeploymentMode), item.DeploymentMode, null),
+            };
+            return fileName;
+        }
+
+        public static string GetPackPath(PublishDirInfo item, string fileEx)
+        {
+            var fileName = GetFileName(item, fileEx);
+            var packPath = item.DeploymentMode switch
+            {
+                DeploymentMode.SCD => Path.Combine(item.Path, "..", fileName),
+                DeploymentMode.FDE => Path.Combine(item.Path, "..", "..", fileName),
+                _ => throw new ArgumentOutOfRangeException(nameof(item.DeploymentMode), item.DeploymentMode, null),
+            };
+            return packPath;
+        }
+
+        public static string[] GetAllRids(string[] rids, Platform platform) => !rids.Any()
+                ? platform switch
+                {
+                    Platform.Unknown => new[] { "win-x64", "win-arm64", "linux-x64", "linux-arm64", "linux-arm", "osx-x64", "osx-arm64", },
+                    Platform.Windows => new[] { "win-x64", "win-arm64", },
+                    Platform.Linux => new[] { "linux-x64", "linux-arm64", "linux-arm", },
+                    Platform.Apple => new[] { "osx-x64", "osx-arm64", },
+                    _ => throw new ArgumentOutOfRangeException(nameof(platform), platform, null),
+                }
+                : rids;
+
+        public static class LinuxPackConstants
+        {
+            public const string TargetName = Constants.HARDCODED_APP_NAME;
+            public const string PackagePrefix = TargetName;
+            public const string PackageName = PackagePrefix;
+            public const string Prefix = "/usr/share/" + PackagePrefix;
+            public const string Release = "0";
+            public const bool CreateUser = false;
+            public const string UserName = Constants.HARDCODED_APP_NAME;
+            public const bool InstallService = false;
+            public const string ServiceName = PackagePrefix;
+            public const string RpmVendor = ThisAssembly.AssemblyCompany;
+            public const string Description = ThisAssembly.AssemblyDescription;
+            public const string Url = "https://steampp.net";
+            public const string PreInstallScript = null!;
+            public const string PostInstallScript = null!;
+            public const string PreRemoveScript = null!;
+            public const string PostRemoveScript = null!;
+            public const string FileNameDesktop = Constants.HARDCODED_APP_NAME + ".desktop";
+            public const string DebMaintainer = ThisAssembly.AssemblyCompany;
+            public const string DebSection = "misc";
+            public const string DebPriority = "extra";
+            public const string DebHomepage = Url;
+            public const string dotnet_runtime_6_0 = "dotnet-runtime-6.0";
+
+            public static void AddFileNameDesktop(ArchiveBuilder2 archiveBuilder2, List<ArchiveEntry> archiveEntries)
+            {
+                var metadata = new Dictionary<string, string>()
+                {
+                    { "CopyToPublishDirectory", "Always" },
+                    { "LinuxPath", "/usr/share/applications/" + FileNameDesktop },
+                    { "Link", FileNameDesktop },
+                };
+
+                var taskItem = new TaskItem(FileNameDesktop, metadata);
+                var taskItems = new ITaskItem[] { taskItem };
+                archiveBuilder2.AddFile(
+                    Path.Combine(AppContext.BaseDirectory, FileNameDesktop),
+                    FileNameDesktop,
+                    Prefix,
+                    archiveEntries,
+                    taskItems);
+            }
+        }
+    }
+}

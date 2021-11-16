@@ -31,7 +31,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico">
-      <Link>Steam.ico</Link>
+      <Link>Steam++.ico</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

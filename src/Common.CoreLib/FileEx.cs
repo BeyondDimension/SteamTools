@@ -77,6 +77,20 @@ namespace System
 
         public const string DownloadCache = ".download_cache";
 
+        public const string RPM = ".rpm";
+
+        public const string CPIO = ".cpio";
+
+        public const string DEB = ".deb";
+
+        public const string DEB_TAR = ".deb.tar";
+
+        public const string DEB_TAR_XZ = ".deb.tar.xz";
+
+        public const string PKG = ".pkg";
+
+        public const string MSI = ".msi";
+
         public static string Clean(string extension, bool trimLeadingPeriod = false)
         {
             if (string.IsNullOrWhiteSpace(extension))

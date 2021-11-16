@@ -226,6 +226,7 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [QR Code Generator for .NET](https://github.com/manuelbl/QrCodeGenerator)
 * [TinyPinyin](https://github.com/promeG/TinyPinyin)
 * [TinyPinyin.Net](https://github.com/hueifeng/TinyPinyin.Net)
+* [Packaging utilities for .NET Core](https://github.com/qmfrederik/dotnet-packaging)
 * [React](https://github.com/facebook/react)
 * [Ant Design](https://github.com/ant-design/ant-design)
 * [Ant Design Blazor](https://github.com/ant-design-blazor/ant-design-blazor)

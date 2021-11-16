@@ -1,0 +1,98 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>p</AssemblyName>
+    <RootNamespace>System.Application</RootNamespace>
+    <ApplicationIcon>..\..\..\SteamTools\src\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
+    <DefineConstants>NOT_XE;NOT_MP;NOT_NJSON;NOT_DI;$(DefineConstants)</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+    <Compile Include="..\ST.Client\FileSystemDesktop.cs">
+      <Link>FileSystemDesktop.cs</Link>
+    </Compile>
+    <Compile Include="..\..\resources\ProjectPathUtil.cs">
+      <Link>ProjectPathUtil2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\Deb\*.cs">
+      <LinkBase>Packaging.Targets\Deb</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\IO\*.cs">
+      <LinkBase>Packaging.Targets\IO</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\Native\*.cs">
+      <LinkBase>Packaging.Targets\Native</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\Rpm\*.cs">
+      <LinkBase>Packaging.Targets\Rpm</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\StreamExtensions.cs">
+      <LinkBase>Packaging.Targets</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\ArchiveBuilder.cs">
+      <LinkBase>Packaging.Targets</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\TaskItemExtensions.cs">
+      <LinkBase>Packaging.Targets</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\CopyToDirectoryValue.cs">
+      <LinkBase>Packaging.Targets</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\RpmTask.cs">
+      <LinkBase>Packaging.Targets</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\DebTask.cs">
+      <LinkBase>Packaging.Targets</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\dotnet-packaging\Packaging.Targets\RuntimeIdentifiers.cs">
+      <LinkBase>Packaging.Targets</LinkBase>
+    </Compile>
+    <None Include="..\..\references\dotnet-packaging\Packaging.Targets\runtimes\win7-x64\native\lzma.dll" Link="lzma.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+    <PackageReference Include="System.CommandLine" />
+    <PackageReference Include="TextCopy" />
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="Portable.BouncyCastle" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\ST\ST.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Steam++.desktop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
