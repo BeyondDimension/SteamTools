@@ -91,6 +91,10 @@ namespace System
 
         public const string MSI = ".msi";
 
+        public const string TAR_XZ = ".tar.xz";
+
+        public const string TAR_ZST = ".tar.zst";
+
         public static string Clean(string extension, bool trimLeadingPeriod = false)
         {
             if (string.IsNullOrWhiteSpace(extension))

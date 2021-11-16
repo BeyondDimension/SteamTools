@@ -15,6 +15,7 @@ using System.Linq;
 using System.Properties;
 using System.Security.Cryptography;
 using System.Text;
+using ZstdNet;
 using NCompressionMode = System.IO.Compression.CompressionMode;
 
 namespace System.Application
@@ -130,6 +131,21 @@ namespace System.Application
             }
         }
 
+        public static void CreateXZPack(string packPath, IEnumerable<PublishFileInfo> files)
+        {
+            using var fs = File.Create(packPath);
+            using var s = new XZOutputStream(fs);
+            using var archive = TarArchive.CreateOutputTarArchive(s,
+                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+            foreach (var file in files)
+            {
+                Console.WriteLine($"正在压缩：{file.Path}");
+                var entry = TarEntry.CreateEntryFromFile(file.Path);
+                entry.Name = file.RelativePath;
+                archive.WriteEntry(entry, false);
+            }
+        }
+
         public static void CreateBrotliPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
             using var fs = File.Create(packPath);
@@ -160,6 +176,21 @@ namespace System.Application
             };
             var dict = files.ToDictionary(x => x.RelativePath, x => x.Path);
             compressor.CompressFileDictionary(dict, packPath);
+        }
+
+        public static void CreateZstdPack(string packPath, IEnumerable<PublishFileInfo> files)
+        {
+            using var fs = File.Create(packPath);
+            using var s = new CompressionStream(fs, new CompressionOptions(CompressionOptions.MaxCompressionLevel));
+            using var archive = TarArchive.CreateOutputTarArchive(s,
+                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+            foreach (var file in files)
+            {
+                Console.WriteLine($"正在压缩：{file.Path}");
+                var entry = TarEntry.CreateEntryFromFile(file.Path);
+                entry.Name = file.RelativePath;
+                archive.WriteEntry(entry, false);
+            }
         }
 
         public static void SavePublishJson(IEnumerable<PublishDirInfo> dirNames, bool removeFiles = false)

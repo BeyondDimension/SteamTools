@@ -225,6 +225,7 @@ OS                            | Version                 | Architectures     |
 * [TaskScheduler](https://github.com/dahall/taskscheduler)
 * [SharpZipLib](https://github.com/icsharpcode/SharpZipLib)
 * [SevenZipSharp](https://github.com/squid-box/SevenZipSharp)
+* [ZstdNet](https://github.com/skbkontur/ZstdNet)
 * [Depressurizer](https://github.com/Depressurizer/Depressurizer)
 * [NLog](https://github.com/nlog/NLog)
 * [NUnit](https://github.com/nunit/nunit)
