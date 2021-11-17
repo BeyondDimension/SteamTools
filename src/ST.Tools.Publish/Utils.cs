@@ -280,6 +280,7 @@ namespace System.Application
             public const string DebPriority = "extra";
             public const string DebHomepage = Url;
             public const string dotnet_runtime_6_0 = "dotnet-runtime-6.0";
+            public const string aspnetcore_runtime_6_0 = "aspnetcore-runtime-6.0";
 
             public static void AddFileNameDesktop(ArchiveBuilder2 archiveBuilder2, List<ArchiveEntry> archiveEntries)
             {

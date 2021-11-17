@@ -68,7 +68,11 @@
 		- 如果你使用 ARM64 芯片的 PC（较为**稀有**）例如 **Raspberry Pi Model 3+**，则下载文件名中带有 **linux_arm64** 的文件
 		- 如果你使用 ARM32 芯片的 PC（较为**稀有**）例如 **Raspberry Pi Model 2+**，则下载文件名中带有 **linux_arm** 的文件
 	- Shared
-		- 如果你已安装了 [.NET Runtime 6.0](https://dotnet.microsoft.com/download/dotnet/6.0) 则下载文件名中带有 **fde** 的文件，可减少磁盘占用空间
+		- 如果你已安装了 [ASP.NET Core Runtime 6.0.0](https://dotnet.microsoft.com/download/dotnet/6.0) 则下载文件名中带有 **fde** 的文件，可减少磁盘占用空间
+			- [在 Windows 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/windows)
+				- 在 Windows 上不需要 Hosting Bundle 和 IIS support
+			- [在 macOS 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/macos)
+			- [在 Linux 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 - Mobile
 	- Android
 		- 如果你使用 ARM64 芯片的设备（较为**普遍**）则下载文件名中带有 **android_arm64_v8a** 的文件

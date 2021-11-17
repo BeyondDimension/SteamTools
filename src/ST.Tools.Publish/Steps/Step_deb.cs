@@ -69,7 +69,7 @@ namespace System.Application.Steps
 
                 if (item.DeploymentMode == DeploymentMode.FDE)
                 {
-                    dependencies.Add(LinuxPackConstants.dotnet_runtime_6_0);
+                    dependencies.Add(LinuxPackConstants.aspnetcore_runtime_6_0);
                 }
 
                 //if (this.DebDependencies != null)
