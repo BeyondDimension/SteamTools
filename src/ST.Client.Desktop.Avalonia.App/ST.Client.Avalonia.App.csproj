@@ -34,7 +34,6 @@
     <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
     <!--<UseWindowsForms>false</UseWindowsForms>-->
     <!--<UseWPF>false</UseWPF>-->
-    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
