@@ -64,7 +64,7 @@ OS                                    | Version                 | Architectures 
 [Windows 10 Client][Windows-client]   | Version 1607+(**\***)           | x64 | [Windows][Windows-lifecycle]
 [Windows Server][Windows-Server]      | 2012+                | x64        | [Windows Server][Windows-Server-lifecycle]
 
-**\*** Windows 7 SP1 is supported with KB3063858 [64 位](https://www.microsoft.com/zh-cn/download/details.aspx?id=47442) installed.  
+**\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.
 **\*** Microsoft Store/Desktop Bridge Version 1809+
 
 [Windows-client]: https://www.microsoft.com/windows/

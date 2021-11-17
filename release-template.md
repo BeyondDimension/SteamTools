@@ -71,7 +71,6 @@
 		- 如果你已安装了 [ASP.NET Core Runtime 6.0.0](https://dotnet.microsoft.com/download/dotnet/6.0) 则下载文件名中带有 **fde** 的文件，可减少磁盘占用空间
 			- [在 Windows 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/windows)
 				- 在 Windows 上不需要 Hosting Bundle 和 IIS support
-			- [在 macOS 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/macos)
 			- [在 Linux 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 - Mobile
 	- Android
@@ -90,6 +89,7 @@
 | Steam++_linux_x64_v2.6.0.7z  | SHA256 |
 | Steam++_linux_arm64_v2.6.0.7z  | SHA256 |
 | Steam++_linux_arm_v2.6.0.7z  | SHA256 |
+| | |
 | Steam++_linux_x64_fde_v2.6.0.7z  | SHA256 |
 | Steam++_linux_arm64_fde_v2.6.0.7z  | SHA256 |
 | Steam++_linux_arm_fde_v2.6.0.7z  | SHA256 |
@@ -97,6 +97,7 @@
 | Steam++_linux_x64_v2.6.0.deb  | SHA256 |
 | Steam++_linux_arm64_v2.6.0.deb  | SHA256 |
 | Steam++_linux_arm_v2.6.0.deb  | SHA256 |
+| | |
 | Steam++_linux_x64_fde_v2.6.0.deb  | SHA256 |
 | Steam++_linux_arm64_fde_v2.6.0.deb  | SHA256 |
 | Steam++_linux_arm_fde_v2.6.0.deb  | SHA256 |
@@ -104,19 +105,15 @@
 | Steam++_linux_x64_v2.6.0.rpm  | SHA256 |
 | Steam++_linux_arm64_v2.6.0.rpm  | SHA256 |
 | Steam++_linux_arm_v2.6.0.rpm  | SHA256 |
+| | |
 | Steam++_linux_x64_fde_v2.6.0.rpm  | SHA256 |
 | Steam++_linux_arm64_fde_v2.6.0.rpm  | SHA256 |
 | Steam++_linux_arm_fde_v2.6.0.rpm  | SHA256 |
 | | |
 | Steam++_macos_x64_v2.6.0.dmg  | SHA256 |
-| Steam++_macos_x64_fde_v2.6.0.dmg  | SHA256 |
 | Steam++_macos_arm64_v2.6.0.dmg  | SHA256 |
-| Steam++_macos_arm64_fde_v2.6.0.dmg  | SHA256 |
-| | |
 | Steam++_macos_x64_v2.6.0.7z  | SHA256 |
-| Steam++_macos_x64_fde_v2.6.0.7z  | SHA256 |
 | Steam++_macos_arm64_v2.6.0.7z  | SHA256 |
-| Steam++_macos_arm64_fde_v2.6.0.7z  | SHA256 |
 | | |
 | Steam++_android_arm64_v8a_v2.6.0.apk  | SHA256 |
 | Steam++_android_armeabi_v7a_v2.6.0.apk  | SHA256 |

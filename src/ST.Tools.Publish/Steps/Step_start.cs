@@ -40,6 +40,10 @@ namespace System.Application.Steps
 
             foreach (var item in dirNames)
             {
+                var isMacOS = item.Name.StartsWith("osx");
+                // ASP.NET Core Runtime 6.0.0 缺少 macOS Installers
+                if (isMacOS && d == DeploymentMode.FDE) continue;
+
                 if (!Directory.Exists(item.Path))
                 {
                     Console.WriteLine($"错误：找不到发布文件夹({item.Name})，{item.Path}");
