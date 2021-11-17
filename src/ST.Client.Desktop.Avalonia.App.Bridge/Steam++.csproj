@@ -42,6 +42,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PublishReadyToRunExclude Include="Microsoft.Windows.SDK.NET.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Startup2.HandleGlobalException.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
