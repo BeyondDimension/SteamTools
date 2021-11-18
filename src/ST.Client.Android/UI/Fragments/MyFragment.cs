@@ -39,6 +39,18 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
+                var isUnderConstruction = e.Current.Id switch
+                {
+                    PreferenceButton.BindPhoneNumber or
+                    PreferenceButton.ChangePhoneNumber => true,
+                    _ => false,
+                };
+                if (isUnderConstruction)
+                {
+                    MainApplication.ShowUnderConstructionTips();
+                    return;
+                }
+
                 var activityType = e.Current.Id switch
                 {
                     PreferenceButton.UserProfile => typeof(UserProfileActivity),

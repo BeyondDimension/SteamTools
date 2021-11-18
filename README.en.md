@@ -43,7 +43,7 @@ English | [简体中文](./README.md)
 4. Steam Local Two-Step Authenticator
     - The function reference [WinAuth](https://github.com/winauth/winauth) is developed to enable you to view your token without launching the mobile version of Steam App, similar function software are [WinAuth](https://github.com/winauth/winauth), [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator).
 5. Some game tools
-	- Currently there is a forced game borderless windowing, CSGO fix mistake VAC shield.
+	- Currently there is a forced game borderless windowing.
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 Supported Operating Systems
@@ -55,7 +55,7 @@ OS                                    | Version                 | Architectures 
 [Windows 10 Client][Windows-client]   | Version 1607+(**\***)           | x64 | [Windows][Windows-lifecycle]
 [Windows Server][Windows-Server]      | 2012+                | x64        | [Windows Server][Windows-Server-lifecycle]
 
-**\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.
+**\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
 **\*** Microsoft Store/Desktop Bridge Version 1809+
 
 [Windows-client]: https://www.microsoft.com/windows/

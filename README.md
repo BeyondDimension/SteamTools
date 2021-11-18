@@ -51,7 +51,7 @@
 		- [WinAuth](https://github.com/winauth/winauth)
 		- [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator)
 5. 其他游戏工具
-	- 目前已有强制游戏无边框窗口化，CSGO 修复 VAC 误屏蔽
+	- 目前已有强制游戏无边框窗口化
 
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
@@ -64,7 +64,7 @@ OS                                    | Version                 | Architectures 
 [Windows 10 Client][Windows-client]   | Version 1607+(**\***)           | x64 | [Windows][Windows-lifecycle]
 [Windows Server][Windows-Server]      | 2012+                | x64        | [Windows Server][Windows-Server-lifecycle]
 
-**\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.
+**\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
 **\*** Microsoft Store/Desktop Bridge Version 1809+
 
 [Windows-client]: https://www.microsoft.com/windows/
