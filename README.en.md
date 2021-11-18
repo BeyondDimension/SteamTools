@@ -2,6 +2,8 @@
 
 <div align="center">
 
+English | [简体中文](./README.md)
+
 「Steam++」is a toolkit that contains a variety of Steam tools, most of which require you to download and install Steam in order to use them.
 
 ![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/total?style=flat-square)
@@ -25,8 +27,6 @@
 </div>
 
 <div align="center"><img src="./resources/screenshots.en.jpg" /></div>
-
-English | [简体中文](./README.md)
 
 ## 🚀 Download channel
 - [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)

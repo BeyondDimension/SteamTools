@@ -2,6 +2,8 @@
 
 <div align="center">
 
+[English](./README.en.md) | 简体中文
+
 「Steam++」是一个包含多种Steam工具功能的工具箱，此工具的大部分功能都是需要您下载安装Steam才能使用。
 
 ![Release Download](https://img.shields.io/github/downloads/SteamTools-Team/SteamTools/total?style=flat-square)
@@ -26,8 +28,6 @@
 </div>
 
 <div align="center"><img src="./resources/screenshots.jpg" /></div>
-
-[English](./README.en.md) | 简体中文
 
 ## 🚀 下载渠道
 - [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
