@@ -10,10 +10,10 @@ namespace System.Application.UI.Views.Controls
 {
     public class WallpaperControl : TemplatedControl
     {
-        readonly INativeWindowApiService windowApiService = INativeWindowApiService.Instance;
+        readonly INativeWindowApiService? windowApiService = INativeWindowApiService.Instance;
 
-        Window window;
-        Window ParentWindow;
+        Window? window;
+        Window? ParentWindow;
         IntPtr _Handle;
         IntPtr _DwmHandle;
         public WallpaperControl()
@@ -76,13 +76,14 @@ namespace System.Application.UI.Views.Controls
 
         private void Window_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
         {
-            ParentWindow.Focus();
+            ParentWindow?.Focus();
         }
 
         private void EmptyControl_DetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
+            if (windowApiService == null) return;
             windowApiService.ReleaseBackground(_DwmHandle);
-            ParentWindow.PositionChanged -= Parent_PositionChanged;
+            ParentWindow!.PositionChanged -= Parent_PositionChanged;
             ParentWindow.Closing -= ParentWindow_Closing;
             ParentWindow.GotFocus -= ParentWindow_GotFocus;
             Close();
@@ -90,6 +91,7 @@ namespace System.Application.UI.Views.Controls
 
         private void EmptyControl_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
+            if (windowApiService == null || window == null) return;
             ParentWindow = (Window)e.Root;
             ParentWindow.Topmost = true;
             Show();
@@ -113,6 +115,7 @@ namespace System.Application.UI.Views.Controls
 
         private void ParentWindow_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
         {
+            if (window == null || ParentWindow == null) return;
             window.Topmost = true;
             window.Topmost = false;
             ParentWindow.Topmost = true;
@@ -121,17 +124,18 @@ namespace System.Application.UI.Views.Controls
 
         private void ParentWindow_Closing(object? sender, ComponentModel.CancelEventArgs e)
         {
-            if (window != null)
-                window.Hide();
+            window?.Hide();
         }
 
         private void Parent_PositionChanged(object? sender, PixelPointEventArgs e)
         {
+            if (window == null) return;
             window.Position = this.PointToScreen(Bounds.Position);
         }
 
-        private void EmptyControl_LayoutUpdated(object? sender, System.EventArgs e)
+        private void EmptyControl_LayoutUpdated(object? sender, EventArgs e)
         {
+            if (windowApiService == null || window == null) return;
             window.Position = this.PointToScreen(Bounds.Position);
             window.Width = Bounds.Width;
             window.Height = Bounds.Height;
@@ -141,13 +145,13 @@ namespace System.Application.UI.Views.Controls
 
         public WindowState WindowState
         {
-            get { return window.WindowState; }
-            set { window.WindowState = value; }
+            get { return window?.WindowState ?? default; }
+            set { if (window != null) window.WindowState = value; }
         }
 
         public void Show()
         {
-            window.Show();
+            window?.Show();
         }
 
         public IntPtr Handle
@@ -157,7 +161,7 @@ namespace System.Application.UI.Views.Controls
 
         public void Close()
         {
-            window.Close();
+            window?.Close();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace System.Application.Services
     /// </summary>
     public interface INativeWindowApiService
     {
-        static INativeWindowApiService Instance => DI.Get<INativeWindowApiService>();
+        static INativeWindowApiService? Instance => DI.Get_Nullable<INativeWindowApiService>();
 
         /// <summary>
         /// 拖拽指针获取目标窗口
