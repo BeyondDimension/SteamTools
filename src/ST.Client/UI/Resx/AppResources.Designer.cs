@@ -1128,7 +1128,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 加速服务启动失败，{0}端口被{1}占用。请检查您的{0}端口或者尝试使用系统代理模式。 的本地化字符串。
+        ///   查找类似 加速服务启动失败，{0}端口被 {1} 占用。请关掉占用{0}端口的程序或者尝试使用系统代理模式。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild443 {
             get {

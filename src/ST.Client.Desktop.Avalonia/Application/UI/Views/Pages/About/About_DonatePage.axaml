@@ -58,45 +58,50 @@
           </DockPanel>
         </Expander.Header>
 
-        <ScrollViewer>
-          <ItemsRepeater Items="{Binding DonateList}">
-            <ItemsRepeater.Layout>
-              <UniformGridLayout ItemsJustification="Start"
-                                 MinRowSpacing="10"
-                                 MinColumnSpacing="10"
-                                 Orientation="Horizontal"
-                                 MaximumRowsOrColumns="6" />
-            </ItemsRepeater.Layout>
-            <ItemsRepeater.ItemTemplate>
-              <DataTemplate>
-                <Border Classes="paper"
-                        Padding="10"
-                        Width="250"
-                        Background="{DynamicResource ThemeBrushKey}">
-                  <DockPanel>
-                    <gif:Image2 Source="{Binding Avatar,Converter={StaticResource GuidToUrlConverter}}"
-                                FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
-                                VerticalAlignment="Center"
-                                DecodeWidth="64"
-                                Width="64"
-                                Height="64"
-                                DockPanel.Dock="Left">
-                      <gif:Image2.Clip>
-                        <EllipseGeometry Rect="0,0,64,64" />
-                      </gif:Image2.Clip>
-                    </gif:Image2>
-                    <StackPanel DockPanel.Dock="Right"
-                                Spacing="5"
-                                Margin="10">
-                      <controls:ScrollingTextBlock Text="{Binding Name}" Classes="h6"/>
-                      <controls:ScrollingTextBlock Text="{Binding Amount,StringFormat=￥{0:F2}}"/>
-                    </StackPanel>
-                  </DockPanel>
-                </Border>
-              </DataTemplate>
-            </ItemsRepeater.ItemTemplate>
-          </ItemsRepeater>
-        </ScrollViewer>
+        <Panel>
+          <TextBlock Text="这个月还没有人捐助过啊..."
+                     IsVisible="{Binding DonateList.Count,Converter={StaticResource IsNullConverter}}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"/>
+
+          <ScrollViewer>
+            <ItemsRepeater Items="{Binding DonateList}">
+              <ItemsRepeater.Layout>
+                <UniformGridLayout ItemsJustification="Start"
+                                   MinRowSpacing="10"
+                                   MinColumnSpacing="10"
+                                   Orientation="Horizontal"
+                                   MaximumRowsOrColumns="6" />
+              </ItemsRepeater.Layout>
+              <ItemsRepeater.ItemTemplate>
+                <DataTemplate>
+                  <Border Padding="10"
+                          MaxWidth="300">
+                    <DockPanel>
+                      <gif:Image2 Source="{Binding Avatar,Converter={StaticResource GuidToUrlConverter}}"
+                                  FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
+                                  VerticalAlignment="Center"
+                                  DecodeWidth="64"
+                                  Width="64"
+                                  Height="64"
+                                  DockPanel.Dock="Left">
+                        <gif:Image2.Clip>
+                          <EllipseGeometry Rect="0,0,64,64" />
+                        </gif:Image2.Clip>
+                      </gif:Image2>
+                      <StackPanel DockPanel.Dock="Right"
+                                  Spacing="5"
+                                  Margin="10">
+                        <controls:ScrollingTextBlock Text="{Binding Name}" Classes="h6"/>
+                        <controls:ScrollingTextBlock Text="{Binding Amount,StringFormat=￥{0:F2}}"/>
+                      </StackPanel>
+                    </DockPanel>
+                  </Border>
+                </DataTemplate>
+              </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+          </ScrollViewer>
+        </Panel>
       </Expander>
 
     </StackPanel>
