@@ -4,17 +4,19 @@
 
 namespace System.Runtime.Versioning
 {
-#if !NET5_0_OR_GREATER
-    public abstract class OSPlatformAttribute : Attribute
+#if !NET5_0_OR_GREATER || !NET6_0_OR_GREATER
+    public abstract class OSPlatformCompatAttribute : Attribute
     {
-        private protected OSPlatformAttribute(string platformName)
+        private protected OSPlatformCompatAttribute(string platformName)
         {
             PlatformName = platformName;
         }
 
         public string PlatformName { get; }
     }
+#endif
 
+#if !NET5_0_OR_GREATER
     /// <summary>
     /// Records the operating system (and minimum version) that supports an API. Multiple attributes can be
     /// applied to indicate support on multiple operating systems.
@@ -37,7 +39,7 @@ namespace System.Runtime.Versioning
                     AttributeTargets.Property |
                     AttributeTargets.Struct,
                     AllowMultiple = true, Inherited = false)]
-    public sealed class SupportedOSPlatformAttribute : OSPlatformAttribute
+    public sealed class SupportedOSPlatformAttribute : OSPlatformCompatAttribute
     {
         public SupportedOSPlatformAttribute(string platformName) : base(platformName)
         {
@@ -63,7 +65,7 @@ namespace System.Runtime.Versioning
                     AttributeTargets.Property |
                     AttributeTargets.Struct,
                     AllowMultiple = true, Inherited = false)]
-    public sealed class UnsupportedOSPlatformAttribute : OSPlatformAttribute
+    public sealed class UnsupportedOSPlatformAttribute : OSPlatformCompatAttribute
     {
         public UnsupportedOSPlatformAttribute(string platformName) : base(platformName)
         {
@@ -86,7 +88,7 @@ namespace System.Runtime.Versioning
                     AttributeTargets.Method |
                     AttributeTargets.Property,
                     AllowMultiple = true, Inherited = false)]
-    public sealed class SupportedOSPlatformGuardAttribute : OSPlatformAttribute
+    public sealed class SupportedOSPlatformGuardAttribute : OSPlatformCompatAttribute
     {
         public SupportedOSPlatformGuardAttribute(string platformName) : base(platformName)
         {
@@ -107,7 +109,7 @@ namespace System.Runtime.Versioning
                     AttributeTargets.Method |
                     AttributeTargets.Property,
                     AllowMultiple = true, Inherited = false)]
-    public sealed class UnsupportedOSPlatformGuardAttribute : OSPlatformAttribute
+    public sealed class UnsupportedOSPlatformGuardAttribute : OSPlatformCompatAttribute
     {
         public UnsupportedOSPlatformGuardAttribute(string platformName) : base(platformName)
         {
