@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:ms="using:System.Application.Settings"
+             xmlns:models="using:System.Application.Models"
              x:Class="System.Application.UI.Views.Controls.ConsoleShell">
   <UserControl.Styles>
     <Style Selector="TextBox">
@@ -37,13 +38,70 @@
                      HorizontalAlignment="Left"
                      VerticalAlignment="Center"
                      FontSize="16"/>
-          <TextBox x:Name="CommandTextbox"
+          <!--<TextBox x:Name="CommandTextbox"
                    Classes="readonlybox"
                    IsReadOnly="False"
                    AcceptsReturn="False"
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center">
-          </TextBox>
+          </TextBox>-->
+          <AutoCompleteBox x:Name="CommandTextbox"
+                           Items="{ReflectionBinding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
+                           x:DataType="models:ArchiSteamFarmCommand"
+                           FilterMode="StartsWithOrdinal"
+                           MaxDropDownHeight="300"
+                           IsTextCompletionEnabled="True"
+                           ValueMemberBinding="{Binding Command}">
+            <AutoCompleteBox.ItemTemplate>
+              <DataTemplate x:DataType="models:ArchiSteamFarmCommand">
+                <DockPanel>
+                  <TextBlock Text="{Binding CommandText}"
+                             VerticalAlignment="Center"/>
+                  <TextBlock Text="{Binding Description}"
+                             Margin="15 0 0 0"
+                             TextWrapping="Wrap"
+                             VerticalAlignment="Center"/>
+                </DockPanel>
+              </DataTemplate>
+            </AutoCompleteBox.ItemTemplate>
+            <AutoCompleteBox.Styles>
+              <Style Selector="AutoCompleteBox">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+              </Style>
+              <Style Selector="AutoCompleteBox /template/ TextBox#PART_TextBox">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="AcceptsReturn" Value="False" />
+                <Setter Property="IsReadOnly" Value="False" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+              </Style>
+              <Style Selector="AutoCompleteBox:password /template/ TextBox#PART_TextBox">
+                <Setter Property="PasswordChar" Value="{StaticResource PasswordChar}" />
+              </Style>
+              <Style Selector="AutoCompleteBox /template/ TextBox#PART_TextBox:pointerover /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+              </Style>
+              <Style Selector="AutoCompleteBox /template/ TextBox#PART_TextBox:focus  /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+              </Style>
+              
+              <Style Selector="AutoCompleteBox /template/ Popup#PART_Popup">
+                <Setter Property="MaxWidth" Value="{ReflectionBinding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"/>
+              </Style>
+            </AutoCompleteBox.Styles>
+          </AutoCompleteBox>
         </DockPanel>
       </Grid>
     </ScrollViewer>

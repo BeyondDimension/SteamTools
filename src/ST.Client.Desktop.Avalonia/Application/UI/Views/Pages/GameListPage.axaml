@@ -467,7 +467,7 @@
                               HorizontalAlignment="Center"
                               VerticalAlignment="Bottom">
                         <DockPanel Margin="10 3"
-                                    HorizontalAlignment="Center">
+                                   HorizontalAlignment="Center">
                           <TextBlock Text="{Binding InstalledDrive}"
                                      Foreground="#FFFFFFFF"
                                      IsVisible="{Binding InstalledDrive,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"

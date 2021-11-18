@@ -13,15 +13,10 @@ namespace System.Application.UI.Views.Pages
     public class ArchiSteamFarmPlusPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
         readonly IArchiSteamFarmService asfService = IArchiSteamFarmService.Instance;
-        readonly ConsoleShell consoleShell;
 
         public ArchiSteamFarmPlusPage()
         {
             InitializeComponent();
-
-            consoleShell = this.FindControl<ConsoleShell>("ConsoleLog");
-
-            consoleShell.CommandSubmit += ConsoleShell_CommandSubmit;
         }
 
         private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)

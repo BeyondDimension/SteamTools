@@ -66,7 +66,7 @@ namespace System.Application.UI.Views.Controls
         /// </summary>
         public event EventHandler<CommandEventArgs>? CommandSubmit;
 
-        private readonly TextBox commandTextbox;
+        private readonly AutoCompleteBox commandTextbox;
         private readonly TextBox logTextbox;
         private readonly ScrollViewer consoleScroll;
 
@@ -76,10 +76,10 @@ namespace System.Application.UI.Views.Controls
 
             logTextbox = this.FindControl<TextBox>("LogTextbox");
             consoleScroll = this.FindControl<ScrollViewer>("ConsoleScroll");
-            commandTextbox = this.FindControl<TextBox>("CommandTextbox");
+            commandTextbox = this.FindControl<AutoCompleteBox>("CommandTextbox");
             commandTextbox.KeyUp += CommandTextbox_KeyUp;
 
-            commandTextbox.GetObservable(TextBox.TextProperty)
+            commandTextbox.GetObservable(AutoCompleteBox.TextProperty)
                 .Subscribe(x =>
                 {
                     if (!string.IsNullOrEmpty(x))
@@ -102,8 +102,11 @@ namespace System.Application.UI.Views.Controls
             //              //consoleScroll.Offset = new Vector(double.NegativeInfinity, consoleScroll.Viewport.Height);
             //          }
             //      });
+            //this.GetObservable(IsMaskProperty)
+            //      .Subscribe(x => commandTextbox.PasswordChar = x ? '●' : default);
+
             this.GetObservable(IsMaskProperty)
-                  .Subscribe(x => commandTextbox.PasswordChar = x ? '●' : default);
+                  .Subscribe(x => ((IPseudoClasses)commandTextbox.Classes).Set(":password", x));
 
             this.GetObservable(LogTextProperty)
                   .Subscribe(x =>

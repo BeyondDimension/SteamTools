@@ -108,7 +108,8 @@
 
         </TabItem>-->
         <TabItem Header="{ReflectionBinding Path=Res.ASF_Console,Mode=OneWay,Source={x:Static resx:R.Current}}">
-          <controls:ConsoleShell x:Name="ConsoleLog"
+          <controls:ConsoleShell Margin="10 0" 
+                                 CommandSubmit="ConsoleShell_CommandSubmit"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                  IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
           </controls:ConsoleShell>

@@ -85,7 +85,7 @@
 
       <Separator Classes="Separator"/>
 
-      <Border Classes="Item">
+      <!--<Border Classes="Item">
         <DockPanel>
           <TextBlock Text="AutoCompleteBox"/>
           <AutoCompleteBox Items="{Binding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
@@ -94,6 +94,11 @@
                            MaxDropDownHeight="400"
                            IsTextCompletionEnabled="True"
                            ValueMemberBinding="{Binding Command}">
+            <AutoCompleteBox.Styles>
+              <Style Selector="AutoCompleteBox /template/ Popup#PART_Popup">
+                <Setter Property="MaxWidth" Value="{ReflectionBinding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"/>
+              </Style>
+            </AutoCompleteBox.Styles>
             <AutoCompleteBox.ItemTemplate>
               <DataTemplate x:DataType="models:ArchiSteamFarmCommand">
                 <DockPanel>
@@ -106,7 +111,7 @@
             </AutoCompleteBox.ItemTemplate>
           </AutoCompleteBox>
         </DockPanel>
-      </Border>
+      </Border>-->
 
       <!--<Border Classes="Item">
         <DockPanel>

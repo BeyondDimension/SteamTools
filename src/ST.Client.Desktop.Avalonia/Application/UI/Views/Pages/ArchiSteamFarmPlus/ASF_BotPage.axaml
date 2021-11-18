@@ -151,7 +151,7 @@
                 </Border>
 
                 <DockPanel Grid.Column="1" Margin="10 5">
-                  <StackPanel Spacing="8"
+                  <StackPanel Spacing="6"
                               DockPanel.Dock="Top">
                     <DockPanel>
                       <DockPanel.Styles>
@@ -269,14 +269,14 @@
                               IsVisible="{Binding !KeepRunning}"
                               Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
                               CommandParameter="{Binding}">
-                        <PathIcon Data="{StaticResource ShutdownDrawing}" />
+                        <PathIcon Data="{StaticResource ShutdownDrawing}" Foreground="#00FF7F"/>
                       </Button>
 
                       <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Disable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               IsVisible="{Binding KeepRunning}"
                               Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
                               CommandParameter="{Binding}">
-                        <PathIcon Data="{StaticResource ShutdownDrawing}" />
+                        <PathIcon Data="{StaticResource ShutdownDrawing}"/>
                       </Button>
 
                       <Separator Height="{ReflectionBinding $parent.Height}" Classes="Separator"/>
@@ -285,11 +285,13 @@
                                   Orientation="Horizontal">
                         <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
                              VerticalAlignment="Center">
-                          <ui:SymbolIcon Symbol="Games"
-                                         Margin="5 0"
-                                         VerticalAlignment="Center"
-                                         DockPanel.Dock="Left"
-                                         FontSize="30"/>
+                          <Border>
+                            <ui:SymbolIcon Symbol="Games"
+                                           Margin="5 0"
+                                           VerticalAlignment="Center"
+                                           DockPanel.Dock="Left"
+                                           FontSize="30"/>
+                          </Border>
                           <TextBlock Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
                                      VerticalAlignment="Center"
                                      DockPanel.Dock="Right"/>

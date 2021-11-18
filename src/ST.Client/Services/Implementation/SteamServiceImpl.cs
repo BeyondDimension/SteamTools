@@ -644,7 +644,7 @@ namespace System.Application.Services.Implementation
                     LastOwner = GetInt64(v.LastOwner),
                     BytesToDownload = GetInt64(v.BytesToDownload),
                     BytesDownloaded = GetInt64(v.BytesDownloaded),
-                    LastUpdated = GetInt64(v.LastUpdated).ToDateTimeS(),
+                    LastUpdated = ((long)GetInt64(v.LastUpdated)).ToDateTimeS(),
                 };
                 return newInfo;
             }

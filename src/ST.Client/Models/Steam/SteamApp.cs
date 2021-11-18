@@ -130,10 +130,15 @@ namespace System.Application.Models
         /// </summary>
         public DateTime LastUpdated { get; set; }
 
+        private long _SizeOnDi;
         /// <summary>
         /// 占用硬盘字节大小
-        /// </summary>
-        public long SizeOnDisk { get; set; }
+        /// </summary>sk;
+        public long SizeOnDisk
+        {
+            get => _SizeOnDi;
+            set => this.RaiseAndSetIfChanged(ref _SizeOnDi, value);
+        }
 
         /// <summary>
         /// 最后运行用户SteamId64
