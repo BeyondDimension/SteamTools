@@ -29,20 +29,19 @@ namespace Avalonia.Controls
 
         public FluentWindow(bool isSaveStatus)
         {
-            if (OperatingSystem2.IsWindows)
-            {
-                PseudoClasses.Set(":windows", true);
+#if WINDOWS
+            PseudoClasses.Set(":windows", true);
 
-                if (OperatingSystem2.IsWindows10AtLeast)
-                {
-                    if (PlatformImpl is AvaloniaWin32WindowingPlatformImpl.WindowImpl2 cwi)
-                    {
 #pragma warning disable CA1416 // 验证平台兼容性
-                        cwi.SetOwner(this);
-#pragma warning restore CA1416 // 验证平台兼容性
-                    }
+            if (OperatingSystem2.IsWindows10AtLeast)
+            {
+                if (PlatformImpl is AvaloniaWin32WindowingPlatformImpl.Window10Impl cwi)
+                {
+                    cwi.SetOwner(this);
                 }
             }
+#pragma warning restore CA1416 // 验证平台兼容性
+#endif
 
             TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
 

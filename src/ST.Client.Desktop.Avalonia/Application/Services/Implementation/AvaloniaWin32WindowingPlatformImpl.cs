@@ -1,3 +1,5 @@
+#if WINDOWS
+#pragma warning disable CA1416 // 验证平台兼容性
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Platform;
@@ -22,9 +24,7 @@ namespace System.Application.Services.Implementation
         {
             if (!Design.IsDesignMode && OperatingSystem2.IsWindows10AtLeast)
             {
-#pragma warning disable CA1416 // 验证平台兼容性
                 return CreateWin10Window();
-#pragma warning restore CA1416 // 验证平台兼容性
             }
 
             //return PlatformManager.CreateWindow();
@@ -60,12 +60,12 @@ namespace System.Application.Services.Implementation
         public static Win32Platform Win32Platform => _Win32Platform.Value;
 
         [SupportedOSPlatform("Windows10.0.10240.0")]
-        public static WindowImpl CreateWin10Window() => new WindowImpl2();
+        public static WindowImpl CreateWin10Window() => new Window10Impl();
 
         [SupportedOSPlatform("Windows10.0.10240.0")]
-        internal class WindowImpl2 : WindowImpl
+        internal class Window10Impl : WindowImpl
         {
-            public WindowImpl2()
+            public Window10Impl()
             {
                 //Win32Interop.OSVERSIONINFOEX version = new Win32Interop.OSVERSIONINFOEX
                 //{
@@ -355,3 +355,5 @@ namespace System.Application.Services.Implementation
         }
     }
 }
+#pragma warning restore CA1416 // 验证平台兼容性
+#endif
