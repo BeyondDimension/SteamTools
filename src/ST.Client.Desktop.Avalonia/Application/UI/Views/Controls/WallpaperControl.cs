@@ -81,17 +81,22 @@ namespace System.Application.UI.Views.Controls
 
         private void EmptyControl_DetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
-            if (windowApiService == null) return;
-            windowApiService.ReleaseBackground(_DwmHandle);
-            ParentWindow!.PositionChanged -= Parent_PositionChanged;
-            ParentWindow.Closing -= ParentWindow_Closing;
-            ParentWindow.GotFocus -= ParentWindow_GotFocus;
+            if (windowApiService != null)
+            {
+                windowApiService.ReleaseBackground(_DwmHandle);
+            }
+            if (ParentWindow != null)
+            {
+                ParentWindow.PositionChanged -= Parent_PositionChanged;
+                ParentWindow.Closing -= ParentWindow_Closing;
+                ParentWindow.GotFocus -= ParentWindow_GotFocus;
+            }
             Close();
         }
 
         private void EmptyControl_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
-            if (windowApiService == null || window == null) return;
+            if (window == null) return;
             ParentWindow = (Window)e.Root;
             ParentWindow.Topmost = true;
             Show();
@@ -101,10 +106,13 @@ namespace System.Application.UI.Views.Controls
             ParentWindow.GotFocus += ParentWindow_GotFocus;
             ParentWindow.Opened += ParentWindow_Opened;
             _Handle = window.PlatformImpl.Handle.Handle;
-            windowApiService.SetWindowPenetrate(_Handle);
-            //windowApiService.SetParentWindow(_Handle, ParentWindow.PlatformImpl.Handle.Handle);
-            _DwmHandle = windowApiService.SetDesktopBackgroundToWindow(
-                _Handle, (int)window.Width, (int)window.Height);
+            if (windowApiService != null)
+            {
+                windowApiService.SetWindowPenetrate(_Handle);
+                //windowApiService.SetParentWindow(_Handle, ParentWindow.PlatformImpl.Handle.Handle);
+                _DwmHandle = windowApiService.SetDesktopBackgroundToWindow(
+                    _Handle, (int)window.Width, (int)window.Height);
+            }
         }
 
         private void ParentWindow_Opened(object? sender, EventArgs e)
@@ -135,12 +143,15 @@ namespace System.Application.UI.Views.Controls
 
         private void EmptyControl_LayoutUpdated(object? sender, EventArgs e)
         {
-            if (windowApiService == null || window == null) return;
+            if (window == null) return;
             window.Position = this.PointToScreen(Bounds.Position);
             window.Width = Bounds.Width;
             window.Height = Bounds.Height;
-            windowApiService.BackgroundUpdate(_DwmHandle, (int)window.Width, (int)window.Height);
-            //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
+            if (windowApiService != null)
+            {
+                windowApiService.BackgroundUpdate(_DwmHandle, (int)window.Width, (int)window.Height);
+                //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
+            }
         }
 
         public WindowState WindowState
