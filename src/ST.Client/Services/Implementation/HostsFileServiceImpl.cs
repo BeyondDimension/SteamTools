@@ -107,17 +107,21 @@ namespace System.Application.Services.Implementation
                         return false;
                     }
                 }
-
-                if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !s.IsAdministrator))
+                if (fileInfo.IsReadOnly)
                 {
-                    var editPath = Path.Combine(IOPath.CacheDirectory, "hosts");
-                    var editInfo = new FileInfo(editPath);
-                    if (editInfo.Exists)
-                        editInfo.Delete();
-                    fileInfo.CopyTo(editPath);
-                    editInfo.Refresh();
-                    fileInfo = editInfo;
+                    message = AppResources.FileAttributeIsReadOnlyModifyFail;
+                    return false;
                 }
+                //if (fileInfo.IsReadOnly&&(OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !s.IsAdministrator)))
+                //{
+                //    var editPath = Path.Combine(IOPath.CacheDirectory, "hosts");
+                //    var editInfo = new FileInfo(editPath);
+                //    if (editInfo.Exists)
+                //        editInfo.Delete();
+                //    fileInfo.CopyTo(editPath);
+                //    editInfo.Refresh();
+                //    fileInfo = editInfo;
+                //}
                 if (checkMaxLength)
                 {
                     if (fileInfo.Length > MaxFileLength)

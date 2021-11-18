@@ -19,7 +19,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy.Models;
-
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
@@ -243,17 +242,14 @@ namespace System.Application.Services
 
                                     if (r.ResultType != OperationResultType.Success)
                                     {
+                                        if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root"))
+                                        {
+                                            Browser2.Open("https://www.steampp.net/unixhostaccess");
+                                            //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
+                                        }
                                         Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
                                         httpProxyService.StopProxy();
                                         return;
-                                    }
-                                    else if (OperatingSystem2.IsMacOS)
-                                    {
-                                        platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"", true);
-                                    }
-                                    else if (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root")
-                                    {
-                                        platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"", true);
                                     }
                                 }
                             }
@@ -280,11 +276,15 @@ namespace System.Application.Services
                                 if (r.ResultType != OperationResultType.Success)
                                 {
                                     Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
+                                    if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root"))
+                                    {
+                                        Browser2.Open("https://www.steampp.net/unixhostaccess");
+                                    }
                                     //return;
-                                }
-                                else if (OperatingSystem2.IsMacOS && !ProxySettings.EnableWindowsProxy.Value)
-                                {
-                                    platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"", true);
+                                    //if (OperatingSystem2.IsMacOS && !ProxySettings.EnableWindowsProxy.Value)
+                                    //{
+                                    //    //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"", true);
+                                    //}
                                 }
                             }
                         }
