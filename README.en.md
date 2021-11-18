@@ -146,9 +146,9 @@ OS                            | Version                 | Architectures     |
 Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/milestones), and feel free to ask questions.
 
 ## ⌨️ Development Environment
-[Visual Studio 2022 Version 17.0 Or Higher](https://visualstudio.microsoft.com/vs/preview/)  
+[Visual Studio 2022](https://visualstudio.microsoft.com/vs/)  
 [JetBrains Rider](https://www.jetbrains.com/rider/)  
-~~[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/)~~  
+~~[Visual Studio 2022 for Mac Preview](https://visualstudio.microsoft.com/zh-hans/vs/mac/preview/)~~  
 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - Supported Operating Systems
 	- [Windows 10 Version 2004 Or Higher: Home, Professional, Education, and Enterprise (LTSC and S are not supported)](https://docs.microsoft.com/en-us/visualstudio/releases/2019/system-requirements)
