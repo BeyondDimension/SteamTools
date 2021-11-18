@@ -8,7 +8,7 @@ namespace System.Application.UI.ViewModels
 {
     public sealed class GameRelated_BorderlessPageViewModel : ViewModelBase
     {
-        readonly INativeWindowApiService windowApi = INativeWindowApiService.Instance;
+        readonly INativeWindowApiService windowApi = INativeWindowApiService.Instance!;
 
         #region SelectWindow 变更通知 
 

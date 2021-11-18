@@ -8,11 +8,7 @@ using System.Security.Cryptography;
 using System.Application.Models;
 using System.Application.Settings;
 using Xamarin.Essentials;
-#if NETSTANDARD
-using JustArchiNET.Madness;
-#else
 using System.Runtime.Versioning;
-#endif
 
 namespace System.Application.Services
 {

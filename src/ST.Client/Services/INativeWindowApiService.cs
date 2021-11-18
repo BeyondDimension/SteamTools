@@ -1,10 +1,12 @@
 using System.Application.Models;
+using System.Runtime.Versioning;
 
 namespace System.Application.Services
 {
     /// <summary>
     /// 平台 Window API 服务
     /// </summary>
+    [SupportedOSPlatform("Windows")]
     public interface INativeWindowApiService
     {
         static INativeWindowApiService? Instance => DI.Get_Nullable<INativeWindowApiService>();

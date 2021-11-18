@@ -4,11 +4,7 @@ using System.Application.Services;
 using System.Collections.Generic;
 using System.Application.UI;
 using IPAddress = System.Net.IPAddress;
-#if NETSTANDARD
-using JustArchiNET.Madness;
-#else
 using System.Runtime.Versioning;
-#endif
 
 namespace System.Application.Settings
 {

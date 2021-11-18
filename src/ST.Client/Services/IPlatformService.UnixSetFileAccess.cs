@@ -1,10 +1,6 @@
 using System.IO;
 using System.Runtime.InteropServices;
-#if NETSTANDARD
-using JustArchiNET.Madness;
-#else
 using System.Runtime.Versioning;
-#endif
 
 namespace System.Application.Services
 {

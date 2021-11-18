@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 using System.Properties;
 using System.Application.Services;
 using System.Application.UI;
-#if NETSTANDARD
-using JustArchiNET.Madness;
-#else
 using System.Runtime.Versioning;
-#endif
 
 
 namespace System.Application.Settings

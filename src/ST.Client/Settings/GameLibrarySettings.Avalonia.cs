@@ -4,11 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
-#if NETSTANDARD
-using JustArchiNET.Madness;
-#else
 using System.Runtime.Versioning;
-#endif
 
 namespace System.Application.Settings
 {
