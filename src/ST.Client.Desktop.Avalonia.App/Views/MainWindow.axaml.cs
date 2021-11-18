@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml;
+using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using System.ComponentModel;
@@ -18,8 +20,19 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 
-            var background = this.FindControl<WallpaperControl>("DesktopBackground");
-            _backHandle = background.Handle;
+#if WINDOWS
+            //var wp = this.FindControl<WallpaperControl>("DesktopBackground");
+            var panel = this.FindControl<Panel>("Panel");
+            var wp = new WallpaperControl();
+            wp.Bind(WallpaperControl.IsVisibleProperty, new Binding
+            {
+                Source = UISettings.EnableDesktopBackground,
+                Mode = BindingMode.OneWay,
+                Path = nameof(UISettings.EnableDesktopBackground.Value)
+            });
+            panel.Children.Insert(0, wp);
+            _backHandle = wp.Handle;
+#endif
 
 #if DEBUG
             this.AttachDevTools();

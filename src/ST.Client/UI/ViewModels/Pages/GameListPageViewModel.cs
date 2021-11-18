@@ -203,7 +203,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
         }
 
-        private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres = new List<EnumModel<SteamAppType>>();
+        private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres = new EnumModel<SteamAppType>[0];
         public IReadOnlyCollection<EnumModel<SteamAppType>> EnableAppTypeFiltres
         {
             get => _EnableAppTypeFiltres;

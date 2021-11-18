@@ -27,15 +27,13 @@ namespace System.Application.Converters
         protected static Bitmap? DownloadImage(string? url, int width = 0)
         {
             if (url == null) return null;
-            //using var web = new WebClient();
-            //var ua = DI.Get<IHttpPlatformHelperService>().UserAgent;
-            //web.Headers.Add("User-Agent", ua);
-            //var bt = web.DownloadData(url);
-            //var stream = new MemoryStream(bt);
             var task = IHttpService.Instance.GetAsync<Stream>(url, MediaTypeNames.All);
             var stream = task.GetAwaiter().GetResult();
             if (stream == null) return null;
-            return GetDecodeBitmap(stream, width);
+            var s = new MemoryStream();
+            stream.CopyTo(s);
+            stream.Dispose();
+            return GetDecodeBitmap(s, width);
         }
 
         protected static void TryReset(Stream s)

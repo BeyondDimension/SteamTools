@@ -19,8 +19,8 @@ namespace System.Application.UI.Resx
             mCurrent = this;
         }
 
-        public static readonly IReadOnlyCollection<KeyValuePair<string, string>> Languages;
-        public static readonly Dictionary<string, string> SteamLanguages;
+        public static readonly IReadOnlyDictionary<string, string> Languages;
+        public static readonly IReadOnlyDictionary<string, string> SteamLanguages;
         static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
         public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
@@ -35,7 +35,7 @@ namespace System.Application.UI.Resx
         static R()
         {
             DefaultCurrentUICulture = CultureInfo.CurrentUICulture;
-            var languagesDict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            Languages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "", "Auto" },
                 { zh_Hans, "Chinese (Simplified)" },
@@ -47,7 +47,7 @@ namespace System.Application.UI.Resx
                 { "es", "Spanish" },
                 { "it", "Italian" },
             };
-            Languages = languagesDict.ToList();
+
             SteamLanguages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "zh-CN", "schinese" },

@@ -88,9 +88,23 @@
       <Border Classes="Item">
         <DockPanel>
           <TextBlock Text="AutoCompleteBox"/>
-          <AutoCompleteBox Items="{ReflectionBinding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
+          <AutoCompleteBox Items="{Binding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
+                           x:DataType="models:ArchiSteamFarmCommand"
                            FilterMode="StartsWithOrdinal"
-                           ValueMemberBinding="{ReflectionBinding CommandText}"/>
+                           MaxDropDownHeight="400"
+                           IsTextCompletionEnabled="True"
+                           ValueMemberBinding="{Binding Command}">
+            <AutoCompleteBox.ItemTemplate>
+              <DataTemplate x:DataType="models:ArchiSteamFarmCommand">
+                <DockPanel>
+                  <TextBlock Text="{Binding CommandText}"/>
+                  <TextBlock Text="{Binding Description}"
+                             Margin="0 10"
+                             TextWrapping="Wrap"/>
+                </DockPanel>
+              </DataTemplate>
+            </AutoCompleteBox.ItemTemplate>
+          </AutoCompleteBox>
         </DockPanel>
       </Border>
 

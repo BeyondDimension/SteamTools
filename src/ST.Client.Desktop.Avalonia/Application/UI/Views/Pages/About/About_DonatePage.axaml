@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:System.Application.Models"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
              xmlns:gif="using:AvaloniaGif"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:AboutPageViewModel"
@@ -61,8 +62,8 @@
           <ItemsRepeater Items="{Binding DonateList}">
             <ItemsRepeater.Layout>
               <UniformGridLayout ItemsJustification="Start"
-                                 MinRowSpacing="20"
-                                 MinColumnSpacing="20"
+                                 MinRowSpacing="10"
+                                 MinColumnSpacing="10"
                                  Orientation="Horizontal"
                                  MaximumRowsOrColumns="6" />
             </ItemsRepeater.Layout>
@@ -70,6 +71,7 @@
               <DataTemplate>
                 <Border Classes="paper"
                         Padding="10"
+                        Width="250"
                         Background="{DynamicResource ThemeBrushKey}">
                   <DockPanel>
                     <gif:Image2 Source="{Binding Avatar,Converter={StaticResource GuidToUrlConverter}}"
@@ -86,11 +88,8 @@
                     <StackPanel DockPanel.Dock="Right"
                                 Spacing="5"
                                 Margin="10">
-                      <TextBlock Text="{Binding Name}"/>
-                      <WrapPanel>
-                        <TextBlock Text="￥"/>
-                        <TextBlock Text="{Binding Amount}"/>
-                      </WrapPanel>
+                      <controls:ScrollingTextBlock Text="{Binding Name}" Classes="h6"/>
+                      <controls:ScrollingTextBlock Text="{Binding Amount,StringFormat=￥{0:F2}}"/>
                     </StackPanel>
                   </DockPanel>
                 </Border>

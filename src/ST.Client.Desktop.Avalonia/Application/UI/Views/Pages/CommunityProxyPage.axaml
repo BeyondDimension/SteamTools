@@ -26,7 +26,7 @@
               Padding="10"
               Classes="paper"
               Background="{DynamicResource ThemeBrushKey}">
-        <ui:CommandBar DefaultLabelPosition="Right" 
+        <ui:CommandBar DefaultLabelPosition="Right"
                        IsSticky="False">
           <ui:CommandBar.PrimaryCommands>
             <!--<ui:CommandBarButton
@@ -149,7 +149,7 @@
               Background="{DynamicResource ThemeBrushKey}">
         <ListBox x:Name="items"
                  Classes="metro"
-                 Width="350"
+                 Width="320"
                  CornerRadius="{StaticResource PaperRadius}"
                  ClipToBounds="True"
                  Items="{ReflectionBinding Source={x:Static service:ProxyService.Current},Path=ProxyDomainsList,Mode=OneWay}"
@@ -160,26 +160,26 @@
           <ListBox.ItemTemplate>
             <DataTemplate>
               <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}">-->
-              <StackPanel>
-                <StackPanel Orientation="Horizontal"
-                           Margin="20">
-                  <CheckBox Classes="onlyCheckBox"
-                            IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
-                            Margin="0 0 20 0">
-                  </CheckBox>
-                  <Image Width="40" Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=40}">
-                  </Image>
-                  <!--<Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
+              <!--<StackPanel>-->
+              <StackPanel Orientation="Horizontal"
+                         Margin="20 15">
+                <CheckBox Classes="onlyCheckBox"
+                          IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
+                          Margin="0 0 20 0">
+                </CheckBox>
+                <Image Width="30" Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=30}">
+                </Image>
+                <!--<Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
                                     </Image>-->
-                  <controls:ScrollingTextBlock Text="{Binding Name}"
-                                               FontSize="22" MinWidth="230"
-                                               Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                               VerticalAlignment="Center"
-                                               Margin="20 0 0 0">
-                  </controls:ScrollingTextBlock>
-                </StackPanel>
-                <Separator Classes="Separator"  />
+                <controls:ScrollingTextBlock Text="{Binding Name}"
+                                             Classes="h5"
+                                             Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                             VerticalAlignment="Center"
+                                             Margin="20 0 0 0">
+                </controls:ScrollingTextBlock>
               </StackPanel>
+              <!--<Separator Classes="Separator"  />-->
+              <!--</StackPanel>-->
               <!--</Border>-->
             </DataTemplate>
           </ListBox.ItemTemplate>
@@ -228,7 +228,7 @@
     </Grid>
 
     <Grid RowDefinitions="Auto,*,Auto"
-          HorizontalAlignment="Stretch" 
+          HorizontalAlignment="Stretch"
           IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=ProxyStatus,Mode=OneWay}">
       <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0 20 0 0" Spacing="10">
         <StackPanel Orientation="Horizontal">

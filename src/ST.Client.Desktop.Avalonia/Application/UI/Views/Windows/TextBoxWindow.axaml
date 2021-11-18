@@ -24,6 +24,16 @@
     <Border Padding="10" Grid.Row="2">
       <StackPanel Spacing="10">
         <!--<TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_PasswordRequired,Source={x:Static resx:R.Current},Mode=OneWay}" Classes="h4"></TextBlock>-->
+        <TextBox x:Name="DescriptionBox"
+                 MaxWidth="{ReflectionBinding #u.MaxWidth}"
+                 IsVisible="{Binding Description,Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                 Text="{Binding Description}"
+                 Classes="readonlybox"
+                 Padding="0"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 IsReadOnly="True" />
         <TextBox x:Name="PasswordBox"
                  MaxWidth="{ReflectionBinding #u.MaxWidth}"
                  Watermark="{Binding Placeholder}"
@@ -33,15 +43,6 @@
                  MaxLength="{Binding MaxLength}"
                  PasswordChar="{StaticResource PasswordChar}" 
                  Classes="revealPasswordButton" />
-        <TextBox x:Name="DescriptionBox" 
-                 MaxWidth="{ReflectionBinding #u.MaxWidth}"
-                 IsVisible="{Binding Description,Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                 Text="{Binding Description}"
-                 Classes="readonlybox"
-                 TextWrapping="Wrap"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 IsReadOnly="True" />
         <Separator Classes="Separator"></Separator>
         <StackPanel Spacing="10" HorizontalAlignment="Right" Orientation="Horizontal">
           <Button MinWidth="90" Padding="30,6" IsDefault="True" Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
