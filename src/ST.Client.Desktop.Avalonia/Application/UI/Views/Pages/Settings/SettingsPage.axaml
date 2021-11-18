@@ -13,7 +13,7 @@
     <TabControl Classes="flat">
       <TabControl.Styles>
         <Style Selector="ScrollViewer.tabscroll">
-          <Setter Property="Padding" Value="0 0 0 20"/>
+          <Setter Property="Padding" Value="0 0 0 10"/>
         </Style>
       </TabControl.Styles>
       <TabItem Header="{ReflectionBinding Path=Res.Settings_UI,Mode=OneWay,Source={x:Static resx:R.Current}}">
