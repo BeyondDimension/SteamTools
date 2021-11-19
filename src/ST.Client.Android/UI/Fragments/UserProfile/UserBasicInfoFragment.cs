@@ -10,6 +10,7 @@ using System.Application.UI.ViewModels;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace System.Application.UI.Fragments
 {
@@ -81,31 +82,50 @@ namespace System.Application.UI.Fragments
                 binding.btnSubmit.Enabled = value;
             }).AddTo(this);
 
+            #region Area ComboBox
+
             var areaItem2 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea2);
             var areaItem3 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea3);
             var areaItem4 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea4);
+            static Action<IReadOnlyList<IArea>?> AreaDelegate(ArrayAdapter<IArea> adapter) => value =>
+            {
+                adapter.Clear();
+                if (value != null)
+                {
+                    adapter.AddAll(value.ToJavaCollectionNoGeneric());
+                }
+                adapter.NotifyDataSetChanged();
+            };
             ViewModel!.WhenAnyValue(x => x.AreaItems2)
                 .SubscribeInMainThread(AreaDelegate(areaItem2)).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.AreaItems3)
                 .SubscribeInMainThread(AreaDelegate(areaItem3)).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.AreaItems4)
                 .SubscribeInMainThread(AreaDelegate(areaItem4)).AddTo(this);
+            static IArea? GetArea(string? str, IReadOnlyList<IArea>? areas) => string.IsNullOrWhiteSpace(str) ? null : areas?.FirstOrDefault(x => x.ToString() == str);
+            binding.tbArea2.TextChanged += (_, _) =>
+            {
+                var text = binding.tbArea2.Text;
+                ViewModel!.AreaSelectItem2 = GetArea(text, ViewModel.AreaItems2);
+            };
+            binding.tbArea3.TextChanged += (_, _) =>
+            {
+                var text = binding.tbArea3.Text;
+                ViewModel!.AreaSelectItem3 = GetArea(text, ViewModel.AreaItems3);
+            };
+            binding.tbArea4.TextChanged += (_, _) =>
+            {
+                var text = binding.tbArea4.Text;
+                ViewModel!.AreaSelectItem4 = GetArea(text, ViewModel.AreaItems4);
+            };
+
+            #endregion
 
             SetOnClickListener(
                 binding.btnModifyPhoneNumber,
                 binding.clickBirthDate,
                 binding.btnSubmit);
         }
-
-        static Action<IReadOnlyList<IArea>?> AreaDelegate(ArrayAdapter<IArea> adapter) => value =>
-        {
-            adapter.Clear();
-            if (value != null)
-            {
-                adapter.AddAll(value.ToJavaCollectionNoGeneric());
-            }
-            adapter.NotifyDataSetChanged();
-        };
 
         /// <summary>
         /// 设置或获取当前 UI 上的性别 Radio
