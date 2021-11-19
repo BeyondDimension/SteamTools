@@ -9,16 +9,17 @@ namespace System.Application.UI.ViewModels
     {
         public static string DisplayName => AppResources.GameList_EditAppInfo;
 
-        readonly SteamApp? _App;
+        SteamApp App { get; }
 
-        public EditAppInfoWindowViewModel()
+        public EditAppInfoWindowViewModel(SteamApp app)
         {
-            Title = GetTitleByDisplayName(DisplayName);
-        }
-
-        public EditAppInfoWindowViewModel(SteamApp app) : this()
-        {
-            _App = app;
+            if (app == null)
+            {
+                this.Close();
+                return;
+            }
+            App = app;
+            Title = App.GetIdAndName();
         }
     }
 }
