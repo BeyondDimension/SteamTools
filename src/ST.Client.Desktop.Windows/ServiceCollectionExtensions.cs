@@ -38,7 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<IJumpListService, JumpListServiceImpl>();
                 if (options.HasMainProcessRequired)
                 {
-                    services.AddNotifyIcon();
+                    services.AddSingleton(typeof(NotifyIcon), NotifyIcon.ImplType);
                 }
                 //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
                 services.AddSingleton<ISevenZipHelper, SevenZipHelper>();
