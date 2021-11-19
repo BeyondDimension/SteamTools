@@ -15,6 +15,7 @@ using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using static System.Application.Services.ISteamService;
 
@@ -615,6 +616,18 @@ namespace System.Application.Services.Implementation
             return long.Parse(value.ToString());
         }
 
+        static DateTime GetDateTimeS(dynamic value)
+        {
+            long value_int64 = GetInt64(value); // dynamic 必须声明类型，不可用 var 替代
+            return value_int64.ToDateTimeS();
+        }
+
+        static uint GetAppId(dynamic v)
+        {
+            uint appId = GetUInt32(v.appid ?? v.appID ?? v.AppID);
+            return appId;
+        }
+
         public SteamApp? FileToAppInfo(string filename)
         {
             try
@@ -633,10 +646,10 @@ namespace System.Application.Services.Implementation
                 }
                 v = v.Value;
 
-                var installdir = v.installdir.ToString();
+                string installdir = v.installdir.ToString();
                 var newInfo = new SteamApp
                 {
-                    AppId = GetUInt32(v.appid ?? v.appID ?? v.AppID),
+                    AppId = GetAppId(v),
                     Name = v.name.ToString() ?? installdir,
                     InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", installdir),
                     State = GetInt32(v.StateFlags),
@@ -644,7 +657,7 @@ namespace System.Application.Services.Implementation
                     LastOwner = GetInt64(v.LastOwner),
                     BytesToDownload = GetInt64(v.BytesToDownload),
                     BytesDownloaded = GetInt64(v.BytesDownloaded),
-                    LastUpdated = ((long)GetInt64(v.LastUpdated)).ToDateTimeS(),
+                    LastUpdated = GetDateTimeS(v.LastUpdated),
                 };
                 return newInfo;
             }
@@ -698,7 +711,7 @@ namespace System.Application.Services.Implementation
             string filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
 
             int loc = filenameWithoutExtension.IndexOf('_');
-            return uint.Parse(filenameWithoutExtension.Substring(loc + 1));
+            return uint.Parse(filenameWithoutExtension[(loc + 1)..]);
         }
 
         /// <summary>
@@ -751,7 +764,7 @@ namespace System.Application.Services.Implementation
                         }
                         catch (IOException)
                         {
-                            System.Threading.Thread.Sleep(50);
+                            Thread.Sleep(50);
                         }
                     }
                     while (counter++ <= 5);
@@ -766,7 +779,8 @@ namespace System.Application.Services.Implementation
 
                 // Search for changed app, if null it's a new app
                 //SteamApp info = Apps.FirstOrDefault(x => x.ID == newID);
-                changedAction.Invoke((v.appid ?? v.appID ?? v.AppID));
+                uint appId = GetAppId(v);
+                changedAction.Invoke(appId);
 
                 //if (info != null) // Download state changed
                 //{

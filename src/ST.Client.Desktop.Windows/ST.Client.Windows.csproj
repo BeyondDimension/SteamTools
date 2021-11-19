@@ -50,10 +50,14 @@
     <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
   </ItemGroup>
 
-  <ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
+  <ItemGroup>
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.22" TargetingPackVersion="10.0.19041.22" />
+  </ItemGroup>
+
+  <!--<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
     <PackageReference Include="Microsoft.Windows.CsWinRT" />
     <Reference Include="Microsoft.Windows.SDK.NET" HintPath="..\..\references\Microsoft.Windows.SDK.NET.dll" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <!--<ProjectReference Include="..\..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />-->
