@@ -40,6 +40,6 @@ namespace System.Application.Models
         [MPKey(3)]
         [N_JsonProperty("3")]
         [S_JsonProperty("3")]
-        public CampaignCurrencyEnum CampaignCurrency { get; set; } = CampaignCurrencyEnum.RMB;
+        public CurrencyCode CampaignCurrency { get; set; } = CurrencyCode.CNY;
     }
 }
