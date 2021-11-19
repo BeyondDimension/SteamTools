@@ -19,7 +19,7 @@
 18. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
 19. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 20. 改进 主题切换现在不在需要重启程序，提升主题切换速度
-21. 新增 框架依赖部署模式(FDE)，可通过共享运行库减少磁盘占用空间
+21. 新增 框架依赖部署模式(FDE)，可通过共享运行库减少磁盘占用空间，仅支持 Windows 与 Linux
 22. 改进 本地令牌账号导入过程中的说明提示
 
 ### 修复问题

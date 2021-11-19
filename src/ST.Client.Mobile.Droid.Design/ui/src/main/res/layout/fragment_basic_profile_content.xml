@@ -191,7 +191,7 @@
       android:layout_height="wrap_content"
       android:inputType="none"
       tools:text="请选择"
-      xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+      xamarin:managedType="Google.Android.Material.TextField.MaterialAutoCompleteTextView" />
 
   </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,7 +213,7 @@
       android:layout_height="wrap_content"
       android:inputType="none"
       tools:text="请选择"
-      xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+      xamarin:managedType="Google.Android.Material.TextField.MaterialAutoCompleteTextView" />
 
   </com.google.android.material.textfield.TextInputLayout>
 
@@ -235,7 +235,7 @@
       android:layout_height="wrap_content"
       android:inputType="none"
       tools:text="请选择"
-      xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+      xamarin:managedType="Google.Android.Material.TextField.MaterialAutoCompleteTextView" />
 
   </com.google.android.material.textfield.TextInputLayout>
 
@@ -270,7 +270,6 @@
       android:id="@+id/tbGender"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:clickable="false"
       android:focusable="false"
       android:focusableInTouchMode="false"
       android:inputType="none"

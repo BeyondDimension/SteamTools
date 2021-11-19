@@ -1,10 +1,15 @@
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Binding;
 using ReactiveUI;
+using System.Application.Entities;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace System.Application.UI.Fragments
 {
@@ -76,11 +81,31 @@ namespace System.Application.UI.Fragments
                 binding.btnSubmit.Enabled = value;
             }).AddTo(this);
 
+            var areaItem2 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea2);
+            var areaItem3 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea3);
+            var areaItem4 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea4);
+            ViewModel!.WhenAnyValue(x => x.AreaItems2)
+                .SubscribeInMainThread(AreaDelegate(areaItem2)).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.AreaItems3)
+                .SubscribeInMainThread(AreaDelegate(areaItem3)).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.AreaItems4)
+                .SubscribeInMainThread(AreaDelegate(areaItem4)).AddTo(this);
+
             SetOnClickListener(
                 binding.btnModifyPhoneNumber,
                 binding.clickBirthDate,
                 binding.btnSubmit);
         }
+
+        static Action<IReadOnlyList<IArea>?> AreaDelegate(ArrayAdapter<IArea> adapter) => value =>
+        {
+            adapter.Clear();
+            if (value != null)
+            {
+                adapter.AddAll(value.ToJavaCollection());
+            }
+            adapter.NotifyDataSetChanged();
+        };
 
         /// <summary>
         /// 设置或获取当前 UI 上的性别 Radio

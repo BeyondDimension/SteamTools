@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using System.Application.Models;
 using XEPlatform = Xamarin.Essentials.Platform;
 using CC = System.Common.Constants;
+using System.Application.UI;
 
 namespace System.Application.Services.Implementation
 {

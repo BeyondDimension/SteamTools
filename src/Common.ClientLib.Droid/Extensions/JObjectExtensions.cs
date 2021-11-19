@@ -1,8 +1,5 @@
-﻿using Android.Runtime;
-using System.Collections.Generic;
-using System.Linq;
-using ArrayList = Java.Util.ArrayList;
-using ICollection = System.Collections.ICollection;
+using Android.Runtime;
+using System.Collections;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -28,12 +25,16 @@ namespace System
             }
         }
 
-        public static ArrayList ToJavaList<T>(this IEnumerable<T> e)
+        public static ICollection ToJavaCollection(this IEnumerable e)
         {
-            ICollection c;
-            if (e is ICollection c1) c = c1;
-            else c = e.ToArray();
-            return new ArrayList(c);
+            if (e is ICollection collection)
+            {
+                return collection;
+            }
+            else
+            {
+                return new JavaList(e);
+            }
         }
     }
 }

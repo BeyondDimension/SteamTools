@@ -3,7 +3,6 @@ using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Dialog;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using ListPopupWindow = AndroidX.AppCompat.Widget.ListPopupWindow;
 
@@ -110,6 +109,20 @@ namespace System.Application.UI
             }
 
             public void Show() => Window.Show();
+        }
+
+        /// <summary>
+        /// 使用 MaterialAutoCompleteTextView 的实现
+        /// https://material.io/components/menus/android#exposed-dropdown-menus
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static ArrayAdapter<T> CreateArrayAdapter<T>(AutoCompleteTextView textView)
+        {
+            var adapter = new ArrayAdapter<T>(textView.Context!, Resource.Layout.list_item, 0);
+            textView.Adapter = adapter;
+            return adapter;
         }
     }
 }
