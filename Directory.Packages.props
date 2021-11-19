@@ -81,7 +81,7 @@
 		<!--Avalonia End-->
 
 		<PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
-		<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.3.5" />
+		<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />
 		<PackageVersion Include="TaskScheduler" Version="2.9.2" />
 		<PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0" />
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="16.3.10" />
