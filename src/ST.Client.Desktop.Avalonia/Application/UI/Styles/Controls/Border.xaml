@@ -1,7 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
-            <WrapPanel>
+            <StackPanel Spacing="8">
                 <Border Padding="20" Classes="paper">
                     <TextBox Text="Code Font Family" />
                 </Border>
@@ -9,7 +9,7 @@
                 <Border Padding="20" Classes="card">
                     <TextBox Text="Code Font Family" />
                 </Border>
-            </WrapPanel>
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
     <Styles.Resources>
@@ -18,6 +18,7 @@
     </Styles.Resources>
 
     <Style Selector="Border.card">
+        <Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
         <Setter Property="BorderBrush" Value="#2F2F37" />
         <Setter Property="BorderThickness" Value="0.88 0.88" />
     </Style>
@@ -42,12 +43,14 @@
     </Style>
 
     <Style Selector="Border.dialog">
+        <Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
         <Setter Property="BoxShadow" Value="{StaticResource DialogBoxShadow}" />
         <!--<Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
     <Setter Property="ClipToBounds" Value="True"/>-->
     </Style>
 
     <Style Selector="Border.button">
+        <Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
         <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
         <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
     </Style>

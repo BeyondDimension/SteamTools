@@ -90,11 +90,17 @@
                 <Panel Grid.Column="1" Margin="10 5">
                   <StackPanel>
                     <DockPanel LastChildFill="True">
-                      <controls:ProgressRing IsIndeterminate="True"
+                      <ProgressBar ToolTip.Tip="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   Width="30"
+                                   Height="30"
+                                   Classes="Circle"
+                                   IsIndeterminate="True"
+                                   IsVisible="{Binding SteamNickName,Converter={StaticResource IsNullConverter}}"/>
+                      <!--<controls:ProgressRing IsIndeterminate="True"
                                               ToolTip.Tip="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                              HorizontalAlignment="Stretch" Height="30"
                                              Width="30"
-                                            IsVisible="{Binding SteamNickName,Converter={StaticResource IsNullConverter}}"/>
+                                            IsVisible="{Binding SteamNickName,Converter={StaticResource IsNullConverter}}"/>-->
                       <controls:ScrollingTextBlock x:Name="nickname"
                                                    Text="{Binding SteamNickName}"
                                                    FontSize="20"

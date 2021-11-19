@@ -293,9 +293,12 @@
       <Panel>
         <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=IsLoadingGameList,Mode=OneWay}"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-          <controls:ProgressRing IsIndeterminate="True"
-                                 Width="100" Height="100">
-          </controls:ProgressRing>
+          <ProgressBar
+              Width="100"
+              Height="100"
+              Classes="Circle"
+              IsIndeterminate="True"
+              Orientation="Vertical" />
           <TextBlock Text="{ReflectionBinding Path=Res.GameList_IsLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
         </StackPanel>
 

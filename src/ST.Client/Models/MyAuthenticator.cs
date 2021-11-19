@@ -98,7 +98,8 @@ namespace System.Application.Models
             }
         }
 
-        private int _CodeCountdown;
+        public const int CodeCountdownMax = 100;
+        private int _CodeCountdown = CodeCountdownMax;
         public int CodeCountdown
         {
             get

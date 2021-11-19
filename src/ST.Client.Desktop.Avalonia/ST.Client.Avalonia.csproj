@@ -57,6 +57,7 @@
     <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
     <None Remove="Application\UI\Assets\movecross.png" />
+    <None Remove="Application\UI\Styles\Controls\ProgressBar.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,6 +101,18 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\ProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Controls\UserControl\Badge.axaml.cs">
+      <DependentUpon>Badge.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

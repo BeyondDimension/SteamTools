@@ -20,14 +20,14 @@
       </StackPanel.Styles>
       <Border Classes="Item">
         <StackPanel>
-          <TextBlock Text="捐助" Classes="h3"/>
-          <TextBlock Text="「Steam++」当前版本的发布离不开大家的支持，如果Steam++有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护Steam++。"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.About_Donate,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="h3"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.About_Donate_Desc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         </StackPanel>
       </Border>
 
       <Border Classes="Item">
         <DockPanel>
-          <TextBlock Text="捐助方式"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.About_DonateType,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <StackPanel Orientation="Horizontal"
                       Classes="right"
                       Spacing="10">
@@ -51,7 +51,10 @@
       <Expander>
         <Expander.Header>
           <DockPanel HorizontalAlignment="Stretch">
-            <TextBlock Text="捐助记录"/>
+            <StackPanel>
+              <TextBlock Text="{ReflectionBinding Path=Res.About_DonateRecord,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              <TextBlock Classes="prompt" Text="{ReflectionBinding Path=Res.About_DonateRecord_Prompt,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            </StackPanel>
             <DatePicker Classes="right"
                         DayVisible="False"
                         SelectedDate="{Binding DonateFliterDate,Mode=TwoWay}"/>
@@ -59,7 +62,7 @@
         </Expander.Header>
 
         <Panel>
-          <TextBlock Text="这个月还没有人捐助过啊..."
+          <TextBlock Text="{ReflectionBinding Path=Res.About_DonateRecord_NoData,Mode=OneWay,Source={x:Static resx:R.Current}}"
                      IsVisible="{Binding DonateList.Count,Converter={StaticResource IsNullConverter}}"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Center"/>

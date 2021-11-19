@@ -165,7 +165,7 @@ namespace System.Application.UI.ViewModels
             }
             else
             {
-                Toast.Show("加载捐助列表数据出错：" + result.Message);
+                Toast.Show(AppResources.About_DonateRecord_Error + result?.Message);
             }
         }
 

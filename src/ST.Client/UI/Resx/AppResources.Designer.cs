@@ -97,6 +97,60 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 「Steam++」当前版本的发布离不开大家的支持，如果Steam++有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护Steam++。 的本地化字符串。
+        /// </summary>
+        public static string About_Donate_Desc {
+            get {
+                return ResourceManager.GetString("About_Donate_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 捐助记录 的本地化字符串。
+        /// </summary>
+        public static string About_DonateRecord {
+            get {
+                return ResourceManager.GetString("About_DonateRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加载捐助列表数据出错： 的本地化字符串。
+        /// </summary>
+        public static string About_DonateRecord_Error {
+            get {
+                return ResourceManager.GetString("About_DonateRecord_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 这个月还没有人捐助过啊... 的本地化字符串。
+        /// </summary>
+        public static string About_DonateRecord_NoData {
+            get {
+                return ResourceManager.GetString("About_DonateRecord_NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在此感谢记录上的每一个人 的本地化字符串。
+        /// </summary>
+        public static string About_DonateRecord_Prompt {
+            get {
+                return ResourceManager.GetString("About_DonateRecord_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 捐助方式 的本地化字符串。
+        /// </summary>
+        public static string About_DonateType {
+            get {
+                return ResourceManager.GetString("About_DonateType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 常见问题疑难解答 的本地化字符串。
         /// </summary>
         public static string About_FAQ {

@@ -1904,4 +1904,22 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="About_Donate" xml:space="preserve">
     <value>捐助</value>
   </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>「Steam++」当前版本的发布离不开大家的支持，如果Steam++有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护Steam++。</value>
+  </data>
+  <data name="About_DonateType" xml:space="preserve">
+    <value>捐助方式</value>
+  </data>
+  <data name="About_DonateRecord" xml:space="preserve">
+    <value>捐助记录</value>
+  </data>
+  <data name="About_DonateRecord_Prompt" xml:space="preserve">
+    <value>在此感谢记录上的每一个人</value>
+  </data>
+  <data name="About_DonateRecord_NoData" xml:space="preserve">
+    <value>这个月还没有人捐助过啊...</value>
+  </data>
+  <data name="About_DonateRecord_Error" xml:space="preserve">
+    <value>加载捐助列表数据出错：</value>
+  </data>
 </root>

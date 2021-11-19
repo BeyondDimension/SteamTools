@@ -60,13 +60,13 @@
       </Style>
     </Panel.Styles>
     <controls:TitleBar/>
-
-    <controls:ProgressRing IsIndeterminate="True"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Height="100"
-                           Width="100"
-                           IsVisible="{Binding IsLoading}"/>
+    <ProgressBar Width="100"
+                       Height="100"
+                       Classes="Circle"
+                       IsIndeterminate="True"
+                       IsVisible="{Binding IsLoading}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
 
     <TabControl Classes="flat"
                 Margin="0 20 0 0"
@@ -235,11 +235,11 @@
                       IsVisible="{Binding CurrentSelectChannel,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
             <TextBlock TextWrapping="WrapWithOverflow"
                        Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <controls:ProgressRing IsIndeterminate="True"
-                                   Margin="0 40 0 40"
-                                   Width="100"
-                                   Height="100">
-            </controls:ProgressRing>
+            <ProgressBar Width="100"
+                         Height="100"
+                         Margin="0 40 0 40"
+                         Classes="Circle"
+                         IsIndeterminate="True"/>
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"

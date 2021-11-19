@@ -86,6 +86,29 @@ namespace System.Application.Models
             }
         }
 
+        public string? SortAs
+        {
+            get
+            {
+                if (this._cachedSortAs == null)
+                {
+                    this._cachedSortAs = this._properties?.GetPropertyValue<string>(this.Name, new string[] {
+                        NodeAppInfo, NodeCommon, "sortas" });
+                    if (this._cachedSortAs?.Length == 0)
+                    {
+                        this._cachedSortAs = this.Name;
+                    }
+                }
+                return this._cachedSortAs;
+            }
+            set
+            {
+                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, new string[] {
+                    NodeAppInfo, NodeCommon, "sortas" });
+                this.ClearCachedProps();
+            }
+        }
+
         public string DisplayName => string.IsNullOrEmpty(EditName) ? (Name ?? string.Empty) : EditName;
 
         string _baseDLSSVersion = string.Empty;
@@ -215,7 +238,7 @@ namespace System.Application.Models
 
         public string GetIdAndName()
         {
-            return $"{AppId} | {Name}";
+            return $"{AppId} | {DisplayName}";
         }
 
         public int CompareTo(SteamApp? other) => string.Compare(Name, other?.Name);

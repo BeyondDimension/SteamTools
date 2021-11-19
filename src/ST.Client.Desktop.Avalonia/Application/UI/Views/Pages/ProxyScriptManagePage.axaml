@@ -29,8 +29,15 @@
                         IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
                         ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         VerticalAlignment="Center"></ToggleSwitch>
-
-          <controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />
+          <ProgressBar
+                        Width="30"
+                        Height="30"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}"
+                        Classes="Circle"
+                        IsIndeterminate="True"
+                        Orientation="Vertical" />
+          <!--<controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />-->
           <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}"
                   Background="Transparent"
                   Cursor="Hand"
@@ -198,9 +205,15 @@
                                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                     <PathIcon Width="20" Height="20" Data="{StaticResource DownloadDrawing}" />
                                                 </Button>-->
-                        <controls:ProgressRing IsIndeterminate="True"
+                        <ProgressBar Width="30" 
+                                     Height="30"
+                                     ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                     Classes="Circle"
+                                     IsIndeterminate="True"
+                                     IsVisible="{Binding IsLoading}"/>
+                        <!--<controls:ProgressRing IsIndeterminate="True"
                                                ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"
-                                               IsVisible="{Binding IsLoading}" />
+                                               IsVisible="{Binding IsLoading}" />-->
                         <Button Classes="Hyperlink"
                                  Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                  CommandParameter="{Binding}"

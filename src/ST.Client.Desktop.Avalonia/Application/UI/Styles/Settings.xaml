@@ -46,7 +46,7 @@
         </Border>
     </Design.PreviewWith>
     <Styles.Resources>
-        <sys:Double x:Key="SettingsRightContentWidth">240</sys:Double>
+        <sys:Double x:Key="SettingsRightContentWidth">260</sys:Double>
 
         <SolidColorBrush x:Key="ExpanderBorderPointerOverBrush" Color="{DynamicResource CardStrokeColorDefault}" />
         <SolidColorBrush x:Key="ExpanderBorderBrush" Color="{DynamicResource CardStrokeColorDefault}" />

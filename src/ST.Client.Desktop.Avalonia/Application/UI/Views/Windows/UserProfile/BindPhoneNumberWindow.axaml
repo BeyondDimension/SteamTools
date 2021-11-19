@@ -24,7 +24,11 @@
   <Panel>
     <controls:TitleBar />
     <Panel Margin="{StaticResource UnifyTitleBarAfterContentMargin}">
-      <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
+      <ProgressBar Width="100"
+                   Height="100"
+                   Classes="Circle"
+                   IsIndeterminate="True"
+                   IsVisible="{Binding IsLoading}"/>
       <StackPanel VerticalAlignment="Center" Spacing="10" IsVisible="{Binding !IsLoading}">
 
         <TextBox

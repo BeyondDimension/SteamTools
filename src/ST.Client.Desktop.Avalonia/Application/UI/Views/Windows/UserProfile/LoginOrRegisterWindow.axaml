@@ -30,7 +30,12 @@
   <Panel>
     <controls:TitleBar />
     <Panel>
-      <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100" IsVisible="{Binding IsLoading}" />
+      <ProgressBar IsIndeterminate="True" 
+                   Classes="Circle"
+                   HorizontalAlignment="Center" 
+                   Height="100" 
+                   Width="100" 
+                   IsVisible="{Binding IsLoading}" />
       <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
         <i:Interaction.Behaviors>
           <ia:DataTriggerBehavior Binding="{Binding LoginState}" ComparisonCondition="Equal" Value="0">
@@ -200,11 +205,11 @@
           <StackPanel x:Name="WaitLogin"  Spacing="8">
             <TextBlock TextWrapping="WrapWithOverflow"
                        Text="{ReflectionBinding Path=Res.User_WaitFastLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-            <controls:ProgressRing IsIndeterminate="True"
-                                   Margin="0 40 0 40"
-                                   Width="100"
-                                   Height="100">
-            </controls:ProgressRing>
+            <ProgressBar Width="100"
+                         Height="100"
+                         Classes="Circle"
+                         Margin="0 40 0 40"
+                         IsIndeterminate="True"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 40">
               <Button Classes="plain"

@@ -204,19 +204,17 @@ namespace System.Application.UI.ViewModels
         {
             if (auth.IsShowCode == false)
             {
+                auth.CodeCountdown = MyAuthenticator.CodeCountdownMax;
                 auth.IsShowCode = true;
-                var max = 100;
-                auth.CodeCountdown = max;
                 Task.Run(async () =>
                 {
                     while (auth.IsShowCode)
                     {
-                        //auth.CurrentCode = string.Empty;
                         auth.RefreshCode();
                         auth.CodeCountdown -= 5;
-                        if (auth.CodeCountdown == 0)
+                        if (auth.CodeCountdown <= 0)
                         {
-                            auth.CodeCountdown = max;
+                            auth.CodeCountdown = MyAuthenticator.CodeCountdownMax;
                             auth.IsShowCode = false;
                         }
                         await Task.Delay(100);

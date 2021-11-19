@@ -98,8 +98,11 @@
                                 <ia:ChangePropertyAction TargetObject="{Binding #load}" PropertyName="IsVisible" Value="False"/>
                             </ia:DataTriggerBehavior>
                         </i:Interaction.Behaviors>-->
-            <controls:ProgressRing IsIndeterminate="True" HorizontalAlignment="Stretch" Height="100" Width="100">
-            </controls:ProgressRing>
+            <ProgressBar
+              Width="100"
+              Height="100"
+              Classes="Circle"
+              IsIndeterminate="True" />
             <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_GetTip,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center" FontSize="14"></TextBlock>
           </StackPanel>
 

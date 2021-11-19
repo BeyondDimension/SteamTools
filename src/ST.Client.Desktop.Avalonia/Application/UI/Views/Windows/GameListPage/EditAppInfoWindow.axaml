@@ -17,32 +17,95 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
-    <Border Classes="paper"
-            Margin="{StaticResource TitleBarAfterMargin}"
-            Padding="10"
-            Background="{DynamicResource ThemeBrushKey}">
-      <Border.Styles>
-        
-      </Border.Styles>
-      <ScrollViewer>
-        <StackPanel Classes="Settings">
-          
-          <Border Classes="Item">
-            <DockPanel>
-              <TextBlock Text="名称"/>
-              <TextBox Text="{ReflectionBinding App.DisplayName}"/>
-            </DockPanel>
-          </Border>
-          
-          <Border Classes="Item">
-            <DockPanel>
-              <TextBlock Text="排序标题"/>
-              <TextBox Text="{ReflectionBinding App.SortAS}"/>
-            </DockPanel>
-          </Border>
-          
-        </StackPanel>
-      </ScrollViewer>
-    </Border>
+    <DockPanel>
+      <TabControl Classes="flat"
+                  Margin="0 20 0 0"
+                  DockPanel.Dock="Top">
+        <TabItem Header="信息">
+          <ScrollViewer>
+            <StackPanel Classes="Settings">
+
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="名称"/>
+                  <TextBox Text="{ReflectionBinding App.EditName}"/>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="排序标题"/>
+                  <TextBox Text="{ReflectionBinding App.SortAs}"/>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="开发商"/>
+                  <TextBlock Classes="right"
+                             Text="D://"
+                             TextWrapping="Wrap"/>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="发行商"/>
+                  <TextBlock Classes="right"
+                             Text="D://"
+                             TextWrapping="Wrap"/>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="磁盘占用"/>
+                  <TextBlock Classes="right"
+                             Text="D://"
+                             TextWrapping="Wrap"/>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="安装路径"/>
+                  <Button Classes="Hyperlink"
+                          Content="D://"/>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="最后更新"/>
+                  <TextBlock Classes="right"
+                             Text="2020-01-31 12:50:44"
+                             TextWrapping="Wrap"/>
+                </DockPanel>
+              </Border>
+
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="媒体">
+
+        </TabItem>
+      </TabControl>
+      <StackPanel DockPanel.Dock="Bottom"
+                  Margin="10"
+                  Spacing="10"
+                  Height="35"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  Orientation="Horizontal">
+        <Button Content="取消"
+                Padding="45 0"
+                VerticalAlignment="Stretch"/>
+        <Button Classes="action"
+                Padding="45 0"
+                VerticalAlignment="Stretch"
+                Content="保存"/>
+      </StackPanel>
+    </DockPanel>
   </Panel>
 </Window>
