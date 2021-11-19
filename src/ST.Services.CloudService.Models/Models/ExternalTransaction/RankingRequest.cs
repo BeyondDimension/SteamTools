@@ -33,5 +33,13 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public ExternalTransactionType? Type { get; set; }
+
+        /// <summary>
+        /// 货币类型
+        /// </summary>
+        [MPKey(3)]
+        [N_JsonProperty("3")]
+        [S_JsonProperty("3")]
+        public CampaignCurrencyEnum CampaignCurrency { get; set; } = CampaignCurrencyEnum.RMB;
     }
 }
