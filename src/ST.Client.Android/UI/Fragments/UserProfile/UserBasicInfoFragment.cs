@@ -102,7 +102,7 @@ namespace System.Application.UI.Fragments
             adapter.Clear();
             if (value != null)
             {
-                adapter.AddAll(value.ToJavaCollection());
+                adapter.AddAll(value.ToJavaCollectionNoGeneric());
             }
             adapter.NotifyDataSetChanged();
         };

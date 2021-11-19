@@ -1,5 +1,6 @@
 using Android.Runtime;
 using System.Collections;
+using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -25,7 +26,7 @@ namespace System
             }
         }
 
-        public static ICollection ToJavaCollection(this IEnumerable e)
+        public static ICollection ToJavaCollectionNoGeneric(this IEnumerable e)
         {
             if (e is ICollection collection)
             {
@@ -35,6 +36,12 @@ namespace System
             {
                 return new JavaList(e);
             }
+        }
+
+        public static IList<T> ToJavaList<T>(this IEnumerable<T> e)
+        {
+            if (e is IList<T> list) return list;
+            else return new JavaList<T>(e);
         }
     }
 }

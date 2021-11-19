@@ -3,6 +3,7 @@ using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Dialog;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using ListPopupWindow = AndroidX.AppCompat.Widget.ListPopupWindow;
 
@@ -39,7 +40,7 @@ namespace System.Application.UI
         /// <param name="items"></param>
         /// <param name="click"></param>
         /// <param name="anchorView">弹出的描点</param>
-        public static ListPopupWindowWrapper Popup(Context context, string[] items, Action<string> click, View anchorView)
+        public static ListPopupWindowWrapper<T> Popup<T>(Context context, IEnumerable<T> items, Action<T> click, View anchorView)
         {
             // https://material.io/components/menus/android#dropdown-menus
 
@@ -48,24 +49,24 @@ namespace System.Application.UI
             // Set button as the list popup's anchor
             listPopupWindow.AnchorView = anchorView;
 
-            var adapter = new ArrayAdapter(context, Resource.Layout.list_popup_window_item, items);
+            var adapter = CreateArrayAdapter(context, Resource.Layout.list_popup_window_item, items);
             listPopupWindow.SetAdapter(adapter);
 
-            ListPopupWindowWrapper wrapper = new(items, listPopupWindow, adapter, click);
+            ListPopupWindowWrapper<T> wrapper = new(items, listPopupWindow, adapter, click);
             listPopupWindow.SetOnItemClickListener(wrapper);
 
             return wrapper;
         }
 
 
-        public sealed class ListPopupWindowWrapper : Java.Lang.Object, AdapterView.IOnItemClickListener
+        public sealed class ListPopupWindowWrapper<T> : Java.Lang.Object, AdapterView.IOnItemClickListener
         {
             public ListPopupWindow Window { get; }
 
             public ArrayAdapter Adapter { get; }
 
-            string[] items;
-            public string[] Items
+            IEnumerable<T> items;
+            public IEnumerable<T> Items
             {
                 get => items;
                 set
@@ -78,9 +79,9 @@ namespace System.Application.UI
                 }
             }
 
-            public Action<string> ItemClick { get; }
+            public Action<T> ItemClick { get; }
 
-            public ListPopupWindowWrapper(string[] items, ListPopupWindow listPopupWindow, ArrayAdapter adapter, Action<string> click)
+            public ListPopupWindowWrapper(IEnumerable<T> items, ListPopupWindow listPopupWindow, ArrayAdapter adapter, Action<T> click)
             {
                 this.items = items;
                 Window = listPopupWindow;
@@ -90,9 +91,9 @@ namespace System.Application.UI
 
             void AdapterView.IOnItemClickListener.OnItemClick(AdapterView? parent, View? view, int position, long id)
             {
-                if (position >= 0 && position < Items.Length)
+                if (position >= 0 && position < items.Count())
                 {
-                    var item = Items[position];
+                    var item = items.ElementAt(position);
                     ItemClick(item);
                 }
                 Window.Dismiss();
@@ -111,6 +112,14 @@ namespace System.Application.UI
             public void Show() => Window.Show();
         }
 
+        public static ArrayAdapter<T> CreateArrayAdapter<T>(Context context, int resource, IEnumerable<T>? items = null)
+        {
+            var adapter = items == null ?
+                new ArrayAdapter<T>(context, resource, 0) :
+                new ArrayAdapter<T>(context, resource, 0, items.ToJavaList());
+            return adapter;
+        }
+
         /// <summary>
         /// 使用 MaterialAutoCompleteTextView 的实现
         /// https://material.io/components/menus/android#exposed-dropdown-menus
@@ -120,7 +129,7 @@ namespace System.Application.UI
         /// <returns></returns>
         public static ArrayAdapter<T> CreateArrayAdapter<T>(AutoCompleteTextView textView)
         {
-            var adapter = new ArrayAdapter<T>(textView.Context!, Resource.Layout.list_item, 0);
+            var adapter = CreateArrayAdapter<T>(textView.Context!, Resource.Layout.list_item);
             textView.Adapter = adapter;
             return adapter;
         }

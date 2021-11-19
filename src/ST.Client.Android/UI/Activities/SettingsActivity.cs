@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using static System.Application.UI.Resx.AppResources;
+using DynamicData;
 
 namespace System.Application.UI.Activities
 {
@@ -27,7 +28,7 @@ namespace System.Application.UI.Activities
 
         protected override SettingsPageViewModel? OnCreateViewModel() => SettingsPageViewModel.Instance;
 
-        readonly Dictionary<View, ComboBoxHelper.ListPopupWindowWrapper> comboBoxs = new();
+        readonly Dictionary<View, ComboBoxHelper.ListPopupWindowWrapper<string>> comboBoxs = new();
 
         void SetIsAutoCheckUpdateChecked() => binding!.swGeneralSettingsIsAutoCheckUpdate.Checked = GeneralSettings.IsAutoCheckUpdate.Value;
         void SetUpdateChannelText() => binding!.tvGeneralSettingsUpdateChannelValue.Text = GeneralSettings.UpdateChannel.Value.ToString();
@@ -73,7 +74,7 @@ namespace System.Application.UI.Activities
                 binding.tvUISettingsLanguageValue.Text = x.Value;
             }).AddTo(this);
 
-            comboBoxs.Add(binding.layoutRootUISettingsLanguage, ComboBoxHelper.Popup(this, R.Languages.Select(x => x.Value).ToArray(), x =>
+            comboBoxs.Add(binding.layoutRootUISettingsLanguage, ComboBoxHelper.Popup(this, R.Languages.Select(x => x.Value).ToJavaList(), x =>
             {
                 ViewModel!.SelectLanguage = R.Languages.FirstOrDefault(y => y.Value == x);
             }, binding.layoutUISettingsLanguage));
@@ -81,7 +82,7 @@ namespace System.Application.UI.Activities
             {
                 if (comboBoxs.TryGetValue(binding.layoutRootUISettingsTheme, out var comboBoxUISettingsTheme))
                 {
-                    var index = Array.IndexOf(comboBoxUISettingsTheme.Items, x);
+                    var index = comboBoxUISettingsTheme.Items.IndexOf(x);
                     if (index >= 0)
                     {
                         UISettings.Theme.Value = (short)index;
