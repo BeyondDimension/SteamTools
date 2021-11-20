@@ -10,7 +10,7 @@
         xmlns:ms="using:System.Application.Settings"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         UseLayoutRounding="True"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
         MinWidth="450" MinHeight="50"
         MaxWidth="900" MaxHeight="600"

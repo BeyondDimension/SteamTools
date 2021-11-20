@@ -83,6 +83,11 @@ namespace System.Application
             /// 解锁成就提示
             /// </summary>
             UnLockAchievement = 1,
+
+            /// <summary>
+            /// 捐助提示
+            /// </summary>
+            Donate = 2,
         }
 
         /// <summary>

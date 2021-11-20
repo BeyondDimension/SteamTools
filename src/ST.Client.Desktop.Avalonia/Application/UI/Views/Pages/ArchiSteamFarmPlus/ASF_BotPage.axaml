@@ -282,8 +282,34 @@
                       <Separator Height="{ReflectionBinding $parent.Height}" Classes="Separator"/>
 
                       <StackPanel IsVisible="{Binding CardsFarmer.GamesToFarmReadOnly.Count,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                                  Spacing="3"
                                   Orientation="Horizontal">
-                        <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+
+                        <controls:Badge Background="#3CB371" 
+                                        Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
+                                        ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <controls:Badge.Icon>
+                            <ui:SymbolIcon Symbol="Games" />
+                          </controls:Badge.Icon>
+                        </controls:Badge>
+                        
+                        <controls:Badge Background="#3CB371"
+                                        Text="{Binding CardsFarmer.CardsRemaining}"
+                                        ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <controls:Badge.Icon>
+                            <ui:SymbolIcon Symbol="Page2" />
+                          </controls:Badge.Icon>
+                        </controls:Badge>
+                        
+                        <controls:Badge Background="#3CB371"
+                                        ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                        Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}">
+                          <controls:Badge.Icon>
+                            <ui:SymbolIcon Symbol="Clock" />
+                          </controls:Badge.Icon>
+                        </controls:Badge>
+                        
+                        <!--<DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
                              VerticalAlignment="Center">
                           <Border>
                             <ui:SymbolIcon Symbol="Games"
@@ -295,9 +321,9 @@
                           <TextBlock Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
                                      VerticalAlignment="Center"
                                      DockPanel.Dock="Right"/>
-                        </DockPanel>
+                        </DockPanel>-->
 
-                        <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        <!--<DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                    VerticalAlignment="Center">
                           <ui:SymbolIcon Symbol="Page2"
                                          Margin="5 0"
@@ -319,7 +345,7 @@
                           <TextBlock Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}"
                                      VerticalAlignment="Center"
                                      DockPanel.Dock="Right"/>
-                        </DockPanel>
+                        </DockPanel>-->
                       </StackPanel>
 
                     </StackPanel>

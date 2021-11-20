@@ -125,7 +125,7 @@
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"/>
           </StackPanel>
-          
+
           <StackPanel Orientation="Horizontal">
             <TextBlock Classes="Header light"
                        Margin="0,0,6,0"
@@ -196,16 +196,16 @@
                    Padding="0"
                    TextWrapping="Wrap">
             <TextBox.Text>
-English: 沙中金
+              English: 沙中金
 
-Spanish: EspRoy
+              Spanish: EspRoy
 
-Italian: Zhengye
+              Italian: Zhengye
             </TextBox.Text>
           </TextBox>
         </StackPanel>
       </Expander>
-      
+
       <Separator Classes="Separator"/>
 
       <Expander>
@@ -334,11 +334,11 @@ Italian: Zhengye
           </DockPanel>
         </Border>
       </Button>
-      
+
       <TextBlock Classes="h7 light"
                  Margin="0 20"
                  HorizontalAlignment="Center"
-                 Text="{Binding Copyright}"
+                 Text="{x:Static vm:AboutPageViewModel.Copyright}"
                  VerticalAlignment="Center"/>
     </StackPanel>
 

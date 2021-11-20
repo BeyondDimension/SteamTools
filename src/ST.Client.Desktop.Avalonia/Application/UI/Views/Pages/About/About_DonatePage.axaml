@@ -46,7 +46,13 @@
           </StackPanel>
         </DockPanel>
       </Border>
-
+      
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="启动时不要在提示捐助消息"/>
+          <ToggleSwitch/>
+        </DockPanel>
+      </Border>
 
       <Expander>
         <Expander.Header>
@@ -57,6 +63,8 @@
             </StackPanel>
             <DatePicker Classes="right"
                         DayVisible="False"
+                        MinYear="{x:Static vm:AboutPageViewModel.StartYear}"
+                        MaxYear="{x:Static vm:AboutPageViewModel.ThisYear}"
                         SelectedDate="{Binding DonateFliterDate,Mode=TwoWay}"/>
           </DockPanel>
         </Expander.Header>

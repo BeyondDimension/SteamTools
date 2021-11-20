@@ -38,9 +38,9 @@
     <StyleInclude Source="/Application/UI/Styles/Controls/DataGrid.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/DateTimePicker.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Controls/ProgressBar.xaml" />
-    <!--<StyleInclude Source="/Application/UI/Styles/Controls/ProgressRingArc.xaml" />-->
-    <!--<StyleInclude Source="/Application/UI/Styles/Controls/ProgressRing.xaml" />-->
     <StyleInclude Source="/Application/UI/Styles/Controls/ToggleSwitch.xaml" />
+
+    <StyleInclude Source="/Application/UI/Views/Controls/Badge.xaml" />
 
     <StyleInclude Source="/Application/UI/Styles/Window.xaml" />
     <StyleInclude Source="/Application/UI/Styles/Settings.xaml" />

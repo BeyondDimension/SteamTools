@@ -201,6 +201,7 @@
                     <Panel DockPanel.Dock="Top">
                       <Separator Height="13" IsVisible="{Binding !IsShowCode}"></Separator>
                       <ProgressBar Value="{Binding CodeCountdown,Mode=OneWay}"
+                                   Classes="notransitions"
                                    IsVisible="{Binding IsShowCode}"
                                    Margin="0 10 0 4"/>
                       <Separator Classes="Separator" Margin="0 14 0 4"/>

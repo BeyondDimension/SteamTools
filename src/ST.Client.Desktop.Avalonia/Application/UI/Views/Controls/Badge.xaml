@@ -1,0 +1,57 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:System.Application.UI.Views.Controls"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="40">
+            <controls:Badge Background="#3CB371" Text="Test">
+                <controls:Badge.Icon>
+                    <ui:SymbolIcon Symbol="Games" />
+                </controls:Badge.Icon>
+                <TextBlock Text="Hello World!" />
+            </controls:Badge>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|Badge">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignCardBackground}" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="ClipToBounds" Value="False" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="8 4" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border>
+                    <DockPanel Background="Transparent" ClipToBounds="False">
+                        <Border Padding="{TemplateBinding Padding}" Background="#555555">
+                            <DockPanel VerticalAlignment="Center">
+                                <Border Name="IconColumn" Height="24">
+                                    <Viewbox
+                                        Name="IconBox"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                        <ContentPresenter Name="Icon" Content="{TemplateBinding Icon}" />
+                                    </Viewbox>
+                                </Border>
+                                <ContentPresenter
+                                    Name="ContentPresenter"
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    IsVisible="{TemplateBinding Content,
+                                                                Converter={StaticResource IsNullConverter},
+                                                                ConverterParameter=invert}" />
+                            </DockPanel>
+                        </Border>
+                        <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                            <TextBlock VerticalAlignment="Center" Text="{TemplateBinding Text}" />
+                        </Border>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

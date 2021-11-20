@@ -36,7 +36,10 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _DonateFliterDate, value);
         }
 
-        private const int DonateListPageSize = 50;
+        public static readonly DateTimeOffset StartYear = new(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
+        public static readonly DateTimeOffset ThisYear = new DateTimeOffset(DateTimeOffset.Now.Year + 1, 1, 1, 0, 0, 0, TimeSpan.Zero).AddDays(-1);
+
+        private const int DonateListPageSize = 100;
 
         public AboutPageViewModel()
         {
@@ -173,7 +176,7 @@ namespace System.Application.UI.ViewModels
 
         public string LabelVersionDisplay => ThisAssembly.IsAlphaRelease ? "Alpha Version:" : (ThisAssembly.IsBetaRelease ? "Beta Version:" : "Current Version:");
 
-        public string Copyright
+        public static string Copyright
         {
             get
             {
