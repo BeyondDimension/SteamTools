@@ -293,7 +293,7 @@
                           </controls:Badge.Icon>
                         </controls:Badge>
                         
-                        <controls:Badge Background="#3CB371"
+                        <controls:Badge Background="#007EC6"
                                         Text="{Binding CardsFarmer.CardsRemaining}"
                                         ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}">
                           <controls:Badge.Icon>
@@ -301,7 +301,7 @@
                           </controls:Badge.Icon>
                         </controls:Badge>
                         
-                        <controls:Badge Background="#3CB371"
+                        <controls:Badge Background="#8C45AB"
                                         ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                         Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}">
                           <controls:Badge.Icon>

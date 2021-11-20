@@ -108,7 +108,8 @@ namespace System.Application.UI.ViewModels
                 result = bot.Actions.Start();
             }
 
-            Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
+            if (!result.success)
+                Toast.Show(string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
         }
 
         public async Task<(IReadOnlyDictionary<string, string>? UnusedKeys, IReadOnlyDictionary<string, string>? UsedKeys)> GetUsedAndUnusedKeys(Bot bot)

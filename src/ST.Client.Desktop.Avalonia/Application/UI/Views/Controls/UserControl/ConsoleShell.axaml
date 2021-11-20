@@ -26,6 +26,8 @@
         VerticalScrollBarVisibility="Auto">
       <Grid RowDefinitions="Auto,Auto">
         <TextBox x:Name="LogTextbox"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
                  IsVisible="False"
                  Classes="readonlybox"
@@ -45,7 +47,9 @@
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center">
           </TextBox>-->
-          <AutoCompleteBox x:Name="CommandTextbox"
+          <AutoCompleteBox x:Name="CommandTextbox" 
+                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                            Items="{ReflectionBinding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
                            x:DataType="models:ArchiSteamFarmCommand"
                            FilterMode="StartsWithOrdinal"
@@ -96,7 +100,7 @@
                 <Setter Property="BorderBrush" Value="Transparent" />
                 <Setter Property="BorderThickness" Value="0" />
               </Style>
-              
+
               <Style Selector="AutoCompleteBox /template/ Popup#PART_Popup">
                 <Setter Property="MaxWidth" Value="{ReflectionBinding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"/>
               </Style>
