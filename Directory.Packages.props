@@ -48,10 +48,10 @@
 		<PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />
 		<PackageVersion Include="NLog" Version="4.7.12" />
 		<PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
-		<PackageVersion Include="NotifyIcon.Base" Version="1.0.4" />
-		<!--<PackageVersion Include="NotifyIcon.Linux" Version="1.0.4" />-->
-		<!--<PackageVersion Include="NotifyIcon.Mac" Version="1.0.4" />-->
-		<PackageVersion Include="NotifyIcon.Windows" Version="1.0.4" />
+		<PackageVersion Include="NotifyIcon.Base" Version="1.0.5" />
+		<!--<PackageVersion Include="NotifyIcon.Linux" Version="1.0.5" />-->
+		<!--<PackageVersion Include="NotifyIcon.Mac" Version="1.0.5" />-->
+		<PackageVersion Include="NotifyIcon.Windows" Version="1.0.5" />
 		<!--<PackageVersion Include="GtkSharp" Version="3.24.24.34" />-->
 		<PackageVersion Include="SharpZipLib" Version="1.3.3" />
 		<PackageVersion Include="Squid-Box.SevenZipSharp.Lite" Version="1.5.0.366" />
