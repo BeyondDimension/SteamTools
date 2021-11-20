@@ -104,7 +104,7 @@
                                   Spacing="5"
                                   Margin="10">
                         <controls:ScrollingTextBlock Text="{Binding Name}" Classes="h6"/>
-                        <controls:ScrollingTextBlock Text="{Binding Amount,StringFormat=￥{0:F2}}"/>
+                        <controls:ScrollingTextBlock Text="{Binding Amount,StringFormat={}{0:C}}"/>
                       </StackPanel>
                     </DockPanel>
                   </Border>
