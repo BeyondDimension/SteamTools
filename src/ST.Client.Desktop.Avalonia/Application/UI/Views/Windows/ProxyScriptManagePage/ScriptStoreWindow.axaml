@@ -42,10 +42,7 @@
                      MinWidth="300">
               <TextBox.InnerLeftContent>
                 <PathIcon Data="{StaticResource SearchDrawing}"
-                          Width="20" Height="20"
-                          Opacity="0.8"
-                          VerticalAlignment="Top" HorizontalAlignment="Left"
-                          Margin="15,8,0,0" />
+                          Classes="TextBoxIcon"/>
               </TextBox.InnerLeftContent>
             </TextBox>
           </StackPanel>
