@@ -35,6 +35,15 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public int Month { get; set; }
+
+        /// <summary>
+        /// 捐助平台
+        /// </summary>
+        [MPKey(2)]
+        [N_JsonProperty("2")]
+        [S_JsonProperty("2")]
+        public ExternalTransactionType? Type { get; set; }
+
         /// <summary>
         /// 赞助金额
         /// </summary>
