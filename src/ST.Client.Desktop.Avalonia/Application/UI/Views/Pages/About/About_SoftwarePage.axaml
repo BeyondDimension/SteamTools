@@ -196,11 +196,11 @@
                    Padding="0"
                    TextWrapping="Wrap">
             <TextBox.Text>
-              English: 沙中金
+English: 沙中金
 
-              Spanish: EspRoy
+Spanish: EspRoy
 
-              Italian: Zhengye
+Italian: Zhengye
             </TextBox.Text>
           </TextBox>
         </StackPanel>
