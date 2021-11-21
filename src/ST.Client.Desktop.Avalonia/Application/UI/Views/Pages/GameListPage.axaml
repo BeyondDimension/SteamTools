@@ -345,14 +345,14 @@
                             <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
                           </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem
+                        <!--<MenuItem
                                Header="{ReflectionBinding Path=Res.GameList_EditAppInfo,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Command="{ReflectionBinding #u.DataContext.EditAppInfoClick}"
                                CommandParameter="{Binding}">
                           <MenuItem.Icon>
                             <PathIcon Data="{StaticResource EditDrawing}" Width="14"></PathIcon>
                           </MenuItem.Icon>
-                        </MenuItem>
+                        </MenuItem>-->
                         <MenuItem
                                   Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                   Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
