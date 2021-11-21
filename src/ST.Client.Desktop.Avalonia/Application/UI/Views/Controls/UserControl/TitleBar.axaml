@@ -57,7 +57,8 @@
                  Text="{ReflectionBinding $parent[Window].Title}"
                  VerticalAlignment="Center"
                  Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                 FontSize="14"/>
+                 Classes="h7"
+                 FontWeight="SemiLight"/>
     </StackPanel>
   </Panel>
 </UserControl>

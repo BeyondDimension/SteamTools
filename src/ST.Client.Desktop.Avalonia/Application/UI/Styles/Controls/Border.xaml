@@ -13,6 +13,8 @@
         </Border>
     </Design.PreviewWith>
     <Styles.Resources>
+        <BoxShadows x:Key="DialogBoxShadow">0 8 32 0 #66000000</BoxShadows>
+        <BoxShadows x:Key="InfoBoxShadow">2 2 5 #3F000000</BoxShadows>
         <CornerRadius x:Key="PaperRadius">8</CornerRadius>
         <CornerRadius x:Key="PaperRadiusLeft">8 0 0 8</CornerRadius>
     </Styles.Resources>
@@ -30,7 +32,7 @@
     <Style Selector="Border.paper">
         <Setter Property="CornerRadius" Value="{StaticResource PaperRadius}" />
         <!--<Setter Property="ClipToBounds" Value="True"/>-->
-        <Setter Property="BoxShadow" Value="2 2 5 #55000000" />
+        <Setter Property="BoxShadow" Value="{StaticResource InfoBoxShadow}" />
     </Style>
     <!--<Style Selector="Border.paper:pointerover">
     <Setter Property="BoxShadow" Value="4 2 10 #55000000" />

@@ -3,8 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="using:System">
     <Styles.Resources>
-        <BoxShadows x:Key="DialogBoxShadow">4 11 30 1 #3F000000</BoxShadows>
-        <BoxShadows x:Key="InfoBoxShadow">2 2 5 #3F000000</BoxShadows>
         <Thickness x:Key="ScrollMargin">10 10 10 10</Thickness>
         <Thickness x:Key="PageMargin">10 0 10 0</Thickness>
         <Easing x:Key="FluentEasing">0.4,0,0.6,1</Easing>

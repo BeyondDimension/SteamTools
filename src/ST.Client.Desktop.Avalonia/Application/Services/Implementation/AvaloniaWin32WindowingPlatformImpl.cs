@@ -208,7 +208,6 @@ namespace System.Application.Services.Implementation
                         });
                 };
 
-                //if (_version.BuildNumber > 22000)
                 if (OperatingSystem2.IsWindows11AtLeast)
                 {
                     ((IPseudoClasses)_owner.Classes).Set(":windows11", true);
