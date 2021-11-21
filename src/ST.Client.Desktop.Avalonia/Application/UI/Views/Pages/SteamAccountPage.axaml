@@ -135,18 +135,18 @@
                         </ia:EventTriggerBehavior>
                       </i:Interaction.Behaviors>
                       <gif:Image2
-                          Width="144"
+                          Width="184"
                           AutoStart="true"
                           FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
                           Source="{Binding AvatarStream^}"
                           Stretch="Uniform" />
-                      <gif:Image2
+                      <!--<gif:Image2
                           Width="184"
                           Height="184"
                           AutoStart="true"
                           IsVisible="{Binding MiniProfile.AvatarFrameStream^, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
                           Source="{Binding MiniProfile.AvatarFrameStream^}"
-                          Stretch="Uniform" />
+                          Stretch="Uniform" />-->
                     </Panel>
                   </Border>
                   <Panel Grid.Column="1" Margin="10,0,0,0">
