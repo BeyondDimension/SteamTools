@@ -530,7 +530,7 @@ namespace System.Application.Services.Implementation
                             //GenericCertificate = proxyServer.CertificateManager.RootCertificate
                         };
 
-                        MessageBox.Show($"Liunx Hosts 代理模式 需要 Root 权限，或使用 “sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port {freeport}” 映射到其他端口且修改代理设置监听端口");
+                        Browser2.Open($"https://www.steampp.net/unixhostaccess?prot={freeport}");
                     }
                     else
                     {

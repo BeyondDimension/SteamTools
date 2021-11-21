@@ -242,7 +242,7 @@ namespace System.Application.Services
 
                                     if (r.ResultType != OperationResultType.Success)
                                     {
-                                        if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root"))
+                                        if (OperatingSystem2.IsMacOS)
                                         {
                                             Browser2.Open("https://www.steampp.net/unixhostaccess");
                                             //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
