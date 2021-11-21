@@ -414,7 +414,7 @@ namespace System.Application.Services.Implementation
             if (OperatingSystem2.IsLinux)
             {
                 //IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
-                Browser2.Open("https://www.steampp.net/liunxSetupCer");
+                Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
                 return true;
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
@@ -530,7 +530,7 @@ namespace System.Application.Services.Implementation
                             //GenericCertificate = proxyServer.CertificateManager.RootCertificate
                         };
 
-                        Browser2.Open($"https://www.steampp.net/unixhostaccess?prot={freeport}");
+                        Browser2.Open(string.Format(UrlConstants.OfficialWebsite_UnixHostAccess_, freeport));
                     }
                     else
                     {

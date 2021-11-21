@@ -244,7 +244,7 @@ namespace System.Application.Services
                                     {
                                         if (OperatingSystem2.IsMacOS)
                                         {
-                                            Browser2.Open("https://www.steampp.net/unixhostaccess");
+                                            Browser2.Open(UrlConstants.OfficialWebsite_UnixHostAccess);
                                             //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
                                         }
                                         Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
@@ -278,7 +278,7 @@ namespace System.Application.Services
                                     Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
                                     if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root"))
                                     {
-                                        Browser2.Open("https://www.steampp.net/unixhostaccess");
+                                        Browser2.Open(UrlConstants.OfficialWebsite_UnixHostAccess);
                                     }
                                     //return;
                                     //if (OperatingSystem2.IsMacOS && !ProxySettings.EnableWindowsProxy.Value)
