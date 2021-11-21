@@ -186,7 +186,6 @@ Read what we [milestones](https://github.com/SteamTools-Team/SteamTools/mileston
 * [Portable.BouncyCastle](https://github.com/novotnyllc/bc-csharp)
 * [Ninject](https://github.com/ninject/Ninject)
 * [log4net](https://github.com/apache/logging-log4net)
-* [SteamDB-API](https://github.com/SteamDB-API/api)
 * [SteamAchievementManager](https://github.com/gibbed/SteamAchievementManager)
 * [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm)
 * [Steam4NET](https://github.com/SteamRE/Steam4NET)

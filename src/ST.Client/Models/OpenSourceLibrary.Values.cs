@@ -1,5 +1,6 @@
 using System.Application.Properties;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace System.Application.Models
 {
@@ -9,13 +10,18 @@ namespace System.Application.Models
         {
             try
             {
-                var list = Serializable.DMP<List<OpenSourceLibrary>>(SR.OpenSourceLibraryList) ?? new List<OpenSourceLibrary>();
-                return list;
+                var list = Serializable.DMP<List<OpenSourceLibrary>>(SR.OpenSourceLibraryList);
+                if (list != null)
+                {
+                    var ignoreItem = list.Where(x => ignoreList.Contains(x.Name)).ToArray();
+                    Array.ForEach(ignoreItem, x => list.Remove(x));
+                    return list;
+                }
             }
             catch
             {
-                return new List<OpenSourceLibrary>();
             }
+            return new();
         });
 
         public static List<OpenSourceLibrary> Values => mValues.Value;
