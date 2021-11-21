@@ -26,6 +26,13 @@ namespace System.Application.Services.Implementation
 {
     public class HttpProxyServiceImpl : IHttpProxyService
     {
+        protected readonly IPlatformService platformService;
+
+        public HttpProxyServiceImpl(IPlatformService platformService)
+        {
+            this.platformService = platformService;
+        }
+
         readonly ProxyServer proxyServer = new();
 
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
@@ -521,7 +528,7 @@ namespace System.Application.Services.Implementation
 
 
                     TransparentProxyEndPoint transparentProxyEndPoint;
-                    if (OperatingSystem2.IsLinux && Environment.UserName != "root")
+                    if (OperatingSystem2.IsLinux && !platformService.IsAdministrator)
                     {
                         var freeport = GetRandomUnusedPort();
                         transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, freeport, true)

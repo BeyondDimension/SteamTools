@@ -276,7 +276,8 @@ namespace System.Application.Services
                                 if (r.ResultType != OperationResultType.Success)
                                 {
                                     Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
-                                    if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root"))
+
+                                    if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !platformService.IsAdministrator))
                                     {
                                         Browser2.Open(UrlConstants.OfficialWebsite_UnixHostAccess);
                                     }
