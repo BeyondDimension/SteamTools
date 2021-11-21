@@ -2201,4 +2201,276 @@
     <value>업데이트 패키지 압축을 풀지 못했습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
+    <value>유효한 Key 형식이 검색되지 않았으나 올바른 Key가 입력되었는지 확인합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey" xml:space="preserve">
+    <value>Key를 대량으로 활성화합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
+    <value>Key를 입력합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
+    <value>이미 사용 중입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
+    <value>사용되지 않습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Start" xml:space="preserve">
+    <value>ASF를 시작합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stop" xml:space="preserve">
+    <value>ASF를 중지합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_AddBot" xml:space="preserve">
+    <value>봇이 추가되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RefreshBot" xml:space="preserve">
+    <value>Bot을 새로 고칩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_OpenWebUIConsole" xml:space="preserve">
+    <value>WebUI 콘솔을 엽니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Console" xml:space="preserve">
+    <value>ASF 콘솔</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_BotManage" xml:space="preserve">
+    <value>Bot 구성</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_GlobalConfig" xml:space="preserve">
+    <value>ASF 구성</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_VersionNum" xml:space="preserve">
+    <value>현재 ArchiSteamFarm 버전 :  </value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_AutoRunASF" xml:space="preserve">
+    <value>ASF는 프로그램이 시작될 때 자동으로 실행됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
+    <value>WebUI 전역 설정으로 이동합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ImportBotFile" xml:space="preserve">
+    <value>기존 ASF Bot 파일을 가져옵니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequirRunASF" xml:space="preserve">
+    <value>먼저 ASF 기능을 실행하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
+    <value>{0} 개의 키가 활성화 큐에 추가되었으며 큐의 Key가 자동으로 활성화를 위해 큐에 대기됩니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_CardsRemaining" xml:space="preserve">
+    <value>남은 카드입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_TimeRemaining" xml:space="preserve">
+    <value>남은 시간입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_GamesRemaining" xml:space="preserve">
+    <value>남은 게임</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RunCardFarming" xml:space="preserve">
+    <value>카드 걸기 시작합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_StopCardFarming" xml:space="preserve">
+    <value>카드 걸림을 중지합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Enable" xml:space="preserve">
+    <value>활성화됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Disable" xml:space="preserve">
+    <value>비활성화합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Offline" xml:space="preserve">
+    <value>오프라인</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Online" xml:space="preserve">
+    <value>온라인</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_NowCardFarming" xml:space="preserve">
+    <value>카드를 걸고 있습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput" xml:space="preserve">
+    <value>입력이 필요합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
+    <value>토큰입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_Login" xml:space="preserve">
+    <value>사용자 이름입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_Password" xml:space="preserve">
+    <value>암호입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
+    <value>홈 모니터링 코드입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>파일을 선택합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_NavToSteamView" xml:space="preserve">
+    <value>Steam 클라이언트에서 볼 수 있습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
+    <value>로그인 상태가 만료되었습니다 다시 로그인해 보십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
+    <value>계정 로그인을 통해 토큰을 성공적으로 가져왔으나 마지막으로 토큰이 제대로 작동하는지 테스트하고 가능한 가져오기가 실패할 경우 다시 가져오고 잘못된 토큰을 제거해 보십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
+    <value>동적 바탕 화면 배경을 사용합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
+    <value>배경 투명 재질이 {0} 경우 이 기능을 사용할 수 없습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_InGame" xml:space="preserve">
+    <value>게임</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
+    <value>선택한 그림의 형식이 올바르지 않습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
+    <value>창 배경 투명 재질입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
+    <value>에이전트는 IP 주소를 수신 대기합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
+    <value>Socks5 로컬 에이전트입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
+    <value>포트를 수신 대기합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
+    <value>보조 에이전트입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_ProxyType" xml:space="preserve">
+    <value>프록시 유형입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_IPAddress" xml:space="preserve">
+    <value>주소입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Port" xml:space="preserve">
+    <value>포트입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_UserName" xml:space="preserve">
+    <value>사용자 이름입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Password" xml:space="preserve">
+    <value>암호입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_UseOpenGL" xml:space="preserve">
+    <value>OpenGL을 사용하여 렌더링합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_ScriptError_" xml:space="preserve">
+    <value>스크립트 다운로드 오류 {0} 다시 시도하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FixNetworkComplete" xml:space="preserve">
+    <value>네트워크 복구가 완료되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_AllEnable" xml:space="preserve">
+    <value>모두 활성화됩니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
+    <value>{0} 파일을 성공적으로 가져왔습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyDesc_NickName" xml:space="preserve">
+    <value>확인하려면 별명을 입력하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyDesc_PhoneNumber" xml:space="preserve">
+    <value>확인하려면 휴대폰 번호를 입력하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyError_NickName" xml:space="preserve">
+    <value>잘못된 별명을 입력했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
+    <value>입력한 휴대폰 번호가 올바르지 않습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate" xml:space="preserve">
+    <value>기부</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>Steam++의 현재 릴리스는 모든 사람의 지원 없이는 사용할 수 없으며, Steam++가 도움이 되고 새로운 기능 개발 및 유지 관리를 오래 지속하기를 원한다면 Steam++를 보다 동적으로 업데이트할 수 있도록 약간의 기여를 하는 것이 좋습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateType" xml:space="preserve">
+    <value>기부 방법</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord" xml:space="preserve">
+    <value>기부 기록</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_Prompt" xml:space="preserve">
+    <value>기록에 있는 모든 분들께 감사드립니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_NoData" xml:space="preserve">
+    <value>이번 달에는 아무도 기부하지 않았습니다...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_Error" xml:space="preserve">
+    <value>기부 목록 데이터를 로드하는 중 오류가 발생했습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

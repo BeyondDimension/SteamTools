@@ -40,8 +40,7 @@ namespace System
         public const string CoreLib = "Common.CoreLib";
         public const string ST = "ST";
         public const string STClient = "ST.Client";
-        public const string STClientDesktop = "ST.Client.Desktop";
-        public const string STClientDesktop_AppResources = "ST.Client.Desktop[AppResources]";
+        public const string STClient_AppResources = "ST.Client[AppResources]";
         public const string STServicesCloudServiceModels = "ST.Services.CloudService.Models";
         //public const string STToolsWin7Troubleshoot = "ST.Tools.Win7Troubleshoot";
         public const string STServer_AppResources = "ST.Server.Resources[AppResources]";
@@ -54,9 +53,8 @@ namespace System
             ClientLibDroid,
             CoreLib,
             ST,
-            STClient,
-            STClientDesktop,
-            STClientDesktop_AppResources,
+            //STClient,
+            STClient_AppResources,
             STServicesCloudServiceModels,
             //STToolsWin7Troubleshoot,
             STServer_AppResources,

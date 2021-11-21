@@ -890,8 +890,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
-    <value>{0} Todas sus ofertas comerciales actuales van a procesar.
-¿Seguro que quiere continuar?</value>
+    <value></value>
     <comment>Comment=同意 or 取消;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
@@ -2204,6 +2203,278 @@
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>El paquete de actualización descomprimir falló, por favor abra el sitio web oficial para actualizar manualmente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
+    <value>No se detectó ningún formato de clave válido, confirme que se ingresó la clave correcta</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey" xml:space="preserve">
+    <value>Activación masiva de la clave</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
+    <value>Introduzca la clave</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
+    <value>Usado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
+    <value>No utilizado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Start" xml:space="preserve">
+    <value>Iniciar ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stop" xml:space="preserve">
+    <value>Detener la PPA</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_AddBot" xml:space="preserve">
+    <value>Nuevo bot</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RefreshBot" xml:space="preserve">
+    <value>Actualizar bot</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_OpenWebUIConsole" xml:space="preserve">
+    <value>Abra la consola de webUI</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Console" xml:space="preserve">
+    <value>Consola ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_BotManage" xml:space="preserve">
+    <value>Configuración del bot</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_GlobalConfig" xml:space="preserve">
+    <value>Configuración de ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_VersionNum" xml:space="preserve">
+    <value>Versión actual de ArchiSteamFarm:  </value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_AutoRunASF" xml:space="preserve">
+    <value>El ASF se ejecuta automáticamente cuando se inicia el programa</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
+    <value>Vaya a la configuración global de WebUI</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ImportBotFile" xml:space="preserve">
+    <value>Importar un archivo ASF Bot existente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequirRunASF" xml:space="preserve">
+    <value>Ejecute primero la función ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
+    <value>{0} se ha agregado la clave a la cola de activación y la clave de la cola se pone automáticamente en cola para la activación.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_CardsRemaining" xml:space="preserve">
+    <value>Las cartas restantes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_TimeRemaining" xml:space="preserve">
+    <value>Tiempo restante</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_GamesRemaining" xml:space="preserve">
+    <value>El resto del juego</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RunCardFarming" xml:space="preserve">
+    <value>Empieza a colgar tarjetas</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_StopCardFarming" xml:space="preserve">
+    <value>Dejar de colgar tarjetas</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Enable" xml:space="preserve">
+    <value>habilitar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Disable" xml:space="preserve">
+    <value>inutilizar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Offline" xml:space="preserve">
+    <value>sin conexión</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Online" xml:space="preserve">
+    <value>en línea</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_NowCardFarming" xml:space="preserve">
+    <value>La tarjeta está siendo colgada</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput" xml:space="preserve">
+    <value>Necesitas ingresarlo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
+    <value>seña</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_Login" xml:space="preserve">
+    <value>El nombre de usuario</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_Password" xml:space="preserve">
+    <value>contraseña</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
+    <value>Código de tutor familiar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Seleccione el archivo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_NavToSteamView" xml:space="preserve">
+    <value>Ver en el cliente de Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
+    <value>El estado de inicio de sesión ya no es válido Intente iniciar sesión de nuevo.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
+    <value>Ha importado correctamente su token a través del inicio de sesión de la cuenta, finalmente pruebe si su token funciona y, si no puede usarlo, intente importar nuevamente y elimine el token no válido.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
+    <value>Usar un fondo de escritorio dinámico</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
+    <value>Habilitar esta función cuando el material transparente de fondo está {0} no es compatible</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_InGame" xml:space="preserve">
+    <value>En el juego</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
+    <value>La imagen seleccionada no está en el formato correcto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
+    <value>El fondo de la ventana es transparente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
+    <value>El agente escucha las direcciones IP</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
+    <value>Agente local de Socks5</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
+    <value>Escuchar puertos</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
+    <value>Agente secundario</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_ProxyType" xml:space="preserve">
+    <value>El tipo de agente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_IPAddress" xml:space="preserve">
+    <value>dirección</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Port" xml:space="preserve">
+    <value>puerto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_UserName" xml:space="preserve">
+    <value>El nombre de usuario</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Password" xml:space="preserve">
+    <value>contraseña</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_UseOpenGL" xml:space="preserve">
+    <value>Renderizar con OpenGL</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_ScriptError_" xml:space="preserve">
+    <value>Error de descarga de script {0}, inténtelo de nuevo.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FixNetworkComplete" xml:space="preserve">
+    <value>La red de reparación está completa</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_AllEnable" xml:space="preserve">
+    <value>Todo habilitado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
+    <value>{0} archivos se importaron correctamente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyDesc_NickName" xml:space="preserve">
+    <value>Introduce tu apodo para su verificación</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyDesc_PhoneNumber" xml:space="preserve">
+    <value>Introduzca su número de teléfono móvil para verificar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyError_NickName" xml:space="preserve">
+    <value>El apodo que ingresó es incorrecto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
+    <value>El número de teléfono móvil que ingresó es incorrecto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate" xml:space="preserve">
+    <value>donar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>El lanzamiento de la versión actual de Steam + no se puede separar del soporte de todos, y si Steam es útil para usted, y desea que mantengamos las nuevas funciones desarrolladas y mantenidas durante mucho tiempo, puede considerar darnos una pequeña donación para hacer nuestro mantenimiento de actualización más dinámico Steam.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateType" xml:space="preserve">
+    <value>La forma en que se hacen las donaciones</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord" xml:space="preserve">
+    <value>Registros de donaciones</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_Prompt" xml:space="preserve">
+    <value>Gracias aquí por todos en el registro</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_NoData" xml:space="preserve">
+    <value>Nadie ha donado este mes...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_Error" xml:space="preserve">
+    <value>Se ha producido un error al cargar los datos de la lista de donantes:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

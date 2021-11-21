@@ -2201,4 +2201,276 @@
     <value>Пакет обновления не удалось распаковки, пожалуйста, откройте официальный сайт для обновления вручную</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
+    <value>Допустимый формат ключа не обнаружен, убедитесь, что введен правильный ключ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey" xml:space="preserve">
+    <value>Активируйте Key в пакетном режиме</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
+    <value>Введите Key</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
+    <value>Используется</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
+    <value>Не используется</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Start" xml:space="preserve">
+    <value>Запустите ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stop" xml:space="preserve">
+    <value>Остановите ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_AddBot" xml:space="preserve">
+    <value>Добавлен бот</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RefreshBot" xml:space="preserve">
+    <value>Обновите Бот</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_OpenWebUIConsole" xml:space="preserve">
+    <value>Откройте консоль веб-интерфейса пользователя</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Console" xml:space="preserve">
+    <value>Консоль ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_BotManage" xml:space="preserve">
+    <value>Конфигурация Bot</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_GlobalConfig" xml:space="preserve">
+    <value>Конфигурация ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_VersionNum" xml:space="preserve">
+    <value>Текущая версия ArchiSteamFarm:  </value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_AutoRunASF" xml:space="preserve">
+    <value>ПРОГРАММА запускает asf автоматически при запуске программы</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
+    <value>Перейдите к глобальным параметрам веб-интерфейса пользователя</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ImportBotFile" xml:space="preserve">
+    <value>Импорт существующих файлов ASF Bot</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequirRunASF" xml:space="preserve">
+    <value>Сначала запустите функцию ASF</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
+    <value>{0} ключей были добавлены в очередь активации, и ключи в очереди автоматически помещаются в очередь для активации.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_CardsRemaining" xml:space="preserve">
+    <value>Оставшиеся карты</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_TimeRemaining" xml:space="preserve">
+    <value>Оставшееся время</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_GamesRemaining" xml:space="preserve">
+    <value>Оставшиеся игры</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RunCardFarming" xml:space="preserve">
+    <value>Начните вешать карту</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_StopCardFarming" xml:space="preserve">
+    <value>Остановите висячие карты</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Enable" xml:space="preserve">
+    <value>Включено</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Disable" xml:space="preserve">
+    <value>Отключено</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Offline" xml:space="preserve">
+    <value>В автономном режиме</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Online" xml:space="preserve">
+    <value>Онлайн</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_NowCardFarming" xml:space="preserve">
+    <value>Висит карта</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput" xml:space="preserve">
+    <value>Требуется ввод</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
+    <value>Токен</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_Login" xml:space="preserve">
+    <value>Имя пользователя</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_Password" xml:space="preserve">
+    <value>Пароль</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
+    <value>Код домашней опеки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Выберите файл</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_NavToSteamView" xml:space="preserve">
+    <value>Просмотр в клиенте Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
+    <value>Попробуйте снова войти в систему, если состояние входа истекло.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
+    <value>Вы успешно импортировали маркер через вход в учетную запись, и, наконец, проверьте, работает ли маркер, и если вы не можете использовать возможный сбой импорта, попробуйте повторно импортировать и удалить недопустимый маркер.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
+    <value>Используйте динамический фон рабочего стола</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
+    <value>Эта функция не поддерживается, когда фоновый прозрачный материал {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_InGame" xml:space="preserve">
+    <value>В игре</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
+    <value>Выбранное изображение имеет неправильный формат</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
+    <value>Прозрачный материал фона окна</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
+    <value>Агент прослушивает IP-адрес</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
+    <value>Локальный агент Socks5</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
+    <value>Прослушивание портов</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
+    <value>Агент уровня 2</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_ProxyType" xml:space="preserve">
+    <value>Тип агента</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_IPAddress" xml:space="preserve">
+    <value>Адрес</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Port" xml:space="preserve">
+    <value>Порт</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_UserName" xml:space="preserve">
+    <value>Имя пользователя</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_Password" xml:space="preserve">
+    <value>Пароль</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_General_UseOpenGL" xml:space="preserve">
+    <value>Используйте визуализацию OpenGL</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Download_ScriptError_" xml:space="preserve">
+    <value>Ошибка загрузки сценария {0}, повторите попытку.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FixNetworkComplete" xml:space="preserve">
+    <value>Исправлена ошибка, из-за которой была завершена сеть</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Script_AllEnable" xml:space="preserve">
+    <value>Все включено</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
+    <value>Успешно импортировано {0} файлов</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyDesc_NickName" xml:space="preserve">
+    <value>Введите псевдоним для проверки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyDesc_PhoneNumber" xml:space="preserve">
+    <value>Пожалуйста, введите номер мобильного телефона для проверки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyError_NickName" xml:space="preserve">
+    <value>Введено неправильное прозвище, введите его еще раз</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
+    <value>Введите неправильный номер мобильного телефона, пожалуйста, введите его снова</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate" xml:space="preserve">
+    <value>взносы</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>Выпуск текущей версии &quot;Steam++&quot; неотделим от вашей поддержки, и если Steam++ поможет вам, и вы хотите, чтобы мы сохранили разработку и обслуживание новых функций в течение длительного времени, вы можете рассмотреть вопрос о внесении нам небольшого вклада, чтобы сделать наши обновления более мотивированными для поддержания Steam++.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateType" xml:space="preserve">
+    <value>Способы внесения взносов</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord" xml:space="preserve">
+    <value>Отчеты о взносах</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_Prompt" xml:space="preserve">
+    <value>Спасибо всем на записи здесь</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_NoData" xml:space="preserve">
+    <value>Никто не пожертвовал в этом месяце ...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_DonateRecord_Error" xml:space="preserve">
+    <value>Произошла ошибка при загрузке данных списка пожертвований:</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
