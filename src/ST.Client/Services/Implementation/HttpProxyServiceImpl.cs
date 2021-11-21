@@ -28,11 +28,6 @@ namespace System.Application.Services.Implementation
     {
         protected readonly IPlatformService platformService;
 
-        public HttpProxyServiceImpl(IPlatformService platformService)
-        {
-            this.platformService = platformService;
-        }
-
         readonly ProxyServer proxyServer = new();
 
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
@@ -82,8 +77,9 @@ namespace System.Application.Services.Implementation
 
         public const string LocalDomain = "local.steampp.net";
 
-        public HttpProxyServiceImpl()
+        public HttpProxyServiceImpl(IPlatformService platformService)
         {
+            this.platformService = platformService;
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
             //else
