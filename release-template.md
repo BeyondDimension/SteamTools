@@ -5,35 +5,45 @@
 4. 新增 库存游戏右键菜单导航到 Steam 客户端
 5. 改进 桌面端 UI 适配 Windows 11 风格
 6. 新增 Windows 11 上可设置材质 [云母(Mica)](https://docs.microsoft.com/zh-cn/windows/apps/design/style/mica)
-7. 改进 Android UI
-8. 改进 Android 冷启动速度
-9. 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备
-10. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
-11. 改进 Android 导入令牌成功后回到列表页
-12. 改进 账号注销现需要通过手机号或昵称验证
-13. 新增 搜索框支持拼音搜索
-14. 改进 令牌账号加密、导出的界面UI和导入过程中的提示
-15. 新增 Windows 上可将动态壁纸设置为程序背景
-16. 改进 Steam 账号切换支持头像框、等级和游戏中信息的显示
-17. 改进 文本框窗口弹出时将自动设置焦点
-18. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
-19. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-20. 改进 主题切换现在不在需要重启程序，提升主题切换速度
-21. 新增 框架依赖部署模式(FDE)，可通过共享运行库减少磁盘占用空间，仅支持 Windows 与 Linux
-22. 改进 本地令牌账号导入过程中的说明提示
+7. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
+8. 改进 账号注销现需要通过手机号或昵称验证
+9. 新增 搜索框支持拼音搜索
+10. 改进 令牌账号加密、导出的界面UI和导入过程中的提示
+11. 新增 Windows 上可将动态壁纸设置为程序背景
+12. 改进 Steam 账号切换支持头像框、等级和游戏中信息的显示
+13. 改进 文本框窗口弹出时将自动设置焦点
+14. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
+15. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+16. 改进 主题切换现在不在需要重启程序，提升主题切换速度
+17. 新增 框架依赖部署模式(FDE)，可通过共享运行库减少磁盘占用空间，仅支持 Windows 与 Linux
+18. 改进 本地令牌账号导入过程中的说明提示
+
+<!--
+
+. 改进 Android UI
+. 改进 Android 冷启动速度
+. 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备
+. 改进 Android 导入令牌成功后回到列表页
+
+-->
 
 ### 修复问题
 1. 修复 本地令牌 中确认交易时 Http 302 重定向错误
 2. 修复 Linux 与 macOS 上代理错误
 3. 修复 库存游戏无限加载
 4. 修复 脚本未启用时保存状态会全部未启用
-5. 修复 Android 上屏幕捕获设置项不生效
-6. 修复 Android 上令牌列表有时不显示值
-7. 修复 Desktop 上主题运行时切换与跟随系统
-8. 修复 Windows 上窗口边缘滚动条难以拖拽
-9. 修复 本地令牌 确认交易登录时会错误的提示没有开启加速
-10. 修复 本地令牌 确认交易有时会卡在提示登录中的问题
-11. 修复 Windows 上资源管理器重启后托盘消失，以及尝试修复开机自启时有时不显示托盘
+5. 修复 Desktop 上主题运行时切换与跟随系统
+6. 修复 Windows 上窗口边缘滚动条难以拖拽
+7. 修复 本地令牌 确认交易登录时会错误的提示没有开启加速
+8. 修复 本地令牌 确认交易有时会卡在提示登录中的问题
+9. 修复 Windows 上资源管理器重启后托盘消失，以及尝试修复开机自启时有时不显示托盘
+
+<!--
+
+. 修复 Android 上屏幕捕获设置项不生效
+. 修复 Android 上令牌列表有时不显示值
+
+-->
 
 ### 已知问题
 - Desktop 
