@@ -268,6 +268,7 @@
             </ui:CommandBarButton>
 
             <ui:CommandBarButton
+                       IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                        Command="{Binding IdleAppCommand}"
                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
