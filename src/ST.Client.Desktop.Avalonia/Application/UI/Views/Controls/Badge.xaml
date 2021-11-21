@@ -28,6 +28,7 @@
 
     <Style Selector="controls|Badge">
         <Setter Property="Background" Value="{DynamicResource MaterialDesignCardBackground}" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="Height" Value="26" />

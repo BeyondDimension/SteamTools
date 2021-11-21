@@ -47,12 +47,12 @@
         </DockPanel>
       </Border>
       
-      <Border Classes="Item">
+      <!--<Border Classes="Item">
         <DockPanel>
           <TextBlock Text="启动时不要在提示捐助消息"/>
           <ToggleSwitch/>
         </DockPanel>
-      </Border>
+      </Border>-->
 
       <Expander>
         <Expander.Header>
