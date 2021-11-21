@@ -79,4 +79,13 @@ namespace ArchiSteamFarm
 
         public const string NLogGeneralLayout = NLog.Logging.GeneralLayout;
     }
+
+    public enum ASFPathFolder
+    {
+        ASF,
+        Config,
+        Plugin,
+        WWW,
+        Logs,
+    }
 }

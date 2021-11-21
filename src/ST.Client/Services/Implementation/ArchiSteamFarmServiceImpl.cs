@@ -49,6 +49,11 @@ namespace System.Application.Services.Implementation
                 if (isFirstStart)
                 {
                     IArchiSteamFarmService.InitCoreLoggers?.Invoke();
+
+                    // 初始化文件夹
+                    var folders = Enum2.GetAll<ASFPathFolder>();
+                    Array.ForEach(folders, f => IArchiSteamFarmService.GetFolderPath(f));
+
                     InitHistoryLogger();
 
                     ArchiSteamFarm.NLog.Logging.GetUserInputFunc = async (bool isPassword) =>

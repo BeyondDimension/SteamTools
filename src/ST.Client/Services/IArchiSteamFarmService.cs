@@ -1,6 +1,8 @@
+using ArchiSteamFarm;
 using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Storage;
 using ReactiveUI;
+using System.Application.UI;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -72,6 +74,19 @@ namespace System.Application.Services
             {
                 ReadLineTask.TrySetResult(command);
             }
+        }
+
+        static string GetFolderPath(ASFPathFolder folderASFPath)
+        {
+            var folderASFPathValue = folderASFPath switch
+            {
+                ASFPathFolder.Config => IOPath.DirCreateByNotExists(SharedInfo.ConfigDirectory),
+                ASFPathFolder.Plugin => IOPath.DirCreateByNotExists(SharedInfo.PluginsDirectory),
+                ASFPathFolder.WWW => ASFPathHelper.WebsiteDirectory,
+                ASFPathFolder.Logs => IApplication.LogDirPathASF,
+                ASFPathFolder.ASF or _ => ASFPathHelper.AppDataDirectory,
+            };
+            return folderASFPathValue;
         }
     }
 }

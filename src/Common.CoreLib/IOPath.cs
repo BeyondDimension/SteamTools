@@ -21,15 +21,17 @@ namespace System
         /// 如果指定的[文件夹(Dir)]目录不存在，则创建[文件夹(Dir)]目录
         /// </summary>
         /// <param name="dirPath"></param>
-        public static void DirCreateByNotExists(string dirPath)
+        public static string DirCreateByNotExists(string dirPath)
         {
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
+            return dirPath;
         }
 
         /// <inheritdoc cref="DirCreateByNotExists(string)"/>
-        public static void CreateByNotExists(this DirectoryInfo dirInfo)
+        public static DirectoryInfo CreateByNotExists(this DirectoryInfo dirInfo)
         {
             if (!dirInfo.Exists) dirInfo.Create();
+            return dirInfo;
         }
 
         /// <summary>

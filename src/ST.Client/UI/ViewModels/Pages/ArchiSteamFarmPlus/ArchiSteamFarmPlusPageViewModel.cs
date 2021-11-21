@@ -152,23 +152,9 @@ namespace System.Application.UI.ViewModels
 
         public void OpenFolder(string tag)
         {
-            static string GetFolderPath(string path)
-            {
-                IOPath.DirCreateByNotExists(path);
-                return path;
-            }
-
-            var path = tag switch
-            {
-                "asf" => ASFPathHelper.AppDataDirectory,
-                "config" => GetFolderPath(SharedInfo.ConfigDirectory),
-                "plugin" => GetFolderPath(SharedInfo.PluginsDirectory),
-                "www" => ASFPathHelper.WebsiteDirectory,
-                IApplication.LogDirName => IApplication.LogDirPathASF,
-                _ => ASFPathHelper.AppDataDirectory,
-            };
-
-            IPlatformService.Instance.OpenFolder(path);
+            if (!Enum.TryParse<ASFPathFolder>(tag, true, out var folderASFPath)) return;
+            var folderASFPathValue = IArchiSteamFarmService.GetFolderPath(folderASFPath);
+            IPlatformService.Instance.OpenFolder(folderASFPathValue);
         }
 
         public void OpenBrowser(string? tag)
