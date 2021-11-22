@@ -530,6 +530,8 @@ namespace System.Application.Services.Implementation
 
         string[]? GetLibraryPaths()
         {
+            const string dirname_steamapps = "steamapps"; // 文件夹名，linux上区分大小写
+
             if (string.IsNullOrEmpty(SteamDirPath) || !Directory.Exists(SteamDirPath))
             {
                 return null;
