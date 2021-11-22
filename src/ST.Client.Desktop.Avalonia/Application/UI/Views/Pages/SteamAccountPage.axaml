@@ -45,10 +45,12 @@
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
         </ui:CommandBar.PrimaryCommands>
-        <!--<ui:CommandBar.SecondaryCommands>
+        <ui:CommandBar.SecondaryCommands>
           <ui:CommandBarButton Icon="Help"
+                               Command="{Binding OpenBrowserCommand}"
+                               CommandParameter="https://steampp.net/faq#ChangeAccount"
                                Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        </ui:CommandBar.SecondaryCommands>-->
+        </ui:CommandBar.SecondaryCommands>
       </ui:CommandBar>
     </Border>
 

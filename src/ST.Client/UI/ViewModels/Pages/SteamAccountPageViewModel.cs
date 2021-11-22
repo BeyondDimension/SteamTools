@@ -34,6 +34,8 @@ namespace System.Application.UI.ViewModels
             RefreshCommand = ReactiveCommand.Create(Initialize);
 
             ShareManageCommand = ReactiveCommand.Create(OpenShareManageWindow);
+            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
+
             //MenuItems = new ObservableCollection<MenuItemViewModel>()
             //{
             //    new MenuItemViewModel (nameof(AppResources.Refresh))
@@ -62,6 +64,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
 
         public ReactiveCommand<Unit, Unit> ShareManageCommand { get; }
+        public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
         public void OpenShareManageWindow()
         {
