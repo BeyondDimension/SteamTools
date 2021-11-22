@@ -94,3 +94,23 @@
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 </pre>
+
+## 📁 存储空间
+- AppData
+    - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalState```
+    - Windows ```\AppData```
+    - macOS ```~/Library/Steam++```
+    - Linux ```$XDG_DATA_HOME/Steam++``` or ```$HOME/.local/share/Steam++```
+    - Android ```/data/data/net.steampp.app/files```
+- Cache
+    - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache```
+    - Windows ```\Cache```
+    - macOS ```~/Library/Caches/Steam++```
+    - Linux ```$XDG_CACHE_HOME/Steam++``` or ```$HOME/.cache/Steam++```
+    - Android ```/data/data/net.steampp.app/cache```
+- Logs
+    - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache\Logs```
+    - Windows ```\Logs```
+    - macOS ```~/Library/Caches/Steam++/Logs```
+    - Linux ```$XDG_CACHE_HOME/Steam++/Logs``` or ```$HOME/.cache/Steam++/Logs```
+    - Android ```/data/data/net.steampp.app/cache/Logs```
