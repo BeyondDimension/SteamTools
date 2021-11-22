@@ -445,7 +445,7 @@ namespace System.Application.Models
                 // });
                 //if (!string.IsNullOrEmpty(installpath))
                 //{
-                //    app.InstalledDir = Path.Combine(Services.ISteamService.Instance.SteamDirPath, "steamapps", NodeCommon, installpath);
+                //    app.InstalledDir = Path.Combine(ISteamService.Instance.SteamDirPath, ISteamService.dirname_steamapps, NodeCommon, installpath);
                 //}
 
                 nodes[2] = NodeParentId;

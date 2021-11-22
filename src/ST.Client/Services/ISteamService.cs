@@ -22,6 +22,12 @@ namespace System.Application.Services
         const string url_steamcommunity_checkclientautologin = url_steamcommunity + "/login/checkclientautologin";
         static readonly Uri uri_store_steampowered_checkclientautologin = new(url_store_steampowered_checkclientautologin);
 
+        #region 文件夹名，linux上区分大小写
+
+        public const string dirname_steamapps = "steamapps";
+
+        #endregion
+
         /// <summary>
         /// Steam 文件夹目录
         /// </summary>

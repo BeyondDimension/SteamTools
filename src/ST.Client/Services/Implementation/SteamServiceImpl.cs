@@ -537,13 +537,13 @@ namespace System.Application.Services.Implementation
 
             List<string> paths = new()
             {
-                Path.Combine(SteamDirPath, "SteamApps"),
+                Path.Combine(SteamDirPath, dirname_steamapps),
             };
 
             try
             {
 
-                string libraryFoldersPath = Path.Combine(SteamDirPath, "SteamApps", "libraryfolders.vdf");
+                string libraryFoldersPath = Path.Combine(SteamDirPath, dirname_steamapps, "libraryfolders.vdf");
                 if (File.Exists(libraryFoldersPath))
                 {
                     dynamic v = VdfHelper.Read(libraryFoldersPath);
@@ -570,7 +570,7 @@ namespace System.Application.Services.Implementation
                                 pathNode = pathNode.path;
                             }
 
-                            string path = Path.Combine(pathNode.ToString(), "SteamApps");
+                            string path = Path.Combine(pathNode.ToString(), dirname_steamapps);
 
                             if (Directory.Exists(path))
                                 paths.Add(path);
