@@ -20,22 +20,22 @@ namespace System.Application.UI.ViewModels
 {
     public partial class ProxyScriptManagePageViewModel
     {
-        IEnumerable<MenuItemViewModel> GetMenuItems()
-        {
-            //yield return new MenuItemViewModel(nameof(AppResources.CommunityFix_EnableScriptService));
-            yield return new MenuItemViewModel(nameof(AppResources.ScriptStore))
-            {
-                IconKey = "JavaScriptDrawing",
-                Command = ScriptStoreCommand
-            };
-            yield return new MenuItemViewModel(nameof(AppResources.Script_AllEnable))
-            {
-                IconKey = "JavaScriptDrawing",
-                Command = AllEnableScriptCommand,
-            };
-            yield return new MenuItemViewModel();
-            if (OnlySteamBrowser != null) yield return OnlySteamBrowser;
-        }
+        //IEnumerable<MenuItemViewModel> GetMenuItems()
+        //{
+        //    //yield return new MenuItemViewModel(nameof(AppResources.CommunityFix_EnableScriptService));
+        //    yield return new MenuItemViewModel(nameof(AppResources.ScriptStore))
+        //    {
+        //        IconKey = "JavaScriptDrawing",
+        //        Command = ScriptStoreCommand
+        //    };
+        //    yield return new MenuItemViewModel(nameof(AppResources.Script_AllEnable))
+        //    {
+        //        IconKey = "JavaScriptDrawing",
+        //        Command = AllEnableScriptCommand,
+        //    };
+        //    yield return new MenuItemViewModel();
+        //    if (OnlySteamBrowser != null) yield return OnlySteamBrowser;
+        //}
 
         public ProxyScriptManagePageViewModel()
         {
@@ -48,14 +48,6 @@ namespace System.Application.UI.ViewModels
 
             ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
             AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
-            EnableScriptAutoUpdateCommand = ReactiveCommand.Create(() =>
-            {
-                ScriptAutoUpdate?.CheckmarkChange(ProxySettings.IsAutoCheckScriptUpdate.Value = !ProxySettings.IsAutoCheckScriptUpdate.Value);
-            });
-            OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
-            {
-                OnlySteamBrowser?.CheckmarkChange(ProxyService.Current.IsOnlyWorkSteamBrowser = !ProxyService.Current.IsOnlyWorkSteamBrowser);
-            });
             AddNewScriptButton_Click = ReactiveCommand.CreateFromTask(async () =>
             {
                 var fileTypes = !FilePicker2.IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePicker2.FilePickerFilter(new (string, IEnumerable<string>)[] {
@@ -66,17 +58,27 @@ namespace System.Application.UI.ViewModels
                 await FilePicker2.PickAsync(ProxyService.Current.AddNewScript, fileTypes);
             });
 
-            ScriptAutoUpdate = new MenuItemViewModel(nameof(AppResources.Script_AutoUpdate))
-            {
-                Command = EnableScriptAutoUpdateCommand,
-            };
-            OnlySteamBrowser = new(nameof(AppResources.CommunityFix_OnlySteamBrowser))
-            {
-                Command = OnlySteamBrowserCommand,
-            };
-            MenuItems = new ObservableCollection<MenuItemViewModel>(GetMenuItems());
+            //EnableScriptAutoUpdateCommand = ReactiveCommand.Create(() =>
+            //{
+            //    ScriptAutoUpdate?.CheckmarkChange(ProxySettings.IsAutoCheckScriptUpdate.Value = !ProxySettings.IsAutoCheckScriptUpdate.Value);
+            //});
+            //OnlySteamBrowserCommand = ReactiveCommand.Create(() =>
+            //{
+            //    OnlySteamBrowser?.CheckmarkChange(ProxySettings.IsOnlyWorkSteamBrowser.Value = !ProxySettings.IsOnlyWorkSteamBrowser.Value);
+            //});
 
-            ScriptAutoUpdate?.CheckmarkChange(ProxySettings.IsAutoCheckScriptUpdate.Value);
+            //ScriptAutoUpdate = new MenuItemViewModel(nameof(AppResources.Script_AutoUpdate))
+            //{
+            //    Command = EnableScriptAutoUpdateCommand,
+            //};
+            //OnlySteamBrowser = new(nameof(AppResources.CommunityFix_OnlySteamBrowser))
+            //{
+            //    Command = OnlySteamBrowserCommand,
+            //};
+            //MenuItems = new ObservableCollection<MenuItemViewModel>(GetMenuItems());
+
+            //ScriptAutoUpdate?.CheckmarkChange(ProxySettings.IsAutoCheckScriptUpdate.Value);
+            //OnlySteamBrowser?.CheckmarkChange(ProxySettings.IsOnlyWorkSteamBrowser.Value);
 
             var scriptFilter = this.WhenAnyValue(x => x.SearchText).Select(ScriptFilter);
 
@@ -88,7 +90,6 @@ namespace System.Application.UI.ViewModels
                 .Bind(out _ProxyScripts)
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty)));
 
-            OnlySteamBrowser?.CheckmarkChange(ProxyService.Current.IsOnlyWorkSteamBrowser);
         }
 
         public override void Activation()
@@ -129,11 +130,11 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit>? EnableScriptAutoUpdateCommand { get; }
 
-        public MenuItemViewModel? ScriptAutoUpdate { get; }
+        //public MenuItemViewModel? ScriptAutoUpdate { get; }
 
-        public MenuItemViewModel? OnlySteamBrowser { get; }
+        //public MenuItemViewModel? OnlySteamBrowser { get; }
 
-        public ReactiveCommand<Unit, Unit>? OnlySteamBrowserCommand { get; }
+        //public ReactiveCommand<Unit, Unit>? OnlySteamBrowserCommand { get; }
 
         public ReactiveCommand<Unit, Unit>? ScriptStoreCommand { get; }
 
