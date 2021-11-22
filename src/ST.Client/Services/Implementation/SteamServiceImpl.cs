@@ -544,39 +544,41 @@ namespace System.Application.Services.Implementation
             {
 
                 string libraryFoldersPath = Path.Combine(SteamDirPath, "SteamApps", "libraryfolders.vdf");
-
-                dynamic v = VdfHelper.Read(libraryFoldersPath);
-
-                for (int i = 1; ; i++)
+                if (File.Exists(libraryFoldersPath))
                 {
-                    try
+                    dynamic v = VdfHelper.Read(libraryFoldersPath);
+
+                    for (int i = 1; ; i++)
                     {
-                        dynamic pathNode = v.Value[i.ToString()];
-
-                        if (pathNode == null) break;
-
-                        if (pathNode.path != null)
+                        try
                         {
-                            // New format
-                            // Valve introduced a new format for the "libraryfolders.vdf" file
-                            // In the new format, the node "1" not only contains a single value (the path),
-                            // but multiple values: path, label, mounted, contentid
+                            dynamic pathNode = v.Value[i.ToString()];
 
-                            // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
-                            // We consider only the value '1' as that the path is actually enabled.
-                            if (pathNode.mounted != null && pathNode.mounted.ToString() != "1")
-                                continue;
-                            pathNode = pathNode.path;
+                            if (pathNode == null) break;
+
+                            if (pathNode.path != null)
+                            {
+                                // New format
+                                // Valve introduced a new format for the "libraryfolders.vdf" file
+                                // In the new format, the node "1" not only contains a single value (the path),
+                                // but multiple values: path, label, mounted, contentid
+
+                                // If a library folder is removed in the Steam settings, the path persists, but its 'mounted' value is set to 0 (disabled)
+                                // We consider only the value '1' as that the path is actually enabled.
+                                if (pathNode.mounted != null && pathNode.mounted.ToString() != "1")
+                                    continue;
+                                pathNode = pathNode.path;
+                            }
+
+                            string path = Path.Combine(pathNode.ToString(), "SteamApps");
+
+                            if (Directory.Exists(path))
+                                paths.Add(path);
                         }
-
-                        string path = Path.Combine(pathNode.ToString(), "SteamApps");
-
-                        if (Directory.Exists(path))
-                            paths.Add(path);
-                    }
-                    catch (Exception e)
-                    {
-                        Log.Error(TAG, e, "GetLibraryPaths for catch");
+                        catch (Exception e)
+                        {
+                            Log.Error(TAG, e, "GetLibraryPaths for catch");
+                        }
                     }
                 }
 
@@ -679,19 +681,20 @@ namespace System.Application.Services.Implementation
                 var libraryPaths = GetLibraryPaths();
                 if (!libraryPaths.Any_Nullable())
                 {
-                    Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
+                    Toast.Show($"No game library found.{Environment.NewLine}This might appear if Steam has been installed on this machine but was uninstalled.");
                 }
 
                 foreach (string path in libraryPaths!)
                 {
-                    DirectoryInfo di = new DirectoryInfo(path);
+                    var di = new DirectoryInfo(path);
+                    if (!di.Exists) continue;
 
-                    foreach (FileInfo fileInfo in di.EnumerateFiles("*.acf"))
+                    foreach (var fileInfo in di.EnumerateFiles("*.acf"))
                     {
                         // Skip if file is empty
                         if (fileInfo.Length == 0) continue;
 
-                        SteamApp? ai = FileToAppInfo(fileInfo.FullName);
+                        var ai = FileToAppInfo(fileInfo.FullName);
                         if (ai == null) continue;
 
                         appInfos.Add(ai);

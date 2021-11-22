@@ -83,7 +83,11 @@
 		- 如果你已安装了 [ASP.NET Core Runtime 6.0.0](https://dotnet.microsoft.com/download/dotnet/6.0) 则下载文件名中带有 **fde** 的文件，可减少磁盘占用空间
 			- [在 Windows 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/windows)
 				- 在 Windows 上不需要 Hosting Bundle 和 IIS support
+				- [下载安装程序并手动安装(aspnetcore-runtime-6.0.0-win-x64.exe)](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-aspnetcore-6.0.0-windows-x64-installer)
+				- [使用 PowerShell 自动化安装](https://docs.microsoft.com/en-us/dotnet/core/install/windows?tabs=net60#install-with-powershell-automation)
 			- [在 Linux 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/linux)
+				- 推荐 [通过 Snap 安装 .NET Runtime](https://docs.microsoft.com/zh-cn/dotnet/core/install/linux-snap)
+				- ```sudo snap install dotnet-runtime-60 --classic```
 - Mobile
 	- Android
 		- 如果你使用 ARM64 芯片的设备（较为**普遍**）则下载文件名中带有 **android_arm64_v8a** 的文件
