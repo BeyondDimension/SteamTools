@@ -22,5 +22,5 @@ Other information such as screenshots can be posted here
 -->
 
 - 程序版本(Program Version):
-- 系统版本号(OS Version): <!-- example Windows 10.19042.844(see winver) -->
+- 系统版本号(OS Version): <!-- example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS -->
 - 是否为应用商店版本(Whether it is a Store version): <!--是(Yes)/否(No)-->

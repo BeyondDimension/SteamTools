@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.Versioning;
 using System.IO;
+using System.Linq;
 
 namespace System.Application.Services
 {
@@ -13,7 +14,7 @@ namespace System.Application.Services
                 var filePath = string.Format("{0}etc{0}issue", Path.DirectorySeparatorChar);
                 if (File.Exists(filePath))
                 {
-                    return File.ReadAllText(filePath).TrimEnd(@" \n \l");
+                    return File.ReadAllText(filePath).TrimEnd(" \\n \\l\n\n");
                 }
             }
             return string.Empty;
