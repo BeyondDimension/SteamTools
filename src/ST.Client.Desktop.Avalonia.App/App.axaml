@@ -14,9 +14,9 @@
     <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
     <converters:GuidToUrlConverter x:Key="GuidToUrlConverter" />
-    <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
     <converters:StringFormatConverter x:Key="StringFormatConverter" />
     <converters:SizeConverter x:Key="SizeConverter" />
+    <converters:EnumEqualValueConverter x:Key="EnumEqualValueConverter" />
   </Application.Resources>
   <Application.Styles>
     <!--<FluentTheme Mode="Dark" />-->

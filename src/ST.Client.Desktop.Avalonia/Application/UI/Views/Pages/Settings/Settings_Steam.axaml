@@ -49,7 +49,7 @@
         </DockPanel>
       </Border>
 
-      <Separator Classes="Separator"/>
+      <!--<Separator Classes="Separator"/>-->
     </StackPanel>
   </ScrollViewer>
 </UserControl>

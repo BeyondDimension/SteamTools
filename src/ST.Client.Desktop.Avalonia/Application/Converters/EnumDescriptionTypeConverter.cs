@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 
@@ -10,25 +10,22 @@ namespace System.Application.Converters
         {
         }
 
-        public override object? ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                if (null != value)
+                if (value is not null && value is Enum e)
                 {
-                    if (value.GetType().IsEnum)
+                    var fi = e.GetType().GetField(e.ToString());
+
+                    if (null != fi)
                     {
-                        FieldInfo fi = value.GetType().GetField(value.ToString());
+                        var attributes =
+                            (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-                        if (null != fi)
-                        {
-                            var attributes =
-                                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
-
-                            return ((attributes.Length > 0) && (!string.IsNullOrEmpty(attributes[0].Description)))
-                                ? attributes[0].Description
-                                : value.ToString();
-                        }
+                        return ((attributes.Length > 0) && (!string.IsNullOrEmpty(attributes[0].Description)))
+                            ? attributes[0].Description
+                            : e.ToString();
                     }
                 }
 

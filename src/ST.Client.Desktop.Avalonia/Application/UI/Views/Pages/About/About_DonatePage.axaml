@@ -103,36 +103,78 @@
                           <EllipseGeometry Rect="0,0,64,64" />
                         </gif:Image2.Clip>
                       </gif:Image2>-->
-                      <Image x:Name="avatar" Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"/>
-                      <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior
-                            Binding="{Binding Type}"
-                            ComparisonCondition="Equal"
-                            Value="{x:Static app:ExternalTransactionType.Afdian}">
-                          <ia:ChangePropertyAction
-                              PropertyName="Source"
-                              TargetObject="{ReflectionBinding #avatar}"
-                              Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/afdian.png" />
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior
-                            Binding="{Binding Type}"
-                            ComparisonCondition="Equal"
-                            Value="{x:Static app:ExternalTransactionType.Ko_fi}">
-                          <ia:ChangePropertyAction
-                              PropertyName="Source"
-                              TargetObject="{ReflectionBinding #avatar}"
-                              Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/ko-fi.png" />
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior
-                            Binding="{Binding Type}"
-                            ComparisonCondition="Equal"
-                            Value="{x:Static app:ExternalTransactionType.Patreon}">
-                          <ia:ChangePropertyAction
-                              PropertyName="Source"
-                              TargetObject="{ReflectionBinding #avatar}"
-                              Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/pateron.png" />
-                        </ia:DataTriggerBehavior>
-                      </i:Interaction.Behaviors>
+                      <Image 
+                             Width="64"
+                             Height="64"
+                             Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/afdian.png"
+                             IsVisible="{Binding Type,Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:ExternalTransactionType.Afdian}}"
+                             VerticalAlignment="Center">
+                        <Image.Clip>
+                          <EllipseGeometry Rect="0,0,64,64" />
+                        </Image.Clip>
+                      </Image>
+                      <Image 
+                             Width="64"
+                             Height="64"
+                             Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/ko-fi.png"
+                             IsVisible="{Binding Type,Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:ExternalTransactionType.Ko_fi}}"
+                             VerticalAlignment="Center">
+                        <Image.Clip>
+                          <EllipseGeometry Rect="0,0,64,64" />
+                        </Image.Clip>
+                      </Image>
+                      <Image 
+                             Width="64"
+                             Height="64"
+                             Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/pateron.png"
+                             IsVisible="{Binding Type,Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:ExternalTransactionType.Patreon}}"
+                             VerticalAlignment="Center">
+                        <Image.Clip>
+                          <EllipseGeometry Rect="0,0,64,64" />
+                        </Image.Clip>
+                      </Image>
+
+                      <!--等待一个DataTriggerBehavior未解决问题才能改进
+                          https://github.com/wieslawsoltes/AvaloniaBehaviors/issues/80
+                          -->
+                      <!--<Image x:Name="avatar"
+                             Width="64"
+                             Height="64"
+                             VerticalAlignment="Center">
+                        <Image.Clip>
+                          <EllipseGeometry Rect="0,0,64,64" />
+                        </Image.Clip>
+                        <i:Interaction.Behaviors>
+                          <ia:DataTriggerBehavior
+                              Binding="{Binding Type,Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:ExternalTransactionType.Afdian}}"
+                              ComparisonCondition="Equal"
+                              Value="True">
+                            <ia:ChangePropertyAction
+                                PropertyName="Source"
+                                TargetObject="{ReflectionBinding #avatar}"
+                                Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/afdian.png" />
+                          </ia:DataTriggerBehavior>
+                          <ia:DataTriggerBehavior
+                              Binding="{Binding Type,Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:ExternalTransactionType.Ko_fi}}"
+                              ComparisonCondition="Equal"
+                              Value="True">
+                            <ia:ChangePropertyAction
+                                PropertyName="Source"
+                                TargetObject="{ReflectionBinding #avatar}"
+                                Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/ko-fi.png" />
+                          </ia:DataTriggerBehavior>
+                          <ia:DataTriggerBehavior
+                              Binding="{Binding Type,Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:ExternalTransactionType.Patreon}}"
+                              ComparisonCondition="Equal"
+                              Value="True">
+                            <ia:ChangePropertyAction
+                                PropertyName="Source"
+                                TargetObject="{ReflectionBinding #avatar}"
+                                Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/pateron.png" />
+                          </ia:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                      </Image>-->
+
                       <StackPanel DockPanel.Dock="Right"
                                   Spacing="5"
                                   Margin="10">
