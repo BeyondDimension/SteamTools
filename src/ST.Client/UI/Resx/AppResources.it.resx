@@ -2502,12 +2502,24 @@ Questa azione termina il salto di Steam in esecuzione alla finestra di accesso a
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Supporta lo sviluppo di Steam</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Supporta lo sviluppo di Steam++</value>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Il rilascio dell&apos;attuale versione di Steam+ non può essere separato dal supporto di tutti, e se Steam ti è utile e vuoi che manteniamo le nuove funzionalità sviluppate e mantenute per lungo tempo, potresti considerare di darci un piccolo contributo per rendere il nostro vapore di manutenzione degli aggiornamenti più dinamico.
-Ricorda di avere l&apos;UID del tuo account Steam nel messaggio delle note quando effettui una donazione, in modo che possiamo restituire la ricompensa della donazione al tuo account in un secondo momento.</value>
+    <value>Il rilascio dell&apos;attuale versione di Steam++ non può essere separato dal supporto di tutti, e se Steam++ ti è utile e vuoi che manteniamo le nuove funzionalità sviluppate e mantenute per lungo tempo, potresti considerare di darci un piccolo contributo per rendere il nostro vapore di manutenzione degli aggiornamenti più dinamico.
+Ricorda di avere l&apos;UID del tuo account Steam++ nel messaggio delle note quando effettui una donazione, in modo che possiamo restituire la ricompensa della donazione al tuo account in un secondo momento.</value>
+    <comment>Comment=;Author=AigioL</comment>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copiato negli Appunti</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
+    <value>Clicca qui per copiare l&apos;UID negli appunti</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedSignInToGetUID" xml:space="preserve">
+    <value>Dovrai accedere al tuo account Steam++ per ottenere il tuo UID</value>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
 </root>

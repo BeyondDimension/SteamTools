@@ -2511,4 +2511,16 @@ AAAAA-BBBBB-CCCC3</value>
 *기부할 때 Steam++ 계정의 UID가 메모 메시지에 있는 메모를 기억하여 나중에 기부 보상을 계정에 다시 제공할 수 있습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>클립보드에 복사되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
+    <value>UID를 클립보드에 복사하려면 여기를 클릭하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedSignInToGetUID" xml:space="preserve">
+    <value>UID를 받으려면 Steam++ 계정에 로그인해야 합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

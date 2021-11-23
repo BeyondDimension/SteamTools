@@ -2502,12 +2502,24 @@ This action ends the running Steam jump to the new account login window.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Supports the development of Steam</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Supports the development of Steam++</value>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>The release of the current version of Steam+ can&apos;t be separated from everyone&apos;s support, and if Steam is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance steam.
-Please remember to have the UID of your Steam account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
+    <value>The release of the current version of Steam++ can&apos;t be separated from everyone&apos;s support, and if Steam++ is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance Steam++.
+*Please remember to have the UID of your Steam++ account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
+    <comment>Comment=;Author=AigioL</comment>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copied to the clipboard</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
+    <value>Click here to copy the UID to the clipboard</value>
+    <comment>Comment=;Author=AigioL</comment>
+  </data>
+  <data name="YouNeedSignInToGetUID" xml:space="preserve">
+    <value>You will need to log in to your Steam++ account to get your UID</value>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
 </root>

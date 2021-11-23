@@ -1926,4 +1926,13 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="About_DonateRecord_Error" xml:space="preserve">
     <value>加载捐助列表数据出错：</value>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>已复制到剪贴板</value>
+  </data>
+  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
+    <value>点击此处复制 UID 到剪贴板</value>
+  </data>
+  <data name="YouNeedSignInToGetUID" xml:space="preserve">
+    <value>需要登录 Steam++ 账号才能获取 UID</value>
+  </data>
 </root>

@@ -2511,4 +2511,16 @@ AAAAA-BBBBB-CCCC3</value>
 *寄付は、Steam++ アカウントの UID がメモ メッセージに含まれることを忘れないでください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>クリップボードにコピーされました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
+    <value>UID をクリップボードにコピーするには、ここをクリックしてください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedSignInToGetUID" xml:space="preserve">
+    <value>UID を取得するには、Steam++ アカウントにログインする必要があります</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

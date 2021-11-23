@@ -115,6 +115,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="16"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="8"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="6"/>
@@ -128,54 +130,63 @@
                 <ColumnDefinition Width="70"/>
               </Grid.ColumnDefinitions>
               <TextBlock Classes="FormItemLabel"
-                         Text="{ReflectionBinding Path=Res.NickName,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         Text="UID"
                          Grid.Row="1"/>
+              <Button Classes="Hyperlink"
+                      Content="{Binding UID}"
+                      Command="{Binding UIDCommand}"
+                      Grid.Row="1"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="3"/>
+              <TextBlock Classes="FormItemLabel"
+                         Text="{ReflectionBinding Path=Res.NickName,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         Grid.Row="3"/>
               <TextBox Watermark="{ReflectionBinding Path=Res.PleaseEnterNickName,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        Text="{Binding NickName}"
-                       Grid.Row="1"
+                       Grid.Row="3"
                        Grid.Column="1"
                        Grid.ColumnSpan="3"
                        MaxLength="{x:Static sys_app:ModelValidatorLengths.NickName}"/>
               <TextBlock Classes="FormItemLabel"
                          Text="{ReflectionBinding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                         Grid.Row="3"/>
+                         Grid.Row="5"/>
               <TextBox IsReadOnly="True"
                        Focusable="False"
                        Watermark="{ReflectionBinding Path=PhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
-                       Grid.Row="3"
+                       Grid.Row="5"
                        Grid.Column="1"
                        MaxLength="{x:Static sys_app:ModelValidatorLengths.PhoneNumber}"/>
               <Button Classes="Secondary"
                       Content="{ReflectionBinding Path=Res.Modify,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{Binding OnBtnChangeBindPhoneNumberClick}"
                       IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
-                      Grid.Row="3"
+                      Grid.Row="5"
                       Grid.Column="3"/>
               <Button Classes="Secondary"
                       Content="{ReflectionBinding Path=Res.Bind,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{Binding OnBtnBindPhoneNumberClick}"
                       IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
-                      Grid.Row="3"
+                      Grid.Row="5"
                       Grid.Column="3"/>
               <!--<TextBlock Classes="FormItemLabel"
                      Text="{ReflectionBinding Path=Res.Email,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                     Grid.Row="5"/>
+                     Grid.Row="7"/>
           <TextBox IsReadOnly="True"
                    Focusable="False"
                    Watermark="{ReflectionBinding Path=Res.UnderConstruction,Mode=OneWay,Source={x:Static resx:R.Current}}"
                    Text=""
-                   Grid.Row="5"
+                   Grid.Row="7"
                    Grid.Column="1"/>
           <Button Classes="Secondary"
                   Content="{ReflectionBinding Path=Res.Bind,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                  Grid.Row="5"
+                  Grid.Row="7"
                   Grid.Column="3"
                   IsEnabled="False"/>-->
               <TextBlock
                 Classes="FormItemLabel"
                 Text="{ReflectionBinding Path=Res.UserProfile_Location,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                Grid.Row="5"/>
-              <WrapPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3">
+                Grid.Row="7"/>
+              <WrapPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
                 <ComboBox Classes="Area AreaShort"
                           Items="{Binding AreaItems2}"
                           SelectedItem="{Binding AreaSelectItem2}"/>
@@ -190,8 +201,8 @@
               </WrapPanel>
               <TextBlock Classes="FormItemLabel"
                          Text="{ReflectionBinding Path=Res.Gender,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                         Grid.Row="7"/>
-              <WrapPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
+                         Grid.Row="9"/>
+              <WrapPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3">
                 <RadioButton Content="{ReflectionBinding Path=Res.Gender_Unknown,Mode=OneWay,Source={x:Static resx:R.Current}}"
                              IsChecked="{Binding Gender, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static sys_app:Gender.Unknown}}"/>
                 <RadioButton Classes="MarginLeft"
@@ -203,13 +214,13 @@
               </WrapPanel>
               <TextBlock Classes="FormItemLabel"
                          Text="{ReflectionBinding Path=Res.UserProfile_BirthDate,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                         Grid.Row="9"/>
+                         Grid.Row="11"/>
               <DatePicker HorizontalAlignment="Stretch"
                           SelectedDate="{Binding BirthDate, Mode=TwoWay}"
-                          Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3"/>
+                          Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"/>
               <!--<CalendarDatePicker SelectedDate="{Binding BirthDate, Mode=TwoWay}"
                                   HorizontalAlignment="Stretch"
-                          Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3"/>-->
+                          Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3"/>-->
             </Grid>
             <Button Classes="action WidthUnify"
                     HorizontalAlignment="Center"

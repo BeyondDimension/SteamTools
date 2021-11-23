@@ -2511,4 +2511,16 @@ AAAAA-BBBBB-CCCC3</value>
 *При внесении взносов, пожалуйста, не забудьте отметить UID вашей учетной записи Steam++ в сообщении для комментариев, чтобы мы могли позже обратной связи с наградами пожертвований на ваш счет.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Скопировано в буфер обмена</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
+    <value>Нажмите здесь, чтобы скопировать UID в буфер обмена</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedSignInToGetUID" xml:space="preserve">
+    <value>Для получения UID необходимо войти в учетную запись Steam++</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Properties;
 using System.Reactive;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -21,6 +22,8 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
         public ReactiveCommand<Unit, Unit> DelAccountCommand { get; }
+
+        public ICommand UIDCommand { get; }
 
         private ObservableCollection<RankingResponse>? _DonateList;
         public ObservableCollection<RankingResponse>? DonateList
@@ -91,6 +94,19 @@ namespace System.Application.UI.ViewModels
                             Toast.Show(errorMessage);
                         }
                     }
+                }
+            });
+
+            UIDCommand = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var uid = UserService.Current.User?.Id;
+                if (uid.HasValue)
+                {
+                    await UserProfileWindowViewModel.UIDCopyToClipboardAsync(uid.Value.ToString());
+                }
+                else
+                {
+                    Toast.Show(AppResources.YouNeedSignInToGetUID);
                 }
             });
 

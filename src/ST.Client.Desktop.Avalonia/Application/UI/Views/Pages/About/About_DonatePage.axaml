@@ -23,7 +23,15 @@
       </StackPanel.Styles>
       <Border Classes="Item">
         <StackPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.About_Donate_Title,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="h3"/>
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.About_Donate_Title,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="h3"/>
+            <StackPanel Orientation="Horizontal"
+                        Classes="right">
+              <Button Classes="Hyperlink"
+                      Content="{ReflectionBinding Path=Res.ClickHereCopyUIDToClipboard,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding UIDCommand}"/>
+            </StackPanel>
+          </DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.About_Donate_Desc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         </StackPanel>
       </Border>

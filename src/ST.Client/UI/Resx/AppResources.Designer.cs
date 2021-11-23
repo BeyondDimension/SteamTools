@@ -922,6 +922,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 点击此处复制 UID 到剪贴板 的本地化字符串。
+        /// </summary>
+        public static string ClickHereCopyUIDToClipboard {
+            get {
+                return ResourceManager.GetString("ClickHereCopyUIDToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 云同步 的本地化字符串。
         /// </summary>
         public static string CloudSync {
@@ -1260,6 +1269,15 @@ namespace System.Application.UI.Resx {
         public static string Copy {
             get {
                 return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已复制到剪贴板 的本地化字符串。
+        /// </summary>
+        public static string CopyToClipboard {
+            get {
+                return ResourceManager.GetString("CopyToClipboard", resourceCulture);
             }
         }
         
@@ -5432,6 +5450,15 @@ namespace System.Application.UI.Resx {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 需要登录 Steam++ 账号才能获取 UID 的本地化字符串。
+        /// </summary>
+        public static string YouNeedSignInToGetUID {
+            get {
+                return ResourceManager.GetString("YouNeedSignInToGetUID", resourceCulture);
             }
         }
     }

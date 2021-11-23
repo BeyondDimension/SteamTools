@@ -34,6 +34,7 @@ namespace System.Application.UI.ViewModels
                 userInfoValue = Serializable.SMP(userInfoSource);
 
                 // (SetFields)DTO => VM
+                _UID = userInfoSource.Id.ToString();
                 _NickName = userInfoSource.NickName;
                 _Gender = userInfoSource.Gender;
                 _BirthDate = userInfoSource.GetBirthDate();
@@ -78,6 +79,10 @@ namespace System.Application.UI.ViewModels
                 }
             });
             OnCancelBindFastLoginClick = ReactiveCommand.Create(HideFastLoginLoading);
+            UIDCommand = ReactiveCommand.CreateFromTask(async () =>
+            {
+                await UIDCopyToClipboardAsync(_UID);
+            });
         }
 
         string? _CurrentSelectChannel;
@@ -104,6 +109,13 @@ namespace System.Application.UI.ViewModels
         {
             get => _NickName;
             set => this.RaiseAndSetIfChanged(ref _NickName, value);
+        }
+
+        string? _UID;
+        public string? UID
+        {
+            get => _UID;
+            set => this.RaiseAndSetIfChanged(ref _UID, value);
         }
 
         Gender _Gender;
@@ -197,6 +209,8 @@ namespace System.Application.UI.ViewModels
         /// </summary>
         public ICommand OnUnbundleFastLoginClick { get; }
 
+        public ICommand UIDCommand { get; }
+
         async Task OnUnbundleFastLoginClickAsync(FastLoginChannel channel)
         {
             if (!UserService.Current.HasPhoneNumber)
@@ -247,6 +261,15 @@ namespace System.Application.UI.ViewModels
                 user2.NickName = user.NickName;
                 userInfoValue = Serializable.SMP(user2);
                 NickName = user.NickName;
+            }
+        }
+
+        public static async Task UIDCopyToClipboardAsync(string? uid)
+        {
+            if (!string.IsNullOrWhiteSpace(uid))
+            {
+                await Clipboard2.SetTextAsync(uid);
+                Toast.Show(AppResources.CopyToClipboard);
             }
         }
     }

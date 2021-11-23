@@ -2511,4 +2511,16 @@ AAAAA-BBBBB-CCCC3</value>
 *捐助時請記得備註上您 Steam++ 帳號的 UID 在備註消息內，這樣能方便我們後續將捐助獎勵反饋到您的帳號上。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>已複製到剪貼板</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ClickHereCopyUIDToClipboard" xml:space="preserve">
+    <value>點擊此處複製 UID 到剪貼簿</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="YouNeedSignInToGetUID" xml:space="preserve">
+    <value>需要登錄 Steam++ 帳號才能獲取 UID</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
