@@ -261,10 +261,6 @@
     <value>ASF Plus</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="ASF_ExeNoExists" xml:space="preserve">
-    <value>ASF 경로가 검색되지 않은 경우 디렉터리를 수동으로 지정하거나 asf를 다운로드합니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>ASF가 이미 실행 중입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2449,10 +2445,6 @@
     <value>기부</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Steam++의 현재 릴리스는 모든 사람의 지원 없이는 사용할 수 없으며, Steam++가 도움이 되고 새로운 기능 개발 및 유지 관리를 오래 지속하기를 원한다면 Steam++를 보다 동적으로 업데이트할 수 있도록 약간의 기여를 하는 것이 좋습니다.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="About_DonateType" xml:space="preserve">
     <value>기부 방법</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2471,6 +2463,52 @@
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
     <value>기부 목록 데이터를 로드하는 중 오류가 발생했습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Title" xml:space="preserve">
+    <value>Steam++의 개발을 지원합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>이 작업은 현재 수정 사항을 복원하는 대신 모든 도전 과제와 통계를 0으로 만듭니다.
+정말 확실한가요?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_Warning_2" xml:space="preserve">
+    <value>오류 코드: {0}
+도전 과제 통계를 검색하는 동안 오류가 발생했습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
+    <value>SteamKey가 포함된 모든 텍스트를 입력하거나 활성화 목록에 자동으로 인식되거나 다음 형식으로 입력할 수 있습니다.
+AAAAA-BBBBB-CCCC1
+AAAAA-BBBBB-CCCC2
+AAAAA-BBBBB-CCCC3</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
+    <value>이렇게 하면 현재 거래 견적이 {0}.
+계속하시겠습니까?</value>
+    <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
+    <value>*실험적 기능(이 기능을 켜면 투명 재질을 Transparent 또는 AcrylicBlur로 설정하는 것이 좋습니다.)
+이 기능은 Wallpaper Engine 및 기타 배경 화면 소프트웨어의 라이브 배경 화면을 프로그램 배경으로 설정하고 Wallpaper Engine을 시작하지 않은 경우 기본적으로 바탕 화면 배경을 사용합니다. 배경은 기본 창에서만 작동하며 다른 창은 투명도를 완전히 투명하게 조정하거나 그림 배경을 사용하지 않는 것이 좋습니다. 더 나은 결과를 위해 배경 화면의 밝고 어두운 색상에 따라 테마를 전환 할 때주의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_UserLoginTip" xml:space="preserve">
+    <value>토큰 가져오기를 위해 Steam 계정에 로그인하려면 이전 토큰을 제거해야 하며, 이 가져오기에는 15일의 시장 거래 냉각 기간이 있습니다.
+(Steam 네트워크 가속을 켜지 않으면 로그인이 실패합니다.)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
+    <value>Steam 새 계정에 로그인하시겠습니까?
+이렇게 하면 실행 중인 Steam이 새 계정 로그인 창으로 이동합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>&quot;Steam++&quot;의 현재 릴리스는 여러분의 지원 없이는 불가능하며, Steam++가 도움이 되었고 새로운 기능 개발 및 유지 관리를 오래 지속하기를 원한다면 Steam++를 보다 동기 부여된 업데이트로 유지하기 위해 약간의 기여를 하는 것이 좋습니다.
+*기부할 때 Steam++ 계정의 UID가 메모 메시지에 있는 메모를 기억하여 나중에 기부 보상을 계정에 다시 제공할 수 있습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

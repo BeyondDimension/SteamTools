@@ -261,10 +261,6 @@
     <value>ASF Plus</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="ASF_ExeNoExists" xml:space="preserve">
-    <value>Путь ASF не обнаружен, укажите каталог вручную или загрузите asf</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>ASF уже запущен</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2449,10 +2445,6 @@
     <value>взносы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Выпуск текущей версии &quot;Steam++&quot; неотделим от вашей поддержки, и если Steam++ поможет вам, и вы хотите, чтобы мы сохранили разработку и обслуживание новых функций в течение длительного времени, вы можете рассмотреть вопрос о внесении нам небольшого вклада, чтобы сделать наши обновления более мотивированными для поддержания Steam++.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="About_DonateType" xml:space="preserve">
     <value>Способы внесения взносов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2471,6 +2463,52 @@
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
     <value>Произошла ошибка при загрузке данных списка пожертвований:</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Title" xml:space="preserve">
+    <value>Поддержка разработки Steam++</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>Вместо восстановления текущей модификации все достижения и статистика обнуляются.
+Ты уверен в этом?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_Warning_2" xml:space="preserve">
+    <value>Код ошибки: {0}
+Произошла ошибка при извлечении статистики достижений, возможно, игра не была выполнена или у вас ее нет.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
+    <value>Вы можете ввести любой текст, который будет автоматически распознаваться до тех пор, пока он содержит SteamKey, чтобы добавить в список активации, или введите его в следующем формате:
+AAAAA-BBBBB-CCCC1
+AAAAA-BBBBB-CCCC2
+AAAAA-BBBBB-CCCC3</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
+    <value>Это {0} все ваши текущие торговые котировки.
+Вы уверены, что хотите продолжить?</value>
+    <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
+    <value>*Экспериментальная функция (рекомендуется установить прозрачный материал в Transparent или ArylicBlur при включении этой функции)
+Эта функция устанавливает живые обои Wallpaper Engine и другого программного обеспечения обоев в качестве фона программы, а также фон рабочего стола по умолчанию, если вы не запустили Wallpaper Engine. Фон вступает в силу только в главном окне, другие окна рекомендуют настроить прозрачность не полностью прозрачно или использовать фон рисунка. При использовании, будьте осторожны, чтобы переключить соответствующие темы самостоятельно в соответствии с темным цветом обоев для получения лучших результатов.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_UserLoginTip" xml:space="preserve">
+    <value>Войдите в учетную запись Steam для импорта маркеров, перед импортом необходимо удалить старый маркер, и этот способ импорта будет иметь 15-дневный период охлаждения для рыночных сделок.
+(Если ускорение сети Steam не включено, вход в систему не будет успешным)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
+    <value>Вы действительно хотите войти в новую учетную запись Steam?
+Это завершает переход запущенного Steam к новому окну входа в учетную запись.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>Выпуск текущей версии &quot;Steam++&quot; неотделим от вашей поддержки, и если Steam++ поможет вам, и вы хотите, чтобы мы сохранили разработку и обслуживание новых функций в течение длительного времени, вы можете рассмотреть вопрос о внесении нам небольшого вклада, чтобы сделать наше обновление и обслуживание Steam++.
+*При внесении взносов, пожалуйста, не забудьте отметить UID вашей учетной записи Steam++ в сообщении для комментариев, чтобы мы могли позже обратной связи с наградами пожертвований на ваш счет.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

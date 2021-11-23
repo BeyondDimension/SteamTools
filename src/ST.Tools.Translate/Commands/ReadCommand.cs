@@ -108,7 +108,7 @@ namespace System.Commands
                 }
             }
 
-            var resxFileDictLangDict = GetResxDict(resxFilePathLang, ignoreStringBuilder: true).dict;
+            var resxFileDictLangDict = GetResxDict2(resxFilePathLang, ignoreStringBuilder: true).dict;
             foreach (var item in dict)
             {
                 resxFileDictLangDict.AddOrReplace(item);

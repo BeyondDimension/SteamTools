@@ -261,10 +261,6 @@
     <value>ASF Plus</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="ASF_ExeNoExists" xml:space="preserve">
-    <value>ASF パスが検出されない場合は、ディレクトリを手動で指定するか、asf をダウンロードします</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>ASF は既に実行されています</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2449,10 +2445,6 @@
     <value>寄付</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Steam++の現在のリリースは、あなたのサポートなしでは不可能であり、Steam++があなたを助け、新しい機能の開発とメンテナンスを長く維持したい場合は、Steam++を維持するために私たちのよりやる気のある更新を可能にするために少しの貢献を検討してください。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="About_DonateType" xml:space="preserve">
     <value>寄付の方法</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2471,6 +2463,52 @@
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
     <value>寄付リスト データの読み込み中にエラーが発生しました:</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Title" xml:space="preserve">
+    <value>Steam++ の開発をサポートします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>この操作は、現在の変更を復元するのではなく、すべての実績と統計をゼロにします。
+確かか?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_Warning_2" xml:space="preserve">
+    <value>エラー コード: {0}
+アチーブメント統計の取得中にエラーが発生した場合は、ゲームにアチーブメントがないか、ゲームがない可能性があります。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
+    <value>SteamKey が含まれている限り、任意のテキストを入力してアクティベーション リストに自動的に追加するか、次の形式で入力できます。
+AAAAA-BBBBB-CCCC1
+AAAAA-BBBBB-CCCC2
+AAAAA-BBBBB-CCCC3</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
+    <value>これは、現在のすべての取引の見積もりを{0}します。
+続行しますか?</value>
+    <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
+    <value>*実験的な機能(この機能をオンにすると、透明なマテリアルをTransparentまたはAcrylicBlurに設定することをお勧めします)
+この機能は、Wallpaper Engine およびその他の壁紙ソフトウェアのライブ壁紙をプログラムの背景として設定し、Wallpaper Engine を起動しない場合は、既定でデスクトップの背景を使用します。 背景はメイン ウィンドウでのみ有効で、他のウィンドウでは、透明度を完全に透明にしたり、画像の背景を使用したりしないように調整することをお勧めします。 より良い結果を得るために、壁紙の明るい色や暗い色に応じて、対応するテーマを切り替えることに注意してください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_UserLoginTip" xml:space="preserve">
+    <value>Steam アカウントにログインしてトークンをインポートするには、インポート前に古いトークンを削除する必要があり、このインポートには 15 日間の市場トランザクション冷却期間があります。
+(Steam ネットワーク アクセラレーションをオンにしないと、ログインが成功しません)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
+    <value>Steam の新しいアカウントにログインしますか?
+これにより、実行中の Steam が新しいアカウントログインウィンドウにジャンプします。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>Steam++の現在のリリースは、Steam++ がお客様を助け、新機能の開発とメンテナンスを長期的に維持したい場合は、Steam++ の保守によりやる気のある更新を行うために、少しの貢献を検討してください。
+*寄付は、Steam++ アカウントの UID がメモ メッセージに含まれることを忘れないでください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

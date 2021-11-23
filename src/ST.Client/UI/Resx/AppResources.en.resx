@@ -261,10 +261,6 @@
     <value>ASF Plus</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="ASF_ExeNoExists" xml:space="preserve">
-    <value>No ASF path was detected, please specify the directory manually or download asf</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>The ASF is already running</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2453,10 +2449,6 @@
     <value>donate</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_Donate_Desc" xml:space="preserve">
-    <value>The release of the current version of Steam+ can&apos;t be separated from everyone&apos;s support, and if Steam is helpful to you, and you want us to keep new features developed and maintained for a long time, you can consider giving us a little donation to make our more dynamic update maintenance Steam.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="About_DonateType" xml:space="preserve">
     <value>The way in which donations are made</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2475,6 +2467,47 @@
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
     <value>There was an error loading the donor list data:</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>Instead of restoring the current modification, the operation zeros all achievements and statistics.
+Are you sure?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_Warning_2" xml:space="preserve">
+    <value>Error code: {0}
+There was an error retrieving achievement statistics, either because the game didn&apos;t have achievements, or you didn&apos;t have the game.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
+    <value>You can type any text that contains SteamKey and is automatically recognized and added to the activation list, or you can type in the following format:
+AAAAA-BBBBB-CCCC1
+AAAAA-BBBBB-CCCC2
+AAAAA-BBBBB-CCCC3</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
+    <value>Experimental feature (it is recommended to set transparent materials to Transparent or ArylicBlur when this feature is turned on)
+This feature sets live wallpapers from Wallpaper Engine and other wallpaper software to the program background, and if you don&apos;t start Wallpaper Engine, the desktop background is used by default. Backgrounds only take effect in the main window, and other windows recommend that you do not adjust transparency completely or use a picture background. When using, pay attention to switch the corresponding theme according to the bright dark color of the wallpaper to get better results.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_UserLoginTip" xml:space="preserve">
+    <value>Sign in to the Steam account for token import, you need to remove the old token before importing, and this import method will have a 15-day cooling-off period for market transactions.
+(If you don&apos;t turn on Steam network acceleration, you won&apos;t be able to sign in successfully)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
+    <value>Are you sure you want to sign in to your new Steam account?
+This action ends the running Steam jump to the new account login window.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Title" xml:space="preserve">
+    <value>Supports the development of Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>The release of the current version of Steam+ can&apos;t be separated from everyone&apos;s support, and if Steam is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance steam.
+Please remember to have the UID of your Steam account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

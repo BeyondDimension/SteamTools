@@ -261,10 +261,6 @@
     <value>ASF Plus</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="ASF_ExeNoExists" xml:space="preserve">
-    <value>未檢測到ASF路徑，請手動指定目錄或下載asf</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>ASF已經運行</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2449,10 +2445,6 @@
     <value>捐助</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="About_Donate_Desc" xml:space="preserve">
-    <value>「Steam++」當前版本的發佈離不開大家的支援，如果Steam++有説明到您，並且您希望我們能長久的保持新功能開發和維護，您可以考慮給我們一點捐助，以使我們更有動力的更新維護Steam++。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="About_DonateType" xml:space="preserve">
     <value>捐助方式</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2471,6 +2463,52 @@
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
     <value>載入捐助清單資料發生錯誤：</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Title" xml:space="preserve">
+    <value>支援 Steam++ 的開發</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_ResetWaring_3" xml:space="preserve">
+    <value>該操作不是還原當前修改，而是使所有成就和統計數據歸零。
+真的確定嗎？</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Achievement_Warning_2" xml:space="preserve">
+    <value>錯誤代碼： {0}
+檢索成就統計資訊時出錯，可能是該遊戲沒有成就，或者你沒有該遊戲。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
+    <value>你可以鍵入任何文本只要其中包含SteamKey就會被自動識別添加到激活清單，也可以按以下格式輸入：
+AAAAA-BBBBB-CCCC1
+AAAAA-BBBBB-CCCC2
+AAAAA-BBBBB-CCCC3</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
+    <value>這將{0}您當前所有的交易報價。
+確定要繼續嗎？</value>
+    <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
+    <value>*實驗性功能（開啟此功能時建議將透明材質設置為Transparent或AcrylicBlur）
+這個功能可以將 Wallpaper Engine 以及其它壁紙軟體的動態壁紙設置為程式背景，如果你沒有啟動 Wallpaper Engine ，則預設使用桌面背景。 背景僅在主視窗生效，其它窗口建議調整透明度不要完全透明或者使用圖片背景。 使用時注意自行根據壁紙亮暗色情況切換對應主題以獲得更好的效果。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_UserLoginTip" xml:space="preserve">
+    <value>登錄Steam帳號進行令牌導入，導入前需要移除舊令牌，並且此導入方式會有市場交易15天冷卻期。
+（如果沒有開Steam網路加速會導致無法登錄成功）</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
+    <value>確定要登錄 Steam 新帳戶嗎？
+此操作會結束正在運行的 Steam 跳轉到新帳號登錄視窗。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="About_Donate_Desc" xml:space="preserve">
+    <value>「Steam++」當前版本的發佈離不開大家的支援，如果 Steam++ 有説明到您，並且您希望我們能長久的保持新功能開發和維護，您可以考慮給我們一點捐助，以使我們更有動力的更新維護 Steam++。
+*捐助時請記得備註上您 Steam++ 帳號的 UID 在備註消息內，這樣能方便我們後續將捐助獎勵反饋到您的帳號上。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>
