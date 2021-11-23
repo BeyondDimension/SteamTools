@@ -253,7 +253,7 @@ namespace System.Application.Services.Implementation
 
         public Process StartAsInvoker(string fileName)
         {
-            return Process.Start($"/trustlevel:0x20000 \"{fileName}\"");
+            return Process.Start("runas.exe", $"/trustlevel:0x20000 \"{fileName}\"");
         }
 
         public Process? StartAsInvoker(ProcessStartInfo startInfo)

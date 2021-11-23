@@ -133,7 +133,7 @@ namespace System.Application.Services.Implementation
 
         public void StartSteam(string? arguments = null)
         {
-            if (!string.IsNullOrEmpty(SteamProgramPath))
+            if (!string.IsNullOrEmpty(SteamProgramPath) && File.Exists(SteamProgramPath))
             {
                 if (OperatingSystem2.IsWindows && string.IsNullOrEmpty(arguments))
                 {
