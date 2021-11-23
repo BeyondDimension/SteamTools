@@ -133,12 +133,11 @@ namespace System.Application.Services.Implementation
 
         public void StartSteam(string? arguments = null)
         {
-            if (!string.IsNullOrEmpty(SteamProgramPath) && File.Exists(SteamProgramPath))
+            if (!string.IsNullOrWhiteSpace(SteamProgramPath) && File.Exists(SteamProgramPath))
             {
-                if (OperatingSystem2.IsWindows && string.IsNullOrEmpty(arguments))
+                if (OperatingSystem2.IsWindows)
                 {
-                    Process2.Start("explorer.exe", $"\"{SteamProgramPath}\"");
-                    //Process2.Start("runas.exe", $"/trustlevel:0x20000 \"{SteamProgramPath} \\\"{arguments}\\\"\"", useShellExecute: true);
+                    platformService.StartAsInvoker(SteamProgramPath, arguments);
                 }
                 else
                 {

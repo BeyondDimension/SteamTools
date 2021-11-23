@@ -95,6 +95,8 @@ namespace System
 
         public const string TAR_ZST = ".tar.zst";
 
+        public const string CMD = ".cmd";
+
         public static string Clean(string extension, bool trimLeadingPeriod = false)
         {
             if (string.IsNullOrWhiteSpace(extension))

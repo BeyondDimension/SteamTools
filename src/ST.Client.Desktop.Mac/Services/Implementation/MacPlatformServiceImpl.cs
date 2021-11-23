@@ -208,11 +208,6 @@ namespace System.Application.Services.Implementation
         {
         }
 
-        public Process StartAsInvoker(string fileName)
-        {
-            return Process.Start(fileName);
-        }
-
         //public Process? GetProcessByPortOccupy(ushort port, bool isTCPorUDP = true)
         //{
         //    return null;
