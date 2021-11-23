@@ -32,7 +32,7 @@ namespace System.Application.Models
         [MPKey(2)]
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
-        public ExternalTransactionType? Type { get; set; }
+        public ExternalTransactionType Type { get; set; }
 
         /// <summary>
         /// 货币类型

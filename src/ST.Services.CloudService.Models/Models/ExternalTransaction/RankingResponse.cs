@@ -15,20 +15,21 @@ namespace System.Application.Models
     public class RankingResponse
     {
         /// <summary>
-        /// 用户nickName
+        /// 用户昵称 
         /// </summary>
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        public string? Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
         /// <summary>
-        /// 头像
+        /// 用户头像
         /// </summary>
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public string? Avatar { get; set; } = string.Empty;
+        public string? Avatar { get; set; }
+
         /// <summary>
         /// 赞助月份
         /// </summary>
@@ -43,7 +44,7 @@ namespace System.Application.Models
         [MPKey(3)]
         [N_JsonProperty("3")]
         [S_JsonProperty("3")]
-        public ExternalTransactionType? Type { get; set; }
+        public ExternalTransactionType Type { get; set; }
 
         /// <summary>
         /// 赞助金额
@@ -52,5 +53,13 @@ namespace System.Application.Models
         [N_JsonProperty("4")]
         [S_JsonProperty("4")]
         public decimal Amount { get; set; }
+
+        /// <summary>
+        /// 货币类型
+        /// </summary>
+        [MPKey(5)]
+        [N_JsonProperty("5")]
+        [S_JsonProperty("5")]
+        public CurrencyCode CurrencyCode { get; set; }
     }
 }
