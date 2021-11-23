@@ -28,8 +28,7 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public Guid Avatar { get; set; }
-
+        public string? Avatar { get; set; } = string.Empty;
         /// <summary>
         /// 赞助月份
         /// </summary>
