@@ -58,9 +58,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Application\UI\Assets\afdian.png" />
     <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
+    <None Remove="Application\UI\Assets\ko-fi.png" />
     <None Remove="Application\UI\Assets\movecross.png" />
+    <None Remove="Application\UI\Assets\pateron.png" />
     <None Remove="Application\UI\Styles\Controls\ProgressBar.xaml" />
     <None Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
   </ItemGroup>

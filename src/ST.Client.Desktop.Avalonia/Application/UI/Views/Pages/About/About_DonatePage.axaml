@@ -4,8 +4,11 @@
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:app="using:System.Application"
              xmlns:models="using:System.Application.Models"
              xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              xmlns:gif="using:AvaloniaGif"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:AboutPageViewModel"
@@ -46,7 +49,7 @@
           </StackPanel>
         </DockPanel>
       </Border>
-      
+
       <!--<Border Classes="Item">
         <DockPanel>
           <TextBlock Text="启动时不要在提示捐助消息"/>
@@ -89,7 +92,7 @@
                   <Border Padding="10"
                           MaxWidth="300">
                     <DockPanel>
-                      <gif:Image2 Source="{Binding Avatar,Converter={StaticResource GuidToUrlConverter}}"
+                      <!--<gif:Image2 Source="{Binding Avatar,Converter={StaticResource GuidToUrlConverter}}"
                                   FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
                                   VerticalAlignment="Center"
                                   DecodeWidth="64"
@@ -99,7 +102,37 @@
                         <gif:Image2.Clip>
                           <EllipseGeometry Rect="0,0,64,64" />
                         </gif:Image2.Clip>
-                      </gif:Image2>
+                      </gif:Image2>-->
+                      <Image x:Name="avatar" Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"/>
+                      <i:Interaction.Behaviors>
+                        <ia:DataTriggerBehavior
+                            Binding="{Binding Type}"
+                            ComparisonCondition="Equal"
+                            Value="{x:Static app:ExternalTransactionType.Afdian}">
+                          <ia:ChangePropertyAction
+                              PropertyName="Source"
+                              TargetObject="{ReflectionBinding #avatar}"
+                              Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/afdian.png" />
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior
+                            Binding="{Binding Type}"
+                            ComparisonCondition="Equal"
+                            Value="{x:Static app:ExternalTransactionType.Ko_fi}">
+                          <ia:ChangePropertyAction
+                              PropertyName="Source"
+                              TargetObject="{ReflectionBinding #avatar}"
+                              Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/ko-fi.png" />
+                        </ia:DataTriggerBehavior>
+                        <ia:DataTriggerBehavior
+                            Binding="{Binding Type}"
+                            ComparisonCondition="Equal"
+                            Value="{x:Static app:ExternalTransactionType.Patreon}">
+                          <ia:ChangePropertyAction
+                              PropertyName="Source"
+                              TargetObject="{ReflectionBinding #avatar}"
+                              Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/pateron.png" />
+                        </ia:DataTriggerBehavior>
+                      </i:Interaction.Behaviors>
                       <StackPanel DockPanel.Dock="Right"
                                   Spacing="5"
                                   Margin="10">
