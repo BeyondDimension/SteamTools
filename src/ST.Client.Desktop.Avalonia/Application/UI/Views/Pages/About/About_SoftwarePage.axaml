@@ -5,6 +5,7 @@
              xmlns:controls="using:System.Application.UI.Views.Controls"
              xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:service="using:System.Application.Services"
+             xmlns:application="using:System.Application"
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:sys="using:System"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -230,6 +231,21 @@ Italian: Zhengye
               </DockPanel>
             </Border>
           </Button>
+          
+          <Button Classes="plain"
+                  HorizontalContentAlignment="Stretch"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static application:UrlConstants.Gitee_Repository}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="Source Code (Gitee)"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
 
           <Button Classes="plain"
                   HorizontalContentAlignment="Stretch"
@@ -267,7 +283,22 @@ Italian: Zhengye
            CommandParameter="{x:Static vm:AboutPageViewModel.BugReportLink}">
             <Border Classes="Item">
               <DockPanel>
-                <TextBlock Text="Bug Reporting"/>
+                <TextBlock Text="Bug Report (Github)"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+
+          <Button Classes="plain"
+           HorizontalContentAlignment="Stretch"
+           Command="{Binding OpenBrowserCommand}"
+           CommandParameter="{x:Static application:UrlConstants.Gitee_Issues}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="Bug Report (Gitee)"/>
 
                 <ui:SymbolIcon Classes="right"
                                Symbol="Open"
