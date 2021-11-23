@@ -102,7 +102,7 @@ namespace System.Application.UI.ViewModels
                 var uid = UserService.Current.User?.Id;
                 if (uid.HasValue)
                 {
-                    await UserProfileWindowViewModel.UIDCopyToClipboardAsync(uid.Value.ToString());
+                    await IApplication.CopyToClipboardAsync(uid.Value.ToString());
                 }
                 else
                 {

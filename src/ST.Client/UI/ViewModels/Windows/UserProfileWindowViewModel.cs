@@ -81,7 +81,7 @@ namespace System.Application.UI.ViewModels
             OnCancelBindFastLoginClick = ReactiveCommand.Create(HideFastLoginLoading);
             UIDCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                await UIDCopyToClipboardAsync(_UID);
+                await IApplication.CopyToClipboardAsync(_UID);
             });
         }
 
@@ -261,15 +261,6 @@ namespace System.Application.UI.ViewModels
                 user2.NickName = user.NickName;
                 userInfoValue = Serializable.SMP(user2);
                 NickName = user.NickName;
-            }
-        }
-
-        public static async Task UIDCopyToClipboardAsync(string? uid)
-        {
-            if (!string.IsNullOrWhiteSpace(uid))
-            {
-                await Clipboard2.SetTextAsync(uid);
-                Toast.Show(AppResources.CopyToClipboard);
             }
         }
     }

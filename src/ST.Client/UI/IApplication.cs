@@ -2,8 +2,10 @@ using System;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.Settings;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System.Application.UI
 {
@@ -61,5 +63,21 @@ namespace System.Application.UI
         }
 
         DeploymentMode DeploymentMode => DeploymentMode.SCD;
+
+        /// <summary>
+        /// 通用复制字符串到剪贴板，并在成功后显示 toast
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="msgToast"></param>
+        /// <param name="showToast"></param>
+        /// <returns></returns>
+        static async Task CopyToClipboardAsync(string? text, string? msgToast = null, bool showToast = true)
+        {
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                await Clipboard2.SetTextAsync(text);
+                if (showToast) Toast.Show(msgToast ?? AppResources.CopyToClipboard);
+            }
+        }
     }
 }
