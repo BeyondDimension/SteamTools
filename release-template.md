@@ -18,7 +18,7 @@
 17. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
 18. 改进 主题切换现在不在需要重启程序，提升主题切换速度
 19. 改进 本地令牌账号导入过程中的说明提示
-
+20. 改进 账号切换启动Steam时，默认不在以管理员身份启动
 <!--
 
 . 改进 Android UI
@@ -38,6 +38,7 @@
 7. 修复 本地令牌 确认交易登录时会错误的提示没有开启加速
 8. 修复 本地令牌 确认交易有时会卡在提示登录中的问题
 9. 修复 Windows 上资源管理器重启后托盘消失，以及尝试修复开机自启时有时不显示托盘
+10. 修复 桌面端 导航栏的弹出菜单失去焦点时不会自动隐藏的问题
 
 <!--
 
