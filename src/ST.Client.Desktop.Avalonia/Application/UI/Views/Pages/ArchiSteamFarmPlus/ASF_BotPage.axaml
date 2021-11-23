@@ -213,8 +213,15 @@
                       <RelativePanel DockPanel.Dock="Right"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Right">
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding WalletBalanceM,Converter={StaticResource StringFormatConverter},ConverterParameter={Binding WalletCurrency}}"/>
+                        <!--<TextBlock Text="{Binding WalletBalanceM,Converter={StaticResource StringFormatConverter},ConverterParameter={Binding WalletCurrency}}"/>-->
+                        <controls:ScrollingTextBlock IsVisible="{Binding WalletBalanceM,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+                          <controls:ScrollingTextBlock.Text>
+                            <MultiBinding Converter="{StaticResource StringFormatConverter}" ConverterParameter="money">
+                              <Binding Path="WalletBalanceM"/>
+                              <Binding Path="WalletCurrency"/>
+                            </MultiBinding>
+                          </controls:ScrollingTextBlock.Text>
+                        </controls:ScrollingTextBlock>
                       </RelativePanel>
                     </DockPanel>
 
@@ -285,14 +292,14 @@
                                   Spacing="3"
                                   Orientation="Horizontal">
 
-                        <controls:Badge Background="#3CB371" 
+                        <controls:Badge Background="#3CB371"
                                         Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
                                         ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}">
                           <controls:Badge.Icon>
                             <ui:SymbolIcon Symbol="Games" />
                           </controls:Badge.Icon>
                         </controls:Badge>
-                        
+
                         <controls:Badge Background="#007EC6"
                                         Text="{Binding CardsFarmer.CardsRemaining}"
                                         ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -300,7 +307,7 @@
                             <ui:SymbolIcon Symbol="Page2" />
                           </controls:Badge.Icon>
                         </controls:Badge>
-                        
+
                         <controls:Badge Background="#8C45AB"
                                         ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                         Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}">
@@ -308,7 +315,7 @@
                             <ui:SymbolIcon Symbol="Clock" />
                           </controls:Badge.Icon>
                         </controls:Badge>
-                        
+
                         <!--<DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
                              VerticalAlignment="Center">
                           <Border>

@@ -18,6 +18,10 @@ namespace System.Application.Converters
             {
                 result = i == 0;
             }
+            else if (value is decimal d)
+            {
+                result = d == 0;
+            }
             else
             {
                 result = value is null;
