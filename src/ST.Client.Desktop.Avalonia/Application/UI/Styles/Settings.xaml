@@ -6,10 +6,13 @@
         <Border Padding="20">
             <StackPanel Classes="Settings">
                 <Border Classes="Item">
-                    <StackPanel>
-                        <TextBlock Text="程序启动时自动运行ASF" />
-                        <TextBlock Classes="prompt" Text="程序启动时自动运行ASF" />
-                    </StackPanel>
+                    <DockPanel>
+                        <StackPanel>
+                            <TextBlock Text="程序启动时自动运行ASF" />
+                            <TextBlock Classes="prompt" Text="程序启动时自动运行ASF" />
+                        </StackPanel>
+                        <ToggleSwitch />
+                    </DockPanel>
                 </Border>
 
                 <Separator Classes="Separator" />
@@ -192,7 +195,7 @@
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; StackPanel">
-        <Setter Property="Margin" Value="0 0 100 0" />
+        <Setter Property="Margin" Value="0 0 150 0" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="(DockPanel.Dock)" Value="Left" />
     </Style>
@@ -205,7 +208,7 @@
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel :is(Control).left">
-        <Setter Property="Margin" Value="0 0 100 0" />
+        <Setter Property="Margin" Value="0 0 150 0" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="(DockPanel.Dock)" Value="Left" />

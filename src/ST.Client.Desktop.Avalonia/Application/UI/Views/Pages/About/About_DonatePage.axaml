@@ -23,7 +23,7 @@
       </StackPanel.Styles>
       <Border Classes="Item">
         <StackPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.About_Donate,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="h3"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.About_Donate_Title,Mode=OneWay,Source={x:Static resx:R.Current}}" Classes="h3"/>
           <TextBlock Text="{ReflectionBinding Path=Res.About_Donate_Desc,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         </StackPanel>
       </Border>
