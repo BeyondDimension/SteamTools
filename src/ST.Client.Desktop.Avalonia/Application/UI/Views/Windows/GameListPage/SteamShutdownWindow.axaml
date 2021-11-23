@@ -59,7 +59,7 @@
                                 VerticalAlignment="Center">
                       <TextBlock Text="{Binding Name}"
                                  FontSize="18"/>
-                      <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
+                      <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
                                  Foreground="{DynamicResource InactiveForegroundBrushKey}"
                                  FontSize="12"/>
                     </StackPanel>

@@ -210,12 +210,12 @@
                         </WrapPanel>
                       </WrapPanel>
 
-                      <WrapPanel DockPanel.Dock="Right"
+                      <RelativePanel DockPanel.Dock="Right"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Right">
                         <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding WalletBalanceM,StringFormat={}{0:C}}"/>
-                      </WrapPanel>
+                                   Text="{Binding WalletBalanceM,Converter={StaticResource StringFormatConverter},ConverterParameter={Binding WalletCurrency}}"/>
+                      </RelativePanel>
                     </DockPanel>
 
 

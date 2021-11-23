@@ -3,6 +3,8 @@ using System.Globalization;
 using System.Linq;
 #if !__MOBILE__
 using Avalonia.Data.Converters;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using SteamKit2;
 #else
 using Xamarin.Forms;
 #endif
@@ -17,7 +19,34 @@ namespace System.Application.Converters
             if (parameter is not string para) para = parameter?.ToString() ?? string.Empty;
             if (!string.IsNullOrEmpty(para))
             {
-                return str.Format(para);
+                if (string.Equals(para, "size", StringComparison.OrdinalIgnoreCase) && double.TryParse(str, out double b))
+                {
+                    (var length, string unit) = IOPath.GetSize(b);
+                    return $"{length:###,###.##} {unit}";
+                }
+                else if (decimal.TryParse(str, out decimal d))
+                {
+                    if (parameter is CompiledBindingExtension bind)
+                    {
+
+                    }
+                    if (parameter is ECurrencyCode c1)
+                    {
+                        d.ToString("C", c1.GetCultureInfo());
+                    }
+                    else if (parameter is CurrencyCode c2)
+                    {
+                        d.ToString("C", c2.GetCultureInfo());
+                    }
+                    else if (string.Equals(para, "money", StringComparison.OrdinalIgnoreCase))
+                    {
+                        d.ToString("C", CultureInfo.CurrentCulture);
+                    }
+                }
+                else
+                {
+                    return str.Format(para);
+                }
             }
             return str;
         }
