@@ -21,6 +21,7 @@ namespace System.Application.Models
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
         public string? Name { get; set; } = string.Empty;
+
         /// <summary>
         /// 头像
         /// </summary>
@@ -28,6 +29,7 @@ namespace System.Application.Models
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
         public Guid Avatar { get; set; }
+
         /// <summary>
         /// 赞助月份
         /// </summary>
@@ -39,17 +41,17 @@ namespace System.Application.Models
         /// <summary>
         /// 捐助平台
         /// </summary>
-        [MPKey(2)]
-        [N_JsonProperty("2")]
-        [S_JsonProperty("2")]
+        [MPKey(3)]
+        [N_JsonProperty("3")]
+        [S_JsonProperty("3")]
         public ExternalTransactionType? Type { get; set; }
 
         /// <summary>
         /// 赞助金额
         /// </summary>
-        [MPKey(3)]
-        [N_JsonProperty("3")]
-        [S_JsonProperty("3")]
+        [MPKey(4)]
+        [N_JsonProperty("4")]
+        [S_JsonProperty("4")]
         public decimal Amount { get; set; }
     }
 }

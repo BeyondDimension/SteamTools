@@ -39,7 +39,7 @@ namespace System.Application.UI.ViewModels
         public static readonly DateTimeOffset StartYear = new(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
         public static readonly DateTimeOffset ThisYear = new DateTimeOffset(DateTimeOffset.Now.Year + 1, 1, 1, 0, 0, 0, TimeSpan.Zero).AddDays(-1);
 
-        private const int DonateListPageSize = 100;
+        const int DonateListPageSize = 500;
 
         public AboutPageViewModel()
         {

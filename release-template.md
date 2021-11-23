@@ -1,22 +1,23 @@
 ### 新增内容
 1. CLR 更新至 6.0 RTM
-2. 新增 ASF 本地挂卡功能 (Beta)
-3. 新增 本地令牌搜索功能
-4. 新增 库存游戏右键菜单导航到 Steam 客户端
-5. 改进 桌面端 UI 适配 Windows 11 风格
+2. 新增 捐助功能，在关于中可使用 爱发电、Ko-fi、Patreon 平台捐助
+3. 新增 ASF 本地挂卡功能 (Beta)
+4. 新增 本地令牌搜索功能
+5. 新增 库存游戏右键菜单导航到 Steam 客户端
 6. 新增 Windows 11 上可设置材质 [云母(Mica)](https://docs.microsoft.com/zh-cn/windows/apps/design/style/mica)
-7. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
-8. 改进 账号注销现需要通过手机号或昵称验证
-9. 新增 搜索框支持拼音搜索
-10. 改进 令牌账号加密、导出的界面UI和导入过程中的提示
-11. 新增 Windows 上可将动态壁纸设置为程序背景
-12. 改进 Steam 账号切换支持头像框、等级和游戏中信息的显示
-13. 改进 文本框窗口弹出时将自动设置焦点
-14. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
-15. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-16. 改进 主题切换现在不在需要重启程序，提升主题切换速度
-17. 新增 框架依赖部署模式(FDE)，可通过共享运行库减少磁盘占用空间，仅支持 Windows 与 Linux
-18. 改进 本地令牌账号导入过程中的说明提示
+7. 新增 搜索框支持拼音搜索
+8. 新增 框架依赖部署模式(FDE)，可通过共享运行库减少磁盘占用空间，仅支持 Windows 与 Linux
+9. 新增 Windows 上可将动态壁纸设置为程序背景
+10. 改进 桌面端 UI 适配 Windows 11 风格
+11. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
+12. 改进 账号注销现需要通过手机号或昵称验证
+13. 改进 令牌账号加密、导出的界面UI和导入过程中的提示
+14. 改进 Steam 账号切换支持头像框、等级和游戏中信息的显示
+15. 改进 文本框窗口弹出时将自动设置焦点
+16. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
+17. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+18. 改进 主题切换现在不在需要重启程序，提升主题切换速度
+19. 改进 本地令牌账号导入过程中的说明提示
 
 <!--
 

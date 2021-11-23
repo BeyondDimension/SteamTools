@@ -7,7 +7,7 @@ namespace System.Application.Models
 {
     [MPObj]
     public class NoticeDTO
-    { 
+    {
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
@@ -40,6 +40,7 @@ namespace System.Application.Models
         [N_JsonProperty("4")]
         [S_JsonProperty("4")]
         public string Author { get; set; } = string.Empty;
+
         /// <summary>
         /// 标题
         /// </summary>
@@ -47,6 +48,7 @@ namespace System.Application.Models
         [N_JsonProperty("5")]
         [S_JsonProperty("5")]
         public string Introduction { get; set; } = string.Empty;
+
         /// <summary>
         /// 消息添加时间
         /// </summary>
@@ -54,6 +56,7 @@ namespace System.Application.Models
         [N_JsonProperty("6")]
         [S_JsonProperty("6")]
         public DateTimeOffset CreationTime { get; set; } = DateTimeOffset.Now;
+
         /// <summary>
         /// 消息启用时间（预约添加）
         /// </summary>
@@ -68,6 +71,6 @@ namespace System.Application.Models
         [MPKey(8)]
         [N_JsonProperty("8")]
         [S_JsonProperty("8")]
-        public bool IsOpenBrowser { get; set; } = false;
+        public bool IsOpenBrowser { get; set; }
     }
 }
