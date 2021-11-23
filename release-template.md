@@ -58,6 +58,7 @@
 		- 在 Deepin 中托盘不生效，可通过 ```Exit.sh``` 退出程序
 		- 窗口弹出位置不正确
 		- 自动更新不可用
+		- 鼠标指针浮动样式不正确
 	- Windows
 		- 在 CPU 不受支持的 Win11 上无法启动，Windows 日志中显示 ```Failed to create CoreCLR, HRESULT: 0x80004005```
 			- 仅 .NET 6.0 受此影响，在几周后的 Insider 中会修复，见 [issue](https://github.com/dotnet/core/issues/6733)
