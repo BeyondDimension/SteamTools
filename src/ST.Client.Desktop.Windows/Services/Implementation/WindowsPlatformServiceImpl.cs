@@ -267,9 +267,9 @@ namespace System.Application.Services.Implementation
         {
             if (string.IsNullOrEmpty(arguments))
                 return Process.Start(explorer_exe, $"\"{fileName}\"");
-            var cacheCmdFile = Path.Combine(IOPath.CacheDirectory, $"StartAsInvokerByExplorer_{Random2.GenerateRandomString()}{DateTime.Now.Ticks}.cmd");
+            var cacheCmdFile = Path.Combine(IOPath.CacheDirectory, $"StartAsInvokerByExplorer.cmd");
             if (File.Exists(cacheCmdFile)) File.Delete(cacheCmdFile);
-            File.WriteAllText(cacheCmdFile, $"@echo {Constants.HARDCODED_APP_NAME} StartAsInvokerByExplorer{Environment.NewLine}start \"\" \"{fileName}\" {arguments}{Environment.NewLine}del %0");
+            File.WriteAllText(cacheCmdFile, $"@echo {Constants.HARDCODED_APP_NAME} StartAsInvokerByExplorer{Environment.NewLine}start \"\" \"{fileName}\" {arguments}{Environment.NewLine}exit 0");
             return Process.Start(explorer_exe, $"\"{cacheCmdFile}\"");
         }
 
