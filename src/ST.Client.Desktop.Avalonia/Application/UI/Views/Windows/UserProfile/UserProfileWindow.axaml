@@ -20,9 +20,6 @@
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:UserProfileWindowViewModel"
         x:CompileBindings="True">
-  <Window.Resources>
-    <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
-  </Window.Resources>
   <Panel>
     <Panel.Styles>
       <Style Selector="TextBlock.FormItemLabel">
@@ -196,13 +193,13 @@
                          Grid.Row="7"/>
               <WrapPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
                 <RadioButton Content="{ReflectionBinding Path=Res.Gender_Unknown,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                             IsChecked="{Binding Gender, Converter={StaticResource GenderEnumValueConverter}, ConverterParameter=Unknown}"/>
+                             IsChecked="{Binding Gender, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static sys_app:Gender.Unknown}}"/>
                 <RadioButton Classes="MarginLeft"
                              Content="{ReflectionBinding Path=Res.Gender_Male,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                             IsChecked="{Binding Gender, Converter={StaticResource GenderEnumValueConverter}, ConverterParameter=Male}"/>
+                             IsChecked="{Binding Gender, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static sys_app:Gender.Male}}"/>
                 <RadioButton Classes="MarginLeft"
                              Content="{ReflectionBinding Path=Res.Gender_Female,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                             IsChecked="{Binding Gender, Converter={StaticResource GenderEnumValueConverter}, ConverterParameter=Female}"/>
+                             IsChecked="{Binding Gender, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static sys_app:Gender.Female}}"/>
               </WrapPanel>
               <TextBlock Classes="FormItemLabel"
                          Text="{ReflectionBinding Path=Res.UserProfile_BirthDate,Mode=OneWay,Source={x:Static resx:R.Current}}"

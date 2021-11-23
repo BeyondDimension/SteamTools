@@ -16,7 +16,7 @@ namespace System.Application.Converters
                 {
                     return value.Equals(parameter);
                 }
-                else if (parameter is string) 
+                else if (parameter is string)
                 {
                     return value.ToString() == parameter.ToString();
                 }
@@ -26,6 +26,19 @@ namespace System.Application.Converters
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null || parameter == null)
+                return BindingOperations.DoNothing;
+
+            if (value is Enum)
+            {
+                return value;
+            }
+
+            if (value is bool b && b && parameter is Enum)
+            {
+                return parameter;
+            }
+
             return BindingOperations.DoNothing;
         }
     }

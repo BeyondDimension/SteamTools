@@ -45,9 +45,9 @@
           </StackPanel>
           <ComboBox x:Name="Themes"
                     SelectedIndex="{Binding Source={x:Static ms:UISettings.Theme},Path=Value, Mode=TwoWay}">
-            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
-            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"></ComboBoxItem>
+            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           </ComboBox>
         </DockPanel>
       </Border>
