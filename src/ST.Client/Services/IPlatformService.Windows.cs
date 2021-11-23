@@ -26,11 +26,9 @@ namespace System.Application.Services
         /// <param name="fileName"></param>
         /// <returns></returns>
         [SupportedOSPlatform("Windows")]
-        Process StartAsInvoker(string fileName, string? arguments = null)
+        Process? StartAsInvoker(string fileName, string? arguments = null)
         {
-            if (string.IsNullOrEmpty(arguments))
-                return Process.Start(fileName);
-            return Process.Start(fileName, arguments);
+            return Process2.Start(fileName, arguments);
         }
 
         ///// <summary>

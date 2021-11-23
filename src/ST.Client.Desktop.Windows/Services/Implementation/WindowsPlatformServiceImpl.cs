@@ -251,19 +251,19 @@ namespace System.Application.Services.Implementation
 
         public (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKey.Value;
 
-        const string runas_exe = "runas.exe";
-        static Process StartAsInvokerByRunas(string fileName, string? arguments = null)
-        {
-            // https://blog.lindexi.com/post/%E5%A6%82%E4%BD%95%E5%9C%A8-RunAs-%E5%90%AF%E5%8A%A8%E7%9A%84%E8%BD%AF%E4%BB%B6%E4%BC%A0%E5%85%A5%E5%B8%A6%E7%A9%BA%E6%A0%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E5%B8%A6%E7%A9%BA%E6%A0%BC%E5%8F%82%E6%95%B0.html
-            string arguments_;
-            if (string.IsNullOrEmpty(arguments))
-                arguments_ = $"/trustlevel:0x20000 \"{fileName}\"";
-            else arguments_ = $"/trustlevel:0x20000 \"{fileName} \"{arguments}\"\"";
-            return Process.Start(runas_exe, arguments_);
-        }
+        //const string runas_exe = "runas.exe";
+        //static Process? StartAsInvokerByRunas(string fileName, string? arguments = null)
+        //{
+        //    // https://blog.lindexi.com/post/%E5%A6%82%E4%BD%95%E5%9C%A8-RunAs-%E5%90%AF%E5%8A%A8%E7%9A%84%E8%BD%AF%E4%BB%B6%E4%BC%A0%E5%85%A5%E5%B8%A6%E7%A9%BA%E6%A0%BC%E7%9A%84%E8%B7%AF%E5%BE%84%E5%B8%A6%E7%A9%BA%E6%A0%BC%E5%8F%82%E6%95%B0.html
+        //    string arguments_;
+        //    if (string.IsNullOrEmpty(arguments))
+        //        arguments_ = $"/trustlevel:0x20000 \"{fileName}\"";
+        //    else arguments_ = $"/trustlevel:0x20000 \"{fileName} \"{arguments}\"\"";
+        //    return Process.Start(runas_exe, arguments_);
+        //}
 
         const string explorer_exe = "explorer.exe";
-        static Process StartAsInvokerByExplorer(string fileName, string? arguments = null)
+        static Process? StartAsInvokerByExplorer(string fileName, string? arguments = null)
         {
             if (string.IsNullOrEmpty(arguments))
                 return Process.Start(explorer_exe, $"\"{fileName}\"");
@@ -273,11 +273,19 @@ namespace System.Application.Services.Implementation
             return Process.Start(explorer_exe, $"\"{cacheCmdFile}\"");
         }
 
-        public Process StartAsInvoker(string fileName, string? arguments = null)
+        public Process? StartAsInvoker(string fileName, string? arguments = null)
         {
-            // runas /trustlevel:0x20000 没有真正的降权，只是作为具有限制特权，使用 explorer 最好，但不接受参数，可以创建一个临时cmd脚本启动
-            //return StartAsInvokerByRunas(fileName, arguments);
-            return StartAsInvokerByExplorer(fileName, arguments);
+            if (IsAdministrator)
+            {
+                // runas /trustlevel:0x20000 没有真正的降权，只是作为具有限制特权，使用 explorer 最好，但不接受参数，可以创建一个临时cmd脚本启动
+                //return StartAsInvokerByRunas(fileName, arguments);
+                return StartAsInvokerByExplorer(fileName, arguments);
+
+            }
+            else
+            {
+                return Process2.Start(fileName, arguments);
+            }
         }
 
         //public Process? StartAsInvoker(ProcessStartInfo startInfo)
