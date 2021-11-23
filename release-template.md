@@ -8,18 +8,19 @@
 7. 新增 搜索框支持拼音搜索
 8. 新增 框架依赖部署模式(FDE)，可通过共享运行库减少磁盘占用空间，仅支持 Windows 与 Linux
 9. 新增 Windows 上可将动态壁纸设置为程序背景
-10. 改进 桌面端 UI 适配 Windows 11 风格
-11. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
-12. 改进 账号注销现需要通过手机号或昵称验证
-13. 改进 令牌账号加密、导出的界面UI和导入过程中的提示
-14. 改进 Steam 账号切换支持头像框、等级和游戏中信息的显示
-15. 改进 文本框窗口弹出时将自动设置焦点
-16. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
-17. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-18. 改进 主题切换现在不在需要重启程序，提升主题切换速度
-19. 改进 本地令牌账号导入过程中的说明提示
-20. 改进 Windows 上账号切换启动 Steam 时，默认不在以管理员身份启动
-21. 改进 macOS 上修改 hosts 文件可以不用每次输入密码
+10. 新增 桌面端 背景材质设置，并修复之前AcrylicBlur透明效果异常问题
+11. 改进 桌面端 UI 适配 Windows 11 风格
+12. 改进 Hosts 文件在 Windows 上默认使用 UTF8WithBOM 编码
+13. 改进 账号注销现需要通过手机号或昵称验证
+14. 改进 令牌账号加密、导出的界面UI和导入过程中的提示
+15. 改进 Steam 账号切换支持头像框、等级和游戏中信息的显示
+16. 改进 文本框窗口弹出时将自动设置焦点
+17. 改进 Windows 上端口占用提示文本显示占用该端口的进程名
+18. 改进 Linux 上存储数据遵循 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+19. 改进 主题切换现在不在需要重启程序，提升主题切换速度
+20. 改进 本地令牌账号导入过程中的说明提示
+21. 改进 Windows 上账号切换启动 Steam 时，默认不在以管理员身份启动
+22. 改进 macOS 上修改 hosts 文件可以不用每次输入密码
 <!--
 
 . 改进 Android UI
@@ -34,12 +35,12 @@
 2. 修复 Linux 与 macOS 上代理错误
 3. 修复 库存游戏无限加载
 4. 修复 脚本未启用时保存状态会全部未启用
-5. 修复 Desktop 上主题运行时切换与跟随系统
+5. 修复 桌面端 上主题运行时切换与跟随系统
 6. 修复 Windows 上窗口边缘滚动条难以拖拽
 7. 修复 本地令牌 确认交易登录时会错误的提示没有开启加速
 8. 修复 本地令牌 确认交易有时会卡在提示登录中的问题
 9. 修复 Windows 上资源管理器重启后托盘消失，以及尝试修复开机自启时有时不显示托盘
-10. 修复 Desktop 上导航栏的弹出菜单失去焦点时不会自动隐藏的问题
+10. 修复 桌面端 上导航栏的弹出菜单失去焦点时不会自动隐藏的问题
 
 <!--
 
