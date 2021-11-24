@@ -227,13 +227,15 @@ namespace System.Application
 
         public static string GetFileName(PublishDirInfo item, string fileEx)
         {
+            var name = item.Name.Replace("-", "_");
+            if (name.Contains("osx_")) name = name.Replace("osx_", "macos_");
             var version = Version;
             var fileName = item.DeploymentMode switch
             {
                 DeploymentMode.SCD =>
-                    $"Steam++_{item.Name.Replace("-", "_")}_v{version}{fileEx}",
+                    $"Steam++_{name}_v{version}{fileEx}",
                 DeploymentMode.FDE =>
-                    $"Steam++_{item.Name.Replace("-", "_")}_fde_v{version}{fileEx}",
+                    $"Steam++_{name}_fde_v{version}{fileEx}",
                 _ => throw new ArgumentOutOfRangeException(nameof(item.DeploymentMode), item.DeploymentMode, null),
             };
             return fileName;
