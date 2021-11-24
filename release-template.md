@@ -41,7 +41,7 @@
 8. 修复 本地令牌 确认交易有时会卡在提示登录中的问题
 9. 修复 Windows 上资源管理器重启后托盘消失，以及尝试修复开机自启时有时不显示托盘
 10. 修复 桌面端 上导航栏的弹出菜单失去焦点时不会自动隐藏的问题
-11. 修复 在 2.6.0 ~ 2.6.1 中账号切换、挂时长列表、ASF-UI 无效或缺失的问题
+11. 修复 在 2.6.0 中账号切换、挂时长列表、ASF-UI 无效或缺失的问题
 
 <!--
 
@@ -75,44 +75,44 @@
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.2.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.6.2.7z  | SHA256 |
+| Steam++_win_x64_v2.6.1.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.6.1.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.6.2.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.6.2.exe  | SHA256 |
+| Steam++_win_x64_v2.6.1.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.6.1.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.2.7z  | SHA256 |
-| Steam++_linux_arm64_v2.6.2.7z  | SHA256 |
-| Steam++_linux_arm_v2.6.2.7z  | SHA256 |
+| Steam++_linux_x64_v2.6.1.7z  | SHA256 |
+| Steam++_linux_arm64_v2.6.1.7z  | SHA256 |
+| Steam++_linux_arm_v2.6.1.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_fde_v2.6.2.7z  | SHA256 |
-| Steam++_linux_arm64_fde_v2.6.2.7z  | SHA256 |
-| Steam++_linux_arm_fde_v2.6.2.7z  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.1.7z  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.1.7z  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.1.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.2.deb  | SHA256 |
-| Steam++_linux_arm64_v2.6.2.deb  | SHA256 |
-| Steam++_linux_arm_v2.6.2.deb  | SHA256 |
+| Steam++_linux_x64_v2.6.1.deb  | SHA256 |
+| Steam++_linux_arm64_v2.6.1.deb  | SHA256 |
+| Steam++_linux_arm_v2.6.1.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_fde_v2.6.2.deb  | SHA256 |
-| Steam++_linux_arm64_fde_v2.6.2.deb  | SHA256 |
-| Steam++_linux_arm_fde_v2.6.2.deb  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.1.deb  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.1.deb  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.1.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.2.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.6.2.rpm  | SHA256 |
-| Steam++_linux_arm_v2.6.2.rpm  | SHA256 |
+| Steam++_linux_x64_v2.6.1.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.6.1.rpm  | SHA256 |
+| Steam++_linux_arm_v2.6.1.rpm  | SHA256 |
 | | |
-| Steam++_linux_x64_fde_v2.6.2.rpm  | SHA256 |
-| Steam++_linux_arm64_fde_v2.6.2.rpm  | SHA256 |
-| Steam++_linux_arm_fde_v2.6.2.rpm  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.1.rpm  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.1.rpm  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.1.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.6.2.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.6.2.dmg  | SHA256 |
-| Steam++_macos_x64_v2.6.2.7z  | SHA256 |
-| Steam++_macos_arm64_v2.6.2.7z  | SHA256 |
+| Steam++_macos_x64_v2.6.1.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.6.1.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.1.7z  | SHA256 |
+| Steam++_macos_arm64_v2.6.1.7z  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.6.2.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.6.2.apk  | SHA256 |
-| Steam++_android_x86_v2.6.2.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.6.1.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.6.1.apk  | SHA256 |
+| Steam++_android_x86_v2.6.1.apk  | SHA256 |
 
 <!-- ***
 由于程序体积较大，推荐从 [官网 https://steampp.net](https://steampp.net) 中下载 -->

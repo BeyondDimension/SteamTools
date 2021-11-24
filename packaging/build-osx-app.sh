@@ -33,9 +33,9 @@ emit_plist() {
 	<key>CFBundleIdentifier</key>
 	<string>net.steampp.app</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.6.2</string>
+	<string>2.6.1</string>
 	<key>CFBundleVersion</key>
-	<string>2.6.2.0</string>
+	<string>2.6.1.0</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.14</string>
 	<key>CFBundleDevelopmentRegion</key>
