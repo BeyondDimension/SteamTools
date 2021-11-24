@@ -23,6 +23,7 @@ namespace System.Application.UI.Views.Windows
                     if (DataContext is LoginOrRegisterWindowViewModel vm)
                     {
                         vm.SendSms.Invoke();
+                        e.Handled = true;
                     }
                     TbSmsCode.Focus();
                 }
@@ -34,6 +35,7 @@ namespace System.Application.UI.Views.Windows
                     if (DataContext is LoginOrRegisterWindowViewModel vm)
                     {
                         vm.Submit.Invoke();
+                        e.Handled = true;
                     }
                 }
             };

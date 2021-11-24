@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using System.Application.UI.ViewModels;
 
@@ -40,6 +41,17 @@ namespace System.Application.UI.Views.Windows
             }
 
             passwordBox.Focus();
+            //passwordBox.KeyDown += (_, e) =>
+            //{
+            //    if (e.Key == Key.Return)
+            //    {
+            //        if (DataContext is TextBoxWindowViewModel vm)
+            //        {
+            //            vm.OK?.Invoke();
+            //            e.Handled = true;
+            //        }
+            //    }
+            //};
 
             base.OnOpened(e);
         }

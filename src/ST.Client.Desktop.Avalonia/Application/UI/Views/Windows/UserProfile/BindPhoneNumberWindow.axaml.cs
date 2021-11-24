@@ -21,6 +21,7 @@ namespace System.Application.UI.Views.Windows
                 if (e.Key == Key.Return)
                 {
                     TbSmsCode.Focus();
+                    e.Handled = true;
                 }
             };
             TbSmsCode.KeyUp += (_, e) =>
@@ -30,6 +31,7 @@ namespace System.Application.UI.Views.Windows
                     if (DataContext is BindPhoneNumberWindowViewModel vm)
                     {
                         vm.Submit();
+                        e.Handled = true;
                     }
                 }
             };

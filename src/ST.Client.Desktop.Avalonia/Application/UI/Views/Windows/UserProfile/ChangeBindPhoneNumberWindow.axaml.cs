@@ -26,6 +26,7 @@ namespace System.Application.UI.Views.Windows
                 if (e.Key == Key.Return)
                 {
                     TbPhoneNumber.Focus();
+                    e.Handled = true;
                 }
             };
             void Submit(object? _, KeyEventArgs e)
@@ -37,9 +38,11 @@ namespace System.Application.UI.Views.Windows
                         if (e.Source == TbPhoneNumber && vm.CurrentStepIsNew)
                         {
                             TbSmsCodeNew.Focus();
+                            e.Handled = true;
                             return;
                         }
                         vm.Submit();
+                        e.Handled = true;
                     }
                 }
             }
