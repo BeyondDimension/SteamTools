@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:System.Application.UI.ViewModels"
-             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:converters="using:System.Application.Converters"
              xmlns:service="using:System.Application.Services"
@@ -371,9 +371,8 @@
                         <DataTemplate>
                           <Border Classes="paper"
                                   ClipToBounds="True">
-                            <Panel>
+                            <Panel MaxWidth="184">
                               <gif:Image2
-                                MaxWidth="184"
                                 MaxHeight="86"
                                 Stretch="Uniform"
                                 Source="{Binding ImageUrl}"
@@ -385,7 +384,7 @@
                               <Border VerticalAlignment="Bottom"
                                       HorizontalAlignment="Stretch"
                                       Background="{DynamicResource ThemeColorKey}">
-                                <TextBlock Text="{Binding GameName}"
+                                <controls:ScrollingTextBlock Text="{Binding GameName}"
                                            HorizontalAlignment="Center"
                                            TextAlignment="Center"/>
                               </Border>
