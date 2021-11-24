@@ -1,8 +1,8 @@
-﻿
 
-namespace System.Application.Models
-{ 
-	public class ScriptRequest 
-	{
-	}
-}
+
+//namespace System.Application.Models
+//{ 
+//	public class ScriptRequest 
+//	{
+//	}
+//}
