@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Root", "_Root", "{66839CD8
 		packaging\build-osx-app.sh = packaging\build-osx-app.sh
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
+		download-guide.md = download-guide.md
 		global.json = global.json
 		nuget.config = nuget.config
 		README.en.md = README.en.md
@@ -1611,7 +1612,7 @@ Global
 		{29DE5086-0690-4AE7-9BA9-840F54B249DC} = {E448F863-4C9D-47A4-BC4A-4A1381B54DA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = zh-Hans
 		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal

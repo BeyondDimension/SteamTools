@@ -35,10 +35,10 @@
 - 统计所有文件(忽略xml,pdb)写入 **Publish.json**
 - 命令示例
     <pre>p sta -val "win-x64" // 仅发布 Win 平台 64位</pre>
-    <pre>p sta -val "android-arm android-arm64" // 仅发布 Android 平台 ARM系列</pre>
-    <pre>p sta -val "win-x64 osx-x64 osx-arm64 linux-x64 linux-arm64 linux-arm" // 发布多个桌面平台</pre>
+    <pre>p sta -val "android-arm" "android-arm64" // 仅发布 Android 平台 ARM系列</pre>
+    <pre>p sta -val "win-x64" "osx-x64" "osx-arm64" "linux-x64" "linux-arm64" "linux-arm" // 发布多个桌面平台</pre>
     <pre>p sta -dev -val "win-x64" // (测试环境/Debug)仅发布 Win 平台 64位</pre>
-    <pre>p sta -dev -val "win-x64 osx-x64 linux-x64" // (测试环境/Debug)发布多个桌面平台</pre>
+    <pre>p sta -dev -val "win-x64" "osx-x64 "linux-x64" // (测试环境/Debug)发布多个桌面平台</pre>
     
 ### 8. (本地)读取上一步操作后的 **Publish.json** 生成压缩包并计算哈希值写入 **Publish.json**
 - 命令示例
