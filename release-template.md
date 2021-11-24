@@ -66,6 +66,8 @@
 			- **解决方案：** 可尝试使用早期版本，例如 v2.3.0
 	- Shared
 		- 拼音搜索不能正确的识别多音字
+		- 在 仅有一个文本框的窗口 上使用回车确定可能导致弹窗死循环，例如本地令牌中的需要解密才能继续
+			- **解决方案：** 点击右下方的确定按钮完成输入
 - Mobile
 	- Android
 		- 确认交易列表刷新后数据有时会显示不正确
@@ -75,40 +77,40 @@
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.1.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.6.1.7z  | SHA256 |
+| Steam++_win_x64_v2.6.1.7z  | f8525e772904a5696e651bae5fbf726861b013ecd6c1a859804e371cd0581e0b |
+| Steam++_win_x64_fde_v2.6.1.7z  | cbe17c26b2e4ae1da24ea4c620c11fb98180f872c96e1d1c7d9fb56af35dbf53 |
 | | |
-| Steam++_win_x64_v2.6.1.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.6.1.exe  | SHA256 |
+| Steam++_win_x64_v2.6.1.exe  | 3f69999ecde4699420e65ad63126e809e43462655ce4ae1fa04c384e069d93aa |
+| Steam++_win_x64_fde_v2.6.1.exe  | 8dc15d27399cea1769df76d52d0276967bfd8a1941df23ae5a7418f22d161a81 |
 | | |
-| Steam++_linux_x64_v2.6.1.7z  | SHA256 |
-| Steam++_linux_arm64_v2.6.1.7z  | SHA256 |
-| Steam++_linux_arm_v2.6.1.7z  | SHA256 |
+| Steam++_linux_x64_v2.6.1.7z  | 457dc4dd21c5acaf7c5515fc9c77e4d8abe2a75f674acda8e74cdfbc062bfb0f |
+| Steam++_linux_arm64_v2.6.1.7z  | 6b83fdbeae5597befc892d44e603dbc4b35924be33a5774b733258b264bed1cf |
+| Steam++_linux_arm_v2.6.1.7z  | 3f9df21a378884bb7a1c4c867c1d59b07a9568bba0c658755c3d12c89b97fea0 |
 | | |
-| Steam++_linux_x64_fde_v2.6.1.7z  | SHA256 |
-| Steam++_linux_arm64_fde_v2.6.1.7z  | SHA256 |
-| Steam++_linux_arm_fde_v2.6.1.7z  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.1.7z  | d20cb26e54ff6b9ecdb02712e2c585d34543dcc1ae35a25821f887a8938aa831 |
+| Steam++_linux_arm64_fde_v2.6.1.7z  | dc17bd72b3df2332ce580bbe42f97ed3994ca0b387f3e92f3852b5672c41bd39 |
+| Steam++_linux_arm_fde_v2.6.1.7z  | f99ff076f28ee26581baad1e848bc977d740a7450cd672e8d24e06e4f758f371 |
 | | |
-| Steam++_linux_x64_v2.6.1.deb  | SHA256 |
-| Steam++_linux_arm64_v2.6.1.deb  | SHA256 |
-| Steam++_linux_arm_v2.6.1.deb  | SHA256 |
+| Steam++_linux_x64_v2.6.1.deb  | 29fc0a5da7396006793ee43508a4db3ab7b49663cb83c57b7f732443b8e4b74e |
+| Steam++_linux_arm64_v2.6.1.deb  | 60e240bf6d698e7a3fa33356f1589d6cf3bbf8b85a61021c8cbb9b586420cd7d |
+| Steam++_linux_arm_v2.6.1.deb  | 7977d15618b03cd2b40f29cea23680019d357c3b7d72046bc828a49d29e15633 |
 | | |
-| Steam++_linux_x64_fde_v2.6.1.deb  | SHA256 |
-| Steam++_linux_arm64_fde_v2.6.1.deb  | SHA256 |
-| Steam++_linux_arm_fde_v2.6.1.deb  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.1.deb  | 6a1f14a1135179acaa436d33d1eae213bc85a1bd37a6ff2fba616d8d86740f19 |
+| Steam++_linux_arm64_fde_v2.6.1.deb  | 4be901e1961af44cbc814ca8bf9cdf56cdae9db3360be0d425291e75fa41df20 |
+| Steam++_linux_arm_fde_v2.6.1.deb  | 2570a0ee03634aa2b15c67c9f9e91a3f12e8e5bcd3f6c44b4a31dd44e2d2bf54 |
 | | |
-| Steam++_linux_x64_v2.6.1.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.6.1.rpm  | SHA256 |
-| Steam++_linux_arm_v2.6.1.rpm  | SHA256 |
+| Steam++_linux_x64_v2.6.1.rpm  | d7709a9373c9dd9b5f0957b02337ad7ac25dae5aa43bcc1ae3f10bd2cdfc0745 |
+| Steam++_linux_arm64_v2.6.1.rpm  | d3238980442df1d1f1293ac0a6acbc6528d53966426af1c41474283ce0a5f922 |
+| Steam++_linux_arm_v2.6.1.rpm  | b9d6990c5c2c989490464afa1bfa39ccf20b851547f912082447ee1d6a669247 |
 | | |
-| Steam++_linux_x64_fde_v2.6.1.rpm  | SHA256 |
-| Steam++_linux_arm64_fde_v2.6.1.rpm  | SHA256 |
-| Steam++_linux_arm_fde_v2.6.1.rpm  | SHA256 |
+| Steam++_linux_x64_fde_v2.6.1.rpm  | 83345f36ec61f609f88d61c6c048efbbe5a8498fcfe1f4ae0aafeeaad93cc122 |
+| Steam++_linux_arm64_fde_v2.6.1.rpm  | 8c2a22ddd05b0f41bc2e83bfc496bd0ed3e22316cae5864123a06268c3817e33 |
+| Steam++_linux_arm_fde_v2.6.1.rpm  | dd726f53d14587808667ff546f2cdd63c7cd860f0a50e71bb30db6c72bbe7e66 |
 | | |
-| Steam++_macos_x64_v2.6.1.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.1.dmg  | dd2a2f435aa12536fb5b0bc4329473c9db96e93a173405970710dae6d3533db4 |
 | Steam++_macos_arm64_v2.6.1.dmg  | SHA256 |
-| Steam++_macos_x64_v2.6.1.7z  | SHA256 |
-| Steam++_macos_arm64_v2.6.1.7z  | SHA256 |
+| Steam++_macos_x64_v2.6.1.7z  | b1d580bc8f0352389d8c680febb44f762ddf133bd9216cf84102a9cc9c0b548b |
+| Steam++_macos_arm64_v2.6.1.7z  | ee11cf563ef57dbbfa3e75abc4798ce1e9461274fd476d28685df468fced17bb |
 | | |
 | Steam++_android_arm64_v8a_v2.6.1.apk  | SHA256 |
 | Steam++_android_armeabi_v7a_v2.6.1.apk  | SHA256 |
