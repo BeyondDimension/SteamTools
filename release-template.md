@@ -41,6 +41,7 @@
 8. 修复 本地令牌 确认交易有时会卡在提示登录中的问题
 9. 修复 Windows 上资源管理器重启后托盘消失，以及尝试修复开机自启时有时不显示托盘
 10. 修复 桌面端 上导航栏的弹出菜单失去焦点时不会自动隐藏的问题
+11. 修复 在 2.6.0 ~ 2.6.1 中账号切换、挂时长列表、ASF-UI 无效或缺失的问题
 
 <!--
 
@@ -74,44 +75,44 @@
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.0.7z  | c88b2b6a8ecfcc244685d57207bc7f20458172f4b48652cc9ffac4f09e6dd427 |
-| Steam++_win_x64_fde_v2.6.0.7z  | b716b20b99bcddc96efbdb6bbdfc1e9f1da61c6cf96969846947f2ec95442fd4 |
+| Steam++_win_x64_v2.6.2.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.6.2.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.6.0.exe  | 21456a847e0d74c78d3ca03ad668f24521f891fcf3aec66536e66ce810c5d002 |
-| Steam++_win_x64_fde_v2.6.0.exe  | 479d9f24f8b1a033b2cc954c8a05301fceecbff24ff19abf040d75932b862771 |
+| Steam++_win_x64_v2.6.2.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.6.2.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.0.7z  | a9a5a92c9629a49caea457aea0ae5d9c68c0d13397cfccca24d8c51549be219c |
-| Steam++_linux_arm64_v2.6.0.7z  | adc21ad1574af783aeeeeee8c3c8ffa134d8fc580b5407caf0a934ea5f362948 |
-| Steam++_linux_arm_v2.6.0.7z  | e6ecae858c9fcd73770cc6a492f17cdc3caa5317064222fdcf3fc7bdff1a4f8b |
+| Steam++_linux_x64_v2.6.2.7z  | SHA256 |
+| Steam++_linux_arm64_v2.6.2.7z  | SHA256 |
+| Steam++_linux_arm_v2.6.2.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_fde_v2.6.0.7z  | b3b1af30d31b85716ed5496a7dbc78a4b5407f24e7711e9ff3a028748b928fb5 |
-| Steam++_linux_arm64_fde_v2.6.0.7z  | 828f998b431ba7949adc3ec9fdbd4ef35c3baff18a5b17271cf5f63dd9e14629 |
-| Steam++_linux_arm_fde_v2.6.0.7z  | a7c97b91dacb7ed7959b7be6c9e48b86e20974f96b0571a1835381cab8fe68bf |
+| Steam++_linux_x64_fde_v2.6.2.7z  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.2.7z  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.2.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.0.deb  | 43cc3440d08a0fc67867b17c1af48e84f878cc0c4021a14e5c7f6f1d52733681 |
-| Steam++_linux_arm64_v2.6.0.deb  | a62b4d8ad3606d41c239523db92b5ca0376fa5ef988a2180e186426b0480084c |
-| Steam++_linux_arm_v2.6.0.deb  | 20edc52411217d097e3a725cb30d0621f7518e4b4a2395909cc063e15f456d65 |
+| Steam++_linux_x64_v2.6.2.deb  | SHA256 |
+| Steam++_linux_arm64_v2.6.2.deb  | SHA256 |
+| Steam++_linux_arm_v2.6.2.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_fde_v2.6.0.deb  | 3154415944314c6c8c20f72c1364d0aa89b030548f396a50430841f5404920e0 |
-| Steam++_linux_arm64_fde_v2.6.0.deb  | 0d31ea4232343769c0afadf0930aa6df59aa021e4764fbc9a97298637012ea86 |
-| Steam++_linux_arm_fde_v2.6.0.deb  | deb78353606819ea2d3349a36dfebed149da9b0d3e94f441652dcd23d331f41f |
+| Steam++_linux_x64_fde_v2.6.2.deb  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.2.deb  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.2.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.0.rpm  | 8070a1be891bc9af46cf5e569dfdaab724d8185e835260800695e4735e6b3b18 |
-| Steam++_linux_arm64_v2.6.0.rpm  | 759afb42bdae7149671d0f70a2b065d33a7e452cd8539d675784c16f3036caac |
-| Steam++_linux_arm_v2.6.0.rpm  | e04d499838684fa1c88f752c0343ff721b437432bffa14d3900c1e5d7f34e406 |
+| Steam++_linux_x64_v2.6.2.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.6.2.rpm  | SHA256 |
+| Steam++_linux_arm_v2.6.2.rpm  | SHA256 |
 | | |
-| Steam++_linux_x64_fde_v2.6.0.rpm  | fb1f60171b70c5d937420b14d3ca3eda9e17e904af9a67f02d8ca5d2d6e1c9c4 |
-| Steam++_linux_arm64_fde_v2.6.0.rpm  | 184e4f1a92d633eb6530bab0b4b9d7e8183f32ef77d9581b3c28e0d86319d8ae |
-| Steam++_linux_arm_fde_v2.6.0.rpm  | 4a9e6536e57c0f4a585c2834488b36aaa348a79e4c642825bf9d831d74e87cd4 |
+| Steam++_linux_x64_fde_v2.6.2.rpm  | SHA256 |
+| Steam++_linux_arm64_fde_v2.6.2.rpm  | SHA256 |
+| Steam++_linux_arm_fde_v2.6.2.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.6.0.dmg  | 3a8453393e79eb90953482b359758f366d32432a0c83aa9aeb1f979962050a1a |
-| Steam++_macos_arm64_v2.6.0.dmg  | 59aeab8d5b57234ecdc651004b2fcffa220a8b21825bd5f8fa102b0fcd567caf |
-| Steam++_macos_x64_v2.6.0.7z  | 683adf6269175b24a3d29f087b98488dd44b3f06a1ae3770345c3d70f5a3d442 |
-| Steam++_macos_arm64_v2.6.0.7z  | 29a4ad9bf29452157aa141d97e8cb7859bdb1fc16f40ba0f4091dcb4753a862b |
+| Steam++_macos_x64_v2.6.2.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.6.2.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.2.7z  | SHA256 |
+| Steam++_macos_arm64_v2.6.2.7z  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.6.0.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.6.0.apk  | SHA256 |
-| Steam++_android_x86_v2.6.0.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.6.2.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.6.2.apk  | SHA256 |
+| Steam++_android_x86_v2.6.2.apk  | SHA256 |
 
 <!-- ***
 由于程序体积较大，推荐从 [官网 https://steampp.net](https://steampp.net) 中下载 -->
