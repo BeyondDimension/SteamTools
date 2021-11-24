@@ -14,6 +14,11 @@ namespace System.Application.Services.Implementation
         public const string vi = "vi";
         public const string VSC = "code";
 
+        public LinuxPlatformServiceImpl()
+        {
+            // 平台服务依赖关系过于复杂，在构造函数中不得注入任何服务，由函数中延时加载调用服务
+        }
+
         public void SetResizeMode(IntPtr hWnd, ResizeMode value)
         {
         }

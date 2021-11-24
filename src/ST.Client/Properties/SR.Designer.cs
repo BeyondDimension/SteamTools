@@ -63,6 +63,16 @@ namespace System.Application.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
+        internal static byte[] asf_ui {
+            get {
+                object obj = ResourceManager.GetObject("asf_ui", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
         internal static byte[] OpenSourceLibraryList {
             get {
                 object obj = ResourceManager.GetObject("OpenSourceLibraryList", resourceCulture);

@@ -26,6 +26,7 @@ namespace System.Application.Services.Implementation
         const string TAG = "WindowsPlatformS";
         const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
 
+
         public string? GetRegistryVdfPath() { return null; }
 
         public string GetCommandLineArgs(Process process)

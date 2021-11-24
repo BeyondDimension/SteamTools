@@ -16,15 +16,8 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
-    public class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
+    public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
     {
-        readonly IHttpService httpService;
-
-        public ArchiSteamFarmServiceImpl(IHttpService http)
-        {
-            httpService = http;
-        }
-
         public event Action<string>? OnConsoleWirteLine;
 
         public TaskCompletionSource<string>? ReadLineTask { get; set; }
@@ -49,6 +42,8 @@ namespace System.Application.Services.Implementation
                 if (isFirstStart)
                 {
                     IArchiSteamFarmService.InitCoreLoggers?.Invoke();
+
+                    TryUnPackASFUI();
 
                     // 初始化文件夹
                     var folders = Enum2.GetAll<ASFPathFolder>();

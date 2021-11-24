@@ -20,6 +20,11 @@ namespace System.Application.Services.Implementation
         public const string TextEdit = "TextEdit";
         public const string VSC = "Visual Studio Code";
 
+        public MacPlatformServiceImpl()
+        {
+            // 平台服务依赖关系过于复杂，在构造函数中不得注入任何服务，由函数中延时加载调用服务
+        }
+
         public void SetResizeMode(IntPtr hWnd, ResizeMode value)
         {
         }
