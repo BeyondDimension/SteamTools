@@ -1,10 +1,6 @@
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
-using Packaging.Targets;
-using Packaging.Targets.IO;
 using SevenZip;
 using System.Application.Models;
 using System.Collections.Generic;
@@ -15,7 +11,13 @@ using System.Linq;
 using System.Properties;
 using System.Security.Cryptography;
 using System.Text;
+#if !SERVER
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
+using Packaging.Targets;
+using Packaging.Targets.IO;
 using ZstdNet;
+#endif
 using NCompressionMode = System.IO.Compression.CompressionMode;
 
 namespace System.Application
@@ -131,6 +133,7 @@ namespace System.Application
             }
         }
 
+#if !SERVER
         public static void CreateXZPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
             using var fs = File.Create(packPath);
@@ -145,6 +148,7 @@ namespace System.Application
                 archive.WriteEntry(entry, false);
             }
         }
+#endif
 
         public static void CreateBrotliPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
@@ -178,6 +182,7 @@ namespace System.Application
             compressor.CompressFileDictionary(dict, packPath);
         }
 
+#if !SERVER
         public static void CreateZstdPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
             using var fs = File.Create(packPath);
@@ -192,6 +197,7 @@ namespace System.Application
                 archive.WriteEntry(entry, false);
             }
         }
+#endif
 
         public static void SavePublishJson(IEnumerable<PublishDirInfo> dirNames, bool removeFiles = false)
         {
@@ -282,6 +288,7 @@ namespace System.Application
             public const string dotnet_runtime_6_0 = "dotnet-runtime-6.0";
             public const string aspnetcore_runtime_6_0 = "aspnetcore-runtime-6.0";
 
+#if !SERVER
             public static void AddFileNameDesktop(ArchiveBuilder2 archiveBuilder2, List<ArchiveEntry> archiveEntries)
             {
                 var metadata = new Dictionary<string, string>()
@@ -300,6 +307,7 @@ namespace System.Application
                     archiveEntries,
                     taskItems);
             }
+#endif
         }
     }
 }
