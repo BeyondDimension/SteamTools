@@ -68,6 +68,7 @@ namespace System.Application.Services.Implementation
                             var value = IsLightOrDarkTheme;
                             if (value.HasValue)
                             {
+                                var app = IApplication.Instance;
                                 var theme_value = value.Value ? AppTheme.Light : AppTheme.Dark;
                                 MainThread2.BeginInvokeOnMainThread(() =>
                                 {

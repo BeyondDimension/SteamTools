@@ -26,12 +26,6 @@ namespace System.Application.Services.Implementation
         const string TAG = "WindowsPlatformS";
         const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
 
-        readonly IApplication app;
-        public WindowsPlatformServiceImpl(IApplication app)
-        {
-            this.app = app;
-        }
-
         public string? GetRegistryVdfPath() { return null; }
 
         public string GetCommandLineArgs(Process process)
