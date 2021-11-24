@@ -41,7 +41,7 @@
 		<PackageVersion Include="AutoMapper" Version="10.1.1" />
 		<PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
 		<PackageVersion Include="Portable.BouncyCastle" Version="1.9.0" />
-		<PackageVersion Include="QRCoder" Version="1.4.1" />
+		<PackageVersion Include="QRCoder" Version="1.4.2" />
 		<PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.0" />
 		<PackageVersion Include="DnsClient" Version="1.5.0" />
 		<PackageVersion Include="Fleck" Version="1.2.0" />
