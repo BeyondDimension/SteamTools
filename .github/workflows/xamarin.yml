@@ -40,8 +40,23 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: dotnet workload install maui
 
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@v1.0.6
+      id: setup-ndk
+      with:
+        ndk-version: r21e
+        add-to-path: false
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@c26a08ba26249b81327e26f6ef381897b6a8754d  # v1
+
     - name: Verify dotnet info
-      run: dotnet --info
+      run: |
+           nuget help 
+           dotnet --info 
+           msbuild -version
 
     - name: setup-xamarin
       uses: maxim-lobanov/setup-xamarin@v1
