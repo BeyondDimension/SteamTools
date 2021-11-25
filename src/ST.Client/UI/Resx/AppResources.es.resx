@@ -2173,10 +2173,6 @@
     <value>Notificación de anuncio</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>La propiedad file es de sólo lectura y se produce un error en la modificación</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>El tamaño del archivo es demasiado grande</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

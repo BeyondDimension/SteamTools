@@ -1797,7 +1797,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>下载更新包失败，请稍后重试</value>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>文件属性为只读，修改失败</value>
+    <value>文件属性为只读，修改失败，你可以尝试先备份该文件后删除再重试一遍</value>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>文件大小过大</value>

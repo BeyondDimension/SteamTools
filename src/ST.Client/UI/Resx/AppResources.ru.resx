@@ -2169,10 +2169,6 @@
     <value>Уведомление о объявлении</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>Свойства файла доступен только для чтения, и изменение завершается неудачей</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>Размер файла слишком большой</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

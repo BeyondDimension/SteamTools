@@ -107,11 +107,6 @@ namespace System.Application.Services.Implementation
                         return false;
                     }
                 }
-                if (fileInfo.IsReadOnly)
-                {
-                    message = AppResources.FileAttributeIsReadOnlyModifyFail;
-                    return false;
-                }
                 //if (fileInfo.IsReadOnly&&(OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !s.IsAdministrator)))
                 //{
                 //    var editPath = Path.Combine(IOPath.CacheDirectory, "hosts");
@@ -132,12 +127,11 @@ namespace System.Application.Services.Implementation
                 }
                 if (checkReadOnly)
                 {
-                    var attr = fileInfo.Attributes;
-                    if (attr.HasFlag(FileAttributes.ReadOnly))
+                    if (fileInfo.IsReadOnly)
                     {
                         try
                         {
-                            fileInfo.Attributes = attr & ~FileAttributes.ReadOnly;
+                            fileInfo.IsReadOnly = false;
                         }
                         catch (Exception)
                         {

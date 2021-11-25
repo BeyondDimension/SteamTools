@@ -2169,10 +2169,6 @@
     <value>お知らせのお知らせ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>ファイルの属性が読み取り専用のため、修正に失敗</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>ファイルサイズが大きすぎる</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

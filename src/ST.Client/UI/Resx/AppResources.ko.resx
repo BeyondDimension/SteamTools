@@ -2169,10 +2169,6 @@
     <value>공지 사항</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="FileAttributeIsReadOnlyModifyFail" xml:space="preserve">
-    <value>파일 속성이 읽기 전용이며 수정에 실패했습니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>파일 크기가 너무 큽니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
