@@ -36,10 +36,10 @@ namespace System.Application
 
             static async Task Handle(string requestUri)
             {
-                var tid = Thread.CurrentThread.ManagedThreadId;
+                var tid = Environment.CurrentManagedThreadId;
                 var result = await IHttpService.Instance.GetImageAsync(
                    api_base + requestUri, ImageChannelType.SteamAvatars);
-                var tid2 = Thread.CurrentThread.ManagedThreadId;
+                var tid2 = Environment.CurrentManagedThreadId;
                 TestContext.WriteLine($"({tid}-{tid2})requestUri: {requestUri}, length: {result?.Length}");
             }
         }

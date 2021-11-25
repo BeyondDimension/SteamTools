@@ -8,7 +8,7 @@
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application.UI</RootNamespace>
     <AssemblyName>Steam++</AssemblyName>
-    <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;$(DefineConstants)</DefineConstants>
+    <DefineConstants>WINDOWS;WINDOWS_DESKTOP_BRIDGE;PUBLISH;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>..\ST.Client.Desktop.Avalonia.App\Properties\app.manifest</ApplicationManifest>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
