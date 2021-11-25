@@ -22,8 +22,6 @@
       "src\\Common.CoreLib\\Common.CoreLib.csproj",
       "src\\Repositories.sqlite-net-pcl\\Repositories.sqlite-net-pcl.csproj",
       "src\\ST.Client.Android\\ST.Client.Android.csproj",
-      "src\\ST.Client.Desktop.Avalonia.App\\ST.Client.Avalonia.App.csproj",
-      "src\\ST.Client.Desktop.Avalonia\\ST.Client.Avalonia.csproj",
       "src\\ST.Client.Desktop.Mac\\ST.Client.Mac.csproj",
       "src\\ST.Client.Mobile.Droid.App\\ST.Client.Android.App.csproj",
       "src\\ST.Client.XamarinForms\\ST.Client.XamarinForms.csproj",
