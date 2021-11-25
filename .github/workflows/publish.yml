@@ -1,4 +1,4 @@
-name: .NET Build
+name: SteamTools Publish
 
 on:
   push:
@@ -7,13 +7,14 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  build:
+  publish:
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
     runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Release]
         os: [ windows-latest ]
       # os: [ windows-latest, macOS-latest, ubuntu-latest ]
 
@@ -42,9 +43,6 @@ jobs:
 
     - name: Verify dotnet info
       run: dotnet --info
-      
-    # - name: Checkout submodules
-    #   run: git submodule update --init --recursive
 
     - name: dotnet restore SteamToolsV2+.sln
       if: matrix.os == 'windows-latest'
@@ -63,22 +61,9 @@ jobs:
 
     - name: Build AndroidApp ${{ matrix.configuration }}
       run: dotnet build ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj -c "${{ matrix.configuration }}"
-
-    # - name: Build CommonUnit ${{ matrix.configuration }}
-    #   run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
-
-    # - name: Build ST.Client.UnitTest ${{ matrix.configuration }}
-    #   run: dotnet build ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
-
-    # - name: dotnet ST.Client.Desktop.UnitTest build
-    #   run: dotnet build ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
       
     - name: Run CommonUnit
       run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ matrix.configuration }}"
 
     - name: Run ST.Client.UnitTest
       run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ matrix.configuration }}"
-
-#    - name: dotnet ST.Client.Desktop.UnitTest test
-#      if: matrix.os != 'windows-latest'
-#      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
