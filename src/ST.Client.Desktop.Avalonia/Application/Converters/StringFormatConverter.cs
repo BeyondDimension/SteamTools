@@ -55,6 +55,12 @@ namespace System.Application.Converters
             return Format(value, parameter, culture);
         }
 
+        public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            IList<object?> values_ = values;
+            return Convert(values_, targetType, parameter, culture);
+        }
+
         public object? Convert(IList<object?> values, Type? targetType, object? parameter, CultureInfo? culture)
         {
             if (parameter is not null && values.Count >= 2)
