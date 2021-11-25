@@ -55,8 +55,8 @@ jobs:
     #- name: Install dependencies
     #  run: nuget restore ./SteamToolsV2+.sln
 
-    - name: dotnet restore SteamToolsV2+.sln
-      run: dotnet restore ./SteamToolsV2+.sln
+    - name: dotnet restore SteamToolsV2+.Mac.slnf
+      run: dotnet restore ./SteamToolsV2+.Mac.slnf
 
     - name: Build Android app
       run: msbuild ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj /t:PackageForAndroid /p:Configuration="${{ matrix.configuration }}"
