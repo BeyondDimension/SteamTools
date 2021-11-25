@@ -136,6 +136,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Reactive", "referenc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Tools.Publish", "src\ST.Tools.Publish\ST.Tools.Publish.csproj", "{29DE5086-0690-4AE7-9BA9-840F54B249DC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Github", "_Github", "{B1142BA9-E601-4E93-93C4-6A8EC1842E4E}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug-report.md = .github\ISSUE_TEMPLATE\bug-report.md
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\ISSUE_TEMPLATE\feature-request.md = .github\ISSUE_TEMPLATE\feature-request.md
+		.github\FUNDING.yml = .github\FUNDING.yml
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+		.github\ISSUE_TEMPLATE\question.md = .github\ISSUE_TEMPLATE\question.md
+		.github\workflows\sync-gitee.yml = .github\workflows\sync-gitee.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1612,7 +1624,7 @@ Global
 		{29DE5086-0690-4AE7-9BA9-840F54B249DC} = {E448F863-4C9D-47A4-BC4A-4A1381B54DA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 		RESX_NeutralResourcesLanguage = zh-Hans
+		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 	EndGlobalSection
 EndGlobal

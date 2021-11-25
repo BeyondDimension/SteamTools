@@ -61,6 +61,9 @@ jobs:
     - name: Build AvaloniaApp ${{ matrix.configuration }}
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ matrix.configuration }}"
 
+    - name: Build AndroidApp ${{ matrix.configuration }}
+      run: dotnet build ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj -c "${{ matrix.configuration }}"
+
     # - name: Build CommonUnit ${{ matrix.configuration }}
     #   run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
 
