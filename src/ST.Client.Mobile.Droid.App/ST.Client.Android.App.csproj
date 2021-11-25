@@ -102,6 +102,11 @@
       <Name>ST.Client</Name>
     </ProjectReference>
   </ItemGroup>
+  <Target Name="WorkaroundNetStandard" AfterTargets="ResolvePackageAssets">
+    <ItemGroup>
+      <TransitiveFrameworkReference Remove="NETStandard.Library" />
+    </ItemGroup>
+  </Target>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\auto_backup_rules.xml" />
   </ItemGroup>
