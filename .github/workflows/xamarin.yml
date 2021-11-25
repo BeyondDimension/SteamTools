@@ -52,8 +52,8 @@ jobs:
         xamarin-android-version: '11.2' # specify full version; it is not recomended option because your pipeline can be broken suddenly in future
       #  xcode-version: '12.x' # set the latest available Xcode 12
 
-    - name: Install dependencies
-      run: nuget restore ./SteamToolsV2+.sln
+    #- name: Install dependencies
+    #  run: nuget restore ./SteamToolsV2+.sln
 
     - name: dotnet restore SteamToolsV2+.Mac.sln
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
