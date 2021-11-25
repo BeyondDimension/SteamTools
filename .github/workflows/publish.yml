@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        configuration: [Release]
+        configuration: [ Release ]
         os: [ windows-latest ]
       # os: [ windows-latest, macOS-latest, ubuntu-latest ]
 
@@ -59,9 +59,6 @@ jobs:
       
     - name: Build AvaloniaApp ${{ matrix.configuration }}
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ matrix.configuration }}"
-
-    - name: Build AndroidApp ${{ matrix.configuration }}
-      run: dotnet build ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj -c "${{ matrix.configuration }}"
       
     - name: Run CommonUnit
       run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ matrix.configuration }}"
