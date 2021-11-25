@@ -133,9 +133,11 @@ namespace System.Application.Services.Implementation
                         {
                             fileInfo.IsReadOnly = false;
                         }
-                        catch (Exception)
+                        catch
                         {
-                            message = AppResources.FileAttributeIsReadOnlyModifyFail;
+                            message = (OperatingSystem2.IsMacOS || OperatingSystem2.IsLinux) ?
+                                AppResources.FileAttributeIsReadOnlyModifyFailSeeWebPage_.Format(UrlConstants.OfficialWebsite_UnixHostAccess) :
+                                AppResources.FileAttributeIsReadOnlyModifyFailTryBakDelAgain;
                             return false;
                         }
                         removeReadOnly = true;

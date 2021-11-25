@@ -1536,11 +1536,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 文件属性为只读，修改失败，请按网页指南操作 {0} 的本地化字符串。
+        /// </summary>
+        public static string FileAttributeIsReadOnlyModifyFailSeeWebPage_ {
+            get {
+                return ResourceManager.GetString("FileAttributeIsReadOnlyModifyFailSeeWebPage_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 文件属性为只读，修改失败，你可以尝试先备份该文件后删除再重试一遍 的本地化字符串。
         /// </summary>
-        public static string FileAttributeIsReadOnlyModifyFail {
+        public static string FileAttributeIsReadOnlyModifyFailTryBakDelAgain {
             get {
-                return ResourceManager.GetString("FileAttributeIsReadOnlyModifyFail", resourceCulture);
+                return ResourceManager.GetString("FileAttributeIsReadOnlyModifyFailTryBakDelAgain", resourceCulture);
             }
         }
         

@@ -18,9 +18,9 @@ namespace System.Application
         public const string OfficialWebsite_Box_Faq_ = "https://steampp.net/faqbox?theme={0}&language={1}";
         public const string OfficialWebsite_Box_Privacy = "https://steampp.net/PrivacyBox";
         public const string OfficialWebsite_Box_Agreement = "https://steampp.net/AgreementBox";
-        public const string OfficialWebsite_LiunxSetupCer = "https://www.steampp.net/liunxSetupCer";
-        public const string OfficialWebsite_UnixHostAccess_ = "https://www.steampp.net/unixhostaccess?prot={0}";
-        public const string OfficialWebsite_UnixHostAccess = "https://www.steampp.net/unixhostaccess";
+        public const string OfficialWebsite_LiunxSetupCer = "https://steampp.net/liunxSetupCer";
+        public const string OfficialWebsite_UnixHostAccess_ = "https://steampp.net/unixhostaccess?prot={0}";
+        public const string OfficialWebsite_UnixHostAccess = "https://steampp.net/unixhostaccess";
 
         public const string GitHub_Repository = "https://github.com/SteamTools-Team/SteamTools";
         public const string Gitee_Repository = "https://gitee.com/rmbgame/SteamTools";
