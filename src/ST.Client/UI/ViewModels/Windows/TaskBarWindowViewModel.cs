@@ -54,11 +54,11 @@ namespace System.Application.UI.ViewModels
         {
             if (tag is string str)
             {
-                OnMenuClickCore(str, Hide);
+                OnMenuClickCore(str, Close);
             }
             else if (tag is TabItemViewModel.TabItemId id)
             {
-                OnMenuClickCore(string.Empty, Hide, id);
+                OnMenuClickCore(string.Empty, Close, id);
             }
         }
 

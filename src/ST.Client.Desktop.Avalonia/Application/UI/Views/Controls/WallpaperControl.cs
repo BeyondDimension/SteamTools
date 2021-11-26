@@ -92,19 +92,29 @@ namespace System.Application.UI.Views.Controls
                 ParentWindow.GotFocus -= ParentWindow_GotFocus;
             }
             Close();
+            window = null;
         }
 
         private void EmptyControl_AttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e)
         {
             if (window == null) return;
             ParentWindow = (Window)e.Root;
-            ParentWindow.Topmost = true;
             Show();
-            ParentWindow.Topmost = false;
+            IAvaloniaApplication.Instance.SetTopmostOneTime();
             ParentWindow.PositionChanged += Parent_PositionChanged;
             ParentWindow.Closing += ParentWindow_Closing;
             ParentWindow.GotFocus += ParentWindow_GotFocus;
-            ParentWindow.Opened += ParentWindow_Opened;
+            //ParentWindow.Opened += ParentWindow_Opened;
+
+            ParentWindow.GetObservable(Window.WindowStateProperty)
+                .Subscribe(x =>
+                {
+                    if (x == WindowState.Normal)
+                    {
+                        ParentWindow_GotFocus(null, null);
+                    }
+                });
+
             _Handle = window.PlatformImpl.Handle.Handle;
             if (windowApiService != null)
             {
@@ -118,16 +128,17 @@ namespace System.Application.UI.Views.Controls
         private void ParentWindow_Opened(object? sender, EventArgs e)
         {
             if (window != null)
+            {
                 Show();
+                ParentWindow_GotFocus(null, null);
+            }
         }
 
         private void ParentWindow_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
         {
-            if (window == null || ParentWindow == null) return;
             window.Topmost = true;
             window.Topmost = false;
-            ParentWindow.Topmost = true;
-            ParentWindow.Topmost = false;
+            IAvaloniaApplication.Instance.SetTopmostOneTime();
         }
 
         private void ParentWindow_Closing(object? sender, ComponentModel.CancelEventArgs e)
@@ -143,15 +154,17 @@ namespace System.Application.UI.Views.Controls
 
         private void EmptyControl_LayoutUpdated(object? sender, EventArgs e)
         {
-            if (window == null) return;
+            if (window == null || window.Bounds.Width == 0 || window.Bounds.Height == 0) return;
             window.Position = this.PointToScreen(Bounds.Position);
             window.Width = Bounds.Width;
             window.Height = Bounds.Height;
-            var dpi = window.Screens.ScreenFromVisual(window).PixelDensity;
+            var dpi = window.Screens.ScreenFromVisual(window)?.PixelDensity;
             if (windowApiService != null)
             {
-                windowApiService.BackgroundUpdate(_DwmHandle, (int)(window.Width * dpi), (int)(window.Height * dpi));
+                windowApiService.BackgroundUpdate(_DwmHandle, (int)(window.Width * (dpi ?? 0)), (int)(window.Height * (dpi ?? 0)));
                 //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
+
+                window.IsVisible = true;
             }
         }
 

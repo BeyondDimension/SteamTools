@@ -736,7 +736,7 @@ namespace System.Application.Services.Implementation
         {
             if (proxyServer.ProxyRunning)
             {
-                proxyServer.Stop();
+                StopProxy();
             }
             proxyServer.Dispose();
         }

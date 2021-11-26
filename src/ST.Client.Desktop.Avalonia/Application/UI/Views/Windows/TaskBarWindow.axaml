@@ -101,6 +101,8 @@
                   </DataTemplate>
                   <DataTemplate DataType="{x:Type vm:MenuItemViewModel}">
                     <ui:MenuFlyoutItem Text="{Binding Header}"
+                                       IsVisible="{Binding IsVisible}"
+                                       IsEnabled="{Binding IsEnabled}"
                                        ToolTip.Tip="{Binding ToolTip,Mode=OneWay}"
                                        Command="{Binding Command,Mode=OneWay}"
                                        CommandParameter="{Binding CommandParameter,Mode=OneWay}"/>

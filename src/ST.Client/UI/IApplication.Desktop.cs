@@ -27,6 +27,11 @@ namespace System.Application.UI
         void RestoreMainWindow();
 
         /// <summary>
+        /// 主窗口置顶一次
+        /// </summary>
+        void SetTopmostOneTime();
+
+        /// <summary>
         /// 托盘菜单
         /// </summary>
         IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }

@@ -117,7 +117,7 @@ namespace Avalonia.Controls
 
         private void FluentWindow_Closing(object? sender, CancelEventArgs e)
         {
-            if (DataContext is WindowViewModel vm)
+            if (DataContext is WindowViewModel vm && WindowState == WindowState.Normal)
             {
                 vm.SizePosition.X = Position.X;
                 vm.SizePosition.Y = Position.Y;
@@ -143,8 +143,8 @@ namespace Avalonia.Controls
                 {
                     var leftTopPoint = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
                     var rightBottomPoint = new PixelPoint(vm.SizePosition.X + (int)Width, vm.SizePosition.Y + (int)Height);
-                    if (Screens.Primary.WorkingArea.Contains(leftTopPoint) &&
-                        Screens.Primary.WorkingArea.Contains(rightBottomPoint))
+                    if (Screens.Primary.Bounds.Contains(leftTopPoint) &&
+                        Screens.Primary.Bounds.Contains(rightBottomPoint))
                     {
                         Position = leftTopPoint;
                     }
@@ -153,11 +153,11 @@ namespace Avalonia.Controls
                 if (CanResize && !IsHideWindow)
                 {
                     if (vm.SizePosition.Width > 0 &&
-                        Screens.Primary.WorkingArea.Width >= vm.SizePosition.Width)
+                        Screens.Primary.Bounds.Width >= vm.SizePosition.Width)
                         Width = vm.SizePosition.Width;
 
                     if (vm.SizePosition.Height > 0 &&
-                        Screens.Primary.WorkingArea.Height >= vm.SizePosition.Height)
+                        Screens.Primary.Bounds.Height >= vm.SizePosition.Height)
                         Height = vm.SizePosition.Height;
 
                     if (ClientSize.Width != Width || ClientSize.Height != Height)

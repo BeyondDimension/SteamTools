@@ -416,13 +416,7 @@ namespace System.Application.UI
             }
         }
 
-        Window? _MainWindow;
-
-        public Window MainWindow
-        {
-            get => _MainWindow ?? throw new ArgumentNullException("MainWindow is null.");
-            set => _MainWindow = value;
-        }
+        public Window? MainWindow { get; set; }
 
         AvaloniaApplication IAvaloniaApplication.Current => Current;
 
@@ -439,9 +433,12 @@ namespace System.Application.UI
                 mainWindow = desktop.MainWindow;
                 if (mainWindow == null)
                 {
-                    mainWindow = MainWindow;
-                    desktop.MainWindow = MainWindow;
+                    //mainWindow = MainWindow;
+                    //desktop.MainWindow = MainWindow;
+                    mainWindow = Instance.MainWindow = desktop.MainWindow = new MainWindow();
+                    mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
                 }
+
             }
 
             if (mainWindow == null)
@@ -460,6 +457,15 @@ namespace System.Application.UI
             //// Again, ugly hack because of https://github.com/AvaloniaUI/Avalonia/issues/2994
             //mainWindow.Width += 0.1;
             //mainWindow.Width -= 0.1;
+        }
+
+        public void SetTopmostOneTime()
+        {
+            if (MainWindow?.WindowState == WindowState.Normal)
+            {
+                MainWindow.Topmost = true;
+                MainWindow.Topmost = false;
+            }
         }
 
         public bool HasActiveWindow()

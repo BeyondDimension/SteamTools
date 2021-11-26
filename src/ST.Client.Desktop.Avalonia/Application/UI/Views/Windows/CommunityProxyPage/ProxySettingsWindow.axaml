@@ -17,8 +17,7 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
-    <Border Background="{DynamicResource ThemeBrushKey}"
-            Margin="{StaticResource TitleBarAfterMargin}">
+    <Border Margin="{StaticResource TitleBarAfterMargin}">
       <ScrollViewer Padding="10">
         <StackPanel Spacing="20" Classes="Settings">
           <Expander Header="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}" IsExpanded="True">

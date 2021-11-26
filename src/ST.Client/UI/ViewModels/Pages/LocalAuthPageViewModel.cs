@@ -106,8 +106,6 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty)));
         }
 
-        public override bool IsTaskBarSubMenu => MenuItems.Any_Nullable();
-
         private readonly ReadOnlyObservableCollection<MyAuthenticator> _Authenticators;
         public ReadOnlyObservableCollection<MyAuthenticator> Authenticators => _Authenticators;
 
@@ -184,7 +182,6 @@ namespace System.Application.UI.ViewModels
                             }),
                         });
                     }
-                    this.RaisePropertyChanged(nameof(IsTaskBarSubMenu));
                 }
             }
             else

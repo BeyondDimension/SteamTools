@@ -13,7 +13,7 @@ namespace System.Application.UI
     {
         static new IAvaloniaApplication Instance => DI.Get<IAvaloniaApplication>();
 
-        Window MainWindow { get; }
+        Window? MainWindow { get; }
 
         AvaloniaApplication Current { get; }
 

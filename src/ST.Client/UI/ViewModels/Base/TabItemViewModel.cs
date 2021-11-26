@@ -14,7 +14,12 @@ namespace System.Application.UI.ViewModels
 
     public abstract partial class TabItemViewModelBase : ItemViewModel
     {
-        public virtual bool IsTaskBarSubMenu { get; }
+        bool _IsTaskBarSubMenu = true;
+        public bool IsTaskBarSubMenu
+        {
+            get => _IsTaskBarSubMenu && MenuItems.Any_Nullable();
+            protected set => this.RaiseAndSetIfChanged(ref _IsTaskBarSubMenu, value);
+        }
 
         IList<MenuItemViewModel>? _MenuItems;
         public virtual IList<MenuItemViewModel>? MenuItems
@@ -70,7 +75,6 @@ namespace System.Application.UI.ViewModels
 
         protected TabItemViewModelBase()
         {
-            if (IsInDesignMode) return;
         }
 
         public virtual void Initialize()

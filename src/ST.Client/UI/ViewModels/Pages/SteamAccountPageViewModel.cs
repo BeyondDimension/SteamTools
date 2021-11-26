@@ -18,8 +18,6 @@ namespace System.Application.UI.ViewModels
 {
     public partial class SteamAccountPageViewModel
     {
-        public override bool IsTaskBarSubMenu => MenuItems.Any_Nullable();
-
         readonly ISteamService steamService = ISteamService.Instance;
         readonly IHttpService httpService = IHttpService.Instance;
         readonly ISteamworksWebApiService webApiService = ISteamworksWebApiService.Instance;
@@ -123,7 +121,7 @@ namespace System.Application.UI.ViewModels
                     IJumpListService.Instance.AddJumpTask(title, IApplication.ProgramPath, IApplication.ProgramPath, "-clt steam -account " + user.AccountName, AppResources.UserChange_BtnTootlip, Name);
                 }
             }
-            this.RaisePropertyChanged(nameof(IsTaskBarSubMenu));
+
             _SteamUsersSourceList.Refresh();
             #endregion
 

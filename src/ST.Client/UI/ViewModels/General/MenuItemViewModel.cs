@@ -14,6 +14,20 @@ namespace System.Application.UI.ViewModels
             name = ResourceName;
         }
 
+        private bool _IsVisible = true;
+        public virtual bool IsVisible
+        {
+            get => _IsVisible;
+            set => this.RaiseAndSetIfChanged(ref _IsVisible, value);
+        }
+
+        private bool _IsEnabled = true;
+        public virtual bool IsEnabled
+        {
+            get => _IsEnabled;
+            set => this.RaiseAndSetIfChanged(ref _IsEnabled, value);
+        }
+
         private string? _IconKey;
         public virtual string? IconKey
         {

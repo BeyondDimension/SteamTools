@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.FilePicker2;
@@ -36,6 +37,34 @@ namespace System.Application.UI.ViewModels
                 });
                 await PickMultipleAsync(ASFService.Current.ImportBotFiles, fileTypes);
             });
+
+            MenuItems = new ObservableCollection<MenuItemViewModel>()
+            {
+                new MenuItemCustomName(AppResources.ASF_Start, AppResources.ASF_Start)
+                    {
+                        Command = ReactiveCommand.Create(RunOrStopASF),
+                    },
+                new MenuItemCustomName(AppResources.ASF_Stop, AppResources.ASF_Stop)
+                    {
+                        Command = ReactiveCommand.Create(RunOrStopASF),
+                    },
+                new MenuItemSeparator(),
+                new MenuItemCustomName(AppResources.ASF_OpenWebUIConsole, AppResources.ASF_OpenWebUIConsole)
+                    {
+                        Command = ReactiveCommand.Create(() =>
+                        {
+                            OpenBrowser(null);
+                        }),
+                    },
+            };
+
+            ASFService.Current.WhenAnyValue(x => x.IsASFRuning)
+                .Subscribe(x =>
+                {
+                    MenuItems[0].IsEnabled = !x;
+                    MenuItems[1].IsEnabled = x;
+                });
+
 
             ASFService.Current.SteamBotsSourceList
                       .Connect()

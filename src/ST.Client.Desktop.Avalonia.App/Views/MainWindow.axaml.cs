@@ -42,35 +42,53 @@ namespace System.Application.UI.Views
 #endif
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+//        protected override void OnClosing(CancelEventArgs e)
+//        {
+//#if !UI_DEMO
+//            if (StartupOptions.Value.HasNotifyIcon)
+//            {
+//                //IsHideWindow = true;
+//                //e.Cancel = true;
+//                //Hide();
+
+//                //if (ViewModel is not null)
+//                //    foreach (var tab in ViewModel.TabItems)
+//                //        tab.Deactivation();
+//            }
+//#endif
+//            base.OnClosing(e);
+//        }
+
+        protected override void OnClosed(EventArgs e)
         {
 #if !UI_DEMO
             if (StartupOptions.Value.HasNotifyIcon)
             {
-                IsHideWindow = true;
-                e.Cancel = true;
-                Hide();
+                if (App.Current.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    desktop.MainWindow = App.Instance.MainWindow = null;
+                }
 
                 if (ViewModel is not null)
                     foreach (var tab in ViewModel.TabItems)
                         tab.Deactivation();
             }
 #endif
-            base.OnClosing(e);
+            //base.OnClosed(e);
         }
 
-        protected override void FluentWindow_Opened(object? sender, EventArgs e)
-        {
-            if (ViewModel is not null)
-                foreach (var tab in from tab in ViewModel.TabItems
-                                    where tab.IsDeactivation
-                                    select tab)
-                {
-                    tab.Activation();
-                }
+        //protected override void FluentWindow_Opened(object? sender, EventArgs e)
+        //{
+        //    if (ViewModel is not null)
+        //        foreach (var tab in from tab in ViewModel.TabItems
+        //                            where tab.IsDeactivation
+        //                            select tab)
+        //        {
+        //            tab.Activation();
+        //        }
 
-            base.FluentWindow_Opened(sender, e);
-        }
+        //    base.FluentWindow_Opened(sender, e);
+        //}
 
         private void InitializeComponent()
         {
