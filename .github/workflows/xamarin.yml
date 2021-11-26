@@ -23,6 +23,24 @@ jobs:
         fetch-depth: 0
         submodules: recursive
 
+    - name: Setup Xamarin
+      uses: maxim-lobanov/setup-xamarin@v1
+      with:
+      #  mono-version: '6.12' # specify version in '<major>.<minor>' format
+      #  xamarin-ios-version: '14.14' # specify version in '<major>' format
+      #  xamarin-mac-version: latest # specify 'latest' keyword to pick up the latest available version
+        xamarin-android-version: '12.1' # specify full version; it is not recomended option because your pipeline can be broken suddenly in future
+      #  xcode-version: '12.x' # set the latest available Xcode 12
+
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@v1.0.6
+      id: setup-ndk
+      with:
+        ndk-version: r21e
+        add-to-path: false
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
@@ -40,15 +58,6 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: dotnet workload install maui
 
-    - name: Setup Android NDK
-      uses: nttld/setup-ndk@v1.0.6
-      id: setup-ndk
-      with:
-        ndk-version: r21e
-        add-to-path: false
-      env:
-        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
     - name: Setup MSBuild
       if: matrix.os == 'windows-latest'
       uses: microsoft/setup-msbuild@c26a08ba26249b81327e26f6ef381897b6a8754d  # v1
@@ -58,15 +67,6 @@ jobs:
            nuget help 
            dotnet --info 
            msbuild -version
-
-    - name: setup-xamarin
-      uses: maxim-lobanov/setup-xamarin@v1
-      with:
-        mono-version: '6.12' # specify version in '<major>.<minor>' format
-      #  xamarin-ios-version: '14.14' # specify version in '<major>' format
-      #  xamarin-mac-version: latest # specify 'latest' keyword to pick up the latest available version
-        xamarin-android-version: '11.2' # specify full version; it is not recomended option because your pipeline can be broken suddenly in future
-      #  xcode-version: '12.x' # set the latest available Xcode 12
 
     - name: Install dependencies
       run: nuget restore ./SteamToolsV2+.sln
