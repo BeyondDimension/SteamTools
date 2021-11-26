@@ -36,8 +36,8 @@
       "src\\ST.Tools.OpenSourceLibraryList\\ST.Tools.OpenSourceLibraryList.csproj",
       "src\\ST.Tools.Translate\\ST.Tools.Translate.csproj",
       "src\\ST\\ST.csproj",
-      "tests\\Common.UnitTest.Droid.App\\Common.UnitTest.Droid.App.csproj",
-      "tests\\Common.UnitTest.Droid\\Common.UnitTest.Droid.csproj",
+      "tests\\Common.UnitTest.Droid.App\\ST.Client.UnitTest.Droid.App.csproj",
+      "tests\\Common.UnitTest.Droid\\ST.Client.UnitTest.Droid.csproj",
       "tests\\Common.UnitTest\\Common.UnitTest.csproj",
       "tests\\ST.Client.Desktop.UnitTest\\ST.Client.Desktop.UnitTest.csproj",
       "tests\\ST.Client.UnitTest\\ST.Client.UnitTest.csproj"
