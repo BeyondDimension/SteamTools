@@ -75,7 +75,7 @@ jobs:
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
 
     - name: Build Android app
-      run: dotnet msbuild ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj /t:PackageForAndroid /p:Configuration=${{ matrix.configuration }}
+      run: msbuild ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj /t:PackageForAndroid /p:Configuration=${{ matrix.configuration }}
 
     #- name: Build iOS app
     #  run: msbuild <csproj_file_path> /p:Configuration=${{ matrix.configuration }} /p:Platform=iPhoneSimulator /t:Rebuild
