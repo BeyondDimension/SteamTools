@@ -138,7 +138,7 @@ namespace System.Application.UI.Views
                         {
                             switch (x.Width)
                             {
-                                case < 950:
+                                case < 1000:
                                     nav.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
                                     nav.IsPaneOpen = false;
                                     break;
