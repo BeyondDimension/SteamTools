@@ -50,6 +50,7 @@ jobs:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
     - name: Setup MSBuild
+      if: matrix.os == 'windows-latest'
       uses: microsoft/setup-msbuild@c26a08ba26249b81327e26f6ef381897b6a8754d  # v1
 
     - name: Verify dotnet info
@@ -67,8 +68,8 @@ jobs:
         xamarin-android-version: '11.2' # specify full version; it is not recomended option because your pipeline can be broken suddenly in future
       #  xcode-version: '12.x' # set the latest available Xcode 12
 
-    #- name: Install dependencies
-    #  run: nuget restore ./SteamToolsV2+.sln
+    - name: Install dependencies
+      run: nuget restore ./SteamToolsV2+.Mac.slnf
 
     - name: dotnet restore SteamToolsV2+.Mac.slnf
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
