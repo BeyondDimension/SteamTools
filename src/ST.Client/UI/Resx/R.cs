@@ -134,7 +134,7 @@ namespace System.Application.UI.Resx
             {
                 Log.Error(nameof(R), ex, nameof(GetCurrentCultureSteamLanguageName));
             }
-            return "english";
+            return SteamLanguages[zh_Hans];
         }
 
         static string GetAcceptLanguageCore()

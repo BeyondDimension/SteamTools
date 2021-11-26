@@ -8,11 +8,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Root", "_Root", "{66839CD8
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		packaging\build-osx-app.sh = packaging\build-osx-app.sh
+		packaging\build.ps1 = packaging\build.ps1
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		download-guide.md = download-guide.md
 		global.json = global.json
+		packaging\Info.plist = packaging\Info.plist
 		nuget.config = nuget.config
+		packaging\package.net472.ps1 = packaging\package.net472.ps1
 		README.en.md = README.en.md
 		README.md = README.md
 		release-template.md = release-template.md
@@ -159,7 +162,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.UnitTest.Droid.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Desktop.UnitTest", "tests\ST.Client.Desktop.UnitTest\ST.Client.Desktop.UnitTest.csproj", "{5D9E0EAA-2419-426B-BAB4-EA496C1FF7E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.UnitTest.Resources", "tests\ST.Client.UnitTest.Resources\ST.Client.UnitTest.Resources.csproj", "{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.UnitTest.Resources", "tests\ST.Client.UnitTest.Resources\ST.Client.UnitTest.Resources.csproj", "{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1825,7 +1828,7 @@ Global
 		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43} = {CC46B486-00D7-49E6-ABA3-FDF8F4868D2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = zh-Hans
 		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal

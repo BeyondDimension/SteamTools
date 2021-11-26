@@ -65,3 +65,8 @@ jobs:
 
     - name: Run ST.Client.UnitTest
       run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ matrix.configuration }}"
+
+    - name: Get tag
+        if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+        id: tag
+        uses: dawidd6/action-get-tag@v1
