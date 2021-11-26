@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Templates;
 using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.ReactiveUI;
@@ -13,14 +11,34 @@ using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Application.UI.Views.Pages;
 
 namespace System.Application.UI.Views
 {
     public class MainView : ReactiveUserControl<MainWindowViewModel>
     {
         private readonly IBrush? _backgroundTemp;
+
+        private static IReadOnlyDictionary<Type, Type> PageTypes { get; }
+
+        static MainView()
+        {
+            PageTypes = new Dictionary<Type, Type>
+            {
+                { typeof(ProxyScriptManagePageViewModel), typeof(ProxyScriptManagePage) },
+                { typeof(StartPageViewModel), typeof(StartPage) },
+                { typeof(SteamAccountPageViewModel), typeof(SteamAccountPage) },
+                { typeof(SettingsPageViewModel), typeof(SettingsPage) },
+                { typeof(AboutPageViewModel), typeof(AboutPage) },
+                { typeof(DebugPageViewModel), typeof(DebugPage) },
+                { typeof(GameListPageViewModel), typeof(GameListPage) },
+                { typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
+                { typeof(LocalAuthPageViewModel), typeof(LocalAuthPage) },
+                { typeof(GameRelatedPageViewModel), typeof(GameRelatedPage) },
+                { typeof(ArchiSteamFarmPlusPageViewModel), typeof(ArchiSteamFarmPlusPage) },
+            };
+        }
 
         public MainView()
         {
@@ -88,11 +106,12 @@ namespace System.Application.UI.Views
                     {
                         if (x != null)
                         {
-                            var page = frame.DataTemplates.FirstOrDefault(f => f.Match(x));
-                            if (page is DataTemplate template)
-                            {
-                                frame.Navigate(template.Build(null).GetType());
-                            }
+                            //var page = frame.DataTemplates.FirstOrDefault(f => f.Match(x));
+                            //if (page is DataTemplate template)
+                            //{
+                            //    frame.Navigate(template.Build(null).GetType());
+                            //}
+                            frame.Navigate(PageTypes[x.GetType()]);
                         }
                     });
             }

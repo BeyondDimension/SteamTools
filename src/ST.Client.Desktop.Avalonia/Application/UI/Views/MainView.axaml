@@ -68,7 +68,7 @@
 
       <ui:NavigationView.Content>
         <ui:Frame x:Name="frame" DataContext="{Binding SelectedItem}" Margin="-10 0 0 0">
-          <ui:Frame.DataTemplates>
+          <!--<ui:Frame.DataTemplates>
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
               <pages:ProxyScriptManagePage/>
             </DataTemplate>
@@ -102,7 +102,7 @@
             <DataTemplate DataType="vm:ArchiSteamFarmPlusPageViewModel">
               <pages:ArchiSteamFarmPlusPage/>
             </DataTemplate>
-          </ui:Frame.DataTemplates>
+          </ui:Frame.DataTemplates>-->
         </ui:Frame>
       </ui:NavigationView.Content>
 
