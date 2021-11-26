@@ -18,6 +18,7 @@ using System.Windows.Input;
 using static System.Application.Browser2;
 using static System.Application.Services.IApplicationUpdateService;
 using CC = System.Common.Constants;
+using FailCode = System.Application.Services.ApplicationUpdateFailCode;
 
 namespace System.Application.Services.Implementation
 {
@@ -380,7 +381,7 @@ namespace System.Application.Services.Implementation
 
                             if (!UpdatePackVerification(downloadPath, item.SHA256!, i, allFiles.Count))
                             {
-                                Fail(AppResources.UpdatePackVerificationFail);
+                                Fail(FailCode.UpdatePackVerificationFail);
                                 break;
                             }
 
@@ -388,7 +389,7 @@ namespace System.Application.Services.Implementation
                         }
                         else
                         {
-                            Fail(AppResources.DownloadUpdateFail);
+                            Fail(FailCode.DownloadUpdateFail);
                             break;
                         }
                     #endregion
@@ -443,7 +444,7 @@ namespace System.Application.Services.Implementation
                                 catch (Exception ex)
                                 {
                                     Log.Error(TAG, ex, "全量更新已有缓存文件验证失败，删除源文件时错误");
-                                    Fail(AppResources.UpdatePackCacheHashInvalidDeleteFileFail_.Format(packFilePath));
+                                    Fail(FailCode.UpdatePackCacheHashInvalidDeleteFileFail_, packFilePath);
                                     goto end;
                                 }
                                 toast.Show(AppResources.UpdatePackCacheHashInvalidDeleteFileTrue);
@@ -465,7 +466,7 @@ namespace System.Application.Services.Implementation
                         };
                         if (fileEx == string.Empty)
                         {
-                            Fail(AppResources.UpdateEnumOutOfRange);
+                            Fail(FailCode.UpdateEnumOutOfRange);
                             goto end;
                         }
                         switch (newVersionInfo.Platform)
@@ -480,7 +481,7 @@ namespace System.Application.Services.Implementation
                                 filePlatform = "android";
                                 break;
                             default:
-                                Fail(AppResources.UpdateEnumOutOfRange);
+                                Fail(FailCode.UpdateEnumOutOfRange);
                                 goto end;
                         }
                         switch (newVersionInfo.SupportedAbis)
@@ -501,7 +502,7 @@ namespace System.Application.Services.Implementation
                                 fileArch = ((int)newVersionInfo.SupportedAbis).ToString();
                                 break;
                             case 0:
-                                Fail(AppResources.UpdateEnumOutOfRange);
+                                Fail(FailCode.UpdateEnumOutOfRange);
                                 goto end;
                         }
 
@@ -540,12 +541,12 @@ namespace System.Application.Services.Implementation
                             }
                             else
                             {
-                                Fail(AppResources.UpdatePackVerificationFail);
+                                Fail(FailCode.UpdatePackVerificationFail);
                             }
                         }
-                        else // 下载失败，进度条填满，可能服务器崩了
+                        else // 下载失败，可能服务器崩了
                         {
-                            Fail(AppResources.DownloadUpdateFail);
+                            Fail(FailCode.DownloadUpdateFail);
                         }
                     }
                     else
@@ -560,9 +561,11 @@ namespace System.Application.Services.Implementation
             {
                 IsNotStartUpdateing = true;
             }
-            void Fail(string error)
+            void Fail(FailCode failCode, params string[] args)
             {
+                var error = failCode.ToString2(args);
                 toast.Show(error);
+                Open(string.Format(UrlConstants.OfficialWebsite_ApplicationUpdateFailCode_, (byte)failCode));
                 OnReport(CC.MaxProgress);
             }
         }

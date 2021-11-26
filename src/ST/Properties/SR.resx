@@ -123,6 +123,21 @@
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
     <value>绑定失败，此账号已被其他用户绑定</value>
   </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>下载更新包失败，请在官网下载新版本手动更新</value>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>更新包信息解析失败，请在官网下载新版本手动更新</value>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>下载更新包缓存文件验证失败且删除错误，请删除 {0} 后尝试在官网手动更新</value>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>文件校验失败，请在官网下载新版本手动更新</value>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>更新包解压失败，请在官网下载新版本手动更新</value>
+  </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
     <value>账号已被封禁</value>
   </data>

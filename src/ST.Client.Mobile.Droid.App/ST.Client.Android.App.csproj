@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -25,7 +25,7 @@
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AndroidNdkDirectory>H:\Android\android-sdk\ndk\22.1.7171670</AndroidNdkDirectory>
+    <AndroidNdkDirectory Condition=" '$(OS)' == 'Windows_NT' And Exists('H:\Android\android-sdk\ndk\22.1.7171670\ndk-build.cmd') ">H:\Android\android-sdk\ndk\22.1.7171670</AndroidNdkDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

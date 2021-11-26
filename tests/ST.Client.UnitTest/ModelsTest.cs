@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Application.Models;
+using System.Application.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -79,6 +80,16 @@ namespace System.Application
                 {
                     throw new Exception($"MP test error, type: {obj.GetType()}", ex);
                 }
+            }
+        }
+
+        [Test]
+        public void Enums()
+        {
+            var appUpdateFailCodes = Enum2.GetAll<ApplicationUpdateFailCode>();
+            foreach (var item in appUpdateFailCodes)
+            {
+                _ = item.ToString2();
             }
         }
     }

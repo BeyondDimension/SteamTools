@@ -2081,10 +2081,6 @@
     <value>Download: {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>Il download del pacchetto di aggiornamento non è riuscito, riprovare più tardi</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
     <value>Attualmente è l&apos;ultima versione</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2155,14 +2151,6 @@
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
     <value>L&apos;aggiunta ha avuto successo</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="UpdateEnumOutOfRange" xml:space="preserve">
-    <value>Impossibile scaricare il pacchetto di aggiornamento, aprire il sito Web ufficiale per aggiornare manualmente</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>Verifica del file non riuscita, aprire l&apos;aggiornamento manuale ufficiale del sito Web</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">

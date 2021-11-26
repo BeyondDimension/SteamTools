@@ -2077,10 +2077,6 @@
     <value>ダウンロード中: {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>アップデートパッケージのダウンロードに失敗しました。しばらくしてからもう一度お試しください</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
     <value>現在最新バージョン</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2151,14 +2147,6 @@
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
     <value>追加は成功しました</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="UpdateEnumOutOfRange" xml:space="preserve">
-    <value>更新プログラム パッケージのダウンロードに失敗しました</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>ファイルの確認に失敗しました。公式ウェブサイトを開いて手動で更新してください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">

@@ -1793,9 +1793,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Downloading_" xml:space="preserve">
     <value>正在下载：{0}%</value>
   </data>
-  <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>下载更新包失败，请稍后重试</value>
-  </data>
   <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
     <value>文件属性为只读，修改失败，请按网页指南操作 {0}</value>
   </data>
@@ -1877,12 +1874,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
     <value>找不到 Steam 安装路径</value>
   </data>
-  <data name="UpdateEnumOutOfRange" xml:space="preserve">
-    <value>下载更新包失败，请打开官网手动更新</value>
-  </data>
-  <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>文件校验失败，请打开官网手动更新</value>
-  </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
     <value>更新包解压失败，请打开官网手动更新</value>
   </data>
@@ -1939,9 +1930,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
     <value>需要登录 Steam++ 账号才能获取 UID</value>
-  </data>
-  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
-    <value>下载更新包缓存文件验证失败且删除错误，请删除 {0} 后尝试打开官网手动更新</value>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
     <value>下载更新包缓存文件验证失败，已删除缓存尝试重新下载，请等待</value>
