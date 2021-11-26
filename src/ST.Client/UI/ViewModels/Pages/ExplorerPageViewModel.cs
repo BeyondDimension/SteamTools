@@ -128,9 +128,7 @@ namespace System.Application.UI.ViewModels
             else
             {
                 var extension = Path.GetExtension(pathInfo.FullName);
-                if (string.Equals(extension, FileEx.JSON, StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(extension, FileEx.TXT, StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(extension, FileEx.LOG, StringComparison.OrdinalIgnoreCase))
+                if (FileEx.IsSupportedTextReader(extension))
                 {
                     IPlatformService.Instance.OpenFileByTextReader(pathInfo.FullName);
                 }

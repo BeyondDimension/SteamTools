@@ -153,11 +153,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.ClientLib.Droid", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.ClientLib.iOS", "src\Common.ClientLib.iOS\Common.ClientLib.iOS.csproj", "{4658B02A-CB1A-4561-AD9C-3B3FF969D7F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.UnitTest.Droid", "tests\Common.UnitTest.Droid\Common.UnitTest.Droid.csproj", "{80E6762E-AB43-41E2-BDB4-7A3E24713977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.UnitTest.Droid", "tests\Common.UnitTest.Droid\ST.Client.UnitTest.Droid.csproj", "{80E6762E-AB43-41E2-BDB4-7A3E24713977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UnitTest.Droid.App", "tests\Common.UnitTest.Droid.App\Common.UnitTest.Droid.App.csproj", "{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.UnitTest.Droid.App", "tests\Common.UnitTest.Droid.App\ST.Client.UnitTest.Droid.App.csproj", "{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Desktop.UnitTest", "tests\ST.Client.Desktop.UnitTest\ST.Client.Desktop.UnitTest.csproj", "{5D9E0EAA-2419-426B-BAB4-EA496C1FF7E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.UnitTest.Resources", "tests\ST.Client.UnitTest.Resources\ST.Client.UnitTest.Resources.csproj", "{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1731,6 +1733,34 @@ Global
 		{5D9E0EAA-2419-426B-BAB4-EA496C1FF7E9}.Release|x64.Build.0 = Release|Any CPU
 		{5D9E0EAA-2419-426B-BAB4-EA496C1FF7E9}.Release|x86.ActiveCfg = Release|Any CPU
 		{5D9E0EAA-2419-426B-BAB4-EA496C1FF7E9}.Release|x86.Build.0 = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|ARM.Build.0 = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|x64.Build.0 = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|ARM.ActiveCfg = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|ARM.Build.0 = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|ARM64.Build.0 = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|iPhone.Build.0 = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|x64.ActiveCfg = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|x64.Build.0 = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1792,9 +1822,10 @@ Global
 		{80E6762E-AB43-41E2-BDB4-7A3E24713977} = {CC46B486-00D7-49E6-ABA3-FDF8F4868D2B}
 		{AD7B78B0-AE51-4FB7-9B11-4E22A2B538CA} = {CC46B486-00D7-49E6-ABA3-FDF8F4868D2B}
 		{5D9E0EAA-2419-426B-BAB4-EA496C1FF7E9} = {CC46B486-00D7-49E6-ABA3-FDF8F4868D2B}
+		{FB2CA9B4-71F1-48E8-B9AE-FF4375F4FE43} = {CC46B486-00D7-49E6-ABA3-FDF8F4868D2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 		RESX_NeutralResourcesLanguage = zh-Hans
+		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 	EndGlobalSection
 EndGlobal

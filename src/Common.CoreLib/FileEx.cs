@@ -25,7 +25,13 @@ namespace System
 
         public const string HTML = ".html";
 
+        public const string HTM = ".htm";
+
         public const string CSS = ".css";
+
+        public const string SCSS = ".scss";
+
+        public const string LESS = ".less";
 
         public const string JS = ".js";
 
@@ -99,6 +105,10 @@ namespace System
 
         public const string CMD = ".cmd";
 
+        public const string BAT = ".bat";
+
+        public const string XML = ".xml";
+
         public static string Clean(string extension, bool trimLeadingPeriod = false)
         {
             if (string.IsNullOrWhiteSpace(extension))
@@ -112,5 +122,19 @@ namespace System
 
             return extension;
         }
+
+        public static bool IsSupportedTextReader(string extension) =>
+            string.Equals(extension, JSON, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, TXT, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, LOG, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, HTML, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, HTM, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, JS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, CSS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, SCSS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, LESS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, CMD, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, BAT, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, XML, StringComparison.OrdinalIgnoreCase);
     }
 }

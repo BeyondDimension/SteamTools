@@ -4,6 +4,7 @@ using System.Text;
 using XEPlatform = Xamarin.Essentials.Platform;
 using AndroidApplication = Android.App.Application;
 using AndroidX.AppCompat.App;
+using System.Application.UI.Activities;
 
 namespace System.Application.Services.Implementation
 {
@@ -26,9 +27,16 @@ namespace System.Application.Services.Implementation
         }
 
         void IPlatformService.OpenFileByTextReader(string filePath)
-           => GoToPlatformPages.OpenFile(
-               XEPlatform.CurrentActivity,
-               new(filePath),
-               MediaTypeNames.TXT);
+        {
+            var activity = XEPlatform.CurrentActivity;
+            var result = GoToPlatformPages.OpenFile(
+                activity,
+                new(filePath),
+                MediaTypeNames.TXT);
+            if (!result)
+            {
+                TextBlockActivity.StartActivity(activity, new() { FilePath = filePath });
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+#if !__ANDROID__
 using Moq;
 using NUnit.Framework;
 using System.Application.Services;
@@ -44,7 +45,7 @@ namespace System.Application
             tempFileNames.Remove(tempFileName);
         }
 
-        #region DefaultEncoding
+#region DefaultEncoding
 
         static volatile Encoding? defaultEncoding;
 
@@ -78,7 +79,7 @@ namespace System.Application
         [ResourceExposure(ResourceScope.None)]
         static extern int GetACP();
 
-        #endregion
+#endregion
 
         static bool TestEquals(IEnumerable<(string ip, string domain)> left, IEnumerable<(string ip, string domain)> right)
         {
@@ -404,3 +405,4 @@ namespace System.Application
         }
     }
 }
+#endif

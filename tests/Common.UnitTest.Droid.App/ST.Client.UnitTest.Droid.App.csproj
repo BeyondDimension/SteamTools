@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>System.UnitTest</RootNamespace>
-    <AssemblyName>System.Common.UnitTest.Droid.App</AssemblyName>
+    <AssemblyName>System.Application.SteamTools.Client.Droid.UnitTest.App</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -137,9 +137,14 @@
       <Project>{d30203ac-97ab-4a51-bfa5-826251c9a28e}</Project>
       <Name>Common.PinyinLib.TinyPinyin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common.UnitTest.Droid\ST.Client.UnitTest.Droid.csproj">
+      <Project>{80e6762e-ab43-41e2-bdb4-7a3e24713977}</Project>
+      <Name>ST.Client.UnitTest.Droid</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Resources\values\" />
+    <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

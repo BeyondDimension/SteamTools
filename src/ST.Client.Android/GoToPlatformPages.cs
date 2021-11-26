@@ -73,8 +73,9 @@ namespace System.Application
                         var value = Serializable.DMP<TViewModel>(byteArray);
                         return value;
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        Log.Warn(nameof(GoToPlatformPages), e, "GetViewModel fail, type: {0}, activity: {1}", typeof(TViewModel), activity.GetType());
                     }
                 }
             }
@@ -85,6 +86,9 @@ namespace System.Application
         {
             viewModelType ??= viewModel.GetType();
             var viewModel_ = Serializable.SMP(viewModelType, viewModel);
+#if DEBUG
+            var t = Serializable.DMP(viewModelType, viewModel_);
+#endif
             StartActivity(activity, activityType, viewModel_);
         }
 
@@ -110,6 +114,9 @@ namespace System.Application
         public static void StartActivity<TViewModel>(Activity activity, Type activityType, TViewModel viewModel)
         {
             var viewModel_ = Serializable.SMP(viewModel);
+#if DEBUG
+            var t = Serializable.DMP(typeof(TViewModel), viewModel_);
+#endif
             StartActivity(activity, activityType, viewModel_);
         }
 
@@ -132,7 +139,7 @@ namespace System.Application
             StartActivity<TActivity, TViewModel>(activity, viewModel);
         }
 
-        public static void OpenFile(Context context, JFile apkFile, string mime)
+        public static bool OpenFile(Context context, JFile apkFile, string mime)
         {
             try
             {
@@ -151,14 +158,15 @@ namespace System.Application
                 intent.SetDataAndType(apkUri, mime);
                 intent.AddFlags(ActivityFlags.NewTask);
                 context.StartActivity(intent);
+                return true;
             }
             catch
             {
-
+                return false;
             }
         }
 
-        public static void InstallApk(Context context, JFile apkFile) => OpenFile(context, apkFile, MediaTypeNames.APK);
+        public static bool InstallApk(Context context, JFile apkFile) => OpenFile(context, apkFile, MediaTypeNames.APK);
 
         public static void InstallApk(Context context, string apkFilePath)
         {

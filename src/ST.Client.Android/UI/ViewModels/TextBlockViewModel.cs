@@ -18,6 +18,9 @@ namespace System.Application.UI.ViewModels
         [MPKey(3)]
         public int? FontSizeResId { get; set; }
 
+        [MPKey(4)]
+        public string? FilePath { get; set; }
+
         public enum ContentSourceEnum
         {
             None,
