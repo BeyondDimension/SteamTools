@@ -202,7 +202,6 @@ OS                            | Version                 | Architectures     |
 * [Hardcodet.NotifyIcon](https://github.com/HavenDV/Hardcodet.NotifyIcon.Wpf.NetCore)
 * [System.Reactive](https://github.com/dotnet/reactive)
 * [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)
-* [BrotliSharpLib](https://github.com/master131/BrotliSharpLib)
 * [Portable.BouncyCastle](https://github.com/novotnyllc/bc-csharp)
 * [Ninject](https://github.com/ninject/Ninject)
 * [log4net](https://github.com/apache/logging-log4net)

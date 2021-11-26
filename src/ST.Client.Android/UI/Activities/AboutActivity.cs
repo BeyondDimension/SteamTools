@@ -57,7 +57,7 @@ namespace System.Application.UI.Activities
             binding!.tvDevelopers.TextFormatted = CreateDevelopers();
             binding!.tvBusinessCooperationContact.TextFormatted = CreateBusinessCooperationContact();
             binding!.tvOpenSourceLicensed.TextFormatted = CreateOpenSourceLicensed();
-            binding!.tvCopyright.Text = ViewModel.Copyright;
+            binding!.tvCopyright.Text = Copyright;
             //binding!.tvContributors.TextFormatted = CreateContributors();
 
             R.Subscribe(() =>
