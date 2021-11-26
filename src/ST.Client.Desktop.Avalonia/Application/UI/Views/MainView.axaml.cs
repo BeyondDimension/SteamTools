@@ -130,6 +130,24 @@ namespace System.Application.UI.Views
                     title.Background = x ? null : _backgroundTemp;
                 });
             }
+
+            if (nav != null)
+            {
+                this.GetObservable(BoundsProperty)
+                        .Subscribe(x =>
+                        {
+                            switch (x.Width)
+                            {
+                                case < 950:
+                                    nav.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
+                                    nav.IsPaneOpen = false;
+                                    break;
+                                default:
+                                    nav.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+                                    break;
+                            }
+                        });
+            }
         }
 
         private void InitializeComponent()

@@ -27,8 +27,8 @@ namespace System.Application.Settings
         /// <summary>
         /// 不再提示的消息框数组
         /// </summary>
-        public static SerializableProperty<List<MessageBox.DontPromptType>> DoNotShowMessageBoxs { get; }
-            = GetProperty(defaultValue: new List<MessageBox.DontPromptType>(), autoSave: false);
+        public static SerializableProperty<HashSet<MessageBox.DontPromptType>> DoNotShowMessageBoxs { get; }
+            = GetProperty(defaultValue: new HashSet<MessageBox.DontPromptType>(), autoSave: false);
     }
 }
 
