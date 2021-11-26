@@ -74,6 +74,9 @@ jobs:
     - name: dotnet restore SteamToolsV2+.Mac.slnf
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
 
+    - name: Build Android lib
+      run: dotnet msbuild ./src/ST.Client.Android/ST.Client.Android.csproj /p:Configuration=${{ matrix.configuration }}
+
     - name: Build Android app
       run: msbuild ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj /t:PackageForAndroid /p:Configuration=${{ matrix.configuration }}
 
