@@ -104,7 +104,7 @@ namespace System.Application.UI.Views.Controls
             ParentWindow.PositionChanged += Parent_PositionChanged;
             ParentWindow.Closing += ParentWindow_Closing;
             ParentWindow.GotFocus += ParentWindow_GotFocus;
-            //ParentWindow.Opened += ParentWindow_Opened;
+            ParentWindow.Opened += ParentWindow_Opened;
 
             ParentWindow.GetObservable(Window.WindowStateProperty)
                 .Subscribe(x =>
@@ -127,17 +127,17 @@ namespace System.Application.UI.Views.Controls
 
         private void ParentWindow_Opened(object? sender, EventArgs e)
         {
-            if (window != null)
-            {
-                Show();
-                ParentWindow_GotFocus(null, null);
-            }
+            Show();
+            ParentWindow_GotFocus(null, null);
         }
 
         private void ParentWindow_GotFocus(object? sender, Avalonia.Input.GotFocusEventArgs e)
         {
-            window.Topmost = true;
-            window.Topmost = false;
+            if (window != null)
+            {
+                window.Topmost = true;
+                window.Topmost = false;
+            }
             IAvaloniaApplication.Instance.SetTopmostOneTime();
         }
 
