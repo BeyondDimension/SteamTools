@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         configuration: [ Debug, Release ]
-        os: [ macOS-latest ]
+        os: [ windows-latest ]
 
     steps:
     - name: Checkout repository
@@ -47,6 +47,7 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Add msbuild to PATH
+      if: matrix.os == 'windows-latest'
       uses: microsoft/setup-msbuild@v1.1
 
 #    - name: Install macOS SDK(macOS)
