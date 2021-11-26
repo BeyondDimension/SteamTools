@@ -1940,4 +1940,10 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
     <value>需要登录 Steam++ 账号才能获取 UID</value>
   </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>下载更新包缓存文件验证失败且删除错误，请删除 {0} 后尝试打开官网手动更新</value>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
+    <value>下载更新包缓存文件验证失败，已删除缓存尝试重新下载，请等待</value>
+  </data>
 </root>

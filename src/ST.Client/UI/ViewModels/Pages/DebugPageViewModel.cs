@@ -6,6 +6,7 @@ using ReactiveUI;
 using System.Application.Models;
 using System.Application.Repositories;
 using System.Application.Services;
+using System.Application.Services.Implementation;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,8 +46,39 @@ namespace System.Application.UI.ViewModels
         //    DebugString = str.Result ?? string.Empty;
         //}
 
+        //#if DEBUG
+        //        void TestAppUpdate()
+        //        {
+        //            var s = (ApplicationUpdateServiceBaseImpl)IApplicationUpdateService.Instance;
+        //            s.NewVersionInfo = new AppVersionDTO
+        //            {
+        //                Version = "2.6.1",
+        //                Description = "desc",
+        //                Platform = Platform.Windows,
+        //                SupportedAbis = ArchitectureFlags.X64,
+        //                Downloads = new AppVersionDTO.Download[]
+        //                {
+        //                    new AppVersionDTO.Download
+        //                    {
+        //                        DownloadType = AppDownloadType.Compressed_7z,
+        //                        SHA256 = "f8525e772904a5696e651bae5fbf726861b013ecd6c1a859804e371cd0581e0b",
+        //                        Length = 255,
+        //                        FileIdOrUrl = "",
+        //                        DownloadChannelType= UpdateChannelType.Gitee,
+        //                    },
+        //                },
+        //            };
+        //            s.StartUpdate();
+        //        }
+        //#endif
+
         public void DebugButton_Click()
         {
+            //#if DEBUG
+            //            //TestAppUpdate();
+            //            //return;
+            //#endif
+
             INotificationService.Instance.Notify("aaa", NotificationType.Announcement);
 
             //TestHttp();
@@ -62,29 +94,29 @@ namespace System.Application.UI.ViewModels
             });
         }
 
-        static async void TestTextBoxWindow(int state)
-        {
-            string? value = null;
-            switch (state)
-            {
-                case 0:
-                    TextBoxWindowViewModel vm = new()
-                    {
-                        Title = AppResources.MacSudoPasswordTips,
-                        InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-                        Description = "TestDescription",
-                    };
-                    value = await TextBoxWindowViewModel.ShowDialogAsync(vm);
-                    break;
-                case 1:
-                    value = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
-                    break;
-            }
-            if (!string.IsNullOrEmpty(value))
-            {
-                Toast.Show(value);
-            }
-        }
+        //static async void TestTextBoxWindow(int state)
+        //{
+        //    string? value = null;
+        //    switch (state)
+        //    {
+        //        case 0:
+        //            TextBoxWindowViewModel vm = new()
+        //            {
+        //                Title = AppResources.MacSudoPasswordTips,
+        //                InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+        //                Description = "TestDescription",
+        //            };
+        //            value = await TextBoxWindowViewModel.ShowDialogAsync(vm);
+        //            break;
+        //        case 1:
+        //            value = await TextBoxWindowViewModel.ShowDialogByPresetAsync(TextBoxWindowViewModel.PresetType.LocalAuth_PasswordRequired);
+        //            break;
+        //    }
+        //    if (!string.IsNullOrEmpty(value))
+        //    {
+        //        Toast.Show(value);
+        //    }
+        //}
 
         static IEnumerable<X509Certificate2> GetCertificates(X509Store store)
         {

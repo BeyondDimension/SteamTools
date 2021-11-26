@@ -75,7 +75,11 @@ namespace System.Application.Services.Implementation
         public AppVersionDTO? NewVersionInfo
         {
             get => _NewVersionInfo;
+#if DEBUG
+            set
+#else
             protected set
+#endif
             {
                 _NewVersionInfo = value;
                 this.RaisePropertyChanged(nameof(NewVersionInfoDesc));
@@ -214,10 +218,18 @@ namespace System.Application.Services.Implementation
 
             Action<float> onReportCalcHashing = current > 0 && count > 0 ? OnReportCalcHashing3_ : OnReportCalcHashing_;
             onReportCalcHashing(0);
-            var sha256_ = Hashs.String.SHA256(File.OpenRead(filePath));  // 改为带进度的哈希计算
-            var value = string.Equals(sha256_, sha256, StringComparison.OrdinalIgnoreCase);
-            onReportCalcHashing(CC.MaxProgress);
-            return value;
+            try
+            {
+                using var fs = File.OpenRead(filePath);
+                var sha256_ = Hashs.String.SHA256(fs);  // 改为带进度的哈希计算
+                var value = string.Equals(sha256_, sha256, StringComparison.OrdinalIgnoreCase);
+                onReportCalcHashing(CC.MaxProgress);
+                return value;
+            }
+            catch (FileNotFoundException)
+            {
+                return false;
+            }
         }
 
         static string GetSingleFileUrl(string fileId) => $"{Prefix_HTTPS}steampp.net/uploads/publish/files/{fileId}{FileEx.BIN}";
@@ -424,7 +436,17 @@ namespace System.Application.Services.Implementation
                             }
                             else // 验证文件失败，删除源文件，将会重新下载
                             {
-                                File.Delete(packFilePath);
+                                try
+                                {
+                                    File.Delete(packFilePath);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Log.Error(TAG, ex, "全量更新已有缓存文件验证失败，删除源文件时错误");
+                                    Fail(AppResources.UpdatePackCacheHashInvalidDeleteFileFail_.Format(packFilePath));
+                                    goto end;
+                                }
+                                toast.Show(AppResources.UpdatePackCacheHashInvalidDeleteFileTrue);
                             }
                         }
 
@@ -648,6 +670,9 @@ namespace System.Application.Services.Implementation
             }
         }
 
+#if DEBUG
+        public
+#endif
         void StartUpdate()
         {
             if (IsSupportedServerDistribution &&
