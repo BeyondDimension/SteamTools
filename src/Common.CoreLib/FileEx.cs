@@ -53,6 +53,8 @@ namespace System
 
         public const string TAR_BR = ".tbr";
 
+        public const string TAR_BR_LONG = ".tar.br";
+
         public const string BIN = ".bin";
 
         public const string APNG = ".apng";

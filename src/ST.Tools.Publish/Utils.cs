@@ -11,6 +11,7 @@ using System.Linq;
 using System.Properties;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 #if !SERVER
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
@@ -28,9 +29,18 @@ namespace System.Application
         {
             if (OperatingSystem.IsWindows())
             {
-                var sevenZipLibraryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
+                //var sevenZipLibraryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
+                var sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "7z.dll");
                 SevenZipBase.SetLibraryPath(sevenZipLibraryPath);
                 SevenZipCompressor.LzmaDictionarySize = 805306368; // 768MB
+
+                var zstdLibraryPath = Path.Combine(AppContext.BaseDirectory, "libzstd.dll");
+                if (File.Exists(zstdLibraryPath))
+                {
+                    var zstdLibraryPathDest = Path.Combine(AppContext.BaseDirectory, "x64", "libzstd.dll");
+                    if (File.Exists(zstdLibraryPathDest)) File.Delete(zstdLibraryPathDest);
+                    File.Move(zstdLibraryPath, zstdLibraryPathDest);
+                }
             }
         }
 
@@ -134,10 +144,33 @@ namespace System.Application
         }
 
 #if !SERVER
+        sealed class XZOutputStream2 : XZOutputStream
+        {
+            public XZOutputStream2(Stream s) : base(s)
+            {
+            }
+
+            public XZOutputStream2(Stream s, int threads) : base(s, threads)
+            {
+            }
+
+            public XZOutputStream2(Stream s, int threads, uint preset) : base(s, threads, preset)
+            {
+            }
+
+            public XZOutputStream2(Stream s, int threads, uint preset, bool leaveOpen) : base(s, threads, preset, leaveOpen)
+            {
+            }
+
+            public override void Flush()
+            {
+            }
+        }
+
         public static void CreateXZPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
             using var fs = File.Create(packPath);
-            using var s = new XZOutputStream(fs);
+            using var s = new XZOutputStream2(fs);
             using var archive = TarArchive.CreateOutputTarArchive(s,
                 TarBuffer.DefaultBlockFactor, Encoding.UTF8);
             foreach (var file in files)
@@ -186,7 +219,9 @@ namespace System.Application
         public static void CreateZstdPack(string packPath, IEnumerable<PublishFileInfo> files)
         {
             using var fs = File.Create(packPath);
-            using var s = new CompressionStream(fs, new CompressionOptions(CompressionOptions.MaxCompressionLevel));
+            var maxCompressionLevel = CompressionOptions.MaxCompressionLevel;
+            Console.WriteLine($"MaxCompressionLevel: {maxCompressionLevel}");
+            using var s = new CompressionStream(fs, new CompressionOptions(maxCompressionLevel));
             using var archive = TarArchive.CreateOutputTarArchive(s,
                 TarBuffer.DefaultBlockFactor, Encoding.UTF8);
             foreach (var file in files)

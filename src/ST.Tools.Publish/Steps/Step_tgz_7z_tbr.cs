@@ -34,7 +34,7 @@ namespace System.Application.Steps
             => Step8.Add(command,
                 AppDownloadType.Compressed_Br,
                 "tbr",
-                FileEx.TAR_BR,
+                FileEx.TAR_BR_LONG,
                 CreateBrotliPack);
     }
 
@@ -114,3 +114,8 @@ namespace System.Application
         }
     }
 }
+
+// Steam++_linux_x64_v2.6.1.7z 56,743,466 字节
+// Steam++_linux_x64_v2.6.1.tar.br 61,530,820 字节
+// Steam++_linux_x64_v2.6.1.tar.xz 57,970,140 字节
+// Steam++_linux_x64_v2.6.1.tar.zst 62,902,361 字节 (Zstandard v1.5.0 level 22)
