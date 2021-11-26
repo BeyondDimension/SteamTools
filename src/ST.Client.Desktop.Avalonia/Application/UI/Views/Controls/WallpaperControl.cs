@@ -147,9 +147,10 @@ namespace System.Application.UI.Views.Controls
             window.Position = this.PointToScreen(Bounds.Position);
             window.Width = Bounds.Width;
             window.Height = Bounds.Height;
+            var dpi = window.Screens.ScreenFromVisual(window).PixelDensity;
             if (windowApiService != null)
             {
-                windowApiService.BackgroundUpdate(_DwmHandle, (int)window.Width, (int)window.Height);
+                windowApiService.BackgroundUpdate(_DwmHandle, (int)(window.Width * dpi), (int)(window.Height * dpi));
                 //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
             }
         }
