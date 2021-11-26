@@ -74,8 +74,8 @@ jobs:
     - name: dotnet restore SteamToolsV2+.Mac.slnf
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
 
-    - name: Build ST.Client
-      run: dotnet msbuild ./src/ST.Client/ST.Client.csproj /p:Configuration=${{ matrix.configuration }}
+#    - name: Build ST.Client
+#      run: dotnet msbuild ./src/ST.Client/ST.Client.csproj /p:Configuration=${{ matrix.configuration }}
 
     - name: Build ST.Client.XamarinForms
       run: dotnet msbuild ./src/ST.Client.XamarinForms/ST.Client.XamarinForms.csproj /p:Configuration=${{ matrix.configuration }}
