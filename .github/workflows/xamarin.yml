@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        configuration: [Debug, Release]
+        configuration: [ Debug, Release ]
         os: [ macOS-latest ]
 
     steps:
@@ -69,7 +69,7 @@ jobs:
       #  xcode-version: '12.x' # set the latest available Xcode 12
 
     - name: Install dependencies
-      run: nuget restore ./SteamToolsV2+.Mac.slnf
+      run: nuget restore ./SteamToolsV2+.sln
 
     - name: dotnet restore SteamToolsV2+.Mac.slnf
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
