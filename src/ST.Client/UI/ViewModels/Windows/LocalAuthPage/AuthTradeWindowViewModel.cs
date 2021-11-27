@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Properties;
 using System.Reactive.Linq;
 using System.Text;
@@ -391,8 +392,6 @@ namespace System.Application.UI.ViewModels
                         {
                             AuthService.Current.AddOrUpdateSaveAuthenticators(MyAuthenticator!, AuthIsLocal, AuthPassword);
                         }
-
-                        IsLoading = false;
                     });
                 }
                 catch (WinAuthUnauthorisedSteamRequestException)
@@ -401,7 +400,6 @@ namespace System.Application.UI.ViewModels
                     {
                         // Family view is probably on
                         Toast.Show(AppResources.LocalAuth_AuthTrade_GetError);
-                        IsLoading = false;
                     });
                     return;
                 }
@@ -429,10 +427,7 @@ namespace System.Application.UI.ViewModels
                                 _ConfirmationsSourceList.AddRange(list);
                             });
                         }
-                        MainThread2.BeginInvokeOnMainThread(() =>
-                        {
-                            IsLoading = false;
-                        });
+                        else throw e;
                     }
                     catch (Exception ex)
                     {
@@ -458,10 +453,16 @@ namespace System.Application.UI.ViewModels
 #else
                             Toast.Show(AppResources.LocalAuth_AuthTrade_GetError2);
 #endif
-                            IsLoading = false;
                         });
                         return;
                     }
+                }
+                finally
+                {
+                    MainThread2.BeginInvokeOnMainThread(() =>
+                    {
+                        IsLoading = false;
+                    });
                 }
             }).ForgetAndDispose();
         }
