@@ -4,7 +4,10 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using static System.Application.Utils;
 using static System.ProjectPathUtil;
@@ -23,6 +26,16 @@ namespace System.Application.Steps
             // newv 1. (云端)创建新版本号RSA密钥
             // getv 1. (云端)获取之前创建新版本号RSA密钥
             // 3. (本地)读取剪切板公钥值写入txt的pfx文件中
+            var ver = new Command("ver", "初始化版本")
+            {
+                Handler = CommandHandler.Create(VerHandlerAsync)
+            };
+            ver.AddOption(new Option<string>("-token", "jwt"));
+            ver.AddOption(new Option<bool>("-use_last_skey", "是否使用上一个版本的密钥"));
+            ver.AddOption(new Option<bool>("-dev", DevDesc));
+            command.AddCommand(ver);
+
+            // 手动发布 pubxml
 
             // full 中间步骤多合一
             var full = new Command("full", "自动化打包")
@@ -33,8 +46,21 @@ namespace System.Application.Steps
             full.AddOption(new Option<string[]>("-val", InputPubDirNameDesc));
             full.AddOption(new Option<bool>("-dev", DevDesc));
             command.AddCommand(full);
+        }
 
-            // wdb 11. (云端)读取上一步上传的数据写入数据库中
+        static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
+        {
+            throw new NotImplementedException("TODO api_version_create");
+            var request = new CreateVersionRequest
+            {
+                Version = Utils.Version,
+                Desc = ReadVersionDesc(),
+                UseLastSKey = use_last_skey,
+            };
+            using var client = GetHttpClient();
+            using var rsp = await client.PostAsJsonAsync(api_version_create, request);
+            var value = await rsp.Content.ReadFromJsonAsync<AppIdWithPublicKey>();
+            if (!Step3.Handler(value, dev)) throw new Exception("Step3.Handler fail.");
         }
 
         static async Task FullHandlerAsync(string token, string[] val, bool dev)
@@ -81,6 +107,9 @@ namespace System.Application.Steps
 
             // 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
             StepRel.Handler2(endWriteOK: false);
+
+            // wdb 11. (云端)读取上一步上传的数据写入数据库中
+            throw new NotImplementedException("TODO wdb");
 
             Console.WriteLine("OK");
         }
@@ -191,5 +220,27 @@ namespace System.Application.Steps
             AppDownloadType.Compressed_XZ => CreateXZPack,
             _ => throw new ArgumentOutOfRangeException(nameof(compressedType), compressedType, null),
         };
+
+        /// <summary>
+        /// 读取更新日志
+        /// </summary>
+        /// <returns></returns>
+        static string ReadVersionDesc()
+        {
+            throw new NotImplementedException("TODO");
+            return string.Empty;
+        }
+
+        static HttpClient GetHttpClient()
+        {
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(api_base_url)
+            };
+            return client;
+        }
+
+        const string api_base_url = "https://api.steampp.net";
+        const string api_version_create = "/api/version";
     }
 }

@@ -33,40 +33,50 @@ namespace System.Application.Steps
                 }
 
                 var value = Serializable.DJSON<AppIdWithPublicKey>(val);
-                if (value == default)
-                {
-                    Console.WriteLine("错误：读取剪切板值不能为 Null！");
-                    return;
-                }
-                if (value.AppId == default)
-                {
-                    Console.WriteLine("错误：读取剪切板值 AppId 无效！");
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(value.PublicKey))
-                {
-                    Console.WriteLine("错误：读取剪切板值 PublicKey 无效！");
-                    return;
-                }
 
-                static string Env(bool dev) => dev ? "debug" : "release";
-                var env = Env(dev);
-
-                var pfxFilePath = Path.Combine(projPath,
-                    $"rsa-public-key-{env}.pfx");
-                IOPath.FileIfExistsItDelete(pfxFilePath);
-                File.WriteAllText(pfxFilePath, value.PublicKey);
-
-                var appIdFilePath = Path.Combine(projPath,
-                    $"app-id-{env}.pfx");
-                IOPath.FileIfExistsItDelete(appIdFilePath);
-                File.WriteAllBytes(appIdFilePath, value.AppId.ToByteArray());
+                Handler(value, dev);
 
                 Console.WriteLine("完成。");
-                Console.WriteLine(pfxFilePath);
-                Console.WriteLine(appIdFilePath);
             });
             command.AddCommand(rr);
+        }
+
+        public static bool Handler(AppIdWithPublicKey? value, bool dev)
+        {
+            if (value == default)
+            {
+                Console.WriteLine("错误：读取剪切板值不能为 Null！");
+                return false;
+            }
+
+            if (value.AppId == default)
+            {
+                Console.WriteLine("错误：读取剪切板值 AppId 无效！");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(value.PublicKey))
+            {
+                Console.WriteLine("错误：读取剪切板值 PublicKey 无效！");
+                return false;
+            }
+
+            static string Env(bool dev) => dev ? "debug" : "release";
+            var env = Env(dev);
+
+            var pfxFilePath = Path.Combine(projPath,
+                $"rsa-public-key-{env}.pfx");
+            IOPath.FileIfExistsItDelete(pfxFilePath);
+            File.WriteAllText(pfxFilePath, value.PublicKey);
+
+            var appIdFilePath = Path.Combine(projPath,
+                $"app-id-{env}.pfx");
+            IOPath.FileIfExistsItDelete(appIdFilePath);
+            File.WriteAllBytes(appIdFilePath, value.AppId.ToByteArray());
+
+            Console.WriteLine(pfxFilePath);
+            Console.WriteLine(appIdFilePath);
+
+            return true;
         }
     }
 }

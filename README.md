@@ -24,7 +24,7 @@
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSteamTools-Team%2FSteamTools%2Fbadge%3Fref%3Ddevelop&style=flat-square)](https://actions-badge.atrox.dev/SteamTools-Team/SteamTools/goto?ref=develop)
 [![GitHub Star](https://img.shields.io/github/stars/SteamTools-Team/SteamTools.svg?style=social)](https://github.com/SteamTools-Team/SteamTools)
 [![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
-[![QQ群](https://img.shields.io/badge/QQ群-101075312-blue.svg?style=flat-square&color=12b7f5)](https://qm.qq.com/cgi-bin/qm/qr?k=JVlZF31RKSDqcsxfEaw6AQE75P2NF18F&jump_from=webapi)
+[![QQ群](https://img.shields.io/badge/QQ群-960746023-blue.svg?style=flat-square&color=12b7f5)](https://jq.qq.com/?_wv=1027&k=3JKPt4xC)
 </div>
 
 <div align="center"><img src="./resources/screenshots.jpg" /></div>
