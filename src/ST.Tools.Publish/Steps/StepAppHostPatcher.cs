@@ -14,7 +14,7 @@ namespace System.Application.Steps
         const string DirName = "Bin";
         static readonly string[] ignoreDirNames = new[] { "Assets", IOPath.DirName_AppData, IOPath.DirName_Cache, "Logs", "Bin" };
 
-        static void Handler(DeploymentMode d)
+        public static void Handler(DeploymentMode d, bool endWriteOK = true)
         {
             var pubPath = d switch
             {
@@ -94,7 +94,7 @@ namespace System.Application.Steps
             }
             ClearEmptyDir();
 
-            Console.WriteLine("OK");
+            if (endWriteOK) Console.WriteLine("OK");
         }
 
         public static void Add(RootCommand command)

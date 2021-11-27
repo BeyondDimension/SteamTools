@@ -19,7 +19,7 @@ namespace System.Application.Steps
         {
             var rel = new Command("rel", "12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md")
             {
-                Handler = CommandHandler.Create(Handler2)
+                Handler = CommandHandler.Create(() => Handler2()),
             };
             command.AddCommand(rel);
         }
@@ -90,7 +90,7 @@ namespace System.Application.Steps
         //    Console.WriteLine("完成");
         //}
 
-        static void Handler2()
+        public static void Handler2(bool endWriteOK = true)
         {
             var pubDirPath = projPath + string.Format(DirPublish_, "Release");
 
@@ -119,7 +119,7 @@ namespace System.Application.Steps
 
             File.WriteAllLines(release_template_md_path, lines);
 
-            Console.WriteLine("完成");
+            if (endWriteOK) Console.WriteLine("完成");
         }
     }
 }

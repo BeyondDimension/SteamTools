@@ -1,5 +1,6 @@
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using Packaging.Targets;
 using Packaging.Targets.IO;
 using Packaging.Targets.Rpm;
@@ -15,12 +16,22 @@ namespace System.Application.Steps
 {
     internal static class Step_rpm
     {
+        static PgpKeyRingGenerator? krgen;
+        static PgpSecretKeyRing? secretKeyRing;
+        static PgpPrivateKey? privateKey;
+        //static PgpPublicKey? publicKey;
+
+        public static void Init()
+        {
+            krgen = PgpSigner.GenerateKeyRingGenerator("dotnet", "dotnet");
+            secretKeyRing = krgen.GenerateSecretKeyRing();
+            privateKey = secretKeyRing.GetSecretKey().ExtractPrivateKey("dotnet".ToCharArray());
+            //publicKey = secretKeyRing.GetPublicKey();
+        }
+
         static void Handler()
         {
-            var krgen = PgpSigner.GenerateKeyRingGenerator("dotnet", "dotnet");
-            var secretKeyRing = krgen.GenerateSecretKeyRing();
-            var privateKey = secretKeyRing.GetSecretKey().ExtractPrivateKey("dotnet".ToCharArray());
-            var publicKey = secretKeyRing.GetPublicKey();
+            Init();
 
             var publish_json_path = PublishJsonFilePath;
             var publish_json_str = File.ReadAllText(publish_json_path);
@@ -36,90 +47,96 @@ namespace System.Application.Steps
 
             foreach (var item in dirNames)
             {
-                var isLinux = item.Name.StartsWith("linux");
+                var isLinux = item.Name.StartsWith("linux-");
                 if (!isLinux) continue;
-                var rpmPath = GetPackPath(item, FileEx.RPM);
-                //var cpioPath = GetPackPath(item, FileEx.CPIO);
 
-                using var targetStream = File.Open(rpmPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
-                //using var cpioStream = File.Open(cpioPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
-                using var cpioStream = new MemoryStream();
-
-                ArchiveBuilder2 archiveBuilder2 = new()
-                {
-                    Log = TaskLoggingHelper.Instance,
-                };
-                ArchiveBuilder archiveBuilder = archiveBuilder2;
-
-                var archiveEntries = archiveBuilder.FromDirectory(
-                   item.Path,
-                   Constants.HARDCODED_APP_NAME,
-                   LinuxPackConstants.Prefix,
-                   Array.Empty<ITaskItem>());
-
-                LinuxPackConstants.AddFileNameDesktop(archiveBuilder2, archiveEntries);
-
-                //archiveEntries.AddRange(archiveBuilder.FromLinuxFolders(this.LinuxFolders));
-
-                archiveEntries = archiveEntries
-                    .OrderBy(e => e.TargetPathWithFinalSlash, StringComparer.Ordinal)
-                    .ToList();
-
-                CpioFileCreator cpioCreator = new CpioFileCreator();
-                cpioCreator.FromArchiveEntries(
-                    archiveEntries,
-                    cpioStream);
-                cpioStream.Position = 0;
-
-                // Prepare the list of dependencies
-                List<PackageDependency> dependencies = new List<PackageDependency>();
-
-                if (item.DeploymentMode == DeploymentMode.FDE)
-                {
-                    dependencies.Add(new PackageDependency { Name = LinuxPackConstants.aspnetcore_runtime_6_0 });
-                }
-
-                //if (this.RpmDotNetDependencies != null)
-                //{
-                //    dependencies.AddRange(
-                //        this.RpmDotNetDependencies.Select(
-                //            d => GetPackageDependency(d)));
-                //}
-
-                //if (this.RpmDependencies != null)
-                //{
-                //    dependencies.AddRange(
-                //        this.RpmDependencies.Select(
-                //            d => GetPackageDependency(d)));
-                //}
-
-                RpmPackageCreator rpmCreator = new RpmPackageCreator();
-                rpmCreator.CreatePackage(
-                    archiveEntries,
-                    cpioStream,
-                    LinuxPackConstants.PackageName,
-                    Utils.Version,
-                    RpmTask.GetPackageArchitecture(item.Name),
-                    LinuxPackConstants.Release,
-                    LinuxPackConstants.CreateUser,
-                    LinuxPackConstants.UserName,
-                    LinuxPackConstants.InstallService,
-                    LinuxPackConstants.ServiceName,
-                    LinuxPackConstants.RpmVendor,
-                    LinuxPackConstants.Description,
-                    LinuxPackConstants.Url,
-                    LinuxPackConstants.Prefix,
-                    LinuxPackConstants.PreInstallScript,
-                    LinuxPackConstants.PostInstallScript,
-                    LinuxPackConstants.PreRemoveScript,
-                    LinuxPackConstants.PostRemoveScript,
-                    dependencies,
-                    null!,
-                    privateKey,
-                    targetStream);
+                HandlerItem(item);
             }
 
             Console.WriteLine("完成");
+        }
+
+        public static void HandlerItem(PublishDirInfo item)
+        {
+            var rpmPath = GetPackPath(item, FileEx.RPM);
+            //var cpioPath = GetPackPath(item, FileEx.CPIO);
+
+            using var targetStream = File.Open(rpmPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            //using var cpioStream = File.Open(cpioPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            using var cpioStream = new MemoryStream();
+
+            ArchiveBuilder2 archiveBuilder2 = new()
+            {
+                Log = TaskLoggingHelper.Instance,
+            };
+            ArchiveBuilder archiveBuilder = archiveBuilder2;
+
+            var archiveEntries = archiveBuilder.FromDirectory(
+               item.Path,
+               Constants.HARDCODED_APP_NAME,
+               LinuxPackConstants.Prefix,
+               Array.Empty<ITaskItem>());
+
+            LinuxPackConstants.AddFileNameDesktop(archiveBuilder2, archiveEntries);
+
+            //archiveEntries.AddRange(archiveBuilder.FromLinuxFolders(this.LinuxFolders));
+
+            archiveEntries = archiveEntries
+                .OrderBy(e => e.TargetPathWithFinalSlash, StringComparer.Ordinal)
+                .ToList();
+
+            CpioFileCreator cpioCreator = new CpioFileCreator();
+            cpioCreator.FromArchiveEntries(
+                archiveEntries,
+                cpioStream);
+            cpioStream.Position = 0;
+
+            // Prepare the list of dependencies
+            List<PackageDependency> dependencies = new List<PackageDependency>();
+
+            if (item.DeploymentMode == DeploymentMode.FDE)
+            {
+                dependencies.Add(new PackageDependency { Name = LinuxPackConstants.aspnetcore_runtime_6_0 });
+            }
+
+            //if (this.RpmDotNetDependencies != null)
+            //{
+            //    dependencies.AddRange(
+            //        this.RpmDotNetDependencies.Select(
+            //            d => GetPackageDependency(d)));
+            //}
+
+            //if (this.RpmDependencies != null)
+            //{
+            //    dependencies.AddRange(
+            //        this.RpmDependencies.Select(
+            //            d => GetPackageDependency(d)));
+            //}
+
+            RpmPackageCreator rpmCreator = new RpmPackageCreator();
+            rpmCreator.CreatePackage(
+                archiveEntries,
+                cpioStream,
+                LinuxPackConstants.PackageName,
+                Utils.Version,
+                RpmTask.GetPackageArchitecture(item.Name),
+                LinuxPackConstants.Release,
+                LinuxPackConstants.CreateUser,
+                LinuxPackConstants.UserName,
+                LinuxPackConstants.InstallService,
+                LinuxPackConstants.ServiceName,
+                LinuxPackConstants.RpmVendor,
+                LinuxPackConstants.Description,
+                LinuxPackConstants.Url,
+                LinuxPackConstants.Prefix,
+                LinuxPackConstants.PreInstallScript,
+                LinuxPackConstants.PostInstallScript,
+                LinuxPackConstants.PreRemoveScript,
+                LinuxPackConstants.PostRemoveScript,
+                dependencies,
+                null!,
+                privateKey!,
+                targetStream);
         }
 
         public static void Add(RootCommand command)
