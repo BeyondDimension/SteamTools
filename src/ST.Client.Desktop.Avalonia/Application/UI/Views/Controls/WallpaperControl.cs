@@ -109,7 +109,7 @@ namespace System.Application.UI.Views.Controls
             ParentWindow.GetObservable(Window.WindowStateProperty)
                 .Subscribe(x =>
                 {
-                    if (x == WindowState.Normal)
+                    if (x != WindowState.Minimized)
                     {
                         ParentWindow_GotFocus(null, null);
                     }
@@ -166,12 +166,6 @@ namespace System.Application.UI.Views.Controls
 
                 window.IsVisible = true;
             }
-        }
-
-        public WindowState WindowState
-        {
-            get { return window?.WindowState ?? default; }
-            set { if (window != null) window.WindowState = value; }
         }
 
         public void Show()

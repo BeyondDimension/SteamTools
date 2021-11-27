@@ -665,25 +665,33 @@ namespace System.Application.Services.Implementation
 
         public void StopProxy()
         {
-            if (proxyServer.ProxyRunning)
+            try
             {
-                proxyServer.BeforeRequest -= OnRequest;
-                proxyServer.BeforeResponse -= OnResponse;
-                proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
-                proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
-                proxyServer.Stop();
-            }
+                if (proxyServer.ProxyRunning)
+                {
+                    proxyServer.BeforeRequest -= OnRequest;
+                    proxyServer.BeforeResponse -= OnResponse;
+                    proxyServer.ServerCertificateValidationCallback -= OnCertificateValidation;
+                    proxyServer.ClientCertificateSelectionCallback -= OnCertificateSelection;
+                    proxyServer.Stop();
+                }
 
-            if (IsSystemProxy)
+                if (IsSystemProxy)
+                {
+                    if (DesktopBridge.IsRunningAsUwp || !OperatingSystem2.IsWindows)
+                    {
+                        IPlatformService.Instance.SetAsSystemProxy(false);
+                    }
+                    else
+                    {
+                        proxyServer.DisableAllSystemProxies();
+                    }
+                }
+            }
+            catch (Exception ex)
             {
-                if (DesktopBridge.IsRunningAsUwp || !OperatingSystem2.IsWindows)
-                {
-                    IPlatformService.Instance.SetAsSystemProxy(false);
-                }
-                else
-                {
-                    proxyServer.DisableAllSystemProxies();
-                }
+                Toast.Show(ex.Message);
+                Log.Error(nameof(HttpProxyServiceImpl), ex, nameof(StopProxy));
             }
         }
 

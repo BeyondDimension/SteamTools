@@ -461,7 +461,7 @@ namespace System.Application.UI
 
         public void SetTopmostOneTime()
         {
-            if (MainWindow?.WindowState == WindowState.Normal)
+            if (MainWindow != null && MainWindow.WindowState != WindowState.Minimized)
             {
                 MainWindow.Topmost = true;
                 MainWindow.Topmost = false;
