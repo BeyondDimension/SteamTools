@@ -21,12 +21,6 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
-        /// 程序启动时自动启动代理
-        /// </summary>
-        public static SerializableProperty<bool> ProgramStartupRunProxy { get; }
-            = GetProperty(defaultValue: false, autoSave: true);
-
-        /// <summary>
         /// 代理服务启用状态
         /// </summary>
         public static SerializableProperty<IReadOnlyCollection<string>> SupportProxyServicesStatus { get; }
@@ -39,6 +33,12 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: (IReadOnlyCollection<int>)new List<int>(), autoSave: true);
 
         #region 代理设置
+
+        /// <summary>
+        /// 程序启动时自动启动代理
+        /// </summary>
+        public static SerializableProperty<bool> ProgramStartupRunProxy { get; }
+            = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
         /// 系统代理模式端口
@@ -58,6 +58,11 @@ namespace System.Application.Settings
         public static SerializableProperty<bool> OnlyEnableProxyScript { get; }
             = GetProperty(defaultValue: false, autoSave: false);
 
+        /// <summary>
+        /// 代理时使用的解析主DNS
+        /// </summary>
+        public static SerializableProperty<string> ProxyMasterDns { get; }
+            = GetProperty(defaultValue: "", autoSave: false);
         #endregion
 
         #region 本地代理设置
