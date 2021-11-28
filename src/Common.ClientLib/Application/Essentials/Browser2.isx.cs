@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 // ReSharper disable once CheckNamespace
 namespace System.Application
 {
-    public partial class Browser2
+    partial class Browser2
     {
         public const string Prefix_HTTPS = "https://";
 
