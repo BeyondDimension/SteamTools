@@ -50,6 +50,65 @@
 
       <Border Classes="Item">
         <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ConsoleFontName,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ComboBox
+                    Items="{ReflectionBinding Mode=OneWay,Source={x:Static resx:R.Fonts}}"
+                    SelectedItem="{ReflectionBinding ConsoleSelectFont}"
+                    AutoScrollToSelectedItem="True"
+                    MaxDropDownHeight="300">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{ReflectionBinding Key,Mode=OneWay}"
+                           FontFamily="{ReflectionBinding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"/>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ConsoleFontSize,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+          <NumericUpDown Maximum="28"
+                         Minimum="8"
+                         FormatString="0"
+                         Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ConsoleMaxLine,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+          <NumericUpDown Maximum="5000"
+                         Minimum="200"
+                         FormatString="0"
+                         Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Separator Classes="Separator"/>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_IPCPortId,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+          <NumericUpDown Maximum="65535"
+                         Minimum="80"
+                         FormatString="0"
+                         Text="{ReflectionBinding Source={x:Static ms:ASFSettings.IPCPortId},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_IPCPortOccupiedRandom,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.IPCPortOccupiedRandom},Path=Value,Mode=TwoWay}" />
+        </DockPanel>
+      </Border>
+
+      <Separator Classes="Separator"/>
+
+      <Border Classes="Item">
+        <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.ASF_ImportBotFile,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <Button Content="{ReflectionBinding Path=Res.SelectFile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                   Command="{Binding SelectBotFiles}"/>

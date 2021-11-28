@@ -6,12 +6,14 @@ using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
@@ -72,6 +74,13 @@ namespace System.Application.UI.ViewModels
                       .Sort(SortExpressionComparer<Bot>.Descending(x => x.BotName))
                       .Bind(out _SteamBots)
                       .Subscribe();
+
+            if (IApplication.IsDesktopPlatform)
+            {
+                ConsoleSelectFont = R.Fonts.FirstOrDefault(x => x.Value == ASFSettings.ConsoleFontName.Value);
+                this.WhenValueChanged(x => x.ConsoleSelectFont, false)
+                      .Subscribe(x => ASFSettings.ConsoleFontName.Value = x.Value);
+            }
         }
 
         public string? IPCUrl => asfSerivce.GetIPCUrl();
@@ -207,5 +216,11 @@ namespace System.Application.UI.ViewModels
             Browser2.Open(url);
         }
 
+        KeyValuePair<string, string> _ConsoleSelectFont;
+        public KeyValuePair<string, string> ConsoleSelectFont
+        {
+            get => _ConsoleSelectFont;
+            set => this.RaiseAndSetIfChanged(ref _ConsoleSelectFont, value);
+        }
     }
 }

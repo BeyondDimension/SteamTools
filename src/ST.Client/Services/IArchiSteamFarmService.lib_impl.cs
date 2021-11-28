@@ -16,7 +16,8 @@ namespace System.Application.Services
         {
             get
             {
-                CurrentIPCPortValue = ASFSettings.IPCPortValue;
+                CurrentIPCPortValue = ASFSettings.IPCPortId.Value;
+                if (CurrentIPCPortValue == default) CurrentIPCPortValue = ASFSettings.DefaultIPCPortIdValue;
                 if (ASFSettings.IPCPortOccupiedRandom.Value)
                 {
                     if (SocketHelper.IsUsePort(CurrentIPCPortValue))

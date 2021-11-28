@@ -48,22 +48,13 @@ namespace System.Application.Settings
         public static SerializableProperty<int> ConsoleFontSize { get; }
             = GetProperty(defaultValue: 14, autoSave: true);
 
-        /// <summary>
-        /// IPC 端口号，默认 1242，使用 <see cref="IPCPortValue"/> 获取值
-        /// </summary>
-        public static SerializableProperty<ushort> IPCPort { get; }
-            = GetProperty<ushort>(defaultValue: default, autoSave: true);
+        public const int DefaultIPCPortIdValue = 6242;
 
-        /// <inheritdoc cref="IPCPort"/>
-        public static ushort IPCPortValue
-        {
-            get
-            {
-                var value = IPCPort.Value;
-                if (value == default) return 6242;
-                return value;
-            }
-        }
+        /// <summary>
+        /// IPC 端口号，默认值为 <see cref="DefaultIPCPortIdValue"/>
+        /// </summary>
+        public static SerializableProperty<int> IPCPortId { get; }
+            = GetProperty(defaultValue: DefaultIPCPortIdValue, autoSave: true);
 
         /// <summary>
         /// IPC 端口号被占用时是否随机一个未使用的端口号，默认值 <see langword="true"/>

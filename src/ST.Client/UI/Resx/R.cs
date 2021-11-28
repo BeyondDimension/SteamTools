@@ -24,6 +24,19 @@ namespace System.Application.UI.Resx
         static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
         public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
+        static readonly Lazy<string> mDefaultConsoleFont = new(() =>
+        {
+            var consoleFonts = new[] {
+                IFontManager.ConsoleFont_CascadiaCode,
+                IFontManager.ConsoleFont_Consolas,
+                IFontManager.ConsoleFont_SourceCodePro,
+                IFontManager.ConsoleFont_JetBrainsMono,
+            };
+            var intersect = Fonts.Select(x => x.Value).Intersect(consoleFonts);
+            return intersect.FirstOrDefault() ?? IFontManager.KEY_Default;
+        });
+        public static string DefaultConsoleFont => mDefaultConsoleFont.Value;
+
         public AppResources Res { get; private set; } = new();
 
         public static CultureInfo DefaultCurrentUICulture { get; private set; }

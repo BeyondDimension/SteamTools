@@ -534,6 +534,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 控制台字体 的本地化字符串。
+        /// </summary>
+        public static string ASF_ConsoleFontName {
+            get {
+                return ResourceManager.GetString("ASF_ConsoleFontName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 控制台字体大小 的本地化字符串。
+        /// </summary>
+        public static string ASF_ConsoleFontSize {
+            get {
+                return ResourceManager.GetString("ASF_ConsoleFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 控制台显示最大行数 的本地化字符串。
+        /// </summary>
+        public static string ASF_ConsoleMaxLine {
+            get {
+                return ResourceManager.GetString("ASF_ConsoleMaxLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 禁用 的本地化字符串。
         /// </summary>
         public static string ASF_Disable {
@@ -575,6 +602,24 @@ namespace System.Application.UI.Resx {
         public static string ASF_ImportBotFile {
             get {
                 return ResourceManager.GetString("ASF_ImportBotFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IPC 端口号 的本地化字符串。
+        /// </summary>
+        public static string ASF_IPCPortId {
+            get {
+                return ResourceManager.GetString("ASF_IPCPortId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IPC 端口被占用时使用随机端口号 的本地化字符串。
+        /// </summary>
+        public static string ASF_IPCPortOccupiedRandom {
+            get {
+                return ResourceManager.GetString("ASF_IPCPortOccupiedRandom", resourceCulture);
             }
         }
         

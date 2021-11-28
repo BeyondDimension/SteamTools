@@ -22,7 +22,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<ConcurrentDictionary<string, SizePosition>> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<string>? _FontName = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: "Default", autoSave: true) : null;
+        static readonly SerializableProperty<string>? _FontName = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: IFontManager.KEY_Default, autoSave: true) : null;
         /// <summary>
         /// 字体
         /// </summary>

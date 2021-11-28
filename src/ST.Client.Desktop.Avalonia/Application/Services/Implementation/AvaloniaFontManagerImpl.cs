@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace System.Application.Services.Implementation
 {
-    public class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl
+    public partial class AvaloniaFontManagerImpl : FontManagerImpl, IFontManagerImpl
     {
         readonly string _defaultFamilyName;
         readonly IAvaloniaApplication application;

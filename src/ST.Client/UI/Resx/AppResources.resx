@@ -1934,4 +1934,19 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
     <value>下载更新包缓存文件验证失败，已删除缓存尝试重新下载，请等待</value>
   </data>
+  <data name="ASF_ConsoleFontName" xml:space="preserve">
+    <value>控制台字体</value>
+  </data>
+  <data name="ASF_ConsoleFontSize" xml:space="preserve">
+    <value>控制台字体大小</value>
+  </data>
+  <data name="ASF_ConsoleMaxLine" xml:space="preserve">
+    <value>控制台显示最大行数</value>
+  </data>
+  <data name="ASF_IPCPortId" xml:space="preserve">
+    <value>IPC 端口号</value>
+  </data>
+  <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
+    <value>IPC 端口被占用时使用随机端口号</value>
+  </data>
 </root>

@@ -12,9 +12,16 @@ namespace System.Application.Services
     {
         static IFontManager Instance => DI.Get<IFontManager>();
 
-        public static KeyValuePair<string, string> Default { get; } = KeyValuePair.Create(AppResources.Default, "Default");
+        public static KeyValuePair<string, string> Default { get; } = KeyValuePair.Create(AppResources.Default, KEY_Default);
 
         IReadOnlyCollection<KeyValuePair<string, string>> GetFonts();
+
+        public const string KEY_Default = "Default";
+        public const string KEY_DefaultConsole = "DefaultConsole";
+        public const string ConsoleFont_CascadiaCode = "Cascadia Code";
+        public const string ConsoleFont_Consolas = "Consolas";
+        public const string ConsoleFont_SourceCodePro = "Source Code Pro";
+        public const string ConsoleFont_JetBrainsMono = "JetBrains Mono";
     }
 
     partial interface IPlatformService

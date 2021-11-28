@@ -80,6 +80,7 @@
               <DockPanel>
                 <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyPort,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
                 <NumericUpDown Maximum="65535" 
+                               Minimum="80"
                                FormatString="0"
                                Value="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyPortId},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
@@ -114,6 +115,7 @@
               <DockPanel>
                 <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_Port,Mode=OneWay,Source={x:Static resx:R.Current}}" ></Label>
                 <NumericUpDown Maximum="65535"
+                               Minimum="80"
                                FormatString="0"
                                Value="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentPortId},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
