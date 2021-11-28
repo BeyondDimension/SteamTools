@@ -174,7 +174,7 @@ namespace System.Application.Services.Implementation
 
         public string GetIPCUrl()
         {
-            var defaultUrl = "http://" + IPAddress.Loopback + ":1242";
+            var defaultUrl = $"http://{IPAddress.Loopback}:{CurrentIPCPortValue}";
             string absoluteConfigDirectory = Path.Combine(ASFPathHelper.AppDataDirectory, SharedInfo.ConfigDirectory);
             string customConfigPath = Path.Combine(absoluteConfigDirectory, SharedInfo.IPCConfigFile);
             if (File.Exists(customConfigPath))
@@ -203,5 +203,7 @@ namespace System.Application.Services.Implementation
                 return defaultUrl;
             }
         }
+
+        public int CurrentIPCPortValue { get; set; }
     }
 }

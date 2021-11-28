@@ -1,3 +1,4 @@
+using ArchiSteamFarm;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application;
 using System.Application.Entities;
@@ -83,6 +84,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddArchiSteamFarmService(this IServiceCollection services)
         {
             services.AddSingleton<IArchiSteamFarmService, ArchiSteamFarmServiceImpl>();
+            services.AddSingleton<IArchiSteamFarmHelperService>(s => s.GetRequiredService<IArchiSteamFarmService>());
             return services;
         }
 

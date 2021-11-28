@@ -2,6 +2,7 @@ using ArchiSteamFarm;
 using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Storage;
 using ReactiveUI;
+using System.Application.Settings;
 using System.Application.UI;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,9 +15,9 @@ namespace System.Application.Services
     /// <summary>
     /// ASF 服务
     /// </summary>
-    public interface IArchiSteamFarmService
+    public partial interface IArchiSteamFarmService
     {
-        static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
+        static new IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
 
         static Action? InitCoreLoggers { protected get; set; }
 
