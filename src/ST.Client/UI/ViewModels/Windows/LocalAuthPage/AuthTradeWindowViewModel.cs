@@ -155,24 +155,9 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        /// <summary>
-        /// 查看当前验证码URL
-        /// </summary>
-        public async void CodeImageButton_Click()
+        public void CaptchaUrlButton_Click()
         {
-            var value = _CodeImage;
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                Toast.Show("CodeImage is null or white space.");
-            }
-            else
-            {
-                if (!await Browser2.OpenAsync(value))
-                {
-                    await Clipboard2.SetTextAsync(value);
-                    Toast.Show(AppResources.CopyToClipboard);
-                }
-            }
+            AuthService.ShowCaptchaUrl(_CodeImage);
         }
 
         private string? _CodeImageChar;

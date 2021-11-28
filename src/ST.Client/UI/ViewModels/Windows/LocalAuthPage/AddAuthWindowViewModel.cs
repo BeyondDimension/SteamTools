@@ -227,6 +227,11 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _CaptchaImage, value);
         }
 
+        public void CaptchaUrlButton_Click()
+        {
+            AuthService.ShowCaptchaUrl(_CaptchaImage);
+        }
+
         private string? _EmailDomain;
         public string? EmailDomain
         {

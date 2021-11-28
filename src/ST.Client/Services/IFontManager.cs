@@ -1,4 +1,3 @@
-using System;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Text;

@@ -19,17 +19,17 @@ namespace System.Application.UI
         /// <summary>
         /// 退出整个程序
         /// </summary>
-        void Shutdown();
+        void Shutdown() { }
 
         /// <summary>
         /// 主窗口恢复显示
         /// </summary>
-        void RestoreMainWindow();
+        void RestoreMainWindow() { }
 
         /// <summary>
         /// 主窗口置顶一次
         /// </summary>
-        void SetTopmostOneTime();
+        void SetTopmostOneTime() { }
 
         /// <summary>
         /// 托盘菜单

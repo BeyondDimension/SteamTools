@@ -23,6 +23,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutSteamPassword.Hint = Steam_Password;
                 binding.btnSubmit.Text = ViewModel!.RequiresLogin ? Login : Continue;
                 binding.tvLoginTip.Text = Steam_UserLoginTip;
+                binding.btnShowCaptchaImage.Text = UnableDisplayCaptchaImage;
             }).AddTo(this);
 
             binding!.tbRevocationCode.SetReadOnly();
@@ -110,7 +111,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutContent.Visibility = contentState;
             }).AddTo(this);
 
-            SetOnClickListener(binding!.btnSubmit);
+            SetOnClickListener(binding!.btnSubmit, binding.btnShowCaptchaImage);
         }
 
         protected override bool OnClick(View view)
@@ -118,6 +119,11 @@ namespace System.Application.UI.Fragments
             if (view.Id == Resource.Id.btnSubmit)
             {
                 ViewModel!.LoginSteamImport();
+                return true;
+            }
+            if (view.Id == Resource.Id.btnShowCaptchaImage)
+            {
+                ViewModel!.CaptchaUrlButton_Click();
                 return true;
             }
             return base.OnClick(view);

@@ -263,16 +263,6 @@ namespace System.Application.UI
 
         object IApplication.CurrentPlatformUIHost => XEPlatform.CurrentActivity;
 
-        void IApplication.Shutdown()
-        {
-
-        }
-
-        void IApplication.RestoreMainWindow()
-        {
-
-        }
-
         readonly Dictionary<string, ICommand> _NotifyIconMenus = new();
         IReadOnlyDictionary<string, ICommand> IApplication.NotifyIconMenus => _NotifyIconMenus;
 

@@ -72,6 +72,7 @@ namespace System.Application.UI.Activities
                 //speedDialDict.ReplaceLabels(ToString2);
                 binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
                 binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;
+                binding.btnShowCaptchaImage.Text = UnableDisplayCaptchaImage;
                 SetMenuTitle();
             }).AddTo(this);
 
@@ -195,7 +196,8 @@ namespace System.Application.UI.Activities
             SetOnClickListener(binding.btnLogin,
                 binding.btnCancelTrade,
                 binding.btnConfirmTrade,
-                binding.ivCaptchaImage);
+                binding.ivCaptchaImage,
+                binding.btnShowCaptchaImage);
         }
 
         MenuBuilder? menuBuilder;
@@ -242,6 +244,10 @@ namespace System.Application.UI.Activities
             else if (view.Id == Resource.Id.ivCaptchaImage)
             {
                 Browser2.Open(ViewModel?.CodeImage);
+            }
+            else if (view.Id == Resource.Id.btnShowCaptchaImage)
+            {
+                ViewModel!.CaptchaUrlButton_Click();
             }
         }
 

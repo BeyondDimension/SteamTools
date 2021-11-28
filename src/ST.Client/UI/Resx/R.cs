@@ -27,10 +27,10 @@ namespace System.Application.UI.Resx
         static readonly Lazy<string> mDefaultConsoleFont = new(() =>
         {
             var consoleFonts = new[] {
-                IFontManager.ConsoleFont_CascadiaCode,
-                IFontManager.ConsoleFont_Consolas,
-                IFontManager.ConsoleFont_SourceCodePro,
                 IFontManager.ConsoleFont_JetBrainsMono,
+                IFontManager.ConsoleFont_CascadiaCode,
+                IFontManager.ConsoleFont_SourceCodePro,
+                IFontManager.ConsoleFont_Consolas,
             };
             var intersect = Fonts.Select(x => x.Value).Intersect(consoleFonts);
             return intersect.FirstOrDefault() ?? IFontManager.KEY_Default;

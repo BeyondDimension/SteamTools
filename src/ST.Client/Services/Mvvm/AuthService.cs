@@ -764,5 +764,24 @@ namespace System.Application.Services
                 Toast.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 查看当前验证码URL
+        /// </summary>
+        public static async void ShowCaptchaUrl(string? value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                Toast.Show("CaptchaUrl is null or white space.");
+            }
+            else
+            {
+                if (!await Browser2.OpenAsync(value))
+                {
+                    await Clipboard2.SetTextAsync(value);
+                    Toast.Show(AppResources.CopyToClipboard);
+                }
+            }
+        }
     }
 }
