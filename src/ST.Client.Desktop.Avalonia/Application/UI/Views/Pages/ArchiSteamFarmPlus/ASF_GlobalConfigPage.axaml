@@ -72,7 +72,7 @@
           <NumericUpDown Maximum="28"
                          Minimum="8"
                          FormatString="0"
-                         Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},Path=Value, Mode=TwoWay}"/>
+                         Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
       </Border>
 
@@ -82,7 +82,7 @@
           <NumericUpDown Maximum="5000"
                          Minimum="200"
                          FormatString="0"
-                         Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},Path=Value, Mode=TwoWay}"/>
+                         Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
       </Border>
 
@@ -94,7 +94,7 @@
           <NumericUpDown Maximum="65535"
                          Minimum="80"
                          FormatString="0"
-                         Text="{ReflectionBinding Source={x:Static ms:ASFSettings.IPCPortId},Path=Value, Mode=TwoWay}"/>
+                         Value="{ReflectionBinding Source={x:Static ms:ASFSettings.IPCPortId},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
       </Border>
 

@@ -37,6 +37,7 @@ namespace System.Application.UI.Views
                 { typeof(LocalAuthPageViewModel), typeof(LocalAuthPage) },
                 { typeof(GameRelatedPageViewModel), typeof(GameRelatedPage) },
                 { typeof(ArchiSteamFarmPlusPageViewModel), typeof(ArchiSteamFarmPlusPage) },
+                //{ typeof(GameRelated_BorderlessPageViewModel), typeof(GameRelated_BorderlessPage) },
             };
         }
 

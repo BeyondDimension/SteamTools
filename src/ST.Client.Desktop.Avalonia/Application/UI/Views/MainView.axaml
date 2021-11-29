@@ -47,16 +47,12 @@
 
     <!--Content-->
     <ui:NavigationView x:Name="NavigationView"
+                       Classes="NavBar"
                        Margin="{StaticResource TitleBarAfterMargin}"
-                       Background="Transparent"
                        PaneDisplayMode="Left"
                        IsPaneOpen="{ReflectionBinding Source={x:Static ms:UISettings.MainMenuExpandedState},Path=Value,Mode=TwoWay}"
-                       AlwaysShowHeader="True"
-                       IsSettingsVisible="False"
-                       OpenPaneLength="240"
                        MenuItems="{Binding TabItems}"
                        FooterMenuItems="{Binding FooterTabItems}"
-                       IsBackButtonVisible="False"
                        IsBackEnabled="{Binding #frame.CanGoBack}"
                        SelectedItem="{Binding SelectedItem}">
       <!--<ui:NavigationView.PaneHeader>
@@ -121,7 +117,7 @@
             <!--<Image x:Name="avatar" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
             <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="18" Margin="8,0,0,0"/>-->
             <gif:Image2 x:Name="avatar"
-                   Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                   Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay}"
                    Stretch="Uniform"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
@@ -178,9 +174,6 @@
       <ui:NavigationView.MenuItemTemplate>
         <DataTemplate DataType="{x:Type vm:TabItemViewModel}">
           <ui:NavigationViewItem>
-            <ui:NavigationViewItem.Resources>
-              <x:Double x:Key="NavigationViewItemOnLeftIconBoxHeight">26</x:Double>
-            </ui:NavigationViewItem.Resources>
             <ui:NavigationViewItem.Content>
               <!--<DockPanel>
                 <ui:ImageIcon DockPanel.Dock="Left">
@@ -188,7 +181,7 @@
                 </ui:ImageIcon>-->
               <controls:ScrollingTextBlock Text="{Binding Name}"
                                            HorizontalAlignment="Stretch"
-                                           IsVisible="{ReflectionBinding Path=!!IsPaneOpen,ElementName=NavigationView}"/>
+                                           IsVisible="{ReflectionBinding Path=!!IsPaneOpen,ElementName=$parent[ui|NavigationView]}"/>
               <!--</DockPanel>-->
             </ui:NavigationViewItem.Content>
             <ui:NavigationViewItem.Icon>

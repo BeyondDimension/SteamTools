@@ -39,7 +39,7 @@ namespace System.Application.UI.ViewModels
             };
         }
 
-        Func<SteamApp, bool> PredicateType(IEnumerable<EnumModel<SteamAppType>> types)
+        Func<SteamApp, bool> PredicateType(IEnumerable<EnumModel<SteamAppType>>? types)
         {
             //var types = AppTypeFiltres.Where(x => x.Enable);
             return (s) =>
@@ -79,6 +79,8 @@ namespace System.Application.UI.ViewModels
             AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnums<SteamAppType>());
             AppTypeFiltres[1].Enable = true;
             AppTypeFiltres[2].Enable = true;
+            AppTypeFiltres[3].Enable = true;
+            AppTypeFiltres[4].Enable = true;
 
             var nameFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
 
@@ -196,15 +198,15 @@ namespace System.Application.UI.ViewModels
 
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
 
-        private ObservableCollection<EnumModel<SteamAppType>> _AppTypeFiltres = new();
-        public ObservableCollection<EnumModel<SteamAppType>> AppTypeFiltres
+        private ObservableCollection<EnumModel<SteamAppType>>? _AppTypeFiltres;
+        public ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres
         {
             get => _AppTypeFiltres;
             set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
         }
 
-        private IReadOnlyCollection<EnumModel<SteamAppType>> _EnableAppTypeFiltres = new EnumModel<SteamAppType>[0];
-        public IReadOnlyCollection<EnumModel<SteamAppType>> EnableAppTypeFiltres
+        private IReadOnlyCollection<EnumModel<SteamAppType>>? _EnableAppTypeFiltres;
+        public IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres
         {
             get => _EnableAppTypeFiltres;
             set => this.RaiseAndSetIfChanged(ref _EnableAppTypeFiltres, value);

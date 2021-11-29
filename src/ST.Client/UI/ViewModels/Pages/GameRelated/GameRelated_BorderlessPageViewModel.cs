@@ -1,14 +1,20 @@
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public sealed class GameRelated_BorderlessPageViewModel : ViewModelBase
+    public sealed class GameRelated_BorderlessPageViewModel : ItemViewModel
     {
         readonly INativeWindowApiService windowApi = INativeWindowApiService.Instance!;
+
+        public override string Name
+        {
+            get => AppResources.GameRelated_Borderless;
+        }
 
         #region SelectWindow 变更通知 
 
@@ -48,7 +54,7 @@ namespace System.Application.UI.ViewModels
             windowApi.GetMoveMouseDownWindow((window) =>
             {
                 SelectWindow = window;
-                WindowList.Add(window);
+                WindowList.Insert(0, window);
             });
         }
 

@@ -59,7 +59,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<IHostsFileService.EncodingType> HostsEncodingType => _HostsEncodingType ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<bool>? _UseGPURendering = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: !OperatingSystem2.IsWindows7, autoSave: true) : null;
+        static readonly SerializableProperty<bool>? _UseGPURendering = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
         /// <summary>
         /// 使用硬件加速
         /// </summary>

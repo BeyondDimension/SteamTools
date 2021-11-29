@@ -23,8 +23,8 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref mTopmost, value);
         }
 
-        private TabItemViewModel _SelectedItem;
-        public TabItemViewModel SelectedItem
+        private ItemViewModel _SelectedItem;
+        public ItemViewModel SelectedItem
         {
             get => _SelectedItem;
             set => this.RaiseAndSetIfChanged(ref _SelectedItem, value);

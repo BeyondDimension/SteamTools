@@ -64,6 +64,7 @@
     <None Remove="Application\UI\Assets\ko-fi.png" />
     <None Remove="Application\UI\Assets\movecross.png" />
     <None Remove="Application\UI\Assets\pateron.png" />
+    <None Remove="Application\UI\Styles\Controls\NavigationView.xaml" />
     <None Remove="Application\UI\Styles\Controls\ProgressBar.xaml" />
     <None Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
   </ItemGroup>
@@ -118,6 +119,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\NavigationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
     <AvaloniaResource Update="Application\UI\Styles\Controls\ProgressBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
