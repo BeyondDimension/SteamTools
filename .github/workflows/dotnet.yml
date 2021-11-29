@@ -77,6 +77,9 @@ jobs:
     - name: Run ST.Client.UnitTest
       run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ matrix.configuration }}"
 
+    - name: Run ST.Client.Desktop.UnitTest
+      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj -c "${{ matrix.configuration }}"
+
 #    - name: dotnet ST.Client.Desktop.UnitTest test
 #      if: matrix.os != 'windows-latest'
 #      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj

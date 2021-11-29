@@ -34,3 +34,6 @@
 [submodule "references/dotnet-packaging"]
 	path = references/dotnet-packaging
 	url = https://github.com/qmfrederik/dotnet-packaging.git
+[submodule "references/SevenZipSharp"]
+	path = references/SevenZipSharp
+	url = https://github.com/SteamTools-Team/SevenZipSharp.git
