@@ -1,4 +1,5 @@
 using System.Application.Models;
+using System.Application.Models.Internals;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
@@ -38,7 +39,7 @@ namespace System.Application.Steps
             // 手动发布 pubxml
 
             // full 中间步骤多合一
-            var full = new Command("full", "自动化打包")
+            var full = new Command("full", "自动化打包与上传哈希")
             {
                 Handler = CommandHandler.Create(FullHandlerAsync)
             };
@@ -50,16 +51,18 @@ namespace System.Application.Steps
 
         static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
         {
-            throw new NotImplementedException("TODO api_version_create");
             var request = new CreateVersionRequest
             {
                 Version = Utils.Version,
                 Desc = ReadVersionDesc(),
                 UseLastSKey = use_last_skey,
             };
-            using var client = GetHttpClient();
+            using var client = GetHttpClient(token);
             using var rsp = await client.PostAsJsonAsync(api_version_create, request);
-            var value = await rsp.Content.ReadFromJsonAsync<AppIdWithPublicKey>();
+            IApiResponse<AppIdWithPublicKey>? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl<AppIdWithPublicKey>>();
+            apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
+            if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
+            var value = apiResponse.Content;
             if (!Step3.Handler(value, dev)) throw new Exception("Step3.Handler fail.");
         }
 
@@ -109,7 +112,16 @@ namespace System.Application.Steps
             StepRel.Handler2(endWriteOK: false);
 
             // wdb 11. (云端)读取上一步上传的数据写入数据库中
-            throw new NotImplementedException("TODO wdb");
+            var request = new UpdateVersionRequest
+            {
+                Version = Utils.Version,
+                DirNames = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray(),
+            };
+            using var client = GetHttpClient(token);
+            using var rsp = await client.PutAsJsonAsync(api_version_create, request);
+            IApiResponse? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl>();
+            apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
+            if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
 
             Console.WriteLine("OK");
         }
@@ -231,16 +243,17 @@ namespace System.Application.Steps
             return string.Empty;
         }
 
-        static HttpClient GetHttpClient()
+        static HttpClient GetHttpClient(string token)
         {
             var client = new HttpClient
             {
                 BaseAddress = new Uri(api_base_url)
             };
+            client.DefaultRequestHeaders.Authorization = new(token);
             return client;
         }
 
-        const string api_base_url = "https://api.steampp.net";
+        const string api_base_url = "https://cycyadmin.steampp.net";
         const string api_version_create = "/api/version";
     }
 }

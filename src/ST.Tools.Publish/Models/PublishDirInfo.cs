@@ -5,7 +5,7 @@ namespace System.Application.Models
     /// <summary>
     /// 发布文件夹信息
     /// </summary>
-    internal class PublishDirInfo
+    public class PublishDirInfo
     {
         public PublishDirInfo()
         {

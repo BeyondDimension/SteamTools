@@ -59,6 +59,18 @@
     <None Include="..\..\references\dotnet-packaging\Packaging.Targets\runtimes\win7-x64\native\lzma.dll" Link="lzma.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="..\ST.Services.CloudService.Models\Models\Internals\ApiResponseImpl.cs">
+      <LinkBase>Models\Internals</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Services.CloudService.Models\Models\ApiResponse.cs">
+      <LinkBase>Models</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Services.CloudService.Models\Models\ApiResponseCode.cs">
+      <LinkBase>Models</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Services.CloudService.Models\Models\IApiResponse.cs">
+      <LinkBase>Models</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
