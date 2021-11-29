@@ -1,5 +1,8 @@
 name: SteamTools Publish
 
+env:
+  ProjectName: Steam++
+
 on:
   push:
     branches: [ main, develop ]
@@ -17,7 +20,6 @@ jobs:
       matrix:
         configuration: [ Release ]
         os: [ windows-latest ]
-      # os: [ windows-latest, macOS-latest, ubuntu-latest ]
 
     steps:
     - name: Checkout repository
@@ -71,3 +73,25 @@ jobs:
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       id: tag
       uses: dawidd6/action-get-tag@v1
+
+    - name: Build File
+      shell: pwsh
+      run: ..\packaging\build.ps1 ${{ steps.tag.outputs.tag }}
+      
+  Release:
+    name: Release
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [ Release ]
+        os: [ windows-latest ]
+
+    steps:
+       - name: Get tag
+         if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+         id: tag
+         uses: dawidd6/action-get-tag@v1
+    
