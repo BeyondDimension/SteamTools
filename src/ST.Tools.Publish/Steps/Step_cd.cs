@@ -51,10 +51,11 @@ namespace System.Application.Steps
 
         static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
         {
+            var desc = ReadVersionDesc();
             var request = new CreateVersionRequest
             {
                 Version = Utils.Version,
-                Desc = ReadVersionDesc(),
+                Desc = desc,
                 UseLastSKey = use_last_skey,
             };
             using var client = GetHttpClient(token);
@@ -239,8 +240,58 @@ namespace System.Application.Steps
         /// <returns></returns>
         static string ReadVersionDesc()
         {
-            throw new NotImplementedException("TODO");
-            return string.Empty;
+            const char splitChar = ';';
+            var release_template_md_path = projPath + release_template_md;
+            using var sr = File.OpenText(release_template_md_path);
+            StringBuilder builder = new();
+            var isFirstTitle = false;
+            var num = 1;
+            while (true)
+            {
+                var line = sr.ReadLine();
+                if (line == null) break;
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                if (line.StartsWith('#'))
+                {
+                    var title = line.Split(' ', StringSplitOptions.RemoveEmptyEntries).Skip(1).FirstOrDefault();
+                    if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        if (title == "已知问题" || title.Contains("下载指南"))
+                        {
+                            break;
+                        }
+                    }
+                    if (!isFirstTitle)
+                    {
+                        builder.Append(splitChar);
+                        isFirstTitle = true;
+                    }
+                    builder.Append(title);
+                    num = 1;
+                    builder.Append(splitChar);
+                }
+                else if (line.Contains('.'))
+                {
+                    builder.Append(num++);
+                    builder.Append(". ");
+                    var lineArray = line.Split('.');
+                    var numStr = lineArray.FirstOrDefault();
+                    if (!string.IsNullOrWhiteSpace(numStr) && numStr.Length <= 3 && !byte.TryParse(numStr, out var _)) continue;
+                    lineArray = lineArray.Skip(1).ToArray();
+                    for (int i = 0; i < lineArray.Length; i++)
+                    {
+                        var item = lineArray[i];
+                        builder.Append(item);
+                        if (i != lineArray.Length - 1) builder.Append('.');
+                    }
+                    builder.Append(splitChar);
+                }
+            }
+            if (builder[^1] == splitChar)
+            {
+                builder.Remove(builder.Length - 1, 1);
+            }
+            return builder.ToString();
         }
 
         static HttpClient GetHttpClient(string token)
