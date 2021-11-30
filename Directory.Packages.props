@@ -85,7 +85,7 @@
 		<!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
 		<PackageVersion Include="TaskScheduler" Version="2.9.2" />
 		<PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0" />
-		<PackageVersion Include="ReactiveUI.AndroidX" Version="16.3.10" />
+		<PackageVersion Include="ReactiveUI.AndroidX" Version="16.4.1" />
 		<PackageVersion Include="Square.OkHttp3" Version="4.9.2" />
 		<PackageVersion Include="Square.Picasso" Version="2.71828.0" />
 		<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />
