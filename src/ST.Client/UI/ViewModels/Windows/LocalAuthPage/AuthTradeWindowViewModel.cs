@@ -536,14 +536,12 @@ namespace System.Application.UI.ViewModels
             }
             catch (WinAuthInvalidTradesResponseException ex)
             {
-                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
-                Toast.Show(ex.Message);
+                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(AcceptTrade));
                 return false;
             }
             catch (ApplicationException ex)
             {
-                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
-                Toast.Show(ex.Message);
+                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(AcceptTrade));
                 return false;
             }
         }
@@ -577,14 +575,12 @@ namespace System.Application.UI.ViewModels
             }
             catch (WinAuthInvalidTradesResponseException ex)
             {
-                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
-                Toast.Show(ex.Message);
+                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(RejectTrade));
                 return false;
             }
             catch (ApplicationException ex)
             {
-                Log.Error(nameof(RejectTrade), ex, nameof(AuthTradeWindowViewModel));
-                Toast.Show(ex.Message);
+                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(RejectTrade));
                 return false;
             }
         }

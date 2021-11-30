@@ -62,8 +62,7 @@ namespace System.Application.Services.Implementation
                 }
                 catch (Exception e)
                 {
-                    var errorMessage = e.GetAllMessage();
-                    Toast.Show(errorMessage);
+                    Toast.Show(e, nameof(NativeWindowApiServiceImpl));
                 }
             }
             MouseHook.SetSystemCursor(MouseHook.LoadCursor(IntPtr.Zero, MouseHook.OCR_CROSS), MouseHook.OCR_NORMAL);

@@ -47,7 +47,7 @@ namespace System.Application.Services
                         Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
                         break;
                     case QRCodeHelper.QRCodeCreateResult.Exception:
-                        Toast.Show(e!.ToString());
+                        Toast.Show(e!, nameof(AuthService), msg: nameof(GetQrCodeStreamAsync));
                         break;
                 }
                 return stream;
@@ -760,8 +760,7 @@ namespace System.Application.Services
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(AuthService), ex, nameof(ExportAuthenticators));
-                Toast.Show(ex.Message);
+                Toast.Show(ex, nameof(AuthService), msg: nameof(ExportAuthenticators));
             }
         }
 

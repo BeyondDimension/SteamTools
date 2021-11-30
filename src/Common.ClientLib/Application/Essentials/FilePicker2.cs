@@ -86,13 +86,13 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e.Message);
+                        Toast.Show(e, nameof(FilePicker2));
                     }
                 }
             }
             catch (PermissionException e)
             {
-                Toast.Show(e.Message);
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
             catch
             {
@@ -122,13 +122,13 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e.Message);
+                        Toast.Show(e, nameof(FilePicker2));
                     }
                 }
             }
             catch (PermissionException e)
             {
-                Toast.Show(e.Message);
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
             catch
             {
@@ -175,13 +175,13 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e.Message);
+                        Toast.Show(e, nameof(FilePicker2));
                     }
                 }
             }
             catch (PermissionException e)
             {
-                Toast.Show(e.Message);
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
             catch
             {
@@ -211,13 +211,13 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e.Message);
+                        Toast.Show(e, nameof(FilePicker2));
                     }
                 }
             }
             catch (PermissionException e)
             {
-                Toast.Show(e.Message);
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
             catch
             {

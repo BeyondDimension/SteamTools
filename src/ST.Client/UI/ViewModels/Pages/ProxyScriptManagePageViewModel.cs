@@ -185,7 +185,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (s.Result == MessageBox.Result.OK)
                 {
-                    var item = await DI.Get<IScriptManager>().DeleteScriptAsync(script);
+                    var item = await IScriptManager.Instance.DeleteScriptAsync(script);
                     if (item.IsSuccess)
                     {
                         if (ProxyService.Current.ProxyScripts != null)
@@ -237,7 +237,7 @@ namespace System.Application.UI.ViewModels
         {
             if (script?.FilePath != null)
             {
-                var item = await DI.Get<IScriptManager>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, build: script.IsBuild, ignoreCache: true);
+                var item = await IScriptManager.Instance.AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, build: script.IsBuild, ignoreCache: true);
                 if (item.IsSuccess)
                 {
                     if (item.Content != null)

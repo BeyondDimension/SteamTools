@@ -23,7 +23,7 @@ namespace System
         }
 
         [Test]
-        public void ConsoleEx()
+        public void ConsoleException()
         {
             var maxLine = 7;
             IConsoleBuilder builder = new ConsoleBuilder() { MaxLine = maxLine, };

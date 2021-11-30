@@ -5,7 +5,7 @@ namespace System.Application.Models
     /// <summary>
     /// 发布文件信息
     /// </summary>
-    internal class PublishFileInfo
+    public class PublishFileInfo
     {
         public PublishFileInfo()
         {

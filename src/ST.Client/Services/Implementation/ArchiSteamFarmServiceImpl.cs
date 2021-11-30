@@ -79,7 +79,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                Toast.Show(ex.Message);
+                Toast.Show(ex, nameof(ArchiSteamFarmServiceImpl));
                 await Stop().ConfigureAwait(false);
             }
         }

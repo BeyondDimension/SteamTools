@@ -301,7 +301,7 @@ namespace System.Application.UI.ViewModels
             }
             catch (Exception e)
             {
-                Toast.Show(e.ToString());
+                Toast.Show(e, nameof(GameListPageViewModel));
             }
         }
         public void AddAFKAppListFunc(SteamApp app)
@@ -317,7 +317,7 @@ namespace System.Application.UI.ViewModels
             }
             catch (Exception e)
             {
-                Toast.Show(e.ToString());
+                Toast.Show(e, nameof(GameListPageViewModel));
             }
         }
         public void AddHideAppList(SteamApp app)
@@ -332,7 +332,7 @@ namespace System.Application.UI.ViewModels
             }
             catch (Exception e)
             {
-                Toast.Show(e.ToString());
+                Toast.Show(e, nameof(GameListPageViewModel));
             }
         }
         public async void UnlockAchievement_Click(SteamApp app)

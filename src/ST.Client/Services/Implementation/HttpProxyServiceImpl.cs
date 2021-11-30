@@ -690,8 +690,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                Toast.Show(ex.Message);
-                Log.Error(nameof(HttpProxyServiceImpl), ex, nameof(StopProxy));
+                Toast.Show(ex, nameof(HttpProxyServiceImpl), msg: nameof(StopProxy));
             }
         }
 

@@ -36,7 +36,7 @@ namespace System.Application
             {
                 try
                 {
-                    Toast.Show(e.GetAllMessage());
+                    Toast.Show(e, nameof(Browser2));
                 }
                 catch
                 {
