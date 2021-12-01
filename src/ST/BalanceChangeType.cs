@@ -17,7 +17,7 @@ namespace System.Application
         /// <summary>
         /// 爱发电赞助
         /// </summary>
-        Afdian = 3,
+        Donate = 3,
 
     }
 }

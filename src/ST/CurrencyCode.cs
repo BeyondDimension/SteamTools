@@ -18,6 +18,7 @@ namespace System.Application
         /// </summary>
         USD = 2,
     }
+
 }
 
 // ReSharper disable once CheckNamespace
@@ -33,5 +34,19 @@ namespace System
         };
 
         public static CultureInfo GetCultureInfo(this CurrencyCode currencyCode) => new(currencyCode.GetLCID());
+        public static CurrencyCode ToCurrencyCode(this string str)
+        {
+            switch (str.ToLower())
+            {
+                case "cny":
+                    return CurrencyCode.CNY;
+                case "usd":
+                    return CurrencyCode.USD;
+                default:
+                    return CurrencyCode.CNY;
+
+            }
+        }
+
     }
 }
