@@ -41,6 +41,11 @@ namespace System.Application.UI
         {
             // 此页面当前使用 Square.Picasso 库加载图片
             AuthTradeWindowViewModel.IsLoadImage = false;
+
+            // https://github.com/xamarin/Xamarin.Forms/blob/release-5.0.0-sr7/Xamarin.Forms.Platform.Android/Resources/Layout/RootLayout.axml
+            // https://github.com/xamarin/Xamarin.Forms/blob/release-5.0.0-sr7/Xamarin.Forms.Platform.Android/Renderers/ShellSectionRenderer.cs
+            // 替换 RootLayout.axml 中的 Toolbar 修复一些样式问题，更换 ShellSectionRenderer 类会导致子页面无法加载，或许需要继承自，但只能通过反射修改 layout
+            Xamarin.Forms.Platform.Android.Resource.Layout.RootLayout = Resource.Layout.xf_root_layout;
         }
 
 #if DEBUG
@@ -178,7 +183,7 @@ namespace System.Application.UI
                 startTrace.AppendFormatLine("init XF {0}ms", stopwatch.ElapsedMilliseconds);
                 stopwatch.Restart();
 
-                _Current = new();
+                _Current = new(RealTheme);
 
                 stopwatch.Stop();
                 startTrace.AppendFormatLine("init XFApp {0}ms", stopwatch.ElapsedMilliseconds);
@@ -207,6 +212,8 @@ namespace System.Application.UI
         AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
         public bool IsRuntimeSwitchXFAppTheme { get; set; } = true;
+
+        #region AppTheme
 
         public new AppTheme Theme
         {
@@ -250,8 +257,24 @@ namespace System.Application.UI
             }
         }
 
-        AppTheme IApplication.GetActualThemeByFollowingSystem()
-            => DarkModeUtil.IsDarkMode(this) ? AppTheme.Dark : AppTheme.Light;
+        AppTheme ActualThemeByFollowingSystem => DarkModeUtil.IsDarkMode(this) ? AppTheme.Dark : AppTheme.Light;
+
+        AppTheme IApplication.GetActualThemeByFollowingSystem() => ActualThemeByFollowingSystem;
+
+        public AppTheme RealTheme
+        {
+            get
+            {
+                var value = Theme;
+                return value switch
+                {
+                    AppTheme.Light or AppTheme.Dark => value,
+                    _ => ActualThemeByFollowingSystem,
+                };
+            }
+        }
+
+        #endregion
 
         public static async void ShowUnderConstructionTips() => await MessageBox.ShowAsync(AppResources.UnderConstruction);
 

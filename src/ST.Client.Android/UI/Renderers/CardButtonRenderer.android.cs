@@ -1,9 +1,10 @@
 using Android.Content;
+using System.Application.UI.Views.Controls;
 using Xamarin.Forms.Material.Android;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 
-namespace System.Application.UI.Views.Controls
+namespace System.Application.UI.Renderers
 {
     partial class CardButtonRenderer : MaterialFrameRenderer, AView.IOnClickListener
     {

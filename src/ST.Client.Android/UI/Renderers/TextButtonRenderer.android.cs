@@ -2,10 +2,11 @@ using Android.Content;
 using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.Widget;
+using ButtonRenderer = Xamarin.Forms.Platform.Android.AppCompat.ButtonRenderer;
 
-namespace System.Application.UI.Views.Controls
+namespace System.Application.UI.Renderers
 {
-    partial class TextButtonRenderer : Xamarin.Forms.Platform.Android.AppCompat.ButtonRenderer
+    partial class TextButtonRenderer : ButtonRenderer
     {
         public TextButtonRenderer(Context context)
             : base(context)

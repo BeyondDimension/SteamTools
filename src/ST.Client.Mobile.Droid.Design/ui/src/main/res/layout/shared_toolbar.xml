@@ -13,6 +13,8 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:navigationIconTint="@color/shell_title_color"
+    app:theme="@style/MainTheme2.Toolbar"
     tools:title="MaterialToolbar.Title"
     xamarin:managedType="Google.Android.Material.AppBar.MaterialToolbar" />
 </com.google.android.material.appbar.AppBarLayout>

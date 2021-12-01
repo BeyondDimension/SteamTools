@@ -47,4 +47,8 @@
   <style name="MainTheme2.OverflowMenu" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
     <item name="android:overlapAnchor">false</item>
   </style>
+
+  <style name="MainTheme2.Toolbar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+    <item name="colorControlNormal">@color/shell_title_color</item>
+  </style>
 </resources>

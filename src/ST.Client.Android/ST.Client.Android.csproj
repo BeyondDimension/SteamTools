@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>MonoAndroid11.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
-    <AssemblyName>System.Application.SteamTools.Client.Android</AssemblyName>
+    <AssemblyName>Xamarin.Forms.Platform.Android.UnitTests</AssemblyName>
     <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
     <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>

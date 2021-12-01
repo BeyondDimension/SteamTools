@@ -2,7 +2,7 @@ using Android.Content;
 using Android.Graphics.Drawables;
 using Xamarin.Forms.Platform.Android;
 
-namespace System.Application.UI.Views.Controls
+namespace System.Application.UI.Renderers
 {
     partial class TextBoxRenderer : EntryRenderer
     {

@@ -5,9 +5,9 @@ using Android.Widget;
 using Square.Picasso;
 using System.Application.Services;
 using System.IO;
-using System.Properties;
 using JFile = Java.IO.File;
 using AndroidApplication = Android.App.Application;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.UI
 {
@@ -19,7 +19,7 @@ namespace System.Application.UI
         static Picasso GetPicasso()
         {
             Picasso.Builder picassoBuilder = new(AndroidApplication.Context);
-            picassoBuilder.IndicatorsEnabled(ThisAssembly.Debuggable);
+            picassoBuilder.IndicatorsEnabled(_ThisAssembly.Debuggable);
             static JFile CreateDefaultCacheDir()
             {
                 var cachePath = IHttpService.GetImagesCacheDirectory(null);

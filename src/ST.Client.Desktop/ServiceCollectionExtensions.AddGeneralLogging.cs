@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using System.Application.UI;
 using System.Logging;
-using System.Properties;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 action(b);
 #if __ANDROID__
-                if (ThisAssembly.Debuggable)
+                if (_ThisAssembly.Debuggable)
                 {
                     // Android Logcat Provider Impl
                     b.AddProvider(PlatformLoggerProvider.Instance);
