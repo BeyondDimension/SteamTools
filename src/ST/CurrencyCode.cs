@@ -34,19 +34,7 @@ namespace System
         };
 
         public static CultureInfo GetCultureInfo(this CurrencyCode currencyCode) => new(currencyCode.GetLCID());
-        public static CurrencyCode ToCurrencyCode(this string str)
-        {
-            switch (str.ToLower())
-            {
-                case "cny":
-                    return CurrencyCode.CNY;
-                case "usd":
-                    return CurrencyCode.USD;
-                default:
-                    return CurrencyCode.CNY;
-
-            }
-        }
+        public static CurrencyCode ToCurrencyCode(this string str) => Enum.TryParse(str, true, out CurrencyCode val) ? val : CurrencyCode.CNY;
 
     }
 }
