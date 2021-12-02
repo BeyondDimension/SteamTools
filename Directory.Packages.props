@@ -233,7 +233,7 @@
 		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.3" />
 		<PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.5" />
 		<PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.3.6.3" />
-		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.3" />
+		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.4" />
 		<PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.3" />
 		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.12" />
 		<PackageVersion Include="Xamarin.Google.Android.Material" Version="1.4.0.4" />
