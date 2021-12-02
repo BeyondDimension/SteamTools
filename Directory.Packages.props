@@ -104,7 +104,7 @@
 
 		<!-- ReactiveUI -->
 		<PackageVersion Include="Splat" Version="13.1.63" />
-		<PackageVersion Include="ReactiveUI" Version="16.3.10" />
+		<PackageVersion Include="ReactiveUI" Version="17.0.1" />
 		<!--<PackageVersion Include="ReactiveUI.Fody" Version="16.3.5" /> -->
 		<PackageVersion Include="ReactiveUI.XamForms" Version="16.3.10" />
 		<PackageVersion Include="DynamicData" Version="7.4.3" />
