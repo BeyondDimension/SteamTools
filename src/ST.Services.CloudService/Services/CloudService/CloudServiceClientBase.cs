@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using System.Application.Columns;
 using System.Application.Models;
@@ -63,12 +62,12 @@ namespace System.Application.Services.CloudService
             IHttpPlatformHelperService http_helper,
             IToast toast,
             IAuthHelper authHelper,
-            IOptions<ICloudServiceSettings> options,
+            ICloudServiceSettings settings,
             IModelValidator validator) : base(logger, http_helper, clientFactory)
         {
             this.authHelper = authHelper;
             this.toast = toast;
-            settings = options.Value;
+            this.settings = settings;
             ApiBaseUrl = string.IsNullOrWhiteSpace(settings.ApiBaseUrl)
                 ? throw new ArgumentNullException(nameof(ApiBaseUrl)) : settings.ApiBaseUrl;
             connection = new ApiConnection(logger, this, http_helper, validator);

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text;
 using XEPlatform = Xamarin.Essentials.Platform;
@@ -29,11 +28,21 @@ namespace System.Application.Services.Implementation
         void IPlatformService.OpenFileByTextReader(string filePath)
         {
             var activity = XEPlatform.CurrentActivity;
+            if (filePath.StartsWith(IOPath.AppDataDirectory) || filePath.StartsWith(IOPath.CacheDirectory))
+            {
+                OpenFileByTextReaderByTextBlockActivity();
+                return;
+            }
             var result = GoToPlatformPages.OpenFile(
                 activity,
                 new(filePath),
                 MediaTypeNames.TXT);
             if (!result)
+            {
+                OpenFileByTextReaderByTextBlockActivity();
+            }
+
+            void OpenFileByTextReaderByTextBlockActivity()
             {
                 TextBlockActivity.StartActivity(activity, new() { FilePath = filePath });
             }

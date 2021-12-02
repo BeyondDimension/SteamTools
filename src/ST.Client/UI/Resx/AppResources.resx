@@ -48,12 +48,12 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+            : 
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
-
+            : 
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -145,10 +145,10 @@
     <value>更新日志</value>
   </data>
   <data name="AccountChange_RestartSteam" xml:space="preserve">
-    <value>修改的数据生效需要重启Steam是否需要重启Steam。</value>
+    <value>修改的数据生效需要重启 Steam 是否需要重启 Steam。</value>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>调整当前设备上共享的Steam账号优先级顺序，用于解决想玩账号B的共享却一直使用的是账号A的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启Steam生效。</value>
+    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启 Steam 生效。</value>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
@@ -203,16 +203,16 @@
     <value>保存并应用成就和统计</value>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
-    <value>解锁于{0:yyyy-MM-dd HH:mm:ss}</value>
+    <value>解锁于 {0:yyyy-MM-dd HH:mm:ss}</value>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
     <value>成就解锁</value>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
-    <value>与Steam建立连接失败，可能是该游戏没有成就，或者你没有该游戏。</value>
+    <value>与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。</value>
   </data>
   <data name="Achievement_Warning_2" xml:space="preserve">
-    <value>错误代码: {0}
+    <value>错误代码：{0}
 检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。</value>
   </data>
   <data name="Achievement_Warning_3" xml:space="preserve">
@@ -234,19 +234,19 @@
     <value>自动挂卡</value>
   </data>
   <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
-    <value>未检测到有效的Key格式，请确认输入了正确的Key</value>
+    <value>未检测到有效的 Key 格式，请确认输入了正确的 Key</value>
   </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>ASF已经运行</value>
   </data>
   <data name="ASF_RedeemKey" xml:space="preserve">
-    <value>批量激活Key</value>
+    <value>批量激活 Key</value>
   </data>
   <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
-    <value>输入Key</value>
+    <value>输入 Key</value>
   </data>
   <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
-    <value>你可以键入任何文本只要其中包含SteamKey就会被自动识别添加到激活列表，也可以按以下格式输入：
+    <value>你可以键入任何文本只要其中包含 SteamKey 就会被自动识别添加到激活列表，也可以按以下格式输入：
 AAAAA-BBBBB-CCCC1
 AAAAA-BBBBB-CCCC2
 AAAAA-BBBBB-CCCC3</value>
@@ -258,16 +258,16 @@ AAAAA-BBBBB-CCCC3</value>
     <value>未使用</value>
   </data>
   <data name="ASF_Start" xml:space="preserve">
-    <value>启动ASF</value>
+    <value>启动 ASF</value>
   </data>
   <data name="ASF_Stop" xml:space="preserve">
-    <value>停止ASF</value>
+    <value>停止 ASF</value>
   </data>
   <data name="ASF_AddBot" xml:space="preserve">
-    <value>新增Bot</value>
+    <value>新增 Bot</value>
   </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
-    <value>刷新Bot</value>
+    <value>刷新 Bot</value>
   </data>
   <data name="ASF_OpenWebUIConsole" xml:space="preserve">
     <value>打开 WebUI 控制台</value>
@@ -282,10 +282,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>ASF 配置</value>
   </data>
   <data name="ASF_VersionNum" xml:space="preserve">
-    <value>当前 ArchiSteamFarm 版本 :  </value>
+    <value>当前 ArchiSteamFarm 版本 ： </value>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>程序启动时自动运行ASF</value>
+    <value>程序启动时自动运行 ASF</value>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
     <value>跳转到 WebUI 全局设置</value>
@@ -294,10 +294,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>导入已有的 ASF Bot 文件</value>
   </data>
   <data name="ASF_RequirRunASF" xml:space="preserve">
-    <value>请先运行ASF功能</value>
+    <value>请先运行 ASF 功能</value>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>已将{0}个Key添加到激活队列，队列中的Key会自动排队激活。</value>
+    <value>已将{0}个 Key 添加到激活队列，队列中的Key会自动排队激活。</value>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
     <value>剩余卡片</value>
@@ -394,7 +394,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>移除证书</value>
   </data>
   <data name="CommunityFix_EditHostsFile" xml:space="preserve">
-    <value>编辑hosts文件</value>
+    <value>编辑 hosts 文件</value>
   </data>
   <data name="CommunityFix_EnableScriptService" xml:space="preserve">
     <value>启用脚本</value>
@@ -409,7 +409,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>没有选择任何加速服务</value>
   </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
-    <value>仅对Steam内置浏览器生效</value>
+    <value>仅对 Steam 内置浏览器生效</value>
   </data>
   <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
     <value>打开证书文件夹</value>
@@ -421,16 +421,16 @@ AAAAA-BBBBB-CCCC3</value>
     <value>加速模式:</value>
   </data>
   <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts代理模式(推荐)</value>
+    <value>Hosts 代理模式(推荐)</value>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
-    <value>修改Hosts文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机443端口未被使用。</value>
+    <value>修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。</value>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
     <value>系统代理模式</value>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
-    <value>设置Windows系统代理来监听请求，不需要占用443端口，会全局代理本机所有流量，如果你使用Hosts方式没有问题，那就不需要使用此模式。</value>
+    <value>设置 Windows 系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。</value>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
     <value>管理脚本</value>
@@ -448,7 +448,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>启动加速服务失败，证书安装失败。</value>
   </data>
   <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>加速服务启动失败，{0}端口被 {1} 占用。请关掉占用{0}端口的程序或者尝试使用系统代理模式。</value>
+    <value>加速服务启动失败，{0} 端口被 {1} 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。</value>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速已启动成功</value>
@@ -523,13 +523,13 @@ AAAAA-BBBBB-CCCC3</value>
     <value>库存游戏</value>
   </data>
   <data name="GameList_AddAFKAppsMaxCountTips" xml:space="preserve">
-    <value>挂机的游戏已达到限制{0}个，请移除部分游戏再添加。</value>
+    <value>挂机的游戏已达到限制 {0} 个，请移除部分游戏再添加。</value>
   </data>
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
     <value>添加到挂时长列表成功</value>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
-    <value>警告：Steam允许的同时运行游戏数量为{0}个，如果您同时挂时长{1}款游戏，将无法正常游玩游戏！</value>
+    <value>警告：Steam允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！</value>
   </data>
   <data name="GameList_AddAfkGameList" xml:space="preserve">
     <value>添加到挂时长列表</value>
@@ -610,7 +610,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>开始游戏</value>
   </data>
   <data name="GameList_NavToSteamView" xml:space="preserve">
-    <value>在Steam客户端中查看</value>
+    <value>在 Steam 客户端中查看</value>
   </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
     <value>刷新游戏列表</value>
@@ -646,7 +646,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>设置自定义封面</value>
   </data>
   <data name="GameList_SteamNotRuning" xml:space="preserve">
-    <value>Steam未启动</value>
+    <value>Steam 未启动</value>
   </data>
   <data name="GameList_StopBtn" xml:space="preserve">
     <value>全部暂停</value>
@@ -706,7 +706,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>置于壁纸层</value>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
-    <value>置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。</value>
+    <value>置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与 Wallpaper Engine 和其它动态桌面软件不兼容，使用时注意关掉 Wallpaper Engine 等软件。</value>
   </data>
   <data name="Gender" xml:space="preserve">
     <value>性别</value>
@@ -727,19 +727,19 @@ AAAAA-BBBBB-CCCC3</value>
     <value>获取 Steam 登录状态失败 {0}，请输入 Steam 用户名密码进行快速登录</value>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
-    <value>写入的 hosts 已经存在</value>
+    <value>写入的 Hosts 已经存在</value>
   </data>
   <data name="Hosts_ReadError" xml:space="preserve">
-    <value>读取 hosts 文件时发生错误</value>
+    <value>读取 Hosts 文件时发生错误</value>
   </data>
   <data name="Hosts_ReadSuccess" xml:space="preserve">
-    <value>读取 hosts 成功</value>
+    <value>读取 Hosts 成功</value>
   </data>
   <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>写入 hosts 成功</value>
+    <value>写入 Hosts 成功</value>
   </data>
   <data name="Hosts_WirteError" xml:space="preserve">
-    <value>写入 hosts 时发生错误</value>
+    <value>写入 Hosts 时发生错误</value>
   </data>
   <data name="IdleCard" xml:space="preserve">
     <value>自动集卡</value>
@@ -806,7 +806,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>您没有权限查看确认信息. 是否启用了家庭监护功能？暂时不支持管理启用家庭监护功能后的交易确认。</value>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
-    <value>获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。</value>
+    <value>获取 Steam 令牌交易数据失败，请确认是否正常加速了 Steam 社区地址。</value>
   </data>
   <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
     <value>登录状态已失效请尝试重新登录。</value>
@@ -815,7 +815,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>正在获取最新的交易报价信息...</value>
   </data>
   <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
-    <value>{0}条交易待处理</value>
+    <value>{0} 条交易待处理</value>
   </data>
   <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
     <value>当前没有任何需要处理的交易报价</value>
@@ -859,7 +859,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>是否需要导出带加密的数据</value>
   </data>
   <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
-    <value>导入数据出现错误，错误代码:{0}</value>
+    <value>导入数据出现错误，错误代码：{0}</value>
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>请输入导出的数据密码</value>
@@ -916,7 +916,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>令牌仅在这台电脑上可解密</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。</value>
+    <value>你也可以使用内置的 Windows 账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装 Windows 或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
     <value>没有任何更改需要保存</value>
@@ -952,7 +952,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Steam Desktop Auth导入</value>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入)</value>
+    <value>Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入。(不支持导入加密文件，请先移除密码在导入)</value>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>查看令牌</value>
@@ -961,41 +961,41 @@ AAAAA-BBBBB-CCCC3</value>
     <value>查看令牌详细数据</value>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
-    <value>Steam身份验证器的完整数据，可在导入不同软件时使用：</value>
+    <value>Steam 身份验证器的完整数据，可在导入不同软件时使用：</value>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
-    <value>在Steam中启用两步验证令牌后，便会生成一个恢复代码，您可以在Steam客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。</value>
+    <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。</value>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
     <value>请输入发送到您手机的短信验证代码。</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>手机Steam导入</value>
+    <value>手机 Steam 导入</value>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
-    <value>您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中</value>
+    <value>您可以在已 root 的 Android 设备中导入您的 SteamGuard 身份验证器路径：/data/data/com.valvesoftware.android.steam.community 然后将以下两个文件的内容复制到下面的对应输入框中</value>
   </data>
   <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
     <value>确认交易</value>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>在files文件夹中，打开'SteamGuard-NNNNNNNN'文件，粘贴文件的全部内容</value>
+    <value>在 files 文件夹中，打开 'SteamGuard-NNNNNNNN' 文件，粘贴文件的全部内容</value>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Steam++导入</value>
+    <value>Steam++ 导入</value>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>导入Steam++ V1版本的导出的令牌数据</value>
+    <value>导入 Steam++ V1版本的导出的令牌数据</value>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>导入Steam++ V2版本的导出的令牌数据</value>
+    <value>导入 Steam++ V2版本的导出的令牌数据</value>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
-    <value>确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。
-    (如果没有开Steam网络加速会导致无法登录成功)</value>
+    <value>确认交易需要登录 Steam，程序不会记录你的密码，只会在本地保存登录的状态。
+    (如果没有开 Steam 网络加速会导致无法登录成功)</value>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Steam账号导入</value>
+    <value>Steam 账号导入</value>
   </data>
   <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
     <value>你已经成功通过账号登录导入了你的令牌，请最后在测试一下你的令牌是否可以正常使用，如果无法使用可能导入失败，尝试重新进行导入并且删除掉无效令牌即可。</value>
@@ -1010,16 +1010,16 @@ AAAAA-BBBBB-CCCC3</value>
     <value>设备ID(uuid)：</value>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>在shared_prefs文件夹中，粘贴'steam_uuid.xml'的uuidKey</value>
+    <value>在 shared_prefs 文件夹中，粘贴 'steam_uuid.xml' 的 uuidKey</value>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
     <value>同步时钟</value>
   </data>
   <data name="LocalAuth_WinAuthImport" xml:space="preserve">
-    <value>WinAuth导入</value>
+    <value>WinAuth 导入</value>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。</value>
+    <value>WinAuth 是 Windows 的便携式开放源代码身份验证器，它提供基于计数器或基于时间的 RFC 6238 身份验证器和常见的实现。导入方法：从 WinAuth 导出 txt 文件之后在此选择从 WinAuth 导出的 txt 文件进行导入。</value>
   </data>
   <data name="Lock" xml:space="preserve">
     <value>锁定</value>
@@ -1082,7 +1082,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>我已经写下了我的恢复代码</value>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>您的令牌已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
+    <value>您的令牌已被添加到您的 Steam 账户上并已经成功导入 Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
@@ -1136,7 +1136,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>是否完成脚本修改，点击确定刷新缓存。</value>
   </data>
   <data name="Script_FileError" xml:space="preserve">
-    <value>找不到文件，请检查路径{0}</value>
+    <value>找不到文件，请检查路径 {0}</value>
   </data>
   <data name="Script_Home" xml:space="preserve">
     <value>脚本主页</value>
@@ -1169,7 +1169,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>搜索...</value>
   </data>
   <data name="SelectFileImport" xml:space="preserve">
-    <value>选择{0}文件导入</value>
+    <value>选择 {0} 文件导入</value>
     <comment>Comment=*.txt;</comment>
   </data>
   <data name="Settings" xml:space="preserve">
@@ -1197,19 +1197,19 @@ AAAAA-BBBBB-CCCC3</value>
     <value>语言</value>
   </data>
   <data name="Settings_Steam" xml:space="preserve">
-    <value>Steam设置</value>
+    <value>Steam 设置</value>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>程序启动时自动运行Steam</value>
+    <value>程序启动时自动运行 Steam</value>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
-    <value>Steam启动时不检查更新</value>
+    <value>Steam 启动时不检查更新</value>
   </data>
   <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
-    <value>Steam启动时最小化到托盘</value>
+    <value>Steam 启动时最小化到托盘</value>
   </data>
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
-    <value>Steam启动参数</value>
+    <value>Steam 启动参数</value>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
     <value>主题</value>
@@ -1233,10 +1233,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>使用动态桌面背景</value>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
-    <value>不支持在背景透明材质为{0}时启用此功能</value>
+    <value>不支持在背景透明材质为 {0} 时启用此功能</value>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
-    <value>*实验性功能(开启此功能时建议将透明材质设置为Transparent或AcrylicBlur)
+    <value>*实验性功能(开启此功能时建议将透明材质设置为 Transparent 或 AcrylicBlur)
 这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。背景仅在主窗口生效，其它窗口建议调整透明度不要完全透明或者使用图片背景。使用时注意自行根据壁纸亮暗色情况切换对应主题以获得更好的效果。</value>
   </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
@@ -1327,14 +1327,14 @@ AAAAA-BBBBB-CCCC3</value>
     <value>输入图中验证码</value>
   </data>
   <data name="Steam_Password" xml:space="preserve">
-    <value>Steam密码</value>
+    <value>Steam 密码</value>
   </data>
   <data name="Steam_User" xml:space="preserve">
-    <value>Steam用户名</value>
+    <value>Steam 用户名</value>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
-(如果没有开Steam网络加速会导致无法登录成功)</value>
+    <value>登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。
+(如果没有开 Steam 网络加速会导致无法登录成功)</value>
   </data>
   <data name="Success_" xml:space="preserve">
     <value>{0}成功</value>
@@ -1373,7 +1373,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>游戏中</value>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
-    <value>一键登录Steam</value>
+    <value>一键登录 Steam</value>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
     <value>按下此按钮将重启 Steam 并以该账号登录</value>
@@ -1541,7 +1541,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>点击跳转到快速登录窗口</value>
   </data>
   <data name="User_SteamUnLoginTip" xml:space="preserve">
-    <value>点击Steam Logo登录</value>
+    <value>点击 Steam Logo 登录</value>
   </data>
   <data name="User_UnbundleAccountTip" xml:space="preserve">
     <value>解绑第三方账号关联后将无法以该第三方账号快速登录，是否确定解绑？</value>
@@ -1610,7 +1610,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>不再提醒</value>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
-    <value>Steam下载完成定时关机</value>
+    <value>Steam 下载完成定时关机</value>
   </data>
   <data name="Translators" xml:space="preserve">
     <value>社区翻译</value>
@@ -1634,8 +1634,8 @@ AAAAA-BBBBB-CCCC3</value>
     <value>应用通知(系统设置)</value>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
-    <value>打开{0}文件夹</value>
-    <comment>Comment={0}文件夹名称;</comment>
+    <value>打开 {0} 文件夹</value>
+    <comment>Comment={0}文件夹名称英文字母组成;</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
     <value>缓存文件已占用 {0}</value>
@@ -1655,25 +1655,25 @@ AAAAA-BBBBB-CCCC3</value>
     <value>计算中...</value>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
-    <value>启用开机自启动失败，原因: {0}</value>
+    <value>启用开机自启动失败，原因：{0}</value>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
-    <value>当Steam客户端登录时弹出通知</value>
+    <value>当 Steam 客户端登录时弹出通知</value>
   </data>
   <data name="Steam_CheckStarted" xml:space="preserve">
     <value>检测到启动：</value>
   </data>
   <data name="Steam_CurrentIPCountry" xml:space="preserve">
-    <value>Steam客户端登录区域：</value>
+    <value>Steam 客户端登录区域：</value>
   </data>
   <data name="Steam_CurrentUser" xml:space="preserve">
-    <value>Steam登录用户：</value>
+    <value>Steam 登录用户：</value>
   </data>
   <data name="Steam_SteamChina" xml:space="preserve">
-    <value>Steam国服</value>
+    <value>Steam 国服</value>
   </data>
   <data name="Steam_SteamWorld" xml:space="preserve">
-    <value>Steam国际服</value>
+    <value>Steam 国际服</value>
   </data>
   <data name="User_WaitFastLoginTip" xml:space="preserve">
     <value>我们已使用您的系统浏览器打开快速登录窗口，请进入该页面并登录。保持该窗口打开</value>
@@ -1724,10 +1724,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>代理设置</value>
   </data>
   <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
-    <value>代理监听IP地址</value>
+    <value>代理监听 IP 地址</value>
   </data>
   <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
-    <value>Socks5本地代理</value>
+    <value>Socks5 本地代理</value>
   </data>
   <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
     <value>监听端口</value>
@@ -1827,19 +1827,19 @@ AAAAA-BBBBB-CCCC3</value>
     <value>新版本通知</value>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
-    <value>操作 hosts 错误 {0}</value>
+    <value>操作 Hosts 错误 {0}</value>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
     <value>Steam++ 替换升级中...</value>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>脚本依赖下载出错:[{0}]_{1}</value>
+    <value>脚本依赖下载出错：[{0}]_{1}</value>
   </data>
   <data name="Script_BuildError" xml:space="preserve">
-    <value>脚本绑定出错:{0}</value>
+    <value>脚本绑定出错：{0}</value>
   </data>
   <data name="Script_CacheDeleteError" xml:space="preserve">
-    <value>缓存文件删除失败:{0}</value>
+    <value>缓存文件删除失败：{0}</value>
   </data>
   <data name="Script_DeleteError" xml:space="preserve">
     <value>删除失败</value>
@@ -1848,22 +1848,22 @@ AAAAA-BBBBB-CCCC3</value>
     <value>删除成功</value>
   </data>
   <data name="Script_FileDeleteError" xml:space="preserve">
-    <value>文件删除失败:{0}</value>
+    <value>文件删除失败：{0}</value>
   </data>
   <data name="Script_FileRepeat" xml:space="preserve">
     <value>脚本重复</value>
   </data>
   <data name="Script_NoFile" xml:space="preserve">
-    <value>脚本:{0}_文件丢失已删除</value>
+    <value>脚本：{0}_文件丢失已删除</value>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>脚本:{0}_文件丢失，删除失败去尝试手动删除</value>
+    <value>脚本：{0}_文件丢失，删除失败去尝试手动删除</value>
   </data>
   <data name="Script_NoKey" xml:space="preserve">
     <value>程序异常 主键为空</value>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
-    <value>脚本读取异常请检查语法是否有错误:{0}</value>
+    <value>脚本读取异常请检查语法是否有错误：{0}</value>
   </data>
   <data name="Script_SaveDBError" xml:space="preserve">
     <value>保存数据出错请重试</value>
@@ -1951,5 +1951,8 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="UnableDisplayCaptchaImage" xml:space="preserve">
     <value>无法显示验证码？</value>
+  </data>
+  <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
+    <value>请等待 IPC 启动中...</value>
   </data>
 </root>

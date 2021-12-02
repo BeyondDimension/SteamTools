@@ -226,7 +226,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 修改的数据生效需要重启Steam是否需要重启Steam。 的本地化字符串。
+        ///   查找类似 修改的数据生效需要重启 Steam 是否需要重启 Steam。 的本地化字符串。
         /// </summary>
         public static string AccountChange_RestartSteam {
             get {
@@ -235,7 +235,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 调整当前设备上共享的Steam账号优先级顺序，用于解决想玩账号B的共享却一直使用的是账号A的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启Steam生效。 的本地化字符串。
+        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启 Steam 生效。 的本地化字符串。
         /// </summary>
         public static string AccountChange_ShareManageAboutTips {
             get {
@@ -398,7 +398,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 解锁于{0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
+        ///   查找类似 解锁于 {0:yyyy-MM-dd HH:mm:ss} 的本地化字符串。
         /// </summary>
         public static string Achievement_TimeFormat {
             get {
@@ -416,7 +416,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 与Steam建立连接失败，可能是该游戏没有成就，或者你没有该游戏。 的本地化字符串。
+        ///   查找类似 与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。 的本地化字符串。
         /// </summary>
         public static string Achievement_Warning_1 {
             get {
@@ -425,7 +425,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 错误代码: {0}
+        ///   查找类似 错误代码：{0}
         ///检索成就统计信息时出错，可能是该游戏没有成就，或者你没有该游戏。 的本地化字符串。
         /// </summary>
         public static string Achievement_Warning_2 {
@@ -489,7 +489,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 新增Bot 的本地化字符串。
+        ///   查找类似 新增 Bot 的本地化字符串。
         /// </summary>
         public static string ASF_AddBot {
             get {
@@ -498,7 +498,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 程序启动时自动运行ASF 的本地化字符串。
+        ///   查找类似 程序启动时自动运行 ASF 的本地化字符串。
         /// </summary>
         public static string ASF_AutoRunASF {
             get {
@@ -606,6 +606,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 请等待 IPC 启动中... 的本地化字符串。
+        /// </summary>
+        public static string ASF_IPCIsReadyFalse {
+            get {
+                return ResourceManager.GetString("ASF_IPCIsReadyFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 IPC 端口号 的本地化字符串。
         /// </summary>
         public static string ASF_IPCPortId {
@@ -669,7 +678,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 批量激活Key 的本地化字符串。
+        ///   查找类似 批量激活 Key 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKey {
             get {
@@ -678,7 +687,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 输入Key 的本地化字符串。
+        ///   查找类似 输入 Key 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKey_InputKey {
             get {
@@ -687,7 +696,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 你可以键入任何文本只要其中包含SteamKey就会被自动识别添加到激活列表，也可以按以下格式输入：
+        ///   查找类似 你可以键入任何文本只要其中包含 SteamKey 就会被自动识别添加到激活列表，也可以按以下格式输入：
         ///AAAAA-BBBBB-CCCC1
         ///AAAAA-BBBBB-CCCC2
         ///AAAAA-BBBBB-CCCC3 的本地化字符串。
@@ -699,7 +708,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 未检测到有效的Key格式，请确认输入了正确的Key 的本地化字符串。
+        ///   查找类似 未检测到有效的 Key 格式，请确认输入了正确的 Key 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKey_NoValidkey {
             get {
@@ -726,7 +735,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 已将{0}个Key添加到激活队列，队列中的Key会自动排队激活。 的本地化字符串。
+        ///   查找类似 已将{0}个 Key 添加到激活队列，队列中的Key会自动排队激活。 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKeyBotSuccessTip {
             get {
@@ -735,7 +744,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 刷新Bot 的本地化字符串。
+        ///   查找类似 刷新 Bot 的本地化字符串。
         /// </summary>
         public static string ASF_RefreshBot {
             get {
@@ -789,7 +798,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 请先运行ASF功能 的本地化字符串。
+        ///   查找类似 请先运行 ASF 功能 的本地化字符串。
         /// </summary>
         public static string ASF_RequirRunASF {
             get {
@@ -816,7 +825,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启动ASF 的本地化字符串。
+        ///   查找类似 启动 ASF 的本地化字符串。
         /// </summary>
         public static string ASF_Start {
             get {
@@ -825,7 +834,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 停止ASF 的本地化字符串。
+        ///   查找类似 停止 ASF 的本地化字符串。
         /// </summary>
         public static string ASF_Stop {
             get {
@@ -852,7 +861,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 当前 ArchiSteamFarm 版本 :   的本地化字符串。
+        ///   查找类似 当前 ArchiSteamFarm 版本 ：  的本地化字符串。
         /// </summary>
         public static string ASF_VersionNum {
             get {
@@ -1068,7 +1077,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 编辑hosts文件 的本地化字符串。
+        ///   查找类似 编辑 hosts 文件 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EditHostsFile {
             get {
@@ -1113,7 +1122,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 仅对Steam内置浏览器生效 的本地化字符串。
+        ///   查找类似 仅对 Steam 内置浏览器生效 的本地化字符串。
         /// </summary>
         public static string CommunityFix_OnlySteamBrowser {
             get {
@@ -1140,7 +1149,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Hosts代理模式(推荐) 的本地化字符串。
+        ///   查找类似 Hosts 代理模式(推荐) 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_Hosts {
             get {
@@ -1149,7 +1158,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 修改Hosts文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机443端口未被使用。 的本地化字符串。
+        ///   查找类似 修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_HostsTip {
             get {
@@ -1167,7 +1176,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 设置Windows系统代理来监听请求，不需要占用443端口，会全局代理本机所有流量，如果你使用Hosts方式没有问题，那就不需要使用此模式。 的本地化字符串。
+        ///   查找类似 设置 Windows 系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_WinSystemTip {
             get {
@@ -1248,7 +1257,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 加速服务启动失败，{0}端口被 {1} 占用。请关掉占用{0}端口的程序或者尝试使用系统代理模式。 的本地化字符串。
+        ///   查找类似 加速服务启动失败，{0} 端口被 {1} 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild443 {
             get {
@@ -1626,7 +1635,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 挂机的游戏已达到限制{0}个，请移除部分游戏再添加。 的本地化字符串。
+        ///   查找类似 挂机的游戏已达到限制 {0} 个，请移除部分游戏再添加。 的本地化字符串。
         /// </summary>
         public static string GameList_AddAFKAppsMaxCountTips {
             get {
@@ -1644,7 +1653,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 警告：Steam允许的同时运行游戏数量为{0}个，如果您同时挂时长{1}款游戏，将无法正常游玩游戏！ 的本地化字符串。
+        ///   查找类似 警告：Steam允许的同时运行游戏数量为 {0} 个，如果您同时挂时长 {1} 款游戏，将无法正常游玩游戏！ 的本地化字符串。
         /// </summary>
         public static string GameList_AddAFKAppsWarningCountTips {
             get {
@@ -1815,7 +1824,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 在Steam客户端中查看 的本地化字符串。
+        ///   查找类似 在 Steam 客户端中查看 的本地化字符串。
         /// </summary>
         public static string GameList_NavToSteamView {
             get {
@@ -1995,7 +2004,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam未启动 的本地化字符串。
+        ///   查找类似 Steam 未启动 的本地化字符串。
         /// </summary>
         public static string GameList_SteamNotRuning {
             get {
@@ -2004,7 +2013,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam下载完成定时关机 的本地化字符串。
+        ///   查找类似 Steam 下载完成定时关机 的本地化字符串。
         /// </summary>
         public static string GameList_SteamShutdown {
             get {
@@ -2184,7 +2193,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与Wallpaper Engine和其它动态桌面软件不兼容，使用时注意关掉Wallpaper Engine等软件。 的本地化字符串。
+        ///   查找类似 置于壁纸层的游戏可能会无法操控，这个问题可以解决但是目前开发精力不在这，目前这个功能就这样了。游戏结束后桌面会依然留下冻结的画面，这时可以点击刷新壁纸来恢复默认壁纸。并且将窗口放置于桌面壁纸层功能与 Wallpaper Engine 和其它动态桌面软件不兼容，使用时注意关掉 Wallpaper Engine 等软件。 的本地化字符串。
         /// </summary>
         public static string GameRelated_Borderless_ToWallerpaperTip {
             get {
@@ -2256,7 +2265,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 写入的 hosts 已经存在 的本地化字符串。
+        ///   查找类似 写入的 Hosts 已经存在 的本地化字符串。
         /// </summary>
         public static string Hosts_Exists {
             get {
@@ -2265,7 +2274,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 读取 hosts 文件时发生错误 的本地化字符串。
+        ///   查找类似 读取 Hosts 文件时发生错误 的本地化字符串。
         /// </summary>
         public static string Hosts_ReadError {
             get {
@@ -2274,7 +2283,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 读取 hosts 成功 的本地化字符串。
+        ///   查找类似 读取 Hosts 成功 的本地化字符串。
         /// </summary>
         public static string Hosts_ReadSuccess {
             get {
@@ -2283,7 +2292,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 写入 hosts 成功 的本地化字符串。
+        ///   查找类似 写入 Hosts 成功 的本地化字符串。
         /// </summary>
         public static string Hosts_UpdateSuccess {
             get {
@@ -2292,7 +2301,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 写入 hosts 时发生错误 的本地化字符串。
+        ///   查找类似 写入 Hosts 时发生错误 的本地化字符串。
         /// </summary>
         public static string Hosts_WirteError {
             get {
@@ -2517,7 +2526,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 获取Steam令牌交易数据失败，请确认是否正常加速了Steam社区地址。 的本地化字符串。
+        ///   查找类似 获取 Steam 令牌交易数据失败，请确认是否正常加速了 Steam 社区地址。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_GetError2 {
             get {
@@ -2544,7 +2553,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 {0}条交易待处理 的本地化字符串。
+        ///   查找类似 {0} 条交易待处理 的本地化字符串。
         /// </summary>
         public static string LocalAuth_AuthTrade_ListCountTip {
             get {
@@ -2707,7 +2716,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导入数据出现错误，错误代码:{0} 的本地化字符串。
+        ///   查找类似 导入数据出现错误，错误代码：{0} 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ExportAuth_Error {
             get {
@@ -2914,7 +2923,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 你也可以使用内置的Windows账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装Windows或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。 的本地化字符串。
+        ///   查找类似 你也可以使用内置的 Windows 账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装 Windows 或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip {
             get {
@@ -3022,7 +3031,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入) 的本地化字符串。
+        ///   查找类似 Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入。(不支持导入加密文件，请先移除密码在导入) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SDATip {
             get {
@@ -3049,7 +3058,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam身份验证器的完整数据，可在导入不同软件时使用： 的本地化字符串。
+        ///   查找类似 Steam 身份验证器的完整数据，可在导入不同软件时使用： 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ShowSteamAuthTip1 {
             get {
@@ -3058,7 +3067,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 在Steam中启用两步验证令牌后，便会生成一个恢复代码，您可以在Steam客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。 的本地化字符串。
+        ///   查找类似 在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ShowSteamAuthTip2 {
             get {
@@ -3076,7 +3085,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 手机Steam导入 的本地化字符串。
+        ///   查找类似 手机 Steam 导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamAppImport {
             get {
@@ -3085,7 +3094,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您可以在已root的Android设备中导入您的SteamGuard身份验证器路径：  /data/data/com.valvesoftware.android.steam.community然后将以下两个文件的内容复制到下面的对应输入框中 的本地化字符串。
+        ///   查找类似 您可以在已 root 的 Android 设备中导入您的 SteamGuard 身份验证器路径：/data/data/com.valvesoftware.android.steam.community 然后将以下两个文件的内容复制到下面的对应输入框中 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamAppImportTip {
             get {
@@ -3103,7 +3112,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 在files文件夹中，打开&apos;SteamGuard-NNNNNNNN&apos;文件，粘贴文件的全部内容 的本地化字符串。
+        ///   查找类似 在 files 文件夹中，打开 &apos;SteamGuard-NNNNNNNN&apos; 文件，粘贴文件的全部内容 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamGuardTip {
             get {
@@ -3112,7 +3121,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam++导入 的本地化字符串。
+        ///   查找类似 Steam++ 导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsImport {
             get {
@@ -3121,7 +3130,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导入Steam++ V1版本的导出的令牌数据 的本地化字符串。
+        ///   查找类似 导入 Steam++ V1版本的导出的令牌数据 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsV1Import {
             get {
@@ -3130,7 +3139,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导入Steam++ V2版本的导出的令牌数据 的本地化字符串。
+        ///   查找类似 导入 Steam++ V2版本的导出的令牌数据 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsV2Import {
             get {
@@ -3139,8 +3148,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确认交易需要登录Steam，程序不会记录你的密码，只会在本地保存登录的状态。
-        ///    (如果没有开Steam网络加速会导致无法登录成功) 的本地化字符串。
+        ///   查找类似 确认交易需要登录 Steam，程序不会记录你的密码，只会在本地保存登录的状态。
+        ///    (如果没有开 Steam 网络加速会导致无法登录成功) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamTradeLoginTip {
             get {
@@ -3167,7 +3176,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam账号导入 的本地化字符串。
+        ///   查找类似 Steam 账号导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUserImport {
             get {
@@ -3194,7 +3203,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 在shared_prefs文件夹中，粘贴&apos;steam_uuid.xml&apos;的uuidKey 的本地化字符串。
+        ///   查找类似 在 shared_prefs 文件夹中，粘贴 &apos;steam_uuid.xml&apos; 的 uuidKey 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamuuidTip {
             get {
@@ -3212,7 +3221,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 WinAuth导入 的本地化字符串。
+        ///   查找类似 WinAuth 导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WinAuthImport {
             get {
@@ -3221,7 +3230,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 WinAuth是Windows的便携式开放源代码身份验证器，它提供基于计数器或基于时间的RFC 6238身份验证器和常见的实现。导入方法：从WinAuth导出txt文件之后在此选择从WinAuth导出的txt文件进行导入。 的本地化字符串。
+        ///   查找类似 WinAuth 是 Windows 的便携式开放源代码身份验证器，它提供基于计数器或基于时间的 RFC 6238 身份验证器和常见的实现。导入方法：从 WinAuth 导出 txt 文件之后在此选择从 WinAuth 导出的 txt 文件进行导入。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_WinAuthTip {
             get {
@@ -3437,7 +3446,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 操作 hosts 错误 {0} 的本地化字符串。
+        ///   查找类似 操作 Hosts 错误 {0} 的本地化字符串。
         /// </summary>
         public static string OperationHostsError_ {
             get {
@@ -3518,7 +3527,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您的令牌已被添加到您的Steam账户上并已经成功导入Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
+        ///   查找类似 您的令牌已被添加到您的 Steam 账户上并已经成功导入 Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
         /// </summary>
         public static string RecoveryCode_RememberTip {
             get {
@@ -3626,7 +3635,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本依赖下载出错:[{0}]_{1} 的本地化字符串。
+        ///   查找类似 脚本依赖下载出错：[{0}]_{1} 的本地化字符串。
         /// </summary>
         public static string Script_BuildDownloadError {
             get {
@@ -3635,7 +3644,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本绑定出错:{0} 的本地化字符串。
+        ///   查找类似 脚本绑定出错：{0} 的本地化字符串。
         /// </summary>
         public static string Script_BuildError {
             get {
@@ -3644,7 +3653,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 缓存文件删除失败:{0} 的本地化字符串。
+        ///   查找类似 缓存文件删除失败：{0} 的本地化字符串。
         /// </summary>
         public static string Script_CacheDeleteError {
             get {
@@ -3698,7 +3707,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 文件删除失败:{0} 的本地化字符串。
+        ///   查找类似 文件删除失败：{0} 的本地化字符串。
         /// </summary>
         public static string Script_FileDeleteError {
             get {
@@ -3707,7 +3716,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 找不到文件，请检查路径{0} 的本地化字符串。
+        ///   查找类似 找不到文件，请检查路径 {0} 的本地化字符串。
         /// </summary>
         public static string Script_FileError {
             get {
@@ -3761,7 +3770,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本:{0}_文件丢失已删除 的本地化字符串。
+        ///   查找类似 脚本：{0}_文件丢失已删除 的本地化字符串。
         /// </summary>
         public static string Script_NoFile {
             get {
@@ -3770,7 +3779,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本:{0}_文件丢失，删除失败去尝试手动删除 的本地化字符串。
+        ///   查找类似 脚本：{0}_文件丢失，删除失败去尝试手动删除 的本地化字符串。
         /// </summary>
         public static string Script_NoFileDeleteError {
             get {
@@ -3797,7 +3806,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本读取异常请检查语法是否有错误:{0} 的本地化字符串。
+        ///   查找类似 脚本读取异常请检查语法是否有错误：{0} 的本地化字符串。
         /// </summary>
         public static string Script_ReadFileError {
             get {
@@ -3959,7 +3968,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 选择{0}文件导入 的本地化字符串。
+        ///   查找类似 选择 {0} 文件导入 的本地化字符串。
         /// </summary>
         public static string SelectFileImport {
             get {
@@ -3968,7 +3977,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启用开机自启动失败，原因: {0} 的本地化字符串。
+        ///   查找类似 启用开机自启动失败，原因：{0} 的本地化字符串。
         /// </summary>
         public static string SetBootAutoStartTrueFail_ {
             get {
@@ -4040,7 +4049,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 打开{0}文件夹 的本地化字符串。
+        ///   查找类似 打开 {0} 文件夹 的本地化字符串。
         /// </summary>
         public static string Settings_General_BrowseCustomFolder {
             get {
@@ -4211,7 +4220,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Socks5本地代理 的本地化字符串。
+        ///   查找类似 Socks5 本地代理 的本地化字符串。
         /// </summary>
         public static string Settings_Proxy_Socks5Proxy {
             get {
@@ -4220,7 +4229,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 代理监听IP地址 的本地化字符串。
+        ///   查找类似 代理监听 IP 地址 的本地化字符串。
         /// </summary>
         public static string Settings_Proxy_SystemProxyIp {
             get {
@@ -4256,7 +4265,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam设置 的本地化字符串。
+        ///   查找类似 Steam 设置 的本地化字符串。
         /// </summary>
         public static string Settings_Steam {
             get {
@@ -4265,7 +4274,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 程序启动时自动运行Steam 的本地化字符串。
+        ///   查找类似 程序启动时自动运行 Steam 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_AutoRunSteam {
             get {
@@ -4274,7 +4283,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 当Steam客户端登录时弹出通知 的本地化字符串。
+        ///   查找类似 当 Steam 客户端登录时弹出通知 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_CheckSteamRuningNotification {
             get {
@@ -4283,7 +4292,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam启动时不检查更新 的本地化字符串。
+        ///   查找类似 Steam 启动时不检查更新 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_NotCheckUpdate {
             get {
@@ -4292,7 +4301,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam启动时最小化到托盘 的本地化字符串。
+        ///   查找类似 Steam 启动时最小化到托盘 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_RuningMinimize {
             get {
@@ -4301,7 +4310,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam启动参数 的本地化字符串。
+        ///   查找类似 Steam 启动参数 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_SteamStratParameter {
             get {
@@ -4391,7 +4400,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 不支持在背景透明材质为{0}时启用此功能 的本地化字符串。
+        ///   查找类似 不支持在背景透明材质为 {0} 时启用此功能 的本地化字符串。
         /// </summary>
         public static string Settings_UI_EnableDesktopBackground_Error {
             get {
@@ -4400,7 +4409,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 *实验性功能(开启此功能时建议将透明材质设置为Transparent或AcrylicBlur)
+        ///   查找类似 *实验性功能(开启此功能时建议将透明材质设置为 Transparent 或 AcrylicBlur)
         ///这个功能可以将 Wallpaper Engine 以及其它壁纸软件的动态壁纸设置为程序背景，如果你没有启动 Wallpaper Engine ，则默认使用桌面背景。背景仅在主窗口生效，其它窗口建议调整透明度不要完全透明或者使用图片背景。使用时注意自行根据壁纸亮暗色情况切换对应主题以获得更好的效果。 的本地化字符串。
         /// </summary>
         public static string Settings_UI_EnableDesktopBackground_Tip {
@@ -4500,7 +4509,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam客户端登录区域： 的本地化字符串。
+        ///   查找类似 Steam 客户端登录区域： 的本地化字符串。
         /// </summary>
         public static string Steam_CurrentIPCountry {
             get {
@@ -4509,7 +4518,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam登录用户： 的本地化字符串。
+        ///   查找类似 Steam 登录用户： 的本地化字符串。
         /// </summary>
         public static string Steam_CurrentUser {
             get {
@@ -4527,7 +4536,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam密码 的本地化字符串。
+        ///   查找类似 Steam 密码 的本地化字符串。
         /// </summary>
         public static string Steam_Password {
             get {
@@ -4536,7 +4545,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam国服 的本地化字符串。
+        ///   查找类似 Steam 国服 的本地化字符串。
         /// </summary>
         public static string Steam_SteamChina {
             get {
@@ -4545,7 +4554,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam国际服 的本地化字符串。
+        ///   查找类似 Steam 国际服 的本地化字符串。
         /// </summary>
         public static string Steam_SteamWorld {
             get {
@@ -4554,7 +4563,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam用户名 的本地化字符串。
+        ///   查找类似 Steam 用户名 的本地化字符串。
         /// </summary>
         public static string Steam_User {
             get {
@@ -4563,8 +4572,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 登录Steam账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易15天冷却期。
-        ///(如果没有开Steam网络加速会导致无法登录成功) 的本地化字符串。
+        ///   查找类似 登录 Steam 账号进行令牌导入，导入前需要移除旧令牌，并且此导入方式会有市场交易 15 天冷却期。
+        ///(如果没有开 Steam 网络加速会导致无法登录成功) 的本地化字符串。
         /// </summary>
         public static string Steam_UserLoginTip {
             get {
@@ -5248,7 +5257,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 点击Steam Logo登录 的本地化字符串。
+        ///   查找类似 点击 Steam Logo 登录 的本地化字符串。
         /// </summary>
         public static string User_SteamUnLoginTip {
             get {
@@ -5302,7 +5311,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 一键登录Steam 的本地化字符串。
+        ///   查找类似 一键登录 Steam 的本地化字符串。
         /// </summary>
         public static string UserChange_BtnText {
             get {

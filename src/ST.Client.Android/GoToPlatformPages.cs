@@ -139,7 +139,7 @@ namespace System.Application
             StartActivity<TActivity, TViewModel>(activity, viewModel);
         }
 
-        public static bool OpenFile(Context context, JFile apkFile, string mime)
+        public static bool OpenFile(Context context, JFile jFile, string mime)
         {
             try
             {
@@ -148,12 +148,12 @@ namespace System.Application
                 AndroidUri apkUri;
                 if (sdkInt >= (int)BuildVersionCodes.N) // 7.0 FileProvider
                 {
-                    apkUri = FileProvider.GetUriForFile(context, GetAuthority(context), apkFile);
+                    apkUri = FileProvider.GetUriForFile(context, GetAuthority(context), jFile);
                     intent.AddFlags(ActivityFlags.GrantReadUriPermission); // FLAG_GRANT_READ_URI_PERMISSION 添加这一句表示对目标应用临时授权该Uri所代表的文件
                 }
                 else
                 {
-                    apkUri = AndroidUri.FromFile(apkFile)!;
+                    apkUri = AndroidUri.FromFile(jFile)!;
                 }
                 intent.SetDataAndType(apkUri, mime);
                 intent.AddFlags(ActivityFlags.NewTask);

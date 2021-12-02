@@ -83,7 +83,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string? IPCUrl => asfSerivce.GetIPCUrl();
+        public string IPCUrl => asfSerivce.GetIPCUrl();
 
         /// <summary>
         /// ASF bots
@@ -207,10 +207,23 @@ namespace System.Application.UI.ViewModels
                 _ => IPCUrl,
             };
 
-            if (url?.Contains(IPCUrl) == true && !ASFService.Current.IsASFRuning)
+            if (url.StartsWith(IPCUrl))
             {
-                Toast.Show(AppResources.ASF_RequirRunASF);
-                return;
+                string? ipc_error = null;
+                if (!ASFService.Current.IsASFRuning)
+                {
+                    ipc_error = AppResources.ASF_RequirRunASF;
+                }
+                else if (!ArchiSteamFarm.IPC.ArchiKestrel.IsReady)
+                {
+                    // IPC 未启动前无法获取正确的端口号，会导致拼接的 URL 值不正确
+                    ipc_error = AppResources.ASF_IPCIsReadyFalse;
+                }
+                if (ipc_error != null)
+                {
+                    Toast.Show(ipc_error);
+                    return;
+                }
             }
 
             Browser2.Open(url);

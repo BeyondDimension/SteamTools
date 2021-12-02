@@ -44,12 +44,16 @@ namespace System.Application.UI.Fragments
 
             ASFService.Current.WhenAnyValue(x => x.IsASFRuning).SubscribeInMainThread(value =>
             {
-                if (menuBuilder == null) return;
-                var menu_start = menuBuilder.FindItem(Resource.Id.menu_start);
-                if (menu_start == null) return;
-                menu_start.SetIcon(value ?
-                    Resource.Drawable.round_pause_circle_outline_black_24 :
-                    Resource.Drawable.round_play_circle_outline_black_24);
+                if (menuBuilder != null) // toolbar menu 因主活动改为 XF Shell，已由 XF 托管
+                {
+                    var menu_start = menuBuilder.FindItem(Resource.Id.menu_start);
+                    if (menu_start != null)
+                    {
+                        menu_start.SetIcon(value ?
+                            Resource.Drawable.round_pause_circle_outline_black_24 :
+                            Resource.Drawable.round_play_circle_outline_black_24);
+                    }
+                }
             }).AddTo(this);
         }
 
@@ -110,9 +114,9 @@ namespace System.Application.UI.Fragments
 
         string ViewPagerWithTabLayoutAdapter.IHost.GetPageTitle(int position) => position switch
         {
-            0 => "ASF控制台",
-            1 => "Bot配置",
-            2 => "ASF配置",
+            0 => ASF_Console,
+            1 => ASF_BotManage,
+            2 => ASF_GlobalConfig,
             _ => throw new ArgumentOutOfRangeException(nameof(position), position.ToString()),
         };
     }

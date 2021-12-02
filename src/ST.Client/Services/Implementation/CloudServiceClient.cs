@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Application.Columns;
 using System.Application.Models;
@@ -25,7 +25,7 @@ namespace System.Application.Services.Implementation
                 httpPlatformHelper,
                 toast,
                 userManager,
-                options,
+                options.Value,
                 validator)
         {
             this.userManager = userManager;
