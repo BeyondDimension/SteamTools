@@ -245,7 +245,7 @@
 		<PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.6" />
 		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.2" />
 		<PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
-		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.11" />
+		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.12" />
 		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.3.1.3" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
