@@ -23,16 +23,16 @@
             android:layout_height="64dp"
             tools:background="#145c8f" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignStart="@+id/bgIcon"
-            android:layout_alignEnd="@+id/bgIcon"
-            android:layout_centerVertical="true"
-            android:tint="@color/white"
-            tools:src="@drawable/icon_steam_24"
-            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
+      <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignStart="@+id/bgIcon"
+        android:layout_alignEnd="@+id/bgIcon"
+        android:layout_centerVertical="true"
+        android:tint="@android:color/white"
+        tools:src="@drawable/icon_steam_24"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"

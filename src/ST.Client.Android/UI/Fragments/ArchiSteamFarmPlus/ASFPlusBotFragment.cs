@@ -15,6 +15,8 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
+            binding!.textView.Text = ASF_BotManage + Environment.NewLine + AppResources.UnderConstruction;
+            binding!.textView.Gravity = GravityFlags.Center;
         }
     }
 }

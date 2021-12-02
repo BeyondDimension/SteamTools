@@ -6,12 +6,13 @@
     xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client"
     xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
     Title="{Binding Name, Mode=OneWay}"
+    BackgroundColor="{DynamicResource GreyWindowBackground}"
     x:DataType="vm:TabItemViewModel">
-    <ContentPage.Content>
-        <Label
+  <ContentPage.Content>
+    <Label
             FontSize="24"
             HorizontalTextAlignment="Center"
             Text="{x:Static resx:AppResources.UnderConstruction}"
             VerticalTextAlignment="Center" />
-    </ContentPage.Content>
+  </ContentPage.Content>
 </ContentPage>

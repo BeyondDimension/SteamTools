@@ -1077,7 +1077,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 编辑 hosts 文件 的本地化字符串。
+        ///   查找类似 编辑 Hosts 文件 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EditHostsFile {
             get {
@@ -1185,7 +1185,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 加速模式: 的本地化字符串。
+        ///   查找类似 加速模式： 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyModeTip {
             get {

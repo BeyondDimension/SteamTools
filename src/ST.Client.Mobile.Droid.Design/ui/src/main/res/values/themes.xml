@@ -3,6 +3,8 @@
   <style name="MainTheme2.Base.Shared" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
     <!-- Customize your theme here. -->
     <item name="actionOverflowMenuStyle">@style/MainTheme2.OverflowMenu</item>
+    <item name="android:textColorPrimary">@color/text_primary</item>
+    <item name="android:textColorSecondary">@color/text_secondary</item>
   </style>
 
   <style name="MainTheme2.Base" parent="MainTheme2.Base.Shared">

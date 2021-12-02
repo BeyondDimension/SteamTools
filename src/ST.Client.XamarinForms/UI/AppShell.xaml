@@ -9,6 +9,7 @@
     xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
     Title="Steam++"
     x:DataType="vm:MainWindowViewModel"
+    FlyoutBackgroundColor="{DynamicResource GreyWindowBackground}"
     Visual="Material">
 
   <!--
@@ -67,23 +68,25 @@
                 https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
             -->
       <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+        <!-- 左侧浮动菜单项文本(选中)时文字颜色 -->
         <Setter Property="TextColor" Value="White" />
       </Style>
-      <Style
-                ApplyToDerivedTypes="True"
-                Class="FlyoutItemLayoutStyle"
-                TargetType="Layout">
+      <Style Class="FlyoutItemLayoutStyle"
+             ApplyToDerivedTypes="True"
+             TargetType="Layout">
         <Setter Property="VisualStateManager.VisualStateGroups">
           <VisualStateGroupList>
             <VisualStateGroup x:Name="CommonStates">
               <VisualState x:Name="Normal">
                 <VisualState.Setters>
                   <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
-                  <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                  <!-- 左侧浮动菜单项文本(未选中)时文字颜色 -->
+                  <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{DynamicResource ShellTitleColor}" />
                 </VisualState.Setters>
               </VisualState>
               <VisualState x:Name="Selected">
                 <VisualState.Setters>
+                  <!-- 左侧浮动菜单项(选中)时背景 -->
                   <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
                 </VisualState.Setters>
               </VisualState>
@@ -137,7 +140,7 @@
                     LineBreakMode="TailTruncation"
                     MaxLines="2"
                     Text="一二三四五六七八九十未登录一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十"
-                    TextColor="Black"
+                    TextColor="{DynamicResource ShellTitleColor}"
                     VerticalTextAlignment="Center" />
       </StackLayout>
     </DataTemplate>

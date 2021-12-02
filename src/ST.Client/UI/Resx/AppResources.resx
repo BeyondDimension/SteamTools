@@ -394,7 +394,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>移除证书</value>
   </data>
   <data name="CommunityFix_EditHostsFile" xml:space="preserve">
-    <value>编辑 hosts 文件</value>
+    <value>编辑 Hosts 文件</value>
   </data>
   <data name="CommunityFix_EnableScriptService" xml:space="preserve">
     <value>启用脚本</value>
@@ -418,7 +418,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>加速模式</value>
   </data>
   <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
-    <value>加速模式:</value>
+    <value>加速模式：</value>
   </data>
   <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
     <value>Hosts 代理模式(推荐)</value>

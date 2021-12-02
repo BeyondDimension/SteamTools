@@ -33,6 +33,28 @@ namespace System.Application.UI.Fragments
             ASFSettings.ConsoleFontSize.ValueChanged += ConsoleFontSize_ValueChanged;
 
             binding!.tbInput.SetOnEditorActionListener(this);
+
+            binding.tvConsole.TextChanged += (_, _) => ConsoleTextChanged();
+            ConsoleTextChanged();
+        }
+
+        void ConsoleTextChanged()
+        {
+            if (binding == null) return;
+            if (string.IsNullOrWhiteSpace(binding.tvConsole.Text))
+            {
+                if (binding.tvConsole.Visibility != ViewStates.Gone)
+                {
+                    binding.tvConsole.Visibility = ViewStates.Gone;
+                }
+            }
+            else
+            {
+                if (binding.tvConsole.Visibility != ViewStates.Visible)
+                {
+                    binding.tvConsole.Visibility = ViewStates.Visible;
+                }
+            }
         }
 
         public override void OnDestroyView()
