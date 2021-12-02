@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace System
 {
     public static partial class EnumExtensions
@@ -11,11 +11,11 @@ namespace System
         public static bool IsDefined(this Enum value) => Enum.IsDefined(value.GetType(), value);
 
         public static TEnum ConvertToEnum<TEnum>(this int value)
-            where TEnum : struct, IConvertible
+            where TEnum : Enum
             => Enum2.ConvertToEnum<TEnum, int>(value);
 
         public static int ConvertToInt32<TEnum>(this TEnum value)
-            where TEnum : struct, IConvertible
+            where TEnum : Enum
             => Enum2.ConvertToEnum<int, TEnum>(value);
     }
 }

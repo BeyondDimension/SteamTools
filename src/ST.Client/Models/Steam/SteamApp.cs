@@ -149,6 +149,11 @@ namespace System.Application.Models
         public uint ParentId { get; set; }
 
         /// <summary>
+        /// 最后运行用户SteamId64
+        /// </summary>
+        public long LastOwner { get; set; }
+
+        /// <summary>
         /// 最后更新日期
         /// </summary>
         public DateTime LastUpdated { get; set; }
@@ -164,12 +169,7 @@ namespace System.Application.Models
         }
 
         /// <summary>
-        /// 最后运行用户SteamId64
-        /// </summary>
-        public long LastOwner { get; set; }
-
-        /// <summary>
-        /// 下载字节数
+        /// 需要下载字节数
         /// </summary>
         public long BytesToDownload { get; set; }
 
@@ -177,6 +177,19 @@ namespace System.Application.Models
         /// 已下载字节数 
         /// </summary>
         public long BytesDownloaded { get; set; }
+
+        public int DownloadedProgressValue => IOPath.GetProgressPercentage(BytesDownloaded, BytesToDownload);
+
+        /// <summary>
+        /// 需要安装字节数
+        /// </summary>
+        public long BytesToStage { get; set; }
+
+        /// <summary>
+        /// 已安装字节数 
+        /// </summary>
+        public long BytesStaged { get; set; }
+
         public IList<uint> ChildApp { get; set; } = new List<uint>();
 
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
@@ -188,39 +201,43 @@ namespace System.Application.Models
 
         public string LibraryHeaderUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
 
-        private string? _LibraryHeaderStream;
-        public string? LibraryHeaderStream
-        {
-            get => _LibraryHeaderStream;
-            set => this.RaiseAndSetIfChanged(ref _LibraryHeaderStream, value);
-        }
+        //private string? _LibraryHeaderStream;
+        //public string? LibraryHeaderStream
+        //{
+        //    get => _LibraryHeaderStream;
+        //    set => this.RaiseAndSetIfChanged(ref _LibraryHeaderStream, value);
+        //}
+
         public string LibraryHeaderBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
 
-        private string? _LibraryHeaderBlurStream;
-        public string? LibraryHeaderBlurStream
-        {
-            get => _LibraryHeaderBlurStream;
-            set => this.RaiseAndSetIfChanged(ref _LibraryHeaderBlurStream, value);
-        }
+        //private string? _LibraryHeaderBlurStream;
+        //public string? LibraryHeaderBlurStream
+        //{
+        //    get => _LibraryHeaderBlurStream;
+        //    set => this.RaiseAndSetIfChanged(ref _LibraryHeaderBlurStream, value);
+        //}
 
         public string LibraryNameUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
 
-        private string? _LibraryNameStream;
-        public string? LibraryNameStream
-        {
-            get => _LibraryNameStream;
-            set => this.RaiseAndSetIfChanged(ref _LibraryNameStream, value);
-        }
+        //private string? _LibraryNameStream;
+        //public string? LibraryNameStream
+        //{
+        //    get => _LibraryNameStream;
+        //    set => this.RaiseAndSetIfChanged(ref _LibraryNameStream, value);
+        //}
 
 
-        public string HeaderLogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
+        public string HeaderLogoUrl => string.Format(STEAMAPP_HEADIMAGE_URL, AppId);
 
-        private string? _HeaderLogoStream;
-        public string? HeaderLogoStream
-        {
-            get => _HeaderLogoStream;
-            set => this.RaiseAndSetIfChanged(ref _HeaderLogoStream, value);
-        }
+        //private string? _HeaderLogoStream;
+        //public string? HeaderLogoStream
+        //{
+        //    get => _HeaderLogoStream;
+        //    set => this.RaiseAndSetIfChanged(ref _HeaderLogoStream, value);
+        //}
+
+        public string CAPSULELogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
+
 
         public string? IconUrl => string.IsNullOrEmpty(Icon) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Icon);

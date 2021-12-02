@@ -405,5 +405,13 @@ namespace System
             (length, string unit) = GetSize(length);
             return $"{length:0.00} {unit}";
         }
+
+        public static int GetProgressPercentage(decimal current, decimal total)
+        {
+            decimal t = decimal.Parse((current / total).ToString("0.000"));
+
+            var t1 = Math.Round(t, 2);
+            return Convert.ToInt32(t1 * 100);
+        }
     }
 }

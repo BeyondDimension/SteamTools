@@ -277,14 +277,14 @@
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>-->
 
-            <!--<ui:CommandBarButton
+            <ui:CommandBarButton
                        Command="{Binding SteamShutdownCommand}"
                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        Label="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
                 <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
               </ui:CommandBarButton.Icon>
-            </ui:CommandBarButton>-->
+            </ui:CommandBarButton>
 
           </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>
@@ -441,6 +441,7 @@
                         </ia:EventTriggerBehavior>
                       </i:Interaction.Behaviors>-->
                       <Border CornerRadius="{DynamicResource ControlCornerRadius}"
+                              Classes="paper"
                               ClipToBounds="True">
                         <Panel
                           Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">

@@ -50,6 +50,7 @@ namespace System.Application.Services.Implementation
         readonly string[] steamProcess = new[] { "steam", "steam_osx", "steamservice", "steamwebhelper" };
         readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
         IHttpService Http => _http.Value;
+        List<FileSystemWatcher>? steamDownloadingWatchers;
 
         public SteamServiceImpl(IPlatformService platformService)
         {
@@ -492,7 +493,7 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Icon => app.IconUrl,
                 SteamApp.LibCacheType.Library_600x900 => app.LibraryLogoUrl,
                 SteamApp.LibCacheType.Library_Hero => app.LibraryHeaderUrl,
-                SteamApp.LibCacheType.Library_Hero_Blur => app.LibraryHeaderBlurStream,
+                SteamApp.LibCacheType.Library_Hero_Blur => app.LibraryHeaderBlurUrl,
                 SteamApp.LibCacheType.Logo => app.LibraryNameUrl,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
@@ -631,6 +632,11 @@ namespace System.Application.Services.Implementation
             return appId;
         }
 
+        /// <summary>
+        /// acf文件转SteamApp
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
         public SteamApp? FileToAppInfo(string filename)
         {
             try
@@ -660,6 +666,8 @@ namespace System.Application.Services.Implementation
                     LastOwner = GetInt64(v.LastOwner),
                     BytesToDownload = GetInt64(v.BytesToDownload),
                     BytesDownloaded = GetInt64(v.BytesDownloaded),
+                    BytesToStage = GetInt64(v.BytesToStage),
+                    BytesStaged = GetInt64(v.BytesStaged),
                     LastUpdated = GetDateTimeS(v.LastUpdated),
                 };
                 return newInfo;
@@ -682,7 +690,7 @@ namespace System.Application.Services.Implementation
                 var libraryPaths = GetLibraryPaths();
                 if (!libraryPaths.Any_Nullable())
                 {
-                    Toast.Show($"No game library found.{Environment.NewLine}This might appear if Steam has been installed on this machine but was uninstalled.");
+                    Toast.Show($"No game library found.");
                 }
 
                 foreach (string path in libraryPaths!)
@@ -707,26 +715,36 @@ namespace System.Application.Services.Implementation
             {
                 Log.Error(nameof(GetDownloadingAppList), ex, "GetDownloadApp Error");
             }
-            return appInfos.OrderBy(x => x.Name).ToList();
+            return appInfos;
         }
 
+        /// <summary>
+        /// acf文件名格式中提取appid
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
         static uint IdFromAcfFilename(string filename)
         {
             string filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
 
             int loc = filenameWithoutExtension.IndexOf('_');
-            return uint.Parse(filenameWithoutExtension[(loc + 1)..]);
+            uint.TryParse(filenameWithoutExtension[(loc + 1)..], out uint appid);
+            return appid;
         }
 
         /// <summary>
         /// 监听Steam下载
         /// </summary>
-        public void InitWatchSteamDownloading(Action<uint> changedAction, Action<uint> deleteAction)
+        public void StartWatchSteamDownloading(Action<SteamApp> changedAction, Action<uint> deleteAction)
         {
+            if (!steamDownloadingWatchers.Any_Nullable())
+            {
+                steamDownloadingWatchers = new List<FileSystemWatcher>();
+            }
             var libraryPaths = GetLibraryPaths();
             if (!libraryPaths.Any_Nullable())
             {
-                Toast.Show("No game library found." + Environment.NewLine + "This might appear if Steam has been installed on this machine but was uninstalled.");
+                Toast.Show("No game library found.");
             }
 
             foreach (string libraryFolder in libraryPaths!)
@@ -735,25 +753,17 @@ namespace System.Application.Services.Implementation
                 {
                     NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.CreationTime,
                 };
+                //fsw.Created += Fsw_Changed
+                fsw.Renamed += Fsw_Changed;
                 fsw.Changed += Fsw_Changed;
                 fsw.Deleted += Fsw_Deleted;
                 fsw.EnableRaisingEvents = true;
-            }
-
-            void Fsw_Deleted(object sender, FileSystemEventArgs e)
-            {
-                uint id = IdFromAcfFilename(e.FullPath);
-
-                //SteamApp info = Apps.FirstOrDefault(x => x.ID == id);
-                //if (info == null) return;
-
-                //var eventArgs = new AppInfoEventArgs(info);
-                deleteAction.Invoke(id);
+                steamDownloadingWatchers.Add(fsw);
             }
 
             void Fsw_Changed(object sender, FileSystemEventArgs e)
             {
-                dynamic? v = null;
+                SteamApp? app = null;
                 try
                 {
                     // This is necessary because sometimes the file is still accessed by steam, so let's wait for 10 ms and try again.
@@ -763,7 +773,7 @@ namespace System.Application.Services.Implementation
                     {
                         try
                         {
-                            v = VdfHelper.Read(e.FullPath);
+                            app = FileToAppInfo(e.FullPath);
                             break;
                         }
                         catch (IOException)
@@ -779,12 +789,12 @@ namespace System.Application.Services.Implementation
                 }
 
                 // Shouldn't happen, but might occur if Steam holds the acf file too long
-                if (v == null) return;
+                if (app == null) return;
 
                 // Search for changed app, if null it's a new app
                 //SteamApp info = Apps.FirstOrDefault(x => x.ID == newID);
-                uint appId = GetAppId(v);
-                changedAction.Invoke(appId);
+                //uint appId = GetAppId(v);
+                changedAction.Invoke(app);
 
                 //if (info != null) // Download state changed
                 //{
@@ -801,6 +811,34 @@ namespace System.Application.Services.Implementation
                 //}
 
                 //OnAppInfoChanged(info, eventArgs);
+            }
+
+            void Fsw_Deleted(object sender, FileSystemEventArgs e)
+            {
+                uint id = IdFromAcfFilename(e.FullPath);
+
+                //SteamApp info = Apps.FirstOrDefault(x => x.ID == id);
+                //if (info == null) return;
+
+                //var eventArgs = new AppInfoEventArgs(info);
+                deleteAction.Invoke(id);
+            }
+        }
+
+        /// <summary>
+        /// 结束监听Steam下载
+        /// </summary>
+        public void StopWatchSteamDownloading()
+        {
+            if (steamDownloadingWatchers.Any_Nullable())
+            {
+                foreach (var fsw in steamDownloadingWatchers)
+                {
+                    fsw.EnableRaisingEvents = false;
+                    fsw.Dispose();
+                }
+                steamDownloadingWatchers.Clear();
+                steamDownloadingWatchers = null;
             }
         }
 

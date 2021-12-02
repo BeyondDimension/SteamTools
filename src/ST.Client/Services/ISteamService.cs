@@ -107,7 +107,12 @@ namespace System.Application.Services
         /// <summary>
         /// 监听Steam下载
         /// </summary>
-        void InitWatchSteamDownloading(Action<uint> changedAction, Action<uint> deleteAction);
+        void StartWatchSteamDownloading(Action<SteamApp> changedAction, Action<uint> deleteAction);
+
+        /// <summary>
+        /// 结束监听Steam下载
+        /// </summary>
+        void StopWatchSteamDownloading();
 
         /// <summary>
         /// 从任意文本中匹配批量提取Steamkey

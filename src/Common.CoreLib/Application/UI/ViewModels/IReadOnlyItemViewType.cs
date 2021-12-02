@@ -5,7 +5,7 @@ namespace System.Application.UI.ViewModels
         int ItemViewType { get; }
     }
 
-    public interface IReadOnlyItemViewType<TItemViewType> : IReadOnlyItemViewType where TItemViewType : struct, IConvertible
+    public interface IReadOnlyItemViewType<TItemViewType> : IReadOnlyItemViewType where TItemViewType : Enum
     {
         new TItemViewType ItemViewType { get; }
 

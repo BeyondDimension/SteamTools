@@ -294,7 +294,7 @@
                     </StackPanel>
 
                     <DockPanel VerticalAlignment="Bottom">
-                      <WrapPanel>
+                      <StackPanel Orientation="Horizontal">
                         <PathIcon
                             Width="16"
                             Margin="5,0"
@@ -306,7 +306,7 @@
                             FontSize="16"
                             Foreground="{DynamicResource InactiveForegroundBrushKey}"
                             Text="{Binding LastLoginTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
-                      </WrapPanel>
+                      </StackPanel>
 
                       <WrapPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Border

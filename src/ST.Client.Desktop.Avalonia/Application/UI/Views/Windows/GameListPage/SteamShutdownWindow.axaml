@@ -7,8 +7,10 @@
         x:Class="System.Application.UI.Views.Windows.SteamShutdownWindow"
         xmlns:resx="using:System.Application.UI.Resx"
         xmlns:vm="using:System.Application.UI.ViewModels"
+        xmlns:services="using:System.Application.Services"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ms="using:System.Application.Settings"
+        xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
@@ -25,18 +27,23 @@
         Padding="10"
         Margin="20 40 20 0">
         <DockPanel>
-          <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
-            <TextBlock Text="启用下载监控" VerticalAlignment="Center"></TextBlock>
-            <ToggleSwitch OnContent="" OffContent="" VerticalAlignment="Center"></ToggleSwitch>
+          <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
+            <ToggleSwitch OnContent="启用下载监控" OffContent="启用下载监控"
+                          IsChecked="{ReflectionBinding Source={x:Static services:SteamConnectService.Current},Path=IsWatchSteamDownloading,Mode=TwoWay}"
+                          VerticalAlignment="Center"/>
 
-            <TextBlock Text="选中游戏下载完成后执行" VerticalAlignment="Center"></TextBlock>
-            <ComboBox PlaceholderText="睡眠" VerticalAlignment="Center"></ComboBox>
-
+            <TextBlock Text="在选中游戏下载完成后执行" VerticalAlignment="Center"/>
+            <ComboBox VerticalAlignment="Center">
+              <ComboBoxItem Content="无"/>
+              <ComboBoxItem Content="睡眠"/>
+              <ComboBoxItem Content="休眠"/>
+              <ComboBoxItem Content="关机"/>
+            </ComboBox>
           </StackPanel>
 
-          <CheckBox HorizontalAlignment="Right" 
-                    Content="全部选中" 
-                    VerticalAlignment="Center"></CheckBox>
+          <CheckBox HorizontalAlignment="Right"
+                    Classes="onlyCheckBox"
+                    VerticalAlignment="Center"/>
         </DockPanel>
       </Border>
       <Panel DockPanel.Dock="Bottom">
@@ -48,30 +55,93 @@
             <ItemsRepeater.ItemTemplate>
               <DataTemplate>
                 <Border  Margin="20 0"
-                         Padding="10 20"
                          Classes="paper"
+                         ClipToBounds="True"
                          Background="{DynamicResource ThemeBrushKey}">
-                  <Grid ColumnDefinitions="184,*,Auto">
-                    <Image VerticalAlignment="Center"></Image>
-
-                    <StackPanel Grid.Column="1"
-                                Spacing="8"
-                                VerticalAlignment="Center">
-                      <TextBlock Text="{Binding Name}"
-                                 FontSize="18"/>
-                      <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
+                  <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Border CornerRadius="{StaticResource PaperRadiusLeft}"
+                            ClipToBounds="True">
+                      <gif:Image2 VerticalAlignment="Center"
+                                  Source="{Binding HeaderLogoUrl}"
+                                  Stretch="UniformToFill"
+                                  DecodeWidth="250"
+                                  Width="250" 
+                                  Height="116"/>
+                    </Border>
+                      <StackPanel Spacing="8"
+                                  Margin="20 10" 
+                                  Grid.Column="1"
+                                  VerticalAlignment="Center">
+                        <controls:ScrollingTextBlock FontSize="16" Text="{Binding DisplayName}">
+                          <!--<controls:ScrollingTextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                              <Binding Path="DisplayName"/>
+                              <Binding Path="AppId"/>
+                            </MultiBinding>
+                          </controls:ScrollingTextBlock.Text>-->
+                        </controls:ScrollingTextBlock>
+                        <!--<TextBlock Text="{Binding AppId}"
                                  Foreground="{DynamicResource InactiveForegroundBrushKey}"
-                                 FontSize="12"/>
-                    </StackPanel>
+                                 FontSize="12"/>-->
+                        <!--<TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
+                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                 FontSize="12"/>-->
 
-                    <WrapPanel Grid.Column="2"
+                        <TextBlock Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                   FontSize="12">
+                          <TextBlock.Text>
+                            <MultiBinding StringFormat="已下载 {0}/{1}">
+                              <Binding Path="BytesDownloaded"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                              <Binding Path="BytesToDownload"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                        <!--<ProgressBar Value="{Binding DownloadedProgressValue,Mode=OneWay}"
+                                   Classes="Circle"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="3"
+                                   HorizontalAlignment="Stretch"
+                                   ToolTip.Tip="{Binding DownloadedProgressValue,Mode=OneWay,StringFormat={}{0}%}"
+                                   Maximum="100"/>-->
+
+                        <TextBlock Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                   FontSize="12">
+                          <TextBlock.Text>
+                            <MultiBinding StringFormat="已安装 {0}/{1}">
+                              <Binding Path="BytesStaged"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                              <Binding Path="BytesToStage"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                      </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                Margin="10"
                                 VerticalAlignment="Center">
+                      <CheckBox VerticalAlignment="Center"
+                                Classes="onlyCheckBox"
+                                VerticalContentAlignment="Center">
+                      </CheckBox>
                       <!--<TextBlock Text="{Binding LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                                  FontSize="16"
                                  VerticalAlignment="Center"
                                  Foreground="{DynamicResource InactiveForegroundBrushKey}"/>-->
-                      <CheckBox></CheckBox>
-                    </WrapPanel>
+                    </StackPanel>
+
+                    <!--<ProgressBar Value="{Binding DownloadedProgressValue,Mode=OneWay}"
+                                 Grid.Row="1"
+                                 Grid.ColumnSpan="3"
+                                 HorizontalAlignment="Stretch"
+                                 ToolTip.Tip="{Binding DownloadedProgressValue,Mode=OneWay,StringFormat={}{0}%}"
+                                 Maximum="100"/>-->
                   </Grid>
                 </Border>
               </DataTemplate>

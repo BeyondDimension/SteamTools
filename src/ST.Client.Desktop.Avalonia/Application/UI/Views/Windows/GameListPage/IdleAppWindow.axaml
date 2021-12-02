@@ -110,12 +110,16 @@
                       </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                     <Panel x:Name="app" Width="{ReflectionBinding $parent[StackPanel].Width}">
-                      <gif:Image2 x:Name="library"
-                                  Stretch="UniformToFill"
-                                  DecodeWidth="{ReflectionBinding $parent[StackPanel].Width}"
-                                  Source="{Binding LibraryLogoStream^}"
-                                  FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
-                      </gif:Image2>
+                      <Border CornerRadius="{DynamicResource ControlCornerRadius}"
+                              Classes="paper"
+                              ClipToBounds="True">
+                        <gif:Image2 x:Name="library"
+                                    Stretch="UniformToFill"
+                                    DecodeWidth="{ReflectionBinding $parent[StackPanel].Width}"
+                                    Source="{Binding LibraryLogoStream^}"
+                                    FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
+                        </gif:Image2>
+                      </Border>
                       <TextBlock
                         Text="{Binding DisplayName}"
                         VerticalAlignment="Center"

@@ -15,6 +15,9 @@ namespace System.Application.UI.ViewModels
     {
         public static string DisplayName => AppResources.GameList_SteamShutdown;
 
+        private readonly ReadOnlyObservableCollection<SteamApp>? _DownloadingApps;
+        public ReadOnlyObservableCollection<SteamApp>? DownloadingApps => _DownloadingApps;
+
         public SteamShutdownWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
@@ -23,12 +26,17 @@ namespace System.Application.UI.ViewModels
                .Connect()
                .Filter(p => p.IsDownloading)
                .ObserveOn(RxApp.MainThreadScheduler)
-               .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId).ThenByDescending(x => x.SizeOnDisk))
+               .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId).ThenBy(x => x.DisplayName))
                .Bind(out _DownloadingApps)
                .Subscribe();
         }
 
-        private readonly ReadOnlyObservableCollection<SteamApp>? _DownloadingApps;
-        public ReadOnlyObservableCollection<SteamApp>? DownloadingApps => _DownloadingApps;
+
+
+        public override void Initialize()
+        {
+            SteamConnectService.Current.InitializeDownloadGameList();
+            base.Initialize();
+        }
     }
 }

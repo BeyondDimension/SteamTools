@@ -21,9 +21,12 @@ namespace System.Application.Converters
             if (parameter is not string para) para = parameter?.ToString() ?? string.Empty;
             if (!string.IsNullOrEmpty(para))
             {
-                if (string.Equals(para, Size, StringComparison.OrdinalIgnoreCase) && double.TryParse(str, out double b))
+                if (string.Equals(para, Size, StringComparison.OrdinalIgnoreCase)
+                    && double.TryParse(str, out double b))
                 {
                     (var length, string unit) = IOPath.GetSize(b);
+                    if (length == 0)
+                        return "0 B";
                     return $"{length:###,###.##} {unit}";
                 }
                 else if (decimal.TryParse(str, out decimal d))
@@ -63,18 +66,27 @@ namespace System.Application.Converters
 
         public object? Convert(IList<object?> values, Type? targetType, object? parameter, CultureInfo? culture)
         {
+            var format = values.FirstOrDefault();
+            if (format == null || format is Avalonia.UnsetValueType)
+            {
+                return null;
+            }
             if (parameter is not null && values.Count >= 2)
             {
                 if (string.Equals(parameter.ToString(), Money, StringComparison.OrdinalIgnoreCase))
                 {
                     return Format(values[0], values[1] ?? Money, culture);
                 }
+                else
+                {
+                    return Format(values[0], parameter, culture);
+                }
             }
 
             var stringValues = values.Select(x => (x is not string str) ? x?.ToString() ?? string.Empty : str);
-            var format = stringValues.FirstOrDefault() ?? string.Empty;
+            var vFormat = stringValues.FirstOrDefault() ?? string.Empty;
             var args = stringValues.Skip(1).ToArray();
-            return format.Format(args);
+            return vFormat.Format(args);
         }
 
         public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) => throw new NotImplementedException();

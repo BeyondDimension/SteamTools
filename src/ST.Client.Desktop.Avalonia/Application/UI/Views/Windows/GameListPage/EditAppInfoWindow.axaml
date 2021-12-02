@@ -17,9 +17,8 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
-    <DockPanel>
+    <DockPanel Margin="0 35 0 0">
       <TabControl Classes="flat"
-                  Margin="0 20 0 0"
                   DockPanel.Dock="Top">
         <TabItem Header="信息">
           <ScrollViewer>
@@ -88,6 +87,14 @@
         </TabItem>
 
         <TabItem Header="媒体">
+
+        </TabItem>
+        
+        <TabItem Header="启动项">
+
+        </TabItem>
+        
+        <TabItem Header="DLC">
 
         </TabItem>
       </TabControl>

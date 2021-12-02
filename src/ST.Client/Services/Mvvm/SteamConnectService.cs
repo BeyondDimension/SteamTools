@@ -50,8 +50,46 @@ namespace System.Application.Services
                             value.LastOwner = app.LastOwner;
                             value.BytesToDownload = app.BytesToDownload;
                             value.BytesDownloaded = app.BytesDownloaded;
+                            value.BytesToStage = app.BytesToStage;
+                            value.BytesStaged = app.BytesStaged;
                             value.LastUpdated = app.LastUpdated;
                         }
+                    }
+                });
+
+            this.WhenAnyValue(x => x.IsWatchSteamDownloading)
+                .Subscribe(x =>
+                {
+                    if (x)
+                    {
+                        SteamTool.StartWatchSteamDownloading(app =>
+                        {
+                            var optional = DownloadApps.Lookup(app.AppId);
+                            if (!optional.HasValue)
+                            {
+                                DownloadApps.AddOrUpdate(app);
+                            }
+                            else
+                            {
+                                var current = optional.Value;
+                                current.InstalledDir = app.InstalledDir;
+                                current.State = app.State;
+                                current.SizeOnDisk = app.SizeOnDisk;
+                                current.LastOwner = app.LastOwner;
+                                current.BytesToDownload = app.BytesToDownload;
+                                current.BytesDownloaded = app.BytesDownloaded;
+                                current.BytesToStage = app.BytesToStage;
+                                current.BytesStaged = app.BytesStaged;
+                                current.LastUpdated = app.LastUpdated;
+                            }
+                        }, appid =>
+                        {
+                            DownloadApps.RemoveKey(appid);
+                        });
+                    }
+                    else
+                    {
+                        SteamTool.StopWatchSteamDownloading();
                     }
                 });
         }
@@ -151,15 +189,18 @@ namespace System.Application.Services
         public bool IsLoadingGameList
         {
             get => _IsLoadingGameList;
-            set
-            {
-                if (_IsLoadingGameList != value)
-                {
-                    _IsLoadingGameList = value;
-                    this.RaisePropertyChanged();
-                }
-            }
+            set => this.RaiseAndSetIfChanged(ref _IsLoadingGameList, value);
         }
+
+        #region 启用监听Steam下载
+
+        private bool _IsWatchSteamDownloading;
+        public bool IsWatchSteamDownloading
+        {
+            get => _IsWatchSteamDownloading;
+            set => this.RaiseAndSetIfChanged(ref _IsWatchSteamDownloading, value);
+        }
+        #endregion
 
         public void RunAFKApps()
         {
