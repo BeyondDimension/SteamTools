@@ -103,7 +103,7 @@
 		<PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
 
 		<!-- ReactiveUI -->
-		<PackageVersion Include="Splat" Version="13.1.63" />
+		<PackageVersion Include="Splat" Version="14.1.1" />
 		<PackageVersion Include="ReactiveUI" Version="16.3.10" />
 		<!--<PackageVersion Include="ReactiveUI.Fody" Version="16.3.5" /> -->
 		<PackageVersion Include="ReactiveUI.XamForms" Version="16.3.10" />
