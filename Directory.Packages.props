@@ -180,7 +180,7 @@
 		<PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
 
 		<!-- Html Parser -->
-		<PackageVersion Include="HtmlAgilityPack" Version="1.11.38" />
+		<PackageVersion Include="HtmlAgilityPack" Version="1.11.39" />
 
 		<!-- Clipboard -->
 		<PackageVersion Include="TextCopy" Version="4.3.1" />
