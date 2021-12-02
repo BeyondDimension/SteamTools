@@ -136,11 +136,14 @@
                           <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}" />
                         </ia:EventTriggerBehavior>
                       </i:Interaction.Behaviors>
+                      <!--<Image Width="184"
+                          Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
+                          Stretch="Uniform"/>-->
                       <gif:Image2
                           Width="184"
                           AutoStart="true"
-                          FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
                           Source="{Binding AvatarStream^}"
+                          FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
                           Stretch="Uniform" />
                       <!--<gif:Image2
                           Width="184"

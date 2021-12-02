@@ -12,6 +12,7 @@ using System.Linq;
 using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -69,8 +70,8 @@ namespace System.Application.UI.ViewModels
             IWindowManager.Instance.Show(CustomWindow.ShareManage, new ShareManageViewModel(), string.Empty, ResizeMode.CanResize);
         }
 
-        readonly ReadOnlyObservableCollection<SteamUser>? _SteamUsers;
         readonly SourceCache<SteamUser, long> _SteamUsersSourceList;
+        readonly ReadOnlyObservableCollection<SteamUser>? _SteamUsers;
         /// <summary>
         /// Steam 客户端记住的用户列表
         /// </summary>
@@ -84,12 +85,11 @@ namespace System.Application.UI.ViewModels
 
             if (!list.Any_Nullable())
             {
-                //Toast.Show("");
                 return;
             }
+            _SteamUsersSourceList.AddOrUpdate(list);
 
             #region 加载备注信息
-            _SteamUsersSourceList.AddOrUpdate(list);
             var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
 
             MenuItems = new ObservableCollection<MenuItemViewModel>();
