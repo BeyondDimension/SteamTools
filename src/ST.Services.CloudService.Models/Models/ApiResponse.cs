@@ -110,6 +110,12 @@ namespace System.Application.Models
             var message = response.InternalMessage;
             if (string.IsNullOrWhiteSpace(message))
             {
+                if (response.Code == ApiResponseCode.ClientException && response is ApiResponseImpl impl && impl.ClientException != null)
+                {
+                    var exMsg = impl.ClientException.GetAllMessage();
+                    if (string.IsNullOrWhiteSpace(errorAppendText)) errorAppendText = exMsg;
+                    else errorAppendText = $"{errorAppendText}{Environment.NewLine}{exMsg}";
+                }
                 message = GetMessage(response.Code, errorAppendText, errorFormat);
             }
             return message;

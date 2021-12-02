@@ -71,10 +71,9 @@ namespace System.Application.Services.CloudService
                 return (ApiResponseCode.Canceled, null);
             }
             var code = ApiResponseCode.ClientException;
-            logger.LogError(ex,
-                $"ApiConn Fail({(int)code})，Url：{requestUri}");
+            logger.LogError(ex, "ApiConn Fail({0})，Url：{1}", (int)code, requestUri);
             var exMsg = ex.GetAllMessage();
-            return (code, ApiResponse.GetMessage(code, exMsg));
+            return (code, ApiResponse.GetMessage(code, errorAppendText: exMsg));
         }
 
         /// <summary>

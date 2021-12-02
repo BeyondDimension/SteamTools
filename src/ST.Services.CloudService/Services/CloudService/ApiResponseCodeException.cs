@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 
 namespace System.Application.Services.CloudService
 {
@@ -10,8 +10,9 @@ namespace System.Application.Services.CloudService
         public ApiResponseCodeException(ApiResponseCode code, string message) : base(message)
             => Code = code;
 
-        public ApiResponseCodeException(ApiResponseCode code, string message, Exception innerException) : base(message, innerException)
-            => Code = code;
+        //[Obsolete("NotSupportedInnerException", true)]
+        //public ApiResponseCodeException(ApiResponseCode code, string message, Exception innerException) : base(message, innerException)
+        //    => Code = code;
 
         public ApiResponseCode Code { get; }
     }
