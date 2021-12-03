@@ -19,7 +19,13 @@ namespace System.Application.Services.Implementation
             conn = Repository.GetDbConnectionSync<Entity>();
         }
 
-        static string GetId(string key, string? sharedName) => key + sharedName;
+        static string GetId(string key) => $"{key}_K";
+
+        static string GetId(string key, string? sharedName)
+        {
+            if (sharedName == null) return GetId(key);
+            return $"{key}_{sharedName}_S";
+        }
 
         public void PlatformClear(string? sharedName)
         {
@@ -54,7 +60,7 @@ namespace System.Application.Services.Implementation
         //    int r;
         //    if (sharedName == null)
         //    {
-        //        r = conn.Execute(Sql_Select_SharedName_Where_Key_Equals_And_SharedName_IsNull, key);
+        //        r = conn.Execute(Sql_Select_SharedName_Where_Key_Equals_And_SharedName_IsNull, GetId(key));
         //    }
         //    else
         //    {
@@ -75,7 +81,7 @@ namespace System.Application.Services.Implementation
         //    string? r;
         //    if (sharedName == null)
         //    {
-        //        r = conn.ExecuteScalar<string?>(Sql_Select_Value_Where_Key_Equals_And_SharedName_IsNull, key);
+        //        r = conn.ExecuteScalar<string?>(Sql_Select_Value_Where_Key_Equals_And_SharedName_IsNull, GetId(key));
         //    }
         //    else
         //    {
@@ -99,7 +105,7 @@ namespace System.Application.Services.Implementation
         //{
         //    if (sharedName == null)
         //    {
-        //        conn.Execute(Sql_Delete_Where_Id_Equals_And_SharedName_IsNull, key);
+        //        conn.Execute(Sql_Delete_Where_Id_Equals_And_SharedName_IsNull, GetId(key));
         //    }
         //    else
         //    {
@@ -142,11 +148,11 @@ namespace System.Application.Services.Implementation
         const string Sql_Delete_Where_SharedName_Equals =
             $"DELETE FROM \"{TableName}\" WHERE \"{ColumnName_SharedName}\" = ?";
 
-        const string Sql_Delete_Where_Id_Equals_And_SharedName_IsNull =
-            $"DELETE FROM \"{TableName}\" WHERE \"{ColumnName_Id}\" = ? AND \"{ColumnName_SharedName}\" = NULL";
+        //const string Sql_Delete_Where_Id_Equals_And_SharedName_IsNull =
+        //    $"DELETE FROM \"{TableName}\" WHERE \"{ColumnName_Id}\" = ? AND \"{ColumnName_SharedName}\" = NULL";
 
-        const string Sql_Delete_Where_Id_Equals_And_SharedName_Equals =
-            $"DELETE FROM \"{TableName}\" WHERE \"{ColumnName_Id}\" = ? AND \"{ColumnName_SharedName}\" = ?";
+        //const string Sql_Delete_Where_Id_Equals_And_SharedName_Equals =
+        //    $"DELETE FROM \"{TableName}\" WHERE \"{ColumnName_Id}\" = ? AND \"{ColumnName_SharedName}\" = ?";
 
         //const string Sql_Select_SharedName_Where_Key_Equals_And_SharedName_IsNull =
         //    $"SELECT \"{ColumnName_SharedName}\" FROM \"{TableName}\" WHERE \"{ColumnName_Id}\" = ? AND \"{ColumnName_SharedName}\" = NULL";
@@ -175,10 +181,10 @@ namespace System.Application.Services.Implementation
             [SQLiteNotNull]
             [NotNull, DisallowNull] // C# 8 not null
             public string? Value { get; set; }
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
             [Column(ColumnName_SharedName)]
             public string? SharedName { get; set; }
-#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
             string DebuggerDisplay() => SharedName == null ? $"{Id}, {Value}" : $"{Id}, {Value}, {SharedName}";
         }
