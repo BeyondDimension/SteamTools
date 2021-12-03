@@ -22,6 +22,8 @@ namespace System.Application.Services
     /// </summary>
     public interface IHttpProxyService : IDisposable
     {
+        public const string LocalDomain = "local.steampp.net";
+
         static IHttpProxyService Instance => DI.Get<IHttpProxyService>();
 
         bool IsCertificate { get; }

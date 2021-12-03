@@ -227,16 +227,22 @@ namespace System.Application.Services
                                     var hosts = httpProxyService.ProxyDomains!.SelectMany(s =>
                                     {
                                         if (s == null) return default!;
+
                                         return s.HostsArray.Select(host =>
                                         {
                                             if (host.Contains(' '))
                                             {
                                                 var h = host.Split(' ');
-                                                return (h[0], h[1]);
+                                                return KeyValuePair.Create(h[1], h[0]);
                                             }
-                                            return (IPAddress.Loopback.ToString(), host);
+                                            return KeyValuePair.Create(host, IPAddress.Loopback.ToString());
                                         });
-                                    }).Where(w => !string.IsNullOrEmpty(w.Item1));
+                                    }).ToDictionaryIgnoreRepeat(x => x.Key, y => y.Value);
+
+                                    if (httpProxyService.IsEnableScript)
+                                    {
+                                        hosts.TryAdd(IHttpProxyService.LocalDomain, IPAddress.Loopback.ToString());
+                                    }
 
                                     var r = hostsFileService.UpdateHosts(hosts);
 

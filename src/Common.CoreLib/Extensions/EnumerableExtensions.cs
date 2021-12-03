@@ -122,5 +122,33 @@ namespace System
         }
 
 #endif
+
+        /// <summary>
+        /// 从 System.Collections.Generic.IEnumerable 创建 System.Collections.Generic.Dictionary (重复键使用第一个)
+        /// </summary>
+        /// <typeparam name="TElement"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="keyGetter"></param>
+        /// <param name="valueGetter"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, TValue> ToDictionaryIgnoreRepeat<TElement, TKey, TValue>(
+            this IEnumerable<TElement> source,
+            Func<TElement, TKey> keyGetter,
+            Func<TElement, TValue> valueGetter)
+        {
+            var dict = new Dictionary<TKey, TValue>();
+            foreach (var e in source)
+            {
+                var key = keyGetter(e);
+                if (dict.ContainsKey(key))
+                {
+                    continue;
+                }
+                dict.Add(key, valueGetter(e));
+            }
+            return dict;
+        }
     }
 }
