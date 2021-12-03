@@ -19,7 +19,7 @@ namespace System.Application.Services
         /// 绑定JS
         /// </summary>
         /// <returns></returns>
-        Task<bool> BuildScriptAsync(ScriptDTO model, bool build = true);
+        Task<bool> BuildScriptAsync(ScriptDTO model, FileInfo fileInfo, bool build = true);
 
         /// <summary>
         /// 添加Js

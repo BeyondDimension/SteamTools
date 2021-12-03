@@ -117,8 +117,10 @@ namespace System.Application.Services.Implementation
                         info.FilePath = path;
                         info.IsBuild = build;
                         info.CachePath = path;
-                        if (await BuildScriptAsync(info, build))
-                        {
+                        saveInfo = new FileInfo(cachePath);
+                        saveInfo.Refresh();
+                        if (await BuildScriptAsync(info, saveInfo, build))
+                        { 
                             var db = mapper.Map<Script>(info);
                             db.MD5 = md5;
                             db.SHA512 = sha512;
@@ -176,7 +178,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public async Task<bool> BuildScriptAsync(ScriptDTO model, bool build = true)
+        public async Task<bool> BuildScriptAsync(ScriptDTO model, FileInfo fileInfo, bool build = true)
         {
             try
             {
@@ -208,8 +210,7 @@ namespace System.Application.Services.Implementation
                     {
                         scriptContent.Append(model.Content);
                     }
-                    var cachePath = Path.Combine(IOPath.CacheDirectory, model.CachePath);
-                    var fileInfo = new FileInfo(cachePath);
+                    fileInfo.Refresh();
                     if (!fileInfo.Directory.Exists)
                     {
                         fileInfo.Directory.Create();
@@ -224,13 +225,7 @@ namespace System.Application.Services.Implementation
                         await stream.DisposeAsync();
                         //stream
                     }
-
                     return true;
-                    //var scriptRequired = new string[model.RequiredJsArray.Length];
-                    //Parallel.ForEach(model.RequiredJsArray, async (item,index)=>
-                    //{
-                    //	var scriptInfo = await httpService.GetAsync<string>(item);  
-                    //});
                 }
 
             }
@@ -307,19 +302,18 @@ namespace System.Application.Services.Implementation
         public async Task<ScriptDTO> TryReadFile(ScriptDTO item)
         {
             var cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
-            var fileInfo = new FileInfo(cachePath);
-            if (fileInfo.Exists)
+            if (File.Exists(cachePath)) { 
                 item.Content = File.ReadAllText(cachePath);
+            }
             else
             {
+                var fileInfo = new FileInfo(cachePath);
                 var infoPath = Path.Combine(IOPath.AppDataDirectory, item.FilePath);
-                var infoFile = new FileInfo(infoPath);
-                if (infoFile.Exists)
+                if (File.Exists(infoPath))
                 {
-                    if (await BuildScriptAsync(item, item.IsBuild))
+                    if (await BuildScriptAsync(item, fileInfo, item.IsBuild))
                     {
-                        cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
-                        fileInfo = new FileInfo(cachePath);
+                        fileInfo.Refresh();
                         if (fileInfo.Exists)
                             item.Content = File.ReadAllText(cachePath);
                     }
