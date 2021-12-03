@@ -117,7 +117,7 @@
             <!--<Image x:Name="avatar" Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64"/>
             <Label Content="{ReflectionBinding Path=Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="18" Margin="8,0,0,0"/>-->
             <gif:Image2 x:Name="avatar"
-                   Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay}"
+                   Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
                    Stretch="Uniform"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"

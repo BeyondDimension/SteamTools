@@ -1,3 +1,4 @@
+using System.Application.Models;
 using System.Runtime.Versioning;
 
 namespace System.Application.Settings
@@ -83,5 +84,13 @@ namespace System.Application.Settings
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsEnableSteamLaunchNotification => _IsEnableSteamLaunchNotification ?? throw new PlatformNotSupportedException();
+
+        /// <summary>
+        /// 检测到Steam登录时弹出消息通知
+        /// </summary>
+        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("macOS")]
+        [SupportedOSPlatform("Linux")]
+        public static SerializableProperty<SystemEndMode>? DownloadCompleteSystemEndMode = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: SystemEndMode.Sleep, autoSave: true) : null;
     }
 }

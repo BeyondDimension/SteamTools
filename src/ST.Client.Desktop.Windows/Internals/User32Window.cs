@@ -220,16 +220,4 @@ internal static class User32Window
     [DllImport(LibraryName, CharSet = CharSet.Auto, EntryPoint = "SetLayeredWindowAttributes")]
     public static extern int SetLayeredWindowAttributes(IntPtr hwnd, int crKey, int bAlpha, int dwFlags);
 
-    //public static void FlashWindow(IntPtr hwnd)
-    //{
-    //    //ShowWindow(hwnd, (short)Cmd_SHOWWINDOWS.SW_NORMAL);
-    //    //直接调用FlashWindow即可
-    //    FlashWindow(hwnd, true);
-    //}
-
-    //public static void FlashWindow(ref FLASHWINFO f)
-    //{
-    //    //直接调用FlashWindow即可
-    //    FlashWindowEx(ref f);
-    //}
 }

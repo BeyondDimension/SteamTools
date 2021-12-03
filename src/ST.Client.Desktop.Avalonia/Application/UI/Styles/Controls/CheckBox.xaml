@@ -71,6 +71,6 @@
     </Style>
 
     <Style Selector="CheckBox.onlyCheckBox">
-        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MinWidth" Value="20" />
     </Style>
 </Styles>

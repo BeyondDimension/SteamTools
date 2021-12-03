@@ -249,6 +249,13 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _Process, value);
         }
 
+        private bool _IsWatchDownloading;
+        public bool IsWatchDownloading
+        {
+            get => _IsWatchDownloading;
+            set => this.RaiseAndSetIfChanged(ref _IsWatchDownloading, value);
+        }
+
         //public TradeCard? Card { get; set; }
 
         //public SteamAppInfo? Common { get; set; }

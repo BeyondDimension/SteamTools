@@ -1,4 +1,5 @@
 using DynamicData;
+using DynamicData.Binding;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Settings;
@@ -58,11 +59,12 @@ namespace System.Application.Services
                     }
                 });
 
-            this.WhenAnyValue(x => x.IsWatchSteamDownloading)
+            this.WhenValueChanged(x => x.IsWatchSteamDownloading, false)
                 .Subscribe(x =>
                 {
                     if (x)
                     {
+                        InitializeDownloadGameList();
                         SteamTool.StartWatchSteamDownloading(app =>
                         {
                             var optional = DownloadApps.Lookup(app.AppId);
@@ -83,6 +85,22 @@ namespace System.Application.Services
                                 current.BytesStaged = app.BytesStaged;
                                 current.LastUpdated = app.LastUpdated;
                             }
+
+                            if (WatchDownloadingSteamAppIds.Contains(app.AppId))
+                            {
+                                if (app.IsDownloading)
+                                {
+                                    app.IsWatchDownloading = true;
+                                }
+                                else
+                                {
+                                    WatchDownloadingSteamAppIds.Remove(app.AppId);
+                                    if (!WatchDownloadingSteamAppIds.Any())
+                                    {
+                                        WatchDownloadingComplete();
+                                    }
+                                }
+                            }
                         }, appid =>
                         {
                             DownloadApps.RemoveKey(appid);
@@ -101,19 +119,8 @@ namespace System.Application.Services
         #endregion
 
         #region 运行中的游戏列表
-        private ConcurrentDictionary<uint, SteamApp> _RuningSteamApps = new ConcurrentDictionary<uint, SteamApp>();
-        public ConcurrentDictionary<uint, SteamApp> RuningSteamApps
-        {
-            get => _RuningSteamApps;
-            set
-            {
-                if (_RuningSteamApps != value)
-                {
-                    _RuningSteamApps = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
+        //private ConcurrentDictionary<uint, SteamApp> _RuningSteamApps = new();
+        public ConcurrentDictionary<uint, SteamApp> RuningSteamApps { get; } = new ConcurrentDictionary<uint, SteamApp>();
         #endregion
 
         #region 当前steam登录用户
@@ -131,12 +138,6 @@ namespace System.Application.Services
             }
         }
 
-        object? _AvatarPath;
-        public object? AvatarPath
-        {
-            get => _AvatarPath;
-            set => this.RaiseAndSetIfChanged(ref _AvatarPath, value);
-        }
         #endregion
 
         #region 连接steamclient是否成功
@@ -201,6 +202,8 @@ namespace System.Application.Services
             get => _IsWatchSteamDownloading;
             set => this.RaiseAndSetIfChanged(ref _IsWatchSteamDownloading, value);
         }
+
+        public HashSet<uint> WatchDownloadingSteamAppIds { get; } = new HashSet<uint>();
         #endregion
 
         public void RunAFKApps()
@@ -258,7 +261,7 @@ namespace System.Application.Services
                                     IsConnectToSteam = true;
                                     CurrentSteamUser = await DI.Get<ISteamworksWebApiService>().GetUserInfo(id);
                                     CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
-                                    AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
+                                    //AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
 
                                     CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
                                     IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
@@ -341,7 +344,35 @@ namespace System.Application.Services
             if (apps.Any_Nullable())
             {
                 DownloadApps.Clear();
+
+                if (WatchDownloadingSteamAppIds.Any())
+                    foreach (var app in apps)
+                    {
+                        app.IsWatchDownloading = WatchDownloadingSteamAppIds.Contains(app.AppId);
+                    }
+
                 DownloadApps.AddOrUpdate(apps);
+            }
+        }
+
+        private void WatchDownloadingComplete()
+        {
+            INotificationService.Instance.Notify($"Steam游戏已下载完成，{Environment.NewLine} 系统将在 30 秒后关闭。", NotificationType.Message);
+
+            switch (SteamSettings.DownloadCompleteSystemEndMode?.Value)
+            {
+                case SystemEndMode.Hibernate:
+                    IPlatformService.Instance.SystemHibernate();
+                    break;
+                case SystemEndMode.Shutdown:
+                    IPlatformService.Instance.SystemShutdown();
+                    break;
+                case SystemEndMode.Lock:
+                    IPlatformService.Instance.SystemLock();
+                    break;
+                default:
+                    IPlatformService.Instance.SystemSleep();
+                    break;
             }
         }
 

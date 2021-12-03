@@ -66,8 +66,8 @@ namespace System.Application.Converters
 
         public object? Convert(IList<object?> values, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            var format = values.FirstOrDefault();
-            if (format == null || format is Avalonia.UnsetValueType)
+            var format = values.FirstOrDefault()?.ToString() ?? string.Empty;
+            if (format == string.Empty || string.Equals("(Unset)", format.ToString(), StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
@@ -84,9 +84,8 @@ namespace System.Application.Converters
             }
 
             var stringValues = values.Select(x => (x is not string str) ? x?.ToString() ?? string.Empty : str);
-            var vFormat = stringValues.FirstOrDefault() ?? string.Empty;
             var args = stringValues.Skip(1).ToArray();
-            return vFormat.Format(args);
+            return format.Format(args);
         }
 
         public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) => throw new NotImplementedException();

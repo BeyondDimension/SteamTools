@@ -234,7 +234,18 @@
                 <ui:PathIcon Data="{StaticResource GridDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
+            
+            <ui:CommandBarSeparator/>
 
+            <ui:CommandBarButton
+                       Command="{Binding SteamShutdownCommand}"
+                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Label="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            
             <ui:CommandBarButton
                        IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                        Command="{Binding IdleAppCommand}"
@@ -244,8 +255,6 @@
                 <ui:PathIcon Data="{StaticResource TopSpeedDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-
-            <!--<ui:CommandBarSeparator/>-->
 
           </ui:CommandBar.PrimaryCommands>
           <ui:CommandBar.SecondaryCommands>
@@ -276,15 +285,6 @@
                 <ui:PathIcon Data="{StaticResource TopSpeedDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>-->
-
-            <ui:CommandBarButton
-                       Command="{Binding SteamShutdownCommand}"
-                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                       Label="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}">
-              <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
-              </ui:CommandBarButton.Icon>
-            </ui:CommandBarButton>
 
           </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>

@@ -5,7 +5,9 @@ using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Properties;
 using System.Reactive.Linq;
 
@@ -18,9 +20,21 @@ namespace System.Application.UI.ViewModels
         private readonly ReadOnlyObservableCollection<SteamApp>? _DownloadingApps;
         public ReadOnlyObservableCollection<SteamApp>? DownloadingApps => _DownloadingApps;
 
+
+        private bool? _IsAllCheck;
+        public bool? IsAllCheck
+        {
+            get => _IsAllCheck;
+            set => this.RaiseAndSetIfChanged(ref _IsAllCheck, value);
+        }
+
+        public IReadOnlyCollection<SystemEndMode>? SystemEndModes { get; }
+
         public SteamShutdownWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
+
+            SystemEndModes = Enum2.GetAll<SystemEndMode>();
 
             SteamConnectService.Current.DownloadApps
                .Connect()
@@ -29,6 +43,51 @@ namespace System.Application.UI.ViewModels
                .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId).ThenBy(x => x.DisplayName))
                .Bind(out _DownloadingApps)
                .Subscribe();
+
+            this.WhenAnyValue(x => x.DownloadingApps)
+                .Subscribe(items => items?
+                        .ToObservableChangeSet()
+                        //.DistinctUntilChanged()
+                        .AutoRefresh(x => x.IsWatchDownloading)
+                        .WhenValueChanged(x => x.IsWatchDownloading)
+                        .Subscribe(_ =>
+                        {
+                            bool? b = null;
+                            var ids = items.Where(s => s.IsWatchDownloading).Select(s => s.AppId).ToArray();
+                            if (items == null || ids.Length == 0)
+                                b = false;
+                            else if (ids.Length == items.Count)
+                                b = true;
+
+                            if (this.IsAllCheck != b)
+                            {
+                                this.IsAllCheck = b;
+                            }
+
+                            SteamConnectService.Current.WatchDownloadingSteamAppIds.Clear();
+                            foreach (var id in ids)
+                                SteamConnectService.Current.WatchDownloadingSteamAppIds.Add(id);
+                        }));
+
+            this.WhenValueChanged(x => x.IsAllCheck, false)
+                .Subscribe(x =>
+                {
+                    if (DownloadingApps != null)
+                        if (x == true)
+                        {
+                            foreach (var item in DownloadingApps)
+                                if (!item.IsWatchDownloading)
+                                    item.IsWatchDownloading = true;
+                        }
+                        else if (x == false)
+                        {
+                            foreach (var item in DownloadingApps)
+                                if (item.IsWatchDownloading)
+                                    item.IsWatchDownloading = false;
+                        }
+                });
+
+            Initialize();
         }
 
         public override void Initialize()
@@ -37,13 +96,6 @@ namespace System.Application.UI.ViewModels
             {
                 SteamConnectService.Current.InitializeDownloadGameList();
             }
-            base.Initialize();
-        }
-
-
-        public void CheckDownloadingGame() 
-        {
-
         }
     }
 }

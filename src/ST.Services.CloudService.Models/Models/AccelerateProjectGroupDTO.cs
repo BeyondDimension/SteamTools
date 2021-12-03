@@ -39,25 +39,35 @@ namespace System.Application.Models
                       if (s.Any_Nullable())
                           ObservableItems = new ObservableCollection<AccelerateProjectDTO>(s);
                   });
+
             this.WhenAnyValue(v => v.ObservableItems)
                   .Subscribe(items => items?
                         .ToObservableChangeSet()
+                        //.DistinctUntilChanged()
                         .AutoRefresh(x => x.Enable)
-                        .ToCollection()
-                        .Select<IReadOnlyCollection<AccelerateProjectDTO>, bool?>(x =>
+                        //.ToCollection()
+                        //.Select<IReadOnlyCollection<AccelerateProjectDTO>, bool?>(x =>
+                        //{
+                        //    var count = x.Count(s => s.Enable);
+                        //    if (x == null || count == 0)
+                        //        return false;
+                        //    if (count == x.Count)
+                        //        return true;
+                        //    return null;
+                        //})
+                        .WhenValueChanged(x => x.Enable)
+                        .Subscribe(_ =>
                         {
-                            var count = x.Count(s => s.Enable);
-                            if (x == null || count == 0)
-                                return false;
-                            if (count == x.Count)
-                                return true;
-                            return null;
-                        })
-                        .Subscribe(s =>
-                        {
-                            if (ThreeStateEnable != s)
+                            bool? b = null;
+                            var count = items.Count(s => s.Enable);
+                            if (items == null || count == 0)
+                                b = false;
+                            else if (count == items.Count)
+                                b = true;
+
+                            if (ThreeStateEnable != b)
                             {
-                                mThreeStateEnable = s;
+                                mThreeStateEnable = b;
                                 this.RaisePropertyChanged(nameof(ThreeStateEnable));
                             }
                         }));
@@ -84,6 +94,29 @@ namespace System.Application.Models
         {
             get => _ImageStream;
             set => this.RaiseAndSetIfChanged(ref _ImageStream, value);
+        }
+
+
+        /// <summary>
+        /// 是否有子项目选中的第三状态（仅客户端）
+        /// </summary>
+        bool? mThreeStateEnable;
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public bool? ThreeStateEnable
+        {
+            get => mThreeStateEnable;
+            set
+            {
+                mThreeStateEnable = value;
+                Enable = mThreeStateEnable == true;
+                if (Items != null)
+                    foreach (var item in Items)
+                        if (item.Enable != Enable)
+                            item.Enable = Enable;
+                this.RaisePropertyChanged();
+            }
         }
 #endif
 
@@ -141,32 +174,5 @@ namespace System.Application.Models
         [N_JsonProperty("4")]
         [S_JsonProperty("4")]
         public int Order { get; set; }
-
-#if MVVM_VM
-        /// <summary>
-        /// 是否有子项目选中的第三状态（仅客户端）
-        /// </summary>
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
-        public bool? ThreeStateEnable
-        {
-            get => mThreeStateEnable;
-            set
-            {
-                mThreeStateEnable = value;
-                Enable = mThreeStateEnable == true;
-                if (Items != null)
-                {
-                    foreach (var item in Items)
-                    {
-                        item.Enable = Enable;
-                    }
-                }
-                this.RaisePropertyChanged();
-            }
-        }
-        bool? mThreeStateEnable;
-#endif
     }
 }

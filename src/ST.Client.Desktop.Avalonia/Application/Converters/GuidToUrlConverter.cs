@@ -18,7 +18,7 @@ namespace System.Application.Converters
                 }
                 return ImageUrlHelper.GetImageApiUrlById(imageid);
             }
-            return BindingOperations.DoNothing;
+            return value;
         }
     }
 }

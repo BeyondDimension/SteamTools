@@ -72,12 +72,7 @@ namespace System.Application.UI.ViewModels
 
         public ICommand ResetImage_Click { get; }
 
-        IReadOnlyCollection<UpdateChannelType>? _UpdateChannels;
-        public IReadOnlyCollection<UpdateChannelType>? UpdateChannels
-        {
-            get => _UpdateChannels;
-            set => this.RaiseAndSetIfChanged(ref _UpdateChannels, value);
-        }
+        public IReadOnlyCollection<UpdateChannelType> UpdateChannels { get; }
 
         const double clickInterval = 3d;
         readonly Dictionary<string, DateTime> clickTimeRecord = new();

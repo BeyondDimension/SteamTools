@@ -322,14 +322,17 @@ namespace System.Application.Services.Implementation
                 next:;
                 }
 
-                var doc = await e.GetResponseBodyAsString();
-                var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
-                if (index == -1)
-                    index = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-                if (index > -1)
+                if (scriptHtml.Length > 0)
                 {
-                    doc = doc.Insert(index, scriptHtml.ToString());
-                    e.SetResponseBodyString(doc);
+                    var doc = await e.GetResponseBodyAsString();
+                    var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+                    if (index == -1)
+                        index = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
+                    if (index > -1)
+                    {
+                        doc = doc.Insert(index, scriptHtml.ToString());
+                        e.SetResponseBodyString(doc);
+                    }
                 }
             }
         }
