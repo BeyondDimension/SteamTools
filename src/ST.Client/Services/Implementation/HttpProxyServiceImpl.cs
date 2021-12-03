@@ -75,8 +75,6 @@ namespace System.Application.Services.Implementation
 
         public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
-        public const string LocalDomain = "local.steampp.net";
-
         public HttpProxyServiceImpl(IPlatformService platformService)
         {
             this.platformService = platformService;
@@ -169,7 +167,7 @@ namespace System.Application.Services.Implementation
 #endif
             if (e.HttpClient.Request.Host == null) return;
 
-            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
                 {
@@ -589,7 +587,7 @@ namespace System.Application.Services.Implementation
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
         {
             e.DecryptSsl = false;
-            if (e.SniHostName.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.SniHostName.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
                 return Task.CompletedTask;
@@ -625,7 +623,7 @@ namespace System.Application.Services.Implementation
             {
                 return Task.CompletedTask;
             }
-            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
                 return Task.CompletedTask;
