@@ -297,7 +297,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>请先运行 ASF 功能</value>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>已将{0}个 Key 添加到激活队列，队列中的Key会自动排队激活。</value>
+    <value>已将 {0} 个 Key 添加到激活队列，队列中的 Key 会自动排队激活。</value>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
     <value>剩余卡片</value>
@@ -430,7 +430,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>系统代理模式</value>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
-    <value>设置 Windows 系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。</value>
+    <value>设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。</value>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
     <value>管理脚本</value>
@@ -1833,7 +1833,8 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Steam++ 替换升级中...</value>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>脚本依赖下载出错：[{0}]_{1}</value>
+    <value>脚本依赖下载出错：{0}
+    {1}</value>
   </data>
   <data name="Script_BuildError" xml:space="preserve">
     <value>脚本绑定出错：{0}</value>
@@ -1854,13 +1855,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>脚本重复</value>
   </data>
   <data name="Script_NoFile" xml:space="preserve">
-    <value>脚本：{0}_文件丢失已删除</value>
+    <value>脚本：{0} 文件丢失已删除</value>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>脚本：{0}_文件丢失，删除失败去尝试手动删除</value>
-  </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>程序异常 主键为空</value>
+    <value>脚本：{0} 文件丢失，删除失败去尝试手动删除</value>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>脚本读取异常请检查语法是否有错误：{0}</value>

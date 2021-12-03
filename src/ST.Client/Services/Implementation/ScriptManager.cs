@@ -245,6 +245,7 @@ namespace System.Application.Services.Implementation
 
         public async Task<IApiResponse> DeleteScriptAsync(ScriptDTO item, bool removeByDataBase = true)
         {
+            // 对于删除操作，应当为幂等，当不存在时候应当返回成功，除非删除失败否则不应该有错误
             if (item.LocalId > 0)
             {
                 var info = await scriptRepository.FirstOrDefaultAsync(x => x.Id == item.LocalId);
@@ -284,19 +285,23 @@ namespace System.Application.Services.Implementation
                         await scriptRepository.DeleteAsync(item.LocalId);
                     }
 
-                    return ApiResponse.Ok(AppResources.Script_DeleteSuccess);
+                    return OK_Script_DeleteSuccess();
                 }
                 else
                 {
-                    logger.LogError("DeleteScriptAsync not found, localId:{0}", item.LocalId);
-                    return ApiResponse.Code(ApiResponseCode.NotFound, AppResources.Script_DeleteError);
+                    return OK_Script_DeleteSuccess();
+                    //logger.LogError("DeleteScriptAsync not found, localId:{0}", item.LocalId);
+                    //return ApiResponse.Code(ApiResponseCode.NotFound, AppResources.Script_DeleteError);
                 }
             }
             else
             {
-                logger.LogError("DeleteScriptAsync not key, localId:{0}", item.LocalId);
-                return ApiResponse.Fail(AppResources.Script_NoKey);
+                // 此类情况可忽略
+                return OK_Script_DeleteSuccess();
+                //logger.LogError("DeleteScriptAsync not key, localId:{0}", item.LocalId);
+                //return ApiResponse.Fail(AppResources.Script_NoKey);
             }
+            static IApiResponse OK_Script_DeleteSuccess() => ApiResponse.Ok(AppResources.Script_DeleteSuccess);
         }
 
         public async Task<ScriptDTO> TryReadFile(ScriptDTO item)

@@ -2137,10 +2137,6 @@
     <value>Script: {0} file mancante, l&apos;eliminazione non riesce a tentare di eliminarlo manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>Eccezione programma La chiave primaria è vuota</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>Eccezione di lettura script Controllare la sintassi degli errori: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

@@ -735,7 +735,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 已将{0}个 Key 添加到激活队列，队列中的Key会自动排队激活。 的本地化字符串。
+        ///   查找类似 已将 {0} 个 Key 添加到激活队列，队列中的 Key 会自动排队激活。 的本地化字符串。
         /// </summary>
         public static string ASF_RedeemKeyBotSuccessTip {
             get {
@@ -1176,7 +1176,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 设置 Windows 系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。 的本地化字符串。
+        ///   查找类似 设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_WinSystemTip {
             get {
@@ -3635,7 +3635,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本依赖下载出错：[{0}]_{1} 的本地化字符串。
+        ///   查找类似 脚本依赖下载出错：{0}
+        ///    {1} 的本地化字符串。
         /// </summary>
         public static string Script_BuildDownloadError {
             get {
@@ -3770,7 +3771,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本：{0}_文件丢失已删除 的本地化字符串。
+        ///   查找类似 脚本：{0} 文件丢失已删除 的本地化字符串。
         /// </summary>
         public static string Script_NoFile {
             get {
@@ -3779,7 +3780,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 脚本：{0}_文件丢失，删除失败去尝试手动删除 的本地化字符串。
+        ///   查找类似 脚本：{0} 文件丢失，删除失败去尝试手动删除 的本地化字符串。
         /// </summary>
         public static string Script_NoFileDeleteError {
             get {
@@ -3793,15 +3794,6 @@ namespace System.Application.UI.Resx {
         public static string Script_NoFileDeleteItem {
             get {
                 return ResourceManager.GetString("Script_NoFileDeleteItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 程序异常 主键为空 的本地化字符串。
-        /// </summary>
-        public static string Script_NoKey {
-            get {
-                return ResourceManager.GetString("Script_NoKey", resourceCulture);
             }
         }
         

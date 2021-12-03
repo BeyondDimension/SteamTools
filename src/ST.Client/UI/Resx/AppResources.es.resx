@@ -2137,10 +2137,6 @@
     <value>Script: {0} falta el archivo, la eliminación no puede intentar eliminar manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>Excepción de programa La clave principal está vacía</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>Excepción de lectura de script Compruebe la sintaxis de los errores: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

@@ -2133,10 +2133,6 @@
     <value>文本：{0}_檔丟失，刪除失敗去嘗試手動刪除</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>程序異常 主鍵為空</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>文稿讀取異常請檢查語法是否有錯誤：{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

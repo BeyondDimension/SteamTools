@@ -2137,10 +2137,6 @@
     <value>Script: {0} file is missing, deletion fails to attempt to delete manually</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>Program Exception The primary key is empty</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>Script read exception Check syntax for errors: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

@@ -2133,10 +2133,6 @@
     <value>スクリプト: {0}_ファイルが見つからない場合、削除は手動で削除しようとして失敗します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>プログラム例外 主キーが空です</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>スクリプトは例外を読み取り、構文にエラーがないか確認してください{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

@@ -2133,10 +2133,6 @@
     <value>스크립트: {0}_파일이 누락되어 삭제가 실패하여 수동으로 삭제를 시도합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>프로그램 예외 기본 키가 비어 있습니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>스크립트 읽기 예외 구문에 오류가 있는지 확인합니다{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

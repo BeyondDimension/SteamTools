@@ -2133,10 +2133,6 @@
     <value>Сценарий: {0} файл отсутствует, удаление завершается неудачей, чтобы попытаться удалить вручную</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>Основной ключ исключения программы пуст</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_ReadFileError" xml:space="preserve">
     <value>Сценарий читает исключение, проверьте синтаксис на наличие ошибок: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
