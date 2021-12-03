@@ -1,4 +1,5 @@
 using System.Application;
+using System.Application.Columns;
 using System.Globalization;
 
 namespace System.Application
@@ -18,7 +19,14 @@ namespace System.Application
         /// </summary>
         USD = 2,
     }
+}
 
+namespace System.Application.Columns
+{
+    public interface ICurrencyCodeString
+    {
+        string CurrencyCode { get; }
+    }
 }
 
 // ReSharper disable once CheckNamespace
@@ -34,5 +42,8 @@ namespace System
         };
 
         public static CultureInfo GetCultureInfo(this CurrencyCode currencyCode) => new(currencyCode.GetLCID());
+
+        public static CurrencyCode GetCurrencyCode(this ICurrencyCodeString @interface, CurrencyCode @default = CurrencyCode.CNY)
+            => Enum.TryParse(@interface.CurrencyCode, true, out CurrencyCode currencyCode) ? currencyCode : @default;
     }
 }
