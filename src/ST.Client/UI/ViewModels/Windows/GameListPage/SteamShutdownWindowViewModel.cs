@@ -31,12 +31,19 @@ namespace System.Application.UI.ViewModels
                .Subscribe();
         }
 
-
-
         public override void Initialize()
         {
-            SteamConnectService.Current.InitializeDownloadGameList();
+            if (!SteamConnectService.Current.IsWatchSteamDownloading)
+            {
+                SteamConnectService.Current.InitializeDownloadGameList();
+            }
             base.Initialize();
+        }
+
+
+        public void CheckDownloadingGame() 
+        {
+
         }
     }
 }

@@ -34,7 +34,6 @@
 
             <TextBlock Text="在选中游戏下载完成后执行" VerticalAlignment="Center"/>
             <ComboBox VerticalAlignment="Center">
-              <ComboBoxItem Content="无"/>
               <ComboBoxItem Content="睡眠"/>
               <ComboBoxItem Content="休眠"/>
               <ComboBoxItem Content="关机"/>
@@ -72,7 +71,8 @@
                                   Margin="20 10" 
                                   Grid.Column="1"
                                   VerticalAlignment="Center">
-                        <controls:ScrollingTextBlock FontSize="16" Text="{Binding DisplayName}">
+                        <controls:ScrollingTextBlock Classes="h6 semibold" 
+                                                     Text="{Binding DisplayName}">
                           <!--<controls:ScrollingTextBlock.Text>
                             <MultiBinding StringFormat="{}{0} - {1}">
                               <Binding Path="DisplayName"/>

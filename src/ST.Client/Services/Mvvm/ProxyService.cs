@@ -303,6 +303,7 @@ namespace System.Application.Services
             //httpProxyService.StopProxy();
             await InitializeAccelerate();
             await InitializeScript();
+
             if (ProxySettings.ProgramStartupRunProxy.Value)
             {
                 ProxyStatus = ProxySettings.ProgramStartupRunProxy.Value;

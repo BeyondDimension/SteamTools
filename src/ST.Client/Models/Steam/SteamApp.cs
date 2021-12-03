@@ -178,7 +178,7 @@ namespace System.Application.Models
         /// </summary>
         public long BytesDownloaded { get; set; }
 
-        public int DownloadedProgressValue => IOPath.GetProgressPercentage(BytesDownloaded, BytesToDownload);
+        //public int DownloadedProgressValue => IOPath.GetProgressPercentage(BytesDownloaded, BytesToDownload);
 
         /// <summary>
         /// 需要安装字节数
@@ -262,9 +262,9 @@ namespace System.Application.Models
 
         private string? _cachedName;
 
-        private bool? _cachedHasSortAs;
-
         private string? _cachedSortAs;
+
+        private bool? _cachedHasSortAs;
 
         private byte[]? _stuffBeforeHash;
 

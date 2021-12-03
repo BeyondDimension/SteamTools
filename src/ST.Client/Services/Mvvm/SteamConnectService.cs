@@ -39,11 +39,12 @@ namespace System.Application.Services
                 .Connect()
                 .Subscribe(_ =>
                 {
-                    var dict = SteamApps.KeyValues.ToDictionary(x => x.Key, v => v.Value);
                     foreach (var app in DownloadApps.Items)
                     {
-                        if (dict.TryGetValue(app.AppId, out SteamApp? value) && value is not null)
+                        var optional = SteamApps.Lookup(app.AppId);
+                        if (optional.HasValue)
                         {
+                            var value = optional.Value;
                             value.InstalledDir = app.InstalledDir;
                             value.State = app.State;
                             value.SizeOnDisk = app.SizeOnDisk;

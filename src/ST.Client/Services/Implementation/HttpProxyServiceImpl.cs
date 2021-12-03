@@ -167,10 +167,8 @@ namespace System.Application.Services.Implementation
             Debug.WriteLine("OnRequest HTTP " + e.HttpClient.Request.HttpVersion);
             Debug.WriteLine("ClientRemoteEndPoint " + e.ClientRemoteEndPoint.ToString());
 #endif
-            if (e.HttpClient.Request.Host == null)
-            {
-                return;
-            }
+            if (e.HttpClient.Request.Host == null) return;
+
             if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
@@ -194,10 +192,7 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            if (ProxyDomains is null || TwoLevelAgentEnable || OnlyEnableProxyScript)
-            {
-                return;
-            }
+            if (ProxyDomains is null || TwoLevelAgentEnable || OnlyEnableProxyScript) return;
 
             foreach (var item in ProxyDomains)
             {
@@ -258,19 +253,14 @@ namespace System.Application.Services.Implementation
                     }
                 }
             }
+
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
-            //if (!e.IsTransparent)
-            //{
             if (IPAddress.IsLoopback(e.ClientRemoteEndPoint.Address))
             {
                 e.TerminateSession();
                 Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
                 return;
             }
-            //}
-
-            ////没有匹配到的结果直接返回不支持,避免出现Loopback死循环内存溢出
-            //e.Ok($"URL : {e.HttpClient.Request.RequestUri.AbsoluteUri} {Environment.NewLine}not support proxy");
             return;
         }
 
@@ -284,67 +274,64 @@ namespace System.Application.Services.Implementation
             {
                 return;
             }
-            if (IsEnableScript)
+            if (IsEnableScript &&
+                e.HttpClient.Request.Method == "GET" &&
+                e.HttpClient.Response.StatusCode == 200 &&
+                e.HttpClient.Response.ContentType?.Contains("text/html", StringComparison.OrdinalIgnoreCase) == true)
             {
-                if (e.HttpClient.Request.Method == "GET")
+                if (IsOnlyWorkSteamBrowser)
                 {
-                    if (e.HttpClient.Response.StatusCode == 200)
+                    var ua = e.HttpClient.Request.Headers.GetHeaders("User-Agent");
+                    if (ua.FirstOrDefault()?.Value.Contains("Valve Steam") == false)
                     {
-                        if (e.HttpClient.Response.ContentType != null && e.HttpClient.Response.ContentType.Trim().ToLower().Contains("text/html"))
+                        return;
+                    }
+                }
+
+                StringBuilder scriptHtml = new StringBuilder();
+
+                foreach (var script in Scripts)
+                {
+                    if (script.ExcludeDomainNamesArray != null)
+                        foreach (var host in script.ExcludeDomainNamesArray)
                         {
-                            if (IsOnlyWorkSteamBrowser)
+                            if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                                goto next;
+                        }
+
+                    foreach (var host in script.MatchDomainNamesArray)
+                    {
+                        var state = host.IndexOf("/") == 0;
+                        if (state)
+                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host.Substring(1), RegexOptions.Compiled);
+                        else
+                            state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
+                        if (state)
+                        {
+                            var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
+                            if (!string.IsNullOrEmpty(t?.Value))
                             {
-                                var ua = e.HttpClient.Request.Headers.GetHeaders("User-Agent");
-                                if (ua.Any_Nullable())
-                                {
-                                    if (!ua.First().Value.Contains("Valve Steam"))
-                                    {
-                                        return;
-                                    }
-                                }
-                                else
-                                    return;
+                                e.HttpClient.Response.Headers.RemoveHeader(t);
                             }
-                            foreach (var script in Scripts)
-                            {
-                                if (script.ExcludeDomainNamesArray != null)
-                                    foreach (var host in script.ExcludeDomainNamesArray)
-                                    {
-                                        if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
-                                            goto close;
-                                    }
-                                foreach (var host in script.MatchDomainNamesArray)
-                                {
-                                    var state = host.IndexOf("/") == 0;
-                                    if (state)
-                                        state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host.Substring(1), RegexOptions.Compiled);
-                                    else
-                                        state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
-                                    if (state)
-                                    {
-                                        var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
-                                        if (!string.IsNullOrEmpty(t?.Value))
-                                        {
-                                            e.HttpClient.Response.Headers.RemoveHeader(t);
-                                        }
-                                        var doc = await e.GetResponseBodyAsString();
-                                        var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
-                                        if (index == -1)
-                                            index = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-                                        if (script.JsPathUrl == null)
-                                            script.JsPathUrl = $"/{Guid.NewGuid()}";
-                                        var temp = $"<script type=\"text/javascript\" src=\"https://local.steampp.net{script.JsPathUrl}\"></script>";
-                                        if (index > -1)
-                                        {
-                                            doc = doc.Insert(index, temp);
-                                            e.SetResponseBodyString(doc);
-                                        }
-                                    }
-                                }
-                            close:;
-                            }
+
+                            if (script.JsPathUrl == null)
+                                script.JsPathUrl = $"/{Guid.NewGuid()}";
+                            var temp = $"<script type=\"text/javascript\" src=\"https://local.steampp.net{script.JsPathUrl}\"></script>";
+
+                            scriptHtml.AppendLine(temp);
                         }
                     }
+                next:;
+                }
+
+                var doc = await e.GetResponseBodyAsString();
+                var index = doc.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+                if (index == -1)
+                    index = doc.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
+                if (index > -1)
+                {
+                    doc = doc.Insert(index, scriptHtml.ToString());
+                    e.SetResponseBodyString(doc);
                 }
             }
         }
@@ -487,7 +474,7 @@ namespace System.Application.Services.Implementation
             #region 启动代理
             proxyServer.BeforeRequest += OnRequest;
             proxyServer.BeforeResponse += OnResponse;
-            proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
+            //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
             try
