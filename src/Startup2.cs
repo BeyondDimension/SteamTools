@@ -34,7 +34,6 @@ using System.Windows;
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
 using PlatformApplication = System.Application.UI.App;
-using System.Application.Migrations;
 #endif
 #if StartupTrace
 using System.Diagnostics;
