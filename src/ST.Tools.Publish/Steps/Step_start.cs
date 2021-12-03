@@ -32,7 +32,7 @@ namespace System.Application.Steps
                 _ => throw new ArgumentOutOfRangeException(nameof(d), d, null),
             };
 
-            var dirBasePath = projPath + string.Format(pubPath, dev ? "Debug" : "Release");
+            var dirBasePath = projPath + string.Format(pubPath, GetConfiguration(dev, isLower: false));
             var dirNames = val.Select(x => new PublishDirInfo(x, Path.Combine(dirBasePath, x), d)).Where(x => Directory.Exists(x.Path)).ToArray();
 
             var publish_json_path = PublishJsonFilePath;

@@ -54,11 +54,11 @@ namespace System.Application.Steps
             var desc = ReadVersionDesc();
             var request = new CreateVersionRequest
             {
-                Version = Utils.Version,
+                Version = GetVersion(dev),
                 Desc = desc,
                 UseLastSKey = use_last_skey,
             };
-            using var client = GetHttpClient(token);
+            using var client = GetHttpClient(token, dev);
             using var rsp = await client.PostAsJsonAsync(api_version_create, request);
             IApiResponse<AppIdWithPublicKey>? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl<AppIdWithPublicKey>>();
             apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
@@ -79,7 +79,7 @@ namespace System.Application.Steps
             if (fde_val.Any()) publishDict.Add(DeploymentMode.FDE, fde_val);
 
             // X. (本地)将发布 Host 入口点重定向到 Bin 目录中
-            var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(x, endWriteOK: false))).ToArray();
+            var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
             await Task.WhenAll(hpTasks);
 
             List<PublishDirInfo> publishDirs = new();
@@ -95,16 +95,16 @@ namespace System.Application.Steps
             var parallelTasks = new List<Task>();
 
             // 创建压缩包
-            var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(x)));
+            var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(dev, x)));
             parallelTasks.AddRange(gs);
 
             // Create a CentOS/RedHat Linux installer
             Step_rpm.Init();
-            var rpms = linux_publishDirs.Select(x => Task.Run(() => Step_rpm.HandlerItem(x)));
+            var rpms = linux_publishDirs.Select(x => Task.Run(() => Step_rpm.HandlerItem(dev, x)));
             parallelTasks.AddRange(rpms);
 
             // Create a Ubuntu/Debian Linux installer
-            var debs = linux_publishDirs.Select(x => Task.Run(() => Step_deb.HandlerItem(x)));
+            var debs = linux_publishDirs.Select(x => Task.Run(() => Step_deb.HandlerItem(dev, x)));
             parallelTasks.AddRange(debs);
 
             await Task.WhenAll(parallelTasks);
@@ -115,10 +115,10 @@ namespace System.Application.Steps
             // wdb 11. (云端)读取上一步上传的数据写入数据库中
             var request = new UpdateVersionRequest
             {
-                Version = Utils.Version,
+                Version = GetVersion(dev),
                 DirNames = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray(),
             };
-            using var client = GetHttpClient(token);
+            using var client = GetHttpClient(token, dev);
             using var rsp = await client.PutAsJsonAsync(api_version_create, request);
             IApiResponse? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl>();
             apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
@@ -144,7 +144,7 @@ namespace System.Application.Steps
                 _ => throw new ArgumentOutOfRangeException(nameof(d), d, null),
             };
 
-            var dirBasePath = projPath + string.Format(pubPath, dev ? "Debug" : "Release");
+            var dirBasePath = projPath + string.Format(pubPath, GetConfiguration(dev, isLower: false));
             var dirNames = val.Select(x => new PublishDirInfo(x, Path.Combine(dirBasePath, x), d)).Where(x => Directory.Exists(x.Path)).ToArray();
 
             foreach (var item in dirNames)
@@ -167,12 +167,12 @@ namespace System.Application.Steps
         /// 根据文件清单生成压缩包
         /// </summary>
         /// <param name="item"></param>
-        static void GenerateCompressedPackage(PublishDirInfo item)
+        static void GenerateCompressedPackage(bool dev, PublishDirInfo item)
         {
             var type = GetCompressedTypeByRID(item.Name);
             var fileEx = GetFileExByCompressedType(type);
 
-            var packPath = GetPackPath(item, fileEx);
+            var packPath = GetPackPath(dev, item, fileEx);
             Console.WriteLine($"正在生成压缩包：{packPath}");
             IOPath.FileIfExistsItDelete(packPath);
 
@@ -294,16 +294,17 @@ namespace System.Application.Steps
             return builder.ToString();
         }
 
-        static HttpClient GetHttpClient(string token)
+        static HttpClient GetHttpClient(string token, bool dev)
         {
             var client = new HttpClient
             {
-                BaseAddress = new Uri(api_base_url)
+                BaseAddress = new Uri(dev ? dev_api_base_url : api_base_url)
             };
             client.DefaultRequestHeaders.Authorization = new(token);
             return client;
         }
 
+        const string dev_api_base_url = "https://https://pan.mossimo.net:8862";
         const string api_base_url = "https://cycyadmin.steampp.net";
         const string api_version_create = "/api/version";
     }

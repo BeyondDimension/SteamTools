@@ -15,7 +15,7 @@ namespace System.Application.Steps
 {
     internal static class Step_deb
     {
-        static void Handler()
+        static void Handler(bool dev)
         {
             var publish_json_path = PublishJsonFilePath;
             var publish_json_str = File.ReadAllText(publish_json_path);
@@ -34,17 +34,17 @@ namespace System.Application.Steps
                 var isLinux = item.Name.StartsWith("linux-");
                 if (!isLinux) continue;
 
-                HandlerItem(item);
+                HandlerItem(dev, item);
             }
 
             Console.WriteLine("完成");
         }
 
-        public static void HandlerItem(PublishDirInfo item)
+        public static void HandlerItem(bool dev, PublishDirInfo item)
         {
-            var debPath = GetPackPath(item, FileEx.DEB);
+            var debPath = GetPackPath(dev, item, FileEx.DEB);
             //var debTarPath = GetPackPath(item, FileEx.DEB_TAR);
-            var debTarXzPath = GetPackPath(item, FileEx.DEB_TAR_XZ);
+            var debTarXzPath = GetPackPath(dev, item, FileEx.DEB_TAR_XZ);
             using var targetStream = File.Open(debPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
             //using var tarStream = File.Open(debTarPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
             using var tarStream = new MemoryStream();
@@ -119,7 +119,7 @@ namespace System.Application.Steps
                 LinuxPackConstants.PackageName,
                 LinuxPackConstants.Description,
                 LinuxPackConstants.DebMaintainer,
-                Utils.Version,
+                Utils.GetVersion(dev),
                 DebTask.GetPackageArchitecture(item.Name),
                 LinuxPackConstants.CreateUser,
                 LinuxPackConstants.UserName,
@@ -150,6 +150,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
         {
             var deb = new Command("deb", "Create a Ubuntu/Debian Linux installer");
+            deb.AddOption(new Option<bool>("-dev", DevDesc));
             deb.Handler = CommandHandler.Create(Handler);
             command.AddCommand(deb);
         }

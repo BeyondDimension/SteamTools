@@ -69,7 +69,7 @@ namespace System.Application
             {
                 var comm = new Command(name, "8. (本地)读取上一步操作后的 Publish.json 生成压缩包并计算哈希值写入 Publish.json")
                 {
-                    Handler = CommandHandler.Create(() =>
+                    Handler = CommandHandler.Create((bool dev) =>
                     {
                         var publish_json_path = PublishJsonFilePath;
                         var publish_json_str = File.ReadAllText(publish_json_path);
@@ -85,7 +85,7 @@ namespace System.Application
 
                         foreach (var item in dirNames)
                         {
-                            var packPath = GetPackPath(item, fileEx);
+                            var packPath = GetPackPath(dev, item, fileEx);
                             Console.WriteLine($"正在生成压缩包：{packPath}");
                             IOPath.FileIfExistsItDelete(packPath);
 
@@ -109,6 +109,7 @@ namespace System.Application
                         Console.WriteLine("完成");
                     })
                 };
+                comm.AddOption(new Option<bool>("-dev", DevDesc));
                 command.AddCommand(comm);
             }
         }

@@ -29,7 +29,7 @@ namespace System.Application.Steps
             //publicKey = secretKeyRing.GetPublicKey();
         }
 
-        static void Handler()
+        static void Handler(bool dev)
         {
             Init();
 
@@ -50,15 +50,15 @@ namespace System.Application.Steps
                 var isLinux = item.Name.StartsWith("linux-");
                 if (!isLinux) continue;
 
-                HandlerItem(item);
+                HandlerItem(dev, item);
             }
 
             Console.WriteLine("完成");
         }
 
-        public static void HandlerItem(PublishDirInfo item)
+        public static void HandlerItem(bool dev, PublishDirInfo item)
         {
-            var rpmPath = GetPackPath(item, FileEx.RPM);
+            var rpmPath = GetPackPath(dev, item, FileEx.RPM);
             //var cpioPath = GetPackPath(item, FileEx.CPIO);
 
             using var targetStream = File.Open(rpmPath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
@@ -118,7 +118,7 @@ namespace System.Application.Steps
                 archiveEntries,
                 cpioStream,
                 LinuxPackConstants.PackageName,
-                Utils.Version,
+                Utils.GetVersion(dev),
                 RpmTask.GetPackageArchitecture(item.Name),
                 LinuxPackConstants.Release,
                 LinuxPackConstants.CreateUser,
@@ -142,6 +142,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
         {
             var rpm = new Command("rpm", "Create a CentOS/RedHat Linux installer");
+            rpm.AddOption(new Option<bool>("-dev", DevDesc));
             rpm.Handler = CommandHandler.Create(Handler);
             command.AddCommand(rpm);
         }

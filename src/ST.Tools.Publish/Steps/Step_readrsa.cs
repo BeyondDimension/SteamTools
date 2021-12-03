@@ -60,8 +60,7 @@ namespace System.Application.Steps
                 return false;
             }
 
-            static string Env(bool dev) => dev ? "debug" : "release";
-            var env = Env(dev);
+            var env = GetConfiguration(dev, isLower: true);
 
             var pfxFilePath = Path.Combine(projPath,
                 $"rsa-public-key-{env}.pfx");

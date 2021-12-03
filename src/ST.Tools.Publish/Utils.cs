@@ -248,6 +248,7 @@ namespace System.Application
             File.WriteAllText(PublishJsonFilePath, publish_json_str);
         }
 
+        [Obsolete("use GetVersion(bool)")]
         public static string Version
         {
             get
@@ -260,11 +261,21 @@ namespace System.Application
             }
         }
 
-        public static string GetFileName(PublishDirInfo item, string fileEx)
+        public static string GetVersion(bool dev)
+        {
+            var configuration = GetConfiguration(dev, isLower: false);
+            var mainDllPath = ProjectPathUtil.projPath + string.Format(ProjectPathUtil.MainDllPath_, configuration);
+            var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;
+            var versionArray = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
+            if (versionArray.Length > 3) version = string.Join('.', versionArray.Take(3));
+            return version;
+        }
+
+        public static string GetFileName(bool dev, PublishDirInfo item, string fileEx)
         {
             var name = item.Name.Replace("-", "_");
             if (name.Contains("osx_")) name = name.Replace("osx_", "macos_");
-            var version = Version;
+            var version = Utils.GetVersion(dev);
             var fileName = item.DeploymentMode switch
             {
                 DeploymentMode.SCD =>
@@ -276,9 +287,9 @@ namespace System.Application
             return fileName;
         }
 
-        public static string GetPackPath(PublishDirInfo item, string fileEx)
+        public static string GetPackPath(bool dev, PublishDirInfo item, string fileEx)
         {
-            var fileName = GetFileName(item, fileEx);
+            var fileName = GetFileName(dev, item, fileEx);
             var packPath = item.DeploymentMode switch
             {
                 DeploymentMode.SCD => Path.Combine(item.Path, "..", fileName),
@@ -346,5 +357,8 @@ namespace System.Application
             }
 #endif
         }
+
+        public static string GetConfiguration(bool dev, bool isLower)
+            => dev ? (isLower ? "debug" : "Debug") : (isLower ? "release" : "Release");
     }
 }

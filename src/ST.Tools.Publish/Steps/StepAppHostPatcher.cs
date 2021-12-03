@@ -14,12 +14,13 @@ namespace System.Application.Steps
         const string DirName = "Bin";
         static readonly string[] ignoreDirNames = new[] { "Assets", IOPath.DirName_AppData, IOPath.DirName_Cache, "Logs", "Bin" };
 
-        public static void Handler(DeploymentMode d, bool endWriteOK = true)
+        public static void Handler(bool dev, DeploymentMode d, bool endWriteOK = true)
         {
+            var configuration = GetConfiguration(dev, isLower: false);
             var pubPath = d switch
             {
-                DeploymentMode.SCD => projPath + DirPublishWinX64,
-                DeploymentMode.FDE => projPath + DirPublishWinX64_FDE,
+                DeploymentMode.SCD => projPath + string.Format(DirPublishWinX64_, configuration),
+                DeploymentMode.FDE => projPath + string.Format(DirPublishWinX64_FDE_, configuration),
                 _ => throw new ArgumentOutOfRangeException(nameof(d), d, null),
             };
 
@@ -101,10 +102,11 @@ namespace System.Application.Steps
         {
             var hp = new Command("hostpath", "X. (本地)将发布 Host 入口点重定向到 Bin 目录中");
             hp.AddAlias("hp");
-            hp.Handler = CommandHandler.Create(() =>
+            hp.AddOption(new Option<bool>("-dev", DevDesc));
+            hp.Handler = CommandHandler.Create((bool dev) =>
             {
-                Handler(DeploymentMode.SCD);
-                Handler(DeploymentMode.FDE);
+                Handler(dev, DeploymentMode.SCD);
+                Handler(dev, DeploymentMode.FDE);
             });
             command.AddCommand(hp);
         }
