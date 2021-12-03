@@ -86,7 +86,6 @@ namespace System.Application.Services.Implementation
                 Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
             });
 
-            proxyServer.Enable100ContinueBehaviour = false;
             proxyServer.EnableHttp2 = true;
             proxyServer.EnableConnectionPool = true;
             proxyServer.CheckCertificateRevocation = X509RevocationMode.NoCheck;
@@ -97,7 +96,7 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.PfxFilePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pfx");
             proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
             proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
-            proxyServer.CertificateManager.CertificateValidDays = 300;
+            //proxyServer.CertificateManager.CertificateValidDays = 300;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
 
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
@@ -475,7 +474,7 @@ namespace System.Application.Services.Implementation
             #region 启动代理
             proxyServer.BeforeRequest += OnRequest;
             proxyServer.BeforeResponse += OnResponse;
-            //proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
+            proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
             //proxyServer.ClientCertificateSelectionCallback += OnCertificateSelection;
 
             try
@@ -521,7 +520,7 @@ namespace System.Application.Services.Implementation
                         };
                     }
 
-                    transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
+                    //transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
                     proxyServer.AddEndPoint(transparentProxyEndPoint);
 
                     try
