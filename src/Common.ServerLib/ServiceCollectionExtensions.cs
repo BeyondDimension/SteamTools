@@ -13,13 +13,13 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// 添加由 Repository 实现的 <see cref="IStorage"/>
+        /// 添加由 Repository 实现的 <see cref="ISecureStorage"/>
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection TryAddStorage<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
+        public static IServiceCollection TryAddSecureStorage<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
         {
-            services.TryAddScoped<IStorage, ServerStorage<TDbContext>>();
+            services.TryAddScoped<ISecureStorage, RepositorySecureStorage<TDbContext>>();
             return services;
         }
 

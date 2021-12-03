@@ -4,18 +4,19 @@ using Xamarin.Essentials;
 namespace System.Security
 {
     /// <summary>
-    /// https://docs.microsoft.com/zh-cn/xamarin/essentials/secure-storage
+    /// 由 Xamarin.Essentials 实现的 <see cref="ISecureStorage"/>
+    /// <para>https://docs.microsoft.com/zh-cn/xamarin/essentials/secure-storage</para>
     /// </summary>
-    internal sealed class ClientStorage : IStorage
+    internal sealed class XESecureStorage : ISecureStorage
     {
-        bool IStorage.IsNativeSupportedBytes => false;
+        bool ISecureStorage.IsNativeSupportedBytes => false;
 
-        Task<string?> IStorage.GetAsync(string key)
+        Task<string?> ISecureStorage.GetAsync(string key)
         {
             return SecureStorage.GetAsync(key);
         }
 
-        Task IStorage.SetAsync(string key, string? value)
+        Task ISecureStorage.SetAsync(string key, string? value)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -25,13 +26,13 @@ namespace System.Security
             return SecureStorage.SetAsync(key, value);
         }
 
-        Task<bool> IStorage.RemoveAsync(string key)
+        Task<bool> ISecureStorage.RemoveAsync(string key)
         {
             var result = SecureStorage.Remove(key);
             return Task.FromResult(result);
         }
 
-        async Task<bool> IStorage.ContainsKeyAsync(string key)
+        async Task<bool> ISecureStorage.ContainsKeyAsync(string key)
         {
             var result = await SecureStorage.GetAsync(key);
             return result != null;

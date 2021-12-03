@@ -17,8 +17,8 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Client\FileSystemDesktop.cs">
-      <Link>FileSystemDesktop.cs</Link>
+    <Compile Include="..\Common.ClientLib\Application\Essentials\FileSystem2.BaseDirectory.cs">
+      <Link>FileSystem2.BaseDirectory.cs</Link>
     </Compile>
     <Compile Include="..\..\resources\ProjectPathUtil.cs">
       <Link>ProjectPathUtil2.cs</Link>

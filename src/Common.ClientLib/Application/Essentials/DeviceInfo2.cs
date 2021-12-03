@@ -5,6 +5,7 @@ using XEDeviceIdiom = Xamarin.Essentials.DeviceIdiom;
 // ReSharper disable once CheckNamespace
 namespace System.Application
 {
+    /// <inheritdoc cref="DeviceInfo"/>
     public static class DeviceInfo2
     {
         static readonly Lazy<IDeviceInfoPlatformService?> @interface = new(DI.Get_Nullable<IDeviceInfoPlatformService>);

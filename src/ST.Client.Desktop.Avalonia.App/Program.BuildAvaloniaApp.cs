@@ -14,10 +14,10 @@ namespace System.Application.UI
         static AppBuilder BuildAvaloniaApp()
         {
 #if DEBUG
-            //设计器模式不会执行Main函数所以以此区分来初始化文件系统
+            // 设计器模式不会执行 Main 函数所以以此区分来初始化文件系统
             if (Assembly.GetCallingAssembly() != Assembly.GetExecutingAssembly())
             {
-                FileSystemDesktop.InitFileSystem();
+                FileSystem2.InitFileSystem();
             }
 #endif
             SettingsHost.Load();

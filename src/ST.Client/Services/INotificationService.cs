@@ -28,7 +28,7 @@ namespace System.Application.Services
             {
                 if (type == ActiveUserType.OnStartup)
                 {
-                    await IStorage.Instance.SetAsync(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID, rsp.Content.Id);
+                    await ISecureStorage.Instance.SetAsync(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID, rsp.Content.Id);
                 }
 
                 if (!rsp.Content.Type.IsDefined())
@@ -55,7 +55,7 @@ namespace System.Application.Services
         /// 获取最后一次收到的通知ID
         /// </summary>
         /// <returns></returns>
-        static Task<Guid?> GetLastNotificationRecordId() => IStorage.Instance.GetAsync<Guid?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
+        static Task<Guid?> GetLastNotificationRecordId() => ISecureStorage.Instance.GetAsync<Guid?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
 
         /// <summary>
         /// NotifyIcon / TrayIcon 右下角托盘菜单助手类

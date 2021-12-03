@@ -10,7 +10,7 @@ return _(args, "客户端发布命令行工具(Command Line Tools/CLT)", init: (
         return AppHostPatcher.Program.M(args_);
     }
 
-    FileSystemDesktop.InitFileSystem();
+    FileSystem2.InitFileSystemByBaseDirectory();
     return null;
 }, action: rootCommand =>
 {

@@ -479,9 +479,9 @@ namespace System.Application.UI.ViewModels
 
         static async Task TestSecurityStorage()
         {
-            await IStorage.Instance.SetAsync("↑↑", Encoding.UTF8.GetBytes("↓↓"));
+            await ISecureStorage.Instance.SetAsync("↑↑", Encoding.UTF8.GetBytes("↓↓"));
 
-            var left_top_ = await IStorage.Instance.GetAsync<byte[]>("↑↑");
+            var left_top_ = await ISecureStorage.Instance.GetAsync<byte[]>("↑↑");
 
             var left_top = Encoding.UTF8.GetString(left_top_.ThrowIsNull("↑-key"));
 
@@ -490,18 +490,18 @@ namespace System.Application.UI.ViewModels
                 throw new Exception("↓↓");
             }
 
-            await IStorage.Instance.SetAsync<string>("←←", "→→");
+            await ISecureStorage.Instance.SetAsync<string>("←←", "→→");
 
-            var left_left = await IStorage.Instance.GetAsync<string>("←←");
+            var left_left = await ISecureStorage.Instance.GetAsync<string>("←←");
 
             if (left_left != "→→")
             {
                 throw new Exception("→→");
             }
 
-            await IStorage.Instance.SetAsync("aa", "bb");
+            await ISecureStorage.Instance.SetAsync("aa", "bb");
 
-            var left_aa = await IStorage.Instance.GetAsync("aa");
+            var left_aa = await ISecureStorage.Instance.GetAsync("aa");
 
             if (left_aa != "bb")
             {
@@ -513,9 +513,9 @@ namespace System.Application.UI.ViewModels
                 { "✨🎊", "🎃🎑" },
             };
 
-            await IStorage.Instance.SetAsync("dict", dict);
+            await ISecureStorage.Instance.SetAsync("dict", dict);
 
-            var left_dict = await IStorage.Instance.GetAsync<Dictionary<string, string>>("dict");
+            var left_dict = await ISecureStorage.Instance.GetAsync<Dictionary<string, string>>("dict");
 
             if (left_dict == null)
             {

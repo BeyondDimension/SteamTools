@@ -31,16 +31,7 @@ namespace System
         public static IEnumerable<TEnum> FlagsSplit<TEnum>(TEnum resultant) where TEnum : struct, Enum
             => GetAll<TEnum>().Where(x => resultant.HasFlag(x)).ToArray();
 
-        internal static TEnum ConvertToEnum<TEnum, TStruct>(this TStruct value)
-        {
-            var parameter = Expression.Parameter(typeof(TStruct));
-            var dynamicMethod = Expression.Lambda<Func<TStruct, TEnum>>(
-                Expression.Convert(parameter, typeof(TEnum)),
-                parameter);
-            return dynamicMethod.Compile()(value);
-        }
-
-        public static int ConvertToInt32<TEnum>(TEnum value) where TEnum : Enum => ConvertToEnum<int, TEnum>(value);
+        public static int ConvertToInt32<TEnum>(TEnum value) where TEnum : Enum => ConvertibleHelper.Convert<int, TEnum>(value);
 
         /// <summary>
         /// 返回指定枚举值的描述（通过

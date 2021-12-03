@@ -35,6 +35,22 @@ namespace System.Application.Repositories
             }
         }
 
+        static SQLiteConnection? connectionSync;
+        static SQLiteConnection ConnectionSync
+        {
+            get
+            {
+                if (connectionSync == null)
+                {
+                    var dbPath = DataBaseDirectory;
+                    IOPath.DirCreateByNotExists(dbPath);
+                    dbPath = Path.Combine(dbPath, "application2.dbf"); // 与异步连接使用不同的数据库文件隔离
+                    connectionSync = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
+                }
+                return connectionSync;
+            }
+        }
+
         static SQLiteAsyncConnection GetConnection()
         {
             var dbPath = DataBaseDirectory;
@@ -43,7 +59,7 @@ namespace System.Application.Repositories
             return new SQLiteAsyncConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
         }
 
-        static readonly Lazy<SQLiteAsyncConnection> dbConnection = new Lazy<SQLiteAsyncConnection>(GetConnection);
+        static readonly Lazy<SQLiteAsyncConnection> dbConnection = new(GetConnection);
 
         static SQLiteAsyncConnection DbConnection => dbConnection.Value;
 
@@ -56,6 +72,18 @@ namespace System.Application.Repositories
                 await DbConnection.CreateTablesAsync(CreateFlags.None, typeof(T)).ConfigureAwait(false);
             }
             return DbConnection;
+        }
+
+        public static SQLiteConnection GetDbConnectionSync<T>()
+        {
+            var conn = ConnectionSync;
+            if (!conn.TableMappings.Any(x => x.MappedType == typeof(T)))
+            {
+                // On sqlite-net v1.6.0+, enabling write-ahead logging allows for faster database execution
+                conn.EnableWriteAheadLogging();
+                conn.CreateTables(CreateFlags.None, typeof(T));
+            }
+            return conn;
         }
 
         protected static Task<T> AttemptAndRetry<T>(Func<Task<T>> action, int numRetries = 10)

@@ -34,6 +34,7 @@ using System.Windows;
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
 using PlatformApplication = System.Application.UI.App;
+using System.Application.Migrations;
 #endif
 #if StartupTrace
 using System.Diagnostics;
@@ -68,6 +69,20 @@ namespace System.Application
                 InitDI(options);
 #if StartupTrace
                 StartupTrace.Restart($"InitDI: {level}");
+#endif
+                if (!Essentials.IsSupported)
+                {
+                    // 在 Xamarin.Essentials 支持的平台上由平台 Application 初始化时调用
+                    // 通常在 DI 之前，例如 Android 上的 MainApplication.OnCreate
+                    VersionTracking2.Track();
+#if StartupTrace
+                    StartupTrace.Restart($"VersionTracking2.Track");
+#endif
+                }
+
+                Migrations.Up();
+#if StartupTrace
+                StartupTrace.Restart($"Migrations.Up");
 #endif
             }
         }
@@ -110,7 +125,12 @@ namespace System.Application
             // 添加 app 配置项
             services.TryAddOptions(AppSettings);
             // 键值对存储
-            services.TryAddStorage();
+            services.TryAddSecureStorage();
+
+            if (!Essentials.IsSupported)
+            {
+                services.AddPreferences();
+            }
 
             // 添加安全服务
             services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();

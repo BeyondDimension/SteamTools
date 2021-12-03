@@ -5,12 +5,13 @@ namespace System.Security
 {
     /// <summary>
     /// 为键/值对提供简单的安全存储(值类型泛型与非泛型重载方法不兼容)
+    /// <para>仅客户端：如果需要存储明文数据或需要同步方法，则可使用首选项(Preferences2)</para>
     /// </summary>
     /// <remarks>
-    /// <para>每个平台使用平台提供的本机API来安全存储数据：</para>
+    /// <para>每个平台使用平台提供的本机 API 来安全存储数据：</para>
     /// <list type="bullet">
     ///   <item>
-    ///     <term>iOS：数据存储在KeyChain中。有关SecAccessible的其他信息</term>
+    ///     <term>iOS：数据存储在 KeyChain 中。有关 SecAccessible 的其他信息</term>
     ///   </item>
     ///   <item>
     ///     <term>Android：加密密钥存储在密钥库中，加密数据存储在命名的共享首选项容器中</term>
@@ -30,7 +31,7 @@ namespace System.Security
     /// </list>
     /// <para>注意：在运行 Android 23（6.0/M）以下的 Android 设备上，KeyStore中没有AES可用。作为最佳实践，此API将生成存储在KeyStore中的RSA/ECB/PKCS7Padding密钥对（KeyStore中这些较低的API级别支持的唯一类型），用于包装运行时生成的AES密钥。这个包装好的密钥存储在首选项中</para>
     /// </remarks>
-    public partial interface IStorage
+    public partial interface ISecureStorage
     {
         #region Public API
 
@@ -108,7 +109,7 @@ namespace System.Security
             }
             catch (Exception e)
             {
-                Log.Error(nameof(IStorage), e, "GetAsync Fail, key: {0}.", key);
+                Log.Error(nameof(ISecureStorage), e, "GetAsync Fail, key: {0}.", key);
                 return default;
             }
         }
@@ -130,7 +131,7 @@ namespace System.Security
 
         Task<bool> ContainsKeyAsync(string key);
 
-        static IStorage Instance => DI.Get<IStorage>();
+        static ISecureStorage Instance => DI.Get<ISecureStorage>();
 
         #endregion
 

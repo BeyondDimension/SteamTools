@@ -8,18 +8,34 @@ using Xamarin.Essentials;
 namespace System.Application
 {
     /// <summary>
-    /// 电子邮件，参考 Xamarin.Essentials.Email
+    /// 电子邮件，参考 Xamarin.Essentials.Email。
     /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/email"/></para>
     /// <para><see cref="https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Email/Email.shared.cs"/></para>
     /// </summary>
     public static class Email2
     {
+        /// <summary>
+        /// 打开默认电子邮件客户端以允许用户发送邮件。
+        /// </summary>
+        /// <returns></returns>
         public static Task ComposeAsync()
             => ComposeAsync(null);
 
+        /// <summary>
+        /// 打开默认的电子邮件客户端，允许用户发送带有所提供主题、正文和收件人的邮件。
+        /// </summary>
+        /// <param name="subject">电子邮件主题。</param>
+        /// <param name="body">电子邮件正文。</param>
+        /// <param name="to">电子邮件收件人。</param>
+        /// <returns></returns>
         public static Task ComposeAsync(string subject, string body, params string[] to)
             => ComposeAsync(new EmailMessage(subject, body, to));
 
+        /// <summary>
+        /// 打开默认电子邮件客户端以允许用户发送邮件。
+        /// </summary>
+        /// <param name="message">电子邮件。</param>
+        /// <returns></returns>
         public static async Task ComposeAsync(EmailMessage? message)
         {
             if (Essentials.IsSupported)

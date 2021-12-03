@@ -9,7 +9,7 @@ using _ThisAssembly = System.Properties.ThisAssembly;
 namespace System.Application
 {
     /// <summary>
-    /// 文件选取器，参考 Xamarin.Essentials.FilePicker
+    /// 文件选取器，参考 Xamarin.Essentials.FilePicker。
     /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/file-picker"/></para>
     /// <para><see cref="https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FilePicker/FilePicker.shared.cs"/></para>
     /// </summary>
@@ -32,7 +32,7 @@ namespace System.Application
             }
         });
         /// <summary>
-        /// 是否支持文件扩展名过滤
+        /// 是否支持文件扩展名过滤。
         /// </summary>
         public static bool IsSupportedFileExtensionFilter => mIsSupportedFileExtensionFilter.Value;
 
@@ -43,27 +43,47 @@ namespace System.Application
         });
 
         /// <summary>
-        /// 是否支持保存文件对话框
+        /// 是否支持保存文件对话框。
         /// </summary>
         public static bool IsSupportedSaveFileDialog => mIsSupportedSaveFileDialog.Value;
 
+        /// <summary>
+        /// 启动文件选择器以选择单个文件。
+        /// </summary>
+        /// <param name="options">要使用的文件选择器选项，可能为空。</param>
+        /// <returns>文件拾取结果对象，或当用户取消拾取时为空。</returns>
+        /// <exception cref="PlatformNotSupportedException"></exception>
         public static async Task<FileResult?> PickAsync(PickOptions? options = null)
         {
-            if (Essentials.IsSupported)
+            try
             {
-                return await FilePicker.PickAsync(options);
-            }
-            else
-            {
-                var s = IOpenFileDialogService.Instance;
-                if (s != null)
+                if (Essentials.IsSupported)
                 {
-                    return (await s.PlatformPickAsync(options))?.FirstOrDefault();
+                    return await FilePicker.PickAsync(options);
                 }
-                throw new PlatformNotSupportedException();
+                else
+                {
+                    var s = IOpenFileDialogService.Instance;
+                    if (s != null)
+                    {
+                        return (await s.PlatformPickAsync(options))?.FirstOrDefault();
+                    }
+                    throw new PlatformNotSupportedException();
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                return null;
             }
         }
 
+        /// <summary>
+        /// 启动文件选择器以选择单个文件。
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="fileTypes"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public static async Task PickAsync(Action<string> action, FilePickerFileType? fileTypes = null, string? title = _ThisAssembly.AssemblyTrademark)
         {
             try
@@ -100,6 +120,13 @@ namespace System.Application
             }
         }
 
+        /// <summary>
+        /// 启动文件选择器以选择单个文件。
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="fileTypes"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public static async Task PickAsync(Func<string, Task> func, FilePickerFileType? fileTypes = null, string? title = _ThisAssembly.AssemblyTrademark)
         {
             try
@@ -136,24 +163,44 @@ namespace System.Application
             }
         }
 
-        public static async Task<IEnumerable<FileResult>> PickMultipleAsync(PickOptions? options = null)
+        /// <summary>
+        /// 启动文件选择器以选择多个文件。
+        /// </summary>
+        /// <param name="options">要使用的文件选择器选项，可能为空。</param>
+        /// <returns>文件拾取结果对象，或当用户取消拾取时为空。</returns>
+        /// <exception cref="PlatformNotSupportedException"></exception>
+        public static async Task<IEnumerable<FileResult>?> PickMultipleAsync(PickOptions? options = null)
         {
-            if (Essentials.IsSupported)
+            try
             {
-                return await FilePicker.PickMultipleAsync(options);
-            }
-            else
-            {
-                var s = IOpenFileDialogService.Instance;
-                if (s != null)
+                if (Essentials.IsSupported)
                 {
-                    return await s.PlatformPickAsync(options ?? PickOptions.Default, true);
+                    return await FilePicker.PickMultipleAsync(options);
                 }
-                throw new PlatformNotSupportedException();
+                else
+                {
+                    var s = IOpenFileDialogService.Instance;
+                    if (s != null)
+                    {
+                        return await s.PlatformPickAsync(options ?? PickOptions.Default, true);
+                    }
+                    throw new PlatformNotSupportedException();
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                return null;
             }
         }
 
-        public static async Task PickMultipleAsync(Action<IEnumerable<string>> action, FilePickerFileType? fileTypes = null, string? title = _ThisAssembly.AssemblyTrademark)
+        /// <summary>
+        /// 启动文件选择器以选择多个文件。
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="fileTypes"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        public static async Task PickMultipleAsync(Action<IEnumerable<string>?> action, FilePickerFileType? fileTypes = null, string? title = _ThisAssembly.AssemblyTrademark)
         {
             try
             {
@@ -189,7 +236,14 @@ namespace System.Application
             }
         }
 
-        public static async Task PickMultipleAsync(Func<IEnumerable<string>, Task> func, FilePickerFileType? fileTypes = null, string? title = _ThisAssembly.AssemblyTrademark)
+        /// <summary>
+        /// 启动文件选择器以选择多个文件。
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="fileTypes"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        public static async Task PickMultipleAsync(Func<IEnumerable<string>?, Task> func, FilePickerFileType? fileTypes = null, string? title = _ThisAssembly.AssemblyTrademark)
         {
             try
             {
@@ -225,14 +279,27 @@ namespace System.Application
             }
         }
 
+        /// <summary>
+        /// 启动文件保存弹窗以保存单个文件
+        /// </summary>
+        /// <param name="options">要使用的文件保存弹窗选项，可能为空。</param>
+        /// <returns>文件拾取结果对象，或当用户取消拾取时为空。</returns>
+        /// <exception cref="PlatformNotSupportedException"></exception>
         public static async Task<FileResult?> SaveAsync(SaveOptions? options = null)
         {
-            var s = ISaveFileDialogService.Instance;
-            if (s != null)
+            try
             {
-                return await s.PlatformSaveAsync(options);
+                var s = ISaveFileDialogService.Instance;
+                if (s != null)
+                {
+                    return await s.PlatformSaveAsync(options);
+                }
+                throw new PlatformNotSupportedException();
             }
-            throw new PlatformNotSupportedException();
+            catch (OperationCanceledException)
+            {
+                return null;
+            }
         }
 
         public class SaveOptions : PickOptions

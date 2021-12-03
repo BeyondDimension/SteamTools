@@ -8,12 +8,12 @@ using System.Properties;
 
 namespace System.Application
 {
-    /// <inheritdoc cref="FileSystemDesktop"/>
+    /// <inheritdoc cref="FileSystem2"/>
     public sealed class FileSystemDesktopMac : IOPath.FileSystemBase
     {
         private FileSystemDesktopMac() => throw new NotSupportedException();
 
-        /// <inheritdoc cref="FileSystemDesktop.InitFileSystem"/>
+        /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
         public static void InitFileSystem()
         {
             // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FileSystem/FileSystem.ios.tvos.watchos.macos.cs

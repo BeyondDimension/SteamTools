@@ -141,12 +141,12 @@ namespace System.Application.Services
         //const string KEY_HOSTS_PROXY_RUNNING_STATUS = "KEY_HOSTS_PROXY_RUNNING_STATUS";
         //static async void SaveHostsProxyStatus(bool value)
         //{
-        //    await IStorage.Instance.SetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS, value);
+        //    await ISecureStorage.Instance.SetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS, value);
         //}
 
         //public static async Task<bool> GetHostsProxyStatusAsync()
         //{
-        //    var r = await IStorage.Instance.GetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS);
+        //    var r = await ISecureStorage.Instance.GetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS);
         //    return r;
         //}
 

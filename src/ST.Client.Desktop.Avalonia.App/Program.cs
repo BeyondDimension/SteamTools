@@ -32,7 +32,7 @@ namespace System.Application.UI
 #elif LINUX
             FileSystemDesktopXDG.InitFileSystem();
 #else
-            FileSystemDesktop.InitFileSystem();
+            FileSystem2.InitFileSystem();
 #endif
 #endif
 #if StartupTrace

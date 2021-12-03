@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application
 {
-    public sealed class FileSystem2 : IOPath.FileSystemBase
+    partial class FileSystem2
     {
-        private FileSystem2() => throw new NotSupportedException();
-
         /// <summary>
         /// 初始化文件系统
         /// </summary>
@@ -23,7 +18,7 @@ namespace System.Application
             }
             else
             {
-                throw new PlatformNotSupportedException();
+                InitFileSystemByBaseDirectory();
             }
         }
 

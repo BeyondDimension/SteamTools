@@ -88,7 +88,7 @@ namespace System.Application
             services.AddRepositories();
 
             // 键值对存储
-            services.TryAddStorage();
+            services.TryAddSecureStorage();
 
             // 业务平台用户管理
             services.TryAddUserManager();

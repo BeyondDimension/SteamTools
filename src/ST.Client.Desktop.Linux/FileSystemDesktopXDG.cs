@@ -17,7 +17,7 @@ namespace System.Application
     {
         private FileSystemDesktopXDG() => throw new NotSupportedException();
 
-        /// <inheritdoc cref="FileSystemDesktop.InitFileSystem"/>
+        /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
         public static void InitFileSystem()
         {
             var appDataPath = AppDataDirectory;
@@ -28,7 +28,7 @@ namespace System.Application
 
             if (dict_paths.Values.All(x => !x))
             {
-                var old_paths = new[] { FileSystemDesktop.AppDataDirectory, FileSystemDesktop.CacheDirectory, };
+                var old_paths = new[] { FileSystem2.BaseDirectory.AppDataDirectory, FileSystem2.BaseDirectory.CacheDirectory, };
                 if (old_paths.All(Directory.Exists)) // 迁移之前根目录上的文件夹
                 {
                     for (int i = 0; i < old_paths.Length; i++)

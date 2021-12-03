@@ -4,6 +4,7 @@ using Xamarin.Essentials;
 // ReSharper disable once CheckNamespace
 namespace System.Application
 {
+    /// <inheritdoc cref="Browser"/>
     public static partial class Browser2
     {
         public static event Action<Exception>? OnError;

@@ -14,6 +14,7 @@ namespace System
                 o.MinLevel = LogLevel.Trace;
             });
             services.AddPinyin();
+            services.AddPreferences();
         }
     }
 }

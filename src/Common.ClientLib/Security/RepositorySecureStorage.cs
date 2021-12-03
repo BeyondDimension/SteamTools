@@ -6,20 +6,24 @@ using KeyValuePair = System.Application.Entities.KeyValuePair;
 
 namespace System.Security
 {
-    internal sealed class DesktopClientStorage : Repository<KeyValuePair, string>, IStorage
+    /// <summary>
+    /// 由 <see cref="Repository{TEntity, TPrimaryKey}"/> 实现的 <see cref="ISecureStorage"/>
+    /// <para>加密由 <see cref="ISecurityService"/> 实现</para>
+    /// </summary>
+    internal sealed class RepositorySecureStorage : Repository<KeyValuePair, string>, ISecureStorage
     {
         readonly ISecurityService ss;
 
-        public DesktopClientStorage(ISecurityService ss)
+        public RepositorySecureStorage(ISecurityService ss)
         {
             this.ss = ss;
         }
 
-        bool IStorage.IsNativeSupportedBytes => true;
+        bool ISecureStorage.IsNativeSupportedBytes => true;
 
         static string GetKey(string key) => Hashs.String.SHA256(key);
 
-        async Task<byte[]?> IStorage.GetBytesAsync(string key)
+        async Task<byte[]?> ISecureStorage.GetBytesAsync(string key)
         {
             key = GetKey(key);
             var item = await FirstOrDefaultAsync(x => x.Id == key);
@@ -38,7 +42,7 @@ namespace System.Security
             });
         }
 
-        Task IStorage.SetAsync(string key, byte[]? value)
+        Task ISecureStorage.SetAsync(string key, byte[]? value)
         {
             key = GetKey(key);
             if (value == null || value.Length <= 0)
@@ -51,14 +55,14 @@ namespace System.Security
             }
         }
 
-        async Task<bool> IStorage.RemoveAsync(string key)
+        async Task<bool> ISecureStorage.RemoveAsync(string key)
         {
             key = GetKey(key);
             var result = await DeleteAsync(key);
             return result > 0;
         }
 
-        async Task<bool> IStorage.ContainsKeyAsync(string key)
+        async Task<bool> ISecureStorage.ContainsKeyAsync(string key)
         {
             key = GetKey(key);
             var item = await FirstOrDefaultAsync(x => x.Id == key);
