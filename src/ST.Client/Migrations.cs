@@ -16,26 +16,40 @@ namespace System.Application
         /// <summary>
         /// 开始迁移(在 DI 初始化完毕后调用)
         /// </summary>
-        public static async void Up()
+        public static void Up()
         {
+            // 可以删除 /AppData/application2.dbf 表 0984415E 使此 if 返回 True
+            // 目前此数据库中仅有这一张表，所以可以直接删除文件，但之后可能会新增新表
             if (VersionTracking2.IsFirstLaunchForCurrentVersion) // 当前版本号第一次启动
             {
                 if (PreviousVersion < new Version(2, 6, 2)) // 上一次运行的版本小于 2.6.2 时将执行以下迁移
                 {
-                    // 可以删除 /AppData/application2.dbf 表 0984415E 使此 if 返回 True
-                    // 目前此数据库中仅有这一张表，所以可以直接删除文件，但之后可能会新增新表
-                    var scriptList = await IScriptManager.Instance.GetAllScriptAsync();
-                    foreach (var script in scriptList)
+                    var cacheScript = Path.Combine(IOPath.CacheDirectory, "Scripts");
+                 
+                    if (Directory.Exists(cacheScript))
                     {
                         try
                         {
-                            File.Delete(Path.Combine(IOPath.CacheDirectory, script.CachePath));
+                            Directory.Delete(cacheScript, true);
                         }
                         catch (Exception e)
                         {
                             Log.Error("RemoveJSCache", e, "RemoveFileError");
                         }
                     }
+
+                    //var scriptList = await IScriptManager.Instance.GetAllScriptAsync();
+                    //foreach (var script in scriptList)
+                    //{
+                    //    try
+                    //    {
+                    //        File.Delete(Path.Combine(IOPath.CacheDirectory, script.CachePath));
+                    //    }
+                    //    catch (Exception e)
+                    //    {
+                    //        Log.Error("RemoveJSCache", e, "RemoveFileError");
+                    //    }
+                    //}
                 }
             }
         }
