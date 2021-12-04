@@ -18,19 +18,9 @@
         x:CompileBindings="True">
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
-    <ScrollViewer Padding="10" Margin="{StaticResource TitleBarAfterMargin}">
+    <ScrollViewer Padding="0 10" 
+                  Margin="{StaticResource TitleBarAfterMargin}">
       <StackPanel Classes="Settings">
-
-        <!--<Grid ColumnDefinitions="Auto,*,Auto">
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ExportPath,Source={x:Static resx:R.Current},Mode=OneWay,StringFormat={}{0}：}"
-                     VerticalAlignment="Center"/>
-          <TextBlock Text="{Binding Path}" Grid.Column="1"
-                     TextTrimming="CharacterEllipsis"
-                     ToolTip.Tip="{Binding Path}" VerticalAlignment="Center"></TextBlock>
-
-          <Button x:Name="SelectPathButton" Command="{Binding SelectPathButton_Click}" Grid.Column="2" Content="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_SelectPath,Source={x:Static resx:R.Current},Mode=OneWay}" HorizontalAlignment="Right"/>
-        </Grid>-->
-
         <Expander>
           <Expander.Header>
             <DockPanel>

@@ -3058,7 +3058,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam 身份验证器的完整数据，可在导入不同软件时使用： 的本地化字符串。
+        ///   查找类似 Steam 身份验证器的完整数据，可在导入不同软件时使用 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ShowSteamAuthTip1 {
             get {
@@ -3194,7 +3194,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 设备ID(uuid)： 的本地化字符串。
+        ///   查找类似 设备ID(uuid) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamUUID {
             get {
@@ -4452,6 +4452,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_UI_WindowTransparencyMaterial {
             get {
                 return ResourceManager.GetString("Settings_UI_WindowTransparencyMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示/隐藏 的本地化字符串。
+        /// </summary>
+        public static string ShowHide {
+            get {
+                return ResourceManager.GetString("ShowHide", resourceCulture);
             }
         }
         

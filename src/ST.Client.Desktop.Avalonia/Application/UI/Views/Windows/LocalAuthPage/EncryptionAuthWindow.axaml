@@ -18,7 +18,8 @@
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
 
-    <ScrollViewer Padding="10" Margin="{StaticResource TitleBarAfterMargin}">
+    <ScrollViewer Padding="0 10" 
+                  Margin="{StaticResource TitleBarAfterMargin}">
       <StackPanel Classes="Settings">
         <Border Classes="Item">
           <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Info,Source={x:Static resx:R.Current},Mode=OneWay}"

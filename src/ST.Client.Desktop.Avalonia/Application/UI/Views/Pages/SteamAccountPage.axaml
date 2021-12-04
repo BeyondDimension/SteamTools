@@ -252,7 +252,7 @@
                           VerticalContentAlignment="Center"
                           HorizontalAlignment="Left"
                           HorizontalContentAlignment="Left"
-                          Classes="readonlybox "
+                          Classes="readonlybox"
                           PasswordChar="{ReflectionBinding #ShowDetail.IsChecked,Converter={StaticResource IsReadOnlyPasswordBoxConverter},ConverterParameter=invert}"
                           Foreground="{DynamicResource InactiveForegroundBrushKey}"
                           IsReadOnly="True">

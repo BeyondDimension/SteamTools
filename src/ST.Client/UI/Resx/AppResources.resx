@@ -961,7 +961,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>查看令牌详细数据</value>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
-    <value>Steam 身份验证器的完整数据，可在导入不同软件时使用：</value>
+    <value>Steam 身份验证器的完整数据，可在导入不同软件时使用</value>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
     <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。</value>
@@ -1007,7 +1007,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>您的帐户似乎已添加了身份验证器，需要移除现有的身份验证器才可以通过账号导入。</value>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
-    <value>设备ID(uuid)：</value>
+    <value>设备ID(uuid)</value>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
     <value>在 shared_prefs 文件夹中，粘贴 'steam_uuid.xml' 的 uuidKey</value>
@@ -1955,5 +1955,8 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
     <value>请等待 IPC 启动中...</value>
+  </data>
+  <data name="ShowHide" xml:space="preserve">
+    <value>显示/隐藏</value>
   </data>
 </root>

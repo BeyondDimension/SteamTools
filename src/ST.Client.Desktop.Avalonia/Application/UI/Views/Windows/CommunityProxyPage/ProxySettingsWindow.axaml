@@ -18,8 +18,8 @@
   <Panel>
     <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
     <Border Margin="{StaticResource TitleBarAfterMargin}">
-      <ScrollViewer Padding="10">
-        <StackPanel Spacing="20" Classes="Settings">
+      <ScrollViewer Padding="0 10">
+        <StackPanel Classes="Settings">
           <Expander Header="{ReflectionBinding Path=Res.CommunityFix_ProxySettings,Mode=OneWay,Source={x:Static resx:R.Current}}" IsExpanded="True">
             <StackPanel Spacing="10">
               <DockPanel>

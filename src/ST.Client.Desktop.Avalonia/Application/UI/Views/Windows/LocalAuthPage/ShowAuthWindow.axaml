@@ -7,51 +7,90 @@
         x:Class="System.Application.UI.Views.Windows.ShowAuthWindow"
         xmlns:resx="using:System.Application.UI.Resx"
         xmlns:vm="using:System.Application.UI.ViewModels"
-        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:ms="using:System.Application.Settings"
-        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+        xmlns:controls="using:System.Application.UI.Views.Controls"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
         x:DataType="vm:ShowAuthWindowViewModel"
         x:CompileBindings="True">
   <Panel HorizontalAlignment="Stretch">
-    <controls:TitleBar></controls:TitleBar>
+    <controls:TitleBar/>
 
-    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="{StaticResource TitleBarAfterMargin}" Padding="10" MaxWidth="{Binding $parent.MaxWidth}">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  Margin="{StaticResource TitleBarAfterMargin}"
+                  Padding="0 10"
+                  MaxWidth="{Binding $parent.MaxWidth}">
       <StackPanel>
-        <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}"
-             FontSize="30"
-             Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip2,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                 FontSize="16"  TextWrapping="WrapWithOverflow"/>
+        <StackPanel Classes="Settings">
 
-        <DockPanel>
-          <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}：}"
-           FontSize="20"
-           Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+          <Border Classes="Item">
+            <StackPanel Spacing="6">
+              <WrapPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowAuthInfo,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                           Classes="h4"/>
+                <ToggleButton Classes="revealPasswordButton"
+                              x:Name="ShowDetail"
+                              Margin="10 0 0 0">
+                  <ToggleButton.Content>
+                    <WrapPanel>
+                      <ui:FontIcon Glyph="&#xE18B;"
+                                   FontSize="16"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+                      <TextBlock Text="{ReflectionBinding Path=Res.ShowHide,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                    </WrapPanel>
+                  </ToggleButton.Content>
+                </ToggleButton>
+              </WrapPanel>
+              <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip2,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         Classes="prompt"/>
+            </StackPanel>
+          </Border>
 
-          <TextBox Classes="revealPasswordButton" FontSize="20" BorderThickness="0" Text="{Binding RecoveryCode,Mode=OneTime}" PasswordChar="{StaticResource PasswordChar}" IsReadOnly="True"></TextBox>
-        </DockPanel>
+          <Border Classes="Item">
+            <DockPanel>
+              <TextBlock VerticalAlignment="Center"
+                         Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+              <TextBox HorizontalContentAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       Text="{Binding RecoveryCode,Mode=OneTime}"
+                       PasswordChar="{ReflectionBinding #ShowDetail.IsChecked,Converter={StaticResource IsReadOnlyPasswordBoxConverter},ConverterParameter=invert}"
+                       IsReadOnly="True"/>
+            </DockPanel>
+          </Border>
 
-        <StackPanel Margin="0,12">
-          <Separator Classes="Separator"/>
+          <Border Classes="Item">
+            <DockPanel>
+              <TextBlock VerticalAlignment="Center"
+                         Text="{ReflectionBinding Path=Res.LocalAuth_SteamUUID,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              <TextBox HorizontalContentAlignment="Stretch"
+                       HorizontalAlignment="Stretch"
+                       Text="{Binding DeviceId,Mode=OneTime}"
+                       PasswordChar="{ReflectionBinding #ShowDetail.IsChecked,Converter={StaticResource IsReadOnlyPasswordBoxConverter},ConverterParameter=invert}"
+                       IsReadOnly="True"/>
+            </DockPanel>
+          </Border>
+
+          <Expander IsExpanded="{ReflectionBinding #ShowDetail.IsChecked,Mode=OneWay}">
+            <Expander.Header>
+              <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="SteamGuard"/>
+                <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip1,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         Classes="prompt"/>
+              </StackPanel>
+            </Expander.Header>
+            <TextBox Text="{Binding SteamDataIndented,Mode=OneTime}"
+                     HorizontalContentAlignment="Stretch"
+                     HorizontalAlignment="Stretch"
+                     IsReadOnly="True"
+                     Height="300"
+                     TextWrapping="Wrap"
+                     PasswordChar="{ReflectionBinding #ShowDetail.IsChecked,Converter={StaticResource IsReadOnlyPasswordBoxConverter},ConverterParameter=invert}"/>
+          </Expander>
         </StackPanel>
 
-
-        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip1,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-        <DockPanel>
-          <TextBlock VerticalAlignment="Center" Text="{ReflectionBinding Path=Res.LocalAuth_SteamUUID,Mode=OneWay,Source={x:Static resx:R.Current}}"
-           Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-          <TextBox BorderThickness="0" Text="{Binding DeviceId,Mode=OneTime}" IsReadOnly="True"></TextBox>
-        </DockPanel>
-
-        <StackPanel Margin="0,12">
-          <Separator BorderThickness=".88" Background="{DynamicResource SystemControlHighlightBaseLowBrush}"  />
-        </StackPanel>
-
-        <TextBlock Text="SteamGuard："></TextBlock>
-        <TextBox BorderThickness="0" Text="{Binding SteamDataIndented,Mode=OneTime}" IsReadOnly="True" Height="300" AcceptsReturn="True" TextWrapping="Wrap" MaxWidth="{ReflectionBinding $parent.MaxWidth}"></TextBox>
       </StackPanel>
     </ScrollViewer>
   </Panel>
