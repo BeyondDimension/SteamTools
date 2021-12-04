@@ -84,7 +84,7 @@ namespace System.Application.UI.Adapters
             where TViewHolder : RecyclerView.ViewHolder
             where TViewType : struct, IConvertible
         {
-            var viewType2 = viewType.ConvertToEnum<TViewType>();
+            var viewType2 = ConvertibleHelper.Convert<TViewType, int>(viewType);
             var holder = onCreateViewHolder(viewType2, parent);
             setItemClicks?.Invoke(holder);
             return holder;

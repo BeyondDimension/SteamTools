@@ -36,7 +36,7 @@ namespace System.Application.UI.Adapters
         {
         }
 
-        public new TViewType ItemViewType => base.ItemViewType.ConvertToEnum<TViewType>();
+        public new TViewType ItemViewType => ConvertibleHelper.Convert<TViewType, int>(base.ItemViewType);
     }
 
     /// <summary>
@@ -89,6 +89,6 @@ namespace System.Application.UI.Adapters
         {
         }
 
-        public new TViewType ItemViewType => base.ItemViewType.ConvertToEnum<TViewType>();
+        public new TViewType ItemViewType => ConvertibleHelper.Convert<TViewType, int>(base.ItemViewType);
     }
 }

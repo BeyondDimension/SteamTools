@@ -11,13 +11,14 @@ namespace System.Application.Services.Implementation
     partial class ArchiSteamFarmServiceImpl
     {
         const char WinDirectorySeparatorChar = '\\';
-        const string _Version_ASFUI = "5.1.5.3";
+        const string _Version_ASFUI = "5.2.0.10";
         const string Version_FileName = "VERSION.txt";
 
-        static string Version_ASFUI => _Version_ASFUI == "5.1.5.3" ?
-            (Path.DirectorySeparatorChar != WinDirectorySeparatorChar ?
-                _Version_ASFUI + "-unix_unpack_fix" :
-                _Version_ASFUI) :
+        static string Version_ASFUI =>
+            //_Version_ASFUI == "5.1.5.3" ?
+            //(Path.DirectorySeparatorChar != WinDirectorySeparatorChar ?
+            //    _Version_ASFUI + "-unix_unpack_fix" :
+            //    _Version_ASFUI) :
             _Version_ASFUI;
 
         /// <summary>

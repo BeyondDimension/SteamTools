@@ -134,7 +134,6 @@
     <PackageReference Include="Xamarin.AndroidX.Camera.Lifecycle" />
     <PackageReference Include="Xamarin.Google.Dagger" />
     <PackageReference Include="Xamarin.Google.MLKit.BarcodeScanning" />
-    <PackageReference Include="Xamarin.AndroidX.Core" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
