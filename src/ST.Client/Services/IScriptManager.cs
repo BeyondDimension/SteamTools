@@ -13,6 +13,8 @@ namespace System.Application.Services
     /// </summary>
     public interface IScriptManager
     {
+        public const string DirName = "Scripts";
+
         static IScriptManager Instance => DI.Get<IScriptManager>();
 
         /// <summary>

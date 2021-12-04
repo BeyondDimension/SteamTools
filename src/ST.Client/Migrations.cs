@@ -24,7 +24,7 @@ namespace System.Application
             {
                 if (PreviousVersion < new Version(2, 6, 2)) // 上一次运行的版本小于 2.6.2 时将执行以下迁移
                 {
-                    var cacheScript = Path.Combine(IOPath.CacheDirectory, "Scripts");
+                    var cacheScript = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName);
                  
                     if (Directory.Exists(cacheScript))
                     {
@@ -37,19 +37,6 @@ namespace System.Application
                             Log.Error("RemoveJSCache", e, "RemoveFileError");
                         }
                     }
-
-                    //var scriptList = await IScriptManager.Instance.GetAllScriptAsync();
-                    //foreach (var script in scriptList)
-                    //{
-                    //    try
-                    //    {
-                    //        File.Delete(Path.Combine(IOPath.CacheDirectory, script.CachePath));
-                    //    }
-                    //    catch (Exception e)
-                    //    {
-                    //        Log.Error("RemoveJSCache", e, "RemoveFileError");
-                    //    }
-                    //}
                 }
             }
         }

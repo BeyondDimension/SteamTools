@@ -19,7 +19,6 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="IScriptManager"/>
     public sealed class ScriptManager : IScriptManager
     {
-        const string DirName = "Scripts";
         readonly ILogger logger;
         readonly IToast toast;
         readonly IHttpService httpService;
@@ -82,8 +81,8 @@ namespace System.Application.Services.Implementation
                             }
                         }
                         var fileName = md5 + FileEx.JS;
-                        var path = Path.Combine(DirName, fileName);
-                        var savePath = Path.Combine(IOPath.AppDataDirectory, DirName, fileName);
+                        var path = Path.Combine(IScriptManager.DirName, fileName);
+                        var savePath = Path.Combine(IOPath.AppDataDirectory, IScriptManager.DirName, fileName);
                         var saveInfo = new FileInfo(savePath);
                         var isNoRepeat = saveInfo.FullName != fileInfo.FullName;
                         if (!saveInfo.Directory.Exists)
@@ -113,7 +112,7 @@ namespace System.Application.Services.Implementation
                         }
                         if (pid.HasValue)
                             info.Id = pid.Value;
-                        var cachePath = Path.Combine(IOPath.CacheDirectory, DirName, fileName);
+                        var cachePath = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName, fileName);
                         info.FilePath = path;
                         info.IsBuild = build;
                         info.CachePath = path;
@@ -247,7 +246,7 @@ namespace System.Application.Services.Implementation
                 if (info != null)
                 {
                     var fileName = info.MD5 + FileEx.JS;
-                    var cachePath = Path.Combine(IOPath.CacheDirectory, DirName, fileName);
+                    var cachePath = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName, fileName);
                     try
                     {
                         var cacheInfo = new FileInfo(cachePath);
@@ -261,7 +260,7 @@ namespace System.Application.Services.Implementation
                         return ApiResponse.Fail(msg);
                     }
 
-                    var savePath = Path.Combine(IOPath.AppDataDirectory, DirName, fileName);
+                    var savePath = Path.Combine(IOPath.AppDataDirectory, IScriptManager.DirName, fileName);
                     try
                     {
                         var fileInfo = new FileInfo(savePath);
@@ -429,7 +428,7 @@ namespace System.Application.Services.Implementation
                 try
                 {
                     var md5 = Hashs.String.MD5(scriptStr);
-                    cachePath = Path.Combine(IOPath.CacheDirectory, DirName, md5 + FileEx.DownloadCache);
+                    cachePath = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName, md5 + FileEx.DownloadCache);
                     var fileInfo = new FileInfo(cachePath);
                     if (!fileInfo.Directory.Exists) fileInfo.Directory.Create();
                     else if (fileInfo.Exists) fileInfo.Delete();
