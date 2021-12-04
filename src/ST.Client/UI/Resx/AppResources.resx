@@ -1156,9 +1156,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Script_Install" xml:space="preserve">
     <value>安装脚本</value>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>已安装</value>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>该文本文件已丢失，是否删除脚本记录。</value>
   </data>
@@ -1623,6 +1620,18 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
     <value>Steam 下载完成定时关机</value>
+  </data>
+  <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
+    <value>启用下载监控</value>
+  </data>
+  <data name="Downloaded" xml:space="preserve">
+    <value>已下载</value>
+  </data>
+  <data name="Installed" xml:space="preserve">
+    <value>已安装</value>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
+    <value>在选中游戏下载并安装完成后执行</value>
   </data>
   <data name="Translators" xml:space="preserve">
     <value>社区翻译</value>

@@ -367,9 +367,9 @@ namespace System.Application.Services
                 case SystemEndMode.Shutdown:
                     IPlatformService.Instance.SystemShutdown();
                     break;
-                case SystemEndMode.Lock:
-                    IPlatformService.Instance.SystemLock();
-                    break;
+                //case SystemEndMode.Lock:
+                //    IPlatformService.Instance.SystemLock();
+                //    break;
                 default:
                     IPlatformService.Instance.SystemSleep();
                     break;

@@ -25,10 +25,10 @@ namespace System.Application.Models
         [Description("Shutdown")]
         Shutdown,
 
-        /// <summary>
-        /// 锁定
-        /// </summary>
-        [Description("Lock")]
-        Lock,
+        ///// <summary>
+        ///// 锁屏
+        ///// </summary>
+        //[Description("Lock")]
+        //Lock,
     }
 }

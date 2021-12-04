@@ -468,6 +468,7 @@
                           FontSize="18"
                           Foreground="#FFFFFFFF"
                           IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
+                      
                       <Border IsVisible="{Binding IsInstalled}"
                               Margin="10 0 10 -3"
                               CornerRadius="3"

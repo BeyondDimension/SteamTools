@@ -29,12 +29,12 @@
         Margin="20 40 20 0">
         <DockPanel>
           <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
-            <ToggleSwitch OnContent="启用下载监控"
-                          OffContent="启用下载监控"
+            <ToggleSwitch OnContent="{ReflectionBinding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                          OffContent="{ReflectionBinding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,Mode=OneWay,Source={x:Static resx:R.Current}}"
                           IsChecked="{ReflectionBinding Source={x:Static services:SteamConnectService.Current},Path=IsWatchSteamDownloading,Mode=TwoWay}"
                           VerticalAlignment="Center"/>
 
-            <TextBlock Text="在选中游戏下载完成后执行" VerticalAlignment="Center"/>
+            <TextBlock Text="{ReflectionBinding Path=Res.GameList_SteamShutdown_DownloadComplete,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"/>
             <ComboBox VerticalAlignment="Center"
                       Items="{Binding SystemEndModes}"
                       SelectedItem="{ReflectionBinding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode},Path=Value,Mode=TwoWay}">
@@ -65,15 +65,41 @@
                          ClipToBounds="True"
                          Background="{DynamicResource ThemeBrushKey}">
                   <Grid ColumnDefinitions="Auto,*,Auto">
-                    <Border CornerRadius="{StaticResource PaperRadiusLeft}"
-                            ClipToBounds="True">
-                      <gif:Image2 VerticalAlignment="Center"
-                                  Source="{Binding HeaderLogoUrl}"
-                                  Stretch="UniformToFill"
-                                  DecodeWidth="250"
-                                  Width="250"
-                                  Height="116"/>
-                    </Border>
+                    <Panel>
+                      <Border CornerRadius="{StaticResource PaperRadiusLeft}"
+                              ClipToBounds="True">
+                        <gif:Image2 VerticalAlignment="Center"
+                                    Source="{Binding HeaderLogoUrl}"
+                                    Stretch="UniformToFill"
+                                    DecodeWidth="250"
+                                    Width="250"
+                                    Height="116"/>
+                      </Border>
+
+                      <Border IsVisible="{Binding IsInstalled}"
+                              Margin="10 0"
+                              CornerRadius="3"
+                              Classes="paper"
+                              Background="#3D4450"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Bottom">
+                        <DockPanel Margin="10 3"
+                                   HorizontalAlignment="Center">
+                          <TextBlock Text="{Binding InstalledDrive}"
+                                     Foreground="#FFFFFFFF"
+                                     IsVisible="{Binding InstalledDrive,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                                     VerticalAlignment="Center"
+                                     Margin="0 0 5 0"
+                                     FontSize="11"/>
+                          <controls:ScrollingTextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
+                                     Foreground="#FFFFFFFF"
+                                     TextWrapping="Wrap"
+                                     VerticalAlignment="Center"
+                                     FontSize="11"/>
+                        </DockPanel>
+                      </Border>
+                    </Panel>
+
                     <StackPanel Spacing="8"
                                 Margin="20 10"
                                 Grid.Column="1"
@@ -81,32 +107,33 @@
                       <controls:ScrollingTextBlock Classes="h6 semibold"
                                                    Text="{Binding DisplayName}">
                         <!--<controls:ScrollingTextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} - {1}">
+                          <MultiBinding StringFormat="{}{0} - {1}">
                               <Binding Path="DisplayName"/>
                               <Binding Path="AppId"/>
                             </MultiBinding>
-                          </controls:ScrollingTextBlock.Text>-->
+                        </controls:ScrollingTextBlock.Text>-->
                       </controls:ScrollingTextBlock>
-                      <!--<TextBlock Text="{Binding AppId}"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"
-                                 FontSize="12"/>-->
-                      <!--<TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"
-                                 FontSize="12"/>-->
 
-                      <TextBlock Foreground="{DynamicResource InactiveForegroundBrushKey}"
-                                 FontSize="12">
-                        <TextBlock.Text>
-                          <MultiBinding StringFormat="已下载 {0}/{1}">
-                            <Binding Path="BytesDownloaded"
-                                     Converter="{StaticResource StringFormatConverter}"
-                                     ConverterParameter="size"/>
-                            <Binding Path="BytesToDownload"
-                                     Converter="{StaticResource StringFormatConverter}"
-                                     ConverterParameter="size"/>
-                          </MultiBinding>
-                        </TextBlock.Text>
-                      </TextBlock>
+                      <WrapPanel>
+                        <TextBlock Text="{ReflectionBinding Path=Res.Downloaded,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                   Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                   FontSize="12"/>
+                        <TextBlock Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                   FontSize="12"
+                                   Margin="5 0 0 0">
+                          <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}/{1}">
+                              <Binding Path="BytesDownloaded"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                              <Binding Path="BytesToDownload"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                      </WrapPanel>
+
                       <!--<ProgressBar Value="{Binding DownloadedProgressValue,Mode=OneWay}"
                                    Classes="Circle"
                                    Grid.Row="1"
@@ -115,19 +142,25 @@
                                    ToolTip.Tip="{Binding DownloadedProgressValue,Mode=OneWay,StringFormat={}{0}%}"
                                    Maximum="100"/>-->
 
-                      <TextBlock Foreground="{DynamicResource InactiveForegroundBrushKey}"
-                                 FontSize="12">
-                        <TextBlock.Text>
-                          <MultiBinding StringFormat="已安装 {0}/{1}">
-                            <Binding Path="BytesStaged"
-                                     Converter="{StaticResource StringFormatConverter}"
-                                     ConverterParameter="size"/>
-                            <Binding Path="BytesToStage"
-                                     Converter="{StaticResource StringFormatConverter}"
-                                     ConverterParameter="size"/>
-                          </MultiBinding>
-                        </TextBlock.Text>
-                      </TextBlock>
+                      <WrapPanel>
+                        <TextBlock Text="{ReflectionBinding Path=Res.Installed,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                   Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                   FontSize="12"/>
+                        <TextBlock Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                                   FontSize="12"
+                                   Margin="5 0 0 0">
+                          <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}/{1}">
+                              <Binding Path="BytesStaged"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                              <Binding Path="BytesToStage"
+                                       Converter="{StaticResource StringFormatConverter}"
+                                       ConverterParameter="size"/>
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                      </WrapPanel>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2"

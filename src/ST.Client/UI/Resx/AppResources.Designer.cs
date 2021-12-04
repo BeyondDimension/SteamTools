@@ -1491,6 +1491,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 已下载 的本地化字符串。
+        /// </summary>
+        public static string Downloaded {
+            get {
+                return ResourceManager.GetString("Downloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在下载：{0}% 的本地化字符串。
         /// </summary>
         public static string Downloading {
@@ -2022,6 +2031,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 在选中游戏下载并安装完成后执行 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown_DownloadComplete {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown_DownloadComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用下载监控 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown_EnableWatchDownloading {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown_EnableWatchDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 全部暂停 的本地化字符串。
         /// </summary>
         public static string GameList_StopBtn {
@@ -2351,6 +2378,15 @@ namespace System.Application.UI.Resx {
         public static string ImportByQRCode {
             get {
                 return ResourceManager.GetString("ImportByQRCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已安装 的本地化字符串。
+        /// </summary>
+        public static string Installed {
+            get {
+                return ResourceManager.GetString("Installed", resourceCulture);
             }
         }
         
@@ -3767,15 +3803,6 @@ namespace System.Application.UI.Resx {
         public static string Script_Install {
             get {
                 return ResourceManager.GetString("Script_Install", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 已安装 的本地化字符串。
-        /// </summary>
-        public static string Script_Installed {
-            get {
-                return ResourceManager.GetString("Script_Installed", resourceCulture);
             }
         }
         
