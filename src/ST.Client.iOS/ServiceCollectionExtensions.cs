@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Http;
+using Microsoft.Extensions.Http;
+using System;
+using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
@@ -8,8 +10,30 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
+        {
+            if (OperatingSystem2.IsIOS /*|| OperatingSystem2.IsWatchOS || OperatingSystem2.IsTvOS*/)
+            {
+                services.AddSingleton<ApplePlatformServiceImpl>();
+                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<ApplePlatformServiceImpl>());
+                //services.AddPlatformNotificationService();
+                services.TryAddAppleClientHttpPlatformHelperService();
+                PlatformToastImpl.TryAddToast(services);
+                //if (options.HasGUI)
+                //{
+                //    services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
+                //}
+                //services.AddSingleton<IPlatformPageRouteService, AndroidPageRouteServiceImpl>();
+            }
+            else
+            {
+                throw new PlatformNotSupportedException();
+            }
+            return services;
+        }
+
         /// <summary>
-        /// 添加适用于iOS的原生 <see cref="IHttpClientFactory"/>
+        /// 添加适用于 iOS 的原生 <see cref="IHttpClientFactory"/>
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
@@ -22,23 +46,15 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加适用于iOS的 <see cref="IHttpPlatformHelper"/>
+        /// 添加适用于 iOS 的 <see cref="IHttpPlatformHelperService"/>
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddPlatformHttpPlatformHelper(this IServiceCollection services)
+        public static IServiceCollection TryAddAppleClientHttpPlatformHelperService(this IServiceCollection services)
         {
-            services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
+            services.AddSingleton<IHttpPlatformHelperService, AppleClientHttpPlatformHelperServiceImpl>();
             return services;
         }
-
-        /// <summary>
-        /// 尝试添加适用于iOS平台的Toast
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection TryAddToast(this IServiceCollection services)
-            => PlatformToastImpl.TryAddToast(services);
 
         /// <summary>
         /// 添加电话服务
@@ -62,7 +78,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加适用于iOS的 <see cref="INotificationService"/>
+        /// 添加适用于 iOS 的 <see cref="INotificationService"/>
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>

@@ -12,14 +12,6 @@ namespace Microsoft.Extensions.DependencyInjection
     public static partial class ServiceCollectionExtensions
     {
         /// <summary>
-        /// 尝试添加适用于安卓平台的Toast
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection TryAddAndroidToast(this IServiceCollection services)
-            => PlatformToastImpl.TryAddToast(services);
-
-        /// <summary>
         /// 添加调试模式显示
         /// </summary>
         /// <param name="services"></param>

@@ -1,3 +1,4 @@
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
@@ -13,7 +14,7 @@ namespace System.Application.Services
         /// 获取当前设备的手机号码(Only Android)
         /// </summary>
         /// <returns></returns>
-        //[SupportedOSPlatform("Android")]
+        [SupportedOSPlatform("Android")]
         Task<string?> GetPhoneNumberAsync();
 
         /// <summary>
@@ -21,7 +22,7 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="textBoxText"></param>
         /// <returns></returns>
-        //[SupportedOSPlatform("Android")]
+        [SupportedOSPlatform("Android")]
         public static async Task<string?> GetAutoFillPhoneNumberAsync(string? textBoxText)
         {
             var value = await Instance.GetPhoneNumberAsync();

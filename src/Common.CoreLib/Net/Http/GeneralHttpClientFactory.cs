@@ -5,7 +5,7 @@ namespace System.Net.Http
     /// <summary>
     /// 通用 <see cref="HttpClient"/> 工厂
     /// </summary>
-    public abstract class GeneralHttpClientFactory
+    public abstract partial class GeneralHttpClientFactory
     {
         protected readonly ILogger logger;
         protected readonly IHttpPlatformHelperService http_helper;
@@ -28,27 +28,14 @@ namespace System.Net.Http
         /// </summary>
         protected virtual string? DefaultClientName { get; }
 
-        /// <summary>
-        /// 默认超时时间，16秒
-        /// </summary>
-        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(45);
-
-        static readonly Lazy<int> mDefaultTimeoutTotalMilliseconds = new(() => DefaultTimeout.TotalMilliseconds.ToInt32());
-
-        /// <inheritdoc cref="DefaultTimeout"/>
-        public static int DefaultTimeoutTotalMilliseconds => mDefaultTimeoutTotalMilliseconds.Value;
-
-        /// <inheritdoc cref="DefaultTimeout"/>
-        protected /*virtual*/ TimeSpan Timeout { get; } = DefaultTimeout;
-
-        protected virtual HttpClient CreateClient(string? clientName = null)
+        protected HttpClient CreateClient(string? clientName = null)
         {
-            var client = CreateClient_(clientName);
-            client.Timeout = Timeout;
+            var client = CreateClientCore(clientName);
+            client.Timeout = DefaultTimeout;
             return client;
         }
 
-        HttpClient CreateClient_(string? clientName)
+        HttpClient CreateClientCore(string? clientName)
         {
             clientName ??= DefaultClientName;
 #if DEBUG
@@ -62,26 +49,6 @@ namespace System.Net.Http
             {
                 return _clientFactory.CreateClient(clientName);
             }
-        }
-
-        static void ConfigHttpWebRequest(HttpWebRequest request)
-        {
-            request.AllowAutoRedirect = true;
-            request.MaximumAutomaticRedirections = 1000;
-        }
-
-        public static HttpWebRequest Create(string requestUriString)
-        {
-            var request = WebRequest.CreateHttp(requestUriString);
-            ConfigHttpWebRequest(request);
-            return request;
-        }
-
-        public static HttpWebRequest Create(Uri requestUri)
-        {
-            var request = WebRequest.CreateHttp(requestUri);
-            ConfigHttpWebRequest(request);
-            return request;
         }
     }
 }

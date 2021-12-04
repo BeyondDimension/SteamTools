@@ -6,7 +6,7 @@ using WebKit;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class PlatformHttpPlatformHelper : HttpPlatformHelper
+    internal sealed class AppleClientHttpPlatformHelperServiceImpl : ClientHttpPlatformHelperServiceImpl
     {
         static readonly Lazy<string?> mUserAgent = new(() =>
         {

@@ -9,7 +9,7 @@ namespace System.Application.Services.Implementation
     /// <summary>
     /// https://github.com/andrius-k/Toast
     /// </summary>
-    internal sealed class PlatformToastImpl : ToastImpl
+    internal sealed class PlatformToastImpl : ToastBaseImpl
     {
         public PlatformToastImpl(IToastIntercept intercept) : base(intercept)
         {

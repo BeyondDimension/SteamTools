@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Http;
+using Microsoft.Extensions.Http;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
@@ -39,6 +39,11 @@ namespace System.Application.Services.Implementation
             //}
 
             return CreateHandlerPipeline(PrimaryHandler, AdditionalHandlers);
+        }
+
+        static void SetProxy()
+        {
+
         }
     }
 }

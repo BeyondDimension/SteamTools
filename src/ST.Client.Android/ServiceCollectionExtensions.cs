@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<AndroidPlatformServiceImpl>());
                 services.AddPlatformNotificationService();
                 services.TryAddAndroidClientHttpPlatformHelperService();
-                services.TryAddAndroidToast();
+                PlatformToastImpl.TryAddToast(services);
                 if (options.HasGUI)
                 {
                     services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
