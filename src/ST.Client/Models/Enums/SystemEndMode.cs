@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace System.Application.Models
 {
     /// <summary>
@@ -8,21 +10,25 @@ namespace System.Application.Models
         /// <summary>
         /// 睡眠
         /// </summary>
+        [Description("Sleep")]
         Sleep,
 
         /// <summary>
         /// 休眠
         /// </summary>
+        [Description("Hibernate")]
         Hibernate,
 
         /// <summary>
         /// 关机
         /// </summary>
+        [Description("Shutdown")]
         Shutdown,
 
         /// <summary>
         /// 锁定
         /// </summary>
+        [Description("Lock")]
         Lock,
     }
 }

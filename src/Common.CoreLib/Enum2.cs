@@ -40,23 +40,26 @@ namespace System
         /// </summary>
         /// <param name="value">要获取描述的枚举值。</param>
         /// <returns>指定枚举值的描述。</returns>
-        public static string? GetDescription<TEnum>(this TEnum value) where TEnum : struct, Enum
+        public static string? GetDescription<TEnum>(this TEnum value) where TEnum : Enum
         {
-            Type enumType = value.GetType();
-            // 获取枚举常数名称。
-            var name = Enum.GetName(enumType, value);
-            if (name != null)
+            if (value != null)
             {
-                // 获取枚举字段。
-                var fieldInfo = enumType.GetField(name);
-                if (fieldInfo != null)
+                Type enumType = value.GetType();
+                // 获取枚举常数名称。
+                var name = Enum.GetName(enumType, value);
+                if (name != null)
                 {
-                    if (Attribute.GetCustomAttribute(fieldInfo,
-                        typeof(DescriptionAttribute), false) is DescriptionAttribute description)
+                    // 获取枚举字段。
+                    var fieldInfo = enumType.GetField(name);
+                    if (fieldInfo != null)
                     {
-                        if (description != null)
+                        if (Attribute.GetCustomAttribute(fieldInfo,
+                            typeof(DescriptionAttribute), false) is DescriptionAttribute description)
                         {
-                            return description.Description;
+                            if (description != null)
+                            {
+                                return description.Description;
+                            }
                         }
                     }
                 }

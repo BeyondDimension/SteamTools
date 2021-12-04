@@ -2265,6 +2265,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 休眠 的本地化字符串。
+        /// </summary>
+        public static string Hibernate {
+            get {
+                return ResourceManager.GetString("Hibernate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 写入的 Hosts 已经存在 的本地化字符串。
         /// </summary>
         public static string Hosts_Exists {
@@ -2923,7 +2932,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 你也可以使用内置的 Windows 账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装 Windows 或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。 的本地化字符串。
+        ///   查找类似 你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip {
             get {
@@ -4465,11 +4474,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 关机 的本地化字符串。
+        /// </summary>
+        public static string Shutdown {
+            get {
+                return ResourceManager.GetString("Shutdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 退出登录 的本地化字符串。
         /// </summary>
         public static string SignOut {
             get {
                 return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 睡眠 的本地化字符串。
+        /// </summary>
+        public static string Sleep {
+            get {
+                return ResourceManager.GetString("Sleep", resourceCulture);
             }
         }
         

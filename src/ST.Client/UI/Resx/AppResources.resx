@@ -916,7 +916,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>令牌仅在这台电脑上可解密</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>你也可以使用内置的 Windows 账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装 Windows 或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。</value>
+    <value>你也可以使用系统内置的账户加密来保护和加密你的数据。这将把您的令牌锁定在这台计算机上，因此即使文件被复制，也无法打开它们。如果你要重新格式化你的磁盘，重新安装系统或删除这个用户账户，你必须把这个功能关掉，否则你的数据也会无法解密。</value>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
     <value>没有任何更改需要保存</value>
@@ -1023,6 +1023,15 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Lock" xml:space="preserve">
     <value>锁定</value>
+  </data>
+  <data name="Sleep" xml:space="preserve">
+    <value>睡眠</value>
+  </data>
+  <data name="Hibernate" xml:space="preserve">
+    <value>休眠</value>
+  </data>
+  <data name="Shutdown" xml:space="preserve">
+    <value>关机</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>登 录</value>

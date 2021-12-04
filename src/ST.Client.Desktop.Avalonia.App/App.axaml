@@ -17,6 +17,7 @@
     <converters:GuidToUrlConverter x:Key="GuidToUrlConverter" />
     <converters:StringFormatConverter x:Key="StringFormatConverter" />
     <converters:EnumEqualValueConverter x:Key="EnumEqualValueConverter" />
+    <converters:EnumDescriptionToNameConverter x:Key="EnumDescriptionToNameConverter" />
   </Application.Resources>
   <Application.Styles>
     <!--<FluentTheme Mode="Dark" />-->

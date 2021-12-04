@@ -29,7 +29,8 @@
         Margin="20 40 20 0">
         <DockPanel>
           <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Left">
-            <ToggleSwitch OnContent="启用下载监控" OffContent="启用下载监控"
+            <ToggleSwitch OnContent="启用下载监控"
+                          OffContent="启用下载监控"
                           IsChecked="{ReflectionBinding Source={x:Static services:SteamConnectService.Current},Path=IsWatchSteamDownloading,Mode=TwoWay}"
                           VerticalAlignment="Center"/>
 
@@ -37,6 +38,11 @@
             <ComboBox VerticalAlignment="Center"
                       Items="{Binding SystemEndModes}"
                       SelectedItem="{ReflectionBinding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode},Path=Value,Mode=TwoWay}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionToNameConverter},ConverterParameter=Localiza}"/>
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
             </ComboBox>
           </StackPanel>
 
