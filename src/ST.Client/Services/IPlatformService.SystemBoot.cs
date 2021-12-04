@@ -20,32 +20,24 @@ namespace System.Application.Services
         /// 锁定
         /// </summary>
         /// <returns></returns>
-        public void SystemLock(int waitSecond = 30)
-        {
-        }
+        void SystemLock(int waitSecond = 30);
 
         /// <summary>
         /// 关闭系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        public void SystemShutdown(int waitSecond = 30) 
-        {
-        }
+        void SystemShutdown(int waitSecond = 30);
 
         /// <summary>
         /// 睡眠系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        public void SystemSleep(int waitSecond = 30)
-        {
-        }
+        void SystemSleep(int waitSecond = 30);
 
         /// <summary>
         /// 休眠系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        public void SystemHibernate(int waitSecond = 30)
-        {
-        }
+        void SystemHibernate(int waitSecond = 30);
     }
 }
