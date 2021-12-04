@@ -311,13 +311,8 @@ namespace System.Application.Services.Implementation
                 var infoPath = Path.Combine(IOPath.AppDataDirectory, item.FilePath);
                 if (File.Exists(infoPath))
                 {
-                    if (await BuildScriptAsync(item, fileInfo, item.IsBuild))
-                    {
-                        fileInfo.Refresh();
-                        if (fileInfo.Exists)
-                            item.Content = File.ReadAllText(cachePath);
-                    }
-                    else
+                    item.Content = File.ReadAllText(infoPath);
+                    if (!await BuildScriptAsync(item, fileInfo, item.IsBuild))
                     {
                         toast.Show(AppResources.Script_ReadFileError.Format(item.Name));
                     }

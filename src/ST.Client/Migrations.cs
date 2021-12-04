@@ -1,4 +1,6 @@
+using System.Application.Services;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -14,7 +16,7 @@ namespace System.Application
         /// <summary>
         /// 开始迁移(在 DI 初始化完毕后调用)
         /// </summary>
-        public static void Up()
+        public static async void Up()
         {
             if (VersionTracking2.IsFirstLaunchForCurrentVersion) // 当前版本号第一次启动
             {
@@ -22,6 +24,18 @@ namespace System.Application
                 {
                     // 可以删除 /AppData/application2.dbf 表 0984415E 使此 if 返回 True
                     // 目前此数据库中仅有这一张表，所以可以直接删除文件，但之后可能会新增新表
+                    var scriptList = await IScriptManager.Instance.GetAllScriptAsync();
+                    foreach (var script in scriptList)
+                    {
+                        try
+                        {
+                            File.Delete(Path.Combine(IOPath.CacheDirectory, script.CachePath));
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error("RemoveJSCache", e, "RemoveFileError");
+                        }
+                    }
                 }
             }
         }
