@@ -102,7 +102,7 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
 
-        public async Task HttpRequest(SessionEventArgs e)
+        private static async Task HttpRequest(SessionEventArgs e)
         {
             //IHttpService.Instance.SendAsync<object>();
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
@@ -157,7 +157,7 @@ namespace System.Application.Services.Implementation
             //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
         }
 
-        public async Task OnRequest(object sender, SessionEventArgs e)
+        private async Task OnRequest(object sender, SessionEventArgs e)
         {
 #if DEBUG
             Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
@@ -199,19 +199,24 @@ namespace System.Application.Services.Implementation
                     {
                         if (e.HttpClient.Request.RequestUri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
                         {
-                            e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
-                            return;
+                            e.HttpClient.Request.RequestUri = new Uri(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
+                            //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
+                            //return;
                         }
                         if (item.Redirect)
                         {
-                            if (Browser2.IsHttpUrl(item.ForwardDomainName))
+                            var url = item.ForwardDomainName.Replace("{path}", e.HttpClient.Request.RequestUri.AbsolutePath);
+                            url = url.Replace("{args}", e.HttpClient.Request.RequestUri.Query);
+                            //url = url.Replace("{url}", e.HttpClient.Request.RequestUri.AbsoluteUri);
+                            if (Browser2.IsHttpUrl(url))
                             {
-                                e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Scheme + "://" + e.HttpClient.Request.RequestUri.Host, item.ForwardDomainName));
-                                return;
+                                e.HttpClient.Request.RequestUri = new Uri(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Scheme + "://" + e.HttpClient.Request.RequestUri.Host, url));
+                                //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Scheme + "://" + e.HttpClient.Request.RequestUri.Host, url));
+                                goto exit;
                             }
-
-                            e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, item.ForwardDomainName));
-                            return;
+                            e.HttpClient.Request.RequestUri = new Uri(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, url));
+                            //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, url));
+                            goto exit;
                         }
                         IPAddress ip;
                         if (!item.ForwardDomainIsNameOrIP)
@@ -225,14 +230,14 @@ namespace System.Application.Services.Implementation
                             //else
                             //ip = await DnsAnalysis.AnalysisDomainIp(item.ForwardDomainName);
                         }
-                        if (ip == null && IPAddress.IsLoopback(ip) && ip == IPAddress.Any)
-                            return;
+                        if (ip == null || IPAddress.IsLoopback(ip) || ip == IPAddress.Any)
+                            goto exit;
                         e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
                         //e.HttpClient.Request.Host = item.ForwardDomainName ?? e.HttpClient.Request.Host;
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
                         {
-                            //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
 #if DEBUG
+                            //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
                             Debug.WriteLine("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
 #endif
                             if (!string.IsNullOrEmpty(item.ServerName))
@@ -251,17 +256,25 @@ namespace System.Application.Services.Implementation
                 }
             }
 
+        exit:
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
             if (IPAddress.IsLoopback(e.ClientRemoteEndPoint.Address))
             {
-                e.TerminateSession();
-                Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
-                return;
+                var ip = await DnsAnalysis.AnalysisDomainIpByAliDns(e.HttpClient.Request.Host);
+                if (ip == null || IPAddress.IsLoopback(ip))
+                {
+                    e.TerminateSession();
+                    Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
+                }
+                else
+                {
+                    e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, e.ClientRemoteEndPoint.Port);
+                }
             }
             return;
         }
 
-        public async Task OnResponse(object sender, SessionEventArgs e)
+        private async Task OnResponse(object sender, SessionEventArgs e)
         {
 #if DEBUG
             Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
@@ -337,7 +350,7 @@ namespace System.Application.Services.Implementation
         }
 
         // 允许重写默认的证书验证逻辑
-        public Task OnCertificateValidation(object sender, CertificateValidationEventArgs e)
+        private static Task OnCertificateValidation(object sender, CertificateValidationEventArgs e)
         {
             // 根据证书错误，设置IsValid为真/假
             //if (e.SslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
@@ -346,7 +359,7 @@ namespace System.Application.Services.Implementation
         }
 
         // 允许在相互身份验证期间重写默认客户端证书选择逻辑
-        public Task OnCertificateSelection(object sender, CertificateSelectionEventArgs e)
+        private static Task OnCertificateSelection(object sender, CertificateSelectionEventArgs e)
         {
             // set e.clientCertificate to override
             return Task.CompletedTask;
