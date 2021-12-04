@@ -9,7 +9,8 @@
   </Application.DataTemplates>
   <Application.Resources>
     <converters:IsNullConverter x:Key="IsNullConverter" />
-    <converters:IsVisibleToOpacity x:Key="IsVisibleToOpacity" />
+    <converters:IsVisibleToOpacityConverter x:Key="IsVisibleToOpacityConverter" />
+    <converters:IsReadOnlyPasswordBoxConverter x:Key="IsReadOnlyPasswordBoxConverter" />
     <converters:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
     <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />

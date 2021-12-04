@@ -21,6 +21,6 @@ namespace System.Application.Settings
         /// 下载更新渠道
         /// </summary>
         public static SerializableProperty<UpdateChannelType> UpdateChannel { get; }
-            = GetProperty(defaultValue: (UpdateChannelType)default, autoSave: true);
+            = GetProperty(defaultValue: default(UpdateChannelType), autoSave: true);
     }
 }

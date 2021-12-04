@@ -12,7 +12,7 @@
     <ImageBrush Source="{ReflectionBinding Source={x:Static ms:UISettings.BackgroundImagePath},Path=Value, Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
                 Stretch="UniformToFill"
                 BitmapInterpolationMode="HighQuality"
-                Opacity="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay,Converter={StaticResource IsVisibleToOpacity},ConverterParameter=0.8}"/>
+                Opacity="{ReflectionBinding Source={x:Static ms:UISettings.EnableCustomBackgroundImage},Path=Value, Mode=OneWay,Converter={StaticResource IsVisibleToOpacityConverter},ConverterParameter=0.8}"/>
   </UserControl.Background>
   <Panel>
     <!--<Panel ZIndex="0">

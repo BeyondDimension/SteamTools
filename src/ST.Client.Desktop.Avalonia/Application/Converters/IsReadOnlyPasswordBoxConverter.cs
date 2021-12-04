@@ -7,30 +7,25 @@ using System.Globalization;
 
 namespace System.Application.Converters
 {
-    public class IsVisibleToOpacity : IValueConverter
+    public class IsReadOnlyPasswordBoxConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double defaultOpacity = 1;
-            if (parameter is double d)
-            {
-                defaultOpacity = d;
-            }
-
             if (value is bool b)
             {
-                return b ? defaultOpacity : 0;
-            }
+                if (parameter is string p && p.Equals("invert", StringComparison.OrdinalIgnoreCase))
+                {
+                    b = !b;
+                }
 
-            return 1;
+                if (b)
+                    return '•';
+            }
+            return default(char);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is double d)
-            {
-                return d > 0;
-            }
             return BindingOperations.DoNothing;
         }
     }

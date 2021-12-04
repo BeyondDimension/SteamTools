@@ -54,8 +54,6 @@
                    Padding="0 10">
       <ItemsRepeater Items="{CompiledBinding AuthorizedList}">
         <ItemsRepeater.Layout>
-          <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
-                                       MaximumRowsOrColumns="6" />-->
           <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
@@ -90,17 +88,12 @@
                 <Panel Grid.Column="1" Margin="10 5">
                   <StackPanel>
                     <DockPanel LastChildFill="True">
-                      <ProgressBar ToolTip.Tip="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      <!--<ProgressBar ToolTip.Tip="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                    Width="30"
                                    Height="30"
                                    Classes="Circle"
                                    IsIndeterminate="True"
-                                   IsVisible="{Binding SteamNickName,Converter={StaticResource IsNullConverter}}"/>
-                      <!--<controls:ProgressRing IsIndeterminate="True"
-                                              ToolTip.Tip="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                             HorizontalAlignment="Stretch" Height="30"
-                                             Width="30"
-                                            IsVisible="{Binding SteamNickName,Converter={StaticResource IsNullConverter}}"/>-->
+                                   IsVisible="{Binding SteamNickName,Converter={StaticResource IsNullConverter}}"/>-->
                       <controls:ScrollingTextBlock x:Name="nickname"
                                                    Text="{Binding SteamNickName}"
                                                    FontSize="20"
@@ -122,25 +115,23 @@
 
                     </DockPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                      <TextBlock Text="{Binding AccountName}"
-                                 FontSize="12"
-                                 VerticalAlignment="Center"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                      <TextBlock Text="(" FontSize="12"
-                                 VerticalAlignment="Center"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                      <TextBox Text="{Binding SteamId64_Int,Mode=OneWay}"
-                                 FontSize="12"
-                                 VerticalAlignment="Center"
-                                 Classes="readonlybox"
-                                 Padding="0"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}" IsReadOnly="True"></TextBox>
-                      <TextBlock Text=")"
-                                 VerticalAlignment="Center"
-                                 FontSize="12"
-                                 Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                    </StackPanel>
+                    <TextBox
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Left"
+                            HorizontalContentAlignment="Left"
+                            Classes="readonlybox revealPasswordButton"
+                            PasswordChar="{ReflectionBinding $self.RevealPassword,Converter={StaticResource            IsReadOnlyPasswordBoxConverter},ConverterParameter=invert}"
+                            Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                            IsReadOnly="True">
+                      <TextBox.Text>
+                        <MultiBinding StringFormat="{}{0} ({1})">
+                          <Binding Path="AccountName"/>
+                          <Binding Path="SteamId64_Int"/>
+                        </MultiBinding>
+                      </TextBox.Text>
+                    </TextBox>
                   </StackPanel>
 
                   <WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">

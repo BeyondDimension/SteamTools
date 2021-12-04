@@ -5448,6 +5448,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 显示/隐藏用户名 的本地化字符串。
+        /// </summary>
+        public static string UserChange_ShowHideUserName {
+            get {
+                return ResourceManager.GetString("UserChange_ShowHideUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 账号切换 的本地化字符串。
         /// </summary>
         public static string UserFastChange {

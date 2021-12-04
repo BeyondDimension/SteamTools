@@ -27,12 +27,9 @@ namespace System.Application.Converters
                 result = value is null;
             }
 
-            if (parameter is string p)
+            if (parameter is string p && p.Equals("invert", StringComparison.OrdinalIgnoreCase))
             {
-                if (p.ToLowerInvariant().Equals("invert"))
-                {
-                    result = !result;
-                }
+                result = !result;
             }
             return result;
 

@@ -31,8 +31,8 @@
         <Setter Property="Foreground" Value="#FFFFFF" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="ClipToBounds" Value="False" />
-        <Setter Property="Height" Value="26" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Height" Value="21" />
+        <Setter Property="FontSize" Value="11" />
         <Setter Property="Padding" Value="0 4 8 4 " />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Template">
@@ -43,7 +43,7 @@
                             <DockPanel VerticalAlignment="Center">
                                 <Border
                                     Name="IconColumn"
-                                    Height="24"
+                                    Height="18"
                                     Margin="8,0,0,0"
                                     IsVisible="{TemplateBinding Icon,
                                                                 Converter={StaticResource IsNullConverter},
@@ -70,6 +70,7 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
+                                FontSize="{TemplateBinding FontSize}"
                                 Text="{TemplateBinding Text}" />
                         </Border>
                     </DockPanel>

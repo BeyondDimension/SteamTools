@@ -44,6 +44,13 @@
               <ui:PathIcon Data="{StaticResource ChannelShareDrawing}" />
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>
+
+          <ui:CommandBarToggleButton x:Name="ShowDetail" Label="{ReflectionBinding Path=Res.UserChange_ShowHideUserName, Mode=OneWay, Source={x:Static resx:R.Current}}">
+            <ui:CommandBarToggleButton.Icon>
+              <ui:FontIcon Glyph="&#xE18B;" FontFamily="{StaticResource SymbolThemeFontFamily}"/>
+            </ui:CommandBarToggleButton.Icon>
+          </ui:CommandBarToggleButton>
+
         </ui:CommandBar.PrimaryCommands>
         <ui:CommandBar.SecondaryCommands>
           <ui:CommandBarButton Icon="Help"
@@ -122,7 +129,7 @@
                   </ia:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
 
-                <Grid Height="184" ColumnDefinitions="Auto,*">
+                <Grid Height="150" ColumnDefinitions="Auto,*">
                   <Border ClipToBounds="True" CornerRadius="{StaticResource PaperRadiusLeft}">
                     <Panel
                         x:Name="avatar"
@@ -140,7 +147,8 @@
                           Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
                           Stretch="Uniform"/>-->
                       <gif:Image2
-                          Width="184"
+                          Width="150"
+                          DecodeWidth="150"
                           AutoStart="true"
                           Source="{Binding AvatarStream^}"
                           FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
@@ -200,7 +208,7 @@
                         <controls:ScrollingTextBlock
                             x:Name="nickname"
                             Cursor="Hand"
-                            FontSize="24"
+                            Classes="h4 semibold"
                             Foreground="{DynamicResource HighlightForegroundBrushKey}"
                             Text="{Binding SteamNickName}"
                             ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,
@@ -238,32 +246,29 @@
                         </Button>
                       </WrapPanel>
 
-                      <WrapPanel Orientation="Horizontal">
-                        <WrapPanel.Styles>
-                          <Style Selector="TextBlock">
-                            <Setter Property="FontSize" Value="16" />
-                            <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                          </Style>
-                        </WrapPanel.Styles>
-                        <TextBlock Text="{Binding AccountName}" />
-                        <TextBlock Text="(" />
-                        <TextBox
-                            Padding="0"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Classes="readonlybox"
-                            Foreground="{DynamicResource InactiveForegroundBrushKey}"
-                            IsReadOnly="True"
-                            Text="{Binding SteamId64, Mode=OneWay}" />
-                        <TextBlock Text=")" />
-                      </WrapPanel>
+                      <TextBox
+                          Padding="0"
+                          VerticalAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          HorizontalAlignment="Left"
+                          HorizontalContentAlignment="Left"
+                          Classes="readonlybox "
+                          PasswordChar="{ReflectionBinding #ShowDetail.IsChecked,Converter={StaticResource IsReadOnlyPasswordBoxConverter},ConverterParameter=invert}"
+                          Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                          IsReadOnly="True">
+                        <TextBox.Text>
+                          <MultiBinding StringFormat="{}{0} ({1})">
+                            <Binding Path="AccountName"/>
+                            <Binding Path="SteamId64"/>
+                          </MultiBinding>
+                        </TextBox.Text>
+                      </TextBox>
 
                       <Border>
                         <StackPanel Orientation="Horizontal"
                                     Spacing="3"
                                     VerticalAlignment="Center">
-                          <StackPanel Spacing="3" 
+                          <StackPanel Spacing="3"
                                       Orientation="Horizontal"
                                       IsVisible="{Binding MiniProfile,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
                             <controls:Badge Background="#3CB371"
@@ -299,7 +304,7 @@
                     <DockPanel VerticalAlignment="Bottom">
                       <StackPanel Orientation="Horizontal">
                         <PathIcon
-                            Width="16"
+                            Width="14"
                             Margin="5,0"
                             VerticalAlignment="Center"
                             Data="{StaticResource ClockDrawing}"
@@ -363,52 +368,6 @@
                                                                                 Source={x:Static resx:R.Current}}">
                         <PathIcon Width="12" Data="{DynamicResource CloseDrawing}" />
                       </Button>
-                      <!--<StackPanel
-                          Margin="0,30,10,0"
-                          HorizontalAlignment="Right"
-                          Orientation="Vertical"
-                          Spacing="10">
-                        -->
-                      <!--<StackPanel.Styles>
-                          <Style Selector="PathIcon">
-                            <Setter Property="Height" Value="10" />
-                            <Setter Property="Margin" Value="0 0 5 0" />
-                          </Style>
-                          <Style Selector="WrapPanel">
-                            <Setter Property="HorizontalAlignment" Value="Right" />
-                          </Style>
-                        </StackPanel.Styles>-->
-                      <!--
-                        -->
-                      <!--<controls:Badge Background="#3CB371"
-                                        IsVisible="{Binding RememberPassword}"
-                                    Text="{ReflectionBinding Path=Res.UserChange_RememberMe, Mode=OneWay, Source={x:Static resx:R.Current}}">
-                          <controls:Badge.Icon>
-                            <ui:SymbolIcon Symbol="Checkmark"/>
-                          </controls:Badge.Icon>
-                        </controls:Badge>
-                        
-                        <controls:Badge Background="#3CB371"
-                                        IsVisible="{Binding MostRecent}"
-                                    Text="{ReflectionBinding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static resx:R.Current}}">
-                          <controls:Badge.Icon>
-                            <ui:SymbolIcon Symbol="Checkmark"/>
-                          </controls:Badge.Icon>
-                        </controls:Badge>-->
-                      <!--
-                        
-                        -->
-                      <!--<StackPanel IsVisible="{Binding MostRecent}" Orientation="Horizontal">
-                          <PathIcon Data="{StaticResource CheckmarkDrawing}" />
-                          <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static resx:R.Current}}" />
-                        </StackPanel>
-
-                        <StackPanel IsVisible="{Binding RememberPassword}" Orientation="Horizontal">
-                          <PathIcon Data="{StaticResource CheckmarkDrawing}" />
-                          <TextBlock Text="{ReflectionBinding Path=Res.UserChange_RememberMe, Mode=OneWay, Source={x:Static resx:R.Current}}" />
-                        </StackPanel>-->
-                      <!--
-                      </StackPanel>-->
                     </Panel>
                   </Panel>
                 </Grid>
