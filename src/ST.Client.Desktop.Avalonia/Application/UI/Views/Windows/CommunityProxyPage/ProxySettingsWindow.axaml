@@ -27,7 +27,7 @@
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_SystemProxyIp,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                 <!--<TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>-->
-                <ui:ComboBox IsEditable="True"
+                <ui:ComboBox IsEditable="True" 
                              Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}">
                   <ui:ComboBox.Items>
                     <col:ArrayList>

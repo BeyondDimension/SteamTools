@@ -220,28 +220,28 @@ namespace System.Application.Services.Implementation
                             //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, url));
                             return;
                         }
-                        IPAddress? ip;
+                        IPAddress? ip = null;
                         if (!item.ForwardDomainIsNameOrIP)
                         {
                             ip = IPAddress2.Parse(item.ForwardDomainIP);
                         }
                         else
                         {
-
-                            if (!OperatingSystem2.IsWindows)
+                            if (IPAddress.TryParse(ProxyDNS, out var dns))
                             {
-                                if (string.IsNullOrEmpty(ProxyDNS))
-                                    ip = (await DnsAnalysis.AnalysisDomainIp(item.ForwardDomainName))?.First();
-                                else
-                                    ip = (await DnsAnalysis.AnalysisDomainIpByCustomDns(item.ForwardDomainName, new[] { IPAddress.Parse(ProxyDNS) }))?.First();
+                                ip = (await DnsAnalysis.AnalysisDomainIpByCustomDns(item.ForwardDomainName, new[] { dns }))?.First();
                             }
                             else
                             {
-                                //非windows环境不能使用系统默认DNS解析代理，会解析到hosts上无限循环
-                                if (string.IsNullOrEmpty(ProxyDNS))
-                                    ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(item.ForwardDomainName))?.First();
+                                if (!OperatingSystem2.IsWindows)
+                                {
+                                    ip = (await DnsAnalysis.AnalysisDomainIp(item.ForwardDomainName))?.First();
+                                }
                                 else
-                                    ip = (await DnsAnalysis.AnalysisDomainIpByCustomDns(item.ForwardDomainName, new[] { IPAddress.Parse(ProxyDNS) }))?.First();
+                                {
+                                    //非windows环境不能使用系统默认DNS解析代理，会解析到hosts上无限循环
+                                    ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(item.ForwardDomainName))?.First();
+                                }
                             }
                         }
                         if (ip == null || IPAddress.IsLoopback(ip) || ip == IPAddress.Any)
