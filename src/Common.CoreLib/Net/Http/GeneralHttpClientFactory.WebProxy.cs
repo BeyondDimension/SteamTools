@@ -71,46 +71,46 @@ namespace System.Net.Http
         public static bool UseWebProxy([NotNullWhen(true)] IWebProxy? proxy)
             => proxy != null && proxy.GetType().Name != nameof(HttpNoProxy);
 
-        static void SetProxyToHandler(HttpMessageHandler handler, IWebProxy? proxy, bool useProxy)
-        {
-            try
-            {
+        //        static void SetProxyToHandler(HttpMessageHandler handler, IWebProxy? proxy, bool useProxy)
+        //        {
+        //            try
+        //            {
 
-#if !NETSTANDARD
-            if (handler is SocketsHttpHandler s)
-            {
-                s.Proxy = proxy;
-                if (useProxy && s.UseProxy != useProxy) s.UseProxy = useProxy; // 仅启用代理时修改开关
-            }
-            else
-#endif
-                if (handler is HttpClientHandler h)
-                {
-                    h.Proxy = proxy;
-                    if (useProxy && h.UseProxy != useProxy) h.UseProxy = useProxy; // 仅启用代理时修改开关
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                // 如果 handler 被释放或者已启动会抛出此异常
-                // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L31
-            }
-        }
+        //#if !NETSTANDARD
+        //            if (handler is SocketsHttpHandler s)
+        //            {
+        //                s.Proxy = proxy;
+        //                if (useProxy && s.UseProxy != useProxy) s.UseProxy = useProxy; // 仅启用代理时修改开关
+        //            }
+        //            else
+        //#endif
+        //                if (handler is HttpClientHandler h)
+        //                {
+        //                    h.Proxy = proxy;
+        //                    if (useProxy && h.UseProxy != useProxy) h.UseProxy = useProxy; // 仅启用代理时修改开关
+        //                }
+        //            }
+        //            catch (InvalidOperationException)
+        //            {
+        //                // 如果 handler 被释放或者已启动会抛出此异常
+        //                // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/System.Net.Http/src/System/Net/Http/SocketsHttpHandler/SocketsHttpHandler.cs#L31
+        //            }
+        //        }
 
-        public static void SetProxyToHandler(IWebProxy? proxy, HttpMessageHandler handler)
-        {
-            var useProxy = UseWebProxy(proxy);
-            SetProxyToHandler(handler, proxy, useProxy);
-        }
+        //        public static void SetProxyToHandler(IWebProxy? proxy, HttpMessageHandler handler)
+        //        {
+        //            var useProxy = UseWebProxy(proxy);
+        //            SetProxyToHandler(handler, proxy, useProxy);
+        //        }
 
-        public static void SetProxyToHandler(IWebProxy? proxy, IEnumerable<HttpMessageHandler> handlers)
-        {
-            if (!handlers.Any()) return;
-            var useProxy = UseWebProxy(proxy);
-            foreach (var handler in handlers)
-            {
-                SetProxyToHandler(handler, proxy, useProxy);
-            }
-        }
+        //        public static void SetProxyToHandler(IWebProxy? proxy, IEnumerable<HttpMessageHandler> handlers)
+        //        {
+        //            if (!handlers.Any()) return;
+        //            var useProxy = UseWebProxy(proxy);
+        //            foreach (var handler in handlers)
+        //            {
+        //                SetProxyToHandler(handler, proxy, useProxy);
+        //            }
+        //        }
     }
 }
