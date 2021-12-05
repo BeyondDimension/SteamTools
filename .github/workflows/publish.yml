@@ -4,11 +4,7 @@ env:
   ProjectName: Steam++
   Configuration: Debug
 
-on:
-  push:
-    branches: [ main,develop ]
-  pull_request:
-    branches: [ main,develop ]
+on: [push, pull_request]
 
 jobs:
   Publish:
