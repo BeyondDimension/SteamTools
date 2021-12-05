@@ -66,7 +66,11 @@
 
             <StackPanel Grid.Row="2">
               <TextBlock Margin="10,0" HorizontalAlignment="Center" Text="{Binding EmailDomain}"></TextBlock>
-              <TextBlock Margin="10,0" TextWrapping="WrapWithOverflow" TextAlignment="Center" HorizontalAlignment="Center" Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+              <TextBlock Margin="10,0" 
+                         TextWrapping="WrapWithOverflow" 
+                         TextAlignment="Center" 
+                         HorizontalAlignment="Center" 
+                         Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
             </StackPanel>
           </Grid>
 
