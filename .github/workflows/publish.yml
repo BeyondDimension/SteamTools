@@ -4,7 +4,10 @@ env:
   ProjectName: Steam++
   Configuration: Debug
 
-on: [push, pull_request]
+on:
+  push:
+    tags:
+      - '**'
 
 jobs:
   Publish:
