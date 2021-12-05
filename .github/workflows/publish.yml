@@ -61,6 +61,9 @@ jobs:
     - name: Build AvaloniaApp
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ env.Configuration }}"
       
+    - name: Build ST.Tools.Publish Release
+      run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release
+
     - name: Run CommonUnit
       run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ env.Configuration }}"
 
@@ -102,7 +105,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
-        echo "fd_win_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "fd_win_x64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Package win-x64
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -110,7 +113,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_win_x64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
-        echo "win_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_win_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "win_x64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_win_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Package osx-64
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -118,7 +121,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_macos_x64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
-        echo "macos_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_macos_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "macos_x64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_macos_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Package linux-x64 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -126,7 +129,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
-        echo "linux_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "linux_x64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
                 
     - name: Package linux-arm64 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -134,7 +137,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
-        echo "linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "linux_arm64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         
     - name: Package linux-x64 deb
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -142,7 +145,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.deb C:\PublishFiles
-        echo "deb_linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.deb)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "deb_linux_arm64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.deb)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Package linux-arm64 deb
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -150,7 +153,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.deb C:\PublishFiles
-        echo "deb_linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.deb)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "deb_linux_arm64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.deb)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Package linux-x64 rpm
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -158,7 +161,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.rpm C:\PublishFiles
-        echo "rpm_linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.rpm)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "rpm_linux_arm64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.rpm)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Package linux-arm64 rpm
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -166,7 +169,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.rpm C:\PublishFiles
-        echo "rpm_linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.rpm)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "rpm_linux_arm64_SHA256=$(.\packaging\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.rpm)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         
 
     - name: Create a new GitHub release

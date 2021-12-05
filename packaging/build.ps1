@@ -9,7 +9,7 @@ $output_dir = "$RootPath\src\ST.Client.Desktop.Avalonia.App\bin\$configuration\P
 $proj_path = "$RootPath\src\ST.Client.Desktop.Avalonia.App\ST.Client.Avalonia.App.csproj"
 
 $publishtool_dir = "$RootPath\src\ST.Tools.Publish"
-$publishtool_exe = "$publishtool_dir\bin\$configuration\$publishtool_tfm\p.exe"
+$publishtool_exe = "$publishtool_dir\bin\Release\net6.0\p.exe"
 
 $build_pubxml_dir = "$RootPath\src\ST.Client.Desktop.Avalonia.App\Properties\PublishProfiles"
 
@@ -21,9 +21,11 @@ $build_pubxml_linuxarm64 = "linux-arm64.pubxml"
 
 function Build-PublishTool
 {
-    dotnet build -c Release $publishtool_dir\ST.Tools.Publish.csproj
-
-    if ($LASTEXITCODE) { exit $LASTEXITCODE }
+    if(-Not Test-Path $publishtool_exe)
+    {
+       dotnet build -c Release -f $publishtool_tfm $publishtool_dir\ST.Tools.Publish.csproj
+       if ($LASTEXITCODE) { exit $LASTEXITCODE }
+    }
 
     $dev=''
     if($configuration -eq 'Debug')
@@ -32,7 +34,6 @@ function Build-PublishTool
     }
     
     & $publishtool_exe -ver -token $env:Token $dev
-
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
     # build App
@@ -43,7 +44,6 @@ function Build-PublishTool
     Build-App linux-arm64
 
     & $publishtool_exe -full -token $env:Token $dev
-
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
