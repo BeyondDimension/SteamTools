@@ -1,22 +1,19 @@
-param([string]$version = '1.0.0')
+param([string]$version = '1.0.0',$configuration='Release',$token='')
 $ErrorActionPreference = 'Stop'
 
 Write-Host 'dotnet SDK info'
 dotnet --info
 
-$exe = 'Steam++.exe'
-$net_tfm = 'net6.0-windows10.0.19041.0'
 $publishtool_tfm = 'net6.0'
-$configuration = 'Release'
-$output_dir = "..\src\ST.Client.Desktop.Avalonia.App\bin\$configuration"
+$output_dir = "..\src\ST.Client.Desktop.Avalonia.App\bin\$configuration\Publish"
 $proj_path = "..\src\ST.Client.Desktop.Avalonia.App\ST.Client.Avalonia.App.csproj"
 
 $publishtool_dir = "..\src\ST.Tools.Publish"
 $publishtool_exe = "$publishtool_dir\bin\$configuration\$publishtool_tfm\p.exe"
-$publishtool_pfx = "$publishtool_dir\bin\$configuration\$publishtool_tfm\rsa.pfx"
 
 $build_pubxml_dir = "..\src\ST.Client.Desktop.Avalonia.App\Properties\PublishProfiles"
-$fde = 'fd-'
+
+$build_pubxml_winx64_fd = "fd-win-x64.pubxml"
 $build_pubxml_winx64 = "win-x64.pubxml"
 $build_pubxml_osxx64 = "osx-x64.pubxml"
 $build_pubxml_linuxx64 = "linux-x64.pubxml"
@@ -24,33 +21,28 @@ $build_pubxml_linuxarm64 = "linux-arm64.pubxml"
 
 function Build-PublishTool
 {
-    dotnet build -c $configuration -f $publishtool_tfm $publishtool_dir\ST.Tools.Publish.csproj
+    dotnet build -c Release -f $publishtool_tfm $publishtool_dir\ST.Tools.Publish.csproj
 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
-    $Cred = Get-Credential
-    $Url = "https://steampp.net"
-    $Body = @{
-        key = "xxxx"
-        version = $version
-        output_mode = "pfx"
+
+    $dev=''
+    if($configuration -eq 'Debug')
+    {
+        $dev = "-dev 1"
     }
-#1. 读取服务器接口获取rsa公钥
-    Invoke-WebRequest -Uri $Url -Credential $Cred -Method 'Post' -Body $Body -OutFile $publishtool_pfx
+    
+    & $publishtool_exe ver -token $token $dev
 
-#2. (本地)读取剪切板公钥值写入 txt 的 pfx 文件中
-    & $publishtool_exe rr -pfx $publishtool_pfx 
+    if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
-#3. (本地)手动在VS中发布任意一个或多个平台配置(pubxml)，后续可改成命令行自动发布
+    # build App
+    Build-App fd-win-x64
     Build-App win-x64
     Build-App osx-x64
     Build-App linux-x64
     Build-App linux-arm64
-    & $publishtool_exe hostpath
-#4. 读取上一步操作后的 Publish.json 生成压缩包并计算哈希值写入 Publish.json
-    & $publishtool_exe 7z
 
-#5. (本地)验证发布文件夹与统计文件
-    & $publishtool_exe sta -val "win-x64" "osx-x64" "linux-x64" "linux-arm64" 
+    & $publishtool_exe full -token $token $dev
 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
@@ -59,27 +51,29 @@ function Build-App
 {
     param([string]$rid)
 
-    Write-Host "Building .NET App SelfContained $rid"
+    Write-Host "Building App $version $rid"
 
-    if($rid.contains("win-"))
-    {
-        $outdir = "$output_dir\$net_tfm\$rid"
-    }else
-    {
-        $outdir = "$output_dir\$rid"
-    }
-    $publishDir = "$outdir\publish"
+    $publishDir = "$output_dir\$rid"
 
     Remove-Item $publishDir -Recurse -Force -Confirm:$false -ErrorAction Ignore
 
+    if($rid -eq 'fd-win-x64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_winx64_fd" }
     if($rid -eq 'win-x64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_winx64" }
     if($rid -eq 'osx-64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_osxx64" }
     if($rid -eq 'linux-x64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_linuxx64" }
     if($rid -eq 'linux-arm64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_linuxarm64" }
 
+    if($configuration -eq 'Debug'){ $pubxml = "dev-$pubxml" }
+
     dotnet publish $proj_path -c $configuration /p:PublishProfile=$pubxml
 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
+}
+
+if([String]::IsNullOrEmpty($token))
+{
+    Write-Host "Undefined Token: $token"
+    exit -1
 }
 
 Build-PublishTool

@@ -43,9 +43,6 @@ jobs:
 
     - name: Verify dotnet info
       run: dotnet --info
-      
-    # - name: Checkout submodules
-    #   run: git submodule update --init --recursive
 
     - name: dotnet restore SteamToolsV2+.sln
       if: matrix.os == 'windows-latest'
@@ -61,15 +58,6 @@ jobs:
       
     - name: Build AvaloniaApp ${{ matrix.configuration }}
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ matrix.configuration }}"
-
-    # - name: Build CommonUnit ${{ matrix.configuration }}
-    #   run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
-
-    # - name: Build ST.Client.UnitTest ${{ matrix.configuration }}
-    #   run: dotnet build ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
-
-    # - name: dotnet ST.Client.Desktop.UnitTest build
-    #   run: dotnet build ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
       
     - name: Run CommonUnit
       run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ matrix.configuration }}"
