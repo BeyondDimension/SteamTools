@@ -85,7 +85,9 @@ jobs:
 
     - name: Copy pfx To Root
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      run: copy .\Credentials\*.pfx .
+      run: |
+        copy .\Credentials\*.pfx .
+        dir *.pfx -s
 
     - name: Build Release & Package 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}

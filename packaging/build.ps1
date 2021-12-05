@@ -4,14 +4,14 @@ $ErrorActionPreference = 'Stop'
 Write-Host 'dotnet SDK info'
 dotnet --info
 
-$publishtool_tfm = 'net6.0'
-$output_dir = "..\src\ST.Client.Desktop.Avalonia.App\bin\$configuration\Publish"
-$proj_path = "..\src\ST.Client.Desktop.Avalonia.App\ST.Client.Avalonia.App.csproj"
+$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+$output_dir = "$RootPath\src\ST.Client.Desktop.Avalonia.App\bin\$configuration\Publish"
+$proj_path = "$RootPath\src\ST.Client.Desktop.Avalonia.App\ST.Client.Avalonia.App.csproj"
 
-$publishtool_dir = "..\src\ST.Tools.Publish"
+$publishtool_dir = "$RootPath\src\ST.Tools.Publish"
 $publishtool_exe = "$publishtool_dir\bin\$configuration\$publishtool_tfm\p.exe"
 
-$build_pubxml_dir = "..\src\ST.Client.Desktop.Avalonia.App\Properties\PublishProfiles"
+$build_pubxml_dir = "$RootPath\src\ST.Client.Desktop.Avalonia.App\Properties\PublishProfiles"
 
 $build_pubxml_winx64_fd = "fd-win-x64.pubxml"
 $build_pubxml_winx64 = "win-x64.pubxml"
@@ -21,7 +21,7 @@ $build_pubxml_linuxarm64 = "linux-arm64.pubxml"
 
 function Build-PublishTool
 {
-    dotnet build -c Release -f $publishtool_tfm $publishtool_dir\ST.Tools.Publish.csproj
+    dotnet build -c Release $publishtool_dir\ST.Tools.Publish.csproj
 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
@@ -78,7 +78,7 @@ function Build-App
 
 if([String]::IsNullOrEmpty($env:Token) -Or [String]::IsNullOrEmpty($version))
 {
-    Write-Host "Undefined Token Or Version: $env:Token & $version"
+    Write-Host "Undefined Token Or Version: $version"
     exit -1
 }
 
