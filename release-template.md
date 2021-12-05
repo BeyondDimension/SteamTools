@@ -1,28 +1,29 @@
-### 新增内容
-1. 改进 网络加速现默认使用阿里 DNS(223.5.5.5, 223.6.6.6)
-2. 改进 自动更新包文件校验失败时提示
-3. 改进 自动更新失败时将自动跳转官网
-4. 改进 ASF IPC 默认端口号由 1242 改为 6242
+### 版本亮点
 <!--
 
-. 改进 Android UI
-. 改进 Android 冷启动速度
+. 新增 Android UI
+. 新增 Android 冷启动速度
 . 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备
-. 改进 Android 导入令牌成功后回到列表页
+. 新增 Android 导入令牌成功后回到列表页
 
 -->
 
 ### 修复问题
+1. 改进 网络加速现默认使用阿里 DNS(223.5.5.5, 223.6.6.6)
+2. 改进 自动更新包文件校验失败时提示
+3. 改进 自动更新失败时将自动跳转官网
+4. 改进 ASF IPC 默认端口号由 1242 改为 6242
 1. 修复 Linux 与 macOS 上 ASF-UI 解压包文件夹分隔符不正确
 2. 修复 Windows 上 hosts 只读时尝试取消只读属性的操作没有正确执行
 3. 修复 Windows 上更新包删除缓存时因文件占用引发的中断
 4. 修复 高 DPI 下动态桌面错位
 
 <!--
-
+. 改进 Android UI
+. 改进 Android 冷启动速度
+. 改进 Android 导入令牌成功后回到列表页
 . 修复 Android 上屏幕捕获设置项不生效
 . 修复 Android 上令牌列表有时不显示值
-
 -->
 
 ### 已知问题
@@ -47,6 +48,10 @@
 	- Android
 		- 确认交易列表刷新后数据有时会显示不正确
 		- 自动更新暂不可用
+		- 
+---
+[![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
+[![Steam++ v2.6.2](https://img.shields.io/badge/Steam++-v2.6.2-brightgreen.svg?style=flat-square&color=512bd4)]()
 
 ## [下载指南](./download-guide.md)
 
@@ -72,6 +77,3 @@
 | Steam++_android_arm64_v8a_v2.6.2.apk  | SHA256 |
 | Steam++_android_armeabi_v7a_v2.6.2.apk  | SHA256 |
 | Steam++_android_x86_v2.6.2.apk  | SHA256 |
-
-<!-- ***
-由于程序体积较大，推荐从 [官网 https://steampp.net](https://steampp.net) 中下载 -->
