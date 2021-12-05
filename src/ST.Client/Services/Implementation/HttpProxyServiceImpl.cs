@@ -71,6 +71,8 @@ namespace System.Application.Services.Implementation
 
         public string? TwoLevelAgentPassword { get; set; }
 
+        public string? ProxyDNS { get; set; }
+
         public bool ProxyRunning => proxyServer.ProxyRunning;
 
         public IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
@@ -212,23 +214,35 @@ namespace System.Application.Services.Implementation
                             {
                                 e.HttpClient.Request.RequestUri = new Uri(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Scheme + "://" + e.HttpClient.Request.RequestUri.Host, url));
                                 //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Scheme + "://" + e.HttpClient.Request.RequestUri.Host, url));
-                                goto exit;
+                                return;
                             }
                             e.HttpClient.Request.RequestUri = new Uri(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, url));
                             //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Replace(e.HttpClient.Request.RequestUri.Host, url));
-                            goto exit;
+                            return;
                         }
-                        IPAddress ip;
+                        IPAddress? ip;
                         if (!item.ForwardDomainIsNameOrIP)
                         {
                             ip = IPAddress2.Parse(item.ForwardDomainIP);
                         }
                         else
                         {
-                            //if (!OperatingSystem2.IsWindows)
-                            ip = await DnsAnalysis.AnalysisDomainIpByAliDns(item.ForwardDomainName);
-                            //else
-                            //ip = await DnsAnalysis.AnalysisDomainIp(item.ForwardDomainName);
+
+                            if (!OperatingSystem2.IsWindows)
+                            {
+                                if (string.IsNullOrEmpty(ProxyDNS))
+                                    ip = (await DnsAnalysis.AnalysisDomainIp(item.ForwardDomainName))?.First();
+                                else
+                                    ip = (await DnsAnalysis.AnalysisDomainIpByCustomDns(item.ForwardDomainName, new[] { IPAddress.Parse(ProxyDNS) }))?.First();
+                            }
+                            else
+                            {
+                                //非windows环境不能使用系统默认DNS解析代理，会解析到hosts上无限循环
+                                if (string.IsNullOrEmpty(ProxyDNS))
+                                    ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(item.ForwardDomainName))?.First();
+                                else
+                                    ip = (await DnsAnalysis.AnalysisDomainIpByCustomDns(item.ForwardDomainName, new[] { IPAddress.Parse(ProxyDNS) }))?.First();
+                            }
                         }
                         if (ip == null || IPAddress.IsLoopback(ip) || ip == IPAddress.Any)
                             goto exit;
@@ -260,7 +274,7 @@ namespace System.Application.Services.Implementation
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
             if (IPAddress.IsLoopback(e.ClientRemoteEndPoint.Address))
             {
-                var ip = await DnsAnalysis.AnalysisDomainIpByAliDns(e.HttpClient.Request.Host);
+                var ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(e.HttpClient.Request.Host))?.First();
                 if (ip == null || IPAddress.IsLoopback(ip))
                 {
                     e.TerminateSession();
@@ -510,7 +524,6 @@ namespace System.Application.Services.Implementation
                     //{
                     //    return false;
                     //}
-
 
                     TransparentProxyEndPoint transparentProxyEndPoint;
                     if (OperatingSystem2.IsLinux && !platformService.IsAdministrator)

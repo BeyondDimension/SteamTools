@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace System.Application.Settings
 {
     [DebuggerDisplay("Value={Value}, Key={Key}, Default={Default}")]
-    public class SerializableProperty<T> : INotifyPropertyChanged where T : notnull
+    public class SerializableProperty<T> : INotifyPropertyChanged
     {
         protected T? _value;
         protected bool _cached;

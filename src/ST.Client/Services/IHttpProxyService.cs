@@ -71,6 +71,8 @@ namespace System.Application.Services
 
         string? TwoLevelAgentPassword { get; set; }
 
+        string? ProxyDNS { get; set; }
+
         bool ProxyRunning { get; }
 
         bool SetupCertificate();

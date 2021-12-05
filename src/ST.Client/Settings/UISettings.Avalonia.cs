@@ -13,14 +13,15 @@ namespace System.Application.Settings
 {
     partial class UISettings
     {
-        static readonly SerializableProperty<ConcurrentDictionary<string, SizePosition>>? _WindowSizePositions = WindowViewModel.IsSupportedSizePosition ? GetProperty(defaultValue: new ConcurrentDictionary<string, SizePosition>(), autoSave: false) : null;
+        static readonly SerializableProperty<ConcurrentDictionary<string, SizePosition>?>? _WindowSizePositions = WindowViewModel.IsSupportedSizePosition ?
+            GetProperty<ConcurrentDictionary<string, SizePosition>?>(defaultValue: null, autoSave: false) : null;
         /// <summary>
         /// 所有窗口位置记忆字典集合
         /// </summary>
         [SupportedOSPlatform("Windows")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<ConcurrentDictionary<string, SizePosition>> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<ConcurrentDictionary<string, SizePosition>?> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<string>? _FontName = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: IFontManager.KEY_Default, autoSave: true) : null;
         /// <summary>

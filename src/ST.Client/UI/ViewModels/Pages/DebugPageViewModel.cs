@@ -585,16 +585,25 @@ namespace System.Application.UI.ViewModels
                 => DeserializeObject<T>(value, mDebugViewTextSettings.Value);
         }
 
-        public void TestFontsButton_Click()
+        public async void TestFontsButton_Click()
         {
-            IViewModelManager.Instance.ShowTaskBarWindow(0, 0);
+            //IViewModelManager.Instance.ShowTaskBarWindow(0, 0);
             //InstalledFontCollection ifc = new();
-            //StringBuilder s = new();
+            StringBuilder s = new();
             //foreach (var item in ifc.Families)
             //{
             //    s.AppendLine(item.GetName(R.Culture.LCID));
             //}
-            //DebugString = s.ToString();
+            var testdomain = "steampp.net";
+
+            s.AppendLine($"<SystemDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIp(testdomain))?.First()}");
+            s.AppendLine($"<AliDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByAliDns(testdomain))?.First()}");
+            s.AppendLine($"<DNSPod>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByDnspod(testdomain))?.First()}");
+            s.AppendLine($"<114DNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpBy114Dns(testdomain))?.First()}");
+            s.AppendLine($"<GoogleDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByGoogleDns(testdomain))?.First()}");
+            s.AppendLine($"<CloudflareDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByCloudflare(testdomain))?.First()}");
+
+            DebugString = s.ToString();
         }
 
 #if DEBUG

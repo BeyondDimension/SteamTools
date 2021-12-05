@@ -5,7 +5,7 @@ namespace System.Application.Models
     /// <summary>
     /// 退出系统方式
     /// </summary>
-    public enum SystemEndMode
+    public enum SystemEndMode : byte
     {
         /// <summary>
         /// 睡眠
@@ -25,10 +25,16 @@ namespace System.Application.Models
         [Description("Shutdown")]
         Shutdown,
 
-        ///// <summary>
-        ///// 锁屏
-        ///// </summary>
-        //[Description("Lock")]
-        //Lock,
+        /// <summary>
+        /// 锁屏
+        /// </summary>
+        [Description("Lock")]
+        Lock,
+
+        /// <summary>
+        /// 注销
+        /// </summary>
+        [Description("Logout")]
+        Logout,
     }
 }

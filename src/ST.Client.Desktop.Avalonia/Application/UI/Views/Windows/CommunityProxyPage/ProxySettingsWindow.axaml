@@ -10,6 +10,8 @@
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ms="using:System.Application.Settings"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:sys="using:System"
+        xmlns:col="using:System.Collections"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
@@ -24,14 +26,25 @@
             <StackPanel Spacing="10">
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_SystemProxyIp,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                <TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>
-                <!--<ui:ComboBox IsEditable="True"
+                <!--<TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>-->
+                <ui:ComboBox IsEditable="True"
                              Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}">
                   <ui:ComboBox.Items>
-                    <ui:ComboBoxItem>0.0.0.0</ui:ComboBoxItem>
-                    <ui:ComboBoxItem>127.0.0.1</ui:ComboBoxItem>
+                    <col:ArrayList>
+                      <sys:String>0.0.0.0</sys:String>
+                      <sys:String>127.0.0.1</sys:String>
+                    </col:ArrayList>
                   </ui:ComboBox.Items>
-                </ui:ComboBox>-->
+                </ui:ComboBox>
+              </DockPanel>
+
+              <DockPanel>
+                <TextBlock Text="自定义代理 DNS"/>
+                
+                <ui:ComboBox IsEditable="True" 
+                             Items="{Binding ProxyDNSs}"
+                             Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMasterDns},Path=Value, Mode=TwoWay}">
+                </ui:ComboBox>
               </DockPanel>
 
               <!--<DockPanel>
@@ -52,6 +65,7 @@
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
+
               <!--<DockPanel>
                 <Label Content="自定义根证书密码"></Label>
                 <TextBox></TextBox>
@@ -79,7 +93,7 @@
               </DockPanel>-->
               <DockPanel>
                 <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyPort,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
-                <NumericUpDown Maximum="65535" 
+                <NumericUpDown Maximum="65535"
                                Minimum="80"
                                FormatString="0"
                                Value="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyPortId},Path=Value, Mode=TwoWay}"/>

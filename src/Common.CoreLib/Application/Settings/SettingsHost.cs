@@ -31,7 +31,7 @@ namespace System.Application.Settings
             return instances.TryGetValue(typeof(T), out var host) ? (T)host : new T();
         }
 
-        protected internal static SerializableProperty<T> GetProperty<T>(Func<string, string> getKey, ISerializationProvider provider, T? defaultValue, bool autoSave, string propertyName) where T : notnull => new(getKey(propertyName), provider, defaultValue) { AutoSave = autoSave };
+        protected internal static SerializableProperty<T> GetProperty<T>(Func<string, string> getKey, ISerializationProvider provider, T? defaultValue, bool autoSave, string propertyName) => new(getKey(propertyName), provider, defaultValue) { AutoSave = autoSave };
     }
 
     public static class SettingsHost
@@ -85,7 +85,7 @@ namespace System.Application.Settings
 
         static string GetKey(string propertyName) => $"{CategoryName}.{propertyName}";
 
-        public static SerializableProperty<T> GetProperty<T>(T? defaultValue, bool autoSave, [CallerMemberName] string propertyName = "") where T : notnull => GetProperty(GetKey, Local, defaultValue, autoSave, propertyName);
+        public static SerializableProperty<T> GetProperty<T>(T? defaultValue, bool autoSave, [CallerMemberName] string propertyName = "") => GetProperty(GetKey, Local, defaultValue, autoSave, propertyName);
     }
 
     ///// <summary>

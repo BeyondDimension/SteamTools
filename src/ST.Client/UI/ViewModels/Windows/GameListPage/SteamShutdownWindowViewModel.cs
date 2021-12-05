@@ -21,7 +21,7 @@ namespace System.Application.UI.ViewModels
         public ReadOnlyObservableCollection<SteamApp>? DownloadingApps => _DownloadingApps;
 
 
-        private bool? _IsAllCheck;
+        private bool? _IsAllCheck = false;
         public bool? IsAllCheck
         {
             get => _IsAllCheck;
@@ -34,7 +34,13 @@ namespace System.Application.UI.ViewModels
         {
             Title = GetTitleByDisplayName(DisplayName);
 
-            SystemEndModes = Enum2.GetAll<SystemEndMode>();
+            var modes = new List<SystemEndMode>();
+            modes.Add(SystemEndMode.Sleep);
+            if (!OperatingSystem2.IsMacOS)
+                modes.Add(SystemEndMode.Hibernate);
+            modes.Add(SystemEndMode.Shutdown);
+
+            SystemEndModes = modes;
 
             SteamConnectService.Current.DownloadApps
                .Connect()
@@ -54,7 +60,7 @@ namespace System.Application.UI.ViewModels
                         {
                             bool? b = null;
                             var ids = items.Where(s => s.IsWatchDownloading).Select(s => s.AppId).ToArray();
-                            if (items == null || ids.Length == 0)
+                            if (!items.Any_Nullable() || ids.Length == 0)
                                 b = false;
                             else if (ids.Length == items.Count)
                                 b = true;

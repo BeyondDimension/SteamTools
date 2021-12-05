@@ -61,8 +61,8 @@ namespace System.Application.Settings
         /// <summary>
         /// 代理时使用的解析主DNS
         /// </summary>
-        public static SerializableProperty<string> ProxyMasterDns { get; }
-            = GetProperty(defaultValue: "", autoSave: false);
+        public static SerializableProperty<string?> ProxyMasterDns { get; }
+            = GetProperty<string?>(defaultValue: null, autoSave: false);
         #endregion
 
         #region 本地代理设置

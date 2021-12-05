@@ -60,7 +60,7 @@ namespace System.Application.Models
                         {
                             bool? b = null;
                             var count = items.Count(s => s.Enable);
-                            if (items == null || count == 0)
+                            if (!items.Any_Nullable() || count == 0)
                                 b = false;
                             else if (count == items.Count)
                                 b = true;
@@ -100,7 +100,7 @@ namespace System.Application.Models
         /// <summary>
         /// 是否有子项目选中的第三状态（仅客户端）
         /// </summary>
-        bool? mThreeStateEnable;
+        bool? mThreeStateEnable = false;
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]

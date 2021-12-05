@@ -192,6 +192,8 @@ namespace System.Application.Services
                         httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
                         httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 
+                        httpProxyService.ProxyDNS = ProxySettings.ProxyMasterDns.Value;
+
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
 

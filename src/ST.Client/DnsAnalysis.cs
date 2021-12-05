@@ -12,6 +12,25 @@ namespace System.Application
     /// </summary>
     public static class DnsAnalysis
     {
+        #region DNS常量
+        public const string PrimaryDNS_Ali = "223.5.5.5";
+        public const string SecondaryDNS_Ali = "223.6.6.6";
+
+        public const string PrimaryDNS_Dnspod = "119.29.29.29";
+        public const string SecondaryDNS_Dnspod = "182.254.116.116";
+
+        public const string PrimaryDNS_114 = "114.114.114.114";
+        public const string SecondaryDNS_114 = "114.114.115.115";
+
+        public const string PrimaryDNS_Google = "8.8.8.8";
+        public const string SecondaryDNS_Google = "8.8.4.4";
+
+        public const string PrimaryDNS_Cloudflare = "1.1.1.1";
+        public const string SecondaryDNS_Cloudflare = "1.0.0.1";
+
+        public const string PrimaryDNS_Baidu = "180.76.76.76";
+        #endregion
+
         private static readonly LookupClient lookupClient = new();
 
         public static int PingHostname(string url)
@@ -29,7 +48,7 @@ namespace System.Application
             return 0;
         }
 
-        public static IEnumerable<ARecord> GetPingHostNameData(string url)
+        public static IEnumerable<ARecord>? GetPingHostNameData(string url)
         {
             if (!string.IsNullOrEmpty(url))
             {
@@ -40,55 +59,73 @@ namespace System.Application
                     return result.Answers.ARecords();
                 }
             }
-            return new List<ARecord>();
+            return null;
         }
 
-        public static async Task<IPAddress> AnalysisDomainIp(string url)
+        public static async Task<IPAddress[]?> AnalysisDomainIp(string url)
         {
             return await AnalysisDomainIpByCustomDns(url);
         }
 
-        public static async Task<IPAddress> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
+        public static async Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
         {
             if (!string.IsNullOrEmpty(url))
             {
                 var client = lookupClient;
-                var question = new DnsQuestion(url, QueryType.A);
-                //var questionAAAA = new DnsQuestion(url, QueryType.AAAA);
-
+                var question = new DnsQuestion(url, QueryType.AAAA);
+                var options = new DnsQueryAndServerOptions(dnsServers);
                 IDnsQueryResponse response;
+
                 if (dnsServers != null)
-                    response = await client.QueryAsync(question, new DnsQueryAndServerOptions(dnsServers));
+                    response = await client.QueryAsync(question, options);
                 else
                     response = await client.QueryAsync(question);
 
-                if (response.Answers.Count > 0)
+                if (response.Answers.AaaaRecords().Any())
                 {
-                    var aRecord = response.Answers.ARecords().FirstOrDefault();
-                    if (aRecord != null) return aRecord.Address;
+                    var aaaaRecord = response.Answers.AaaaRecords().Select(s => s.Address).ToArray();
+                    if (aaaaRecord.Any_Nullable()) return aaaaRecord;
+                }
+
+                question = new DnsQuestion(url, QueryType.A);
+
+                if (dnsServers != null)
+                    response = await client.QueryAsync(question, options);
+                else
+                    response = await client.QueryAsync(question);
+
+                if (response.Answers.ARecords().Any())
+                {
+                    var aRecord = response.Answers.ARecords().Select(s => s.Address).ToArray();
+                    if (aRecord.Any_Nullable()) return aRecord;
                 }
             }
-            return IPAddress.Any;
+            return null;
         }
 
-        public static async Task<IPAddress> AnalysisDomainIpByGoogleDns(string url)
+        public static async Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url)
         {
             return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address });
         }
 
-        public static async Task<IPAddress> AnalysisDomainIpByCloudflare(string url)
+        public static async Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url)
         {
             return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address });
         }
 
-        public static async Task<IPAddress> AnalysisDomainIpByDnspod(string url)
+        public static async Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url)
         {
-            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse("119.29.29.29"), IPAddress.Parse("182.254.116.116") });
+            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse(PrimaryDNS_Dnspod), IPAddress.Parse(SecondaryDNS_Dnspod) });
         }
 
-        public static async Task<IPAddress> AnalysisDomainIpByAliDns(string url)
+        public static async Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url)
         {
-            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse("223.5.5.5"), IPAddress.Parse("223.6.6.6") });
+            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) });
+        }
+
+        public static async Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url)
+        {
+            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) });
         }
 
         public static async Task<string?> GetHostByIPAddress(IPAddress ip)

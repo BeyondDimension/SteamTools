@@ -19,14 +19,15 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<Dictionary<uint, string?>> HideGameList => _HideGameList ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<Dictionary<uint, string?>>? _AFKAppList = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true) : null;
+        static readonly SerializableProperty<Dictionary<uint, string?>?>? _AFKAppList = IApplication.IsDesktopPlatform ? 
+            GetProperty<Dictionary<uint, string?>?>(defaultValue: null, autoSave: true) : null;
         /// <summary>
         /// 挂时长游戏列表
         /// </summary>
         [SupportedOSPlatform("Windows")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<Dictionary<uint, string?>> AFKAppList => _AFKAppList ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<Dictionary<uint, string?>?> AFKAppList => _AFKAppList ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<bool>? _IsAutoAFKApps
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;

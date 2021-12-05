@@ -17,6 +17,17 @@ namespace System.Application.UI.ViewModels
             Title = GetTitleByDisplayName(DisplayName);
         }
 
-        public IEnumerable<ExternalProxyType> ProxyTypes { get; set; } = Enum2.GetAll<ExternalProxyType>();
+        public IEnumerable<ExternalProxyType> ProxyTypes { get; } = Enum2.GetAll<ExternalProxyType>();
+
+        public IEnumerable<string?> ProxyDNSs { get; } = new List<string?>()
+        {
+            null,
+            DnsAnalysis.PrimaryDNS_114,
+            DnsAnalysis.PrimaryDNS_Ali,
+            DnsAnalysis.PrimaryDNS_Dnspod,
+            DnsAnalysis.PrimaryDNS_Baidu,
+            DnsAnalysis.PrimaryDNS_Google,
+            DnsAnalysis.PrimaryDNS_Cloudflare,
+        };
     }
 }

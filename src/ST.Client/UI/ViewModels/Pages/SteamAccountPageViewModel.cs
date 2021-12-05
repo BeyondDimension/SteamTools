@@ -5,6 +5,7 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.Settings;
 using System.Application.UI.Resx;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -90,15 +91,15 @@ namespace System.Application.UI.ViewModels
             _SteamUsersSourceList.AddOrUpdate(list);
 
             #region 加载备注信息
-            var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
+            IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
 
             MenuItems = new ObservableCollection<MenuItemViewModel>();
 
             foreach (var user in _SteamUsersSourceList.Items)
             {
-                string? remark = null;
-                accountRemarks?.TryGetValue(user.SteamId64, out remark);
-                user.Remark = remark;
+                if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
+                    !string.IsNullOrEmpty(remark))
+                    user.Remark = remark;
 
                 if (OperatingSystem2.IsWindows)
                 {
@@ -246,7 +247,9 @@ namespace System.Application.UI.ViewModels
                 return;
             user.Remark = value;
 
-            SteamAccountSettings.AccountRemarks.Value!.AddOrUpdate(user.SteamId64, user.Remark, (oldkey, oldvalue) => user.Remark);
+            if (SteamAccountSettings.AccountRemarks.Value == null)
+                SteamAccountSettings.AccountRemarks.Value = new ConcurrentDictionary<long, string?>();
+            SteamAccountSettings.AccountRemarks.Value.AddOrUpdate(user.SteamId64, user.Remark, (oldkey, oldvalue) => user.Remark);
             SteamAccountSettings.AccountRemarks.RaiseValueChanged();
         }
     }

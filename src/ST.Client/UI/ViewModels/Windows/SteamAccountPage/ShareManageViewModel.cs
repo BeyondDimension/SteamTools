@@ -74,20 +74,20 @@ namespace System.Application.UI.ViewModels
 
         public async Task Refresh_Cash()
         {
-
-            var accountRemarks = Serializable.Clone<IReadOnlyDictionary<long, string?>?>(SteamAccountSettings.AccountRemarks.Value);
+            IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
 
             foreach (var item in _AuthorizedSourceList.Items)
             {
-                string? remark = null;
                 var temp = await webApiService.GetUserInfo(item.SteamId64_Int);
-                accountRemarks?.TryGetValue(item.SteamId64_Int, out remark);
-                item.Remark = remark;
                 item.SteamID = temp.SteamID;
                 item.SteamNickName = temp.SteamNickName ?? item.AccountName ?? item.SteamId3_Int.ToString();
                 item.AvatarIcon = temp.AvatarIcon;
                 item.AvatarMedium = temp.AvatarMedium;
                 item.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+
+                if (accountRemarks?.TryGetValue(item.SteamId64_Int, out var remark) == true &&
+                         !string.IsNullOrEmpty(remark))
+                    item.Remark = remark;
             }
 
             _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items);

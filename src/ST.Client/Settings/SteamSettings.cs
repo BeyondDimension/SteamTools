@@ -31,23 +31,24 @@ namespace System.Application.Settings
                 SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
         }
 
-        static readonly SerializableProperty<string>? _SteamStratParameter = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: string.Empty, autoSave: true) : null;
+        static readonly SerializableProperty<string?>? _SteamStratParameter = OperatingSystem2.Application.UseAvalonia ? 
+            GetProperty<string?>(defaultValue: null, autoSave: true) : null;
         /// <summary>
         /// Steam启动参数
         /// </summary>
         [SupportedOSPlatform("Windows")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<string> SteamStratParameter => _SteamStratParameter ?? throw new PlatformNotSupportedException();
+        public static SerializableProperty<string?> SteamStratParameter => _SteamStratParameter ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<string>? _SteamSkin = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: string.Empty, autoSave: true) : null;
-        /// <summary>
-        /// Steam皮肤
-        /// </summary>
-        [SupportedOSPlatform("Windows")]
-        [SupportedOSPlatform("macOS")]
-        [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<string> SteamSkin => _SteamSkin ?? throw new PlatformNotSupportedException();
+        //static readonly SerializableProperty<string>? _SteamSkin = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: string.Empty, autoSave: true) : null;
+        ///// <summary>
+        ///// Steam皮肤
+        ///// </summary>
+        //[SupportedOSPlatform("Windows")]
+        //[SupportedOSPlatform("macOS")]
+        //[SupportedOSPlatform("Linux")]
+        //public static SerializableProperty<string> SteamSkin => _SteamSkin ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<bool>? _IsAutoRunSteam = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
         /// <summary>

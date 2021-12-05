@@ -1,7 +1,8 @@
 <Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:sys="using:System">
+    xmlns:sys="using:System"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
     <Design.PreviewWith>
         <Border Padding="20">
             <StackPanel Classes="Settings">
@@ -173,6 +174,13 @@
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; ComboBox">
+        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="(DockPanel.Dock)" Value="Right" />
+    </Style>
+
+    <Style Selector="StackPanel.Settings DockPanel &gt; ui|ComboBox">
         <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />

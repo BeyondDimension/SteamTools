@@ -310,7 +310,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (GameLibrarySettings.AFKAppList.Value != null && !GameLibrarySettings.AFKAppList.Value.ContainsKey(app.AppId))
                 {
-                    GameLibrarySettings.AFKAppList.Value!.Add(app.AppId, app.DisplayName);
+                    GameLibrarySettings.AFKAppList.Value.Add(app.AppId, app.DisplayName);
                     GameLibrarySettings.AFKAppList.RaiseValueChanged();
                 }
                 Toast.Show(AppResources.GameList_AddAFKAppsSuccess);
