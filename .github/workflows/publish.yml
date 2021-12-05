@@ -141,20 +141,23 @@ jobs:
           ### 版本亮点
           * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新。
 
-          ### 修复改进
+          ### 修复问题
           
           ---
-          [![WebSite steampp.net](https://img.shields.io/badge/c%23-10.0-brightgreen.svg?style=flat-square&color=6da86a)](https://steampp.net)
-          [![Steam++ ${{ steps.tag.outputs.tag }}](https://img.shields.io/badge/c%23-10.0-brightgreen.svg?style=flat-square&color=6da86a)]()
+          [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
+          [![${{ env.ProjectName }} v${{ steps.tag.outputs.tag }}](https://img.shields.io/badge/${{ env.ProjectName }}-v${{ steps.tag.outputs.tag }}-brightgreen.svg?style=flat-square&color=512bd4)]()
 
           ### 文件校验
           |  File  | Checksum (SHA256)  |
           | :- | :- |
           | <sub>${{ env.ProjectName }}_win_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.win_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.fd_win_x64_SHA256 }}</sub> |
+          |||
           | <sub>${{ env.ProjectName }}_macos_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.macos_x64_SHA256 }}</sub> |
+          |||
           | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_arm64_SHA256 }}</sub> |
+
 
   # Release:
   #   name: Release
