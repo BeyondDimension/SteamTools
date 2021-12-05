@@ -118,7 +118,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
-        echo "7z_linux_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "linux_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
                 
     - name: Package linux-arm64 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -126,7 +126,7 @@ jobs:
       run: |
         New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
         copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
-        echo "7z_linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        echo "linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         
     - name: Package linux-x64 deb
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -190,8 +190,8 @@ jobs:
           | <sub>${{ env.ProjectName }}_win_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.win_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.fd_win_x64_SHA256 }}</sub> |
           |||
-          | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.7z_linux_x64_SHA256 }}</sub> |
-          | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.7z_linux_arm64_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_x64_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_arm64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.deb</sub> | <sub>${{ env.deb_linux_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.deb</sub> | <sub>${{ env.deb_linux_arm64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.rpm</sub> | <sub>${{ env.rpm_linux_x64_SHA256 }}</sub> |
