@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -205,5 +206,21 @@ namespace System.Application.Services.Implementation
         }
 
         public int CurrentIPCPortValue { get; set; }
+
+        //public static IEnumerable<HttpMessageHandler> GetAllHandlers()
+        //{
+        //    // 动态更改运行中的代理设置，遍历 ASF 中的 HttpClientHandler 设置新的 Proxy
+        //    var asf_handler = ASF.WebBrowser?.HttpClientHandler;
+        //    if (asf_handler != null) yield return asf_handler;
+        //    var bots = Bot.BotsReadOnly?.Values;
+        //    if (bots != null)
+        //    {
+        //        foreach (var bot in bots)
+        //        {
+        //            var bot_handler = bot.ArchiWebHandler.WebBrowser.HttpClientHandler;
+        //            if (bot_handler != null) yield return bot_handler;
+        //        }
+        //    }
+        //}
     }
 }

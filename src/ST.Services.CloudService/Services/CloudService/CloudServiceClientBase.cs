@@ -5,6 +5,7 @@ using System.Application.Models;
 using System.Application.Security;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading;
@@ -139,5 +140,13 @@ namespace System.Application.Services.CloudService
                 return string.Empty;
             }
         }
+
+        //public static HttpMessageHandler? HttpClientHandler { get; private set; }
+
+        //internal static Func<HttpMessageHandler> ConfigurePrimaryHttpMessageHandler(Func<HttpMessageHandler> configureHandler) => () =>
+        //{
+        //    HttpClientHandler = configureHandler();
+        //    return HttpClientHandler;
+        //};
     }
 }
