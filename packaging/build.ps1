@@ -1,4 +1,4 @@
-param([string]$version,$configuration='Release',$token)
+param([string]$version,$configuration='Release')
 $ErrorActionPreference = 'Stop'
 
 Write-Host 'dotnet SDK info'
@@ -31,7 +31,7 @@ function Build-PublishTool
         $dev = "-dev 1"
     }
     
-    & $publishtool_exe -ver -token $token $dev
+    & $publishtool_exe -ver -token $env:Token $dev
 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
@@ -42,7 +42,7 @@ function Build-PublishTool
     Build-App linux-x64
     Build-App linux-arm64
 
-    & $publishtool_exe -full -token $token $dev
+    & $publishtool_exe -full -token $env:Token $dev
 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
@@ -76,9 +76,9 @@ function Build-App
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
-if([String]::IsNullOrEmpty($token) -Or [String]::IsNullOrEmpty($version))
+if([String]::IsNullOrEmpty($env:Token) -Or [String]::IsNullOrEmpty($version))
 {
-    Write-Host "Undefined Token Or Version: $token & $version"
+    Write-Host "Undefined Token Or Version: $env:Token & $version"
     exit -1
 }
 
