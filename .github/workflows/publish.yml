@@ -75,7 +75,7 @@ jobs:
       id: tag
       uses: dawidd6/action-get-tag@v1
 
-    - name: Checkout repository
+    - name: Checkout Credentials repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       uses: actions/checkout@v2
       with:
