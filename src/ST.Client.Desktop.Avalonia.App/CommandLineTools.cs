@@ -1,9 +1,7 @@
-using Microsoft.Extensions.DependencyInjection;
 using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
-using System.Windows;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
@@ -11,7 +9,7 @@ namespace System.Application.UI
     partial class Program
     {
         const string command_main = "main";
-        static ApplicationInstance? appInstance;
+        static IApplication.SingletonInstance? appInstance;
 
         /// <summary>
         /// 命令行工具(Command Line Tools/CLT)
@@ -39,18 +37,18 @@ namespace System.Application.UI
                     if (IsMainProcess)
                     {
                         var isInitAppInstanceReset = false;
-                    initAppInstance: appInstance = new ApplicationInstance();
+                    initAppInstance: appInstance = new();
                         if (!appInstance.IsFirst)
                         {
                             //Console.WriteLine("ApplicationInstance.SendMessage(string.Empty);");
-                            if (ApplicationInstance.SendMessage(string.Empty))
+                            if (IApplication.SingletonInstance.SendMessage(string.Empty))
                             {
                                 return;
                             }
                             else
                             {
                                 if (!isInitAppInstanceReset &&
-                                    ApplicationInstance.TryKillCurrentAllProcess())
+                                    IApplication.SingletonInstance.TryKillCurrentAllProcess())
                                 {
                                     isInitAppInstanceReset = true;
                                     appInstance.Dispose();
@@ -112,21 +110,26 @@ namespace System.Application.UI
                 rootCommand.AddCommand(debug);
 #endif
 
-                var main = new Command(command_main);
-                main.Handler = CommandHandler.Create(MainHandler);
+                var main = new Command(command_main)
+                {
+                    Handler = CommandHandler.Create(MainHandler)
+                };
                 rootCommand.AddCommand(main);
 
                 // -clt devtools
                 // -clt devtools -disable_gpu
+                // -clt devtools -use_wgl
                 var devtools = new Command("devtools");
-                devtools.AddOption(new Option<bool>("-disable_gpu", "禁用 GPU 硬件加速"));
-                devtools.Handler = CommandHandler.Create((bool disable_gpu) =>
+                devtools.AddOption(new Option<bool>("-disable_gpu", () => false, "禁用 GPU 硬件加速"));
+                devtools.AddOption(new Option<bool>("-use_wgl", () => false, "使用 Native OpenGL(仅 Windows)"));
+                devtools.Handler = CommandHandler.Create((bool disable_gpu, bool use_wgl) =>
                 {
-                    AppHelper.EnableDevtools = true;
-                    AppHelper.DisableGPU = disable_gpu;
+                    IApplication.EnableDevtools = true;
+                    IApplication.DisableGPU = disable_gpu;
+                    IApplication.UseWgl = use_wgl;
                     MainHandlerByCLT_(onInitStartuped: () =>
                     {
-                        AppHelper.LoggerMinLevel = LogLevel.Debug;
+                        IApplication.LoggerMinLevel = LogLevel.Debug;
                     });
                 });
                 rootCommand.AddCommand(devtools);
@@ -168,7 +171,7 @@ namespace System.Application.UI
                         if (!silence)
                         {
                             Startup.Init(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
-                            IWindowService.Instance.InitUnlockAchievement(id);
+                            IViewModelManager.Instance.InitUnlockAchievement(id);
                             BuildAvaloniaAppAndStartWithClassicDesktopLifetime(args);
                         }
                         else

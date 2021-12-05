@@ -26,19 +26,19 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加由 Xamarin.Essentials.SecureStorage 或 Repository 实现的 <see cref="IStorage"/>
+        /// 添加由 Xamarin.Essentials.SecureStorage 或 Repository 实现的 <see cref="ISecureStorage"/>
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection TryAddStorage(this IServiceCollection services)
+        public static IServiceCollection TryAddSecureStorage(this IServiceCollection services)
         {
             if (DeviceInfo.Platform == DevicePlatform.Unknown)
             {
-                services.TryAddSingleton<IStorage, DesktopClientStorage>();
+                services.TryAddSingleton<ISecureStorage, RepositorySecureStorage>();
             }
             else
             {
-                services.TryAddSingleton<IStorage, ClientStorage>();
+                services.TryAddSingleton<ISecureStorage, XESecureStorage>();
             }
             return services;
         }
@@ -71,6 +71,17 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IEmbeddedAesDataProtectionProvider, TEmbeddedAes>();
             services.AddSingleton<ILocalDataProtectionProvider, TLocal>();
             services.AddSingleton<ISecurityService, SecurityService>();
+            return services;
+        }
+
+        /// <summary>
+        /// 添加由 <see cref="PreferencesPlatformServiceImpl"/> 实现的 <see cref="IPreferencesPlatformService"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddPreferences(this IServiceCollection services)
+        {
+            services.AddSingleton<IPreferencesPlatformService, PreferencesPlatformServiceImpl>();
             return services;
         }
     }

@@ -244,7 +244,7 @@ namespace System
             var root = hasPermission
                 ? XEPlatform.AppContext.ExternalCacheDir
                 : XEPlatform.AppContext.CacheDir;
-            var tmpFile = GetEssentialsTemporaryFile(root, filename);
+            var tmpFile = GetEssentialsTemporaryFile(root!, filename);
 
             // copy to the destination
             using var dstStream = File.Create(tmpFile.CanonicalPath);
@@ -309,7 +309,7 @@ namespace System
             return null;
         }
 
-        internal static Java.IO.File? GetEssentialsTemporaryFile(Java.IO.File root, string fileName)
+        internal static Java.IO.File GetEssentialsTemporaryFile(Java.IO.File root, string fileName)
         {
             // create the directory for all Essentials files
             var rootDir = new Java.IO.File(root, EssentialsFolderHash);

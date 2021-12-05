@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
+    <!--<TargetFrameworks>netstandard2.1;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>-->
+    <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Common.CoreLib</AssemblyName>
   </PropertyGroup>
@@ -12,11 +13,13 @@
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Nito.Comparers" />
     <PackageReference Include="OperatingSystem2" />
-    <PackageReference Include="Xamarin.Essentials" />
     <PackageReference Include="Crc32.NET" />
     <PackageReference Include="gfoidl.Base64" />
     <PackageReference Include="MessagePack" />
     <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="System.Text.Encodings.Web" />
   </ItemGroup>
@@ -35,4 +38,20 @@
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Platform.cs">
+      <Generator>DtsGenerator</Generator>
+      <LastGenOutput>Platform.cs.d.ts</LastGenOutput>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Platform.cs.d.ts">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Platform.cs</DependentUpon>
+    </None>
+  </ItemGroup>
+
 </Project>

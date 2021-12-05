@@ -1,27 +1,36 @@
+using ArchiSteamFarm;
 using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Storage;
 using ReactiveUI;
+using System.Application.Settings;
+using System.Application.UI;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
 {
-    public interface IArchiSteamFarmService
+    /// <summary>
+    /// ASF 服务
+    /// </summary>
+    public partial interface IArchiSteamFarmService
     {
-        static IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
+        static new IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
 
         static Action? InitCoreLoggers { protected get; set; }
 
-        Action<string>? GetConsoleWirteFunc { get; set; }
+        event Action<string>? OnConsoleWirteLine;
 
         TaskCompletionSource<string>? ReadLineTask { get; }
 
         bool IsReadPasswordLine { get; }
 
         DateTimeOffset? StartTime { get; }
+
+        Version CurrentVersion { get; }
 
         /// <summary>
         /// 启动ASF
@@ -50,5 +59,36 @@ namespace System.Application.Services
         IReadOnlyDictionary<string, Bot>? GetReadOnlyAllBots();
 
         GlobalConfig? GetGlobalConfig();
+
+        async void CommandSubmit(string command)
+        {
+            if (string.IsNullOrEmpty(command))
+                return;
+            if (ReadLineTask is null)
+            {
+                if (command[0] == '!')
+                {
+                    command = command.Remove(0, 1);
+                }
+                await ExecuteCommand(command);
+            }
+            else
+            {
+                ReadLineTask.TrySetResult(command);
+            }
+        }
+
+        static string GetFolderPath(ASFPathFolder folderASFPath)
+        {
+            var folderASFPathValue = folderASFPath switch
+            {
+                ASFPathFolder.Config => IOPath.DirCreateByNotExists(SharedInfo.ConfigDirectory),
+                ASFPathFolder.Plugin => IOPath.DirCreateByNotExists(SharedInfo.PluginsDirectory),
+                ASFPathFolder.WWW => ASFPathHelper.WebsiteDirectory,
+                ASFPathFolder.Logs => IApplication.LogDirPathASF,
+                ASFPathFolder.ASF or _ => ASFPathHelper.AppDataDirectory,
+            };
+            return folderASFPathValue;
+        }
     }
 }

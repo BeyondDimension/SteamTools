@@ -19,7 +19,7 @@ namespace System.Application.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SR {
@@ -61,128 +61,12 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 正在校验：{0}% 的本地化字符串。
+        ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
-        internal static string CalcHashing_ {
+        internal static byte[] asf_ui {
             get {
-                return ResourceManager.GetString("CalcHashing_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 正在校验（{1}/{2}）：{0}% 的本地化字符串。
-        /// </summary>
-        internal static string CalcHashing3_ {
-            get {
-                return ResourceManager.GetString("CalcHashing3_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 创建证书失败 的本地化字符串。
-        /// </summary>
-        internal static string CreateCertificateFaild {
-            get {
-                return ResourceManager.GetString("CreateCertificateFaild", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 正在解压：{0}% 的本地化字符串。
-        /// </summary>
-        internal static string Decompressing_ {
-            get {
-                return ResourceManager.GetString("Decompressing_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 正在下载：{0}% 的本地化字符串。
-        /// </summary>
-        internal static string Downloading_ {
-            get {
-                return ResourceManager.GetString("Downloading_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 正在下载（{1}/{2}）：{0}% 的本地化字符串。
-        /// </summary>
-        internal static string Downloading3_ {
-            get {
-                return ResourceManager.GetString("Downloading3_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 下载更新包失败，请稍后重试 的本地化字符串。
-        /// </summary>
-        internal static string DownloadUpdateFail {
-            get {
-                return ResourceManager.GetString("DownloadUpdateFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 当前已是最新版本 的本地化字符串。
-        /// </summary>
-        internal static string IsExistUpdateFalse {
-            get {
-                return ResourceManager.GetString("IsExistUpdateFalse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 新版本更新 的本地化字符串。
-        /// </summary>
-        internal static string NewVersionUpdate {
-            get {
-                return ResourceManager.GetString("NewVersionUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Steam++ v{0} 版本更新 的本地化字符串。
-        /// </summary>
-        internal static string NewVersionUpdateTitle_ {
-            get {
-                return ResourceManager.GetString("NewVersionUpdateTitle_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 当有新公告时的提示通知。 的本地化字符串。
-        /// </summary>
-        internal static string NotificationChannelType_Description_Announcement {
-            get {
-                return ResourceManager.GetString("NotificationChannelType_Description_Announcement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 当有新版本可用时的提示通知与下载新版本时的进度通知。 的本地化字符串。
-        /// </summary>
-        internal static string NotificationChannelType_Description_NewVersion {
-            get {
-                return ResourceManager.GetString("NotificationChannelType_Description_NewVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 公告通知 的本地化字符串。
-        /// </summary>
-        internal static string NotificationChannelType_Name_Announcement {
-            get {
-                return ResourceManager.GetString("NotificationChannelType_Name_Announcement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 新版本通知 的本地化字符串。
-        /// </summary>
-        internal static string NotificationChannelType_Name_NewVersion {
-            get {
-                return ResourceManager.GetString("NotificationChannelType_Name_NewVersion", resourceCulture);
+                object obj = ResourceManager.GetObject("asf_ui", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -197,137 +81,25 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 脚本依赖下载出错:[{0}]_{1} 的本地化字符串。
+        ///   查找类似 @echo off
+        ///:loop
+        ///ping -n 1 127.0.0.1 
+        ///tasklist|find /i &quot;{0}&quot;
+        ///if %errorlevel%==0 (
+        ///taskkill /im &quot;{0}&quot; /f
+        ///)
+        ///else(
+        ///taskkill /im &quot;{0}&quot; /f
+        ///xcopy /y /c /h /r /s &quot;{1}\*.*&quot; &quot;{2}&quot;
+        ///rmdir /s /q &quot;{1}&quot;
+        ///&quot;{3}&quot;
+        ///del %0
+        ///)
+        ///goto :loop 的本地化字符串。
         /// </summary>
-        internal static string Script_BuildDownloadError {
+        internal static string ProgramUpdateCmd_ {
             get {
-                return ResourceManager.GetString("Script_BuildDownloadError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 脚本绑定出错:{0} 的本地化字符串。
-        /// </summary>
-        internal static string Script_BuildError {
-            get {
-                return ResourceManager.GetString("Script_BuildError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 缓存文件删除失败:{0} 的本地化字符串。
-        /// </summary>
-        internal static string Script_CacheDeleteError {
-            get {
-                return ResourceManager.GetString("Script_CacheDeleteError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 删除失败 的本地化字符串。
-        /// </summary>
-        internal static string Script_DeleteError {
-            get {
-                return ResourceManager.GetString("Script_DeleteError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 删除成功 的本地化字符串。
-        /// </summary>
-        internal static string Script_DeleteSuccess {
-            get {
-                return ResourceManager.GetString("Script_DeleteSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 文件删除失败:{0} 的本地化字符串。
-        /// </summary>
-        internal static string Script_FileDeleteError {
-            get {
-                return ResourceManager.GetString("Script_FileDeleteError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 脚本重复 的本地化字符串。
-        /// </summary>
-        internal static string Script_FileRepeat {
-            get {
-                return ResourceManager.GetString("Script_FileRepeat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 脚本:{0}_文件丢失已删除 的本地化字符串。
-        /// </summary>
-        internal static string Script_NoFile {
-            get {
-                return ResourceManager.GetString("Script_NoFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 脚本:{0}_文件丢失，删除失败去尝试手动删除 的本地化字符串。
-        /// </summary>
-        internal static string Script_NoFileDeleteError {
-            get {
-                return ResourceManager.GetString("Script_NoFileDeleteError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 程序异常 主键为空 的本地化字符串。
-        /// </summary>
-        internal static string Script_NoKey {
-            get {
-                return ResourceManager.GetString("Script_NoKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 脚本读取异常请检查语法是否有错误:{0} 的本地化字符串。
-        /// </summary>
-        internal static string Script_ReadFileError {
-            get {
-                return ResourceManager.GetString("Script_ReadFileError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 保存数据出错请重试 的本地化字符串。
-        /// </summary>
-        internal static string Script_SaveDBError {
-            get {
-                return ResourceManager.GetString("Script_SaveDBError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 添加成功 的本地化字符串。
-        /// </summary>
-        internal static string Script_SaveDbSuccess {
-            get {
-                return ResourceManager.GetString("Script_SaveDbSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 下载更新包失败，请打开官网手动更新 的本地化字符串。
-        /// </summary>
-        internal static string UpdateEnumOutOfRange {
-            get {
-                return ResourceManager.GetString("UpdateEnumOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 文件校验失败，请打开官网手动更新 的本地化字符串。
-        /// </summary>
-        internal static string UpdatePackVerificationFail {
-            get {
-                return ResourceManager.GetString("UpdatePackVerificationFail", resourceCulture);
+                return ResourceManager.GetString("ProgramUpdateCmd_", resourceCulture);
             }
         }
     }

@@ -5,31 +5,20 @@
         mc:Ignorable="d"
         d:DesignWidth="1200" Width="900" MinWidth="800"
         d:DesignHeight="600" Height="600" MinHeight="500"
-        xmlns:local="clr-namespace:System.Application.UI.Views;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
-        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
-        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:local="using:System.Application.UI.Views"
+        xmlns:vm="using:System.Application.UI.ViewModels"
+        xmlns:controls="using:System.Application.UI.Views.Controls"
+        xmlns:ms="using:System.Application.Settings"
         x:Class="System.Application.UI.Views.MainWindow"
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
-        ExtendClientAreaTitleBarHeightHint="30"
-        Background="Transparent"
+        Background="{x:Null}"
         Title="{Binding Title,Mode=OneWay}"
         Topmost="{Binding Topmost}"
         x:DataType="vm:MainWindowViewModel"
         x:CompileBindings="True">
-  <Window.Styles>
-    <Style Selector="TitleBar:fullscreen">
-      <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
-    </Style>
-  </Window.Styles>
-  <Panel Margin="{Binding #MainWindow.OffScreenMargin}">
-    <!--<Panel ZIndex="0"
-           HorizontalAlignment="Stretch"
-           VerticalAlignment="Stretch">
-      <controls:EmptyControl x:Name="DesktopBackground" 
-           IsVisible="{ReflectionBinding Source={x:Static ms:UISettings.EnableDesktopBackground},Path=Value,Mode=TwoWay}"/>
-    </Panel>-->
+  <Panel x:Name="Panel" Margin="{Binding #MainWindow.OffScreenMargin}">
+    <!--<controls:WallpaperControl x:Name="DesktopBackground"/>-->
     <local:MainView DataContext="{Binding}"/>
     <!--<controls:WebView3 IsVisible="False" InitialUrl="chrome://version"></controls:WebView3>-->
   </Panel>

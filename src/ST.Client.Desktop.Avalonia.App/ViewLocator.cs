@@ -12,7 +12,7 @@ namespace System.Application.UI
         public bool SupportsRecycling => false;
 #pragma warning restore CA1822 // 将成员标记为 static
 
-        public IControl Build(object data) 
+        public IControl Build(object data)
         {
             var name = data.GetType().FullName?.Replace("ViewModel", "View");
             var type = name == null ? null : Type.GetType(name);

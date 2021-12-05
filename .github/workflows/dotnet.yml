@@ -1,45 +1,49 @@
-name: .NET
+name: .NET Build
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}    
+    runs-on: ${{ matrix.os }}
+
     strategy:
+      fail-fast: false
       matrix:
-#        os: [ windows-latest, macOS-latest, ubuntu-latest ]
+        configuration: [Debug, Release]
         os: [ windows-latest ]
+      # os: [ windows-latest, macOS-latest, ubuntu-latest ]
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET 5
-      uses: actions/setup-dotnet@v1
+    - name: Checkout repository
+      uses: actions/checkout@v2
       with:
-        dotnet-version: 5.0.x
+        fetch-depth: 0
+        submodules: recursive
+
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.100-preview.7.21379.14
+        dotnet-version: 6.0.x
 
-#    - name: Install macOS SDK(macOS)
-#      if: matrix.os == 'macOS-latest'
-#      run: sudo dotnet workload install microsoft-macos-sdk-full
+    - name: Install macOS SDK(macOS)
+      if: matrix.os == 'macOS-latest'
+      run: sudo dotnet workload install macos
       
-#    - name: Install macOS SDK(Windows)
-#      if: matrix.os == 'windows-latest'
-#      run: dotnet workload install microsoft-macos-sdk-full
+    - name: Install macOS SDK(Windows)
+      if: matrix.os == 'windows-latest'
+      run: dotnet workload install macos
 
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Checkout submodules
-      run: git submodule update --init --recursive
+    - name: Install Maui(Windows)
+      if: matrix.os == 'windows-latest'
+      run: dotnet workload install maui
 
-    - name: dotnet info
+    - name: Verify dotnet info
       run: dotnet --info
-      
+
     - name: dotnet restore SteamToolsV2+.sln
       if: matrix.os == 'windows-latest'
       run: dotnet restore ./SteamToolsV2+.sln
@@ -52,19 +56,18 @@ jobs:
       if: matrix.os == 'macOS-latest'
       run: dotnet restore ./SteamToolsV2+.Mac.slnf
       
-    - name: dotnet AvaloniaApp build
-      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Desktop.Avalonia.App.csproj
-    - name: dotnet CommonUnit build
-      run: dotnet build ./tests/Common.UnitTest/Common.UnitTest.csproj
-    - name: dotnet ST.Client.UnitTest build
-      run: dotnet build ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
-    - name: dotnet ST.Client.Desktop.UnitTest build
-      run: dotnet build ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
+    - name: Build AvaloniaApp ${{ matrix.configuration }}
+      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ matrix.configuration }}"
       
-    - name: dotnet CommonUnit test
-      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj
-    - name: dotnet ST.Client.UnitTest test
-      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj
-    - name: dotnet ST.Client.Desktop.UnitTest test
-      if: matrix.os != 'windows-latest'
-      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
+    - name: Run CommonUnit
+      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ matrix.configuration }}"
+
+    - name: Run ST.Client.UnitTest
+      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ matrix.configuration }}"
+
+    - name: Run ST.Client.Desktop.UnitTest
+      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj -c "${{ matrix.configuration }}"
+
+#    - name: dotnet ST.Client.Desktop.UnitTest test
+#      if: matrix.os != 'windows-latest'
+#      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj

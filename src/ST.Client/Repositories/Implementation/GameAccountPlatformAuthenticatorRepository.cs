@@ -211,17 +211,6 @@ namespace System.Application.Repositories.Implementation
             item.Id = entity.Id;
         }
 
-        //public override async Task<(int rowCount, DbRowExecResult result)> InsertOrUpdateAsync(GameAccountPlatformAuthenticator entity)
-        //{
-        //    var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        //    var rowCount = await AttemptAndRetry(() =>
-        //    {
-        //        if (entity.Id == default) return dbConnection.InsertAsync(entity);
-        //        return dbConnection.InsertOrReplaceAsync(entity);
-        //    }).ConfigureAwait(false);
-        //    return (rowCount, DbRowExecResult.InsertOrUpdate);
-        //}
-
         public new async Task DeleteAsync(ushort id) => await base.DeleteAsync(id);
 
         public async Task<int> DeleteAsync(Guid serverId)

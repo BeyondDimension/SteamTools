@@ -1,3 +1,4 @@
+#if !__ANDROID__
 using Moq;
 using NUnit.Framework;
 using System.Application.Services;
@@ -28,23 +29,23 @@ namespace System.Application
         static void Test(string[] hosts, Action<IHostsFileService> action)
              => Test(hosts, (_, s, _) => action(s));
 
-        static void Test(string[] hosts, Action<string[], IHostsFileService, IDesktopPlatformService> action)
+        static void Test(string[] hosts, Action<string[], IHostsFileService, IPlatformService> action)
         {
             var tempFileName = Path.GetTempFileName();
             tempFileNames.Add(tempFileName);
             IOPath.FileIfExistsItDelete(tempFileName);
             File.WriteAllLines(tempFileName, hosts);
-            var mock_dps = new Mock<IDesktopPlatformService>();
+            var mock_dps = new Mock<IPlatformService>();
             mock_dps.Setup(x => x.HostsFilePath).Returns(tempFileName);
             mock_dps.Setup(x => x.Default).Returns(DefaultEncoding);
-            IDesktopPlatformService dps = mock_dps.Object;
+            IPlatformService dps = mock_dps.Object;
             IHostsFileService s = new HostsFileServiceImpl(dps);
             action(hosts, s, dps);
             File.Delete(tempFileName);
             tempFileNames.Remove(tempFileName);
         }
 
-        #region DefaultEncoding
+#region DefaultEncoding
 
         static volatile Encoding? defaultEncoding;
 
@@ -78,7 +79,7 @@ namespace System.Application
         [ResourceExposure(ResourceScope.None)]
         static extern int GetACP();
 
-        #endregion
+#endregion
 
         static bool TestEquals(IEnumerable<(string ip, string domain)> left, IEnumerable<(string ip, string domain)> right)
         {
@@ -404,3 +405,4 @@ namespace System.Application
         }
     }
 }
+#endif

@@ -1,15 +1,17 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:resx="using:System.Application.UI.Resx"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:service="using:System.Application.Services"
+             xmlns:ms="using:System.Application.Settings"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-             xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
+             xmlns:gif="using:AvaloniaGif"
+             xmlns:sys="using:System"
              x:Name="u"
              x:DataType="vm:GameListPageViewModel"
              x:CompileBindings="True"
@@ -76,344 +78,437 @@
             Classes="paper"
             Background="{DynamicResource ThemeBrushKey}">
       <DockPanel>
-        <StackPanel
-            Orientation="Horizontal"
-            Spacing="8"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center">
-          <StackPanel.Styles>
-            <Style Selector="PathIcon">
-              <Setter Property="Width" Value="20"></Setter>
-              <Setter Property="Height" Value="20"></Setter>
-            </Style>
-          </StackPanel.Styles>
-
-          <Button
-                        HorizontalContentAlignment="Stretch"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Width="200" Height="35">
-            <Button.Content>
-              <DockPanel>
-                <TextBlock VerticalAlignment="Center"
-                           Text="{Binding TypeFilterString}"
-                           DockPanel.Dock="Left"
-                           TextTrimming="CharacterEllipsis"/>
-                <PathIcon VerticalAlignment="Center"
-                          HorizontalAlignment="Right"
+        <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
                           DockPanel.Dock="Right"
-                          Data="{StaticResource ChevronDownDrawing}"
-                          Width="12"></PathIcon>
-              </DockPanel>
-            </Button.Content>
-            <Button.Styles>
-              <Style Selector="FlyoutPresenter">
-                <Setter Property="Padding" Value="0" />
-              </Style>
-            </Button.Styles>
-            <Button.Flyout>
-              <Flyout Placement="Bottom" FlyoutPresenterClasses="NoPadding">
-                <Border Width="{Binding $parent.Width}" Height="200">
-                  <ScrollViewer Padding="10 5">
-                    <ItemsControl Items="{Binding AppTypeFiltres}">
-                      <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                          <DockPanel>
-                            <CheckBox IsChecked="{Binding Enable,Mode=TwoWay}"
-                                      VerticalAlignment="Center">
-                              <StackPanel Orientation="Horizontal">
-                                <StackPanel.Styles>
-                                  <Style Selector="TextBlock.count">
-                                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
-                                    <Setter Property="FontSize" Value="12"></Setter>
-                                    <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}"></Setter>
-                                  </Style>
-                                </StackPanel.Styles>
-                                <TextBlock Text="{Binding Name_Localiza}"
-                                  VerticalAlignment="Center"/>
-                                <TextBlock Margin="5 0 0 0" Text="(" Classes="count"/>
-                                <TextBlock Classes="count"
-                                           Text="{Binding Count}"/>
-                                <TextBlock Classes="count" Text=")"/>
-                              </StackPanel>
-                            </CheckBox>
-                          </DockPanel>
-                        </DataTemplate>
-                      </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                  </ScrollViewer>
-                </Border>
-              </Flyout>
-            </Button.Flyout>
-          </Button>
+                          HorizontalAlignment="Right"
+                          Classes="clearButton"
+                          Text="{CompiledBinding SearchText,Mode=TwoWay}"
+                          VerticalAlignment="Center"
+                          Background="Transparent"
+                          Width="250"
+                          MinWidth="150">
+          <TextBox.InnerLeftContent>
+            <PathIcon Data="{StaticResource SearchDrawing}"
+                      Classes="TextBoxIcon"/>
+          </TextBox.InnerLeftContent>
+        </TextBox>
+        <ui:CommandBar DefaultLabelPosition="Bottom"
+                       DockPanel.Dock="Left"
+                       IsSticky="False"
+                       HorizontalAlignment="Stretch">
+          <ui:CommandBar.PrimaryCommands>
 
-          <!--<Button Background="Transparent"
-                                Cursor="Hand"
-                                ToolTip.Tip="添加未拥有的游戏">
-            <PathIcon Data="{StaticResource AddDrawing}" />
-          </Button>-->
-          <Button Background="Transparent"
-                  Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
-                  Cursor="Hand"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Data="{StaticResource RefreshDrawing}" />
-          </Button>
-          <ToggleButton Background="Transparent"
-                        Cursor="Hand"
-                        IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Data="{StaticResource PlayCircleDrawing}" />
-          </ToggleButton>
-          <!--<ToggleButton Background="Transparent"
-                                      Cursor="Hand"
-                                      ToolTip.Tip="仅显示来源于家庭共享的游戏">
-                            <PathIcon Data="{StaticResource ChannelShareDrawing}" />
-                        </ToggleButton>-->
-          <Button x:Name="gridSize" Background="Transparent"
-                  Cursor="Hand"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <Button.Content>
-              <PathIcon Data="{StaticResource GridDrawing}" />
-            </Button.Content>
-            <Button.Flyout>
-              <Flyout Placement="Bottom">
-                <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=TwoWay}"
-                        Minimum="50"
-                        Maximum="200"
-                        Ticks="50,100,150,200"
-                        Width="200" />
-              </Flyout>
-            </Button.Flyout>
-          </Button>
-          <Button Background="Transparent"
-             Cursor="Hand"
-             Command="{Binding IdleAppCommand}"
-             ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Data="{StaticResource TopSpeedDrawing}" />
-          </Button>
+            <ui:CommandBarElementContainer>
+              <ui:DropDownButton
+                            HorizontalContentAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Width="200" Height="35">
+                <ui:DropDownButton.Content>
+                  <!--<DockPanel>-->
+                  <TextBlock VerticalAlignment="Center"
+                             Text="{Binding TypeFilterString}"
+                             DockPanel.Dock="Left"
+                             TextTrimming="CharacterEllipsis"/>
+                  <!--<PathIcon VerticalAlignment="Center"
+                              HorizontalAlignment="Right"
+                              DockPanel.Dock="Right"
+                              Data="{StaticResource ChevronDownDrawing}"
+                              Width="12"></PathIcon>
+                  </DockPanel>-->
+                </ui:DropDownButton.Content>
+                <ui:DropDownButton.Styles>
+                  <Style Selector="FlyoutPresenter">
+                    <Setter Property="Padding" Value="0" />
+                  </Style>
+                </ui:DropDownButton.Styles>
+                <ui:DropDownButton.Flyout>
+                  <Flyout Placement="Bottom" FlyoutPresenterClasses="NoPadding">
+                    <Border Width="{Binding $parent.Width}" Height="200">
+                      <ScrollViewer Padding="10 5">
+                        <ItemsControl Items="{Binding AppTypeFiltres}">
+                          <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                              <DockPanel>
+                                <CheckBox IsChecked="{Binding Enable,Mode=TwoWay}"
+                                          VerticalAlignment="Center">
+                                  <StackPanel Orientation="Horizontal">
+                                    <StackPanel.Styles>
+                                      <Style Selector="TextBlock.count">
+                                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                                        <Setter Property="FontSize" Value="12"></Setter>
+                                        <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}"></Setter>
+                                      </Style>
+                                    </StackPanel.Styles>
+                                    <TextBlock Text="{Binding Name_Localiza}"
+                                      VerticalAlignment="Center"/>
+                                    <TextBlock Margin="5 0 0 0" Text="(" Classes="count"/>
+                                    <TextBlock Classes="count"
+                                               Text="{Binding Count}"/>
+                                    <TextBlock Classes="count" Text=")"/>
+                                  </StackPanel>
+                                </CheckBox>
+                              </DockPanel>
+                            </DataTemplate>
+                          </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                      </ScrollViewer>
+                    </Border>
+                  </Flyout>
+                </ui:DropDownButton.Flyout>
+              </ui:DropDownButton>
+            </ui:CommandBarElementContainer>
 
-          <Menu Classes="BindMenu">
-            <MenuItem Items="{Binding MenuItems}"
-                      Classes="BindItem"
-                      IsVisible="{Binding !MenuItems,Converter={StaticResource IsNullConverter}}">
-              <MenuItem.Header>
-                <PathIcon Data="{StaticResource MoreDrawing}" Width="14"></PathIcon>
-              </MenuItem.Header>
-            </MenuItem>
-          </Menu>
-        </StackPanel>
-        <StackPanel
-                    Orientation="Horizontal"
-                    Spacing="15"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center">
-          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                   Text="{CompiledBinding SearchText,Mode=TwoWay}"
-                   VerticalAlignment="Center"
-                   Background="Transparent"
-                   Width="250"
-                   MinWidth="150">
-            <TextBox.InnerLeftContent>
-              <PathIcon Data="{StaticResource SearchDrawing}"
-                        Classes="TextBoxIcon"/>
-            </TextBox.InnerLeftContent>
-          </TextBox>
-        </StackPanel>
+            <!--<ui:CommandBarButton
+                     ToolTip.Tip="添加未拥有的游戏"
+                     Label="添加未拥有的游戏">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource AddDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>-->
+
+            <ui:CommandBarButton
+                                 Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
+                                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Label="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+
+            <ui:CommandBarToggleButton
+                                 IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
+                                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Label="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarToggleButton.Icon>
+                <ui:PathIcon Data="{StaticResource PlayCircleDrawing}"/>
+              </ui:CommandBarToggleButton.Icon>
+            </ui:CommandBarToggleButton>
+
+            <!--<ui:CommandBarToggleButton
+                     IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
+                     ToolTip.Tip="仅显示来源于家庭共享的游戏"
+                     Label="仅显示来源于家庭共享的游戏">
+            <ui:CommandBarToggleButton.Icon>
+              <ui:PathIcon Data="{StaticResource ChannelShareDrawing}"/>
+            </ui:CommandBarToggleButton.Icon>
+          </ui:CommandBarToggleButton>-->
+
+            <!--<ui:CommandBarElementContainer>
+              <Button Background="Transparent"
+                         Cursor="Hand"
+                         ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                <Button.Content>
+                  <PathIcon Data="{StaticResource GridDrawing}" />
+                </Button.Content>
+                <Button.Flyout>
+                  <Flyout Placement="Bottom">
+                    <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=TwoWay}"
+                            Minimum="50"
+                            Maximum="300"
+                            Ticks="50,100,150,200"
+                            Width="200" />
+                  </Flyout>
+                </Button.Flyout>
+              </Button>
+            </ui:CommandBarElementContainer>-->
+
+            <ui:CommandBarButton
+                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Label="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Styles>
+                <Style Selector="ui|CommandBarButton:flyout /template/ ui|SymbolIcon#SubItemChevron">
+                  <Setter Property="IsVisible" Value="False"/>
+                </Style>
+              </ui:CommandBarButton.Styles>
+              <ui:CommandBarButton.Flyout>
+                <Flyout Placement="Bottom">
+                  <Slider Value="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=TwoWay}"
+                          Minimum="50"
+                          Maximum="300"
+                          Ticks="50,100,150,200"
+                          Width="200" />
+                </Flyout>
+              </ui:CommandBarButton.Flyout>
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource GridDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            
+            <ui:CommandBarSeparator/>
+
+            <ui:CommandBarButton
+                       Command="{Binding SteamShutdownCommand}"
+                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Label="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            
+            <ui:CommandBarButton
+                       IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
+                       Command="{Binding IdleAppCommand}"
+                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource TopSpeedDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+
+          </ui:CommandBar.PrimaryCommands>
+          <ui:CommandBar.SecondaryCommands>
+
+            <ui:CommandBarToggleButton
+                                 IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps},Path=Value, Mode=TwoWay}"
+                                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Label="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            </ui:CommandBarToggleButton>
+
+            <ui:CommandBarSeparator/>
+
+            <ui:CommandBarButton
+                       Command="{Binding HideAppCommand}"
+                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_HideGameManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Label="{ReflectionBinding Path=Res.GameList_HideGameManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource EyeHideDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+
+            <!--<ui:CommandBarButton
+                       IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
+                       Command="{Binding IdleAppCommand}"
+                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource TopSpeedDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>-->
+
+          </ui:CommandBar.SecondaryCommands>
+        </ui:CommandBar>
       </DockPanel>
     </Border>
     <!--</Expander>-->
 
-    <Panel>
-      <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=IsLoadingGameList,Mode=OneWay}"
-                  HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-        <controls:ProgressRing IsIndeterminate="True"
-                               Width="100" Height="100">
-        </controls:ProgressRing>
-        <TextBlock Text="{ReflectionBinding Path=Res.GameList_IsLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-      </StackPanel>
+    <Border >
+      <Panel>
+        <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:SteamConnectService.Current},Path=IsLoadingGameList,Mode=OneWay}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+          <ProgressBar
+              Width="100"
+              Height="100"
+              Classes="Circle"
+              IsIndeterminate="True"
+              Orientation="Vertical" />
+          <TextBlock Text="{ReflectionBinding Path=Res.GameList_IsLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+        </StackPanel>
 
-      <TextBlock IsVisible="{Binding IsSteamAppsEmpty}"
-                 Text="{ReflectionBinding Path=Res.GameList_IsEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                 TextWrapping="WrapWithOverflow"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"/>
-      <ScrollViewer
-            HorizontalScrollBarVisibility="Disabled"
-            VerticalScrollBarVisibility="Auto"
-            Padding="10 0 10 10">
-        <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
-          <ItemsRepeater.Layout>
-            <UniformGridLayout ItemsJustification="SpaceBetween"
-                               MinRowSpacing="10"
-                               MinColumnSpacing="10"
-                               MaximumRowsOrColumns="15"
-                               ItemsStretch="Fill" />
-          </ItemsRepeater.Layout>
-          <ItemsRepeater.ItemTemplate>
-            <DataTemplate>
-              <StackPanel Spacing="5">
-                <Border DockPanel.Dock="Top"
-                        Cursor="Hand"
-                        x:Name="AppAvater"
-                        Classes="paper"
-                        Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
-                  <FlyoutBase.AttachedFlyout>
-                    <MenuFlyout Placement="Auto">
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.GameList_Play,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
-                                CommandParameter="{Binding}"
-                                IsVisible="{Binding IsInstalled}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource PlayDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.GameList_Install,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
-                                CommandParameter="{Binding}"
-                                IsVisible="{Binding !IsInstalled}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <!--<MenuItem
+        <TextBlock IsVisible="{Binding IsSteamAppsEmpty}"
+                   Text="{ReflectionBinding Path=Res.GameList_IsEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   TextWrapping="WrapWithOverflow"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+        <ScrollViewer
+              HorizontalScrollBarVisibility="Disabled"
+              VerticalScrollBarVisibility="Auto"
+              Padding="10 0 10 10">
+          <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
+            <ItemsRepeater.Layout>
+              <UniformGridLayout ItemsJustification="SpaceBetween"
+                                 MinRowSpacing="20"
+                                 MinColumnSpacing="10"/>
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Spacing="5">
+                  <Border DockPanel.Dock="Top"
+                          Cursor="Hand"
+                          x:Name="AppAvatar"
+                          Classes="paper"
+                          Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
+                    <FlyoutBase.AttachedFlyout>
+                      <MenuFlyout Placement="Auto">
+                        <MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_Play,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                                  CommandParameter="{Binding}"
+                                  IsVisible="{Binding IsInstalled}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource PlayDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_Install,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.InstallOrStartApp}"
+                                  CommandParameter="{Binding}"
+                                  IsVisible="{Binding !IsInstalled}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <!--<MenuItem
                                Header="{ReflectionBinding Path=Res.GameList_EditAppInfo,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Command="{ReflectionBinding #u.DataContext.EditAppInfoClick}"
                                CommandParameter="{Binding}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource EditDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>-->
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
-                                CommandParameter="{Binding}" >
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource TrophyDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.GameList_AddAfkGameList,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
-                                CommandParameter="{Binding}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource TopSpeedDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.GameList_OpenFolder,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.OpenFolder}"
-                                CommandParameter="{Binding}"
-                                IsVisible="{Binding IsInstalled}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource FolderOpenDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <!--<MenuItem
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource EditDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>-->
+                        <MenuItem
+                                  IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
+                                  Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
+                                  CommandParameter="{Binding}" >
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource TrophyDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                                  IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
+                                  Header="{ReflectionBinding Path=Res.GameList_AddAfkGameList,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
+                                  CommandParameter="{Binding}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource TopSpeedDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="-"/>
+                        <MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_NavToSteamView,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.NavAppToSteamView}"
+                                  CommandParameter="{Binding}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource SteamDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_OpenFolder,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.OpenFolder}"
+                                  CommandParameter="{Binding}"
+                                  IsVisible="{Binding IsInstalled}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource FolderOpenDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <!--<MenuItem
                                   Header="{ReflectionBinding Path=Res.GameList_SetCustomImage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                   Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                                   CommandParameter="{Binding}" />-->
-                      <MenuItem Header="-"></MenuItem>
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
-                                CommandParameter="{Binding}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.GameList_OpenSteamDBUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.OpenSteamDBUrl}"
-                                CommandParameter="{Binding}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                      <MenuItem
-                                Header="{ReflectionBinding Path=Res.GameList_OpenSteamCardUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding #u.DataContext.OpenSteamCardUrl}"
-                                CommandParameter="{Binding}">
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
+                        <MenuItem Header="-"/>
+                        <MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_OpenStoreUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.OpenAppStoreUrl}"
+                                  CommandParameter="{Binding}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_OpenSteamDBUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.OpenSteamDBUrl}"
+                                  CommandParameter="{Binding}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                                  Header="{ReflectionBinding Path=Res.GameList_OpenSteamCardUrl,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                  Command="{ReflectionBinding #u.DataContext.OpenSteamCardUrl}"
+                                  CommandParameter="{Binding}">
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource GlobeSearchDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
 
-                      <MenuItem Header="-"/>
-                      <MenuItem
-                         Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                                       Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
-                                                       CommandParameter="{Binding}" >
-                        <MenuItem.Icon>
-                          <PathIcon Data="{StaticResource EyeHideDrawing}" Width="14"></PathIcon>
-                        </MenuItem.Icon>
-                      </MenuItem>
-                    </MenuFlyout>
-                  </FlyoutBase.AttachedFlyout>
-                  <Panel x:Name="app" Width="{ReflectionBinding $parent.Width}">
-                    <!--<i:Interaction.Behaviors>
-                                            <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
-                                                <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
-                                            </ia:EventTriggerBehavior>
-                                        </i:Interaction.Behaviors>-->
-                    <gif:Image2 x:Name="library"
-                                        Stretch="UniformToFill"
-                                        DecodeWidth="{ReflectionBinding $parent.Width}"
-                                        Source="{Binding LibraryLogoStream^}">
-                    </gif:Image2>
-                    <Image Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png" Stretch="UniformToFill" IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
-                    </Image>
-                    <TextBlock
-                        Margin="5 0"
-                        Text="{Binding DisplayName}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        TextTrimming="CharacterEllipsis"
-                        TextAlignment="Center"
-                        FontSize="18"
-                        Foreground="#FFFFFFFF"
-                        IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
+                        <MenuItem Header="-"/>
+                        <MenuItem
+                           Header="{ReflectionBinding Path=Res.GameList_HideTheGame,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                                         Command="{ReflectionBinding #u.DataContext.AddHideAppList}"
+                                                         CommandParameter="{Binding}" >
+                          <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource EyeHideDrawing}" Width="14"></PathIcon>
+                          </MenuItem.Icon>
+                        </MenuItem>
+                      </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+                    <Panel x:Name="app"
+                          Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
+                      <!--<i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
+                          <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
+                        </ia:EventTriggerBehavior>
+                      </i:Interaction.Behaviors>-->
+                      <Border CornerRadius="{DynamicResource ControlCornerRadius}"
+                              Classes="paper"
+                              ClipToBounds="True">
+                        <Panel
+                          Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
+                          <gif:Image2 x:Name="library"
+                                      Stretch="UniformToFill"
+                                      DecodeWidth="{ReflectionBinding $parent.Width}"
+                                      Source="{Binding LibraryLogoStream^}"
+                                      FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
+                          </gif:Image2>
+                          <!--<Image Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
+                                 Stretch="UniformToFill"
+                                 IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
+                          </Image>-->
+                        </Panel>
+                      </Border>
 
-                    <Border IsVisible="{Binding IsInstalled}"
-                            Margin="10 0 10 -3"
-                            CornerRadius="3"
-                            Classes="paper"
-                            Background="#3D4450"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom">
-                      <DockPanel Margin="10 3"
-                                  HorizontalAlignment="Center">
-                        <TextBlock Text="{Binding InstalledDrive}"
-                                   Foreground="#FFFFFFFF"
-                                   IsVisible="{Binding InstalledDrive,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
-                                   VerticalAlignment="Center"
-                                   Margin="0 0 5 0"
-                                   FontSize="11"/>
-                        <controls:ScrollingTextBlock Text="{Binding SizeOnDisk,Converter={StaticResource SizeConverter}}"
-                                   Foreground="#FFFFFFFF"
-                                   TextWrapping="Wrap"
-                                   VerticalAlignment="Center"
-                                   FontSize="11"/>
-                      </DockPanel>
-                    </Border>
-                  </Panel>
-                </Border>
-                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
-                                             Text="{Binding DisplayName}"
-                                             FontSize="12"
-                                             FontWeight="Bold"
-                                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
-                                             Text="{Binding AppId}"
-                                             FontSize="10"
-                                             Foreground="{DynamicResource InactiveForegroundBrushKey}" />
-              </StackPanel>
-            </DataTemplate>
-          </ItemsRepeater.ItemTemplate>
-        </ItemsRepeater>
-      </ScrollViewer>
-    </Panel>
+                      <TextBlock
+                          Margin="5 0"
+                          Text="{Binding DisplayName}"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          TextTrimming="CharacterEllipsis"
+                          TextAlignment="Center"
+                          FontSize="18"
+                          Foreground="#FFFFFFFF"
+                          IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
+                      
+                      <Border IsVisible="{Binding IsInstalled}"
+                              Margin="10 0 10 -3"
+                              CornerRadius="3"
+                              Classes="paper"
+                              Background="#3D4450"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Bottom">
+                        <DockPanel Margin="10 3"
+                                   HorizontalAlignment="Center">
+                          <TextBlock Text="{Binding InstalledDrive}"
+                                     Foreground="#FFFFFFFF"
+                                     IsVisible="{Binding InstalledDrive,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                                     VerticalAlignment="Center"
+                                     Margin="0 0 5 0"
+                                     FontSize="11"/>
+                          <controls:ScrollingTextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
+                                     Foreground="#FFFFFFFF"
+                                     TextWrapping="Wrap"
+                                     VerticalAlignment="Center"
+                                     FontSize="11"/>
+                        </DockPanel>
+                      </Border>
+                    </Panel>
+                  </Border>
+                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
+                                               Text="{Binding DisplayName}"
+                                               FontSize="12"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
+                                               Text="{Binding AppId}"
+                                               FontSize="10"
+                                               Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                </StackPanel>
+              </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+          </ItemsRepeater>
+        </ScrollViewer>
+      </Panel>
+    </Border>
   </DockPanel>
   <!--</SplitView>-->
 </UserControl>

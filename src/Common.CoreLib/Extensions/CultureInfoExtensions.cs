@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -48,5 +48,10 @@ namespace System
                 return "en-US;q=0.9,en;q=0.8";
             }
         }
+
+        // https://docs.microsoft.com/zh-cn/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c
+
+        public const int LCID_zh_CN = 0x0804;
+        public const int LCID_en_US = 0x0409;
     }
 }

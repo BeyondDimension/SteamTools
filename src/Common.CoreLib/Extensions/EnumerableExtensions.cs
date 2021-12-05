@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Properties;
 
@@ -15,7 +16,7 @@ namespace System
         /// <param name="first">一个用于比较 second 的 <see cref="IEnumerable{T}"/></param>
         /// <param name="second">要与第一个序列进行比较的 <see cref="IEnumerable{T}"/></param>
         /// <returns></returns>
-        public static bool SequenceEqual_Nullable<TSource>(this IEnumerable<TSource>? first, IEnumerable<TSource>? second)
+        public static bool SequenceEqual_Nullable<TSource>([NotNullWhen(true)] this IEnumerable<TSource>? first, IEnumerable<TSource>? second)
         {
             if (first == null) return second == null;
             if (second == null) return first == null;
@@ -28,7 +29,7 @@ namespace System
         /// <typeparam name="TSource">source 的元素类型</typeparam>
         /// <param name="source">要检查是否为空的 <see cref="IEnumerable{T}"/></param>
         /// <returns>如果源序列包含任何元素，则为 <see langword="true"/>；否则为 <see langword="false"/></returns>
-        public static bool Any_Nullable<TSource>(this IEnumerable<TSource>? source)
+        public static bool Any_Nullable<TSource>([NotNullWhen(true)] this IEnumerable<TSource>? source)
         {
             if (source is null) return false;
             return source.Any();
@@ -41,7 +42,7 @@ namespace System
         /// <param name="source"></param>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public static bool Any_Nullable<TSource>(this IEnumerable<TSource>? source, Func<TSource, bool> predicate)
+        public static bool Any_Nullable<TSource>([NotNullWhen(true)] this IEnumerable<TSource>? source, Func<TSource, bool> predicate)
         {
             if (source == null) return false;
             return source.Any(predicate);
@@ -121,5 +122,33 @@ namespace System
         }
 
 #endif
+
+        /// <summary>
+        /// 从 System.Collections.Generic.IEnumerable 创建 System.Collections.Generic.Dictionary (重复键使用第一个)
+        /// </summary>
+        /// <typeparam name="TElement"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="keyGetter"></param>
+        /// <param name="valueGetter"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, TValue> ToDictionaryIgnoreRepeat<TElement, TKey, TValue>(
+            this IEnumerable<TElement> source,
+            Func<TElement, TKey> keyGetter,
+            Func<TElement, TValue> valueGetter)
+        {
+            var dict = new Dictionary<TKey, TValue>();
+            foreach (var e in source)
+            {
+                var key = keyGetter(e);
+                if (dict.ContainsKey(key))
+                {
+                    continue;
+                }
+                dict.Add(key, valueGetter(e));
+            }
+            return dict;
+        }
     }
 }

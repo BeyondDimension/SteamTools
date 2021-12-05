@@ -1,0 +1,171 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+    xmlns:converters="clr-namespace:System.Application.Converters">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <StackPanel>
+                <ProgressBar
+                    Width="50"
+                    Height="50"
+                    Classes="Circle"
+                    IsIndeterminate="True" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    <Styles.Resources>
+        <converters:RangeToSweepConverter x:Key="RangeToSweep" />
+    </Styles.Resources>
+
+    <Style Selector="ProgressBar:horizontal">
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Height" Value="24" />
+    </Style>
+    <Style Selector="ProgressBar:vertical">
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="Width" Value="24" />
+    </Style>
+
+    <Style Selector="ProgressBar:horizontal:not(.Circle)">
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Height" Value="{DynamicResource ProgressBarMinHeight}" />
+    </Style>
+    <Style Selector="ProgressBar:vertical:not(.Circle)">
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="Width" Value="{DynamicResource ProgressBarMinHeight}" />
+    </Style>
+
+    <Style Selector="ProgressBar:not(.notransitions) /template/ Border#PART_Indicator">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition
+                    Easing="CubicEaseOut"
+                    Property="Width"
+                    Duration="0:0:0.5" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  Circular Progress indicator  -->
+
+    <Style Selector="ProgressBar.Circle">
+        <Setter Property="Foreground" Value="{DynamicResource ProgressBarForeground}" />
+        <Setter Property="Background" Value="{DynamicResource ProgressBarBackground}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource ProgressBarBorderThemeThickness}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ProgressBarBorderBrush}" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid Name="TemplateRoot" ClipToBounds="True">
+                            <Grid.RenderTransform>
+                                <ScaleTransform />
+                            </Grid.RenderTransform>
+
+                            <controls:Rotator Name="PART_Rotator" Height="{Binding $self.Bounds.Width}" />
+
+                            <controls:Arc
+                                Name="PART_Animation"
+                                Height="{Binding $self.Bounds.Width}"
+                                ArcBrush="{TemplateBinding Foreground}"
+                                RenderTransform="{Binding ElementName=PART_Rotator, Path=RenderTransform}"
+                                Stroke="4" />
+
+                            <controls:Arc
+                                Name="PART_Arc"
+                                Height="{Binding $self.Bounds.Width}"
+                                ArcBrush="{TemplateBinding Foreground}"
+                                StartAngle="0"
+                                Stroke="4">
+                                <controls:Arc.SweepAngle>
+                                    <MultiBinding Converter="{StaticResource RangeToSweep}">
+                                        <TemplateBinding Property="Value" />
+                                        <TemplateBinding Property="Minimum" />
+                                        <TemplateBinding Property="Maximum" />
+                                    </MultiBinding>
+                                </controls:Arc.SweepAngle>
+                            </controls:Arc>
+
+                            <Border
+                                Name="PART_Indicator"
+                                Background="{TemplateBinding Foreground}"
+                                ClipToBounds="False"
+                                IsEnabled="False"
+                                IsVisible="False" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="ProgressBar.Circle /template/ Grid#TemplateRoot">
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+    </Style>
+
+    <Style Selector="ProgressBar.Circle /template/ controls|Arc#PART_Animation">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="ProgressBar.Circle:not(.notransitions) /template/ controls|Arc#PART_Arc">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition
+                    Easing="CubicEaseOut"
+                    Property="SweepAngle"
+                    Duration="0:0:0.5" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="ProgressBar.Circle:not(:indeterminate) /template/ controls|Rotator#PART_Rotator,                      ProgressBar.Circle[IsVisible=false] /template/ controls|Rotator#PART_Rotator">
+        <Style.Animations>
+            <Animation IterationCount="1" Duration="0:0:0.1">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Speed" Value="0" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="ProgressBar.Circle:indeterminate /template/ controls|Arc#PART_Animation">
+        <Setter Property="IsVisible" Value="True" />
+        <Style.Animations>
+            <Animation IterationCount="INFINITE" Duration="0:0:1.2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="SweepAngle" Value="45" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="SweepAngle" Value="235" />
+                </KeyFrame>
+                <KeyFrame Cue="60%">
+                    <Setter Property="SweepAngle" Value="235" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="SweepAngle" Value="45" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+    <Style Selector="ProgressBar.Circle:indeterminate /template/ controls|Rotator#PART_Rotator">
+        <Style.Animations>
+            <Animation IterationCount="INFINITE" Duration="0:0:1.2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Speed" Value="0.4" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="Speed" Value="0.35" />
+                </KeyFrame>
+                <KeyFrame Cue="60%">
+                    <Setter Property="Speed" Value="0.7" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Speed" Value="0.7" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+</Styles>

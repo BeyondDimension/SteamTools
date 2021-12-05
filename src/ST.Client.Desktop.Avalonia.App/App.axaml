@@ -1,7 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="clr-namespace:System.Application.UI"
-             xmlns:converters="clr-namespace:System.Application.Converters;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
+             xmlns:converters="using:System.Application.Converters"
              xmlns:sty="using:FluentAvalonia.Styling"
              x:Class="System.Application.UI.App">
   <Application.DataTemplates>
@@ -9,28 +9,29 @@
   </Application.DataTemplates>
   <Application.Resources>
     <converters:IsNullConverter x:Key="IsNullConverter" />
-    <converters:IsVisibleToOpacity x:Key="IsVisibleToOpacity" />
+    <converters:IsVisibleToOpacityConverter x:Key="IsVisibleToOpacityConverter" />
+    <converters:IsReadOnlyPasswordBoxConverter x:Key="IsReadOnlyPasswordBoxConverter" />
     <converters:NameToFontFamilyConverter x:Key="NameToFontFamilyConverter" />
     <converters:DrawingKeyValueConverter x:Key="DrawingKeyValueConverter" />
     <converters:BitmapAssetValueConverter x:Key="BitmapAssetValueConverter" />
-    <converters:GenderEnumValueConverter x:Key="GenderEnumValueConverter" />
+    <converters:GuidToUrlConverter x:Key="GuidToUrlConverter" />
     <converters:StringFormatConverter x:Key="StringFormatConverter" />
-    <converters:SizeConverter x:Key="SizeConverter" />
+    <converters:EnumEqualValueConverter x:Key="EnumEqualValueConverter" />
+    <converters:EnumDescriptionToNameConverter x:Key="EnumDescriptionToNameConverter" />
   </Application.Resources>
   <Application.Styles>
-    <FluentTheme Mode="Dark" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
-    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
-
-    <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
-    <sty:FluentAvaloniaTheme ControlsVersion="2"
-                             RequestedTheme="Dark"
+    <!--<FluentTheme Mode="Dark" />-->
+    <sty:FluentAvaloniaTheme RequestedTheme="Dark"
                              DefaultToUserTheme="False"
                              GetUserAccentColor="False"
-                             UseSegoeUIOnWindows="False"/>
+                             UseSegoeUIOnWindows="True"/>
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
+    
+    <!--<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>-->
+    <!--<StyleInclude Source="avares://AvaloniaEdit/AvaloniaEdit.xaml"/>-->
 
-    <StyleInclude Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Controls.xaml" />
+    <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Controls.xaml" />
 
   </Application.Styles>
   <!-- (NativeMenu.Menu) https://github.com/AvaloniaUI/Avalonia/issues/3541 -->

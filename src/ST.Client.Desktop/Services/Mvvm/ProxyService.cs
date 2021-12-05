@@ -26,6 +26,7 @@ namespace System.Application.Services
     {
         public static ProxyService Current { get; } = new ProxyService();
         readonly IHttpProxyService httpProxyService = DI.Get<IHttpProxyService>();
+        readonly IScriptManager scriptManager = DI.Get<IScriptManager>();
 
         public ProxyService()
         {
@@ -79,8 +80,8 @@ namespace System.Application.Services
         {
             get
             {
-                if (!IsEnableScript)
-                    return null;
+                //if (!IsEnableScript)
+                //    return null;
                 if (!ProxyScripts.Items.Any_Nullable())
                     return null;
                 return ProxyScripts.Items!.Where(w => w.Enable).ToArray();
@@ -89,8 +90,8 @@ namespace System.Application.Services
 
         private DateTimeOffset _StartAccelerateTime;
 
-        private DateTimeOffset _AccelerateTime;
-        public DateTimeOffset AccelerateTime
+        private TimeSpan _AccelerateTime;
+        public TimeSpan AccelerateTime
         {
             get => _AccelerateTime;
             set
@@ -162,8 +163,9 @@ namespace System.Application.Services
                         //httpProxyService.ProxyDomains = EnableProxyDomains;
                         //}
                         httpProxyService.ProxyDomains = EnableProxyDomains;
-                        httpProxyService.Scripts = EnableProxyScripts;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
+                        httpProxyService.Scripts = EnableProxyScripts;
+
                         httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
                         httpProxyService.IsWindowsProxy = ProxySettings.EnableWindowsProxy.Value;
                         httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
@@ -174,6 +176,7 @@ namespace System.Application.Services
                         httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
 
+                        httpProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
                         httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
 
                         httpProxyService.TwoLevelAgentProxyType = (ExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
@@ -204,10 +207,15 @@ namespace System.Application.Services
                             //}
                             //else
                             //{
-                            var inUse = httpProxyService.PortInUse(443);
+                            if (OperatingSystem2.IsLinux && ProxySettings.HostProxyPortId == 443 && Environment.UserName.ToLower() != "root")
+                            {
+                                Toast.Show("Liunx Hosts代理模式 需要Root权限，或使用 “sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 8443” 映射到其他端口且修改代理设置监听端口");
+                                return;
+                            }
+                            var inUse = httpProxyService.PortInUse(ProxySettings.HostProxyPortId);
                             if (inUse)
                             {
-                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, ""));
+                                Toast.Show(string.Format(AppResources.CommunityFix_StartProxyFaild443, ProxySettings.HostProxyPortId, ""));
                                 return;
                             }
                             //}
@@ -246,6 +254,10 @@ namespace System.Application.Services
                                             return;
                                         }
                                         else if (OperatingSystem2.IsMacOS)
+                                        {
+                                            IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
+                                        }
+                                        else if (OperatingSystem2.IsLinux && Environment.UserName.ToLower() != "root")
                                         {
                                             IPlatformService.Instance.AdminShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{IDesktopPlatformService.Instance.HostsFilePath}\"", true);
                                         }
@@ -324,7 +336,7 @@ namespace System.Application.Services
                 }
 
                 ProxyDomains.Clear();
-                ProxyDomains.AddRange(result.Content);
+                ProxyDomains.AddRange(result.Content!);
             }
 
             LoadOrSaveLocalAccelerate();
@@ -364,7 +376,7 @@ namespace System.Application.Services
             //    return;
             //}
             //new ObservableCollection<ScriptDTO>(response.Content);
-            var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+            var scriptList = await scriptManager.GetAllScriptAsync();
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
                 foreach (var item in scriptList)
@@ -387,7 +399,7 @@ namespace System.Application.Services
                   .WhenPropertyChanged(x => x.Enable, false)
                   .Subscribe(_ =>
                   {
-                      ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
+                      ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToList();//EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
                       httpProxyService.Scripts = EnableProxyScripts;
                       this.RaisePropertyChanged(nameof(EnableProxyScripts));
                   }));
@@ -442,16 +454,16 @@ namespace System.Application.Services
                 var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
                 if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
                 {
-                    var jspath = await DI.Get<IScriptManagerService>().DownloadScript(basicsInfo.Content.UpdateLink);
-                    if (jspath.state)
+                    var jspath = await scriptManager.DownloadScriptAsync(basicsInfo.Content.UpdateLink);
+                    if (jspath.IsSuccess)
                     {
-                        var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
-                        if (build.state)
+                        var build = await scriptManager.AddScriptAsync(jspath.Content!, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
+                        if (build.IsSuccess)
                         {
-                            if (build.model != null)
+                            if (build.Content != null)
                             {
-                                build.model.IsBasics = true;
-                                ProxyScripts.Insert(0, build.model);
+                                build.Content.IsBasics = true;
+                                ProxyScripts.Insert(0, build.Content);
                             }
                         }
                     }
@@ -463,14 +475,12 @@ namespace System.Application.Services
 
         public void StartTimer()
         {
-            AccelerateTime = new DateTimeOffset().Add((DateTimeOffset.Now - _StartAccelerateTime));
-
             if (timer == null)
             {
                 timer = new Timer((state) =>
                 {
-                    Thread.CurrentThread.IsBackground = true;
-                    AccelerateTime = AccelerateTime.AddSeconds(1);
+                    AccelerateTime = (DateTimeOffset.Now - _StartAccelerateTime);
+                    //AccelerateTime = AccelerateTime.AddSeconds(1);
                 }, nameof(AccelerateTime), 1000, 1000);
             }
         }
@@ -546,22 +556,28 @@ namespace System.Application.Services
                 isbuild = oldInfo.IsBuild;
                 order = oldInfo.Order;
             }
-            var item = await DI.Get<IScriptManagerService>().AddScriptAsync(fileInfo, info, oldInfo, build: isbuild, order: order);
-            if (item.state)
+            var item = await scriptManager.AddScriptAsync(fileInfo, info, oldInfo, build: isbuild, order: order);
+            if (item.IsSuccess)
             {
-                if (item.model != null)
+                if (item.Content != null)
+                {
                     if (oldInfo == null)
-                        ProxyScripts.Add(item.model);
+                    {
+                        ProxyScripts.Add(item.Content);
+                    }
                     else
-                        ProxyScripts.Replace(oldInfo, item.model);
+                    {
+                        ProxyScripts.Replace(oldInfo, item.Content);
+                    }
+                }
             }
             IsLoading = false;
-            Toast.Show(item.msg);
+            Toast.Show(item.Message);
         }
 
         public async void RefreshScript()
         {
-            var scriptList = await DI.Get<IScriptManagerService>().GetAllScript();
+            var scriptList = await scriptManager.GetAllScriptAsync();
             ProxyScripts.Clear();
             if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
             {
@@ -581,13 +597,13 @@ namespace System.Application.Services
         public async void DownloadScript(ScriptDTO model)
         {
             model.IsLoading = true;
-            var jspath = await DI.Get<IScriptManagerService>().DownloadScript(model.UpdateLink);
-            if (jspath.state)
+            var jspath = await scriptManager.DownloadScriptAsync(model.UpdateLink);
+            if (jspath.IsSuccess)
             {
-                var build = await DI.Get<IScriptManagerService>().AddScriptAsync(jspath.path, model, build: model.IsBuild, order: model.Order, deleteFile: true, pid: model.Id);
-                if (build.state)
+                var build = await scriptManager.AddScriptAsync(jspath.Content!, model, build: model.IsBuild, order: model.Order, deleteFile: true, pid: model.Id);
+                if (build.IsSuccess)
                 {
-                    if (build.model != null)
+                    if (build.Content != null)
                     {
                         var basicsItem = Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
                         if (basicsItem != null)
@@ -597,23 +613,27 @@ namespace System.Application.Services
                         }
                         else
                         {
-                            Current.ProxyScripts.Add(build.model);
+                            Current.ProxyScripts.Add(build.Content);
                         }
                         model.IsUpdate = false;
                         model.IsExist = true;
-                        model.UpdateLink = build.model.UpdateLink;
-                        model.FilePath = build.model.FilePath;
-                        model.Version = build.model.Version;
-                        model.Name = build.model.Name;
+                        model.UpdateLink = build.Content.UpdateLink;
+                        model.FilePath = build.Content.FilePath;
+                        model.Version = build.Content.Version;
+                        model.Name = build.Content.Name;
                         RefreshScript();
                         Toast.Show(AppResources.Download_ScriptOk);
                     }
                 }
                 else
-                    Toast.Show(build.msg);
+                {
+                    Toast.Show(build.Message);
+                }
             }
             else
-                Toast.Show(AppResources.Download_ScriptError);
+            {
+                Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
+            }
             model.IsLoading = false;
         }
 
@@ -640,7 +660,7 @@ namespace System.Application.Services
 
         public void FixNetwork()
         {
-            ProxyService.OnExitRestoreHosts();
+            OnExitRestoreHosts();
 
             if (OperatingSystem2.IsWindows)
             {
@@ -648,7 +668,7 @@ namespace System.Application.Services
                 Process.Start("cmd.exe", "netsh winsock reset");
             }
 
-            Toast.Show("修复网络完成");
+            Toast.Show(AppResources.FixNetworkComplete);
         }
     }
 }

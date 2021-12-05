@@ -1,0 +1,189 @@
+name: SteamTools Publish
+
+env:
+  ProjectName: Steam++
+  Configuration: Release
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  Publish:
+    name: Publish
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: recursive
+
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Install macOS SDK(macOS)
+      if: matrix.os == 'macOS-latest'
+      run: sudo dotnet workload install macos
+      
+    - name: Install macOS SDK(Windows)
+      if: matrix.os == 'windows-latest'
+      run: dotnet workload install macos
+
+    - name: Install Maui(Windows)
+      if: matrix.os == 'windows-latest'
+      run: dotnet workload install maui
+
+    - name: Verify dotnet info
+      run: dotnet --info
+
+    - name: dotnet restore SteamToolsV2+.sln
+      if: matrix.os == 'windows-latest'
+      run: dotnet restore ./SteamToolsV2+.sln
+      
+    - name: dotnet restore SteamToolsV2+.Linux.sln
+      if: matrix.os == 'ubuntu-latest'
+      run: dotnet restore ./SteamToolsV2+.Linux.slnf
+      
+    - name: dotnet restore SteamToolsV2+.Mac.sln
+      if: matrix.os == 'macOS-latest'
+      run: dotnet restore ./SteamToolsV2+.Mac.slnf
+      
+    - name: Build AvaloniaApp ${{ env.Configuration }}
+      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ env.Configuration }}"
+      
+    - name: Run CommonUnit
+      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ matrix.configuration }}"
+
+    - name: Run ST.Client.UnitTest
+      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ matrix.configuration }}"
+
+    - name: Run ST.Client.Desktop.UnitTest
+      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj -c "${{ matrix.configuration }}"
+
+    - name: Get tag
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      id: tag
+      uses: dawidd6/action-get-tag@v1
+
+    - name: Clone Credentials PRIVATE Repo
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      uses: GuillaumeFalourd/clone-github-repo-action@v1
+      with:
+        owner: 'SteamTools-Team'
+        repository: 'Credentials'
+        access-token: ${{ secrets.REPO_TOKEN }}
+
+    - name: Copy pfx To Root
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      run: copy Credentials\*.pfx .
+
+    - name: Build Release & Package 7z
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: ..\packaging\build.ps1 ${{ steps.tag.outputs.tag }} ${{ env.Configuration }} ${{ secrets.PUBLISH_TOKEN }}
+
+    - name: Package fd-win-x64
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
+        copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
+        echo "fd_win_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Package win-x64
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
+        copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_win_x64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
+        echo "win_x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_win_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Package osx-64
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
+        copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_macos_x64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
+        echo "osx-64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_macos_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Package linux-x64
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
+        copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
+        echo "linux-x64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+                
+    - name: Package linux-arm64
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path C:\PublishFiles -Force > $null
+        copy .\src\ST.Client.Desktop.Avalonia.App\bin\$env:Configuration\Publish\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z C:\PublishFiles
+        echo "linux-arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Create a new GitHub release if a new tag is pushed
+      uses: ncipollo/release-action@v1
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: ${{ steps.tag.outputs.tag }}
+        prerelease: true
+        draft: false
+        artifacts: C:\PublishFiles\*
+        body: |
+          ### 版本亮点
+          * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新。
+
+          ### 修复问题
+          
+          ---
+          [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
+          [![${{ env.ProjectName }} v${{ steps.tag.outputs.tag }}](https://img.shields.io/badge/${{ env.ProjectName }}-v${{ steps.tag.outputs.tag }}-brightgreen.svg?style=flat-square&color=512bd4)]()
+
+          ### 文件校验
+          |  File  | Checksum (SHA256)  |
+          | :- | :- |
+          | <sub>${{ env.ProjectName }}_win_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.win_x64_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_win_x64_fde_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.fd_win_x64_SHA256 }}</sub> |
+          |||
+          | <sub>${{ env.ProjectName }}_macos_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.macos_x64_SHA256 }}</sub> |
+          |||
+          | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_x64_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_arm64_SHA256 }}</sub> |
+
+
+  # Release:
+  #   name: Release
+  #   needs: Build
+  #   if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+  #   runs-on: windows-latest
+
+  #   strategy:
+  #     fail-fast: false
+
+  #   steps:
+  #     - name: Get tag
+  #       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+  #       id: tag
+  #       uses: dawidd6/action-get-tag@v1
+
+  #     - name: Clone Credentials PRIVATE Repo
+  #       uses: GuillaumeFalourd/clone-github-repo-action@v1
+  #       with:
+  #         owner: 'SteamTools-Team'
+  #         repository: 'Credentials'
+  #         access-token: ${{ secrets.REPO_TOKEN }}
+
+  #     - name: Copy pfx To Root
+  #       run: copy Credentials\*.pfx .
+
+  #     - name: Build File
+  #       shell: pwsh
+  #       run: ..\packaging\build.ps1 ${{ steps.tag.outputs.tag }} ${{ env.Configuration }} ${{ secrets.PUBLISH_TOKEN }} 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace System
@@ -13,47 +13,49 @@ namespace System
     {
         internal static ILoggerFactory Factory => DI.Get<ILoggerFactory>();
 
+        public static ILogger CreateLogger(string tag) => Factory.CreateLogger(tag);
+
         #region Debug
 
         [Conditional("DEBUG")]
         public static void Debug(string tag, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogDebug(msg);
         }
 
         [Conditional("DEBUG")]
         public static void Debug(string tag, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogDebug(msg, args);
         }
 
         [Conditional("DEBUG")]
         public static void Debug(string tag, Exception exception, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogDebug(exception, msg);
         }
 
         [Conditional("DEBUG")]
         public static void Debug(string tag, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogDebug(exception, msg, args);
         }
 
         [Conditional("DEBUG")]
         public static void Debug(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogDebug(eventId, exception, msg, args);
         }
 
         [Conditional("DEBUG")]
         public static void Debug(string tag, EventId eventId, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogDebug(eventId, msg, args);
         }
 
@@ -63,37 +65,37 @@ namespace System
 
         public static void Error(string tag, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogError(msg);
         }
 
         public static void Error(string tag, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogError(msg, args);
         }
 
         public static void Error(string tag, Exception exception, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogError(exception, msg);
         }
 
         public static void Error(string tag, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogError(exception, msg, args);
         }
 
         public static void Error(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogError(eventId, exception, msg, args);
         }
 
         public static void Error(string tag, EventId eventId, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogError(eventId, msg, args);
         }
 
@@ -103,37 +105,37 @@ namespace System
 
         public static void Info(string tag, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogInformation(msg);
         }
 
         public static void Info(string tag, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogInformation(msg, args);
         }
 
         public static void Info(string tag, Exception exception, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogInformation(exception, msg);
         }
 
         public static void Info(string tag, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogInformation(exception, msg, args);
         }
 
         public static void Info(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogInformation(eventId, exception, msg, args);
         }
 
         public static void Info(string tag, EventId eventId, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogInformation(eventId, msg, args);
         }
 
@@ -143,37 +145,37 @@ namespace System
 
         public static void Warn(string tag, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogWarning(msg);
         }
 
         public static void Warn(string tag, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogWarning(msg, args);
         }
 
         public static void Warn(string tag, Exception exception, string msg)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogWarning(exception, msg);
         }
 
         public static void Warn(string tag, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogWarning(exception, msg, args);
         }
 
         public static void Warn(string tag, EventId eventId, Exception exception, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogWarning(eventId, exception, msg, args);
         }
 
         public static void Warn(string tag, EventId eventId, string msg, params object?[] args)
         {
-            var logger = Factory.CreateLogger(tag);
+            var logger = CreateLogger(tag);
             logger.LogWarning(eventId, msg, args);
         }
 

@@ -1,35 +1,43 @@
 using System.Threading.Tasks;
-using System.Windows.Threading;
 using Xamarin.Essentials;
-using static System.Application.Services.IMainThreadPlatformService;
+using System.Application.Services;
 
+// ReSharper disable once CheckNamespace
 namespace System.Application
 {
     /// <summary>
-    /// 适用于桌面端的主线程帮助类，参考 Xamarin.Essentials.MainThread
+    /// 适用于桌面端的主线程帮助类，参考 Xamarin.Essentials.MainThread。
     /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/main-thread"/></para>
     /// <para><see cref="https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/MainThread/MainThread.shared.cs"/></para>
     /// </summary>
     public static class MainThread2
     {
+        /// <summary>
+        /// 获取当前是否为主线程。
+        /// </summary>
         public static bool IsMainThread
         {
             get
             {
-                if (XamarinEssentials.IsSupported)
+                if (Essentials.IsSupported)
                 {
                     return MainThread.IsMainThread;
                 }
                 else
                 {
-                    return Instance.PlatformIsMainThread;
+                    return IMainThreadPlatformService.Instance.PlatformIsMainThread;
                 }
             }
         }
 
-        public static void BeginInvokeOnMainThread(Action action, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
+        /// <summary>
+        /// 调用应用程序主线程上的操作。
+        /// </summary>
+        /// <param name="action">要执行的操作。</param>
+        /// <param name="priority"></param>
+        public static void BeginInvokeOnMainThread(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 MainThread.BeginInvokeOnMainThread(action);
             }
@@ -41,14 +49,20 @@ namespace System.Application
                 }
                 else
                 {
-                    Instance.PlatformBeginInvokeOnMainThread(action, priority);
+                    IMainThreadPlatformService.Instance.PlatformBeginInvokeOnMainThread(action, priority);
                 }
             }
         }
 
-        public static Task InvokeOnMainThreadAsync(Action action, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
+        /// <summary>
+        /// 异步调用主线程。
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
+        public static Task InvokeOnMainThreadAsync(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(action);
             }
@@ -83,9 +97,16 @@ namespace System.Application
             }
         }
 
-        public static Task<T> InvokeOnMainThreadAsync<T>(Func<T> func, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
+        /// <summary>
+        /// 异步调用主线程。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="func"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
+        public static Task<T> InvokeOnMainThreadAsync<T>(Func<T> func, DispatcherPriority priority = DispatcherPriority.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(func);
             }
@@ -115,9 +136,15 @@ namespace System.Application
             }
         }
 
-        public static Task InvokeOnMainThreadAsync(Func<Task> funcTask, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
+        /// <summary>
+        /// 异步调用主线程。
+        /// </summary>
+        /// <param name="funcTask"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
+        public static Task InvokeOnMainThreadAsync(Func<Task> funcTask, DispatcherPriority priority = DispatcherPriority.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(funcTask);
             }
@@ -148,9 +175,16 @@ namespace System.Application
             }
         }
 
-        public static Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal)
+        /// <summary>
+        /// 异步调用主线程。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="funcTask"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
+        public static Task<T> InvokeOnMainThreadAsync<T>(Func<Task<T>> funcTask, DispatcherPriority priority = DispatcherPriority.Normal)
         {
-            if (XamarinEssentials.IsSupported)
+            if (Essentials.IsSupported)
             {
                 return MainThread.InvokeOnMainThreadAsync(funcTask);
             }
@@ -180,81 +214,78 @@ namespace System.Application
                 return tcs.Task;
             }
         }
-    }
-}
-
-namespace System.Windows.Threading
-{
-    /// <summary>
-    ///     An enunmeration describing the priorities at which
-    ///     operations can be invoked via the Dispatcher.
-    ///     <see cref="https://github.com/dotnet/wpf/blob/master/src/Microsoft.DotNet.Wpf/src/WindowsBase/System/Windows/Threading/DispatcherPriority.cs"/>
-    /// </summary>
-    ///
-    public enum DispatcherPriorityCompat
-    {
-        /// <summary>
-        ///     Operations at this priority are processed when the system
-        ///     is idle.
-        /// </summary>
-        SystemIdle,
 
         /// <summary>
-        ///     Minimum possible priority
+        ///     An enunmeration describing the priorities at which
+        ///     operations can be invoked via the Dispatcher.
+        ///     <see cref="https://github.com/dotnet/wpf/blob/master/src/Microsoft.DotNet.Wpf/src/WindowsBase/System/Windows/Threading/DispatcherPriority.cs"/>
         /// </summary>
-        MinValue = SystemIdle,
+        ///
+        public enum DispatcherPriority
+        {
+            /// <summary>
+            ///     Operations at this priority are processed when the system
+            ///     is idle.
+            /// </summary>
+            SystemIdle,
 
-        /// <summary>
-        ///     Operations at this priority are processed when the application
-        ///     is idle.
-        /// </summary>
-        ApplicationIdle,
+            /// <summary>
+            ///     Minimum possible priority
+            /// </summary>
+            MinValue = SystemIdle,
 
-        /// <summary>
-        ///     Operations at this priority are processed when the context
-        ///     is idle.
-        /// </summary>
-        ContextIdle,
+            /// <summary>
+            ///     Operations at this priority are processed when the application
+            ///     is idle.
+            /// </summary>
+            ApplicationIdle,
 
-        /// <summary>
-        ///     Operations at this priority are processed after all other
-        ///     non-idle operations are done.
-        /// </summary>
-        Background,
+            /// <summary>
+            ///     Operations at this priority are processed when the context
+            ///     is idle.
+            /// </summary>
+            ContextIdle,
 
-        /// <summary>
-        ///     Operations at this priority are processed at the same
-        ///     priority as input.
-        /// </summary>
-        Input,
+            /// <summary>
+            ///     Operations at this priority are processed after all other
+            ///     non-idle operations are done.
+            /// </summary>
+            Background,
 
-        /// <summary>
-        ///     Operations at this priority are processed when layout and render is
-        ///     done but just before items at input priority are serviced. Specifically
-        ///     this is used while firing the Loaded event
-        /// </summary>
-        Loaded,
+            /// <summary>
+            ///     Operations at this priority are processed at the same
+            ///     priority as input.
+            /// </summary>
+            Input,
 
-        /// <summary>
-        ///     Operations at this priority are processed at the same
-        ///     priority as rendering.
-        /// </summary>
-        Render,
+            /// <summary>
+            ///     Operations at this priority are processed when layout and render is
+            ///     done but just before items at input priority are serviced. Specifically
+            ///     this is used while firing the Loaded event
+            /// </summary>
+            Loaded,
 
-        /// <summary>
-        ///     Operations at this priority are processed at normal priority.
-        /// </summary>
-        Normal,
+            /// <summary>
+            ///     Operations at this priority are processed at the same
+            ///     priority as rendering.
+            /// </summary>
+            Render,
 
-        /// <summary>
-        ///     Operations at this priority are processed before other
-        ///     asynchronous operations.
-        /// </summary>
-        Send,
+            /// <summary>
+            ///     Operations at this priority are processed at normal priority.
+            /// </summary>
+            Normal,
 
-        /// <summary>
-        ///     Maximum possible priority
-        /// </summary>
-        MaxValue = Send,
+            /// <summary>
+            ///     Operations at this priority are processed before other
+            ///     asynchronous operations.
+            /// </summary>
+            Send,
+
+            /// <summary>
+            ///     Maximum possible priority
+            /// </summary>
+            MaxValue = Send,
+        }
     }
 }

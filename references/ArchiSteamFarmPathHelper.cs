@@ -58,7 +58,7 @@ namespace ArchiSteamFarm
 
         static readonly Lazy<string> _WebsiteDirectory = new(() =>
         {
-            var path = Path.Combine(IOPath.BaseDirectory, "ASF-ui");
+            var path = Path.Combine(IOPath.AppDataDirectory, "ASF", "www");
             IOPath.DirCreateByNotExists(path);
             return path;
         });
@@ -66,7 +66,7 @@ namespace ArchiSteamFarm
         /// <summary>
         /// <list type="bullet">
         ///     <item>
-        ///         Desktop：ASF-ui
+        ///         AppData\ASF\www
         ///     </item>
         /// </list>
         /// </summary>
@@ -78,5 +78,14 @@ namespace ArchiSteamFarm
 #endif
 
         public const string NLogGeneralLayout = NLog.Logging.GeneralLayout;
+    }
+
+    public enum ASFPathFolder
+    {
+        ASF,
+        Config,
+        Plugin,
+        WWW,
+        Logs,
     }
 }

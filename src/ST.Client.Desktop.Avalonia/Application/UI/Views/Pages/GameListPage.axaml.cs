@@ -21,7 +21,7 @@ namespace System.Application.UI.Views.Pages
         {
             if (e.Source is Control c)
             {
-                var border = c.FindParentControl<Border>("AppAvater");
+                var border = c.FindParentControl<Border>("AppAvatar");
                 if (border is not null)
                 {
                     var flyout = FlyoutBase.GetAttachedFlyout(border);

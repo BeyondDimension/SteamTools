@@ -22,11 +22,12 @@
   </Style>
 
   <Style Selector="ListBox.metro ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
-    <Setter Property="CornerRadius" Value="0"></Setter>
+    <!--<Setter Property="CornerRadius" Value="0"></Setter>-->
+    <Setter Property="Margin" Value="0"></Setter>
   </Style>
-  <Style Selector="ListBox.metro ListBoxItem /template/ Border#SelectionIndicator">
+  <!--<Style Selector="ListBox.metro ListBoxItem /template/ Border#SelectionIndicator">
     <Setter Property="CornerRadius" Value="0"></Setter>
-  </Style>
+  </Style>-->
 
   <!--  Disabled State  -->
   <!--

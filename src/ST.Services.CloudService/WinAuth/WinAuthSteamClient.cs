@@ -200,7 +200,6 @@ namespace WinAuth
             public string Image { get; set; } = string.Empty;
 
             private Task<string?>? _ImageStream;
-            [Obsolete("use httpUrl in Mobile")]
             public Task<string?>? ImageStream
             {
                 get => _ImageStream;
@@ -1300,6 +1299,10 @@ namespace WinAuth
                     LogRequest(method, url, request.CookieContainer, data, response.StatusCode.ToString() + " " + response.StatusDescription);
 
                     // OK?
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        throw new WinAuthUnauthorisedSteamRequestException(new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription)));
+                    }
                     if (response.StatusCode != HttpStatusCode.OK)
                     {
                         throw new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription));
@@ -1325,11 +1328,20 @@ namespace WinAuth
                     LogException(method, url, request.CookieContainer, data, ex);
 
                     if (ex is WebException exception &&
-                        exception.Response is HttpWebResponse response &&
-                        response.StatusCode == HttpStatusCode.Forbidden)
+                        exception.Response is HttpWebResponse response)
                     {
-                        throw new WinAuthUnauthorisedSteamRequestException(ex);
+                        if (response.StatusCode == HttpStatusCode.Forbidden)
+                            throw new WinAuthUnauthorisedSteamRequestException(ex);
+
+                        //https://github.com/Jessecar96/SteamDesktopAuthenticator/blob/8a408f13ee24f70fffbc409cb0e050e924f4fe94/Steam%20Desktop%20Authenticator/BrowserRequestHandler.cs#L60
+                        //302错误为跳转到steammobile://协议时产生，出现这种情况直接强制登出重新登录。
+                        if (response.StatusCode == HttpStatusCode.Found)
+                        {
+                            throw new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription), ex);
+                        }
                     }
+
+
 
                     if (ex is WinAuthInvalidSteamRequestException) throw;
                     else throw new WinAuthInvalidSteamRequestException(ex.Message, ex);

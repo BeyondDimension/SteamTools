@@ -25,7 +25,13 @@ namespace System
 
         public const string HTML = ".html";
 
+        public const string HTM = ".htm";
+
         public const string CSS = ".css";
+
+        public const string SCSS = ".scss";
+
+        public const string LESS = ".less";
 
         public const string JS = ".js";
 
@@ -53,6 +59,8 @@ namespace System
 
         public const string TAR_BR = ".tbr";
 
+        public const string TAR_BR_LONG = ".tar.br";
+
         public const string BIN = ".bin";
 
         public const string APNG = ".apng";
@@ -77,6 +85,30 @@ namespace System
 
         public const string DownloadCache = ".download_cache";
 
+        public const string RPM = ".rpm";
+
+        public const string CPIO = ".cpio";
+
+        public const string DEB = ".deb";
+
+        public const string DEB_TAR = ".deb.tar";
+
+        public const string DEB_TAR_XZ = ".deb.tar.xz";
+
+        public const string PKG = ".pkg";
+
+        public const string MSI = ".msi";
+
+        public const string TAR_XZ = ".tar.xz";
+
+        public const string TAR_ZST = ".tar.zst";
+
+        public const string CMD = ".cmd";
+
+        public const string BAT = ".bat";
+
+        public const string XML = ".xml";
+
         public static string Clean(string extension, bool trimLeadingPeriod = false)
         {
             if (string.IsNullOrWhiteSpace(extension))
@@ -90,5 +122,19 @@ namespace System
 
             return extension;
         }
+
+        public static bool IsSupportedTextReader(string extension) =>
+            string.Equals(extension, JSON, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, TXT, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, LOG, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, HTML, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, HTM, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, JS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, CSS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, SCSS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, LESS, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, CMD, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, BAT, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(extension, XML, StringComparison.OrdinalIgnoreCase);
     }
 }

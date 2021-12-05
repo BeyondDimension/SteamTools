@@ -1,36 +1,32 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using ReactiveUI;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Media;
+using Avalonia.Platform;
+using FluentAvalonia.Styling;
+using System.Application.Models;
 using System.Application.Mvvm;
+using System.Application.Security;
+using System.Application.Services;
+using System.Application.Services.Implementation;
+using System.Application.Settings;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
+using System.Application.UI.Views.Windows;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Properties;
-using System.Windows;
+using System.Reactive.Disposables;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using AvaloniaApplication = Avalonia.Application;
 using ShutdownMode = Avalonia.Controls.ShutdownMode;
 using Window = Avalonia.Controls.Window;
 using WindowState = Avalonia.Controls.WindowState;
-using Avalonia.Themes.Fluent;
-using Avalonia.Markup.Xaml.Styling;
-using System.Application.Services;
-using System.Windows.Input;
-using System.Linq;
-using System.Application.Models.Settings;
-using System.Application.UI.Resx;
-using System.Application.Models;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Application.UI.Views.Windows;
-using System.Application.Services.Implementation;
-using System.Threading.Tasks;
-using System.Application.Security;
-using Avalonia;
-using Avalonia.Platform;
-using FluentAvalonia.Styling;
-using Avalonia.Media;
 #if WINDOWS
 //using WpfApplication = System.Windows.Application;
 #endif
@@ -38,13 +34,16 @@ using Avalonia.Media;
 [assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
 namespace System.Application.UI
 {
-    public partial class App : AvaloniaApplication, IDisposableHolder, IDesktopAppService, IDesktopAvaloniaAppService
+    public partial class App : AvaloniaApplication, IDisposableHolder, IApplication, IAvaloniaApplication, IClipboardPlatformService
     {
         public static App Instance => Current is App app ? app : throw new Exception("Impossible");
 
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
 
-        AppTheme mTheme = AppTheme.Dark;
+        const AppTheme _DefaultActualTheme = AppTheme.Dark;
+        AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
+
+        AppTheme mTheme = _DefaultActualTheme;
         public AppTheme Theme
         {
             get
@@ -53,30 +52,24 @@ namespace System.Application.UI
             }
             set
             {
-                static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
-
                 if (value == mTheme) return;
                 AppTheme switch_value = value;
 
                 if (value == AppTheme.FollowingSystem)
                 {
-                    var dps = DI.Get<IDesktopPlatformService>();
+                    var dps = IPlatformService.Instance;
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
                         switch_value = GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
-#if DEBUG
                         dps.SetLightOrDarkThemeFollowingSystem(true);
-#endif
                         if (switch_value == mTheme) goto setValue;
                     }
                 }
                 else if (mTheme == AppTheme.FollowingSystem)
                 {
-                    var dps = DI.Get<IDesktopPlatformService>();
-#if DEBUG
+                    var dps = IPlatformService.Instance;
                     dps.SetLightOrDarkThemeFollowingSystem(false);
-#endif
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
@@ -91,39 +84,48 @@ namespace System.Application.UI
             }
         }
 
+        static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
+
+        AppTheme IApplication.GetActualThemeByFollowingSystem()
+        {
+            var dps = IPlatformService.Instance;
+            var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+            if (isLightOrDarkTheme.HasValue)
+            {
+                return GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+            }
+            return _DefaultActualTheme;
+        }
+
         public void SetThemeNotChangeValue(AppTheme value)
         {
             string? the;
-            FluentThemeMode mode;
+            //FluentThemeMode mode;
 
             switch (value)
             {
                 case AppTheme.Light:
                     the = "Light";
-                    mode = FluentThemeMode.Light;
+                    //mode = FluentThemeMode.Light;
                     break;
                 case AppTheme.Dark:
-                    the = "Dark";
-                    mode = FluentThemeMode.Dark;
-                    break;
                 default:
                     the = "Dark";
-                    mode = FluentThemeMode.Dark;
+                    //mode = FluentThemeMode.Dark;
                     break;
             }
 
-            var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
-            var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Styles/Theme{the}.xaml");
+            //var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
+            var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Theme{the}.xaml");
 
-            Styles[0] = new FluentTheme(uri_0)
-            {
-                Mode = mode,
-            };
+            //Styles[0] = new FluentTheme(uri_0)
+            //{
+            //    Mode = mode,
+            //};
             Styles[1] = new StyleInclude(uri_1)
             {
                 Source = uri_1,
             };
-
             AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = the;
         }
 
@@ -174,15 +176,13 @@ namespace System.Application.UI
             StartupTrace.Restart("App.LoadXAML");
 #endif
             Name = ThisAssembly.AssemblyTrademark;
-            ViewModelBase.IsInDesignMode = ApplicationLifetime == null;
-            if (ViewModelBase.IsInDesignMode) Startup.Init(DILevel.MainProcess);
 #if StartupTrace
             StartupTrace.Restart("App.SetP");
 #endif
             //SettingsHost.Load();
-            var windowService = IWindowService.Instance;
-            windowService.Init();
-            DI.Get<IDesktopPlatformService>().SetSystemSessionEnding(() => Shutdown());
+            var vmService = IViewModelManager.Instance;
+            vmService.InitViewModels();
+            IPlatformService.Instance.SetSystemSessionEnding(() => Shutdown());
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif
@@ -190,30 +190,15 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("SettingsHost.Init");
 #endif
-            Theme = (AppTheme)UISettings.Theme.Value;
+            InitSettingSubscribe();
 #if StartupTrace
-            StartupTrace.Restart("Theme");
+            StartupTrace.Restart("InitSettingSubscribe");
 #endif
-
-#if DEBUG
-            //实时切换主题有BUG暂且屏蔽
-            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
-#endif
-            UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
-            UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
-            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
-            GeneralSettings.InitWindowsStartupAutoRun();
-#if StartupTrace
-            StartupTrace.Restart("UISettings.Subscribe");
-#endif
-            switch (windowService.MainWindow)
+            switch (vmService.MainWindow)
             {
-                case AchievementWindowViewModel window:
+                case AchievementWindowViewModel:
                     Program.IsMinimize = false;
-                    MainWindow = new AchievementWindow
-                    {
-                        DataContext = windowService.MainWindow,
-                    };
+                    MainWindow = new AchievementWindow();
                     break;
 
                 default:
@@ -224,25 +209,21 @@ namespace System.Application.UI
                     compositeDisposable.Add(SteamConnectService.Current.Dispose);
                     compositeDisposable.Add(ASFService.Current.StopASF);
                     if (GeneralSettings.IsStartupAppMinimized.Value)
-                    {
                         Program.IsMinimize = true;
-                        //if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-                        //    desktop.MainWindow = null;
-                    }
 #endif
                     #endregion
-                    MainWindow = new MainWindow
-                    {
-                        DataContext = windowService.MainWindow,
-                    };
+                    MainWindow = new MainWindow();
                     break;
             }
+
+            MainWindow.DataContext = vmService.MainWindow;
+            vmService.MainWindow.Initialize();
 #if StartupTrace
             StartupTrace.Restart("Set MainWindow");
 #endif
         }
 
-        public ContextMenu? NotifyIconContextMenu { get; private set; }
+        //public ContextMenu? NotifyIconContextMenu { get; private set; }
 
         public override void OnFrameworkInitializationCompleted()
         {
@@ -258,32 +239,32 @@ namespace System.Application.UI
                 //#if MAC
                 //                AppDelegate.Init();
                 //#endif
-
                 if (Program.IsMainProcess)
                 {
-                    if (Startup.HasNotifyIcon)
+                    if (StartupOptions.Value.HasNotifyIcon)
                     {
-                        if (!OperatingSystem2.IsLinux)
-                        {
-                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
-                            notifyIcon.Click += NotifyIcon_Click;
-                            notifyIcon.DoubleClick += NotifyIcon_Click;
-                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
-                            notifyIcon.AddTo(this);
-                        }
-                        else
-                        {
-#if LINUX || DEBUG
-                            NotifyIconHelper.StartPipeServer();
-#endif
-                        }
+                        NotifyIconHelper.Init(this, NotifyIcon_Click);
+                        //                        if (!OperatingSystem2.IsLinux)
+                        //                        {
+                        //                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
+                        //                            notifyIcon.Click += NotifyIcon_Click;
+                        //                            notifyIcon.DoubleClick += NotifyIcon_Click;
+                        //                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
+                        //                            notifyIcon.AddTo(this);
+                        //                        }
+                        //                        else
+                        //                        {
+                        //#if LINUX || DEBUG
+                        //                            NotifyIconHelper.StartPipeServer();
+                        //#endif
+                        //                        }
                     }
 #if WINDOWS
-                    JumpLists.Init();
+#pragma warning disable CA1416 // 验证平台兼容性
+                    IJumpListService.Instance.InitJumpList();
+#pragma warning restore CA1416 // 验证平台兼容性
 #endif
                 }
-
-                IWindowService.Instance.MainWindow.Initialize();
 
                 desktop.MainWindow =
 #if !UI_DEMO
@@ -297,7 +278,7 @@ namespace System.Application.UI
 #if UI_DEMO
                     ShutdownMode.OnMainWindowClose;
 #else
-                Startup.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
+                StartupOptions.Value.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
 #endif
             }
 
@@ -309,8 +290,54 @@ namespace System.Application.UI
         /// </summary>
         public override void RegisterServices()
         {
-            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(new CustomFontManagerImpl());
+            IViewModelBase.IsInDesignMode = Design.IsDesignMode;
+            if (ViewModelBase.IsInDesignMode)
+                Startup.Init(DILevel.MainProcess | DILevel.GUI);
+
+            AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
+
+#if WINDOWS
+            if (!ViewModelBase.IsInDesignMode && OperatingSystem2.IsWindows10AtLeast)
+            {
+#pragma warning disable CA1416 // 验证平台兼容性
+                AvaloniaLocator.CurrentMutable.Bind<IWindowingPlatform>().ToConstant(new AvaloniaWin32WindowingPlatformImpl());
+#pragma warning restore CA1416 // 验证平台兼容性
+            }
+#endif
+
             base.RegisterServices();
+        }
+
+        /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
+        void InitSettingSubscribe()
+        {
+            ((IApplication)this).InitSettingSubscribe();
+            UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
+            UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
+            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
+
+            GeneralSettings.WindowsStartupAutoRun.Subscribe(x => IApplication.SetBootAutoStart(x));
+
+            UISettings.WindowBackgroundMateria.Subscribe(x => SetAllWindowransparencyMateria(x), false);
+
+            if (OperatingSystem2.IsWindows)
+            {
+                UISettings.EnableDesktopBackground.Subscribe(x =>
+                {
+                    if (x)
+                    {
+                        //var t = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
+                        //if (t == WindowTransparencyLevel.None ||
+                        //    t == WindowTransparencyLevel.Mica)
+                        //{
+                        //    UISettings.EnableDesktopBackground.Value = false;
+                        //    Toast.Show(string.Format(AppResources.Settings_UI_EnableDesktopBackground_Error, t));
+                        //    return;
+                        //}
+                        SetDesktopBackgroundWindow();
+                    }
+                }, false);
+            }
         }
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
@@ -321,19 +348,21 @@ namespace System.Application.UI
             StartupTrace.Restart("Desktop_Startup.Start");
 #endif
             IsNotOfficialChannelPackageDetectionHelper.Check();
-#if WINDOWS
+#if WINDOWS || XAMARIN_MAC
             if (isOfficialChannelPackage)
             {
+#pragma warning disable CA1416 // 验证平台兼容性
                 VisualStudioAppCenterSDK.Init();
+#pragma warning restore CA1416 // 验证平台兼容性
             }
 #endif
 #if StartupTrace
             StartupTrace.Restart("AppCenterSDK.Init");
 #endif
-            AppHelper.Initialized?.Invoke();
-#if StartupTrace
-            StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
-#endif
+            //            AppHelper.Initialized?.Invoke();
+            //#if StartupTrace
+            //            StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
+            //#endif
             Startup.OnStartup(Program.IsMainProcess);
 #if StartupTrace
             if (Program.IsMainProcess)
@@ -350,9 +379,9 @@ namespace System.Application.UI
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
         {
-#if LINUX || DEBUG
-            NotifyIconHelper.StopPipeServer();
-#endif
+            //#if LINUX || DEBUG
+            //            NotifyIconHelper.StopPipeServer();
+            //#endif
 
             try
             {
@@ -365,7 +394,7 @@ namespace System.Application.UI
 #if WINDOWS
             //WpfApplication.Current.Shutdown();
 #endif
-            AppHelper.TryShutdown();
+            //AppHelper.TryShutdown();
         }
 
         internal void NotifyIcon_Click(object? sender, EventArgs e)
@@ -387,15 +416,9 @@ namespace System.Application.UI
             }
         }
 
-        Window? mMainWindow;
+        public Window? MainWindow { get; set; }
 
-        public Window MainWindow
-        {
-            get => mMainWindow ?? throw new ArgumentNullException(nameof(mMainWindow));
-            set => mMainWindow = value;
-        }
-
-        AvaloniaApplication IDesktopAvaloniaAppService.Current => Current;
+        AvaloniaApplication IAvaloniaApplication.Current => Current;
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
@@ -410,9 +433,12 @@ namespace System.Application.UI
                 mainWindow = desktop.MainWindow;
                 if (mainWindow == null)
                 {
-                    mainWindow = MainWindow;
-                    desktop.MainWindow = MainWindow;
+                    //mainWindow = MainWindow;
+                    //desktop.MainWindow = MainWindow;
+                    mainWindow = Instance.MainWindow = desktop.MainWindow = new MainWindow();
+                    mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
                 }
+
             }
 
             if (mainWindow == null)
@@ -431,6 +457,15 @@ namespace System.Application.UI
             //// Again, ugly hack because of https://github.com/AvaloniaUI/Avalonia/issues/2994
             //mainWindow.Width += 0.1;
             //mainWindow.Width -= 0.1;
+        }
+
+        public void SetTopmostOneTime()
+        {
+            if (MainWindow != null && MainWindow.WindowState != WindowState.Minimized)
+            {
+                MainWindow.Topmost = true;
+                MainWindow.Topmost = false;
+            }
         }
 
         public bool HasActiveWindow()
@@ -460,14 +495,39 @@ namespace System.Application.UI
 
         public void SetDesktopBackgroundWindow()
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows && Instance.MainWindow is MainWindow window)
             {
-                var window = (App.Instance.MainWindow as MainWindow);
-                DI.Get<ISystemWindowApiService>().SetDesktopBackgroundToWindow(
-                    window._backHandle, (int)App.Instance.MainWindow.Width, (int)App.Instance.MainWindow.Height);
+#pragma warning disable CA1416 // 验证平台兼容性
+                INativeWindowApiService.Instance!.SetDesktopBackgroundToWindow(window.BackHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));
+#pragma warning restore CA1416 // 验证平台兼容性
             }
         }
 
+        /// <summary>
+        /// 设置当前打开窗口的AvaloniaWinodw背景透明材质
+        /// </summary>
+        /// <param name="level"></param>
+        public void SetAllWindowransparencyMateria(int level)
+        {
+            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                foreach (var window in desktop.Windows)
+                {
+                    window.TransparencyLevelHint = (WindowTransparencyLevel)level;
+
+                    if (window.TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
+                        window.TransparencyLevelHint == WindowTransparencyLevel.None ||
+                        window.TransparencyLevelHint == WindowTransparencyLevel.Blur)
+                    {
+                        ((IPseudoClasses)window.Classes).Set(":transparent", true);
+                    }
+                    else
+                    {
+                        ((IPseudoClasses)window.Classes).Set(":transparent", false);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
@@ -485,18 +545,16 @@ namespace System.Application.UI
             return false;
         }
 
-        void IDesktopAppService.Shutdown() => Shutdown();
+        void IApplication.Shutdown() => Shutdown();
 
-        bool IDesktopAppService.IsCefInitComplete => false;
+        //bool IDesktopAppService.IsCefInitComplete => false;
         //CefNetApp.InitState == CefNetAppInitState.Complete;
 
         #region IDisposable members
 
         public readonly CompositeDisposable compositeDisposable = new();
 
-        CompositeDisposable IDesktopAppService.CompositeDisposable => compositeDisposable;
-
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
+        CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
 
         void IDisposable.Dispose()
         {
@@ -505,5 +563,17 @@ namespace System.Application.UI
         }
 
         #endregion
+
+        string IAvaloniaApplication.RenderingSubsystemName => Program.RenderingSubsystemName;
+
+        object IApplication.CurrentPlatformUIHost => MainWindow;
+
+        DeploymentMode IApplication.DeploymentMode => DeploymentMode.
+#if FRAMEWORK_DEPENDENT || !PUBLISH
+            FDE
+#else
+            SCD
+#endif
+            ;
     }
 }

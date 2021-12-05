@@ -9,7 +9,7 @@ namespace System.UnitTest
         [Test]
         public void EssentialsSupported()
         {
-            Assert.IsTrue(XamarinEssentials.IsSupported);
+            Assert.IsTrue(Essentials.IsSupported);
         }
     }
 }

@@ -1,17 +1,54 @@
-﻿namespace System.Text
+using static System.Text.StringBuilderExtensions;
+
+namespace System.Text
 {
-    public interface IStringBuilder
+    public interface IStringBuilder<TBuilder>
     {
-        IStringBuilder Append(string? value);
+#pragma warning disable IDE1006 // 命名样式
+        protected TBuilder @this { get; }
+#pragma warning restore IDE1006 // 命名样式
 
-        IStringBuilder AppendLine();
+        TBuilder Append(string? value);
 
-        IStringBuilder AppendLine(string? value);
+        TBuilder AppendLine()
+        {
+            Append(Environment.NewLine);
+            return @this;
+        }
 
-        IStringBuilder AppendFormat(string format, params object?[] args);
+        TBuilder AppendLine(string? value)
+        {
+            Append(value);
+            AppendLine();
+            return @this;
+        }
 
-        IStringBuilder AppendFormatLine(string format, params object?[] args);
+        TBuilder AppendFormat(string format, params object?[] args)
+        {
+            Append(string.Format(format, args));
+            return @this;
+        }
 
-        IStringBuilder AppendDateTimeNowLine(DateTime? now = null);
+        TBuilder AppendFormatLine(string format, params object?[] args)
+        {
+            AppendFormat(format, args);
+            AppendLine();
+            return @this;
+        }
+
+        TBuilder AppendDateTimeNowLine(DateTime now = default)
+        {
+            if (now == default) now = DateTime.Now;
+            AppendFormatLine(AppendDateTimeNowLineFormat,
+                now.ToString(DateTimeFormat.Complete));
+            return @this;
+        }
+
+        string ToString();
+    }
+
+    public interface IStringBuilder : IStringBuilder<IStringBuilder>
+    {
+        IStringBuilder IStringBuilder<IStringBuilder>.@this => this;
     }
 }

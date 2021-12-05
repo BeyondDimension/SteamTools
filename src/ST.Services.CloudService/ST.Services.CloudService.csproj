@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\CloudService\Grpc\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ST.Services.CloudService.ViewModels\ST.Services.CloudService.ViewModels.csproj" />
   </ItemGroup>
 </Project>

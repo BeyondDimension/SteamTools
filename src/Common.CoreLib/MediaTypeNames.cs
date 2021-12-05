@@ -8,6 +8,8 @@ namespace System
     {
         public const string JSON = "application/json";
 
+        public const string JS = "text/javascript";
+
         public const string MessagePack = "application/x-msgpack";
 
         public const string BMP = "image/bmp";

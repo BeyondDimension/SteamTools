@@ -5,11 +5,13 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using SkiaSharp;
 using System.Application.Models;
+using System.Application.Services;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace System.Application.Converters
 {
@@ -22,16 +24,16 @@ namespace System.Application.Converters
             return BindingOperations.DoNothing;
         }
 
-        [Obsolete("use HttpClient")]
         protected static Bitmap? DownloadImage(string? url, int width = 0)
         {
             if (url == null) return null;
-            using var web = new WebClient();
-            var ua = DI.Get<IHttpPlatformHelper>().UserAgent;
-            web.Headers.Add("User-Agent", ua);
-            var bt = web.DownloadData(url);
-            using var stream = new MemoryStream(bt);
-            return GetDecodeBitmap(stream, width);
+            var task = IHttpService.Instance.GetAsync<Stream>(url, MediaTypeNames.All);
+            var stream = task.GetAwaiter().GetResult();
+            if (stream == null) return null;
+            var s = new MemoryStream();
+            stream.CopyTo(s);
+            stream.Dispose();
+            return GetDecodeBitmap(s, width);
         }
 
         protected static void TryReset(Stream s)
@@ -83,7 +85,7 @@ namespace System.Application.Converters
 
         protected static Bitmap? GetDecodeBitmap(Stream s, int width)
         {
-            if (s == null) 
+            if (s == null)
             {
                 return null;
             }
@@ -94,7 +96,7 @@ namespace System.Application.Converters
             return Bitmap.DecodeToWidth(s, width, Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.MediumQuality);
         }
 
-        protected static Bitmap GetDecodeBitmap(string s, int width)
+        protected static Bitmap? GetDecodeBitmap(string s, int width)
         {
             if (IOPath.TryOpenRead(s, out var stream, out var ex))
                 return GetDecodeBitmap(stream, width);

@@ -1,14 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ccl_service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
-             xmlns:ms="using:System.Application.Models.Settings"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:service="using:System.Application.Services"
+             xmlns:ms="using:System.Application.Settings"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="using:System.Application.UI.Views.Pages"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:gif="using:AvaloniaGif"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
@@ -19,77 +19,110 @@
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ArchiSteamFarmPlusPage">
   <DockPanel>
-
-    <Border Margin="10" 
-            Padding="10" 
-            DockPanel.Dock="Top" 
-            Classes="paper" 
+    <Border Margin="10"
+            Padding="10"
+            DockPanel.Dock="Top"
+            Classes="paper"
             Background="{DynamicResource ThemeBrushKey}">
-      <DockPanel>
-        <StackPanel
-            Orientation="Horizontal"
-            Spacing="8"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center">
-          <StackPanel.Styles>
-            <Style Selector="PathIcon">
-              <Setter Property="Width" Value="20"></Setter>
-              <Setter Property="Height" Value="20"></Setter>
-            </Style>
-          </StackPanel.Styles>
 
-          <Button Background="Transparent"
-                  IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
-                  Cursor="Hand"
-                  ToolTip.Tip="启动ASF" Command="{ReflectionBinding RunOrStopASF}">
-            <PathIcon Data="{StaticResource PlayCircleDrawing}" />
-          </Button>
+      <ui:CommandBar DefaultLabelPosition="Right"
+                     IsSticky="False">
+        <ui:CommandBar.PrimaryCommands>
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding RunOrStopASF}"
+                               IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=!IsASFRuning}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Start,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_Start,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource PlayCircleDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding RunOrStopASF}"
+                               IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Stop,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_Stop,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource PauseCircleDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
 
-          <Button Background="Transparent"
-                  IsVisible="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IsASFRuning}"
-                  Cursor="Hand"
-                  ToolTip.Tip="停止ASF" Command="{ReflectionBinding RunOrStopASF}">
-            <PathIcon Data="{StaticResource PauseCircleDrawing}" />
-          </Button>
+          <ui:CommandBarSeparator/>
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding OpenBrowser}"
+                               CommandParameter="WebAddBot"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_AddBot,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_AddBot,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource AddDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
 
-          <Button Background="Transparent"
-                  Cursor="Hand"
-                  ToolTip.Tip="新增Bot"
-                  Command="{ReflectionBinding ShowAddBotWindow}">
-            <PathIcon Data="{StaticResource AddDrawing}" />
-          </Button>
+          <ui:CommandBarButton
+                               Command="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=RefreshBots,Mode=OneWay}"
+                               ToolTip.Tip="{ReflectionBinding Path=Res.ASF_RefreshBot,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                               Label="{ReflectionBinding Path=Res.ASF_RefreshBot,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
 
-          <Button Background="Transparent"
-                  Cursor="Hand"
-                  ToolTip.Tip="刷新">
-            <PathIcon Data="{StaticResource RefreshDrawing}" />
-          </Button>
+          <ui:CommandBarButton
+                     Command="{ReflectionBinding OpenBrowser}"
+                     ToolTip.Tip="{ReflectionBinding Path=Res.ASF_OpenWebUIConsole,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     Label="{ReflectionBinding Path=Res.ASF_OpenWebUIConsole,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+        </ui:CommandBar.PrimaryCommands>
 
-          <Button Background="Transparent"
-                   Cursor="Hand"
-                   ToolTip.Tip="Web UI控制台">
-            <PathIcon Data="{StaticResource GlobeSearchDrawing}" />
-          </Button>
+        <ui:CommandBar.SecondaryCommands>
+          <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
+                               CommandParameter="Wiki"
+                               ToolTip.Tip="ArchiSteamFarm Wiki"
+                               Label="ArchiSteamFarm Wiki">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
 
-        </StackPanel>
-      </DockPanel>
+          <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
+                               CommandParameter="Repo"
+                               ToolTip.Tip="ArchiSteamFarm Github"
+                               Label="ArchiSteamFarm Github">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+        </ui:CommandBar.SecondaryCommands>
+      </ui:CommandBar>
     </Border>
 
-    <TabControl Classes="flat">
-      <TabItem Header="ASF控制台">
-        <controls:ConsoleShell x:Name="ConsoleLog" Margin="10 0"
-                               LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
-                               IsMask="{ReflectionBinding Source={x:Static ccl_service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
-        </controls:ConsoleShell>
-      </TabItem>
+    <Border Classes="paper"
+            Margin="10 0 10 10"
+            Padding="0 10"
+            Background="{DynamicResource ThemeBrushKey}">
+      <TabControl Classes="flat">
+        <!--<TabItem Header="ASF 运行状态">
 
-      <TabItem Header="Bot配置">
-        <pages:ASF_BotPage/>
-      </TabItem>
+        </TabItem>-->
+        <TabItem Header="{ReflectionBinding Path=Res.ASF_Console,Mode=OneWay,Source={x:Static resx:R.Current}}">
+          <controls:ConsoleShell Margin="10 0" 
+                                 CommandSubmit="ConsoleShell_CommandSubmit"
+                                 LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
+                                 IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">
+          </controls:ConsoleShell>
+        </TabItem>
 
-      <TabItem Header="ASF配置">
-        <pages:ASF_GlobalConfigPage/>
-      </TabItem>
-    </TabControl>
+        <TabItem Header="{ReflectionBinding Path=Res.ASF_BotManage,Mode=OneWay,Source={x:Static resx:R.Current}}">
+          <pages:ASF_BotPage/>
+        </TabItem>
+
+        <TabItem Header="{ReflectionBinding Path=Res.ASF_GlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}">
+          <pages:ASF_GlobalConfigPage/>
+        </TabItem>
+      </TabControl>
+    </Border>
   </DockPanel>
 </UserControl>

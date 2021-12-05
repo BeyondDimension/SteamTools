@@ -19,7 +19,7 @@ namespace System.Application.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SR {
@@ -75,6 +75,51 @@ namespace System.Application.Properties {
         internal static string BindFail_UserIsNotNull {
             get {
                 return ResourceManager.GetString("BindFail_UserIsNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下载更新包失败，请在官网下载新版本手动更新 的本地化字符串。
+        /// </summary>
+        internal static string DownloadUpdateFail {
+            get {
+                return ResourceManager.GetString("DownloadUpdateFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新包信息解析失败，请在官网下载新版本手动更新 的本地化字符串。
+        /// </summary>
+        internal static string UpdateEnumOutOfRange {
+            get {
+                return ResourceManager.GetString("UpdateEnumOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下载更新包缓存文件验证失败且删除错误，请删除 {0} 后尝试在官网手动更新 的本地化字符串。
+        /// </summary>
+        internal static string UpdatePackCacheHashInvalidDeleteFileFail_ {
+            get {
+                return ResourceManager.GetString("UpdatePackCacheHashInvalidDeleteFileFail_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件校验失败，请在官网下载新版本手动更新 的本地化字符串。
+        /// </summary>
+        internal static string UpdatePackVerificationFail {
+            get {
+                return ResourceManager.GetString("UpdatePackVerificationFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新包解压失败，请在官网下载新版本手动更新 的本地化字符串。
+        /// </summary>
+        internal static string UpdateUnpackFail {
+            get {
+                return ResourceManager.GetString("UpdateUnpackFail", resourceCulture);
             }
         }
         

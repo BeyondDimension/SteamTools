@@ -1,47 +1,38 @@
 using NLog;
-using System.Application.Services;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Versioning;
+
+#if MAC
+[assembly: SupportedOSPlatform("macOS")]
+#elif LINUX
+[assembly: SupportedOSPlatform("Linux")]
+#elif WINDOWS_DESKTOP_BRIDGE
+[assembly: SupportedOSPlatform("Windows10.0.17763.0")]
+#elif WINDOWS
+[assembly: SupportedOSPlatform("Windows")]
+#endif
 
 namespace System.Application.UI
 {
     static partial class Program
     {
-        static readonly HashSet<Exception> exceptions = new();
-        static readonly object lock_global_ex_log = new();
-
-#if WINDOWS_DESKTOP_BRIDGE
-        static string[] OnActivated(string[] main_args, global::Windows.ApplicationModel.Activation.IActivatedEventArgs args)
-        {
-            if (args.Kind == global::Windows.ApplicationModel.Activation.ActivationKind.StartupTask)
-            {
-                // 静默启动（不弹窗口）
-                return IDesktopPlatformService.SystemBootRunArguments.Split(' ');
-            }
-            return main_args;
-        }
-#endif
-
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-#if WINDOWS_DESKTOP_BRIDGE
-        [SupportedOSPlatform("Windows10.0.17763.0")]
-#endif
         static int Main(string[] args)
         {
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
-            var activatedArgs = global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs();
-            if (activatedArgs != null) args = OnActivated(args, activatedArgs);
+            DesktopBridgeHelper.OnActivated(ref args);
 #elif !__MOBILE__
 #if MAC
             AppDelegate.Init(/*args*/);
             FileSystemDesktopMac.InitFileSystem();
+#elif LINUX
+            FileSystemDesktopXDG.InitFileSystem();
 #else
-            FileSystemDesktop.InitFileSystem();
+            FileSystem2.InitFileSystem();
 #endif
 #endif
 #if StartupTrace
@@ -52,7 +43,7 @@ namespace System.Application.UI
             IsMainProcess = args.Length == 0;
             IsCLTProcess = !IsMainProcess && args.FirstOrDefault() == "-clt";
 
-            AppHelper.InitLogDir();
+            IApplication.InitLogDir();
 #if StartupTrace
             StartupTrace.Restart("InitLogDir");
 #endif

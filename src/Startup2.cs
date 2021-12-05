@@ -9,33 +9,31 @@ using Xamarin.Essentials;
 using Moq;
 #endif
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using System.Application.Models;
 using System.Application.Services;
-using System.Application.Services.CloudService;
 using System.Application.Services.Implementation;
 using System.Application.UI;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Linq;
 using static System.Application.Browser2;
-using System.Properties;
 using System.IO;
 using static System.Application.AppClientAttribute;
 using System.Net;
-using System.Diagnostics;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Application.Models.Settings;
+using System.Application.Settings;
+using System.Threading.Tasks;
 #if __ANDROID__
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
+using PlatformApplication = System.Application.UI.MainApplication;
 using System.Application.UI.Resx;
 using System.Windows;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
+#elif !__MOBILE__
+using PlatformApplication = System.Application.UI.App;
 #endif
 #if StartupTrace
 using System.Diagnostics;
@@ -59,44 +57,61 @@ namespace System.Application
 #if StartupTrace
                 StartupTrace.Restart("Startup.InitFileSystem");
 #endif
-                if (level.HasFlag(DILevel.ServerApiClient))
+                var options = new StartupOptions(level);
+                if (options.HasServerApiClient)
                 {
                     ModelValidatorProvider.Init();
 #if StartupTrace
                     StartupTrace.Restart("ModelValidatorProvider.Init");
 #endif
                 }
-                InitDI(level);
+                InitDI(options);
 #if StartupTrace
                 StartupTrace.Restart($"InitDI: {level}");
 #endif
-                static void InitDI(DILevel level)
+                if (!Essentials.IsSupported)
                 {
-#if UI_DEMO
-                    DI.Init(new MockServiceProvider(ConfigureDemoServices));
-#else
-                    DI.Init(s => ConfigureServices(s, level));
-                    static void ConfigureServices(IServiceCollection services, DILevel level)
-                    {
-                        ConfigureRequiredServices(services);
+                    // 在 Xamarin.Essentials 支持的平台上由平台 Application 初始化时调用
+                    // 通常在 DI 之前，例如 Android 上的 MainApplication.OnCreate
+                    VersionTracking2.Track();
 #if StartupTrace
-                        StartupTrace.Restart("DI.ConfigureRequiredServices");
-#endif
-                        ConfigureDemandServices(services, level);
-#if StartupTrace
-                        StartupTrace.Restart("DI.ConfigureDemandServices");
-#endif
-                    }
+                    StartupTrace.Restart($"VersionTracking2.Track");
 #endif
                 }
+
+                Migrations.Up();
+#if StartupTrace
+                StartupTrace.Restart($"Migrations.Up");
+#endif
             }
+        }
+        static void InitDI(StartupOptions options)
+        {
+#if UI_DEMO
+            DI.Init(new MockServiceProvider(ConfigureDemoServices));
+#else
+            DI.Init(s => ConfigureServices(s, options));
+#endif
+        }
+
+
+        static void ConfigureServices(IServiceCollection services, StartupOptions options)
+        {
+            ConfigureRequiredServices(services, options);
+#if StartupTrace
+            StartupTrace.Restart("DI.ConfigureRequiredServices");
+#endif
+            ConfigureDemandServices(services, options);
+#if StartupTrace
+            StartupTrace.Restart("DI.ConfigureDemandServices");
+#endif
         }
 
         /// <summary>
         /// 配置任何进程都必要的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureRequiredServices(IServiceCollection services)
+        static void ConfigureRequiredServices(IServiceCollection services, StartupOptions options)
         {
             // 添加日志实现
             services.AddGeneralLogging();
@@ -109,7 +124,12 @@ namespace System.Application
             // 添加 app 配置项
             services.TryAddOptions(AppSettings);
             // 键值对存储
-            services.TryAddStorage();
+            services.TryAddSecureStorage();
+
+            if (!Essentials.IsSupported)
+            {
+                services.AddPreferences();
+            }
 
             // 添加安全服务
             services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
@@ -120,59 +140,42 @@ namespace System.Application
         /// 配置按需使用的依赖注入服务
         /// </summary>
         /// <param name="services"></param>
-        static void ConfigureDemandServices(IServiceCollection services, DILevel level)
+        static void ConfigureDemandServices(IServiceCollection services, StartupOptions options)
         {
-            var hasMainProcessRequired = level.HasFlag(DILevel.MainProcessRequired);
-#if !__MOBILE__
-#if !CONSOLEAPP
-            HasNotifyIcon = hasMainProcessRequired;
-#endif
-#endif
-#if !CONSOLEAPP
-            var hasGUI = level.HasFlag(DILevel.GUI);
-            var hasServerApiClient = level.HasFlag(DILevel.ServerApiClient);
-#endif
-            var hasHttpClientFactory = level.HasFlag(DILevel.HttpClientFactory);
-#if !CONSOLEAPP
-            var hasHttpProxy = level.HasFlag(DILevel.HttpProxy);
-#endif
-            var hasHosts = level.HasFlag(DILevel.Hosts);
-            var hasSteam = level.HasFlag(DILevel.Steam);
-#if !UI_DEMO && !__MOBILE__
-            // 桌面平台服务 此项放在其他通用业务实现服务之前
-            services.AddDesktopPlatformService(hasSteam, hasGUI, HasNotifyIcon);
-#endif
-#if __MOBILE__
-            services.AddMobilePlatformService(hasGUI);
+#if !UI_DEMO 
+            // 平台服务 此项放在其他通用业务实现服务之前
+            services.AddPlatformService(options);
 #endif
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
 #if !CONSOLEAPP
-            if (hasGUI)
+            if (options.HasGUI)
             {
+                services.AddPinyin();
 #if __MOBILE__
                 services.TryAddFontManager();
 #else
-                services.AddFontManager(useGdiPlusFirst: true);
+                services.TryAddAvaloniaFontManager(useGdiPlusFirst: true);
 #endif
                 // 添加 Toast 提示服务
 #if !DEBUG
                 services.AddStartupToastIntercept();
 #endif
                 services.TryAddToast();
+
+                services.AddSingleton<IApplication>(_ => PlatformApplication.Instance);
+#if __ANDROID__
+                services.AddSingleton<IAndroidApplication>(_ => PlatformApplication.Instance);
+#endif
 #if __MOBILE__
                 // 添加电话服务
                 services.AddTelephonyService();
 
-                services.AddMSALPublicClientApp(AppSettings.MASLClientId);
+                //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #else
-                services.AddSingleton<IDesktopAppService>(s => App.Instance);
-                services.AddSingleton<IDesktopAvaloniaAppService>(s => App.Instance);
-                services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<IDesktopAppService>());
-
-                // 添加管理主窗口服务
-                services.AddWindowService();
+                services.AddSingleton<IAvaloniaApplication>(_ => PlatformApplication.Instance);
+                services.TryAddSingleton<IClipboardPlatformService>(_ => PlatformApplication.Instance);
 
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
@@ -198,7 +201,7 @@ namespace System.Application
                  *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
                  *  - 某些图标图片与枚举值不太匹配，例如 Information
                  */
-                services.AddShowWindowService();
+                services.TryAddWindowManager();
 
 #if WINDOWS
                 // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
@@ -207,31 +210,29 @@ namespace System.Application
 
                 #endregion
 
+                // 添加管理主窗口服务
+                services.AddViewModelManager();
+
                 services.TryAddBiometricService();
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.GUI");
 #endif
             }
 #endif
-            if (hasHttpClientFactory
+            if (options.HasHttpClientFactory
 #if !CONSOLEAPP
-                || hasServerApiClient
+                || options.HasServerApiClient
 #endif
                 )
             {
-#if __MOBILE__
-                // 添加 Http 平台助手移动端实现
-                services.AddPlatformHttpPlatformHelper();
-#else
-                // 添加 Http 平台助手桌面端实现
-                services.TryAddDesktopHttpPlatformHelper();
-#endif
+                // 添加 Http 平台助手桌面端或移动端实现
+                services.TryAddClientHttpPlatformHelperService();
 #if StartupTrace
-                StartupTrace.Restart("DI.ConfigureDemandServices.HttpPlatformHelper");
+                StartupTrace.Restart("DI.ConfigureDemandServices.ClientHttpPlatformHelperService");
 #endif
             }
 
-            if (hasHttpClientFactory)
+            if (options.HasHttpClientFactory)
             {
 #if __MOBILE__
                 // 添加 HttpClientFactory 平台原生实现
@@ -243,15 +244,13 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.HttpClientFactory");
 #endif
             }
-#if !__MOBILE__
             services.TryAddScriptManager();
-#endif
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.ScriptManager");
 #endif
 
-#if !CONSOLEAPP && !__MOBILE__
-            if (hasHttpProxy)
+#if !CONSOLEAPP
+            if (options.HasHttpProxy)
             {
                 // 通用 Http 代理服务
                 services.AddHttpProxyService();
@@ -261,7 +260,7 @@ namespace System.Application
             }
 #endif
 #if !CONSOLEAPP
-            if (hasServerApiClient)
+            if (options.HasServerApiClient)
             {
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.AppSettings");
@@ -319,12 +318,11 @@ namespace System.Application
 #if !__MOBILE__
                 if (!Program.IsMainProcess) return;
 #endif
-                services.AddNotificationService();
+                services.TryAddNotificationService();
             }
 #endif
-#if !__MOBILE__
 #if !CONSOLEAPP
-            if (hasHosts)
+            if (options.HasHosts)
             {
                 // hosts 文件助手服务
                 services.AddHostsFileService();
@@ -333,7 +331,7 @@ namespace System.Application
 #endif
             }
 #endif
-            if (hasSteam)
+            if (options.HasSteam)
             {
                 // Steam 相关助手、工具类服务
                 services.AddSteamService();
@@ -353,12 +351,11 @@ namespace System.Application
                 StartupTrace.Restart("DI.ConfigureDemandServices.Steam");
 #endif
             }
-#endif
 #if !CONSOLEAPP
-            if (hasMainProcessRequired)
+            if (options.HasMainProcessRequired)
             {
                 // 应用程序更新服务
-                services.AddAppUpdateService();
+                services.AddApplicationUpdateService();
 #if StartupTrace
                 StartupTrace.Restart("DI.ConfigureDemandServices.AppUpdateService");
 #endif
@@ -391,9 +388,7 @@ namespace System.Application
                         AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
                         AesSecret = GetResValue("aes-key", isSingle: true, ResValueFormat.String),
                         RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
-#if __MOBILE__
-                        MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResValueFormat.StringGuidN),
-#endif
+                        //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResValueFormat.StringGuidN),
                     };
                     SetApiBaseUrl(mAppSettings);
 #if StartupTrace
@@ -441,10 +436,6 @@ namespace System.Application
         }
 #endif
 
-#if !__MOBILE__ && !CONSOLEAPP
-        public static bool HasNotifyIcon { get; private set; }
-#endif
-
 #if UI_DEMO
         sealed class MockServiceProvider : IServiceProvider
         {
@@ -475,13 +466,13 @@ namespace System.Application
 
 #if !CONSOLEAPP
         /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
-        internal static async void ActiveUserPost(ActiveUserType type)
+        static async void ActiveUserPost(ActiveUserType type)
         {
             if (!Program.IsMainProcess) return;
             try
             {
 #if !__MOBILE__
-                var screens = App.Instance.MainWindow.Screens;
+                var screens = PlatformApplication.Instance.MainWindow.Screens;
 #else
                 var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
                 var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
@@ -521,15 +512,18 @@ namespace System.Application
         }
 #endif
 
-        public static void OnStartup(bool isMainProcess)
+        public static async void OnStartup(bool isMainProcess)
         {
             if (isMainProcess)
             {
-                ActiveUserPost(ActiveUserType.OnStartup);
-                if (GeneralSettings.IsAutoCheckUpdate.Value)
+                await Task.Run(() =>
                 {
-                    IAppUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
-                }
+                    ActiveUserPost(ActiveUserType.OnStartup);
+                    if (GeneralSettings.IsAutoCheckUpdate.Value)
+                    {
+                        IApplicationUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                    }
+                });
             }
         }
     }

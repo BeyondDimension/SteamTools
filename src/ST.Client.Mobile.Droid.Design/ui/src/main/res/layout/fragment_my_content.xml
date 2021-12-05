@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="@+id/layoutUser" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivAvater"
+        android:id="@+id/ivAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/user_profile_vertical_margin"
-        android:src="@drawable/avater_default"
+        android:src="@drawable/avatar_default"
         app:civ_border_color="@color/border_color"
-        app:civ_border_width="@dimen/avater_border_width"
+        app:civ_border_width="@dimen/avatar_border_width"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,13 +31,13 @@
         android:id="@+id/tvNickName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/user_profile_avater_nickname_vertical_space"
+        android:layout_marginTop="@dimen/user_profile_avatar_nickname_vertical_space"
         android:paddingBottom="@dimen/user_profile_vertical_margin"
         android:textColor="@color/text_primary"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivAvater"
+        app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
         tools:text="@string/login_and_register"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 

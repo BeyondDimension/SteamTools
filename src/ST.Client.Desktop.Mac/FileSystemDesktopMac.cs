@@ -8,18 +8,20 @@ using System.Properties;
 
 namespace System.Application
 {
-    /// <inheritdoc cref="FileSystemDesktop"/>
-    public static class FileSystemDesktopMac
+    /// <inheritdoc cref="FileSystem2"/>
+    public sealed class FileSystemDesktopMac : IOPath.FileSystemBase
     {
-        /// <inheritdoc cref="FileSystemDesktop.InitFileSystem"/>
+        private FileSystemDesktopMac() => throw new NotSupportedException();
+
+        /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
         public static void InitFileSystem()
         {
             // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FileSystem/FileSystem.ios.tvos.watchos.macos.cs
-            var appDataPath = Path.Combine(GetDirectory(NSSearchPathDirectory.LibraryDirectory), ThisAssembly.AssemblyTrademark);
-            var cachePath = Path.Combine(GetDirectory(NSSearchPathDirectory.CachesDirectory), ThisAssembly.AssemblyTrademark);
+            var appDataPath = Path.Combine(GetDirectory(NSSearchPathDirectory.LibraryDirectory), Constants.HARDCODED_APP_NAME);
+            var cachePath = Path.Combine(GetDirectory(NSSearchPathDirectory.CachesDirectory), Constants.HARDCODED_APP_NAME);
             IOPath.DirCreateByNotExists(appDataPath);
             IOPath.DirCreateByNotExists(cachePath);
-            IOPath.InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+            InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
             string GetAppDataDirectory() => appDataPath;
             string GetCacheDirectory() => cachePath;
         }

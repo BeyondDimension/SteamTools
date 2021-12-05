@@ -18,20 +18,49 @@ namespace System
         public const string ProjectDir_ST = "ST";
         public const string ProjectDir_STClient = "ST.Client";
 
+        public const string release_template_md =
+            @"\release-template.md";
+
+        [Obsolete("use MainDllPath_", true)]
+        public const string MainDllPath =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Steam++.dll";
+
+        public const string MainDllPath_ =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Steam++.dll";
+
+        [Obsolete("use DirPublishWinX86_", true)]
         public const string DirPublishWinX86 =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";
 
+        public const string DirPublishWinX86_ =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish\win-x86";
+
+        [Obsolete("use DirPublishWinX64_", true)]
         public const string DirPublishWinX64 =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x64";
 
+        [Obsolete("use DirPublishWinX64_FDE_", true)]
+        public const string DirPublishWinX64_FDE =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\FrameworkDependent\win-x64";
+
+        public const string DirPublishWinX64_ =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish\win-x64";
+
+        public const string DirPublishWinX64_FDE_ =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish\FrameworkDependent\win-x64";
+
+        [Obsolete("use DirPublish_", true)]
         public const string DirPublish =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish";
 
         public const string DirPublish_ =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish";
 
-        public const string DirPublish_Win7Troubleshoot =
-            @"\src\" + ProjectDir_Win7Troubleshoot + @"\bin\Release\Publish\net35";
+        public const string DirPublish_FDE_ =
+            @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish\FrameworkDependent";
+
+        //public const string DirPublish_Win7Troubleshoot =
+        //    @"\src\" + ProjectDir_Win7Troubleshoot + @"\bin\Release\Publish\net35";
 
         static ProjectPathUtil()
         {

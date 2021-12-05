@@ -1,3 +1,4 @@
+#if MONO_MAC
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -20,3 +21,4 @@ namespace System.Logging
         public static ILoggerProvider Instance { get; } = new PlatformLoggerProvider();
     }
 }
+#endif

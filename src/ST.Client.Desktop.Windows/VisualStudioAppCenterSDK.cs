@@ -78,9 +78,9 @@ namespace Microsoft.AppCenter.Utils
     internal sealed class ApplicationSettings : IApplicationSettings
     {
         static readonly object configLock = new();
-        readonly IStorage storage;
+        readonly ISecureStorage storage;
 
-        public ApplicationSettings(IStorage storage)
+        public ApplicationSettings(ISecureStorage storage)
         {
             this.storage = storage;
         }
@@ -105,7 +105,7 @@ namespace Microsoft.AppCenter.Utils
                 {
                     try
                     {
-                        var r2 = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(r);
+                        var r2 = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(r)!;
                         return r2;
                     }
                     catch

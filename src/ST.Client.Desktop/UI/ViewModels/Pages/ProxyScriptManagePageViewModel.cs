@@ -14,54 +14,17 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Xamarin.Essentials;
 
 namespace System.Application.UI.ViewModels
 {
     public partial class ProxyScriptManagePageViewModel : TabItemViewModel
     {
-        public override void Activation()
-        {
-            if (IsFirstActivation)
-                if (ProxySettings.IsAutoCheckScriptUpdate)
-                    ProxyService.Current.CheckUpdate();
-            base.Activation();
-        }
-
-
-        private readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
-        public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
-
-        private Func<ScriptDTO, bool> ScriptFilter(string? serachText)
-        {
-            return s =>
-            {
-                if (s == null)
-                    return false;
-                if (string.IsNullOrEmpty(serachText))
-                    return true;
-                if (s.Name.Contains(serachText, StringComparison.OrdinalIgnoreCase) ||
-                       s.Author.Contains(serachText, StringComparison.OrdinalIgnoreCase) ||
-                       s.Description.Contains(serachText, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-
-                return false;
-            };
-        }
-
-        public ReactiveCommand<Unit, Unit> EnableScriptAutoUpdateCommand { get; }
-
-        public MenuItemViewModel? ScriptAutoUpdate { get; }
-
-        public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
-        public MenuItemViewModel? OnlySteamBrowser { get; }
         public ProxyScriptManagePageViewModel()
         {
             IconKey = nameof(ProxyScriptManagePageViewModel);
 
             ScriptStoreCommand = ReactiveCommand.Create(OpenScriptStoreWindow);
+            AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
             EnableScriptAutoUpdateCommand = ReactiveCommand.Create(() =>
             {
                 ScriptAutoUpdate?.CheckmarkChange(ProxySettings.IsAutoCheckScriptUpdate.Value = !ProxySettings.IsAutoCheckScriptUpdate.Value);
@@ -89,6 +52,8 @@ namespace System.Application.UI.ViewModels
 				   //new MenuItemViewModel (nameof(AppResources.CommunityFix_EnableScriptService)),
 				   new MenuItemViewModel (nameof(AppResources.ScriptStore)){
                        IconKey ="JavaScriptDrawing",Command=ScriptStoreCommand},
+                   new MenuItemViewModel (nameof(AppResources.Script_AllEnable)){
+                       IconKey ="JavaScriptDrawing",Command=AllEnableScriptCommand},
                    new MenuItemViewModel (),
                    (ScriptAutoUpdate=new MenuItemViewModel (nameof(AppResources.Script_AutoUpdate))
                    { Command=EnableScriptAutoUpdateCommand }),
@@ -109,10 +74,54 @@ namespace System.Application.UI.ViewModels
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty)));
         }
 
+        public override void Activation()
+        {
+            if (IsFirstActivation)
+                if (ProxySettings.IsAutoCheckScriptUpdate)
+                    ProxyService.Current.CheckUpdate();
+            base.Activation();
+        }
+
+        readonly ReadOnlyObservableCollection<ScriptDTO> _ProxyScripts;
+        public ReadOnlyObservableCollection<ScriptDTO> ProxyScripts => _ProxyScripts;
+
+        readonly Dictionary<string, string[]> dictPinYinArray = new();
+        Func<ScriptDTO, bool> ScriptFilter(string? serachText)
+        {
+            return s =>
+            {
+                if (s == null)
+                    return false;
+                if (string.IsNullOrEmpty(serachText))
+                    return true;
+                if (s.Author.Contains(serachText, StringComparison.OrdinalIgnoreCase) ||
+                    s.Description.Contains(serachText, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                var pinyinArray = Pinyin.GetPinyin(s.Name, dictPinYinArray);
+                if (Pinyin.SearchCompare(serachText, s.Name, pinyinArray))
+                {
+                    return true;
+                }
+
+                return false;
+            };
+        }
+
+        public ReactiveCommand<Unit, Unit> EnableScriptAutoUpdateCommand { get; }
+
+        public MenuItemViewModel? ScriptAutoUpdate { get; }
+
+        public ReactiveCommand<Unit, Unit> OnlySteamBrowserCommand { get; }
+
+        public MenuItemViewModel? OnlySteamBrowser { get; }
+
         public ReactiveCommand<Unit, Unit> ScriptStoreCommand { get; }
-
-
-        private string? _SearchText;
+        public ReactiveCommand<Unit, Unit> AllEnableScriptCommand { get; }
+        
+        string? _SearchText;
         public string? SearchText
         {
             get => _SearchText;
@@ -126,6 +135,7 @@ namespace System.Application.UI.ViewModels
             ProxyService.Current.RefreshScript();
             Toast.Show(@AppResources.Success_.Format(@AppResources.Refresh));
         }
+
         public void DownloadScriptItemButton(ScriptDTO model)
         {
             ProxyService.Current.DownloadScript(model);
@@ -133,39 +143,40 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteScriptItemButton(ScriptDTO script)
         {
-
-            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            var result = MessageBoxCompat.ShowAsync(AppResources.Script_DeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
             {
                 if (s.Result == MessageBoxResultCompat.OK)
                 {
-                    var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
-                    if (item.state)
+                    var item = await DI.Get<IScriptManager>().DeleteScriptAsync(script);
+                    if (item.IsSuccess)
                     {
                         if (ProxyService.Current.ProxyScripts != null)
+                        {
                             ProxyService.Current.ProxyScripts.Remove(script);
-
+                        }
                     }
-                    Toast.Show(item.msg);
+                    Toast.Show(item.Message);
                 }
             });
         }
+
         public void DeleteNoFileScriptItemButton(ScriptDTO script)
         {
-
-            var result = MessageBoxCompat.ShowAsync(@AppResources.Script_NoFileDeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
-           {
-               if (s.Result == MessageBoxResultCompat.OK)
-               {
-                   var item = await DI.Get<IScriptManagerService>().DeleteScriptAsync(script);
-                   if (item.state)
-                   {
-                       if (ProxyService.Current.ProxyScripts != null)
-                           ProxyService.Current.ProxyScripts.Remove(script);
-
-                   }
-                   Toast.Show(item.msg);
-               }
-           });
+            var result = MessageBoxCompat.ShowAsync(AppResources.Script_NoFileDeleteItem, ThisAssembly.AssemblyTrademark, MessageBoxButtonCompat.OKCancel).ContinueWith(async (s) =>
+            {
+                if (s.Result == MessageBoxResultCompat.OK)
+                {
+                    var item = await DI.Get<IScriptManager>().DeleteScriptAsync(script);
+                    if (item.IsSuccess)
+                    {
+                        if (ProxyService.Current.ProxyScripts != null)
+                        {
+                            ProxyService.Current.ProxyScripts.Remove(script);
+                        }
+                    }
+                    Toast.Show(item.Message);
+                }
+            });
         }
 
         public void EditScriptItemButton(ScriptDTO script)
@@ -179,12 +190,12 @@ namespace System.Application.UI.ViewModels
                 {
                     if (s.Result == MessageBoxResultCompat.OK)
                     {
-                        var (state, model, msg) = await DI.Get<IScriptManagerService>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
-                        if (state)
+                        var rsp = await DI.Get<IScriptManager>().AddScriptAsync(url, script, build: script.IsBuild, order: script.Order, ignoreCache: true);
+                        if (rsp.IsSuccess)
                         {
-                            if (ProxyService.Current.ProxyScripts.Items.Any() && model != null)
+                            if (ProxyService.Current.ProxyScripts.Items.Any() && rsp.Content != null)
                             {
-                                ProxyService.Current.ProxyScripts.Replace(script, model);
+                                ProxyService.Current.ProxyScripts.Replace(script, rsp.Content);
                                 Toast.Show(AppResources.Success_.Format(AppResources.Script_Edit));
                             }
                         }
@@ -207,18 +218,18 @@ namespace System.Application.UI.ViewModels
         {
             if (script?.FilePath != null)
             {
-                var item = await DI.Get<IScriptManagerService>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, build: script.IsBuild, ignoreCache: true);
-                if (item.state)
+                var item = await DI.Get<IScriptManager>().AddScriptAsync(Path.Combine(IOPath.AppDataDirectory, script.FilePath), script, order: script.Order, build: script.IsBuild, ignoreCache: true);
+                if (item.IsSuccess)
                 {
-                    if (item.model != null)
+                    if (item.Content != null)
                     {
-                        ProxyService.Current.ProxyScripts.Replace(script, item.model);
+                        ProxyService.Current.ProxyScripts.Replace(script, item.Content);
                         Toast.Show(AppResources.RefreshOK);
                     }
                     else
                     {
                         script.Enable = false;
-                        Toast.Show(item.msg);
+                        Toast.Show(item.Message);
                     }
                 }
                 else
@@ -227,7 +238,6 @@ namespace System.Application.UI.ViewModels
                 }
             }
         }
-
         public async void OpenScriptStoreWindow()
         {
             if (IUserManager.Instance.GetCurrentUser() == null)
@@ -242,6 +252,12 @@ namespace System.Application.UI.ViewModels
             {
                 await IShowWindowService.Instance.Show(CustomWindow.ScriptStore, new ScriptStoreWindowViewModel(), string.Empty, ResizeModeCompat.CanResize);
             }
+        }
+
+        public void AllEnableScript()
+        {
+            ProxyService.Current.ProxyScripts.Edit(x=>x.All(e=>e.Enable=true));
+           // ProxyService.Current.ProxyScripts= ProxyService.Current.ProxyScripts.Items.Select(x=>x.Enable=true).ToList();
         }
 
         public ICommand AddNewScriptButton_Click { get; }

@@ -1,29 +1,39 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data;
 using Avalonia.Markup.Xaml;
-using FluentAvalonia.Styling;
-using ReactiveUI;
+using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using System.ComponentModel;
+using System.Linq;
 
 namespace System.Application.UI.Views
 {
     public class MainWindow : FluentWindow<MainWindowViewModel>
     {
-        public IntPtr _backHandle;
+        readonly IntPtr _backHandle;
+
+        public IntPtr BackHandle => _backHandle;
+
         public MainWindow() : base()
         {
             InitializeComponent();
 
-            //var background = this.FindControl<EmptyControl>("DesktopBackground");
-            //_backHandle = background.Handle;
+#if WINDOWS
+            //var wp = this.FindControl<WallpaperControl>("DesktopBackground");
+            var panel = this.FindControl<Panel>("Panel");
+            var wp = new WallpaperControl();
+            wp.Bind(WallpaperControl.IsVisibleProperty, new Binding
+            {
+                Source = UISettings.EnableDesktopBackground,
+                Mode = BindingMode.OneWay,
+                Path = nameof(UISettings.EnableDesktopBackground.Value)
+            });
+            panel.Children.Insert(0, wp);
+            _backHandle = wp.Handle;
+#endif
 
-            //if (OperatingSystem2.IsWindows && !OperatingSystem2.IsWindows11AtLeast)
-            //{
-            //    TransparencyLevelHint = WindowTransparencyLevel.Transparent;
-            //}
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -31,32 +41,54 @@ namespace System.Application.UI.Views
             StartupTrace.Restart("MainWindow.ctor");
 #endif
         }
-        protected override void OnClosing(CancelEventArgs e)
+
+//        protected override void OnClosing(CancelEventArgs e)
+//        {
+//#if !UI_DEMO
+//            if (StartupOptions.Value.HasNotifyIcon)
+//            {
+//                //IsHideWindow = true;
+//                //e.Cancel = true;
+//                //Hide();
+
+//                //if (ViewModel is not null)
+//                //    foreach (var tab in ViewModel.TabItems)
+//                //        tab.Deactivation();
+//            }
+//#endif
+//            base.OnClosing(e);
+//        }
+
+        protected override void OnClosed(EventArgs e)
         {
 #if !UI_DEMO
-            if (Startup.HasNotifyIcon)
+            if (StartupOptions.Value.HasNotifyIcon)
             {
-                _isOpenWindow = false;
-                e.Cancel = true;
-                Hide();
+                if (App.Current.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+                {
+                    desktop.MainWindow = App.Instance.MainWindow = null;
+                }
 
-                if (this.ViewModel is not null)
-                    foreach (var tab in this.ViewModel.TabItems)
+                if (ViewModel is not null)
+                    foreach (var tab in ViewModel.TabItems)
                         tab.Deactivation();
             }
 #endif
-            base.OnClosed(e);
+            //base.OnClosed(e);
         }
 
-        protected override void FluentWindow_Opened(object? sender, EventArgs e)
-        {
-            if (this.ViewModel is not null)
-                foreach (var tab in this.ViewModel.TabItems)
-                    if (tab.IsDeactivation)
-                        tab.Activation();
+        //protected override void FluentWindow_Opened(object? sender, EventArgs e)
+        //{
+        //    if (ViewModel is not null)
+        //        foreach (var tab in from tab in ViewModel.TabItems
+        //                            where tab.IsDeactivation
+        //                            select tab)
+        //        {
+        //            tab.Activation();
+        //        }
 
-            base.FluentWindow_Opened(sender, e);
-        }
+        //    base.FluentWindow_Opened(sender, e);
+        //}
 
         private void InitializeComponent()
         {

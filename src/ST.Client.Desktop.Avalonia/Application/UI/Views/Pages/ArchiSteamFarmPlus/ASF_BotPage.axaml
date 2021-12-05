@@ -2,12 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ccl_service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:converters="using:System.Application.Converters"
+             xmlns:service="using:System.Application.Services"
+             xmlns:ccl_service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:Name="u"
@@ -17,135 +19,387 @@
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_BotPage">
-  <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
-            VerticalScrollBarVisibility="Auto"
-            Padding="0 0 0 10">
-    <ItemsRepeater Items="{CompiledBinding SteamBots}">
-      <ItemsRepeater.Layout>
-        <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
+  <UserControl.Resources>
+    <converters:BotStatusConverter x:Key="BotStatusConverter"/>
+  </UserControl.Resources>
+  <Panel>
+    <ui:ContentDialog x:Name="RedeemKeyDialog"
+          Title="{ReflectionBinding Path=Res.ASF_RedeemKey,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          IsVisible="False"
+          PrimaryButtonText="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          SecondaryButtonText="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          CloseButtonText="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
+          DefaultButton="Primary">
+      <ui:ContentDialog.Content>
+        <TabControl
+                    MinHeight="250"
+                    MaxHeight="300">
+          <TabItem Header="{ReflectionBinding Path=Res.ASF_RedeemKey_InputKey,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <TextBox x:Name="keyText"
+                    Watermark="{ReflectionBinding Path=Res.ASF_RedeemKey_InputKey_Watermark,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"/>
+          </TabItem>
+          <TabItem Header="{ReflectionBinding Path=Res.ASF_RedeemKey_UsedKeys,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <DataGrid x:Name="UsedKeysDataGrid"
+                   IsReadOnly="True">
+              <DataGrid.Columns>
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Value">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Name"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Value}"
+                                 VerticalAlignment="Center"/>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Key">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Key"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Key}"></TextBlock>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+              </DataGrid.Columns>
+            </DataGrid>
+          </TabItem>
+
+          <TabItem Header="{ReflectionBinding Path=Res.ASF_RedeemKey_UnusedKey,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <DataGrid x:Name="UnusedKeysDataGrid"
+                   IsReadOnly="True">
+              <DataGrid.Columns>
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Value">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Name"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Value}"
+                                 VerticalAlignment="Center"/>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn
+                                    Width="*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Key">
+                  <DataGridTemplateColumn.Header>
+                    <controls:ScrollingTextBlock Text="Key"/>
+                  </DataGridTemplateColumn.Header>
+                  <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{ReflectionBinding Key}"></TextBlock>
+                    </DataTemplate>
+                  </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+              </DataGrid.Columns>
+            </DataGrid>
+          </TabItem>
+        </TabControl>
+      </ui:ContentDialog.Content>
+    </ui:ContentDialog>
+
+    <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
+              VerticalScrollBarVisibility="Auto"
+              Padding="0 0 0 10">
+      <ItemsRepeater Items="{Binding SteamBots}">
+        <ItemsRepeater.Layout>
+          <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
-        <StackLayout Orientation="Vertical" Spacing="20"></StackLayout>
-      </ItemsRepeater.Layout>
-      <ItemsRepeater.ItemTemplate>
-        <DataTemplate>
-          <Border x:Name="card"
-                  Margin="10 0"
-                  Classes="paper"
-                  Background="{DynamicResource ThemeBrushKey}">
-            <!--<Border.Background>
+          <StackLayout Orientation="Vertical" Spacing="10"></StackLayout>
+        </ItemsRepeater.Layout>
+        <ItemsRepeater.ItemTemplate>
+          <DataTemplate>
+            <Border x:Name="card"
+                    Margin="10 0"
+                    Classes="paper"
+                    Background="{DynamicResource ThemeBrushKey}">
+              <!--<Border.Background>
                 <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
                                  Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
               </Border.Background>-->
-            <Grid Height="184"
-                  ColumnDefinitions="Auto,*,Auto">
-              <Panel x:Name="avatar" Cursor="Hand"
-                       ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <!--OpenUserProfileUrl-->
-                <i:Interaction.Behaviors>
-                  <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
-                    <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenUserProfileUrl}" CommandParameter="{Binding}"/>
-                  </ia:EventTriggerBehavior>
-                </i:Interaction.Behaviors>
-                <gif:Image2
-                           Width="184"
-                           AutoStart="true"
-                           Stretch="Uniform"
-                           Source="{Binding AvatarUrl}">
-                </gif:Image2>
-                <!--<Image Width="184" Stretch="Uniform" IsVisible="{Binding AvatarStream^,Converter={StaticResource IsNullConverter}}"
-                       Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/avater.jpg">
-                </Image>-->
-              </Panel>
-              <Panel Grid.Column="1" Margin="10 5">
-                <StackPanel Spacing="8">
-                  <WrapPanel>
-                    <controls:ScrollingTextBlock x:Name="nickname" Text="{Binding BotName}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" Cursor="Hand" ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                      <i:Interaction.Behaviors>
-                        <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
-                          <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
-                        </ia:EventTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                    </controls:ScrollingTextBlock>
-                    <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
-                    <WrapPanel VerticalAlignment="Center"
-                               IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
-                      <TextBlock Text="("></TextBlock>
-                      <controls:ScrollingTextBlock Text="{Binding Nickname}">
-                      </controls:ScrollingTextBlock>
-                      <TextBlock Text=")"></TextBlock>
-                    </WrapPanel>
-                    <Ellipse
-                            x:Name="circle"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Margin="5 0 12 0"
-                            Height="10"
-                            Width="10"
-                            StrokeThickness="0"
-                            ToolTip.Tip="{Binding KeepRunning}">
-                      <i:Interaction.Behaviors>
-                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="True">
-                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#08D969"/>
-                        </ia:DataTriggerBehavior>
-                        <ia:DataTriggerBehavior Binding="{Binding KeepRunning}" ComparisonCondition="Equal" Value="False">
-                          <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
-                        </ia:DataTriggerBehavior>
-                      </i:Interaction.Behaviors>
-                    </Ellipse>
-                  </WrapPanel>
+              <Grid Height="184"
+                    ColumnDefinitions="Auto,*,Auto">
+                <Border CornerRadius="{StaticResource PaperRadiusLeft}"
+                        ClipToBounds="True">
+                  <Panel x:Name="avatar" Cursor="Hand">
+                    <gif:Image2
+                               Width="184"
+                               Stretch="Uniform"
+                               Source="{Binding AvatarUrl}"
+                               FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
+                    </gif:Image2>
+                  </Panel>
+                </Border>
 
-                  <StackPanel
-                              Orientation="Horizontal"
-                              Spacing="8"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center">
-                    <StackPanel.Styles>
-                      <Style Selector="PathIcon">
-                        <Setter Property="Width" Value="20"></Setter>
-                        <Setter Property="Height" Value="20"></Setter>
-                      </Style>
-                    </StackPanel.Styles>
+                <DockPanel Grid.Column="1" Margin="10 5">
+                  <StackPanel Spacing="6"
+                              DockPanel.Dock="Top">
+                    <DockPanel>
+                      <DockPanel.Styles>
+                        <Style Selector="TextBlock">
+                          <Setter Property="VerticalAlignment" Value="Center"/>
+                          <Setter Property="FontSize" Value="24"/>
+                        </Style>
+                      </DockPanel.Styles>
+                      <WrapPanel DockPanel.Dock="Left"
+                                 VerticalAlignment="Center">
+                        <Ellipse
+                                x:Name="circle"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="5 0 12 0"
+                                Height="10"
+                                Width="10"
+                                StrokeThickness="0"
+                                ToolTip.Tip="{Binding Converter={StaticResource BotStatusConverter}}">
+                          <i:Interaction.Behaviors>
+                            <ia:DataTriggerBehavior Binding="{Binding Converter={StaticResource BotStatusConverter}}" ComparisonCondition="Equal" Value="{ReflectionBinding Path=Res.ASF_Online,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#6AC3E7"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding Converter={StaticResource BotStatusConverter}}" ComparisonCondition="Equal" Value="{ReflectionBinding Path=Res.ASF_NowCardFarming,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#90BA3C"/>
+                            </ia:DataTriggerBehavior>
+                            <ia:DataTriggerBehavior Binding="{Binding Converter={StaticResource BotStatusConverter}}" ComparisonCondition="NotEqual" Value="{ReflectionBinding Path=Res.ASF_Online,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #circle}" PropertyName="Fill" Value="#adadad"/>
+                            </ia:DataTriggerBehavior>
+                          </i:Interaction.Behaviors>
+                        </Ellipse>
+                        <controls:ScrollingTextBlock x:Name="nickname"
+                                                     Text="{Binding BotName}"
+                                                     FontSize="24"
+                                                     Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                                     VerticalAlignment="Center"
+                                                     Cursor="Hand"
+                                                     ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <!--<i:Interaction.Behaviors>
+                          <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
+                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
+                          </ia:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>-->
+                        </controls:ScrollingTextBlock>
+                        <WrapPanel IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+                          <TextBlock Text="("></TextBlock>
+                          <controls:ScrollingTextBlock Text="{Binding Nickname}"
+                                                     FontSize="24"/>
+                          <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel DockPanel.Dock="Right">
+                          <TextBlock Text="-"
+                                     Margin="5 0"/>
+                          <TextBlock VerticalAlignment="Center"
+                            Text="{Binding Converter={StaticResource BotStatusConverter}}"/>
+                        </WrapPanel>
+                      </WrapPanel>
 
-                    <Button Background="Transparent"
-                            Cursor="Hand"
-                            ToolTip.Tip="启用bot" >
-                      <PathIcon Data="{StaticResource PlayCircleDrawing}" />
-                    </Button>
+                      <RelativePanel DockPanel.Dock="Right"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Right">
+                        <!--<TextBlock Text="{Binding WalletBalanceM,Converter={StaticResource StringFormatConverter},ConverterParameter={Binding WalletCurrency}}"/>-->
+                        <controls:ScrollingTextBlock IsVisible="{Binding WalletBalanceM,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+                          <controls:ScrollingTextBlock.Text>
+                            <MultiBinding Converter="{StaticResource StringFormatConverter}" ConverterParameter="money">
+                              <Binding Path="WalletBalanceM"/>
+                              <Binding Path="WalletCurrency"/>
+                            </MultiBinding>
+                          </controls:ScrollingTextBlock.Text>
+                        </controls:ScrollingTextBlock>
+                      </RelativePanel>
+                    </DockPanel>
+
+
+                    <StackPanel
+                                Orientation="Horizontal"
+                                Spacing="8"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center">
+                      <StackPanel.Styles>
+                        <Style Selector="PathIcon">
+                          <Setter Property="Width" Value="20"></Setter>
+                          <Setter Property="Height" Value="20"></Setter>
+                        </Style>
+                        <Style Selector="Button">
+                          <Setter Property="Background" Value="Transparent"></Setter>
+                          <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Style>
+                      </StackPanel.Styles>
+
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_RunCardFarming,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              IsVisible="{Binding CardsFarmer.Paused}"
+                              Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource PlayCircleDrawing}" />
+                      </Button>
+
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_StopCardFarming,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              IsVisible="{Binding !CardsFarmer.Paused}"
+                              Command="{ReflectionBinding #u.DataContext.PauseOrResumeBotFarming}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource PauseCircleDrawing}" />
+                      </Button>
+
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_RedeemKey,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Tag="{Binding}"
+                              Click="RedeemKeyBot_Click">
+                        <PathIcon Data="{StaticResource KeyDrawing}" />
+                      </Button>
+
+                      <!--<Button ToolTip.Tip="两步验证" >
+                      <PathIcon Data="{StaticResource ShieldLockDrawing}" />
+                    </Button>-->
+
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_BotManage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Command="{ReflectionBinding #u.DataContext.GoToBotSettings}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource SettingsDrawing}" />
+                      </Button>
+
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Enable,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              IsVisible="{Binding !KeepRunning}"
+                              Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource ShutdownDrawing}" Foreground="#00FF7F"/>
+                      </Button>
+
+                      <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Disable,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              IsVisible="{Binding KeepRunning}"
+                              Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
+                              CommandParameter="{Binding}">
+                        <PathIcon Data="{StaticResource ShutdownDrawing}"/>
+                      </Button>
+
+                      <Separator Height="{ReflectionBinding $parent.Height}" Classes="Separator"/>
+
+                      <StackPanel IsVisible="{Binding CardsFarmer.GamesToFarmReadOnly.Count,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                                  Spacing="3"
+                                  Orientation="Horizontal">
+
+                        <controls:Badge Background="#3CB371"
+                                        Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
+                                        ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <controls:Badge.Icon>
+                            <ui:SymbolIcon Symbol="Games" />
+                          </controls:Badge.Icon>
+                        </controls:Badge>
+
+                        <controls:Badge Background="#007EC6"
+                                        Text="{Binding CardsFarmer.CardsRemaining}"
+                                        ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <controls:Badge.Icon>
+                            <ui:SymbolIcon Symbol="Page2" />
+                          </controls:Badge.Icon>
+                        </controls:Badge>
+
+                        <controls:Badge Background="#8C45AB"
+                                        ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                        Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}">
+                          <controls:Badge.Icon>
+                            <ui:SymbolIcon Symbol="Clock" />
+                          </controls:Badge.Icon>
+                        </controls:Badge>
+
+                        <!--<DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_GamesRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                             VerticalAlignment="Center">
+                          <Border>
+                            <ui:SymbolIcon Symbol="Games"
+                                           Margin="5 0"
+                                           VerticalAlignment="Center"
+                                           DockPanel.Dock="Left"
+                                           FontSize="30"/>
+                          </Border>
+                          <TextBlock Text="{Binding CardsFarmer.GamesToFarmReadOnly.Count}"
+                                     VerticalAlignment="Center"
+                                     DockPanel.Dock="Right"/>
+                        </DockPanel>-->
+
+                        <!--<DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_CardsRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center">
+                          <ui:SymbolIcon Symbol="Page2"
+                                         Margin="5 0"
+                                         VerticalAlignment="Center"
+                                         DockPanel.Dock="Left"
+                                         FontSize="24"/>
+                          <TextBlock Text="{Binding CardsFarmer.CardsRemaining}"
+                                     VerticalAlignment="Center"
+                                     DockPanel.Dock="Right"/>
+                        </DockPanel>
+
+                        <DockPanel ToolTip.Tip="{ReflectionBinding Path=Res.ASF_TimeRemaining,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center">
+                          <ui:SymbolIcon Symbol="Clock"
+                                         Margin="5 0"
+                                         VerticalAlignment="Center"
+                                         DockPanel.Dock="Left"
+                                         FontSize="24"/>
+                          <TextBlock Text="{Binding CardsFarmer.TimeRemaining,StringFormat= {}{0:hh\\:mm\\:ss}}"
+                                     VerticalAlignment="Center"
+                                     DockPanel.Dock="Right"/>
+                        </DockPanel>-->
+                      </StackPanel>
+
+                    </StackPanel>
                   </StackPanel>
 
-                  <WrapPanel Orientation="Horizontal">
-                    <TextBlock
-                               Text="正在挂卡"
-                               FontSize="16"/>
-                  </WrapPanel>
-
-                  <ItemsRepeater>
-                    <ItemsRepeater.Layout>
-                      <StackLayout Orientation="Horizontal" Spacing="10">
-                      </StackLayout>
-                    </ItemsRepeater.Layout>
-                    <ItemsRepeater.ItemTemplate>
-                      <DataTemplate>
-                        <gif:Image2
+                  <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                                HorizontalScrollBarVisibility="Auto"
+                                DockPanel.Dock="Bottom"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left">
+                    <ItemsRepeater Items="{Binding CardsFarmer.CurrentGamesFarmingReadOnly}">
+                      <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Horizontal" Spacing="10"/>
+                      </ItemsRepeater.Layout>
+                      <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                          <Border Classes="paper"
+                                  ClipToBounds="True">
+                            <Panel MaxWidth="184">
+                              <gif:Image2
+                                MaxHeight="86"
+                                Stretch="Uniform"
+                                Source="{Binding ImageUrl}"
+                                FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/applogo.jpg">
+                              </gif:Image2>
+                              <!--<Image Source="{Binding ImageUrl,Converter={StaticResource BitmapAssetValueConverter}}"
                                 Width="184"
-                                AutoStart="true"
-                                Stretch="Uniform"/>
-                      </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                  </ItemsRepeater>
-                </StackPanel>
-
-                <!--<WrapPanel VerticalAlignment="Bottom" Orientation="Horizontal">
-                      <PathIcon Data="{StaticResource ClockDrawing}" Width="16" VerticalAlignment="Center" Margin="5 0" Foreground="{DynamicResource InactiveForegroundBrushKey}">
-                      </PathIcon>
-                      <TextBlock Text="{Binding LastLoginTime,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource InactiveF
-                      oregroundBrushKey}"/>
-                    </WrapPanel>-->
-              </Panel>
-            </Grid>
-          </Border>
-        </DataTemplate>
-      </ItemsRepeater.ItemTemplate>
-    </ItemsRepeater>
-  </ScrollViewer>
+                                Stretch="Uniform"/>-->
+                              <Border VerticalAlignment="Bottom"
+                                      HorizontalAlignment="Stretch"
+                                      Background="{DynamicResource ThemeColorKey}">
+                                <controls:ScrollingTextBlock Text="{Binding GameName}"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"/>
+                              </Border>
+                            </Panel>
+                          </Border>
+                        </DataTemplate>
+                      </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                  </ScrollViewer>
+                </DockPanel>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsRepeater.ItemTemplate>
+      </ItemsRepeater>
+    </ScrollViewer>
+  </Panel>
 </UserControl>

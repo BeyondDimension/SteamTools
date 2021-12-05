@@ -24,5 +24,15 @@ namespace System.Application
         /// 压缩包(Tar/Brotli)
         /// </summary>
         Compressed_Br,
+
+        /// <summary>
+        /// 压缩包(Tar/XZ)
+        /// </summary>
+        Compressed_XZ,
+
+        /// <summary>
+        /// 压缩包(Tar/Zstd)
+        /// </summary>
+        Compressed_Zstd,
     }
 }

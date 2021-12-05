@@ -2,13 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="600" Height="415"
+        mc:Ignorable="d"
+        d:DesignWidth="630" d:DesignHeight="430"
+        Width="560" Height="450"
         x:Class="System.Application.UI.Views.Windows.ExportAuthWindow"
-        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:resx="using:System.Application.UI.Resx"
+        xmlns:vm="using:System.Application.UI.ViewModels"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ms="using:System.Application.Settings"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
@@ -17,63 +18,44 @@
         x:CompileBindings="True">
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
-    <Border Padding="10" Margin="{StaticResource TitleBarAfterMargin}">
-      <StackPanel Spacing="10">
-        <StackPanel.Styles>
-          <Style Selector="TextBlock">
-            <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-            <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-          </Style>
-          <Style Selector="DockPanel > TextBlock">
-            <Setter Property="Margin" Value="0 0 20 0" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="(DockPanel.Dock)"  Value="Left" />
-          </Style>
-          <Style Selector="DockPanel > ToggleSwitch">
-            <Setter Property="Margin" Value="0 0 -12 0" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="OnContent" Value="{x:Null}" />
-            <Setter Property="OffContent" Value="{x:Null}" />
-          </Style>
-        </StackPanel.Styles>
+    <ScrollViewer Padding="0 10" 
+                  Margin="{StaticResource TitleBarAfterMargin}">
+      <StackPanel Classes="Settings">
+        <Expander>
+          <Expander.Header>
+            <DockPanel>
+              <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_EncryptionExport,Source={x:Static resx:R.Current},Mode=OneWay}" VerticalAlignment="Center"/>
+              <ToggleSwitch IsChecked="{Binding IsPasswordEncrypt}"/>
+            </DockPanel>
+          </Expander.Header>
+          <StackPanel Spacing="10" IsEnabled="{Binding IsPasswordEncrypt}">
+            <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ExportPassword,Source={x:Static resx:R.Current},Mode=OneWay}" TextWrapping="WrapWithOverflow"></TextBlock>
+            <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding Password}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
+            <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding VerifyPassword}" PasswordChar="{StaticResource PasswordChar}" Classes="revealPasswordButton"></TextBox>
+          </StackPanel>
+        </Expander>
 
-        <Grid ColumnDefinitions="Auto,*,Auto">
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ExportPath,Source={x:Static resx:R.Current},Mode=OneWay,StringFormat={}{0}：}"
-                     VerticalAlignment="Center"/>
-          <TextBlock Text="{Binding Path}" Grid.Column="1"
-                     TextTrimming="CharacterEllipsis"
-                     ToolTip.Tip="{Binding Path}" VerticalAlignment="Center"></TextBlock>
+        <Border Classes="Item">
+          <DockPanel>
+            <Border Classes="left">
+              <StackPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt,Source={x:Static resx:R.Current},Mode=OneWay}"/>
+                <TextBlock Classes="prompt"
+                           Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip,Source={x:Static resx:R.Current},Mode=OneWay}">
+                </TextBlock>
+              </StackPanel>
+            </Border>
+            <ToggleSwitch IsChecked="{Binding IsOnlyCurrentComputerEncrypt}"/>
+          </DockPanel>
+        </Border>
 
-          <Button x:Name="SelectPathButton" Command="{Binding SelectPathButton_Click}" Grid.Column="2" Content="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_SelectPath,Source={x:Static resx:R.Current},Mode=OneWay}" HorizontalAlignment="Right"/>
-        </Grid>
         <Separator Classes="Separator"></Separator>
 
-        <DockPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_EncryptionExport,Source={x:Static resx:R.Current},Mode=OneWay}" VerticalAlignment="Center"/>
-          <ToggleSwitch IsChecked="{Binding IsPasswordEncrypt}"/>
-        </DockPanel>
-
-        <StackPanel Spacing="10" IsEnabled="{Binding IsPasswordEncrypt}">
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ExportPassword,Source={x:Static resx:R.Current},Mode=OneWay}" TextWrapping="WrapWithOverflow"></TextBlock>
-          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_Password,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding Password}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
-          <TextBox Watermark="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword,Source={x:Static resx:R.Current},Mode=OneWay}" Text="{Binding VerifyPassword}" PasswordChar="*" Classes="revealPasswordButton"></TextBox>
-        </StackPanel>
-        <Separator Classes="Separator"></Separator>
-
-        <DockPanel>
-          <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-          <ToggleSwitch IsChecked="{Binding IsOnlyCurrentComputerEncrypt}"/>
-        </DockPanel>
-
-        <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip,Source={x:Static resx:R.Current},Mode=OneWay}" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource InactiveForegroundBrushKey}" >
-        </TextBlock>
-
-        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+        <Button Classes="action primary"
                 Command="{ReflectionBinding ExportAuth}"
                 Content="{ReflectionBinding Path=Res.LocalAuth_ExportAuth_ConfirmExport,Source={x:Static resx:R.Current},Mode=OneWay}"></Button>
       </StackPanel>
-    </Border>
+    </ScrollViewer>
 
     <!--Toast-->
     <controls:ToastMessage />

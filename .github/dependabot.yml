@@ -1,0 +1,37 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "07:00"
+      timezone: "Asia/Shanghai"
+    labels:
+      - "automatic"
+    open-pull-requests-limit: 99
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "07:15"
+      timezone: "Asia/Shanghai"
+    labels:
+      - "automatic"
+      - "dependencies"
+      - ".NET"
+    open-pull-requests-limit: 99
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "07:30"
+      timezone: "Asia/Shanghai"
+    labels:
+      - "automatic"
+      - "dependencies"
+    open-pull-requests-limit: 99

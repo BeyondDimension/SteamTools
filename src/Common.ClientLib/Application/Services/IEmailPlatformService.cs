@@ -5,8 +5,8 @@ namespace System.Application.Services
 {
     public interface IEmailPlatformService
     {
-        Task PlatformComposeAsync(EmailMessage? message);
+        static IEmailPlatformService Instance => DI.Get<IEmailPlatformService>();
 
-        static IEmailPlatformService? Instance => DI.Get_Nullable<IEmailPlatformService>();
+        Task PlatformComposeAsync(EmailMessage? message);
     }
 }

@@ -23,7 +23,12 @@ namespace System.Application.Models
         [MPKey(1)]
         [N_JsonProperty("1")]
         [S_JsonProperty("1")]
-        public Platform Platform { get; set; } = DeviceInfo2.Platform;
+        public Platform Platform { get; set; } =
+#if MVVM_VM
+            DeviceInfo2.Platform;
+#else
+            Platform.Unknown;
+#endif
 
         /// <summary>
         /// 设备类型
@@ -31,7 +36,12 @@ namespace System.Application.Models
         [MPKey(2)]
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
-        public DeviceIdiom DeviceIdiom { get; set; } = DeviceInfo2.Idiom;
+        public DeviceIdiom DeviceIdiom { get; set; } =
+#if MVVM_VM
+            DeviceInfo2.Idiom;
+#else
+            DeviceIdiom.Unknown;
+#endif
 
         /// <summary>
         /// 系统版本号

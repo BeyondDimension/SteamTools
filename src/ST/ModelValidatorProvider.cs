@@ -39,7 +39,7 @@ namespace System.Application
         {
             AddColumnValidate<IExplicitHasValue>(x =>
             {
-                if (!x.HasValue()) return Constants.内容值不能为空或不正确;
+                if (!x.HasValue()) return SR.内容值不能为空或不正确;
                 return null;
             });
             AddColumnValidate<IReadOnlyPhoneNumber>(ColumnValidate);
@@ -56,11 +56,11 @@ namespace System.Application
         {
             if (string.IsNullOrEmpty(value.PhoneNumber))
             {
-                return Constants.请输入手机号码哦;
+                return SR.请输入手机号码哦;
             }
             if (!IsPhoneNumberCorrect(value.PhoneNumber))
             {
-                return Constants.请输入正确的手机号码哦;
+                return SR.请输入正确的手机号码哦;
             }
             return null;
         }
@@ -69,11 +69,11 @@ namespace System.Application
         {
             if (string.IsNullOrEmpty(value.SmsCode))
             {
-                return Constants.请输入短信验证码哦;
+                return SR.请输入短信验证码哦;
             }
             if (!IsSmsCodeCorrect(value.SmsCode))
             {
-                return Constants.短信验证码不正确;
+                return SR.短信验证码不正确;
             }
             return null;
         }
@@ -100,7 +100,7 @@ namespace System.Application
         {
             if (value.Avatar == default)
             {
-                return Constants.请选择头像;
+                return SR.请选择头像;
             }
             return null;
         }
@@ -109,11 +109,11 @@ namespace System.Application
         {
             if (string.IsNullOrWhiteSpace(value.NickName))
             {
-                return Constants.请输入昵称;
+                return SR.请输入昵称;
             }
-            else if (value.NickName.Length > Lengths.NickName)
+            else if (value.NickName.Length > ModelValidatorLengths.NickName)
             {
-                return Constants.昵称最大长度不能超过_.Format(Lengths.NickName);
+                return SR.昵称最大长度不能超过_.Format(ModelValidatorLengths.NickName);
             }
             return null;
         }
@@ -129,7 +129,7 @@ namespace System.Application
         /// <returns></returns>
         static bool IsPhoneNumberCorrect(string value)
             // 纯数字， 1开头，11位手机号码
-            => !(value.Length != Lengths.PhoneNumber || value[0] != '1' || !value.IsDigital());
+            => !(value.Length != ModelValidatorLengths.PhoneNumber || value[0] != '1' || !value.IsDigital());
 
         /// <summary>
         /// 验证字符串是否为正确的短信验证码
@@ -137,82 +137,88 @@ namespace System.Application
         /// <param name="value"></param>
         /// <returns></returns>
         static bool IsSmsCodeCorrect(string value)
-            => !(value.Length != Lengths.SMS_CAPTCHA || !value.IsDigital());
+            => !(value.Length != ModelValidatorLengths.SMS_CAPTCHA || !value.IsDigital());
 
         #endregion
+    }
 
-        public static class Constants
-        {
-            public static string 内容值不能为空或不正确 => SR.内容值不能为空或不正确;
+    /// <summary>
+    /// 模型验证错误语句
+    /// </summary>
+    public static class ModelValidatorErrorDescriber
+    {
+        public static string 内容值不能为空或不正确 => SR.内容值不能为空或不正确;
 
-            public static string 请输入手机号码哦 => SR.请输入手机号码哦;
+        public static string 请输入手机号码哦 => SR.请输入手机号码哦;
 
-            public static string 请输入正确的手机号码哦 => SR.请输入正确的手机号码哦;
+        public static string 请输入正确的手机号码哦 => SR.请输入正确的手机号码哦;
 
-            public static string 请输入短信验证码哦 => SR.请输入短信验证码哦;
+        public static string 请输入短信验证码哦 => SR.请输入短信验证码哦;
 
-            public static string 短信验证码不正确 => SR.短信验证码不正确;
+        public static string 短信验证码不正确 => SR.短信验证码不正确;
 
-            public static string 请选择头像 => SR.请选择头像;
+        public static string 请选择头像 => SR.请选择头像;
 
-            public static string 请输入昵称 => SR.请输入昵称;
+        public static string 请输入昵称 => SR.请输入昵称;
 
-            public static string 昵称最大长度不能超过_ => SR.昵称最大长度不能超过_;
+        public static string 昵称最大长度不能超过_ => SR.昵称最大长度不能超过_;
 
-            public static string 请输入邀请码哦 => SR.请输入邀请码哦;
+        public static string 请输入邀请码哦 => SR.请输入邀请码哦;
 
-            public static string 请输入正确的邀请码哦 => SR.请输入正确的邀请码哦;
+        public static string 请输入正确的邀请码哦 => SR.请输入正确的邀请码哦;
 
-            public static string 手机号码已存在_注册 => SR.手机号码已存在_注册;
+        public static string 手机号码已存在_注册 => SR.手机号码已存在_注册;
 
-            public static string 手机号码已存在_换绑手机 => SR.手机号码已存在_换绑手机;
+        public static string 手机号码已存在_换绑手机 => SR.手机号码已存在_换绑手机;
 
-            public static string 手机号码已存在 => SR.手机号码已存在;
+        public static string 手机号码已存在 => SR.手机号码已存在;
 
-            public static string 用户不存在 => SR.用户不存在;
+        public static string 用户不存在 => SR.用户不存在;
 
-            public static string 当前手机号发送短信过于频繁 => SR.当前手机号发送短信过于频繁;
+        public static string 当前手机号发送短信过于频繁 => SR.当前手机号发送短信过于频繁;
 
-            public static string 当前手机号今日发送短信数量超过最大上限 => SR.当前手机号今日发送短信数量超过最大上限;
+        public static string 当前手机号今日发送短信数量超过最大上限 => SR.当前手机号今日发送短信数量超过最大上限;
 
-            public static string 短信服务故障 => SR.短信服务故障;
+        public static string 短信服务故障 => SR.短信服务故障;
 
-            public static string 验证码已过期或不存在 => SR.验证码已过期或不存在;
+        public static string 验证码已过期或不存在 => SR.验证码已过期或不存在;
 
-            public static string 验证码不正确 => SR.验证码不正确;
+        public static string 验证码不正确 => SR.验证码不正确;
 
-            public static string 新手机号不能与旧手机号一样 => SR.新手机号不能与旧手机号一样;
+        public static string 新手机号不能与旧手机号一样 => SR.新手机号不能与旧手机号一样;
 
-            public static string 当前手机号码不存在 => SR.当前手机号码不存在;
+        public static string 当前手机号码不存在 => SR.当前手机号码不存在;
 
-            public static string AuthorizationFailErrorMessage_ => SR.AuthorizationFailErrorMessage_;
+        public static string AuthorizationFailErrorMessage_ => SR.AuthorizationFailErrorMessage_;
 
-            public static string UserIsBanErrorMessage => SR.UserIsBanErrorMessage;
+        public static string UserIsBanErrorMessage => SR.UserIsBanErrorMessage;
 
-            public static string BindFail_UserIsNotNull => SR.BindFail_UserIsNotNull;
-        }
+        public static string BindFail_UserIsNotNull => SR.BindFail_UserIsNotNull;
+    }
 
-        public static class Lengths
-        {
-            /// <summary>
-            /// 颜色16进制值，#AARRGGBB
-            /// </summary>
-            public const int ColorHex = 9;
+    /// <summary>
+    /// 模型验证长度限定值
+    /// </summary>
+    public static class ModelValidatorLengths
+    {
+        /// <summary>
+        /// 颜色16进制值，#AARRGGBB
+        /// </summary>
+        public const int ColorHex = 9;
 
-            /// <summary>
-            /// 手机号码
-            /// </summary>
-            public const int PhoneNumber = PhoneNumberHelper.ChineseMainlandPhoneNumberLength;
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public const int PhoneNumber = PhoneNumberHelper.ChineseMainlandPhoneNumberLength;
 
-            /// <summary>
-            /// 昵称
-            /// </summary>
-            public const int NickName = 20;
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        public const int NickName = 20;
 
-            /// <summary>
-            /// 短信验证码
-            /// </summary>
-            public const int SMS_CAPTCHA = 6;
-        }
+        /// <summary>
+        /// 短信验证码
+        /// </summary>
+        public const int SMS_CAPTCHA = 6;
     }
 }

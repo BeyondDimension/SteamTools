@@ -20,6 +20,7 @@ using static Newtonsoft.Json.JsonConvert;
 using static System.Serializable;
 using SJsonSerializer = System.Text.Json.JsonSerializer;
 using SJsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
+using SJsonIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition;
 
 namespace System
 {
@@ -110,8 +111,12 @@ namespace System
                     {
                         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                         WriteIndented = writeIndented,
-                        IgnoreNullValues = ignoreNullValues
+                        //IgnoreNullValues = ignoreNullValues
                     };
+                    if (ignoreNullValues)
+                    {
+                        options.DefaultIgnoreCondition = SJsonIgnoreCondition.WhenWritingNull;
+                    }
                     return SJsonSerializer.Serialize(value, inputType ?? value?.GetType() ?? typeof(object), options);
                 default:
 #if NOT_NJSON
@@ -313,9 +318,9 @@ namespace System
         /// <param name="obj"></param>
         /// <returns></returns>
         [return: NotNullIfNotNull("obj")]
-        public static T? Clone<T>(T? obj)
+        public static T? Clone<T>(T? obj) where T : notnull
         {
-            if (EqualityComparer<T>.Default.Equals(obj, default)) return default;
+            if (EqualityComparer<T?>.Default.Equals(obj, default)) return default;
 #if NOT_MP
             var jsonStr = SJSON(obj);
             return DJSON<T>(jsonStr);
@@ -345,7 +350,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         public static string SJSON_Original(object? value)
-            => SerializeObject(value, Formatting.Indented, Serializable.IgnoreJsonPropertyContractResolverWithStringEnumConverterSettings);
+            => SerializeObject(value, Formatting.Indented, IgnoreJsonPropertyContractResolverWithStringEnumConverterSettings);
 
         /// <summary>
         /// 反序列化 JSON 模型，使用原键名
@@ -355,7 +360,7 @@ namespace System
         /// <returns></returns>
         [return: MaybeNull]
         public static T DJSON_Original<T>(string value)
-            => DeserializeObject<T>(value, Serializable.IgnoreJsonPropertyContractResolverWithStringEnumConverterSettings);
+            => DeserializeObject<T>(value, IgnoreJsonPropertyContractResolverWithStringEnumConverterSettings);
 #endif
     }
 

@@ -149,12 +149,35 @@ namespace System.Application
                 }
                 finally
                 {
-                    if (registryKey != null)
+                    registryKey?.Dispose();
+                }
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                var filePath = string.Format("{0}proc{0}cpuinfo", Path.DirectorySeparatorChar);
+                if (File.Exists(filePath))
+                {
+                    using var fs = File.OpenRead(filePath);
+                    using var sr = new StreamReader(fs);
+                    while (sr.Peek() >= 0)
                     {
-                        registryKey.Dispose();
+                        var line = sr.ReadLine();
+                        if (line == null) break;
+                        var array = line.Split(':', StringSplitOptions.RemoveEmptyEntries);
+                        if (array.Length == 2)
+                        {
+                            if (array[0].Trim() == "model name")
+                            {
+                                return array[1].Trim();
+                            }
+                        }
                     }
                 }
             }
+            //else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            //{
+            //    //sysctl -n machdep.cpu.brand_string
+            //}
             return string.Empty;
         });
 

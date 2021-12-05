@@ -17,69 +17,76 @@ using Titanium.Web.Proxy.Network;
 
 namespace System.Application.Services
 {
-    public interface IHttpProxyService
+    /// <summary>
+    /// Http 代理服务
+    /// </summary>
+    public interface IHttpProxyService : IDisposable
     {
-        public bool IsCertificate { get; }
+        public const string LocalDomain = "local.steampp.net";
 
-        public void TrustCer();
+        static IHttpProxyService Instance => DI.Get<IHttpProxyService>();
 
-        public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
+        bool IsCertificate { get; }
 
-        public IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
+        void TrustCer();
 
-        public bool IsEnableScript { get; set; }
+        IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
-        public bool IsOnlyWorkSteamBrowser { get; set; }
+        IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
 
-        public string CertificateName { get; set; }
+        bool IsEnableScript { get; set; }
 
-        public CertificateEngine CertificateEngine { get; set; }
+        bool IsOnlyWorkSteamBrowser { get; set; }
 
-        public int ProxyPort { get; set; }
+        string CertificateName { get; set; }
 
-        public IPAddress ProxyIp { get; set; }
+        CertificateEngine CertificateEngine { get; set; }
 
-        public bool IsWindowsProxy { get; set; }
+        int ProxyPort { get; set; }
 
-        public bool IsProxyGOG { get; set; }
+        IPAddress ProxyIp { get; set; }
 
-        public bool OnlyEnableProxyScript { get; set; }
+        bool IsSystemProxy { get; set; }
 
-        public bool Socks5ProxyEnable { get; set; }
+        bool IsProxyGOG { get; set; }
 
-        public int Socks5ProxyPortId { get; set; }
+        bool OnlyEnableProxyScript { get; set; }
 
-        public bool TwoLevelAgentEnable { get; set; }
+        bool Socks5ProxyEnable { get; set; }
 
-        public ExternalProxyType TwoLevelAgentProxyType { get; set; }
+        int Socks5ProxyPortId { get; set; }
+
+        bool TwoLevelAgentEnable { get; set; }
+
+        ExternalProxyType TwoLevelAgentProxyType { get; set; }
 
 
-        public const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
+        const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
 
-        public string? TwoLevelAgentIp { get; set; }
+        string? TwoLevelAgentIp { get; set; }
 
-        public int TwoLevelAgentPortId { get; set; }
+        int TwoLevelAgentPortId { get; set; }
 
-        public string? TwoLevelAgentUserName { get; set; }
+        string? TwoLevelAgentUserName { get; set; }
 
-        public string? TwoLevelAgentPassword { get; set; }
+        string? TwoLevelAgentPassword { get; set; }
 
-        public bool ProxyRunning { get; }
+        string? ProxyDNS { get; set; }
 
-        public bool SetupCertificate();
+        bool ProxyRunning { get; }
 
-        public bool DeleteCertificate();
+        bool SetupCertificate();
+
+        bool DeleteCertificate();
 
         bool PortInUse(int port);
 
-        public bool StartProxy();
+        bool StartProxy();
 
-        public void StopProxy();
+        void StopProxy();
 
-        public bool WirtePemCertificateToGoGSteamPlugins();
+        bool WirtePemCertificateToGoGSteamPlugins();
 
-        public bool IsCertificateInstalled(X509Certificate2? certificate2);
-
-        public void Dispose();
+        bool IsCertificateInstalled(X509Certificate2? certificate2);
     }
 }

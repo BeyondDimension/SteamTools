@@ -4,12 +4,13 @@ using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Collections.Generic;
 using System.IO.FileFormats;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
 {
-    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, IScriptClient
+    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, IScriptClient, IDonateRankingClient
     {
         readonly IToast toast;
         readonly IModelValidator validator;
@@ -30,6 +31,7 @@ namespace System.Application.Services.CloudService
         public IVersionClient Version => this;
         public IActiveUserClient ActiveUser => this;
         public IAccelerateClient Accelerate => this;
+        public IDonateRankingClient DonateRanking => this;
 
         #region ModelValidator
 
@@ -53,7 +55,7 @@ namespace System.Application.Services.CloudService
         void ShowResponseErrorMessage(IApiResponse response)
         {
             if (response.Code == ApiResponseCode.Canceled) return;
-            var message = ApiResponse.GetMessage(response);
+            var message = response.Message;
             toast.Show(message);
         }
 
@@ -108,6 +110,16 @@ namespace System.Application.Services.CloudService
         }
 
         public Task<IApiResponse<AppVersionDTO?>> CheckUpdate(Guid id, Platform platform, DeviceIdiom deviceIdiom, ArchitectureFlags supportedAbis, Version osVersion, ArchitectureFlags abi)
+        {
+            return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
+        }
+
+        public Task<IApiResponse<AppVersionDTO?>> CheckUpdate2(Guid id,
+            Platform platform,
+            DeviceIdiom deviceIdiom,
+            Version version,
+            Architecture architecture,
+            DeploymentMode deploymentMode)
         {
             return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
         }
@@ -216,6 +228,17 @@ namespace System.Application.Services.CloudService
         {
             await Task.Delay(1500);
             return ApiResponse.Ok();
+        }
+
+        Task<string> ICloudServiceClient.Info()
+        {
+            return Task.FromResult(string.Empty);
+        }
+
+        public async Task<IApiResponse<PagedModel<RankingResponse>>> RangeQuery(PageQueryRequest<RankingRequest> model)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new PagedModel<RankingResponse> { });
         }
     }
 }

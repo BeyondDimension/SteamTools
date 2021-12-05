@@ -10,8 +10,6 @@ namespace System.Application.Services
         where TEntrance : notnull, Enum
         where TNotificationService : INotificationService<TNotificationType, TEntrance, TNotificationService>
     {
-        static TNotificationService Instance => DI.Get<TNotificationService>();
-
         /// <summary>
         /// 获取是否有通知权限
         /// </summary>

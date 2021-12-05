@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Models
 {
@@ -15,8 +15,27 @@ namespace System.Application.Models
         /// <summary>
         /// 显示消息
         /// </summary>
-        [Obsolete("use IsSuccess")]
-        string? Message { get; set; }
+        string Message => ApiResponse.GetMessage(this);
+
+        /// <summary>
+        /// 获取显示消息并在末尾追加文本
+        /// </summary>
+        /// <param name="errorAppendText"></param>
+        /// <returns></returns>
+        string GetMessageByAppendText(string? errorAppendText) => ApiResponse.GetMessage(this, errorAppendText);
+
+        /// <summary>
+        /// 通过自定义格式化文本获取显示消息
+        /// </summary>
+        /// <param name="errorFormat"></param>
+        /// <param name="errorAppendText"></param>
+        /// <returns></returns>
+        string GetMessageByFormat(string errorFormat, string? errorAppendText = null) => ApiResponse.GetMessage(this, errorAppendText, errorFormat);
+
+        /// <summary>
+        /// 内部显示消息
+        /// </summary>
+        internal string? InternalMessage { get; set; }
 
         /// <summary>
         /// 是否成功

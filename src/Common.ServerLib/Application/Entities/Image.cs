@@ -1,4 +1,4 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -44,5 +44,10 @@ namespace System.Application.Entities
         public virtual List<ImageUploadRecord<TUserKey, TUser, TUploadImageType>>? Records { get; set; }
 
         public string GetFileName() => SHA384 + Type.GetExtension();
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTimeOffset CreationTime { get; set; } = DateTimeOffset.Now;
     }
 }

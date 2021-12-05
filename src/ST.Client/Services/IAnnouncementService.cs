@@ -7,6 +7,8 @@ namespace System.Application.Services
     /// </summary>
     public interface IAnnouncementService
     {
+        static IAnnouncementService Instance => DI.Get<IAnnouncementService>();
+
         /// <summary>
         /// 显示公告，返回是否显示
         /// </summary>
@@ -22,7 +24,7 @@ namespace System.Application.Services
             //else
             //{
             //写入本地数据库待下一次打开主窗口时显示
-            return false;
+            //return false;
             //}
         }
 

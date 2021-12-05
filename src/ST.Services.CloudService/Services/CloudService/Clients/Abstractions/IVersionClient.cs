@@ -1,4 +1,5 @@
-﻿using System.Application.Models;
+using System.Application.Models;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService.Clients.Abstractions
@@ -11,14 +12,15 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// <param name="id">当前应用版本Id</param>
         /// <param name="platform">(单选)当前设备所属平台</param>
         /// <param name="deviceIdiom">(单选)当前设备所属类型</param>
-        /// <param name="supportedAbis">(多选)当前设备支持的CPU架构</param>
-        /// <param name="osVersion">当前设备运行的操作系统版本号</param>
+        /// <param name="version">当前设备运行的操作系统版本号</param>
+        /// <param name="architecture">当前OS支持的CPU架构</param>
+        /// <param name="deploymentMode">当前应用部署模型</param>
         /// <returns></returns>
-        Task<IApiResponse<AppVersionDTO?>> CheckUpdate(Guid id,
+        Task<IApiResponse<AppVersionDTO?>> CheckUpdate2(Guid id,
             Platform platform,
             DeviceIdiom deviceIdiom,
-            ArchitectureFlags supportedAbis,
-            Version osVersion,
-            ArchitectureFlags abi);
+            Version version,
+            Architecture architecture,
+            DeploymentMode deploymentMode);
     }
 }

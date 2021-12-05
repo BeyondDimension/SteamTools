@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using System.Application.UI;
 using System.Logging;
-using System.Properties;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -15,19 +15,20 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddGeneralLogging(this IServiceCollection services)
         {
-            var (minLevel, action) = AppHelper.ConfigureLogging();
+            var (minLevel, action) = IApplication.ConfigureLogging();
             services.AddLogging(b =>
             {
                 action(b);
 #if __ANDROID__
-                if (ThisAssembly.Debuggable)
+                if (_ThisAssembly.Debuggable)
                 {
                     // Android Logcat Provider Impl
                     b.AddProvider(PlatformLoggerProvider.Instance);
                 }
-#endif
-#if XAMARIN_MAC || MONO_MAC
+#elif MONO_MAC
                 b.AddProvider(PlatformLoggerProvider.Instance);
+#elif XAMARIN_MAC
+                b.AddProvider(global::Uno.Extensions.Logging.OSLogLoggerProvider.Instance);
 #endif
             });
             services.Configure<LoggerFilterOptions>(o =>

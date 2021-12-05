@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 #if !NET35 && !NOT_XE
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 #endif
 
 namespace System
@@ -22,15 +21,17 @@ namespace System
         /// 如果指定的[文件夹(Dir)]目录不存在，则创建[文件夹(Dir)]目录
         /// </summary>
         /// <param name="dirPath"></param>
-        public static void DirCreateByNotExists(string dirPath)
+        public static string DirCreateByNotExists(string dirPath)
         {
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
+            return dirPath;
         }
 
         /// <inheritdoc cref="DirCreateByNotExists(string)"/>
-        public static void CreateByNotExists(this DirectoryInfo dirInfo)
+        public static DirectoryInfo CreateByNotExists(this DirectoryInfo dirInfo)
         {
             if (!dirInfo.Exists) dirInfo.Create();
+            return dirInfo;
         }
 
         /// <summary>
@@ -68,7 +69,11 @@ namespace System
             }
             else if (!notCreateDir)
             {
-                DirCreateByNotExists(Path.GetDirectoryName(filePath));
+                var dirName = Path.GetDirectoryName(filePath);
+                if (dirName != null)
+                {
+                    DirCreateByNotExists(dirName);
+                }
             }
         }
 
@@ -81,7 +86,11 @@ namespace System
             }
             else if (!notCreateDir)
             {
-                DirCreateByNotExists(Path.GetDirectoryName(fileInfo.FullName));
+                var dirName = Path.GetDirectoryName(fileInfo.FullName);
+                if (dirName != null)
+                {
+                    DirCreateByNotExists(dirName);
+                }
             }
         }
 
@@ -111,39 +120,57 @@ namespace System
         static Func<string>? getAppDataDirectory;
         static Func<string>? getCacheDirectory;
 
-        /// <inheritdoc cref="FileSystem.AppDataDirectory"/>
+        /// <summary>
+        /// 必须在 main 函数中初始化文件夹目录，否则将在使用时抛出此异常
+        /// </summary>
+        static Exception MustCallFileSystemInitException => new NullReferenceException("msut call FileSystemXXX.InitFileSystem(..");
+
+        /// <summary>
+        /// 获取可存储应用程序数据的位置
+        /// </summary>
         public static string AppDataDirectory
         {
             get
             {
                 if (getAppDataDirectory != null)
                     return getAppDataDirectory();
-#if NET35 || NOT_XE
-                throw new PlatformNotSupportedException();
-#else
-                return FileSystem.AppDataDirectory;
-#endif
+                throw MustCallFileSystemInitException;
             }
         }
 
-        /// <inheritdoc cref="FileSystem.CacheDirectory"/>
+        /// <summary>
+        /// 获取可以存储临时数据的位置
+        /// </summary>
         public static string CacheDirectory
         {
             get
             {
                 if (getCacheDirectory != null)
                     return getCacheDirectory();
-#if NET35 || NOT_XE
-                throw new PlatformNotSupportedException();
-#else
-                return FileSystem.CacheDirectory;
-#endif
+                throw MustCallFileSystemInitException;
+            }
+        }
+
+        public abstract class FileSystemBase
+        {
+            protected FileSystemBase()
+            {
+            }
+
+            /// <summary>
+            /// (可选)初始化文件系统
+            /// </summary>
+            /// <param name="getAppDataDirectory">获取应用目录文件夹</param>
+            /// <param name="getCacheDirectory">获取缓存目录文件夹</param>
+            protected static void InitFileSystem(Func<string> getAppDataDirectory, Func<string> getCacheDirectory)
+            {
+                IOPath.getAppDataDirectory = getAppDataDirectory;
+                IOPath.getCacheDirectory = getCacheDirectory;
             }
         }
 
         /// <summary>
         /// (可选)初始化文件系统
-        /// <para>通常在 Xamarin.Essentials 不支持的平台上，为必选项</para>
         /// </summary>
         /// <param name="getAppDataDirectory">获取应用目录文件夹</param>
         /// <param name="getCacheDirectory">获取缓存目录文件夹</param>
@@ -158,15 +185,13 @@ namespace System
 #if !NET35
         #region BaseDirectory
 
-        public const string DirName_Bin = "Bin";
-
         static readonly Lazy<string> _BaseDirectory = new(() =>
         {
             var value = AppContext.BaseDirectory;
             if (OperatingSystem2.IsWindows && !DesktopBridge.IsRunningAsUwp) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
             {
                 var value2 = new DirectoryInfo(value);
-                if (value2.Parent != null && string.Equals(value2.Name, DirName_Bin, StringComparison.OrdinalIgnoreCase))
+                if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
                 {
                     value = value2.Parent.FullName;
                 }
@@ -379,6 +404,14 @@ namespace System
         {
             (length, string unit) = GetSize(length);
             return $"{length:0.00} {unit}";
+        }
+
+        public static int GetProgressPercentage(decimal current, decimal total)
+        {
+            decimal t = decimal.Parse((current / total).ToString("0.000"));
+
+            var t1 = Math.Round(t, 2);
+            return Convert.ToInt32(t1 * 100);
         }
     }
 }

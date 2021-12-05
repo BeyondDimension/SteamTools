@@ -13,9 +13,14 @@ namespace System
         /// </summary>
         /// <typeparam name="TEnum"></typeparam>
         /// <returns></returns>
-        public static TEnum[] GetAll<TEnum>() where TEnum : Enum => (TEnum[])Enum.GetValues(typeof(TEnum));
+        public static TEnum[] GetAll<TEnum>() where TEnum : struct, Enum =>
+#if !NET5_0_OR_GREATER
+            (TEnum[])Enum.GetValues(typeof(TEnum));
+#else
+            Enum.GetValues<TEnum>();
+#endif
 
-        public static string[] GetAllStrings<TEnum>() where TEnum : Enum => GetAll<TEnum>().Select(x => x.ToString()).ToArray();
+        public static string[] GetAllStrings<TEnum>() where TEnum : struct, Enum => GetAll<TEnum>().Select(x => x.ToString()).ToArray();
 
         /// <summary>
         /// 将 Flags 枚举进行拆分
@@ -23,44 +28,38 @@ namespace System
         /// <typeparam name="TEnum"></typeparam>
         /// <param name="resultant"></param>
         /// <returns></returns>
-        public static IEnumerable<TEnum> FlagsSplit<TEnum>(TEnum resultant) where TEnum : Enum
+        public static IEnumerable<TEnum> FlagsSplit<TEnum>(TEnum resultant) where TEnum : struct, Enum
             => GetAll<TEnum>().Where(x => resultant.HasFlag(x)).ToArray();
 
-        internal static TEnum ConvertToEnum<TEnum, TStruct>(this TStruct value)
-        {
-            var parameter = Expression.Parameter(typeof(TStruct));
-            var dynamicMethod = Expression.Lambda<Func<TStruct, TEnum>>(
-                Expression.Convert(parameter, typeof(TEnum)),
-                parameter);
-            return dynamicMethod.Compile()(value);
-        }
-
-        public static int ConvertToInt32<TEnum>(TEnum value) where TEnum : Enum => ConvertToEnum<int, TEnum>(value);
+        public static int ConvertToInt32<TEnum>(TEnum value) where TEnum : Enum => ConvertibleHelper.Convert<int, TEnum>(value);
 
         /// <summary>
         /// 返回指定枚举值的描述（通过
-        /// <see cref="System.ComponentModel.DescriptionAttribute"/> 指定）。
+        /// <see cref="DescriptionAttribute"/> 指定）。
         /// 如果没有指定描述，则返回枚举常数的名称，没有找到枚举常数则返回枚举值。
         /// </summary>
         /// <param name="value">要获取描述的枚举值。</param>
         /// <returns>指定枚举值的描述。</returns>
-        public static string? GetDescription<TEnum>(this TEnum value) where TEnum : struct, Enum
+        public static string? GetDescription<TEnum>(this TEnum value) where TEnum : Enum
         {
-            Type enumType = value.GetType();
-            // 获取枚举常数名称。
-            string name = Enum.GetName(enumType, value);
-            if (name != null)
+            if (value != null)
             {
-                // 获取枚举字段。
-                FieldInfo fieldInfo = enumType.GetField(name);
-                if (fieldInfo != null)
+                Type enumType = value.GetType();
+                // 获取枚举常数名称。
+                var name = Enum.GetName(enumType, value);
+                if (name != null)
                 {
-                    if (Attribute.GetCustomAttribute(fieldInfo,
-                        typeof(DescriptionAttribute), false) is DescriptionAttribute description)
+                    // 获取枚举字段。
+                    var fieldInfo = enumType.GetField(name);
+                    if (fieldInfo != null)
                     {
-                        if (description != null)
+                        if (Attribute.GetCustomAttribute(fieldInfo,
+                            typeof(DescriptionAttribute), false) is DescriptionAttribute description)
                         {
-                            return description.Description;
+                            if (description != null)
+                            {
+                                return description.Description;
+                            }
                         }
                     }
                 }

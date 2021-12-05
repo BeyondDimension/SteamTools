@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using NUnitApp = NUnit.Runner.App;
 using XEPlatform = Xamarin.Essentials.Platform;
+using TinyPinyin;
 
 namespace System.UnitTest
 {
@@ -16,6 +17,8 @@ namespace System.UnitTest
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            PinyinHelper.InitWithCnCityDict(ApplicationContext!);
 
             Forms.Init(this, savedInstanceState);
 

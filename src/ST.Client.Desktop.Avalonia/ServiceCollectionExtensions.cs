@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Platform;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
 using System.Application.Services.Implementation;
@@ -28,9 +29,12 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-        public static IServiceCollection AddFontManager(this IServiceCollection services, bool useGdiPlusFirst)
+        public static IServiceCollection TryAddAvaloniaFontManager(this IServiceCollection services, bool useGdiPlusFirst)
         {
-            services.AddSingleton<IFontManager>(new AvaloniaFontManagerImpl(useGdiPlusFirst));
+            AvaloniaFontManagerImpl.UseGdiPlusFirst = useGdiPlusFirst;
+            services.TryAddSingleton<AvaloniaFontManagerImpl>();
+            services.AddSingleton<IFontManager>(s => s.GetRequiredService<AvaloniaFontManagerImpl>());
+            services.AddSingleton<IFontManagerImpl>(s => s.GetRequiredService<AvaloniaFontManagerImpl>());
             return services;
         }
     }

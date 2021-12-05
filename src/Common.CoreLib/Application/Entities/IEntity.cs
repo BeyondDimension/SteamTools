@@ -1,4 +1,4 @@
-﻿namespace System.Application.Entities
+namespace System.Application.Entities
 {
     /// <summary>
     /// (数据库表)实体模型接口

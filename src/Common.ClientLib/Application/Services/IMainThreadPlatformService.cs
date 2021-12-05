@@ -1,4 +1,4 @@
-using System.Windows.Threading;
+using static System.Application.MainThread2;
 
 namespace System.Application.Services
 {
@@ -7,10 +7,10 @@ namespace System.Application.Services
     /// </summary>
     public interface IMainThreadPlatformService
     {
+        static IMainThreadPlatformService Instance => DI.Get<IMainThreadPlatformService>();
+
         bool PlatformIsMainThread { get; }
 
-        void PlatformBeginInvokeOnMainThread(Action action, DispatcherPriorityCompat priority = DispatcherPriorityCompat.Normal);
-
-        static IMainThreadPlatformService Instance => DI.Get<IMainThreadPlatformService>();
+        void PlatformBeginInvokeOnMainThread(Action action, DispatcherPriority priority = DispatcherPriority.Normal);
     }
 }

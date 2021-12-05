@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Application.Repositories;
@@ -14,14 +14,14 @@ namespace System.Application.Services.Implementation
     {
         protected const string TAG = "UserManager";
 
-        protected readonly IStorage storage;
+        protected readonly ISecureStorage storage;
         protected readonly ILogger logger;
         protected readonly IUserRepository userRepository;
         protected readonly ISecurityService security;
 
         public UserManager(
             ILoggerFactory loggerFactory,
-            IStorage storage,
+            ISecureStorage storage,
             IUserRepository userRepository,
             ISecurityService security)
         {

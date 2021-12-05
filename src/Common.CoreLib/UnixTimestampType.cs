@@ -1,9 +1,9 @@
-﻿namespace System
+namespace System
 {
     /// <summary>
     /// 时间戳类型
     /// </summary>
-    public enum UnixTimestampType
+    public enum UnixTimestampType : byte
     {
         /// <summary>
         /// 13位/milliseconds/毫秒

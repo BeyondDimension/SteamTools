@@ -5,13 +5,12 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         Width="750" Height="500"
         x:Class="System.Application.UI.Views.Windows.AchievementWindow"
-        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:resx="using:System.Application.UI.Resx"
+        xmlns:vm="using:System.Application.UI.ViewModels"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:models="clr-namespace:System.Application.Models;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:gif="clr-namespace:AvaloniaGif;assembly=AvaloniaGif"
-        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+        xmlns:ms="using:System.Application.Settings"
+        xmlns:models="using:System.Application.Models"
+        xmlns:gif="using:AvaloniaGif"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
@@ -19,73 +18,32 @@
         x:DataType="vm:AchievementWindowViewModel"
         x:CompileBindings="True"
         WindowStartupLocation="CenterScreen">
-  <Window.Styles>
-    <Style Selector="TabControl.flat">
-      <Setter Property="Margin" Value="0 20 0 0"></Setter>
-    </Style>
-    <Style Selector="TabControl.flat /template/ ItemsPresenter">
-      <Setter Property="Margin" Value="0,0,0,0"></Setter>
-    </Style>
-    <Style Selector="TabControl.flat /template/ ContentPresenter">
-      <Setter Property="Margin" Value="0,4,0,0"></Setter>
-    </Style>
-  </Window.Styles>
   <Panel HorizontalAlignment="Stretch">
     <controls:TitleBar></controls:TitleBar>
-    <!--<DockPanel HorizontalAlignment="Stretch">
-            <ExperimentalAcrylicBorder DockPanel.Dock="Top" IsHitTestVisible="False" Height="80">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource BackgroundColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 8 10 8">
-                    <Image Source="/Application/UI/Assets/Icon.ico" Height="24" Width="24" Margin="0,0,10,0"/>
-                    <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding Title}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalAlignment="Center"/>
-                </StackPanel>
-            </ExperimentalAcrylicBorder>
-            <ExperimentalAcrylicBorder DockPanel.Dock="Bottom" IsHitTestVisible="False" Opacity="{StaticResource ContentOpacity}">
-                <ExperimentalAcrylicBorder.Material>
-                    <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}" MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}" TintOpacity="1"/>
-                </ExperimentalAcrylicBorder.Material>
-            </ExperimentalAcrylicBorder>
-        </DockPanel>-->
     <!--Header-->
-    <Menu
-               Margin="0 0 145 0" Height="30"
-               HorizontalAlignment="Right"
-               VerticalAlignment="Top">
-      <MenuItem Width="50" Command="{ReflectionBinding RefreshStats_Click}"
+    <Menu Classes="BarMenu">
+      <MenuItem Command="{ReflectionBinding RefreshStats_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
-      <MenuItem Width="50" Command="{ReflectionBinding ResetAllStats_Click}"
+      <MenuItem Command="{ReflectionBinding ResetAllStats_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource ResetDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
-      <MenuItem Width="50" Command="{ReflectionBinding SaveChange_Click}"
+      <MenuItem Command="{ReflectionBinding SaveChange_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>
           <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
         </MenuItem.Header>
       </MenuItem>
-      <!--<Button Command="{ReflectionBinding save}">
-                <PathIcon Data="{StaticResource RefreshDrawing}"
-                          Width="18" Height="18"/>
-            </Button>
-            <Button Command="{ReflectionBinding save}">
-                <PathIcon Data="{StaticResource ResetDrawing}"
-                          Width="18" Height="18"/>
-            </Button>
-            <Button Command="{ReflectionBinding save}">
-                <PathIcon Data="{StaticResource SaveDrawing}"
-                          Width="18" Height="18"/>
-            </Button>-->
     </Menu>
     <TextBox ZIndex="2"
               Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              Classes="clearButton"
               Text="{Binding SearchText,Mode=TwoWay}"
               Margin="0 35 10 0"
               HorizontalAlignment="Right"
@@ -97,7 +55,9 @@
       </TextBox.InnerLeftContent>
     </TextBox>
 
-    <TabControl Classes="flat" ZIndex="1">
+    <TabControl Classes="flat"
+                Margin="0 20 0 0"
+                ZIndex="1">
       <TabItem Header="{ReflectionBinding Path=Res.Achievement_Unlock,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <DataGrid Items="{Binding Achievements}" IsReadOnly="True">
           <DataGrid.Columns>

@@ -5,15 +5,17 @@ using static System.Application.KeyConstants;
 
 namespace System.Application.Services
 {
-    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance}"/>
+    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance, TNotificationService}"/>
     public interface INotificationService : INotificationService<NotificationType, Entrance, INotificationService>
     {
+        static INotificationService Instance => DI.Get<INotificationService>();
+
         /// <summary>
         /// 显示从服务端获取到通知纪录
         /// </summary>
         /// <param name="notification"></param>
-        private void Notify(NotificationRecordDTO notification)
-            => Notify(notification.Content, notification.Type, title: notification.Title);
+        void Notify(NotificationRecordDTO notification)
+           => Notify(notification.Content, notification.Type, title: notification.Title);
 
         /// <summary>
         /// 显示从服务端获取到通知纪录
@@ -26,7 +28,7 @@ namespace System.Application.Services
             {
                 if (type == ActiveUserType.OnStartup)
                 {
-                    await IStorage.Instance.SetAsync(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID, rsp.Content.Id);
+                    await ISecureStorage.Instance.SetAsync(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID, rsp.Content.Id);
                 }
 
                 if (!rsp.Content.Type.IsDefined())
@@ -53,6 +55,20 @@ namespace System.Application.Services
         /// 获取最后一次收到的通知ID
         /// </summary>
         /// <returns></returns>
-        static Task<Guid?> GetLastNotificationRecordId() => IStorage.Instance.GetAsync<Guid?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
+        static Task<Guid?> GetLastNotificationRecordId() => ISecureStorage.Instance.GetAsync<Guid?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
+
+        /// <summary>
+        /// NotifyIcon / TrayIcon 右下角托盘菜单助手类
+        /// </summary>
+        public abstract class NotifyIconHelper
+        {
+            protected NotifyIconHelper() => throw new NotSupportedException();
+
+            /// <summary>
+            /// 托盘初始化是否完成
+            /// <para>注意：在 Windows 上托盘初始化之前调用气泡消息会导致托盘不显示</para>
+            /// </summary>
+            public static bool IsInitialized { get; protected set; }
+        }
     }
 }

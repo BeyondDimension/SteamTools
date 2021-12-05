@@ -10,4 +10,5 @@
   <color name="icon_background">#ffffffff</color>
   <color name="bg_divider">#1FFFFFFF</color>
   <color name="white">#FF000000</color>
+  <color name="shell_title_color">@android:color/white</color>
 </resources>

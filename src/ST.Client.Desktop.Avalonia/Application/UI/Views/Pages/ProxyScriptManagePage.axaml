@@ -1,13 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:resx="using:System.Application.UI.Resx"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:service="using:System.Application.Services"
+             xmlns:ms="using:System.Application.Settings"
              xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
@@ -23,14 +24,81 @@
              Padding="10"
              Margin="{StaticResource ScrollMargin}">
       <DockPanel>
-        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
+        <ui:CommandBar DefaultLabelPosition="Right" IsSticky="False">
+          <ui:CommandBar.PrimaryCommands>
+            <ui:CommandBarElementContainer>
+              <ToggleSwitch Classes="onlyToggleSwitch"
+                            Margin="0 -5 5 0"
+                            IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                            VerticalAlignment="Center"/>
+            </ui:CommandBarElementContainer>
+            <ui:CommandBarElementContainer
+                        IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ProgressBar
+                        Width="24"
+                        Height="24"
+                        Classes="Circle"
+                        IsIndeterminate="True"/>
+            </ui:CommandBarElementContainer>
+
+            <ui:CommandBarButton IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}"
+                Command="{Binding AddNewScriptButton_Click}"
+                Icon="Add"
+                Label="{ReflectionBinding Path=Res.Import,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+            <ui:CommandBarButton
+                Command="{ReflectionBinding RefreshScriptButton}"
+                Icon="Refresh"
+                Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+            <ui:CommandBarButton
+                Command="{Binding ScriptStoreCommand}"
+                Label="{ReflectionBinding Path=Res.ScriptStore,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource JavaScriptDrawing}" />
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            <!--<ui:CommandBarSeparator />-->
+          </ui:CommandBar.PrimaryCommands>
+          <ui:CommandBar.SecondaryCommands>
+            <!--<ui:CommandBarButton Command="{Binding ScriptStoreCommand}" 
+                                 Label="{ReflectionBinding Path=Res.ScriptStore, Mode=OneWay, Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource JavaScriptDrawing}" />
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            <ui:CommandBarButton Command="{Binding AllEnableScriptCommand}"
+                                 Label="{ReflectionBinding Path=Res.Script_AllEnable, Mode=OneWay, Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource JavaScriptDrawing}" />
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            <ui:CommandBarSeparator />-->
+            <ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.IsAutoCheckScriptUpdate},Path=Value, Mode=TwoWay}"
+                                 Label="{ReflectionBinding Path=Res.Script_AutoUpdate, Mode=OneWay, Source={x:Static resx:R.Current}}">
+            </ui:CommandBarToggleButton>
+            <ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.IsOnlyWorkSteamBrowser},Path=Value, Mode=TwoWay}"
+                                 Label="{ReflectionBinding Path=Res.CommunityFix_OnlySteamBrowser, Mode=OneWay, Source={x:Static resx:R.Current}}">
+            </ui:CommandBarToggleButton>
+          </ui:CommandBar.SecondaryCommands>
+        </ui:CommandBar>
+        <!--<StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
           <ToggleSwitch Classes="onlyToggleSwitch"
                         Margin="5 0 0 5"
                         IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
                         ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         VerticalAlignment="Center"></ToggleSwitch>
-
-          <controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />
+          <ProgressBar
+                        Width="30"
+                        Height="30"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}"
+                        Classes="Circle"
+                        IsIndeterminate="True"
+                        Orientation="Vertical" />
+          -->
+        <!--<controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />-->
+        <!--
           <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}"
                   Background="Transparent"
                   Cursor="Hand"
@@ -59,17 +127,18 @@
               </MenuItem.Header>
             </MenuItem>
           </Menu>
-        </StackPanel>
+        </StackPanel>-->
 
         <StackPanel Orientation="Horizontal"
                     Spacing="15"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center">
           <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   Classes="clearButton"
                    Text="{CompiledBinding SearchText,Mode=TwoWay}"
                    Background="Transparent"
                    VerticalAlignment="Center"
-                   Width="300"
+                   Width="250"
                    MinWidth="200">
             <TextBox.InnerLeftContent>
               <PathIcon Data="{StaticResource SearchDrawing}"
@@ -92,7 +161,11 @@
         <ItemsRepeater Items="{Binding ProxyScripts}">
           <ItemsRepeater.Layout>
             <StackLayout Spacing="10" Orientation="Vertical"/>
-            <!--<UniformGridLayout ItemsJustification="Start" ItemsStretch="Uniform" MinColumnSpacing="20" MinRowSpacing="20" MaximumRowsOrColumns="2" Orientation="Horizontal"/>-->
+            <!--<UniformGridLayout ItemsStretch="Uniform" 
+                               MinColumnSpacing="10" 
+                               MinRowSpacing="10" 
+                               MaximumRowsOrColumns="2" 
+                               Orientation="Horizontal"/>-->
           </ItemsRepeater.Layout>
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
@@ -193,9 +266,15 @@
                                                 ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}">
                                                     <PathIcon Width="20" Height="20" Data="{StaticResource DownloadDrawing}" />
                                                 </Button>-->
-                        <controls:ProgressRing IsIndeterminate="True"
+                        <ProgressBar Width="30"
+                                     Height="30"
+                                     ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                     Classes="Circle"
+                                     IsIndeterminate="True"
+                                     IsVisible="{Binding IsLoading}"/>
+                        <!--<controls:ProgressRing IsIndeterminate="True"
                                                ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"
-                                               IsVisible="{Binding IsLoading}" />
+                                               IsVisible="{Binding IsLoading}" />-->
                         <Button Classes="Hyperlink"
                                  Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                  CommandParameter="{Binding}"

@@ -24,7 +24,7 @@ namespace System.Application.Services.CloudService
     internal sealed class ApiConnection : IApiConnection
     {
         readonly ILogger logger;
-        readonly IHttpPlatformHelper http_helper;
+        readonly IHttpPlatformHelperService http_helper;
         readonly IApiConnectionPlatformHelper conn_helper;
         readonly Lazy<JsonSerializer> jsonSerializer = new(() => new JsonSerializer());
         readonly IModelValidator validator;
@@ -32,7 +32,7 @@ namespace System.Application.Services.CloudService
         public ApiConnection(
             ILogger logger,
             IApiConnectionPlatformHelper conn_helper,
-            IHttpPlatformHelper http_helper,
+            IHttpPlatformHelperService http_helper,
             IModelValidator validator)
         {
             this.logger = logger;
@@ -71,26 +71,9 @@ namespace System.Application.Services.CloudService
                 return (ApiResponseCode.Canceled, null);
             }
             var code = ApiResponseCode.ClientException;
-            logger.LogError(ex,
-                $"ApiConn Fail({(int)code})，Url：{requestUri}");
+            logger.LogError(ex, "ApiConn Fail({0})，Url：{1}", (int)code, requestUri);
             var exMsg = ex.GetAllMessage();
-            return (code, ApiResponse.GetMessage(code, exMsg));
-        }
-
-        /// <summary>
-        /// 根据异常获取响应并写入日志
-        /// </summary>
-        /// <typeparam name="TApiResponse"></typeparam>
-        /// <param name="ex"></param>
-        /// <param name="requestUri"></param>
-        /// <param name="new"></param>
-        /// <returns></returns>
-        TApiResponse GetRspByExceptionWithLog<TApiResponse>(Exception ex, string requestUri, Func<ApiResponseCode, string?, TApiResponse> @new)
-        {
-            (var code, var msg) = GetRspByExceptionWithLog(ex, requestUri);
-            var rsp = @new(code, msg);
-            if (rsp is ApiResponseImplBase rspImpl) rspImpl.ClientException = ex;
-            return rsp;
+            return (code, ApiResponse.GetMessage(code, errorAppendText: exMsg));
         }
 
         /// <summary>
@@ -666,7 +649,8 @@ namespace System.Application.Services.CloudService
             }
             catch (Exception ex)
             {
-                responseResult = GetRspByExceptionWithLog(ex, requestUri, ApiResponse.Code<TResponseModel>);
+                (var code, var msg) = GetRspByExceptionWithLog(ex, requestUri);
+                responseResult = ApiResponse.Code<TResponseModel>(code, msg, default, ex);
             }
             finally
             {
@@ -867,7 +851,8 @@ namespace System.Application.Services.CloudService
             }
             catch (Exception ex)
             {
-                responseResult = GetRspByExceptionWithLog(ex, requestUri, ApiResponse.Code);
+                (var code, var msg) = GetRspByExceptionWithLog(ex, requestUri);
+                responseResult = ApiResponse.Code(code, msg, ex);
             }
             await GlobalResponseIntercept(
                 method,

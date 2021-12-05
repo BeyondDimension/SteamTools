@@ -361,3 +361,4 @@ launchSettings.json
 # Android KeyStore
 *.jks
 /Xamarin.Android.KeyStore.props
+*.ts

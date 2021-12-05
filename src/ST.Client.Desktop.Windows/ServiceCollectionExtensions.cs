@@ -1,4 +1,5 @@
 using System;
+using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Net.Http;
@@ -10,20 +11,18 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDesktopPlatformService(this IServiceCollection services, bool hasSteam, bool hasGUI, bool hasNotifyIcon)
+        public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
             if (OperatingSystem2.IsWindows)
             {
-                services.AddSingleton<IHttpPlatformHelper, PlatformHttpPlatformHelper>();
-                services.AddSingleton<WindowsDesktopPlatformServiceImpl>();
-                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
-                services.AddSingleton<IDesktopPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
-                services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<WindowsDesktopPlatformServiceImpl>());
-                if (hasSteam)
+                services.AddSingleton<IHttpPlatformHelperService, WindowsClientHttpPlatformHelperServiceImpl>();
+                services.AddSingleton<WindowsPlatformServiceImpl>();
+                services.AddSingleton<IPlatformService>(s => s.GetRequiredService<WindowsPlatformServiceImpl>());
+                if (options.HasSteam)
                 {
                     services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
                 }
-                if (hasGUI)
+                if (options.HasGUI)
                 {
                     services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
                 }
@@ -32,11 +31,17 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<ILocalDataProtectionProvider.IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
                 if (OperatingSystem2.IsWindows10AtLeast)
                 {
+                    services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<WindowsPlatformServiceImpl>());
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }
-                services.AddSingleton<ISystemWindowApiService, SystemWindowApiServiceImpl>();
-                services.AddSingleton<ISystemJumpListService, SystemJumpListServiceImpl>();
-                if (hasNotifyIcon) services.AddNotifyIcon();
+                services.AddSingleton<INativeWindowApiService, NativeWindowApiServiceImpl>();
+                services.AddSingleton<IJumpListService, JumpListServiceImpl>();
+                if (options.HasMainProcessRequired)
+                {
+                    services.AddSingleton(typeof(NotifyIcon), NotifyIcon.ImplType);
+                }
+                //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
+                services.AddSingleton<ISevenZipHelper, SevenZipHelper>();
             }
             else
             {

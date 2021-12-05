@@ -1,0 +1,87 @@
+name: Build Xamarin app
+#https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-xamarin-applications
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [ Debug, Release ]
+        os: [ macOS-latest ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: recursive
+
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Add msbuild to PATH
+      if: matrix.os == 'windows-latest'
+      uses: microsoft/setup-msbuild@v1.1
+
+#    - name: Install macOS SDK(macOS)
+#      if: matrix.os == 'macOS-latest'
+#      run: sudo dotnet workload install macos
+      
+#    - name: Install macOS SDK(Windows)
+#      if: matrix.os == 'windows-latest'
+#      run: dotnet workload install macos
+
+#    - name: Install Maui(Windows)
+#      if: matrix.os == 'windows-latest'
+#      run: dotnet workload install maui
+
+    - name: Verify dotnet info
+      run: |
+           nuget help 
+           dotnet --info 
+           msbuild -version
+
+#    - name: Install dependencies
+#      run: nuget restore ./SteamToolsV2+.sln
+
+    - name: Setup Xamarin
+      uses: maxim-lobanov/setup-xamarin@v1
+      with:
+      #  mono-version: '6.12' # specify version in '<major>.<minor>' format
+      #  xamarin-ios-version: '14.14' # specify version in '<major>' format
+      #  xamarin-mac-version: latest # specify 'latest' keyword to pick up the latest available version
+        xamarin-android-version: '11.2' # specify full version; it is not recomended option because your pipeline can be broken suddenly in future
+      #  xcode-version: '12.x' # set the latest available Xcode 12
+
+    - name: Setup Android NDK
+      uses: nttld/setup-ndk@v1.0.6
+      id: setup-ndk
+      with:
+        ndk-version: r21e
+        add-to-path: false
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+    - name: dotnet restore SteamToolsV2+.Mac.slnf
+      run: dotnet restore ./SteamToolsV2+.Mac.slnf
+
+#    - name: Build ST.Client
+#      run: dotnet msbuild ./src/ST.Client/ST.Client.csproj /p:Configuration=${{ matrix.configuration }}
+
+    - name: Build ST.Client.XamarinForms
+      run: dotnet msbuild ./src/ST.Client.XamarinForms/ST.Client.XamarinForms.csproj /p:Configuration=${{ matrix.configuration }}
+
+    - name: Build Android app
+      run: msbuild ./src/ST.Client.Mobile.Droid.App/ST.Client.Android.App.csproj /t:PackageForAndroid /p:Configuration=${{ matrix.configuration }}
+
+    #- name: Build iOS app
+    #  run: msbuild <csproj_file_path> /p:Configuration=${{ matrix.configuration }} /p:Platform=iPhoneSimulator /t:Rebuild

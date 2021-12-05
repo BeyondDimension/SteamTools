@@ -1,40 +1,31 @@
 using Avalonia.Controls;
-using Avalonia.ReactiveUI;
 using Avalonia.Markup.Xaml;
-using System.Application.UI.ViewModels;
-using System.Collections.Generic;
-using System.Properties;
+using Avalonia.ReactiveUI;
 using System.Application.Services;
-using System.IO;
+using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
+using System.Collections.Generic;
+using System.IO;
+using System.Properties;
 
 namespace System.Application.UI.Views.Pages
 {
     public class ArchiSteamFarmPlusPage : ReactiveUserControl<ArchiSteamFarmPlusPageViewModel>
     {
-        private readonly ConsoleShell consoleShell;
+        readonly IArchiSteamFarmService asfService = IArchiSteamFarmService.Instance;
 
         public ArchiSteamFarmPlusPage()
         {
             InitializeComponent();
-
-            consoleShell = this.FindControl<ConsoleShell>("ConsoleLog");
-
-            consoleShell.CommandSubmit += ConsoleShell_CommandSubmit;
         }
 
         private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)
         {
-            if (IArchiSteamFarmService.Instance.ReadLineTask is null)
+            if (e.Command != null)
             {
-                IArchiSteamFarmService.Instance.ExecuteCommand(e.Command);
-            }
-            else
-            {
-                IArchiSteamFarmService.Instance.ReadLineTask.TrySetResult(e.Command);
+                asfService.CommandSubmit(e.Command);
             }
         }
-
 
         private void InitializeComponent()
         {

@@ -16,11 +16,80 @@
     <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="..\..\references\SevenZipSharp\SevenZip.Tests\*.cs">
+      <LinkBase>SevenZip.Tests</LinkBase>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\7z_LZMA2.7z">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\arj.arj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\bzip2.bz2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\gzip.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <!--<None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\long_path.7z">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>-->
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\multiple_files.7z">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\multivolume.part0001.rar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\multivolume.part0002.rar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\rar4.rar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\rar5.rar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\tar.tar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\wim.wim">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\xz.xz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\zip.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData</LinkBase>
+    </None>
+    <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData_LongerDirectoryName\emptyfile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LinkBase>TestData_LongerDirectoryName</LinkBase>
+    </None>
+    <None Include="..\..\references\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>7z64.dll</Link>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <!--<ProjectReference Include="..\..\src\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj" />-->
-    <ProjectReference Include="..\..\src\ST.Client.Desktop\ST.Client.Desktop.csproj" />
     <ProjectReference Include="..\..\src\ST.Client\ST.Client.csproj" />
     <ProjectReference Include="..\..\src\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
@@ -29,6 +98,7 @@
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
   </ItemGroup>
 
 </Project>

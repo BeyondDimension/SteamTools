@@ -1,4 +1,4 @@
-﻿using SQLite;
+using SQLite;
 using System.Application.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace System
         #region Paging
 
         /// <summary>
-        /// 分页查询，调用此方法前必须进行排序
+        /// 根据页码进行分页查询，调用此方法前 必须 进行排序
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="source"></param>

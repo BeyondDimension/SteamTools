@@ -6,10 +6,10 @@
         Width="800" Height="600"
         x:Name="u"
         x:Class="System.Application.UI.Views.Windows.ScriptStoreWindow"
-        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:resx="using:System.Application.UI.Resx"
+        xmlns:vm="using:System.Application.UI.ViewModels"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop"
+        xmlns:ms="using:System.Application.Settings"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
@@ -42,10 +42,7 @@
                      MinWidth="300">
               <TextBox.InnerLeftContent>
                 <PathIcon Data="{StaticResource SearchDrawing}"
-                          Width="20" Height="20"
-                          Opacity="0.8"
-                          VerticalAlignment="Top" HorizontalAlignment="Left"
-                          Margin="15,8,0,0" />
+                          Classes="TextBoxIcon"/>
               </TextBox.InnerLeftContent>
             </TextBox>
           </StackPanel>
@@ -119,9 +116,15 @@
                           </Button>
                           <PathIcon Data="{StaticResource CheckmarkDrawing}"
                                     Width="16"
-                                    ToolTip.Tip="{ReflectionBinding Path=Res.Script_Installed,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                    ToolTip.Tip="{ReflectionBinding Path=Res.Installed,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                     Margin="8 0" IsVisible="{Binding IsExist}"/>
-                          <controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"   IsVisible="{Binding DownloadLoading}"/>
+                          <ProgressBar Width="30"
+                                       Height="30"
+                                       Classes="Circle"
+                                       IsIndeterminate="True"
+                                       ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                       IsVisible="{Binding DownloadLoading}" />
+                          <!--<controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"   IsVisible="{Binding DownloadLoading}"/>-->
 
                           <!--<Button IsVisible="{Binding IsUpdate}" Background="Transparent" Cursor="Hand"
                                                            Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
@@ -146,7 +149,13 @@
                                      VerticalAlignment="Center"
                                      ToolTip.Tip="{ReflectionBinding Path=Res.Script_Update,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                      IsVisible="{Binding IsUpdate}">
-                          <controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"   IsVisible="{Binding IsLoading}"/>
+                          <ProgressBar Width="30"
+                                       Height="30"
+                                       Classes="Circle"
+                                       IsIndeterminate="True"
+                                       ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                       IsVisible="{Binding IsLoading}"/>
+                          <!--<controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30"   IsVisible="{Binding IsLoading}"/>-->
                           <Button Classes="Hyperlink"
                                    Command="{ReflectionBinding #u.DataContext.DownloadScriptItemButton}"
                                    CommandParameter="{Binding}"

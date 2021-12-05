@@ -40,7 +40,7 @@ namespace System.Application.UI.Adapters
     /// <inheritdoc cref="BaseViewHolder"/>
     public abstract class BaseViewHolder<TViewType> : BaseViewHolder,
         IReadOnlyItemViewType<TViewType>
-        where TViewType : struct, IConvertible
+        where TViewType : Enum
     {
         public BaseViewHolder(View itemView) : base(itemView)
         {

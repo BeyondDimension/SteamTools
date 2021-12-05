@@ -1,23 +1,188 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ms="clr-namespace:System.Application.Models.Settings;assembly=System.Application.SteamTools.Client.Desktop">
-  <Design.PreviewWith>
-  </Design.PreviewWith>
-  <Styles.Resources>
-    <!--<FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>-->
-  </Styles.Resources>
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:System.Application.UI.Views.Controls"
+    xmlns:ms="using:System.Application.Settings"
+    xmlns:wnd="using:Avalonia.Controls">
+    <Design.PreviewWith />
+    <Styles.Resources>
+        <!--<FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>-->
+    </Styles.Resources>
 
-  <Style Selector=":is(TemplatedControl)">
-    <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></Setter>
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+                    <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+                    <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
+                    <VisualLayerManager>
+                        <VisualLayerManager.ChromeOverlayLayer>
+                            <TitleBar />
+                        </VisualLayerManager.ChromeOverlayLayer>
+                        <ContentPresenter
+                            Name="PART_ContentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </VisualLayerManager>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector=":is(TemplatedControl)">
+        <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
+    </Style>
+
+    <Style Selector=":is(Window)">
+        <Setter Property="Title" Value="{Binding Title, Mode=OneWay}" />
+        <!--<Setter Property="FontSize" Value="14"></Setter>-->
+        <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="WindowStartupLocation" Value="CenterScreen" />
+        <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="{StaticResource TitleBarHeight}" />
+        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource BackgroundColorKey}" />
+        <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico" />
+    </Style>
+
+    <Style Selector="ExperimentalAcrylicBorder">
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector=":is(Window):transparent ExperimentalAcrylicBorder">
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Opacity" Value="{ReflectionBinding Value, Source={x:Static ms:UISettings.AcrylicOpacity}, Mode=OneWay}" />
+    </Style>
+
+    <Style Selector=":is(Window):windows Menu.BarMenu">
+        <Setter Property="Margin" Value="{StaticResource CaptionButtonMargin}" />
+    </Style>
+
+    <!--<Style Selector="Button.SystemCaption">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{x:Null}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Width" Value="46" />
+    <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="{TemplateBinding Background}" UseLayoutRounding="False">
+          <TextBlock FontFamily="{TemplateBinding FontFamily}"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Text="{TemplateBinding Content}"
+                   UseLayoutRounding="True"/>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.SystemCaption:pointerover /template/ Border">
+    <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
   </Style>
 
-  <Style Selector="Window">
-    <Setter Property="Title" Value="{Binding Title,Mode=OneWay}"/>
-    <!--<Setter Property="FontSize" Value="14"></Setter>-->
-    <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"></Setter>
-    <Setter Property="Background" Value="Transparent"></Setter>
-    <Setter Property="TransparencyLevelHint" Value="AcrylicBlur"></Setter>
-    <Setter Property="Icon" Value="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/Icon.ico"/>
+  <Style Selector=":is(wnd|ICoreWindow):is(wnd|Window)[IsActive=False] local|MinMaxCloseControl /template/ Button">
+    <Setter Property="Foreground" Value="#858585" />
+  </Style>-->
+
+    <!--<Style Selector="Window:windows">
+    <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <VisualLayerManager>
+    -->
+    <!--  Because we use the System Border, we don't specify anything like that here.  -->
+    <!--
+          <Border Background="{TemplateBinding Background}"
+              Padding="{TemplateBinding Padding}"
+              Name="RootBorder">
+            <Panel>
+              <Panel Name="DefaultTitleBar"
+                   Background="Transparent"
+                   Height="30"
+                   VerticalAlignment="Top">
+    -->
+    <!--<TextBlock Name="TitleText"
+                       Text="{TemplateBinding Title}"
+                       Margin="70 0 0 0"
+                       FontSize="12"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />-->
+    <!--
+              </Panel>
+
+              <ContentPresenter Name="PART_ContentPresenter"
+                        ClipToBounds="False"
+                        Margin="0 0 0 0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+
+    -->
+    <!--  Add the Caption Buttons, these should ALWAYS overlay the window  -->
+    <!--
+              <local:MinMaxCloseControl HorizontalAlignment="Right"
+                          VerticalAlignment="Top"
+                          Name="SystemCaptionButtons"/>
+
+            </Panel>
+          </Border>
+        </VisualLayerManager>
+      </ControlTemplate>
+    </Setter>
+  </Style>-->
+
+    <!--<Style Selector="Window:windows:windows11">
+    <Setter Property="Background">
+      <SolidColorBrush Color="{DynamicResource SolidBackgroundFillColorTertiary}" Opacity="0.945" />
+    </Setter>
   </Style>
+    -->
+    <!--  Windows 10 doesn't have Mica, so we use a solid background color, which matches what WinUI does too  -->
+    <!--
+  <Style Selector="Window:windows:windows10">
+    <Setter Property="Background" Value="{DynamicResource ApplicationPageBackgroundThemeBrush}" />
+  </Style>
+    -->
+    <!--
+        Windows 10 is really a pain in the ass with custom window frames
+        For whatever reason, the top border of the window frame hides under WinUI Comp, so we have to
+        fake it or else it looks weird. This isn't perfect, but better than nothing
+    -->
+    <!--
+  <Style Selector="Window:windows:windows10 /template/ Border#RootBorder">
+    -->
+    <!--  This will show if custom accent color setting is used in Settings page  -->
+    <!--
+    <Setter Property="BorderBrush" Value="{DynamicResource SystemAccentColor}" />
+    <Setter Property="BorderThickness" Value="0 0.5 0 0" />
+  </Style>
+  <Style Selector="Window[IsActive=False]:windows:windows10 /template/ Border#RootBorder">
+    <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultSolid}" />
+    <Setter Property="BorderThickness" Value="0 0.5 0 0" />
+  </Style>
+  <Style Selector="Window[WindowState=Maximized]:windows:windows10 /template/ Border#RootBorder">
+    <Setter Property="BorderThickness" Value="0 0 0 0" />
+  </Style>
+
+  <Style Selector=":is(wnd|Window):windows:extended /template/ TextBlock#TitleText">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  <Style Selector=":is(wnd|Window):windows:extended:customtitlebar /template/ Panel#DefaultTitleBar">
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="Width" Value="10" />
+  </Style>-->
 
 </Styles>

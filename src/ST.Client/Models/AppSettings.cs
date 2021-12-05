@@ -75,10 +75,10 @@ namespace System.Application.Models
             }
         }
 
-        [MPKey(4)]
-        [N_JsonProperty("4")]
-        [S_JsonProperty("4")]
-        public Guid MASLClientId { get; set; }
+        //[MPKey(4)]
+        //[N_JsonProperty("4")]
+        //[S_JsonProperty("4")]
+        //public Guid MASLClientId { get; set; }
 
         bool? mGetIsOfficialChannelPackage;
 

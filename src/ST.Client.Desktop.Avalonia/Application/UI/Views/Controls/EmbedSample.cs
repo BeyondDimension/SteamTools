@@ -1,9 +1,9 @@
-using System;
-using System.Application.Models.Settings;
-using System.Application.Services;
-using System.Runtime.InteropServices;
 using Avalonia.Controls;
 using Avalonia.Platform;
+using System;
+using System.Application.Services;
+using System.Application.Settings;
+using System.Runtime.InteropServices;
 
 namespace System.Application.UI.Views.Controls
 {

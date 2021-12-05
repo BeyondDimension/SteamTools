@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Common.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
@@ -37,5 +37,6 @@
     <!--<ProjectReference Include="..\..\src\Services.Pinyin.ChnCharInfo\Services.Pinyin.ChnCharInfo.csproj" />
     <ProjectReference Include="..\..\src\Services.Pinyin\Services.Pinyin.csproj" />-->
     <ProjectReference Include="..\..\src\Common.ClientLib\Common.ClientLib.csproj" />
+    <ProjectReference Include="..\..\src\Common.PinyinLib.ChnCharInfo\Common.PinyinLib.ChnCharInfo.csproj" />
   </ItemGroup>
 </Project>

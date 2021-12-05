@@ -14,7 +14,7 @@ namespace System.Application.Entities
     /// </summary>
     [SQLiteTable("1B2D820C")]
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-    public class Script : IEntity<int> ,IOrder
+    public class Script : IEntity<int>, IOrder
     {
         string DebuggerDisplay() => $"{Name}, {Id}";
 
@@ -42,7 +42,7 @@ namespace System.Application.Entities
         /// 版本号
         /// </summary>
         [Column("8037C4C3")]
-        [SQLiteNotNull] 
+        [SQLiteNotNull]
         public string Version { get; set; } = string.Empty;
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace System.Application.Entities
         /// 缓存文件地址
         /// </summary>
         [Column("997C6B59")]
-        [SQLiteNotNull] 
+        [SQLiteNotNull]
         public string CachePath { get; set; } = string.Empty;
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace System.Application.Entities
         /// </summary>
         [Column("A5AD2FBF")]
         public string UpdateLink { get; set; } = string.Empty;
-         
+
         /// <summary>
         /// 说明
         /// </summary>
@@ -95,7 +95,7 @@ namespace System.Application.Entities
         /// </summary>
         [Column("29296F97")]
         public string MatchDomainNames { get; set; } = string.Empty;
-         
+
         /// <summary>
         /// 是否启用
         /// </summary>
@@ -148,7 +148,7 @@ namespace System.Application.Entities
         /// </summary> 
         [Column("8B9C94E5")]
         public bool IsBuild { get; set; } = true;
-        
+
 
 
     }

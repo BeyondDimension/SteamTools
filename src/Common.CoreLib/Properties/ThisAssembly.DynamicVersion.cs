@@ -13,7 +13,7 @@ namespace System.Properties
                 {
                     return Version + alpha;
                 }
-                else if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsWindows && DesktopBridge.IsRunningAsUwp))
+                else if (OperatingSystem2.IsMacOS)
                 {
                     return Version + beta;
                 }

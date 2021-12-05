@@ -32,9 +32,10 @@ namespace System.Application.Models
             {
                 if (corrections.ContainsKey(m.Url))
                 {
-                    var (license, copyright) = corrections[m.Url];
+                    var (license, copyright, licenseUrl) = corrections[m.Url];
                     if (!string.IsNullOrWhiteSpace(license)) m.License = license;
                     if (!string.IsNullOrWhiteSpace(copyright)) m.Copyright = copyright;
+                    if (!string.IsNullOrWhiteSpace(licenseUrl)) m.LicenseUrl = licenseUrl;
                 }
 
                 if (string.IsNullOrWhiteSpace(m.Copyright) && m.Url.StartsWith("https://github.com", StringComparison.OrdinalIgnoreCase))
@@ -50,7 +51,15 @@ namespace System.Application.Models
             if (!string.IsNullOrWhiteSpace(m.Copyright) && !string.IsNullOrWhiteSpace(m.License) && !string.IsNullOrWhiteSpace(m.LicenseUrl) && !string.Equals("NOASSERTION", m.License, StringComparison.OrdinalIgnoreCase))
             {
                 sb.AppendLine();
-                sb.AppendLine(m.Copyright);
+                const string prefixCopyright = "## ";
+                if (m.Copyright.StartsWith(prefixCopyright))
+                {
+                    sb.AppendLine(m.Copyright[prefixCopyright.Length..]);
+                }
+                else
+                {
+                    sb.AppendLine(m.Copyright);
+                }
                 sb.AppendLine();
                 sb.AppendFormat("Licensed under the {0};{1}{2}", m.License, Environment.NewLine, m.LicenseUrl);
                 sb.AppendLine();
@@ -77,48 +86,36 @@ namespace System.Application.Models
 
         public override string ToString() => ToString(this, new StringBuilder()).ToString();
 
-        static readonly IReadOnlyDictionary<string, (string license, string copyright)> corrections = new Dictionary<string, (string license, string copyright)>
+        static readonly IReadOnlyDictionary<string, (string license, string copyright, string licenseUrl)> corrections = new Dictionary<string, (string license, string copyright, string licenseUrl)>
         {
             // https://api.github.com/licenses
-            { "https://github.com/runceel/Livet", ("Zlib", "") },
-            { "https://github.com/ninject/Ninject", ("Apache-2.0", "") },
-            { "https://github.com/apache/logging-log4net", ("Apache-2.0", "Copyright (c) The Apache Software Foundation") },
-            { "https://github.com/JustArchiNET/ArchiSteamFarm", ("Apache-2.0", "") },
-            { "https://github.com/winauth/winauth", ("GPL-3.0", "") },
-            { "https://github.com/MichaCo/DnsClient.NET", ("Apache-2.0", "") },
-            { "https://github.com/neuecc/MessagePack-CSharp", ("MIT", "") },
-            { "https://github.com/gfoidl/Base64", ("MIT", "") },
-            { "https://github.com/App-vNext/Polly", ("BSD-3-Clause", "") },
-            { "https://github.com/icsharpcode/SharpZipLib", ("MIT", "") },
-            { "https://github.com/chromiumembedded/cef", ("BSD-licensed", "") },
-            { "https://github.com/cefsharp/CefSharp", ("BSD-3-Clause", "") },
-            { "https://github.com/xamarin/essentials", ("MIT", "") },
-            { "https://github.com/dotnet/efcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors") },
-            { "https://github.com/dotnet/aspnetcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors") },
-            { "https://github.com/dotnet/runtime", ("MIT", "") },
-            { "https://github.com/ant-design-blazor/ant-design-blazor", ("MIT", "") },
-            { "https://github.com/microsoft/appcenter-sdk-dotnet", ("MIT", "") },
-            { "https://github.com/nor0x/AppCenter-XMac", ("MIT", "") },
-            { "https://github.com/moq/moq4", ("BSD-3-Clause", "") },
-            { "https://github.com/xamarin/Xamarin.Forms", ("MIT", "") },
-            { "https://github.com/novotnyllc/bc-csharp", ("MIT", "") },
-            //{ "", ("", "") },
+            { "https://github.com/runceel/Livet", ("Zlib", "", "") },
+            { "https://github.com/ninject/Ninject", ("Apache-2.0", "", "") },
+            { "https://github.com/apache/logging-log4net", ("Apache-2.0", "Copyright (c) The Apache Software Foundation", "") },
+            { "https://github.com/JustArchiNET/ArchiSteamFarm", ("Apache-2.0", "", "https://raw.githubusercontent.com/JustArchiNET/ArchiSteamFarm/main/LICENSE-2.0.txt") },
+            { "https://github.com/winauth/winauth", ("GPL-3.0", "", "") },
+            { "https://github.com/MichaCo/DnsClient.NET", ("Apache-2.0", "", "") },
+            { "https://github.com/neuecc/MessagePack-CSharp", ("MIT", "", "") },
+            { "https://github.com/gfoidl/Base64", ("MIT", "", "") },
+            { "https://github.com/App-vNext/Polly", ("BSD-3-Clause", "", "") },
+            { "https://github.com/icsharpcode/SharpZipLib", ("MIT", "", "") },
+            { "https://github.com/chromiumembedded/cef", ("BSD-licensed", "", "") },
+            { "https://github.com/cefsharp/CefSharp", ("BSD-3-Clause", "", "") },
+            { "https://github.com/xamarin/essentials", ("MIT", "", "") },
+            { "https://github.com/dotnet/efcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors", "") },
+            { "https://github.com/dotnet/aspnetcore", ("Apache-2.0", "Copyright (c) .NET Foundation and Contributors", "") },
+            { "https://github.com/dotnet/runtime", ("MIT", "", "") },
+            { "https://github.com/ant-design-blazor/ant-design-blazor", ("MIT", "", "") },
+            { "https://github.com/microsoft/appcenter-sdk-dotnet", ("MIT", "", "") },
+            { "https://github.com/nor0x/AppCenter-XMac", ("MIT", "", "") },
+            { "https://github.com/moq/moq4", ("BSD-3-Clause", "", "") },
+            { "https://github.com/xamarin/Xamarin.Forms", ("MIT", "", "") },
+            { "https://github.com/novotnyllc/bc-csharp", ("MIT", "", "") },
+            { "https://github.com/skbkontur/ZstdNet", ("BSD-3-Clause", "", "") },
+            { "https://github.com/xamarin/GooglePlayServicesComponents", ("MIT", "", "") },
+            //{ "", ("", "", "") },
         };
+
+        static string[] ignoreList = new[] { "SteamDB-API", "Steam4NET" };
     }
-
-#if DEBUG
-
-    [Obsolete("待定", true)]
-    public static partial class ProductInfo
-    {
-        [Obsolete("use System.Application.Models.OpenSourceLibrary", true)]
-        public class Library
-        {
-        }
-
-        [Obsolete("use System.Application.Models.OpenSourceLibrary.Values/StringValues", true)]
-        public static IReadOnlyCollection<Library> Libraries => throw new NotImplementedException();
-    }
-
-#endif
 }

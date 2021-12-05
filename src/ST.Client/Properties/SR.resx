@@ -117,96 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CalcHashing3_" xml:space="preserve">
-    <value>正在校验（{1}/{2}）：{0}%</value>
-  </data>
-  <data name="CalcHashing_" xml:space="preserve">
-    <value>正在校验：{0}%</value>
-  </data>
-  <data name="CreateCertificateFaild" xml:space="preserve">
-    <value>创建证书失败</value>
-    <comment>Fail</comment>
-  </data>
-  <data name="Decompressing_" xml:space="preserve">
-    <value>正在解压：{0}%</value>
-  </data>
-  <data name="Downloading3_" xml:space="preserve">
-    <value>正在下载（{1}/{2}）：{0}%</value>
-  </data>
-  <data name="Downloading_" xml:space="preserve">
-    <value>正在下载：{0}%</value>
-  </data>
-  <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>下载更新包失败，请稍后重试</value>
-  </data>
-  <data name="IsExistUpdateFalse" xml:space="preserve">
-    <value>当前已是最新版本</value>
-  </data>
-  <data name="NewVersionUpdate" xml:space="preserve">
-    <value>新版本更新</value>
-  </data>
-  <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Steam++ v{0} 版本更新</value>
-  </data>
-  <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
-    <value>当有新公告时的提示通知。</value>
-  </data>
-  <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>当有新版本可用时的提示通知与下载新版本时的进度通知。</value>
-  </data>
-  <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
-    <value>公告通知</value>
-  </data>
-  <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>新版本通知</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="asf_ui" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\asf-ui.tbr;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="OpenSourceLibraryList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OpenSourceLibraryList.mpo;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>脚本依赖下载出错:[{0}]_{1}</value>
-  </data>
-  <data name="Script_BuildError" xml:space="preserve">
-    <value>脚本绑定出错:{0}</value>
-  </data>
-  <data name="Script_CacheDeleteError" xml:space="preserve">
-    <value>缓存文件删除失败:{0}</value>
-  </data>
-  <data name="Script_DeleteError" xml:space="preserve">
-    <value>删除失败</value>
-  </data>
-  <data name="Script_DeleteSuccess" xml:space="preserve">
-    <value>删除成功</value>
-  </data>
-  <data name="Script_FileDeleteError" xml:space="preserve">
-    <value>文件删除失败:{0}</value>
-  </data>
-  <data name="Script_FileRepeat" xml:space="preserve">
-    <value>脚本重复</value>
-  </data>
-  <data name="Script_NoFile" xml:space="preserve">
-    <value>脚本:{0}_文件丢失已删除</value>
-  </data>
-  <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>脚本:{0}_文件丢失，删除失败去尝试手动删除</value>
-  </data>
-  <data name="Script_NoKey" xml:space="preserve">
-    <value>程序异常 主键为空</value>
-  </data>
-  <data name="Script_ReadFileError" xml:space="preserve">
-    <value>脚本读取异常请检查语法是否有错误:{0}</value>
-  </data>
-  <data name="Script_SaveDBError" xml:space="preserve">
-    <value>保存数据出错请重试</value>
-  </data>
-  <data name="Script_SaveDbSuccess" xml:space="preserve">
-    <value>添加成功</value>
-  </data>
-  <data name="UpdateEnumOutOfRange" xml:space="preserve">
-    <value>下载更新包失败，请打开官网手动更新</value>
-  </data>
-  <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>文件校验失败，请打开官网手动更新</value>
+  <data name="ProgramUpdateCmd_" xml:space="preserve">
+    <value>@echo off
+:loop
+ping -n 1 127.0.0.1 
+tasklist|find /i "{0}"
+if %errorlevel%==0 (
+taskkill /im "{0}" /f
+)
+else(
+taskkill /im "{0}" /f
+xcopy /y /c /h /r /s "{1}\*.*" "{2}"
+rmdir /s /q "{1}"
+"{3}"
+del %0
+)
+goto :loop</value>
+    <comment>升级程序CMD命令行</comment>
   </data>
 </root>

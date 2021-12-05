@@ -134,7 +134,7 @@ namespace System.Application.UI.Adapters
 
         public sealed override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            var viewType2 = viewType.ConvertToEnum<TViewType>();
+            var viewType2 = ConvertibleHelper.Convert<TViewType, int>(viewType);
             var holder = OnCreateViewHolder(viewType2, parent);
             SetItemClicks(holder);
             return holder;

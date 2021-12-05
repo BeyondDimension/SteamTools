@@ -1,7 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>MonoAndroid11.0</TargetFramework>
+    <TargetFrameworks>net6.0-android;MonoAndroid11.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mobile.Android</AssemblyName>
     <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
@@ -114,6 +114,9 @@
     <Compile Include="UI\Views.Controls\NoSpaceTextView.cs" />
     <Compile Include="..\ST.Client.Desktop\ServiceCollectionExtensions.AddGeneralLogging.cs" />
     <Compile Include="..\ST.Client.Desktop\Services\Implementation\\DesktopAppUpdateServiceImpl.shared.cs" Link="Services\Implementation\\MobileAppUpdateServiceImpl.shared.cs" />
+    <Compile Include="..\AboutAppInfoPopup.cs">
+      <LinkBase>UI</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -174,7 +177,7 @@
 
   <ItemGroup>
     <!--<ProjectReference Include="..\ST.Client.Mobile.Droid.Resources\ST.Client.Mobile.Droid.Resources.csproj" />-->
-    <ProjectReference Include="..\ST.Client.Mobile\ST.Client.Mobile.csproj" />
+    <ProjectReference Include="..\Common.PinyinLib.TinyPinyin\Common.PinyinLib.TinyPinyin.csproj" />
   </ItemGroup>
 
   <!--VisualStudioAppCenterSDK namespacePrefix = "System.Application.Resources."-->

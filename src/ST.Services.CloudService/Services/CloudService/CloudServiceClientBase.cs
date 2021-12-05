@@ -1,10 +1,11 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using System.Application.Columns;
 using System.Application.Models;
 using System.Application.Security;
 using System.Application.Services.CloudService.Clients;
 using System.Application.Services.CloudService.Clients.Abstractions;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading;
@@ -25,6 +26,7 @@ namespace System.Application.Services.CloudService
         public IVersionClient Version { get; }
         public IActiveUserClient ActiveUser { get; }
         public IAccelerateClient Accelerate { get; }
+        public IDonateRankingClient DonateRanking { get; }
 
         #endregion
 
@@ -58,15 +60,15 @@ namespace System.Application.Services.CloudService
         public CloudServiceClientBase(
             ILogger logger,
             IHttpClientFactory clientFactory,
-            IHttpPlatformHelper http_helper,
+            IHttpPlatformHelperService http_helper,
             IToast toast,
             IAuthHelper authHelper,
-            IOptions<ICloudServiceSettings> options,
+            ICloudServiceSettings settings,
             IModelValidator validator) : base(logger, http_helper, clientFactory)
         {
             this.authHelper = authHelper;
             this.toast = toast;
-            settings = options.Value;
+            this.settings = settings;
             ApiBaseUrl = string.IsNullOrWhiteSpace(settings.ApiBaseUrl)
                 ? throw new ArgumentNullException(nameof(ApiBaseUrl)) : settings.ApiBaseUrl;
             connection = new ApiConnection(logger, this, http_helper, validator);
@@ -80,11 +82,12 @@ namespace System.Application.Services.CloudService
             ActiveUser = new ActiveUserClient(connection);
             Accelerate = new AccelerateClient(connection);
             Script = new ScriptClient(connection);
+            DonateRanking = new DonateRankingClient(connection);
 
             #endregion
         }
 
-        /// <inheritdoc cref="IHttpPlatformHelper.UserAgent"/>
+        /// <inheritdoc cref="IHttpPlatformHelperService.UserAgent"/>
         internal string UserAgent => http_helper.UserAgent;
 
         IAuthHelper IApiConnectionPlatformHelper.Auth => authHelper;
@@ -115,5 +118,35 @@ namespace System.Application.Services.CloudService
             request.RequestUri = new Uri(ForwardHelper.GetForwardRelativeUrl(request), UriKind.Relative);
             return connection.SendAsync(request, completionOption, cancellationToken);
         }
+
+        async Task<string> ICloudServiceClient.Info()
+        {
+            var api = await connection.GetHtml(default, "/info");
+            var str = api.Content;
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                try
+                {
+                    var jsonObj = JObject.Parse(str);
+                    return Serializable.SJSON(Serializable.JsonImplType.NewtonsoftJson, jsonObj, writeIndented: true);
+                }
+                catch
+                {
+                    return str;
+                }
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        //public static HttpMessageHandler? HttpClientHandler { get; private set; }
+
+        //internal static Func<HttpMessageHandler> ConfigurePrimaryHttpMessageHandler(Func<HttpMessageHandler> configureHandler) => () =>
+        //{
+        //    HttpClientHandler = configureHandler();
+        //    return HttpClientHandler;
+        //};
     }
 }

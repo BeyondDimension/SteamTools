@@ -46,7 +46,7 @@ namespace System.Commands
             var resxFilePathLang = GetResxFilePathLang(args);
             ResxFileLangCreateByNotExists(resxFilePathLang);
 
-            var resxFileDict = GetResxDict(args.resxFilePath, ignoreStringBuilder: true);
+            var resxFileDict = GetResxDict2(args.resxFilePath, ignoreStringBuilder: true);
             if (!resxFileDict.dict.Any())
             {
                 Console.WriteLine($"Error: resx file not any value, path: {args.resxFilePath}");
@@ -65,7 +65,7 @@ namespace System.Commands
                 }
             }
 
-            var resxFileDictLang = GetResxDict(resxFilePathLang, ignoreStringBuilder: true);
+            var resxFileDictLang = GetResxDict2(resxFilePathLang, ignoreStringBuilder: true);
             if (resxFileDictLang.dict.Count > resxFileDict.dict.Count) // 译文不能比原文多
             {
                 Console.WriteLine($"Error: resx file lang count incorrect, path: {resxFilePathLang}, langCount: {resxFileDictLang.dict.Count} sCount: {resxFileDict.dict.Count}");

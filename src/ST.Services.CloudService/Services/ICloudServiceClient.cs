@@ -17,6 +17,7 @@ namespace System.Application.Services
         IVersionClient Version { get; }
         IActiveUserClient ActiveUser { get; }
         IAccelerateClient Accelerate { get; }
+        IDonateRankingClient DonateRanking { get; }
 
         /// <inheritdoc cref="IApiConnection.DownloadAsync(bool, CancellationToken, string, string, IProgress{float})"/>
         Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float>? progress, CancellationToken cancellationToken = default);
@@ -29,6 +30,8 @@ namespace System.Application.Services
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<HttpResponseMessage> Forward(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default);
+
+        Task<string> Info();
 
         public static ICloudServiceClient Instance => DI.Get<ICloudServiceClient>();
     }

@@ -2,11 +2,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls;assembly=System.Application.SteamTools.Client.Desktop.Avalonia"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:service="using:System.Application.Services"
+             xmlns:application="using:System.Application"
+             xmlns:resx="using:System.Application.UI.Resx"
              xmlns:sys="using:System"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:AboutPageViewModel"
              x:CompileBindings="True"
@@ -67,23 +69,312 @@
     </Style>
     <Style Selector="TextBox.Content">
       <Setter Property="Padding" Value="0" />
-      <Setter Property="FontSize" Value="{StaticResource FontSizeH6}" />
       <Setter Property="VerticalAlignment" Value="Center" />
       <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
   </UserControl.Styles>
   <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto"
-                Padding="{StaticResource PageMargin}">
-    <DockPanel>
-      <StackPanel Spacing="10" DockPanel.Dock="Top">
-        <StackPanel Orientation="Horizontal">
-          <TextBlock Name="LogoText1" Classes="h1 light">Steam++</TextBlock>
-          <Panel Width="5" Height="5" />
-          <TextBlock Name="LogoText2" Classes="h1 light">Tools</TextBlock>
-          <Panel Width="10" Height="10" />
-          <TextBlock Name="LogoText3" Classes="h1 ultrabold">2.0</TextBlock>
+                VerticalScrollBarVisibility="Auto">
+
+    <StackPanel Classes="Settings">
+      <Expander>
+        <Expander.Header>
+          <StackPanel x:Name="LogoPanel"
+                      VerticalAlignment="Center"
+                      Orientation="Horizontal">
+            <TextBlock Name="LogoText1" Classes="h2 light">Steam++</TextBlock>
+            <Panel Width="5" Height="5" />
+            <TextBlock Name="LogoText2" Classes="h2 light">Tools</TextBlock>
+            <Panel Width="10" Height="10" />
+            <TextBlock Name="LogoText3" Classes="h2 ultrabold">2.0</TextBlock>
+          </StackPanel>
+        </Expander.Header>
+        <StackPanel Orientation="Vertical" Spacing="15">
+          <!--<StackPanel x:Name="LogoPanel"
+                      Orientation="Horizontal">
+            <TextBlock Name="LogoText1" Classes="h1 light">Steam++</TextBlock>
+            <Panel Width="5" Height="5" />
+            <TextBlock Name="LogoText2" Classes="h1 light">Tools</TextBlock>
+            <Panel Width="10" Height="10" />
+            <TextBlock Name="LogoText3" Classes="h1 ultrabold">2.0</TextBlock>
+          </StackPanel>-->
+
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <TextBlock Classes="Header light"
+                       Text="{Binding LabelVersionDisplay,Mode=OneTime}"
+                       VerticalAlignment="Center"/>
+            <TextBox Classes="Content readonlybox"
+                     IsReadOnly="True"
+                     MinWidth="10"
+                     Text="{Binding VersionDisplay,Mode=OneTime}"/>
+            <Button Classes="Hyperlink"
+                    Content="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}"
+                    Command="{Binding CheckUpdateCommand}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"/>
+            <Button Classes="Hyperlink"
+                    Content="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="{x:Static vm:AboutPageViewModel.ChangeLogLink}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"/>
+            <Button Classes="Hyperlink"
+                    IsVisible="{x:Static sys:DesktopBridge.IsRunningAsUwp}"
+                    Content="{ReflectionBinding Path=Res.About_AppReview,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="{x:Static vm:AboutPageViewModel.MicrosoftStoreReviewLink}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"/>
+          </StackPanel>
+
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="Header light"
+                       Margin="0,0,6,0"
+                       Text="Developers:"
+                       VerticalAlignment="Center"/>
+            <Button Classes="Hyperlink"
+                    Content="@软妹币玩家"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="{x:Static vm:AboutPageViewModel.RmbadminLink}"/>
+            <TextBlock Classes="LinkSeparatorPadding" Text="-" />
+            <Button Classes="Hyperlink"
+                    Content="@AigioL"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="{x:Static vm:AboutPageViewModel.AigioLLink}"/>
+            <TextBlock Classes="LinkSeparatorPadding" Text="-" />
+            <Button Classes="Hyperlink"
+                    Content="@Mossimos"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="{x:Static vm:AboutPageViewModel.MossimosLink}"/>
+          </StackPanel>
+
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="Header light"
+                       Margin="0,0,6,0"
+                       Text="Desktop UI Desgin:"
+                       VerticalAlignment="Center"/>
+            <Button Classes="Hyperlink"
+                    Content="@Pixel Mover"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="https://space.bilibili.com/18356231"/>
+          </StackPanel>
+
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="Header light"
+                       Margin="0,0,6,0"
+                       Text="Business Cooperation Contact:"
+                       VerticalAlignment="Center"/>
+            <Button Classes="Hyperlink"
+                    Content="@Cliencer克总"
+                    Command="{Binding OpenBrowserCommand}"
+                    CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}"/>
+          </StackPanel>
+
+          <WrapPanel>
+            <TextBlock Margin=" 0 0 6 -0.5"
+                       VerticalAlignment="Center"
+                       Text="This open source software is licensed with " />
+            <StackPanel Orientation="Horizontal" Spacing="5" Margin="2">
+              <Button Classes="Hyperlink"
+                      Content="GPLv3 License"
+                      Command="{Binding OpenBrowserCommand}"
+                      CommandParameter="{x:Static vm:AboutPageViewModel.LicenseLink}"/>
+            </StackPanel>
+          </WrapPanel>
         </StackPanel>
+      </Expander>
+
+      <Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="社区翻译"/>
+          </DockPanel>
+        </Expander.Header>
+
+        <StackPanel Orientation="Vertical" Spacing="10">
+          <TextBox Classes="readonlybox"
+                   IsReadOnly="True"
+                   Padding="0"
+                   TextWrapping="Wrap">
+            <TextBox.Text>
+English: 沙中金
+
+Spanish: EspRoy
+
+Italian: Zhengye
+            </TextBox.Text>
+          </TextBox>
+        </StackPanel>
+      </Expander>
+
+      <Separator Classes="Separator"/>
+
+      <Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="相关链接"/>
+          </DockPanel>
+        </Expander.Header>
+
+        <StackPanel Orientation="Vertical" Spacing="10">
+          <Button Classes="plain"
+                  HorizontalContentAlignment="Stretch"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.SourceCodeLink}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="Source Code (Github)"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+          
+          <Button Classes="plain"
+                  HorizontalContentAlignment="Stretch"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static application:UrlConstants.Gitee_Repository}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="Source Code (Gitee)"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+
+          <Button Classes="plain"
+                  HorizontalContentAlignment="Stretch"
+                  Command="{Binding OpenBrowserCommand}"
+                  CommandParameter="{x:Static vm:AboutPageViewModel.OfficialLink}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="Website"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+
+          <Button Classes="plain"
+              HorizontalContentAlignment="Stretch"
+              Command="{Binding OpenBrowserCommand}"
+              CommandParameter="{x:Static vm:AboutPageViewModel.UserSupportLink}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="User Support"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+
+          <Button Classes="plain"
+           HorizontalContentAlignment="Stretch"
+           Command="{Binding OpenBrowserCommand}"
+           CommandParameter="{x:Static vm:AboutPageViewModel.BugReportLink}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="Bug Report (Github)"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+
+          <Button Classes="plain"
+           HorizontalContentAlignment="Stretch"
+           Command="{Binding OpenBrowserCommand}"
+           CommandParameter="{x:Static application:UrlConstants.Gitee_Issues}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="Bug Report (Gitee)"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+
+          <Button Classes="plain"
+           HorizontalContentAlignment="Stretch"
+           Command="{Binding OpenBrowserCommand}"
+           CommandParameter="{x:Static vm:AboutPageViewModel.FAQLink}">
+            <Border Classes="Item">
+              <DockPanel>
+                <TextBlock Text="FAQ"/>
+
+                <ui:SymbolIcon Classes="right"
+                               Symbol="Open"
+                               FontSize="24"/>
+              </DockPanel>
+            </Border>
+          </Button>
+        </StackPanel>
+      </Expander>
+
+      <Button Classes="plain"
+              Command="{Binding OpenBrowserCommand}"
+              CommandParameter="{x:Static vm:AboutPageViewModel.AgreementLink}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.User_Agreement,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
+
+      <Button Classes="plain"
+              Command="{Binding OpenBrowserCommand}"
+              CommandParameter="{x:Static vm:AboutPageViewModel.PrivacyLink}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.User_Privacy,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
+
+      <Button Classes="plain"
+              Command="{Binding DelAccountCommand}"
+              IsVisible="{ReflectionBinding Path=IsAuthenticated,Source={x:Static service:UserService.Current}}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.DelAccount,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
+
+      <TextBlock Classes="h7 light"
+                 Margin="0 20"
+                 HorizontalAlignment="Center"
+                 Text="{x:Static vm:AboutPageViewModel.Copyright}"
+                 VerticalAlignment="Center"/>
+    </StackPanel>
+
+    <!--<StackPanel Spacing="10" DockPanel.Dock="Top">
+
         <StackPanel Orientation="Horizontal" Spacing="6">
           <TextBlock Classes="Header light"
                      Text="{Binding LabelVersionDisplay,Mode=OneTime}"
@@ -111,6 +402,7 @@
                   VerticalAlignment="Center"
                   VerticalContentAlignment="Center"/>
         </StackPanel>
+
         <StackPanel Orientation="Horizontal">
           <TextBlock Classes="Header light"
                      Margin="0,0,6,0"
@@ -185,9 +477,11 @@
           </TextBox.Text>
         </TextBox>
 
-        <!--<WrapPanel>
-          <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Desktop.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>
+        -->
+    <!--<WrapPanel>
+          <gif:Image2 Width="500" Height="300" Stretch="UniformToFill" Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/gg.gif"></gif:Image2>
         </WrapPanel>-->
+    <!--
       </StackPanel>
 
       <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 20">
@@ -260,8 +554,9 @@
                            VerticalAlignment="Center"/>
           </WrapPanel>
         </StackPanel>
-        <!--<Panel Height="140" />-->
-      </DockPanel>
-    </DockPanel>
+        -->
+    <!--<Panel Height="140" />-->
+    <!--
+      </DockPanel>-->
   </ScrollViewer>
 </UserControl>

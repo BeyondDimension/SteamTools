@@ -74,9 +74,10 @@ namespace System.Application.Models
                     var matchs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(Match)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
                     var Includes = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
                     script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? Includes : matchs;
-                    var enable = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Enable)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
-
-                    script.Enable = bool.TryParse(enable, out var e) && e;
+                    // 忽略脚本 Enable 启动标签默认启动
+                    //var enable = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Enable)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
+                    script.Enable = true;
+                    //script.Enable = bool.TryParse(enable, out var e) && e;
                     proxyScript = script;
                     return true;
                 }

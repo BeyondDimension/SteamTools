@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static System.Constants;
 using static System.ProjectPathUtil;
 using R = System.Properties.Resources;
@@ -27,8 +28,7 @@ namespace System
             CoreLib => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             ST => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             STClient => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
-            STClientDesktop => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
-            STClientDesktop_AppResources => GetResxFilePathCore(new[] { STClientDesktop, "UI", "Resx", "AppResources.resx" }),
+            STClient_AppResources => GetResxFilePathCore(new[] { STClient, "UI", "Resx", "AppResources.resx" }),
             STServicesCloudServiceModels => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             //STToolsWin7Troubleshoot => GetResxFilePathCore(new[] { resx, "Properties", "SR.resx" }),
             STServer_AppResources => GetResxFilePathCore(new[] { "ST.Server.Resources", "UI", "Resx", "AppResources.resx" }),
@@ -169,7 +169,7 @@ namespace System
             return string.Join(';', dict.Select(x => $"{x.Key}={x.Value}"));
         }
 
-        public static Dictionary<string, string> Deserialize(string comment)
+        public static Dictionary<string, string> Deserialize(string? comment)
         {
             if (string.IsNullOrWhiteSpace(comment))
             {
@@ -198,6 +198,63 @@ namespace System
             }
         }
 
+        public static (StringBuilder start, StringBuilder end, Dictionary<string, (string value, Dictionary<string, string> comment)> dict) GetResxDict2(
+           string resxFilePath,
+           string[]? ignoreKeys = null,
+           bool ignoreStringBuilder = false)
+        {
+            Dictionary<string, (string value, Dictionary<string, string> comment)> dict = new();
+            using var sr = File.OpenText(resxFilePath);
+            var doc = XDocument.Load(sr);
+            var query = from s in doc.Descendants()
+                        where s.Name.LocalName == "data"
+                        select s;
+            foreach (var item in query)
+            {
+                if (item.HasElements && item.HasAttributes)
+                {
+                    var name = item.Attribute("name");
+                    string? value = null, comment = null;
+                    if (name != null)
+                    {
+                        foreach (var element in item.Elements())
+                        {
+                            if (element.Name == "value")
+                            {
+                                value = element.Value;
+                            }
+                            else if (element.Name == "comment")
+                            {
+                                comment = element.Value;
+                            }
+                        }
+                        if (value != null)
+                        {
+                            value = Unescape(value);
+                            dict.AddOrReplace(name!.Value, (value, Deserialize(comment)));
+                        }
+                    }
+                }
+            }
+            if (ignoreKeys.Any_Nullable())
+            {
+                foreach (var item in ignoreKeys!)
+                {
+                    if (dict.ContainsKey(item))
+                    {
+                        dict.Remove(item);
+                    }
+                }
+            }
+            if (ignoreStringBuilder)
+                return (null!, null!, dict);
+            const string EndMark = "</root>";
+            StringBuilder start = new(R.Resx.TrimEnd(EndMark));
+            StringBuilder end = new(EndMark);
+            return (start, end, dict);
+        }
+
+        [Obsolete]
         public static (StringBuilder start, StringBuilder end, Dictionary<string, (string value, Dictionary<string, string> comment)> dict) GetResxDict(
             string resxFilePath,
             string[]? ignoreKeys = null,

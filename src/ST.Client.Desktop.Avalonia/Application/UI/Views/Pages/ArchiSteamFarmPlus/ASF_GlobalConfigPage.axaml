@@ -2,15 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:ms="using:System.Application.Models.Settings"
-             xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client.Desktop"
-             xmlns:ccl_service="clr-namespace:System.Application.Services;assembly=System.Application.SteamTools.Client"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:ms="using:System.Application.Settings"
+             xmlns:models="using:System.Application.Models"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:service="using:System.Application.Services"
              xmlns:gif="using:AvaloniaGif"
-             xmlns:i="using:Avalonia.Xaml.Interactivity"
-             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              x:Name="u"
              mc:Ignorable="d"
              d:DesignWidth="800"
@@ -18,80 +17,187 @@
              x:DataType="vm:ArchiSteamFarmPlusPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_GlobalConfigPage">
-  <StackPanel Spacing="20" Margin="10 0">
-    <StackPanel.Styles>
-      <Style Selector="TextBlock">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeH7}"/>
-        <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrushKey}" />
-      </Style>
-      <Style Selector="DockPanel > TextBlock">
-        <Setter Property="Margin" Value="0 0 20 0" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="(DockPanel.Dock)"  Value="Left" />
-      </Style>
-      <Style Selector="DockPanel > ToggleSwitch">
-        <Setter Property="Margin" Value="0 0 -12 0" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="OnContent" Value="{x:Null}" />
-        <Setter Property="OffContent" Value="{x:Null}" />
-      </Style>
-    </StackPanel.Styles>
+  <ScrollViewer>
+    <StackPanel Classes="Settings">
+      <Border Classes="Item">
+        <WrapPanel VerticalAlignment="Center">
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_VersionNum,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
+          <TextBlock Text="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=CurrentVersion,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>
+        </WrapPanel>
+      </Border>
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_AutoRunASF,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
+        </DockPanel>
+      </Border>
 
-    <!--<WrapPanel>
-      <TextBlock Text="ASF可执行文件路径："/>
-      <controls:ScrollingTextBlock x:Name="asfPath" Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" DockPanel.Dock="Right"/>
-      <controls:ScrollingTextBlock  Text="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-      --><!--<i:Interaction.Behaviors>
-            <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IASFService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="True">
-              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}"/>
-            </ia:DataTriggerBehavior>
-            <ia:DataTriggerBehavior Binding="{ReflectionBinding Source={x:Static service:IASFService.Instance},Path=IsArchiSteamFarmExists,Mode=OneWay}" ComparisonCondition="Equal" Value="False">
-              <ia:ChangePropertyAction TargetObject="{ReflectionBinding #asfPath}" PropertyName="Text" Value="{ReflectionBinding Path=Res.ASF_ExeNoExists,Source={x:Static resx:R.Current},Mode=OneWay}"/>
-            </ia:DataTriggerBehavior>
-          </i:Interaction.Behaviors>--><!--
-    </WrapPanel>
+      <Button Classes="plain"
+              Command="{ReflectionBinding OpenBrowser}"
+              CommandParameter="WebConfig">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.ASF_OpenWebUIGlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
 
-    <StackPanel Orientation="Horizontal" Spacing="10">
-      <Button x:Name="selectAsfPath" Content="选择路径" Width="150" HorizontalContentAlignment="Center"></Button>
-      <Button Content="下载ASF" Width="150" HorizontalContentAlignment="Center"></Button>
-    </StackPanel>-->
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
 
-    <StackPanel Spacing="10">
-      <WrapPanel>
-        <TextBlock Text="当前 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-        <TextBlock Text="" VerticalAlignment="Center"></TextBlock>
-      </WrapPanel>
-      <!--<TextBlock Text="最新 ArchiSteamFarm 版本 :  " VerticalAlignment="Center"></TextBlock>
-          <TextBlock Text="{ReflectionBinding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath},Path=Value,Mode=OneWay}" VerticalAlignment="Center"></TextBlock>-->
+      <Separator Classes="Separator"/>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ConsoleFontName,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ComboBox
+                    Items="{ReflectionBinding Mode=OneWay,Source={x:Static resx:R.Fonts}}"
+                    SelectedItem="{ReflectionBinding ConsoleSelectFont}"
+                    AutoScrollToSelectedItem="True"
+                    MaxDropDownHeight="300">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{ReflectionBinding Key,Mode=OneWay}"
+                           FontFamily="{ReflectionBinding Value,Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"/>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ConsoleFontSize,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+          <NumericUpDown Maximum="28"
+                         Minimum="8"
+                         FormatString="0"
+                         Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ConsoleMaxLine,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+          <NumericUpDown Maximum="5000"
+                         Minimum="200"
+                         FormatString="0"
+                         Value="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Separator Classes="Separator"/>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_IPCPortId,Mode=OneWay,Source={x:Static resx:R.Current}}" />
+          <NumericUpDown Maximum="65535"
+                         Minimum="80"
+                         FormatString="0"
+                         Value="{ReflectionBinding Source={x:Static ms:ASFSettings.IPCPortId},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_IPCPortOccupiedRandom,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.IPCPortOccupiedRandom},Path=Value,Mode=TwoWay}" />
+        </DockPanel>
+      </Border>
+
+      <Separator Classes="Separator"/>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.ASF_ImportBotFile,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          <Button Content="{ReflectionBinding Path=Res.SelectFile,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding SelectBotFiles}"/>
+        </DockPanel>
+      </Border>
+
+      <Expander>
+        <Expander.Header>
+          <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,StringFormat=ASF {0},Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     VerticalAlignment="Center"/>
+        </Expander.Header>
+
+        <StackPanel Orientation="Vertical" Spacing="10">
+          <StackPanel
+                      Orientation="Horizontal"
+                      Spacing="10">
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF Config}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="config"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF Plugin}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="plugin"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF Log}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="Logs"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=ASF WebUI}"
+                    Command="{ReflectionBinding OpenFolder}"
+                    CommandParameter="www"/>
+          </StackPanel>
+
+        </StackPanel>
+      </Expander>
+
+      <Separator Classes="Separator"/>
+
+      <!--<Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="AutoCompleteBox"/>
+          <AutoCompleteBox Items="{Binding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"
+                           x:DataType="models:ArchiSteamFarmCommand"
+                           FilterMode="StartsWithOrdinal"
+                           MaxDropDownHeight="400"
+                           IsTextCompletionEnabled="True"
+                           ValueMemberBinding="{Binding Command}">
+            <AutoCompleteBox.Styles>
+              <Style Selector="AutoCompleteBox /template/ Popup#PART_Popup">
+                <Setter Property="MaxWidth" Value="{ReflectionBinding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"/>
+              </Style>
+            </AutoCompleteBox.Styles>
+            <AutoCompleteBox.ItemTemplate>
+              <DataTemplate x:DataType="models:ArchiSteamFarmCommand">
+                <DockPanel>
+                  <TextBlock Text="{Binding CommandText}"/>
+                  <TextBlock Text="{Binding Description}"
+                             Margin="0 10"
+                             TextWrapping="Wrap"/>
+                </DockPanel>
+              </DataTemplate>
+            </AutoCompleteBox.ItemTemplate>
+          </AutoCompleteBox>
+        </DockPanel>
+      </Border>-->
+
+      <!--<Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="启用IPC"/>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IPCEnable,Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="IPC监听地址"/>
+          <TextBox Text="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=IPCUrl,Mode=TwoWay}"
+                   Classes="clearButton">
+          </TextBox>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="Item">
+        <DockPanel>
+          <TextBlock Text="IPC服务访问密码"/>
+          <TextBox PasswordChar="{StaticResource PasswordChar}"
+                   Classes="revealPasswordButton">
+          </TextBox>
+        </DockPanel>
+      </Border>
+
+      <Separator Classes="Separator"/>-->
     </StackPanel>
-
-    <Separator Classes="Separator"></Separator>
-
-    <DockPanel>
-      <TextBlock Text="程序启动时自动运行ASF"/>
-      <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm},Path=Value,Mode=TwoWay}" />
-    </DockPanel>
-
-    <DockPanel>
-      <TextBlock Text="ASF自动更新"/>
-      <ToggleSwitch />
-    </DockPanel>
-
-    <DockPanel>
-      <TextBlock Text="启用IPC"/>
-      <ToggleSwitch />
-    </DockPanel>
-
-    <StackPanel Orientation="Vertical" Spacing="8">
-      <TextBlock Text="IPC服务访问密码"/>
-      <TextBox Watermark="设置IPC服务密码"
-               PasswordChar="*"
-               Classes="revealPasswordButton"
-               UseFloatingWatermark="True">
-      </TextBox>
-    </StackPanel>
-
-    <Separator Classes="Separator"></Separator>
-  </StackPanel>
+  </ScrollViewer>
 </UserControl>
