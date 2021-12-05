@@ -13,7 +13,12 @@ on:
 jobs:
   Publish:
     name: Publish
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest ]
 
     steps:
     - name: Checkout repository
@@ -161,7 +166,7 @@ jobs:
         echo "rpm_linux_arm64_SHA256=$(.\GetSHA256.ps1 C:\PublishFiles\$env:ProjectName_linux_arm64_v${{ steps.tag.outputs.tag }}.rpm)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         
 
-    - name: Create a new GitHub release if a new tag is pushed
+    - name: Create a new GitHub release
       uses: ncipollo/release-action@v1
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       with:
