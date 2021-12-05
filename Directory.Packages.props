@@ -186,7 +186,7 @@
 		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 
 		<!-- Pay -->
-		<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.60" />
+		<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.109" />
 
 		<!-- Excel -->
 		<PackageVersion Include="NPOI" Version="2.5.5" />
