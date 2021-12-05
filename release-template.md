@@ -49,11 +49,13 @@
 		- 确认交易列表刷新后数据有时会显示不正确
 		- 自动更新暂不可用
 		- 
----
+
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
 [![Steam++ v2.6.2](https://img.shields.io/badge/Steam++-v2.6.2-brightgreen.svg?style=flat-square&color=512bd4)]()
-
-## [下载指南](./download-guide.md)
+  
+  
+##### [不知道该下载哪个文件?](./download-guide.md)
+---
 
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
