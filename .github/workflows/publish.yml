@@ -58,13 +58,13 @@ jobs:
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ env.Configuration }}"
       
     - name: Run CommonUnit
-      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ matrix.Configuration }}"
+      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ env.Configuration }}"
 
     - name: Run ST.Client.UnitTest
-      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ matrix.Configuration }}"
+      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ env.Configuration }}"
 
     - name: Run ST.Client.Desktop.UnitTest
-      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj -c "${{ matrix.Configuration }}"
+      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj -c "${{ env.Configuration }}"
 
     - name: Get tag
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -143,9 +143,13 @@ jobs:
 
           ### 修复问题
           
-          ---
+          
           [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
           [![${{ env.ProjectName }} v${{ steps.tag.outputs.tag }}](https://img.shields.io/badge/${{ env.ProjectName }}-v${{ steps.tag.outputs.tag }}-brightgreen.svg?style=flat-square&color=512bd4)]()
+
+
+          ##### [不知道该下载哪个文件?](./download-guide.md)
+          ---
 
           ### 文件校验
           |  File  | Checksum (SHA256)  |

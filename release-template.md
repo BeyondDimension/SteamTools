@@ -57,6 +57,7 @@
 ##### [不知道该下载哪个文件?](./download-guide.md)
 ---
 
+### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
 | Steam++_win_x64_v2.6.2.7z  | SHA256 |
