@@ -2,7 +2,7 @@ name: SteamTools Publish
 
 env:
   ProjectName: Steam++
-  Configuration: Release
+  Configuration: Debug
 
 on:
   push:
@@ -203,33 +203,3 @@ jobs:
           | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.rpm</sub> | <sub>${{ env.rpm_linux_arm64_SHA256 }}</sub> |
           |||
           | <sub>${{ env.ProjectName }}_macos_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.macos_x64_SHA256 }}</sub> |
-
-
-  # Release:
-  #   name: Release
-  #   needs: Build
-  #   if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-  #   runs-on: windows-latest
-
-  #   strategy:
-  #     fail-fast: false
-
-  #   steps:
-  #     - name: Get tag
-  #       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-  #       id: tag
-  #       uses: dawidd6/action-get-tag@v1
-
-  #     - name: Clone Credentials PRIVATE Repo
-  #       uses: GuillaumeFalourd/clone-github-repo-action@v1
-  #       with:
-  #         owner: 'SteamTools-Team'
-  #         repository: 'Credentials'
-  #         access-token: ${{ secrets.REPO_TOKEN }}
-
-  #     - name: Copy pfx To Root
-  #       run: copy Credentials\*.pfx .
-
-  #     - name: Build File
-  #       shell: pwsh
-  #       run: ..\packaging\build.ps1 ${{ steps.tag.outputs.tag }} ${{ env.Configuration }} ${{ secrets.PUBLISH_TOKEN }} 
