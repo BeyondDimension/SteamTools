@@ -1332,6 +1332,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>输入图中验证码</value>
   </data>
+  <data name="Steam_ImageCodeShowError" xml:space="preserve">
+    <value>无法显示图片验证码？</value>
+  </data>
   <data name="Steam_Password" xml:space="preserve">
     <value>Steam 密码</value>
   </data>

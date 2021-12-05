@@ -4591,6 +4591,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 无法显示图片验证码？ 的本地化字符串。
+        /// </summary>
+        public static string Steam_ImageCodeShowError {
+            get {
+                return ResourceManager.GetString("Steam_ImageCodeShowError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 输入图中验证码 的本地化字符串。
         /// </summary>
         public static string Steam_ImageCodeTip {

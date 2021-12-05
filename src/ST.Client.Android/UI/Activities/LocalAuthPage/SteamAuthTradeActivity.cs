@@ -94,7 +94,7 @@ namespace System.Application.UI.Activities
                 binding.ivCaptchaImage.Visibility = state;
                 binding.layoutCaptcha.Visibility = state;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.CodeImage).SubscribeInMainThread(value =>
+            ViewModel!.WhenAnyValue(x => x.CaptchaImage).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
                 binding.ivCaptchaImage.SetImageSource(value);
@@ -162,7 +162,7 @@ namespace System.Application.UI.Activities
             };
             binding.tbCaptcha.TextChanged += (_, _) =>
             {
-                ViewModel!.CodeImageChar = binding.tbCaptcha.Text;
+                ViewModel!.CaptchaText = binding.tbCaptcha.Text;
             };
             binding.cbSelectAll.CheckedChange += (_, e) =>
             {
@@ -243,7 +243,7 @@ namespace System.Application.UI.Activities
             }
             else if (view.Id == Resource.Id.ivCaptchaImage)
             {
-                Browser2.Open(ViewModel?.CodeImage);
+                Browser2.Open(ViewModel?.CaptchaImage);
             }
             else if (view.Id == Resource.Id.btnShowCaptchaImage)
             {

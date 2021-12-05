@@ -171,19 +171,6 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string? CaptchaText
-        {
-            get
-            {
-                return _Enroll.CaptchaText;
-            }
-            set
-            {
-                _Enroll.CaptchaText = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
         public string? EmailAuthText
         {
             get
@@ -216,6 +203,19 @@ namespace System.Application.UI.ViewModels
             }
             set
             {
+                this.RaisePropertyChanged();
+            }
+        }
+
+        public string? CaptchaText
+        {
+            get
+            {
+                return _Enroll.CaptchaText;
+            }
+            set
+            {
+                _Enroll.CaptchaText = value;
                 this.RaisePropertyChanged();
             }
         }

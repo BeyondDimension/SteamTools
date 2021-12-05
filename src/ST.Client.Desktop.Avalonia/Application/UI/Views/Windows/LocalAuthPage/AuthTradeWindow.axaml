@@ -12,6 +12,7 @@
         xmlns:i="using:Avalonia.Xaml.Interactivity"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         xmlns:ms="using:System.Application.Settings"
+        xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
@@ -32,12 +33,20 @@
           <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding RememberMe}"></CheckBox>
         </Panel>
 
-        <StackPanel IsVisible="{Binding IsRequiresCaptcha}" Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
-          <Border Width="206" Height="37">
-            <Image Width="206" Height="37" Source="{Binding CodeImage,Converter={StaticResource BitmapAssetValueConverter}}">
-            </Image>
-          </Border>
-          <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CodeImageChar}" MaxWidth="200"></TextBox>
+        <StackPanel IsVisible="{Binding IsRequiresCaptcha}" 
+                    Orientation="Vertical" 
+                    HorizontalAlignment="Center" 
+                    Spacing="10">
+          <WrapPanel>
+            <gif:Image2 Width="206"
+                        Height="37"
+                        Stretch="Uniform"
+                        Source="{Binding CaptchaImage}"/>
+            <Button Content="{ReflectionBinding Path=Res.Steam_ImageCodeShowError,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Margin="5 0 0 0"
+                    Command="{ReflectionBinding CaptchaUrlButton_Click}"/>
+          </WrapPanel>
+          <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CaptchaText}" MaxWidth="200"></TextBox>
         </StackPanel>
 
         <Button Content="{ReflectionBinding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}"
