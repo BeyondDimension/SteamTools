@@ -75,22 +75,22 @@ jobs:
       id: tag
       uses: dawidd6/action-get-tag@v1
 
-    - name: Clone Credentials PRIVATE Repo
+    - name: Checkout repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: GuillaumeFalourd/clone-github-repo-action@v1
+      uses: actions/checkout@v2
       with:
-        owner: 'SteamTools-Team'
-        repository: 'Credentials'
-        access-token: ${{ secrets.REPO_TOKEN }}
+        repository: SteamTools-Team/Credentials
+        token: ${{ secrets.REPO_TOKEN }}
+        path: ./Credentials
 
     - name: Copy pfx To Root
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      run: copy Credentials\*.pfx .
+      run: copy .\Credentials\*.pfx .
 
     - name: Build Release & Package 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       shell: pwsh
-      run: ..\packaging\build.ps1 ${{ steps.tag.outputs.tag }} ${{ env.Configuration }} ${{ secrets.PUBLISH_TOKEN }}
+      run: .\packaging\build.ps1 ${{ steps.tag.outputs.tag }} ${{ env.Configuration }} ${{ secrets.PUBLISH_TOKEN }}
 
     - name: Package fd-win-x64
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
