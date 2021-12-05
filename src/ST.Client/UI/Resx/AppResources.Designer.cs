@@ -4203,6 +4203,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 自定义代理 DNS 的本地化字符串。
+        /// </summary>
+        public static string Settings_Proxy_CustomDNS {
+            get {
+                return ResourceManager.GetString("Settings_Proxy_CustomDNS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 地址 的本地化字符串。
         /// </summary>
         public static string Settings_Proxy_IPAddress {

@@ -39,7 +39,7 @@
               </DockPanel>
 
               <DockPanel>
-                <TextBlock Text="自定义代理 DNS"/>
+                <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_CustomDNS,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                 
                 <ui:ComboBox IsEditable="True" 
                              Items="{Binding ProxyDNSs}"

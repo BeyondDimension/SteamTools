@@ -1747,6 +1747,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
     <value>代理监听 IP 地址</value>
   </data>
+  <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
+    <value>自定义代理 DNS</value>
+  </data>
   <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
     <value>Socks5 本地代理</value>
   </data>
