@@ -30,10 +30,10 @@ function Build-PublishTool
     $dev=''
     if($configuration -eq 'Debug')
     {
-        $dev = "-dev"
+        $dev = "-dev "
     }
     
-    & $publishtool_exe ver -token $env:Token $dev
+    & $publishtool_exe ver $dev-token $env:Token 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
     # build App
@@ -43,7 +43,7 @@ function Build-PublishTool
     Build-App linux-x64
     Build-App linux-arm64
 
-    & $publishtool_exe full -token $env:Token $dev
+    & $publishtool_exe full $dev-token $env:Token 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
