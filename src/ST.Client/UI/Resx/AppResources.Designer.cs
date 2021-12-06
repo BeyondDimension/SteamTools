@@ -2040,6 +2040,16 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam游戏已下载完成
+        ///系统将在 {0} 秒后{1}。 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown_DownloadCompleteTip {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown_DownloadCompleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用下载监控 的本地化字符串。
         /// </summary>
         public static string GameList_SteamShutdown_EnableWatchDownloading {

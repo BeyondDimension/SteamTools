@@ -39,10 +39,10 @@ namespace System.Application.UI.ViewModels
                 this.WhenAnyValue(x => x.SizePosition.X, c => c.SizePosition.Y, v => v.SizePosition.Width, b => b.SizePosition.Height)
                     .Subscribe(x =>
                     {
-                        if (UISettings.WindowSizePositions.Value == null)
-                            UISettings.WindowSizePositions.Value = new Collections.Concurrent.ConcurrentDictionary<string, SizePosition>();
                         if (x.Item1 == 0 && x.Item2 == 0 && x.Item3 == 0 && x.Item4 == 0)
                             return;
+                        if (UISettings.WindowSizePositions.Value == null)
+                            UISettings.WindowSizePositions.Value = new Collections.Concurrent.ConcurrentDictionary<string, SizePosition>();
                         else if (UISettings.WindowSizePositions.Value.ContainsKey(name))
                             UISettings.WindowSizePositions.Value[name] = SizePosition;
                         else

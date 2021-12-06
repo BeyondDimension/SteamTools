@@ -359,9 +359,11 @@ namespace System.Application.Services
 
         private void WatchDownloadingComplete()
         {
-            INotificationService.Instance.Notify($"Steam游戏已下载完成，{Environment.NewLine} 系统将在 30 秒后关闭。", NotificationType.Message);
+            var endMode = SteamSettings.DownloadCompleteSystemEndMode?.Value ?? SystemEndMode.Sleep;
 
-            switch (SteamSettings.DownloadCompleteSystemEndMode?.Value)
+            INotificationService.Instance.Notify(string.Format(AppResources.GameList_SteamShutdown_DownloadCompleteTip, 30, AppResources.ResourceManager.GetString(Enum2.GetDescription(endMode) ?? "System Sleep", R.Culture)), NotificationType.Message);
+
+            switch (endMode)
             {
                 case SystemEndMode.Hibernate:
                     IPlatformService.Instance.SystemHibernate();

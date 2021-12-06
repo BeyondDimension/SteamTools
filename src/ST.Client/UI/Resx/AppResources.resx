@@ -1636,6 +1636,11 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
     <value>在选中游戏下载并安装完成后执行</value>
   </data>
+  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+    <value>Steam游戏已下载完成
+系统将在 {0} 秒后{1}。</value>
+    <comment>Comment={0}倒计时时间;{1}执行操作;</comment>
+  </data>
   <data name="Translators" xml:space="preserve">
     <value>社区翻译</value>
   </data>
