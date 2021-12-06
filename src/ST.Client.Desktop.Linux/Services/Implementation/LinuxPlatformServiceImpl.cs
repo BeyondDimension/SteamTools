@@ -225,9 +225,8 @@ namespace System.Application.Services.Implementation
                 };
                 var pwd = await TextBoxWindowViewModel.ShowDialogAsync(vm);
                 if (!string.IsNullOrWhiteSpace(pwd))
-                {
-                    var outStr = RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"", true); 
-                    if (!string.IsNullOrWhiteSpace(outStr))
+                { 
+                    if (!string.IsNullOrWhiteSpace(RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"", true)))
                     {
                         SystemUserPassword = pwd;
                     }
