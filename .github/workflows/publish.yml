@@ -75,20 +75,20 @@ jobs:
       id: tag
       uses: dawidd6/action-get-tag@v1
 
-    - name: Checkout Credentials repository
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
-      with:
-        repository: SteamTools-Team/Credentials
-        token: ${{ secrets.REPO_TOKEN }}
-        path: ./Credentials
+    # - name: Checkout Credentials repository
+    #   if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: SteamTools-Team/Credentials
+    #     token: ${{ secrets.REPO_TOKEN }}
+    #     path: ./Credentials
 
-    - name: Copy pfx and snk To Source
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      run: |
-        copy .\Credentials\*.pfx .
-        copy .\Credentials\*.snk .
-    #dir *.pfx -s
+    # - name: Copy pfx and snk To Source
+    #   if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+    #   run: |
+    #     copy .\Credentials\*.pfx .
+    #     copy .\Credentials\*.snk .
+    #     dir *.pfx -s
 
     - name: Build ST.Tools.Publish Release
       run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release

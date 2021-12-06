@@ -3,7 +3,6 @@ $ErrorActionPreference = 'Stop'
 
 Write-Host 'dotnet SDK info'
 dotnet --info
-msbuild --version
 
 $RootPath = Split-Path $PSScriptRoot -Parent
 $output_dir = "$RootPath\src\ST.Client.Desktop.Avalonia.App\bin\$configuration\Publish"
