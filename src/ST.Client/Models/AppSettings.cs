@@ -86,11 +86,13 @@ namespace System.Application.Models
         {
             bool GetIsOfficialChannelPackage_()
             {
+#if SIGN_ASSEMBLY
                 var pk = typeof(AppSettings).Assembly.GetName().GetPublicKey();
                 if (pk == null) return false;
                 var pkStr = ", PublicKey=" + string.Join(string.Empty, pk.Select(x => x.ToString("x2")));
                 var r = pkStr == ThisAssembly.PublicKey;
                 if (!r) return false;
+#endif
                 try
                 {
                     return Aes != null && RSA != null;
