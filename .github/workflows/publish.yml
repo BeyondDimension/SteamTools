@@ -60,10 +60,7 @@ jobs:
       
     - name: Build AvaloniaApp
       run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ env.Configuration }}"
-      
-    - name: Build ST.Tools.Publish Release
-      run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release
-
+     
     - name: Run CommonUnit
       run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ env.Configuration }}"
 
@@ -86,11 +83,15 @@ jobs:
         token: ${{ secrets.REPO_TOKEN }}
         path: ./Credentials
 
-    - name: Copy pfx To Root
+    - name: Copy pfx and snk To Source
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       run: |
         copy .\Credentials\*.pfx .
-        dir *.pfx -s
+        copy .\Credentials\*.snk .
+    #dir *.pfx -s
+
+    - name: Build ST.Tools.Publish Release
+      run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release
 
     - name: Build Release & Package 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}

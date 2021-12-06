@@ -3,8 +3,9 @@ $ErrorActionPreference = 'Stop'
 
 Write-Host 'dotnet SDK info'
 dotnet --info
+msbuild --version
 
-$RootPath = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+$RootPath = Split-Path $PSScriptRoot -Parent
 $output_dir = "$RootPath\src\ST.Client.Desktop.Avalonia.App\bin\$configuration\Publish"
 $proj_path = "$RootPath\src\ST.Client.Desktop.Avalonia.App\ST.Client.Avalonia.App.csproj"
 
@@ -23,7 +24,7 @@ function Build-PublishTool
 {
     if(-not (Test-Path $publishtool_exe))
     {
-       dotnet build -c Release -f $publishtool_tfm $publishtool_dir\ST.Tools.Publish.csproj
+       & dotnet build $publishtool_dir\ST.Tools.Publish.csproj -c Release
        if ($LASTEXITCODE) { exit $LASTEXITCODE }
     }
 
@@ -71,7 +72,7 @@ function Build-App
 
     if($configuration -eq 'Debug'){ $pubxml = "dev-$pubxml" }
 
-    dotnet publish $proj_path -c $configuration /p:PublishProfile=$pubxml
+    & dotnet publish $proj_path -c $configuration -p:PublishProfile=$pubxml
 
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
