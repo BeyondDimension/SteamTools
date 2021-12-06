@@ -153,5 +153,25 @@ namespace System.Application.Services.Implementation
             ((IPlatformService)this).RunShell(shellContent.ToString(), false);
             return true;
         }
+
+        public void SystemLock(int waitSecond = 30)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async void SystemShutdown(int waitSecond = 30)
+        {
+          
+        }
+
+        public async void SystemSleep(int waitSecond = 30)
+        { 
+
+        }
+
+        public async void SystemHibernate(int waitSecond = 30)
+        { 
+
+        }
     }
 }

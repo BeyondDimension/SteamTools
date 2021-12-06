@@ -248,5 +248,31 @@ namespace System.Application.Services.Implementation
            ((IPlatformService)this).RunShell(shellContent.ToString(), false);
             return true;
         }
+
+        public void SystemLock(int waitSecond = 30)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SystemShutdown(int waitSecond = 30)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SystemSleep(int waitSecond = 30)
+        {
+            using var p = new Process();
+            p.StartInfo.FileName = "osascript";
+            p.StartInfo.Arguments = " -e ' tell application \"Finder\" to sleep do shell script \"Killall \" & quoted form of \"%s\"'";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+
+        }
+
+        public void SystemHibernate(int waitSecond = 30)
+        {
+            throw new NotImplementedException();
+        } 
     }
 }
