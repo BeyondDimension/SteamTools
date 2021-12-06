@@ -21,7 +21,7 @@ $build_pubxml_linuxarm64 = "linux-arm64.pubxml"
 
 function Build-PublishTool
 {
-    if(-Not Test-Path $publishtool_exe)
+    if(-not Test-Path $publishtool_exe)
     {
        dotnet build -c Release -f $publishtool_tfm $publishtool_dir\ST.Tools.Publish.csproj
        if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -30,7 +30,7 @@ function Build-PublishTool
     $dev=''
     if($configuration -eq 'Debug')
     {
-        $dev = "-dev 1"
+        $dev = "-dev"
     }
     
     & $publishtool_exe -ver -token $env:Token $dev
