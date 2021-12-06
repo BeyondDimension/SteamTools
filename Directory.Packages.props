@@ -4,7 +4,7 @@
 		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.21" />
 		<PackageVersion Include="Microsoft.Extensions.Http" Version="3.1.21" />
 		<PackageVersion Include="Microsoft.Extensions.Logging" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.21" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.21" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="3.1.21" />
@@ -23,7 +23,7 @@
 		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.Extensions.Http" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
@@ -42,7 +42,7 @@
 		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.0" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
