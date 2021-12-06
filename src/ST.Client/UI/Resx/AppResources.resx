@@ -48,12 +48,12 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-            : 
+    
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
-            : 
+
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -1979,5 +1979,8 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ShowHide" xml:space="preserve">
     <value>显示/隐藏</value>
+  </data>
+  <data name="LinuxSudoTips" xml:space="preserve">
+    <value>Linux 需要提供系统 root 密码才能正常使用。</value>
   </data>
 </root>
