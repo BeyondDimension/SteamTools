@@ -78,8 +78,8 @@ function Build-App
 
 if([String]::IsNullOrEmpty($env:Token) -Or [String]::IsNullOrEmpty($version))
 {
-    Write-Host "Undefined Token Or Version: $version"
-    exit -1
+    Write-Error "Undefined Token Or Version: $version"
+    Exit 1
 }
 
 Build-PublishTool
