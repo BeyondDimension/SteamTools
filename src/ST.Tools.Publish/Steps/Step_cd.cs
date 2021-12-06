@@ -104,6 +104,8 @@ namespace System.Application.Steps
             // 8. (本地)读取上一步操作后的 Publish.json 生成压缩包并计算哈希值写入 Publish.json
             var parallelTasks = new List<Task>();
 
+            Console.WriteLine("7z Step 正在创建压缩包...");
+
             // 创建压缩包
             var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(dev, x)));
             parallelTasks.AddRange(gs);
@@ -113,6 +115,8 @@ namespace System.Application.Steps
 
             if (val.Any(x => x.StartsWith("linux-")))
             {
+                Console.WriteLine("rpm Step 正在打包 CentOS/RedHat Linux installer...");
+
                 // Create a CentOS/RedHat Linux installer
                 Step_rpm.Init();
                 var rpms = linux_publishDirs.Select(x => Task.Run(() => Step_rpm.HandlerItem(dev, x)));
@@ -120,6 +124,8 @@ namespace System.Application.Steps
 
                 await Task.WhenAll(parallelTasks);
                 parallelTasks.Clear();
+
+                Console.WriteLine("deb Step 正在打包 Ubuntu/Debian Linux installer...");
 
                 // Create a Ubuntu/Debian Linux installer
                 var debs = linux_publishDirs.Select(x => Task.Run(() => Step_deb.HandlerItem(dev, x)));
@@ -129,8 +135,12 @@ namespace System.Application.Steps
                 parallelTasks.Clear();
             }
 
+            Console.WriteLine("rel Step 正在写入 SHA256...");
+
             // 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
             StepRel.Handler2(endWriteOK: false);
+
+            Console.WriteLine("wdb Step 正在上传新版本数据中...");
 
             // wdb 11. (云端)读取上一步上传的数据写入数据库中
             var request = new UpdateVersionRequest
