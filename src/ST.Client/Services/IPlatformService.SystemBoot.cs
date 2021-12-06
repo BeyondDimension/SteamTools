@@ -1,3 +1,5 @@
+using System.Runtime.Versioning;
+
 namespace System.Application.Services
 {
 #if NETFRAMEWORK
@@ -16,6 +18,7 @@ namespace System.Application.Services
 #endif
         const string SystemBootRunArguments = "-clt c -silence";
 
+#if !NETFRAMEWORK
         /// <summary>
         /// 锁定
         /// </summary>
