@@ -24,19 +24,19 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>-->
 
-  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'linux-x64' Or '$(ExtraDefineConstants)' == 'linux-arm64' ">
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'linux-x64' Or '$(ExtraDefineConstants)' == 'linux-arm64' Or '$(ExtraDefineConstants)' == 'dev-linux-x64' Or '$(ExtraDefineConstants)' == 'dev-linux-arm64' ">
     <DefineConstants>PUBLISH;LINUX;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'osx-x64' ">
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'osx-x64' Or '$(ExtraDefineConstants)' == 'dev-osx-x64'  ">
     <DefineConstants>MAC;PUBLISH;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'win-x64' ">
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'win-x64' Or '$(ExtraDefineConstants)' == 'dev-win-x64' ">
     <DefineConstants>PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'fd-win-x64' ">
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'fd-win-x64' Or '$(ExtraDefineConstants)' == 'dev-fd-win-x64' ">
     <DefineConstants>FRAMEWORK_DEPENDENT;PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 

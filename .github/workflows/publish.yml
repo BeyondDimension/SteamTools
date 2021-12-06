@@ -1,4 +1,4 @@
-name: SteamTools Publish
+name: Publish
 
 env:
   ProjectName: Steam++
