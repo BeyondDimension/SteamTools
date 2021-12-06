@@ -72,10 +72,10 @@
       <LinkBase>Models</LinkBase>
     </Compile>
     <Compile Include="..\ST.Services.CloudService.Models\Properties\SR.Designer.cs">
-      <LinkBase>Models</LinkBase>
+      <LinkBase>Properties</LinkBase>
     </Compile>
     <EmbeddedResource Include="..\ST.Services.CloudService.Models\Properties\SR.resx">
-      <LinkBase>Models</LinkBase>
+      <LinkBase>Properties</LinkBase>
     </EmbeddedResource>
   </ItemGroup>
 

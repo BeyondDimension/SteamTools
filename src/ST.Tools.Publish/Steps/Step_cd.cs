@@ -5,8 +5,8 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,8 +59,15 @@ namespace System.Application.Steps
                 UseLastSKey = use_last_skey,
             };
             using var client = GetHttpClient(token, dev);
-            using var rsp = await client.PostAsJsonAsync(api_version_create, request);
-            IApiResponse<AppIdWithPublicKey>? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl<AppIdWithPublicKey>>();
+            using var req = GetRequestContent(request);
+            using var rsp = await client.PostAsync(api_version_create, req);
+            if (rsp.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                var html = await rsp.Content.ReadAsStringAsync();
+                throw new HttpRequestException(html);
+            }
+            rsp.EnsureSuccessStatusCode();
+            var apiResponse = await GetResponseAsync<AppIdWithPublicKey>(rsp);
             apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
             if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
             var value = apiResponse.Content;
@@ -78,9 +85,12 @@ namespace System.Application.Steps
             var fde_val = val.Where(x => x.StartsWith("win-")).ToArray(); // 仅 Windows 发行依赖部署(FDE) 包
             if (fde_val.Any()) publishDict.Add(DeploymentMode.FDE, fde_val);
 
-            // X. (本地)将发布 Host 入口点重定向到 Bin 目录中
-            var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
-            await Task.WhenAll(hpTasks);
+            if (val.Any(x => x.StartsWith("win-")))
+            {
+                // X. (本地)将发布 Host 入口点重定向到 Bin 目录中
+                var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
+                await Task.WhenAll(hpTasks);
+            }
 
             List<PublishDirInfo> publishDirs = new();
             // 5. (本地)验证发布文件夹与计算文件哈希
@@ -98,16 +108,26 @@ namespace System.Application.Steps
             var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(dev, x)));
             parallelTasks.AddRange(gs);
 
-            // Create a CentOS/RedHat Linux installer
-            Step_rpm.Init();
-            var rpms = linux_publishDirs.Select(x => Task.Run(() => Step_rpm.HandlerItem(dev, x)));
-            parallelTasks.AddRange(rpms);
-
-            // Create a Ubuntu/Debian Linux installer
-            var debs = linux_publishDirs.Select(x => Task.Run(() => Step_deb.HandlerItem(dev, x)));
-            parallelTasks.AddRange(debs);
-
             await Task.WhenAll(parallelTasks);
+            parallelTasks.Clear();
+
+            if (val.Any(x => x.StartsWith("linux-")))
+            {
+                // Create a CentOS/RedHat Linux installer
+                Step_rpm.Init();
+                var rpms = linux_publishDirs.Select(x => Task.Run(() => Step_rpm.HandlerItem(dev, x)));
+                parallelTasks.AddRange(rpms);
+
+                await Task.WhenAll(parallelTasks);
+                parallelTasks.Clear();
+
+                // Create a Ubuntu/Debian Linux installer
+                var debs = linux_publishDirs.Select(x => Task.Run(() => Step_deb.HandlerItem(dev, x)));
+                parallelTasks.AddRange(debs);
+
+                await Task.WhenAll(parallelTasks);
+                parallelTasks.Clear();
+            }
 
             // 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
             StepRel.Handler2(endWriteOK: false);
@@ -119,8 +139,15 @@ namespace System.Application.Steps
                 DirNames = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray(),
             };
             using var client = GetHttpClient(token, dev);
-            using var rsp = await client.PutAsJsonAsync(api_version_create, request);
-            IApiResponse? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl>();
+            using var req = GetRequestContent(request);
+            using var rsp = await client.PutAsync(api_version_create, req);
+            if (rsp.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                var html = await rsp.Content.ReadAsStringAsync();
+                throw new HttpRequestException(html);
+            }
+            rsp.EnsureSuccessStatusCode();
+            var apiResponse = await GetResponseAsync(rsp);
             apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
             if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
 
@@ -298,10 +325,42 @@ namespace System.Application.Steps
         {
             var client = new HttpClient
             {
-                BaseAddress = new Uri(dev ? dev_api_base_url : api_base_url)
+                BaseAddress = new Uri(dev ? dev_api_base_url : api_base_url),
+                DefaultRequestVersion = HttpVersion.Version20,
+                DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher,
             };
-            client.DefaultRequestHeaders.Authorization = new("", token);
+            client.DefaultRequestHeaders.Add(AppIdWithPublicKey.AuthorizationToken, token);
             return client;
+        }
+
+        static HttpContent GetRequestContent<T>(T request)
+        {
+            //var bytes = Serializable.SMP(request);
+            //var content = new ByteArrayContent(bytes);
+            //content.Headers.ContentType = new(MediaTypeNames.MessagePack);
+            //return content;
+
+            var json = Serializable.SJSON_Original(request);
+            var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.JSON);
+            return content;
+        }
+
+        static async Task<IApiResponse<T>> GetResponseAsync<T>(HttpResponseMessage responseMessage)
+        {
+            //using var stream = await responseMessage.Content.ReadAsStreamAsync();
+            //return await ApiResponse.DeserializeAsync<T>(stream, default);
+
+            var json = await responseMessage.Content.ReadAsStringAsync();
+            return Serializable.DJSON_Original<ApiResponseImpl<T>>(json)!;
+        }
+
+        static async Task<IApiResponse> GetResponseAsync(HttpResponseMessage responseMessage)
+        {
+            //using var stream = await responseMessage.Content.ReadAsStreamAsync();
+            //return await ApiResponse.DeserializeAsync<object>(stream, default);
+
+            var json = await responseMessage.Content.ReadAsStringAsync();
+            return Serializable.DJSON_Original<ApiResponseImpl>(json)!;
         }
 
         const string dev_api_base_url = "https://pan.mossimo.net:9911";
