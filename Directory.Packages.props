@@ -141,10 +141,10 @@
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.0.1" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
-		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.155" />
-		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.155" />
-		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.155" />
-		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.155" />
+		<PackageVersion Include="HarfBuzzSharp" Version="2.6.1.8" />
+		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.6.1.8" />
+		<PackageVersion Include="SkiaSharp" Version="2.80.3" />
+		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
 
 		<!-- AutoMapper -->
 		<PackageVersion Include="AutoMapper" Version="10.1.1" />
