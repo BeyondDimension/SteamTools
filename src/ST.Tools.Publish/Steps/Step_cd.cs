@@ -300,7 +300,7 @@ namespace System.Application.Steps
             {
                 BaseAddress = new Uri(dev ? dev_api_base_url : api_base_url)
             };
-            client.DefaultRequestHeaders.Authorization = new(token);
+            client.DefaultRequestHeaders.Authorization = new("", token);
             return client;
         }
 
