@@ -506,7 +506,6 @@ namespace System.Application.Services.CloudService
 
                 var request = new HttpRequestMessage(method, requestUri)
                 {
-                    Version = HttpVersion.Version20,
                     Content = GetRequestContent(
                        isSecurity,
                        aes,
@@ -555,7 +554,7 @@ namespace System.Application.Services.CloudService
 
                 HandleHttpRequest(request);
 
-                var response = await client.SendAsync(request,
+                var response = await client.UseDefaultSendAsync(request,
                    HttpCompletionOption.ResponseHeadersRead,
                    cancellationToken)
                    .ConfigureAwait(false);
@@ -757,10 +756,7 @@ namespace System.Application.Services.CloudService
             IApiResponse responseResult;
             try
             {
-                var request = new HttpRequestMessage(method, requestUri)
-                {
-                    Version = HttpVersion.Version20,
-                };
+                var request = new HttpRequestMessage(method, requestUri);
 
                 JWTEntity? jwt = null;
 
@@ -773,7 +769,7 @@ namespace System.Application.Services.CloudService
 
                 HandleHttpRequest(request);
 
-                var response = await client.SendAsync(request,
+                var response = await client.UseDefaultSendAsync(request,
                    HttpCompletionOption.ResponseHeadersRead,
                    cancellationToken)
                    .ConfigureAwait(false);

@@ -275,7 +275,7 @@ namespace System.Application
                     c.DefaultRequestVersion = HttpVersion.Version20;
 #endif
 #if NET5_0_OR_GREATER
-                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
 #endif
                 }, configureHandler:
 #if NETCOREAPP2_1_OR_GREATER
