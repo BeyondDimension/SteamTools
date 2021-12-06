@@ -93,7 +93,7 @@ jobs:
     - name: Build ST.Tools.Publish Release
       run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release
 
-    - name: Build Release & Package 7z
+    - name: Build Release & Package All Package
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       shell: pwsh
       run: .\packaging\build.ps1 ${{ steps.tag.outputs.tag }} ${{ env.Configuration }}
