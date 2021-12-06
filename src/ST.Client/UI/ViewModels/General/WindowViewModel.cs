@@ -31,7 +31,7 @@ namespace System.Application.UI.ViewModels
 
             if (IsSupportedSizePosition)
             {
-                if (UISettings.WindowSizePositions.Value!.ContainsKey(name))
+                if (UISettings.WindowSizePositions.Value?.ContainsKey(name) == true)
                 {
                     _SizePosition = UISettings.WindowSizePositions.Value[name];
                 }
@@ -39,9 +39,11 @@ namespace System.Application.UI.ViewModels
                 this.WhenAnyValue(x => x.SizePosition.X, c => c.SizePosition.Y, v => v.SizePosition.Width, b => b.SizePosition.Height)
                     .Subscribe(x =>
                     {
+                        if (UISettings.WindowSizePositions.Value == null)
+                            UISettings.WindowSizePositions.Value = new Collections.Concurrent.ConcurrentDictionary<string, SizePosition>();
                         if (x.Item1 == 0 && x.Item2 == 0 && x.Item3 == 0 && x.Item4 == 0)
                             return;
-                        else if (UISettings.WindowSizePositions.Value!.ContainsKey(name))
+                        else if (UISettings.WindowSizePositions.Value.ContainsKey(name))
                             UISettings.WindowSizePositions.Value[name] = SizePosition;
                         else
                             UISettings.WindowSizePositions.Value.TryAdd(name, SizePosition);
