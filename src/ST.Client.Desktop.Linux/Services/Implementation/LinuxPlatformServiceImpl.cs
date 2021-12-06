@@ -185,20 +185,25 @@ namespace System.Application.Services.Implementation
             await Task.Delay(waitSecond);
             RunShell($"echo \"{SystemUserPassword}\" | sudo sh -c \" echo disk > /sys/pwoer/state\"");
         }
-        private string RunShell(string shell)
+        private string RunShell(string shell, bool isAdmin = false)
         {
             try
             {
                 using var p = new Process();
                 p.StartInfo.FileName = UnixHelper.BinBash;
-                p.StartInfo.Arguments = shell;
+                p.StartInfo.Arguments = "";
                 p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardInput = true;
                 p.StartInfo.UseShellExecute = false;
-                p.StartInfo.CreateNoWindow = true;
                 p.Start();
+                p.StandardInput.WriteLine(shell);
+                //p.StandardInput.WriteLine(SystemUserPassword);
+                p.StandardInput.Close();
                 string result = p.StandardOutput.ReadToEnd();
+                p.StandardOutput.Close();
                 p.WaitForExit();
                 p.Close();
+                p.Dispose();
                 return result;
             }
             catch (Exception e)
@@ -209,7 +214,7 @@ namespace System.Application.Services.Implementation
             return string.Empty;
         }
 
-        public async void TryGetSystemUserPassword(sbyte retry_count = 3)
+        public async void TryGetSystemUserPassword(sbyte retry_count = 4)
         {
             if (string.IsNullOrWhiteSpace(SystemUserPassword))
             {
@@ -221,8 +226,11 @@ namespace System.Application.Services.Implementation
                 var pwd = await TextBoxWindowViewModel.ShowDialogAsync(vm);
                 if (!string.IsNullOrWhiteSpace(pwd))
                 {
-                    if (string.IsNullOrWhiteSpace(RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"")))
+                    var outStr = RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"", true); 
+                    if (!string.IsNullOrWhiteSpace(outStr))
+                    {
                         SystemUserPassword = pwd;
+                    }
                     else
                     {
                         //密码错误重试3次
