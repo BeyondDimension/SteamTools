@@ -24,6 +24,22 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>-->
 
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'linux-x64' Or '$(ExtraDefineConstants)' == 'linux-arm64' ">
+    <DefineConstants>PUBLISH;LINUX;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'osx-x64' ">
+    <DefineConstants>MAC;PUBLISH;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'win-x64' ">
+    <DefineConstants>PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'fd-win-x64' ">
+    <DefineConstants>FRAMEWORK_DEPENDENT;PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
@@ -94,7 +110,7 @@
   <!--<ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
     <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj"/>
   </ItemGroup>-->
-
+ 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
