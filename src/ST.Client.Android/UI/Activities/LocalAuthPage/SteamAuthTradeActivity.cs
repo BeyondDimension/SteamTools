@@ -72,7 +72,7 @@ namespace System.Application.UI.Activities
                 //speedDialDict.ReplaceLabels(ToString2);
                 binding.btnCancelTrade.Text = LocalAuth_AuthTrade_Cancel;
                 binding.btnConfirmTrade.Text = LocalAuth_AuthTrade_Confirm;
-                binding.btnShowCaptchaImage.Text = UnableDisplayCaptchaImage;
+                binding.btnShowCaptchaImage.Text = Steam_ImageCodeShowError;
                 SetMenuTitle();
             }).AddTo(this);
 

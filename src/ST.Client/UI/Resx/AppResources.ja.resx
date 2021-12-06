@@ -138,7 +138,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_ProductionStaff" xml:space="preserve">
-    <value>制作者のリスト</value>
+    <value>制作スタッフ一覧</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_ThisSoft" xml:space="preserve">
@@ -154,11 +154,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_RestartSteam" xml:space="preserve">
-    <value>変更されたデータが有効になるには、Steam を再起動する必要がありますか?</value>
+    <value>変更されたデータを有効にするには、Steam を再起動する必要がありますか?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>トップは、特別なシーンのための現在の優先ホーム共有ライブラリです。</value>
+    <value>現在のデバイスで共有されている Steam アカウントの優先順位を調整し、アカウント B の共有をプレイしたいが、アカウント A の共有を使用しているという問題を解決し、共有ライブラリで使用される優先順位を上から下に並べ替え、Steam を再起動して保存します。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_EditSucces" xml:space="preserve">
-    <value>{0} 実績と {1} 統計が変更されました</value>
+    <value>{0} の実績と {1} の統計情報が変更されました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Icon" xml:space="preserve">
@@ -182,15 +182,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_LoadData" xml:space="preserve">
-    <value>実績と統計の読み込み...</value>
+    <value>実績と統計をロード...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_LoadSucces" xml:space="preserve">
-    <value>{0} 実績と {1} 統計を取得します</value>
+    <value>{0} の実績と {1} の統計情報を取得します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Manage" xml:space="preserve">
-    <value>実績の管理</value>
+    <value>実績を管理します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Name" xml:space="preserve">
@@ -210,11 +210,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_2" xml:space="preserve">
-    <value>実績情報もリセットしたいですか?</value>
+    <value>また、実績情報をリセットしたいですか?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_RiskWarning" xml:space="preserve">
-    <value>リスクのヒント: アチーブメントのロックを解除すると、ゲーム開発者によって不正行為と見なされ、アチーブメント統計サイトによってブロックされる可能性があります。 引き続き使用する場合は、成果のロック解除に伴うリスクと結果についてご自身の責任で行ってください。</value>
+    <value>【リスクのヒント】アチーブメントのロック解除は、ゲーム開発者によって不正行為とみなされ、アチーブメント統計サイトによってブロックされる場合があります。 継続して使用する場合は、実績のロック解除に伴うリスクと結果についてご自身の責任で行ってください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
@@ -226,31 +226,31 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
-    <value>{0:yyyy-MM-dd HH:mm:ss} でロック解除</value>
+    <value>{0:yyyy-MM-dd HH:mm:ss} でのロック解除</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>成果のロックを解除します</value>
+    <value>実績のロックを解除します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
-    <value>Steam との接続に失敗したか、ゲームに実績がないか、ゲームを持っていない可能性があります。</value>
+    <value>Steam との接続に失敗した場合、ゲームに実績がないか、ゲームがない可能性があります。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Warning_3" xml:space="preserve">
-    <value>実績の変更中{0}エラーが発生しました</value>
+    <value>アチーブメント {0}の変更中にエラーが発生しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Warning_4" xml:space="preserve">
-    <value>統計データの{0}中にエラーが発生しました</value>
+    <value>統計{0}の変更中にエラーが発生しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>が追加された</value>
+    <value>新着情報です</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Agree" xml:space="preserve">
-    <value>同意します</value>
+    <value>同意する</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="And" xml:space="preserve">
@@ -259,7 +259,7 @@
   </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
     <value>ASF Plus</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="ASF_RuningTip" xml:space="preserve">
     <value>ASF は既に実行されています</value>
@@ -274,7 +274,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Btn_Text_Continue" xml:space="preserve">
-    <value>続けよ</value>
+    <value>続行します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BugFeedback" xml:space="preserve">
@@ -282,7 +282,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>キャンセルします</value>
+    <value>キャンセル</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CheckUpdate" xml:space="preserve">
@@ -294,11 +294,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix" xml:space="preserve">
-    <value>コミュニティアクセラレーション</value>
+    <value>ネットワーク アクセラレーション</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>1回のクリックで加速します</value>
+    <value>ワンクリックで加速します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
@@ -314,7 +314,7 @@
     <comment>Comment=末尾带空格;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>プログラムの起動時にアクセラレーションが自動的に開始されます</value>
+    <value>アクセラレーションは、プログラムの起動時に自動的に開始されます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
@@ -326,7 +326,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_EditHostsFile" xml:space="preserve">
-    <value>hosts ファイルを編集します</value>
+    <value>Hosts ファイルを編集します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_EnableScriptService" xml:space="preserve">
@@ -334,7 +334,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_MenuName" xml:space="preserve">
-    <value>加速設定</value>
+    <value>設定を高速化します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_NetworkFix" xml:space="preserve">
@@ -342,7 +342,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
-    <value>アクセラレーション サービスが選択されていない</value>
+    <value>アクセラレーション サービスが選択されていません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
@@ -350,7 +350,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
-    <value>証明書フォルダを開きます</value>
+    <value>証明書フォルダーを開きます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
@@ -366,15 +366,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
-    <value>Hosts ファイルを変更して、ネイティブ要求実装プロキシをリッスンし、高速化された Web サイトにのみ影響し、最も効果的ですが、ネイティブ 443 ポートが使用されていない必要があります。</value>
+    <value>Hosts ファイルを変更してネイティブ要求実装エージェントをリッスンすると、この方法はより高速になり、アクセラレーションされた Web サイトにのみ影響しますが、ネイティブ 443 ポートは使用されません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
-    <value>Windows システム エージェント モード</value>
+    <value>システム プロキシ モード</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
-    <value>要求をリッスンする Windows システム プロキシを設定し、443 ポートを占有する必要はなく、すべてのトラフィックをグローバルにプロキシし、Hosts を使用しても問題がない場合は、このモードを使用する必要はありません。</value>
+    <value>要求をリッスンするシステム エージェントを設定し、443 ポートを占有する必要はなく、すべてのトラフィックをネイティブにグローバル エージェントし、Hosts 方式で問題がない場合は、このモードを使用する必要はありません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
@@ -390,7 +390,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxy" xml:space="preserve">
-    <value>1回のクリックで加速します</value>
+    <value>ワンクリックで加速します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
@@ -398,11 +398,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>アクセラレーション サービスの開始に失敗し、443 ポートが{0}されました。 443 ポートを確認するか、Windows エージェント モードを試してください。</value>
+    <value>アクセラレーション サービスの開始に失敗し、ポートが {1} によって占有{0}。 {0} ポートを占有するプログラムをオフにするか、システム プロキシ モードを試してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
-    <value>アクセラレーションが正常に開始されました</value>
+    <value>加速が正常に開始されました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
@@ -418,7 +418,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>続けよ</value>
+    <value>続行します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Copy" xml:space="preserve">
@@ -438,7 +438,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DelAccountTips" xml:space="preserve">
-    <value>既存のアカウント情報が削除され、元の ID で再度ログインできない場合、サインアウトはOKですか?</value>
+    <value>既存のアカウント情報とアカウントの使用中に生成されたすべてのデータが削除され、元の ID で再ログインできない場合は、重要なデータをバックアップして取り返しのつかない損失を避けるように注意してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Delete" xml:space="preserve">
@@ -454,7 +454,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>ダウンロードしてください</value>
+    <value>ダウンロードします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Downloading" xml:space="preserve">
@@ -462,7 +462,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_ScriptError" xml:space="preserve">
-    <value>スクリプトのダウンロード エラーをもう一度実行してください。</value>
+    <value>スクリプトのダウンロード エラーを再試行してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_ScriptOk" xml:space="preserve">
@@ -470,7 +470,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>編集します</value>
+    <value>編集</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Email" xml:space="preserve">
@@ -478,11 +478,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="EmailCode" xml:space="preserve">
-    <value>メールボックスの検証コード</value>
+    <value>メールボックス検証コード</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Encrypt" xml:space="preserve">
-    <value>暗号化</value>
+    <value>暗号化します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Exit" xml:space="preserve">
@@ -494,7 +494,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList" xml:space="preserve">
-    <value>ストックゲーム</value>
+    <value>インベントリゲーム</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAFKAppsMaxCountTips" xml:space="preserve">
@@ -502,11 +502,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
-    <value>ハング時のリストへの追加は成功しました</value>
+    <value>ハングに追加された時間の長いリストは成功しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
-    <value>警告:Steamは、同時に{0}ゲームを実行することができ、あなたが同時に長い{1}ゲームをハングアップする場合、通常のゲームプレイをプレイすることはできません!</value>
+    <value>警告: Steam が同時に実行できるゲームの数は {0} 個で、{1} ゲームを同時にハングアップすると、通常のゲームプレイはできません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAfkGameList" xml:space="preserve">
@@ -542,7 +542,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideAppsSuccess" xml:space="preserve">
-    <value>隠されたゲームが成功しました</value>
+    <value>ゲームの成功を隠します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideApp_AllCheck" xml:space="preserve">
@@ -550,7 +550,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideGameManger" xml:space="preserve">
-    <value>隠されたゲームのリストを管理します</value>
+    <value>非表示のゲームの一覧を管理します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_IdleGamesManger" xml:space="preserve">
-    <value>ゲームの長いオンフック リストを管理します</value>
+    <value>ゲームの長いオンフックのリスト</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_Install" xml:space="preserve">
@@ -570,7 +570,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
-    <value>ゲームの一覧を読み込み中...</value>
+    <value>ゲームの一覧を読み込んでいます...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_ListCount" xml:space="preserve">
@@ -646,7 +646,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RuningWait" xml:space="preserve">
-    <value>起動中...</value>
+    <value>起動中です...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RunState" xml:space="preserve">
@@ -654,11 +654,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
-    <value>カスタム送付状を設定します</value>
+    <value>カスタム カバーを設定します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamNotRuning" xml:space="preserve">
-    <value>Steam が起動しません</value>
+    <value>Steam が起動していません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_StopBtn" xml:space="preserve">
@@ -678,7 +678,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated" xml:space="preserve">
-    <value>ゲームの機能</value>
+    <value>ゲームツール</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless" xml:space="preserve">
@@ -738,7 +738,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
-    <value>壁紙レベルに置かれたゲームは操作できない可能性があり、この問題は解決できますが、開発のエネルギーは、現在、この機能です。 ゲーム終了後もデスクトップはフリーズしたままで、壁紙を更新してデフォルトの壁紙を復元できます。 また、デスクトップの壁紙レイヤーにウィンドウを配置する機能は、Wallpaper Engineや他の動的デスクトップソフトウェアと互換性がなく、Wallpaper Engineなどのソフトウェアをオフにするように注意してください。</value>
+    <value>壁紙レベルに置かれたゲームは操作できない可能性があり、この問題は解決できますが、開発のエネルギーは、現在、この機能です。 ゲーム終了後もデスクトップはフリーズしたままで、壁紙を更新してデフォルトの壁紙を復元できます。 また、デスクトップの壁紙レイヤーにウィンドウを配置する機能は、Wallpaper Engine やその他の動的デスクトップ ソフトウェアと互換性がなく、Wallpaper Engine などのソフトウェアをオフにしてください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender" xml:space="preserve">
@@ -754,39 +754,39 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
-    <value>秘密にしておく</value>
+    <value>秘密にしてください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
-    <value>Steamログイン状態の取得</value>
+    <value>Steam ログイン状態を取得しています</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
-    <value>Steam ログインステータスの取得に失敗 {0}Steam ユーザー名パスワードを入力してすばやくログインします</value>
+    <value>Steam ログインステータスの取得に失敗しました {0}、Steam ユーザー名パスワードを入力してクイックログインを行います</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
-    <value>書き込まれた hosts は既に存在します</value>
+    <value>書き込まれた Hosts は既に存在します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_ReadError" xml:space="preserve">
-    <value>hosts ファイルの読み取り中にエラーが発生しました</value>
+    <value>Hosts ファイルの読み取り中にエラーが発生しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_ReadSuccess" xml:space="preserve">
-    <value>hosts の読み取りに成功しました</value>
+    <value>Hosts の読み取りに成功しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>hosts への書き込みに成功しました</value>
+    <value>Hosts への書き込みに成功しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_WirteError" xml:space="preserve">
-    <value>hosts への書き込み中にエラーが発生しました</value>
+    <value>Hosts への書き込み中にエラーが発生しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IdleCard" xml:space="preserve">
-    <value>オートセットカード</value>
+    <value>自動セットカード</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Import" xml:space="preserve">
@@ -834,7 +834,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
-    <value>すべてのトランザクションをキャンセルします</value>
+    <value>すべての取引をキャンセルします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
@@ -858,31 +858,31 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmSuccess" xml:space="preserve">
-    <value>すべてのトランザクションに正常に同意しました</value>
+    <value>すべてのトランザクションが正常に同意されました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
-    <value>すべての{0}を表示しています...</value>
+    <value>すべての取引を{0}しています...</value>
     <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>確認情報を表示する権限がありません。 &apos;community-generated content&apos; in Family View が有効になっているか。</value>
+    <value>確認メッセージを表示する権限がありません。 ホームケア機能は有効になっていますか? ホームケア機能が有効になっている後のトランザクション確認の管理は、当分の間サポートされていません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
-    <value>Steam トークントランザクションデータの取得に失敗しました。</value>
+    <value>Steam トークン トランザクション データの取得に失敗しました。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
-    <value>最新の取引相場情報を取得しています...</value>
+    <value>最新の取引見積情報を取得しています...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
-    <value>{0}トランザクションが保留中です</value>
+    <value>{0} トランザクションは保留中です</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
-    <value>現在、処理するトランザクションの見積もりはありません</value>
+    <value>現在、処理する必要がある取引の見積もりはありません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
@@ -894,7 +894,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_CloudSync" xml:space="preserve">
-    <value>トークン クラウドの同期</value>
+    <value>トークン クラウド同期</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Copy" xml:space="preserve">
@@ -902,7 +902,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
-    <value>トークンがコピーされます </value>
+    <value>トークンがコピーされました </value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
@@ -966,7 +966,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>トークンをインポートしていない場合は、右上のピニオン アイコンに新しいトークンを追加できます。</value>
+    <value>まだトークンをインポートしていません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
@@ -986,11 +986,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
-    <value>カスタム パスワード保護を有効にします</value>
+    <value>カスタム パスワード保護</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
-    <value>認証者は独自のパスワードで暗号化され、WinAuth を開くためにパスワードを入力する必要があります。 パスワードを忘れていて、バックアップがない場合、認証システムにアクセスできません。</value>
+    <value>*注:あなたのトークンは、独自のパスワードで暗号化され、あなたが暗号化されたトークンを開くためにあなたのパスワードを入力する必要があります。 パスワードを忘れ、バックアップがない場合、トークンはアクセスできず、回復コードを使用してトークンをアンロックするか、アカウントを忘れた場合にのみ解除できます。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
@@ -998,15 +998,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
-    <value>認証システムをパスワードで保護することを強くお勧めします。 もちろん、必須ではない暗号化を有効にすることもできますが、トークン データが盗まれる危険性があります。</value>
+    <value>パスワードを使用してトークンを保護することをお勧めします。 もちろん、必須ではない暗号化を有効にすることもできますが、トークン データが盗まれる危険性があります!!!</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
-    <value>有効なトークンは、この PC でのみ復号化できます</value>
+    <value>トークンは、この PC でのみ復号化できます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>さらに、組み込みの Windows アカウント暗号化を使用して、データを保護および暗号化できます。 これにより、認証者がこのコンピュータまたはユーザーにロックされるため、ファイルがコピーされた場合でも開くことができません。 ディスクを再フォーマットしたり、Windows を再インストールしたり、このユーザー アカウントを削除したりする場合は、この機能をオフにする必要があります。</value>
+    <value>また、システムに組み込まれたアカウント暗号化を使用して、データを保護および暗号化することもできます。 これにより、トークンがこのコンピュータにロックされるため、ファイルがコピーされても開くことができません。 ディスクを再フォーマットし、システムを再インストールするか、このユーザー アカウントを削除する場合は、この機能をオフにする必要があります。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
@@ -1050,11 +1050,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Steam Desktop Auth がインポートされます</value>
+    <value>Steam Desktop Auth インポート</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam のモバイル認証アプリケーションのデスクトップ実装。 インポート方法:SDAディレクトリの下のmaFilesフォルダのmaFileファイルを選択してインポートします。 (暗号化されたファイルのインポートはサポートされていませんので、最初にインポートでパスワードを削除してください)</value>
+    <value>Steam のモバイル認証アプリケーションのデスクトップ実装。 インポート方法: インポートする SDA ディレクトリの下の maFiles フォルダの maFile ファイルを選択します。 (暗号化されたファイルのインポートはサポートされていません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
@@ -1066,23 +1066,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
-    <value>Steam 認証システムの完全なデータで、さまざまなソフトウェアをインポートするときに使用できます。</value>
+    <value>Steam 認証システムの完全なデータで、さまざまなソフトウェアをインポートするときに使用できます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
-    <value>Steam で 2 ステップ認証トークンを有効にすると、Steam クライアントで回復コードを使用して 2 ステップ認証トークンを解除し、コピーして安全な場所に保存できる回復コードが生成されます。</value>
+    <value>Steam で 2 段階認証トークンを有効にすると、Steam クライアントで回復コードを使用して 2 段階認証トークンを解除し、コピーして安全な場所に保管できる回復コードが生成されます。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>携帯電話に送信された SMS 確認コードを入力してください。</value>
+    <value>携帯電話に送信されたテキスト メッセージ確認コードを入力してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>携帯電話のスチームのインポート</value>
+    <value>電話 Steam インポート</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
-    <value>ルートされた Android デバイスで SteamGuard 認証パスをインポートできます: /data/data/com.valvesoftware.android.steam.community 次の 2 つのファイルの内容を以下の対応する入力ボックスにコピーします</value>
+    <value>root の Android デバイスで SteamGuard 認証パスをインポートできます: /data/data/com.valvesoftware.android.steam.community 次の 2 つのファイルの内容を以下の対応する入力ボックスにコピーします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
@@ -1090,7 +1090,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>files フォルダで、&apos;SteamGuard-NNNNNNNNNNN&apos;ファイルを開き、ファイルの内容全体を貼り付けます</value>
+    <value>files フォルダーで、&apos;SteamGuard-NNNNNNNN&apos; ファイルを開き、ファイルの内容全体を貼り付けます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -1098,7 +1098,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Steam++ V1 バージョンのエクスポートされたトークンデータをインポートします</value>
+    <value>Steam++ V1 バージョンのエクスポートされたトークン データをインポートします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
@@ -1106,7 +1106,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
-    <value>取引を確認するにはSteamへのログインが必要で、プログラムはパスワードを記録しませんが、ログインステータスはローカルに保存されます。</value>
+    <value>トランザクションが Steam にログインする必要があることを確認し、プログラムはパスワードを記録せず、ログインの状態のみをローカルに保存します。
+    (Steam ネットワーク アクセラレーションをオンにしないと、ログインが成功しません)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
@@ -1118,15 +1119,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
-    <value>アカウントに認証システムが追加されているように見え、アカウントからインポートするには既存の認証システムを削除する必要があります。</value>
+    <value>アカウントに認証システムが追加されているようで、アカウントからインポートするには既存の認証システムを削除する必要があります。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
-    <value>デバイス ID (uuid):</value>
+    <value>デバイス ID(uuid)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>フォルダshared_prefs、&apos;steam_uuid.xml uidKey を貼り付けます</value>
+    <value>shared_prefs フォルダーに、&apos;steam_uuid.xml&apos; の uuidKey を貼り付けます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
@@ -1138,7 +1139,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth は、カウンタ ベースまたは時間ベースの RFC 6238 認証システムと一般的な実装を提供する Windows のポータブル オープンソース認証システムです。 インポート方法: WinAuth から txt ファイルをエクスポートした後、WinAuth からエクスポートされた txt ファイルを選択してインポートします。</value>
+    <value>WinAuth は Windows のポータブル オープンソース認証システムであり、カウンタ ベースまたは時間ベースの RFC 6238 認証システムと一般的な実装を提供します。 インポート方法: WinAuth から txt ファイルをエクスポートした後、WinAuth からエクスポートする txt ファイルを選択してインポートします。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Lock" xml:space="preserve">
@@ -1150,15 +1151,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
-    <value>ログイン/登録します</value>
+    <value>ログイン/登録</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Logining" xml:space="preserve">
-    <value>着陸中...</value>
+    <value>サインインしています...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>サインアウトしてサインインします</value>
+    <value>サインインからサインアウトします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
@@ -1170,7 +1171,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="More" xml:space="preserve">
-    <value>より多くの操作</value>
+    <value>その他のアクション</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MoveDown" xml:space="preserve">
@@ -1222,7 +1223,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>認証システムが Steam アカウントに追加され、Steam++ に正常にインポートされました。 これは回復コードであり、認証システムを紛失した場合はアカウントから削除できます。 今すぐ書き留めて、安全な場所に保管してください。</value>
+    <value>トークンが Steam アカウントに追加され、Steam++ に正常にインポートされました。 これは回復コードであり、認証システムを紛失した場合は、アカウントから削除できます。 今すぐ書き留めて、安全な場所に保管してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1234,7 +1235,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RefreshOK" xml:space="preserve">
-    <value>更新は成功しました</value>
+    <value>更新に成功しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
@@ -1246,7 +1247,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
-    <value>一致するスクリプト ファイルに対してクエリが実行されていない場合は、スクリプト ワークショップからスクリプト ファイルをダウンロードできます。</value>
+    <value>一致するスクリプト ファイルは照会されず、スクリプト ワークショップからスクリプト ファイルをダウンロードできます。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
@@ -1254,7 +1255,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
-    <value>GM は基本フレームであり、削除は許可されていません</value>
+    <value>GM は、基になるフレームワークでは削除できません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptShop_NoLogin" xml:space="preserve">
@@ -1266,7 +1267,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_AutoUpdate" xml:space="preserve">
-    <value>スクリプトを有効にして、更新を自動的にチェックします</value>
+    <value>スクリプトが更新を自動的にチェックするようにします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteItem" xml:space="preserve">
@@ -1278,11 +1279,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_EditTxt" xml:space="preserve">
-    <value>スクリプトの変更を完了するには、[OK] をクリックしてキャッシュを更新します。</value>
+    <value>スクリプトの変更を完了するかどうか、[OK] をクリックしてキャッシュを更新します。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileError" xml:space="preserve">
-    <value>ファイルが見つからない場合は、パスを確認してください{0}</value>
+    <value>ファイルが見つかりませんので、パスを確認してください {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Home" xml:space="preserve">
@@ -1294,7 +1295,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Install" xml:space="preserve">
-    <value>インストール スクリプト</value>
+    <value>スクリプトをインストールします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Installed" xml:space="preserve">
@@ -1302,7 +1303,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
-    <value>スクリプト レコードを削除するかどうかは、テキスト ファイルが失われています。</value>
+    <value>テキスト ファイルが失われ、スクリプト レコードを削除するかどうか。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Refresh" xml:space="preserve">
@@ -1310,7 +1311,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ReplaceTips" xml:space="preserve">
-    <value>このスクリプトは、インストールされているバージョンを置き換える決定をインストールしましたか?</value>
+    <value>インストールされているこのスクリプトは、インストールされているバージョンを置き換えることを決定しますか?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Update" xml:space="preserve">
@@ -1326,11 +1327,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SelectFileImport" xml:space="preserve">
-    <value>[ファイルの{0}] を選択します</value>
+    <value>{0} ファイルのインポートを選択します</value>
     <comment>Comment=*.txt;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>設定</value>
+    <value>設定します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Auth" xml:space="preserve">
@@ -1342,11 +1343,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General" xml:space="preserve">
-    <value>基本設定</value>
+    <value>一般的な設定</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
-    <value>起動時に更新が自動的にチェックされます</value>
+    <value>更新を自動的にチェックします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
@@ -1354,7 +1355,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_StartAutoRun" xml:space="preserve">
-    <value>電源を入れ、自己起動します</value>
+    <value>起動自起動</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Language" xml:space="preserve">
@@ -1362,19 +1363,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam" xml:space="preserve">
-    <value>スチームの設定</value>
+    <value>Steam 設定</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>プログラムの起動時に自動的に Steam が実行されます</value>
+    <value>Steam は、プログラムの起動時に自動的に実行されます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
-    <value>Steam の起動時にアップデートはチェックされません</value>
+    <value>Steam の起動時に更新はチェックされません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
-    <value>Steam の起動時にトレイに最小化されます</value>
+    <value>Steam の起動時にトレイに最小化します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
@@ -1422,7 +1423,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAccount" xml:space="preserve">
-    <value>スチームアカウント</value>
+    <value>Steam アカウント</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Application" xml:space="preserve">
@@ -1430,7 +1431,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Beta" xml:space="preserve">
-    <value>テスト</value>
+    <value>テストします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Config" xml:space="preserve">
@@ -1450,7 +1451,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Driver" xml:space="preserve">
-    <value>駆動します</value>
+    <value>駆動</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Franchise" xml:space="preserve">
@@ -1470,7 +1471,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Media" xml:space="preserve">
-    <value>予告編ビデオ</value>
+    <value>予告動画</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Mod" xml:space="preserve">
@@ -1486,7 +1487,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Series" xml:space="preserve">
-    <value>映画とテレビのコレクション</value>
+    <value>映画やテレビのセット</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Shortcut" xml:space="preserve">
@@ -1510,7 +1511,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_Password" xml:space="preserve">
-    <value>スチームパスワード</value>
+    <value>Steam パスワード</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_User" xml:space="preserve">
@@ -1518,7 +1519,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Success_" xml:space="preserve">
-    <value>{0}成功</value>
+    <value>{0}成功した</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Toolbox" xml:space="preserve">
@@ -1554,19 +1555,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadYourAvatar" xml:space="preserve">
-    <value>アバターをアップロードします</value>
+    <value>プロフィールをアップロードします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>デバイスからファイルをアップロードします。 画像は、少なくとも 400px x 400px の正方形である必要があります</value>
+    <value>デバイスからファイルをアップロードします。 画像は正方形(少なくとも400px x 400px)でなければなりません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
-    <value>Steam に 1 回のクリックでログインします</value>
+    <value>ワンクリックでスチームにログインします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
-    <value>このボタンを押すと、Steam が再起動され、そのアカウントでログインします</value>
+    <value>このボタンを押すと、Steam が再起動し、そのアカウントでログインします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_DeleteUser" xml:space="preserve">
@@ -1574,7 +1575,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
-    <value>このアカウントのローカル Steam キャッシュデータも削除するかどうか。</value>
+    <value>また、ローカルの Steam キャッシュ データ (このアカウント ゲームのプロファイルやワークショップ ファイルを含む) も削除する必要があります。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
@@ -1582,7 +1583,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
-    <value>メモを変更するには、この点をクリックしてください</value>
+    <value>アカウント メモを変更します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
@@ -1590,7 +1591,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>Pc で Steam アカウントデータが読み取りされません。</value>
+    <value>Steam アカウントデータが PC で読み取れませんでした。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
@@ -1602,11 +1603,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RecentLogin" xml:space="preserve">
-    <value>最近上陸した</value>
+    <value>最近サインインしました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
-    <value>パスワードは既に記憶されています</value>
+    <value>パスワードは記憶されています</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserFastChange" xml:space="preserve">
@@ -1614,7 +1615,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile" xml:space="preserve">
-    <value>プロフィール</value>
+    <value>プロファイル</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile_BirthDate" xml:space="preserve">
@@ -1622,7 +1623,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile_Location" xml:space="preserve">
-    <value>場所</value>
+    <value>所在地</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_AccountBind" xml:space="preserve">
@@ -1634,7 +1635,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Agreement" xml:space="preserve">
-    <value>ユーザー契約</value>
+    <value>ユーザー プロトコル</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_AppleLogin" xml:space="preserve">
@@ -1650,15 +1651,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
-    <value>携帯電話を縛り替えます</value>
+    <value>携帯電話を結ぶ</value>
     <comment>Comment=修改手机号;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_EditProfile" xml:space="preserve">
-    <value>プロファイルを編集します</value>
+    <value>資料を編集します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLogin" xml:space="preserve">
-    <value>すばやくサインインします</value>
+    <value>クイックログイン</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
@@ -1686,7 +1687,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginError_Auth" xml:space="preserve">
-    <value>無効なトークン: 現在のトークンのアカウントにログインしていますか?</value>
+    <value>現在のトークン アカウントがログインアカウントと一致しません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
@@ -1698,7 +1699,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginTroubleshoot" xml:space="preserve">
-    <value>ログインできませんか?</value>
+    <value>サインインできませんか?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoiginSuccess" xml:space="preserve">
@@ -1734,7 +1735,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Register" xml:space="preserve">
-    <value>サインアップします</value>
+    <value>登録します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_RegisterAgreed" xml:space="preserve">
@@ -1742,7 +1743,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Rememberme" xml:space="preserve">
-    <value>ログイン状態を覚えておいてください</value>
+    <value>ログイン状態を記憶します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
@@ -1754,11 +1755,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode_Error" xml:space="preserve">
-    <value>まず、確認コードを入手してください</value>
+    <value>まず確認コードを入手してください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamAvatarTip" xml:space="preserve">
-    <value>アバターをタップしてすばやくログインします</value>
+    <value>アバターをタップすると、すばやくログインできます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
@@ -1774,7 +1775,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamUnLoginTip" xml:space="preserve">
-    <value>Steam Logo をクリックしてログインします</value>
+    <value>Steam Logo をクリックしてサインインします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_UnbundleAccountTip" xml:space="preserve">
@@ -1794,7 +1795,7 @@
     <comment>Comment=此值是日语不是中文！;Author=</comment>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>スタート ページ</value>
+    <value>開始ページ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_CertificateTrust" xml:space="preserve">
@@ -1850,7 +1851,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
-    <value>ログインからサインアウトする現在のトークンを決定しますか?</value>
+    <value>現在のトークン ログインからサインアウトするアカウント情報を確認しますか?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
@@ -1862,7 +1863,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
-    <value>次回は私の選択は、もはや尋ねていない覚えている</value>
+    <value>これ以上のリマインダー</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
@@ -1898,8 +1899,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
-    <value>{0}フォルダを開きます</value>
-    <comment>Comment={0}文件夹名称;Author=MicrosoftTranslator</comment>
+    <value>{0} フォルダを開きます</value>
+    <comment>Comment={0}文件夹名称英文字母组成;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
     <value>キャッシュ ファイルが既に使用されています {0}</value>
@@ -1918,11 +1919,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
-    <value>{0}</value>
+    <value>原因: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
-    <value>Steam クライアントがログインすると、通知がポップアップ表示されます</value>
+    <value>Steam クライアントがログインしたときに通知がポップアップ表示されます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_CheckStarted" xml:space="preserve">
@@ -1938,7 +1939,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_SteamChina" xml:space="preserve">
-    <value>Steamの国服</value>
+    <value>スチームの国服</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_SteamWorld" xml:space="preserve">
@@ -1950,7 +1951,7 @@
     <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_WaitFastLoginTip" xml:space="preserve">
-    <value>システム ブラウザを使用してクイック ランディング ウィンドウを開いたので、そのページに移動してログインします。 ウィンドウを開いたままにしておきます</value>
+    <value>システムブラウザを使用してクイックログインウィンドウを開いたので、そのページに移動してログインしてください。 ウィンドウを開いたままにしておきます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Retry" xml:space="preserve">
@@ -2054,11 +2055,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CalcHashing3_" xml:space="preserve">
-    <value>検証中 ({1}/{2}): {0}%</value>
+    <value>チェック中 ({1}/{2}): {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CalcHashing_" xml:space="preserve">
-    <value>検証中: {0}%</value>
+    <value>チェック中: {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CreateCertificateFaild" xml:space="preserve">
@@ -2078,15 +2079,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
-    <value>現在最新バージョン</value>
+    <value>現在、最新バージョンです</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
-    <value>新しいバージョンの更新</value>
+    <value>新しいバージョンが更新されます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Steam++ v{0}更新されました</value>
+    <value>Steam++ v{0} バージョンアップ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2098,7 +2099,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>スクリプト依存ダウンロード エラー: [{0}]_{1}</value>
+    <value>スクリプト依存ダウンロード エラー: {0}
+    {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildError" xml:space="preserve">
@@ -2114,7 +2116,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteSuccess" xml:space="preserve">
-    <value>削除は成功しました</value>
+    <value>削除に成功しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileDeleteError" xml:space="preserve">
@@ -2126,15 +2128,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFile" xml:space="preserve">
-    <value>スクリプト: {0}_ファイルが見つからない場合は削除されました</value>
+    <value>スクリプト: {0} ファイルが削除されました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>スクリプト: {0}_ファイルが見つからない場合、削除は手動で削除しようとして失敗します</value>
+    <value>スクリプト: {0} ファイルが見つからない場合、手動で削除しようとして削除に失敗しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
-    <value>スクリプトは例外を読み取り、構文にエラーがないか確認してください{0}</value>
+    <value>スクリプト読み取り例外構文にエラーがないかどうかを確認します{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDBError" xml:space="preserve">
@@ -2142,7 +2144,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
-    <value>追加は成功しました</value>
+    <value>追加に成功しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
@@ -2154,7 +2156,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
-    <value>ファイルサイズが大きすぎる</value>
+    <value>ファイル サイズが大きすぎる</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
@@ -2162,23 +2164,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
-    <value>操作 hosts エラー｛0｝</value>
+    <value>Hosts エラー {0}の操作</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ は交換およびアップグレードされています...</value>
+    <value>Steam++ 交換アップグレード...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
-    <value>Steamインストールパスが見つかりませんでした</value>
+    <value>Steam インストールパスが見つかりませんでした</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>更新パッケージの解凍に失敗しました。公式Webサイトを開いて手動で更新してください</value>
+    <value>更新パッケージの解凍に失敗しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
-    <value>有効なKey形式が検出されない場合は、正しいKeyが入力されていることを確認してください</value>
+    <value>有効な Key 形式が検出されない場合は、正しい Key が入力されていることを確認します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey" xml:space="preserve">
@@ -2230,7 +2232,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_VersionNum" xml:space="preserve">
-    <value>現在の ArchiSteamFarm バージョン :  </value>
+    <value>現在の ArchiSteamFarm バージョン : </value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
@@ -2246,11 +2248,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequirRunASF" xml:space="preserve">
-    <value>まずASF機能を実行してください</value>
+    <value>まず ASF 機能を実行してください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>{0} Key がアクティブ化キューに追加され、キュー内の Key が自動的にアクティブ化のためにキューに入れられました。</value>
+    <value>{0} 個の Key がアクティブ化キューに追加され、キュー内の Key は自動的にアクティブ化のためにキューに入れられました。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
@@ -2334,7 +2336,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
-    <value>背景の透明なマテリアルが{0}の場合、この機能を有効にすることはできません</value>
+    <value>背景の透明なマテリアルが {0} の場合、この機能はサポートされていません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_InGame" xml:space="preserve">
@@ -2472,12 +2474,12 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
-    <value>*実験的な機能(この機能をオンにすると、透明なマテリアルをTransparentまたはAcrylicBlurに設定することをお勧めします)
+    <value>*実験的な機能(この機能をオンにすると、透明なマテリアルをトランスライトまたは AcrylicBlur に設定することをお勧めします)
 この機能は、Wallpaper Engine およびその他の壁紙ソフトウェアのライブ壁紙をプログラムの背景として設定し、Wallpaper Engine を起動しない場合は、既定でデスクトップの背景を使用します。 背景はメイン ウィンドウでのみ有効で、他のウィンドウでは、透明度を完全に透明にしたり、画像の背景を使用したりしないように調整することをお勧めします。 より良い結果を得るために、壁紙の明るい色や暗い色に応じて、対応するテーマを切り替えることに注意してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>Steam アカウントにログインしてトークンをインポートするには、インポート前に古いトークンを削除する必要があり、このインポートには 15 日間の市場トランザクション冷却期間があります。
+    <value>Steam アカウントにログインしてトークンをインポートし、インポートする前に古いトークンを削除する必要があり、このインポートには 15 日間の市場トランザクション冷却期間があります。
 (Steam ネットワーク アクセラレーションをオンにしないと、ログインが成功しません)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
@@ -2488,7 +2490,9 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
     <value>Steam++の現在のリリースは、Steam++ がお客様を助け、新機能の開発とメンテナンスを長期的に維持したい場合は、Steam++ の保守によりやる気のある更新を行うために、少しの貢献を検討してください。
-*寄付は、Steam++ アカウントの UID がメモ メッセージに含まれることを忘れないでください。</value>
+*寄付は、Steam++ アカウントの UID がメモ メッセージに含まれることを忘れないでください。
+
+バージョン 1.x で寄付した人は、その後、アカウント データを再入力する Web ページへのリンクを開発し、更新情報に注意を払い、支払いに寄付した注文番号を保存します。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
@@ -2501,6 +2505,86 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
     <value>UID を取得するには、Steam++ アカウントにログインする必要があります</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Sleep" xml:space="preserve">
+    <value>睡眠</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Hibernate" xml:space="preserve">
+    <value>休止状態</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Shutdown" xml:space="preserve">
+    <value>シャットダウンします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ImageCodeShowError" xml:space="preserve">
+    <value>画像確認コードを表示できませんか?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_ShowHideUserName" xml:space="preserve">
+    <value>ユーザー名の表示/非表示を切り替える</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
+    <value>ダウンロード監視を有効にします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloaded" xml:space="preserve">
+    <value>ダウンロードされました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Installed" xml:space="preserve">
+    <value>インストールされています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
+    <value>[ゲームのダウンロードとインストール] が選択されている場合に実行します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
+    <value>カスタム プロキシ DNS</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
+    <value>ファイル プロパティは読み取り専用で、変更に失敗しました {0}。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
+    <value>ファイル プロパティは読み取り専用で、変更は失敗し、ファイルをバックアップしてから削除してから再試行できます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
+    <value>更新プログラム パッケージ キャッシュ ファイルのダウンロードの検証に失敗し、削除されたキャッシュが再ダウンロードに失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleFontName" xml:space="preserve">
+    <value>コンソール フォント</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleFontSize" xml:space="preserve">
+    <value>コンソールのフォント サイズ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleMaxLine" xml:space="preserve">
+    <value>コンソールには、最大行数が表示されます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_IPCPortId" xml:space="preserve">
+    <value>IPC ポート番号</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
+    <value>IPC ポートが占有されている場合は、ランダムなポート番号が使用されます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
+    <value>IPCが起動するのを待ってください...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ShowHide" xml:space="preserve">
+    <value>表示/非表示</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -23,7 +23,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutSteamPassword.Hint = Steam_Password;
                 binding.btnSubmit.Text = ViewModel!.RequiresLogin ? Login : Continue;
                 binding.tvLoginTip.Text = Steam_UserLoginTip;
-                binding.btnShowCaptchaImage.Text = UnableDisplayCaptchaImage;
+                binding.btnShowCaptchaImage.Text = Steam_ImageCodeShowError;
             }).AddTo(this);
 
             binding!.tbRevocationCode.SetReadOnly();

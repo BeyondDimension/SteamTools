@@ -122,15 +122,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsRoot" xml:space="preserve">
-    <value>このアプリは、ROOT権限を持つデバイスでの実行をサポートしていません</value>
+    <value>このアプリは、ROOT 権限を持つデバイスでの実行をサポートしていません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsVirtualApk" xml:space="preserve">
-    <value>このアプリはマルチオープンをサポートしていません</value>
+    <value>このアプリは、マルチオープンをサポートしていません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsXposedExists" xml:space="preserve">
-    <value>このアプリは、Xposed フレームワークがインストールされているデバイスでの実行をサポートしていません</value>
+    <value>このアプリは、Xposed フレームワークを搭載したデバイスでの実行をサポートしていません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

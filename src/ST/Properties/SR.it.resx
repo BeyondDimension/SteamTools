@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>Errore sul lato servizio {0} - le credenziali di accesso non sono valide, accedere di nuovo</value>
+    <value>Errore lato servizio {0} - le credenziali di accesso non sono valide, accedi di nuovo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
-    <value>Binding non riuscito e questo account è stato associato da un altro utente</value>
+    <value>L&apos;associazione non è riuscita e questo account è stato associato da un altro utente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
@@ -130,19 +130,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
-    <value>Il valore del contenuto non può essere vuoto o errato</value>
+    <value>Il valore del contenuto non può essere vuoto o non corretto</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>Il numero di acquisizioni di codice di verifica ha raggiunto il limite di oggi Oh, riprova domani</value>
+    <value>Il numero di acquisizioni di codici di verifica ha raggiunto il limite di oggi Oh, riprova domani</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>L&apos;operazione è un po &apos; frequente Oh, riprova tra un minuto</value>
+    <value>L&apos;operazione è un po &apos;frequente Oh, riprova in 1 minuto</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
-    <value>L&apos;attuale numero di cellulare non esiste</value>
+    <value>Il numero di cellulare corrente non esiste</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在" xml:space="preserve">
@@ -158,11 +158,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
-    <value>Il nuovo numero di telefono non può essere lo stesso del vecchio numero di telefono</value>
+    <value>Il nuovo numero di telefono non può essere lo stesso di quello vecchio</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>La lunghezza massima di un nickname non può superare {0} parole</value>
+    <value>I soprannomi non devono essere più lunghi di {0} parole di lunghezza</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>Errore sul lato servizio 5001 - Servizio SMS</value>
+    <value>Errore lato servizio 5001 - Servizio SMS</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入昵称" xml:space="preserve">
-    <value>Inserisci il tuo soprannome</value>
+    <value>Inserisci il tuo nickname</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入正确的手机号码哦" xml:space="preserve">
@@ -194,7 +194,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入短信验证码哦" xml:space="preserve">
-    <value>Inserisci il codice di verifica SMS</value>
+    <value>Inserisci il codice di verifica VIA SMS</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入邀请码哦" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请选择头像" xml:space="preserve">
-    <value>Seleziona un avatar</value>
+    <value>Seleziona l&apos;avatar</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
@@ -210,7 +210,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
-    <value>Il codice di verifica non è corretto o scaduto</value>
+    <value>Il codice di verifica non è corretto o è scaduto</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>Impossibile scaricare il pacchetto di aggiornamento, scaricare manualmente la nuova versione sul sito Ufficiale</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>La risoluzione delle informazioni del pacchetto di aggiornamento non è riuscita, si prega di scaricare manualmente la nuova versione sul sito ufficiale</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>Download della convalida del file della cache del pacchetto di aggiornamento non riuscita ed errore di eliminazione, rimuovere {0} dopo aver provato ad aggiornare manualmente sul sito Web ufficiale</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>Verifica del file non riuscita, si prega di scaricare manualmente la nuova versione sul sito ufficiale</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>Il pacchetto di aggiornamento decompresso non è riuscito, si prega di scaricare manualmente la nuova versione sul sito ufficiale</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

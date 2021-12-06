@@ -154,11 +154,11 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="AccountChange_RestartSteam" xml:space="preserve">
-    <value>Si los datos modificados surten efecto, debes reiniciar Steam.</value>
+    <value>Los datos modificados surtan efecto y deben reiniciar Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>Top es la biblioteca de uso compartido de hogar preferida actual para escenarios especiales.</value>
+    <value>Ajusta el orden de prioridad de las cuentas de Steam compartidas en el dispositivo actual para resolver el uso compartido de cuentas que desean jugar a la cuenta B pero siempre usan el uso compartido de la cuenta A, ordena de arriba a abajo el orden de prioridad utilizado por la biblioteca compartida y ajusta el guardado para reiniciar Steam a partir de ahora.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
@@ -278,7 +278,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="BugFeedback" xml:space="preserve">
-    <value>Comentarios de errores</value>
+    <value>Comentarios sobre errores</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
@@ -794,7 +794,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Cargado</value>
+    <value>En la carga</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth" xml:space="preserve">
@@ -1214,7 +1214,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="ProductOfficialWebsite" xml:space="preserve">
-    <value>Sitio web oficial del producto</value>
+    <value>Sitio web del producto</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecoveryCode" xml:space="preserve">
@@ -1418,7 +1418,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="SourceRepository" xml:space="preserve">
-    <value>El almacén de origen</value>
+    <value>Almacén de origen</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="StartUpdate" xml:space="preserve">
@@ -1814,11 +1814,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Code_Desc" xml:space="preserve">
-    <value>Puede usar el código de contraseña de un solo uso generado por esta aplicación para comprobar el inicio de sesión</value>
+    <value>Puede usar el código de contraseña de un solo uso generado por esta aplicación para verificar su inicio de sesión</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Code_Title" xml:space="preserve">
-    <value>Una contraseña de un solo uso está habilitada</value>
+    <value>Las contraseñas de un solo uso están habilitadas</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="EditName" xml:space="preserve">
@@ -1834,7 +1834,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancelled" xml:space="preserve">
-    <value>Cancelado</value>
+    <value>Anulado</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Confirmed" xml:space="preserve">
@@ -1854,23 +1854,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
-    <value>¿Está seguro de que desea cerrar sesión en el token actual?</value>
+    <value>¿Está seguro de que desea cerrar sesión en su inicio de sesión de token actual?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
-    <value>Exportado como código QR</value>
+    <value>Exportado como un código QR</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AuthLocal_ExportToQRCodeTooLongErrorTip" xml:space="preserve">
-    <value>La longitud de los datos supera el máximo del código QR, pruebe otro método de exportación o una sola exportación</value>
+    <value>La longitud de los datos supera el código QR máximo, pruebe otra exportación o una sola exportación</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
-    <value>Recuerda que mi elección es no volver a preguntar la próxima vez</value>
+    <value>No me lo recuerdes de nuevo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
-    <value>La descarga de Steam completa un apagado cronomerado</value>
+    <value>La descarga de Steam completa el apagado programado</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Translators" xml:space="preserve">
@@ -1878,7 +1878,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RemarkReplaceName" xml:space="preserve">
-    <value>Reemplazar la visualización de apodos por una nota</value>
+    <value>Reemplazar la visualización del apodo por una nota</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseGPURendering" xml:space="preserve">
@@ -1886,7 +1886,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_RestartEffective" xml:space="preserve">
-    <value>El software debe reiniciarse y surte efecto</value>
+    <value>El software necesita ser reiniciado y efectivo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UpdateChannel" xml:space="preserve">
@@ -1898,15 +1898,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>Notificaciones de la aplicación (configuración del sistema)</value>
+    <value>Notificaciones de aplicaciones (configuración del sistema)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
-    <value>Abrir la carpeta {0}</value>
-    <comment>Comment={0}文件夹名称;Author=MicrosoftTranslator</comment>
+    <value>Abra la carpeta {0}</value>
+    <comment>Comment={0}文件夹名称英文字母组成;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
-    <value>Los archivos almacenados en caché utilizan {0}</value>
+    <value>Los archivos almacenados en caché ya están en uso {0}</value>
     <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_ClearCache" xml:space="preserve">
@@ -1918,19 +1918,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_Calcing" xml:space="preserve">
-    <value>Calculado...</value>
+    <value>En el cálculo...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
-    <value>Error al habilitar el inicio en el arranque en tiempo de arranque para: {0}</value>
+    <value>Error al habilitar el inicio de encendido para: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
-    <value>Aparece una notificación cuando el cliente de Steam inicia sesión</value>
+    <value>Las notificaciones aparecen cuando el cliente de Steam inicia sesión</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_CheckStarted" xml:space="preserve">
-    <value>Inicio detectado:</value>
+    <value>Puesta en marcha detectada:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_CurrentIPCountry" xml:space="preserve">
@@ -1942,19 +1942,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_SteamChina" xml:space="preserve">
-    <value>Servicio nacional del vapor</value>
+    <value>Servicio Nacional de Vapor</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_SteamWorld" xml:space="preserve">
-    <value>Servicio Internacional steam</value>
+    <value>Servicio internacional de Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_LogSize" xml:space="preserve">
-    <value>Los archivos de registro están ocupados {0}</value>
+    <value>Los archivos de registro ya están en uso {0}</value>
     <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_WaitFastLoginTip" xml:space="preserve">
-    <value>Hemos abierto la ventana de inicio de sesión rápido utilizando el navegador de su sistema, por favor vaya a esta página e inicie sesión. Mantener la ventana abierta</value>
+    <value>Hemos abierto la ventana de inicio de sesión rápido utilizando el navegador de su sistema, vaya a esa página e inicie sesión. Mantenga la ventana abierta</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Retry" xml:space="preserve">
@@ -1970,7 +1970,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AsyncSteamAvatarDesc" xml:space="preserve">
-    <value>Después de enlazar una cuenta de Steam, puedes sincronizar y actualizar manualmente la imagen de perfil de tu cuenta de Steam.</value>
+    <value>Después de vincular una cuenta de Steam, puedes sincronizar y actualizar manualmente la foto de perfil de tu cuenta de Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_ThemeAccent" xml:space="preserve">
@@ -1994,7 +1994,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Todos los seleccionados</value>
+    <value>Todos seleccionados</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Helper" xml:space="preserve">
@@ -2026,11 +2026,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login_WebSocketOnMessage" xml:space="preserve">
-    <value>Error de descifrado de datos, asegúrese de que los datos se reintentó correctamente.</value>
+    <value>Error en el descifrado de datos, asegúrese de que los datos se volvieron a intentar correctamente.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
-    <value>La biblioteca de recursos compartidos principal está vacía.</value>
+    <value>La biblioteca de home share está vacía.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxySettings" xml:space="preserve">
@@ -2042,7 +2042,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
-    <value>Permitir que otras aplicaciones capturen la pantalla</value>
+    <value>Permitir que otras aplicaciones capturen su pantalla</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_ChangeUserTip" xml:space="preserve">
@@ -2058,7 +2058,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CalcHashing3_" xml:space="preserve">
-    <value>Comprobación ({1}/{2}): {0}%</value>
+    <value>Cheques ({1}/{2}): {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CalcHashing_" xml:space="preserve">
@@ -2066,11 +2066,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CreateCertificateFaild" xml:space="preserve">
-    <value>No se pudo crear el certificado</value>
+    <value>Error al crear el certificado</value>
     <comment>Comment=Fail;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Decompressing_" xml:space="preserve">
-    <value>Descompresión: {0}%</value>
+    <value>Descomprimir: {0}%</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Downloading3_" xml:space="preserve">
@@ -2082,7 +2082,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
-    <value>Actualmente es la última versión</value>
+    <value>La versión actual está actualizada</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
@@ -2090,19 +2090,20 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Se actualiza la versión de la versión de Steam-v{0}</value>
+    <value>La actualización de la versión de steam-v{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
-    <value>Notificación inmediata cuando se realiza un nuevo anuncio.</value>
+    <value>Notificación rápida cuando haya un nuevo anuncio disponible.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>.. \Resources\OpenSourceLibraryList.mpo; System.Byte[], mscorlib, versión = 4.0.0.0, referencia cultural = neutral, PublicKeyToken = b77a5c561934e089</value>
+    <value>Notificaciones de nueva versión</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>Error de descarga de dependencia de script: {0} {1}</value>
+    <value>Error de descarga dependiente del script: {0}
+    {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildError" xml:space="preserve">
@@ -2114,11 +2115,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteError" xml:space="preserve">
-    <value>Error al eliminar</value>
+    <value>Error de eliminación</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteSuccess" xml:space="preserve">
-    <value>La eliminación se realizó correctamente</value>
+    <value>La eliminación se ha realizado correctamente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileDeleteError" xml:space="preserve">
@@ -2130,19 +2131,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFile" xml:space="preserve">
-    <value>Script: falta {0} archivo y se elimina</value>
+    <value>Script: falta {0} archivo eliminado</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>Script: {0} falta el archivo, la eliminación no puede intentar eliminar manualmente</value>
+    <value>Script: {0} archivo falta, la eliminación no puede intentar la eliminación manual</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
-    <value>Excepción de lectura de script Compruebe la sintaxis de los errores: {0}</value>
+    <value>Excepción de lectura de script Compruebe sintaxis de errores: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDBError" xml:space="preserve">
-    <value>Se ha producido un error al guardar los datos</value>
+    <value>Inténtelo de nuevo si guarda los datos por error</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
@@ -2150,7 +2151,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>Notificaciones de solicitud cuando hay una nueva versión disponible y notificaciones de progreso cuando se descarga una nueva versión.</value>
+    <value>Notificaciones de aviso cuando una nueva versión está disponible y notificaciones de progreso cuando se descarga una nueva versión.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
@@ -2162,15 +2163,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
-    <value>Se denegó el acceso a archivos sin permiso</value>
+    <value>Se denegó el acceso a los archivos y no se concedieron permisos</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
-    <value>{0} de error de hosts de acción</value>
+    <value>{0} de error de hosts de operación</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Actualización de reemplazo de Steam...</value>
+    <value>Actualización de Steam más reemplazo...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
@@ -2178,7 +2179,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>El paquete de actualización descomprimir falló, por favor abra el sitio web oficial para actualizar manualmente</value>
+    <value>El paquete de actualización descomprimido falló, abra el sitio web oficial para actualizar manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
@@ -2186,7 +2187,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey" xml:space="preserve">
-    <value>Activación masiva de la clave</value>
+    <value>Clave de activación masiva</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
@@ -2202,7 +2203,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Start" xml:space="preserve">
-    <value>Iniciar ASF</value>
+    <value>Iniciar la ASF</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Stop" xml:space="preserve">
@@ -2214,7 +2215,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
-    <value>Actualizar bot</value>
+    <value>Actualizar el bot</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIConsole" xml:space="preserve">
@@ -2234,7 +2235,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_VersionNum" xml:space="preserve">
-    <value>Versión actual de ArchiSteamFarm:  </value>
+    <value>Versión actual de ArchiSteamFarm: </value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
@@ -2254,7 +2255,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>{0} se ha agregado la clave a la cola de activación y la clave de la cola se pone automáticamente en cola para la activación.</value>
+    <value>{0} se han agregado claves a la cola de activación y las claves de la cola se ponen automáticamente en cola para la activación.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
@@ -2460,19 +2461,19 @@ Hubo un error al recuperar las estadísticas de logros, ya sea porque el juego n
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
-    <value>Puede escribir cualquier texto que contenga SteamKey y se reconozca automáticamente y se agregue a la lista de activación, o puede escribir en el siguiente formato:
+    <value>Puede escribir cualquier texto que contenga SteamKey y que se reconozca automáticamente y se agregue a la lista de activación, o puede ingresarlo en el siguiente formato:
 AAAAA-BBBBB-CCCC1
 AAAAA-BBBBB-CCCC2
 AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
-    <value>Función experimental (se recomienda establecer materiales transparentes en Transparente o ArylicBlur cuando esta función está activada)
+    <value>Función experimental (se recomienda establecer material transparente en Transparente o AcrylicBlur cuando esta función está activada)
 Esta función establece los fondos de pantalla en vivo de Wallpaper Engine y otro software de fondo de pantalla en el fondo del programa, y si no inicia Wallpaper Engine, el fondo de escritorio se usa de forma predeterminada. Los fondos solo surtan efecto en la ventana principal, y otras ventanas recomiendan que no ajuste la transparencia por completo ni utilice un fondo de imagen. Al usarlo, preste atención para cambiar el tema correspondiente de acuerdo con el color oscuro brillante del fondo de pantalla para obtener mejores resultados.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>Inicie sesión en la cuenta de Steam para la importación de tokens, debe eliminar el token antiguo antes de importar, y este método de importación tendrá un período de reflexión de 15 días para las transacciones de mercado.
+    <value>Inicia sesión en tu cuenta de Steam para una importación de tokens, que requiere la eliminación del token antiguo antes de importar, y esta importación tendrá un período de reflexión de 15 días para las transacciones de mercado.
 (Si no activas la aceleración de red de Steam, no podrás iniciar sesión correctamente)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
@@ -2501,5 +2502,85 @@ Recuerda tener el UID de tu cuenta de Steam++ en el mensaje de notas al hacer un
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
     <value>Deberá iniciar sesión en su cuenta de Steam++ para obtener su UID</value>
     <comment>Comment=;Author=AigioL</comment>
+  </data>
+  <data name="Sleep" xml:space="preserve">
+    <value>dormir</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Hibernate" xml:space="preserve">
+    <value>dormancia</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Shutdown" xml:space="preserve">
+    <value>Apagado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ImageCodeShowError" xml:space="preserve">
+    <value>¿No puede mostrar un código de verificación de imagen?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_ShowHideUserName" xml:space="preserve">
+    <value>Mostrar/ocultar nombre de usuario</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
+    <value>Habilitar la supervisión de descargas</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Downloaded" xml:space="preserve">
+    <value>Descargó</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Installed" xml:space="preserve">
+    <value>Instalado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
+    <value>Ejecutar cuando se selecciona la descarga del juego y se completa la instalación</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
+    <value>DNS de proxy personalizado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
+    <value>Las propiedades del archivo son de solo lectura y la modificación falló, siga la guía de la página web{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
+    <value>Las propiedades del archivo son de solo lectura, se produce un error en la modificación y puede intentar hacer una copia de seguridad del archivo antes de eliminarlo e intentarlo de nuevo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
+    <value>Error en la descarga del archivo de caché del paquete de actualización, la caché eliminada intentó descargarse nuevamente, espere</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleFontName" xml:space="preserve">
+    <value>Fuente de la consola</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleFontSize" xml:space="preserve">
+    <value>Tamaño de fuente de la consola</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleMaxLine" xml:space="preserve">
+    <value>La consola muestra el número máximo de filas</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_IPCPortId" xml:space="preserve">
+    <value>Número de puerto IPC</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
+    <value>Se utiliza un número de puerto aleatorio cuando se ocupa un puerto IPC</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
+    <value>Por favor, espere a que comience la CIP...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ShowHide" xml:space="preserve">
+    <value>Mostrar/ocultar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

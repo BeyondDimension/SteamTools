@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>サービス側エラー {0} - ログイン資格情報が無効になった場合は、再度ログインしてください</value>
+    <value>サービス側エラー {0} - ログイン資格情報が無効になっている場合は、再度ログインしてください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
@@ -130,15 +130,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
-    <value>コンテンツ値を空にしたり、正しくない値にしたりすることはできません</value>
+    <value>コンテンツ値を空にしたり、正しく表示したりすることはできません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>確認コードの取得回数が今日の上限に達しました</value>
+    <value>確認コード取得回数が今日の上限に達しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>操作が少し頻繁に、1分後にそれを試してみてください</value>
+    <value>少し頻繁に操作しますが、1分後にもう一度お試しください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
@@ -146,15 +146,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在" xml:space="preserve">
-    <value>この携帯電話番号は既に使用されています</value>
+    <value>この携帯電話番号は、すでに使用されています</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_换绑手机" xml:space="preserve">
-    <value>この携帯電話番号は既にバインドされています</value>
+    <value>この携帯電話番号は、ああバインドされています</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_注册" xml:space="preserve">
-    <value>この携帯電話番号は既に登録されています</value>
+    <value>この携帯電話番号は、ああ、すでに登録されています</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
@@ -162,7 +162,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>ニックネームの最大長は 1 {0}を超えてください</value>
+    <value>ニックネームの最大長は、{0}語を超えることはできません</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>サービス側のエラー 5001 - SMS サービス</value>
+    <value>サービス側エラー 5001 - SMS サービス</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
@@ -194,7 +194,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入短信验证码哦" xml:space="preserve">
-    <value>SMS確認コードを入力してください</value>
+    <value>SMS 確認コードを入力してください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入邀请码哦" xml:space="preserve">
@@ -210,7 +210,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
-    <value>確認コードが間違っているか、有効期限が切れています</value>
+    <value>確認コードが正しくないか、有効期限が切れています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>更新プログラム パッケージのダウンロードに失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>更新プログラム パッケージ情報の解決に失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>更新プログラム パッケージ キャッシュ ファイルのダウンロードの検証に失敗し、エラーが削除された場合は、{0}を削除した後、公式サイトで手動で更新してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>ファイルチェックに失敗しましたので、公式サイトで新しいバージョンをダウンロードして手動で更新してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>更新プログラム パッケージの解凍に失敗しました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

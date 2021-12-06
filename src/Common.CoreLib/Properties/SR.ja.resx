@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Age_" xml:space="preserve">
-    <value>{0} 年</value>
+    <value>{0}歳</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DayOfWeek_L0" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>サポートされていない携帯電話番号セグメント({0})</value>
+    <value>サポートされていない携帯電話番号セグメント ({0})</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

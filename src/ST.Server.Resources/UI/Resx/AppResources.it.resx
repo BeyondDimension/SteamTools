@@ -122,7 +122,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>Siamo spiacenti, stai usando un browser obsoleto. Si consiglia di aggiornare il browser o utilizzarlo</value>
+    <value>Spiacenti, stai utilizzando un browser obsoleto. Si consiglia di aggiornare il browser o utilizzarlo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
@@ -134,23 +134,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>Gli errori dei provider di accesso di terze parti, {0}, contattare il webmaster.</value>
+    <value>Errori da fornitori di accesso di terze parti, {0}, contattare il webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>Per provider di accesso di terze parti sconosciuti, {0}, contatta il tuo webmaster.</value>
+    <value>Per i fornitori di accesso di terze parti sconosciuti, {0}, contatta il tuo webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>Per canali di accesso di terze parti sconosciuti, {0}, contatta il tuo webmaster.</value>
+    <value>Per i canali di accesso di terze parti sconosciuti, {0}, contatta il tuo webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>Si è verificato un errore durante il caricamento di informazioni di accesso di terze parti, contattare l&apos;amministratore del sito.</value>
+    <value>Si è verificato un errore durante il caricamento delle informazioni di accesso di terze parti, contattare l&apos;amministratore del sito.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>L&apos;accesso rapido è disponibile solo se non autorizzato, contattare l&apos;amministratore del sito.</value>
+    <value>L&apos;accesso rapido è disponibile solo se non autorizzato, contatta l&apos;amministratore del sito.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
@@ -170,19 +170,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>Questa finestra/scheda del browser tenterà di chiudersi automaticamente entro 10 secondi oppure è possibile chiuderla manualmente.</value>
+    <value>Questa finestra / scheda del browser tenterà di chiudersi automaticamente entro 10 secondi oppure è possibile chiuderla manualmente.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>Non salti da molto tempo?</value>
+    <value>Non hai saltato per molto tempo?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>&quot;Steam&quot; è una cassetta degli attrezzi con una varietà di funzioni degli strumenti di Steam.</value>
+    <value>&quot;Steam&quot; è una cassetta degli attrezzi con una varietà di funzionalità dello strumento Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>JavaScript deve essere attivato per esplorare il sito.</value>
+    <value>JavaScript deve essere attivato per navigare nel sito.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
@@ -194,7 +194,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>Impossibile leggere SteamAccountId64, valore: {0}, contattare il webmaster.</value>
+    <value>Impossibile leggere SteamAccountId64, valore: {0}, contatta il webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
@@ -210,15 +210,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>Connessione persa al programma, fare clic su Riprova o fare di nuovo clic su Accesso rapido all&apos;interno del programma.</value>
+    <value>Persa la connessione al programma, fare clic su Riprova o fare nuovamente clic su Accesso rapido all&apos;interno del programma.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>Il numero di porta deve essere del tipo UInt16, contattare il webmaster.</value>
+    <value>Il numero di porta deve essere del tipo UInt16, contatta il tuo webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyButton" xml:space="preserve">
-    <value>Puntare a questa copia</value>
+    <value>Punta a questa copia</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyNoSupport" xml:space="preserve">
@@ -230,7 +230,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ManualCopyTip" xml:space="preserve">
-    <value>Si è verificato un errore con il programma di connessione, copiare manualmente quanto segue nel programma, fare clic manualmente per accedere.</value>
+    <value>Si è è verificato un errore con il programma di connessione, copiare manualmente quanto segue nel programma fare clic manualmente per accedere.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -4898,15 +4898,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 无法显示验证码？ 的本地化字符串。
-        /// </summary>
-        public static string UnableDisplayCaptchaImage {
-            get {
-                return ResourceManager.GetString("UnableDisplayCaptchaImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 未绑定 的本地化字符串。
         /// </summary>
         public static string Unbound {

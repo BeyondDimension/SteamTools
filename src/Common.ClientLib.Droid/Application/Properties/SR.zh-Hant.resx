@@ -130,7 +130,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsXposedExists" xml:space="preserve">
-    <value>此應用不支援在裝有Xposed框架的設備中運行</value>
+    <value>此應用不支持在裝有Xposed框架的設備中運行</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

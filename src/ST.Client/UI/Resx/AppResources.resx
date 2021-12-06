@@ -1974,9 +1974,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
     <value>IPC 端口被占用时使用随机端口号</value>
   </data>
-  <data name="UnableDisplayCaptchaImage" xml:space="preserve">
-    <value>无法显示验证码？</value>
-  </data>
   <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
     <value>请等待 IPC 启动中...</value>
   </data>
