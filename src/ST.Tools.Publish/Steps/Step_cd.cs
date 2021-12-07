@@ -78,15 +78,19 @@ namespace System.Application.Steps
         {
             if (!val.Any()) val = all_val;
 
+            var hasWindows = val.Any(x => x.StartsWith("win-"));
+            var hasLinux = val.Any(x => x.StartsWith("linux-"));
+
             Dictionary<DeploymentMode, string[]> publishDict = new()
             {
                 { DeploymentMode.SCD, val },
             };
-            var fde_val = val.Where(x => x.StartsWith("win-")).ToArray(); // 仅 Windows 发行依赖部署(FDE) 包
-            if (fde_val.Any()) publishDict.Add(DeploymentMode.FDE, fde_val);
 
-            if (val.Any(x => x.StartsWith("win-")))
+            if (hasWindows)
             {
+                var fde_val = val.Where(x => x.StartsWith("win-")).ToArray(); // 仅 Windows 发行依赖部署(FDE) 包
+                if (fde_val.Any()) publishDict.Add(DeploymentMode.FDE, fde_val);
+
                 // X. (本地)将发布 Host 入口点重定向到 Bin 目录中
                 var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
                 await Task.WhenAll(hpTasks);
@@ -99,7 +103,6 @@ namespace System.Application.Steps
                 var dirNames = ScanDirectory(item.Key, item.Value, dev);
                 if (dirNames.Any_Nullable()) publishDirs.AddRange(dirNames!);
             }
-            var linux_publishDirs = publishDirs.Where(x => x.Name.StartsWith("linux-"));
 
             // 8. (本地)读取上一步操作后的 Publish.json 生成压缩包并计算哈希值写入 Publish.json
             var parallelTasks = new List<Task>();
@@ -113,8 +116,10 @@ namespace System.Application.Steps
             await Task.WhenAll(parallelTasks);
             parallelTasks.Clear();
 
-            if (val.Any(x => x.StartsWith("linux-")))
+            if (hasLinux)
             {
+                var linux_publishDirs = publishDirs.Where(x => x.Name.StartsWith("linux-"));
+
                 Console.WriteLine("rpm Step 正在打包 CentOS/RedHat Linux installer...");
 
                 // Create a CentOS/RedHat Linux installer
@@ -140,26 +145,30 @@ namespace System.Application.Steps
             // 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
             StepRel.Handler2(endWriteOK: false);
 
-            Console.WriteLine("wdb Step 正在上传新版本数据中...");
+            var winX64 = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray();
+            if (winX64.Any())
+            {
+                Console.WriteLine("wdb Step 正在上传新版本数据中...");
 
-            // wdb 11. (云端)读取上一步上传的数据写入数据库中
-            var request = new UpdateVersionRequest
-            {
-                Version = GetVersion(dev),
-                DirNames = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray(),
-            };
-            using var client = GetHttpClient(token, dev);
-            using var req = GetRequestContent(request);
-            using var rsp = await client.PutAsync(api_version_create, req);
-            if (rsp.StatusCode == HttpStatusCode.InternalServerError)
-            {
-                var html = await rsp.Content.ReadAsStringAsync();
-                throw new HttpRequestException(html);
+                // wdb 11. (云端)读取上一步上传的数据写入数据库中
+                var request = new UpdateVersionRequest
+                {
+                    Version = GetVersion(dev),
+                    DirNames = winX64,
+                };
+                using var client = GetHttpClient(token, dev);
+                using var req = GetRequestContent(request);
+                using var rsp = await client.PutAsync(api_version_create, req);
+                if (rsp.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var html = await rsp.Content.ReadAsStringAsync();
+                    throw new HttpRequestException(html);
+                }
+                rsp.EnsureSuccessStatusCode();
+                var apiResponse = await GetResponseAsync(rsp);
+                apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
+                if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
             }
-            rsp.EnsureSuccessStatusCode();
-            var apiResponse = await GetResponseAsync(rsp);
-            apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
-            if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
 
             Console.WriteLine("OK");
         }

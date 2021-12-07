@@ -2410,7 +2410,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Linux 需要提供系统 root 密码才能正常使用。 的本地化字符串。
+        ///   查找类似 Linux 需要提供系统 root 密码才能正常使用 的本地化字符串。
         /// </summary>
         public static string LinuxSudoTips {
             get {

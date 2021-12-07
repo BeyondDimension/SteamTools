@@ -1986,6 +1986,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>显示/隐藏</value>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
-    <value>Linux 需要提供系统 root 密码才能正常使用。</value>
+    <value>Linux 需要提供系统 root 密码才能正常使用</value>
   </data>
 </root>
