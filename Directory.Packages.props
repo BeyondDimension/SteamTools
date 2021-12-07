@@ -128,16 +128,16 @@
 		<PackageVersion Include="Moq" Version="4.16.1" />
 
 		<!-- NLog -->
-		<PackageVersion Include="NLog" Version="4.7.12" />
+		<PackageVersion Include="NLog" Version="4.7.13" />
 		<PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
 		<PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
 
 		<!-- ReactiveUI -->
 		<PackageVersion Include="Splat" Version="14.1.1" />
 		<PackageVersion Include="DynamicData" Version="7.4.3" />
-		<PackageVersion Include="ReactiveUI" Version="17.0.1" />
-		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.0.1" /> -->
-		<PackageVersion Include="ReactiveUI.XamForms" Version="17.0.1" />
+		<PackageVersion Include="ReactiveUI" Version="17.1.6" />
+		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.6" /> -->
+		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.6" />
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.0.1" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
@@ -186,7 +186,7 @@
 		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 
 		<!-- Pay -->
-		<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.60" />
+		<!--<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.109" />-->
 
 		<!-- Excel -->
 		<PackageVersion Include="NPOI" Version="2.5.5" />

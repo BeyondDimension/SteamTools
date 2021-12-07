@@ -19,7 +19,7 @@ namespace System.Application.Services.Implementation
             // https://docs.microsoft.com/zh-cn/xamarin/android/app-fundamentals/http-stack?context=xamarin%2Fcross-platform&tabs=macos
             var handler = new AndroidClientHandler();
             AddFiddlerRootCertificate(handler);
-            GeneralHttpClientFactory.SetProxyToHandler(handler, GeneralHttpClientFactory.DefaultProxy);
+            GeneralHttpClientFactory.SetProxyToHandler(GeneralHttpClientFactory.DefaultProxy, handler);
             return handler;
         }
     }
