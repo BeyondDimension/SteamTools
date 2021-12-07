@@ -87,9 +87,7 @@ namespace System.Application
 
                         dirNames = dirNames.ThrowIsNull(nameof(dirNames));
 
-                        var parallelTasks = new List<Task>();
-                        var gs = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type)));
-                        parallelTasks.AddRange(gs);
+                        var parallelTasks = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type))).ToList();
 
                         await Task.WhenAll(parallelTasks);
 
