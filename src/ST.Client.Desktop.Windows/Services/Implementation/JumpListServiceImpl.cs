@@ -2,6 +2,7 @@ extern alias JumpLists;
 using JumpLists::System.Windows.Shell;
 using System.Linq;
 using AvaloniaApplication = Avalonia.Application;
+using static System.Application.Services.IJumpListService;
 
 namespace System.Application.Services.Implementation
 {
@@ -10,38 +11,45 @@ namespace System.Application.Services.Implementation
     {
         public void InitJumpList()
         {
-            var jumpList1 = new JumpList
+            try
             {
-                ShowRecentCategory = true,
-                ShowFrequentCategory = false,
-            };
-            //jumpList1.JumpItemsRejected += JumpList1_JumpItemsRejected;
-            //jumpList1.JumpItemsRemovedByUser += JumpList1_JumpItemsRemovedByUser;
-            //jumpList1.JumpItems.Add(new JumpTask
-            //{
-            //    Title = "RuaRua",
-            //    Description = "以该账号启动Steam",
-            //    ApplicationPath = AppHelper.ProgramPath,
-            //    Arguments = "-clt steam -account ruarua",
-            //    IconResourcePath = AppHelper.ProgramPath,
-            //});
-            //jumpList1.JumpItems.Add(new JumpTask
-            //{
-            //    Title = "Read Me",
-            //    Description = "Open readme.txt in Notepad.",
-            //    ApplicationPath = @"C:\Windows\notepad.exe",
-            //    IconResourcePath = @"C:\Windows\System32\imageres.dll",
-            //    IconResourceIndex = 14,
-            //    WorkingDirectory = @"C:\Users\Public\Documents",
-            //    Arguments = "readme.txt",
-            //});
-            //JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-            //if (jumpList1 != null)
-            //{
-            //    jumpList1.JumpItems.Clear();
-            //    jumpList1.Apply();
-            //}
-            JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
+                var jumpList1 = new JumpList
+                {
+                    ShowRecentCategory = true,
+                    ShowFrequentCategory = false,
+                };
+                //jumpList1.JumpItemsRejected += JumpList1_JumpItemsRejected;
+                //jumpList1.JumpItemsRemovedByUser += JumpList1_JumpItemsRemovedByUser;
+                //jumpList1.JumpItems.Add(new JumpTask
+                //{
+                //    Title = "RuaRua",
+                //    Description = "以该账号启动Steam",
+                //    ApplicationPath = AppHelper.ProgramPath,
+                //    Arguments = "-clt steam -account ruarua",
+                //    IconResourcePath = AppHelper.ProgramPath,
+                //});
+                //jumpList1.JumpItems.Add(new JumpTask
+                //{
+                //    Title = "Read Me",
+                //    Description = "Open readme.txt in Notepad.",
+                //    ApplicationPath = @"C:\Windows\notepad.exe",
+                //    IconResourcePath = @"C:\Windows\System32\imageres.dll",
+                //    IconResourceIndex = 14,
+                //    WorkingDirectory = @"C:\Users\Public\Documents",
+                //    Arguments = "readme.txt",
+                //});
+                //JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
+                //if (jumpList1 != null)
+                //{
+                //    jumpList1.JumpItems.Clear();
+                //    jumpList1.Apply();
+                //}
+                JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(TAG, ex, "InitJumpList catch.");
+            }
         }
 
         public void AddJumpTask(string title, string applicationPath, string iconResourcePath, string arguments = "", string description = "", string customCategory = "")
@@ -58,34 +66,47 @@ namespace System.Application.Services.Implementation
             });
         }
 
+        static readonly object lock_add = new();
+
         public static void AddJumpTask(JumpTask task, bool isRecent = false)
         {
-            // Get the JumpList from the application and update it.
-            JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-            if (jumpList1 != null)
+            lock (lock_add)
             {
-                var tk = jumpList1.JumpItems.FirstOrDefault(s => s is JumpTask t && t.ApplicationPath == task.ApplicationPath && t.Arguments == task.Arguments);
-                if (tk != null)
+                try
                 {
-                    jumpList1.JumpItems.Remove(tk);
+                    // Get the JumpList from the application and update it.
+                    JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
+                    if (jumpList1 != null)
+                    {
+                        var tk = jumpList1.JumpItems.FirstOrDefault(s => s is JumpTask t && t.ApplicationPath == task.ApplicationPath && t.Arguments == task.Arguments);
+                        if (tk != null)
+                        {
+                            jumpList1.JumpItems.Remove(tk);
+                        }
+                        jumpList1.JumpItems.Add(task);
+                        if (isRecent)
+                            JumpList.AddToRecentCategory(task);
+                        jumpList1.Apply();
+                        //MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
+                    }
                 }
-                jumpList1.JumpItems.Add(task);
-                if (isRecent)
-                    JumpList.AddToRecentCategory(task);
-                MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
+                catch (Exception ex)
+                {
+                    Log.Error(TAG, ex, "AddJumpTask catch.");
+                }
             }
         }
 
-        public static void AddRecentJumpTask(JumpTask task)
-        {
-            // Get the JumpList from the application and update it.
-            JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-            if (jumpList1 != null)
-            {
-                JumpList.AddToRecentCategory(task);
-                MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
-            }
-        }
+        //public static void AddRecentJumpTask(JumpTask task)
+        //{
+        //    // Get the JumpList from the application and update it.
+        //    JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
+        //    if (jumpList1 != null)
+        //    {
+        //        JumpList.AddToRecentCategory(task);
+        //        MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
+        //    }
+        //}
 
         //static void AddJumpTask()
         //{
