@@ -247,13 +247,21 @@ namespace System.Application.Steps
             return dirNames;
         }
 
-        /// <summary>
-        /// 根据文件清单生成压缩包
-        /// </summary>
-        /// <param name="item"></param>
+
         static void GenerateCompressedPackage(bool dev, PublishDirInfo item)
         {
             var type = GetCompressedTypeByRID(item.Name);
+            GenerateCompressedPackage(dev, item, type);
+        }
+
+        /// <summary>
+        /// 根据文件清单生成压缩包
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <param name="item"></param>
+        /// <param name="type"></param>
+        public static void GenerateCompressedPackage(bool dev, PublishDirInfo item, AppDownloadType type)
+        {
             var fileEx = GetFileExByCompressedType(type);
 
             var packPath = GetPackPath(dev, item, fileEx);
