@@ -49,6 +49,29 @@ jobs:
 
     - name: Shell Version
       run: sh --version
+      
+    - name: Checkout NSIS-Build repository
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      uses: actions/checkout@v2
+      with:
+        repository: SteamTools-Team/NSIS-Build
+        token: ${{ secrets.REPO_TOKEN }}
+        path: ./NSIS-Build
+
+    - name: Checkout Credentials repository
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      uses: actions/checkout@v2
+      with:
+        repository: SteamTools-Team/Credentials
+        token: ${{ secrets.REPO_TOKEN }}
+        path: ./Credentials
+
+    - name: Copy pfx and snk To Source
+      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+      run: |
+        copy ".\Credentials\*.pfx" .
+        copy ".\Credentials\*.snk" .
+        dir *.pfx -s
 
     - name: dotnet restore SteamToolsV2+.sln
       if: matrix.os == 'windows-latest'
@@ -78,29 +101,6 @@ jobs:
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       id: tag
       uses: dawidd6/action-get-tag@v1
-
-    - name: Checkout NSIS-Build repository
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
-      with:
-        repository: SteamTools-Team/NSIS-Build
-        token: ${{ secrets.REPO_TOKEN }}
-        path: ./NSIS-Build
-
-    - name: Checkout Credentials repository
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
-      with:
-        repository: SteamTools-Team/Credentials
-        token: ${{ secrets.REPO_TOKEN }}
-        path: ./Credentials
-
-    - name: Copy pfx and snk To Source
-      if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      run: |
-        copy ".\Credentials\*.pfx" .
-        copy ".\Credentials\*.snk" .
-        dir *.pfx -s
 
     - name: Build ST.Tools.Publish Release
       run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release
@@ -242,7 +242,7 @@ jobs:
           [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
           [![${{ env.ProjectName }} v${{ steps.tag.outputs.tag }}](https://img.shields.io/badge/${{ env.ProjectName }}-v${{ steps.tag.outputs.tag }}-brightgreen.svg?style=flat-square&color=512bd4)]()
 
-          ##### [不知道该下载哪个文件?](./download-guide.md)
+          ##### [不知道该下载哪个文件?](https://github.com/SteamTools-Team/SteamTools/blob/develop/download-guide.md)
 
   WindowsStore:
     name: WindowsStore Publish
