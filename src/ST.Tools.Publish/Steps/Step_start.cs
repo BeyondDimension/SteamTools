@@ -187,6 +187,8 @@ namespace System.Application.Steps
             sta.AddOption(new Option<bool>("-dev", DevDesc));
             sta.Handler = CommandHandler.Create((string[] val, bool dev) =>
             {
+                if (!val.Any()) val = Step_cd.all_val;
+
                 var dirNames = new[] {
                     Handler(DeploymentMode.SCD, val, dev),
                     Handler(DeploymentMode.FDE, val, dev),

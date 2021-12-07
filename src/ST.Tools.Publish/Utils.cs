@@ -248,21 +248,28 @@ namespace System.Application
             File.WriteAllText(PublishJsonFilePath, publish_json_str);
         }
 
-        [Obsolete("use GetVersion(bool)")]
+        static string? mVersion;
         public static string Version
         {
+            [Obsolete("use GetVersion(bool)")]
             get
             {
+                if (mVersion != null) return mVersion;
                 var mainDllPath = ProjectPathUtil.projPath + ProjectPathUtil.MainDllPath;
                 var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;
                 var versionArray = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
                 if (versionArray.Length > 3) version = string.Join('.', versionArray.Take(3));
                 return version;
             }
+            set
+            {
+                mVersion = value;
+            }
         }
 
         public static string GetVersion(bool dev)
         {
+            if (mVersion != null) return mVersion;
             var configuration = GetConfiguration(dev, isLower: false);
             var mainDllPath = ProjectPathUtil.projPath + string.Format(ProjectPathUtil.MainDllPath_, configuration);
             var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;

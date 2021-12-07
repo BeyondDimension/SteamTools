@@ -21,7 +21,7 @@ namespace System.Application.Steps
     /// </summary>
     internal static class Step_cd
     {
-        static readonly string[] all_val = new[] { "win-x64", "osx-x64", "linux-x64", "linux-arm64", };
+        public static readonly string[] all_val = new[] { "win-x64", "osx-x64", "linux-x64", "linux-arm64", };
 
         public static void Add(RootCommand command)
         {
