@@ -13,12 +13,6 @@ $publishtool_exe = "$publishtool_dir\bin\Release\net6.0\p.exe"
 
 $build_pubxmls = "fd-win-x64","win-x64","osx-x64","linux-x64","linux-arm64"
 
-#$build_pubxml_winx64_fd = "fd-win-x64"
-#$build_pubxml_winx64 = "win-x64"
-#$build_pubxml_osxx64 = "osx-x64"
-#$build_pubxml_linuxx64 = "linux-x64"
-#$build_pubxml_linuxarm64 = "linux-arm64"
-
 function Build-PublishTool
 {
     if(-not (Test-Path $publishtool_exe))
@@ -62,12 +56,6 @@ function Build-App
     }
 
     Remove-Item $publishDir -Recurse -Force -Confirm:$false -ErrorAction Ignore
-
-#   if($rid -eq 'fd-win-x64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_winx64_fd" }
-#   if($rid -eq 'win-x64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_winx64" }
-#   if($rid -eq 'osx-64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_osxx64" }
-#   if($rid -eq 'linux-x64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_linuxx64" }
-#   if($rid -eq 'linux-arm64'){ $pubxml = "$build_pubxml_dir\$build_pubxml_linuxarm64" }
 
     if($configuration -eq 'Debug'){ $rid = "dev-$rid" }
 
