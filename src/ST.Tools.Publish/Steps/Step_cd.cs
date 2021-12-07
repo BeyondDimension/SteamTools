@@ -48,6 +48,30 @@ namespace System.Application.Steps
             full.AddOption(new Option<string[]>("-val", InputPubDirNameDesc));
             full.AddOption(new Option<bool>("-dev", DevDesc));
             command.AddCommand(full);
+
+#if DEBUG
+            var nsis = new Command("nsis", "调试 NSIS 打包")
+            {
+                Handler = CommandHandler.Create(() =>
+                {
+                    var publish_json_path = PublishJsonFilePath;
+                    var publish_json_str = File.ReadAllText(publish_json_path);
+                    var dirNames = Serializable.DJSON<PublishDirInfo[]>(publish_json_str)
+                        ?.Where(x => x.Name.StartsWith("win-")).ToArray();
+
+                    if (!dirNames.Any_Nullable())
+                    {
+                        Console.WriteLine($"错误：发布配置文件读取失败！{publish_json_path}");
+                        return;
+                    }
+
+                    dirNames = dirNames.ThrowIsNull(nameof(dirNames));
+
+                    NSISBuild(true, dirNames);
+                })
+            };
+            command.AddCommand(nsis);
+#endif
         }
 
         static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
@@ -241,13 +265,20 @@ namespace System.Application.Steps
             using var fileStream = File.OpenRead(packPath);
             var sha256 = Hashs.String.SHA256(fileStream);
 
+            var fileInfoM = new PublishFileInfo
+            {
+                SHA256 = sha256,
+                Length = fileStream.Length,
+                Path = packPath,
+            };
+
             if (item.BuildDownloads.ContainsKey(type))
             {
-                item.BuildDownloads[type] = new PublishFileInfo { SHA256 = sha256, Length = fileStream.Length };
+                item.BuildDownloads[type] = fileInfoM;
             }
             else
             {
-                item.BuildDownloads.Add(type, new PublishFileInfo { SHA256 = sha256, Length = fileStream.Length });
+                item.BuildDownloads.Add(type, fileInfoM);
             }
         }
 
@@ -408,23 +439,34 @@ namespace System.Application.Steps
             static int GetInt32ByVersion(int value) => value < 0 ? 0 : value;
         }
 
+        const string AigioPC = "ee6c36c1bbf6076e5f915b12cd3c7d034f0d6f45b71c934529ba9f9faba72735084399e6039375501c8fbabc245ac3a3";
+        static readonly string MachineName = Hashs.String.SHA384(Environment.MachineName);
+
         static void NSISBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
         {
-            var rootDirPath = Path.Combine(projPath, "NSIS-Build");
+            string rootDirPath;
+            if (MachineName == AigioPC)
+            {
+                rootDirPath = Path.Combine(projPath, "..", "NSIS");
+            }
+            else
+            {
+                rootDirPath = Path.Combine(projPath, "NSIS-Build");
+            }
             if (!Directory.Exists(rootDirPath))
             {
                 Console.WriteLine($"找不到 NSIS-Build 目录，值：{rootDirPath}");
                 return;
             }
 
-            var nsiFilePath = Path.Combine(projPath, "NSIS-Build", "AppCode", "Steampp", "app", "SteamPP_setup.nsi");
+            var nsiFilePath = Path.Combine(rootDirPath, "AppCode", "Steampp", "app", "SteamPP_setup.nsi");
             var nsiFileContent = File.ReadAllText(nsiFilePath);
 
             var version = GetFullVersion(dev);
 
-            var appFileDirPath = Path.Combine(projPath, "NSIS-Build", "AppCode", "Steampp");
-            //var batFilePath = Path.Combine(projPath, "NSIS-Build", "steam++.bat");
-            var nsisExeFilePath = Path.Combine(projPath, "NSIS-Build", "NSIS", "makensis.exe");
+            var appFileDirPath = Path.Combine(rootDirPath, "AppCode", "Steampp");
+            //var batFilePath = Path.Combine(rootDirPath, "steam++.bat");
+            var nsisExeFilePath = Path.Combine(rootDirPath, "NSIS", "makensis.exe");
             foreach (var item in publishDirs)
             {
                 var install7zFilePath = item.BuildDownloads[AppDownloadType.Compressed_7z].Path;
