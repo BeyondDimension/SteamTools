@@ -3,6 +3,7 @@ using System.Application.Models.Internals;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -116,6 +117,15 @@ namespace System.Application.Steps
             await Task.WhenAll(parallelTasks);
             parallelTasks.Clear();
 
+            if (hasWindows)
+            {
+                var win_publishDirs = publishDirs.Where(x => x.Name.StartsWith("win-"));
+
+                Console.WriteLine("nsis Step 正在打包 EXE installer...");
+
+                NSISBuild(dev, win_publishDirs);
+            }
+
             if (hasLinux)
             {
                 var linux_publishDirs = publishDirs.Where(x => x.Name.StartsWith("linux-"));
@@ -140,10 +150,14 @@ namespace System.Application.Steps
                 parallelTasks.Clear();
             }
 
-            Console.WriteLine("rel Step 正在写入 SHA256...");
+            #region rel 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
 
-            // 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
-            StepRel.Handler2(endWriteOK: false);
+            //Console.WriteLine("rel Step 正在写入 SHA256...");
+
+            //// 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
+            //StepRel.Handler2(endWriteOK: false);
+
+            #endregion
 
             var winX64 = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray();
             if (winX64.Any())
@@ -385,5 +399,56 @@ namespace System.Application.Steps
         const string dev_api_base_url = "https://pan.mossimo.net:9911";
         const string api_base_url = "https://cycyadmin.steampp.net";
         const string api_version_create = "/api/version";
+
+        static string GetFullVersion(bool dev)
+        {
+            Version version = new(GetVersion(dev));
+            return $"{version.Major}.{GetInt32ByVersion(version.Minor)}.{GetInt32ByVersion(version.Build)}.{GetInt32ByVersion(version.Revision)}";
+
+            static int GetInt32ByVersion(int value) => value < 0 ? 0 : value;
+        }
+
+        static void NSISBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
+        {
+            var rootDirPath = Path.Combine(projPath, "NSIS-Build");
+            if (!Directory.Exists(rootDirPath))
+            {
+                Console.WriteLine($"找不到 NSIS-Build 目录，值：{rootDirPath}");
+                return;
+            }
+
+            var nsiFilePath = Path.Combine(projPath, "NSIS-Build", "AppCode", "Steampp", "app", "SteamPP_setup.nsi");
+            var nsiFileContent = File.ReadAllText(nsiFilePath);
+
+            var version = GetFullVersion(dev);
+
+            var appFileDirPath = Path.Combine(projPath, "NSIS-Build", "AppCode", "Steampp");
+            //var batFilePath = Path.Combine(projPath, "NSIS-Build", "steam++.bat");
+            var nsisExeFilePath = Path.Combine(projPath, "NSIS-Build", "NSIS", "makensis.exe");
+            foreach (var item in publishDirs)
+            {
+                var install7zFilePath = item.BuildDownloads[AppDownloadType.Compressed_7z].Path;
+                var outputFileName = Path.GetFileNameWithoutExtension(install7zFilePath) + FileEx.EXE;
+                var outputFilePath = Path.Combine(new FileInfo(install7zFilePath).DirectoryName!, outputFileName);
+
+                var nsiFileContent2 = nsiFileContent
+                     .Replace("${{ Steam++_Version }}", version)
+                     .Replace("${{ Steam++_OutPutFileName }}", outputFileName)
+                     .Replace("${{ Steam++_AppFileDir }}", appFileDirPath)
+                     .Replace("${{ Steam++_7zFilePath }}", install7zFilePath)
+                     .Replace("${{ Steam++_OutPutFilePath }}", outputFilePath)
+                     ;
+                File.WriteAllText(nsiFilePath, nsiFileContent2);
+
+                var process = Process.Start(new ProcessStartInfo()
+                {
+                    FileName = nsisExeFilePath,
+                    Arguments = $" /DINSTALL_WITH_NO_NSIS7Z=1 \"{nsiFilePath}\"",
+                    UseShellExecute = false,
+                });
+
+                process!.WaitForExit();
+            }
+        }
     }
 }
