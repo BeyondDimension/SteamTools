@@ -1,4 +1,4 @@
-param([string]$version,$configuration='Release')
+param([string]$version,[string]$configuration='Release',[bool]$isPublish=$false)
 $ErrorActionPreference = 'Stop'
 
 Write-Host 'dotnet SDK info'
@@ -45,7 +45,7 @@ function Build-App
 {
     param([string]$rid)
 
-    Write-Host "Building v$version $rid"
+    Write-Host "Building $version $rid"
 
     if($rid.StartsWith("fd-"))
     {
@@ -64,10 +64,19 @@ function Build-App
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
-if([String]::IsNullOrEmpty($env:Token) -Or [String]::IsNullOrEmpty($version))
+if($isPublish)
 {
-    Write-Error "Undefined Token Or Version: $version"
-    Exit 1
+    if([String]::IsNullOrEmpty($env:Token))
+    {
+        Write-Error "$version Undefined Token : $env:Token"
+        Exit 1
+    }
+    
+    Build-PublishTool
+}else
+{
+    Foreach ($pubxml in $build_pubxmls)
+    {
+        Build-App $pubxml
+    }
 }
-
-Build-PublishTool

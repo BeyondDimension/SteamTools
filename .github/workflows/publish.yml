@@ -105,10 +105,10 @@ jobs:
     - name: Build ST.Tools.Publish Release
       run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release
 
-    - name: Build Release & Package All Package
+    - name: Build Release & Package All & Publish Server
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       shell: pwsh
-      run: .\packaging\build.ps1 ${{ steps.tag.outputs.tag }} ${{ env.Configuration }}
+      run: .\packaging\build.ps1 -version ${{ steps.tag.outputs.tag }} -configuration ${{ env.Configuration }} -isPublish $true
       env: 
         Token: ${{ secrets.PUBLISH_TOKEN }}
 
@@ -218,7 +218,7 @@ jobs:
           * 此版本由 GitHub Action 自动化部署发布，更新日志会在一段时间后手动更新。
 
 
-          ${{ steps.Changelog.outputs.changelog }}
+          ${{ steps.changelog.outputs.commitLog }}
           
           
           ## 文件校验
@@ -247,7 +247,7 @@ jobs:
   WindowsStore:
     name: WindowsStore Publish
     runs-on: ${{ matrix.os }}
-
+    if: ${{ false }} #未做完暂时禁用
     strategy:
       fail-fast: false
       matrix:
