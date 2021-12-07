@@ -242,7 +242,7 @@ jobs:
           [![WebSite steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
           [![${{ env.ProjectName }} v${{ steps.tag.outputs.tag }}](https://img.shields.io/badge/${{ env.ProjectName }}-v${{ steps.tag.outputs.tag }}-brightgreen.svg?style=flat-square&color=512bd4)]()
 
-          ##### [不知道该下载哪个文件?](https://github.com/SteamTools-Team/SteamTools/blob/develop/download-guide.md)
+          ##### [不知道该下载哪个文件?](https://github.com/BeyondDimension/SteamTools/blob/develop/download-guide.md)
 
   WindowsStore:
     name: WindowsStore Publish

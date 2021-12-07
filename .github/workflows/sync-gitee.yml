@@ -17,5 +17,5 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
         with:
-          source-repo: "git@github.com:SteamTools-Team/SteamTools.git"
+          source-repo: "git@github.com:BeyondDimension/SteamTools.git"
           destination-repo: "git@gitee.com:rmbgame/SteamTools"

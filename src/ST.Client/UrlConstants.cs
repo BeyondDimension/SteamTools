@@ -23,10 +23,10 @@ namespace System.Application
         public const string OfficialWebsite_UnixHostAccess = "https://steampp.net/unixhostaccess";
         public const string OfficialWebsite_ApplicationUpdateFailCode_ = "https://steampp.net?appUpdFailCode={0}";
 
-        public const string GitHub_Repository = "https://github.com/SteamTools-Team/SteamTools";
+        public const string GitHub_Repository = "https://github.com/BeyondDimension/SteamTools";
         public const string Gitee_Repository = "https://gitee.com/rmbgame/SteamTools";
 
-        public const string GitHub_Issues = "https://github.com/SteamTools-Team/SteamTools/issues";
+        public const string GitHub_Issues = "https://github.com/BeyondDimension/SteamTools/issues";
         public const string Gitee_Issues = "https://gitee.com/rmbgame/SteamTools/issues";
 
         public const string License_GPLv3 = "https://www.gnu.org/licenses/gpl-3.0.html";
