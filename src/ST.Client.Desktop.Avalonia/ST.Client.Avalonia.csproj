@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net6.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">net6.0</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">net6.0;net6.0-windows10.0.19041.0</TargetFrameworks>
     <RootNamespace>System</RootNamespace>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
@@ -10,7 +11,7 @@
     <DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(TargetFramework.Contains('-windows'))">
+  <PropertyGroup Condition=" $(TargetFramework.Contains('-windows')) ">
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
