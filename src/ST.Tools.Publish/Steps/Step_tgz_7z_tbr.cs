@@ -40,9 +40,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
             => Step8.Add(command,
                 AppDownloadType.Compressed_XZ,
-                "xz",
-                FileEx.TAR_XZ,
-                CreateXZPack);
+                "xz");
     }
 
     internal static class Step8_tar_zst // tar.zst 71,854,499 字节
@@ -50,9 +48,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
             => Step8.Add(command,
                 AppDownloadType.Compressed_Zstd,
-                "zst",
-                FileEx.TAR_ZST,
-                CreateZstdPack);
+                "zst");
     }
 }
 
