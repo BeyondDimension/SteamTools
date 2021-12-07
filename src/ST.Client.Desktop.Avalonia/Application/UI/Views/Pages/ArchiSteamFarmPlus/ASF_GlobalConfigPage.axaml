@@ -18,7 +18,7 @@
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.ASF_GlobalConfigPage">
   <ScrollViewer>
-    <StackPanel Classes="Settings">
+    <StackPanel Classes="Settings" Margin="0">
       <Border Classes="Item">
         <WrapPanel VerticalAlignment="Center">
           <TextBlock Text="{ReflectionBinding Path=Res.ASF_VersionNum,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>

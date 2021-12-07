@@ -112,7 +112,7 @@ jobs:
         $pexe=".\src\ST.Tools.Publish\bin\Release\net6.0\p.exe"
         & $pexe hp $dev
         & $pexe sta $dev
-        & $pexe 7z -buildpackage $('"')$env:GITHUB_SHA_SHORT$('"') $dev
+        & $pexe 7z -buildpackage ${env:GITHUB_SHA_SHORT} $dev
 
     - name: Upload fd-win-x64 App ${{ matrix.configuration }}
       continue-on-error: true

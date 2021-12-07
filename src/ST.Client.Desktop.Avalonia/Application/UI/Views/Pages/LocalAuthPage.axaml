@@ -121,8 +121,8 @@
                       Width="250"
                       Height="250"
                       Background="{DynamicResource ThemeBrushKey}">
-                <Border.ContextMenu>
-                  <ContextMenu>
+                <Border.ContextFlyout>
+                  <MenuFlyout>
                     <MenuItem
                               Header="{ReflectionBinding Path=Res.LocalAuth_Copy,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Command="{ReflectionBinding #u.DataContext.CopyCodeCilp}"
@@ -152,8 +152,8 @@
                         </PathIcon>
                       </MenuItem.Icon>
                     </MenuItem>
-                  </ContextMenu>
-                </Border.ContextMenu>
+                  </MenuFlyout>
+                </Border.ContextFlyout>
                 <i:Interaction.Behaviors>
                   <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #panel}">
                     <ia:ChangePropertyAction TargetObject="{ReflectionBinding #delete_btn}" PropertyName="IsVisible" Value="True"/>

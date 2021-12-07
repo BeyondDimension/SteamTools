@@ -1,6 +1,7 @@
 using SteamKit2;
 using System.Application;
 using System.Globalization;
+using System.Linq;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -21,13 +22,15 @@ namespace System
             throw new ArgumentOutOfRangeException(nameof(eCurrencyCode), eCurrencyCode, null);
         }
 
-        public static int GetLCID(this ECurrencyCode eCurrencyCode) => eCurrencyCode switch
+        public static CultureInfo? GetCultureInfo(this ECurrencyCode eCurrencyCode)
         {
-            ECurrencyCode.CNY => CultureInfoExtensions.LCID_zh_CN,
-            ECurrencyCode.USD => CultureInfoExtensions.LCID_en_US,
-            _ => throw new ArgumentOutOfRangeException(nameof(eCurrencyCode), eCurrencyCode, null),
-        };
-
-        public static CultureInfo GetCultureInfo(this ECurrencyCode eCurrencyCode) => new(eCurrencyCode.GetLCID());
+            if (eCurrencyCode != ECurrencyCode.Invalid)
+            {
+                var cultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                                  .FirstOrDefault(culture => new RegionInfo(culture.LCID).ISOCurrencySymbol == eCurrencyCode.ToString());
+                return cultureInfo;
+            }
+            return null;
+        }
     }
 }

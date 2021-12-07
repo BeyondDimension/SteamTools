@@ -129,20 +129,20 @@
         <ItemsRepeater.ItemTemplate>
           <DataTemplate>
             <Border x:Name="card"
-                    Margin="10 0"
                     Classes="paper"
                     Background="{DynamicResource ThemeBrushKey}">
               <!--<Border.Background>
                 <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
                                  Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
               </Border.Background>-->
-              <Grid Height="184"
+              <Grid Height="150"
                     ColumnDefinitions="Auto,*,Auto">
                 <Border CornerRadius="{StaticResource PaperRadiusLeft}"
                         ClipToBounds="True">
                   <Panel x:Name="avatar" Cursor="Hand">
                     <gif:Image2
-                               Width="184"
+                               Width="150"
+                               DecodeWidth="150"
                                Stretch="Uniform"
                                Source="{Binding AvatarUrl}"
                                FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
@@ -157,7 +157,6 @@
                       <DockPanel.Styles>
                         <Style Selector="TextBlock">
                           <Setter Property="VerticalAlignment" Value="Center"/>
-                          <Setter Property="FontSize" Value="24"/>
                         </Style>
                       </DockPanel.Styles>
                       <WrapPanel DockPanel.Dock="Left"
@@ -184,30 +183,24 @@
                           </i:Interaction.Behaviors>
                         </Ellipse>
                         <controls:ScrollingTextBlock x:Name="nickname"
-                                                     Text="{Binding BotName}"
-                                                     FontSize="24"
+                                                     Classes="h4"
                                                      Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                                     VerticalAlignment="Center"
-                                                     Cursor="Hand"
-                                                     ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_BtnTootlip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                          <!--<i:Interaction.Behaviors>
-                          <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #nickname}">
-                            <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.SteamId_Click}" CommandParameter="{Binding}"/>
-                          </ia:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>-->
+                                                     VerticalAlignment="Center">
+                          <controls:ScrollingTextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}({1})">
+                              <Binding Path="BotName"/>
+                              <Binding Path="Nickname"/>
+                            </MultiBinding>
+                          </controls:ScrollingTextBlock.Text>
                         </controls:ScrollingTextBlock>
-                        <WrapPanel IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
-                          <TextBlock Text="("></TextBlock>
-                          <controls:ScrollingTextBlock Text="{Binding Nickname}"
-                                                     FontSize="24"/>
-                          <TextBlock Text=")"></TextBlock>
-                        </WrapPanel>
-                        <WrapPanel DockPanel.Dock="Right">
-                          <TextBlock Text="-"
-                                     Margin="5 0"/>
-                          <TextBlock VerticalAlignment="Center"
-                            Text="{Binding Converter={StaticResource BotStatusConverter}}"/>
-                        </WrapPanel>
+                        <!--<controls:ScrollingTextBlock Text="{Binding Nickname,StringFormat=({0})}"
+                                                     Classes="h4"
+                                                     IsVisible="{Binding Nickname,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"/>-->
+                        <TextBlock VerticalAlignment="Center"
+                                   Classes="h5"
+                                   Margin="5 0 0 0"
+                                   Text="{Binding .,Converter={StaticResource BotStatusConverter}}
+                                     StringFormat=-{0}"/>
                       </WrapPanel>
 
                       <RelativePanel DockPanel.Dock="Right"
@@ -233,8 +226,8 @@
                                 VerticalAlignment="Center">
                       <StackPanel.Styles>
                         <Style Selector="PathIcon">
-                          <Setter Property="Width" Value="20"></Setter>
-                          <Setter Property="Height" Value="20"></Setter>
+                          <Setter Property="Width" Value="16"></Setter>
+                          <Setter Property="Height" Value="16"></Setter>
                         </Style>
                         <Style Selector="Button">
                           <Setter Property="Background" Value="Transparent"></Setter>
@@ -373,7 +366,8 @@
                                   ClipToBounds="True">
                             <Panel MaxWidth="184">
                               <gif:Image2
-                                MaxHeight="86"
+                                MaxHeight="56"
+                                DecodeHeight="56"
                                 Stretch="Uniform"
                                 Source="{Binding ImageUrl}"
                                 FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/applogo.jpg">
