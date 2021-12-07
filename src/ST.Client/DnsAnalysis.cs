@@ -73,10 +73,12 @@ namespace System.Application
             {
                 var client = lookupClient;
                 var question = new DnsQuestion(url, QueryType.AAAA);
-                var options = new DnsQueryAndServerOptions(dnsServers);
+                DnsQueryAndServerOptions? options = null;
+                if (dnsServers != null)
+                    options = new DnsQueryAndServerOptions(dnsServers);
                 IDnsQueryResponse response;
 
-                if (dnsServers != null)
+                if (options != null)
                     response = await client.QueryAsync(question, options);
                 else
                     response = await client.QueryAsync(question);
@@ -89,7 +91,7 @@ namespace System.Application
 
                 question = new DnsQuestion(url, QueryType.A);
 
-                if (dnsServers != null)
+                if (options != null)
                     response = await client.QueryAsync(question, options);
                 else
                     response = await client.QueryAsync(question);
