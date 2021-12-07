@@ -492,5 +492,22 @@ namespace System.Application.Steps
                 process!.WaitForExit();
             }
         }
+
+        static void OSXBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
+        {
+            var shExeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            shExeFilePath = Path.Combine(shExeFilePath, "Git", "bin", "sh.exe");
+
+            if (!File.Exists(shExeFilePath))
+            {
+                Console.WriteLine($"找不到 sh 文件，值：{shExeFilePath}");
+                return;
+            }
+
+            var CFBundleVersion = GetFullVersion(dev);
+            var CFBundleShortVersionString = CFBundleVersion.TrimEnd(".0");
+
+            // ...TODO
+        }
     }
 }
