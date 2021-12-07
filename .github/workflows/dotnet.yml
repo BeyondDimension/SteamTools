@@ -99,7 +99,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.ProjectName }}_fd_win_x64_${{ matrix.configuration }}
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\FrameworkDependent\win-x64\
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\FrameworkDependent\win-x64\
 
     - name: Upload win-x64 App ${{ matrix.configuration }}
       continue-on-error: true
@@ -107,7 +107,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.ProjectName }}_win_x64_${{ matrix.configuration }}
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\win-x64\
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\win-x64\
 
     - name: Upload osx-x64 App ${{ matrix.configuration }}
       continue-on-error: true
@@ -115,7 +115,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.ProjectName }}_osx_x64_${{ matrix.configuration }}
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\osx-x64\
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\osx-x64\
 
     - name: Upload linux-x64 App ${{ matrix.configuration }}
       continue-on-error: true
@@ -123,7 +123,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.ProjectName }}_linux_x64_${{ matrix.configuration }}
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\linux-x64\
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\linux-x64\
 
     - name: Upload linux-arm64 App ${{ matrix.configuration }}
       continue-on-error: true
@@ -131,4 +131,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ env.ProjectName }}_linux_arm64_${{ matrix.configuration }}
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\linux-arm64\
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\linux-arm64\
