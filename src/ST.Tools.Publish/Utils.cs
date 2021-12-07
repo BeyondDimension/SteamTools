@@ -249,6 +249,7 @@ namespace System.Application
         }
 
         static string? mVersion;
+        public static bool IsUseCustomVersion => mVersion != null;
         public static string Version
         {
             [Obsolete("use GetVersion(bool)")]
@@ -286,9 +287,9 @@ namespace System.Application
             var fileName = item.DeploymentMode switch
             {
                 DeploymentMode.SCD =>
-                    $"Steam++_{name}_v{version}{fileEx}",
+                    $"Steam++_{name}_{(IsUseCustomVersion ? "" : "v")}{version}{fileEx}",
                 DeploymentMode.FDE =>
-                    $"Steam++_{name}_fde_v{version}{fileEx}",
+                    $"Steam++_{name}_fde_{(IsUseCustomVersion ? "" : "v")}{version}{fileEx}",
                 _ => throw new ArgumentOutOfRangeException(nameof(item.DeploymentMode), item.DeploymentMode, null),
             };
             return fileName;
