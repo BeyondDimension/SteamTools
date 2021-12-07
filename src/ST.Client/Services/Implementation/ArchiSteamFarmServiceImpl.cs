@@ -92,6 +92,15 @@ namespace System.Application.Services.Implementation
             await Program.InitShutdownSequence();
         }
 
+        public async Task Restart()
+        {
+            if (StartTime != null)
+            {
+                await Stop();
+            }
+            await Start();
+        }
+
         private void InitHistoryLogger()
         {
             ArchiSteamFarm.NLog.Logging.InitHistoryLogger();

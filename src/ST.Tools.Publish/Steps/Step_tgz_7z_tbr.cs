@@ -73,6 +73,7 @@ namespace System.Application
                     {
                         if (!string.IsNullOrEmpty(buildpackage))
                         {
+                            buildpackage = buildpackage.Trim();
                             buildpackage = buildpackage.Length > 7 ? buildpackage[..7] : buildpackage;
                             Version = buildpackage;
                         }

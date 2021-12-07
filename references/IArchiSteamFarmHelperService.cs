@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace ArchiSteamFarm
 {
@@ -7,5 +8,7 @@ namespace ArchiSteamFarm
         static IArchiSteamFarmHelperService Instance => DI.Get<IArchiSteamFarmHelperService>();
 
         int IPCPortValue { get; }
+
+        Task Restart();
     }
 }
