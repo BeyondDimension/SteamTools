@@ -1,6 +1,7 @@
 using Android.Views;
 using Binding;
 using ReactiveUI;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
@@ -15,8 +16,31 @@ namespace System.Application.UI.Fragments
         public override void OnCreateView(View view)
         {
             base.OnCreateView(view);
-            binding!.textView.Text = ASF_GlobalConfig + Environment.NewLine + AppResources.UnderConstruction;
-            binding!.textView.Gravity = GravityFlags.Center;
+
+            R.Subscribe(() =>
+            {
+                if (binding == null) return;
+                binding.tvASFVersion.Text = ASF_VersionNum + IArchiSteamFarmService.Instance.CurrentVersion;
+                binding.btnGoToWebUIGlobalSettings.Text = ASF_OpenWebUIGlobalConfig;
+                binding.btnImportASFBot.Text = ASF_ImportBotFile;
+            }).AddTo(this);
+
+            SetOnClickListener(binding!.btnGoToWebUIGlobalSettings, binding.btnImportASFBot);
+        }
+
+        protected override bool OnClick(View view)
+        {
+            if (view.Id == Resource.Id.btnGoToWebUIGlobalSettings)
+            {
+                ViewModel?.OpenBrowser("WebConfig");
+                return true;
+            }
+            if (view.Id == Resource.Id.btnImportASFBot)
+            {
+                ViewModel?.SelectBotFiles?.Invoke();
+                return true;
+            }
+            return base.OnClick(view);
         }
     }
 }

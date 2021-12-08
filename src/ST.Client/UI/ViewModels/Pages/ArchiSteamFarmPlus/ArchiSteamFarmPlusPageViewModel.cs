@@ -18,6 +18,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using static System.Application.FilePicker2;
 
 // ReSharper disable once CheckNamespace
@@ -33,8 +34,8 @@ namespace System.Application.UI.ViewModels
 
             SelectBotFiles = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("Json Files", new[] { SharedInfo.JsonConfigExtension, }),
+                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                    ("Json Files", new[] { FileEx.JSON, }),
                     ("All Files", new[] { "*" }),
                 });
                 await PickMultipleAsync(ASFService.Current.ImportBotFiles, fileTypes);
