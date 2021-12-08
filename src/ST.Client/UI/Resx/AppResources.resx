@@ -1988,4 +1988,22 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LinuxSudoTips" xml:space="preserve">
     <value>Linux 需要提供系统 root 密码才能正常使用</value>
   </data>
+  <data name="ASF_Restarted" xml:space="preserve">
+    <value>ASF 服务已重启</value>
+  </data>
+  <data name="ASF_Restarting" xml:space="preserve">
+    <value>正在重启 ASF 服务，请稍后...</value>
+  </data>
+  <data name="ASF_Started" xml:space="preserve">
+    <value>ASF 服务已启动</value>
+  </data>
+  <data name="ASF_Starting" xml:space="preserve">
+    <value>正在启动 ASF 服务，请稍后...</value>
+  </data>
+  <data name="ASF_Stoped" xml:space="preserve">
+    <value>ASF 服务已停止</value>
+  </data>
+  <data name="ASF_Stoping" xml:space="preserve">
+    <value>正在停止 ASF 服务，请稍后...</value>
+  </data>
 </root>

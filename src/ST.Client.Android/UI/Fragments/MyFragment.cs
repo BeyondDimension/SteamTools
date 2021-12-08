@@ -42,7 +42,7 @@ namespace System.Application.UI.Fragments
                 var isUnderConstruction = e.Current.Id switch
                 {
                     PreferenceButton.BindPhoneNumber or
-                    PreferenceButton.ChangePhoneNumber => true,
+                    PreferenceButton.ChangePhoneNumber or PreferenceButton.UserProfile => true,
                     _ => false,
                 };
                 if (isUnderConstruction)
@@ -72,7 +72,8 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
-                this.StartActivity<LoginOrRegisterActivity>();
+                MainApplication.ShowUnderConstructionTips();
+                //this.StartActivity<LoginOrRegisterActivity>();
                 return true;
             }
             //else if (view.Id == Resource.Id.???)

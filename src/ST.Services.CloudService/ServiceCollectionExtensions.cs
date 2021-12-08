@@ -37,7 +37,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             if (configureHandler != null)
             {
-                //b.ConfigurePrimaryHttpMessageHandler(CloudServiceClientBase.ConfigurePrimaryHttpMessageHandler(configureHandler));
                 b.ConfigurePrimaryHttpMessageHandler(configureHandler);
             }
 

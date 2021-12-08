@@ -807,6 +807,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 ASF 服务已重启 的本地化字符串。
+        /// </summary>
+        public static string ASF_Restarted {
+            get {
+                return ResourceManager.GetString("ASF_Restarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在重启 ASF 服务，请稍后... 的本地化字符串。
+        /// </summary>
+        public static string ASF_Restarting {
+            get {
+                return ResourceManager.GetString("ASF_Restarting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 开始挂卡 的本地化字符串。
         /// </summary>
         public static string ASF_RunCardFarming {
@@ -834,6 +852,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 ASF 服务已启动 的本地化字符串。
+        /// </summary>
+        public static string ASF_Started {
+            get {
+                return ResourceManager.GetString("ASF_Started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在启动 ASF 服务，请稍后... 的本地化字符串。
+        /// </summary>
+        public static string ASF_Starting {
+            get {
+                return ResourceManager.GetString("ASF_Starting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 停止 ASF 的本地化字符串。
         /// </summary>
         public static string ASF_Stop {
@@ -848,6 +884,24 @@ namespace System.Application.UI.Resx {
         public static string ASF_StopCardFarming {
             get {
                 return ResourceManager.GetString("ASF_StopCardFarming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASF 服务已停止 的本地化字符串。
+        /// </summary>
+        public static string ASF_Stoped {
+            get {
+                return ResourceManager.GetString("ASF_Stoped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在停止 ASF 服务，请稍后... 的本地化字符串。
+        /// </summary>
+        public static string ASF_Stoping {
+            get {
+                return ResourceManager.GetString("ASF_Stoping", resourceCulture);
             }
         }
         

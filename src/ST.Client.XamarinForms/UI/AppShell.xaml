@@ -139,7 +139,7 @@
                     FontSize="16"
                     LineBreakMode="TailTruncation"
                     MaxLines="2"
-                    Text="一二三四五六七八九十未登录一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十"
+                    Text="{x:Static resx:AppResources.User_UnLogin}"
                     TextColor="{DynamicResource ShellTitleColor}"
                     VerticalTextAlignment="Center" />
       </StackLayout>

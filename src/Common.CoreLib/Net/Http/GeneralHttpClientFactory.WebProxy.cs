@@ -71,7 +71,6 @@ namespace System.Net.Http
         public static bool UseWebProxy([NotNullWhen(true)] IWebProxy? proxy)
             => proxy != null && proxy.GetType().Name != nameof(HttpNoProxy);
 
-#if NETSTANDARD
         static void SetProxyToHandler(HttpMessageHandler handler, IWebProxy? proxy, bool useProxy)
         {
             try
@@ -113,6 +112,5 @@ namespace System.Net.Http
         //        SetProxyToHandler(handler, proxy, useProxy);
         //    }
         //}
-#endif
     }
 }

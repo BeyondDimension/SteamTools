@@ -100,7 +100,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsRedeemKeyDialogOpen, value);
         }
 
-        public async void RunOrStopASF()
+        public void RunOrStopASF() => Task.Run(async () =>
         {
             if (!ASFService.Current.IsASFRuning)
             {
@@ -110,7 +110,7 @@ namespace System.Application.UI.ViewModels
             {
                 await ASFService.Current.StopASF();
             }
-        }
+        });
 
         public void ShowAddBotWindow()
         {

@@ -30,6 +30,7 @@ using Program = System.Application.UI.MainApplication;
 using PlatformApplication = System.Application.UI.MainApplication;
 using System.Application.UI.Resx;
 using System.Windows;
+using Microsoft.Extensions.Http;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
@@ -282,13 +283,15 @@ namespace System.Application
                 () => new SocketsHttpHandler
                 {
                     UseCookies = false,
-                    AutomaticDecompression = DecompressionMethods.GZip,
+                    AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip,
                 }
 #elif __ANDROID__
-                () => new AndroidClientHandler
+                () =>
                 {
-                    UseCookies = false,
-                    AutomaticDecompression = DecompressionMethods.GZip,
+                    var handler = PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler();
+                    handler.UseCookies = false;
+                    handler.AutomaticDecompression = DecompressionMethods.GZip;
+                    return handler;
                 }
 #else
             null

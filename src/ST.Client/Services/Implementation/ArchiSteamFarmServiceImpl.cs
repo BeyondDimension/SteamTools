@@ -7,6 +7,7 @@ using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.Storage;
 using Microsoft.Extensions.Configuration;
 using ReactiveUI;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace System.Application.Services.Implementation
         private bool isFirstStart = true;
         public async Task Start(string[]? args = null)
         {
+            var isMainThread = MainThread2.IsMainThread;
             try
             {
                 StartTime = DateTimeOffset.Now;
@@ -92,13 +94,18 @@ namespace System.Application.Services.Implementation
             await Program.InitShutdownSequence();
         }
 
-        public async Task Restart()
+        async Task IArchiSteamFarmHelperService.Restart()
         {
-            if (StartTime != null)
+            Toast.Show(AppResources.ASF_Restarting, ToastLength.Short);
+
+            var s = ASFService.Current;
+            if (s.IsASFRuning)
             {
-                await Stop();
+                await s.StopASFCore(false);
             }
-            await Start();
+            await s.InitASFCore(false);
+
+            Toast.Show(AppResources.ASF_Restarted, ToastLength.Short);
         }
 
         private void InitHistoryLogger()
