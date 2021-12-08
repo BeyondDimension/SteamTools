@@ -7,13 +7,16 @@ using AndroidX.AppCompat.View.Menu;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
+using DynamicData;
 using ReactiveUI;
+using System.Application.Models;
 using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Linq;
 using System.Reactive.Linq;
+using WinAuth;
 using static System.Application.UI.Resx.AppResources;
 using static System.Application.UI.ViewModels.AuthTradeWindowViewModel;
 
@@ -23,7 +26,87 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class SteamAuthTradeActivity : BaseActivity<activity_steam_auth_trade, AuthTradeWindowViewModel>/*, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener*/, SwipeRefreshLayout.IOnRefreshListener
+    internal sealed class SteamAuthTradeActivity : BaseSteamAuthTradeActivity
+    {
+
+    }
+
+#if DEBUG
+    [Register(JavaPackageConstants.Activities + nameof(MockSteamAuthTradeActivity))]
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
+        LaunchMode = LaunchMode.SingleTask,
+        //MainLauncher = true,
+        Label = "AuthTrade(Mock)",
+        ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+    internal sealed class MockSteamAuthTradeActivity : BaseSteamAuthTradeActivity
+    {
+        protected override AuthTradeWindowViewModel? OnCreateViewModel()
+        {
+            GAPAuthenticatorValueDTO.SteamAuthenticator steam_auth = new()
+            {
+
+            };
+            var client = steam_auth.GetClient();
+            client.Session = new WinAuthSteamClient.SteamSession()
+            {
+                OAuthToken = "1234",
+            };
+            GAPAuthenticatorDTO gap_auth = new()
+            {
+                Value = steam_auth,
+            };
+            MyAuthenticator auth = new(gap_auth)
+            {
+
+            };
+            AuthTradeWindowViewModel vm = new(auth)
+            {
+
+            };
+            vm.ConfirmationsSourceList.AddRange(new WinAuthSteamClient.Confirmation[] {
+                new()
+                {
+                    Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
+                    Traded = "￥x.xx（￥y.yy）",
+                    When = "z 小时以前",
+                },
+                new()
+                {
+                    Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
+                    Traded = "￥x.xx（￥y.yy）",
+                    When = "z 小时以前",
+                },
+                new()
+                {
+                    Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
+                    Traded = "￥x.xx（￥y.yy）",
+                    When = "z 小时以前",
+                },
+                new()
+                {
+                    Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
+                    Traded = "￥x.xx（￥y.yy）",
+                    When = "z 小时以前",
+                },
+                new()
+                {
+                    Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
+                    Traded = "￥x.xx（￥y.yy）",
+                    When = "z 小时以前",
+                },
+                new()
+                {
+                    Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
+                    Traded = "￥x.xx（￥y.yy）",
+                    When = "z 小时以前",
+                },
+            });
+            return vm;
+        }
+    }
+#endif
+
+    internal abstract class BaseSteamAuthTradeActivity : BaseActivity<activity_steam_auth_trade, AuthTradeWindowViewModel>/*, SpeedDialView.IOnActionSelectedListener, SpeedDialView.IOnChangeListener*/, SwipeRefreshLayout.IOnRefreshListener
     {
         protected override int? LayoutResource => Resource.Layout.activity_steam_auth_trade;
 
