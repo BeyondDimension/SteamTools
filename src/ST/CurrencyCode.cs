@@ -37,9 +37,8 @@ namespace System
     {
         public static CultureInfo? GetCultureInfo(this CurrencyCode eCurrencyCode)
         {
-            var cultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                              .FirstOrDefault(culture => new RegionInfo(culture.LCID).ISOCurrencySymbol == eCurrencyCode.ToString());
-            return cultureInfo;
+            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                                  .FirstOrDefault(culture => new RegionInfo(culture.LCID).ISOCurrencySymbol == eCurrencyCode.ToString());
         }
 
         public static CurrencyCode GetCurrencyCode(this ICurrencyCodeString @interface, CurrencyCode @default = CurrencyCode.CNY)

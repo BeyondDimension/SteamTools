@@ -2,13 +2,13 @@ name: Publish
 
 env:
   ProjectName: Steam++
-  Configuration: Debug
+  Configuration: Release
   PublishFilePath: C:\PublishFiles
 
 on:
   push:
     tags:
-      - '**'
+      - '*'
 
 jobs:
   Publish:

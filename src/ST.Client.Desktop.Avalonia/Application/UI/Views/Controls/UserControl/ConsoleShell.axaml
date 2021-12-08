@@ -5,6 +5,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:ms="using:System.Application.Settings"
              xmlns:models="using:System.Application.Models"
+             x:Name="u"
+             FontSize="16"
              x:Class="System.Application.UI.Views.Controls.ConsoleShell">
   <UserControl.Styles>
     <Style Selector="TextBox">
@@ -28,18 +30,19 @@
         <TextBox x:Name="LogTextbox"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+                 FontSize="{ReflectionBinding #u.FontSize}"
                  IsVisible="False"
                  Classes="readonlybox"
                  IsReadOnly="True"
+                 Focusable="False"
                  TextWrapping="Wrap"/>
         <DockPanel Grid.Row="1">
           <TextBlock Text=">"
+                     FontSize="{ReflectionBinding #u.FontSize}"
                      FontFamily="{StaticResource UnicodeFont}"
                      Margin="0 0 5 0"
                      HorizontalAlignment="Left"
-                     VerticalAlignment="Center"
-                     FontSize="16"/>
+                     VerticalAlignment="Center"/>
           <!--<TextBox x:Name="CommandTextbox"
                    Classes="readonlybox"
                    IsReadOnly="False"
@@ -48,6 +51,7 @@
                    VerticalAlignment="Center">
           </TextBox>-->
           <AutoCompleteBox x:Name="CommandTextbox" 
+                           FontSize="{ReflectionBinding #u.FontSize}"
                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                            Items="{ReflectionBinding Path=Value,Source={x:Static models:ArchiSteamFarmCommand.Commands}}"

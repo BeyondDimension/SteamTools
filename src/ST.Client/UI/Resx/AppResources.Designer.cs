@@ -561,6 +561,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确定要删除这个Bot吗？ 的本地化字符串。
+        /// </summary>
+        public static string ASF_DeleteBotTip {
+            get {
+                return ResourceManager.GetString("ASF_DeleteBotTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 禁用 的本地化字符串。
         /// </summary>
         public static string ASF_Disable {
@@ -920,6 +929,15 @@ namespace System.Application.UI.Resx {
         public static string ASF_VersionNum {
             get {
                 return ResourceManager.GetString("ASF_VersionNum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在线配置文件生成器 的本地化字符串。
+        /// </summary>
+        public static string ASF_WebConfigGenerator {
+            get {
+                return ResourceManager.GetString("ASF_WebConfigGenerator", resourceCulture);
             }
         }
         
@@ -2464,7 +2482,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Linux 需要提供系统 root 密码才能正常使用 的本地化字符串。
+        ///   查找类似 Linux 需要提供系统 root 密码才能正常使用该功能 的本地化字符串。
         /// </summary>
         public static string LinuxSudoTips {
             get {

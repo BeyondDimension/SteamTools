@@ -24,13 +24,10 @@ namespace System
 
         public static CultureInfo? GetCultureInfo(this ECurrencyCode eCurrencyCode)
         {
-            if (eCurrencyCode != ECurrencyCode.Invalid)
-            {
-                var cultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+            if (eCurrencyCode == ECurrencyCode.Invalid)
+                return null;
+            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
                                   .FirstOrDefault(culture => new RegionInfo(culture.LCID).ISOCurrencySymbol == eCurrencyCode.ToString());
-                return cultureInfo;
-            }
-            return null;
         }
     }
 }

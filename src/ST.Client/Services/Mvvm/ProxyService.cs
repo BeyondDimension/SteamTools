@@ -418,10 +418,6 @@ namespace System.Application.Services
 
         private void LoadOrSaveLocalAccelerate()
         {
-            // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/1815188879u/overview
-            // FileStreamHelpers.ValidateFileHandle (SafeFileHandle fileHandle, String path, Boolean useAsyncIO)
-            // System.Private.CoreLib.dll:token 0x6005b56+0x, line 27
-            // System.IO.IOException: IO_SharingViolation_File, \AppData\LOCAL_ACCELERATE.json
             var filepath = Path.Combine(IOPath.AppDataDirectory, "LOCAL_ACCELERATE.json");
             if (ProxyDomains.Items.Any_Nullable())
             {
@@ -429,7 +425,7 @@ namespace System.Application.Services
                 {
                     using var stream = fileStream;
                     using var writer = new StreamWriter(stream, Encoding.UTF8);
-                    var content = Serializable.SJSON_Original(ProxyDomains.Items);
+                    var content = Serializable.SMPB64U(ProxyDomains.Items);
                     writer.Write(content);
                     writer.Flush();
                 }
@@ -445,10 +441,11 @@ namespace System.Application.Services
                     List<AccelerateProjectGroupDTO>? accelerates = null;
                     try
                     {
-                        accelerates = Serializable.DJSON_Original<List<AccelerateProjectGroupDTO>>(content);
+                        accelerates = Serializable.DMPB64U<List<AccelerateProjectGroupDTO>>(content);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Log.Error(nameof(ProxyService), ex, nameof(LoadOrSaveLocalAccelerate));
                     }
                     if (accelerates.Any_Nullable())
                         ProxyDomains.AddRange(accelerates!);

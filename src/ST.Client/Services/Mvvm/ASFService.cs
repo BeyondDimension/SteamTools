@@ -133,7 +133,6 @@ namespace System.Application.Services
         public void RefreshBots()
         {
             var bots = archiSteamFarmService.GetReadOnlyAllBots();
-            SteamBotsSourceList.Clear();
             if (bots.Any_Nullable())
             {
                 SteamBotsSourceList.AddOrUpdate(bots!.Values);

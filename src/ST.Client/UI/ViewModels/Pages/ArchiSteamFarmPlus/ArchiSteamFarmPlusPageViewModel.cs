@@ -131,6 +131,8 @@ namespace System.Application.UI.ViewModels
                 result = await bot.Actions.Pause(true).ConfigureAwait(false);
             }
 
+            ASFService.Current.SteamBotsSourceList.AddOrUpdate(bot);
+
             Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
         }
 
@@ -149,6 +151,8 @@ namespace System.Application.UI.ViewModels
 
             if (!result.success)
                 Toast.Show(string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
+
+            ASFService.Current.SteamBotsSourceList.AddOrUpdate(bot);
         }
 
         public async Task<(IReadOnlyDictionary<string, string>? UnusedKeys, IReadOnlyDictionary<string, string>? UsedKeys)> GetUsedAndUnusedKeys(Bot bot)
@@ -187,6 +191,26 @@ namespace System.Application.UI.ViewModels
         public void GoToBotSettings(Bot bot)
         {
             Browser2.Open(IPCUrl + "/bot/" + bot.BotName + "/config");
+        }
+
+        public void EditBotFile(Bot bot)
+        {
+            var filePath = Bot.GetFilePath(bot.BotName, Bot.EFileType.Config);
+            IPlatformService.Instance.OpenFileByTextReader(filePath);
+        }
+
+        public async void DeleteBot(Bot bot)
+        {
+            var s = await MessageBox.ShowAsync(AppResources.ASF_DeleteBotTip, button: MessageBox.Button.OKCancel);
+            if (s == MessageBox.Result.OK)
+            {
+                var result = await bot.DeleteAllRelatedFiles();
+                if (result)
+                {
+                    ASFService.Current.SteamBotsSourceList.Remove(bot);
+                    Toast.Show(AppResources.GameList_DeleteSuccess);
+                }
+            }
         }
 
         public void OpenFolder(string tag)

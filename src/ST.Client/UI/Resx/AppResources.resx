@@ -266,6 +266,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_AddBot" xml:space="preserve">
     <value>新增 Bot</value>
   </data>
+  <data name="ASF_DeleteBotTip" xml:space="preserve">
+    <value>确定要删除这个Bot吗？</value>
+  </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
     <value>刷新 Bot</value>
   </data>
@@ -343,6 +346,9 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
     <value>家庭监护代码</value>
+  </data>
+  <data name="ASF_WebConfigGenerator" xml:space="preserve">
+    <value>在线配置文件生成器</value>
   </data>
   <data name="SelectFile" xml:space="preserve">
     <value>选择文件</value>
@@ -1986,7 +1992,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>显示/隐藏</value>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
-    <value>Linux 需要提供系统 root 密码才能正常使用</value>
+    <value>Linux 需要提供系统 root 密码才能正常使用该功能</value>
   </data>
   <data name="ASF_Restarted" xml:space="preserve">
     <value>ASF 服务已重启</value>

@@ -86,7 +86,7 @@
         </DockPanel>
       </Border>
 
-      <Separator Classes="Separator"/>
+      <!--<Separator Classes="Separator"/>
 
       <Border Classes="Item">
         <DockPanel>
@@ -113,7 +113,7 @@
           <Button Content="{ReflectionBinding Path=Res.SelectFile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                   Command="{Binding SelectBotFiles}"/>
         </DockPanel>
-      </Border>
+      </Border>-->
 
       <Expander>
         <Expander.Header>

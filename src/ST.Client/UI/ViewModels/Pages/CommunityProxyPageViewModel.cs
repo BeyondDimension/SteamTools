@@ -59,7 +59,7 @@ namespace System.Application.UI.ViewModels
 
             SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
             DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
-            EditHostsFileCommand = ReactiveCommand.Create(EditHostsFile_OnClick);
+            EditHostsFileCommand = ReactiveCommand.Create(hostsFileService.OpenFile);
             NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
             TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
             //AutoRunProxyCommand = ReactiveCommand.Create(() =>
@@ -163,8 +163,5 @@ namespace System.Application.UI.ViewModels
             httpProxyService.DeleteCertificate();
         }
 
-        public void EditHostsFile_OnClick() => EditHostsFile();
-
-        void EditHostsFile() => hostsFileService.OpenFile();
     }
 }

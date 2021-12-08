@@ -162,7 +162,7 @@ namespace System.Application.UI.ViewModels
 
         public void DeleteScriptItemButton(ScriptDTO script)
         {
-            var result = MessageBox.ShowAsync(AppResources.Script_DeleteItem, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
+            MessageBox.ShowAsync(AppResources.Script_DeleteItem, button: MessageBox.Button.OKCancel).ContinueWith(async (s) =>
             {
                 if (s.Result == MessageBox.Result.OK)
                 {
