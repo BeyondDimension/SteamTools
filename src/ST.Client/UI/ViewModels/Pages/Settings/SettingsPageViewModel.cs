@@ -131,7 +131,6 @@ namespace System.Application.UI.ViewModels
         {
             if (isStartCacheSizeCalc) return;
             isStartCacheSizeCalc = true;
-            action(AppResources.Settings_General_Calcing);
             string? dirPath;
             if (sizeFormat == AppResources.Settings_General_CacheSize)
             {
@@ -147,23 +146,56 @@ namespace System.Application.UI.ViewModels
             }
             if (dirPath != null)
             {
-                try
-                {
-                    Task.Run(async () =>
-                    {
-                        var length = IOPath.GetDirectorySize(dirPath);
-                        var lenString = IOPath.GetSizeString(length);
-                        await MainThread2.InvokeOnMainThreadAsync(() =>
-                        {
-                            action(sizeFormat.Format(lenString));
-                        });
-                    }, cancellationToken);
-                }
-                catch (OperationCanceledException)
-                {
-
-                }
+                StartCacheSizeCalc2(dirPath, value => action(sizeFormat.Format(action)), cancellationToken);
             }
         }
+
+        static void StartCacheSizeCalc2(string dirPath, Action<string> action, CancellationToken cancellationToken = default)
+        {
+            action(AppResources.Settings_General_Calcing);
+            try
+            {
+                Task.Run(async () =>
+                {
+                    var length = IOPath.GetDirectorySize(dirPath);
+                    var lenString = IOPath.GetSizeString(length);
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
+                    {
+                        action(lenString);
+                    });
+                }, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+
+            }
+        }
+
+        static readonly Dictionary<string, string> cacheSizeCalcCache = new();
+        static void StartCacheSizeCalc2(string dirPath, Func<string> getResString, Action<string> action)
+        {
+            if (cacheSizeCalcCache.ContainsKey(dirPath))
+            {
+                action(Action(cacheSizeCalcCache[dirPath]));
+            }
+            else
+            {
+                StartCacheSizeCalc2(dirPath, value => action(Action(value)));
+            }
+
+            string Action(string value) => getResString().Format(value);
+        }
+
+        public static void StartSizeCalcByCacheSize(Action<string> action)
+            => StartCacheSizeCalc2(
+                IOPath.CacheDirectory,
+                () => AppResources.Settings_General_CacheSize,
+                action);
+
+        public static void StartSizeCalcByLogSize(Action<string> action)
+            => StartCacheSizeCalc2(
+                IApplication.LogDirPath,
+                () => AppResources.Settings_General_LogSize,
+                action);
     }
 }

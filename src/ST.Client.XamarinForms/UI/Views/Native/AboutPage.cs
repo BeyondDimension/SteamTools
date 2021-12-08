@@ -1,15 +1,14 @@
 using System;
 using System.Application.Services;
-using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Text;
-using VM = System.Application.UI.ViewModels.MyPageViewModel;
+using VM = System.Application.UI.ViewModels.AboutPageViewModel;
 
 namespace System.Application.UI.Views.Native
 {
-    public partial class MyPage : BaseContentPage<VM>
+    public class AboutPage : BaseContentPage<VM>
     {
-        public MyPage()
+        public AboutPage()
         {
             ViewModel = VM.Instance;
         }

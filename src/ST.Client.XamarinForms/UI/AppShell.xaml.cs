@@ -121,6 +121,10 @@ namespace System.Application.UI
                         return typeof(n.LocalAuthPage);
                     case TabItemId.ArchiSteamFarmPlus:
                         return typeof(n.ArchiSteamFarmPlusPage);
+                    case TabItemId.Settings:
+                        return typeof(n.SettingsPage);
+                    case TabItemId.About:
+                        return typeof(n.AboutPage);
                 }
             }
             return typeof(UnderConstructionPage);

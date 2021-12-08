@@ -16,6 +16,7 @@ using Binding;
 using ReactiveUI;
 using System.Application.Security;
 using System.Application.Services;
+using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -30,21 +31,17 @@ using _ThisAssembly = System.Properties.ThisAssembly;
 using AndroidApplication = Android.App.Application;
 using Process = System.Diagnostics.Process;
 
-namespace System.Application.UI.Activities
+namespace System.Application.UI.Fragments
 {
-    [Register(JavaPackageConstants.Activities + nameof(AboutActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
-         LaunchMode = LaunchMode.SingleTask,
-         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class AboutActivity : BaseActivity<activity_about, AboutPageViewModel>
+    internal sealed class AboutFragment : BaseFragment<fragment_about, AboutPageViewModel>
     {
-        protected override int? LayoutResource => Resource.Layout.activity_about;
+        protected override int? LayoutResource => Resource.Layout.fragment_about;
 
-        protected override void OnCreate2(Bundle? savedInstanceState)
+        protected override AboutPageViewModel? OnCreateViewModel() => Instance;
+
+        public override void OnCreateView(View view)
         {
-            base.OnCreate2(savedInstanceState);
-
-            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
+            base.OnCreateView(view);
 
             binding!.tvDevelopers.SetLinkMovementMethod();
             binding!.tvBusinessCooperationContact.SetLinkMovementMethod();
@@ -62,7 +59,7 @@ namespace System.Application.UI.Activities
 
             R.Subscribe(() =>
             {
-                Title = ViewModel.Name;
+                //Title = ViewModel.Name;
                 if (binding == null) return;
                 binding.tvAgreementAndPrivacy.TextFormatted = CreateAgreementAndPrivacy();
             }).AddTo(this);
@@ -89,14 +86,14 @@ namespace System.Application.UI.Activities
                             R.Language));
                         break;
                     case PreferenceButton.开放源代码许可:
-                        TextBlockActivity.StartActivity(this, new TextBlockViewModel
+                        TextBlockActivity.StartActivity(RequireActivity(), new TextBlockViewModel
                         {
                             Title = AppResources.About_OpenSource,
                             ContentSource = TextBlockViewModel.ContentSourceEnum.OpenSourceLibrary,
                         });
                         break;
                     case PreferenceButton.源码仓库:
-                        ComboBoxHelper.Dialog(this, SourceRepositories, async x => await Browser2.OpenAsync(x switch
+                        ComboBoxHelper.Dialog(RequireActivity(), SourceRepositories, async x => await Browser2.OpenAsync(x switch
                         {
                             GitHub => UrlConstants.GitHub_Repository,
                             Gitee => UrlConstants.Gitee_Repository,
@@ -110,7 +107,7 @@ namespace System.Application.UI.Activities
                         await Browser2.OpenAsync(UrlConstants.OfficialWebsite_Contact);
                         break;
                     case PreferenceButton.Bug反馈:
-                        ComboBoxHelper.Dialog(this, SourceRepositories, async x => await Browser2.OpenAsync(x switch
+                        ComboBoxHelper.Dialog(RequireActivity(), SourceRepositories, async x => await Browser2.OpenAsync(x switch
                         {
                             GitHub => UrlConstants.GitHub_Issues,
                             Gitee => UrlConstants.Gitee_Issues,
@@ -121,7 +118,7 @@ namespace System.Application.UI.Activities
                         ViewModel!.DelAccountCommand.Invoke();
                         break;
                     case PreferenceButton.社区翻译:
-                        TextBlockActivity.StartActivity(this, new TextBlockViewModel
+                        TextBlockActivity.StartActivity(RequireActivity(), new TextBlockViewModel
                         {
                             Title = nameof(PreferenceButton.社区翻译),
                             ContentSource = TextBlockViewModel.ContentSourceEnum.Translators,
@@ -130,22 +127,22 @@ namespace System.Application.UI.Activities
                         break;
                 }
             };
-            var layout = new LinearLayoutManager2(this, LinearLayoutManager.Vertical, false);
+            var layout = new LinearLayoutManager2(RequireContext(), LinearLayoutManager.Vertical, false);
             binding.rvPreferenceButtons.SetLayoutManager(layout);
-            binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(this, Resource.Dimension.preference_buttons_space_min));
+            binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(RequireContext(), Resource.Dimension.preference_buttons_space_min));
             binding.rvPreferenceButtons.SetAdapter(adapter);
 
             SetOnClickListener(binding.ivLogo, binding.tvTitle);
         }
 
-        protected override void OnClick(View view)
+        protected override bool OnClick(View view)
         {
             if (view.Id == Resource.Id.ivLogo || view.Id == Resource.Id.tvTitle)
             {
                 AboutAppInfoPopup.OnClick();
-                return;
+                return true;
             }
-            base.OnClick(view);
+            return base.OnClick(view);
         }
 
         static SpannableString CreateTitle()
