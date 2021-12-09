@@ -14,6 +14,8 @@ namespace System.Application
     public static class DnsAnalysis
     {
         #region DNS常量
+        private const string PrimaryDNS_IPV6_Ali = "2400:3200::1";
+
         public const string PrimaryDNS_Ali = "223.5.5.5";
         public const string SecondaryDNS_Ali = "223.6.6.6";
 
@@ -32,8 +34,10 @@ namespace System.Application
         public const string PrimaryDNS_Baidu = "180.76.76.76";
         #endregion
 
+
+
         private const string IPV6_TESTDOMAIN = "ipv6.rmbgame.net";
-        private const string IPV6_TESTDOMAIN_SUCCESS = "2400:3200::1";
+        private const string IPV6_TESTDOMAIN_SUCCESS = PrimaryDNS_IPV6_Ali;
 
         private static readonly LookupClient lookupClient = new();
 
@@ -84,27 +88,27 @@ namespace System.Application
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, new[] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address }, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, new[] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address }, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse(PrimaryDNS_Dnspod), IPAddress.Parse(SecondaryDNS_Dnspod) }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, new[] { IPAddress.Parse(PrimaryDNS_Dnspod), IPAddress.Parse(SecondaryDNS_Dnspod) }, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, new[] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) }, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new IPAddress[2] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, new[] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) }, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
@@ -162,12 +166,16 @@ namespace System.Application
 
         public static async Task<bool> GetIsIpv6Support()
         {
-            var question = new DnsQuestion(IPV6_TESTDOMAIN, QueryType.AAAA);
-            //var options = new DnsQueryAndServerOptions(new IPAddress[2] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) });
-            var response = await lookupClient.QueryAsync(question);
-            if (response.Answers.AaaaRecords().Any(s => s.Address.Equals(IPAddress.Parse(IPV6_TESTDOMAIN_SUCCESS))))
+            try
             {
-                return true;
+                var response = await lookupClient.QueryServerAsync(new[] { IPAddress.Parse(PrimaryDNS_IPV6_Ali) }, IPV6_TESTDOMAIN, QueryType.AAAA, QueryClass.IN);
+                if (response.Answers.AaaaRecords().Any(s => s.Address.Equals(IPAddress.Parse(IPV6_TESTDOMAIN_SUCCESS))))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
             }
             return false;
         }
