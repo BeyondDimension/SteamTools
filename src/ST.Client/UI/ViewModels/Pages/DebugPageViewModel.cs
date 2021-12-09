@@ -624,6 +624,8 @@ namespace System.Application.UI.ViewModels
             //}
             var testdomain = "steampp.net";
 
+            s.AppendLine($"<Support IPV6>: {await DnsAnalysis.GetIsIpv6Support()}");
+            s.AppendLine($"<IPV6> ipv6.rmbgame.net: {(await DnsAnalysis.AnalysisDomainIp("ipv6.rmbgame.net"))?.First()}");
             s.AppendLine($"<SystemDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIp(testdomain))?.First()}");
             s.AppendLine($"<AliDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByAliDns(testdomain))?.First()}");
             s.AppendLine($"<DNSPod>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByDnspod(testdomain))?.First()}");
