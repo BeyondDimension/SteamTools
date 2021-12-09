@@ -185,7 +185,7 @@ namespace System.Application.Services.Implementation
             await Task.Delay(waitSecond);
             RunShell($"echo \"{SystemUserPassword}\" | sudo sh -c \" echo disk > /sys/pwoer/state\"");
         }
-        private string RunShell(string shell, bool isAdmin = false)
+        private string RunShell(string shell)
         {
             try
             {
@@ -226,7 +226,7 @@ namespace System.Application.Services.Implementation
                 var pwd = await TextBoxWindowViewModel.ShowDialogAsync(vm);
                 if (!string.IsNullOrWhiteSpace(pwd))
                 { 
-                    if (!string.IsNullOrWhiteSpace(RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"", true)))
+                    if (!string.IsNullOrWhiteSpace(RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"")))
                     {
                         SystemUserPassword = pwd;
                     }
