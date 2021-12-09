@@ -1,6 +1,7 @@
 #if MONO_MAC
 using MonoMac.AppKit;
 using MonoMac.Foundation;
+using System.Application.UI.ViewModels;
 #elif XAMARIN_MAC
 using AppKit;
 using Foundation;
@@ -56,6 +57,20 @@ namespace System.Application.UI
 #endif
 
             NSRunningApplication.CurrentApplication.Activate(NSApplicationActivationOptions.ActivateIgnoringOtherWindows);
+        }
+
+        public override bool ApplicationShouldHandleReopen(NSApplication sender, bool hasVisibleWindows)
+        {
+            if (hasVisibleWindows)
+            {
+                return false;
+            }
+            else
+            {
+                // 点击 Dock 重新打开已关闭的窗口
+                IApplication.Instance.RestoreMainWindow();
+                return true;
+            }
         }
 
         static bool isInitialized;

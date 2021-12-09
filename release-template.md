@@ -1,7 +1,7 @@
 ### 版本亮点
 1. 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备
 2. ASF 升级至 V5.2.0.10
-3. 新增 ASF 控制台字体、大小、端口号等设置项
+3. 新增 ASF 控制台字体、端口号等设置项
 4. 新增 Steam 下载完成定时关机功能
 5. 新增 代理设置可自定义 DNS
 6. 新增 ASF 编辑/移除 Bot 功能
@@ -36,28 +36,24 @@
 
 
 ### 已知问题
+- 除 Windows 之外的平台自动更新尚不可用
 - Desktop 
 	- macOS
 		- 尚未公证，这会影响 macOS Catalina（版本 10.15）以上
-		- 自动更新不可用
 	- Linux
 		- 在 Deepin 中托盘不生效，可通过 ```Exit.sh``` 退出程序
 		- 窗口弹出位置不正确
-		- 自动更新不可用
 		- 鼠标指针浮动样式不正确
 	- Windows
 		- 在 CPU 不受支持的 Win11 上无法启动，Windows 日志中显示 ```Failed to create CoreCLR, HRESULT: 0x80004005```
 			- 仅 .NET 6.0 受此影响，在几周后的 Insider 中会修复，见 [issue](https://github.com/dotnet/core/issues/6733)
 			- **解决方案：** 可尝试使用早期版本，例如 v2.3.0
 	- Shared
-		- 拼音搜索不能正确的识别多音字
 		- 在 仅有一个文本框的窗口 上使用回车确定可能导致弹窗死循环，例如本地令牌中的需要解密才能继续
 			- **解决方案：** 点击右下方的确定按钮完成输入
 - Mobile
 	- Android
 		- 确认交易列表刷新后数据有时会显示不正确
-		- 自动更新暂不可用
-		- 
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
 [![Steam++ v2.6.2](https://img.shields.io/badge/Steam++-v2.6.2-brightgreen.svg?style=flat-square&color=512bd4)]()
