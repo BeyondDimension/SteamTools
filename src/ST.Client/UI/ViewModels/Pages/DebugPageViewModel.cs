@@ -633,7 +633,7 @@ namespace System.Application.UI.ViewModels
             s.AppendLine($"<GoogleDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByGoogleDns(testdomain))?.First()}");
             s.AppendLine($"<CloudflareDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByCloudflare(testdomain))?.First()}");
 
-            DebugString = s.ToString();
+            DebugString += s.ToString();
         }
 
 #if DEBUG

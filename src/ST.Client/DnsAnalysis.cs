@@ -32,6 +32,13 @@ namespace System.Application
         public const string SecondaryDNS_Cloudflare = "1.0.0.1";
 
         public const string PrimaryDNS_Baidu = "180.76.76.76";
+
+
+        private static readonly IPAddress[] DNS_Alis = new[] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) };
+        private static readonly IPAddress[] DNS_Dnspods = new[] { IPAddress.Parse(PrimaryDNS_Dnspod), IPAddress.Parse(SecondaryDNS_Dnspod) };
+        private static readonly IPAddress[] DNS_114s = new[] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) };
+        private static readonly IPAddress[] DNS_Googles = new[] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address };
+        private static readonly IPAddress[] DNS_Cloudflares = new[] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address };
         #endregion
 
 
@@ -88,27 +95,27 @@ namespace System.Application
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new[] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, DNS_Googles, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new[] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, DNS_Cloudflares, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new[] { IPAddress.Parse(PrimaryDNS_Dnspod), IPAddress.Parse(SecondaryDNS_Dnspod) }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, DNS_Dnspods, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new[] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, DNS_Alis, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url, bool isIPv6 = false)
         {
-            return await AnalysisDomainIpByCustomDns(url, new[] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) }, isIPv6);
+            return await AnalysisDomainIpByCustomDns(url, DNS_114s, isIPv6);
         }
 
         public static async Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
@@ -168,7 +175,14 @@ namespace System.Application
         {
             try
             {
-                var response = await lookupClient.QueryServerAsync(new[] { IPAddress.Parse(PrimaryDNS_IPV6_Ali) }, IPV6_TESTDOMAIN, QueryType.AAAA, QueryClass.IN);
+                var options = new LookupClientOptions
+                {
+                    Retries = 1,
+                    Timeout = TimeSpan.FromSeconds(1),
+                    UseCache = false
+                };
+                var client = new LookupClient(options);
+                var response = await client.QueryServerAsync(new[] { IPAddress.Parse(PrimaryDNS_IPV6_Ali) }, IPV6_TESTDOMAIN, QueryType.AAAA, QueryClass.IN);
                 if (response.Answers.AaaaRecords().Any(s => s.Address.Equals(IPAddress.Parse(IPV6_TESTDOMAIN_SUCCESS))))
                 {
                     return true;
