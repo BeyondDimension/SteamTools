@@ -81,23 +81,18 @@ namespace System.Application.UI.Adapters
             //binding.btnConfirmTrade.SetOnClickListener(this);
 
             ViewModel.WhenAnyValue(x => x.IsOperate)
-                .SubscribeInMainThread(value =>
+                .Subscribe(value =>
                 {
                     SetOperateText(value);
                     SetOperatePanel(value);
                 }).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.Image)
-                .SubscribeInMainThread(value => binding.ivImage.SetImageSource(value,
-                    targetResId: Resource.Dimension.steam_auth__trade_confirmation_img_size))
-                        .AddTo(this);
-            ViewModel.WhenAnyValue(x => x.Details)
-                .SubscribeInMainThread(value => binding.tvDetails.Text = value).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.Traded)
-                .SubscribeInMainThread(value => binding.tvTraded.Text = value).AddTo(this);
-            ViewModel.WhenAnyValue(x => x.When)
-                .SubscribeInMainThread(value => binding.tvWhen.Text = value).AddTo(this);
+            binding.ivImage.SetImageSource(ViewModel!.Image,
+                    targetResId: Resource.Dimension.steam_auth__trade_confirmation_img_size);
+            binding.tvDetails.Text = ViewModel.Details;
+            binding.tvTraded.Text = ViewModel.Traded;
+            binding.tvWhen.Text = ViewModel.When;
             ViewModel.WhenAnyValue(x => x.NotChecked)
-                .SubscribeInMainThread(value => binding.checkbox.Checked = !value).AddTo(this);
+                .Subscribe(value => binding.checkbox.Checked = !value).AddTo(this);
             //ViewModel.WhenAnyValue(x => x.ButtonEnable)
             //    .SubscribeInMainThread(value =>
             //    {
