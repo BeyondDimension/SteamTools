@@ -2587,4 +2587,45 @@ AAAAA-BBBBB-CCCC3</value>
     <value>表示/非表示</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ASF_DeleteBotTip" xml:space="preserve">
+    <value>このボットを削除しますか?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_WebConfigGenerator" xml:space="preserve">
+    <value>オンライン プロファイル ビルダー</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+    <value>Steam ゲームのダウンロードが完了しました
+システムは {0} 秒後に{1}されます。</value>
+    <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LinuxSudoTips" xml:space="preserve">
+    <value>Linux では、この機能を正しく使用するには、システム root パスワードが必要です</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarted" xml:space="preserve">
+    <value>ASF サービスが再起動されました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarting" xml:space="preserve">
+    <value>ASF サービスを再起動しています。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Started" xml:space="preserve">
+    <value>ASF サービスが開始されました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Starting" xml:space="preserve">
+    <value>ASF サービスを開始しています。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoped" xml:space="preserve">
+    <value>ASF サービスが停止しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoping" xml:space="preserve">
+    <value>ASF サービスを停止しています。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

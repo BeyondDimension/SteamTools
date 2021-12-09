@@ -2583,4 +2583,45 @@ This action ends the running Steam jump to the new account login window.</value>
     <value>Show/hide</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ASF_DeleteBotTip" xml:space="preserve">
+    <value>Are you sure you want to delete this Bot?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_WebConfigGenerator" xml:space="preserve">
+    <value>Online profile generator</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+    <value>Steam games have been downloaded
+The system will {1} after {0} seconds.</value>
+    <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LinuxSudoTips" xml:space="preserve">
+    <value>Linux needs to provide a system root password to use the feature properly</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarted" xml:space="preserve">
+    <value>The ASF service has been restarted</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarting" xml:space="preserve">
+    <value>Restarting ASF service, please...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Started" xml:space="preserve">
+    <value>The ASF service has started</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Starting" xml:space="preserve">
+    <value>Starting ASF service, please...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoped" xml:space="preserve">
+    <value>The ASF service has stopped</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoping" xml:space="preserve">
+    <value>Stopping ASF service, please...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

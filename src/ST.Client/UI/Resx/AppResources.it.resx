@@ -2583,4 +2583,45 @@ Ricorda di avere l&apos;UID del tuo account Steam++ nel messaggio delle note qua
     <value>Mostra/nascondi</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ASF_DeleteBotTip" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare questo Bot?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_WebConfigGenerator" xml:space="preserve">
+    <value>Generatore di profili online</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+    <value>I giochi steam sono stati scaricati
+Il sistema verrà {1} dopo {0} secondi.</value>
+    <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LinuxSudoTips" xml:space="preserve">
+    <value>Linux deve fornire una password di root del sistema per utilizzare correttamente la funzione</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarted" xml:space="preserve">
+    <value>Il servizio ASF è stato riavviato</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarting" xml:space="preserve">
+    <value>Riavvio del servizio ASF, per favore...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Started" xml:space="preserve">
+    <value>Il servizio ASF è stato avviato</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Starting" xml:space="preserve">
+    <value>Avvio del servizio ASF, per favore...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoped" xml:space="preserve">
+    <value>Il servizio ASF è stato arrestato</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoping" xml:space="preserve">
+    <value>Interrompere il servizio ASF, per favore...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

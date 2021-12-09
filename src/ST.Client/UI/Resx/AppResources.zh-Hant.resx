@@ -2587,4 +2587,45 @@ AAAAA-BBBBB-CCCC3</value>
     <value>顯示/隱藏</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ASF_DeleteBotTip" xml:space="preserve">
+    <value>確定要刪除這個Bot嗎？</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_WebConfigGenerator" xml:space="preserve">
+    <value>在線配置檔產生器</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+    <value>Steam遊戲已下載完成
+系統將在 {0} 秒後{1}。</value>
+    <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LinuxSudoTips" xml:space="preserve">
+    <value>Linux 需要提供系統 root 密碼才能正常使用該功能</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarted" xml:space="preserve">
+    <value>ASF 服務已重啟</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Restarting" xml:space="preserve">
+    <value>正在重啟 ASF 服務，請稍後...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Started" xml:space="preserve">
+    <value>ASF 服務已啟動</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Starting" xml:space="preserve">
+    <value>正在啟動 ASF 服務，請稍後...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoped" xml:space="preserve">
+    <value>ASF 服務已停止</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_Stoping" xml:space="preserve">
+    <value>正在停止 ASF 服務，請稍後...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
