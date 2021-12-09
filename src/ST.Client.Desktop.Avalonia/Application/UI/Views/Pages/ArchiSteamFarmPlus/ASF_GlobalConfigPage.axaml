@@ -48,7 +48,7 @@
 
       <Separator Classes="Separator"/>
 
-      <Border Classes="Item">
+      <!--<Border Classes="Item">
         <DockPanel>
           <TextBlock Text="{ReflectionBinding Path=Res.ASF_ConsoleFontName,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           <ComboBox
@@ -64,7 +64,7 @@
             </ComboBox.ItemTemplate>
           </ComboBox>
         </DockPanel>
-      </Border>
+      </Border>-->
 
       <Border Classes="Item">
         <DockPanel>
