@@ -22,16 +22,24 @@ namespace System.Application.UI.Views.Pages
             AvaloniaXamlLoader.Load(this);
         }
 
-        bool isStartCacheSizeCalc;
-        bool isStartLogSizeCalc;
+        //bool isStartCacheSizeCalc;
+        //bool isStartLogSizeCalc;
         protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
         {
             base.OnAttachedToLogicalTree(e);
-            SettingsPageViewModel.StartCacheSizeCalc(ref isStartCacheSizeCalc, AppResources.Settings_General_CacheSize, x =>
+            //SettingsPageViewModel.StartCacheSizeCalc(ref isStartCacheSizeCalc, AppResources.Settings_General_CacheSize, x =>
+            //{
+            //    if (cacheSize is not null) cacheSize.Text = x;
+            //});
+            //SettingsPageViewModel.StartCacheSizeCalc(ref isStartLogSizeCalc, AppResources.Settings_General_LogSize, x =>
+            //{
+            //    if (logSize is not null) logSize.Text = x;
+            //});
+            SettingsPageViewModel.StartSizeCalcByCacheSize(x =>
             {
                 if (cacheSize is not null) cacheSize.Text = x;
             });
-            SettingsPageViewModel.StartCacheSizeCalc(ref isStartLogSizeCalc, AppResources.Settings_General_LogSize, x =>
+            SettingsPageViewModel.StartSizeCalcByLogSize(x =>
             {
                 if (logSize is not null) logSize.Text = x;
             });
