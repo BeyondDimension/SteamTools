@@ -75,29 +75,29 @@ namespace System.Application.UI
             else
 #endif
             {
-                if (OperatingSystem2.IsLinux)
-                {
-#pragma warning disable CA1416 // 验证平台兼容性
-                    if (IPlatformService.Instance.IsDeepin)
-#pragma warning restore CA1416 // 验证平台兼容性
-                    {
-                        // Deepin catch.
-                        // Unhandled exception: System.Reflection.TargetInvocationException: Arg_TargetInvocationException
-                        //---> Tmds.DBus.DBusException: com.deepin.DBus.Error.Unnamed: notifier item has been registered
-                        //  at Tmds.DBus.DBusConnection.CallMethodAsync(Message msg, Boolean checkConnected, Boolean checkReplyType)
-                        //  at Tmds.DBus.Connection.CallMethodAsync(Message message)
-                        //  at Tmds.DBus.CodeGen.DBusObjectProxy.SendMethodReturnReaderAsync(String iface, String member, Nullable`1 inSignature, MessageWriter writer)
-                        //  at Avalonia.X11.X11TrayIconImpl.CreateTrayIcon() in /_/src/Avalonia.X11/X11TrayIconImpl.cs:line 85
-                        //  at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__127_0(Object state)
-                        //  at Avalonia.Threading.AvaloniaSynchronizationContext.<>c__DisplayClass5_0.<Post>b__0() in /_/src/Avalonia.Base/Threading/AvaloniaSynchronizationContext.cs:line 33
-                        //  at Avalonia.Threading.JobRunner.Job.Avalonia.Threading.JobRunner.IJob.Run() in /_/src/Avalonia.Base/Threading/JobRunner.cs:line 166
-                        //  at Avalonia.Threading.JobRunner.RunJobs(Nullable`1 priority) in /_/src/Avalonia.Base/Threading/JobRunner.cs:line 37
-                        //  at Avalonia.X11.X11PlatformThreading.CheckSignaled() in /_/src/Avalonia.X11/X11PlatformThreading.cs:line 164
-                        //  at Avalonia.X11.X11PlatformThreading.RunLoop(CancellationToken cancellationToken) in /_/src/Avalonia.X11/X11PlatformThreading.cs:line 244
-                        //  at Avalonia.Threading.Dispatcher.MainLoop(CancellationToken cancellationToken) in /_/src/Avalonia.Base/Threading/Dispatcher.cs:line 61
-                        return null;
-                    }
-                }
+//                if (OperatingSystem2.IsLinux)
+//                {
+////#pragma warning disable CA1416 // 验证平台兼容性
+////                    if (IPlatformService.Instance.IsDeepin)
+////#pragma warning restore CA1416 // 验证平台兼容性
+////                    {
+////                        // Deepin catch.
+////                        // Unhandled exception: System.Reflection.TargetInvocationException: Arg_TargetInvocationException
+////                        //---> Tmds.DBus.DBusException: com.deepin.DBus.Error.Unnamed: notifier item has been registered
+////                        //  at Tmds.DBus.DBusConnection.CallMethodAsync(Message msg, Boolean checkConnected, Boolean checkReplyType)
+////                        //  at Tmds.DBus.Connection.CallMethodAsync(Message message)
+////                        //  at Tmds.DBus.CodeGen.DBusObjectProxy.SendMethodReturnReaderAsync(String iface, String member, Nullable`1 inSignature, MessageWriter writer)
+////                        //  at Avalonia.X11.X11TrayIconImpl.CreateTrayIcon() in /_/src/Avalonia.X11/X11TrayIconImpl.cs:line 85
+////                        //  at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__127_0(Object state)
+////                        //  at Avalonia.Threading.AvaloniaSynchronizationContext.<>c__DisplayClass5_0.<Post>b__0() in /_/src/Avalonia.Base/Threading/AvaloniaSynchronizationContext.cs:line 33
+////                        //  at Avalonia.Threading.JobRunner.Job.Avalonia.Threading.JobRunner.IJob.Run() in /_/src/Avalonia.Base/Threading/JobRunner.cs:line 166
+////                        //  at Avalonia.Threading.JobRunner.RunJobs(Nullable`1 priority) in /_/src/Avalonia.Base/Threading/JobRunner.cs:line 37
+////                        //  at Avalonia.X11.X11PlatformThreading.CheckSignaled() in /_/src/Avalonia.X11/X11PlatformThreading.cs:line 164
+////                        //  at Avalonia.X11.X11PlatformThreading.RunLoop(CancellationToken cancellationToken) in /_/src/Avalonia.X11/X11PlatformThreading.cs:line 244
+////                        //  at Avalonia.Threading.Dispatcher.MainLoop(CancellationToken cancellationToken) in /_/src/Avalonia.Base/Threading/Dispatcher.cs:line 61
+////                        return null;
+////                    }
+//                }
                 NativeMenu menu = new();
                 menuItemDisposable = InitMenuItems(menu);
                 TrayIcon trayIcon = new()
