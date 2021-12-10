@@ -40,7 +40,8 @@
 23. 修复 Pixiv 加速不能登录的问题
 24. 修复 Twitch 加速不计算掉宝进度的问题
 25. 修复 Discord 加速检测更新失败导致无法启动客户端的问题
-26. 修复 Windows 因添加 JumpList 时可能导致的闪退 
+26. 修复 Windows 因添加 JumpList 时可能导致的闪退
+27. 修复 Desktop 本地令牌 点击锁定后输入密码按回车解锁会循环无限触发锁定的问题
 
 
 ### 已知问题
@@ -72,12 +73,7 @@
 					- [从 Gitee 上直接下载](https://gitee.com/rmbgame/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
 					- [从 NuGet 上下载后提取](https://www.nuget.org/api/v2/package/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/1.0.1)
 						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
-	- Shared
-		- 在 仅有一个文本框的窗口 上使用回车确定可能导致弹窗死循环，例如本地令牌中的需要解密才能继续
-			- **解决方案：** 点击右下方的确定按钮完成输入
-- Mobile
-	- Android
-		- 确认交易列表刷新后数据有时会显示不正确
+
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
 [![Steam++ v2.6.2](https://img.shields.io/badge/Steam++-v2.6.2-brightgreen.svg?style=flat-square&color=512bd4)]()
