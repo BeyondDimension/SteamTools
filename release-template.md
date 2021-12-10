@@ -40,7 +40,7 @@
 23. 修复 Pixiv 加速不能登录的问题
 24. 修复 Twitch 加速不计算掉宝进度的问题
 25. 修复 Discord 加速检测更新失败导致无法启动客户端的问题
-26. 修复 Windows 因添加 JumpList 时可能导致的闪退
+26. 修复 Windows 因添加 JumpList 时可能导致的闪退 
 27. 修复 Desktop 本地令牌 点击锁定后输入密码按回车解锁会循环无限触发锁定的问题
 
 
@@ -51,7 +51,7 @@
 		- [尚未公证](https://support.apple.com/zh-cn/guide/mac-help/mh40616/10.15/mac/10.15)，这会影响 macOS Catalina（版本 10.15）以上版本
 	- Linux
 		- **Hosts 代理模式**可能无法配置成功，推荐使用**系统代理模式**
-		- 系统代理模式下无法下载 discord，因 dl.discordapp.net 域名代理不成功
+		- 系统代理模式下discord更新下载加速有问题暂不可用
 		- 窗口弹出位置不正确
 		- 鼠标指针浮动样式不正确
 	- Windows
@@ -74,7 +74,6 @@
 					- [从 Gitee 上直接下载](https://gitee.com/rmbgame/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
 					- [从 NuGet 上下载后提取](https://www.nuget.org/api/v2/package/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/1.0.1)
 						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
-
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
 [![Steam++ v2.6.2](https://img.shields.io/badge/Steam++-v2.6.2-brightgreen.svg?style=flat-square&color=512bd4)]()
