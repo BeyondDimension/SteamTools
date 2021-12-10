@@ -1,27 +1,27 @@
 ### 版本亮点
-1. 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备
-2. ASF 升级至 V5.2.0.10
+1. 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备或虚拟机
+2. ASF 升级至 **V5.2.0.10**
 3. 新增 ASF 控制台字体大小最大行数设置项
 4. 新增 Steam 下载完成定时关机、睡眠功能
 5. 新增 代理设置可自定义 DNS
 6. 新增 ASF 编辑/移除 Bot 功能
 7. 新增 Android ASF 本地挂卡功能 (Beta)
-8. 新增 MicroSoft、Xbox 相关加速服务 (需要升级到2.6.2之后可用)
-9. 新增 Uplay 相关加速服务 (需要升级到2.6.2之后可用)
-10. 新增 OneDrive 等更多相关加速服务 (需要升级到2.6.2之后可用)
+8. 新增 Microsoft/Xbox 相关加速服务 (需要升级到 **2.6.2** 之后可用)
+9. 新增 Uplay 相关加速服务 (需要升级到 **2.6.2** 之后可用)
+10. 新增 OneDrive 等更多相关加速服务 (需要升级到 **2.6.2** 之后可用)
 11. 优化 Desktop 加速代理性能
 12. 优化 Desktop 脚本注入打包的性能
 13. 优化 Desktop 已安装游戏加载性能
-15. 从此版本开始将使用Github Action自动化部署发布
+15. 从此版本开始将使用 Github Action 自动化部署发布
 
 ### 修复问题
 1. 改进 Desktop 网络加速现默认使用阿里 DNS(223.5.5.5, 223.6.6.6)
 2. 改进 自动更新包文件校验失败时提示
 3. 改进 自动更新失败时将自动跳转官网
 4. 改进 ASF IPC 默认端口号由 1242 改为 6242
-5. 修复 Linux 与 macOS 上 ASF-UI 解压包文件夹分隔符不正确
+5. 修复 Linux 与 macOS 中 ASF-UI 解压包文件夹分隔符不正确
 6. 修复 Windows Hosts 只读时尝试取消只读属性的操作没有正确执行
-7. 修复 Windows 更新包删除缓存时因文件占用引发的中断
+7. 修复 Windows 此软件自动更新删除更新包缓存时因文件占用引发的中断
 8. 修复 Desktop 高 DPI 下动态桌面错位
 9. 改进 Android UI
 10. 改进 Android 冷启动速度
@@ -40,10 +40,11 @@
 23. 修复 Pixiv 加速不能登录的问题
 24. 修复 Twitch 加速不计算掉宝进度的问题
 25. 修复 Discord 加速检测更新失败导致无法启动客户端的问题
+26. 修复 Windows 因添加 JumpList 时可能导致的闪退 
 
 
 ### 已知问题
-- 除 Windows 之外的平台自动更新尚不可用
+- 除 Windows 之外的平台此软件自动更新尚不可用
 - Desktop 
 	- macOS
 		- 尚未公证，这会影响 macOS Catalina（版本 10.15）以上
@@ -55,6 +56,21 @@
 		- 在 CPU 不受支持的 Win11 上无法启动，Windows 日志中显示 ```Failed to create CoreCLR, HRESULT: 0x80004005```
 			- 仅 .NET 6.0 受此影响，在几周后的 Insider 中会修复，见 [issue](https://github.com/dotnet/core/issues/6733)
 			- **解决方案：** 可尝试使用早期版本，例如 v2.3.0
+		- Windows 7
+			- 先决条件
+				- 需要安装 Extended Security Update
+			- 在不符合先决条件的情况下运行可能导致
+				- 程序无法正常运行
+				- 运行程序时提示 计算机中丢失 api-ms-win-core-winrt-l1-1-0.dll
+			- **解决方案**
+				- 因 [Windows 7 延长结束日期](https://support.microsoft.com/zh-cn/windows/windows-7-%E6%94%AF%E6%8C%81%E4%BA%8E-2020-%E5%B9%B4-1-%E6%9C%88-14-%E6%97%A5%E7%BB%88%E6%AD%A2-b75d4580-2cc7-895a-2c9c-1466d9a53962)以于 2020 年 1 月 14 日结束支持
+					- 所以必须安装 [Extended Security Update](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) 支持，在安装第三年的补丁后[结束支持日期](https://docs.microsoft.com/zh-cn/lifecycle/products/windows-7)可延长至 2023 年 1 月 10 日
+					- 可安装 *第三方* 补丁整合包例如 **[UpdatePack7R2](https://cn.bing.com/search?q=UpdatePack7R2)** *或* 购买官方 ESU 产品密钥 解决
+				- 下载 api-ms-win-core-winrt-l1-1-0.dll 文件放入程序根目录(Steam++.exe 所在文件夹)
+					- [从 Github 上直接下载](https://github.com/BeyondDimension/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
+					- [从 Gitee 上直接下载](https://gitee.com/rmbgame/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
+					- [从 NuGet 上下载后提取](https://www.nuget.org/api/v2/package/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/1.0.1)
+						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
 	- Shared
 		- 在 仅有一个文本框的窗口 上使用回车确定可能导致弹窗死循环，例如本地令牌中的需要解密才能继续
 			- **解决方案：** 点击右下方的确定按钮完成输入
