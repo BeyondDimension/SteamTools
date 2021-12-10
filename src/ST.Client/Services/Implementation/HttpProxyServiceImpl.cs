@@ -669,14 +669,18 @@ namespace System.Application.Services.Implementation
             {
                 foreach (var host in item.DomainNamesArray)
                 {
-                    if (!item.Redirect && e.HttpClient.Request.Url.Contains(host, StringComparison.OrdinalIgnoreCase))
+                    if (e.HttpClient.Request.Url.Contains(host, StringComparison.OrdinalIgnoreCase))
                     {
                         e.DecryptSsl = true;
-                        var addres = item.ForwardDomainIsNameOrIP ? item.ForwardDomainName : item.ForwardDomainIP;
-                        var ip = await GetReverseProxyIp(addres, ProxyDNS, item.ForwardDomainIsNameOrIP);
-                        if (ip != null && !IPAddress.IsLoopback(ip) && !ip.Equals(IPAddress.Any))
+                        if (item.ProxyType == ProxyType.Local || 
+                            item.ProxyType == ProxyType.ServerAccelerate)
                         {
-                            e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
+                            var addres = item.ForwardDomainIsNameOrIP ? item.ForwardDomainName : item.ForwardDomainIP;
+                            var ip = await GetReverseProxyIp(addres, ProxyDNS, item.ForwardDomainIsNameOrIP);
+                            if (ip != null && !IPAddress.IsLoopback(ip) && !ip.Equals(IPAddress.Any))
+                            {
+                                e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
+                            }
                         }
                         return;
                     }
