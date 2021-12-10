@@ -47,15 +47,16 @@
 - 除 Windows 之外的平台此软件自动更新尚不可用
 - Desktop 
 	- macOS
-		- 尚未公证，这会影响 macOS Catalina（版本 10.15）以上
+		- [尚未公证](https://support.apple.com/zh-cn/guide/mac-help/mh40616/10.15/mac/10.15)，这会影响 macOS Catalina（版本 10.15）以上版本
 	- Linux
 		- 在 Deepin 中托盘不生效，可通过 ```Exit.sh``` 退出程序
 		- 窗口弹出位置不正确
 		- 鼠标指针浮动样式不正确
 	- Windows
-		- 在 CPU 不受支持的 Win11 上无法启动，Windows 日志中显示 ```Failed to create CoreCLR, HRESULT: 0x80004005```
+		- Windows 11 
+			- 在 CPU 不受支持的 Win11 上无法启动，Windows 日志中显示 ```Failed to create CoreCLR, HRESULT: 0x80004005```
 			- 仅 .NET 6.0 受此影响，在几周后的 Insider 中会修复，见 [issue](https://github.com/dotnet/core/issues/6733)
-			- **解决方案：** 可尝试使用早期版本，例如 v2.3.0
+			- **解决方案：** 可尝试使用旧版本 例如 v2.3.0
 		- Windows 7
 			- 先决条件
 				- 需要安装 Extended Security Update
