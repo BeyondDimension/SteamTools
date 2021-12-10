@@ -221,6 +221,10 @@ namespace System.Application.Services.Implementation
 
             if (ProxyDomains is null || TwoLevelAgentEnable || OnlyEnableProxyScript) return;
 
+            //var item = ProxyDomains.FirstOrDefault(f => f.DomainNamesArray.Any(h => e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(h, StringComparison.OrdinalIgnoreCase)));
+
+            //if (item != null)
+            //{
             foreach (var item in ProxyDomains)
             {
                 foreach (var host in item.DomainNamesArray)
@@ -233,6 +237,7 @@ namespace System.Application.Services.Implementation
                             //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
                             //return;
                         }
+
                         if (item.Redirect)
                         {
                             var url = item.ForwardDomainName.Replace("{path}", e.HttpClient.Request.RequestUri.AbsolutePath);
@@ -279,6 +284,7 @@ namespace System.Application.Services.Implementation
                     }
                 }
             }
+        //}
 
         exit:
             //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
@@ -539,7 +545,7 @@ namespace System.Application.Services.Implementation
                         };
                     }
 
-                    transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
+                    //transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
                     proxyServer.AddEndPoint(transparentProxyEndPoint);
 
                     try
@@ -663,7 +669,7 @@ namespace System.Application.Services.Implementation
             {
                 foreach (var host in item.DomainNamesArray)
                 {
-                    if (e.HttpClient.Request.Url.Contains(host, StringComparison.OrdinalIgnoreCase))
+                    if (!item.Redirect && e.HttpClient.Request.Url.Contains(host, StringComparison.OrdinalIgnoreCase))
                     {
                         e.DecryptSsl = true;
                         var addres = item.ForwardDomainIsNameOrIP ? item.ForwardDomainName : item.ForwardDomainIP;
