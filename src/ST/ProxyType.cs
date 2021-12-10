@@ -1,19 +1,19 @@
-﻿namespace System.Application
+namespace System.Application
 {
     /// <summary>
     /// 代理类型
     /// </summary>
-    public enum ProxyType
+    public enum ProxyType:byte
     {
+        /// <summary>
+        /// 本地代理
+        /// </summary>
+        Local = 0,
+
         /// <summary>
         /// 启用重定向
         /// </summary>
         Redirect = 1,
-
-        /// <summary>
-        /// 本地代理
-        /// </summary>
-        Local,
 
         /// <summary>
         /// 直接成功
