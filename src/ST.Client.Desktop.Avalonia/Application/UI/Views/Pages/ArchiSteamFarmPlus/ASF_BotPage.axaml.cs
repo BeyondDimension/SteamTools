@@ -86,6 +86,8 @@ namespace System.Application.UI.Views.Pages
         protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
             ASFService.Current.RefreshBots();
+
+
             base.OnAttachedToVisualTree(e);
         }
     }

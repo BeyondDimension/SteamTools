@@ -15,6 +15,8 @@ using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -74,6 +76,9 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
+            TestHttp3Quic();
+            return;
+
             //#if DEBUG
             //            //TestAppUpdate();
             //            //return;
@@ -92,6 +97,29 @@ namespace System.Application.UI.ViewModels
                 DebugButton_Click1();
                 //Task.Run(DebugButton_Click1);
             });
+        }
+
+        public async void TestHttp3Quic()
+        {
+            // https://docs.microsoft.com/zh-cn/dotnet/core/extensions/httpclient-http3
+            // https://devblogs.microsoft.com/dotnet/http-3-support-in-dotnet-6
+            using HttpClient httpClient = new()
+            {
+#if NET6_0_OR_GREATER
+                DefaultRequestVersion = HttpVersion.Version30,
+#endif
+            };
+
+            using HttpRequestMessage request = new(HttpMethod.Get, "https://cloudflare-quic.com/");
+            using var response = await httpClient.UseDefaultSendAsync(request);
+
+            var htmlString = await response.Content.ReadAsStringAsync();
+
+            StringBuilder @string = new();
+            @string.AppendFormatLine("request.Version: {0}", request.Version);
+            @string.AppendFormatLine("response.Version: {0}", response.Version);
+            @string.AppendLine(htmlString);
+            DebugString = @string.ToString();
         }
 
         //static async void TestTextBoxWindow(int state)
@@ -596,6 +624,8 @@ namespace System.Application.UI.ViewModels
             //}
             var testdomain = "steampp.net";
 
+            s.AppendLine($"<Support IPV6>: {await DnsAnalysis.GetIsIpv6Support()}");
+            s.AppendLine($"<IPV6> ipv6.rmbgame.net: {(await DnsAnalysis.AnalysisDomainIp("ipv6.rmbgame.net"))?.First()}");
             s.AppendLine($"<SystemDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIp(testdomain))?.First()}");
             s.AppendLine($"<AliDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByAliDns(testdomain))?.First()}");
             s.AppendLine($"<DNSPod>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByDnspod(testdomain))?.First()}");
@@ -603,7 +633,7 @@ namespace System.Application.UI.ViewModels
             s.AppendLine($"<GoogleDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByGoogleDns(testdomain))?.First()}");
             s.AppendLine($"<CloudflareDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByCloudflare(testdomain))?.First()}");
 
-            DebugString = s.ToString();
+            DebugString += s.ToString();
         }
 
 #if DEBUG

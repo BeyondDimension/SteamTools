@@ -8,6 +8,7 @@ using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.ViewModels.MyPageViewModel;
+using XFShell = Xamarin.Forms.Shell;
 
 namespace System.Application.UI.Fragments
 {
@@ -42,7 +43,7 @@ namespace System.Application.UI.Fragments
                 var isUnderConstruction = e.Current.Id switch
                 {
                     PreferenceButton.BindPhoneNumber or
-                    PreferenceButton.ChangePhoneNumber => true,
+                    PreferenceButton.ChangePhoneNumber or PreferenceButton.UserProfile => true,
                     _ => false,
                 };
                 if (isUnderConstruction)
@@ -51,13 +52,26 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
+                var route = e.Current.Id switch
+                {
+                    PreferenceButton.Settings => "//SettingsPage",
+                    PreferenceButton.About => "//AboutPage",
+                    _ => null,
+                };
+
+                if (route != null)
+                {
+                    XFShell.Current.GoToAsync(route);
+                    return;
+                }
+
                 var activityType = e.Current.Id switch
                 {
                     PreferenceButton.UserProfile => typeof(UserProfileActivity),
                     PreferenceButton.BindPhoneNumber => typeof(BindPhoneNumberActivity),
                     PreferenceButton.ChangePhoneNumber => typeof(ChangePhoneNumberActivity),
-                    PreferenceButton.Settings => typeof(SettingsActivity),
-                    PreferenceButton.About => typeof(AboutActivity),
+                    //PreferenceButton.Settings => typeof(SettingsActivity),
+                    //PreferenceButton.About => typeof(AboutActivity),
                     _ => (Type?)null,
                 };
                 if (activityType != null) this.StartActivity(activityType);
@@ -72,7 +86,8 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
-                this.StartActivity<LoginOrRegisterActivity>();
+                MainApplication.ShowUnderConstructionTips();
+                //this.StartActivity<LoginOrRegisterActivity>();
                 return true;
             }
             //else if (view.Id == Resource.Id.???)

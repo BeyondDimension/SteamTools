@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
-    <value>客戶端已過時，請升級新版本</value>
+    <value>用戶端已過時，請升級新版本</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
@@ -134,11 +134,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
-    <value>當前運行的程序不是來自官方渠道</value>
+    <value>當前運行的程式不是來自官方管道</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
-    <value>網絡連接中斷</value>
+    <value>網路連接中斷</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">

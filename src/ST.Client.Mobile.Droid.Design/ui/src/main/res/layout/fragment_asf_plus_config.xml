@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/grey_window_background">
+  android:background="@color/grey_window_background"
+  android:orientation="vertical"
+  android:paddingStart="@dimen/activity_horizontal_margin"
+  android:paddingEnd="@dimen/activity_horizontal_margin"
+  android:paddingBottom="@dimen/activity_vertical_margin">
 
   <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/textView"
+    android:id="@+id/tvASFVersion"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:textAlignment="center"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
     android:textColor="@color/text_primary"
     android:textSize="20sp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
+    tools:text="当前 ArchiSteamFarm 版本：x.x.x.x"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/btnGoToWebUIGlobalSettings"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:insetTop="0dp"
+    android:insetBottom="0dp"
+    android:textAllCaps="false"
+    tools:text="跳转到 WebUI 全局设置"
+    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/btnImportASFBot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:insetTop="0dp"
+    android:insetBottom="0dp"
+    android:textAllCaps="false"
+    tools:text="导入已有的 ASF Bot 文件"
+    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+</LinearLayout>

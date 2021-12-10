@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>Ошибка на стороне службы {0} - Учетные данные для входа недействительны, пожалуйста, снова войдите в систему</value>
+    <value>Ошибка на стороне службы {0} - Учетные данные для входа не работают, пожалуйста, войдите снова</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
@@ -134,11 +134,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>Количество приобретений кода проверки достигло сегодняшнего потолка, попробуйте еще раз завтра</value>
+    <value>Количество проверочных кодов, полученных достигло сегодняшнего верхнего предела, попробуйте еще раз завтра</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>Операция немного часто, попробуйте еще раз через 1 минуту</value>
+    <value>Операция немного часто, 1 минута спустя, попробуйте еще раз</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
@@ -158,11 +158,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
-    <value>Новый номер мобильного телефона не может быть такой же, как старый</value>
+    <value>Новый номер мобильного телефона не может совпадать со старым номером мобильного телефона</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>Максимальная длина псевдонима не может превышать {0} слова</value>
+    <value>Максимальная длина псевдонима не может превышать {0} слов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>Ошибка на стороне службы 5001 - SMS-сервис</value>
+    <value>Ошибка на стороне службы 5001 - служба обмена текстовыми сообщениями</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请选择头像" xml:space="preserve">
-    <value>Пожалуйста, выберите аватар</value>
+    <value>Выберите аватар</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
@@ -210,7 +210,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
-    <value>Код проверки неверный или истек</value>
+    <value>Код проверки неверен или устарел</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>Загрузка пакета обновления завершается неудачей, пожалуйста, загрузите новую версию ручного обновления на официальном сайте</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>Сбой разрешения сведений о пакете обновления, загрузите новую версию ручного обновления на веб-сайте</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>Не удалось загрузить файл кэша пакета обновления и удалить ошибку, попробуйте обновить его вручную на официальном сайте после удаления {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>Проверка файлов завершается неудачей, пожалуйста, загрузите новую версию ручного обновления на официальном сайте</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>Не удалось распаковать пакет обновления, загрузите новую версию ручного обновления на веб-сайте</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

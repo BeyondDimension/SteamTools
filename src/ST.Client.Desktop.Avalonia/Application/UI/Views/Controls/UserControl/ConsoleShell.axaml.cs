@@ -110,15 +110,20 @@ namespace System.Application.UI.Views.Controls
 
             this.GetObservable(LogTextProperty)
                   .Subscribe(x =>
-                  {
-                      if (!string.IsNullOrEmpty(LogText) && !logTextbox.IsVisible)
-                      {
-                          logTextbox.IsVisible = true;
-                      }
-                      logTextbox.Text = x;
-                      consoleScroll.ScrollToEnd();
-                      consoleScroll.PageDown();
-                  });
+                   {
+                       if (!string.IsNullOrEmpty(LogText) && !logTextbox.IsVisible)
+                       {
+                           logTextbox.IsVisible = true;
+                       }
+                       logTextbox.Text = x;
+                       consoleScroll.ScrollToEnd();
+                       //consoleScroll.Offset += new Vector(0, 20);
+                   });
+
+            consoleScroll.AttachedToVisualTree += (s, e) =>
+            {
+                consoleScroll.ScrollToEnd();
+            };
         }
 
         private void CommandTextbox_KeyUp(object? sender, Avalonia.Input.KeyEventArgs e)
@@ -153,16 +158,6 @@ namespace System.Application.UI.Views.Controls
             AvaloniaXamlLoader.Load(this);
         }
 
-        protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
-        {
-            base.OnAttachedToLogicalTree(e);
-
-            if (!string.IsNullOrEmpty(LogText))
-            {
-                consoleScroll.ScrollToEnd();
-                consoleScroll.PageDown();
-            }
-        }
     }
 
     public class CommandEventArgs : EventArgs

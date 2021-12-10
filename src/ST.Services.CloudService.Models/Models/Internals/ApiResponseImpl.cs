@@ -71,6 +71,21 @@ namespace System.Application.Models.Internals
         [NJsonProperty("🦓")]
         [SJsonProperty("🦓")]
         public T? Content { get; set; }
+
+        public static implicit operator ApiResponseImpl<T>(T content)
+        {
+            return (ApiResponseImpl<T>)ApiResponse.Ok(content);
+        }
+
+        public static implicit operator ApiResponseImpl<T>(ApiResponseCode code)
+        {
+            return (ApiResponseImpl<T>)ApiResponse.Code<T>(code);
+        }
+
+        public static implicit operator ApiResponseImpl<T>((ApiResponseCode code, string? message) args)
+        {
+            return (ApiResponseImpl<T>)ApiResponse.Code<T>(args.code, args.message);
+        }
     }
 
     [MPObject]
@@ -81,5 +96,15 @@ namespace System.Application.Models.Internals
         [SJSONIgnore]
         [NJSONIgnore]
         public object? Content => null;
+
+        public static implicit operator ApiResponseImpl(ApiResponseCode code)
+        {
+            return (ApiResponseImpl)ApiResponse.Code(code);
+        }
+
+        public static implicit operator ApiResponseImpl((ApiResponseCode code, string? message) args)
+        {
+            return (ApiResponseImpl)ApiResponse.Code(args.code, args.message);
+        }
     }
 }

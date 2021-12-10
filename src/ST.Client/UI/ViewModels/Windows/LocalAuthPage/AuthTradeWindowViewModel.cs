@@ -141,15 +141,15 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private string? _CodeImage;
-        public string? CodeImage
+        private string? _CaptchaImage;
+        public string? CaptchaImage
         {
-            get => _CodeImage;
+            get => _CaptchaImage;
             set
             {
-                if (_CodeImage != value)
+                if (_CaptchaImage != value)
                 {
-                    _CodeImage = value;
+                    _CaptchaImage = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -157,18 +157,18 @@ namespace System.Application.UI.ViewModels
 
         public void CaptchaUrlButton_Click()
         {
-            AuthService.ShowCaptchaUrl(_CodeImage);
+            AuthService.ShowCaptchaUrl(CaptchaImage);
         }
 
-        private string? _CodeImageChar;
-        public string? CodeImageChar
+        private string? _CaptchaText;
+        public string? CaptchaText
         {
-            get => _CodeImageChar;
+            get => _CaptchaText;
             set
             {
-                if (_CodeImageChar != value)
+                if (_CaptchaText != value)
                 {
-                    _CodeImageChar = value;
+                    _CaptchaText = value;
                     this.RaisePropertyChanged();
                 }
             }
@@ -251,9 +251,9 @@ namespace System.Application.UI.ViewModels
         {
             if (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password))
             {
-                if (!string.IsNullOrWhiteSpace(CodeImageChar))
+                if (!string.IsNullOrWhiteSpace(CaptchaText))
                 {
-                    Process(CodeImageChar);
+                    Process(CaptchaText);
                 }
                 else
                 {
@@ -351,7 +351,7 @@ namespace System.Application.UI.ViewModels
                                 {
                                     IsRequiresCaptcha = steam.RequiresCaptcha;
                                     captchaId = steam.CaptchaId;
-                                    CodeImage = steam.CaptchaUrl;
+                                    CaptchaImage = steam.CaptchaUrl;
                                     Toast.Show(AppResources.User_LoginError_CodeImage);
                                     return;
                                 }

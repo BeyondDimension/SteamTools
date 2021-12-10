@@ -1,3 +1,4 @@
+#if WINDOWS_NT
 using System;
 using System.IO;
 using System.Reflection;
@@ -70,3 +71,4 @@ namespace SevenZip
         }
     }
 }
+#endif

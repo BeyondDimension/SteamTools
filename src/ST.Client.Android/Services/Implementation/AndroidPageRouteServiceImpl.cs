@@ -10,18 +10,20 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class AndroidPageRouteServiceImpl : IPlatformPageRouteService
     {
-        bool IPlatformPageRouteService.IsUseNativePage(TabItemId tabItemId) => tabItemId switch
-        {
-            TabItemId.Settings or TabItemId.About => true,
-            _ => false,
-        };
+        bool IPlatformPageRouteService.IsUseNativePage(TabItemId tabItemId) => false;
+        //=> tabItemId switch
+        //{
+        //    TabItemId.Settings or TabItemId.About => true,
+        //    _ => false,
+        //};
 
-        void IPlatformPageRouteService.GoToNativePage(TabItemId tabItemId) => GoToNativePage(tabItemId switch
-        {
-            TabItemId.Settings => typeof(SettingsActivity),
-            TabItemId.About => typeof(AboutActivity),
-            _ => null,
-        });
+        void IPlatformPageRouteService.GoToNativePage(TabItemId tabItemId) { }
+        //=> GoToNativePage(tabItemId switch
+        //{
+        //    TabItemId.Settings => typeof(SettingsActivity),
+        //    TabItemId.About => typeof(AboutActivity),
+        //    _ => null,
+        //});
 
         void GoToNativePage(Type? activityType)
         {

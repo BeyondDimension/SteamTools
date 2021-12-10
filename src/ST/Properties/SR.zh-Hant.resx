@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>服務端錯誤 5001 - 短信服務</value>
+    <value>服務端錯誤 5001 - 簡訊服務</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
@@ -211,6 +211,26 @@
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
     <value>驗證碼錯誤或已過期</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>下載更新包失敗，請在官網下載新版本手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>更新包資訊解析失敗，請在官網下載新版本手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>下載更新包快取文件驗證失敗且刪除錯誤，請刪除 {0} 后嘗試在官網手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>檔校驗失敗，請在官網下載新版本手動更新</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>更新包解壓失敗，請在官網下載新版本手動更新</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

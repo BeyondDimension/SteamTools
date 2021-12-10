@@ -140,13 +140,5 @@ namespace System.Application.Services.CloudService
                 return string.Empty;
             }
         }
-
-        //public static HttpMessageHandler? HttpClientHandler { get; private set; }
-
-        //internal static Func<HttpMessageHandler> ConfigurePrimaryHttpMessageHandler(Func<HttpMessageHandler> configureHandler) => () =>
-        //{
-        //    HttpClientHandler = configureHandler();
-        //    return HttpClientHandler;
-        //};
     }
 }

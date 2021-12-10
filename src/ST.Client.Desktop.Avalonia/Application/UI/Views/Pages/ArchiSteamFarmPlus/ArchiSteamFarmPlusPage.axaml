@@ -80,7 +80,7 @@
         <ui:CommandBar.SecondaryCommands>
           <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
                                CommandParameter="Wiki"
-                               ToolTip.Tip="ArchiSteamFarm Wiki"
+                               ToolTip.Tip="{ReflectionBinding $self.Label}"
                                Label="ArchiSteamFarm Wiki">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
@@ -89,8 +89,18 @@
 
           <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
                                CommandParameter="Repo"
-                               ToolTip.Tip="ArchiSteamFarm Github"
+                               ToolTip.Tip="{ReflectionBinding $self.Label}"
                                Label="ArchiSteamFarm Github">
+            <ui:CommandBarButton.Icon>
+              <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
+            </ui:CommandBarButton.Icon>
+          </ui:CommandBarButton>
+          <ui:CommandBarSeparator/>
+
+          <ui:CommandBarButton Command="{ReflectionBinding OpenBrowser}"
+                               CommandParameter="ConfigGenerator"
+                               ToolTip.Tip="{ReflectionBinding $self.Label}"
+                               Label="{ReflectionBinding Path=Res.ASF_WebConfigGenerator,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:CommandBarButton.Icon>
               <ui:PathIcon Data="{StaticResource GlobeSearchDrawing}"/>
             </ui:CommandBarButton.Icon>
@@ -101,14 +111,19 @@
 
     <Border Classes="paper"
             Margin="10 0 10 10"
-            Padding="0 10"
+            Padding="10"
             Background="{DynamicResource ThemeBrushKey}">
       <TabControl Classes="flat">
         <!--<TabItem Header="ASF 运行状态">
 
         </TabItem>-->
-        <TabItem Header="{ReflectionBinding Path=Res.ASF_Console,Mode=OneWay,Source={x:Static resx:R.Current}}">
-          <controls:ConsoleShell Margin="10 0" 
+        <TabItem Header="{ReflectionBinding Path=Res.ASF_Console,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+          <controls:ConsoleShell Margin="10 0"
+                                 MaxLine="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},Path=Value, Mode=OneWay}"
+                                 FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},Path=Value, Mode=OneWay}"
+                                 FontFamily="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontName},Path=Value, Mode=OneWay}"
                                  CommandSubmit="ConsoleShell_CommandSubmit"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                  IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">

@@ -561,6 +561,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确定要删除这个Bot吗？ 的本地化字符串。
+        /// </summary>
+        public static string ASF_DeleteBotTip {
+            get {
+                return ResourceManager.GetString("ASF_DeleteBotTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 禁用 的本地化字符串。
         /// </summary>
         public static string ASF_Disable {
@@ -807,6 +816,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 ASF 服务已重启 的本地化字符串。
+        /// </summary>
+        public static string ASF_Restarted {
+            get {
+                return ResourceManager.GetString("ASF_Restarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在重启 ASF 服务，请稍后... 的本地化字符串。
+        /// </summary>
+        public static string ASF_Restarting {
+            get {
+                return ResourceManager.GetString("ASF_Restarting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 开始挂卡 的本地化字符串。
         /// </summary>
         public static string ASF_RunCardFarming {
@@ -834,6 +861,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 ASF 服务已启动 的本地化字符串。
+        /// </summary>
+        public static string ASF_Started {
+            get {
+                return ResourceManager.GetString("ASF_Started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在启动 ASF 服务，请稍后... 的本地化字符串。
+        /// </summary>
+        public static string ASF_Starting {
+            get {
+                return ResourceManager.GetString("ASF_Starting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 停止 ASF 的本地化字符串。
         /// </summary>
         public static string ASF_Stop {
@@ -852,6 +897,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 ASF 服务已停止 的本地化字符串。
+        /// </summary>
+        public static string ASF_Stoped {
+            get {
+                return ResourceManager.GetString("ASF_Stoped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在停止 ASF 服务，请稍后... 的本地化字符串。
+        /// </summary>
+        public static string ASF_Stoping {
+            get {
+                return ResourceManager.GetString("ASF_Stoping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 剩余时间 的本地化字符串。
         /// </summary>
         public static string ASF_TimeRemaining {
@@ -866,6 +929,15 @@ namespace System.Application.UI.Resx {
         public static string ASF_VersionNum {
             get {
                 return ResourceManager.GetString("ASF_VersionNum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在线配置文件生成器 的本地化字符串。
+        /// </summary>
+        public static string ASF_WebConfigGenerator {
+            get {
+                return ResourceManager.GetString("ASF_WebConfigGenerator", resourceCulture);
             }
         }
         
@@ -2040,6 +2112,16 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Steam游戏已下载完成
+        ///系统将在 {0} 秒后{1}。 的本地化字符串。
+        /// </summary>
+        public static string GameList_SteamShutdown_DownloadCompleteTip {
+            get {
+                return ResourceManager.GetString("GameList_SteamShutdown_DownloadCompleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用下载监控 的本地化字符串。
         /// </summary>
         public static string GameList_SteamShutdown_EnableWatchDownloading {
@@ -2396,6 +2478,15 @@ namespace System.Application.UI.Resx {
         public static string IsExistUpdateFalse {
             get {
                 return ResourceManager.GetString("IsExistUpdateFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Linux 需要提供系统 root 密码才能正常使用该功能 的本地化字符串。
+        /// </summary>
+        public static string LinuxSudoTips {
+            get {
+                return ResourceManager.GetString("LinuxSudoTips", resourceCulture);
             }
         }
         
@@ -4591,6 +4682,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 无法显示图片验证码？ 的本地化字符串。
+        /// </summary>
+        public static string Steam_ImageCodeShowError {
+            get {
+                return ResourceManager.GetString("Steam_ImageCodeShowError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 输入图中验证码 的本地化字符串。
         /// </summary>
         public static string Steam_ImageCodeTip {
@@ -4885,15 +4985,6 @@ namespace System.Application.UI.Resx {
         public static string Translators {
             get {
                 return ResourceManager.GetString("Translators", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 无法显示验证码？ 的本地化字符串。
-        /// </summary>
-        public static string UnableDisplayCaptchaImage {
-            get {
-                return ResourceManager.GetString("UnableDisplayCaptchaImage", resourceCulture);
             }
         }
         

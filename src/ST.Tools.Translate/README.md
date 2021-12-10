@@ -10,7 +10,7 @@
 - 将 resx 文件导出为 xlsx 文件
     <pre>t write-xlsx -resx all -lang all // 导出所有的 resx, 与所有支持的语言</pre>
     <pre>t write-xlsx -resx all -lang en // 导出所有的 resx，语言仅 English</pre>
-    <pre>t write-xlsx -resx all -lang all -only-machine // 导出所有的 resx(仅机翻或未翻译的值), 与所有支持的语言</pre>
+    <pre>t write-xlsx -resx all -lang all -only_machine // 导出所有的 resx(仅机翻或未翻译的值), 与所有支持的语言</pre>
 - 使用机翻校对 xlsx 文件(将译文机翻回原文进行审阅)
     <pre>t proofread-xlsx -resx all -lang all // 校对所有的 xlsx, 与所有支持的语言</pre>
     <pre>t proofread-xlsx -resx all -lang en // 校对所有的 xlsx，语言仅 English</pre>
@@ -21,7 +21,7 @@
 ## Language Id
 - [Windows Language Code Identifier (LCID) Reference](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c)
 - [Steamworks 文献库 > 商店状态 > 本地化和语言](https://partner.steamgames.com/doc/store/localization#supported_languages)
-- [R.cs](https://github.com/SteamTools-Team/SteamTools/blob/develop/src/ST.Client.Desktop/UI/Resx/R.cs#L37-L44)
+- [R.cs](https://github.com/BeyondDimension/SteamTools/blob/develop/src/ST.Client.Desktop/UI/Resx/R.cs#L37-L44)
 
 |  Language  |  Id  |
 |  ----  |  ----  |

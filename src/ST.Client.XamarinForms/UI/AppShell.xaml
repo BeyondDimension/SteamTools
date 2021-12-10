@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="System.Application.UI.AppShell"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-    xmlns:local="clr-namespace:System.Application.UI.Views"
-    xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client"
-    xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
-    Title="Steam++"
-    x:DataType="vm:MainWindowViewModel"
-    FlyoutBackgroundColor="{DynamicResource GreyWindowBackground}"
-    Visual="Material">
-
+<Shell x:Class="System.Application.UI.AppShell"
+       xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+       xmlns:local="clr-namespace:System.Application.UI.Views"
+       xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client"
+       xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
+       Title="Steam++"
+       x:DataType="vm:MainWindowViewModel"
+       FlyoutBackgroundColor="{DynamicResource ShellBackgroundColor}"
+       FlyoutWidth="240"
+       ItemTemplate="{x:StaticResource AppShellFlyoutItemTemplate}"
+       MenuItemTemplate="{x:StaticResource AppShellFlyoutItemTemplate}"
+       Visual="Material">
   <!--
         The overall app visual hierarchy is defined here, along with navigation.
         
@@ -67,11 +68,17 @@
                 Default Styles for all Flyout Items
                 https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
             -->
-      <Style Class="FlyoutItemLabelStyle" TargetType="Label">
-        <!-- 左侧浮动菜单项文本(选中)时文字颜色 -->
+      <!--<Style Class="FlyoutItemLabelStyle" TargetType="Label">
+        -->
+      <!-- 左侧浮动菜单项文本(选中)时文字颜色 -->
+      <!--
         <Setter Property="TextColor" Value="White" />
-      </Style>
-      <Style Class="FlyoutItemLayoutStyle"
+      </Style>-->
+      <!--<Style TargetType="Image" Class="FlyoutItemImageStyle">
+        <Setter Property="HeightRequest" Value="12" />
+        <Setter Property="WidthRequest" Value="12" />
+      </Style>-->
+      <!--<Style Class="FlyoutItemLayoutStyle"
              ApplyToDerivedTypes="True"
              TargetType="Layout">
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -80,20 +87,24 @@
               <VisualState x:Name="Normal">
                 <VisualState.Setters>
                   <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
-                  <!-- 左侧浮动菜单项文本(未选中)时文字颜色 -->
+                  -->
+      <!-- 左侧浮动菜单项文本(未选中)时文字颜色 -->
+      <!--
                   <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{DynamicResource ShellTitleColor}" />
                 </VisualState.Setters>
               </VisualState>
               <VisualState x:Name="Selected">
                 <VisualState.Setters>
-                  <!-- 左侧浮动菜单项(选中)时背景 -->
+                  -->
+      <!-- 左侧浮动菜单项(选中)时背景 -->
+      <!--
                   <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
                 </VisualState.Setters>
               </VisualState>
             </VisualStateGroup>
           </VisualStateGroupList>
         </Setter>
-      </Style>
+      </Style>-->
 
       <!--
                 Custom Style you can apply to any Flyout Item
@@ -122,11 +133,94 @@
         <MenuItem Text="{x:Static resx:AppResources.Settings}"
                       IconImageSource="SettingsPageViewModel" />
       </DataTemplate>-->
+
+      <!-- Shell.ItemTemplate 是 FlyoutItem 的模板 -->
+      <!-- Shell.MenuItemTemplate 是 MenuItem 的模板 -->
+      <!-- 这两个模板通常使用同一个 -->
+      <!--https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/shell/flyout#default-template-for-flyoutitems-->
+      <DataTemplate x:Key="AppShellFlyoutItemTemplate" x:DataType="BaseShellItem">
+        <Grid x:Name="FlyoutItemLayout"
+          HeightRequest="{x:OnPlatform Android=50}"
+          ColumnSpacing="{x:OnPlatform UWP=0}"
+          RowSpacing="{x:OnPlatform UWP=0}">
+          <VisualStateManager.VisualStateGroups>
+            <VisualStateGroupList>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal">
+                  <VisualState.Setters>
+                    <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
+                  </VisualState.Setters>
+                </VisualState>
+                <!--<VisualState x:Name="Selected">
+                  <VisualState.Setters>
+                    --><!-- 左侧浮动菜单项(选中)时背景 --><!--
+                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="White" />
+                  </VisualState.Setters>
+                </VisualState>-->
+              </VisualStateGroup>
+            </VisualStateGroupList>
+          </VisualStateManager.VisualStateGroups>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{x:OnPlatform Android=54, iOS=50, UWP=Auto}" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Image x:Name="FlyoutItemImage"
+               Source="{Binding FlyoutIcon}"
+               VerticalOptions="Center"
+               HorizontalOptions="{x:OnPlatform Default=Center, UWP=Start}"
+               HeightRequest="{x:OnPlatform Android=24, iOS=22, UWP=16}"
+               WidthRequest="{x:OnPlatform Android=24, iOS=22, UWP=16}">
+            <Image.Margin>
+              <OnPlatform x:TypeArguments="Thickness">
+                <OnPlatform.Platforms>
+                  <On Platform="UWP"
+                            Value="12,0,12,0" />
+                </OnPlatform.Platforms>
+              </OnPlatform>
+            </Image.Margin>
+          </Image>
+          <Label x:Name="FlyoutItemLabel" 
+                 Grid.Column="1"
+                 Text="{Binding Title}"
+                 FontSize="{x:OnPlatform Android=14, iOS=Small}"
+                 HorizontalOptions="{x:OnPlatform UWP=Start}"
+                 HorizontalTextAlignment="{x:OnPlatform UWP=Start}"
+                 FontAttributes="{x:OnPlatform iOS=Bold}"
+                 TextColor="{DynamicResource ShellTitleColor}"
+                 VerticalTextAlignment="Center">
+            <!--<Label.TextColor>
+              <OnPlatform x:TypeArguments="Color">
+                <OnPlatform.Platforms>
+                  <On Platform="Android"
+                            Value="#D2000000" />
+                </OnPlatform.Platforms>
+              </OnPlatform>
+            </Label.TextColor>-->
+            <!--<Label.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+              <OnPlatform.Platforms>
+                <On Platform="Android"
+                            Value="20, 0, 0, 0" />
+              </OnPlatform.Platforms>
+            </OnPlatform>
+          </Label.Margin>-->
+            <Label.FontFamily>
+              <OnPlatform x:TypeArguments="x:String">
+                <OnPlatform.Platforms>
+                  <On Platform="Android"
+                            Value="sans-serif-medium" />
+                </OnPlatform.Platforms>
+              </OnPlatform>
+            </Label.FontFamily>
+          </Label>
+        </Grid>
+      </DataTemplate>
     </ResourceDictionary>
   </Shell.Resources>
   <Shell.FlyoutHeaderTemplate>
     <DataTemplate>
-      <StackLayout Padding="14" Orientation="Horizontal">
+      <StackLayout Padding="16" Orientation="Horizontal">
         <StackLayout.GestureRecognizers>
           <TapGestureRecognizer Tapped="OnFlyoutHeaderTapped" />
         </StackLayout.GestureRecognizers>
@@ -135,11 +229,11 @@
                     Source="avatar_default"
                     WidthRequest="64" />
         <Label
-                    Margin="14,0,0,0"
+                    Margin="16,0,0,0"
                     FontSize="16"
                     LineBreakMode="TailTruncation"
                     MaxLines="2"
-                    Text="一二三四五六七八九十未登录一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十"
+                    Text="{x:Static resx:AppResources.User_UnLogin}"
                     TextColor="{DynamicResource ShellTitleColor}"
                     VerticalTextAlignment="Center" />
       </StackLayout>

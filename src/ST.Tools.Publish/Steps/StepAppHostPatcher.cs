@@ -36,6 +36,8 @@ namespace System.Application.Steps
                     Console.WriteLine($"错误：找不到 exe 文件，路径：{exePath}");
                     return;
                 }
+
+                Console.WriteLine($"正在处理文件：{exePath}");
             }
 
             foreach (var exePath in exePaths)
@@ -76,7 +78,7 @@ namespace System.Application.Steps
                 var rPath = Path.GetRelativePath(pubPath, file);
                 rPath = Path.Combine(DirName, rPath);
                 var newPath = pubPath + Path.DirectorySeparatorChar + rPath;
-                Console.WriteLine($"正在移动文件：{file} -> {newPath}");
+                //Console.WriteLine($"正在移动文件：{file} -> {newPath}");
                 var rootDirPath = Path.GetDirectoryName(newPath);
                 if (!Directory.Exists(rootDirPath)) Directory.CreateDirectory(rootDirPath);
                 File.Move(file, newPath);

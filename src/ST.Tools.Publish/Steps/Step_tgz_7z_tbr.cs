@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using static System.Application.Utils;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Application.Steps;
 
 namespace System.Application.Steps
 {
@@ -13,9 +16,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
             => Step8.Add(command,
                 AppDownloadType.Compressed_GZip,
-                "tgz",
-                FileEx.TAR_GZ,
-                CreatePack);
+                "tgz");
     }
 
     internal static class Step8_7z // 7z(Lzma2) 64,809,214 字节
@@ -23,9 +24,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
             => Step8.Add(command,
                 AppDownloadType.Compressed_7z,
-                "7z",
-                FileEx._7Z,
-                CreateSevenZipPack);
+                "7z");
     }
 
     internal static class Step8_tar_br // tbr 70,278,650 字节
@@ -33,9 +32,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
             => Step8.Add(command,
                 AppDownloadType.Compressed_Br,
-                "tbr",
-                FileEx.TAR_BR_LONG,
-                CreateBrotliPack);
+                "tbr");
     }
 
     internal static class Step8_tar_xz // tar.xz XZOutputStream.Flush NotSupportedException
@@ -43,9 +40,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
             => Step8.Add(command,
                 AppDownloadType.Compressed_XZ,
-                "xz",
-                FileEx.TAR_XZ,
-                CreateXZPack);
+                "xz");
     }
 
     internal static class Step8_tar_zst // tar.zst 71,854,499 字节
@@ -53,9 +48,7 @@ namespace System.Application.Steps
         public static void Add(RootCommand command)
             => Step8.Add(command,
                 AppDownloadType.Compressed_Zstd,
-                "zst",
-                FileEx.TAR_ZST,
-                CreateZstdPack);
+                "zst");
     }
 }
 
@@ -65,12 +58,19 @@ namespace System.Application
     {
         public static class Step8
         {
-            public static void Add(RootCommand command, AppDownloadType type, string name, string fileEx, Action<string, IEnumerable<PublishFileInfo>> createPack)
+            public static void Add(RootCommand command, AppDownloadType type, string name)
             {
                 var comm = new Command(name, "8. (本地)读取上一步操作后的 Publish.json 生成压缩包并计算哈希值写入 Publish.json")
                 {
-                    Handler = CommandHandler.Create((bool dev) =>
+                    Handler = CommandHandler.Create(async (bool dev, string buildpackage) =>
                     {
+                        if (!string.IsNullOrEmpty(buildpackage))
+                        {
+                            buildpackage = buildpackage.Trim();
+                            buildpackage = buildpackage.Length > 7 ? buildpackage[..7] : buildpackage;
+                            Version = buildpackage;
+                        }
+
                         var publish_json_path = PublishJsonFilePath;
                         var publish_json_str = File.ReadAllText(publish_json_path);
                         var dirNames = Serializable.DJSON<PublishDirInfo[]>(publish_json_str);
@@ -83,26 +83,9 @@ namespace System.Application
 
                         dirNames = dirNames.ThrowIsNull(nameof(dirNames));
 
-                        foreach (var item in dirNames)
-                        {
-                            var packPath = GetPackPath(dev, item, fileEx);
-                            Console.WriteLine($"正在生成压缩包：{packPath}");
-                            IOPath.FileIfExistsItDelete(packPath);
+                        var parallelTasks = dirNames.Select(x => Task.Run(() => Step_cd.GenerateCompressedPackage(dev, x, type))).ToList();
 
-                            createPack(packPath, item.Files);
-
-                            using var fileStream = File.OpenRead(packPath);
-                            var sha256 = Hashs.String.SHA256(fileStream);
-
-                            if (item.BuildDownloads.ContainsKey(type))
-                            {
-                                item.BuildDownloads[type] = new PublishFileInfo { SHA256 = sha256, Length = fileStream.Length };
-                            }
-                            else
-                            {
-                                item.BuildDownloads.Add(type, new PublishFileInfo { SHA256 = sha256, Length = fileStream.Length });
-                            }
-                        }
+                        await Task.WhenAll(parallelTasks);
 
                         SavePublishJson(dirNames, removeFiles: false);
 
@@ -110,6 +93,7 @@ namespace System.Application
                     })
                 };
                 comm.AddOption(new Option<bool>("-dev", DevDesc));
+                comm.AddOption(new Option<string>("-buildpackage", "指定生成包版本号"));
                 command.AddCommand(comm);
             }
         }

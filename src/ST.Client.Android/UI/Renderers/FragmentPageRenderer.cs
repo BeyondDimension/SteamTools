@@ -17,6 +17,12 @@ using n = System.Application.UI.Views.Native;
 [assembly: ExportRenderer(
     typeof(n.MyPage),
     typeof(FragmentPageRenderer<MyFragment>))]
+[assembly: ExportRenderer(
+    typeof(n.SettingsPage),
+    typeof(FragmentPageRenderer<SettingsFragment>))]
+[assembly: ExportRenderer(
+    typeof(n.AboutPage),
+    typeof(FragmentPageRenderer<AboutFragment>))]
 
 namespace System.Application.UI.Renderers
 {

@@ -8,10 +8,10 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Unicorn.pfx') ">
+  <PropertyGroup Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Unicorn.snk') ">
     <DefineConstants>SIGN_ASSEMBLY;$(DefineConstants)</DefineConstants>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\Unicorn.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\Unicorn.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>

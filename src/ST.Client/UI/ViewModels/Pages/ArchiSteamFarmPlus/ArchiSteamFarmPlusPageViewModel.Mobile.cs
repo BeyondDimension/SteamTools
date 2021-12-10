@@ -49,7 +49,8 @@ namespace System.Application.UI.ViewModels
                     RunOrStopASF();
                     break;
                 case ActionItem.AddBot:
-                    ShowAddBotWindow();
+                    //ShowAddBotWindow();
+                    OpenBrowser("WebAddBot");
                     break;
                 case ActionItem.Refresh:
                     break;

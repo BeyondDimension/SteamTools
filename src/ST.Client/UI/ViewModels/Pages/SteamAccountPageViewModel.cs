@@ -95,6 +95,7 @@ namespace System.Application.UI.ViewModels
 
             MenuItems = new ObservableCollection<MenuItemViewModel>();
 
+            List<(string title, string accountName)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
             foreach (var user in _SteamUsersSourceList.Items)
             {
                 if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
@@ -119,8 +120,19 @@ namespace System.Application.UI.ViewModels
                         }),
                     });
 
-                    IJumpListService.Instance.AddJumpTask(title, IApplication.ProgramPath, IApplication.ProgramPath, "-clt steam -account " + user.AccountName, AppResources.UserChange_BtnTootlip, Name);
+                    if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((title, user.AccountName));
                 }
+            }
+
+            if (jumplistData.Any_Nullable())
+            {
+                MainThread2.BeginInvokeOnMainThread(() =>
+                {
+                    foreach (var (title, accountName) in jumplistData)
+                    {
+                        IJumpListService.Instance.AddJumpTask(title, IApplication.ProgramPath, IApplication.ProgramPath, "-clt steam -account " + accountName, AppResources.UserChange_BtnTootlip, Name);
+                    }
+                });
             }
 
             _SteamUsersSourceList.Refresh();

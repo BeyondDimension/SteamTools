@@ -122,7 +122,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>Lo sentimos, estás usando un navegador obsoleto. Se recomienda actualizar su navegador o utilizarlo</value>
+    <value>Lo sentimos, estás usando un navegador obsoleto. Se recomienda actualizar su navegador o usarlo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
@@ -130,11 +130,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>Haga clic aquí para intentarlo de nuevo</value>
+    <value>Haga clic aquí para volver a intentarlo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>Los errores de terceros proveedores de inicio de sesión, {0}, póngase en contacto con el webmaster.</value>
+    <value>Errores de proveedores de inicio de sesión de terceros, {0}, póngase en contacto con el webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
@@ -154,7 +154,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>El enlace de la cuenta no pudo obtener el usuario de inicio de sesión actual, póngase en contacto con el administrador del sitio.</value>
+    <value>El enlace de la cuenta no pudo obtener el usuario de inicio de sesión actual, comuníquese con el administrador del sitio.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
@@ -166,11 +166,11 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1} se haya completado, puedes cerrar esta ventana y volver a Steam.</value>
+    <value>{0} {1} está completo, puedes cerrar esta ventana y volver a Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>Esta ventana/pestaña del navegador intentará cerrarse automáticamente en 10 segundos, o puede cerrarla manualmente.</value>
+    <value>Esta ventana / pestaña del navegador intentará cerrarse automáticamente en 10 segundos, o puede cerrarla manualmente.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
@@ -178,7 +178,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>&quot;Steam&quot; es una caja de herramientas con una variedad de características de herramientas de Steam.</value>
+    <value>&quot;Steam&quot; es una caja de herramientas con una variedad de características de la herramienta Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
@@ -186,7 +186,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>Comprueba si puedes acceder correctamente a la comunidad de Steam.</value>
+    <value>Comprueba si puedes acceder a la comunidad de Steam correctamente.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
@@ -198,7 +198,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>No se pudo leer UnionId, valor: {0}, póngase en contacto con el administrador del sitio.</value>
+    <value>Error al leer UnionId, valor: {0}, póngase en contacto con el administrador del sitio.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
@@ -210,7 +210,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>Se ha perdido la conexión con el programa, haga clic en Intentar de nuevo o vuelva a hacer clic en Inicio de sesión rápido dentro del programa.</value>
+    <value>Pérdida de conexión al programa, haga clic en Intentarlo de nuevo o vuelva a hacer clic en Inicio de sesión rápido dentro del programa.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
@@ -218,11 +218,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyButton" xml:space="preserve">
-    <value>Apuntar a esta copia</value>
+    <value>Señale esta copia</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyNoSupport" xml:space="preserve">
-    <value>Este explorador no admite hacer clic en copiar en el portapapeles</value>
+    <value>Este navegador no admite la copia de clics en el portapapeles</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopySuccess" xml:space="preserve">
@@ -230,7 +230,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ManualCopyTip" xml:space="preserve">
-    <value>Se ha producido un error con el programa de conexión, copie manualmente lo siguiente en el programa, haga clic manualmente para iniciar sesión.</value>
+    <value>Hubo un error con el programa de conexión, copie manualmente lo siguiente al programa, haga clic manualmente para iniciar sesión.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

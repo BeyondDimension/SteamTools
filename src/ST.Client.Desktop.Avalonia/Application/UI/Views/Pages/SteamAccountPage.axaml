@@ -91,8 +91,8 @@
                 <SolidColorBrush Color="{DynamicResource ThemeColorKey}"
                                  Opacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
               </Border.Background>-->
-                <Border.ContextMenu>
-                  <ContextMenu>
+                <Border.ContextFlyout>
+                  <MenuFlyout>
                     <MenuItem
                         Command="{ReflectionBinding #u.DataContext.SteamId_Click}"
                         CommandParameter="{Binding}"
@@ -112,8 +112,8 @@
                         Header="{ReflectionBinding Path=Res.UserChange_DeleteUser,
                                                                        Mode=OneWay,
                                                                        Source={x:Static resx:R.Current}}" />
-                  </ContextMenu>
-                </Border.ContextMenu>
+                  </MenuFlyout>
+                </Border.ContextFlyout>
                 <i:Interaction.Behaviors>
                   <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
                     <ia:ChangePropertyAction

@@ -128,23 +128,24 @@
 		<PackageVersion Include="Moq" Version="4.16.1" />
 
 		<!-- NLog -->
-		<PackageVersion Include="NLog" Version="4.7.12" />
+		<PackageVersion Include="NLog" Version="4.7.13" />
 		<PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
 		<PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
 
 		<!-- ReactiveUI -->
+		<PackageVersion Include="System.Reactive" Version="5.0.0" />
 		<PackageVersion Include="Splat" Version="14.1.1" />
 		<PackageVersion Include="DynamicData" Version="7.4.3" />
-		<PackageVersion Include="ReactiveUI" Version="17.0.1" />
-		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.0.1" /> -->
-		<PackageVersion Include="ReactiveUI.XamForms" Version="17.0.1" />
+		<PackageVersion Include="ReactiveUI" Version="17.1.6" />
+		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.6" /> -->
+		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.6" />
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.0.1" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
-		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.155" />
-		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.155" />
-		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.155" />
-		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.155" />
+		<PackageVersion Include="HarfBuzzSharp" Version="2.6.1.8" />
+		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.6.1.8" />
+		<PackageVersion Include="SkiaSharp" Version="2.80.3" />
+		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
 
 		<!-- AutoMapper -->
 		<PackageVersion Include="AutoMapper" Version="10.1.1" />
@@ -186,7 +187,7 @@
 		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 
 		<!-- Pay -->
-		<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.60" />
+		<!--<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.109" />-->
 
 		<!-- Excel -->
 		<PackageVersion Include="NPOI" Version="2.5.5" />

@@ -28,15 +28,21 @@ namespace System.Commands
         public static void Add(RootCommand command)
         {
             // t write-xlsx -resx all -lang all
+            // t write-xlsx -resx all -lang all -refresh-machine true
             var write_xlsx = new Command("write-xlsx", "读取 resx 写入 xlsx")
             {
-                Handler = CommandHandler.Create((string resx, string lang, bool only_machine)
-                    => ValidateAsync<CommandArguments>((resx, lang, only_machine), WriteXlsxAsync)),
+                Handler = CommandHandler.Create(HandlerAsync),
             };
             write_xlsx.AddOption(new Option<string>("-resx", ResxDesc));
             write_xlsx.AddOption(new Option<string>("-lang", LangDesc));
-            write_xlsx.AddOption(new Option<bool>("-only-machine", "是否仅导出机翻或未翻译的值"));
+            write_xlsx.AddOption(new Option<bool>("-only_machine", "是否仅导出机翻或未翻译的值"));
+            write_xlsx.AddOption(new Option<bool>("-refresh_machine", "重新翻译机翻部分的文本"));
             command.AddCommand(write_xlsx);
+        }
+
+        static Task HandlerAsync(string resx, string lang, bool only_machine, bool refresh_machine)
+        {
+            return ValidateAsync<CommandArguments>((resx, lang, only_machine, refresh_machine), WriteXlsxAsync);
         }
 
         static async Task<IList<string>?> WriteXlsxAsync(CommandArguments args)
@@ -76,6 +82,23 @@ namespace System.Commands
                 }
                 return messages;
             }
+
+            if (args.refresh_machine)
+            {
+                var machine_keys = (from m in resxFileDictLang.dict
+                                    let comment = m.Value.comment
+                                    let hasAuthorKey = comment.ContainsKey(AuthorKey)
+                                    where hasAuthorKey && comment[AuthorKey] == MicrosoftTranslator
+                                    select m.Key).ToArray();
+                if (machine_keys.Any())
+                {
+                    foreach (var key in machine_keys)
+                    {
+                        resxFileDictLang.dict.Remove(key);
+                    }
+                }
+            }
+
 
             if (args.only_machine)
             {
@@ -226,12 +249,22 @@ namespace System.Commands
         {
 #pragma warning disable IDE1006 // 命名样式
             public bool only_machine { get; set; }
+
+            public bool refresh_machine { get; set; }
 #pragma warning restore IDE1006 // 命名样式
 
             public static implicit operator CommandArguments(ValueTuple<string, string, bool> value)
             {
                 var r = Get<CommandArguments>(value.Item1, value.Item2);
                 r.only_machine = value.Item3;
+                return r;
+            }
+
+            public static implicit operator CommandArguments(ValueTuple<string, string, bool, bool> value)
+            {
+                var r = Get<CommandArguments>(value.Item1, value.Item2);
+                r.only_machine = value.Item3;
+                r.refresh_machine = value.Item4;
                 return r;
             }
         }

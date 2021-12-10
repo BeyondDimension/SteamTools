@@ -1,6 +1,7 @@
 using System.Application;
 using System.Application.Columns;
 using System.Globalization;
+using System.Linq;
 
 namespace System.Application
 {
@@ -34,14 +35,11 @@ namespace System
 {
     public static partial class CurrencyCodeEnumExtensions
     {
-        public static int GetLCID(this CurrencyCode currencyCode) => currencyCode switch
+        public static CultureInfo? GetCultureInfo(this CurrencyCode eCurrencyCode)
         {
-            CurrencyCode.CNY => CultureInfoExtensions.LCID_zh_CN,
-            CurrencyCode.USD => CultureInfoExtensions.LCID_en_US,
-            _ => throw new ArgumentOutOfRangeException(nameof(currencyCode), currencyCode, null),
-        };
-
-        public static CultureInfo GetCultureInfo(this CurrencyCode currencyCode) => new(currencyCode.GetLCID());
+            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                                  .FirstOrDefault(culture => new RegionInfo(culture.LCID).ISOCurrencySymbol == eCurrencyCode.ToString());
+        }
 
         public static CurrencyCode GetCurrencyCode(this ICurrencyCodeString @interface, CurrencyCode @default = CurrencyCode.CNY)
             => Enum.TryParse(@interface.CurrencyCode, true, out CurrencyCode currencyCode) ? currencyCode : @default;

@@ -77,28 +77,62 @@ namespace System.Application.Services
             });
         }
 
-        public async Task InitASF()
+        /// <summary>
+        /// 是否正在启动或停止中
+        /// </summary>
+        bool IsASFRunOrStoping;
+
+        public Task InitASF() => InitASFCore(true);
+
+        public async Task InitASFCore(bool showToast)
         {
+            if (IsASFRunOrStoping) return;
+
+            if (showToast) Toast.Show(AppResources.ASF_Starting, ToastLength.Short);
+
+            IsASFRunOrStoping = true;
+
             await archiSteamFarmService.Start();
 
             RefreshBots();
 
             IPCUrl = archiSteamFarmService.GetIPCUrl();
 
-            this.RaisePropertyChanged(nameof(IsASFRuning));
+            MainThread2.BeginInvokeOnMainThread(() =>
+            {
+                this.RaisePropertyChanged(nameof(IsASFRuning));
+            });
+
+            IsASFRunOrStoping = false;
+
+            if (showToast) Toast.Show(AppResources.ASF_Started, ToastLength.Short);
         }
 
-        public async Task StopASF()
+        public Task StopASF() => StopASFCore(true);
+
+        public async Task StopASFCore(bool showToast)
         {
+            if (IsASFRunOrStoping) return;
+
+            if (showToast) Toast.Show(AppResources.ASF_Stoping, ToastLength.Short);
+
+            IsASFRunOrStoping = true;
+
             await archiSteamFarmService.Stop();
 
-            this.RaisePropertyChanged(nameof(IsASFRuning));
+            MainThread2.BeginInvokeOnMainThread(() =>
+            {
+                this.RaisePropertyChanged(nameof(IsASFRuning));
+            });
+
+            IsASFRunOrStoping = false;
+
+            if (showToast) Toast.Show(AppResources.ASF_Stoped, ToastLength.Short);
         }
 
         public void RefreshBots()
         {
             var bots = archiSteamFarmService.GetReadOnlyAllBots();
-            SteamBotsSourceList.Clear();
             if (bots.Any_Nullable())
             {
                 SteamBotsSourceList.AddOrUpdate(bots!.Values);

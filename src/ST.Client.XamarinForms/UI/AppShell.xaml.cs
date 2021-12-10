@@ -44,7 +44,7 @@ namespace System.Application.UI
 
         void InitTabItems(MainWindowViewModel mainWindow, IEnumerable<TabItemId>? topTabs = null)
         {
-            var tabItems = mainWindow.AllTabItems;
+            var tabItems = mainWindow.AllTabItems.Where(x => x.Id != TabItemId.GameList);
             if (topTabs.Any_Nullable())
             {
                 tabItems = tabItems.Where(x => topTabs.Contains(x.Id)).Concat(tabItems.Where(x => !topTabs.Contains(x.Id)));
@@ -121,6 +121,10 @@ namespace System.Application.UI
                         return typeof(n.LocalAuthPage);
                     case TabItemId.ArchiSteamFarmPlus:
                         return typeof(n.ArchiSteamFarmPlusPage);
+                    case TabItemId.Settings:
+                        return typeof(n.SettingsPage);
+                    case TabItemId.About:
+                        return typeof(n.AboutPage);
                 }
             }
             return typeof(UnderConstructionPage);

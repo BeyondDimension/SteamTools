@@ -12,6 +12,7 @@
         xmlns:i="using:Avalonia.Xaml.Interactivity"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         xmlns:ms="using:System.Application.Settings"
+        xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
@@ -19,25 +20,36 @@
         x:CompileBindings="True"
         Title="{Binding Title}">
   <Panel HorizontalAlignment="Stretch">
-    <controls:TitleBar></controls:TitleBar>
+    <controls:TitleBar/>
     <Panel IsVisible="{Binding !IsLoggedIn}">
       <StackPanel VerticalAlignment="Center" Spacing="8" Margin="10,0" Width="250">
         <PathIcon Data="{StaticResource SteamDrawing}" Width="100" Height="100"
                   HorizontalAlignment="Center" Margin="0 0 0 25"></PathIcon>
         <TextBox Watermark="{ReflectionBinding Path=Res.Steam_User,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding UserName}"></TextBox>
 
-        <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}" PasswordChar="{StaticResource PasswordChar}" Text="{Binding Password}" Classes="revealPasswordButton"></TextBox>
+        <TextBox Watermark="{ReflectionBinding Path=Res.Steam_Password,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 PasswordChar="{StaticResource PasswordChar}"
+                 Text="{Binding Password}"
+                 Classes="revealPasswordButton"></TextBox>
 
         <Panel Margin="2 0 6 0">
           <CheckBox Content="{ReflectionBinding Path=Res.User_Rememberme,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding RememberMe}"></CheckBox>
         </Panel>
 
-        <StackPanel IsVisible="{Binding IsRequiresCaptcha}" Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
-          <Border Width="206" Height="37">
-            <Image Width="206" Height="37" Source="{Binding CodeImage,Converter={StaticResource BitmapAssetValueConverter}}">
-            </Image>
-          </Border>
-          <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CodeImageChar}" MaxWidth="200"></TextBox>
+        <StackPanel IsVisible="{Binding IsRequiresCaptcha}"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    Spacing="10">
+          <WrapPanel>
+            <gif:Image2 Width="206"
+                        Height="37"
+                        Stretch="Uniform"
+                        Source="{Binding CaptchaImage}"/>
+            <Button Content="{ReflectionBinding Path=Res.Steam_ImageCodeShowError,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                    Margin="5 0 0 0"
+                    Command="{ReflectionBinding CaptchaUrlButton_Click}"/>
+          </WrapPanel>
+          <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CaptchaText}" MaxWidth="200"></TextBox>
         </StackPanel>
 
         <Button Content="{ReflectionBinding Path=Res.Login,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -122,7 +134,7 @@
                       <Grid Width="{ReflectionBinding #panel.Width}"
                             ColumnDefinitions="Auto,*,Auto">
                         <Panel>
-                          <Image Width="128"
+                          <gif:Image2 Width="128"
                                  Height="128"
                                  Stretch="None"
                                  Margin="10 0"
@@ -131,12 +143,15 @@
                         <Panel Grid.Column="1" Margin="10,5">
                           <StackPanel>
                             <DockPanel LastChildFill="True">
-                              <controls:ScrollingTextBlock Text="{Binding Details}" FontSize="24" Foreground="{DynamicResource HighlightForegroundBrushKey}" TextWrapping="WrapWithOverflow" Cursor="Hand">
+                              <controls:ScrollingTextBlock Text="{Binding Details}" 
+                                                           Classes="h4" 
+                                                           Foreground="{DynamicResource HighlightForegroundBrushKey}" 
+                                                           TextWrapping="WrapWithOverflow">
                               </controls:ScrollingTextBlock>
                             </DockPanel>
 
-                            <TextBlock Text="{Binding Traded}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
-                            <TextBlock Text="{Binding When}" FontSize="16" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                            <TextBlock Text="{Binding Traded}" Classes="h6" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
+                            <TextBlock Text="{Binding When}" Classes="h6" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
                           </StackPanel>
                         </Panel>
                         <Grid Grid.Column="3" RowDefinitions="*,Auto">
@@ -160,12 +175,26 @@
                               </i:Interaction.Behaviors>
                             </TextBlock>
                           </Panel>
-                          <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 0" IsVisible="True" x:Name="OperatePanel">
+                          <StackPanel Grid.Row="1" 
+                                      Orientation="Horizontal" 
+                                      Margin="0 0 0 0" 
+                                      IsVisible="True" 
+                                      x:Name="OperatePanel">
                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
                               <Button Classes="flatbutton" Cursor="Hand" IsEnabled="{Binding ButtonEnable}" Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="16" Background="{DynamicResource ThemeBrushKey}" Command="{ReflectionBinding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
                             </Border>
-                            <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness="0 .66 0 0" ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                              <Button Classes="flatbutton" Cursor="Hand" IsEnabled="{Binding ButtonEnable}" Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Background="{DynamicResource ThemeBrushKey}" HorizontalAlignment="Stretch" FontSize="16" Command="{ReflectionBinding #u.DataContext.CancelTrade_Click}" CommandParameter="{Binding}"></Button>
+                            <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" 
+                                    BorderThickness="0 .66 0 0" 
+                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <Button Classes="flatbutton" 
+                                      Cursor="Hand" 
+                                      IsEnabled="{Binding ButtonEnable}" 
+                                      Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                                      Background="{DynamicResource ThemeBrushKey}" 
+                                      HorizontalAlignment="Stretch" 
+                                      FontSize="16" 
+                                      Command="{ReflectionBinding #u.DataContext.CancelTrade_Click}" 
+                                      CommandParameter="{Binding}"></Button>
                             </Border>
                           </StackPanel>
                         </Grid>

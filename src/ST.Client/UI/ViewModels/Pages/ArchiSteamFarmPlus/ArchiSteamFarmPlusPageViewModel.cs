@@ -18,6 +18,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using static System.Application.FilePicker2;
 
 // ReSharper disable once CheckNamespace
@@ -33,8 +34,8 @@ namespace System.Application.UI.ViewModels
 
             SelectBotFiles = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("Json Files", new[] { SharedInfo.JsonConfigExtension, }),
+                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
+                    ("Json Files", new[] { FileEx.JSON, }),
                     ("All Files", new[] { "*" }),
                 });
                 await PickMultipleAsync(ASFService.Current.ImportBotFiles, fileTypes);
@@ -100,7 +101,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsRedeemKeyDialogOpen, value);
         }
 
-        public async void RunOrStopASF()
+        public void RunOrStopASF() => Task.Run(async () =>
         {
             if (!ASFService.Current.IsASFRuning)
             {
@@ -110,7 +111,7 @@ namespace System.Application.UI.ViewModels
             {
                 await ASFService.Current.StopASF();
             }
-        }
+        });
 
         public void ShowAddBotWindow()
         {
@@ -130,6 +131,8 @@ namespace System.Application.UI.ViewModels
                 result = await bot.Actions.Pause(true).ConfigureAwait(false);
             }
 
+            ASFService.Current.SteamBotsSourceList.AddOrUpdate(bot);
+
             Toast.Show(result.success ? result.message : string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
         }
 
@@ -148,6 +151,8 @@ namespace System.Application.UI.ViewModels
 
             if (!result.success)
                 Toast.Show(string.Format(CultureInfo.CurrentCulture, Strings.WarningFailedWithError, result.message));
+
+            ASFService.Current.SteamBotsSourceList.AddOrUpdate(bot);
         }
 
         public async Task<(IReadOnlyDictionary<string, string>? UnusedKeys, IReadOnlyDictionary<string, string>? UsedKeys)> GetUsedAndUnusedKeys(Bot bot)
@@ -186,6 +191,26 @@ namespace System.Application.UI.ViewModels
         public void GoToBotSettings(Bot bot)
         {
             Browser2.Open(IPCUrl + "/bot/" + bot.BotName + "/config");
+        }
+
+        public void EditBotFile(Bot bot)
+        {
+            var filePath = Bot.GetFilePath(bot.BotName, Bot.EFileType.Config);
+            IPlatformService.Instance.OpenFileByTextReader(filePath);
+        }
+
+        public async void DeleteBot(Bot bot)
+        {
+            var s = await MessageBox.ShowAsync(AppResources.ASF_DeleteBotTip, button: MessageBox.Button.OKCancel);
+            if (s == MessageBox.Result.OK)
+            {
+                var result = await bot.DeleteAllRelatedFiles();
+                if (result)
+                {
+                    ASFService.Current.SteamBotsSourceList.Remove(bot);
+                    Toast.Show(AppResources.GameList_DeleteSuccess);
+                }
+            }
         }
 
         public void OpenFolder(string tag)

@@ -30,6 +30,7 @@ using Program = System.Application.UI.MainApplication;
 using PlatformApplication = System.Application.UI.MainApplication;
 using System.Application.UI.Resx;
 using System.Windows;
+using Microsoft.Extensions.Http;
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
@@ -275,20 +276,22 @@ namespace System.Application
                     c.DefaultRequestVersion = HttpVersion.Version20;
 #endif
 #if NET5_0_OR_GREATER
-                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
 #endif
                 }, configureHandler:
 #if NETCOREAPP2_1_OR_GREATER
                 () => new SocketsHttpHandler
                 {
                     UseCookies = false,
-                    AutomaticDecompression = DecompressionMethods.GZip,
+                    AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.GZip,
                 }
 #elif __ANDROID__
-                () => new AndroidClientHandler
+                () =>
                 {
-                    UseCookies = false,
-                    AutomaticDecompression = DecompressionMethods.GZip,
+                    var handler = PlatformHttpMessageHandlerBuilder.CreateAndroidClientHandler();
+                    handler.UseCookies = false;
+                    handler.AutomaticDecompression = DecompressionMethods.GZip;
+                    return handler;
                 }
 #else
             null
@@ -496,6 +499,7 @@ namespace System.Application
                     SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
                     SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
 #endif
+                    IsAuthenticated = UserService.Current.IsAuthenticated,
                 };
                 Guid? lastNotificationRecordId = default;
                 if (type == ActiveUserType.OnStartup)

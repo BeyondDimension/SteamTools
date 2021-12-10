@@ -121,49 +121,82 @@ namespace System.Application.UI.ViewModels
             AppResources.Settings_UI_Dark,
         };
 
-        /// <summary>
-        /// 开始计算指定文件夹大小
-        /// </summary>
-        /// <param name="isStartCacheSizeCalc"></param>
-        /// <param name="sizeFormat"></param>
-        /// <param name="action"></param>
-        public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string sizeFormat, Action<string> action, CancellationToken cancellationToken = default)
+        ///// <summary>
+        ///// 开始计算指定文件夹大小
+        ///// </summary>
+        ///// <param name="isStartCacheSizeCalc"></param>
+        ///// <param name="sizeFormat"></param>
+        ///// <param name="action"></param>
+        //[Obsolete("use StartSizeCalcByCacheSize or StartSizeCalcByLogSize")]
+        //public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string sizeFormat, Action<string> action, CancellationToken cancellationToken = default)
+        //{
+        //    if (isStartCacheSizeCalc) return;
+        //    isStartCacheSizeCalc = true;
+        //    string? dirPath;
+        //    if (sizeFormat == AppResources.Settings_General_CacheSize)
+        //    {
+        //        dirPath = IOPath.CacheDirectory;
+        //    }
+        //    else if (sizeFormat == AppResources.Settings_General_LogSize)
+        //    {
+        //        dirPath = IApplication.LogDirPath;
+        //    }
+        //    else
+        //    {
+        //        dirPath = null;
+        //    }
+        //    if (dirPath != null)
+        //    {
+        //        StartCacheSizeCalc2(dirPath, value => action(sizeFormat.Format(value)), cancellationToken);
+        //    }
+        //}
+
+        static void StartCacheSizeCalc2(string dirPath, Action<string> action, CancellationToken cancellationToken = default)
         {
-            if (isStartCacheSizeCalc) return;
-            isStartCacheSizeCalc = true;
             action(AppResources.Settings_General_Calcing);
-            string? dirPath;
-            if (sizeFormat == AppResources.Settings_General_CacheSize)
+            try
             {
-                dirPath = IOPath.CacheDirectory;
+                Task.Run(async () =>
+                {
+                    var length = IOPath.GetDirectorySize(dirPath);
+                    var lenString = IOPath.GetSizeString(length);
+                    await MainThread2.InvokeOnMainThreadAsync(() =>
+                    {
+                        action(lenString);
+                    });
+                }, cancellationToken);
             }
-            else if (sizeFormat == AppResources.Settings_General_LogSize)
+            catch (OperationCanceledException)
             {
-                dirPath = IApplication.LogDirPath;
+
+            }
+        }
+
+        static readonly Dictionary<string, string> cacheSizeCalcCache = new();
+        static void StartCacheSizeCalc2(string dirPath, Func<string> getResString, Action<string> action)
+        {
+            if (cacheSizeCalcCache.ContainsKey(dirPath))
+            {
+                action(Action(cacheSizeCalcCache[dirPath]));
             }
             else
             {
-                dirPath = null;
+                StartCacheSizeCalc2(dirPath, value => action(Action(value)));
             }
-            if (dirPath != null)
-            {
-                try
-                {
-                    Task.Run(async () =>
-                    {
-                        var length = IOPath.GetDirectorySize(dirPath);
-                        var lenString = IOPath.GetSizeString(length);
-                        await MainThread2.InvokeOnMainThreadAsync(() =>
-                        {
-                            action(sizeFormat.Format(lenString));
-                        });
-                    }, cancellationToken);
-                }
-                catch (OperationCanceledException)
-                {
 
-                }
-            }
+            string Action(string value) => getResString().Format(value);
         }
+
+        public static void StartSizeCalcByCacheSize(Action<string> action)
+            => StartCacheSizeCalc2(
+                IOPath.CacheDirectory,
+                () => AppResources.Settings_General_CacheSize,
+                action);
+
+        public static void StartSizeCalcByLogSize(Action<string> action)
+            => StartCacheSizeCalc2(
+                IApplication.LogDirPath,
+                () => AppResources.Settings_General_LogSize,
+                action);
     }
 }

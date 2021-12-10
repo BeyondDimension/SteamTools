@@ -9,6 +9,10 @@
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <DefineConstants>WINDOWS_NT;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
@@ -16,12 +20,12 @@
     <Compile Include="..\..\src\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <Compile Include="..\..\references\SevenZipSharp\SevenZip.Tests\*.cs">
       <LinkBase>SevenZip.Tests</LinkBase>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\references\SevenZipSharp\SevenZip.Tests\TestData\7z_LZMA2.7z">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <LinkBase>TestData</LinkBase>
@@ -98,7 +102,7 @@
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+    <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Squid-Box.SevenZipSharp.Lite" />
   </ItemGroup>
 
 </Project>

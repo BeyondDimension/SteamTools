@@ -134,11 +134,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>The number of verification code acquisitions has reached today&apos;s limit Oh, try again tomorrow</value>
+    <value>The number of verification code acquisitions reached today&apos;s limit Oh, try again tomorrow</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>Operation is a little frequent Oh, try it again in a minute</value>
+    <value>Operation is a little frequent Oh, try again in 1 minute</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
@@ -158,11 +158,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
-    <value>The new phone number cannot be the same as the old phone number</value>
+    <value>The new phone number cannot be the same as the old one</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>The maximum length of a nickname cannot exceed {0} words</value>
+    <value>Nicknames must be no longer than {0} words in length</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请选择头像" xml:space="preserve">
-    <value>Please select an avatar</value>
+    <value>Please select the avatar</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
@@ -210,7 +210,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
-    <value>The verification code is incorrect or expired</value>
+    <value>The verification code is incorrect or has expired</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>Failed to download the update package, please download the new version manually on the official website</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>The resolution of the update package information failed, please download the new version manually on the official website</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>Downloading the update package cache file validation failed and deletion error, please remove {0} after trying to manually update on the official website</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>File verification failed, please download the new version manually on the official website</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>The update package unzipped failed, please download the new version manually on the official website</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

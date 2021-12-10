@@ -3,10 +3,11 @@ using System.Application.Models.Internals;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace System.Application.Steps
     /// </summary>
     internal static class Step_cd
     {
-        static readonly string[] all_val = new[] { "win-x64", "osx-x64", "linux-x64", "linux-arm64", };
+        public static readonly string[] all_val = new[] { "win-x64", "osx-x64", "linux-x64", "linux-arm64", };
 
         public static void Add(RootCommand command)
         {
@@ -47,6 +48,30 @@ namespace System.Application.Steps
             full.AddOption(new Option<string[]>("-val", InputPubDirNameDesc));
             full.AddOption(new Option<bool>("-dev", DevDesc));
             command.AddCommand(full);
+
+#if DEBUG
+            var nsis = new Command("nsis", "调试 NSIS 打包")
+            {
+                Handler = CommandHandler.Create(() =>
+                {
+                    var publish_json_path = PublishJsonFilePath;
+                    var publish_json_str = File.ReadAllText(publish_json_path);
+                    var dirNames = Serializable.DJSON<PublishDirInfo[]>(publish_json_str)
+                        ?.Where(x => x.Name.StartsWith("win-")).ToArray();
+
+                    if (!dirNames.Any_Nullable())
+                    {
+                        Console.WriteLine($"错误：发布配置文件读取失败！{publish_json_path}");
+                        return;
+                    }
+
+                    dirNames = dirNames.ThrowIsNull(nameof(dirNames));
+
+                    NSISBuild(true, dirNames);
+                })
+            };
+            command.AddCommand(nsis);
+#endif
         }
 
         static async Task VerHandlerAsync(string token, bool use_last_skey, bool dev)
@@ -59,8 +84,15 @@ namespace System.Application.Steps
                 UseLastSKey = use_last_skey,
             };
             using var client = GetHttpClient(token, dev);
-            using var rsp = await client.PostAsJsonAsync(api_version_create, request);
-            IApiResponse<AppIdWithPublicKey>? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl<AppIdWithPublicKey>>();
+            using var req = GetRequestContent(request);
+            using var rsp = await client.PostAsync(api_version_create, req);
+            if (rsp.StatusCode == HttpStatusCode.InternalServerError)
+            {
+                var html = await rsp.Content.ReadAsStringAsync();
+                throw new HttpRequestException(html);
+            }
+            rsp.EnsureSuccessStatusCode();
+            var apiResponse = await GetResponseAsync<AppIdWithPublicKey>(rsp);
             apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
             if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
             var value = apiResponse.Content;
@@ -71,16 +103,23 @@ namespace System.Application.Steps
         {
             if (!val.Any()) val = all_val;
 
+            var hasWindows = val.Any(x => x.StartsWith("win-"));
+            var hasLinux = val.Any(x => x.StartsWith("linux-"));
+
             Dictionary<DeploymentMode, string[]> publishDict = new()
             {
                 { DeploymentMode.SCD, val },
             };
-            var fde_val = val.Where(x => x.StartsWith("win-")).ToArray(); // 仅 Windows 发行依赖部署(FDE) 包
-            if (fde_val.Any()) publishDict.Add(DeploymentMode.FDE, fde_val);
 
-            // X. (本地)将发布 Host 入口点重定向到 Bin 目录中
-            var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
-            await Task.WhenAll(hpTasks);
+            if (hasWindows)
+            {
+                var fde_val = val.Where(x => x.StartsWith("win-")).ToArray(); // 仅 Windows 发行依赖部署(FDE) 包
+                if (fde_val.Any()) publishDict.Add(DeploymentMode.FDE, fde_val);
+
+                // X. (本地)将发布 Host 入口点重定向到 Bin 目录中
+                var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
+                await Task.WhenAll(hpTasks);
+            }
 
             List<PublishDirInfo> publishDirs = new();
             // 5. (本地)验证发布文件夹与计算文件哈希
@@ -89,40 +128,85 @@ namespace System.Application.Steps
                 var dirNames = ScanDirectory(item.Key, item.Value, dev);
                 if (dirNames.Any_Nullable()) publishDirs.AddRange(dirNames!);
             }
-            var linux_publishDirs = publishDirs.Where(x => x.Name.StartsWith("linux-"));
 
             // 8. (本地)读取上一步操作后的 Publish.json 生成压缩包并计算哈希值写入 Publish.json
             var parallelTasks = new List<Task>();
+
+            Console.WriteLine("7z Step 正在创建压缩包...");
 
             // 创建压缩包
             var gs = publishDirs.Select(x => Task.Run(() => GenerateCompressedPackage(dev, x)));
             parallelTasks.AddRange(gs);
 
-            // Create a CentOS/RedHat Linux installer
-            Step_rpm.Init();
-            var rpms = linux_publishDirs.Select(x => Task.Run(() => Step_rpm.HandlerItem(dev, x)));
-            parallelTasks.AddRange(rpms);
-
-            // Create a Ubuntu/Debian Linux installer
-            var debs = linux_publishDirs.Select(x => Task.Run(() => Step_deb.HandlerItem(dev, x)));
-            parallelTasks.AddRange(debs);
-
             await Task.WhenAll(parallelTasks);
+            parallelTasks.Clear();
 
-            // 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
-            StepRel.Handler2(endWriteOK: false);
-
-            // wdb 11. (云端)读取上一步上传的数据写入数据库中
-            var request = new UpdateVersionRequest
+            if (hasWindows)
             {
-                Version = GetVersion(dev),
-                DirNames = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray(),
-            };
-            using var client = GetHttpClient(token, dev);
-            using var rsp = await client.PutAsJsonAsync(api_version_create, request);
-            IApiResponse? apiResponse = await rsp.Content.ReadFromJsonAsync<ApiResponseImpl>();
-            apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
-            if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
+                var win_publishDirs = publishDirs.Where(x => x.Name.StartsWith("win-"));
+
+                Console.WriteLine("nsis Step 正在打包 EXE installer...");
+
+                NSISBuild(dev, win_publishDirs);
+            }
+
+            if (hasLinux)
+            {
+                var linux_publishDirs = publishDirs.Where(x => x.Name.StartsWith("linux-"));
+
+                Console.WriteLine("rpm Step 正在打包 CentOS/RedHat Linux installer...");
+
+                // Create a CentOS/RedHat Linux installer
+                Step_rpm.Init();
+                var rpms = linux_publishDirs.Select(x => Task.Run(() => Step_rpm.HandlerItem(dev, x)));
+                parallelTasks.AddRange(rpms);
+
+                await Task.WhenAll(parallelTasks);
+                parallelTasks.Clear();
+
+                Console.WriteLine("deb Step 正在打包 Ubuntu/Debian Linux installer...");
+
+                // Create a Ubuntu/Debian Linux installer
+                var debs = linux_publishDirs.Select(x => Task.Run(() => Step_deb.HandlerItem(dev, x)));
+                parallelTasks.AddRange(debs);
+
+                await Task.WhenAll(parallelTasks);
+                parallelTasks.Clear();
+            }
+
+            #region rel 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
+
+            //Console.WriteLine("rel Step 正在写入 SHA256...");
+
+            //// 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
+            //StepRel.Handler2(endWriteOK: false);
+
+            #endregion
+
+            var winX64 = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray();
+            if (winX64.Any())
+            {
+                Console.WriteLine("wdb Step 正在上传新版本数据中...");
+
+                // wdb 11. (云端)读取上一步上传的数据写入数据库中
+                var request = new UpdateVersionRequest
+                {
+                    Version = GetVersion(dev),
+                    DirNames = winX64,
+                };
+                using var client = GetHttpClient(token, dev);
+                using var req = GetRequestContent(request);
+                using var rsp = await client.PutAsync(api_version_create, req);
+                if (rsp.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    var html = await rsp.Content.ReadAsStringAsync();
+                    throw new HttpRequestException(html);
+                }
+                rsp.EnsureSuccessStatusCode();
+                var apiResponse = await GetResponseAsync(rsp);
+                apiResponse = apiResponse.ThrowIsNull(nameof(apiResponse));
+                if (!apiResponse.IsSuccess) throw new Exception(apiResponse.Message);
+            }
 
             Console.WriteLine("OK");
         }
@@ -163,13 +247,21 @@ namespace System.Application.Steps
             return dirNames;
         }
 
-        /// <summary>
-        /// 根据文件清单生成压缩包
-        /// </summary>
-        /// <param name="item"></param>
+
         static void GenerateCompressedPackage(bool dev, PublishDirInfo item)
         {
             var type = GetCompressedTypeByRID(item.Name);
+            GenerateCompressedPackage(dev, item, type);
+        }
+
+        /// <summary>
+        /// 根据文件清单生成压缩包
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <param name="item"></param>
+        /// <param name="type"></param>
+        public static void GenerateCompressedPackage(bool dev, PublishDirInfo item, AppDownloadType type)
+        {
             var fileEx = GetFileExByCompressedType(type);
 
             var packPath = GetPackPath(dev, item, fileEx);
@@ -181,13 +273,20 @@ namespace System.Application.Steps
             using var fileStream = File.OpenRead(packPath);
             var sha256 = Hashs.String.SHA256(fileStream);
 
+            var fileInfoM = new PublishFileInfo
+            {
+                SHA256 = sha256,
+                Length = fileStream.Length,
+                Path = packPath,
+            };
+
             if (item.BuildDownloads.ContainsKey(type))
             {
-                item.BuildDownloads[type] = new PublishFileInfo { SHA256 = sha256, Length = fileStream.Length };
+                item.BuildDownloads[type] = fileInfoM;
             }
             else
             {
-                item.BuildDownloads.Add(type, new PublishFileInfo { SHA256 = sha256, Length = fileStream.Length });
+                item.BuildDownloads.Add(type, fileInfoM);
             }
         }
 
@@ -298,14 +397,125 @@ namespace System.Application.Steps
         {
             var client = new HttpClient
             {
-                BaseAddress = new Uri(dev ? dev_api_base_url : api_base_url)
+                BaseAddress = new Uri(dev ? dev_api_base_url : api_base_url),
+                DefaultRequestVersion = HttpVersion.Version20,
+                DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher,
             };
-            client.DefaultRequestHeaders.Authorization = new(token);
+            client.DefaultRequestHeaders.Add(AppIdWithPublicKey.AuthorizationToken, token);
             return client;
         }
 
-        const string dev_api_base_url = "https://https://pan.mossimo.net:8862";
+        static HttpContent GetRequestContent<T>(T request)
+        {
+            //var bytes = Serializable.SMP(request);
+            //var content = new ByteArrayContent(bytes);
+            //content.Headers.ContentType = new(MediaTypeNames.MessagePack);
+            //return content;
+
+            var json = Serializable.SJSON_Original(request);
+            var content = new StringContent(json, Encoding.UTF8, MediaTypeNames.JSON);
+            return content;
+        }
+
+        static async Task<IApiResponse<T>> GetResponseAsync<T>(HttpResponseMessage responseMessage)
+        {
+            //using var stream = await responseMessage.Content.ReadAsStreamAsync();
+            //return await ApiResponse.DeserializeAsync<T>(stream, default);
+
+            var json = await responseMessage.Content.ReadAsStringAsync();
+            return Serializable.DJSON_Original<ApiResponseImpl<T>>(json)!;
+        }
+
+        static async Task<IApiResponse> GetResponseAsync(HttpResponseMessage responseMessage)
+        {
+            //using var stream = await responseMessage.Content.ReadAsStreamAsync();
+            //return await ApiResponse.DeserializeAsync<object>(stream, default);
+
+            var json = await responseMessage.Content.ReadAsStringAsync();
+            return Serializable.DJSON_Original<ApiResponseImpl>(json)!;
+        }
+
+        const string dev_api_base_url = "https://pan.mossimo.net:9911";
         const string api_base_url = "https://cycyadmin.steampp.net";
         const string api_version_create = "/api/version";
+
+        static string GetFullVersion(bool dev)
+        {
+            Version version = new(GetVersion(dev));
+            return $"{version.Major}.{GetInt32ByVersion(version.Minor)}.{GetInt32ByVersion(version.Build)}.{GetInt32ByVersion(version.Revision)}";
+
+            static int GetInt32ByVersion(int value) => value < 0 ? 0 : value;
+        }
+
+        const string AigioPC = "ee6c36c1bbf6076e5f915b12cd3c7d034f0d6f45b71c934529ba9f9faba72735084399e6039375501c8fbabc245ac3a3";
+        static readonly string MachineName = Hashs.String.SHA384(Environment.MachineName);
+
+        static void NSISBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
+        {
+            string rootDirPath;
+            if (MachineName == AigioPC)
+            {
+                rootDirPath = Path.Combine(projPath, "..", "NSIS");
+            }
+            else
+            {
+                rootDirPath = Path.Combine(projPath, "NSIS-Build");
+            }
+            if (!Directory.Exists(rootDirPath))
+            {
+                Console.WriteLine($"找不到 NSIS-Build 目录，值：{rootDirPath}");
+                return;
+            }
+
+            var nsiFilePath = Path.Combine(rootDirPath, "AppCode", "Steampp", "app", "SteamPP_setup.nsi");
+            var nsiFileContent = File.ReadAllText(nsiFilePath);
+
+            var version = GetFullVersion(dev);
+
+            var appFileDirPath = Path.Combine(rootDirPath, "AppCode", "Steampp");
+            //var batFilePath = Path.Combine(rootDirPath, "steam++.bat");
+            var nsisExeFilePath = Path.Combine(rootDirPath, "NSIS", "makensis.exe");
+            foreach (var item in publishDirs)
+            {
+                var install7zFilePath = item.BuildDownloads[AppDownloadType.Compressed_7z].Path;
+                var outputFileName = Path.GetFileNameWithoutExtension(install7zFilePath) + FileEx.EXE;
+                var outputFilePath = Path.Combine(new FileInfo(install7zFilePath).DirectoryName!, outputFileName);
+
+                var nsiFileContent2 = nsiFileContent
+                     .Replace("${{ Steam++_Version }}", version)
+                     .Replace("${{ Steam++_OutPutFileName }}", outputFileName)
+                     .Replace("${{ Steam++_AppFileDir }}", appFileDirPath)
+                     .Replace("${{ Steam++_7zFilePath }}", install7zFilePath)
+                     .Replace("${{ Steam++_OutPutFilePath }}", outputFilePath)
+                     ;
+                File.WriteAllText(nsiFilePath, nsiFileContent2);
+
+                var process = Process.Start(new ProcessStartInfo()
+                {
+                    FileName = nsisExeFilePath,
+                    Arguments = $" /DINSTALL_WITH_NO_NSIS7Z=1 \"{nsiFilePath}\"",
+                    UseShellExecute = false,
+                });
+
+                process!.WaitForExit();
+            }
+        }
+
+        static void OSXBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
+        {
+            var shExeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            shExeFilePath = Path.Combine(shExeFilePath, "Git", "bin", "sh.exe");
+
+            if (!File.Exists(shExeFilePath))
+            {
+                Console.WriteLine($"找不到 sh 文件，值：{shExeFilePath}");
+                return;
+            }
+
+            var CFBundleVersion = GetFullVersion(dev);
+            var CFBundleShortVersionString = CFBundleVersion.TrimEnd(".0");
+
+            // ...TODO
+        }
     }
 }

@@ -202,7 +202,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>不受支援的手機號碼號段({0})</value>
+    <value>不受支援的手機號碼號段（{0}）</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -1,4 +1,6 @@
 using System.Application.Models;
+using System.Application.UI.Resx;
+using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -13,7 +15,10 @@ namespace System.Application.Services.Implementation
         public const string xdg = "xdg-open";
         public const string vi = "vi";
         public const string VSC = "code";
-
+        /// <summary>
+        /// 临时 保存用户系统密码
+        /// </summary> 
+        public string SystemUserPassword { get; set; } = string.Empty;
         public LinuxPlatformServiceImpl()
         {
             // 平台服务依赖关系过于复杂，在构造函数中不得注入任何服务，由函数中延时加载调用服务
@@ -152,6 +157,94 @@ namespace System.Application.Services.Implementation
             }
             ((IPlatformService)this).RunShell(shellContent.ToString(), false);
             return true;
+        }
+
+        public void SystemLock(int waitSecond = 30)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async void SystemShutdown(int waitSecond = 30)
+        {
+            await Task.Delay(waitSecond);
+            RunShell($"echo \"{SystemUserPassword}\" | sudo shutdown -h now");
+        }
+
+        public async void SystemSleep(int waitSecond = 30)
+        {
+            await Task.Delay(waitSecond);
+
+            RunShell($"echo \"{SystemUserPassword}\" | sudo sh -c \" echo mem > /sys/pwoer/state\"");
+            //await ((IPlatformService)this).RunShellAsync("sudo sh -c \" echo mem > /sys/pwoer/state\"", false);
+
+        }
+
+        public async void SystemHibernate(int waitSecond = 30)
+        {
+
+            await Task.Delay(waitSecond);
+            RunShell($"echo \"{SystemUserPassword}\" | sudo sh -c \" echo disk > /sys/pwoer/state\"");
+        }
+        private string RunShell(string shell)
+        {
+            try
+            {
+                using var p = new Process();
+                p.StartInfo.FileName = UnixHelper.BinBash;
+                p.StartInfo.Arguments = "";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.UseShellExecute = false;
+                p.Start();
+                p.StandardInput.WriteLine(shell);
+                //p.StandardInput.WriteLine(SystemUserPassword);
+                p.StandardInput.Close();
+                string result = p.StandardOutput.ReadToEnd();
+                p.StandardOutput.Close();
+                p.WaitForExit();
+                p.Close();
+                p.Dispose();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Log.Error("Shell Error", e, "Run Shell Error");
+                Toast.Show(e);
+            }
+            return string.Empty;
+        }
+
+        public async void TryGetSystemUserPassword(sbyte retry_count = 4)
+        {
+            if (string.IsNullOrWhiteSpace(SystemUserPassword))
+            {
+                TextBoxWindowViewModel vm = new()
+                {
+                    Title = AppResources.LinuxSudoTips,
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.Password
+                };
+                var pwd = await TextBoxWindowViewModel.ShowDialogAsync(vm);
+                if (!string.IsNullOrWhiteSpace(pwd))
+                { 
+                    if (!string.IsNullOrWhiteSpace(RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"")))
+                    {
+                        SystemUserPassword = pwd;
+                    }
+                    else
+                    {
+                        //密码错误重试3次
+                        retry_count--;
+                        if (retry_count > 0)
+                            TryGetSystemUserPassword(retry_count);
+                        else
+                        {
+                            vm.Title = AppResources.LocalAuth_ProtectionAuth_PasswordError;
+                            vm.InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText;
+                            vm.Show();
+                        }
+                    }
+                }
+            }
         }
     }
 }

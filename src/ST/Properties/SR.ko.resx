@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>서비스 오류 {0} - 로그인 자격 증명이 만료되었습니다. 다시 로그인하십시오</value>
+    <value>서버 오류 {0} - 로그인 자격 증명이 만료되었습니다. 다시 로그인하십시오</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
-    <value>바인딩에 실패했으며 이 계정은 이미 다른 사용자가 바인딩했습니다</value>
+    <value>바인딩에 실패했으며 이 계정은 다른 사용자에 의해 바인딩되었습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
@@ -130,15 +130,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
-    <value>콘텐츠 값은 비어 있거나 올바르지 않을 수 없습니다</value>
+    <value>콘텐츠 값은 비어 있거나 올바르지 않을 수 있습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>인증 코드 획득 횟수가 오늘 한도에 도달했습니다</value>
+    <value>인증 코드 획득 횟수가 오늘의 상한에 도달했습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>조작이 좀 자주 오, 1분 후에 다시 해보자</value>
+    <value>조작이 좀 빈번해요. 1분 후에 다시 해보세요</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
@@ -146,23 +146,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在" xml:space="preserve">
-    <value>이 핸드폰 번호는 이미 사용중이에요</value>
+    <value>이 핸드폰 번호는 이미 사용 중이에요</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_换绑手机" xml:space="preserve">
-    <value>이 핸드폰 번호가 이미 바인딩돼 있어요</value>
+    <value>이 핸드폰 번호는 이미 묶여 있어요</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_注册" xml:space="preserve">
-    <value>이 핸드폰 번호가 이미 등록돼 있어요</value>
+    <value>이 핸드폰 번호는 이미 등록되어 있어요</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
-    <value>새 휴대폰 번호는 이전 휴대폰 번호와 동일할 수 없습니다</value>
+    <value>새 휴대폰 번호는 이전 휴대폰 번호와 같을 수 없습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>별명의 최대 길이는 두 단어를 {0} 수 없습니다</value>
+    <value>별명의 최대 길이는 {0} 단어를 초과할 수 없습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>서비스 측 오류 5001 - SMS 서비스</value>
+    <value>서버 측 오류 5001 - SMS 서비스</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
@@ -178,7 +178,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入手机号码哦" xml:space="preserve">
-    <value>휴대 전화 번호를 입력하십시오</value>
+    <value>휴대폰 번호를 입력하십시오</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入昵称" xml:space="preserve">
@@ -194,7 +194,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入短信验证码哦" xml:space="preserve">
-    <value>문자 메시지 확인 코드를 입력하십시오</value>
+    <value>문자 확인 코드를 입력하십시오</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入邀请码哦" xml:space="preserve">
@@ -206,11 +206,31 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
-    <value>인증 코드가 올바르지 않습니다</value>
+    <value>확인 코드가 올바르지 않습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
-    <value>인증 코드가 잘못되었거나 만료되었습니다</value>
+    <value>확인 코드가 잘못되었거나 만료되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DownloadUpdateFail" xml:space="preserve">
+    <value>업데이트 패키지를 다운로드하지 못한 경우 공식 웹 사이트에서 새 버전의 수동 업데이트를 다운로드하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateEnumOutOfRange" xml:space="preserve">
+    <value>업데이트 패키지 정보 확인에 실패했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
+    <value>업데이트 패키지 캐시 파일 확인에 실패하고 오류가 제거 {0}되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdatePackVerificationFail" xml:space="preserve">
+    <value>파일 확인에 실패했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UpdateUnpackFail" xml:space="preserve">
+    <value>업데이트 패키지의 압축을 풀지 못했습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

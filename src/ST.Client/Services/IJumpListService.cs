@@ -8,6 +8,8 @@ namespace System.Application.Services
     /// </summary>
     public interface IJumpListService
     {
+        protected const string TAG = "JumpListS";
+
         static IJumpListService Instance => DI.Get<IJumpListService>();
 
         void InitJumpList();

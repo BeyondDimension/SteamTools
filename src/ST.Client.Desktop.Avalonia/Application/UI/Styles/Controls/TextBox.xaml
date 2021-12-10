@@ -72,7 +72,7 @@
     <Style Selector="TextBox">
         <!--<Setter Property="FontFamily" Value="Microsoft YaHei UI,Microsoft YaHei,Simsun,苹方-简,宋体-简"></Setter>-->
         <!--<Setter Property="FontFamily" Value="{StaticResource UnicodeFont}" />-->
-        <!--<Setter Property="ContextMenu" Value="{StaticResource DefaultTextBoxContextMenu}" />-->
+        <Setter Property="ContextMenu" Value="{x:Null}" />
         <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
 
         <Setter Property="Template">

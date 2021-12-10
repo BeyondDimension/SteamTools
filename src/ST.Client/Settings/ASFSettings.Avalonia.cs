@@ -7,7 +7,7 @@ namespace System.Application.Settings
 {
     partial class ASFSettings
     {
-        static readonly SerializableProperty<string>? _ConsoleFontName = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: IFontManager.KEY_DefaultConsole, autoSave: true) : null;
+        static readonly SerializableProperty<string>? _ConsoleFontName = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: IFontManager.KEY_Default, autoSave: true) : null;
         /// <summary>
         /// 字体
         /// </summary>

@@ -71,7 +71,7 @@ namespace System.Application.Services
 
         string? TwoLevelAgentPassword { get; set; }
 
-        string? ProxyDNS { get; set; }
+        IPAddress? ProxyDNS { get; set; }
 
         bool ProxyRunning { get; }
 
@@ -81,7 +81,7 @@ namespace System.Application.Services
 
         bool PortInUse(int port);
 
-        bool StartProxy();
+        Task<bool> StartProxy();
 
         void StopProxy();
 

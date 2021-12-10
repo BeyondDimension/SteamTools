@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <!--<DefineConstants>StartupTrace;$(DefineConstants)</DefineConstants>-->
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFramework>net6.0</TargetFramework>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
     <RootNamespace>System.Application.UI</RootNamespace>
@@ -24,11 +24,27 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>-->
 
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'linux-x64' Or '$(ExtraDefineConstants)' == 'linux-arm64' Or '$(ExtraDefineConstants)' == 'dev-linux-x64' Or '$(ExtraDefineConstants)' == 'dev-linux-arm64' ">
+    <DefineConstants>PUBLISH;LINUX;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'osx-x64' Or '$(ExtraDefineConstants)' == 'dev-osx-x64'  ">
+    <DefineConstants>MAC;PUBLISH;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'win-x64' Or '$(ExtraDefineConstants)' == 'dev-win-x64' ">
+    <DefineConstants>PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'fd-win-x64' Or '$(ExtraDefineConstants)' == 'dev-fd-win-x64' ">
+    <DefineConstants>FRAMEWORK_DEPENDENT;PUBLISH;PUBLISH_WIN7;WINDOWS;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <TargetFrameworks>net6.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
     <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
@@ -38,13 +54,13 @@
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>MAC;$(DefineConstants)</DefineConstants>
-    <!--<TargetFrameworks>net6.0-macos</TargetFrameworks>-->
+    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <DefineConstants>LINUX;$(DefineConstants)</DefineConstants>
-    <!--<TargetFrameworks>net6.0</TargetFrameworks>-->
+    <!--<TargetFramework>net6.0</TargetFramework>-->
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
@@ -94,7 +110,7 @@
   <!--<ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
     <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj"/>
   </ItemGroup>-->
-
+ 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />

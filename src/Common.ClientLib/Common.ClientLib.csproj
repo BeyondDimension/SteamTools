@@ -23,7 +23,8 @@
     <PackageReference Include="Splat" />
     <PackageReference Include="DynamicData" />
     <PackageReference Include="Xamarin.Essentials" />
-    <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" />
+    <PackageReference Include="System.Reactive" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' " />
+    <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' != 'true' " />
   </ItemGroup>
 
   <ItemGroup>

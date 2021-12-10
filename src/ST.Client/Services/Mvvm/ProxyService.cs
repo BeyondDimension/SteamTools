@@ -41,133 +41,17 @@ namespace System.Application.Services
 
             ProxyDomains
                 .Connect()
-                //.Filter(scriptFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<AccelerateProjectGroupDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
                 .Bind(out _ProxyDomainsList)
                 .Subscribe(_ => SelectGroup = ProxyDomains.Items.FirstOrDefault());
-        }
 
-        public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
 
-        private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomainsList;
-        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? ProxyDomainsList => _ProxyDomainsList;
-
-        bool _IsLoading;
-        public bool IsLoading
-        {
-            get => _IsLoading;
-            set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
-        }
-
-        private AccelerateProjectGroupDTO? _SelectGroup;
-        public AccelerateProjectGroupDTO? SelectGroup
-        {
-            get => _SelectGroup;
-            set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
-        }
-
-        public SourceList<ScriptDTO> ProxyScripts { get; }
-
-        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
-        {
-            get
-            {
-                if (!ProxyDomains.Items.Any_Nullable())
-                    return null;
-                return ProxyDomains.Items
-                    .Where(x => x.Items != null)
-                    .SelectMany(s => s.Items!.Where(w => w.Enable))
-                    .ToArray();
-            }
-        }
-
-        public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts
-        {
-            get
-            {
-                //if (!IsEnableScript)
-                //return null;
-                if (!ProxyScripts.Items.Any_Nullable())
-                    return null;
-                return ProxyScripts.Items!.Where(w => w.Enable).ToArray();
-            }
-        }
-
-        private DateTimeOffset _StartAccelerateTime;
-
-        private TimeSpan _AccelerateTime;
-        public TimeSpan AccelerateTime
-        {
-            get => _AccelerateTime;
-            set
-            {
-                if (_AccelerateTime != value)
+            this.WhenValueChanged(x => x.ProxyStatus, false)
+                .Subscribe(async x =>
                 {
-                    _AccelerateTime = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
-
-        public bool IsEnableScript
-        {
-            get => ProxySettings.IsEnableScript.Value;
-            set
-            {
-                ProxySettings.IsEnableScript.Value = value;
-                httpProxyService.IsEnableScript = value;
-                this.RaisePropertyChanged();
-                this.RaisePropertyChanged(nameof(EnableProxyScripts));
-            }
-        }
-
-        public bool IsOnlyWorkSteamBrowser
-        {
-            get => ProxySettings.IsOnlyWorkSteamBrowser.Value;
-            set
-            {
-                if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
-                {
-                    ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
-                    httpProxyService.IsOnlyWorkSteamBrowser = value;
-                    this.RaisePropertyChanged();
-                }
-            }
-        }
-
-        #region HOSTS_PROXY_RUNNING_STATUS
-
-        //const string KEY_HOSTS_PROXY_RUNNING_STATUS = "KEY_HOSTS_PROXY_RUNNING_STATUS";
-        //static async void SaveHostsProxyStatus(bool value)
-        //{
-        //    await ISecureStorage.Instance.SetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS, value);
-        //}
-
-        //public static async Task<bool> GetHostsProxyStatusAsync()
-        //{
-        //    var r = await ISecureStorage.Instance.GetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS);
-        //    return r;
-        //}
-
-        #endregion
-
-        #region 代理状态启动退出
-        public bool ProxyStatus
-        {
-            get { return httpProxyService.ProxyRunning; }
-            set
-            {
-                if (value != httpProxyService.ProxyRunning)
-                {
-                    if (value)
+                    if (x)
                     {
-                        //if (EnableProxyDomains.Any_Nullable())
-                        //{
-                        //Toast.Show(AppResources.CommunityFix_NoSelectAcceleration);
-                        //return;
-                        //httpProxyService.ProxyDomains = EnableProxyDomains;
-                        //}
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.Scripts = EnableProxyScripts;
@@ -192,7 +76,8 @@ namespace System.Application.Services
                         httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
                         httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 
-                        httpProxyService.ProxyDNS = ProxySettings.ProxyMasterDns.Value;
+                        if (IPAddress.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns))
+                            httpProxyService.ProxyDNS = dns;
 
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
@@ -218,7 +103,7 @@ namespace System.Application.Services
                             }
                         }
 
-                        var isRun = httpProxyService.StartProxy();
+                        var isRun = await httpProxyService.StartProxy();
 
                         if (isRun)
                         {
@@ -300,9 +185,112 @@ namespace System.Application.Services
                         OnStopRemoveHostsByTag();
                         //Toast.Show(SteamTools.Properties.Resources.ProxyStop);
                     }
+                });
+        }
+
+        public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
+
+        private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomainsList;
+        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? ProxyDomainsList => _ProxyDomainsList;
+
+        bool _IsLoading;
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
+        }
+
+        private AccelerateProjectGroupDTO? _SelectGroup;
+        public AccelerateProjectGroupDTO? SelectGroup
+        {
+            get => _SelectGroup;
+            set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
+        }
+
+        public SourceList<ScriptDTO> ProxyScripts { get; }
+
+        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
+        {
+            get
+            {
+                if (!ProxyDomains.Items.Any_Nullable())
+                    return null;
+                return ProxyDomains.Items
+                    .Where(x => x.Items != null)
+                    .SelectMany(s => s.Items!.Where(w => w.Enable))
+                    .ToArray();
+            }
+        }
+
+        public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts
+        {
+            get
+            {
+                //if (!IsEnableScript)
+                //return null;
+                if (!ProxyScripts.Items.Any_Nullable())
+                    return null;
+                return ProxyScripts.Items!.Where(w => w.Enable).ToArray();
+            }
+        }
+
+        private DateTimeOffset _StartAccelerateTime;
+
+        private TimeSpan _AccelerateTime;
+        public TimeSpan AccelerateTime
+        {
+            get => _AccelerateTime;
+            set => this.RaiseAndSetIfChanged(ref _AccelerateTime, value);
+        }
+
+        public bool IsEnableScript
+        {
+            get => ProxySettings.IsEnableScript.Value;
+            set
+            {
+                ProxySettings.IsEnableScript.Value = value;
+                httpProxyService.IsEnableScript = value;
+                this.RaisePropertyChanged();
+                this.RaisePropertyChanged(nameof(EnableProxyScripts));
+            }
+        }
+
+        public bool IsOnlyWorkSteamBrowser
+        {
+            get => ProxySettings.IsOnlyWorkSteamBrowser.Value;
+            set
+            {
+                if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
+                {
+                    ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
+                    httpProxyService.IsOnlyWorkSteamBrowser = value;
                     this.RaisePropertyChanged();
                 }
             }
+        }
+
+        #region HOSTS_PROXY_RUNNING_STATUS
+
+        //const string KEY_HOSTS_PROXY_RUNNING_STATUS = "KEY_HOSTS_PROXY_RUNNING_STATUS";
+        //static async void SaveHostsProxyStatus(bool value)
+        //{
+        //    await ISecureStorage.Instance.SetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS, value);
+        //}
+
+        //public static async Task<bool> GetHostsProxyStatusAsync()
+        //{
+        //    var r = await ISecureStorage.Instance.GetAsync<bool>(KEY_HOSTS_PROXY_RUNNING_STATUS);
+        //    return r;
+        //}
+
+        #endregion
+
+        #region 代理状态启动退出
+        private bool _ProxyStatus;
+        public bool ProxyStatus
+        {
+            get { return _ProxyStatus; }
+            set => this.RaiseAndSetIfChanged(ref _ProxyStatus, value);
         }
         #endregion
 
@@ -418,10 +406,6 @@ namespace System.Application.Services
 
         private void LoadOrSaveLocalAccelerate()
         {
-            // https://appcenter.ms/orgs/BeyondDimension/apps/Steam/crashes/errors/1815188879u/overview
-            // FileStreamHelpers.ValidateFileHandle (SafeFileHandle fileHandle, String path, Boolean useAsyncIO)
-            // System.Private.CoreLib.dll:token 0x6005b56+0x, line 27
-            // System.IO.IOException: IO_SharingViolation_File, \AppData\LOCAL_ACCELERATE.json
             var filepath = Path.Combine(IOPath.AppDataDirectory, "LOCAL_ACCELERATE.json");
             if (ProxyDomains.Items.Any_Nullable())
             {
@@ -429,7 +413,7 @@ namespace System.Application.Services
                 {
                     using var stream = fileStream;
                     using var writer = new StreamWriter(stream, Encoding.UTF8);
-                    var content = Serializable.SJSON_Original(ProxyDomains.Items);
+                    var content = Serializable.SMPB64U(ProxyDomains.Items);
                     writer.Write(content);
                     writer.Flush();
                 }
@@ -445,10 +429,11 @@ namespace System.Application.Services
                     List<AccelerateProjectGroupDTO>? accelerates = null;
                     try
                     {
-                        accelerates = Serializable.DJSON_Original<List<AccelerateProjectGroupDTO>>(content);
+                        accelerates = Serializable.DMPB64U<List<AccelerateProjectGroupDTO>>(content);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Log.Error(nameof(ProxyService), ex, nameof(LoadOrSaveLocalAccelerate));
                     }
                     if (accelerates.Any_Nullable())
                         ProxyDomains.AddRange(accelerates!);

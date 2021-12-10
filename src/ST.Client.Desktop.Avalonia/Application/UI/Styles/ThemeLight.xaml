@@ -21,7 +21,7 @@
         <Color x:Key="ThemeColorKey">#AAFFFFFF</Color>
         <SolidColorBrush x:Key="ThemeBrushKey" Color="{StaticResource ThemeColorKey}" />
 
-        <Color x:Key="BackgroundColorKey">#FFFCFCFC</Color>
+        <Color x:Key="BackgroundColorKey">#EEF3F3F3</Color>
         <SolidColorBrush x:Key="BackgroundBrushKey" Color="{StaticResource BackgroundColorKey}" />
 
         <Color x:Key="BorderColorKey">#FFB9B9C0</Color>

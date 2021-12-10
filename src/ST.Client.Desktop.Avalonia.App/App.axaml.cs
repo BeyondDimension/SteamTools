@@ -180,9 +180,9 @@ namespace System.Application.UI
             StartupTrace.Restart("App.SetP");
 #endif
             //SettingsHost.Load();
+            IPlatformService.Instance.SetSystemSessionEnding(() => Shutdown());
             var vmService = IViewModelManager.Instance;
             vmService.InitViewModels();
-            IPlatformService.Instance.SetSystemSessionEnding(() => Shutdown());
 #if StartupTrace
             StartupTrace.Restart("WindowService.Init");
 #endif

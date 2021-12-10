@@ -6,13 +6,13 @@
 
 「Steam++」是一个包含多种Steam工具功能的工具箱，此工具的大部分功能都是需要您下载安装Steam才能使用。
 
-![Release Download](https://img.shields.io/github/downloads/SteamTools-Team/SteamTools/total?style=flat-square)
-[![Release Version](https://img.shields.io/github/v/release/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/releases/latest)
-[![GitHub license](https://img.shields.io/github/license/SteamTools-Team/SteamTools?style=flat-square)](LICENSE)
-[![GitHub Star](https://img.shields.io/github/stars/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/stargazers)
-[![GitHub Fork](https://img.shields.io/github/forks/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/network/members)
-![GitHub Repo size](https://img.shields.io/github/repo-size/SteamTools-Team/SteamTools?style=flat-square&color=3cb371)
-[![GitHub Repo Languages](https://img.shields.io/github/languages/top/SteamTools-Team/SteamTools?style=flat-square)](https://github.com/SteamTools-Team/SteamTools/search?l=c%23)
+![Release Download](https://img.shields.io/github/downloads/BeyondDimension/SteamTools/total?style=flat-square)
+[![Release Version](https://img.shields.io/github/v/release/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/releases/latest)
+[![GitHub license](https://img.shields.io/github/license/BeyondDimension/SteamTools?style=flat-square)](LICENSE)
+[![GitHub Star](https://img.shields.io/github/stars/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/stargazers)
+[![GitHub Fork](https://img.shields.io/github/forks/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/network/members)
+![GitHub Repo size](https://img.shields.io/github/repo-size/BeyondDimension/SteamTools?style=flat-square&color=3cb371)
+[![GitHub Repo Languages](https://img.shields.io/github/languages/top/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/search?l=c%23)
 [![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://github.com/dotnet/core/blob/main/release-notes/6.0/6.0.0/6.0.0.md?WT.mc_id=dotnet-35129-website)
 [![C# 10.0](https://img.shields.io/badge/c%23-10.0-brightgreen.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-10)
 
@@ -21,8 +21,8 @@
 [![Official WebSite](https://img.shields.io/badge/website@official-Ant%20Design%20of%20React-blue.svg?style=flat-square&color=61dafb)](https://github.com/ant-design/ant-design)
 [![BackManage WebSite](https://img.shields.io/badge/website@back_manage-Ant%20Design%20of%20Blazor-purple.svg?style=flat-square&color=512bd4)](https://github.com/ant-design-blazor/ant-design-blazor)
 
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSteamTools-Team%2FSteamTools%2Fbadge%3Fref%3Ddevelop&style=flat-square)](https://actions-badge.atrox.dev/SteamTools-Team/SteamTools/goto?ref=develop)
-[![GitHub Star](https://img.shields.io/github/stars/SteamTools-Team/SteamTools.svg?style=social)](https://github.com/SteamTools-Team/SteamTools)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSteamTools-Team%2FSteamTools%2Fbadge%3Fref%3Ddevelop&style=flat-square)](https://actions-badge.atrox.dev/BeyondDimension/SteamTools/goto?ref=develop)
+[![GitHub Star](https://img.shields.io/github/stars/BeyondDimension/SteamTools.svg?style=social)](https://github.com/BeyondDimension/SteamTools)
 [![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
 [![QQ群](https://img.shields.io/badge/QQ群-960746023-blue.svg?style=flat-square&color=12b7f5)](https://jq.qq.com/?_wv=1027&k=3JKPt4xC)
 </div>
@@ -30,7 +30,7 @@
 <div align="center"><img src="./resources/screenshots.jpg" /></div>
 
 ## 🚀 下载渠道
-- [GitHub Releases](https://github.com/SteamTools-Team/SteamTools/releases)
+- [GitHub Releases](https://github.com/BeyondDimension/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
 - [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
@@ -152,7 +152,7 @@ OS                            | Version                 | Architectures     |
 - Xbox or Windows Mobile / Phone
 
 ## 🌏 路线图
-查看这个 [milestones](https://github.com/SteamTools-Team/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
+查看这个 [milestones](https://github.com/BeyondDimension/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
 
 ## ⌨️ 开发环境
 [Visual Studio 2022](https://visualstudio.microsoft.com/zh-hans/vs/)   

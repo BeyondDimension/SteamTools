@@ -5,10 +5,14 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:ms="using:System.Application.Settings"
              xmlns:models="using:System.Application.Models"
+             x:Name="u"
+             FontSize="16"
+             FontFamily="{StaticResource UnicodeFont}"
              x:Class="System.Application.UI.Views.Controls.ConsoleShell">
   <UserControl.Styles>
     <Style Selector="TextBox">
-      <Setter Property="FontSize" Value="14"></Setter>
+      <Setter Property="FontSize" Value="{ReflectionBinding #u.FontSize}"></Setter>
+      <Setter Property="FontFamily" Value="{ReflectionBinding #u.FontFamily}"></Setter>
       <Setter Property="Padding" Value="0"></Setter>
       <Setter Property="Margin" Value="0"></Setter>
       <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
@@ -28,18 +32,17 @@
         <TextBox x:Name="LogTextbox"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
                  IsVisible="False"
                  Classes="readonlybox"
                  IsReadOnly="True"
+                 Focusable="False"
                  TextWrapping="Wrap"/>
         <DockPanel Grid.Row="1">
           <TextBlock Text=">"
-                     FontFamily="{StaticResource UnicodeFont}"
+                     FontFamily="{ReflectionBinding #u.FontFamily}"
                      Margin="0 0 5 0"
                      HorizontalAlignment="Left"
-                     VerticalAlignment="Center"
-                     FontSize="16"/>
+                     VerticalAlignment="Center"/>
           <!--<TextBox x:Name="CommandTextbox"
                    Classes="readonlybox"
                    IsReadOnly="False"

@@ -54,7 +54,7 @@
       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="android:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxy"
+      android:hint="android:xxxyxxxy-xxxy-xxxy-xxxy-xxxyxxxyxxxy"
       app:endIconMode="clear_text"
       tools:ignore="HardcodedText"
       xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
@@ -86,7 +86,7 @@
       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="{''shared_secret'':''abcd..."
+      android:hint="{''shared_secret'':''xxxy..."
       app:endIconMode="clear_text"
       tools:ignore="HardcodedText"
       xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">

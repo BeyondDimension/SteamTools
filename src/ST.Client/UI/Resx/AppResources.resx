@@ -48,12 +48,12 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-            : 
+    
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
-            : 
+
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -266,6 +266,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_AddBot" xml:space="preserve">
     <value>新增 Bot</value>
   </data>
+  <data name="ASF_DeleteBotTip" xml:space="preserve">
+    <value>确定要删除这个Bot吗？</value>
+  </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
     <value>刷新 Bot</value>
   </data>
@@ -343,6 +346,9 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
     <value>家庭监护代码</value>
+  </data>
+  <data name="ASF_WebConfigGenerator" xml:space="preserve">
+    <value>在线配置文件生成器</value>
   </data>
   <data name="SelectFile" xml:space="preserve">
     <value>选择文件</value>
@@ -1332,6 +1338,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
     <value>输入图中验证码</value>
   </data>
+  <data name="Steam_ImageCodeShowError" xml:space="preserve">
+    <value>无法显示图片验证码？</value>
+  </data>
   <data name="Steam_Password" xml:space="preserve">
     <value>Steam 密码</value>
   </data>
@@ -1632,6 +1641,11 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
     <value>在选中游戏下载并安装完成后执行</value>
+  </data>
+  <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
+    <value>Steam游戏已下载完成
+系统将在 {0} 秒后{1}。</value>
+    <comment>Comment={0}倒计时时间;{1}执行操作;</comment>
   </data>
   <data name="Translators" xml:space="preserve">
     <value>社区翻译</value>
@@ -1971,13 +1985,31 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
     <value>IPC 端口被占用时使用随机端口号</value>
   </data>
-  <data name="UnableDisplayCaptchaImage" xml:space="preserve">
-    <value>无法显示验证码？</value>
-  </data>
   <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
     <value>请等待 IPC 启动中...</value>
   </data>
   <data name="ShowHide" xml:space="preserve">
     <value>显示/隐藏</value>
+  </data>
+  <data name="LinuxSudoTips" xml:space="preserve">
+    <value>Linux 需要提供系统 root 密码才能正常使用该功能</value>
+  </data>
+  <data name="ASF_Restarted" xml:space="preserve">
+    <value>ASF 服务已重启</value>
+  </data>
+  <data name="ASF_Restarting" xml:space="preserve">
+    <value>正在重启 ASF 服务，请稍后...</value>
+  </data>
+  <data name="ASF_Started" xml:space="preserve">
+    <value>ASF 服务已启动</value>
+  </data>
+  <data name="ASF_Starting" xml:space="preserve">
+    <value>正在启动 ASF 服务，请稍后...</value>
+  </data>
+  <data name="ASF_Stoped" xml:space="preserve">
+    <value>ASF 服务已停止</value>
+  </data>
+  <data name="ASF_Stoping" xml:space="preserve">
+    <value>正在停止 ASF 服务，请稍后...</value>
   </data>
 </root>

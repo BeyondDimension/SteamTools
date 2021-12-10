@@ -8,6 +8,7 @@ using Foundation;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -247,6 +248,52 @@ namespace System.Application.Services.Implementation
             }
            ((IPlatformService)this).RunShell(shellContent.ToString(), false);
             return true;
+        }
+
+        public void SystemLock(int waitSecond = 30)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async void SystemShutdown(int waitSecond = 30)
+        {
+            await Task.Delay(waitSecond);
+            RunOsaScript("tell application \"Finder\" to shut down");
+        }
+
+        public async void SystemSleep(int waitSecond = 30)
+        {
+            await Task.Delay(waitSecond);
+            RunOsaScript("tell application \"Finder\" to sleep");
+        }
+
+        public void SystemHibernate(int waitSecond = 30)
+        {
+            throw new NotImplementedException();
+        }
+
+        private string RunOsaScript(string shell)
+        {
+            try
+            {
+                using var p = new Process();
+                p.StartInfo.FileName = "osascript";
+                p.StartInfo.Arguments = $" -e '{shell}";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+                string result = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+                p.Close();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Log.Error("OSAScript Error", e, "Run OSAScript Error");
+                Toast.Show(e);
+            }
+            return string.Empty;
         }
     }
 }

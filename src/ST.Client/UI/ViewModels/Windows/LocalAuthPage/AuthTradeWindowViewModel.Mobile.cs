@@ -49,6 +49,7 @@ namespace System.Application.UI.ViewModels
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
 
+        private bool isUnselectAllChangeing;
         private bool _UnselectAll;
         /// <summary>
         /// 全不选
@@ -59,11 +60,14 @@ namespace System.Application.UI.ViewModels
             set
             {
                 if (this.RaiseAndSetIfChangedReturnIsNotChange(ref _UnselectAll, value)) return;
+                isUnselectAllChangeing = true;
                 foreach (var item in Confirmations)
                 {
                     if (item.IsOperate != 0) continue;
                     item.NotChecked = value;
                 }
+                isUnselectAllChangeing = false;
+                SelectAllText = AppResources.SelectAllText_.Format(value ? 0 : Confirmations.Count, Confirmations.Count);
             }
         }
 
@@ -81,31 +85,43 @@ namespace System.Application.UI.ViewModels
         /// 注册全选监听
         /// </summary>
         void RegisterSelectAllObservable() => this.WhenAnyValue(x => x.Confirmations)
-            .Subscribe(x => x?
-            .ToObservableChangeSet()
-            .AutoRefresh(x => x.NotChecked)
-            .ToCollection()
-            .Select(x =>
-            {
-                var select_count = x.Count(y => y.IsOperate == 0 && !y.NotChecked);
-                return (select_count, count: x.Count(y => y.IsOperate == 0));
-            })
-            .Subscribe(x =>
-            {
-                if (x.count > 0)
+            .SubscribeInMainThread(x => x?
+                .ToObservableChangeSet()
+                .AutoRefresh(x => x.NotChecked)
+                .ToCollection()
+                .Select(x =>
                 {
-                    var unselectAll = x.select_count != x.count;
-                    if (_UnselectAll != unselectAll)
+                    int select_count, count;
+                    if (isUnselectAllChangeing)
                     {
-                        _UnselectAll = unselectAll;
-                        this.RaisePropertyChanged(nameof(UnselectAll));
+                        select_count = 0;
+                        count = 0;
                     }
-                    SelectAllText = AppResources.SelectAllText_.Format(x.select_count, x.count);
-                }
-                else
+                    else
+                    {
+                        select_count = x.Count(y => y.IsOperate == 0 && !y.NotChecked);
+                        count = x.Count(y => y.IsOperate == 0);
+                    }
+                    return (select_count, count);
+                })
+                .Subscribe(x =>
                 {
-                    SelectAllText = null;
-                }
-            }).AddTo(this)).AddTo(this);
+                    if (isUnselectAllChangeing) return;
+                    if (x.count > 0)
+                    {
+                        var unselectAll = x.select_count != x.count;
+                        if (_UnselectAll != unselectAll)
+                        {
+                            _UnselectAll = unselectAll;
+                            this.RaisePropertyChanged(nameof(UnselectAll));
+                        }
+                        SelectAllText = AppResources.SelectAllText_.Format(x.select_count, x.count);
+                    }
+                    else
+                    {
+                        SelectAllText = null;
+                    }
+                }).AddTo(this))
+            .AddTo(this);
     }
 }
