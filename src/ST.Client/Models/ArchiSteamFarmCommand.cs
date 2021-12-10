@@ -18,7 +18,6 @@ new("addlicense","addlicense [Bots] <Licenses>","为指定机器人激活给定�
 new("balance","balance [Bots]","显示指定机器人的 Steam 钱包余额。"),
 new("bgr","bgr [Bots]","显示指定机器人的 BGR（后台游戏激活器）队列信息。"),
 new("encrypt","encrypt <encryptionMethod> <stringToEncrypt>","以给定的加密方式加密字符串——详见​下文的解释。"),
-new("exit","exit","完全停止 ASF 进程。"),
 new("farm","farm [Bots]","重新启动指定机器人的挂卡模块。"),
 new("fb","fb [Bots]","列出指定机器人的自动挂卡黑名单。"),
 new("fbadd","fbadd [Bots] <AppIDs>","将给定的 AppIDs 加入指定机器人的自动挂卡黑名单。"),
@@ -39,7 +38,6 @@ new("mabadd","mabadd [Bots] <AppIDs>","将给定的 AppIDs 加入到 MatchActive
 new("mabrm","mabrm [Bots] <AppIDs>","将给定的 AppIDs 从 MatchActively 自动交易 App 黑名单中移除。"),
 new("nickname","nickname [Bots] <Nickname>","将指定机器人的昵称更改为 Nickname。"),
 new("owns","owns [Bots] <Games>","检查指定机器人是否已拥有 Games，该参数解释详见​下文。"),
-new("password","password [Bots]","显示指定机器人加密后的密码（配合 PasswordFormat 使用）。"),
 new("pause","pause [Bots]","永久暂停指定机器人的自动挂卡模块。 ASF 在本次会话中将不会再尝试对此帐户进行挂卡，除非您手动 resume 或者重启 ASF。"),
 new("pause~","pause~ [Bots]","临时暂停指定机器人的自动挂卡模块。 挂卡进程将会在下次游戏事件或者机器人断开连接时自动恢复。 您可以 resume 以恢复挂卡。"),
 new("pause&","pause& [Bots] <Seconds>","临时暂停指定机器人的自动挂卡模块 Seconds 秒。 之后，挂卡模块会自动恢复。"),
@@ -49,7 +47,6 @@ new("privacy","privacy [Bots] <Settings>","更改指定机器人的 Steam 隐私
 new("redeem","redeem [Bots] <Keys>","为指定机器人激活给定的游戏序列号或钱包充值码。"),
 new("redeem^","redeem^ [Bots] <Modes> <Keys>","以 Modes 模式为指定机器人激活给定的游戏序列号或钱包充值码，模式详见下文的​解释。"),
 new("reset","reset [Bots]","重置为原始（之前的）游玩状态，用来配合 play 命令的手动挂卡模式使用。"),
-new("restart","restart","重新启动 ASF 进程。"),
 new("resume","resume [Bots]","恢复指定机器人的自动挂卡进程。"),
 new("start","start [Bots]","启动指定机器人。"),
 new("stats","stats","显示进程统计信息，例如托管内存用量。"),
@@ -63,7 +60,6 @@ new("transfer@","transfer@ [Bots] <AppIDs> <TargetBot>","将指定机器人的�
 new("transfer%","transfer% [Bots] <AppIDs> <TargetBot>","将指定机器人的所有不符合给定 AppIDs 的 TransferableTypes 社区物品转移到一个目标机器人。 此命令与 transfer@ 相反。"),
 new("transfer^","transfer^ [Bots] <AppID> <ContextID> <TargetBot>","将指定机器人的 ContextID 库存分类中符合给定 AppID 的物品转移到一个目标机器人。"),
 new("unpack","unpack [Bots]","拆开指定机器人库存中的所有补充包。"),
-//new("update","update","检查 GitHub 上的 ASF 更新（每隔 UpdatePeriod 就会自动执行一次）。"),
 new("version","version","显示 ASF 的版本号。"),
         });
 
