@@ -107,6 +107,14 @@ namespace System.Application.Models
         [S_JsonProperty("10")]
         public ArchitectureFlags ProcessArch { get; set; } = RuntimeInformation.ProcessArchitecture.Convert(false);
 
+        /// <summary>
+        /// 是否已登录账号
+        /// </summary>
+        [MPKey(11)]
+        [N_JsonProperty("11")]
+        [S_JsonProperty("11")]
+        public bool? IsAuthenticated { get; set; }
+
         bool IExplicitHasValue.ExplicitHasValue()
         {
             return Type.IsDefined() && Platform.IsDefined() && DeviceIdiom.IsDefined() && !string.IsNullOrWhiteSpace(OSVersion) && ProcessArch.IsDefined();

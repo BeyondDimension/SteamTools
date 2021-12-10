@@ -499,6 +499,7 @@ namespace System.Application
                     SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
                     SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
 #endif
+                    IsAuthenticated = UserService.Current.IsAuthenticated,
                 };
                 Guid? lastNotificationRecordId = default;
                 if (type == ActiveUserType.OnStartup)
