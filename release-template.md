@@ -1,7 +1,7 @@
 ### 版本亮点
 1. 新增 Android x86 架构包，适用于 Intel、AMD 芯片的设备或虚拟机
 2. ASF 升级至 **V5.2.0.10**
-3. 新增 ASF 控制台字体大小最大行数设置项
+3. 新增 ASF 控制台字体大小、最大行数设置项
 4. 新增 Steam 下载完成定时关机、睡眠功能
 5. 新增 代理设置可自定义 DNS
 6. 新增 ASF 编辑/移除 Bot 功能
@@ -50,7 +50,8 @@
 	- macOS
 		- [尚未公证](https://support.apple.com/zh-cn/guide/mac-help/mh40616/10.15/mac/10.15)，这会影响 macOS Catalina（版本 10.15）以上版本
 	- Linux
-		- 在 Deepin 中托盘不生效，可通过 ```Exit.sh``` 退出程序
+		- **Hosts 代理模式**可能无法配置成功，推荐使用**系统代理模式**
+		- 系统代理模式下无法下载 discord，因 dl.discordapp.net 域名代理不成功
 		- 窗口弹出位置不正确
 		- 鼠标指针浮动样式不正确
 	- Windows
