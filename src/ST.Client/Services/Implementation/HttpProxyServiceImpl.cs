@@ -162,10 +162,10 @@ namespace System.Application.Services.Implementation
             //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
         }
 
-        private static async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isIP = false)
+        private static async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
         {
             IPAddress? ip = null;
-            if (!isIP || !IPAddress.TryParse(url, out ip))
+            if (isDomain || !IPAddress.TryParse(url, out ip))
             {
                 if (proxyDns != null)
                 {
@@ -672,7 +672,7 @@ namespace System.Application.Services.Implementation
                     if (e.HttpClient.Request.Url.Contains(host, StringComparison.OrdinalIgnoreCase))
                     {
                         e.DecryptSsl = true;
-                        if (item.ProxyType == ProxyType.Local || 
+                        if (item.ProxyType == ProxyType.Local ||
                             item.ProxyType == ProxyType.ServerAccelerate)
                         {
                             var addres = item.ForwardDomainIsNameOrIP ? item.ForwardDomainName : item.ForwardDomainIP;
