@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <!--<OutputType>WinExe</OutputType>-->
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <SignAssembly>false</SignAssembly>
@@ -70,6 +71,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Avalonia.Diagnostics\Avalonia.Diagnostics.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
     <ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />
     <ProjectReference Include="..\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />
