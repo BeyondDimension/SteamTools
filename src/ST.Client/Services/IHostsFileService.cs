@@ -63,6 +63,10 @@ namespace System.Application.Services
         /// </summary>
         void OnExitRestoreHosts();
 
+        /// <summary>
+        /// 获取当前 hosts 文件是否包含修改过的标签，注意：产生异常时也将返回 <see langword="false"/>，并 <see cref="Toast"/> 显示 <see cref="Exception"/>
+        /// </summary>
+        /// <returns></returns>
         bool ContainsHostsByTag();
 
         enum EncodingType : byte

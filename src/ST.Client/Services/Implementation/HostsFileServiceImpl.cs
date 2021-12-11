@@ -619,15 +619,23 @@ namespace System.Application.Services.Implementation
 
         public bool ContainsHostsByTag()
         {
-            var filePath = s.HostsFilePath;
-            var fileInfo = new FileInfo(filePath);
-            if (fileInfo.Exists && fileInfo.Length <= MaxFileLength)
+            try
             {
-                var lines = File.ReadAllLines(filePath, GetEncoding());
-                if (lines.Reverse().Any(x => x.StartsWith(MarkEnd)))
+                var filePath = s.HostsFilePath;
+                var fileInfo = new FileInfo(filePath);
+                if (fileInfo.Exists && fileInfo.Length <= MaxFileLength)
                 {
-                    return true;
+                    var lines = File.ReadAllLines(filePath, GetEncoding());
+                    if (lines.Reverse().Any(x => x.StartsWith(MarkEnd)))
+                    {
+                        return true;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(TAG, ex, "ContainsHostsByTag fail.");
+                Toast.Show(AppResources.OperationHostsError_.Format(ex.GetAllMessage()));
             }
             return false;
         }
