@@ -6,9 +6,9 @@
 5. 新增 代理设置可自定义 DNS
 6. 新增 ASF 编辑/移除 Bot 功能
 7. 新增 Android ASF 本地挂卡功能 (Beta)
-8. 新增 Microsoft/Xbox 相关加速服务 (需要升级到 **2.6.2** 之后可用)
-9. 新增 Uplay 相关加速服务 (需要升级到 **2.6.2** 之后可用)
-10. 新增 OneDrive 等更多相关加速服务 (需要升级到 **2.6.2** 之后可用)
+8. 新增 Microsoft/Xbox 相关加速服务 (需要升级到 **2.6.3** 之后可用)
+9. 新增 Uplay 相关加速服务 (需要升级到 **2.6.3** 之后可用)
+10. 新增 OneDrive 等更多相关加速服务 (需要升级到 **2.6.3** 之后可用)
 11. 优化 Desktop 加速代理性能
 12. 优化 Desktop 脚本注入打包的性能
 13. 优化 Desktop 已安装游戏加载性能
@@ -76,7 +76,7 @@
 						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.6.2](https://img.shields.io/badge/Steam++-v2.6.2-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.6.3](https://img.shields.io/badge/Steam++-v2.6.3-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -85,23 +85,23 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.2.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.6.2.7z  | SHA256 |
+| Steam++_win_x64_v2.6.3.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.6.3.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.6.2.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.6.2.exe  | SHA256 |
+| Steam++_win_x64_v2.6.3.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.6.3.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.2.7z  | SHA256 |
-| Steam++_linux_arm64_v2.6.2.7z  | SHA256 |
+| Steam++_linux_x64_v2.6.3.7z  | SHA256 |
+| Steam++_linux_arm64_v2.6.3.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.2.deb  | SHA256 |
-| Steam++_linux_arm64_v2.6.2.deb  | SHA256 |
+| Steam++_linux_x64_v2.6.3.deb  | SHA256 |
+| Steam++_linux_arm64_v2.6.3.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.2.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.6.2.rpm  | SHA256 |
+| Steam++_linux_x64_v2.6.3.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.6.3.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.6.2.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.3.dmg  | SHA256 |
 | | |
-| Steam++_android_arm64_v8a_v2.6.2.apk  | SHA256 |
-| Steam++_android_armeabi_v7a_v2.6.2.apk  | SHA256 |
-| Steam++_android_x86_v2.6.2.apk  | SHA256 |
+| Steam++_android_arm64_v8a_v2.6.3.apk  | SHA256 |
+| Steam++_android_armeabi_v7a_v2.6.3.apk  | SHA256 |
+| Steam++_android_x86_v2.6.3.apk  | SHA256 |

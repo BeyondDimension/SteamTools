@@ -136,9 +136,9 @@
     <PackageReference Include="Xamarin.Google.MLKit.BarcodeScanning" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+  <!--<ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="LeakCanaryBinding" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" />

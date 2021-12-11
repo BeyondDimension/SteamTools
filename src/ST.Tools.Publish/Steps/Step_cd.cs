@@ -478,6 +478,7 @@ namespace System.Application.Steps
             foreach (var item in publishDirs)
             {
                 var install7zFilePath = item.BuildDownloads[AppDownloadType.Compressed_7z].Path;
+                var install7zFileName = Path.GetFileName(install7zFilePath);
                 var outputFileName = Path.GetFileNameWithoutExtension(install7zFilePath) + FileEx.EXE;
                 var outputFilePath = Path.Combine(new FileInfo(install7zFilePath).DirectoryName!, outputFileName);
 
@@ -486,6 +487,7 @@ namespace System.Application.Steps
                      .Replace("${{ Steam++_OutPutFileName }}", outputFileName)
                      .Replace("${{ Steam++_AppFileDir }}", appFileDirPath)
                      .Replace("${{ Steam++_7zFilePath }}", install7zFilePath)
+                     .Replace("${{ Steam++_7zFileName }}", install7zFileName)
                      .Replace("${{ Steam++_OutPutFilePath }}", outputFilePath)
                      ;
                 File.WriteAllText(nsiFilePath, nsiFileContent2);

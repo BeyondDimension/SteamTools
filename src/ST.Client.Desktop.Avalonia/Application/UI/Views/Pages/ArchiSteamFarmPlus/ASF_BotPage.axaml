@@ -159,7 +159,8 @@
                           <Setter Property="VerticalAlignment" Value="Center"/>
                         </Style>
                       </DockPanel.Styles>
-                      <WrapPanel DockPanel.Dock="Left"
+                      <StackPanel DockPanel.Dock="Left"
+                                  Orientation="Horizontal"
                                  VerticalAlignment="Center">
                         <Ellipse
                                 x:Name="circle"
@@ -201,7 +202,7 @@
                                    Margin="5 0 0 0"
                                    Text="{Binding .,Converter={StaticResource BotStatusConverter}}
                                      StringFormat={}{0}"/>
-                      </WrapPanel>
+                      </StackPanel>
 
                       <RelativePanel DockPanel.Dock="Right"
                                  VerticalAlignment="Center"
@@ -264,19 +265,19 @@
                               CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource SettingsDrawing}" />
                       </Button>
-                      
+
                       <Button VerticalAlignment="Center"
                               Command="{ReflectionBinding #u.DataContext.EditBotFile}"
                               CommandParameter="{Binding}"
                               ToolTip.Tip="{ReflectionBinding Path=Res.Edit,Mode=OneWay,Source={x:Static resx:R.Current}}">
                         <PathIcon Data="{StaticResource CodeDrawing}" />
                       </Button>
-                      
+
                       <Button ToolTip.Tip="{ReflectionBinding Path=Res.ASF_Enable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               IsVisible="{Binding !KeepRunning}"
                               Command="{ReflectionBinding #u.DataContext.EnableOrDisableBot}"
                               CommandParameter="{Binding}">
-                        <PathIcon Data="{StaticResource ShutdownDrawing}" 
+                        <PathIcon Data="{StaticResource ShutdownDrawing}"
                                   Foreground="#00FF7F"/>
                       </Button>
 
