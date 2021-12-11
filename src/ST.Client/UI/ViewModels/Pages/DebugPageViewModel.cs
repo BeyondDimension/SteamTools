@@ -120,6 +120,7 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("response.Version: {0}", response.Version);
             @string.AppendLine(htmlString);
             DebugString = @string.ToString();
+            MessageBox.Show(DebugString);
         }
 
         //static async void TestTextBoxWindow(int state)
