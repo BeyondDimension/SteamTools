@@ -273,10 +273,7 @@ namespace System.Application
                 services.TryAddCloudServiceClient<CloudServiceClient>(c =>
                 {
 #if NETCOREAPP3_0_OR_GREATER
-                    c.DefaultRequestVersion = HttpVersion.Version20;
-#endif
-#if NET5_0_OR_GREATER
-                    c.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
+                    c.DefaultRequestVersion = HttpVersion.Version30;
 #endif
                 }, configureHandler:
 #if NETCOREAPP2_1_OR_GREATER
