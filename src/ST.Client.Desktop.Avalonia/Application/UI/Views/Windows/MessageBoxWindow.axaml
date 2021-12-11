@@ -28,19 +28,27 @@
   </Design.DesignStyle>
   <Grid RowDefinitions="1,30,*,Auto,1">
     <controls:TitleBar Grid.RowSpan="5"></controls:TitleBar>
-    <StackPanel Margin="12 10 12 5" Grid.Row="2" x:Name="content">
-      <DockPanel>
-        <TextBlock Text="{Binding Content}" MaxWidth="500"
-                   Margin="12,0" FontSize="14"
-                   HorizontalAlignment="Left"
-                   TextWrapping="WrapWithOverflow"
-                   VerticalAlignment="Center"/>
-      </DockPanel>
+    <ScrollViewer Padding="12 10 12 5" 
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto"
+                  Grid.Row="2" 
+                  x:Name="content"
+                  MaxWidth="600">
+      <StackPanel>
+        <DockPanel>
+          <TextBlock Text="{Binding Content}" 
+                     Margin="12,0" 
+                     FontSize="14"
+                     HorizontalAlignment="Left"
+                     TextWrapping="WrapWithOverflow"
+                     VerticalAlignment="Center"/>
+        </DockPanel>
 
-      <Border Margin="0 15 0 0">
-        <Separator Classes="Separator"/>
-      </Border>
-    </StackPanel>
+        <Border Margin="0 15 0 0">
+          <Separator Classes="Separator"/>
+        </Border>
+      </StackPanel>
+    </ScrollViewer>
     <DockPanel Grid.Row="3"
                Margin="10,0,10,0">
       <CheckBox

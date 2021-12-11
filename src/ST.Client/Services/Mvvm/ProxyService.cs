@@ -122,13 +122,13 @@ namespace System.Application.Services
                                                 var h = host.Split(' ');
                                                 return KeyValuePair.Create(h[1], h[0]);
                                             }
-                                            return KeyValuePair.Create(host, IPAddress.Loopback.ToString());
+                                            return KeyValuePair.Create(host, httpProxyService.ProxyIp.ToString());
                                         });
                                     }).ToDictionaryIgnoreRepeat(x => x.Key, y => y.Value);
 
                                     if (httpProxyService.IsEnableScript)
                                     {
-                                        hosts.TryAdd(IHttpProxyService.LocalDomain, IPAddress.Loopback.ToString());
+                                        hosts.TryAdd(IHttpProxyService.LocalDomain, httpProxyService.ProxyIp.ToString());
                                     }
 
                                     var r = hostsFileService.UpdateHosts(hosts);
