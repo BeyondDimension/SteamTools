@@ -138,7 +138,7 @@
 		<PackageVersion Include="DynamicData" Version="7.4.3" />
 		<PackageVersion Include="ReactiveUI" Version="17.1.6" />
 		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.6" /> -->
-		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.6" />
+		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.9" />
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.0.1" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
