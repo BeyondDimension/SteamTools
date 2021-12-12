@@ -120,6 +120,8 @@ namespace System.Application.UI.ViewModels
             @string.AppendFormatLine("response.Version: {0}", response.Version);
             @string.AppendLine(htmlString);
             DebugString = @string.ToString();
+            var r = await MessageBox.ShowAsync(DebugString);
+            Toast.Show(r.ToString());
         }
 
         //static async void TestTextBoxWindow(int state)
