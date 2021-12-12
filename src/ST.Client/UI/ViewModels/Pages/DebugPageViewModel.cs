@@ -107,6 +107,7 @@ namespace System.Application.UI.ViewModels
             {
 #if NET6_0_OR_GREATER
                 DefaultRequestVersion = HttpVersion.Version30,
+                DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact,
 #endif
             };
 

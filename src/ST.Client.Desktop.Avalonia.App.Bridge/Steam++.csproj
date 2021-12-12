@@ -43,6 +43,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+    <TrimmerRootAssembly Include="System.Text.Json" />
+  </ItemGroup>-->
+
+  <ItemGroup>
     <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Startup2.HandleGlobalException.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">

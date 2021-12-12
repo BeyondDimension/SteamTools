@@ -82,9 +82,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<TrimmerRootDescriptor Include="TrimmerRoots.xml" />-->
-    <!--<TrimmerRootAssembly Include="System.Text.Json" />-->
+    <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
   </ItemGroup>
+
+  <!--<ItemGroup>
+    <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+    <TrimmerRootAssembly Include="System.Text.Json" />
+  </ItemGroup>-->
 
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />
@@ -110,7 +114,7 @@
   <!--<ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
     <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj"/>
   </ItemGroup>-->
- 
+
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
