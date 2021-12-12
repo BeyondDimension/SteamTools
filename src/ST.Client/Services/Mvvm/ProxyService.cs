@@ -111,6 +111,8 @@ namespace System.Application.Services
                             {
                                 if (httpProxyService.ProxyDomains.Any_Nullable())
                                 {
+                                    var localhost = IPAddress.Any.Equals(httpProxyService.ProxyIp) ? IPAddress.Loopback.ToString() : httpProxyService.ProxyIp.ToString();
+
                                     var hosts = httpProxyService.ProxyDomains!.SelectMany(s =>
                                     {
                                         if (s == null) return default!;
@@ -122,13 +124,13 @@ namespace System.Application.Services
                                                 var h = host.Split(' ');
                                                 return KeyValuePair.Create(h[1], h[0]);
                                             }
-                                            return KeyValuePair.Create(host, httpProxyService.ProxyIp.ToString());
+                                            return KeyValuePair.Create(host, localhost);
                                         });
                                     }).ToDictionaryIgnoreRepeat(x => x.Key, y => y.Value);
 
                                     if (httpProxyService.IsEnableScript)
                                     {
-                                        hosts.TryAdd(IHttpProxyService.LocalDomain, httpProxyService.ProxyIp.ToString());
+                                        hosts.TryAdd(IHttpProxyService.LocalDomain, localhost);
                                     }
 
                                     var r = hostsFileService.UpdateHosts(hosts);
