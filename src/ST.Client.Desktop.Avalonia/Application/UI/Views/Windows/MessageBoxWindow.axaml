@@ -32,7 +32,7 @@
   <Panel>
     <controls:TitleBar />
     <DockPanel Margin="{StaticResource TitleBarAfterMargin}">
-      <ScrollViewer Padding="12 10 12 5"
+      <ScrollViewer Padding="12 0 12 0"
                     DockPanel.Dock="Top"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
@@ -41,25 +41,27 @@
                     Grid.Row="2"
                     x:Name="content">
         <StackPanel>
-          <TextBlock Text="{Binding Content}"
-                     FontSize="14"
-                     HorizontalAlignment="Left"
-                     TextWrapping="WrapWithOverflow"
-                     VerticalAlignment="Center"/>
-          <Border Margin="0 15 0 0">
-            <Separator Classes="Separator"/>
-          </Border>
+          <TextBox Classes="Content readonlybox"
+                   IsReadOnly="True"
+                   Text="{Binding Content}"
+                   FontSize="14"
+                   HorizontalAlignment="Left"
+                   TextWrapping="WrapWithOverflow"
+                   VerticalAlignment="Center"/>
         </StackPanel>
       </ScrollViewer>
       <DockPanel Grid.Row="3"
                  DockPanel.Dock="Bottom"
                  Margin="10 0">
+        <Border DockPanel.Dock="Top">
+          <Separator Classes="Separator"/>
+        </Border>
         <CheckBox
                   IsVisible="{Binding IsShowRememberChoose}"
                   Margin="10 0 0 0"
                   IsChecked="{Binding RememberChoose}"
                   Content="{ReflectionBinding Path=Res.RememberChooseNotToAskAgain,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <WrapPanel  Grid.Row="3"
+        <WrapPanel  Grid.Row="3" Margin="0 6"
              HorizontalAlignment="Right">
           <WrapPanel.Styles>
             <Style Selector="Button">

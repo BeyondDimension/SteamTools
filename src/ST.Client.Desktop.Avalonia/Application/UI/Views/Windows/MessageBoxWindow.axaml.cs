@@ -21,6 +21,7 @@ namespace System.Application.UI.Views.Windows
             //}
             InitializeComponent();
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
+            // https://github.com/AvaloniaUI/Avalonia/issues/3422
 
 #if DEBUG
             this.AttachDevTools();
