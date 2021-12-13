@@ -18,7 +18,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 所有窗口位置记忆字典集合
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<ConcurrentDictionary<string, SizePosition>?> WindowSizePositions => _WindowSizePositions ?? throw new PlatformNotSupportedException();
@@ -27,7 +27,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 字体
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string> FontName => _FontName ?? throw new PlatformNotSupportedException();
@@ -36,7 +36,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 窗口背景透明度
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<double> AcrylicOpacity => _AcrylicOpacity ?? throw new PlatformNotSupportedException();
@@ -45,7 +45,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 窗口背景材质
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<int> WindowBackgroundMateria => _WindowBackgroundMateria ?? throw new PlatformNotSupportedException();
@@ -54,7 +54,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 库存游戏封面大小
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<int> AppGridSize => _AppGridSize ?? throw new PlatformNotSupportedException();
@@ -63,7 +63,7 @@ namespace System.Application.Settings
         /// <summary>
         /// Steam账号备注替换名称显示
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> SteamAccountRemarkReplaceName => _SteamAccountRemarkReplaceName ?? throw new PlatformNotSupportedException();
@@ -72,7 +72,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 启用圆角界面
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> EnableFilletUI => _EnableFilletUI ?? throw new PlatformNotSupportedException();
@@ -81,7 +81,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 启用动态桌面背景
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> EnableDesktopBackground => _EnableDesktopBackground ?? throw new PlatformNotSupportedException();
@@ -91,7 +91,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 启用自定义背景图片
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> EnableCustomBackgroundImage => _EnableCustomBackgroundImage ?? throw new PlatformNotSupportedException();
@@ -100,7 +100,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 背景图片路径
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string> BackgroundImagePath => _BackgroundImagePath ?? throw new PlatformNotSupportedException();
@@ -109,7 +109,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 主题颜色(十六进制字符串)
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string> ThemeAccent => _ThemeAccent ?? throw new PlatformNotSupportedException();
@@ -118,7 +118,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 主题颜色从系统获取
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> GetUserThemeAccent => _GetUserThemeAccent ?? throw new PlatformNotSupportedException();
@@ -127,7 +127,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 主菜单展开状态
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> MainMenuExpandedState => _MainMenuExpandedState ?? throw new PlatformNotSupportedException();

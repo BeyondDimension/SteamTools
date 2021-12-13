@@ -9,7 +9,7 @@ using System.Runtime.Versioning;
 #elif WINDOWS_DESKTOP_BRIDGE
 [assembly: SupportedOSPlatform("Windows10.0.17763.0")]
 #elif WINDOWS
-[assembly: SupportedOSPlatform("Windows")]
+[assembly: SupportedOSPlatform("Windows7.0")]
 #endif
 
 namespace System.Application.UI

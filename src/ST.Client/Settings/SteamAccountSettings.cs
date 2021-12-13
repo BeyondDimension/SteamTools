@@ -6,7 +6,7 @@ using System.Runtime.Versioning;
 
 namespace System.Application.Settings
 {
-    [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows7.0")]
     [SupportedOSPlatform("macOS")]
     [SupportedOSPlatform("Linux")]
     public sealed class SteamAccountSettings : SettingsHost2<SteamAccountSettings>

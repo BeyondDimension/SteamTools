@@ -17,7 +17,7 @@ using System.Runtime.Versioning;
 
 namespace System.Application.Services.Implementation
 {
-    [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows7.0")]
     public sealed class AvaloniaWin32WindowingPlatformImpl : IWindowingPlatform
     {
         public IWindowImpl CreateWindow()

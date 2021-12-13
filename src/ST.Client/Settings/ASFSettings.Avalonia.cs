@@ -11,7 +11,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 字体
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string> ConsoleFontName => _ConsoleFontName ?? throw new PlatformNotSupportedException();

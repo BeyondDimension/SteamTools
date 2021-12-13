@@ -11,7 +11,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 启用GOG插件代理
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsProxyGOG => _IsProxyGOG ?? throw new PlatformNotSupportedException();
@@ -21,7 +21,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 启用系统代理模式
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> EnableWindowsProxy => _EnableWindowsProxy ?? throw new PlatformNotSupportedException();
@@ -31,7 +31,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 是否只针对Steam内置浏览器启用脚本
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsOnlyWorkSteamBrowser => _IsOnlyWorkSteamBrowser ?? throw new PlatformNotSupportedException();

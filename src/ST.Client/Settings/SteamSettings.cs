@@ -3,7 +3,7 @@ using System.Runtime.Versioning;
 
 namespace System.Application.Settings
 {
-    [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows7.0")]
     [SupportedOSPlatform("macOS")]
     [SupportedOSPlatform("Linux")]
     public sealed class SteamSettings : SettingsHost2<SteamSettings>
@@ -36,7 +36,7 @@ namespace System.Application.Settings
         /// <summary>
         /// Steam启动参数
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string?> SteamStratParameter => _SteamStratParameter ?? throw new PlatformNotSupportedException();
@@ -45,7 +45,7 @@ namespace System.Application.Settings
         ///// <summary>
         ///// Steam皮肤
         ///// </summary>
-        //[SupportedOSPlatform("Windows")]
+        //[SupportedOSPlatform("Windows7.0")]
         //[SupportedOSPlatform("macOS")]
         //[SupportedOSPlatform("Linux")]
         //public static SerializableProperty<string> SteamSkin => _SteamSkin ?? throw new PlatformNotSupportedException();
@@ -54,7 +54,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 自动运行Steam
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsAutoRunSteam => _IsAutoRunSteam ?? throw new PlatformNotSupportedException();
@@ -63,7 +63,7 @@ namespace System.Application.Settings
         /// <summary>
         /// Steam启动时最小化到托盘
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsRunSteamMinimized => _IsRunSteamMinimized ?? throw new PlatformNotSupportedException();
@@ -72,7 +72,7 @@ namespace System.Application.Settings
         /// <summary>
         /// Steam启动时不检查更新
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsRunSteamNoCheckUpdate => _IsRunSteamNoCheckUpdate ?? throw new PlatformNotSupportedException();
@@ -81,7 +81,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 检测到Steam登录时弹出消息通知
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsEnableSteamLaunchNotification => _IsEnableSteamLaunchNotification ?? throw new PlatformNotSupportedException();
@@ -89,7 +89,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 检测到Steam登录时弹出消息通知
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<SystemEndMode>? DownloadCompleteSystemEndMode = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: SystemEndMode.Sleep, autoSave: true) : null;

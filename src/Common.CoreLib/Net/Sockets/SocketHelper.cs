@@ -62,7 +62,7 @@ namespace System.Net.Sockets
         /// <param name="port"></param>
         /// <returns></returns>
 #if NET5_0_OR_GREATER
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
 #endif
         public static Process? GetProcessByTcpPort(ushort port)
             => GetAllTcpConnections().FirstOrDefault(x => x.LocalPort == port)?.Process;
@@ -81,7 +81,7 @@ namespace System.Net.Sockets
         /// is insufficient memory to satisfy the request.
         /// </exception>
 #if NET5_0_OR_GREATER
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
 #endif
         public static List<TcpProcessRecord> GetAllTcpConnections()
         {
