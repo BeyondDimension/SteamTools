@@ -1,5 +1,6 @@
 using NLog;
 using System.Linq;
+using System.Net;
 using System.Runtime.Versioning;
 
 #if MAC
@@ -22,6 +23,8 @@ namespace System.Application.UI
         [STAThread]
         static int Main(string[] args)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
             DesktopBridgeHelper.OnActivated(ref args);
