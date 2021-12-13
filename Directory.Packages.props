@@ -63,7 +63,7 @@
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
-		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.0" />
+		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.1" />
 		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup>
@@ -136,7 +136,7 @@
 		<PackageVersion Include="System.Reactive" Version="5.0.0" />
 		<PackageVersion Include="Splat" Version="14.1.1" />
 		<PackageVersion Include="DynamicData" Version="7.4.3" />
-		<PackageVersion Include="ReactiveUI" Version="17.1.6" />
+		<PackageVersion Include="ReactiveUI" Version="17.1.9" />
 		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.6" /> -->
 		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.6" />
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.0.1" />
@@ -156,7 +156,7 @@
 
 		<!-- QRCode -->
 		<!--<PackageVersion Include="QRCoder" Version="1.4.2" />-->
-		<PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.0" />
+		<PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.1" />
 
 		<!-- NotifyIcon -->
 		<PackageVersion Include="NotifyIcon.Base" Version="1.0.5" />
