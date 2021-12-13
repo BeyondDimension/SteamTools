@@ -1,5 +1,6 @@
 using DynamicData;
 using DynamicData.Binding;
+using MessagePack;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
@@ -414,10 +415,7 @@ namespace System.Application.Services
                 if (IOPath.TryOpen(filepath, FileMode.Create, FileAccess.Write, FileShare.Read, out var fileStream, out var _))
                 {
                     using var stream = fileStream;
-                    using var writer = new StreamWriter(stream, Encoding.UTF8);
-                    var content = Serializable.SMPB64U(ProxyDomains.Items);
-                    writer.Write(content);
-                    writer.Flush();
+                    MessagePackSerializer.Serialize(stream, ProxyDomains.Items, options: Serializable.lz4Options);
                 }
             }
             else
@@ -426,12 +424,10 @@ namespace System.Application.Services
                 {
                     using var stream = fileStream;
                     ProxyDomains.Clear();
-                    using var reader = new StreamReader(stream, Encoding.UTF8);
-                    var content = reader.ReadToEnd();
                     List<AccelerateProjectGroupDTO>? accelerates = null;
                     try
                     {
-                        accelerates = Serializable.DMPB64U<List<AccelerateProjectGroupDTO>>(content);
+                        accelerates = MessagePackSerializer.Deserialize<List<AccelerateProjectGroupDTO>>(stream, options: Serializable.lz4Options);
                     }
                     catch (Exception ex)
                     {

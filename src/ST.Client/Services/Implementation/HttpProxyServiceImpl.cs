@@ -164,7 +164,7 @@ namespace System.Application.Services.Implementation
 
         private static async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
         {
-            IPAddress? ip = null;
+            IPAddress? ip;
             if (isDomain || !IPAddress.TryParse(url, out ip))
             {
                 if (proxyDns != null)
