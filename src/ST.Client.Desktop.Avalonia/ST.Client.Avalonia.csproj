@@ -42,6 +42,7 @@
     <AvaloniaXaml Remove="Application\UI\Views\Controls\WebView3.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_ChangeLog.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml" />
+    <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugPage.axaml" Condition="'$(Configuration)'=='Release'" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Windows\WebView3Window.axaml" />
   </ItemGroup>
@@ -52,6 +53,7 @@
     <Compile Remove="Application\UI\Views\Controls\WebViewBase.cs" />
     <Compile Remove="Application\UI\Views\Pages\About\About_Changelog.axaml.cs" />
     <Compile Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml.cs" />
+    <Compile Remove="Application\UI\Views\Pages\DebugPage.axaml.cs" Condition="'$(Configuration)'=='Release'" />
     <Compile Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml.cs" />
     <Compile Remove="Application\UI\Views\Windows\WebView3Window.axaml.cs" />
     <Compile Remove="Extensions\CookieExtensions.cs" />

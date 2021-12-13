@@ -397,10 +397,6 @@
     <value>El servicio de aceleración no se pudo iniciar y la instalación del certificado falló.</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>No se pudo iniciar el servicio de aceleración y el puerto 443 está ocupado por {0}. Compruebe su puerto 443 o intente utilizar el modo proxy de Windows.</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>La aceleración ha funcionado con éxito</value>
     <comment>Comment=;Author=EspRoy</comment>

@@ -397,10 +397,6 @@
     <value>啟動加速服務失敗，證書安裝失敗。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>加速服務啟動失敗，{0} 埠被 {1} 佔用。 請關掉佔用 {0} 埠的程式或者嘗試使用系統代理模式。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速已啟動成功</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

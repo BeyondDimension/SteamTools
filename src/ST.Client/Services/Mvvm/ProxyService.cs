@@ -94,10 +94,10 @@ namespace System.Application.Services
                                     var p = SocketHelper.GetProcessByTcpPort(httpsPort);
                                     if (p != null)
                                     {
-                                        error_CommunityFix_StartProxyFaild443 = AppResources.CommunityFix_StartProxyFaild443.Format(httpsPort, p.ProcessName);
+                                        error_CommunityFix_StartProxyFaild443 = AppResources.CommunityFix_StartProxyFaild443___.Format(httpsPort, p.ProcessName, p.Id);
                                     }
                                 }
-                                error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443.Format(httpsPort, string.Empty);
+                                error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443_.Format(httpsPort);
                                 Toast.Show(error_CommunityFix_StartProxyFaild443);
                                 return;
                             }

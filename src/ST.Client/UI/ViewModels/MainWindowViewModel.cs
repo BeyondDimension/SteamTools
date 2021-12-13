@@ -125,8 +125,10 @@ namespace System.Application.UI.ViewModels
 #if !TRAY_INDEPENDENT_PROGRAM
             if (IApplication.EnableDevtools && useAvalonia)
             {
+#if DEBUG
                 AddTabItem<DebugPageViewModel>();
                 //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
+#endif
 
                 //if (AppHelper.IsSystemWebViewAvailable)
                 //{

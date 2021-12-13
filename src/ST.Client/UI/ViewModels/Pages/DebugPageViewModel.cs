@@ -1,3 +1,4 @@
+#if DEBUG
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -76,6 +77,8 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
+            //IHostsFileService.Instance.OccupyHosts();
+
             TestHttp3Quic();
             return;
 
@@ -84,20 +87,26 @@ namespace System.Application.UI.ViewModels
             //            //return;
             //#endif
 
-            INotificationService.Instance.Notify("aaa", NotificationType.Announcement);
-
             //TestHttp();
             //return;
 
             //TestTextBoxWindow(0);
 
             //DebugButton_Click1();
-            Parallel.For(0, 10, (_, _) =>
-            {
-                DebugButton_Click1();
-                //Task.Run(DebugButton_Click1);
-            });
+
+            //DebugButton_Click_Test();
         }
+
+        //void DebugButton_Click_Test()
+        //{
+        //    INotificationService.Instance.Notify("aaa", NotificationType.Announcement);
+
+        //    Parallel.For(0, 10, (_, _) =>
+        //    {
+        //        DebugButton_Click1();
+        //        //Task.Run(DebugButton_Click1);
+        //    });
+        //}
 
         public async void TestHttp3Quic()
         {
@@ -647,3 +656,4 @@ namespace System.Application.UI.ViewModels
 #endif
     }
 }
+#endif

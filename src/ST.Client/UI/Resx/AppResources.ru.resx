@@ -397,10 +397,6 @@
     <value>Сбой службы ускорения запуска и сбой установки сертификата.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>Сбой запуска службы ускорения, {0} порт занят {1}. Выключите программу, занимают {0} порт, или попробуйте использовать режим системного прокси-сервера.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>Ускорение успешно запущено</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

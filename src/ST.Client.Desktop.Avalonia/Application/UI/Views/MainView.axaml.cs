@@ -31,7 +31,9 @@ namespace System.Application.UI.Views
                 { typeof(SteamAccountPageViewModel), typeof(SteamAccountPage) },
                 { typeof(SettingsPageViewModel), typeof(SettingsPage) },
                 { typeof(AboutPageViewModel), typeof(AboutPage) },
+#if DEBUG
                 { typeof(DebugPageViewModel), typeof(DebugPage) },
+#endif
                 { typeof(GameListPageViewModel), typeof(GameListPage) },
                 { typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
                 { typeof(LocalAuthPageViewModel), typeof(LocalAuthPage) },

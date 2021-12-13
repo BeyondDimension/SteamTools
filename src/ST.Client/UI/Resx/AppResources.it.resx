@@ -397,10 +397,6 @@
     <value>Fallito l&apos;avvio del servizio di accelerazione, installazione del certificato fallita.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>Fallito l&apos;avvio del servizio di accelerazione, la porta 443 è occupata da {0}. Per favore controlla la tua porta 443 o prova ad usare la modalità proxy di Windows.</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>L&apos;accelerazione è iniziata con successo</value>
     <comment>Comment=;Author=Zhengye</comment>

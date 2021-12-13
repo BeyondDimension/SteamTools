@@ -41,7 +41,7 @@
     <PackageReference Include="Aigio.Avalonia.AppCenter" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
-    <PackageReference Include="JumpLists.Win32.Avalonia" Aliases="JumpLists" />
+    <PackageReference Include="JumpLists.Win32.Avalonia" />
     <PackageReference Include="NotifyIcon.Windows" />
     <PackageReference Include="TaskScheduler" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />

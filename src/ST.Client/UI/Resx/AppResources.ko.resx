@@ -397,10 +397,6 @@
     <value>가속 서비스를 시작하지 못했습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>가속 서비스가 시작되지 {0} 포트가 {1} 사용됩니다. {0} 포트를 사용하는 프로그램을 끄거나 시스템 프록시 모드를 사용해 보십시오.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>가속이 성공적으로 시작되었습니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

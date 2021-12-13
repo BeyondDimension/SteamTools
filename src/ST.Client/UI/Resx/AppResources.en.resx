@@ -397,10 +397,6 @@
     <value>Failed to route your connections. Certificate improperly installed.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>Failed to route your connections.Port 443 already in use by {0} . Please check port 443 or try routing using Windows proxy mode.</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>Routing started</value>
     <comment>Comment=;Author=沙中金</comment>

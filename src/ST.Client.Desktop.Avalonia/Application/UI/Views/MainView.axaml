@@ -68,9 +68,6 @@
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
               <pages:ProxyScriptManagePage/>
             </DataTemplate>
-            <DataTemplate DataType="vm:DebugPageViewModel">
-              <pages:DebugPage/>
-            </DataTemplate>
             <DataTemplate DataType="vm:AboutPageViewModel">
               <pages:AboutPage/>
             </DataTemplate>

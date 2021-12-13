@@ -103,9 +103,9 @@
 		<PackageVersion Include="Microsoft.AppCenter" Version="4.4.0" />
 		<PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
 		<PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.4.0.1" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.4.0" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.4.0" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.4.0.2" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.4.0.2" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.4.0.2" />
 		<PackageVersion Include="nor0x.AppCenter" Version="4.4.0-XMAC" />
 		<PackageVersion Include="nor0x.AppCenter.Analytics" Version="4.4.0-XMAC" />
 		<PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />
@@ -159,10 +159,10 @@
 		<PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.1" />
 
 		<!-- NotifyIcon -->
-		<PackageVersion Include="NotifyIcon.Base" Version="1.0.5" />
-		<!--<PackageVersion Include="NotifyIcon.Linux" Version="1.0.5" />-->
-		<!--<PackageVersion Include="NotifyIcon.Mac" Version="1.0.5" />-->
-		<PackageVersion Include="NotifyIcon.Windows" Version="1.0.5" />
+		<PackageVersion Include="NotifyIcon.Base" Version="1.0.5.1" />
+		<!--<PackageVersion Include="NotifyIcon.Linux" Version="1.0.5.1" />-->
+		<!--<PackageVersion Include="NotifyIcon.Mac" Version="1.0.5.1" />-->
+		<PackageVersion Include="NotifyIcon.Windows" Version="1.0.5.1" />
 		<!--<PackageVersion Include="GtkSharp" Version="3.24.24.34" />-->
 
 		<!-- Compression -->
@@ -203,7 +203,7 @@
 		<PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
 
 		<!-- .NET Compat -->
-		<PackageVersion Include="OperatingSystem2" Version="1.4.2" />
+		<PackageVersion Include="OperatingSystem2" Version="1.4.2.1" />
 		<PackageVersion Include="JustArchiNET.Madness" Version="3.1.1" />
 
 		<!-- Serialize -->
@@ -247,7 +247,7 @@
 		<!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
 		<!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
 		<!--<PackageVersion Include="FluentAvaloniaUI" Version="1.1.6" />-->
-		<PackageVersion Include="JumpLists.Win32.Avalonia" Version="0.0.1" />
+		<PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
 		<!--Avalonia End-->
 
 		<!-- Xamarin.Android -->

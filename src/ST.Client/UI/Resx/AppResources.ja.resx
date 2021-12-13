@@ -397,10 +397,6 @@
     <value>アクセラレーション サービスの開始に失敗し、証明書のインストールに失敗しました。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>アクセラレーション サービスの開始に失敗し、ポートが {1} によって占有{0}。 {0} ポートを占有するプログラムをオフにするか、システム プロキシ モードを試してください。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速が正常に開始されました</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

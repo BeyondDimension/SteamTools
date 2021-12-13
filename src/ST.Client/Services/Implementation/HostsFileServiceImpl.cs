@@ -255,7 +255,7 @@ namespace System.Application.Services.Implementation
             return HandleLineResult.CorrectFormatStartHandle;
         }
 
-        OperationResult HandleHosts(bool isUpdateOrRemove, IReadOnlyDictionary<string, string>? hosts = null)
+        IOperationResult HandleHosts(bool isUpdateOrRemove, IReadOnlyDictionary<string, string>? hosts = null)
         {
             lock (lockObj)
             {
@@ -278,7 +278,9 @@ namespace System.Application.Services.Implementation
                     Dictionary<string, (int line_num, string line_value)> backup_datas = new(); // 备份区域数据
 
                     var encoding = GetEncoding();
-                    using (var fileReader = fileInfo.OpenText(encoding))
+                    var result_read = TryReadHosts(() => fileInfo.OpenText(encoding), nameof(HandleHosts));
+                    if (result_read.ResultType != OperationResultType.Success) return result_read;
+                    using (var fileReader = result_read.AppendData)
                     {
                         int line_num = 0;
                         HashSet<string> domains = new(); // 域名唯一检查
@@ -517,7 +519,7 @@ namespace System.Application.Services.Implementation
             return dict;
         }
 
-        public OperationResult<List<(string ip, string domain)>> ReadHostsAllLines()
+        public IOperationResult<List<(string ip, string domain)>> ReadHostsAllLines()
         {
             lock (lockObj)
             {
@@ -526,43 +528,55 @@ namespace System.Application.Services.Implementation
                     var value = ReadHostsAllLines(fileReader);
                     return value.Select(x => (x.Value, x.Key));
                 }
-                var result = new OperationResult<List<(string ip, string domain)>>(OperationResultType.Error, AppResources.Hosts_ReadError);
+                OperationResult<List<(string ip, string domain)>> result;
                 if (!TryOperation(out var errmsg, out var fileInfo, out var _))
                 {
-                    result.Message = errmsg;
+                    result = new(OperationResultType.Error, errmsg);
                     return result;
                 }
                 try
                 {
-                    using var fileReader = fileInfo.OpenText(GetEncoding());
-                    result.AppendData.AddRange(ReadHostsAllLines_(fileReader));
-                    result.ResultType = OperationResultType.Success;
-                    result.Message = AppResources.Hosts_ReadSuccess;
+                    var result_read = TryReadHosts(() => fileInfo.OpenText(GetEncoding()), nameof(HandleHosts));
+                    if (result_read.ResultType != OperationResultType.Success)
+                    {
+                        return result = new(result_read.ResultType, result_read.Message);
+                    }
+                    using var fileReader = result_read.AppendData;
+                    result = new()
+                    {
+                        AppendData = new(ReadHostsAllLines_(fileReader)),
+                        ResultType = OperationResultType.Success,
+                        Message = AppResources.Hosts_ReadSuccess
+                    };
                 }
                 catch (Exception ex)
                 {
                     Log.Error(TAG, ex, "ReadHostsAllLines catch.");
-                    result.ResultType = OperationResultType.Error;
-                    result.Message = ex.GetAllMessage();
+                    result = new(OperationResultType.Error, ex.GetAllMessage());
                 }
                 return result;
             }
         }
 
-        public OperationResult<Dictionary<string, string>> ReadHostsAllLinesV2()
+        public IOperationResult<Dictionary<string, string>> ReadHostsAllLinesV2()
         {
             lock (lockObj)
             {
                 OperationResult<Dictionary<string, string>> result;
                 if (!TryOperation(out var errmsg, out var fileInfo, out var _))
                 {
-                    result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, errmsg);
+                    result = new(OperationResultType.Error, errmsg);
                     return result;
                 }
                 try
                 {
-                    using var fileReader = fileInfo.OpenText(GetEncoding());
-                    result = new OperationResult<Dictionary<string, string>>()
+                    var result_read = TryReadHosts(() => fileInfo.OpenText(GetEncoding()), nameof(HandleHosts));
+                    if (result_read.ResultType != OperationResultType.Success)
+                    {
+                        return result = new(result_read.ResultType, result_read.Message);
+                    }
+                    using var fileReader = result_read.AppendData;
+                    result = new()
                     {
                         AppendData = ReadHostsAllLines(fileReader),
                         ResultType = OperationResultType.Success,
@@ -571,14 +585,14 @@ namespace System.Application.Services.Implementation
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(TAG, ex, "ReadHostsAllLines catch.");
-                    result = new OperationResult<Dictionary<string, string>>(OperationResultType.Error, ex.GetAllMessage());
+                    Log.Error(TAG, ex, "ReadHostsAllLinesV2 catch.");
+                    result = new(OperationResultType.Error, ex.GetAllMessage());
                 }
                 return result;
             }
         }
 
-        public OperationResult UpdateHosts(string ip, string domain)
+        public IOperationResult UpdateHosts(string ip, string domain)
         {
             var dict = new Dictionary<string, string>
             {
@@ -587,7 +601,7 @@ namespace System.Application.Services.Implementation
             return UpdateHosts(dict);
         }
 
-        public OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts)
+        public IOperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts)
         {
             //var value = hosts.ToDictionary(k => k.domain, v => v.ip);
             var value = new Dictionary<string, string>();
@@ -596,12 +610,12 @@ namespace System.Application.Services.Implementation
             return UpdateHosts(value);
         }
 
-        public OperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts)
+        public IOperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts)
         {
             return HandleHosts(isUpdateOrRemove: true, hosts);
         }
 
-        public OperationResult RemoveHosts(string ip, string domain)
+        public IOperationResult RemoveHosts(string ip, string domain)
         {
             var hosts = new Dictionary<string, string>
             {
@@ -610,11 +624,25 @@ namespace System.Application.Services.Implementation
             return HandleHosts(isUpdateOrRemove: false, hosts);
         }
 
-        public OperationResult RemoveHosts(string domain) => RemoveHosts(string.Empty, domain);
+        public IOperationResult RemoveHosts(string domain) => RemoveHosts(string.Empty, domain);
 
-        public OperationResult RemoveHostsByTag()
+        public IOperationResult RemoveHostsByTag()
         {
             return HandleHosts(isUpdateOrRemove: false);
+        }
+
+        IOperationResult<T> TryReadHosts<T>(Func<T> func, string methodName) where T : notnull
+        {
+            try
+            {
+                var r = func();
+                return new OperationResult<T>(OperationResultType.Success, string.Empty, r);
+            }
+            catch (IOException ex)
+            {
+                Log.Error(TAG, ex, "TryReadHosts fail, methodName: {0}.", methodName);
+                return new OperationResult<T>(OperationResultType.Error, AppResources.CommunityFix_ReadHosts_IOException);
+            }
         }
 
         public bool ContainsHostsByTag()
@@ -625,10 +653,18 @@ namespace System.Application.Services.Implementation
                 var fileInfo = new FileInfo(filePath);
                 if (fileInfo.Exists && fileInfo.Length <= MaxFileLength)
                 {
-                    var lines = File.ReadAllLines(filePath, GetEncoding());
-                    if (lines.Reverse().Any(x => x.StartsWith(MarkEnd)))
+                    var result = TryReadHosts(() => File.ReadAllLines(filePath, GetEncoding()), nameof(ContainsHostsByTag));
+                    if (result.ResultType == OperationResultType.Success)
                     {
-                        return true;
+                        var lines = result.AppendData;
+                        if (lines.Reverse().Any(x => x.StartsWith(MarkEnd)))
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        Toast.Show(AppResources.OperationHostsError_.Format(result.Message));
                     }
                 }
             }
@@ -651,5 +687,13 @@ namespace System.Application.Services.Implementation
                 mOnExitRestoreHosts = true;
             }
         }
+
+#if DEBUG
+        static FileStream? mOccupyHostsFileStream;
+        public void OccupyHosts()
+        {
+            mOccupyHostsFileStream = new FileStream(s.HostsFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        }
+#endif
     }
 }

@@ -1284,6 +1284,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 读取或还原文件时失败，因被其他进程占用，可能是其他不兼容的网络加速程序，请找到占用的进程将其关闭。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ReadHosts_IOException {
+            get {
+                return ResourceManager.GetString("CommunityFix_ReadHosts_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 管理脚本 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ScriptManage {
@@ -1329,11 +1338,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 加速服务启动失败，{0} 端口被 {1} 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
+        ///   查找类似 加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
         /// </summary>
-        public static string CommunityFix_StartProxyFaild443 {
+        public static string CommunityFix_StartProxyFaild443_ {
             get {
-                return ResourceManager.GetString("CommunityFix_StartProxyFaild443", resourceCulture);
+                return ResourceManager.GetString("CommunityFix_StartProxyFaild443_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速服务启动失败，{0} 端口被 {1}({2}) 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_StartProxyFaild443___ {
+            get {
+                return ResourceManager.GetString("CommunityFix_StartProxyFaild443___", resourceCulture);
             }
         }
         

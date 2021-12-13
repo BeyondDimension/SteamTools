@@ -20,7 +20,7 @@ namespace System.Application.Services
         /// 读取 hosts 文件
         /// </summary>
         /// <returns></returns>
-        OperationResult<List<(string ip, string domain)>> ReadHostsAllLines();
+        IOperationResult<List<(string ip, string domain)>> ReadHostsAllLines();
 
         /// <summary>
         /// 更新一条 hosts 纪录
@@ -28,17 +28,17 @@ namespace System.Application.Services
         /// <param name="ip"></param>
         /// <param name="domain"></param>
         /// <returns></returns>
-        OperationResult UpdateHosts(string ip, string domain);
+        IOperationResult UpdateHosts(string ip, string domain);
 
-        /// <inheritdoc cref="UpdateHosts(IReadOnlyDictionary{string, string})"/>\
-        OperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts);
+        /// <inheritdoc cref="UpdateHosts(IReadOnlyDictionary{string, string})"/>
+        IOperationResult UpdateHosts(IEnumerable<(string ip, string domain)> hosts);
 
         /// <summary>
         /// 更新多条 hosts 纪录
         /// </summary>
         /// <param name="hosts"></param>
         /// <returns></returns>
-        OperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts);
+        IOperationResult UpdateHosts(IReadOnlyDictionary<string, string> hosts);
 
         /// <summary>
         /// 移除一条 hosts 纪录
@@ -46,17 +46,16 @@ namespace System.Application.Services
         /// <param name="ip"></param>
         /// <param name="domain"></param>
         /// <returns></returns>
-        [Obsolete]
-        OperationResult RemoveHosts(string ip, string domain);
+        IOperationResult RemoveHosts(string ip, string domain);
 
         /// <inheritdoc cref="RemoveHosts(string, string)"/>
-        OperationResult RemoveHosts(string domain);
+        IOperationResult RemoveHosts(string domain);
 
         /// <summary>
         /// 移除当前程序写入的 hosts 纪录并还原写入时冲突的备份纪录
         /// </summary>
         /// <returns></returns>
-        OperationResult RemoveHostsByTag();
+        IOperationResult RemoveHostsByTag();
 
         /// <summary>
         /// 当程序退出时还原 hosts 文件
@@ -72,7 +71,7 @@ namespace System.Application.Services
         enum EncodingType : byte
         {
             /// <summary>
-            /// 自动，在 Windows 上使用 <see cref="EncodingType.UTF8WithBOM"/>，在其他操作系统上使用 <see cref="UTF8"/>
+            /// 自动，在 Windows 上使用 <see cref="UTF8WithBOM"/>，在其他操作系统上使用 <see cref="UTF8"/>
             /// </summary>
             Auto,
 
@@ -88,5 +87,9 @@ namespace System.Application.Services
 
             UTF8WithBOM,
         }
+
+#if DEBUG
+        void OccupyHosts();
+#endif
     }
 }
