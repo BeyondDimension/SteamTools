@@ -1016,6 +1016,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxxhdpi\splash_logo.png">
       <Link>Resources\drawable-xxxhdpi\splash_logo.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_about_not_binding.xml">
+      <Link>Resources\layout\activity_about_not_binding.xml</Link>
+    </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_barcode_scanner.xml">
       <Link>Resources\layout\activity_barcode_scanner.xml</Link>
     </AndroidBoundLayout>
@@ -1037,6 +1040,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
       <Link>Resources\layout\activity_main.xml</Link>
     </AndroidBoundLayout>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_settings_not_binding.xml">
+      <Link>Resources\layout\activity_settings_not_binding.xml</Link>
+    </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_steam_auth_data.xml">
       <Link>Resources\layout\activity_steam_auth_data.xml</Link>
     </AndroidBoundLayout>
@@ -1114,12 +1120,6 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_settings.xml">
       <Link>Resources\layout\fragment_settings.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_activity_about.xml">
-      <Link>Resources\layout\layout_activity_about.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_activity_settings.xml">
-      <Link>Resources\layout\layout_activity_settings.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator.xml">
       <Link>Resources\layout\layout_card_gap_authenticator.xml</Link>
@@ -1270,6 +1270,10 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
+
+
 
 
 

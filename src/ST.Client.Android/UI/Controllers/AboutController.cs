@@ -276,10 +276,12 @@ namespace System.Application.UI.Controllers
 
 namespace System.Application.UI.Fragments
 {
+#if __XAMARIN_FORMS__
     internal sealed class AboutFragment : BaseMvcFragment<V, M, C>
     {
         protected override int? LayoutResource => Resource.Layout.fragment_about;
     }
+#endif
 }
 
 namespace System.Application.UI.Activities
@@ -290,6 +292,6 @@ namespace System.Application.UI.Activities
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class AboutActivity : BaseMvcActivity<V, M, C>
     {
-        protected override int? LayoutResource => Resource.Layout.layout_activity_about;
+        protected override int? LayoutResource => Resource.Layout.activity_about_not_binding;
     }
 }

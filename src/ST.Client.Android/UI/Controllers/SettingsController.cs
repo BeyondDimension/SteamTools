@@ -22,6 +22,7 @@ namespace System.Application.UI.Controllers
     {
         public SettingsController(IHost host, V binding) : base(host, binding)
         {
+
         }
 
         public override M? OnCreateViewModel() => M.Instance;
@@ -186,10 +187,12 @@ namespace System.Application.UI.Controllers
 
 namespace System.Application.UI.Fragments
 {
+#if __XAMARIN_FORMS__
     internal sealed class SettingsFragment : BaseMvcFragment<V, M, C>
     {
         protected override int? LayoutResource => Resource.Layout.fragment_settings;
     }
+#endif
 }
 
 namespace System.Application.UI.Activities
@@ -200,6 +203,6 @@ namespace System.Application.UI.Activities
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class SettingsActivity : BaseMvcActivity<V, M, C>
     {
-        protected override int? LayoutResource => Resource.Layout.layout_activity_settings;
+        protected override int? LayoutResource => Resource.Layout.activity_settings_not_binding;
     }
 }
