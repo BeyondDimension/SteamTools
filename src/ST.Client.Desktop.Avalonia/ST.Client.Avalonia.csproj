@@ -134,6 +134,9 @@
     <Compile Update="Application\UI\Views\Controls\Badge.xaml.cs">
       <DependentUpon>Badge.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\PlatformAccountPage\SignWindow.axaml.cs">
+      <DependentUpon>SignWindow.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
