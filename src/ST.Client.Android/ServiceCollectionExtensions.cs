@@ -25,7 +25,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 {
                     services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
                 }
+#if __XAMARIN_FORMS__
                 services.AddSingleton<IPlatformPageRouteService, AndroidPageRouteServiceImpl>();
+#endif
             }
             else
             {

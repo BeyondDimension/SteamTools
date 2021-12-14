@@ -16,12 +16,16 @@ using System.Application.Services.Implementation;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
+#if __XAMARIN_FORMS__
 using Xamarin.Forms;
-#if DEBUG
-using Square.LeakCanary;
 #endif
+//#if DEBUG
+//using Square.LeakCanary;
+//#endif
+#if __XAMARIN_FORMS__
 using ImageCircle.Forms.Plugin.Droid;
 using XFApplication = Xamarin.Forms.Application;
+#endif
 using XEAppTheme = Xamarin.Essentials.AppTheme;
 
 namespace System.Application.UI
@@ -42,34 +46,36 @@ namespace System.Application.UI
             // 此页面当前使用 Square.Picasso 库加载图片
             AuthTradeWindowViewModel.IsLoadImage = false;
 
+#if __XAMARIN_FORMS__
             // https://github.com/xamarin/Xamarin.Forms/blob/release-5.0.0-sr7/Xamarin.Forms.Platform.Android/Resources/Layout/RootLayout.axml
             // https://github.com/xamarin/Xamarin.Forms/blob/release-5.0.0-sr7/Xamarin.Forms.Platform.Android/Renderers/ShellSectionRenderer.cs
             // 替换 RootLayout.axml 中的 Toolbar 修复一些样式问题，更换 ShellSectionRenderer 类会导致子页面无法加载，或许需要继承自，但只能通过反射修改 layout
             Xamarin.Forms.Platform.Android.Resource.Layout.RootLayout = Resource.Layout.xf_root_layout;
-        }
-
-#if DEBUG
-        RefWatcher? _refWatcher;
-
-        void SetupLeakCanary()
-        {
-            // “A small leak will sink a great ship.” - Benjamin Franklin
-            if (LeakCanaryXamarin.IsInAnalyzerProcess(this))
-            {
-                // This process is dedicated to LeakCanary for heap analysis.
-                // You should not init your app in this process.
-                return;
-            }
-            _refWatcher = LeakCanaryXamarin.Install(this);
-        }
 #endif
+        }
+
+        //#if DEBUG
+        //RefWatcher? _refWatcher;
+
+        //void SetupLeakCanary()
+        //{
+        //    // “A small leak will sink a great ship.” - Benjamin Franklin
+        //    if (LeakCanaryXamarin.IsInAnalyzerProcess(this))
+        //    {
+        //        // This process is dedicated to LeakCanary for heap analysis.
+        //        // You should not init your app in this process.
+        //        return;
+        //    }
+        //    _refWatcher = LeakCanaryXamarin.Install(this);
+        //}
+        //#endif
 
         public override void OnCreate()
         {
             base.OnCreate();
-#if DEBUG
-            SetupLeakCanary();
-#endif
+            //#if DEBUG
+            //            //SetupLeakCanary();
+            //#endif
             var stopwatch = Stopwatch.StartNew();
             var startTrace = new StringBuilder();
 
@@ -175,6 +181,7 @@ namespace System.Application.UI
                 startTrace.AppendFormatLine("init ViewModels {0}ms", stopwatch.ElapsedMilliseconds);
                 stopwatch.Restart();
 
+#if __XAMARIN_FORMS__
                 Forms.Init(this, null);
                 FormsMaterial.Init(this, null);
                 ImageCircleRenderer.Init();
@@ -184,6 +191,7 @@ namespace System.Application.UI
                 stopwatch.Restart();
 
                 _Current = new(RealTheme);
+#endif
 
                 stopwatch.Stop();
                 startTrace.AppendFormatLine("init XFApp {0}ms", stopwatch.ElapsedMilliseconds);
@@ -197,9 +205,11 @@ namespace System.Application.UI
 #endif
         }
 
+#if __XAMARIN_FORMS__
         static App? _Current;
         public static App Current => _Current ??
             throw new NullReferenceException("XFApplication Create in main process only.");
+#endif
 
         public static string? StartupTrack { get; private set; }
 
@@ -226,33 +236,43 @@ namespace System.Application.UI
             set
             {
                 int defaultNightMode;
+#if __XAMARIN_FORMS__
                 OSAppTheme theme;
+#endif
                 switch (value)
                 {
                     case AppTheme.Light:
                         defaultNightMode = AppCompatDelegate.ModeNightNo;
+#if __XAMARIN_FORMS__
                         theme = OSAppTheme.Light;
+#endif
                         break;
                     case AppTheme.Dark:
                         defaultNightMode = AppCompatDelegate.ModeNightYes;
+#if __XAMARIN_FORMS__
                         theme = OSAppTheme.Dark;
+#endif
                         break;
                     case AppTheme.FollowingSystem:
                         defaultNightMode = AppCompatDelegate.ModeNightFollowSystem;
+#if __XAMARIN_FORMS__
                         theme = AppInfo.RequestedTheme switch
                         {
                             XEAppTheme.Light => OSAppTheme.Light,
                             XEAppTheme.Dark => OSAppTheme.Dark,
                             _ => OSAppTheme.Unspecified,
                         };
+#endif
                         break;
                     default:
                         return;
                 }
+#if __XAMARIN_FORMS__
                 if (IsRuntimeSwitchXFAppTheme && XFApplication.Current is App app)
                 {
                     app.AppTheme = theme;
                 }
+#endif
                 AppCompatDelegate.DefaultNightMode = defaultNightMode;
             }
         }

@@ -13,6 +13,16 @@
     <DefineConstants>IS_STORE_PACKAGE;$(DefineConstants)</DefineConstants>
   </PropertyGroup>-->
 
+  <!--<PropertyGroup>
+    <DefineConstants>__XAMARIN_FORMS__;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>-->
+
+  <ItemGroup Condition=" !$(DefineConstants.Contains(`__XAMARIN_FORMS__`)) ">
+    <Compile Remove="UI\Renderers\**" />
+    <EmbeddedResource Remove="UI\Renderers\**" />
+    <None Remove="UI\Renderers\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="..\Startup2.cs" />
     <Compile Include="..\Startup2.HandleGlobalException.cs" />
@@ -141,7 +151,7 @@
   </ItemGroup>-->
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" />
+    <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" Condition=" $(DefineConstants.Contains(`__XAMARIN_FORMS__`)) " />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
