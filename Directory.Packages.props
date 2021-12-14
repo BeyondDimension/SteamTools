@@ -14,9 +14,9 @@
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.21" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.21" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.21" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.21" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0')) ">
 		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET50) -->
@@ -33,9 +33,9 @@
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
@@ -52,9 +52,9 @@
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Entity Framework Plus -->
