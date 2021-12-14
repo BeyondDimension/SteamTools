@@ -76,8 +76,8 @@ namespace System.Application.UI.Fragments
                     PreferenceButton.UserProfile => typeof(UserProfileActivity),
                     PreferenceButton.BindPhoneNumber => typeof(BindPhoneNumberActivity),
                     PreferenceButton.ChangePhoneNumber => typeof(ChangePhoneNumberActivity),
-                    //PreferenceButton.Settings => typeof(SettingsActivity),
-                    //PreferenceButton.About => typeof(AboutActivity),
+                    PreferenceButton.Settings => typeof(SettingsActivity),
+                    PreferenceButton.About => typeof(AboutActivity),
                     _ => (Type?)null,
                 };
                 if (activityType != null) this.StartActivity(activityType);

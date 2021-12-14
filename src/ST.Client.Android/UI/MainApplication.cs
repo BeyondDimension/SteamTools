@@ -191,11 +191,11 @@ namespace System.Application.UI
                 stopwatch.Restart();
 
                 _Current = new(RealTheme);
-#endif
 
                 stopwatch.Stop();
                 startTrace.AppendFormatLine("init XFApp {0}ms", stopwatch.ElapsedMilliseconds);
                 stopwatch.Restart();
+#endif
             }
 
             stopwatch.Stop();

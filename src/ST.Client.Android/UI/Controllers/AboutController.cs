@@ -2,46 +2,40 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
-using Android.Opengl;
-using Android.OS;
 using Android.Runtime;
 using Android.Text;
 using Android.Text.Style;
-using Android.Util;
 using Android.Views;
-using Android.Webkit;
 using AndroidX.Annotations;
 using AndroidX.RecyclerView.Widget;
-using Binding;
-using ReactiveUI;
-using System.Application.Security;
-using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Windows;
 using Xamarin.Essentials;
-using static System.Application.Services.CloudService.Constants;
 using static System.Application.UI.ViewModels.AboutPageViewModel;
-using _ThisAssembly = System.Properties.ThisAssembly;
-using AndroidApplication = Android.App.Application;
-using Process = System.Diagnostics.Process;
+using M = System.Application.UI.ViewModels.AboutPageViewModel;
+using V = Binding.fragment_about;
+using C = System.Application.UI.Controllers.AboutController;
 
-namespace System.Application.UI.Fragments
+namespace System.Application.UI.Controllers
 {
-    internal sealed class AboutFragment : BaseFragment<fragment_about, AboutPageViewModel>
+    internal sealed class AboutController : ControllerBase<V, M>
     {
-        protected override int? LayoutResource => Resource.Layout.fragment_about;
-
-        protected override AboutPageViewModel? OnCreateViewModel() => Instance;
-
-        public override void OnCreateView(View view)
+        public AboutController(IHost host, V binding) : base(host, binding)
         {
-            base.OnCreateView(view);
+
+        }
+
+        public override M? OnCreateViewModel() => Instance;
+
+        public override void OnCreate()
+        {
+            if (IsActivity)
+            {
+                SetSupportActionBarWithNavigationClick(true);
+            }
 
             binding!.tvDevelopers.SetLinkMovementMethod();
             binding!.tvBusinessCooperationContact.SetLinkMovementMethod();
@@ -59,7 +53,10 @@ namespace System.Application.UI.Fragments
 
             R.Subscribe(() =>
             {
-                //Title = ViewModel.Name;
+                if (IsActivity)
+                {
+                    Activity.Title = ViewModel.Name;
+                }
                 if (binding == null) return;
                 binding.tvAgreementAndPrivacy.TextFormatted = CreateAgreementAndPrivacy();
             }).AddTo(this);
@@ -86,14 +83,14 @@ namespace System.Application.UI.Fragments
                             R.Language));
                         break;
                     case PreferenceButton.开放源代码许可:
-                        TextBlockActivity.StartActivity(RequireActivity(), new TextBlockViewModel
+                        TextBlockActivity.StartActivity(Activity, new TextBlockViewModel
                         {
                             Title = AppResources.About_OpenSource,
                             ContentSource = TextBlockViewModel.ContentSourceEnum.OpenSourceLibrary,
                         });
                         break;
                     case PreferenceButton.源码仓库:
-                        ComboBoxHelper.Dialog(RequireActivity(), SourceRepositories, async x => await Browser2.OpenAsync(x switch
+                        ComboBoxHelper.Dialog(Activity, SourceRepositories, async x => await Browser2.OpenAsync(x switch
                         {
                             GitHub => UrlConstants.GitHub_Repository,
                             Gitee => UrlConstants.Gitee_Repository,
@@ -107,7 +104,7 @@ namespace System.Application.UI.Fragments
                         await Browser2.OpenAsync(UrlConstants.OfficialWebsite_Contact);
                         break;
                     case PreferenceButton.Bug反馈:
-                        ComboBoxHelper.Dialog(RequireActivity(), SourceRepositories, async x => await Browser2.OpenAsync(x switch
+                        ComboBoxHelper.Dialog(Activity, SourceRepositories, async x => await Browser2.OpenAsync(x switch
                         {
                             GitHub => UrlConstants.GitHub_Issues,
                             Gitee => UrlConstants.Gitee_Issues,
@@ -118,7 +115,7 @@ namespace System.Application.UI.Fragments
                         ViewModel!.DelAccountCommand.Invoke();
                         break;
                     case PreferenceButton.社区翻译:
-                        TextBlockActivity.StartActivity(RequireActivity(), new TextBlockViewModel
+                        TextBlockActivity.StartActivity(Activity, new TextBlockViewModel
                         {
                             Title = nameof(PreferenceButton.社区翻译),
                             ContentSource = TextBlockViewModel.ContentSourceEnum.Translators,
@@ -127,15 +124,15 @@ namespace System.Application.UI.Fragments
                         break;
                 }
             };
-            var layout = new LinearLayoutManager2(RequireContext(), LinearLayoutManager.Vertical, false);
+            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
             binding.rvPreferenceButtons.SetLayoutManager(layout);
-            binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(RequireContext(), Resource.Dimension.preference_buttons_space_min));
+            binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(Context, Resource.Dimension.preference_buttons_space_min));
             binding.rvPreferenceButtons.SetAdapter(adapter);
 
             SetOnClickListener(binding.ivLogo, binding.tvTitle);
         }
 
-        protected override bool OnClick(View view)
+        public override bool OnClick(View view)
         {
             if (view.Id == Resource.Id.ivLogo || view.Id == Resource.Id.tvTitle)
             {
@@ -274,5 +271,25 @@ namespace System.Application.UI.Fragments
                 return IsHeaderPreferenceButton(viewModel.Id);
             }
         }
+    }
+}
+
+namespace System.Application.UI.Fragments
+{
+    internal sealed class AboutFragment : BaseMvcFragment<V, M, C>
+    {
+        protected override int? LayoutResource => Resource.Layout.fragment_about;
+    }
+}
+
+namespace System.Application.UI.Activities
+{
+    [Register(JavaPackageConstants.Activities + nameof(AboutActivity))]
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
+         LaunchMode = LaunchMode.SingleTask,
+         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+    internal sealed class AboutActivity : BaseMvcActivity<V, M, C>
+    {
+        protected override int? LayoutResource => Resource.Layout.layout_activity_about;
     }
 }

@@ -1,39 +1,45 @@
-using Android.App;
-using Android.Content.PM;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Binding;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Settings;
-using System.Application.Services;
 using System.Application.UI.Resx;
-using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using static System.Application.UI.Resx.AppResources;
 using DynamicData;
 using System.Application.UI.Activities;
+using System.Application.Services;
+using Android.Runtime;
+using Android.App;
+using Android.Content.PM;
+using M = System.Application.UI.ViewModels.SettingsPageViewModel;
+using V = Binding.fragment_settings;
+using C = System.Application.UI.Controllers.SettingsController;
 
-namespace System.Application.UI.Fragments
+namespace System.Application.UI.Controllers
 {
-    internal sealed class SettingsFragment : BaseFragment<fragment_settings, SettingsPageViewModel>
+    internal sealed class SettingsController : ControllerBase<V, M>
     {
-        protected override int? LayoutResource => Resource.Layout.fragment_settings;
+        public SettingsController(IHost host, V binding) : base(host, binding)
+        {
+        }
 
-        protected override SettingsPageViewModel? OnCreateViewModel() => SettingsPageViewModel.Instance;
+        public override M? OnCreateViewModel() => M.Instance;
 
         readonly Dictionary<View, ComboBoxHelper.ListPopupWindowWrapper<string>> comboBoxs = new();
 
-        void SetIsAutoCheckUpdateChecked() => binding!.swGeneralSettingsIsAutoCheckUpdate.Checked = GeneralSettings.IsAutoCheckUpdate.Value;
-        void SetUpdateChannelText() => binding!.tvGeneralSettingsUpdateChannelValue.Text = GeneralSettings.UpdateChannel.Value.ToString();
-        void SetThemeText() => binding!.tvUISettingsThemeValue.Text = ((AppTheme)UISettings.Theme.Value).ToString3();
+        void SetIsAutoCheckUpdateChecked() => binding.swGeneralSettingsIsAutoCheckUpdate.Checked = GeneralSettings.IsAutoCheckUpdate.Value;
+        void SetUpdateChannelText() => binding.tvGeneralSettingsUpdateChannelValue.Text = GeneralSettings.UpdateChannel.Value.ToString();
+        void SetThemeText() => binding.tvUISettingsThemeValue.Text = ((AppTheme)UISettings.Theme.Value).ToString3();
 
-        public override void OnCreateView(View view)
+        void SetCaptureScreenChecked() => binding.swGeneralSettingsCaptureScreen.Checked = GeneralSettings.CaptureScreen.Value;
+
+        public override void OnCreate()
         {
-            base.OnCreateView(view);
+            if (IsActivity)
+            {
+                SetSupportActionBarWithNavigationClick(true);
+            }
 
 #if IS_STORE_PACKAGE // 渠道包隐藏下载更新渠道，更新通过应用商店分发
             binding.layoutRootGeneralSettingsUpdateChannel.Visibility = ViewStates.Gone;
@@ -41,7 +47,10 @@ namespace System.Application.UI.Fragments
 
             R.Subscribe(() =>
             {
-                //Title = ViewModel!.Name;
+                if (IsActivity)
+                {
+                    Activity.Title = ViewModel.Name;
+                }
                 if (binding == null) return;
                 binding.tvUISettings.Text = Settings_UI;
                 binding.tvUISettingsLanguage.Text = Settings_Language;
@@ -54,7 +63,7 @@ namespace System.Application.UI.Fragments
                 binding.tvOSAppNotificationSettings.Text = Settings_General_AppNotificationSettings;
                 if (comboBoxs.TryGetValue(binding.layoutRootUISettingsTheme, out var comboBoxUISettingsTheme))
                 {
-                    comboBoxUISettingsTheme.Items = SettingsPageViewModel.GetThemes();
+                    comboBoxUISettingsTheme.Items = M.GetThemes();
                 }
                 binding.tvGeneralSettingsCaptureScreen.Text = Settings_General_CaptureScreen;
                 binding.tvGeneralSettingsCaptureScreenDesc.Text = Settings_General_CaptureScreen_Desc;
@@ -66,11 +75,11 @@ namespace System.Application.UI.Fragments
                 binding.tvUISettingsLanguageValue.Text = x.Value;
             }).AddTo(this);
 
-            comboBoxs.Add(binding!.layoutRootUISettingsLanguage, ComboBoxHelper.Popup(RequireContext(), R.Languages.Select(x => x.Value).ToJavaList(), x =>
+            comboBoxs.Add(binding.layoutRootUISettingsLanguage, ComboBoxHelper.Popup(Context, R.Languages.Select(x => x.Value).ToJavaList(), x =>
             {
                 ViewModel!.SelectLanguage = R.Languages.FirstOrDefault(y => y.Value == x);
             }, binding.layoutUISettingsLanguage));
-            comboBoxs.Add(binding.layoutRootUISettingsTheme, ComboBoxHelper.Popup(RequireContext(), SettingsPageViewModel.GetThemes(), x =>
+            comboBoxs.Add(binding.layoutRootUISettingsTheme, ComboBoxHelper.Popup(Context, M.GetThemes(), x =>
             {
                 if (comboBoxs.TryGetValue(binding.layoutRootUISettingsTheme, out var comboBoxUISettingsTheme))
                 {
@@ -82,7 +91,7 @@ namespace System.Application.UI.Fragments
                     }
                 }
             }, binding.layoutUISettingsTheme));
-            comboBoxs.Add(binding.layoutRootGeneralSettingsUpdateChannel, ComboBoxHelper.Popup(RequireContext(), Enum2.GetAllStrings<UpdateChannelType>(), x =>
+            comboBoxs.Add(binding.layoutRootGeneralSettingsUpdateChannel, ComboBoxHelper.Popup(Context, Enum2.GetAllStrings<UpdateChannelType>(), x =>
             {
                 if (!Enum.TryParse<UpdateChannelType>(x, out var value)) return;
                 GeneralSettings.UpdateChannel.Value = value;
@@ -102,12 +111,12 @@ namespace System.Application.UI.Fragments
             SetUpdateChannelText();
             SetThemeText();
 
-            SettingsPageViewModel.StartSizeCalcByCacheSize(x =>
+            M.StartSizeCalcByCacheSize(x =>
             {
                 if (binding == null) return;
                 binding.tvGeneralSettingsStorageSpaceValue.Text = x;
             });
-            SettingsPageViewModel.StartSizeCalcByLogSize(x =>
+            M.StartSizeCalcByLogSize(x =>
             {
                 if (binding == null) return;
                 binding.tvGeneralSettingsStorageSpaceValue2.Text = x;
@@ -121,7 +130,7 @@ namespace System.Application.UI.Fragments
             binding!.swOSAppNotificationSettings.Checked = enabledNotification;
         }
 
-        protected override bool OnClick(View view)
+        public override bool OnClick(View view)
         {
             foreach (var item in comboBoxs)
             {
@@ -134,12 +143,12 @@ namespace System.Application.UI.Fragments
 
             if (view.Id == Resource.Id.layoutRootOSAppDetailsSettings)
             {
-                GoToPlatformPages.AppDetailsSettings(RequireContext());
+                GoToPlatformPages.AppDetailsSettings(Context);
                 return true;
             }
             else if (view.Id == Resource.Id.layoutRootOSAppNotificationSettings)
             {
-                GoToPlatformPages.NotificationSettings(RequireContext());
+                GoToPlatformPages.NotificationSettings(Context);
                 return true;
             }
             else if (view.Id == Resource.Id.layoutRootGeneralSettingsIsAutoCheckUpdate)
@@ -150,7 +159,7 @@ namespace System.Application.UI.Fragments
             }
             else if (view.Id == Resource.Id.layoutRootGeneralSettingsStorageSpace)
             {
-                this.StartActivity<ExplorerActivity>();
+                Activity.StartActivity<ExplorerActivity>();
                 return true;
             }
             else if (view.Id == Resource.Id.layoutRootGeneralSettingsCaptureScreen)
@@ -163,12 +172,34 @@ namespace System.Application.UI.Fragments
             return base.OnClick(view);
         }
 
-        void SetCaptureScreenChecked() => binding!.swGeneralSettingsCaptureScreen.Checked = GeneralSettings.CaptureScreen.Value;
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (IsActivity)
+            {
+                // Fragment 中执行会导致闪退
+                comboBoxs.Clear();
+            }
+        }
+    }
+}
 
-        //public override void OnDestroy()
-        //{
-        //    base.OnDestroy();
-        //    comboBoxs.Clear();
-        //}
+namespace System.Application.UI.Fragments
+{
+    internal sealed class SettingsFragment : BaseMvcFragment<V, M, C>
+    {
+        protected override int? LayoutResource => Resource.Layout.fragment_settings;
+    }
+}
+
+namespace System.Application.UI.Activities
+{
+    [Register(JavaPackageConstants.Activities + nameof(SettingsActivity))]
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
+         LaunchMode = LaunchMode.SingleTask,
+         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+    internal sealed class SettingsActivity : BaseMvcActivity<V, M, C>
+    {
+        protected override int? LayoutResource => Resource.Layout.layout_activity_settings;
     }
 }

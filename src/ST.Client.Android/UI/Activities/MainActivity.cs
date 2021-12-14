@@ -57,6 +57,7 @@ namespace System.Application.UI.Activities
             R.Subscribe(() =>
             {
                 SetSubPageTitle(Resource.Id.navigation_local_auth, LocalAuthPageViewModel.DisplayName);
+                SetSubPageTitle(Resource.Id.navigation_asf_plus, ArchiSteamFarmPlusPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_my, MyPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_community_fix, AppResources.CommunityFix);
                 //SetSubPageTitle(Resource.Id.navigation_game_list, AppResources.GameList);

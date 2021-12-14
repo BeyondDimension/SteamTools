@@ -1115,6 +1115,12 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_settings.xml">
       <Link>Resources\layout\fragment_settings.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_activity_about.xml">
+      <Link>Resources\layout\layout_activity_about.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_activity_settings.xml">
+      <Link>Resources\layout\layout_activity_settings.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_gap_authenticator.xml">
       <Link>Resources\layout\layout_card_gap_authenticator.xml</Link>
     </AndroidBoundLayout>
@@ -1264,6 +1270,9 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
+
 
 
 
