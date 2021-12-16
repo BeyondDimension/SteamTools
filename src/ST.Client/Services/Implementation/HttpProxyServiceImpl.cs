@@ -1,6 +1,7 @@
 using System.Application.Models;
 using System.Application.Properties;
 using System.Application.UI.Resx;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -78,9 +79,11 @@ namespace System.Application.Services.Implementation
         public static IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
         private static bool IsIpv6Support = false;
+        private static IHttpClientFactory _clientFactory;
 
-        public HttpProxyServiceImpl(IPlatformService platformService)
+        public HttpProxyServiceImpl(IHttpClientFactory clientFactory, IPlatformService platformService)
         {
+            _clientFactory = clientFactory;
             this.platformService = platformService;
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
@@ -106,25 +109,46 @@ namespace System.Application.Services.Implementation
 
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
-
+        public static List<HttpHeader> DefaultHttpHeader => new List<HttpHeader>
+        {
+                new HttpHeader("Access-Control-Allow-Headers", "*"),
+                new HttpHeader("Access-Control-Allow-Methods", "*"),
+                new HttpHeader("Access-Control-Expose-Headers", "SteamPPBrowserBefore"),
+                new HttpHeader("Access-Control-Allow-Credentials", "true")
+        };
         private static async Task HttpRequest(SessionEventArgs e)
         {
-            //IHttpService.Instance.SendAsync<object>();
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
             var cookie = e.HttpClient.Request.Headers.GetFirstHeader("cookie-steamTool")?.Value ??
                 e.HttpClient.Request.Headers.GetFirstHeader("Cookie")?.Value;
-            var headrs = new List<HttpHeader>() {
-                new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
-                new HttpHeader("Access-Control-Allow-Headers", "*"), new HttpHeader("Access-Control-Allow-Methods", "*"),
-                new HttpHeader("Access-Control-Allow-Credentials", "true")
-            };
-            //if (cookie != null)
-            //    headrs.Add(new HttpHeader("Cookie", cookie));
+            var headrs = DefaultHttpHeader;
+            headrs.Add(new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"));
             if (e.HttpClient.Request.ContentType != null)
                 headrs.Add(new HttpHeader("Content-Type", e.HttpClient.Request.ContentType));
             switch (e.HttpClient.Request.Method.ToUpperInvariant())
             {
                 case "GET":
+                    //cloudflare  实现操作太复杂放弃
+                    //var host = new Uri(url).Host;
+                    //var request = new HttpRequestMessage(HttpMethod.Get, url);
+                    //if (cookie != null)
+                    //{
+                    //    request.Headers.Add("Cookie", cookie);
+                    //}
+                    //using (var client = _clientFactory.CreateClient("cloudflare"))
+                    //{
+                    //    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                    //    if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
+                    //    {
+                    //        var responseCookies = response.Headers.Where(header => header.Key == "Set-Cookie").ToArray();
+                    //        if (responseCookies.Length > 0)
+                    //        {
+                    //            
+                    //            headrs.Add(new HttpHeader("SteamPPBrowserBefore", $"Checking your browser before accessing {host}"));
+                    //        }
+                    //    }
+                    //    e.Ok(await response.Content.ReadAsStringAsync() ?? "500", headrs);
+                    //}
                     var body = await IHttpService.Instance.GetAsync<string>(url, cookie: cookie);
                     e.Ok(body ?? "500", headrs);
                     return;
