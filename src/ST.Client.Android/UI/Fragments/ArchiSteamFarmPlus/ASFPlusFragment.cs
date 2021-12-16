@@ -89,7 +89,7 @@ namespace System.Application.UI.Fragments
             }
             else if (resId == Resource.Id.menu_add)
             {
-                return ActionItem.AddBot;
+                return ActionItem.WebAddBot;
             }
             else if (resId == Resource.Id.menu_refresh)
             {
@@ -98,6 +98,18 @@ namespace System.Application.UI.Fragments
             else if (resId == Resource.Id.menu_open_web_console)
             {
                 return ActionItem.OpenWebConsole;
+            }
+            else if (resId == Resource.Id.menu_asf_wiki)
+            {
+                return ActionItem.Wiki;
+            }
+            else if (resId == Resource.Id.menu_asf_github)
+            {
+                return ActionItem.Repo;
+            }
+            else if (resId == Resource.Id.menu_asf_online_config_generator)
+            {
+                return ActionItem.ConfigGenerator;
             }
             return default;
         }

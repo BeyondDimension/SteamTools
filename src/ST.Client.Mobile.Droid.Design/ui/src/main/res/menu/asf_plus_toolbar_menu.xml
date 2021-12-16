@@ -32,4 +32,23 @@
     app:iconTint="@color/icon_background"
     tools:title="打开Web控制台" />
 
+  <item
+    android:id="@+id/menu_asf_wiki"
+    android:icon="@drawable/round_open_in_browser_black_24"
+    android:title="ArchiSteamFarm Wiki"
+    app:iconTint="@color/icon_background" />
+
+  <item
+    android:id="@+id/menu_asf_github"
+    android:icon="@drawable/round_open_in_browser_black_24"
+    android:title="ArchiSteamFarm Github"
+    app:iconTint="@color/icon_background" />
+
+  <item
+    android:id="@+id/menu_asf_online_config_generator"
+    android:icon="@drawable/round_open_in_browser_black_24"
+    android:title=""
+    app:iconTint="@color/icon_background"
+    tools:title="在线配置文件生成器" />
+
 </menu>

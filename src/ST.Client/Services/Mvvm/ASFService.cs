@@ -4,7 +4,6 @@ using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.Storage;
 using DynamicData;
 using ReactiveUI;
-using System;
 using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -144,8 +143,9 @@ namespace System.Application.Services
             GlobalConfig = archiSteamFarmService.GetGlobalConfig();
         }
 
-        public async void ImportBotFiles(IEnumerable<string> files)
+        public async void ImportBotFiles(IEnumerable<string>? files)
         {
+            if (files == null) return;
             var num = 0;
             foreach (var filename in files)
             {

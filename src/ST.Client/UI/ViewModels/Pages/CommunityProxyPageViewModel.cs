@@ -63,6 +63,7 @@ namespace System.Application.UI.ViewModels
                 {
                     platformService.OpenFolder(Path.Combine(IOPath.AppDataDirectory, $@"{httpProxyService.CertificateName}.Certificate.pfx"));
                 });
+                RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);
             }
 
             //AutoRunProxyCommand = ReactiveCommand.Create(() =>
@@ -73,7 +74,6 @@ namespace System.Application.UI.ViewModels
             {
                 IWindowManager.Instance.Show(CustomWindow.ProxySettings, resizeMode: ResizeMode.CanResize);
             });
-            RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);
             //EnableProxyScriptCommand = ReactiveCommand.Create(() =>
             //{
             //    EnableProxyScript?.CheckmarkChange(ProxySettings.IsEnableScript.Value = !ProxySettings.IsEnableScript.Value);

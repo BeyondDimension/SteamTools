@@ -220,15 +220,15 @@ namespace System.Application.UI.ViewModels
             IPlatformService.Instance.OpenFolder(folderASFPathValue);
         }
 
-        public void OpenBrowser(string? tag)
+        void OpenBrowserCore(ActionItem tag)
         {
             var url = tag switch
             {
-                "Repo" => "https://github.com/JustArchiNET/ArchiSteamFarm",
-                "Wiki" => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
-                "ConfigGenerator" => "https://justarchinet.github.io/ASF-WebConfigGenerator/",
-                "WebConfig" => IPCUrl + "/asf-config",
-                "WebAddBot" => IPCUrl + "/bot/new",
+                ActionItem.Repo => "https://github.com/JustArchiNET/ArchiSteamFarm",
+                ActionItem.Wiki => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
+                ActionItem.ConfigGenerator => "https://justarchinet.github.io/ASF-WebConfi.gGenerator/",
+                ActionItem.WebConfig => IPCUrl + "/asf-config",
+                ActionItem.WebAddBot => IPCUrl + "/bot/new",
                 _ => IPCUrl,
             };
 
@@ -252,6 +252,12 @@ namespace System.Application.UI.ViewModels
             }
 
             Browser2.Open(url);
+        }
+
+        public void OpenBrowser(string? tag)
+        {
+            var tag_ = Enum.TryParse<ActionItem>(tag, out var @enum) ? @enum : default;
+            OpenBrowserCore(tag_);
         }
 
         KeyValuePair<string, string> _ConsoleSelectFont;
