@@ -5,6 +5,7 @@ using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
 using System.Application.Settings;
+using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,7 +34,7 @@ namespace System.Application.Services
         readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
         readonly IPlatformService platformService = IPlatformService.Instance;
 
-        public ProxyService()
+        private ProxyService()
         {
             mCurrent = this;
 
@@ -56,9 +57,16 @@ namespace System.Application.Services
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.Scripts = EnableProxyScripts;
-                        httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                        httpProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
-                        httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+                        if (IApplication.IsDesktopPlatform)
+                        {
+                            httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
+                            httpProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
+                            httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+                        }
+                        else
+                        {
+                            httpProxyService.IsSystemProxy = true;
+                        }
 
                         // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
                         httpProxyService.ProxyIp = (!OperatingSystem2.IsMacOS && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
@@ -194,7 +202,7 @@ namespace System.Application.Services
         public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
 
         private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomainsList;
-        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? ProxyDomainsList => _ProxyDomainsList;
+        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList ?? throw new ArgumentNullException(nameof(_ProxyDomainsList));
 
         bool _IsLoading;
         public bool IsLoading
@@ -260,9 +268,14 @@ namespace System.Application.Services
 
         public bool IsOnlyWorkSteamBrowser
         {
-            get => ProxySettings.IsOnlyWorkSteamBrowser.Value;
+            get
+            {
+                if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return false;
+                return ProxySettings.IsOnlyWorkSteamBrowser.Value;
+            }
             set
             {
+                if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return;
                 if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
                 {
                     ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
@@ -309,6 +322,19 @@ namespace System.Application.Services
             }
         }
 
+        /// <summary>
+        /// 是否使用 <see cref="IHttpService"/> 加载确认物品图片 <see cref="Stream"/>
+        /// </summary>
+        static bool IsLoadImage
+        {
+            get
+            {
+                // 此页面当前使用 Square.Picasso 库加载图片
+                if (OperatingSystem2.IsAndroid) return false;
+                return true;
+            }
+        }
+
         public async Task InitializeAccelerate()
         {
             #region 加载代理服务数据
@@ -341,7 +367,7 @@ namespace System.Application.Services
 
             LoadOrSaveLocalAccelerate();
 
-            if (ProxyDomains.Items.Any_Nullable())
+            if (IsLoadImage && ProxyDomains.Items.Any_Nullable())
             {
                 foreach (var item in ProxyDomains.Items)
                 {

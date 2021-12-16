@@ -50,7 +50,7 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _GlobalConfig, value);
         }
 
-        public ASFService()
+        private ASFService()
         {
             mCurrent = this;
 

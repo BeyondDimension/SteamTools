@@ -49,6 +49,7 @@ namespace System.Application.Services.Implementation
             string? clientName = null) where T : notnull
         {
             HttpRequestMessage? request = null;
+            bool requestIsSend = false;
             HttpResponseMessage? response = null;
             bool notDisposeResponse = false;
             try
@@ -62,6 +63,7 @@ namespace System.Application.Services.Implementation
                 {
                     try
                     {
+                        requestIsSend = true;
                         response = await Csc.Forward(request,
                             HttpCompletionOption.ResponseHeadersRead,
                             cancellationToken);
@@ -76,8 +78,11 @@ namespace System.Application.Services.Implementation
                 if (response == null)
                 {
                     var client = CreateClient(clientName);
-                    request.Dispose();
-                    request = requestFactory();
+                    if (requestIsSend)
+                    {
+                        request.Dispose();
+                        request = requestFactory();
+                    }
                     response = await client.SendAsync(request,
                       HttpCompletionOption.ResponseHeadersRead,
                       cancellationToken).ConfigureAwait(false);

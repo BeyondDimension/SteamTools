@@ -64,8 +64,7 @@ namespace System.Application.UI.ViewModels
         protected static readonly IPlatformService platformService = IPlatformService.Instance;
         public MainWindowViewModel()
         {
-            var useAvalonia = OperatingSystem2.Application.UseAvalonia;
-            if (useAvalonia)
+            if (IApplication.IsDesktopPlatform)
             {
                 var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows ? " (Administrator)" : " (Root)") : string.Empty;
                 Title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
@@ -97,38 +96,26 @@ namespace System.Application.UI.ViewModels
             //AddTabItem<StartPageViewModel>();
             AddTabItem<CommunityProxyPageViewModel>();
             AddTabItem<ProxyScriptManagePageViewModel>();
-            if (useAvalonia)
+            if (IApplication.IsDesktopPlatform)
             {
                 AddTabItem<SteamAccountPageViewModel>();
+                AddTabItem<GameListPageViewModel>();
             }
-            AddTabItem<GameListPageViewModel>();
             AddTabItem<LocalAuthPageViewModel>();
-            var isVersion_2_5_OR_GREATER =
-#if DEBUG
-                true;
-#else
-                new Version(global::System.Properties.ThisAssembly.Version) >= new Version(2, 5);
-#endif
-
-            if (isVersion_2_5_OR_GREATER)
-            {
-                AddTabItem<ArchiSteamFarmPlusPageViewModel>();
-            }
+            AddTabItem<ArchiSteamFarmPlusPageViewModel>();
 
             //AddTabItem<SteamIdlePageViewModel>();
 #if !TRAY_INDEPENDENT_PROGRAM
-            if (OperatingSystem2.IsWindows && useAvalonia)
+            if (OperatingSystem2.IsWindows)
                 AddTabItem<GameRelatedPageViewModel>();
 #endif
             //AddTabItem<OtherPlatformPageViewModel>();
 
-#if !TRAY_INDEPENDENT_PROGRAM
-            if (IApplication.EnableDevtools && useAvalonia)
+#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
+            if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
             {
-#if DEBUG
                 AddTabItem<DebugPageViewModel>();
                 //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
-#endif
 
                 //if (AppHelper.IsSystemWebViewAvailable)
                 //{
@@ -165,7 +152,11 @@ namespace System.Application.UI.ViewModels
                             await ASFService.Current.InitASF();
                         }
                     });
-                    SteamConnectService.Current.Initialize();
+
+                    if (IApplication.IsDesktopPlatform)
+                    {
+                        SteamConnectService.Current.Initialize();
+                    }
 
                     Parallel.ForEach(TabItems, item =>
                     {

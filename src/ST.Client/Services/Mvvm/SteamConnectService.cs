@@ -29,7 +29,7 @@ namespace System.Application.Services
         readonly ISteamService SteamTool = ISteamService.Instance;
         public const int SteamAFKMaxCount = 32;
 
-        public SteamConnectService()
+        private SteamConnectService()
         {
             mCurrent = this;
 

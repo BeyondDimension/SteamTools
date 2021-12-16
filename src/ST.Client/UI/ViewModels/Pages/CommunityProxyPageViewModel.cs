@@ -52,24 +52,23 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(CommunityProxyPageViewModel);
 
-            if (IsMobileLayout)
+            if (IApplication.IsDesktopPlatform)
             {
-                return;
+                SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
+                DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
+                EditHostsFileCommand = ReactiveCommand.Create(hostsFileService.OpenFile);
+                NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
+                TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
+                OpenCertificateDirCommand = ReactiveCommand.Create(() =>
+                {
+                    platformService.OpenFolder(Path.Combine(IOPath.AppDataDirectory, $@"{httpProxyService.CertificateName}.Certificate.pfx"));
+                });
             }
 
-            SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
-            DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
-            EditHostsFileCommand = ReactiveCommand.Create(hostsFileService.OpenFile);
-            NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
-            TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
             //AutoRunProxyCommand = ReactiveCommand.Create(() =>
             //{
             //    AutoRunProxy?.CheckmarkChange(ProxySettings.ProgramStartupRunProxy.Value = !ProxySettings.ProgramStartupRunProxy.Value);
             //});
-            OpenCertificateDirCommand = ReactiveCommand.Create(() =>
-            {
-                platformService.OpenFolder(Path.Combine(IOPath.AppDataDirectory, $@"{httpProxyService.CertificateName}.Certificate.pfx"));
-            });
             ProxySettingsCommand = ReactiveCommand.Create(() =>
             {
                 IWindowManager.Instance.Show(CustomWindow.ProxySettings, resizeMode: ResizeMode.CanResize);

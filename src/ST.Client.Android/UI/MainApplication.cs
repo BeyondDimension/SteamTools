@@ -43,9 +43,6 @@ namespace System.Application.UI
 
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
-            // 此页面当前使用 Square.Picasso 库加载图片
-            AuthTradeWindowViewModel.IsLoadImage = false;
-
 #if __XAMARIN_FORMS__
             // https://github.com/xamarin/Xamarin.Forms/blob/release-5.0.0-sr7/Xamarin.Forms.Platform.Android/Resources/Layout/RootLayout.axml
             // https://github.com/xamarin/Xamarin.Forms/blob/release-5.0.0-sr7/Xamarin.Forms.Platform.Android/Renderers/ShellSectionRenderer.cs
@@ -196,6 +193,7 @@ namespace System.Application.UI
                 startTrace.AppendFormatLine("init XFApp {0}ms", stopwatch.ElapsedMilliseconds);
                 stopwatch.Restart();
 #endif
+                vmService.MainWindow.Initialize();
             }
 
             stopwatch.Stop();

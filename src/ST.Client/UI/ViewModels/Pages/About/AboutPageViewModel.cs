@@ -110,7 +110,7 @@ namespace System.Application.UI.ViewModels
                 }
             });
 
-            if (IsMobileLayout)
+            if (!IApplication.IsDesktopPlatform)
             {
                 preferenceButtons = new(Enum2.GetAll<PreferenceButton>().Select(x => PreferenceButtonViewModel.Create(x, this)));
 

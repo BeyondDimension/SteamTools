@@ -5,12 +5,12 @@
   xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:layout_marginStart="@dimen/activity_horizontal_margin"
+  android:layout_marginEnd="@dimen/activity_horizontal_margin"
   android:clickable="true"
   android:focusable="true"
-  tools:layout_marginBottom="@dimen/activity_vertical_margin"
-  tools:layout_marginEnd="@dimen/activity_horizontal_margin"
-  tools:layout_marginStart="@dimen/activity_horizontal_margin">
+  tools:layout_marginBottom="@dimen/activity_vertical_margin">
 
-  <include layout="@layout/layout_card_steam_auth_trade_confirmation_content" />
+  <include layout="@layout/layout_card_accelerate_project_group_content" />
 
 </com.google.android.material.card.MaterialCardView>
