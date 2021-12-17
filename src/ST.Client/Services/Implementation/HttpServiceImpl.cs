@@ -144,7 +144,11 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                logger.LogWarning(e, "SendAsync Fail, requestUri: {0}", requestUri);
+                var knownType = e.GetKnownType();
+                if (knownType == ExceptionKnownType.Unknown)
+                {
+                    logger.LogError(e, "SendAsync Fail, requestUri: {0}", requestUri);
+                }
             }
             finally
             {
