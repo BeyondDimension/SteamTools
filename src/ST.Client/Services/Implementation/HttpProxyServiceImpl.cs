@@ -30,6 +30,8 @@ namespace System.Application.Services.Implementation
 
         readonly ProxyServer proxyServer = new();
 
+        protected IDnsAnalysisService DnsAnalysis { get; }
+
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
 
         public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
@@ -79,9 +81,10 @@ namespace System.Application.Services.Implementation
 
         private static bool IsIpv6Support = false;
 
-        public HttpProxyServiceImpl(IPlatformService platformService)
+        public HttpProxyServiceImpl(IPlatformService platformService, IDnsAnalysisService dnsAnalysis)
         {
             this.platformService = platformService;
+            DnsAnalysis = dnsAnalysis;
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
             //else
@@ -162,10 +165,9 @@ namespace System.Application.Services.Implementation
             //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
         }
 
-        private static async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
+        private async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
         {
-            IPAddress? ip;
-            if (isDomain || !IPAddress.TryParse(url, out ip))
+            if (isDomain || !IPAddress.TryParse(url, out var ip))
             {
                 if (proxyDns != null)
                 {

@@ -1,5 +1,6 @@
 using ReactiveUI;
 using System.Application.Models;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Properties;
@@ -22,12 +23,12 @@ namespace System.Application.UI.ViewModels
         public IEnumerable<string?> ProxyDNSs { get; } = new List<string?>()
         {
             null,
-            DnsAnalysis.PrimaryDNS_114,
-            DnsAnalysis.PrimaryDNS_Ali,
-            DnsAnalysis.PrimaryDNS_Dnspod,
-            DnsAnalysis.PrimaryDNS_Baidu,
-            DnsAnalysis.PrimaryDNS_Google,
-            DnsAnalysis.PrimaryDNS_Cloudflare,
+            IDnsAnalysisService.PrimaryDNS_114,
+            IDnsAnalysisService.PrimaryDNS_Ali,
+            IDnsAnalysisService.PrimaryDNS_Dnspod,
+            IDnsAnalysisService.PrimaryDNS_Baidu,
+            IDnsAnalysisService.PrimaryDNS_Google,
+            IDnsAnalysisService.PrimaryDNS_Cloudflare,
         };
     }
 }

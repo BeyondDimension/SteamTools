@@ -39,7 +39,7 @@ namespace System.Application.UI.Fragments
             proxyS.WhenAnyValue(x => x.AccelerateTime).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                binding.tvAccelerateTime.Text = AppResources.CommunityFix_AlreadyProxy + value.ToString("hh:mm:ss");
+                binding.tvAccelerateTime.Text = AppResources.CommunityFix_AlreadyProxy + value.ToString(@"hh\:mm\:ss");
             }).AddTo(this);
             proxyS.WhenAnyValue(x => x.ProxyStatus).SubscribeInMainThread(value =>
             {

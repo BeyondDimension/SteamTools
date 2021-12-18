@@ -2,6 +2,8 @@ using Gameloop.Vdf.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Application.Models;
+using System.Application.Services;
+using System.Application.Services.Implementation;
 using System.Application.Settings;
 using System.Application.UI;
 using System.Collections.Generic;
@@ -860,6 +862,24 @@ namespace System.Application.Services.Implementation
                 }
             }
             return keys;
+        }
+    }
+}
+
+// ReSharper disable once CheckNamespace
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static partial class ServiceCollectionExtensions
+    {
+        /// <summary>
+        /// 添加 Steam 相关助手、工具类服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSteamService(this IServiceCollection services)
+        {
+            services.AddSingleton<ISteamService, SteamServiceImpl>();
+            return services;
         }
     }
 }

@@ -21,6 +21,18 @@
     <Compile Include="..\ST.Client.Desktop.Mac\Internals\UnixHelper.RunShellAsync.cs">
       <LinkBase>Internals</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop.Windows\Services\Implementation\DnsAnalysisServiceImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop.Windows\Services\Implementation\SteamServiceImpl.cs">
+      <LinkBase>Services\Implementation</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.Desktop.Windows\VdfHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DnsClient" />
+    <PackageReference Include="Gameloop.Vdf" />
   </ItemGroup>
 
   <ItemGroup>

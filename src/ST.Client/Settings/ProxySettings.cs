@@ -62,7 +62,7 @@ namespace System.Application.Settings
         /// 代理时使用的解析主DNS
         /// </summary>
         public static SerializableProperty<string?> ProxyMasterDns { get; }
-            = GetProperty<string?>(defaultValue: DnsAnalysis.PrimaryDNS_Ali, autoSave: false);
+            = GetProperty<string?>(defaultValue: IDnsAnalysisService.PrimaryDNS_Ali, autoSave: false);
         #endregion
 
         #region 本地代理设置

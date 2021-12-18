@@ -43,7 +43,7 @@ namespace System.Application.UI.ViewModels
               .Bind(out _Confirmations)
               .Subscribe(_ =>
               {
-                  this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
+                  this.RaisePropertyChanged(nameof(IsConfirmationsAny));
                   this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
               });
 
@@ -234,10 +234,10 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public bool IsConfirmationsEmpty
-        {
-            get => _ConfirmationsSourceList.Items.Any_Nullable();
-        }
+        /// <summary>
+        /// Confirmations SourceList Any
+        /// </summary>
+        public bool IsConfirmationsAny => _ConfirmationsSourceList.Items.Any_Nullable();
 
         public string ConfirmationsConutMessage
         {
@@ -247,7 +247,7 @@ namespace System.Application.UI.ViewModels
                 {
                     return string.Empty;
                 }
-                if (!IsConfirmationsEmpty)
+                if (!IsConfirmationsAny)
                 {
                     return AppResources.LocalAuth_AuthTrade_ListNullTip;
                 }

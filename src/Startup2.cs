@@ -150,6 +150,7 @@ namespace System.Application
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
+            services.AddDnsAnalysisService();
 #if !CONSOLEAPP
             if (options.HasGUI)
             {
@@ -333,8 +334,10 @@ namespace System.Application
 #endif
             if (options.HasSteam)
             {
+#if !__ANDROID__
                 // Steam 相关助手、工具类服务
                 services.AddSteamService();
+#endif
 
                 // Steamworks LocalApi Service
                 services.TryAddSteamworksLocalApiService();

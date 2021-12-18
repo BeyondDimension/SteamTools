@@ -23,8 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DnsClient" />
-    <PackageReference Include="Gameloop.Vdf" />
     <PackageReference Include="NLog" />
     <PackageReference Include="NLog.Extensions.Logging" />
     <PackageReference Include="NotifyIcon.Base" />

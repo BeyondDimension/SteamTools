@@ -635,6 +635,7 @@ namespace System.Application.UI.ViewModels
             //    s.AppendLine(item.GetName(R.Culture.LCID));
             //}
             var testdomain = "steampp.net";
+            var DnsAnalysis = IDnsAnalysisService.Instance;
 
             s.AppendLine($"<Support IPV6>: {await DnsAnalysis.GetIsIpv6Support()}");
             s.AppendLine($"<IPV6> ipv6.rmbgame.net: {(await DnsAnalysis.AnalysisDomainIp("ipv6.rmbgame.net"))?.First()}");
