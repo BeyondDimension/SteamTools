@@ -15,17 +15,6 @@ namespace System.Application.Services.Implementation
     {
         private static readonly LookupClient lookupClient = new();
 
-        public async Task<long> PingHostname(string url)
-        {
-            var pin = new Ping();
-            var r = await pin.SendPingAsync(url, 30);
-            if (r.Status != IPStatus.Success)
-            {
-                return 0;
-            }
-            return r.RoundtripTime;
-        }
-
         public int AnalysisHostnameTime(string url)
         {
             if (!string.IsNullOrEmpty(url))
@@ -53,36 +42,6 @@ namespace System.Application.Services.Implementation
                 }
             }
             return null;
-        }
-
-        public async Task<IPAddress[]?> AnalysisDomainIp(string url, bool isIPv6 = false)
-        {
-            return await AnalysisDomainIpByCustomDns(url, null, isIPv6);
-        }
-
-        public async Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url, bool isIPv6 = false)
-        {
-            return await AnalysisDomainIpByCustomDns(url, DNS_Googles, isIPv6);
-        }
-
-        public async Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url, bool isIPv6 = false)
-        {
-            return await AnalysisDomainIpByCustomDns(url, DNS_Cloudflares, isIPv6);
-        }
-
-        public async Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url, bool isIPv6 = false)
-        {
-            return await AnalysisDomainIpByCustomDns(url, DNS_Dnspods, isIPv6);
-        }
-
-        public async Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url, bool isIPv6 = false)
-        {
-            return await AnalysisDomainIpByCustomDns(url, DNS_Alis, isIPv6);
-        }
-
-        public async Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url, bool isIPv6 = false)
-        {
-            return await AnalysisDomainIpByCustomDns(url, DNS_114s, isIPv6);
         }
 
         public async Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)

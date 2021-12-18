@@ -11,89 +11,39 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class DnsAnalysisServiceImpl : IDnsAnalysisService
     {
-        /// <summary>
-        /// https://developer.android.google.cn/reference/android/net/ConnectivityManager?hl=zh-cn
-        /// </summary>
-        static ConnectivityManager ConnectivityManager
-        {
-            get
-            {
-                var connectivityManager = XEPlatform.CurrentActivity.GetSystemService<ConnectivityManager>(Context.ConnectivityService);
-                return connectivityManager;
-            }
-        }
+        ///// <summary>
+        ///// https://developer.android.google.cn/reference/android/net/ConnectivityManager?hl=zh-cn
+        ///// </summary>
+        //static ConnectivityManager ConnectivityManager
+        //{
+        //    get
+        //    {
+        //        var connectivityManager = XEPlatform.CurrentActivity.GetSystemService<ConnectivityManager>(Context.ConnectivityService);
+        //        return connectivityManager;
+        //    }
+        //}
 
-        public static List<IPEndPoint> GetDnsServers()
-        {
-            List<IPEndPoint> endPoints = new();
-            var connectivityManager = ConnectivityManager;
+        //public static List<IPEndPoint> GetDnsServers()
+        //{
+        //    List<IPEndPoint> endPoints = new();
+        //    var connectivityManager = ConnectivityManager;
 
-            var activeConnection = connectivityManager.ActiveNetwork;
-            var linkProperties = connectivityManager.GetLinkProperties(activeConnection);
+        //    var activeConnection = connectivityManager.ActiveNetwork;
+        //    var linkProperties = connectivityManager.GetLinkProperties(activeConnection);
 
-            if (linkProperties != null)
-            {
-                foreach (var currentAddress in linkProperties.DnsServers)
-                {
-                    var endPoint = new IPEndPoint(IPAddress.Parse(currentAddress.HostAddress), 53);
-                    endPoints.Add(endPoint);
-                }
-            }
+        //    if (linkProperties != null)
+        //    {
+        //        foreach (var currentAddress in linkProperties.DnsServers)
+        //        {
+        //            var endPoint = new IPEndPoint(IPAddress.Parse(currentAddress.HostAddress), 53);
+        //            endPoints.Add(endPoint);
+        //        }
+        //    }
 
-            return endPoints;
-        }
-
-        public Task<IPAddress[]?> AnalysisDomainIp(string url, bool isIPv6 = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url, bool isIPv6 = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url, bool isIPv6 = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url, bool isIPv6 = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url, bool isIPv6 = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url, bool isIPv6 = false)
-        {
-            throw new NotImplementedException();
-        }
+        //    return endPoints;
+        //}
 
         public int AnalysisHostnameTime(string url)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string?> GetHostByIPAddress(IPAddress ip)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> GetIsIpv6Support()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<long> PingHostname(string url)
         {
             throw new NotImplementedException();
         }

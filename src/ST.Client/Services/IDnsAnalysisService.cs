@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,26 +55,60 @@ namespace System.Application.Services
         protected const string IPV6_TESTDOMAIN = "ipv6.rmbgame.net";
         protected const string IPV6_TESTDOMAIN_SUCCESS = PrimaryDNS_IPV6_Ali;
 
-        Task<long> PingHostname(string url);
+        async Task<long> PingHostname(string url)
+        {
+            var pin = new Ping();
+            var r = await pin.SendPingAsync(url, 30);
+            if (r.Status != IPStatus.Success)
+            {
+                return 0;
+            }
+            return r.RoundtripTime;
+        }
 
         int AnalysisHostnameTime(string url);
 
-        Task<IPAddress[]?> AnalysisDomainIp(string url, bool isIPv6 = false);
+        Task<IPAddress[]?> AnalysisDomainIp(string url, bool isIPv6 = false)
+        {
+            return AnalysisDomainIpByCustomDns(url, null, isIPv6);
+        }
 
-        Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url, bool isIPv6 = false);
+        Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url, bool isIPv6 = false)
+        {
+            return AnalysisDomainIpByCustomDns(url, DNS_Googles, isIPv6);
+        }
 
-        Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url, bool isIPv6 = false);
+        Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url, bool isIPv6 = false)
+        {
+            return AnalysisDomainIpByCustomDns(url, DNS_Cloudflares, isIPv6);
+        }
 
-        Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url, bool isIPv6 = false);
+        Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url, bool isIPv6 = false)
+        {
+            return AnalysisDomainIpByCustomDns(url, DNS_Dnspods, isIPv6);
+        }
 
-        Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url, bool isIPv6 = false);
+        Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url, bool isIPv6 = false)
+        {
+            return AnalysisDomainIpByCustomDns(url, DNS_Alis, isIPv6);
+        }
 
-        Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url, bool isIPv6 = false);
+        Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url, bool isIPv6 = false)
+        {
+            return AnalysisDomainIpByCustomDns(url, DNS_114s, isIPv6);
+        }
 
-        Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false);
+        Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
+        {
+            return Dns.GetHostAddressesAsync(url);
+        }
 
-        Task<string?> GetHostByIPAddress(IPAddress ip);
+        async Task<string?> GetHostByIPAddress(IPAddress ip)
+        {
+            var hostEntry = await Dns.GetHostEntryAsync(ip);
+            return hostEntry.HostName;
+        }
 
-        Task<bool> GetIsIpv6Support();
+        Task<bool> GetIsIpv6Support() => Task.FromResult(false);
     }
 }
