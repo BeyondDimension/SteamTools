@@ -1077,15 +1077,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 一键加速 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_Acceleration {
-            get {
-                return ResourceManager.GetString("CommunityFix_Acceleration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 启用的加速服务 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AccelerationsEnable {

@@ -297,10 +297,6 @@
     <value>Accelerazione comunitaria</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>Accelerazione con un solo clic</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>Servizi di accelerazione abilitati</value>
     <comment>Comment=;Author=Zhengye</comment>

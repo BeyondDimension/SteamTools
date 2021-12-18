@@ -297,10 +297,6 @@
     <value>Acelerar para la comunidad</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>Acelerar directamente</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>Servicios de aceleración  funcionados</value>
     <comment>Comment=;Author=EspRoy</comment>

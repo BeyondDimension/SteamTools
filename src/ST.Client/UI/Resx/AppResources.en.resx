@@ -297,10 +297,6 @@
     <value>Network routing</value>
     <comment>Comment=网络加速（因为不止加速steam社区）;Author=沙中金</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>Routing</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>Enabled network routing</value>
     <comment>Comment=;Author=沙中金</comment>

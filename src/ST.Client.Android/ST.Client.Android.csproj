@@ -323,6 +323,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_double_arrow_24.xml">
       <Link>Resources\drawable\ic_baseline_double_arrow_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_stop_24.xml">
+      <Link>Resources\drawable\ic_baseline_stop_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\mdi_rocket_black_24.xml">
       <Link>Resources\drawable\mdi_rocket_black_24.xml</Link>
     </AndroidResource>
@@ -472,6 +475,12 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix.xml">
       <Link>Resources\layout\fragment_community_fix.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix_content_ready.xml">
+      <Link>Resources\layout\fragment_community_fix_content_ready.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix_content_starting.xml">
+      <Link>Resources\layout\fragment_community_fix_content_starting.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_game_list.xml">
       <Link>Resources\layout\fragment_game_list.xml</Link>
@@ -664,6 +673,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

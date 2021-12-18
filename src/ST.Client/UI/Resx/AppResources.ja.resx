@@ -297,10 +297,6 @@
     <value>ネットワーク アクセラレーション</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>ワンクリックで加速します</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>有効なアクセラレーション サービス</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

@@ -220,30 +220,27 @@ namespace System.Application.Services
 
         public SourceList<ScriptDTO> ProxyScripts { get; }
 
-        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
+        public IEnumerable<AccelerateProjectDTO>? GetEnableProxyDomains()
         {
-            get
-            {
-                if (!ProxyDomains.Items.Any_Nullable())
-                    return null;
-                return ProxyDomains.Items
-                    .Where(x => x.Items != null)
-                    .SelectMany(s => s.Items!.Where(w => w.Enable))
-                    .ToArray();
-            }
+            if (!ProxyDomains.Items.Any_Nullable())
+                return null;
+            return ProxyDomains.Items
+                .Where(x => x.Items != null)
+                .SelectMany(s => s.Items!.Where(w => w.Enable));
         }
 
-        public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts
+        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToArray();
+
+        public IEnumerable<ScriptDTO>? GetEnableProxyScripts()
         {
-            get
-            {
-                //if (!IsEnableScript)
-                //return null;
-                if (!ProxyScripts.Items.Any_Nullable())
-                    return null;
-                return ProxyScripts.Items!.Where(w => w.Enable).ToArray();
-            }
+            //if (!IsEnableScript)
+            //return null;
+            if (!ProxyScripts.Items.Any_Nullable())
+                return null;
+            return ProxyScripts.Items!.Where(w => w.Enable);
         }
+
+        public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts => GetEnableProxyScripts()?.ToArray();
 
         private DateTimeOffset _StartAccelerateTime;
 

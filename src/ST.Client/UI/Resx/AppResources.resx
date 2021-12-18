@@ -377,9 +377,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix" xml:space="preserve">
     <value>网络加速</value>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>一键加速</value>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>启用的加速服务</value>
   </data>
