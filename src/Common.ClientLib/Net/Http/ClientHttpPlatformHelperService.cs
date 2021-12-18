@@ -20,6 +20,6 @@ namespace System.Net.Http
             }
         }
 
-        public override Task<bool> IsConnectedAsync() => MainThread2.InvokeOnMainThreadAsync(() => IsConnected);
+        //public override Task<bool> IsConnectedAsync() => MainThread2.InvokeOnMainThreadAsync(() => IsConnected);
     }
 }

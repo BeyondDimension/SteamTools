@@ -14,6 +14,9 @@ namespace System.Application.UI.ViewModels
             OpenWebConsole,
             Wiki,
             Repo,
+            ConfigGenerator,
+            WebAddBot,
+            WebConfig,
         }
 
         string IActionItem<ActionItem>.ToString2(ActionItem action) => ToString2(action);
@@ -21,12 +24,13 @@ namespace System.Application.UI.ViewModels
         public static string ToString2(ActionItem action) => action switch
         {
             ActionItem.StartOrStop => ASFService.Current.IsASFRuning ? AppResources.ASF_Stop : AppResources.ASF_Start,
-            ActionItem.AddBot => AppResources.ASF_AddBot,
+            ActionItem.AddBot or ActionItem.WebAddBot => AppResources.ASF_AddBot,
             ActionItem.Refresh => AppResources.ASF_RefreshBot,
             ActionItem.OpenWebConsole => AppResources.ASF_OpenWebUIConsole,
-            ActionItem.Wiki => "ASF Wiki",
-            ActionItem.Repo => "ASF Github",
-            _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
+            ActionItem.Wiki => "ArchiSteamFarm Wiki",
+            ActionItem.Repo => "ArchiSteamFarm Github",
+            ActionItem.ConfigGenerator => AppResources.ASF_WebConfigGenerator,
+            _ => string.Empty,
         };
 
         string IActionItem<ActionItem>.GetIcon(ActionItem action) => GetIcon(action);
@@ -35,10 +39,9 @@ namespace System.Application.UI.ViewModels
         {
             ActionItem.StartOrStop => ASFService.Current.IsASFRuning ? "round_pause_circle_outline_black_24" : "round_play_circle_outline_black_24",
             ActionItem.AddBot => "baseline_add_black_24",
-            ActionItem.OpenWebConsole => "round_open_in_browser_black_24",
             ActionItem.Wiki => "baseline_language_black_24",
             ActionItem.Repo => "baseline_language_black_24",
-            _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
+            ActionItem.OpenWebConsole or _ => "round_open_in_browser_black_24",
         };
 
         public void MenuItemClick(ActionItem id)
@@ -49,19 +52,14 @@ namespace System.Application.UI.ViewModels
                     RunOrStopASF();
                     break;
                 case ActionItem.AddBot:
-                    //ShowAddBotWindow();
-                    OpenBrowser("WebAddBot");
+                    ShowAddBotWindow();
                     break;
-                case ActionItem.Refresh:
-                    break;
+                case ActionItem.WebAddBot:
                 case ActionItem.OpenWebConsole:
-                    OpenBrowser(null);
-                    break;
                 case ActionItem.Wiki:
-                    OpenBrowser("Wiki");
-                    break;
                 case ActionItem.Repo:
-                    OpenBrowser("Repo");
+                case ActionItem.ConfigGenerator:
+                    OpenBrowserCore(id);
                     break;
             }
         }

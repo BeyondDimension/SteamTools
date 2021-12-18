@@ -67,7 +67,7 @@ namespace System.Application.Services
 
         public GAPRepository Repository => repository;
 
-        public AuthService()
+        private AuthService()
         {
             mCurrent = this;
 

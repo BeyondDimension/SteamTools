@@ -1,4 +1,3 @@
-using System;
 using System.Application.Services;
 using System.Application.UI.Activities;
 using System.Collections.Generic;
@@ -13,6 +12,11 @@ namespace System.Application.UI
 
         JClass IAndroidApplication.NotificationEntrance => ((IAndroidApplication)this).MainActivityType.GetJClass();
 
-        Type IAndroidApplication.MainActivityType => typeof(MainActivity2);
+        Type IAndroidApplication.MainActivityType =>
+#if __XAMARIN_FORMS__
+            typeof(MainActivity2);
+#else
+            typeof(MainActivity);
+#endif
     }
 }

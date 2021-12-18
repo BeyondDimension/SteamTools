@@ -53,7 +53,7 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _IsVisible, value);
         }
 
-        public ToastService()
+        private ToastService()
         {
             mCurrent = this;
 

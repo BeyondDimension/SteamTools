@@ -8,7 +8,9 @@ using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.ViewModels.MyPageViewModel;
+#if __XAMARIN_FORMS__
 using XFShell = Xamarin.Forms.Shell;
+#endif
 
 namespace System.Application.UI.Fragments
 {
@@ -52,10 +54,13 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
+#if __XAMARIN_FORMS__
                 var route = e.Current.Id switch
                 {
-                    PreferenceButton.Settings => "//SettingsPage",
-                    PreferenceButton.About => "//AboutPage",
+                    PreferenceButton.Settings => AppShell.IsUseBottomNav ?
+                        "//MyPage/SettingsPage" : "//SettingsPage",
+                    PreferenceButton.About => AppShell.IsUseBottomNav ?
+                        "//MyPage/AboutPage" : "//AboutPage",
                     _ => null,
                 };
 
@@ -64,14 +69,15 @@ namespace System.Application.UI.Fragments
                     XFShell.Current.GoToAsync(route);
                     return;
                 }
+#endif
 
                 var activityType = e.Current.Id switch
                 {
                     PreferenceButton.UserProfile => typeof(UserProfileActivity),
                     PreferenceButton.BindPhoneNumber => typeof(BindPhoneNumberActivity),
                     PreferenceButton.ChangePhoneNumber => typeof(ChangePhoneNumberActivity),
-                    //PreferenceButton.Settings => typeof(SettingsActivity),
-                    //PreferenceButton.About => typeof(AboutActivity),
+                    PreferenceButton.Settings => typeof(SettingsActivity),
+                    PreferenceButton.About => typeof(AboutActivity),
                     _ => (Type?)null,
                 };
                 if (activityType != null) this.StartActivity(activityType);

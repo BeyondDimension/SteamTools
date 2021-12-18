@@ -6,5 +6,6 @@ namespace System.Application
         public const string UI = Root + "ui.";
         public const string Activities = UI + "activities.";
         public const string Fragments = UI + "fragments.";
+        public const string Services = Root + "services.";
     }
 }

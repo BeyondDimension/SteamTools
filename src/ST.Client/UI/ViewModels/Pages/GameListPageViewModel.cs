@@ -71,7 +71,7 @@ namespace System.Application.UI.ViewModels
         {
             _IconKey = nameof(GameListPageViewModel);
 
-            if (IsMobileLayout)
+            if (!IApplication.IsDesktopPlatform)
             {
                 return;
             }

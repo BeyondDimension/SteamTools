@@ -41,7 +41,7 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(ProxyScriptManagePageViewModel);
 
-            if (IsMobileLayout)
+            if (!IApplication.IsDesktopPlatform)
             {
                 return;
             }

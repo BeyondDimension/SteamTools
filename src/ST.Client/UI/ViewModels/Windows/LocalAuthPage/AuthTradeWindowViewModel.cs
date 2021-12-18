@@ -67,7 +67,15 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 是否使用 <see cref="IHttpService"/> 加载确认物品图片 <see cref="Stream"/>
         /// </summary>
-        public static bool IsLoadImage { protected get; set; } = true;
+        static bool IsLoadImage
+        {
+            get
+            {
+                // 此页面当前使用 Square.Picasso 库加载图片
+                if (OperatingSystem2.IsAndroid) return false;
+                return true;
+            }
+        }
 
         private string? AuthPassword;
         private bool AuthIsLocal;
