@@ -172,6 +172,7 @@ namespace System.Application.Services
                         StopTimer();
                         void OnStopRemoveHostsByTag()
                         {
+                            if (!IApplication.IsDesktopPlatform) return;
                             var needClear = hostsFileService.ContainsHostsByTag();
                             if (needClear)
                             {

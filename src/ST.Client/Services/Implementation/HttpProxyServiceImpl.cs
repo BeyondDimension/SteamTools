@@ -425,17 +425,34 @@ namespace System.Application.Services.Implementation
             {
                 proxyServer.CertificateManager.TrustRootCertificate();
             }
+#if DEBUG
+            catch (Exception e)
+            {
+                Toast.Show("TrustRootCertificate Error" + Environment.NewLine + e.GetAllMessage());
+                Log.Error("Proxy", e, "CertificateManager.TrustRootCertificate catch.");
+            }
+#else
             catch { }
+#endif
             try
             {
                 proxyServer.CertificateManager.EnsureRootCertificate();
             }
+
+#if DEBUG
+            catch (Exception e)
+            {
+                Toast.Show("EnsureRootCertificate Error" + Environment.NewLine + e.GetAllMessage());
+                Log.Error("Proxy", e, "CertificateManager.EnsureRootCertificate catch.");
+            }
+#else
             catch { }
+#endif
             if (OperatingSystem2.IsMacOS)
             {
                 TrustCer();
             }
-            if (OperatingSystem2.IsLinux)
+            if (OperatingSystem2.IsLinux && !OperatingSystem2.IsAndroid)
             {
                 //IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
                 Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
@@ -489,7 +506,8 @@ namespace System.Application.Services.Implementation
 
         public async Task<bool> StartProxy()
         {
-            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+            var isCertificateInstalled = IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
+            if (!isCertificateInstalled)
             {
                 DeleteCertificate();
                 var isOk = SetupCertificate();

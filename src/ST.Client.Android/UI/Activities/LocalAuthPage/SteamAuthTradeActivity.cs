@@ -35,7 +35,7 @@ namespace System.Application.UI.Activities
     [Register(JavaPackageConstants.Activities + nameof(MockSteamAuthTradeActivity))]
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
-        MainLauncher = true,
+        //MainLauncher = true,
         Label = "AuthTrade(Mock)",
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class MockSteamAuthTradeActivity : BaseSteamAuthTradeActivity

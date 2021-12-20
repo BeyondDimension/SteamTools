@@ -8,6 +8,7 @@ using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Text;
 
 namespace System.Application.UI.Fragments
 {
@@ -30,7 +31,7 @@ namespace System.Application.UI.Fragments
                 if (binding == null) return;
                 binding.btnStart.Text = AppResources.CommunityFix_StartProxy;
                 binding.btnStop.Text = AppResources.CommunityFix_StopProxy;
-                binding.tvProxyMode.Text = AppResources.CommunityFix_ProxyMode + AppResources.CommunityFix_ProxyMode_WinSystem;
+                binding.tvProxyMode.Text = AppResources.CommunityFix_ProxyModeTip + AppResources.CommunityFix_ProxyMode_WinSystem;
                 binding.tvAccelerationsEnable.Text = AppResources.CommunityFix_AccelerationsEnable;
                 binding.tvScriptsEnable.Text = AppResources.CommunityFix_ScriptsEnable;
             }).AddTo(this);
@@ -46,6 +47,29 @@ namespace System.Application.UI.Fragments
                 if (binding == null) return;
                 binding.layoutRootCommunityFixContentReady.Visibility = !value ? ViewStates.Visible : ViewStates.Gone;
                 binding.layoutRootCommunityFixContentStarting.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
+                if (value)
+                {
+                    StringBuilder s = new();
+                    var enableProxyDomains = proxyS.GetEnableProxyDomains();
+                    if (enableProxyDomains != null)
+                    {
+                        foreach (var item in enableProxyDomains)
+                        {
+                            s.AppendLine(item.Name);
+                        }
+                    }
+                    binding.tvAccelerationsEnableContent.Text = s.ToString();
+                    s.Clear();
+                    var enableProxyScripts = proxyS.GetEnableProxyScripts();
+                    if (enableProxyScripts != null)
+                    {
+                        foreach (var item in enableProxyScripts)
+                        {
+                            s.AppendLine(item.Name);
+                        }
+                    }
+                    binding.tvScriptsEnableContent.Text = s.ToString();
+                }
             }).AddTo(this);
 
             var ctx = RequireContext();

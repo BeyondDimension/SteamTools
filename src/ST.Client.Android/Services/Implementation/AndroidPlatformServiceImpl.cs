@@ -4,6 +4,7 @@ using XEPlatform = Xamarin.Essentials.Platform;
 using AndroidApplication = Android.App.Application;
 using AndroidX.AppCompat.App;
 using System.Application.UI.Activities;
+using System.Net;
 
 namespace System.Application.Services.Implementation
 {
@@ -46,6 +47,11 @@ namespace System.Application.Services.Implementation
             {
                 TextBlockActivity.StartActivity(activity, new() { FilePath = filePath });
             }
+        }
+
+        bool IPlatformService.SetAsSystemProxy(bool state, IPAddress? ip, int port)
+        {
+            return true;
         }
     }
 }
