@@ -15,10 +15,10 @@ namespace System.Application.Converters
         {
             if (value is string s)
             {
-                if (string.IsNullOrWhiteSpace(s) || s.Equals(IFontManager.KEY_Default, StringComparison.OrdinalIgnoreCase))
+                if (AvaloniaFontManagerImpl.IsDefaultFontFamilyName(s))
                     return AvaloniaFontManagerImpl.Default;
-                if (s.Equals(IFontManager.KEY_DefaultConsole, StringComparison.OrdinalIgnoreCase))
-                    return AvaloniaFontManagerImpl.DefaultConsole;
+                //if (s.Equals(IFontManager.KEY_DefaultConsole, StringComparison.OrdinalIgnoreCase))
+                //    return AvaloniaFontManagerImpl.DefaultConsole;
                 return FontFamily.Parse(s);
             }
             return null;
