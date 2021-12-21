@@ -232,7 +232,7 @@ namespace System.Application.Services
                 //return null;
                 if (!ProxyScripts.Items.Any_Nullable())
                     return null;
-                return ProxyScripts.Items!.Where(w => w.Enable).ToArray();
+                return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x=>x.Order).ToArray();
             }
         }
 

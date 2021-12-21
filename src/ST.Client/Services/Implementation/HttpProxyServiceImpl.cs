@@ -354,7 +354,7 @@ namespace System.Application.Services.Implementation
 
                 StringBuilder scriptHtml = new StringBuilder();
 
-                foreach (var script in Scripts)
+                foreach (var script in Scrits)
                 {
                     if (script.ExcludeDomainNamesArray != null)
                         foreach (var host in script.ExcludeDomainNamesArray)
