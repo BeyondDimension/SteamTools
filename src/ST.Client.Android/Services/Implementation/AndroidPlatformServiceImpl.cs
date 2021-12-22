@@ -8,7 +8,7 @@ using System.Net;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class AndroidPlatformServiceImpl : IPlatformService
+    internal sealed partial class AndroidPlatformServiceImpl : IPlatformService
     {
         static bool IsDarkMode => DarkModeUtil.IsDarkMode(AndroidApplication.Context);
 
@@ -47,11 +47,6 @@ namespace System.Application.Services.Implementation
             {
                 TextBlockActivity.StartActivity(activity, new() { FilePath = filePath });
             }
-        }
-
-        bool IPlatformService.SetAsSystemProxy(bool state, IPAddress? ip, int port)
-        {
-            return true;
         }
     }
 }

@@ -142,7 +142,10 @@ namespace System.Application.UI.ViewModels
 
         public override void Activation()
         {
-            LoadDonateRankListData(true);
+            if (IApplication.IsDesktopPlatform)
+            {
+                LoadDonateRankListData(true);
+            }
             base.Activation();
         }
 
