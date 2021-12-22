@@ -339,3 +339,10 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# www
+/references
+/resources
+/src
+*.jks
+*.props
