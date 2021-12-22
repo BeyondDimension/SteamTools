@@ -1,0 +1,12 @@
+{
+  "index": 1,
+  "oldversion": "",
+  "version": "1.0.0",
+  "time": "(2020-12-14)",
+  "remarks": [
+    "发布第一个版本",
+    "主要功能：社区加速，帐户切换，成就解锁，本地令牌。",
+    "次要功能：强制无边框窗口化以及 CSGO VAC 屏蔽修复。"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/1.0.0"
+}

@@ -1,0 +1,15 @@
+{
+  "index": 6,
+  "version": "1.0.6",
+  "oldversion": "1.0.5",
+  "time": "(2021-01-12)",
+  "remarks": [
+    "新增 日志记录功能，更利于反馈 Bug 时排查问题",
+    "增加 80 端口反代功能，以便自动跳转 http 访问到 https 请求上",
+    "修复 Twitch 反代聊天连接错误和直播视频无法观看问题",
+    "修复 令牌同步时提示超时问题，放宽令牌同步时网络请求超时时间",
+    "改进 生成的 cer 证书编码格式为 utf-8 ,使火狐可以导入 cer 证书",
+    "改进 用户信息获取的 API 为 Steam 官方社区 API ,需要启动自动代理功能才能加载头像"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/1.0.6"
+}

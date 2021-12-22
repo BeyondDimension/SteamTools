@@ -1,0 +1,1 @@
+try_files $uri $uri.html /index.html $uri/ =404;

@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" style="background-color: transparent">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="never" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <meta name="wap-font-scale" content="no" />
+  <meta name="theme-color" content="#2196F3" />
+  <meta name="msapplication-TileColor" content="#2196F3" />
+  <meta name="msapplication-window" content="width=1024;height=768" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="keywords"
+        content="Steam++, SteamPP, SteamPlusPlus, SteamTools" />
+  <meta name="description"
+        content="「Steam++」是一个包含多种Steam工具功能的工具箱。" />
+  <title>Steam++ | 登录 / 注册</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <style>
+    #root {
+      margin: 24px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 414px;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    .card-button {
+      height: 64px;
+      background-color: #E0E0E0;
+      box-shadow: 0 0 5px hsl(0deg 0% 87% / 33%);
+    }
+
+      .card-button:hover {
+        cursor: pointer;
+        background-color: #F5F5F5;
+      }
+
+      .card-button .icon {
+        height: 64px;
+        width: 64px;
+      }
+
+        .card-button .icon .steam {
+          background-color: #145c8f;
+        }
+
+        .card-button .icon .xbox {
+          background-color: #027d00;
+        }
+
+        .card-button .icon .apple {
+          background-color: #000000;
+        }
+
+        .card-button .icon .qq {
+          background-color: #12B7F5;
+        }
+
+        .card-button .icon .phone-number {
+          background-color: #2196F3;
+        }
+
+        .card-button .icon img {
+          height: 32px;
+          width: 32px;
+          margin: 16px;
+        }
+
+      .card-button .title {
+        padding: 16px;
+      }
+
+    .spacing {
+      height: 12px;
+    }
+
+    .body-dark #root {
+      color: white;
+    }
+
+    .body-dark .card-button {
+      background-color: #404040;
+      box-shadow: 0 0 5px rgb(0,0,0,0.3);
+    }
+
+      .body-dark .card-button:hover {
+        background-color: #222222;
+      }
+
+    .body-dark a {
+      color: #1890FF;
+    }
+
+    .transparent {
+      background-color: transparent;
+    }
+
+    .body-dark a:hover {
+      color: #2C40CA;
+      vertical-align: middle;
+    }
+
+    .modal-window {
+      position: fixed;
+      background-color: rgba(255, 255, 255, 0.25);
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 999;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+    }
+    .modal-window.show{
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+      .modal-window > .modal-content {
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        background: #ffffff;
+      }
+
+      .modal-window h1 {
+        font-size: 150%;
+        margin: 0 0 15px;
+      }
+
+    .modal-close {
+      color: #aaa;
+      line-height: 50px;
+      font-size: 80%;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      top: 0;
+      width: 70px;
+      text-decoration: none;
+    }
+
+      .modal-close:hover {
+        color: black;
+      }
+
+    .modal-window div:not(:last-of-type) {
+      margin-bottom: 15px;
+    }
+    .body-dark .modal-window {
+      background-color: rgba(16, 16, 16, 0.25);
+    }
+      .body-dark .modal-window .modal-content {
+        background-color: #181818;
+        color: white;
+      }
+    .modal-content {
+      box-shadow: 0 3px 6px -4px rgb(0 0 0 / 48%), 0 6px 16px 0 rgb(0 0 0 / 32%), 0 9px 28px 8px rgb(0 0 0 / 20%);
+    }
+    .filter {
+      filter: blur(20px);
+    }
+  </style>
+</head>
+<body>
+  <noscript>需要开启 JavaScript 才能浏览本站点。</noscript>
+  <div id="root">
+    <h3>选择如何登录您的 Steam++ 帐户</h3>
+    <table style="width: 100%;border-spacing: 0px;">
+      <tr class="card-button"  id="steamItem">
+        <td class="icon">
+          <div class="icon steam">
+            <img src="/svg/login/steam.svg" />
+          </div>
+        </td>
+        <td class="title">使用 Steam 登录</td>
+      </tr>
+      <tr class="spacing"></tr>
+      <tr class="card-button"  id="microsoftItem">
+        <td class="icon">
+          <div class="icon xbox">
+            <img src="/svg/login/xbox.svg" />
+          </div>
+        </td>
+        <td class="title">使用 Xbox Live 登录</td>
+      </tr>
+      <tr class="spacing"></tr>
+      <tr class="card-button "  id="appleItem">
+        <td class="icon">
+          <div class="icon apple">
+            <img src="/svg/login/apple.svg" />
+          </div>
+        </td>
+        <td class="title">使用 Apple 登录</td>
+      </tr>
+      <tr class="spacing"></tr>
+      <tr class="card-button" id="qqItem">
+        <td class="icon">
+          <div class="icon qq">
+            <img src="/svg/login/qq.svg" />
+          </div>
+        </td>
+        <td class="title">使用 QQ 登录</td>
+      </tr>
+     
+    </table>
+    <span style="display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 0px;margin-inline-end: 0px;">注册即代表您已阅读并同意 <a target="_blank" href="https://steampp.net/agreement">用户协议</a> 和 <a target="_blank" href="https://steampp.net/privacy">隐私政策</a></span>
+
+  </div>
+  <div style="display:none"><div id="qqLoginBtn"></div></div>
+  <div id="open-modal" class="modal-window">
+    <div class="modal-content" id="modalContent">
+    </div>
+  </div>
+  <script src="/js/modernizr.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (!window.Modernizr.websockets) {
+        showModel(true,`<h1>警告!</h1> <div>浏览器不受支持请升级浏览器.</div><div><a target="_blank" href="https://www.microsoft.com/zh-cn/edge">Edge</a><br /><a target="_blank" href="https://www.google.cn/chrome/">Chrome</a></div>`);
+      }
+      var msgBox = document.getElementById('modalContent');
+      function showModel(show,html) {
+        document.getElementById('open-modal').className = `modal-window  ${show ?'show':''}`;
+        document.getElementById('root').className = show ? `filter` : '';
+        msgBox.innerHTML = html;
+      }
+    
+
+      function changeThemes(dark) {
+        let windowEl = document.getElementsByTagName('html')[0];
+        let body = document.body;
+        let bodyT = window.location.hash.length == 0;
+        if (dark) {
+          if (body)
+            body.className = `body-dark ${bodyT ? '' : 'transparent'}`;
+          if (windowEl)
+            windowEl.className = `body-dark ${bodyT ? '' : 'transparent'}`;
+        } else {
+          if (body)
+            body.className = bodyT ? '' : "transparent";
+          if (windowEl)
+            windowEl.className = bodyT ? '' : "transparent";
+        }
+        if (bodyT) {
+          body.style.backgroundColor = dark ? '#1F1F1F' : '#ffffff';
+        }
+      }
+      try {
+        let scheme = window.matchMedia('(prefers-color-scheme: dark)');
+        changeThemes(scheme.matches)
+        scheme.onchange = changeThemes;
+      } catch { }
+      $('#qqItem').click(function () {
+        window.open('https://pan.mossimo.net/ExternalLogin/qq');
+      });
+      $('#steamItem').click(function () {
+        window.open('https://pan.mossimo.net/ExternalLogin/Steam');
+      });
+      $('#microsoftItem').click(function () {
+        window.open('https://pan.mossimo.net/ExternalLogin/Microsoft');
+      });
+      $('#appleItem').click(function () {
+        window.open('https://pan.mossimo.net/ExternalLogin/Apple');
+      }); 
+    });
+  </script>
+</body>
+</html>

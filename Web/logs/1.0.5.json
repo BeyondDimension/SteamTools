@@ -1,0 +1,16 @@
+{
+  "index": 5,
+  "version": "1.0.5",
+  "oldversion": "1.0.4",
+  "time": "(2021-01-08)",
+  "remarks": [
+    "新增 启动时自动运行 Steam 的设置项",
+    "新增 令牌刷新功能",
+    "新增 账户切换离线模式的选项",
+    "改进 加速过程的逻辑",
+    "修复 SteamDB API 挂掉导致程序崩溃问题",
+    "修复 刷新游戏缓存按钮导致程序闪退的问题",
+    "修复 部分已知 Bug"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/1.0.5"
+}

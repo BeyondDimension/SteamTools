@@ -1,0 +1,15 @@
+{
+  "index": 10,
+  "version": "1.1.4",
+  "oldversion": "1.1.3",
+  "time": "(2021-02-23)",
+  "remarks": [
+    "新增 Steam 更新代理服务功能，以解决部分用户无法更新 Steam 的问题",
+    "新增 Windows 系统代理方式,将不需要修改 hosts 文件并且不会占用 443 端口",
+    "改进 社区加速效果",
+    "修复 成就图标加载失败的问题",
+    "修复 Steam 图片反代启动时创意工坊不显示图片的问题",
+    "修复 Uplay 更新反代启动时更新失败的问题"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/1.1.4"
+}

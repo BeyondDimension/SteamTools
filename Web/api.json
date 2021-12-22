@@ -1,0 +1,87 @@
+{
+  "version": "2.6.3",
+  "download": {
+    "uwp": [
+      {
+        "name": "微软商店",
+        "about": "Windows 10 版本 17763.0 或更高版本 64位 可安装",
+        "url": "https://www.microsoft.com/store/productId/9MTCFHS560NG"
+      }
+    ],
+    "windows": [
+      {
+        "name": "安装版 x64.exe",
+        "url": "https://pan.bilnn.cn/api/v3/file/sourcejump/lmoXdKFb/fYP_GCMyXS_5yJglwOGIMexwF5B5WgQJpWBveFCgKXg*"
+      },
+      {
+        "name": "免安装版 x64.7z",
+        "url": "https://pan.bilnn.cn/api/v3/file/sourcejump/kO7bMpTA/15sEzWgx6-1GWxHGASoiY17JaHJ1EmspZyLFyZychp8*"
+      },
+      {
+        "name": "(gitee)免安装版 x64.7z",
+        "url": "https://gitee.com/rmbgame/SteamTools/attach_files/910523/download/Steam%20%20_win_x64_v2.6.3.7z"
+      },
+      {
+        "name": "(gitee)安装版 x64.7z",
+        "url": "https://gitee.com/rmbgame/SteamTools/attach_files/910524/download/Steam%20%20_win_x64_v2.6.3.exe"
+      },
+      {
+        "name": "比邻云盘",
+        "url": "https://pan.bilnn.cn/s/vOD6sm"
+      },
+      {
+        "name": "蓝奏云网盘",
+        "url": "https://cliencer.lanzoux.com/b0165duja",
+        "code": "1234"
+      },
+      {
+        "name": "百度网盘",
+        "url": "https://pan.baidu.com/s/1DIfdVaoZCH-jPmfOwbxKrA",
+        "code": "gca6",
+        "disable": false
+      },
+      {
+        "name": "Nas 分流(较慢)",
+        "url": "https://pan.mossimo.net:5212/s/w4h9"
+      }
+    ],
+    "mac": [
+      {
+        "name": "蓝奏云网盘",
+        "url": "https://cliencer.lanzoux.com/b016odhfc",
+        "code": "1234"
+      },
+      {
+        "name": "比邻云盘",
+        "url": "https://pan.bilnn.cn/s/vOD6sm"
+      },
+      {
+        "name": "Nas 分流(较慢)",
+        "url": "https://pan.mossimo.net:5212/s/w4h9"
+      }
+    ],
+    "android": [
+      {
+        "name": "蓝奏云网盘",
+        "url": "https://cliencer.lanzoux.com/b016odheb",
+        "code": "1234"
+      }
+    ],
+    "ios": [],
+    "linux": [
+      {
+        "name": "蓝奏云网盘",
+        "url": "https://cliencer.lanzoui.com/b016odhbi",
+        "code": "1234"
+      },
+      {
+        "name": "比邻云盘",
+        "url": "https://pan.bilnn.cn/s/vOD6sm"
+      },
+      {
+        "name": "Nas 分流(较慢)",
+        "url": "https://pan.mossimo.net:5212/s/w4h9"
+      }
+    ]
+  } 
+}

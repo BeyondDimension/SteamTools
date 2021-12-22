@@ -1,0 +1,19 @@
+{
+  "index": 7,
+  "version": "1.1.1",
+  "oldversion": "1.0.6",
+  "time": "(2021-01-22)",
+  "remarks": [
+    "新增 本地令牌市场交易确认功能",
+    "新增 内置 Steam 史低查询脚本",
+    "新增 Pixiv 图片的代理功能，解决 Pixiv 图片失效问题",
+    "新增 Steam 启动消息通知设置功能",
+    "新增 Github Gist 代理服务支持",
+    "修复 设置文件的存储错误",
+    "修复 Discord 更新下载和图片失效问题",
+    "修复 Twitch 聊天频道连接失效问题",
+    "修复 Github 头像资源加载失败问题",
+    "修复 部分已知 Bug"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/1.1.1"
+}

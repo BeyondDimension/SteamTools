@@ -1,0 +1,18 @@
+{
+  "index": 3,
+  "version": "1.0.3",
+  "oldversion": "1.0.2",
+  "time": "(2020-12-26)",
+  "remarks": [
+    "新增 Pixiv 加速服务功能",
+    "新增 在欢迎页 Steam 昵称后显示 Steam 的登陆区域功能",
+    "新增 Steam 图片修复的本地反代支持",
+    "修复 最小化恢复时 UI 边框错位的 BUG",
+    "修复 令牌编辑和导入时出现的非空报错",
+    "修复 由于 DNS 解析错误导致程序内存溢出闪退的 BUG",
+    "改进 帐户切换功能的最近登录时间，从北京时间改为当前系统时区时间",
+    "改进 SDA 令牌导入功能，不再支持导入加密文件，若要导入加密的 maFile 请先在 SDA 移除加密",
+    "改进 初始化的方式和 Steam API 的连接逻辑来避免 Steam 游戏掉帧"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/1.0.3"
+}

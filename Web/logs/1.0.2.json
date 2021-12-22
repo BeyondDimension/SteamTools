@@ -1,0 +1,19 @@
+{
+  "index": 2,
+  "version": "1.0.2",
+  "oldversion": "1.0.0",
+  "time": "(2020-12-21)",
+  "remarks": [
+    "新增 软件图标，由 @Benares 制作",
+    "新增 帐户切换删除功能",
+    "新增 Github 图片资源文件代理服务与 Discord 代理服务功能",
+    "新增 Steam 启动参数设置选项",
+    "新增 启动时程序最小化到托盘菜单设置选项",
+    "新增 捐助列表的展示功能",
+    "新增 工具自动更新功能",
+    "修复 程序启动没有反应的 Bug",
+    "修复 托盘菜单 Steam 昵称过长 UI 错位 bug",
+    "删除 GOG Galaxy 代理选项"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/1.0.2"
+}

@@ -1,0 +1,20 @@
+{
+  "index": 13,
+  "version": "2.1.0",
+  "oldversion": "2.0.0.8",
+  "time": "(2021-05-05)",
+  "remarks": [
+    "修复 多个 GM.js 同时存在",
+    "修复 GM.js 打包错误",
+    "修复 手动添加 GM.js 重名替换导致出错",
+    "修复 成就解锁窗口不显示",
+    "新增 背景透明度 UI 设置",
+    "调整 脚本列表 UI",
+    "修复 代理过程中的闪退错误",
+    "修复 库存游戏闪退错误",
+    "修复 Discord 更新代理失效",
+    "修复 hosts 闪退错误",
+    "新增 Steam 快速登录"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/2.1.0"
+}
