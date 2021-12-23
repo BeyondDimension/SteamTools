@@ -232,13 +232,14 @@ namespace System.Application.Services
 
         public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToArray();
 
+
         public IEnumerable<ScriptDTO>? GetEnableProxyScripts()
         {
             //if (!IsEnableScript)
             //return null;
             if (!ProxyScripts.Items.Any_Nullable())
                 return null;
-            return ProxyScripts.Items!.Where(w => w.Enable);
+            return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
         }
 
         public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts => GetEnableProxyScripts()?.ToArray();
