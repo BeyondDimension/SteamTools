@@ -268,6 +268,11 @@ namespace System.Application.UI.ViewModels
         {
             //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
             //{
+            if (IsAuthenticatorsEmpty)
+            {
+                Toast.Show(AppResources.LocalAuth_NoAuthTip);
+                return;
+            }
             await IWindowManager.Instance.Show(
                 CustomWindow.EncryptionAuth,
                 resizeMode: ResizeMode.CanResize);
@@ -278,6 +283,11 @@ namespace System.Application.UI.ViewModels
         {
             //if (await AuthService.Current.HasPasswordEncryptionShowPassWordWindow())
             //{
+            if (IsAuthenticatorsEmpty)
+            {
+                Toast.Show(AppResources.LocalAuth_NoAuthTip);
+                return;
+            }
             await IWindowManager.Instance.Show(
                 CustomWindow.ExportAuth,
                 resizeMode: ResizeMode.CanResize);

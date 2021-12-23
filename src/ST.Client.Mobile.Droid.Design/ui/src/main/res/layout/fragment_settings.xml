@@ -16,11 +16,11 @@
       android:id="@+id/tvUISettings"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="56dp"
+      android:layout_marginStart="@dimen/settings_ui_subtitle_margin_start"
       android:layout_marginTop="@dimen/activity_vertical_margin"
-      android:layout_marginBottom="8dp"
+      android:layout_marginBottom="@dimen/settings_ui_subtitle_margin_bottom"
       android:textColor="?colorPrimary"
-      android:textSize="16sp"
+      android:textSize="@dimen/settings_ui_subtitle_font_size"
       tools:text="界面设置"
       xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
@@ -39,8 +39,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -59,8 +59,10 @@
             android:id="@+id/tvUISettingsLanguage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="语言"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
@@ -90,8 +92,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -110,8 +112,10 @@
             android:id="@+id/tvUISettingsTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="主题"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
@@ -130,9 +134,9 @@
       android:id="@+id/tvGeneralSettings"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="56dp"
+      android:layout_marginStart="@dimen/settings_ui_subtitle_margin_start"
       android:layout_marginTop="@dimen/activity_vertical_margin"
-      android:layout_marginBottom="8dp"
+      android:layout_marginBottom="@dimen/settings_ui_subtitle_margin_bottom"
       android:textColor="?colorPrimary"
       android:textSize="16sp"
       tools:text="通用设置"
@@ -153,8 +157,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -167,8 +171,11 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
+          android:ellipsize="end"
+          android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
+          android:maxLines="2"
           android:textColor="@color/text_primary"
-          android:textSize="16sp"
+          android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="启动时自动检查更新"
           xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
@@ -206,8 +213,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -226,8 +233,10 @@
             android:id="@+id/tvGeneralSettingsUpdateChannel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="下载更新渠道"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
@@ -257,8 +266,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -276,8 +285,11 @@
             android:id="@+id/tvGeneralSettingsCaptureScreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
+            android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="屏幕捕获"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
@@ -285,6 +297,9 @@
             android:id="@+id/tvGeneralSettingsCaptureScreenDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
+            android:maxLines="2"
             android:textColor="@color/text_secondary"
             tools:text="允许其他应用程序捕获你的屏幕"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -323,8 +338,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -337,18 +352,16 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
+          android:ellipsize="end"
+          android:maxWidth="126dp"
+          android:maxLines="1"
           android:textColor="@color/text_primary"
-          android:textSize="16sp"
+          android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="存储空间"
           xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-        <Space
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_weight="1" />
-
         <LinearLayout
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -358,6 +371,9 @@
             android:id="@+id/tvGeneralSettingsStorageSpaceValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:ellipsize="start"
+            android:singleLine="true"
             android:textColor="@color/text_secondary"
             tools:text="缓存文件已占用 xx.xx KB"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -366,13 +382,28 @@
             android:id="@+id/tvGeneralSettingsStorageSpaceValue2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_marginTop="3dp"
+            android:ellipsize="start"
+            android:singleLine="true"
             android:textColor="@color/text_secondary"
             tools:text="日志文件已占用 xx.xx KB"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
         </LinearLayout>
       </LinearLayout>
     </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/tvSystemSettings"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/settings_ui_subtitle_margin_start"
+      android:layout_marginTop="@dimen/activity_vertical_margin"
+      android:layout_marginBottom="@dimen/settings_ui_subtitle_margin_bottom"
+      android:textColor="?colorPrimary"
+      android:textSize="16sp"
+      tools:text="系统设置"
+      xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
     <FrameLayout
       android:id="@+id/layoutRootOSAppDetailsSettings"
@@ -389,8 +420,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -408,14 +439,18 @@
             android:id="@+id/tvOSAppDetailsSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            tools:text="应用详情(系统设置)"
+            android:textSize="@dimen/settings_ui_item_title_font_size"
+            tools:text="应用详情"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
           <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="APPLICATION_DETAILS_SETTINGS"
             android:textColor="@color/text_secondary"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -438,8 +473,8 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="24dp"
-          android:layout_height="24dp"
+          android:layout_width="@dimen/settings_ui_icon_size"
+          android:layout_height="@dimen/settings_ui_icon_size"
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/activity_horizontal_margin"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -457,14 +492,20 @@
             android:id="@+id/tvOSAppNotificationSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
+            android:maxLines="1"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            tools:text="应用通知(系统设置)"
+            android:textSize="@dimen/settings_ui_item_title_font_size"
+            tools:text="应用通知"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
           <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
+            android:maxLines="2"
             android:text="APP_NOTIFICATION_SETTINGS"
             android:textColor="@color/text_secondary"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -494,4 +535,3 @@
       android:layout_height="@dimen/activity_vertical_margin" />
   </LinearLayout>
 </androidx.core.widget.NestedScrollView>
-

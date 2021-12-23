@@ -11,7 +11,6 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using static System.Application.FilePicker2;
 
 // ReSharper disable once CheckNamespace
@@ -33,10 +32,12 @@ namespace System.Application.UI.ViewModels
             this.WhenValueChanged(x => x.SelectFont, false)
                   .Subscribe(x => UISettings.FontName.Value = x.Value);
 
-            SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
+            if (IApplication.IsDesktopPlatform)
             {
-                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("Image Files", new[] {
+                SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
+                {
+                    FilePickerFileType fileTypes = new ValueTuple<string, string[]>[] {
+                        ("Image Files", new[] {
                             FileEx.BMP,
                             FileEx.JPG,
                             FileEx.JPEG,
@@ -44,12 +45,13 @@ namespace System.Application.UI.ViewModels
                             FileEx.GIF,
                             FileEx.WEBP,
                         }),
-                    ("All Files", new[] { "*" }),
+                        //("All Files", new[] { "*", }),
+                       };
+                    await PickAsync(SetBackgroundImagePath, fileTypes);
                 });
-                await PickAsync(SetBackgroundImagePath, fileTypes);
-            });
 
-            ResetImage_Click = ReactiveCommand.Create(() => SetBackgroundImagePath(null));
+                ResetImage_Click = ReactiveCommand.Create(() => SetBackgroundImagePath(null));
+            }
         }
 
         public static SettingsPageViewModel Instance { get; } = new();
@@ -68,9 +70,9 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _SelectFont, value);
         }
 
-        public ICommand SelectImage_Click { get; }
+        public ICommand? SelectImage_Click { get; }
 
-        public ICommand ResetImage_Click { get; }
+        public ICommand? ResetImage_Click { get; }
 
         public IReadOnlyCollection<UpdateChannelType> UpdateChannels { get; }
 

@@ -431,6 +431,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
       <Link>Resources\layout\activity_main.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_proxy_settings.xml">
+      <Link>Resources\layout\activity_proxy_settings.xml</Link>
+    </AndroidBoundLayout>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_settings_not_binding.xml">
       <Link>Resources\layout\activity_settings_not_binding.xml</Link>
     </AndroidResource>
@@ -581,6 +584,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\bottom_nav_menu.xml">
       <Link>Resources\menu\bottom_nav_menu.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\community_fix_toolbar_menu.xml">
+      <Link>Resources\menu\community_fix_toolbar_menu.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\local_auth_toolbar_menu.xml">
       <Link>Resources\menu\local_auth_toolbar_menu.xml</Link>
     </AndroidResource>
@@ -647,6 +653,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\dimens.xml">
       <Link>Resources\values\dimens.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\dimens_fixed_width.xml">
+      <Link>Resources\values\dimens_fixed_width.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\ic_launcher_background.xml">
       <Link>Resources\values\ic_launcher_background.xml</Link>
     </AndroidResource>
@@ -655,6 +664,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\themes.xml">
       <Link>Resources\values\themes.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-land\dimens_fixed_width.xml">
+      <Link>Resources\values-land\dimens_fixed_width.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-night\colors.xml">
       <Link>Resources\values-night\colors.xml</Link>
@@ -673,6 +685,9 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
+
 
 
 

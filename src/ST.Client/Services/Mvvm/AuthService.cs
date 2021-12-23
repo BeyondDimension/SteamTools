@@ -742,21 +742,23 @@ namespace System.Application.Services
             return bt;
         }
 
-        public async void ExportAuthenticators(string? filePath, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
+        public async void ExportAuthenticators(Stream? fileWriteStream, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
         {
             try
             {
-                if (string.IsNullOrEmpty(filePath))
+                if (fileWriteStream == null)
                 {
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
                     return;
                 }
 
-                IOPath.FileIfExistsItDelete(filePath);
-
                 var bt = await GetExportAuthenticatorsAsync(isLocal, password, predicateWhere);
 
-                await File.WriteAllBytesAsync(filePath, bt);
+                if (fileWriteStream.CanSeek && fileWriteStream.Position != 0)
+                    fileWriteStream.Position = 0;
+                await fileWriteStream.WriteAsync(bt);
+                await fileWriteStream.FlushAsync();
+                await fileWriteStream.DisposeAsync();
             }
             catch (Exception ex)
             {

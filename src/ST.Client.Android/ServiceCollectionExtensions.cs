@@ -21,10 +21,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddPlatformNotificationService();
                 services.TryAddAndroidClientHttpPlatformHelperService();
                 PlatformToastImpl.TryAddToast(services);
-                if (options.HasGUI)
-                {
-                    services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
-                }
+                services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
+                services.AddSingleton<IFilePickerPlatformService.ISaveFileDialogService, FilePickerPlatformServiceImpl>();
 #if __XAMARIN_FORMS__
                 services.AddSingleton<IPlatformPageRouteService, AndroidPageRouteServiceImpl>();
 #endif

@@ -42,8 +42,6 @@ namespace System.Application.Services.Implementation
 
         public bool IsOnlyWorkSteamBrowser { get; set; }
 
-        public string CertificateName { get; set; } = ThisAssembly.AssemblyProduct;
-
         public CertificateEngine CertificateEngine { get; set; } = CertificateEngine.BouncyCastle;
 
         public int ProxyPort { get; set; } = 26501;
@@ -100,9 +98,9 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
-            proxyServer.CertificateManager.PfxFilePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pfx");
-            proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
-            proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
+            proxyServer.CertificateManager.PfxFilePath = ((IHttpProxyService)this).PfxFilePath;
+            proxyServer.CertificateManager.RootCertificateIssuerName = $"{IHttpProxyService.CertificateName} Certificate Authority";
+            proxyServer.CertificateManager.RootCertificateName = $"{IHttpProxyService.CertificateName} Certificate";
             //mac和ios的证书信任时间不能超过300天
             proxyServer.CertificateManager.CertificateValidDays = 300;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
@@ -399,7 +397,7 @@ namespace System.Application.Services.Implementation
 
         public void TrustCer()
         {
-            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
+            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{IHttpProxyService.CertificateName}.Certificate.cer");
             IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
 
@@ -418,7 +416,7 @@ namespace System.Application.Services.Implementation
                 return false;
             }
 
-            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
+            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{IHttpProxyService.CertificateName}.Certificate.cer");
 
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
             try

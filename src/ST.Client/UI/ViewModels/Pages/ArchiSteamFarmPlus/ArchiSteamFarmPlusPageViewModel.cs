@@ -12,13 +12,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using static System.Application.FilePicker2;
 
 // ReSharper disable once CheckNamespace
@@ -34,10 +31,22 @@ namespace System.Application.UI.ViewModels
 
             SelectBotFiles = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("Json Files", new[] { FileEx.JSON, }),
-                    ("All Files", new[] { "*" }),
-                });
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("Json Files", new[] { FileEx.JSON, }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else if (OperatingSystem2.IsAndroid)
+                {
+                    fileTypes = new[] { MediaTypeNames.JSON };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
                 await PickMultipleAsync(ASFService.Current.ImportBotFiles, fileTypes);
             });
 

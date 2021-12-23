@@ -1,5 +1,7 @@
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using AndroidX.AppCompat.View.Menu;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
@@ -8,7 +10,9 @@ using System.Application.Services;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.IO;
 using System.Text;
+using static System.Application.UI.ViewModels.CommunityProxyPageViewModel;
 
 namespace System.Application.UI.Fragments
 {
@@ -29,11 +33,12 @@ namespace System.Application.UI.Fragments
             R.Subscribe(() =>
             {
                 if (binding == null) return;
-                binding.btnStart.Text = AppResources.CommunityFix_StartProxy;
-                binding.btnStop.Text = AppResources.CommunityFix_StopProxy;
+                binding.btnStartProxyService.Text = AppResources.CommunityFix_StartProxy;
+                binding.btnStopProxyService.Text = AppResources.CommunityFix_StopProxy;
                 binding.tvProxyMode.Text = AppResources.CommunityFix_ProxyModeTip + AppResources.CommunityFix_ProxyMode_WinSystem;
                 binding.tvAccelerationsEnable.Text = AppResources.CommunityFix_AccelerationsEnable;
                 binding.tvScriptsEnable.Text = AppResources.CommunityFix_ScriptsEnable;
+                SetMenuTitle();
             }).AddTo(this);
 
             var proxyS = ProxyService.Current;
@@ -59,18 +64,44 @@ namespace System.Application.UI.Fragments
                         }
                     }
                     binding.tvAccelerationsEnableContent.Text = s.ToString();
-                    s.Clear();
-                    var enableProxyScripts = proxyS.GetEnableProxyScripts();
-                    if (enableProxyScripts != null)
+                    if (proxyS.IsEnableScript)
                     {
-                        foreach (var item in enableProxyScripts)
-                        {
-                            s.AppendLine(item.Name);
-                        }
+                        s.Clear();
+                        SetScriptsEnableContentText(s);
                     }
-                    binding.tvScriptsEnableContent.Text = s.ToString();
+                }
+                if (menuBuilder != null)
+                {
+                    var menu_settings_proxy = menuBuilder.FindItem(Resource.Id.menu_settings_proxy);
+                    if (menu_settings_proxy != null)
+                    {
+                        menu_settings_proxy.SetEnabled(!value);
+                    }
                 }
             }).AddTo(this);
+            proxyS.WhenAnyValue(x => x.IsEnableScript).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                if (value)
+                {
+                    SetScriptsEnableContentText();
+                }
+                binding.cardScriptsEnable.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
+            }).AddTo(this);
+
+            void SetScriptsEnableContentText(StringBuilder? s = null)
+            {
+                s ??= new();
+                var enableProxyScripts = proxyS.GetEnableProxyScripts();
+                if (enableProxyScripts != null)
+                {
+                    foreach (var item in enableProxyScripts)
+                    {
+                        s.AppendLine(item.Name);
+                    }
+                }
+                binding!.tvScriptsEnableContent.Text = s.ToString();
+            }
 
             var ctx = RequireContext();
             var adapter = new AccelerateProjectGroupAdapter();
@@ -86,17 +117,17 @@ namespace System.Application.UI.Fragments
             binding.swipeRefreshLayout.InitDefaultStyles();
             binding.swipeRefreshLayout.SetOnRefreshListener(this);
 
-            SetOnClickListener(binding.btnStart, binding.btnStop);
+            SetOnClickListener(binding.btnStartProxyService, binding.btnStopProxyService);
         }
 
         protected override bool OnClick(View view)
         {
-            if (view.Id == Resource.Id.btnStart)
+            if (view.Id == Resource.Id.btnStartProxyService)
             {
                 ViewModel!.StartProxyButton_Click(true);
                 return true;
             }
-            else if (view.Id == Resource.Id.btnStop)
+            else if (view.Id == Resource.Id.btnStopProxyService)
             {
                 ViewModel!.StartProxyButton_Click(false);
                 return true;
@@ -108,6 +139,62 @@ namespace System.Application.UI.Fragments
         {
             binding!.swipeRefreshLayout.Refreshing = false;
             ViewModel!.RefreshButton_Click();
+        }
+
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            HasOptionsMenu = true;
+        }
+
+        MenuBuilder? menuBuilder;
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        {
+            inflater.Inflate(Resource.Menu.community_fix_toolbar_menu, menu);
+            menuBuilder = menu.SetOptionalIconsVisible();
+            if (menuBuilder != null)
+            {
+                SetMenuTitle();
+            }
+        }
+
+        void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            var actionItem = MenuIdResToEnum(item.ItemId);
+            if (actionItem.IsDefined())
+            {
+                switch (actionItem)
+                {
+                    case ActionItem.CertificateExport:
+                        ViewModel!.ExportCertificateFile();
+                        return true;
+                    case ActionItem.GoToSystemSecuritySettings:
+                        GoToPlatformPages.SystemSettingsSecurity(RequireContext());
+                        return true;
+                }
+                ViewModel!.MenuItemClick(actionItem);
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
+        static ActionItem MenuIdResToEnum(int resId)
+        {
+            if (resId == Resource.Id.menu_settings_proxy)
+            {
+                return ActionItem.ProxySettings;
+            }
+            else if (resId == Resource.Id.menu_export_certificate_file)
+            {
+                return ActionItem.CertificateExport;
+            }
+            else if (resId == Resource.Id.menu_settings_security)
+            {
+                return ActionItem.GoToSystemSecuritySettings;
+            }
+            return default;
         }
     }
 }

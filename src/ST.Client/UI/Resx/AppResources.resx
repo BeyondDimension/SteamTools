@@ -873,12 +873,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>请输入导出的数据密码</value>
   </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>导出文件路径</value>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>导出成功 {0}</value>
-  </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>选择路径</value>
   </data>
@@ -1666,10 +1660,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>下载更新渠道</value>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>应用详情(系统设置)</value>
+    <value>应用详情</value>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>应用通知(系统设置)</value>
+    <value>应用通知</value>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
     <value>打开 {0} 文件夹</value>
@@ -2014,5 +2008,20 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_Stoping" xml:space="preserve">
     <value>正在停止 ASF 服务，请稍后...</value>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>系统设置</value>
+  </data>
+  <data name="CommunityFix_CertificateExport" xml:space="preserve">
+    <value>导出证书文件</value>
+  </data>
+  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
+    <value>打开安全设置</value>
+  </data>
+  <data name="ExportedToPath_" xml:space="preserve">
+    <value>已导出到路径：{0}</value>
+  </data>
+  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
+    <value>导出证书失败，请先开启加速后再尝试导出</value>
   </data>
 </root>

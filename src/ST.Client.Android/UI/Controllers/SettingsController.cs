@@ -68,6 +68,7 @@ namespace System.Application.UI.Controllers
                 }
                 binding.tvGeneralSettingsCaptureScreen.Text = Settings_General_CaptureScreen;
                 binding.tvGeneralSettingsCaptureScreenDesc.Text = Settings_General_CaptureScreen_Desc;
+                binding.tvSystemSettings.Text = Settings_System;
             }).AddTo(this);
 
             ViewModel!.WhenAnyValue(x => x.SelectLanguage).SubscribeInMainThread(x =>

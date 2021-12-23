@@ -929,14 +929,6 @@
     <value>請輸入匯出的數據密碼</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>匯出檔案路徑</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>匯出成功 {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>選擇路徑</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -1883,11 +1875,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>套用詳情（系統設定）</value>
+    <value>套用詳情</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>應用程式通知（系統設定）</value>
+    <value>應用程式通知</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

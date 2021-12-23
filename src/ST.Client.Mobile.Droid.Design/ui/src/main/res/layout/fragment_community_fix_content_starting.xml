@@ -86,9 +86,11 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+          android:id="@+id/cardScriptsEnable"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/activity_vertical_margin">
+          android:layout_marginTop="@dimen/activity_vertical_margin"
+          xamarin:managedType="Google.Android.Material.Card.MaterialCardView">
 
           <LinearLayout
             android:layout_width="match_parent"
@@ -211,7 +213,7 @@
   </androidx.core.widget.NestedScrollView>
 
   <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-    android:id="@+id/btnStop"
+    android:id="@+id/btnStopProxyService"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"

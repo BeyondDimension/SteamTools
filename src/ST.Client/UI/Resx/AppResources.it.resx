@@ -933,14 +933,6 @@
     <value>Inserisci la password per i dati esportati</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>Percorso del file di esportazione</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>Esportazione riuscita {0}</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>Seleziona il percorso</value>
     <comment>Comment=;Author=Zhengye</comment>
@@ -1886,11 +1878,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Dettagli dell&apos;applicazione (impostazioni di sistema)</value>
+    <value>Dettagli dell&apos;applicazione</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>Notifiche dell&apos;app (impostazioni di sistema)</value>
+    <value>Notifiche dell&apos;app</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

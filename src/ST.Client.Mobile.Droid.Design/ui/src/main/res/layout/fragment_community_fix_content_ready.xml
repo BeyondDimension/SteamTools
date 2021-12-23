@@ -35,7 +35,7 @@
   </androidx.core.widget.NestedScrollView>
 
   <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-    android:id="@+id/btnStart"
+    android:id="@+id/btnStartProxyService"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|end"

@@ -929,14 +929,6 @@
     <value>Введите пароль экспортированных данных</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>Экспорт пути к файлу</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>Экспорт выполнен успешно {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>Выберите путь</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -1883,11 +1875,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Сведения о приложении (системные настройки)</value>
+    <value>Сведения о приложении</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>Применение уведомлений (системные настройки)</value>
+    <value>Применение уведомлений</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

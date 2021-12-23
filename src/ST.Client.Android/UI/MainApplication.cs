@@ -103,6 +103,8 @@ namespace System.Application.UI
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
             XEPlatform.Init(this); // 初始化 Xamarin.Essentials.Platform.Init
 
+            XEPlatform.ActivityStateChanged += OnActivityStateChanged;
+
             stopwatch.Stop();
             startTrace.AppendFormatLine("init Essentials {0}ms", stopwatch.ElapsedMilliseconds);
             stopwatch.Restart();
@@ -201,6 +203,32 @@ namespace System.Application.UI
 #if DEBUG
             Log.Warn("Application", $"OnCreate Complete({stopwatch.ElapsedMilliseconds}ms");
 #endif
+        }
+
+        static readonly HashSet<Android.App.Activity> activities = new();
+        public static IReadOnlyCollection<Android.App.Activity> Activities => activities;
+
+        void OnActivityStateChanged(object? sender, ActivityStateChangedEventArgs e)
+        {
+            switch (e.State)
+            {
+                case ActivityState.Created:
+                    activities.Add(e.Activity);
+                    break;
+                case ActivityState.Resumed:
+                    break;
+                case ActivityState.Paused:
+                    break;
+                case ActivityState.Destroyed:
+                    activities.Remove(e.Activity);
+                    break;
+                case ActivityState.SaveInstanceState:
+                    break;
+                case ActivityState.Started:
+                    break;
+                case ActivityState.Stopped:
+                    break;
+            }
         }
 
 #if __XAMARIN_FORMS__

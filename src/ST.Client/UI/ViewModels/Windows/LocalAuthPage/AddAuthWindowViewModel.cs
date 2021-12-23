@@ -6,10 +6,8 @@ using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using static System.Application.FilePicker2;
 using static System.Application.Models.GAPAuthenticatorDTO;
 using static System.Application.Repositories.IGameAccountPlatformAuthenticatorRepository;
@@ -30,38 +28,72 @@ namespace System.Application.UI.ViewModels
 
             SppV2Btn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("MsgPack Files", new[] { "mpo" }),
-                    ("Data Files", new[] { "dat" }),
-                    ("All Files", new[] { "*" }),
-                });
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("MsgPack Files", new[] { FileEx.MPO, }),
+                        ("Data Files", new[] { FileEx.DAT, }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
                 await PickAsync(ImportSteamPlusPlusV2, fileTypes);
             });
             SppBtn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("Data Files", new[] { "dat" }),
-                    ("All Files", new[] { "*" }),
-                });
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("Data Files", new[] { FileEx.DAT, }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
                 await PickAsync(ImportSteamPlusPlusV1, fileTypes);
             });
             SdaBtn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("MaFile Files", new[] { "maFile" }),
-                    ("JSON Files", new[] { "json" }),
-                    ("All Files", new[] { "*" }),
-                });
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("MaFile Files", new[] { FileEx.maFile }),
+                        ("Json Files", new[] { FileEx.JSON, }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
                 await PickAsync(ImportSDA, fileTypes);
             });
             WinAuthBtn_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = OperatingSystem2.IsAndroid ?
-                        new GeneralFilePickerFileType(new[] { MediaTypeNames.TXT }) :
-                        (!IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                            ("Text Files", new[] { "txt" }),
-                            ("All Files", new[] { "*" }),
-                        }));
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("Text Files", new[] { FileEx.TXT }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else if (OperatingSystem2.IsAndroid)
+                {
+                    fileTypes = new[] { MediaTypeNames.TXT };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
                 await PickAsync(ImportWinAuth, fileTypes);
             });
 

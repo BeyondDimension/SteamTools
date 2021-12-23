@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using static System.Application.FilePicker2.FilePickerFileType;
 using static System.Application.Services.IFilePickerPlatformService;
 using static System.Application.Services.IFilePickerPlatformService.IServiceBase;
 
@@ -17,14 +18,15 @@ namespace System.Application.Services.Implementation
 
         static List<FileDialogFilter>? Convert(FilePickerFileType fileTypes)
         {
-            if (fileTypes is FilePicker2.FilePickerFilter filters)
+            if (fileTypes is IFilePickerFileTypeWithName @interface)
             {
-                if (filters.Filters.Any())
+                var values = @interface.GetFileTypes();
+                if (values.Any())
                 {
-                    return filters.Filters.Select(x => new FileDialogFilter
+                    return values.Select(x => new FileDialogFilter
                     {
-                        Name = x.name,
-                        Extensions = FormatExtensions(x.extensions, trimLeadingPeriod: true),
+                        Name = x.Item1,
+                        Extensions = FormatExtensions(x.Item2, trimLeadingPeriod: true).ToList(),
                     }).ToList();
                 }
             }
@@ -37,7 +39,7 @@ namespace System.Application.Services.Implementation
                     {
                         new FileDialogFilter
                         {
-                            Extensions = FormatExtensions(extensions, trimLeadingPeriod: true),
+                            Extensions = FormatExtensions(extensions, trimLeadingPeriod: true).ToList(),
                         },
                     };
                 }
@@ -67,12 +69,12 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            var fileResults = await fileDialog.ShowAsync(IAvaloniaApplication.Instance.MainWindow);
+            var fileResults = await fileDialog.ShowAsync(IAvaloniaApplication.Instance.MainWindow!);
 
             return fileResults.Any_Nullable() ? fileResults.Select(x => new FileResult(x)) : Array.Empty<FileResult>();
         }
 
-        async Task<FileResult?> ISaveFileDialogService.PlatformSaveAsync(FilePicker2.SaveOptions? options)
+        async Task<FilePicker2.SaveFileResult?> ISaveFileDialogService.PlatformSaveAsync(FilePicker2.SaveOptions? options)
         {
             SaveFileDialog fileDialog = new();
             if (options != default)
@@ -95,9 +97,9 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            var fileResult = await fileDialog.ShowAsync(IAvaloniaApplication.Instance.MainWindow);
+            var fileResult = await fileDialog.ShowAsync(IAvaloniaApplication.Instance.MainWindow!);
 
-            return string.IsNullOrEmpty(fileResult) ? null : new FileResult(fileResult);
+            return string.IsNullOrEmpty(fileResult) ? null : new(fileResult);
         }
 
         bool IOpenFileDialogService.IsSupportedFileExtensionFilter => true;

@@ -1113,6 +1113,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 导出证书文件 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_CertificateExport {
+            get {
+                return ResourceManager.GetString("CommunityFix_CertificateExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 证书设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_CertificateSettings {
@@ -1154,6 +1163,24 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_EnableScriptService {
             get {
                 return ResourceManager.GetString("CommunityFix_EnableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导出证书失败，请先开启加速后再尝试导出 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ExportCertificateFileNotExists {
+            get {
+                return ResourceManager.GetString("CommunityFix_ExportCertificateFileNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开安全设置 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_GoToSystemSecuritySettings {
+            get {
+                return ResourceManager.GetString("CommunityFix_GoToSystemSecuritySettings", resourceCulture);
             }
         }
         
@@ -1667,6 +1694,15 @@ namespace System.Application.UI.Resx {
         public static string Export {
             get {
                 return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已导出到路径：{0} 的本地化字符串。
+        /// </summary>
+        public static string ExportedToPath_ {
+            get {
+                return ResourceManager.GetString("ExportedToPath_", resourceCulture);
             }
         }
         
@@ -2875,24 +2911,6 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_ExportAuth_ExportPassword {
             get {
                 return ResourceManager.GetString("LocalAuth_ExportAuth_ExportPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 导出文件路径 的本地化字符串。
-        /// </summary>
-        public static string LocalAuth_ExportAuth_ExportPath {
-            get {
-                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 导出成功 {0} 的本地化字符串。
-        /// </summary>
-        public static string LocalAuth_ExportAuth_ExportSuccess {
-            get {
-                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportSuccess", resourceCulture);
             }
         }
         
@@ -4150,7 +4168,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 应用详情(系统设置) 的本地化字符串。
+        ///   查找类似 应用详情 的本地化字符串。
         /// </summary>
         public static string Settings_General_AppDetailsSettings {
             get {
@@ -4159,7 +4177,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 应用通知(系统设置) 的本地化字符串。
+        ///   查找类似 应用通知 的本地化字符串。
         /// </summary>
         public static string Settings_General_AppNotificationSettings {
             get {
@@ -4452,6 +4470,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_Steam_SteamStratParameter {
             get {
                 return ResourceManager.GetString("Settings_Steam_SteamStratParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 系统设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_System {
+            get {
+                return ResourceManager.GetString("Settings_System", resourceCulture);
             }
         }
         

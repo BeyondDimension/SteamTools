@@ -41,4 +41,10 @@
   <dimen name="fab_height_with_margin_top">64dp</dimen>
   <!-- fab_height_with_margin_top_bottom = fab_height + activity_vertical_margin * 2 -->
   <dimen name="fab_height_with_margin_top_bottom">80dp</dimen>
+  <dimen name="settings_ui_subtitle_margin_start">56dp</dimen>
+  <dimen name="settings_ui_subtitle_margin_bottom">8dp</dimen>
+  <dimen name="settings_ui_subtitle_font_size">16sp</dimen>
+  <dimen name="settings_ui_item_title_font_size">16sp</dimen>
+  <dimen name="settings_ui_icon_size">24dp</dimen>
+  <dimen name="settings_ui_item_textbox_fix_material_bottom">5dp</dimen>
 </resources>
