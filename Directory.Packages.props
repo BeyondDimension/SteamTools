@@ -139,10 +139,10 @@
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.0.1" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
-		<PackageVersion Include="HarfBuzzSharp" Version="2.6.1.8" />
-		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.6.1.8" />
-		<PackageVersion Include="SkiaSharp" Version="2.80.3" />
-		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
+		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.179" />
+		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.179" />
+		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.179" />
+		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.179" />
 
 		<!-- AutoMapper -->
 		<PackageVersion Include="AutoMapper" Version="10.1.1" />
@@ -233,18 +233,18 @@
 		<PackageVersion Include="Polly" Version="7.2.2" />
 
 		<!--Avalonia Start-->
-		<PackageVersion Include="Avalonia" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.Desktop" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.Skia" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.Diagnostics" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.10" />
-		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.9" />-->
-		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.10.4" />
+		<PackageVersion Include="Avalonia" Version="0.10.11" />
+		<PackageVersion Include="Avalonia.Desktop" Version="0.10.11" />
+		<PackageVersion Include="Avalonia.Skia" Version="0.10.11" />
+		<PackageVersion Include="Avalonia.Diagnostics" Version="0.10.11" />
+		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.11" />
+		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.11" />-->
+		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.11" />
+		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.11.5" />
 		<!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.4" />-->
 		<!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
 		<!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-		<!--<PackageVersion Include="FluentAvaloniaUI" Version="1.1.6" />-->
+		<!--<PackageVersion Include="FluentAvaloniaUI" Version="1.1.8" />-->
 		<PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
 		<!--Avalonia End-->
 
