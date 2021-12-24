@@ -11,6 +11,7 @@ using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using System.ComponentModel;
+using FluentAvalonia.UI.Controls.Primitives;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
@@ -85,6 +86,7 @@ namespace Avalonia.Controls
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
+                PseudoClasses.Add(":windows");
             }
             else if (OperatingSystem2.IsMacOS)
             {
