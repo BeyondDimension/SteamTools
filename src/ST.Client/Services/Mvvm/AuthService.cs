@@ -735,11 +735,17 @@ namespace System.Application.Services
             return items.Select(s => s.AuthenticatorData);
         }
 
-        public async Task<byte[]> GetExportAuthenticatorsAsync(bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
+        //public async Task<byte[]> GetExportAuthenticatorsAsync(bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
+        //{
+        //    var items = GetExportSourceAuthenticators(predicateWhere);
+        //    var bt = await repository.ExportAsync(isLocal, password, items);
+        //    return bt;
+        //}
+
+        public async Task GetExportAuthenticatorsAsync(Stream stream, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
         {
             var items = GetExportSourceAuthenticators(predicateWhere);
-            var bt = await repository.ExportAsync(isLocal, password, items);
-            return bt;
+            await repository.ExportAsync(stream, isLocal, password, items);
         }
 
         public async void ExportAuthenticators(Stream? fileWriteStream, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
@@ -752,11 +758,10 @@ namespace System.Application.Services
                     return;
                 }
 
-                var bt = await GetExportAuthenticatorsAsync(isLocal, password, predicateWhere);
-
                 if (fileWriteStream.CanSeek && fileWriteStream.Position != 0)
                     fileWriteStream.Position = 0;
-                await fileWriteStream.WriteAsync(bt);
+
+                await GetExportAuthenticatorsAsync(fileWriteStream, isLocal, password, predicateWhere);
                 await fileWriteStream.FlushAsync();
                 await fileWriteStream.DisposeAsync();
             }

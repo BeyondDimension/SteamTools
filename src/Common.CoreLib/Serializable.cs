@@ -21,6 +21,7 @@ using static System.Serializable;
 using SJsonSerializer = System.Text.Json.JsonSerializer;
 using SJsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
 using SJsonIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition;
+using System.Threading.Tasks;
 
 namespace System
 {
@@ -159,6 +160,22 @@ namespace System
         public static byte[] SMP(Type type, object value, CancellationToken cancellationToken = default)
             => MessagePackSerializer.Serialize(type, value, options: lz4Options, cancellationToken: cancellationToken);
 
+        /// <inheritdoc cref="SMP{T}(T, CancellationToken)"/>
+        public static void SMP<T>(Stream stream, T value, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.Serialize(stream, value, options: lz4Options, cancellationToken: cancellationToken);
+
+        /// <inheritdoc cref="SMP{T}(T, CancellationToken)"/>
+        public static void SMP(Type type, Stream stream, object value, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.Serialize(type, stream, value, options: lz4Options, cancellationToken: cancellationToken);
+
+        /// <inheritdoc cref="SMP{T}(T, CancellationToken)"/>
+        public static Task SMPAsync<T>(Stream stream, T value, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.SerializeAsync(stream, value, options: lz4Options, cancellationToken: cancellationToken);
+
+        /// <inheritdoc cref="SMP{T}(T, CancellationToken)"/>
+        public static Task SMPAsync(Type type, Stream stream, object value, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.SerializeAsync(type, stream, value, options: lz4Options, cancellationToken: cancellationToken);
+
         /// <summary>
         /// (Serialize)MessagePack 序列化 + Base64Url Encode
         /// </summary>
@@ -239,6 +256,17 @@ namespace System
         /// <inheritdoc cref="DMP{T}(Stream, CancellationToken)"/>
         public static object? DMP(Type type, Stream buffer, CancellationToken cancellationToken = default)
             => MessagePackSerializer.Deserialize(type, buffer, options: lz4Options, cancellationToken: cancellationToken);
+
+        /// <inheritdoc cref="DMP{T}(Stream, CancellationToken)"/>
+        public static async ValueTask<T?> DMPAsync<T>(Stream buffer, CancellationToken cancellationToken = default)
+        {
+            var r = await MessagePackSerializer.DeserializeAsync<T>(buffer, options: lz4Options, cancellationToken: cancellationToken);
+            return r;
+        }
+
+        /// <inheritdoc cref="DMP{T}(Stream, CancellationToken)"/>
+        public static ValueTask<object?> DMPAsync(Type type, Stream buffer, CancellationToken cancellationToken = default)
+            => MessagePackSerializer.DeserializeAsync(type, buffer, options: lz4Options, cancellationToken: cancellationToken);
 
         /// <summary>
         /// (Deserialize)MessagePack 反序列化 + Base64Url Decode

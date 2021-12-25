@@ -266,7 +266,12 @@ namespace System.Application.UI.ViewModels
             {
                 var mark = SelectAuthenticatorMark;
                 var markIsNull = mark == default;
-                return $"{ThisAssembly.AssemblyTrademark}  Authenticator{(markIsNull ? "s" : default)} {(markIsNull ? default : $"({mark}) ")}{DateTime.Now.ToString(DateTimeFormat.File)}{FileEx.MPO}";
+                var now = DateTime.Now;
+                const string f = $"{ThisAssembly.AssemblyTrademark}  Authenticator{{0}} {{1}}{{2}}{FileEx.MPO}";
+                return string.Format(f,
+                    markIsNull ? "s" : default,
+                    markIsNull ? default : $"({mark}) ",
+                    now.ToString(DateTimeFormat.File));
             }
         }
 

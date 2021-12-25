@@ -50,13 +50,13 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom">
+            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
               android:id="@+id/tbSystemProxyIp"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/transparent"
               android:inputType="text"
               tools:text="255.255.255.255"
               xamarin:managedType="Google.Android.Material.TextField.MaterialAutoCompleteTextView" />
@@ -96,13 +96,13 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom">
+            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
               android:id="@+id/tbCustomDNS"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/transparent"
               android:inputType="text"
               tools:text="255.255.255.255"
               xamarin:managedType="Google.Android.Material.TextField.MaterialAutoCompleteTextView" />
@@ -284,7 +284,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom">
+            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled">
 
             <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/tbSocks5ProxyPortId"
@@ -379,14 +380,14 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom">
+            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
               android:id="@+id/tbTwoLevelAgentProxyType"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/transparent"
-              android:inputType="text"
+              android:inputType="none"
               tools:text="Socket5"
               xamarin:managedType="Google.Android.Material.TextField.MaterialAutoCompleteTextView" />
 
@@ -426,7 +427,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom">
+            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled">
 
             <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/tbTwoLevelAgentIp"
@@ -473,7 +475,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom">
+            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled">
 
             <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/tbTwoLevelAgentPortId"
@@ -521,7 +524,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom">
+            android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled">
 
             <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/tbTwoLevelAgentUserName"
@@ -569,6 +573,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:paddingEnd="6dp"
             android:paddingBottom="@dimen/settings_ui_item_textbox_fix_material_bottom"
+            app:boxBackgroundMode="filled"
             app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText

@@ -27,21 +27,16 @@
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_SystemProxyIp,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                 <!--<TextBox Classes="clearButton" Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}"></TextBox>-->
-                <ui:ComboBox IsEditable="True" 
+                <ui:ComboBox IsEditable="True"
+                             Items="{Binding SystemProxyIps}"
                              Text="{ReflectionBinding Source={x:Static ms:ProxySettings.SystemProxyIp},Path=Value, Mode=TwoWay}">
-                  <ui:ComboBox.Items>
-                    <col:ArrayList>
-                      <sys:String>0.0.0.0</sys:String>
-                      <sys:String>127.0.0.1</sys:String>
-                    </col:ArrayList>
-                  </ui:ComboBox.Items>
                 </ui:ComboBox>
               </DockPanel>
 
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_CustomDNS,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                
-                <ui:ComboBox IsEditable="True" 
+
+                <ui:ComboBox IsEditable="True"
                              Items="{Binding ProxyDNSs}"
                              Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMasterDns},Path=Value, Mode=TwoWay}">
                 </ui:ComboBox>

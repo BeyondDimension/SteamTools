@@ -551,11 +551,8 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_preference_small_button.xml">
       <Link>Resources\layout\layout_preference_small_button.xml</Link>
     </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\list_item.xml">
-      <Link>Resources\layout\list_item.xml</Link>
-    </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\list_popup_window_item.xml">
-      <Link>Resources\layout\list_popup_window_item.xml</Link>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\list_combobox_item.xml">
+      <Link>Resources\layout\list_combobox_item.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\local_auth_appwidget.xml">
       <Link>Resources\layout\local_auth_appwidget.xml</Link>
@@ -685,6 +682,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

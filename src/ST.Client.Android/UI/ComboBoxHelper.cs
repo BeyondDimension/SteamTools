@@ -49,7 +49,7 @@ namespace System.Application.UI
             // Set button as the list popup's anchor
             listPopupWindow.AnchorView = anchorView;
 
-            var adapter = CreateArrayAdapter(context, Resource.Layout.list_popup_window_item, items);
+            var adapter = CreateArrayAdapter(context, items: items);
             listPopupWindow.SetAdapter(adapter);
 
             ListPopupWindowWrapper<T> wrapper = new(items, listPopupWindow, adapter, click);
@@ -112,8 +112,9 @@ namespace System.Application.UI
             public void Show() => Window.Show();
         }
 
-        public static ArrayAdapter<T> CreateArrayAdapter<T>(Context context, int resource, IEnumerable<T>? items = null)
+        public static ArrayAdapter<T> CreateArrayAdapter<T>(Context context, int resource = 0, IEnumerable<T>? items = null)
         {
+            resource = resource == default ? Resource.Layout.list_combobox_item : resource;
             var adapter = items == null ?
                 new ArrayAdapter<T>(context, resource, 0) :
                 new ArrayAdapter<T>(context, resource, 0, items.ToJavaList());
@@ -125,12 +126,15 @@ namespace System.Application.UI
         /// https://material.io/components/menus/android#exposed-dropdown-menus
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="context"></param>
+        /// <param name="textView"></param>
+        /// <param name="resource"></param>
+        /// <param name="items"></param>
         /// <returns></returns>
-        public static ArrayAdapter<T> CreateArrayAdapter<T>(AutoCompleteTextView textView)
+        public static ArrayAdapter<T> CreateArrayAdapter<T>(AutoCompleteTextView textView, int resource = 0, IEnumerable<T>? items = null)
         {
-            var adapter = CreateArrayAdapter<T>(textView.Context!, Resource.Layout.list_item);
+            var adapter = CreateArrayAdapter(textView.Context!, resource, items);
             textView.Adapter = adapter;
+            textView.Threshold = int.MaxValue;
             return adapter;
         }
     }
