@@ -1,0 +1,20 @@
+name: "关闭陈旧的问题/拉动请求"
+on:
+  schedule:
+    - cron: "30 1 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v4
+        with:
+          stale-issue-message: |
+            这个问题已经开放了一段时间。 如果没有人评论它，它将很快关闭。
+             如果出现以下情况，应关闭问题：
+               - 它们是其他问题的重复
+               - 需求不足
+               - 它们不再相关
+               - 没有足够的细节
+          days-before-stale: 30
+          days-before-close: 30
