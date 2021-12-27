@@ -152,6 +152,9 @@
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                                  CommandParameter="UserProfile"/>
+              <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                                CommandParameter="Notice"/>
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"

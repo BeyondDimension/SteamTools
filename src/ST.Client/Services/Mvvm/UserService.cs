@@ -34,6 +34,10 @@ namespace System.Application.Services
             {
                 isDialog = false;
             }
+            else if (windowName == CustomWindow.Notice)
+            {
+                isDialog = true;
+            }
             else if (windowName == CustomWindow.ChangeBindPhoneNumber)
             {
                 var cUser = await userManager.GetCurrentUserAsync();

@@ -17,6 +17,7 @@ namespace System.Application.Services
         IVersionClient Version { get; }
         IActiveUserClient ActiveUser { get; }
         IAccelerateClient Accelerate { get; }
+        INoticeClient Notice { get; }
         IDonateRankingClient DonateRanking { get; }
 
         /// <inheritdoc cref="IApiConnection.DownloadAsync(bool, CancellationToken, string, string, IProgress{float})"/>

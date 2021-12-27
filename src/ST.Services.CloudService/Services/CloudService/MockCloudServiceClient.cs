@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService
 {
-    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, IScriptClient, IDonateRankingClient
+    public sealed partial class MockCloudServiceClient : ICloudServiceClient, IAccountClient, IManageClient, IAuthMessageClient, IVersionClient, IActiveUserClient, IAccelerateClient, IScriptClient, IDonateRankingClient, INoticeClient
     {
         readonly IToast toast;
         readonly IModelValidator validator;
@@ -32,6 +32,8 @@ namespace System.Application.Services.CloudService
         public IActiveUserClient ActiveUser => this;
         public IAccelerateClient Accelerate => this;
         public IDonateRankingClient DonateRanking => this;
+
+        public INoticeClient Notice => this;
 
         #region ModelValidator
 
@@ -239,6 +241,24 @@ namespace System.Application.Services.CloudService
         {
             await Task.Delay(1500);
             return ApiResponse.Ok(new PagedModel<RankingResponse> { });
+        }
+
+        public async Task<IApiResponse<NoticeTypeDTO[]>> Types()
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new NoticeTypeDTO[] { });
+        }
+
+        public async Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid typeId, int index, int size)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new PagedModel<NoticeDTO> { });
+        }
+
+        public async Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid typeId, DateTimeOffset? time)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new NoticeDTO[] { });
         }
     }
 }

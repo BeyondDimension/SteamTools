@@ -1,3 +1,6 @@
+#if MVVM_VM
+using ReactiveUI;
+#endif
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
@@ -7,6 +10,9 @@ namespace System.Application.Models
 {
     [MPObj]
     public class NoticeTypeDTO
+#if MVVM_VM
+        : ReactiveObject
+#endif
     {
         [MPKey(0)]
         [N_JsonProperty("0")]

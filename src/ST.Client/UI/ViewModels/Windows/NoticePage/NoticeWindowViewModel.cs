@@ -11,8 +11,8 @@ namespace System.Application.UI.ViewModels
 {
     public class NoticeWindowViewModel : WindowViewModel
     {
-        public static string DisplayName => AppResources.ScriptStore;
-
+        public static string DisplayName => AppResources.NotificationChannelType_Name_Announcement;
+         
         public NoticeWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);

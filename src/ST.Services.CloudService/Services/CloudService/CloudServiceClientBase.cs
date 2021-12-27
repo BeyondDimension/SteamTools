@@ -25,6 +25,7 @@ namespace System.Application.Services.CloudService
         public IAuthMessageClient AuthMessage { get; }
         public IVersionClient Version { get; }
         public IActiveUserClient ActiveUser { get; }
+        public INoticeClient Notice { get; }
         public IAccelerateClient Accelerate { get; }
         public IDonateRankingClient DonateRanking { get; }
 
@@ -83,7 +84,7 @@ namespace System.Application.Services.CloudService
             Accelerate = new AccelerateClient(connection);
             Script = new ScriptClient(connection);
             DonateRanking = new DonateRankingClient(connection);
-
+            Notice = new NoticeClient(connection);
             #endregion
         }
 
@@ -91,6 +92,7 @@ namespace System.Application.Services.CloudService
         internal string UserAgent => http_helper.UserAgent;
 
         IAuthHelper IApiConnectionPlatformHelper.Auth => authHelper;
+
 
         public abstract Task SaveAuthTokenAsync(JWTEntity authToken);
 
