@@ -12,12 +12,18 @@ namespace System.Application.UI.ViewModels
     public class NoticeWindowViewModel : WindowViewModel
     {
         public static string DisplayName => AppResources.NotificationChannelType_Name_Announcement;
-         
+
         public NoticeWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
-            
+
         }
- 
+        public override async void Activation()
+        {
+            if (IsFirstActivation)
+                await NotificationService.Current.InitializeNotice();
+            base.Activation();
+        }
+
     }
 }

@@ -48,7 +48,7 @@ namespace System.Application.Services
             get => _SelectGroup;
             set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
         }
-        public async Task InitializeAccelerate()
+        public async Task InitializeNotice()
         {
             var client = ICloudServiceClient.Instance.Notice;
             var result = await client.Types();
