@@ -14,7 +14,7 @@
     android:id="@+id/checkbox"
     android:layout_width="@dimen/checkbox_width"
     android:layout_height="@dimen/checkbox_height"
-    android:layout_marginStart="10dp"
+    android:layout_marginStart="@dimen/checkbox_margin_left"
     android:buttonTint="?colorPrimary"
     android:clickable="false"
     android:focusable="false"

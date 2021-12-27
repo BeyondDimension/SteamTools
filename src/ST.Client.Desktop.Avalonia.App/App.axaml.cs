@@ -126,7 +126,7 @@ namespace System.Application.UI
             {
                 Source = uri_1,
             };
-            AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().RequestedTheme = the;
+            AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()!.RequestedTheme = the;
         }
 
         public void SetThemeAccent(string? colorHex)
@@ -135,7 +135,7 @@ namespace System.Application.UI
             {
                 return;
             }
-            var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+            var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()!;
 
             if (Color.TryParse(colorHex, out var color))
             {
@@ -402,15 +402,15 @@ namespace System.Application.UI
             RestoreMainWindow();
         }
 
-        Task IClipboardPlatformService.PlatformSetTextAsync(string text) => Current.Clipboard.SetTextAsync(text);
+        Task IClipboardPlatformService.PlatformSetTextAsync(string text) => Current!.Clipboard!.SetTextAsync(text);
 
-        Task<string> IClipboardPlatformService.PlatformGetTextAsync() => Current.Clipboard.GetTextAsync();
+        Task<string> IClipboardPlatformService.PlatformGetTextAsync() => Current!.Clipboard!.GetTextAsync();
 
         bool IClipboardPlatformService.PlatformHasText
         {
             get
             {
-                Func<Task<string>> func = () => Current.Clipboard.GetTextAsync();
+                Func<Task<string>> func = () => Current!.Clipboard!.GetTextAsync();
                 var value = func.RunSync();
                 return !string.IsNullOrEmpty(value);
             }
@@ -418,7 +418,7 @@ namespace System.Application.UI
 
         public Window? MainWindow { get; set; }
 
-        AvaloniaApplication IAvaloniaApplication.Current => Current;
+        AvaloniaApplication IAvaloniaApplication.Current => Current!;
 
         /// <summary>
         /// Restores the app's main window by setting its <c>WindowState</c> to
@@ -428,7 +428,7 @@ namespace System.Application.UI
         {
             Window? mainWindow = null;
 
-            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 mainWindow = desktop.MainWindow;
                 if (mainWindow == null)
@@ -482,7 +482,7 @@ namespace System.Application.UI
 
         public Window GetActiveWindow()
         {
-            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var activeWindow = desktop.Windows.FirstOrDefault(x => x.IsActive);
                 if (activeWindow != null)
@@ -490,7 +490,7 @@ namespace System.Application.UI
                     return activeWindow;
                 }
             }
-            return MainWindow;
+            return MainWindow!;
         }
 
         public void SetDesktopBackgroundWindow()
@@ -509,7 +509,7 @@ namespace System.Application.UI
         /// <param name="level"></param>
         public void SetAllWindowransparencyMateria(int level)
         {
-            if (Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 foreach (var window in desktop.Windows)
                 {
@@ -566,7 +566,7 @@ namespace System.Application.UI
 
         string IAvaloniaApplication.RenderingSubsystemName => Program.RenderingSubsystemName;
 
-        object IApplication.CurrentPlatformUIHost => MainWindow;
+        object IApplication.CurrentPlatformUIHost => MainWindow!;
 
         DeploymentMode IApplication.DeploymentMode => DeploymentMode.
 #if FRAMEWORK_DEPENDENT || !PUBLISH

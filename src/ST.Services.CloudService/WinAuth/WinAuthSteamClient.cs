@@ -1266,7 +1266,7 @@ namespace WinAuth
 
                 // call the server
                 HttpWebRequest request = GeneralHttpClientFactory.Create(url);
-                request.Timeout = GeneralHttpClientFactory.DefaultTimeoutTotalMilliseconds;
+                request.Timeout = GeneralHttpClientFactory.DefaultTimeoutMilliseconds;
                 request.Method = method;
                 request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";
                 request.ServicePoint.Expect100Continue = false;

@@ -7,6 +7,7 @@ using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -119,6 +120,19 @@ namespace System.Application.UI.Fragments
             binding.swipeRefreshLayout.SetOnRefreshListener(this);
 
             SetOnClickListener(binding.btnStartProxyService, binding.btnStopProxyService);
+        }
+
+        public override void OnStop()
+        {
+            base.OnStop();
+
+            if (ProxyService.IsChangeSupportProxyServicesStatus)
+            {
+                SettingsHost.Save();
+#if DEBUG
+                Toast.Show("已保存勾选状态");
+#endif
+            }
         }
 
         protected override bool OnClick(View view)

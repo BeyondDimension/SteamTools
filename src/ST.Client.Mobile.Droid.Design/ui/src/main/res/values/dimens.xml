@@ -34,6 +34,8 @@
   <dimen name="checkbox_reduce_space">-7dp</dimen>
   <dimen name="checkbox_width">25dp</dimen>
   <dimen name="checkbox_height">18dp</dimen>
+  <dimen name="checkbox_margin_left">10dp</dimen>
+  <dimen name="checkbox_bg_margin_left">4dp</dimen>
   <dimen name="translators_font_size">18sp</dimen>
   <dimen name="accelerate_project_group_img_size">48dp</dimen>
   <dimen name="fab_height">48dp</dimen>

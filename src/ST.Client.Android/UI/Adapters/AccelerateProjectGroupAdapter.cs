@@ -54,9 +54,7 @@ namespace System.Application.UI.Adapters
             ViewModel.WhenAnyValue(x => x.ThreeStateEnable)
                 .Subscribe(value =>
                 {
-                    var value2 = value == true;
-                    if (binding.checkbox.Checked != value2)
-                        binding.checkbox.Checked = value2;
+                    binding.checkbox.SetChecked(value);
                 }).AddTo(this);
         }
     }

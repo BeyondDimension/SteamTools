@@ -30,8 +30,25 @@ namespace System.Net.Sockets
         /// <summary>
         /// 检查指定的端口是否被占用
         /// </summary>
+        /// <param name="address"></param>
         /// <param name="port"></param>
         /// <returns></returns>
+        public static bool IsUsePort(IPAddress address, int port)
+        {
+            try
+            {
+                var listener = new TcpListener(address, port);
+                listener.Start();
+                listener.Stop();
+                return false;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        /// <inheritdoc cref="IsUsePort(IPAddress, int)"/>
         public static bool IsUsePort(int port)
         {
             try
@@ -42,17 +59,7 @@ namespace System.Net.Sockets
             }
             catch
             {
-                try
-                {
-                    var listener = new TcpListener(IPAddress.Loopback, port);
-                    listener.Start();
-                    listener.Stop();
-                    return false;
-                }
-                catch
-                {
-                    return true;
-                }
+                return IsUsePort(IPAddress.Loopback, port);
             }
         }
 

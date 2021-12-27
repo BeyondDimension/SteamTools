@@ -500,7 +500,7 @@ namespace System.Application.Services.Implementation
 
         public int GetRandomUnusedPort() => SocketHelper.GetRandomUnusedPort(ProxyIp);
 
-        public bool PortInUse(int port) => SocketHelper.IsUsePort(port);
+        public bool PortInUse(int port) => SocketHelper.IsUsePort(ProxyIp, port);
 
         public async Task<bool> StartProxy()
         {
@@ -523,7 +523,8 @@ namespace System.Application.Services.Implementation
 
             try
             {
-                var explicitProxyEndPoint = new ExplicitProxyEndPoint(ProxyIp, GetRandomUnusedPort(), true)
+                if (PortInUse(ProxyPort)) ProxyPort = GetRandomUnusedPort();
+                var explicitProxyEndPoint = new ExplicitProxyEndPoint(ProxyIp, ProxyPort, true)
                 {
                     // 通过不启用为每个http的域创建证书来优化性能
                     //GenericCertificate = proxyServer.CertificateManager.RootCertificate

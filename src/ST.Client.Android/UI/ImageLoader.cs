@@ -2,14 +2,15 @@ using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Widget;
+using Android.OS;
+using Square.OkHttp3;
 using Square.Picasso;
 using System.Application.Services;
 using System.IO;
 using JFile = Java.IO.File;
 using AndroidApplication = Android.App.Application;
 using _ThisAssembly = System.Properties.ThisAssembly;
-using Android.OS;
-using Square.OkHttp3;
+using System.Net.Http;
 
 namespace System.Application.UI
 {
@@ -89,7 +90,10 @@ namespace System.Application.UI
                 {
                     requestCreator = requestCreator.CenterInside();
                 }
-                requestCreator.Into(imageView);
+                requestCreator.Into(imageView, null, e =>
+                {
+                    Log.Error(TAG, e, "SetImageSource(string)|Callback catch, requestUri: {0}", requestUri);
+                });
             }
             catch (Exception e)
             {
@@ -142,10 +146,19 @@ namespace System.Application.UI
 
         static OkHttpClient CreateOkHttpClient(JFile cacheDir, long maxSize)
         {
+            var s = IHttpPlatformHelperService.Instance;
             var client = new OkHttpClient.Builder()
                 .Cache(new(cacheDir, maxSize))
                 .FollowRedirects(true)
                 .FollowSslRedirects(true)
+                .CallTimeout(GeneralHttpClientFactory.DefaultTimeoutMilliseconds, Java.Util.Concurrent.TimeUnit.Milliseconds)
+                .AddInterceptor(chain =>
+                {
+                    var newRequest = chain.Request().NewBuilder()
+                        .AddHeader("User-Agent", s.UserAgent)
+                        .Build();
+                    return chain.Proceed(newRequest);
+                })
                 .Build();
             return client;
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Application.Columns;
 using System.Application.Services;
+using System.Application.UI;
 using System.Collections.Generic;
 using IPAddress = System.Net.IPAddress;
 
@@ -24,13 +25,13 @@ namespace System.Application.Settings
         /// 代理服务启用状态
         /// </summary>
         public static SerializableProperty<IReadOnlyCollection<string>> SupportProxyServicesStatus { get; }
-            = GetProperty(defaultValue: (IReadOnlyCollection<string>)new List<string>(), autoSave: false);
+            = GetProperty(defaultValue: (IReadOnlyCollection<string>)Array.Empty<string>(), autoSave: false);
 
         /// <summary>
         /// 脚本启用状态
         /// </summary>
         public static SerializableProperty<IReadOnlyCollection<int>> ScriptsStatus { get; }
-            = GetProperty(defaultValue: (IReadOnlyCollection<int>)new List<int>(), autoSave: true);
+            = GetProperty(defaultValue: (IReadOnlyCollection<int>)Array.Empty<int>(), autoSave: true);
 
         #region 代理设置
 
