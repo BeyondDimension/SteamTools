@@ -18,9 +18,9 @@ namespace System.Application.UI.ViewModels
         public IEnumerable<ExternalProxyType> ProxyTypes { get; }
             = Enum2.GetAll<ExternalProxyType>();
 
-        public IEnumerable<string?> ProxyDNSs { get; } = new[]
+        public IEnumerable<string> ProxyDNSs { get; } = new[]
         {
-            null,
+            string.Empty,
             IDnsAnalysisService.PrimaryDNS_114,
             IDnsAnalysisService.PrimaryDNS_Ali,
             IDnsAnalysisService.PrimaryDNS_Dnspod,

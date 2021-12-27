@@ -107,7 +107,8 @@ namespace System.Application.UI.Fragments
             var adapter = new AccelerateProjectGroupAdapter();
             adapter.ItemClick += (_, e) =>
             {
-                e.Current.Enable = !e.Current.Enable;
+                var value = e.Current.ThreeStateEnable;
+                e.Current.ThreeStateEnable = value == null || !value.Value;
             };
             var layout = new LinearLayoutManager2(ctx, LinearLayoutManager.Vertical, false);
             binding!.rvAccelerateProjectGroup.SetLayoutManager(layout);

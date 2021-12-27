@@ -73,6 +73,7 @@ namespace System.Application.Services
 
                         httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
+                        if (!ModelValidatorProvider.IsPortId(httpProxyService.Socks5ProxyPortId)) httpProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
 
                         //httpProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
                         httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
@@ -82,6 +83,7 @@ namespace System.Application.Services
 
                         httpProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
                         httpProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
+                        if (!ModelValidatorProvider.IsPortId(httpProxyService.TwoLevelAgentPortId)) httpProxyService.TwoLevelAgentPortId = ProxySettings.DefaultTwoLevelAgentPortId;
                         httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
                         httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 

@@ -48,7 +48,7 @@ namespace System.Application.UI.Activities
 
             mainActivity = this;
 
-            InitCommunityFixVpnServiceActivityResultLauncher();
+            //InitCommunityFixVpnServiceActivityResultLauncher();
 
             SetSupportActionBar(binding!.toolbar);
 

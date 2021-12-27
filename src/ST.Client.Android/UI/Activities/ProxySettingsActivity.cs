@@ -49,7 +49,7 @@ namespace System.Application.UI.Activities
             CreateArrayAdapter(binding.tbSystemProxyIp,
                 items: ViewModel!.SystemProxyIps);
             CreateArrayAdapter(binding.tbCustomDNS,
-                items: ViewModel!.ProxyDNSs.Where(x => x != null));
+                items: ViewModel!.ProxyDNSs);
             CreateArrayAdapter(binding.tbTwoLevelAgentProxyType,
                 items: ViewModel.ProxyTypes.Select(x => x.ToString()));
 
@@ -90,7 +90,7 @@ namespace System.Application.UI.Activities
             binding.tbSocks5ProxyPortId.TextChanged += (_, _) =>
             {
                 var value = binding.tbSocks5ProxyPortId.Text;
-                if (ushort.TryParse(value, out var value2) && value2 != 0)
+                if (ModelValidatorProvider.IsPortId(value, out var value2))
                 {
                     Socks5ProxyPortId.Value = value2;
                 }
@@ -110,7 +110,7 @@ namespace System.Application.UI.Activities
             binding.tbTwoLevelAgentPortId.TextChanged += (_, _) =>
             {
                 var value = binding.tbTwoLevelAgentPortId.Text;
-                if (ushort.TryParse(value, out var value2) && value2 != 0)
+                if (ModelValidatorProvider.IsPortId(value, out var value2))
                 {
                     TwoLevelAgentPortId.Value = value2;
                 }

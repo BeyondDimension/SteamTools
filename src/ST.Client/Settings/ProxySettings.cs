@@ -76,7 +76,9 @@ namespace System.Application.Settings
         /// Socks5 监听端口
         /// </summary>
         public static SerializableProperty<int> Socks5ProxyPortId { get; }
-            = GetProperty(defaultValue: 8868, autoSave: false);
+            = GetProperty(defaultValue: DefaultSocks5ProxyPortId, autoSave: false);
+
+        public const int DefaultSocks5ProxyPortId = 8868;
 
         #endregion
 
@@ -107,7 +109,9 @@ namespace System.Application.Settings
         /// 二级代理 监听端口
         /// </summary>
         public static SerializableProperty<int> TwoLevelAgentPortId { get; }
-            = GetProperty(defaultValue: 7890, autoSave: false);
+            = GetProperty(defaultValue: DefaultTwoLevelAgentPortId, autoSave: false);
+
+        public const int DefaultTwoLevelAgentPortId = 7890;
 
         /// <summary>
         /// TwoLevelAgent UserName

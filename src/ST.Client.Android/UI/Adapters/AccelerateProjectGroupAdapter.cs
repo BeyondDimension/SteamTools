@@ -51,8 +51,13 @@ namespace System.Application.UI.Adapters
             var imageUrl = ImageUrlHelper.GetImageApiUrlById(ViewModel!.ImageId);
             binding.ivImage.SetImageSource(imageUrl);
             binding.tvName.Text = ViewModel.Name;
-            ViewModel.WhenAnyValue(x => x.Enable)
-                .Subscribe(value => binding.checkbox.Checked = value).AddTo(this);
+            ViewModel.WhenAnyValue(x => x.ThreeStateEnable)
+                .Subscribe(value =>
+                {
+                    var value2 = value == true;
+                    if (binding.checkbox.Checked != value2)
+                        binding.checkbox.Checked = value2;
+                }).AddTo(this);
         }
     }
 }
