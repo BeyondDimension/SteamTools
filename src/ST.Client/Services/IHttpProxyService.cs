@@ -22,7 +22,7 @@ namespace System.Application.Services
     /// </summary>
     public interface IHttpProxyService : IDisposable
     {
-        public const string LocalDomain = "local.steampp.net";
+        const string LocalDomain = "local.steampp.net";
 
         static IHttpProxyService Instance => DI.Get<IHttpProxyService>();
 
@@ -41,7 +41,11 @@ namespace System.Application.Services
         /// <summary>
         /// 证书名称，硬编码不可改动，确保兼容性
         /// </summary>
-        public const string CertificateName = "SteamTools";
+        const string CertificateName = "SteamTools";
+
+        const string RootCertificateName = $"{CertificateName} Certificate";
+
+        const string RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
 
         CertificateEngine CertificateEngine { get; set; }
 

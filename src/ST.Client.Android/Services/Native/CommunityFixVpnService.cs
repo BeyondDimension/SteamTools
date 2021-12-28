@@ -4,235 +4,197 @@ using Android.Content;
 using Android.Net;
 using Android.OS;
 using Android.Runtime;
-using AndroidX.Activity.Result;
-using AndroidX.Activity.Result.Contract;
 using System.Application.Services.Native;
-using System.Application.UI;
-using System.Application.UI.Activities;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using JObject = Java.Lang.Object;
+using static AndroidX.Activity.Result.ActivityResultTask;
+using XEPlatform = Xamarin.Essentials.Platform;
+using static System.Properties.ThisAssembly;
 
 namespace System.Application.Services.Native
 {
-    ///// <summary>
-    ///// 使用 虚拟专用网 (VPN) 进行网络加速
-    ///// <para>https://developer.android.google.cn/guide/topics/connectivity/vpn?hl=zh_cn</para>
-    ///// </summary>
-    //[Register(JavaPackageConstants.Services + nameof(CommunityFixVpnService))]
-    //[Service(Permission = Manifest.Permission.BindVpnService)]
-    //[IntentFilter(new[] { "android.net.VpnService" })]
-    //internal sealed class CommunityFixVpnService : VpnService
-    //{
-    //    internal static IPEndPoint? IPEndPoint { get; set; }
+    /// <summary>
+    /// 使用 虚拟专用网 (VPN) 进行网络加速
+    /// <para>https://developer.android.google.cn/guide/topics/connectivity/vpn?hl=zh_cn</para>
+    /// </summary>
+    [Register(JavaPackageConstants.Services + nameof(CommunityFixVpnService))]
+    [Service(Permission = Manifest.Permission.BindVpnService)]
+    [IntentFilter(new[] { "android.net.VpnService" })]
+    internal sealed partial class CommunityFixVpnService : VpnService
+    {
+        static Intent GetServiceIntent(Context context)
+            => new(context, typeof(CommunityFixVpnService));
 
-    //    static Intent GetServiceIntent(Context context)
-    //        => new(context, typeof(CommunityFixVpnService));
+        /// <summary>
+        /// 启动 VPN 服务
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <param name="startOrStop"></param>
+        static void StartCore(Activity activity, bool startOrStop, IPAddress? ip, int port)
+        {
+            var intent = GetServiceIntent(activity)
+                .SetAction(startOrStop ? ACTION_CONNECT : ACTION_DISCONNECT);
+            if (startOrStop)
+            {
+                intent.PutExtra(nameof(IPEndPoint.Address), ip?.ToString());
+                intent.PutExtra(nameof(IPEndPoint.Port), port);
+            }
+            activity.StartService(intent);
+        }
 
-    //    /// <summary>
-    //    /// 启动 VPN 服务
-    //    /// </summary>
-    //    /// <param name="activity"></param>
-    //    /// <param name="startOrStop"></param>
-    //    static void Start(Activity activity, bool startOrStop)
-    //       => activity.StartService(GetServiceIntent(activity).SetAction(startOrStop ? ACTION_CONNECT : ACTION_DISCONNECT));
+        /// <summary>
+        /// 调用 VpnService.prepare() 以询问权限（需要时）与 启动 VPN 服务
+        /// </summary>
+        /// <param name="activity"></param>
+        public static async void Start(Activity activity, bool startOrStop = true, IPAddress? ip = null, int port = default)
+        {
+            if (startOrStop)
+            {
+                // 调用 VpnService.prepare() 以询问权限（需要时）
+                var intent = Prepare(activity);
+                if (intent != null)
+                {
+                    void OnResult(Intent intent) => StartCore(activity, true, ip, port);
+                    await IntermediateActivity.StartAsync(intent, requestCodeVpnService, onResult: OnResult);
+                    return;
+                }
+            }
+            // 不需要授权则直接启动
+            StartCore(activity, startOrStop, ip, port);
+        }
 
-    //    /// <summary>
-    //    /// 调用 VpnService.prepare() 以询问权限（需要时）与 启动 VPN 服务
-    //    /// </summary>
-    //    /// <param name="activity"></param>
-    //    public static void Start(IActivity activity, bool startOrStop = true)
-    //    {
-    //        if (startOrStop)
-    //        {
-    //            var intent = Prepare(activity.Activity);
-    //            if (intent != null)
-    //            {
-    //                // 调用 VpnService.prepare() 以询问权限（需要时）
-    //                activity.Launcher.Launch(intent);
-    //                return;
-    //            }
-    //        }
-    //        // 不需要授权则直接启动
-    //        Start(activity.Activity, startOrStop);
-    //    }
+        const string ACTION_CONNECT = JavaPackageConstants.Services + nameof(CommunityFixVpnService) + ".START";
+        const string ACTION_DISCONNECT = JavaPackageConstants.Services + nameof(CommunityFixVpnService) + ".STOP";
 
-    //    public interface IActivity : IViewHost
-    //    {
-    //        ActivityResultLauncher Launcher { get; }
+        ParcelFileDescriptor? localTunnel;
+        string? address;
+        int port;
 
-    //        protected static ActivityResultLauncher GetActivityResultLauncher(IActivity activity)
-    //        {
-    //            Contract contract = new(activity.Activity);
-    //            var launcher = activity.Activity.RegisterForActivityResult(contract, contract);
-    //            return launcher;
-    //        }
-    //    }
+        public override void OnCreate()
+        {
+            jni_init();
+            base.OnCreate();
+        }
 
-    //    sealed class Contract : ActivityResultContract, IActivityResultCallback
-    //    {
-    //        // https://developer.android.google.cn/training/basics/intents/result?hl=zh-cn
+        [return: GeneratedEnum]
+        public override StartCommandResult OnStartCommand(Intent? intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+        {
+            if (intent != null)
+            {
+                if (ACTION_DISCONNECT.Equals(intent.Action))
+                {
+                    Disconnect();
+                }
+                else
+                {
+                    address = intent.GetStringExtra(nameof(IPEndPoint.Address));
+                    port = intent.GetIntExtra(nameof(IPEndPoint.Port), default);
+                    Connect();
+                }
+            }
+            return StartCommandResult.NotSticky; // 重启该服务还需启动代理服务
+        }
 
-    //        readonly Activity activity;
+        void Connect()
+        {
+            if (localTunnel != null) return;
 
-    //        public Contract(Activity activity) => this.activity = activity;
+            // Configure a new interface from our VpnService instance. This must be done
+            // from inside a VpnService.
+            var builder = new Builder(this).SetSession(AssemblyTrademark);
 
-    //        public override Intent CreateIntent(Context context, JObject? input)
-    //        {
-    //            if (input is Intent intent) return intent;
-    //            throw new NotSupportedException();
-    //        }
+            // Create a local TUN interface using predetermined addresses. In your app,
+            // you typically use values returned from the VPN gateway during handshaking.
+            builder.AddAddress("10.1.10.1", 32);
+            builder.AddAddress("fd00:1:fd00:1:fd00:1:fd00:1", 128);
+            builder.AddRoute("0.0.0.0", 0);
+            builder.AddRoute("0:0:0:0:0:0:0:0", 0);
 
-    //        public override JObject? ParseResult(int resultCode, Intent? intent)
-    //        {
-    //            if (resultCode == (int)Result.Ok)
-    //            {
-    //                Start(activity, true);
-    //            }
-    //            return null;
-    //        }
+            var dnss = GetDefaultDNS();
+            Array.ForEach(dnss, x => builder.AddDnsServer(x));
 
-    //        void IActivityResultCallback.OnActivityResult(JObject? result)
-    //        {
+            int mtu = jni_get_mtu();
+            builder.SetMtu(mtu);
 
-    //        }
-    //    }
+            localTunnel = builder.Establish()!;
 
-    //    const string ACTION_CONNECT = JavaPackageConstants.Services + nameof(CommunityFixVpnService) + ".START";
-    //    const string ACTION_DISCONNECT = JavaPackageConstants.Services + nameof(CommunityFixVpnService) + ".STOP";
+            jni_start(localTunnel.Fd, false, 3, address!, port);
+        }
 
-    //    ParcelFileDescriptor? localTunnel;
+        void Disconnect()
+        {
+            if (localTunnel != null)
+            {
+                try
+                {
+                    jni_stop(localTunnel.Fd);
+                }
+                catch (Java.Lang.Throwable ex)
+                {
+                    Log.Error(nameof(CommunityFixVpnService), ex, "jni_stop");
+                    jni_stop(-1);
+                }
+                try
+                {
+                    localTunnel.Close();
+                }
+                catch (Java.IO.IOException ex)
+                {
+                    Log.Error(nameof(CommunityFixVpnService), ex, "localTunnel.Close");
+                }
+                localTunnel.Dispose();
+                localTunnel = null;
+            }
+        }
 
-    //    //public override void OnCreate()
-    //    //{
-    //    //    base.OnCreate();
-    //    //}
+        public override void OnRevoke()
+        {
+            base.OnRevoke();
+            Disconnect();
+        }
 
-    //    [return: GeneratedEnum]
-    //    public override StartCommandResult OnStartCommand(Intent? intent, [GeneratedEnum] StartCommandFlags flags, int startId)
-    //    {
-    //        if (intent != null && ACTION_DISCONNECT.Equals(intent.Action))
-    //        {
-    //            Disconnect();
-    //            return StartCommandResult.NotSticky;
-    //        }
-    //        else
-    //        {
-    //            Connect();
-    //            return StartCommandResult.Sticky;
-    //        }
-    //    }
+        public override void OnDestroy()
+        {
+            Disconnect();
+            jni_done();
+            base.OnDestroy();
+        }
 
-    //    CancellationTokenSource? cts;
-
-    //    void Connect()
-    //    {
-    //        // Configure a new interface from our VpnService instance. This must be done
-    //        // from inside a VpnService.
-    //        var builder = new Builder(this);
-    //        // Create a local TUN interface using predetermined addresses. In your app,
-    //        // you typically use values returned from the VPN gateway during handshaking.
-    //        localTunnel = builder
-    //          .AddAddress("192.168.2.2", 24)
-    //          .AddRoute("0.0.0.0", 0)
-    //          .AddDnsServer("192.168.1.1")
-    //          .Establish()!;
-
-    //        var @in = new Java.IO.FileInputStream(localTunnel.FileDescriptor!);
-    //        var @out = new Java.IO.FileOutputStream(localTunnel.FileDescriptor!);
-
-    //        Java.Net.DatagramSocket socket = new();
-    //        socket.SoTimeout = 0;
-    //        Protect(socket);
-
-    //        var address = Java.Net.InetAddress.GetByName(IPEndPoint!.Address.ToString());
-    //        var port = IPEndPoint!.Port;
-
-    //        cts?.Dispose();
-    //        cts = new CancellationTokenSource();
-
-    //        try
-    //        {
-    //            Task.Run(() =>
-    //            {
-    //                int length;
-    //                byte[] ip_pkg = new byte[ushort.MaxValue];
-    //                while ((length = @in.Read(ip_pkg)) >= 0)
-    //                {
-    //                    if (length == 0)
-    //                    {
-    //                        continue;
-    //                    }
-    //                    Java.Net.DatagramPacket msg = new(
-    //                        ip_pkg, length, address, port);
-    //                    socket.Send(msg);
-    //                }
-    //                @in.Close();
-    //            }, cts.Token);
-
-    //            Task.Run(() =>
-    //            {
-    //                byte[] ip_buf = new byte[ushort.MaxValue];
-    //                while (true)
-    //                {
-    //                    Java.Net.DatagramPacket msg_r = new(
-    //                            ip_buf, ushort.MaxValue, address, port);
-    //                    socket.Receive(msg_r);
-    //                    int pkg_len = msg_r.Length;
-    //                    if (pkg_len > 0)
-    //                    {
-    //                        @out.Write(ip_buf, 0, pkg_len);
-    //                    }
-    //                    else if (pkg_len < 0)
-    //                    {
-    //                        break;
-    //                    }
-    //                }
-    //                @out.Close();
-    //            }, cts.Token);
-    //        }
-    //        catch (OperationCanceledException)
-    //        {
-    //            @in.Close();
-    //            @out.Close();
-    //        }
-    //    }
-
-    //    void Disconnect()
-    //    {
-    //        if (cts != null)
-    //        {
-    //            cts.Dispose();
-    //            cts = null;
-    //        }
-    //        if (localTunnel != null)
-    //        {
-    //            try
-    //            {
-    //                localTunnel.Close();
-    //            }
-    //            catch (Java.IO.IOException)
-    //            {
-
-    //            }
-    //            localTunnel.Dispose();
-    //            localTunnel = null;
-    //        }
-    //    }
-
-    //    public override void OnRevoke()
-    //    {
-    //        base.OnRevoke();
-    //        Disconnect();
-    //    }
-
-    //    public override void OnDestroy()
-    //    {
-    //        base.OnDestroy();
-    //        Disconnect();
-    //    }
-    //}
+        string[] GetDefaultDNS()
+        {
+            var context = Android.App.Application.Context;
+            string? dns1 = null, dns2 = null;
+            if (Build.VERSION.SdkInt > BuildVersionCodes.NMr1)
+            {
+                var cm = context.GetSystemService<ConnectivityManager>();
+                var an = cm.ActiveNetwork;
+                if (an != null)
+                {
+                    var lp = cm.GetLinkProperties(an);
+                    if (lp != null)
+                    {
+                        var dns = lp.DnsServers;
+                        if (dns != null)
+                        {
+                            if (dns.Count > 0)
+                                dns1 = dns[0].HostAddress;
+                            if (dns.Count > 1)
+                                dns2 = dns[1].HostAddress;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                dns1 = jni_getprop("net.dns1");
+                dns2 = jni_getprop("net.dns2");
+            }
+            return new[]
+            {
+                string.IsNullOrEmpty(dns1) ? "8.8.8.8" : dns1!,
+                string.IsNullOrEmpty(dns2) ? "8.8.4.4" : dns2!,
+            };
+        }
+    }
 }
 
 namespace System.Application.Services.Implementation
@@ -241,26 +203,12 @@ namespace System.Application.Services.Implementation
     {
         bool IPlatformService.SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
-            //var activity = MainActivity.Instance;
-            //CommunityFixVpnService.IPEndPoint = ip == null ? null : new(ip, port);
-            //CommunityFixVpnService.Start(activity, state);
+            var activity = XEPlatform.CurrentActivity;
+            CommunityFixVpnService.Start(activity, state, ip, port);
+#if DEBUG
             Toast.Show($"SystemProxy: {ip}:{port}");
+#endif
             return true;
         }
     }
-}
-
-namespace System.Application.UI.Activities
-{
-    //partial class MainActivity : CommunityFixVpnService.IActivity
-    //{
-    //    ActivityResultLauncher? _CommunityFixVpnServiceActivityResultLauncher;
-
-    //    ActivityResultLauncher CommunityFixVpnService.IActivity.Launcher => _CommunityFixVpnServiceActivityResultLauncher ?? throw new ArgumentNullException(nameof(_CommunityFixVpnServiceActivityResultLauncher));
-
-    //    void InitCommunityFixVpnServiceActivityResultLauncher()
-    //    {
-    //        _CommunityFixVpnServiceActivityResultLauncher = CommunityFixVpnService.IActivity.GetActivityResultLauncher(this);
-    //    }
-    //}
 }

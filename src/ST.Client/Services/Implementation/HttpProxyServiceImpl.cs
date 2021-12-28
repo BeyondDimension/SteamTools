@@ -99,8 +99,8 @@ namespace System.Application.Services.Implementation
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             proxyServer.CertificateManager.PfxFilePath = ((IHttpProxyService)this).PfxFilePath;
-            proxyServer.CertificateManager.RootCertificateIssuerName = $"{IHttpProxyService.CertificateName} Certificate Authority";
-            proxyServer.CertificateManager.RootCertificateName = $"{IHttpProxyService.CertificateName} Certificate";
+            proxyServer.CertificateManager.RootCertificateIssuerName = IHttpProxyService.RootCertificateIssuerName;
+            proxyServer.CertificateManager.RootCertificateName = IHttpProxyService.RootCertificateName;
             //mac和ios的证书信任时间不能超过300天
             proxyServer.CertificateManager.CertificateValidDays = 300;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
@@ -397,7 +397,7 @@ namespace System.Application.Services.Implementation
 
         public void TrustCer()
         {
-            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{IHttpProxyService.CertificateName}.Certificate.cer");
+            var filePath = ((IHttpProxyService)this).CerFilePath;
             IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
 
@@ -416,7 +416,7 @@ namespace System.Application.Services.Implementation
                 return false;
             }
 
-            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{IHttpProxyService.CertificateName}.Certificate.cer");
+            var filePath = ((IHttpProxyService)this).CerFilePath;
 
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
             try

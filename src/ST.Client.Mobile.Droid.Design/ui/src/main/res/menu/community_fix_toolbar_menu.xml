@@ -12,8 +12,22 @@
     tools:title="代理设置" />
 
   <item
+    android:id="@+id/menu_install_certificate_file"
+    android:icon="@drawable/ic_baseline_add_circle_outline_24"
+    android:title=""
+    app:iconTint="@color/icon_background"
+    tools:title="安装证书" />
+
+  <item
+    android:id="@+id/menu_uninstall_certificate_file"
+    android:icon="@drawable/ic_baseline_remove_circle_outline_24"
+    android:title=""
+    app:iconTint="@color/icon_background"
+    tools:title="移除证书" />
+
+  <item
     android:id="@+id/menu_export_certificate_file"
-    android:icon="@drawable/baseline_description_black_24"
+    android:icon="@drawable/ic_baseline_open_in_new_24"
     android:title=""
     app:iconTint="@color/icon_background"
     tools:title="导出证书文件" />

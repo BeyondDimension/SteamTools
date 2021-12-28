@@ -1149,6 +1149,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificateTipText_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificateTipText_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在“安全设置”中移除证书 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificateTipTitle {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificateTipTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 Hosts 文件 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EditHostsFile {

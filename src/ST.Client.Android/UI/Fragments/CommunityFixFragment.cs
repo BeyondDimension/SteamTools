@@ -188,6 +188,12 @@ namespace System.Application.UI.Fragments
                     case ActionItem.GoToSystemSecuritySettings:
                         GoToPlatformPages.SystemSettingsSecurity(RequireContext());
                         return true;
+                    case ActionItem.CertificateInstall:
+                        InstallCertificate();
+                        return true;
+                    case ActionItem.CertificateUninstall:
+                        ViewModel!.UninstallCertificateShowTips();
+                        return true;
                 }
                 ViewModel!.MenuItemClick(actionItem);
                 return true;
@@ -209,7 +215,24 @@ namespace System.Application.UI.Fragments
             {
                 return ActionItem.GoToSystemSecuritySettings;
             }
+            else if (resId == Resource.Id.menu_install_certificate_file)
+            {
+                return ActionItem.CertificateInstall;
+            }
+            else if (resId == Resource.Id.menu_uninstall_certificate_file)
+            {
+                return ActionItem.CertificateUninstall;
+            }
             return default;
         }
+
+        void InstallCertificate() => ViewModel!.ExportCertificateFile(cefFilePath =>
+        {
+            var dest = Path.Combine(IOPath.CacheDirectory, IHttpProxyService.CerFileName);
+            File.Copy(cefFilePath, dest, true);
+            // AppData 目录仅本 App 读写，Cache 目录可给予其他 App 读取权限
+            GoToPlatformPages.OpenFile(RequireContext(),
+                new(dest), MediaTypeNames.CER);
+        });
     }
 }

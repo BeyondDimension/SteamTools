@@ -2024,4 +2024,10 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
     <value>导出证书失败，请先开启加速后再尝试导出</value>
   </data>
+  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
+    <value>必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
+    <value>在“安全设置”中移除证书</value>
+  </data>
 </root>

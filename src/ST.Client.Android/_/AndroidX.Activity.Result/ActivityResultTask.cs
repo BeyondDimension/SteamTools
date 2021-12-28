@@ -18,6 +18,7 @@ namespace AndroidX.Activity.Result
     internal static class ActivityResultTask
     {
         internal const int requestCodeSaveFileDialog = 110010;
+        internal const int requestCodeVpnService = 110011;
 
         internal const int requestCodeStart = 120000;
 
