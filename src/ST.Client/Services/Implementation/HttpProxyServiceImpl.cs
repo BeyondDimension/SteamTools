@@ -173,14 +173,14 @@ namespace System.Application.Services.Implementation
                 }
                 else
                 {
-                    if (!OperatingSystem2.IsWindows)
+                    if (!OperatingSystem2.IsWindows && !IsSystemProxy)
                     {
-                        ip = (await DnsAnalysis.AnalysisDomainIp(url, IsIpv6Support))?.First();
+                        //非windows环境hosts加速下不能使用系统默认DNS解析代理，会解析到hosts上无限循环
+                        ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(url, IsIpv6Support))?.First();
                     }
                     else
                     {
-                        //非windows环境不能使用系统默认DNS解析代理，会解析到hosts上无限循环
-                        ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(url, IsIpv6Support))?.First();
+                        ip = (await DnsAnalysis.AnalysisDomainIp(url, IsIpv6Support))?.First();
                     }
                 }
             }

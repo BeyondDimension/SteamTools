@@ -20,7 +20,7 @@ namespace System.Application.UI.ViewModels
 
         public IEnumerable<string> ProxyDNSs { get; } = new[]
         {
-            string.Empty,
+            "System Default",
             IDnsAnalysisService.PrimaryDNS_114,
             IDnsAnalysisService.PrimaryDNS_Ali,
             IDnsAnalysisService.PrimaryDNS_Dnspod,

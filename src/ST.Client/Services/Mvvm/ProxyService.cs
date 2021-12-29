@@ -89,8 +89,7 @@ namespace System.Application.Services
                         httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
                         httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 
-                        if (IPAddress.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns))
-                            httpProxyService.ProxyDNS = dns;
+                        httpProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
 
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
