@@ -21,16 +21,17 @@ using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Models;
 using Titanium.Web.Proxy.Network;
+using static System.Application.Services.IHttpProxyService;
 
 namespace System.Application.Services.Implementation
 {
-    public class HttpProxyServiceImpl : IHttpProxyService
+    sealed class HttpProxyServiceImpl : IHttpProxyService
     {
-        protected readonly IPlatformService platformService;
+        readonly IPlatformService platformService;
 
         readonly ProxyServer proxyServer = new();
 
-        protected IDnsAnalysisService DnsAnalysis { get; }
+        IDnsAnalysisService DnsAnalysis { get; }
 
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
 
@@ -61,7 +62,7 @@ namespace System.Application.Services.Implementation
         public bool TwoLevelAgentEnable { get; set; }
 
         public ExternalProxyType TwoLevelAgentProxyType { get; set; }
-            = IHttpProxyService.DefaultTwoLevelAgentProxyType;
+            = DefaultTwoLevelAgentProxyType;
 
         public string? TwoLevelAgentIp { get; set; }
 
@@ -78,6 +79,7 @@ namespace System.Application.Services.Implementation
         public static IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
         private static bool IsIpv6Support = false;
+        bool disposedValue;
 
         public HttpProxyServiceImpl(IPlatformService platformService, IDnsAnalysisService dnsAnalysis)
         {
@@ -86,10 +88,10 @@ namespace System.Application.Services.Implementation
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
             //else
-            proxyServer.ExceptionFunc = ((Exception exception) =>
+            proxyServer.ExceptionFunc = exception =>
             {
-                Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
-            });
+                Log.Error(TAG, exception, "ProxyServer ExceptionFunc");
+            };
 
             proxyServer.EnableHttp2 = true;
             proxyServer.EnableConnectionPool = true;
@@ -99,8 +101,8 @@ namespace System.Application.Services.Implementation
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
             proxyServer.CertificateManager.PfxFilePath = ((IHttpProxyService)this).PfxFilePath;
-            proxyServer.CertificateManager.RootCertificateIssuerName = IHttpProxyService.RootCertificateIssuerName;
-            proxyServer.CertificateManager.RootCertificateName = IHttpProxyService.RootCertificateName;
+            proxyServer.CertificateManager.RootCertificateIssuerName = RootCertificateIssuerName;
+            proxyServer.CertificateManager.RootCertificateName = RootCertificateName;
             //mac和ios的证书信任时间不能超过300天
             proxyServer.CertificateManager.CertificateValidDays = 300;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
@@ -196,7 +198,7 @@ namespace System.Application.Services.Implementation
 #endif
             if (e.HttpClient.Request.Host == null) return;
 
-            if (e.HttpClient.Request.Host.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
                 {
@@ -214,7 +216,7 @@ namespace System.Application.Services.Implementation
                         await HttpRequest(e);
                         return;
                     default:
-                        e.Ok(Scripts.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
+                        e.Ok(Scripts?.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
                         return;
                 }
             }
@@ -294,7 +296,7 @@ namespace System.Application.Services.Implementation
                 if (ip == null || IPAddress.IsLoopback(ip))
                 {
                     e.TerminateSession();
-                    Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
+                    Log.Info(TAG, "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
                 }
                 else
                 {
@@ -308,7 +310,7 @@ namespace System.Application.Services.Implementation
         {
 #if DEBUG
             Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
-            Log.Info("Proxy", "OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            Log.Info(TAG, "OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
             if (Scripts is null)
             {
@@ -322,13 +324,13 @@ namespace System.Application.Services.Implementation
                 if (IsOnlyWorkSteamBrowser)
                 {
                     var ua = e.HttpClient.Request.Headers.GetHeaders("User-Agent");
-                    if (ua.FirstOrDefault()?.Value.Contains("Valve Steam") == false)
+                    if (ua?.FirstOrDefault()?.Value.Contains("Valve Steam") == false)
                     {
                         return;
                     }
                 }
 
-                StringBuilder scriptHtml = new StringBuilder();
+                StringBuilder scriptHtml = new();
 
                 foreach (var script in Scripts)
                 {
@@ -343,7 +345,7 @@ namespace System.Application.Services.Implementation
                     {
                         var state = host.IndexOf("/") == 0;
                         if (state)
-                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host.Substring(1), RegexOptions.Compiled);
+                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host[1..], RegexOptions.Compiled);
                         else
                             state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
                         if (state)
@@ -411,7 +413,7 @@ namespace System.Application.Services.Implementation
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             if (!result || proxyServer.CertificateManager.RootCertificate == null)
             {
-                Log.Error("Proxy", AppResources.CreateCertificateFaild);
+                Log.Error(TAG, AppResources.CreateCertificateFaild);
                 Toast.Show(AppResources.CreateCertificateFaild);
                 return false;
             }
@@ -427,7 +429,7 @@ namespace System.Application.Services.Implementation
             catch (Exception e)
             {
                 Toast.Show("TrustRootCertificate Error" + Environment.NewLine + e.GetAllMessage());
-                Log.Error("Proxy", e, "CertificateManager.TrustRootCertificate catch.");
+                Log.Error(TAG, e, "CertificateManager.TrustRootCertificate catch.");
             }
 #else
             catch { }
@@ -441,7 +443,7 @@ namespace System.Application.Services.Implementation
             catch (Exception e)
             {
                 Toast.Show("EnsureRootCertificate Error" + Environment.NewLine + e.GetAllMessage());
-                Log.Error("Proxy", e, "CertificateManager.EnsureRootCertificate catch.");
+                Log.Error(TAG, e, "CertificateManager.EnsureRootCertificate catch.");
             }
 #else
             catch { }
@@ -491,9 +493,9 @@ namespace System.Application.Services.Implementation
             {
                 //取消删除证书
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             return true;
         }
@@ -607,7 +609,7 @@ namespace System.Application.Services.Implementation
                     {
                         if (!IPlatformService.Instance.SetAsSystemProxy(true, explicitProxyEndPoint.IpAddress, explicitProxyEndPoint.Port))
                         {
-                            Log.Error("Proxy", "系统代理开启失败");
+                            Log.Error(TAG, "系统代理开启失败");
                             return false;
                         }
                     }
@@ -616,7 +618,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                Log.Error("Proxy", ex, nameof(StartProxy));
+                Log.Error(TAG, ex, nameof(StartProxy));
                 return false;
             }
 
@@ -632,7 +634,7 @@ namespace System.Application.Services.Implementation
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
         {
             e.DecryptSsl = false;
-            if (e.SniHostName.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.SniHostName.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
                 return Task.CompletedTask;
@@ -679,7 +681,7 @@ namespace System.Application.Services.Implementation
             {
                 return;
             }
-            if (e.HttpClient.Request.Host.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
                 return;
@@ -795,13 +797,31 @@ namespace System.Application.Services.Implementation
             return store.Certificates.Contains(certificate2);
         }
 
+        void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                    if (proxyServer.ProxyRunning)
+                    {
+                        StopProxy();
+                    }
+                    proxyServer.Dispose();
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                // TODO: 将大型字段设置为 null
+                disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            if (proxyServer.ProxyRunning)
-            {
-                StopProxy();
-            }
-            proxyServer.Dispose();
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

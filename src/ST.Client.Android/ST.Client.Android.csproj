@@ -63,6 +63,9 @@
     <Compile Include="..\Common.ClientLib.Droid\ServiceCollectionExtensions.cs">
       <Link>ServiceCollectionExtensions.Link.cs</Link>
     </Compile>
+    <Compile Include="..\Common.ClientLib.Droid\Extensions\HttpClientExtensions.AddTrustedCerts.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Extensions\UriExtensions.cs">
       <LinkBase>Extensions</LinkBase>
     </Compile>

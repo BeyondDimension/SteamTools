@@ -21,8 +21,7 @@ namespace System.Application.Services.Native
     [IntentFilter(new[] { "android.net.VpnService" })]
     internal sealed partial class CommunityFixVpnService : VpnService
     {
-        static Intent GetServiceIntent(Context context)
-            => new(context, typeof(CommunityFixVpnService));
+        const string TAG = nameof(CommunityFixVpnService);
 
         /// <summary>
         /// 启动 VPN 服务
@@ -39,6 +38,8 @@ namespace System.Application.Services.Native
                 intent.PutExtra(nameof(IPEndPoint.Port), port);
             }
             activity.StartService(intent);
+            static Intent GetServiceIntent(Context context)
+                => new(context, typeof(CommunityFixVpnService));
         }
 
         /// <summary>
@@ -105,15 +106,18 @@ namespace System.Application.Services.Native
             // Create a local TUN interface using predetermined addresses. In your app,
             // you typically use values returned from the VPN gateway during handshaking.
             builder.AddAddress("10.1.10.1", 32);
-            builder.AddAddress("fd00:1:fd00:1:fd00:1:fd00:1", 128);
+            //builder.AddAddress("fd00:1:fd00:1:fd00:1:fd00:1", 128);
             builder.AddRoute("0.0.0.0", 0);
-            builder.AddRoute("0:0:0:0:0:0:0:0", 0);
+            //builder.AddRoute("0:0:0:0:0:0:0:0", 0);
 
             var dnss = GetDefaultDNS();
             Array.ForEach(dnss, x => builder.AddDnsServer(x));
 
             int mtu = jni_get_mtu();
             builder.SetMtu(mtu);
+
+            var pkg = PackageName!;
+            builder.AddDisallowedApplication(pkg);
 
             localTunnel = builder.Establish()!;
 
@@ -130,7 +134,7 @@ namespace System.Application.Services.Native
                 }
                 catch (Java.Lang.Throwable ex)
                 {
-                    Log.Error(nameof(CommunityFixVpnService), ex, "jni_stop");
+                    Log.Error(TAG, ex, "jni_stop");
                     jni_stop(-1);
                 }
                 try
@@ -139,17 +143,18 @@ namespace System.Application.Services.Native
                 }
                 catch (Java.IO.IOException ex)
                 {
-                    Log.Error(nameof(CommunityFixVpnService), ex, "localTunnel.Close");
+                    Log.Error(TAG, ex, "localTunnel.Close");
                 }
                 localTunnel.Dispose();
                 localTunnel = null;
             }
+            StopForeground(true);
         }
 
         public override void OnRevoke()
         {
-            base.OnRevoke();
             Disconnect();
+            base.OnRevoke();
         }
 
         public override void OnDestroy()
@@ -161,6 +166,10 @@ namespace System.Application.Services.Native
 
         string[] GetDefaultDNS()
         {
+            //return new[] {
+            //    IDnsAnalysisService.PrimaryDNS_Ali,
+            //    IDnsAnalysisService.SecondaryDNS_Ali,
+            //};
             var context = Android.App.Application.Context;
             string? dns1 = null, dns2 = null;
             if (Build.VERSION.SdkInt > BuildVersionCodes.NMr1)
@@ -190,8 +199,8 @@ namespace System.Application.Services.Native
             }
             return new[]
             {
-                string.IsNullOrEmpty(dns1) ? "8.8.8.8" : dns1!,
-                string.IsNullOrEmpty(dns2) ? "8.8.4.4" : dns2!,
+                string.IsNullOrEmpty(dns1) ? IDnsAnalysisService.PrimaryDNS_Ali : dns1!,
+                string.IsNullOrEmpty(dns2) ? IDnsAnalysisService.SecondaryDNS_Ali : dns2!,
             };
         }
     }
@@ -203,8 +212,8 @@ namespace System.Application.Services.Implementation
     {
         bool IPlatformService.SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
-            var activity = XEPlatform.CurrentActivity;
-            CommunityFixVpnService.Start(activity, state, ip, port);
+            //var activity = XEPlatform.CurrentActivity;
+            //CommunityFixVpnService.Start(activity, state, ip, port);
 #if DEBUG
             Toast.Show($"SystemProxy: {ip}:{port}");
 #endif

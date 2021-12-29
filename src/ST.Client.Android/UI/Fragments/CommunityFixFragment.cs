@@ -12,6 +12,8 @@ using System.Application.UI.Adapters;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using static System.Application.UI.ViewModels.CommunityProxyPageViewModel;
 
@@ -192,6 +194,7 @@ namespace System.Application.UI.Fragments
                         InstallCertificate();
                         return true;
                     case ActionItem.CertificateUninstall:
+                        //Test();
                         ViewModel!.UninstallCertificateShowTips();
                         return true;
                 }
@@ -234,5 +237,21 @@ namespace System.Application.UI.Fragments
             GoToPlatformPages.OpenFile(RequireContext(),
                 new(dest), MediaTypeNames.CER);
         });
+
+#if DEBUG
+        async void Test()
+        {
+            if (!ProxyService.Current.ProxyStatus) return;
+            var s = IHttpProxyService.Instance;
+            Xamarin.Android.Net.AndroidClientHandler handler = new();
+            handler.Proxy = new WebProxy(s.ProxyIp.ToString(), s.ProxyPort);
+            handler.AddTrustedCert(File.OpenRead(s.CerFilePath));
+            using var client = new HttpClient(handler);
+            using var rsp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get,
+                "https://steamcommunity.com"));
+            var html = await rsp.Content.ReadAsStringAsync();
+            Toast.Show($"StatusCode: {rsp.StatusCode}, Length: {rsp.Content.Headers.ContentLength}");
+        }
+#endif
     }
 }

@@ -48,7 +48,7 @@ namespace System.Application.Services
 
             public static readonly IPEndPoint Cloudflare = new(IPAddress.Parse("1.1.1.1"), 53);
 
-            public static readonly IPEndPoint Cloudflare2 = new IPEndPoint(IPAddress.Parse("1.0.0.1"), 53);
+            public static readonly IPEndPoint Cloudflare2 = new(IPAddress.Parse("1.0.0.1"), 53);
         }
         #endregion
 
