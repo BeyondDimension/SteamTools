@@ -85,12 +85,12 @@ namespace System.Application.UI.ViewModels
                       .Bind(out _SteamBots)
                       .Subscribe();
 
-            if (IApplication.IsDesktopPlatform)
-            {
-                ConsoleSelectFont = R.Fonts.FirstOrDefault(x => x.Value == ASFSettings.ConsoleFontName.Value);
-                this.WhenValueChanged(x => x.ConsoleSelectFont, false)
-                      .Subscribe(x => ASFSettings.ConsoleFontName.Value = x.Value);
-            }
+            //if (IApplication.IsDesktopPlatform)
+            //{
+            //    //ConsoleSelectFont = R.Fonts.FirstOrDefault(x => x.Value == ASFSettings.ConsoleFontName.Value);
+            //    //this.WhenValueChanged(x => x.ConsoleSelectFont, false)
+            //    //      .Subscribe(x => ASFSettings.ConsoleFontName.Value = x.Value);
+            //}
         }
 
         public string IPCUrl => asfSerivce.GetIPCUrl();
@@ -269,11 +269,11 @@ namespace System.Application.UI.ViewModels
             OpenBrowserCore(tag_);
         }
 
-        KeyValuePair<string, string> _ConsoleSelectFont;
-        public KeyValuePair<string, string> ConsoleSelectFont
-        {
-            get => _ConsoleSelectFont;
-            set => this.RaiseAndSetIfChanged(ref _ConsoleSelectFont, value);
-        }
+        //KeyValuePair<string, string> _ConsoleSelectFont;
+        //public KeyValuePair<string, string> ConsoleSelectFont
+        //{
+        //    get => _ConsoleSelectFont;
+        //    set => this.RaiseAndSetIfChanged(ref _ConsoleSelectFont, value);
+        //}
     }
 }

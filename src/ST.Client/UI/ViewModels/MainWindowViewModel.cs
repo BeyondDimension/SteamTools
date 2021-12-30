@@ -67,7 +67,11 @@ namespace System.Application.UI.ViewModels
             if (IApplication.IsDesktopPlatform)
             {
                 var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows ? " (Administrator)" : " (Root)") : string.Empty;
-                Title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
+                var title = $"{ThisAssembly.AssemblyTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
+#if DEBUG
+                title = $"[Debug] {title}";
+#endif
+                Title = title;
 
                 IUserManager.Instance.OnSignOut += () =>
                 {

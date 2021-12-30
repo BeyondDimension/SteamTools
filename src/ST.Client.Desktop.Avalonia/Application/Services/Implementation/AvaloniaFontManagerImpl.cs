@@ -12,8 +12,8 @@ namespace System.Application.Services.Implementation
         //readonly IAvaloniaApplication application;
         readonly IFontManagerImpl impl;
 
-        readonly Typeface _defaultTypeface =
-           new("avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
+        static readonly Typeface _defaultTypeface =
+            new("avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Fonts#WenQuanYi Micro Hei");
 
         public static bool UseGdiPlusFirst { get; set; }
 
@@ -60,10 +60,13 @@ namespace System.Application.Services.Implementation
         internal static bool IsDefaultFontFamilyName(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) return true;
-            if (string.Equals(name, IFontManager.KEY_Default, StringComparison.OrdinalIgnoreCase)) return true;
+            if (string.Equals(name, IFontManager.KEY_Default, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (_defaultTypeface.FontFamily.FamilyNames.Contains(name))
+                return true;
             return name switch
             {
-                FontFamily.DefaultFontFamilyName or "WenQuanYi Micro Hei" => true,
+                FontFamily.DefaultFontFamilyName => true,
                 _ => false,
             };
         }
@@ -74,27 +77,5 @@ namespace System.Application.Services.Implementation
             if (IsDefaultFontFamilyName(name)) return _defaultTypeface;
             return typeface;
         }
-
-        //public IEnumerable<string> GetInstalledFontFamilyNames(bool checkForUpdates = false) => application.RenderingSubsystemName switch
-        //{
-        //    Skia => GetInstalledFontFamilyNamesBySkia(checkForUpdates),
-        //    Direct2D1 => GetInstalledFontFamilyNamesByDirect2D1(checkForUpdates),
-        //    _ => throw new NotSupportedException(),
-        //};
-
-        //public bool TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontFamily fontFamily,
-        //  CultureInfo culture, out Typeface fontKey) => application.RenderingSubsystemName switch
-        //  {
-        //      Skia => TryMatchCharacterBySkia(codepoint, fontStyle, fontWeight, fontFamily, culture, out fontKey),
-        //      Direct2D1 => TryMatchCharacterByDirect2D1(codepoint, fontStyle, fontWeight, fontFamily, culture, out fontKey),
-        //      _ => throw new NotSupportedException(),
-        //  };
-
-        //public IGlyphTypefaceImpl CreateGlyphTypeface(Typeface typeface) => application.RenderingSubsystemName switch
-        //{
-        //    Skia => CreateGlyphTypefaceBySkia(typeface),
-        //    Direct2D1 => CreateGlyphTypefaceByDirect2D1(typeface),
-        //    _ => throw new NotSupportedException(),
-        //};
     }
 }
