@@ -2018,4 +2018,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_Stoping" xml:space="preserve">
     <value>正在停止 ASF 服务，请稍后...</value>
   </data>
+  <data name="NoticeEmpty" xml:space="preserve">
+    <value>暂无新消息。</value>
+  </data>
 </root>

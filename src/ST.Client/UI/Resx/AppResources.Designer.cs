@@ -3564,6 +3564,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 暂无新消息。 的本地化字符串。
+        /// </summary>
+        public static string NoticeEmpty {
+            get {
+                return ResourceManager.GetString("NoticeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当有新公告时的提示通知。 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_Announcement {

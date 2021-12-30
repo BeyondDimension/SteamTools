@@ -34,14 +34,18 @@ namespace System.Application.Services
             get => _ObservableItems;
             set => this.RaiseAndSetIfChanged(ref _ObservableItems, value);
         }
-
         bool _IsLoading;
         public bool IsLoading
         {
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
-
+        bool _IsEmpty;
+        public bool IsEmpty
+        {
+            get => _IsEmpty;
+            set => this.RaiseAndSetIfChanged(ref _IsEmpty, value);
+        }
         private NoticeTypeDTO? _SelectGroup;
         public NoticeTypeDTO? SelectGroup
         {
@@ -50,6 +54,7 @@ namespace System.Application.Services
         }
         public async Task InitializeNotice()
         {
+            IsLoading = true;
             var client = ICloudServiceClient.Instance.Notice;
             var result = await client.Types();
             if (result.IsSuccess)
@@ -58,16 +63,44 @@ namespace System.Application.Services
                 NoticeTypes.AddRange(result.Content!);
             }
         }
+        public async Task GetTable(NoticeTypeDTO selectGroup)
+        {
+            if (selectGroup != null)
+            {
+                var client = ICloudServiceClient.Instance.Notice;
+                var result = await client.Table(selectGroup.Id, selectGroup.Index);
+                if (result.IsSuccess)
+                {
+                    SelectGroup.Items = result.Content!;
+                }
+                IsEmpty = SelectGroup.Items == null || SelectGroup.Items?.DataSource.Count == 0;
+
+            }
+        }
         public NotificationService()
         {
             mCurrent = this;
             NoticeTypes = new SourceList<NoticeTypeDTO>();
+            this.WhenAnyValue(x => x.SelectGroup)
+               .Subscribe(async x =>
+               {
+                   if (x != null) { 
+                   IsLoading = true;
+                   await GetTable(x);
+                   IsLoading = false;
+                   }
+               });
             NoticeTypes
                 .Connect()
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<NoticeTypeDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
                 .Bind(out _ObservableItems)
-                .Subscribe(_ => SelectGroup = NoticeTypes.Items.FirstOrDefault());
+                .Subscribe( _ =>
+                {
+                    SelectGroup = NoticeTypes.Items.FirstOrDefault();
+
+                });
+           
         }
     }
 }

@@ -23,23 +23,97 @@
 
     <DockPanel>
       <Border DockPanel.Dock="Top"
-              Classes="paper"
-              Background="{DynamicResource ThemeBrushKey}"
               Padding="10"
               Margin="10 40 10 10">
         <DockPanel>
           <TabControl
                 Classes="flat"
+                x:Name="items"
                 Items="{ReflectionBinding ObservableItems,Source={x:Static service:NotificationService.Current}}"
                 SelectedItem="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=SelectGroup,Mode=TwoWay}"
                 Background="Transparent">
             <TabControl.ItemTemplate>
               <DataTemplate  x:DataType="models:NoticeTypeDTO">
-                <TextBlock Foreground="Red"  Text="{Binding Name}"/>
+                <TextBlock Text="{Binding Name}"/>
               </DataTemplate>
             </TabControl.ItemTemplate>
 
+            <TabControl.ContentTemplate>
+              <DataTemplate>
+                <Panel>
+                <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsLoading,Mode=OneWay}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                  <ProgressBar
+                      Width="100"
+                      Height="100"
+                      Classes="Circle"
+                      IsIndeterminate="True"
+                      Orientation="Vertical" />
+                  <TextBlock Text="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                </StackPanel>
+                  <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsEmpty,Mode=OneWay}"
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                    <TextBlock Text="{ReflectionBinding Path=Res.NoticeEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                  </StackPanel>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                     Padding="0 0 0 10">
+                  <ItemsControl
+                   x:Name="item"
+                   Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate  x:DataType="models:NoticeDTO">
+                        <Border Classes="paper"
+                    Margin="0 10"
+                    Background="{DynamicResource ThemeBrushKey}"
+                    Padding="20 10">
+                          <DockPanel>
+                            <StackPanel Spacing="8" DockPanel.Dock="Right">
+                              <DockPanel>
+                                <controls:ScrollingTextBlock
+                                    Width="{Binding $parent.Width}"
+                                    Text="{Binding Title,Mode=OneWay}"
+                                    FontSize="16"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+
+                                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                                  <TextBlock
+                                      Text="{Binding Author}"
+                                      FontSize="14"
+                                      VerticalAlignment="Center"
+                                      Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+
+                                  <TextBlock Text=" / " FontSize="14"></TextBlock>
+                                  <TextBlock
+                                      Text="{Binding CreationTime}"
+                                      FontSize="14"
+                                      VerticalAlignment="Center"
+                                      Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                                </WrapPanel>
+                              </DockPanel>
+
+                              <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+
+                              <TextBlock
+                              Width="{Binding $parent.Width}"
+                              TextWrapping="WrapWithOverflow"
+                              Text="{Binding Introduction}"
+                              FontSize="12"
+                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/> 
+                              
+                            </StackPanel>
+                          </DockPanel>  
+                        </Border>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </ScrollViewer>
+
+                </Panel>
+              </DataTemplate>
+            </TabControl.ContentTemplate>
           </TabControl>
+
         </DockPanel>
       </Border>
     </DockPanel>
