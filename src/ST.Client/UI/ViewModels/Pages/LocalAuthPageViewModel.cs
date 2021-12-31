@@ -103,7 +103,25 @@ namespace System.Application.UI.ViewModels
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<MyAuthenticator>.Ascending(x => x.Index).ThenBy(x => x.Name))
                 .Bind(out _Authenticators)
-                .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty)));
+                .Subscribe(_ =>
+                {
+                    this.RaisePropertyChanged(nameof(IsAuthenticatorsEmpty));
+                    if (!IsAuthenticatorsEmpty)
+                    {
+                        MenuItems = new ObservableCollection<MenuItemViewModel>();
+                        foreach (var auth in Authenticators)
+                        {
+                            MenuItems.Add(new MenuItemCustomName(auth.Name, AppResources.LocalAuth_Copy)
+                            {
+                                Command = ReactiveCommand.Create(() =>
+                                {
+                                    auth.CopyCodeCilp();
+                                    INotificationService.Instance.Notify(AppResources.LocalAuth_CopyAuthTip + auth.Name, NotificationType.Message);
+                                }),
+                            });
+                        }
+                    }
+                });
         }
 
         private readonly ReadOnlyObservableCollection<MyAuthenticator> _Authenticators;
@@ -168,21 +186,6 @@ namespace System.Application.UI.ViewModels
             if (IsAuthenticatorsEmptyButHasSourceAuths)
             {
                 await AuthService.Current.InitializeAsync(auths);
-                if (Authenticators.Any())
-                {
-                    MenuItems = new ObservableCollection<MenuItemViewModel>();
-                    foreach (var auth in Authenticators)
-                    {
-                        MenuItems.Add(new MenuItemCustomName(auth.Name, AppResources.LocalAuth_Copy)
-                        {
-                            Command = ReactiveCommand.Create(() =>
-                            {
-                                auth.CopyCodeCilp();
-                                INotificationService.Instance.Notify(AppResources.LocalAuth_CopyAuthTip + auth.Name, NotificationType.Message);
-                            }),
-                        });
-                    }
-                }
             }
             else
             {

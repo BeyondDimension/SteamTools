@@ -34,7 +34,7 @@ namespace System.Application.UI.ViewModels
 
         protected override void InitializeComponent()
         {
-            Title = GetTitleByDisplayName(DisplayName);
+            Title = DisplayName;
 
             _ConfirmationsSourceList
               .Connect()
@@ -54,7 +54,10 @@ namespace System.Application.UI.ViewModels
             if (_Authenticator != null)
             {
                 UserName = _Authenticator.AccountName;
-
+                if (!string.IsNullOrEmpty(_MyAuthenticator?.Name))
+                {
+                    Title += " | " + _MyAuthenticator.Name;
+                }
                 Refresh_Click();
             }
             else if (MyAuthenticator != null)
