@@ -56,7 +56,7 @@ namespace System.Application.UI.ViewModels
                 UserName = _Authenticator.AccountName;
                 if (!string.IsNullOrEmpty(_MyAuthenticator?.Name))
                 {
-                    Title += " | " + _MyAuthenticator.Name;
+                    Title = $"{Title} | {_MyAuthenticator.Name}";
                 }
                 Refresh_Click();
             }

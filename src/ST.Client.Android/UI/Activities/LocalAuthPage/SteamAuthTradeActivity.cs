@@ -149,7 +149,7 @@ namespace System.Application.UI.Activities
 
             R.Subscribe(() =>
             {
-                Title = DisplayName;
+                Title = ViewModel!.Title;
                 if (binding == null) return;
                 binding.layoutSteamUserName.Hint = Steam_User;
                 binding.layoutSteamPassword.Hint = Steam_Password;
