@@ -8,6 +8,7 @@ using Foundation;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -224,7 +225,7 @@ namespace System.Application.Services.Implementation
             throw new PlatformNotSupportedException();
         }
 
-        public bool SetAsSystemProxy(bool state, string ip, int port)
+        public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
             var stringList = IPlatformService.Instance.GetMacNetworkSetup();
             var shellContent = new StringBuilder();

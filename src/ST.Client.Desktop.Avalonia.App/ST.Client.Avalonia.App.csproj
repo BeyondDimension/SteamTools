@@ -115,7 +115,7 @@
     <ProjectReference Include="..\ST.Client.Desktop.Console.App\ST.Client.Desktop.Console.App.csproj"/>
   </ItemGroup>-->
 
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or $(ExtraDefineConstants.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
@@ -136,13 +136,13 @@
     <PackageReference Include="System.Reactive" Version="5.0.0.1-exclude-winforms"/>
   </ItemGroup>-->
 
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or $(ExtraDefineConstants.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Mac\ST.Client.Mac.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
+  <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`linux`)) Or $(ExtraDefineConstants.Contains(`linux`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
     <ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Linux\ST.Client.Linux.csproj" />
