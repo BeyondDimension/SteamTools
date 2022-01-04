@@ -9,6 +9,7 @@ using System.Net;
 using static AndroidX.Activity.Result.ActivityResultTask;
 using XEPlatform = Xamarin.Essentials.Platform;
 using static System.Properties.ThisAssembly;
+using System.Application.Settings;
 
 namespace System.Application.Services.Native
 {
@@ -212,8 +213,11 @@ namespace System.Application.Services.Implementation
     {
         bool IPlatformService.SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
-            //var activity = XEPlatform.CurrentActivity;
-            //CommunityFixVpnService.Start(activity, state, ip, port);
+            if (ProxySettings.IsVpnMode.Value)
+            {
+                var activity = XEPlatform.CurrentActivity;
+                CommunityFixVpnService.Start(activity, state, ip, port);
+            }
 #if DEBUG
             Toast.Show($"SystemProxy: {ip}:{port}");
 #endif

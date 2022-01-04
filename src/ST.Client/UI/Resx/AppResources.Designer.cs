@@ -1203,6 +1203,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启用 VPN 模式 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_IsVpnMode {
+            get {
+                return ResourceManager.GetString("CommunityFix_IsVpnMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加速设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_MenuName {

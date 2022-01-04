@@ -44,6 +44,7 @@ namespace System.Application.UI.Activities
                 binding.tvTwoLevelAgentPortId.Text = AppResources.Settings_Proxy_Port;
                 binding.tvTwoLevelAgentUserName.Text = AppResources.Settings_Proxy_UserName;
                 binding.tvTwoLevelAgentPassword.Text = AppResources.Settings_Proxy_Password;
+                binding.tvIsVpnMode.Text = AppResources.CommunityFix_IsVpnMode;
             }).AddTo(this);
 
             CreateArrayAdapter(binding.tbSystemProxyIp,
@@ -63,6 +64,7 @@ namespace System.Application.UI.Activities
             SetOnlyEnableProxyScript();
             SetProxySettingsSocks5();
             SetProxySettingsTwoLevelAgent();
+            SetIsVpnMode();
 
             #region Binding TextBox
 
@@ -170,6 +172,12 @@ namespace System.Application.UI.Activities
                 SetProxySettingsTwoLevelAgent();
                 return;
             }
+            else if (view.Id == Resource.Id.layoutRootIsVpnMode)
+            {
+                IsVpnMode.Value = !IsVpnMode.Value;
+                SetIsVpnMode();
+                return;
+            }
 
             base.OnClick(view);
         }
@@ -178,5 +186,6 @@ namespace System.Application.UI.Activities
         void SetOnlyEnableProxyScript() => binding!.swOnlyEnableProxyScript.Checked = OnlyEnableProxyScript.Value;
         void SetProxySettingsSocks5() => binding!.swProxySettingsSocks5.Checked = Socks5ProxyEnable.Value;
         void SetProxySettingsTwoLevelAgent() => binding!.swProxySettingsTwoLevelAgent.Checked = TwoLevelAgentEnable.Value;
+        void SetIsVpnMode() => binding!.swIsVpnMode.Checked = IsVpnMode.Value;
     }
 }

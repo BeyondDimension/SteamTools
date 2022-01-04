@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using static System.Application.ForwardHelper;
+//using static System.Application.ForwardHelper;
 using static System.Application.Services.IHttpService;
 
 namespace System.Application.Services.Implementation
@@ -19,9 +19,9 @@ namespace System.Application.Services.Implementation
     internal sealed class HttpServiceImpl : GeneralHttpClientFactory, IHttpService
     {
         readonly JsonSerializer jsonSerializer = new();
-        readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
+        //readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
 
-        ICloudServiceClient Csc => _csc.Value;
+        //ICloudServiceClient Csc => _csc.Value;
 
         JsonSerializer IHttpService.Serializer => jsonSerializer;
 
@@ -42,7 +42,7 @@ namespace System.Application.Services.Implementation
             string? requestUri,
             Func<HttpRequestMessage> requestFactory,
             string? accept,
-            bool enableForward,
+            //bool enableForward,
             CancellationToken cancellationToken,
             Action<HttpResponseMessage>? handlerResponse = null,
             Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,
@@ -59,21 +59,21 @@ namespace System.Application.Services.Implementation
 
                 if (!isCheckHttpUrl && !Browser2.IsHttpUrl(requestUri)) return default;
 
-                if (enableForward && IsAllowUrl(requestUri))
-                {
-                    try
-                    {
-                        requestIsSend = true;
-                        response = await Csc.Forward(request,
-                            HttpCompletionOption.ResponseHeadersRead,
-                            cancellationToken);
-                    }
-                    catch (Exception e)
-                    {
-                        logger.LogWarning(e, "CloudService Forward Fail, requestUri: {0}", requestUri);
-                        response = null;
-                    }
-                }
+                //if (enableForward && IsAllowUrl(requestUri))
+                //{
+                //    try
+                //    {
+                //        requestIsSend = true;
+                //        response = await Csc.Forward(request,
+                //            HttpCompletionOption.ResponseHeadersRead,
+                //            cancellationToken);
+                //    }
+                //    catch (Exception e)
+                //    {
+                //        logger.LogWarning(e, "CloudService Forward Fail, requestUri: {0}", requestUri);
+                //        response = null;
+                //    }
+                //}
 
                 if (response == null)
                 {
@@ -165,7 +165,7 @@ namespace System.Application.Services.Implementation
             string? requestUri,
             Func<HttpRequestMessage> requestFactory,
             string? accept,
-            bool enableForward,
+            //bool enableForward,
             CancellationToken cancellationToken,
             Action<HttpResponseMessage>? handlerResponse = null,
             Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,
@@ -176,7 +176,7 @@ namespace System.Application.Services.Implementation
                 requestUri,
                 requestFactory,
                 accept,
-                enableForward,
+                //enableForward,
                 cancellationToken,
                 handlerResponse,
                 handlerResponseByIsNotSuccessStatusCode,
@@ -200,7 +200,7 @@ namespace System.Application.Services.Implementation
                 request.Headers.Accept.ParseAdd(accept);
                 request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
                 return request;
-            }, accept, true, cancellationToken);
+            }, accept/*, true*/, cancellationToken);
         }
 
         async Task<string?> GetImageAsync_(

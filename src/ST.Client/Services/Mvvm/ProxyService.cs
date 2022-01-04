@@ -698,5 +698,8 @@ namespace System.Application.Services
             OnExitRestoreHosts();
             httpProxyService.Dispose();
         }
+
+        public string IPEndPointString
+            => $"IPEndPoint: {httpProxyService.ProxyIp}:{httpProxyService.ProxyPort}";
     }
 }

@@ -38,7 +38,7 @@ namespace System.Application.UI.Fragments
                 if (binding == null) return;
                 binding.btnStartProxyService.Text = AppResources.CommunityFix_StartProxy;
                 binding.btnStopProxyService.Text = AppResources.CommunityFix_StopProxy;
-                binding.tvProxyMode.Text = AppResources.CommunityFix_ProxyModeTip + AppResources.CommunityFix_ProxyMode_WinSystem;
+                //binding.tvProxyMode.Text = AppResources.CommunityFix_ProxyModeTip + AppResources.CommunityFix_ProxyMode_WinSystem;
                 binding.tvAccelerationsEnable.Text = AppResources.CommunityFix_AccelerationsEnable;
                 binding.tvScriptsEnable.Text = AppResources.CommunityFix_ScriptsEnable;
                 SetMenuTitle();
@@ -57,6 +57,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutRootCommunityFixContentStarting.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
                 if (value)
                 {
+                    binding.tvProxyMode.Text = proxyS.IPEndPointString;
                     StringBuilder s = new();
                     var enableProxyDomains = proxyS.GetEnableProxyDomains();
                     if (enableProxyDomains != null)

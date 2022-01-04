@@ -207,6 +207,53 @@
       </FrameLayout>
 
       <FrameLayout
+        android:id="@+id/layoutRootIsVpnMode"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/preference_button_height_large"
+        android:background="?android:windowBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="horizontal">
+
+          <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvIsVpnMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/settings_ui_item_switch_title_width"
+            android:maxLines="2"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/settings_ui_item_title_font_size"
+            tools:text="启用 VPN 模式"
+            xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+          <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+          <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swIsVpnMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:background="@null"
+            android:clickable="false"
+            android:focusable="false"
+            tools:checked="true"
+            xamarin:managedType="Google.Android.Material.SwitchMaterial.SwitchMaterial" />
+        </LinearLayout>
+      </FrameLayout>
+
+      <FrameLayout
         android:id="@+id/layoutRootProxySettingsSocks5"
         android:layout_width="match_parent"
         android:layout_height="@dimen/preference_button_height_large"

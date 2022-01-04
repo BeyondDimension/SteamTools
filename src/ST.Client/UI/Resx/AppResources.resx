@@ -2030,4 +2030,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
     <value>在“安全设置”中移除证书</value>
   </data>
+  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
+    <value>启用 VPN 模式</value>
+  </data>
 </root>
