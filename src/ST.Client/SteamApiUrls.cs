@@ -18,7 +18,7 @@ namespace System.Application
         public const string STEAMAPP_LIBRARYLOGO_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/logo.png";
 
         /// <summary>
-        /// 多语言版本logo，{1}传入steam多语言文本
+        /// 多语言版本logo，{1}传入steam多语言名称
         /// </summary>
         public const string STEAMAPP_LIBRARYLOGO_LOCALIZED_URL = "https://steamcdn-a.akamaihd.net/steam/apps/{0}/logo_{1}.png";
 
