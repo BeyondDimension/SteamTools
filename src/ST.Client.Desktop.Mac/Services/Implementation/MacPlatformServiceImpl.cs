@@ -227,7 +227,8 @@ namespace System.Application.Services.Implementation
 
         public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
-            var stringList = IPlatformService.Instance.GetMacNetworkSetup();
+            IPlatformService @this = this;
+            var stringList = @this.GetMacNetworkSetup();
             var shellContent = new StringBuilder();
             foreach (var item in stringList)
             {
