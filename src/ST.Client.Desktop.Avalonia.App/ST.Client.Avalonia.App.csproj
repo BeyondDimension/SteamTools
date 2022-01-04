@@ -28,7 +28,7 @@
     <DefineConstants>PUBLISH;LINUX;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'osx-x64' Or '$(ExtraDefineConstants)' == 'dev-osx-x64'  ">
+  <PropertyGroup Condition=" '$(ExtraDefineConstants)' == 'osx-x64' Or '$(ExtraDefineConstants)' == 'dev-osx-x64' Or '$(ExtraDefineConstants)' == 'osx-arm64' Or '$(ExtraDefineConstants)' == 'dev-osx-arm64'">
     <DefineConstants>MAC;PUBLISH;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
