@@ -3266,7 +3266,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 请输入发送到您手机的短信验证代码。 的本地化字符串。
+        ///   查找类似 还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SMSCodeTip {
             get {

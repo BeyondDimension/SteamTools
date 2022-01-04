@@ -970,7 +970,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。</value>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>请输入发送到您手机的短信验证代码。</value>
+    <value>还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
     <value>手机 Steam 导入</value>

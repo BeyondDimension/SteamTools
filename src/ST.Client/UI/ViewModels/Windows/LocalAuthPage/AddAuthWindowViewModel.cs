@@ -368,7 +368,7 @@ namespace System.Application.UI.ViewModels
                         RequiresLogin = false;
                         CaptchaText = null;
                         CaptchaImage = null;
-                        EmailDomain = string.IsNullOrEmpty(_Enroll.EmailDomain) == false ? "***@" + _Enroll.EmailDomain : string.Empty;
+                        EmailDomain = string.IsNullOrEmpty(_Enroll.EmailDomain) == false ? "******@" + _Enroll.EmailDomain : string.Empty;
                         return;
                     }
 
