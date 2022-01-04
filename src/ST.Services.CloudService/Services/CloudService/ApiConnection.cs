@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using static System.Application.Services.CloudService.Constants.Headers.Request;
 using CC = System.Common.Constants;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.Services.CloudService
 {
@@ -464,7 +465,7 @@ namespace System.Application.Services.CloudService
 
             HandleHttpRequest(request);
 
-            var response = await client.SendAsync(request,
+            var response = await client.UseDefaultSendAsync(request,
                 completionOption,
                 cancellationToken).ConfigureAwait(false);
 
@@ -473,9 +474,12 @@ namespace System.Application.Services.CloudService
             return response;
         }
 
+        static readonly Uri Referrer = new(string.Format(Constants.Referrer_, DeviceInfo2.OSName));
+
         void HandleHttpRequest(HttpRequestMessage request)
         {
             request.Headers.AcceptLanguage.ParseAdd(http_helper.AcceptLanguage);
+            request.Headers.Referrer = Referrer;
         }
 
         async Task<IApiResponse<TResponseModel>> SendCoreAsync<TRequestModel, TResponseModel>(

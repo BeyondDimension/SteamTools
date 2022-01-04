@@ -133,7 +133,8 @@ namespace System.Application.Services.Implementation
             if (isCheckUpdateing) return;
             isCheckUpdateing = true;
 
-            var id = settings.AppVersion;
+            //var id = settings.AppVersion;
+            Guid id = default;
             var platform = DeviceInfo2.Platform;
             var deviceIdiom = DeviceInfo2.Idiom;
             if (deviceIdiom == DeviceIdiom.Tablet && platform == Platform.Apple)
@@ -152,7 +153,7 @@ namespace System.Application.Services.Implementation
                 deploymentMode);
             if (rsp.IsSuccess)
             {
-                if (!rsp.Content.HasValue())
+                if (!rsp.Content.HasValue() || rsp.Content?.Version == ThisAssembly.Version)
                 {
                     IsExistUpdate = false;
                     if (showIsExistUpdateFalse) toast.Show(AppResources.IsExistUpdateFalse);

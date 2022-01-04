@@ -17,6 +17,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.UI.ViewModels.ThirdPartyLoginHelper;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.UI.ViewModels
 {
@@ -226,7 +227,10 @@ namespace System.Application.UI.ViewModels
                     access_token_expires = tempAes.Encrypt(now.ToString(DateTimeFormat.RFC1123));
                 }
             }
-            var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={port}&sKey={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&version={csc.Settings.AppVersionStr}&isBind={isBind}&access_token_expires={access_token_expires}&access_token={access_token}";
+            // &version={version}
+            //var version = csc.Settings.AppVersionStr;
+            var ver = _ThisAssembly.Version.Base64UrlEncode();
+            var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={port}&sKey={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&ver={ver}&isBind={isBind}&access_token_expires={access_token_expires}&access_token={access_token}";
             await Browser2.OpenAsync(url);
         }
 
