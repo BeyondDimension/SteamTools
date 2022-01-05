@@ -17,6 +17,8 @@ namespace System.Application.UI.Fragments
 {
     internal sealed class ASFPlusConsoleFragment : ASFPlusFragment<fragment_asf_plus_console>, TextView.IOnEditorActionListener
     {
+        readonly IArchiSteamFarmService asfService = IArchiSteamFarmService.Instance;
+
         protected override int? LayoutResource => Resource.Layout.fragment_asf_plus_console;
 
         public override void OnCreateView(View view)
@@ -79,11 +81,8 @@ namespace System.Application.UI.Fragments
         void CommandSubmit()
         {
             var command = binding!.tbInput.Text?.Trim();
-            if (!string.IsNullOrEmpty(command))
-            {
-                binding.tbInput.Text = string.Empty;
-                IArchiSteamFarmService.Instance.CommandSubmit(command!);
-            }
+            binding.tbInput.Text = string.Empty;
+            asfService.CommandSubmit(command!);
         }
 
         bool TextView.IOnEditorActionListener.OnEditorAction(TextView? view, ImeAction actionId, KeyEvent? e)

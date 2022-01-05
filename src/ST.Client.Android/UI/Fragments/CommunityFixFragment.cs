@@ -138,6 +138,15 @@ namespace System.Application.UI.Fragments
             }
         }
 
+        public static void ShowTipKnownIssues()
+        {
+            MessageBox.Show(string.Join(Environment.NewLine, new[] {
+                "VPN 模式不能正常工作",
+                "需要在 Wifi 或 流量 上手动设置代理地址，关闭时手动清除设置",
+                "Android 7+ 不信任用户证书",
+            }), "已知问题");
+        }
+
         protected override bool OnClick(View view)
         {
             if (view.Id == Resource.Id.btnStartProxyService)
@@ -147,11 +156,7 @@ namespace System.Application.UI.Fragments
                 var isShowTip = Preferences2.Get(KEY, false);
                 if (!isShowTip)
                 {
-                    MessageBox.Show(string.Join(Environment.NewLine, new[] {
-                        "VPN 模式不能正常工作",
-                        "需要在 Wifi 或 流量 上手动设置代理地址，关闭时手动清除设置",
-                        "Android 7+ 不信任用户证书",
-                    }), "已知问题");
+                    ShowTipKnownIssues();
                     Preferences2.Set(KEY, true);
                 }
                 return true;

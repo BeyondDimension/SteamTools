@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Binding;
+using System.Application.UI.Fragments;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Linq;
@@ -177,6 +178,10 @@ namespace System.Application.UI.Activities
             {
                 IsVpnMode.Value = !IsVpnMode.Value;
                 SetIsVpnMode();
+                if (IsVpnMode.Value)
+                {
+                    CommunityFixFragment.ShowTipKnownIssues();
+                }
                 return;
             }
 

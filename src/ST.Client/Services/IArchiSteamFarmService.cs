@@ -60,10 +60,11 @@ namespace System.Application.Services
 
         GlobalConfig? GetGlobalConfig();
 
-        async void CommandSubmit(string command)
+        async void CommandSubmit(string? command)
         {
             if (string.IsNullOrEmpty(command))
                 return;
+
             if (ReadLineTask is null)
             {
                 if (command[0] == '!')
