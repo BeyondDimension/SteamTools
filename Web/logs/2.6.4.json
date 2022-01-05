@@ -56,5 +56,5 @@
     "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;● <a href='https://www.nuget.org/api/v2/package/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/1.0.1'>从 NuGet 上下载后提取</a>",
     "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;.nupkg 文件可使用解压工具打开或解压，找到此文件复制即可"
   ],
-  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/2.6.3"
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/2.6.4"
 }
