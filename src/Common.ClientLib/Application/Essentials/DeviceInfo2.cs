@@ -135,7 +135,7 @@ namespace System.Application
             }
         }
 
-        public static string? OSName
+        public static string OSName
         {
             get
             {
@@ -191,7 +191,7 @@ namespace System.Application
                 {
                     return "Linux";
                 }
-                return default;
+                return string.Empty;
             }
         }
 

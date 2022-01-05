@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var sc = s.GetRequiredService<CloudServiceClientBase>();
                 c.Timeout = GeneralHttpClientFactory.DefaultTimeout;
-                c.BaseAddress = new Uri(sc.ApiBaseUrl);
+                c.BaseAddress = new Uri(sc.ApiBaseUrl, UriKind.Absolute);
                 c.DefaultRequestHeaders.UserAgent.ParseAdd(sc.UserAgent);
                 //c.DefaultRequestHeaders.Add(Constants.Headers.Request.AppVersion, sc.Settings.AppVersionStr);
                 config?.Invoke(c);

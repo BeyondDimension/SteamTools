@@ -19,6 +19,7 @@ using static System.Application.Services.CloudService.Constants.Headers.Request;
 using CC = System.Common.Constants;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 using _ThisAssembly = System.Properties.ThisAssembly;
+using System.Web;
 
 namespace System.Application.Services.CloudService
 {
@@ -474,7 +475,8 @@ namespace System.Application.Services.CloudService
             return response;
         }
 
-        static readonly Uri Referrer = new(string.Format(Constants.Referrer_, DeviceInfo2.OSName));
+        static readonly Uri Referrer = new(string.Format(Constants.Referrer_,
+            DeviceInfo2.OSName.Replace(" ", "")), UriKind.Absolute);
 
         void HandleHttpRequest(HttpRequestMessage request)
         {
