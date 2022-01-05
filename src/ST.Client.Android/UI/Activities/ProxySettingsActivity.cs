@@ -58,7 +58,8 @@ namespace System.Application.UI.Activities
                 binding.layoutRootProgramStartupRunProxy,
                 binding.layoutRootOnlyEnableProxyScript,
                 binding.layoutRootProxySettingsSocks5,
-                binding.layoutRootProxySettingsTwoLevelAgent);
+                binding.layoutRootProxySettingsTwoLevelAgent,
+                binding.layoutRootIsVpnMode);
 
             SetProgramStartupRunProxy();
             SetOnlyEnableProxyScript();

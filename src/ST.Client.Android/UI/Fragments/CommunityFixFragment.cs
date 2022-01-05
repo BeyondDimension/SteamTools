@@ -79,7 +79,7 @@ namespace System.Application.UI.Fragments
                     var menu_settings_proxy = menuBuilder.FindItem(Resource.Id.menu_settings_proxy);
                     if (menu_settings_proxy != null)
                     {
-                        menu_settings_proxy.SetEnabled(!value);
+                        menu_settings_proxy.SetVisible(!value);
                     }
                 }
             }).AddTo(this);
@@ -143,6 +143,17 @@ namespace System.Application.UI.Fragments
             if (view.Id == Resource.Id.btnStartProxyService)
             {
                 ViewModel!.StartProxyButton_Click(true);
+                const string KEY = "CommunityFixFragment_IsShowTip";
+                var isShowTip = Preferences2.Get(KEY, false);
+                if (!isShowTip)
+                {
+                    MessageBox.Show(string.Join(Environment.NewLine, new[] {
+                        "VPN 模式不能正常工作",
+                        "需要在 Wifi 或 流量 上手动设置代理地址，关闭时手动清除设置",
+                        "Android 7+ 不信任用户证书",
+                    }), "已知问题");
+                    Preferences2.Set(KEY, true);
+                }
                 return true;
             }
             else if (view.Id == Resource.Id.btnStopProxyService)
