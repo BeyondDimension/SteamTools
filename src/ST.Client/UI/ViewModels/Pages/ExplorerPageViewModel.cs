@@ -70,7 +70,7 @@ namespace System.Application.UI.ViewModels
                 else if (fileSystemInfo is DirectoryInfo dirInfo)
                 {
                     IsDirectory = true;
-                    var ignore_rule_log_under_cache_on_cache = IApplication.LogUnderCache && dirInfo.FullName == IOPath.CacheDirectory;
+                    var ignore_rule_log_under_cache_on_cache = /*IApplication.LogUnderCache &&*/ dirInfo.FullName == IOPath.CacheDirectory;
                     var filesCount = dirInfo.GetFiles().Length;
                     var dirsCount = dirInfo.GetDirectories().Length;
                     Desc = $"Count: {filesCount + (ignore_rule_log_under_cache_on_cache ? dirsCount - 1 : dirsCount)}{Desc}";
@@ -109,7 +109,7 @@ namespace System.Application.UI.ViewModels
 
         public static void AddRange(IList<PathInfoViewModel> list, string dirPath)
         {
-            var ignore_rule_log_under_cache_on_cache = IApplication.LogUnderCache && dirPath == IOPath.CacheDirectory;
+            var ignore_rule_log_under_cache_on_cache = /*IApplication.LogUnderCache &&*/ dirPath == IOPath.CacheDirectory;
             var dirInfo = new DirectoryInfo(dirPath);
             Array.ForEach(dirInfo.GetDirectories(), x =>
             {

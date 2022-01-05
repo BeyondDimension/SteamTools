@@ -15,6 +15,7 @@ using System.Management;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Versioning;
+using System.Runtime.InteropServices;
 using System.Security.Principal;
 using Windows.ApplicationModel;
 
@@ -373,6 +374,20 @@ namespace System.Application.Services.Implementation
             list.Insert(0, IFontManager.Default);
             return list;
         }
+
+        #region IsInstall
+
+        static readonly Lazy<bool> _IsInstall = new(() =>
+        {
+            using var reg32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            var value = reg32.Read(@"SOFTWARE\Steam++", "InstPath").TrimEnd(Path.DirectorySeparatorChar);
+            return string.Equals(IOPath.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar), value, StringComparison.OrdinalIgnoreCase);
+        });
+        /// <inheritdoc cref="IPlatformService.IsInstall"/>
+        public static bool IsInstall => _IsInstall.Value;
+        bool IPlatformService.IsInstall => IsInstall;
+
+        #endregion
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性

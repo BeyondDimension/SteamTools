@@ -142,6 +142,10 @@ namespace System.Application.UI
                 b.Append(ApplicationUpdateServiceBaseImpl.UpdateChannelType);
                 b.AppendLine();
 
+                b.Append("[app.install] ");
+                b.Append(platformService.IsInstall);
+                b.AppendLine();
+
                 b.Append("[deploy.mode] ");
                 b.Append(IApplication.Instance.DeploymentMode);
                 b.AppendLine();

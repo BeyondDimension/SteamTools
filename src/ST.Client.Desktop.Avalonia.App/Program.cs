@@ -34,6 +34,8 @@ namespace System.Application.UI
             FileSystemDesktopMac.InitFileSystem();
 #elif LINUX
             FileSystemDesktopXDG.InitFileSystem();
+#elif WINDOWS
+            FileSystemDesktopWindows.InitFileSystem();
 #else
             FileSystem2.InitFileSystem();
 #endif

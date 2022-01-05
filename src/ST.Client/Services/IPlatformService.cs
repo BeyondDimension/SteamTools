@@ -321,5 +321,10 @@ namespace System.Application.Services
         /// <param name="fontWeight"></param>
         /// <returns></returns>
         string? GetDefaultFontFamily(FontWeight fontWeight = FontWeight.Normal) => null;
+
+        /// <summary>
+        /// 当前程序是否为安装版
+        /// </summary>
+        bool IsInstall => OperatingSystem2.IsAndroid;
     }
 }
