@@ -137,6 +137,14 @@ jobs:
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_macos_x64_${{ env.GITHUB_SHA_SHORT }}'
         path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_macos_x64_${{ env.GITHUB_SHA_SHORT }}.7z
+        
+    - name: Upload macos-arm64 App ${{ matrix.configuration }}
+      continue-on-error: true
+      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_macos_arm64_${{ env.GITHUB_SHA_SHORT }}'
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_macos_arm64_${{ env.GITHUB_SHA_SHORT }}.7z
 
     - name: Upload linux-x64 App ${{ matrix.configuration }}
       continue-on-error: true
