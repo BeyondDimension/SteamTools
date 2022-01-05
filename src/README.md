@@ -98,13 +98,13 @@ namespace Microsoft.Extensions.DependencyInjection
 ## 📁 存储空间
 - AppData
     - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalState```
-    - Windows ```\AppData```
+    - Windows ```\AppData``` or ```%LocalAppData%\Steam++```
     - macOS ```~/Library/Steam++```
     - Linux ```$XDG_DATA_HOME/Steam++``` or ```$HOME/.local/share/Steam++```
     - Android ```/data/data/net.steampp.app/files```
 - Cache
     - Microsoft Store ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache```
-    - Windows ```\Cache```
+    - Windows ```\Cache``` or ```%Tmp%\Steam++```
     - macOS ```~/Library/Caches/Steam++```
     - Linux ```$XDG_CACHE_HOME/Steam++``` or ```$HOME/.cache/Steam++```
     - Android ```/data/data/net.steampp.app/cache```
