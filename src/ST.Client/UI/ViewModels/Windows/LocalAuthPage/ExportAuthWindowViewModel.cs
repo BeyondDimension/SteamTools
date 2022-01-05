@@ -101,11 +101,18 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsOnlyCurrentComputerEncrypt, value);
         }
 
-        private string? _Path;
-        public string? Path
+        SaveFileResult? _ExportFile;
+        public SaveFileResult? ExportFile
         {
-            get => _Path;
-            set => this.RaiseAndSetIfChanged(ref _Path, value);
+            get => _ExportFile;
+            set
+            {
+                if (_ExportFile != null)
+                {
+                    _ExportFile.Dispose();
+                }
+                _ExportFile = value;
+            }
         }
 
         private Stream? _QRCode;
@@ -149,34 +156,33 @@ namespace System.Application.UI.ViewModels
             if (!success)
             {
                 Close();
+                return;
             }
 
             if (!ignorePath)
             {
                 if (IsSupportedSaveFileDialog)
                 {
-                    var result = await SaveAsync(new SaveOptions
+                    FilePickerFileType? fileTypes;
+                    if (IApplication.IsDesktopPlatform)
                     {
-                        FileTypes = new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                        ("MsgPack Files", new[] { "mpo" }),
-                        ("Data Files", new[] { "dat" }),
-                        ("All Files", new[] { "*" }),
-                    }),
+                        fileTypes = new ValueTuple<string, string[]>[] {
+                            ("MsgPack Files", new[] { FileEx.MPO, }),
+                            ("Data Files", new[] { FileEx.DAT, }),
+                            //("All Files", new[] { "*", }),
+                        };
+                    }
+                    else
+                    {
+                        fileTypes = null;
+                    }
+                    ExportFile = await SaveAsync(new()
+                    {
+                        FileTypes = fileTypes,
                         InitialFileName = DefaultExportAuthFileName,
                         PickerTitle = ThisAssembly.AssemblyTrademark,
                     });
-                    Path = result?.FullPath;
-
-                    if (string.IsNullOrEmpty(Path))
-                    {
-                        Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
-                        return;
-                    }
-                }
-                else
-                {
-                    Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
-                    return;
+                    if (ExportFile == null) return;
                 }
             }
 
@@ -238,11 +244,13 @@ namespace System.Application.UI.ViewModels
 
         async Task ExportAuthToFileAsync() => await ExportAuthCore(() =>
         {
-            AuthService.Current.ExportAuthenticators(Path, IsOnlyCurrentComputerEncrypt, VerifyPassword, Filter);
+            AuthService.Current.ExportAuthenticators(ExportFile?.OpenWrite(), IsOnlyCurrentComputerEncrypt, VerifyPassword, Filter);
 
             Close();
 
-            Toast.Show(string.Format(AppResources.LocalAuth_ExportAuth_ExportSuccess, Path));
+            Toast.Show(AppResources.ExportedToPath_.Format(ExportFile?.ToString()));
+
+            ExportFile = null;
 
             return Task.CompletedTask;
         });
@@ -258,7 +266,12 @@ namespace System.Application.UI.ViewModels
             {
                 var mark = SelectAuthenticatorMark;
                 var markIsNull = mark == default;
-                return $"Steam++  Authenticator{(markIsNull ? "s" : default)} {(markIsNull ? default : $"({mark}) ")}{DateTime.Now.ToString(DateTimeFormat.Date)}{FileEx.MPO}";
+                var now = DateTime.Now;
+                const string f = $"{ThisAssembly.AssemblyTrademark}  Authenticator{{0}} {{1}}{{2}}{FileEx.MPO}";
+                return string.Format(f,
+                    markIsNull ? "s" : default,
+                    markIsNull ? default : $"({mark}) ",
+                    now.ToString(DateTimeFormat.File));
             }
         }
 

@@ -1,5 +1,6 @@
 using NLog;
 using System.Linq;
+using System.Net;
 using System.Runtime.Versioning;
 
 #if MAC
@@ -9,7 +10,7 @@ using System.Runtime.Versioning;
 #elif WINDOWS_DESKTOP_BRIDGE
 [assembly: SupportedOSPlatform("Windows10.0.17763.0")]
 #elif WINDOWS
-[assembly: SupportedOSPlatform("Windows")]
+[assembly: SupportedOSPlatform("Windows7.0")]
 #endif
 
 namespace System.Application.UI
@@ -22,6 +23,8 @@ namespace System.Application.UI
         [STAThread]
         static int Main(string[] args)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
             DesktopBridgeHelper.OnActivated(ref args);

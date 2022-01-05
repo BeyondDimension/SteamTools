@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using static System.Application.Services.CloudService.Constants.Headers.Request;
 using CC = System.Common.Constants;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.Services.CloudService
 {
@@ -53,28 +54,51 @@ namespace System.Application.Services.CloudService
             return null;
         }
 
+        public static (ApiResponseCode code, string? msg) GetRspByExceptionWithLogCore(Exception ex, string requestUri, ILogger? logger = null, string? logTag = null)
+        {
+            if (ex is ApiResponseCodeException apiResponseCodeException)
+            {
+                return (apiResponseCodeException.Code, null);
+            }
+            var knownType = ex.GetKnownType();
+            switch (knownType)
+            {
+                case ExceptionKnownType.Canceled:
+                    return (ApiResponseCode.Canceled, null);
+                case ExceptionKnownType.CertificateNotYetValid:
+                    return (ApiResponseCode.CertificateNotYetValid, null);
+            }
+            var code = ApiResponseCode.ClientException;
+            var exMsg = ex.GetAllMessage();
+            var hasLogger = logger != null;
+            var hasLogTag = !string.IsNullOrEmpty(logTag);
+            if (hasLogger || hasLogTag)
+            {
+                var logMessage = "ApiConn Fail({0})，Url：{1}";
+                var logArgs = new object[]
+                {
+                    (int)code,
+                    requestUri,
+                };
+                if (hasLogger)
+                {
+                    logger.LogError(ex, logMessage, logArgs);
+                }
+                else if (hasLogTag)
+                {
+                    Log.Error(logTag!, ex, logMessage, logArgs);
+                }
+            }
+            return (code, ApiResponse.GetMessage(code, errorAppendText: exMsg));
+        }
+
         /// <summary>
         /// 根据异常获取响应
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="requestUri"></param>
         /// <returns></returns>
-        (ApiResponseCode code, string? msg) GetRspByExceptionWithLog(Exception ex, string requestUri)
-        {
-            if (ex is ApiResponseCodeException apiResponseCodeException)
-            {
-                return (apiResponseCodeException.Code, null);
-            }
-            var isCanceled = ex.IsCanceledException();
-            if (isCanceled)
-            {
-                return (ApiResponseCode.Canceled, null);
-            }
-            var code = ApiResponseCode.ClientException;
-            logger.LogError(ex, "ApiConn Fail({0})，Url：{1}", (int)code, requestUri);
-            var exMsg = ex.GetAllMessage();
-            return (code, ApiResponse.GetMessage(code, errorAppendText: exMsg));
-        }
+        (ApiResponseCode code, string? msg) GetRspByExceptionWithLog(Exception ex, string requestUri) => GetRspByExceptionWithLogCore(ex, requestUri, logger);
 
         /// <summary>
         /// 返回 HTTP 401 未授权，清空当前 AuthToken，并调用 SignOut
@@ -441,7 +465,7 @@ namespace System.Application.Services.CloudService
 
             HandleHttpRequest(request);
 
-            var response = await client.SendAsync(request,
+            var response = await client.UseDefaultSendAsync(request,
                 completionOption,
                 cancellationToken).ConfigureAwait(false);
 
@@ -450,9 +474,12 @@ namespace System.Application.Services.CloudService
             return response;
         }
 
+        static readonly Uri Referrer = new(string.Format(Constants.Referrer_, DeviceInfo2.OSName));
+
         void HandleHttpRequest(HttpRequestMessage request)
         {
             request.Headers.AcceptLanguage.ParseAdd(http_helper.AcceptLanguage);
+            request.Headers.Referrer = Referrer;
         }
 
         async Task<IApiResponse<TResponseModel>> SendCoreAsync<TRequestModel, TResponseModel>(

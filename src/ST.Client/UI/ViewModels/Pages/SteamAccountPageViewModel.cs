@@ -153,7 +153,16 @@ namespace System.Application.UI.ViewModels
                     user.AvatarIcon = temp.AvatarIcon;
                     user.AvatarMedium = temp.AvatarMedium;
                     user.AvatarFull = temp.AvatarFull;
-                    user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+                    user.MiniProfile = temp.MiniProfile;
+
+                    if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
+                    {
+                        user.AvatarStream = httpService.GetImageAsync(user.MiniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    }
+                    else
+                    {
+                        user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+                    }
                 }
             }
 
@@ -161,22 +170,22 @@ namespace System.Application.UI.ViewModels
             #endregion
 
             #region 加载动态头像头像框数据
-            foreach (var item in _SteamUsersSourceList.Items)
-            {
-                item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
-                var miniProfile = item.MiniProfile;
-                if (miniProfile != null)
-                {
-                    if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
-                        item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+            //foreach (var item in _SteamUsersSourceList.Items)
+            //{
+            //    item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
+            //    var miniProfile = item.MiniProfile;
+            //    if (miniProfile != null)
+            //    {
+            //        if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
+            //            item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
 
-                    if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
-                        miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+            //        if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
+            //            miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
 
-                    //item.Level = miniProfile.Level;
-                }
-            }
-            _SteamUsersSourceList.Refresh();
+            //        //item.Level = miniProfile.Level;
+            //    }
+            //}
+            //_SteamUsersSourceList.Refresh();
             #endregion
         }
 

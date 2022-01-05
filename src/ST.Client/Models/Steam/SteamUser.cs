@@ -187,7 +187,12 @@ namespace System.Application.Models
         }
 
 
-        public SteamMiniProfile? MiniProfile { get; set; }
+        private SteamMiniProfile? _MiniProfile;
+        public SteamMiniProfile? MiniProfile
+        {
+            get => _MiniProfile;
+            set => this.RaiseAndSetIfChanged(ref _MiniProfile, value);
+        }
 
         /// <summary>
         /// 来源 Valve Data File 字符串

@@ -83,28 +83,35 @@ namespace System.Application.UI.ViewModels
                 item.SteamNickName = temp.SteamNickName ?? item.AccountName ?? item.SteamId3_Int.ToString();
                 item.AvatarIcon = temp.AvatarIcon;
                 item.AvatarMedium = temp.AvatarMedium;
-                item.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+                item.MiniProfile = temp.MiniProfile;
+                if (item.MiniProfile != null && !string.IsNullOrEmpty(item.MiniProfile.AnimatedAvatar))
+                {
+                    item.AvatarStream = httpService.GetImageAsync(item.MiniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                }
+                else
+                {
+                    item.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+                }
 
                 if (accountRemarks?.TryGetValue(item.SteamId64_Int, out var remark) == true &&
-                         !string.IsNullOrEmpty(remark))
+                     !string.IsNullOrEmpty(remark))
                     item.Remark = remark;
             }
 
-            _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items);
             _AuthorizedSourceList.Refresh();
-            foreach (var item in _AuthorizedSourceList.Items)
-            {
-                item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
-                var miniProfile = item.MiniProfile;
-                if (miniProfile != null)
-                {
-                    if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
-                        item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-                    //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
-                }
-            }
-            _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items);
-            _AuthorizedSourceList.Refresh();
+
+            //foreach (var item in _AuthorizedSourceList.Items)
+            //{
+            //    item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
+            //    var miniProfile = item.MiniProfile;
+            //    if (miniProfile != null)
+            //    {
+            //        if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
+            //            item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+            //        //miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+            //    }
+            //}
+            //_AuthorizedSourceList.Refresh();
         }
 
         public async void OpenUserProfileUrl(AuthorizedDevice user)

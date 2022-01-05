@@ -297,10 +297,6 @@
     <value>Network routing</value>
     <comment>Comment=网络加速（因为不止加速steam社区）;Author=沙中金</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>Routing</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>Enabled network routing</value>
     <comment>Comment=;Author=沙中金</comment>
@@ -395,10 +391,6 @@
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>Failed to route your connections. Certificate improperly installed.</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>Failed to route your connections.Port 443 already in use by {0} . Please check port 443 or try routing using Windows proxy mode.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
@@ -939,14 +931,6 @@
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>Enter password for exported data</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>Export file path</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>Exported {0}</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
@@ -1894,11 +1878,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Application details (system settings)</value>
+    <value>Application details</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>App notifications (system settings)</value>
+    <value>App notifications</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

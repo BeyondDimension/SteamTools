@@ -120,6 +120,9 @@
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
     <value>客户端已过时，请升级新版本</value>
   </data>
+  <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
+    <value>当前系统时间不正确或服务端 SSL 证书失效</value>
+  </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
     <value>登录凭证失效，请重新登录</value>
   </data>

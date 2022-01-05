@@ -61,7 +61,7 @@ namespace System.Application.Models
 
         public static string GetMessage(this ApiResponseCode code, string? errorAppendText = null, string? errorFormat = null)
         {
-            if (code == ApiResponseCode.OK)
+            if (code == ApiResponseCode.OK || code == ApiResponseCode.Canceled)
             {
                 return string.Empty;
             }
@@ -80,6 +80,10 @@ namespace System.Application.Models
             else if (code == ApiResponseCode.UserIsBan)
             {
                 return ModelValidatorErrorDescriber.UserIsBanErrorMessage;
+            }
+            else if (code == ApiResponseCode.CertificateNotYetValid)
+            {
+                return SR.ApiResponseCode_CertificateNotYetValid;
             }
             string message;
             var notErrorAppendText = string.IsNullOrWhiteSpace(errorAppendText);

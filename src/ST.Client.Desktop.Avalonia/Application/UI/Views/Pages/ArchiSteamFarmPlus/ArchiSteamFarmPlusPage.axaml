@@ -123,7 +123,6 @@
           <controls:ConsoleShell Margin="10 0"
                                  MaxLine="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},Path=Value, Mode=OneWay}"
                                  FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},Path=Value, Mode=OneWay}"
-                                 FontFamily="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontName},Path=Value, Mode=OneWay}"
                                  CommandSubmit="ConsoleShell_CommandSubmit"
                                  LogText="{ReflectionBinding Source={x:Static service:ASFService.Current},Path=ConsoleLogText,Mode=TwoWay}"
                                  IsMask="{ReflectionBinding Source={x:Static service:IArchiSteamFarmService.Instance},Path=IsReadPasswordLine}">

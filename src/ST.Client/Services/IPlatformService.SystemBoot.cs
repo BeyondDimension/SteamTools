@@ -23,7 +23,7 @@ namespace System.Application.Services
         /// 锁定
         /// </summary>
         /// <returns></returns>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("MacOS")]
         [SupportedOSPlatform("Linux")]
         void SystemLock(int waitSecond = 30) { }
@@ -32,7 +32,7 @@ namespace System.Application.Services
         /// 关闭系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("MacOS")]
         [SupportedOSPlatform("Linux")]
         void SystemShutdown(int waitSecond = 30) { }
@@ -41,7 +41,7 @@ namespace System.Application.Services
         /// 睡眠系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("MacOS")]
         [SupportedOSPlatform("Linux")]
         void SystemSleep(int waitSecond = 30) { }
@@ -50,7 +50,7 @@ namespace System.Application.Services
         /// 休眠系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("MacOS")]
         [SupportedOSPlatform("Linux")]
         void SystemHibernate(int waitSecond = 30) { }

@@ -32,14 +32,6 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate2(savedInstanceState);
 
-            var externalPath = GetExternalFilesDir(null)?.CanonicalPath;
-            if (string.IsNullOrWhiteSpace(externalPath) || !Directory.Exists(externalPath))
-            {
-                Toast.Show("error: externalPath is null or not exists.");
-                Finish();
-                return;
-            }
-
             if (!GeneralSettings.CaptureScreen.Value)
             {
                 this.SetWindowSecure(true);
@@ -51,7 +43,6 @@ namespace System.Application.UI.Activities
             {
                 Title = ViewModel!.Title;
                 if (binding == null) return;
-                binding.tvExportFilePathLabel.Text = LocalAuth_ExportAuth_ExportPath + "：";
                 binding.swExportEncryption.Text = LocalAuth_ExportAuth_EncryptionExport;
                 binding.tvExportEncryptionDesc.Text = LocalAuth_ExportAuth_ExportPassword;
                 binding.layoutPassword.Hint = LocalAuth_ProtectionAuth_Password;
@@ -66,15 +57,9 @@ namespace System.Application.UI.Activities
                 binding.layoutPassword.Enabled = value && !ViewModel!.IsExportQRCode;
                 binding.layoutPassword2.Enabled = value && !ViewModel!.IsExportQRCode;
             }).AddTo(this);
-            ViewModel!.WhenAnyValue(x => x.Path).SubscribeInMainThread(value =>
-            {
-                if (binding == null) return;
-                binding.tvExportFilePathValue.Text = value;
-            }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsExportQRCode).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                binding.layoutExportFilePath.Visibility = value ? (ViewModel!.QRCode == null ? ViewStates.Invisible : ViewStates.Gone) : ViewStates.Visible;
                 binding.swExportEncryption.Enabled = !value;
                 binding.layoutPassword.Enabled = ViewModel!.IsPasswordEncrypt && !value;
                 binding.layoutPassword2.Enabled = ViewModel!.IsPasswordEncrypt && !value;
@@ -83,7 +68,6 @@ namespace System.Application.UI.Activities
             {
                 if (binding == null) return;
                 var hasValue = value != null;
-                if (hasValue) binding.layoutExportFilePath.Visibility = ViewStates.Gone;
                 binding.ivQRCode.Visibility = !hasValue ? ViewStates.Gone : ViewStates.Visible;
                 binding.ivQRCode.SetImageSource(value);
             }).AddTo(this);
@@ -111,8 +95,6 @@ namespace System.Application.UI.Activities
             };
 
             SetOnClickListener(binding.btnExport);
-
-            ViewModel!.Path = Path.Combine(externalPath, DefaultExportAuthDirName, ViewModel!.DefaultExportAuthFileName);
         }
 
         protected override void OnClick(View view)

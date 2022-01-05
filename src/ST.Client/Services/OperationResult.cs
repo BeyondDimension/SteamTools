@@ -1,12 +1,37 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace System.Application.Services
 {
     /// <summary>
     /// 操作结果信息类，对操作结果进行封装
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class OperationResultBase<T>
+    public interface IOperationResult
+    {
+        /// <summary>
+        /// 获取或设置 操作结果类型
+        /// </summary>
+        OperationResultType ResultType { get; set; }
+
+        /// <summary>
+        /// 获取或设置 操作返回信息
+        /// </summary>
+        string Message { get; set; }
+
+        /// <summary>
+        /// 获取或设置 操作返回的日志消息，用于记录日志
+        /// </summary>
+        string LogMessage { get; set; }
+    }
+
+    /// <inheritdoc cref="IOperationResult"/>
+    public interface IOperationResult<T> : IOperationResult where T : notnull
+    {
+        /// <summary>
+        /// 获取或设置 操作结果附加信息
+        /// </summary>
+        T AppendData { get; set; }
+    }
+
+    /// <inheritdoc cref="IOperationResult{T}"/>
+    public abstract class OperationResultBase<T> : IOperationResult<T> where T : notnull
     {
         #region 构造函数
 
@@ -44,7 +69,7 @@ namespace System.Application.Services
         public OperationResultBase(OperationResultType resultType, string message, T? appendData)
             : this(resultType, message)
         {
-            AppendData = appendData;
+            _AppendData = appendData;
         }
 
         /// <summary>
@@ -69,32 +94,35 @@ namespace System.Application.Services
         public OperationResultBase(OperationResultType resultType, string message, string logMessage, T? appendData)
             : this(resultType, message, logMessage)
         {
-            AppendData = appendData;
+            _AppendData = appendData;
         }
 
         #endregion
 
         #region 属性
 
-        /// <summary>
-        /// 获取或设置 操作结果类型
-        /// </summary>
         public OperationResultType ResultType { get; set; }
 
-        /// <summary>
-        /// 获取或设置 操作返回信息
-        /// </summary>
         public string Message { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 获取或设置 操作返回的日志消息，用于记录日志
-        /// </summary>
         public string LogMessage { get; set; } = string.Empty;
 
-        /// <summary>
-        /// 获取或设置 操作结果附加信息
-        /// </summary>
-        public abstract T? AppendData { get; set; }
+        protected T? _AppendData;
+        public virtual T AppendData
+        {
+            get
+            {
+                if (_AppendData == null)
+                {
+                    _AppendData = Activator.CreateInstance<T>();
+                }
+                return _AppendData;
+            }
+            set
+            {
+                _AppendData = value;
+            }
+        }
 
         #endregion
     }
@@ -132,10 +160,21 @@ namespace System.Application.Services
         {
         }
 
-        public sealed override object? AppendData { get; set; }
+        public override object AppendData
+        {
+            get
+            {
+                return null!;
+            }
+            set
+            {
+
+            }
+        }
     }
 
-    public class OperationResult<T> : OperationResultBase<T> where T : new()
+    /// <inheritdoc cref="OperationResultBase{T}"/>
+    public class OperationResult<T> : OperationResultBase<T> where T : notnull
     {
         /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase"/>
         public OperationResult()
@@ -166,10 +205,5 @@ namespace System.Application.Services
         public OperationResult(OperationResultType resultType, string message, string logMessage, T appendData) : base(resultType, message, logMessage, appendData)
         {
         }
-
-        [NotNull, DisallowNull] // C# 8 not null
-#pragma warning disable CS8765 // 参数类型的为 Null 性与重写成员不匹配(可能是由于为 Null 性特性)。
-        public sealed override T? AppendData { get; set; } = new T();
-#pragma warning restore CS8765 // 参数类型的为 Null 性与重写成员不匹配(可能是由于为 Null 性特性)。
     }
 }

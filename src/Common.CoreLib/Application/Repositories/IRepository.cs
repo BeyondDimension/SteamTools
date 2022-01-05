@@ -1,4 +1,4 @@
-﻿using System.Application.Entities;
+using System.Application.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -119,7 +119,7 @@ namespace System.Application.Repositories
         /// <exception cref="ArgumentNullException">
         /// 集合 或 <paramref name="predicate" /> 为 <see langword="null" />
         /// </exception>
-        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellation = default);
 
         #endregion
     }

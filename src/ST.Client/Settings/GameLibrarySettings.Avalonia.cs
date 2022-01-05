@@ -14,7 +14,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 隐藏的游戏列表
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<Dictionary<uint, string?>> HideGameList => _HideGameList ?? throw new PlatformNotSupportedException();
@@ -24,7 +24,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 挂时长游戏列表
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<Dictionary<uint, string?>?> AFKAppList => _AFKAppList ?? throw new PlatformNotSupportedException();
@@ -34,12 +34,12 @@ namespace System.Application.Settings
         /// <summary>
         /// 启用自动挂机
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsAutoAFKApps => _IsAutoAFKApps ?? throw new PlatformNotSupportedException();
 
-        // [SupportedOSPlatform("Windows")]
+        // [SupportedOSPlatform("Windows7.0")]
         // [SupportedOSPlatform("macOS")]
         // [SupportedOSPlatform("Linux")]
         // public static readonly Lazy<ReadOnlyCollection<uint>>? DefaultIgnoreList = IApplication.IsDesktopPlatform ? new(new ReadOnlyCollection<uint>(new uint[]

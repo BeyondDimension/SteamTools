@@ -17,7 +17,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 程序是否开机自启动
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> WindowsStartupAutoRun => _WindowsStartupAutoRun ?? throw new PlatformNotSupportedException();
@@ -26,7 +26,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 程序启动时最小化
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsStartupAppMinimized => _IsStartupAppMinimized ?? throw new PlatformNotSupportedException();
@@ -36,7 +36,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 启用游戏列表本地缓存
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsSteamAppListLocalCache => _IsSteamAppListLocalCache ?? throw new PlatformNotSupportedException();
@@ -45,7 +45,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 用户设置的文本阅读器提供商，根据平台值不同，值格式为 枚举字符串 或 程序路径
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<IReadOnlyDictionary<Platform, string>> TextReaderProvider => _TextReaderProvider ?? throw new PlatformNotSupportedException();
@@ -54,7 +54,7 @@ namespace System.Application.Settings
         /// <summary>
         /// Hosts 文件编码类型
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<IHostsFileService.EncodingType> HostsEncodingType => _HostsEncodingType ?? throw new PlatformNotSupportedException();
@@ -63,7 +63,7 @@ namespace System.Application.Settings
         /// <summary>
         /// 使用硬件加速
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> UseGPURendering => _UseGPURendering ?? throw new PlatformNotSupportedException();
@@ -72,7 +72,7 @@ namespace System.Application.Settings
         /// <summary>
         /// (仅 Windows)Avalonia would try to use native Widows OpenGL when set to true. The default value is false.
         /// </summary>
-        [SupportedOSPlatform("Windows")]
+        [SupportedOSPlatform("Windows7.0")]
         public static SerializableProperty<bool> UseWgl => _UseWgl ?? throw new PlatformNotSupportedException();
 
 

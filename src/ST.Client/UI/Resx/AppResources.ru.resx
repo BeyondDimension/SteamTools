@@ -297,10 +297,6 @@
     <value>Ускорение сети</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>Ускорение одним щелчком мыши</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>Включенная служба ускорения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -395,10 +391,6 @@
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>Сбой службы ускорения запуска и сбой установки сертификата.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>Сбой запуска службы ускорения, {0} порт занят {1}. Выключите программу, занимают {0} порт, или попробуйте использовать режим системного прокси-сервера.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
@@ -935,14 +927,6 @@
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>Введите пароль экспортированных данных</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>Экспорт пути к файлу</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>Экспорт выполнен успешно {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
@@ -1891,11 +1875,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Сведения о приложении (системные настройки)</value>
+    <value>Сведения о приложении</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>Применение уведомлений (системные настройки)</value>
+    <value>Применение уведомлений</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

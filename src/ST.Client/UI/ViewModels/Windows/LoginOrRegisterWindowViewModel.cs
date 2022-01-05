@@ -67,7 +67,7 @@ namespace System.Application.UI.ViewModels
                 }
             }
 
-            if (IsMobileLayout)
+            if (!IApplication.IsDesktopPlatform)
             {
                 yield return FastLoginChannelViewModel.Create(FastLoginChannelViewModel.PhoneNumber, this);
             }
@@ -143,7 +143,7 @@ namespace System.Application.UI.ViewModels
                 if (_LoginState == value) return;
                 _LoginState = value;
                 this.RaisePropertyChanged();
-                if (IsMobileLayout)
+                if (!IApplication.IsDesktopPlatform)
                 {
                     Title = _LoginState == 1 ? AppResources.User_PhoneLogin : AppResources.LoginAndRegister;
                 }

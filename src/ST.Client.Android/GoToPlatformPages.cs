@@ -181,7 +181,11 @@ namespace System.Application
             context.StartActivity(intent);
         }
 
-        public static void SystemSettings(Context context) => StartNewTaskActivity(context, ASettings.ActionSettings);
+        public static void SystemSettingsSecurity(Context context)
+            => StartNewTaskActivity(context, ASettings.ActionSecuritySettings);
+
+        public static void SystemSettings(Context context)
+            => StartNewTaskActivity(context, ASettings.ActionSettings);
 
         public static void AppDetailsSettings(Context context)
         {

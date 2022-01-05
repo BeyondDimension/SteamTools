@@ -144,7 +144,7 @@ namespace System.Application.Repositories
 
         #region 查(通用查询)
 
-        public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(() => dbConnection.FindAsync(predicate)).ConfigureAwait(false);

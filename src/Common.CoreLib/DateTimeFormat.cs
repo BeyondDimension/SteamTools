@@ -29,5 +29,7 @@ namespace System
         public const string DateCN2 = "yyyy年M月d日";
 
         public const string RFC1123 = "r";
+
+        public const string File = "yyyy-MM-dd HHmmssfffffff";
     }
 }

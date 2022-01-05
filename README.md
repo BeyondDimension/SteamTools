@@ -34,6 +34,7 @@
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
 - [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
 
 ## ✨ 功能
 1. 反代 Steam 的社区网页使其能正常访问
@@ -61,8 +62,8 @@
 OS                                    | Version                 | Architectures   | Lifecycle
 --------------------------------------|-------------------------|-----------------|----------
 [Windows Client][Windows-client]      | 7 SP1(**\***), 8.1      | x64        | [Windows][Windows-lifecycle]
-[Windows 10 Client][Windows-client]   | Version 1607+(**\***)           | x64 | [Windows][Windows-lifecycle]
-[Windows Server][Windows-Server]      | 2012+                | x64        | [Windows Server][Windows-Server-lifecycle]
+[Windows 10 Client][Windows-client]   | Version 1607+(**\***)   | x64        | [Windows][Windows-lifecycle]
+[Windows Server][Windows-Server]      | 2012+                   | x64        | [Windows Server][Windows-Server-lifecycle]
 
 **\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
 **\*** Microsoft Store/Desktop Bridge Version 1809+
@@ -86,7 +87,8 @@ OS                                    | Version               | Architectures   
 [Red Hat Enterprise Linux][RHEL]      | 7+                    | x64, Arm64        | [Red Hat][RHEL-lifecycle]
 [SUSE Enterprise Linux (SLES)][SLES]  | 12 SP2+               | x64               | [SUSE][SLES-lifecycle]
 [Ubuntu][Ubuntu]                      | 16.04, 18.04, 20.04+  | x64, Arm64, Arm32 | [Ubuntu][Ubuntu-lifecycle]
-[Deepin / UOS][Deepin]                      | 20+                   | x64 | [Deepin][Deepin-lifecycle]
+[Deepin / UOS][Deepin]                | 20+                   | x64               | [Deepin][Deepin-lifecycle]
+[Arch Linux][Arch]                    |                       | x64               | 
 
 [Alpine]: https://alpinelinux.org/
 [Alpine-lifecycle]: https://wiki.alpinelinux.org/wiki/Alpine_Linux:Releases
@@ -118,6 +120,7 @@ OS                                    | Version               | Architectures   
 [Ubuntu-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-ubuntu-2004
 [Deepin]: https://www.deepin.org/
 [Deepin-lifecycle]: https://www.deepin.org/release-notes
+[Arch]: https://archlinux.org/
 
 ### macOS
 

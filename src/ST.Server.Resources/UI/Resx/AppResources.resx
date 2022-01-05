@@ -192,6 +192,9 @@
   <data name="ReadFailByUnionId_" xml:space="preserve">
     <value>读取 UnionId 失败，值：{0}，请联系网站管理员。</value>
   </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>目前 Steam 登录的请求过多请刷新页面重试或稍后再试。</value>
+  </data>
   <data name="Title_Error" xml:space="preserve">
     <value>错误!</value>
   </data>

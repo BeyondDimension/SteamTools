@@ -297,10 +297,6 @@
     <value>網路加速</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>一鍵加速</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>啟用的加速服務</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -395,10 +391,6 @@
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>啟動加速服務失敗，證書安裝失敗。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>加速服務啟動失敗，{0} 埠被 {1} 佔用。 請關掉佔用 {0} 埠的程式或者嘗試使用系統代理模式。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
@@ -935,14 +927,6 @@
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>請輸入匯出的數據密碼</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>匯出檔案路徑</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>匯出成功 {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
@@ -1891,11 +1875,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>套用詳情（系統設定）</value>
+    <value>套用詳情</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>應用程式通知（系統設定）</value>
+    <value>應用程式通知</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

@@ -6,7 +6,7 @@ namespace System.Application.Services
     /// <summary>
     /// 平台 Window API 服务
     /// </summary>
-    [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows7.0")]
     public interface INativeWindowApiService
     {
         static INativeWindowApiService? Instance => DI.Get_Nullable<INativeWindowApiService>();

@@ -297,10 +297,6 @@
     <value>ネットワーク アクセラレーション</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>ワンクリックで加速します</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>有効なアクセラレーション サービス</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -395,10 +391,6 @@
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>アクセラレーション サービスの開始に失敗し、証明書のインストールに失敗しました。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>アクセラレーション サービスの開始に失敗し、ポートが {1} によって占有{0}。 {0} ポートを占有するプログラムをオフにするか、システム プロキシ モードを試してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
@@ -935,14 +927,6 @@
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>エクスポートしたデータパスワードを入力してください</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>ファイル パスをエクスポートします</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>エクスポート成功 {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
@@ -1891,11 +1875,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>アプリケーションの詳細 (システム設定)</value>
+    <value>アプリケーションの詳細</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>通知の適用 (システム設定)</value>
+    <value>通知の適用</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

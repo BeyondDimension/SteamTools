@@ -17,7 +17,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
-    internal sealed class MainActivity : BaseActivity<activity_main>
+    internal sealed partial class MainActivity : BaseActivity<activity_main>
     {
         protected override int? LayoutResource => Resource.Layout.activity_main;
 
@@ -39,9 +39,16 @@ namespace System.Application.UI.Activities
             this.SetNavigationGraphTitle(resId, value_);
         }
 
+        static MainActivity? mainActivity;
+        public static MainActivity Instance => mainActivity ?? throw new ArgumentNullException(nameof(mainActivity));
+
         protected override void OnCreate2(Bundle? savedInstanceState)
         {
             base.OnCreate2(savedInstanceState);
+
+            mainActivity = this;
+
+            //InitCommunityFixVpnServiceActivityResultLauncher();
 
             SetSupportActionBar(binding!.toolbar);
 
@@ -57,6 +64,7 @@ namespace System.Application.UI.Activities
             R.Subscribe(() =>
             {
                 SetSubPageTitle(Resource.Id.navigation_local_auth, LocalAuthPageViewModel.DisplayName);
+                SetSubPageTitle(Resource.Id.navigation_asf_plus, ArchiSteamFarmPlusPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_my, MyPageViewModel.DisplayName);
                 SetSubPageTitle(Resource.Id.navigation_community_fix, AppResources.CommunityFix);
                 //SetSubPageTitle(Resource.Id.navigation_game_list, AppResources.GameList);

@@ -56,9 +56,9 @@
       <TextBlock IsHitTestVisible="False" Grid.Column="1"
                  Text="{ReflectionBinding $parent[Window].Title}"
                  VerticalAlignment="Center"
+				 HorizontalAlignment="Left"
                  Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                 Classes="h7"
-                 FontWeight="SemiLight"/>
+                 Classes="h8"/>
     </StackPanel>
   </Panel>
 </UserControl>

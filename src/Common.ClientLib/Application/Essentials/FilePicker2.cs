@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -13,29 +14,8 @@ namespace System.Application
     /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/file-picker"/></para>
     /// <para><see cref="https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FilePicker/FilePicker.shared.cs"/></para>
     /// </summary>
-    public static class FilePicker2
+    public static partial class FilePicker2
     {
-        static readonly Lazy<bool> mIsSupportedFileExtensionFilter = new(() =>
-        {
-            if (Essentials.IsSupported)
-            {
-                return OperatingSystem2.IsWindows;
-            }
-            else
-            {
-                var s = IOpenFileDialogService.Instance;
-                if (s != null)
-                {
-                    return s.IsSupportedFileExtensionFilter;
-                }
-                return false;
-            }
-        });
-        /// <summary>
-        /// 是否支持文件扩展名过滤。
-        /// </summary>
-        public static bool IsSupportedFileExtensionFilter => mIsSupportedFileExtensionFilter.Value;
-
         static readonly Lazy<bool> mIsSupportedSaveFileDialog = new(() =>
         {
             var s = ISaveFileDialogService.Instance;
@@ -285,7 +265,7 @@ namespace System.Application
         /// <param name="options">要使用的文件保存弹窗选项，可能为空。</param>
         /// <returns>文件拾取结果对象，或当用户取消拾取时为空。</returns>
         /// <exception cref="PlatformNotSupportedException"></exception>
-        public static async Task<FileResult?> SaveAsync(SaveOptions? options = null)
+        public static async Task<SaveFileResult?> SaveAsync(SaveOptions? options = null)
         {
             try
             {
@@ -302,82 +282,69 @@ namespace System.Application
             }
         }
 
-        public class SaveOptions : PickOptions
+        public sealed class SaveFileResult : IDisposable
         {
-            public string? InitialFileName { get; set; }
-        }
+            readonly string? fullPath;
+            readonly Stream? stream;
+            readonly string? @string;
+            bool disposedValue;
 
-        public class GeneralFilePickerFileType : FilePickerFileType
-        {
-            readonly IEnumerable<string> values;
-
-            public GeneralFilePickerFileType(IEnumerable<string> values) : base()
+            public SaveFileResult(string fullPath)
             {
-                this.values = values;
+                this.fullPath = fullPath;
             }
 
-            public static implicit operator GeneralFilePickerFileType(string[] values) => new(values);
-
-            public static implicit operator GeneralFilePickerFileType(List<string> values) => new(values);
-
-            protected override IEnumerable<string> GetPlatformFileType(DevicePlatform _) => values;
-        }
-
-        public class FilePickerFileType2 : FilePickerFileType
-        {
-            readonly IReadOnlyDictionary<Platform, IEnumerable<string>> fileTypes;
-
-            public FilePickerFileType2(IReadOnlyDictionary<Platform, IEnumerable<string>> fileTypes) : base() => this.fileTypes = fileTypes;
-
-            public static implicit operator FilePickerFileType2(Dictionary<Platform, IEnumerable<string>> fileTypes) => new(fileTypes);
-
-            protected override IEnumerable<string> GetPlatformFileType(DevicePlatform _)
+            public SaveFileResult(Stream stream, string? @string = null)
             {
-                if (fileTypes.TryGetValue(DeviceInfo2.Platform, out var type))
-                    return type;
-
-                throw new PlatformNotSupportedException("This platform does not support this file type.");
+                this.stream = stream;
+                this.@string = @string;
             }
-        }
 
-        public class FilePickerFilter : GeneralFilePickerFileType
-        {
-            public IEnumerable<(string name, IEnumerable<string> extensions)> Filters { get; }
-
-            public FilePickerFilter(IEnumerable<(string name, IEnumerable<string> extensions)> filters) : base(filters.SelectMany(x => x.extensions))
+            /// <summary>
+            /// 打开写入流，在桌面平台上为 <see cref="FileStream"/>，在 Android 上为 Java.IO.OutputStream
+            /// </summary>
+            /// <returns></returns>
+            /// <exception cref="NotSupportedException"></exception>
+            public Stream OpenWrite()
             {
-                Filters = filters;
+                if (fullPath != null)
+                    return new FileStream(fullPath, FileMode.OpenOrCreate, FileAccess.Write);
+                if (stream != null)
+                    return stream;
+                throw new NotSupportedException();
             }
-        }
 
-        public static class Images
-        {
-            static readonly Lazy<FilePickerFileType> _FileTypes = new(() =>
+            public override string ToString()
             {
-                if (Essentials.IsSupported)
-                {
-                    return FilePickerFileType.Images;
-                }
-                else if (OperatingSystem2.IsWindows)
-                {
-                    GeneralFilePickerFileType fileTypes = new[] { FileEx.PNG, FileEx.JPG, FileEx.JPEG, FileEx.GIF, FileEx.BMP };
-                    return fileTypes;
-                }
-                else
-                {
-                    GeneralFilePickerFileType fileTypes = new[] { FileEx.PNG, FileEx.JPG, FileEx.JPEG, FileEx.GIF };
-                    return fileTypes;
-                }
-            });
+                if (fullPath != null)
+                    return fullPath;
+                if (@string != null)
+                    return @string;
+                return base.ToString();
+            }
 
-            /// <inheritdoc cref="FilePickerFileType.Images"/>
-            public static FilePickerFileType FileTypes => _FileTypes.Value;
-
-            /// <inheritdoc cref="PickOptions.Images"/>
-            public static PickOptions PickOptions => new()
+            private void Dispose(bool disposing)
             {
-                FileTypes = FileTypes,
-            };
+                if (!disposedValue)
+                {
+                    if (disposing)
+                    {
+                        // TODO: 释放托管状态(托管对象)
+                        stream?.Dispose();
+                    }
+
+                    // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                    // TODO: 将大型字段设置为 null
+                    disposedValue = true;
+                }
+            }
+
+            public void Dispose()
+            {
+                // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+                Dispose(disposing: true);
+                GC.SuppressFinalize(this);
+            }
         }
     }
 }

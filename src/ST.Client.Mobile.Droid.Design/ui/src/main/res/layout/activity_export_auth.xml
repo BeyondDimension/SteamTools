@@ -34,35 +34,6 @@
         android:layout_gravity="center_horizontal"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
-      <LinearLayout
-        android:id="@+id/layoutExportFilePath"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/abc_action_button_min_height_material"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/tvExportFilePathLabel"
-          style="@style/TextAppearance.AppCompat.Widget.Switch"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:gravity="center_vertical"
-          android:textColor="@color/text_primary"
-          tools:text="导出文件路径："
-          xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/tvExportFilePathValue"
-          style="@style/TextAppearance.AppCompat.Widget.Switch"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:gravity="center_vertical"
-          android:textColor="@color/text_primary"
-          android:textIsSelectable="true"
-          tools:text="/storage/emulated/0/Android/data/xxx.xxxxxxxxx.xxx/files/ExportAuths/Steam++  Authenticator 20xx-xx-xx.mpo"
-          xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-      </LinearLayout>
-
       <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swExportQRCode"
         android:layout_width="match_parent"

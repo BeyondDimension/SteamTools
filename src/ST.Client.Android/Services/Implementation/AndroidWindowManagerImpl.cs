@@ -6,6 +6,7 @@ using Binding;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.TextField;
 using ReactiveUI;
+using System.Application.UI;
 using System.Application.UI.Activities;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
@@ -65,6 +66,7 @@ namespace System.Application.Services.Implementation
                 CustomWindow.AddAuth => typeof(AddAuthActivity),
                 CustomWindow.ExportAuth => typeof(ExportAuthActivity),
                 CustomWindow.EncryptionAuth => typeof(EncryptionAuthActivity),
+                CustomWindow.ProxySettings => typeof(ProxySettingsActivity),
                 _ => null,
             };
             if (activityType != null)
@@ -238,8 +240,16 @@ namespace System.Application.Services.Implementation
 
         protected bool IsMatchCurrentActivityViewModel(object vm, [NotNullWhen(true)] out Activity? activity)
         {
-            activity = CurrentActivity;
-            return activity is IViewFor vf && vf.ViewModel == vm;
+            foreach (var item in MainApplication.Activities)
+            {
+                if (item is IViewFor vf && vf.ViewModel == vm)
+                {
+                    activity = item;
+                    return true;
+                }
+            }
+            activity = null;
+            return false;
         }
 
         public virtual void CloseWindow(WindowViewModel vm)

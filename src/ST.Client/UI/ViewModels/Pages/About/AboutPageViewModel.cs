@@ -110,12 +110,7 @@ namespace System.Application.UI.ViewModels
                 }
             });
 
-            DonateFliterDate = DateTimeOffset.Now.GetCurrentMonth();
-
-            this.WhenValueChanged(x => x.DonateFliterDate, false)
-                .Subscribe(x => LoadDonateRankListData(true));
-
-            if (IsMobileLayout)
+            if (!IApplication.IsDesktopPlatform)
             {
                 preferenceButtons = new(Enum2.GetAll<PreferenceButton>().Select(x => PreferenceButtonViewModel.Create(x, this)));
 
@@ -136,11 +131,21 @@ namespace System.Application.UI.ViewModels
                     }
                 }).AddTo(this);
             }
+            else
+            {
+                DonateFliterDate = DateTimeOffset.Now.GetCurrentMonth();
+
+                this.WhenValueChanged(x => x.DonateFliterDate, false)
+                    .Subscribe(x => LoadDonateRankListData(true));
+            }
         }
 
         public override void Activation()
         {
-            LoadDonateRankListData(true);
+            if (IApplication.IsDesktopPlatform)
+            {
+                LoadDonateRankListData(true);
+            }
             base.Activation();
         }
 
@@ -175,16 +180,16 @@ namespace System.Application.UI.ViewModels
                 }
             });
 
-            if (result?.IsSuccess == true && result.Content != null)
+            if (result.TryGetContent(out var content))
             {
-                if (DonateList.Count <= result.Content.Total)
+                if (DonateList.Count <= content.Total)
                 {
-                    DonateList.AddRange(result.Content.DataSource);
+                    DonateList.AddRange(content.DataSource);
                 }
             }
             else
             {
-                Toast.Show(AppResources.About_DonateRecord_Error + result?.Message);
+                Toast.Show(AppResources.About_DonateRecord_Error + result.Message);
             }
         }
 

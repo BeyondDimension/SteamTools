@@ -11,10 +11,7 @@
     android:id="@+id/tab_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:tabIndicatorColor="@color/shell_title_color"
-    app:tabSelectedTextColor="@color/shell_title_color"
     app:tabTextAppearance="@style/MainTheme2.TabLayoutTextStyle"
-    app:tabTextColor="@color/shell_title_color"
     xamarin:managedType="Google.Android.Material.Tabs.TabLayout" />
 
   <androidx.viewpager2.widget.ViewPager2

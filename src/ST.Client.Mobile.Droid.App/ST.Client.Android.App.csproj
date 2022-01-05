@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -83,6 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\arm64-v8a\libtun2http.so" Link="lib\arm64-v8a\libtun2http.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\armeabi-v7a\libtun2http.so" Link="lib\armeabi-v7a\libtun2http.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\x86_64\libtun2http.so" Link="lib\x86_64\libtun2http.so" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.Migration" />
@@ -115,7 +118,7 @@
   <Import Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Xamarin.Android.KeyStore.props') " Project="..\..\Xamarin.Android.KeyStore.props" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionSTClientAndroidAppHideInfoBar="True" XamarinHotReloadWrongLinkerErrorInfoBarSTClientMobileDroidAppHideInfoBar="True" />
+      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarSTClientMobileDroidAppHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionSTClientAndroidAppHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

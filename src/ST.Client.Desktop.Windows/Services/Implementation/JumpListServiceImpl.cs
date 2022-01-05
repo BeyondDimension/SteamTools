@@ -1,6 +1,5 @@
-extern alias JumpLists;
-using JumpLists::System.Windows.Shell;
 using System.Linq;
+using Avalonia.Win32.JumpLists;
 using AvaloniaApplication = Avalonia.Application;
 using static System.Application.Services.IJumpListService;
 

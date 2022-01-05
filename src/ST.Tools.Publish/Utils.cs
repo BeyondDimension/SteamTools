@@ -283,7 +283,7 @@ namespace System.Application
         {
             var name = item.Name.Replace("-", "_");
             if (name.Contains("osx_")) name = name.Replace("osx_", "macos_");
-            var version = Utils.GetVersion(dev);
+            var version = GetVersion(dev);
             var fileName = item.DeploymentMode switch
             {
                 DeploymentMode.SCD =>

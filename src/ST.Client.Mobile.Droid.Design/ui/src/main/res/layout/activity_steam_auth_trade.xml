@@ -40,7 +40,9 @@
           android:paddingStart="@dimen/activity_horizontal_margin"
           android:paddingTop="@dimen/activity_vertical_margin"
           android:paddingEnd="@dimen/activity_horizontal_margin"
-          android:paddingBottom="@dimen/activity_vertical_margin">
+          android:paddingBottom="@dimen/activity_vertical_margin"
+          tools:paddingEnd="0dp"
+          tools:paddingStart="0dp">
 
           <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvConfirmConutMessage"
@@ -59,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:itemCount="4"
             tools:listitem="@layout/layout_card_steam_auth_trade_confirmation"
             xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />

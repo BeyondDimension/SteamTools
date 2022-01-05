@@ -377,9 +377,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix" xml:space="preserve">
     <value>网络加速</value>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>一键加速</value>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>启用的加速服务</value>
   </data>
@@ -453,8 +450,14 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>启动加速服务失败，证书安装失败。</value>
   </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>加速服务启动失败，{0} 端口被 {1} 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。</value>
+  <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
+    <value>加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。</value>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
+    <value>加速服务启动失败，{0} 端口被 {1}({2}) 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。</value>
+  </data>
+  <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
+    <value>读取或还原文件时失败，因被其他进程占用，可能是其他不兼容的网络加速程序，请找到占用的进程将其关闭。</value>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
     <value>加速已启动成功</value>
@@ -870,12 +873,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>请输入导出的数据密码</value>
   </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>导出文件路径</value>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>导出成功 {0}</value>
-  </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>选择路径</value>
   </data>
@@ -973,7 +970,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。</value>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>请输入发送到您手机的短信验证代码。</value>
+    <value>还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
     <value>手机 Steam 导入</value>
@@ -1663,10 +1660,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>下载更新渠道</value>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>应用详情(系统设置)</value>
+    <value>应用详情</value>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>应用通知(系统设置)</value>
+    <value>应用通知</value>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
     <value>打开 {0} 文件夹</value>
@@ -2011,5 +2008,29 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_Stoping" xml:space="preserve">
     <value>正在停止 ASF 服务，请稍后...</value>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>系统设置</value>
+  </data>
+  <data name="CommunityFix_CertificateExport" xml:space="preserve">
+    <value>导出证书文件</value>
+  </data>
+  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
+    <value>打开安全设置</value>
+  </data>
+  <data name="ExportedToPath_" xml:space="preserve">
+    <value>已导出到路径：{0}</value>
+  </data>
+  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
+    <value>导出证书失败，请先开启加速后再尝试导出</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
+    <value>必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
+    <value>在“安全设置”中移除证书</value>
+  </data>
+  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
+    <value>启用 VPN 模式</value>
   </data>
 </root>

@@ -1,3 +1,4 @@
+#if __XAMARIN_FORMS__
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
@@ -28,3 +29,4 @@ namespace System.Application.UI.Activities
         }
     }
 }
+#endif

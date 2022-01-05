@@ -1,3 +1,4 @@
+#if DEBUG
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -76,6 +77,8 @@ namespace System.Application.UI.ViewModels
 
         public void DebugButton_Click()
         {
+            //IHostsFileService.Instance.OccupyHosts();
+
             TestHttp3Quic();
             return;
 
@@ -84,20 +87,26 @@ namespace System.Application.UI.ViewModels
             //            //return;
             //#endif
 
-            INotificationService.Instance.Notify("aaa", NotificationType.Announcement);
-
             //TestHttp();
             //return;
 
             //TestTextBoxWindow(0);
 
             //DebugButton_Click1();
-            Parallel.For(0, 10, (_, _) =>
-            {
-                DebugButton_Click1();
-                //Task.Run(DebugButton_Click1);
-            });
+
+            //DebugButton_Click_Test();
         }
+
+        //void DebugButton_Click_Test()
+        //{
+        //    INotificationService.Instance.Notify("aaa", NotificationType.Announcement);
+
+        //    Parallel.For(0, 10, (_, _) =>
+        //    {
+        //        DebugButton_Click1();
+        //        //Task.Run(DebugButton_Click1);
+        //    });
+        //}
 
         public async void TestHttp3Quic()
         {
@@ -107,6 +116,7 @@ namespace System.Application.UI.ViewModels
             {
 #if NET6_0_OR_GREATER
                 DefaultRequestVersion = HttpVersion.Version30,
+                DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact,
 #endif
             };
 
@@ -625,6 +635,7 @@ namespace System.Application.UI.ViewModels
             //    s.AppendLine(item.GetName(R.Culture.LCID));
             //}
             var testdomain = "steampp.net";
+            var DnsAnalysis = IDnsAnalysisService.Instance;
 
             s.AppendLine($"<Support IPV6>: {await DnsAnalysis.GetIsIpv6Support()}");
             s.AppendLine($"<IPV6> ipv6.rmbgame.net: {(await DnsAnalysis.AnalysisDomainIp("ipv6.rmbgame.net"))?.First()}");
@@ -646,3 +657,4 @@ namespace System.Application.UI.ViewModels
 #endif
     }
 }
+#endif

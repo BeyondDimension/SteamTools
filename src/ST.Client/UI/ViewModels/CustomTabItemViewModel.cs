@@ -1,4 +1,3 @@
-using System;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Text;
@@ -148,6 +147,7 @@ namespace System.Application.UI.ViewModels
         }
     }
 
+#if DEBUG
     partial class DebugPageViewModel : TabItemViewModel
     {
         public const string DisplayName = "Debug";
@@ -157,6 +157,7 @@ namespace System.Application.UI.ViewModels
             get => DisplayName;
         }
     }
+#endif
 
     partial class GameRelatedPageViewModel : TabItemViewModel
     {

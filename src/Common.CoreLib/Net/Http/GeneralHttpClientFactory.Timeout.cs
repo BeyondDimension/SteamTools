@@ -5,11 +5,9 @@ namespace System.Net.Http
         /// <summary>
         /// 默认超时时间，45 秒
         /// </summary>
-        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(45);
-
-        static readonly Lazy<int> mDefaultTimeoutTotalMilliseconds = new(() => DefaultTimeout.TotalMilliseconds.ToInt32());
+        public static readonly TimeSpan DefaultTimeout = TimeSpan.FromMilliseconds(DefaultTimeoutMilliseconds);
 
         /// <inheritdoc cref="DefaultTimeout"/>
-        public static int DefaultTimeoutTotalMilliseconds => mDefaultTimeoutTotalMilliseconds.Value;
+        public const int DefaultTimeoutMilliseconds = 45000;
     }
 }

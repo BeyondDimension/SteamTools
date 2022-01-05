@@ -12,13 +12,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using static System.Application.FilePicker2;
 
 // ReSharper disable once CheckNamespace
@@ -34,10 +31,22 @@ namespace System.Application.UI.ViewModels
 
             SelectBotFiles = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = !IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("Json Files", new[] { FileEx.JSON, }),
-                    ("All Files", new[] { "*" }),
-                });
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("Json Files", new[] { FileEx.JSON, }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else if (OperatingSystem2.IsAndroid)
+                {
+                    fileTypes = new[] { MediaTypeNames.JSON };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
                 await PickMultipleAsync(ASFService.Current.ImportBotFiles, fileTypes);
             });
 
@@ -76,12 +85,12 @@ namespace System.Application.UI.ViewModels
                       .Bind(out _SteamBots)
                       .Subscribe();
 
-            if (IApplication.IsDesktopPlatform)
-            {
-                ConsoleSelectFont = R.Fonts.FirstOrDefault(x => x.Value == ASFSettings.ConsoleFontName.Value);
-                this.WhenValueChanged(x => x.ConsoleSelectFont, false)
-                      .Subscribe(x => ASFSettings.ConsoleFontName.Value = x.Value);
-            }
+            //if (IApplication.IsDesktopPlatform)
+            //{
+            //    //ConsoleSelectFont = R.Fonts.FirstOrDefault(x => x.Value == ASFSettings.ConsoleFontName.Value);
+            //    //this.WhenValueChanged(x => x.ConsoleSelectFont, false)
+            //    //      .Subscribe(x => ASFSettings.ConsoleFontName.Value = x.Value);
+            //}
         }
 
         public string IPCUrl => asfSerivce.GetIPCUrl();
@@ -220,15 +229,15 @@ namespace System.Application.UI.ViewModels
             IPlatformService.Instance.OpenFolder(folderASFPathValue);
         }
 
-        public void OpenBrowser(string? tag)
+        void OpenBrowserCore(ActionItem tag)
         {
             var url = tag switch
             {
-                "Repo" => "https://github.com/JustArchiNET/ArchiSteamFarm",
-                "Wiki" => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
-                "ConfigGenerator" => "https://justarchinet.github.io/ASF-WebConfigGenerator/",
-                "WebConfig" => IPCUrl + "/asf-config",
-                "WebAddBot" => IPCUrl + "/bot/new",
+                ActionItem.Repo => "https://github.com/JustArchiNET/ArchiSteamFarm",
+                ActionItem.Wiki => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
+                ActionItem.ConfigGenerator => "https://justarchinet.github.io/ASF-WebConfi.gGenerator/",
+                ActionItem.WebConfig => IPCUrl + "/asf-config",
+                ActionItem.WebAddBot => IPCUrl + "/bot/new",
                 _ => IPCUrl,
             };
 
@@ -254,11 +263,17 @@ namespace System.Application.UI.ViewModels
             Browser2.Open(url);
         }
 
-        KeyValuePair<string, string> _ConsoleSelectFont;
-        public KeyValuePair<string, string> ConsoleSelectFont
+        public void OpenBrowser(string? tag)
         {
-            get => _ConsoleSelectFont;
-            set => this.RaiseAndSetIfChanged(ref _ConsoleSelectFont, value);
+            var tag_ = Enum.TryParse<ActionItem>(tag, out var @enum) ? @enum : default;
+            OpenBrowserCore(tag_);
         }
+
+        //KeyValuePair<string, string> _ConsoleSelectFont;
+        //public KeyValuePair<string, string> ConsoleSelectFont
+        //{
+        //    get => _ConsoleSelectFont;
+        //    set => this.RaiseAndSetIfChanged(ref _ConsoleSelectFont, value);
+        //}
     }
 }

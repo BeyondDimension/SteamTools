@@ -79,10 +79,10 @@
             <StackPanel Spacing="10" Orientation="Horizontal">
               <Button Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{ReflectionBinding ConfirmAllButton_Click,Mode=OneTime}"
-                      IsEnabled="{Binding IsConfirmationsEmpty}"></Button>
+                      IsEnabled="{Binding IsConfirmationsAny}"></Button>
               <Button Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{ReflectionBinding CancelAllButton_Click,Mode=OneTime}"
-                      IsEnabled="{Binding IsConfirmationsEmpty}"></Button>
+                      IsEnabled="{Binding IsConfirmationsAny}"></Button>
               <Button Content="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{ReflectionBinding Refresh_Click,Mode=OneTime}"></Button>
               <Button Content="{ReflectionBinding Path=Res.Logout,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -95,7 +95,7 @@
 
         <Panel DockPanel.Dock="Bottom">
           <StackPanel IsVisible="{Binding IsLoading}" VerticalAlignment="Center" Spacing="15" Margin="20 0" x:Name="load">
-            <!--<TextBlock x:Name="EmptyTip" IsVisible="{Binding !IsConfirmationsEmpty}"
+            <!--<TextBlock x:Name="EmptyTip" IsVisible="{Binding !IsConfirmationsAny}"
                                 Text="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_ListNullTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 TextWrapping="WrapWithOverflow"
                                 VerticalAlignment="Center" HorizontalAlignment="Center">

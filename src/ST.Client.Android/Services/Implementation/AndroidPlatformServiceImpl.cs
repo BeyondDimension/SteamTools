@@ -4,10 +4,11 @@ using XEPlatform = Xamarin.Essentials.Platform;
 using AndroidApplication = Android.App.Application;
 using AndroidX.AppCompat.App;
 using System.Application.UI.Activities;
+using System.Net;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class AndroidPlatformServiceImpl : IPlatformService
+    internal sealed partial class AndroidPlatformServiceImpl : IPlatformService
     {
         static bool IsDarkMode => DarkModeUtil.IsDarkMode(AndroidApplication.Context);
 

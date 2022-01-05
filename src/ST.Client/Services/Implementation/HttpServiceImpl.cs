@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using static System.Application.ForwardHelper;
+//using static System.Application.ForwardHelper;
 using static System.Application.Services.IHttpService;
 
 namespace System.Application.Services.Implementation
@@ -19,9 +19,9 @@ namespace System.Application.Services.Implementation
     internal sealed class HttpServiceImpl : GeneralHttpClientFactory, IHttpService
     {
         readonly JsonSerializer jsonSerializer = new();
-        readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
+        //readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
 
-        ICloudServiceClient Csc => _csc.Value;
+        //ICloudServiceClient Csc => _csc.Value;
 
         JsonSerializer IHttpService.Serializer => jsonSerializer;
 
@@ -42,13 +42,14 @@ namespace System.Application.Services.Implementation
             string? requestUri,
             Func<HttpRequestMessage> requestFactory,
             string? accept,
-            bool enableForward,
+            //bool enableForward,
             CancellationToken cancellationToken,
             Action<HttpResponseMessage>? handlerResponse = null,
             Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,
             string? clientName = null) where T : notnull
         {
             HttpRequestMessage? request = null;
+            bool requestIsSend = false;
             HttpResponseMessage? response = null;
             bool notDisposeResponse = false;
             try
@@ -58,26 +59,30 @@ namespace System.Application.Services.Implementation
 
                 if (!isCheckHttpUrl && !Browser2.IsHttpUrl(requestUri)) return default;
 
-                if (enableForward && IsAllowUrl(requestUri))
-                {
-                    try
-                    {
-                        response = await Csc.Forward(request,
-                            HttpCompletionOption.ResponseHeadersRead,
-                            cancellationToken);
-                    }
-                    catch (Exception e)
-                    {
-                        logger.LogWarning(e, "CloudService Forward Fail, requestUri: {0}", requestUri);
-                        response = null;
-                    }
-                }
+                //if (enableForward && IsAllowUrl(requestUri))
+                //{
+                //    try
+                //    {
+                //        requestIsSend = true;
+                //        response = await Csc.Forward(request,
+                //            HttpCompletionOption.ResponseHeadersRead,
+                //            cancellationToken);
+                //    }
+                //    catch (Exception e)
+                //    {
+                //        logger.LogWarning(e, "CloudService Forward Fail, requestUri: {0}", requestUri);
+                //        response = null;
+                //    }
+                //}
 
                 if (response == null)
                 {
                     var client = CreateClient(clientName);
-                    request.Dispose();
-                    request = requestFactory();
+                    if (requestIsSend)
+                    {
+                        request.Dispose();
+                        request = requestFactory();
+                    }
                     response = await client.SendAsync(request,
                       HttpCompletionOption.ResponseHeadersRead,
                       cancellationToken).ConfigureAwait(false);
@@ -139,7 +144,11 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                logger.LogWarning(e, "SendAsync Fail, requestUri: {0}", requestUri);
+                var knownType = e.GetKnownType();
+                if (knownType == ExceptionKnownType.Unknown)
+                {
+                    logger.LogError(e, "SendAsync Fail, requestUri: {0}", requestUri);
+                }
             }
             finally
             {
@@ -156,7 +165,7 @@ namespace System.Application.Services.Implementation
             string? requestUri,
             Func<HttpRequestMessage> requestFactory,
             string? accept,
-            bool enableForward,
+            //bool enableForward,
             CancellationToken cancellationToken,
             Action<HttpResponseMessage>? handlerResponse = null,
             Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,
@@ -167,7 +176,7 @@ namespace System.Application.Services.Implementation
                 requestUri,
                 requestFactory,
                 accept,
-                enableForward,
+                //enableForward,
                 cancellationToken,
                 handlerResponse,
                 handlerResponseByIsNotSuccessStatusCode,
@@ -191,7 +200,7 @@ namespace System.Application.Services.Implementation
                 request.Headers.Accept.ParseAdd(accept);
                 request.Headers.UserAgent.ParseAdd(http_helper.UserAgent);
                 return request;
-            }, accept, true, cancellationToken);
+            }, accept/*, true*/, cancellationToken);
         }
 
         async Task<string?> GetImageAsync_(

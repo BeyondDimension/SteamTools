@@ -297,10 +297,6 @@
     <value>네트워크 가속</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>원터치 가속</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>활성화된 가속 서비스입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -395,10 +391,6 @@
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
     <value>가속 서비스를 시작하지 못했습니다.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="CommunityFix_StartProxyFaild443" xml:space="preserve">
-    <value>가속 서비스가 시작되지 {0} 포트가 {1} 사용됩니다. {0} 포트를 사용하는 프로그램을 끄거나 시스템 프록시 모드를 사용해 보십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
@@ -935,14 +927,6 @@
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>내보낸 데이터 암호를 입력하십시오</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>파일 경로를 내보냅니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>내보내기 성공 {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
@@ -1891,11 +1875,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>앱 세부 정보(시스템 설정)</value>
+    <value>앱 세부 정보</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>알림 적용(시스템 설정)</value>
+    <value>알림 적용</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">

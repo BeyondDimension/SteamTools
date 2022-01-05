@@ -1077,15 +1077,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 一键加速 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_Acceleration {
-            get {
-                return ResourceManager.GetString("CommunityFix_Acceleration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 启用的加速服务 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AccelerationsEnable {
@@ -1122,6 +1113,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 导出证书文件 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_CertificateExport {
+            get {
+                return ResourceManager.GetString("CommunityFix_CertificateExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 证书设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_CertificateSettings {
@@ -1149,6 +1149,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificateTipText_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificateTipText_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在“安全设置”中移除证书 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificateTipTitle {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificateTipTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 Hosts 文件 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EditHostsFile {
@@ -1163,6 +1181,33 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_EnableScriptService {
             get {
                 return ResourceManager.GetString("CommunityFix_EnableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导出证书失败，请先开启加速后再尝试导出 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ExportCertificateFileNotExists {
+            get {
+                return ResourceManager.GetString("CommunityFix_ExportCertificateFileNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开安全设置 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_GoToSystemSecuritySettings {
+            get {
+                return ResourceManager.GetString("CommunityFix_GoToSystemSecuritySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用 VPN 模式 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_IsVpnMode {
+            get {
+                return ResourceManager.GetString("CommunityFix_IsVpnMode", resourceCulture);
             }
         }
         
@@ -1284,6 +1329,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 读取或还原文件时失败，因被其他进程占用，可能是其他不兼容的网络加速程序，请找到占用的进程将其关闭。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ReadHosts_IOException {
+            get {
+                return ResourceManager.GetString("CommunityFix_ReadHosts_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 管理脚本 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ScriptManage {
@@ -1329,11 +1383,20 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 加速服务启动失败，{0} 端口被 {1} 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
+        ///   查找类似 加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
         /// </summary>
-        public static string CommunityFix_StartProxyFaild443 {
+        public static string CommunityFix_StartProxyFaild443_ {
             get {
-                return ResourceManager.GetString("CommunityFix_StartProxyFaild443", resourceCulture);
+                return ResourceManager.GetString("CommunityFix_StartProxyFaild443_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加速服务启动失败，{0} 端口被 {1}({2}) 占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_StartProxyFaild443___ {
+            get {
+                return ResourceManager.GetString("CommunityFix_StartProxyFaild443___", resourceCulture);
             }
         }
         
@@ -1658,6 +1721,15 @@ namespace System.Application.UI.Resx {
         public static string Export {
             get {
                 return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已导出到路径：{0} 的本地化字符串。
+        /// </summary>
+        public static string ExportedToPath_ {
+            get {
+                return ResourceManager.GetString("ExportedToPath_", resourceCulture);
             }
         }
         
@@ -2870,24 +2942,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导出文件路径 的本地化字符串。
-        /// </summary>
-        public static string LocalAuth_ExportAuth_ExportPath {
-            get {
-                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 导出成功 {0} 的本地化字符串。
-        /// </summary>
-        public static string LocalAuth_ExportAuth_ExportSuccess {
-            get {
-                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 选择路径 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ExportAuth_SelectPath {
@@ -3212,7 +3266,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 请输入发送到您手机的短信验证代码。 的本地化字符串。
+        ///   查找类似 还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SMSCodeTip {
             get {
@@ -4141,7 +4195,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 应用详情(系统设置) 的本地化字符串。
+        ///   查找类似 应用详情 的本地化字符串。
         /// </summary>
         public static string Settings_General_AppDetailsSettings {
             get {
@@ -4150,7 +4204,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 应用通知(系统设置) 的本地化字符串。
+        ///   查找类似 应用通知 的本地化字符串。
         /// </summary>
         public static string Settings_General_AppNotificationSettings {
             get {
@@ -4443,6 +4497,15 @@ namespace System.Application.UI.Resx {
         public static string Settings_Steam_SteamStratParameter {
             get {
                 return ResourceManager.GetString("Settings_Steam_SteamStratParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 系统设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_System {
+            get {
+                return ResourceManager.GetString("Settings_System", resourceCulture);
             }
         }
         

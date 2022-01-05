@@ -69,36 +69,42 @@ namespace System.Application.UI.Activities
                     Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
                     Traded = "￥x.xx（￥y.yy）",
                     When = "z 小时以前",
+                    Image = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wHfJ",
                 },
                 new()
                 {
                     Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
                     Traded = "￥x.xx（￥y.yy）",
                     When = "z 小时以前",
+                    Image = "https://cn.bing.com/th?id=OHR.AmericanRobin_ZH-CN0667508209_1920x1080.jpg",
                 },
                 new()
                 {
                     Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
                     Traded = "￥x.xx（￥y.yy）",
                     When = "z 小时以前",
+                    Image = "https://cn.bing.com/th?id=OHR.ElPanecilloHill_ZH-CN0527709139_1920x1080.jpg",
                 },
                 new()
                 {
                     Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
                     Traded = "￥x.xx（￥y.yy）",
                     When = "z 小时以前",
+                    Image = "https://cn.bing.com/th?id=OHR.WickerCultivation_ZH-CN0310713697_1920x1080.jpg",
                 },
                 new()
                 {
                     Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
                     Traded = "￥x.xx（￥y.yy）",
                     When = "z 小时以前",
+                    Image = "https://cn.bing.com/th?id=OHR.ShadowEverest_ZH-CN9951649290_1920x1080.jpg",
                 },
                 new()
                 {
                     Details = "出售 - XX Y 号武器箱 （ABCDEFG）",
                     Traded = "￥x.xx（￥y.yy）",
                     When = "z 小时以前",
+                    Image = "https://cn.bing.com/th?id=OHR.FoxDovrefjell_ZH-CN9554491452_1920x1080.jpg",
                 },
             });
             return vm;
@@ -143,12 +149,13 @@ namespace System.Application.UI.Activities
 
             R.Subscribe(() =>
             {
-                Title = DisplayName;
+                Title = ViewModel!.Title;
                 if (binding == null) return;
                 binding.layoutSteamUserName.Hint = Steam_User;
                 binding.layoutSteamPassword.Hint = Steam_Password;
                 binding.layoutCaptcha.Hint = Steam_ImageCodeTip;
-                binding.tvConfirmConutMessage.Text = ViewModel!.ConfirmationsConutMessage;
+                if (!ViewModel!.IsConfirmationsAny)
+                    binding.tvConfirmConutMessage.Text = ViewModel!.ConfirmationsConutMessage;
                 binding.cbStreamRememberMe.Text = User_Rememberme;
                 binding.btnLogin.Text = Login;
                 binding.tvSteamTradeLoginTip.Text = LocalAuth_SteamTradeLoginTip;
@@ -185,10 +192,17 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.ConfirmationsConutMessage).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                binding.tvConfirmConutMessage.Text = value;
-                if (ViewModel!.IsConfirmationsEmpty)
+                if (!ViewModel!.IsConfirmationsAny)
                 {
+                    binding.tvConfirmConutMessage.Text = value;
+                    binding.tvConfirmConutMessage.Visibility = ViewStates.Visible;
                     binding.layoutActions.Visibility = ViewStates.Gone;
+                }
+                else
+                {
+                    binding.tvConfirmConutMessage.Visibility = ViewStates.Gone;
+                    binding.layoutActions.Visibility = ViewStates.Visible;
+                    Toast.Show(value, ToastLength.Short);
                 }
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsLoading).SubscribeInMainThread(value =>
@@ -199,7 +213,7 @@ namespace System.Application.UI.Activities
                 binding.layoutContentSteamLogin.Visibility = (value || ViewModel!.IsLoggedIn) ? ViewStates.Gone : ViewStates.Visible;
                 binding.layoutLoading.Visibility = state;
                 //binding.swipeRefreshLayout.Refreshing = value;
-                binding.layoutActions.Visibility = (value || !ViewModel!.IsLoggedIn || ViewModel!.IsConfirmationsEmpty) ? ViewStates.Gone : ViewStates.Visible;
+                binding.layoutActions.Visibility = (value || !ViewModel!.IsLoggedIn || !ViewModel!.IsConfirmationsAny) ? ViewStates.Gone : ViewStates.Visible;
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.UnselectAll).SubscribeInMainThread(value =>
             {
@@ -260,7 +274,7 @@ namespace System.Application.UI.Activities
             };
             var layout = new LinearLayoutManager2(this, LinearLayoutManager.Vertical, false);
             binding!.rvConfirmations.SetLayoutManager(layout);
-            binding.rvConfirmations.AddItemDecoration(VerticalItemDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_full_height, noTop: true));
+            binding.rvConfirmations.AddItemDecoration(VerticalItemDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.tab_height, noTop: true));
             binding.rvConfirmations.SetAdapter(adapter);
 
             //var actionItems = Enum2.GetAll<ActionItem>().Where(x => x != ActionItem.Refresh);

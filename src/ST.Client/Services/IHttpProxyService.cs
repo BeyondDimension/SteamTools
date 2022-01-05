@@ -22,7 +22,14 @@ namespace System.Application.Services
     /// </summary>
     public interface IHttpProxyService : IDisposable
     {
-        public const string LocalDomain = "local.steampp.net";
+        /// <summary>
+        /// 证书名称，硬编码不可改动，确保兼容性
+        /// </summary>
+        const string CertificateName = "SteamTools";
+        const string RootCertificateName = $"{CertificateName} Certificate";
+        const string RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
+        const string LocalDomain = "local.steampp.net";
+        protected const string TAG = "HttpProxyS";
 
         static IHttpProxyService Instance => DI.Get<IHttpProxyService>();
 
@@ -37,8 +44,6 @@ namespace System.Application.Services
         bool IsEnableScript { get; set; }
 
         bool IsOnlyWorkSteamBrowser { get; set; }
-
-        string CertificateName { get; set; }
 
         CertificateEngine CertificateEngine { get; set; }
 
@@ -88,5 +93,23 @@ namespace System.Application.Services
         bool WirtePemCertificateToGoGSteamPlugins();
 
         bool IsCertificateInstalled(X509Certificate2? certificate2);
+
+        const string PfxFileName = $"{CertificateName}.Certificate{FileEx.PFX}";
+
+        const string CerFileName = $"{CertificateName}.Certificate{FileEx.CER}";
+
+        static string CerExportFileName
+        {
+            get
+            {
+                var now = DateTime.Now;
+                const string f = $"{ThisAssembly.AssemblyTrademark}  Certificate {{0}}{FileEx.CER}";
+                return string.Format(f, now.ToString(DateTimeFormat.File));
+            }
+        }
+
+        string PfxFilePath => Path.Combine(IOPath.AppDataDirectory, PfxFileName);
+
+        string CerFilePath => Path.Combine(IOPath.AppDataDirectory, CerFileName);
     }
 }

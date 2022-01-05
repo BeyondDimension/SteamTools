@@ -76,11 +76,11 @@
 
           <Grid IsVisible="{Binding RequiresActivation}" RowDefinitions="Auto,*,Auto" Margin="10">
             <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
-              <TextBox Watermark="{ReflectionBinding Path=Res.SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding ActivationCode}" MaxWidth="200"></TextBox>
               <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
                 <TextBlock Text="{ReflectionBinding Path=Res.RecoveryCode,Mode=OneWay,Source={x:Static resx:R.Current}}" VerticalAlignment="Center"></TextBlock>
                 <TextBox Text="{Binding RevocationCode,Mode=OneWay}" IsEnabled="False" MinWidth="200"></TextBox>
               </StackPanel>
+              <TextBox Watermark="{ReflectionBinding Path=Res.SMSCode,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding ActivationCode}" MaxWidth="200"></TextBox>
               <CheckBox Content="{ReflectionBinding Path=Res.RecoveryCode_Remember,Mode=OneWay,Source={x:Static resx:R.Current}}" MinWidth="280" HorizontalAlignment="Center">
               </CheckBox>
 

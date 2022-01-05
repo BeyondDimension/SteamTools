@@ -5,7 +5,7 @@ using System.Runtime.Versioning;
 namespace System
 {
 #if NET5_0_OR_GREATER
-    [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows7.0")]
 #endif
     public static class RegistryKeyExtensions
     {

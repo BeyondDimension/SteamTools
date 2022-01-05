@@ -109,19 +109,13 @@ namespace System
 
         public const string XML = ".xml";
 
-        public static string Clean(string extension, bool trimLeadingPeriod = false)
-        {
-            if (string.IsNullOrWhiteSpace(extension))
-                return string.Empty;
+        public const string PFX = ".pfx";
 
-            extension = extension.TrimStart('*');
-            extension = extension.TrimStart('.');
+        public const string CER = ".cer";
 
-            if (!trimLeadingPeriod)
-                extension = "." + extension;
+        public const string DAT = ".dat";
 
-            return extension;
-        }
+        public const string maFile = ".maFile";
 
         public static bool IsSupportedTextReader(string extension) =>
             string.Equals(extension, JSON, StringComparison.OrdinalIgnoreCase) ||

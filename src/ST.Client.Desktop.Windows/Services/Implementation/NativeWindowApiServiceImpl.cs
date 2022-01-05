@@ -8,7 +8,7 @@ using static UnmanagedMethods;
 
 namespace System.Application.Services.Implementation
 {
-    [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows7.0")]
     internal sealed class NativeWindowApiServiceImpl : INativeWindowApiService
     {
         /// <summary>
