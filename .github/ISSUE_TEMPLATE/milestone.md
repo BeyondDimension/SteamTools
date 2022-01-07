@@ -1,5 +1,6 @@
 ---
 name: Milestone
+about: Issue a summary of the fixes recorded for the next release
 title: "vTBD Milestone"
 labels: documentation 
 assignees: rmbadmin, AigioL, Mossimos
