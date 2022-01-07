@@ -1,8 +1,8 @@
 ---
-name: question 🧐
+name: "question \U0001F9D0"
 about: 对程序使用的疑问或需要帮助 / Questions about the use of the program or need help
-title: "🧐[Question] "
-labels: question 
+title: "\U0001F9D0[Question] "
+labels: question
 assignees: ''
 
 ---
