@@ -16,7 +16,7 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
+                var jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
                 if (jumpList1 == null)
                 {
                     jumpList1 = new JumpList
@@ -27,30 +27,35 @@ namespace System.Application.Services.Implementation
                     JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
                 }
 
-                //bool isRecent = false; // 将指定的项路径添加到跳转列表的“最近”类别中。
                 foreach (var (title, applicationPath, iconResourcePath, arguments, description, customCategory) in items)
                 {
-                    var task = new JumpTask
+                    var task = (from s in jumpList1.JumpItems
+                                let v = s is JumpTask t ? t : null
+                                where v != null &&
+                                  v.ApplicationPath == applicationPath &&
+                                  v.Arguments == arguments
+                                select v).FirstOrDefault();
+                    if (task != null)
                     {
-                        // Get the path to Calculator and set the JumpTask properties.
-                        ApplicationPath = applicationPath,
-                        IconResourcePath = iconResourcePath,
-                        Arguments = arguments,
-                        Title = title,
-                        Description = description,
-                        CustomCategory = customCategory,
-                    };
-                    var tk = jumpList1.JumpItems.FirstOrDefault(s
-                             => s is JumpTask t &&
-                                 t.ApplicationPath == task.ApplicationPath &&
-                                 t.Arguments == task.Arguments);
-                    if (tk != null)
-                    {
-                        jumpList1.JumpItems.Remove(tk);
+                        task.Title = title;
+                        task.IconResourcePath = iconResourcePath;
+                        task.Description = description;
+                        task.CustomCategory = customCategory;
                     }
-                    jumpList1.JumpItems.Add(task);
-                    //if (isRecent)
-                    //    JumpList.AddToRecentCategory(task);
+                    else
+                    {
+                        task = new JumpTask
+                        {
+                            // Get the path to Calculator and set the JumpTask properties.
+                            ApplicationPath = applicationPath,
+                            IconResourcePath = iconResourcePath,
+                            Arguments = arguments,
+                            Title = title,
+                            Description = description,
+                            CustomCategory = customCategory,
+                        };
+                        jumpList1.JumpItems.Add(task);
+                    }
                 }
 
                 jumpList1.Apply();
@@ -65,37 +70,46 @@ namespace System.Application.Services.Implementation
         }
     }
 
-    ///// <inheritdoc cref="IJumpListService"/>
-    //[SupportedOSPlatform("Windows10.0.10586.0")]
-    //internal sealed class Windows10JumpListServiceImpl : IJumpListService
-    //{
-    //    public static bool IsSupported
-    //    {
-    //        get
-    //        {
-    //            if (OperatingSystem2.IsWindowsVersionAtLeast(10, 0, 10586))
-    //            {
-    //                return WinUI.JumpList.IsSupported();
-    //            }
-    //            return false;
-    //        }
-    //    }
+    /// <inheritdoc cref="IJumpListService"/>
+    [SupportedOSPlatform("Windows10.0.10586.0")]
+    internal sealed class Windows10JumpListServiceImpl : IJumpListService
+    {
+        public static bool IsSupported
+        {
+            get
+            {
+                if (OperatingSystem2.IsWindowsVersionAtLeast(10, 0, 10586))
+                {
+                    return WinUI.JumpList.IsSupported();
+                }
+                return false;
+            }
+        }
 
-    //    public async Task AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
-    //    {
-    //        var jumpList1 = await WinUI.JumpList.LoadCurrentAsync();
+        public async Task AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
+        {
+            var jumpList1 = await WinUI.JumpList.LoadCurrentAsync();
 
-    //        foreach (var (title, _, iconResourcePath, arguments, description, customCategory) in items)
-    //        {
-    //            var item = WinUI.JumpListItem.CreateWithArguments(arguments, title);
-    //            item.Description = description;
-    //            item.GroupName = customCategory;
-    //            item.Logo = new Uri(iconResourcePath);
+            foreach (var (title, _, _, arguments, description, customCategory) in items)
+            {
+                var isAdd = false;
+                var item = jumpList1.Items.FirstOrDefault(x => x.Kind == WinUI.JumpListItemKind.Arguments && x.Arguments == arguments);
+                if (item == null)
+                {
+                    item = WinUI.JumpListItem.CreateWithArguments(arguments, title);
+                    isAdd = true;
+                }
+                else
+                {
+                    item.DisplayName = title;
+                }
+                item.Description = description;
+                item.GroupName = customCategory;
 
-    //            jumpList1.Items.Add(item);
-    //        }
+                if (isAdd) jumpList1.Items.Add(item);
+            }
 
-    //        await jumpList1.SaveAsync();
-    //    }
-    //}
+            await jumpList1.SaveAsync();
+        }
+    }
 }
