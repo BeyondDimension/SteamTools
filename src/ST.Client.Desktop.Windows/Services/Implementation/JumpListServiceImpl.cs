@@ -88,28 +88,36 @@ namespace System.Application.Services.Implementation
 
         public async Task AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
         {
-            var jumpList1 = await WinUI.JumpList.LoadCurrentAsync();
-
-            foreach (var (title, _, _, arguments, description, customCategory) in items)
+            try
             {
-                var isAdd = false;
-                var item = jumpList1.Items.FirstOrDefault(x => x.Kind == WinUI.JumpListItemKind.Arguments && x.Arguments == arguments);
-                if (item == null)
-                {
-                    item = WinUI.JumpListItem.CreateWithArguments(arguments, title);
-                    isAdd = true;
-                }
-                else
-                {
-                    item.DisplayName = title;
-                }
-                item.Description = description;
-                item.GroupName = customCategory;
+                var jumpList1 = await WinUI.JumpList.LoadCurrentAsync();
 
-                if (isAdd) jumpList1.Items.Add(item);
+                foreach (var (title, _, _, arguments, description, customCategory) in items)
+                {
+                    var isAdd = false;
+                    var item = jumpList1.Items.FirstOrDefault(x => x.Kind == WinUI.JumpListItemKind.Arguments && x.Arguments == arguments);
+                    if (item == null)
+                    {
+                        item = WinUI.JumpListItem.CreateWithArguments(arguments, title);
+                        isAdd = true;
+                    }
+                    else
+                    {
+                        item.DisplayName = title;
+                    }
+                    item.Description = description;
+                    item.GroupName = customCategory;
+
+                    if (isAdd) jumpList1.Items.Add(item);
+                }
+
+                await jumpList1.SaveAsync();
             }
-
-            await jumpList1.SaveAsync();
+            catch (Exception ex)
+            {
+                const string log_msg = $"{nameof(AddJumpItemsAsync)} catch.";
+                Log.Error(TAG, ex, log_msg);
+            }
         }
     }
 }
