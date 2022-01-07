@@ -1,11 +1,11 @@
 using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Runtime.Versioning;
 using Avalonia.Win32.JumpLists;
 using WinUI = Windows.UI.StartScreen;
 using AvaloniaApplication = Avalonia.Application;
 using static System.Application.Services.IJumpListService;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Runtime.Versioning;
 
 namespace System.Application.Services.Implementation
 {
