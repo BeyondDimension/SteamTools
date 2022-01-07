@@ -95,7 +95,7 @@ namespace System.Application.UI.ViewModels
 
             MenuItems = new ObservableCollection<MenuItemViewModel>();
 
-            List<(string title, string accountName)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
+            List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
             foreach (var user in _SteamUsersSourceList.Items)
             {
                 if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
@@ -120,18 +120,22 @@ namespace System.Application.UI.ViewModels
                         }),
                     });
 
-                    if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((title, user.AccountName));
+                    if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((
+                        title: title,
+                        applicationPath: IApplication.ProgramPath,
+                        iconResourcePath: IApplication.ProgramPath,
+                        arguments: $"-clt steam -account {user.AccountName}",
+                        description: AppResources.UserChange_BtnTootlip,
+                        customCategory: Name));
                 }
             }
 
             if (jumplistData.Any_Nullable())
             {
-                MainThread2.BeginInvokeOnMainThread(() =>
+                MainThread2.BeginInvokeOnMainThread(async () =>
                 {
-                    foreach (var (title, accountName) in jumplistData)
-                    {
-                        IJumpListService.Instance.AddJumpTask(title, IApplication.ProgramPath, IApplication.ProgramPath, "-clt steam -account " + accountName, AppResources.UserChange_BtnTootlip, Name);
-                    }
+                    var s = IJumpListService.Instance;
+                    await s.AddJumpItemsAsync(jumplistData);
                 });
             }
 

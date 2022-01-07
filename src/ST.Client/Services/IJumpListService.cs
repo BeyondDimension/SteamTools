@@ -1,3 +1,7 @@
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace System.Application.Services
 {
     /// <summary>
@@ -12,8 +16,14 @@ namespace System.Application.Services
 
         static IJumpListService Instance => DI.Get<IJumpListService>();
 
-        void InitJumpList();
+        Task AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items);
 
-        void AddJumpTask(string title, string applicationPath, string iconResourcePath, string arguments = "", string description = "", string customCategory = "");
+        Task AddJumpItemsAsync(params (string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)[] items) => AddJumpItemsAsync(items.AsEnumerable());
+
+        [Obsolete("", true)]
+        Task AddJumpTaskAsync(string title, string applicationPath, string iconResourcePath, string arguments = "", string description = "", string customCategory = "")
+        {
+            return default;
+        }
     }
 }

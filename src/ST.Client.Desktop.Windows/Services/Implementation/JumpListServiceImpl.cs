@@ -1,129 +1,101 @@
 using System.Linq;
 using Avalonia.Win32.JumpLists;
+using WinUI = Windows.UI.StartScreen;
 using AvaloniaApplication = Avalonia.Application;
 using static System.Application.Services.IJumpListService;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Runtime.Versioning;
 
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="IJumpListService"/>
     internal sealed class JumpListServiceImpl : IJumpListService
     {
-        public void InitJumpList()
+        public Task AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
         {
             try
             {
-                var jumpList1 = new JumpList
+                JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
+                if (jumpList1 == null)
                 {
-                    ShowRecentCategory = true,
-                    ShowFrequentCategory = false,
-                };
-                //jumpList1.JumpItemsRejected += JumpList1_JumpItemsRejected;
-                //jumpList1.JumpItemsRemovedByUser += JumpList1_JumpItemsRemovedByUser;
-                //jumpList1.JumpItems.Add(new JumpTask
-                //{
-                //    Title = "RuaRua",
-                //    Description = "以该账号启动Steam",
-                //    ApplicationPath = AppHelper.ProgramPath,
-                //    Arguments = "-clt steam -account ruarua",
-                //    IconResourcePath = AppHelper.ProgramPath,
-                //});
-                //jumpList1.JumpItems.Add(new JumpTask
-                //{
-                //    Title = "Read Me",
-                //    Description = "Open readme.txt in Notepad.",
-                //    ApplicationPath = @"C:\Windows\notepad.exe",
-                //    IconResourcePath = @"C:\Windows\System32\imageres.dll",
-                //    IconResourceIndex = 14,
-                //    WorkingDirectory = @"C:\Users\Public\Documents",
-                //    Arguments = "readme.txt",
-                //});
-                //JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-                //if (jumpList1 != null)
-                //{
-                //    jumpList1.JumpItems.Clear();
-                //    jumpList1.Apply();
-                //}
-                JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
+                    jumpList1 = new JumpList
+                    {
+                        ShowRecentCategory = true,
+                        ShowFrequentCategory = false,
+                    };
+                    JumpList.SetJumpList(AvaloniaApplication.Current, jumpList1);
+                }
+
+                //bool isRecent = false; // 将指定的项路径添加到跳转列表的“最近”类别中。
+                foreach (var (title, applicationPath, iconResourcePath, arguments, description, customCategory) in items)
+                {
+                    var task = new JumpTask
+                    {
+                        // Get the path to Calculator and set the JumpTask properties.
+                        ApplicationPath = applicationPath,
+                        IconResourcePath = iconResourcePath,
+                        Arguments = arguments,
+                        Title = title,
+                        Description = description,
+                        CustomCategory = customCategory,
+                    };
+                    var tk = jumpList1.JumpItems.FirstOrDefault(s
+                             => s is JumpTask t &&
+                                 t.ApplicationPath == task.ApplicationPath &&
+                                 t.Arguments == task.Arguments);
+                    if (tk != null)
+                    {
+                        jumpList1.JumpItems.Remove(tk);
+                    }
+                    jumpList1.JumpItems.Add(task);
+                    //if (isRecent)
+                    //    JumpList.AddToRecentCategory(task);
+                }
+
+                jumpList1.Apply();
             }
             catch (Exception ex)
             {
-                Log.Error(TAG, ex, "InitJumpList catch.");
+                const string log_msg = $"{nameof(AddJumpItemsAsync)} catch.";
+                Log.Error(TAG, ex, log_msg);
             }
+
+            return Task.CompletedTask;
         }
-
-        public void AddJumpTask(string title, string applicationPath, string iconResourcePath, string arguments = "", string description = "", string customCategory = "")
-        {
-            AddJumpTask(new JumpTask
-            {
-                // Get the path to Calculator and set the JumpTask properties.
-                ApplicationPath = applicationPath,
-                IconResourcePath = iconResourcePath,
-                Arguments = arguments,
-                Title = title,
-                Description = description,
-                CustomCategory = customCategory,
-            });
-        }
-
-        static readonly object lock_add = new();
-
-        public static void AddJumpTask(JumpTask task, bool isRecent = false)
-        {
-            lock (lock_add)
-            {
-                try
-                {
-                    // Get the JumpList from the application and update it.
-                    JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-                    if (jumpList1 != null)
-                    {
-                        var tk = jumpList1.JumpItems.FirstOrDefault(s => s is JumpTask t && t.ApplicationPath == task.ApplicationPath && t.Arguments == task.Arguments);
-                        if (tk != null)
-                        {
-                            jumpList1.JumpItems.Remove(tk);
-                        }
-                        jumpList1.JumpItems.Add(task);
-                        if (isRecent)
-                            JumpList.AddToRecentCategory(task);
-                        jumpList1.Apply();
-                        //MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(TAG, ex, "AddJumpTask catch.");
-                }
-            }
-        }
-
-        //public static void AddRecentJumpTask(JumpTask task)
-        //{
-        //    // Get the JumpList from the application and update it.
-        //    JumpList jumpList1 = JumpList.GetJumpList(AvaloniaApplication.Current);
-        //    if (jumpList1 != null)
-        //    {
-        //        JumpList.AddToRecentCategory(task);
-        //        MainThread2.BeginInvokeOnMainThread(() => jumpList1.Apply());
-        //    }
-        //}
-
-        //static void AddJumpTask()
-        //{
-        //    // Configure a new JumpTask.
-        //    var jumpTask1 = new JumpTask
-        //    {
-        //        // Get the path to Calculator and set the JumpTask properties.
-        //        ApplicationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
-        //        IconResourcePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "calc.exe"),
-        //        Title = "Calculator",
-        //        Description = "Open Calculator.",
-        //        CustomCategory = "User Added Tasks"
-        //    };
-        //    // Get the JumpList from the application and update it.
-        //    JumpList jumpList1 = JumpList.GetJumpList(WpfApplication.Current);
-        //    jumpList1.JumpItems.Add(jumpTask1);
-        //    JumpList.AddToRecentCategory(jumpTask1);
-        //    jumpList1.Apply();
-        //}
     }
+
+    ///// <inheritdoc cref="IJumpListService"/>
+    //[SupportedOSPlatform("Windows10.0.10586.0")]
+    //internal sealed class Windows10JumpListServiceImpl : IJumpListService
+    //{
+    //    public static bool IsSupported
+    //    {
+    //        get
+    //        {
+    //            if (OperatingSystem2.IsWindowsVersionAtLeast(10, 0, 10586))
+    //            {
+    //                return WinUI.JumpList.IsSupported();
+    //            }
+    //            return false;
+    //        }
+    //    }
+
+    //    public async Task AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
+    //    {
+    //        var jumpList1 = await WinUI.JumpList.LoadCurrentAsync();
+
+    //        foreach (var (title, _, iconResourcePath, arguments, description, customCategory) in items)
+    //        {
+    //            var item = WinUI.JumpListItem.CreateWithArguments(arguments, title);
+    //            item.Description = description;
+    //            item.GroupName = customCategory;
+    //            item.Logo = new Uri(iconResourcePath);
+
+    //            jumpList1.Items.Add(item);
+    //        }
+
+    //        await jumpList1.SaveAsync();
+    //    }
+    //}
 }
