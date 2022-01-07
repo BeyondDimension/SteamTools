@@ -476,7 +476,7 @@ namespace System.Application.Services.CloudService
         }
 
         static readonly Uri Referrer = new(string.Format(Constants.Referrer_,
-            DeviceInfo2.OSName.Replace(" ", "")), UriKind.Absolute);
+            DeviceInfo2.OSNameValue.ToString()), UriKind.Absolute);
 
         void HandleHttpRequest(HttpRequestMessage request)
         {

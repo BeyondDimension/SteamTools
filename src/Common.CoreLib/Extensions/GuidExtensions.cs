@@ -1,4 +1,4 @@
-﻿using System.Common;
+using System.Common;
 
 // ReSharper disable once CheckNamespace
 namespace System

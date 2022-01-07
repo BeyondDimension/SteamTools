@@ -42,6 +42,7 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
+#if !DEBUG
                 var isUnderConstruction = e.Current.Id switch
                 {
                     PreferenceButton.BindPhoneNumber or
@@ -53,6 +54,7 @@ namespace System.Application.UI.Fragments
                     MainApplication.ShowUnderConstructionTips();
                     return;
                 }
+#endif
 
 #if __XAMARIN_FORMS__
                 var route = e.Current.Id switch

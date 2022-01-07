@@ -1,4 +1,5 @@
 using System.Application.Columns;
+using System.Application.Entities.Abstractions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,10 +14,9 @@ namespace System.Application.Entities
     /// </summary>
     [Table("Images")]
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-    public class Image<TUserKey, TUser, TUploadImageType> : IImage, INEWSEQUENTIALID
-        where TUser : IUser<TUserKey>
-        where TUserKey : IEquatable<TUserKey>
-        where TUploadImageType : Enum
+    public class Image<TUser, TUploadImageType> : IImage, INEWSEQUENTIALID
+        where TUser : IUser
+        where TUploadImageType : struct, Enum
     {
         string DebuggerDisplay() => $"{Id}, {Type}, {SHA384}";
 
@@ -41,7 +41,7 @@ namespace System.Application.Entities
         /// <summary>
         /// 上传纪录
         /// </summary>
-        public virtual List<ImageUploadRecord<TUserKey, TUser, TUploadImageType>>? Records { get; set; }
+        public virtual List<ImageUploadRecord<TUser, TUploadImageType>>? Records { get; set; }
 
         public string GetFileName() => SHA384 + Type.GetExtension();
 

@@ -67,8 +67,7 @@ namespace System.Application.UI.Controllers
                 switch (e.Current.Id)
                 {
                     case PreferenceButton.检查更新:
-                        MainApplication.ShowUnderConstructionTips();
-                        //ViewModel!.CheckUpdateCommand.Invoke();
+                        ViewModel!.CheckUpdateCommand.Invoke();
                         break;
                     case PreferenceButton.更新日志:
                         await Browser2.OpenAsync(string.Format(

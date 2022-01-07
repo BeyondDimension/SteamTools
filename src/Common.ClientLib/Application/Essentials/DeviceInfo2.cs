@@ -135,7 +135,9 @@ namespace System.Application
             }
         }
 
-        public static string OSName
+        public static string OSName => OSNameValue.ToString2();
+
+        public static OSNames.Value OSNameValue
         {
             get
             {
@@ -143,55 +145,51 @@ namespace System.Application
                 {
                     if (DeviceInfo.Platform == DevicePlatform.UWP)
                     {
-                        return "UWP";
+                        return OSNames.Value.UWP;
                     }
                     else if (DesktopBridge.IsRunningAsUwp)
                     {
-                        return "Windows Desktop Bridge";
+                        return OSNames.Value.WindowsDesktopBridge;
                     }
-                    //else if (OperatingSystem2.IsRunningAsUwp)
-                    //{
-                    //    return "Windows Sparse Package";
-                    //}
                     else
                     {
-                        return "Windows";
+                        return OSNames.Value.Windows;
                     }
                 }
                 else if (OperatingSystem2.IsAndroid)
                 {
                     if (OperatingSystem2.IsRunningOnWSA)
                     {
-                        return "WSA";
+                        return OSNames.Value.WSA;
                     }
                     else
                     {
-                        return "Android";
+                        return OSNames.Value.Android;
                     }
                 }
                 else if (OperatingSystem2.IsIOS)
                 {
                     if (DeviceInfo.Idiom == XEDeviceIdiom.Tablet)
-                        return "iPadOS";
-                    return "iOS";
+                        return OSNames.Value.iPadOS;
+                    return OSNames.Value.iOS;
                 }
                 else if (OperatingSystem2.IsMacOS)
                 {
-                    return "macOS";
+                    return OSNames.Value.macOS;
                 }
                 else if (OperatingSystem2.IsTvOS)
                 {
-                    return "tvOS";
+                    return OSNames.Value.tvOS;
                 }
                 else if (OperatingSystem2.IsWatchOS)
                 {
-                    return "watchOS";
+                    return OSNames.Value.watchOS;
                 }
                 else if (OperatingSystem2.IsLinux)
                 {
-                    return "Linux";
+                    return OSNames.Value.Linux;
                 }
-                return string.Empty;
+                return default;
             }
         }
 
