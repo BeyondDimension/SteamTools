@@ -115,6 +115,14 @@ namespace System.Application.Models
         [S_JsonProperty("11")]
         public bool? IsAuthenticated { get; set; }
 
+        /// <summary>
+        /// 首次启动生成的设备标识符
+        /// </summary>
+        [MPKey(12)]
+        [N_JsonProperty("12")]
+        [S_JsonProperty("12")]
+        public Guid DeviceId { get; set; }
+
         bool IExplicitHasValue.ExplicitHasValue()
         {
             return Type.IsDefined() && Platform.IsDefined() && DeviceIdiom.IsDefined() && !string.IsNullOrWhiteSpace(OSVersion) && ProcessArch.IsDefined();
