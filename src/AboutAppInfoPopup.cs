@@ -245,7 +245,9 @@ namespace System.Application.UI
 #if __ANDROID__
                 b.Append("[screen] ");
                 var metrics = new DisplayMetrics();
+#pragma warning disable CS0618 // 类型或成员已过时
                 activity.WindowManager?.DefaultDisplay?.GetRealMetrics(metrics);
+#pragma warning restore CS0618 // 类型或成员已过时
                 GetScreen(activity, metrics, b);
                 static void GetScreen(Context context, DisplayMetrics metrics, StringBuilder b)
                 {

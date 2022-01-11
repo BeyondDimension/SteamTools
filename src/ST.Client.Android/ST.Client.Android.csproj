@@ -1,7 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>MonoAndroid11.0</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid12.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>Xamarin.Forms.Platform.Android.UnitTests</AssemblyName>
     <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
@@ -147,6 +147,7 @@
     <PackageReference Include="Xamarin.AndroidX.Camera.Lifecycle" />
     <PackageReference Include="Xamarin.Google.Dagger" />
     <PackageReference Include="Xamarin.Google.MLKit.BarcodeScanning" />
+    <!--<PackageReference Include="Xamarin.AndroidX.Window" />-->
   </ItemGroup>
 
   <!--<ItemGroup Condition="'$(Configuration)'=='Debug'">

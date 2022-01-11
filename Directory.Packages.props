@@ -279,6 +279,7 @@
 		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
+		<!--<PackageVersion Include="Xamarin.AndroidX.Window" Version="1.0.0.3-beta02" />-->
 
 		<!-- Xamarin.iOS -->
 		<PackageVersion Include="Toast.iOS" Version="1.2.0" />

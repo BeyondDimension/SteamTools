@@ -18,7 +18,7 @@ namespace System.Application.Services.Native
     /// <para>https://developer.android.google.cn/guide/topics/connectivity/vpn?hl=zh_cn</para>
     /// </summary>
     [Register(JavaPackageConstants.Services + nameof(CommunityFixVpnService))]
-    [Service(Permission = Manifest.Permission.BindVpnService)]
+    [Service(Permission = Manifest.Permission.BindVpnService, Exported = true)]
     [IntentFilter(new[] { "android.net.VpnService" })]
     internal sealed partial class CommunityFixVpnService : VpnService
     {

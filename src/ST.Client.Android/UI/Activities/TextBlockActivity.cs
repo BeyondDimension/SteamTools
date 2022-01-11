@@ -14,8 +14,10 @@ namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(TextBlockActivity))]
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
-      LaunchMode = LaunchMode.SingleTask,
-      ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+        LaunchMode = LaunchMode.SingleTask,
+        ConfigurationChanges = ManifestConstants.ConfigurationChanges,
+        Exported = true // Targeting S+ (version 31 and above) requires that an explicit value for android:exported be defined when intent filters are present
+        )]
     [IntentFilter(new[] { ActionView }, Categories = new[] { CategoryDefault }, DataMimeType = MediaTypeNames.TXT)]
     internal sealed class TextBlockActivity : BaseActivity<activity_textblock>
     {

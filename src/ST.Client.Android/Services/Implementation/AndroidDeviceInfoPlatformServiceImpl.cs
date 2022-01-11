@@ -1,4 +1,5 @@
 using Android.OS;
+using System.IO;
 using Xamarin.Essentials;
 
 namespace System.Application.Services.Implementation
@@ -139,8 +140,7 @@ namespace System.Application.Services.Implementation
                         if (esDir != null)
                         {
                             var path = Path.Combine(esDir.ToString(), "windows", "BstSharedFolder");
-                            var sharedFolder = new Java.IO.File(path);
-                            if (sharedFolder.Exists())
+                            if (File.Exists(path))
                             {
                                 newRating += 10;
                             }
