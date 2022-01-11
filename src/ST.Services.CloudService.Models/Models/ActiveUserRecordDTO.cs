@@ -121,7 +121,19 @@ namespace System.Application.Models
         [MPKey(12)]
         [N_JsonProperty("12")]
         [S_JsonProperty("12")]
-        public Guid DeviceId { get; set; }
+        public Guid DeviceIdG { get; set; }
+
+        /// <inheritdoc cref="DeviceIdG"/>
+        [MPKey(13)]
+        [N_JsonProperty("13")]
+        [S_JsonProperty("13")]
+        public string? DeviceIdR { get; set; }
+
+        /// <inheritdoc cref="DeviceIdG"/>
+        [MPKey(14)]
+        [N_JsonProperty("14")]
+        [S_JsonProperty("14")]
+        public string? DeviceIdN { get; set; }
 
         bool IExplicitHasValue.ExplicitHasValue()
         {

@@ -466,18 +466,6 @@ namespace System.Application
             }
         }
 #endif
-        static Guid GetGuid(string key)
-        {
-            var id = Preferences2.Get(key, null);
-            if (!(!string.IsNullOrWhiteSpace(id) && ShortGuid.TryParse(id, out Guid idG)))
-            {
-                idG = Guid.NewGuid();
-                Preferences2.Set(key, idG.ToStringS());
-            }
-            return idG;
-        }
-
-        static Guid DeviceId => GetGuid("KEY_DEVICE_ID");
 
 #if !CONSOLEAPP
         /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
@@ -493,7 +481,6 @@ namespace System.Application
                 var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
                 var mainDisplayInfoW = mainDisplayInfo.Width.ToInt32(NumberToInt32Format.Ceiling);
 #endif
-                var deviceId = DeviceId;
                 var req = new ActiveUserRecordDTO
                 {
                     Type = type,
@@ -513,13 +500,13 @@ namespace System.Application
                     SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
 #endif
                     IsAuthenticated = UserService.Current.IsAuthenticated,
-                    DeviceId = deviceId,
                 };
                 Guid? lastNotificationRecordId = default;
                 if (type == ActiveUserType.OnStartup)
                 {
                     lastNotificationRecordId = await INotificationService.GetLastNotificationRecordId();
                 }
+                req.SetDeviceId();
                 var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req, lastNotificationRecordId);
                 INotificationService.Notify(rsp, type);
             }
