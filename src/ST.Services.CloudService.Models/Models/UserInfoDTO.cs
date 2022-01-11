@@ -88,7 +88,18 @@ namespace System.Application.Models
         [N_JsonProperty("7")]
         [S_JsonProperty("7")]
         public byte Level { get; set; }
-
+#if MVVM_VM
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public string LevelStr
+        {
+            get
+            {
+                return $"Lv.{Level}";
+            }
+        }
+#endif
         [MPKey(8)]
         [N_JsonProperty("8")]
         [S_JsonProperty("8")]
