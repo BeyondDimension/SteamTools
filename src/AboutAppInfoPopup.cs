@@ -106,6 +106,10 @@ namespace System.Application.UI
 #endif
                 b.AppendLine();
 
+                b.Append("[os.name] ");
+                b.Append(DeviceInfo2.OSNameValue);
+                b.AppendLine();
+
                 b.Append("[app.ver] ");
 #if __ANDROID__
                 GetAppDisplayVersion(activity, b);

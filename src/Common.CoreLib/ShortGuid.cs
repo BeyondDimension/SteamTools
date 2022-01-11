@@ -278,7 +278,7 @@ namespace System
         /// </summary>
         /// <param name="value">The ShortGuid encoded string or string representation of a Guid.</param>
         /// <param name="shortGuid">A new <see cref="ShortGuid"/> instance from the parsed string.</param>
-        public static bool TryParse(string value, out ShortGuid shortGuid)
+        public static bool TryParse(string? value, out ShortGuid shortGuid)
         {
             // Try a ShortGuid string.
             if (TryDecode(value, out var guid))
@@ -327,7 +327,7 @@ namespace System
         /// <param name="value">The ShortGuid encoded string or string representation of a Guid.</param>
         /// <param name="guid">A new <see cref="System.Guid"/> instance from the parsed string.</param>
         /// <returns>A boolean indicating if the parse was successful.</returns>
-        public static bool TryParse(string value, out Guid guid)
+        public static bool TryParse(string? value, out Guid guid)
         {
             // Try a ShortGuid string.
             if (TryDecode(value, out guid))

@@ -26,6 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
 #if __XAMARIN_FORMS__
                 services.AddSingleton<IPlatformPageRouteService, AndroidPageRouteServiceImpl>();
 #endif
+                services.AddSingleton<IDeviceInfoPlatformService, AndroidDeviceInfoPlatformServiceImpl>();
             }
             else
             {
