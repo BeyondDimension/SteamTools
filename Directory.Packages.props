@@ -56,7 +56,7 @@
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Entity Framework Plus -->
 		<!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.5" />
+		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.6" />
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
