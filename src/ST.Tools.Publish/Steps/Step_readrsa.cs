@@ -67,13 +67,13 @@ namespace System.Application.Steps
             IOPath.FileIfExistsItDelete(pfxFilePath);
             File.WriteAllText(pfxFilePath, value.PublicKey);
 
-            var appIdFilePath = Path.Combine(projPath,
-                $"app-id-{env}.pfx");
-            IOPath.FileIfExistsItDelete(appIdFilePath);
-            File.WriteAllBytes(appIdFilePath, value.AppId.ToByteArray());
+            //var appIdFilePath = Path.Combine(projPath,
+            //    $"app-id-{env}.pfx");
+            //IOPath.FileIfExistsItDelete(appIdFilePath);
+            //File.WriteAllBytes(appIdFilePath, value.AppId.ToByteArray());
 
             Console.WriteLine(pfxFilePath);
-            Console.WriteLine(appIdFilePath);
+            //Console.WriteLine(appIdFilePath);
 
             return true;
         }
