@@ -1,4 +1,5 @@
 using System.Net;
+using System.Threading.Tasks;
 
 namespace System.Application.Models
 {
@@ -141,6 +142,12 @@ namespace System.Application.Models
         /// 短信服务故障
         /// </summary>
         SMSServerError = 5001,
+
+        /// <inheritdoc cref="TaskCanceledException"/>
+        TaskCanceled,
+
+        /// <inheritdoc cref="OperationCanceledException"/>
+        OperationCanceled,
 
         #endregion
     }

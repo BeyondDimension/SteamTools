@@ -126,6 +126,9 @@
   <data name="BrowserIsSupported2" xml:space="preserve">
     <value>等其他现代浏览器，以提高您的体验。</value>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>读取 NameIdentifier 失败，值：{0}，渠道：{1}，请联系网站管理员。</value>
+  </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
     <value>点击此处重试</value>
   </data>
