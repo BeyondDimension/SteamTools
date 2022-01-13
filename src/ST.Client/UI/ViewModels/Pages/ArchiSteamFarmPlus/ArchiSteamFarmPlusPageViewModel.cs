@@ -235,7 +235,7 @@ namespace System.Application.UI.ViewModels
             {
                 ActionItem.Repo => "https://github.com/JustArchiNET/ArchiSteamFarm",
                 ActionItem.Wiki => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
-                ActionItem.ConfigGenerator => "https://justarchinet.github.io/ASF-WebConfi.gGenerator/",
+                ActionItem.ConfigGenerator => "https://justarchinet.github.io/ASF-WebConfigGenerator",
                 ActionItem.WebConfig => IPCUrl + "/asf-config",
                 ActionItem.WebAddBot => IPCUrl + "/bot/new",
                 _ => IPCUrl,
