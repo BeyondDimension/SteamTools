@@ -7,6 +7,26 @@
     <Design.PreviewWith />
     <Styles.Resources>
         <!--<FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>-->
+        <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
+            <Panel>
+                <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+                <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+                <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
+                <VisualLayerManager>
+                    <VisualLayerManager.ChromeOverlayLayer>
+                        <TitleBar />
+                    </VisualLayerManager.ChromeOverlayLayer>
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        DockPanel.Dock="Bottom" />
+                </VisualLayerManager>
+            </Panel>
+        </ControlTemplate>
     </Styles.Resources>
 
     <Style Selector="Window">
@@ -15,27 +35,7 @@
         <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Panel>
-                    <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-                    <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
-                    <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
-                    <VisualLayerManager>
-                        <VisualLayerManager.ChromeOverlayLayer>
-                            <TitleBar />
-                        </VisualLayerManager.ChromeOverlayLayer>
-                        <ContentPresenter
-                            Name="PART_ContentPresenter"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}" />
-                    </VisualLayerManager>
-                </Panel>
-            </ControlTemplate>
-        </Setter>
+        <Setter Property="Template" Value="{StaticResource WindowTemplate}" />
     </Style>
 
     <Style Selector=":is(TemplatedControl)">
@@ -68,26 +68,6 @@
     </Style>
 
     <Style Selector="Window:windows">
-        <Setter Property="Template">
-            <ControlTemplate>
-                <Panel>
-                    <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-                    <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
-                    <Panel Margin="{TemplateBinding WindowDecorationMargin}" Background="Transparent" />
-                    <VisualLayerManager>
-                        <VisualLayerManager.ChromeOverlayLayer>
-                            <TitleBar />
-                        </VisualLayerManager.ChromeOverlayLayer>
-                        <ContentPresenter
-                            Name="PART_ContentPresenter"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}" />
-                    </VisualLayerManager>
-                </Panel>
-            </ControlTemplate>
-        </Setter>
+        <Setter Property="Template" Value="{StaticResource WindowTemplate}" />
     </Style>
 </Styles>
