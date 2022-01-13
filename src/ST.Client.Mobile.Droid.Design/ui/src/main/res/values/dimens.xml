@@ -1,6 +1,7 @@
 <resources>
   <!-- Default screen margins, per the Android Design guidelines. -->
   <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_horizontal_margin_subtract_icon">10dp</dimen>
   <dimen name="activity_vertical_margin">16dp</dimen>
   <dimen name="fast_login_or_register_margin">22dp</dimen>
   <dimen name="fast_login_or_register_margin_subtract_compat_padding">17dp</dimen>

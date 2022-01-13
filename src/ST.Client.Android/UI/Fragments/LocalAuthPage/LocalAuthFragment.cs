@@ -118,9 +118,8 @@ namespace System.Application.UI.Fragments
             {
                 AuthDetailActivity.StartActivity(Activity, e.Current.Id);
             };
-            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
-            binding!.rvAuthenticators.SetLayoutManager(layout);
-            binding.rvAuthenticators.AddItemDecoration(VerticalItemDecoration2.Get(Context, Resource.Dimension.activity_vertical_margin/*, Resource.Dimension.fab_full_height*/));
+            binding!.rvAuthenticators.SetLinearLayoutManager();
+            binding.rvAuthenticators.AddVerticalItemDecorationIdRes(Resource.Dimension.activity_vertical_margin/*, Resource.Dimension.fab_full_height*/);
             binding.rvAuthenticators.SetAdapter(adapter);
 
             //var actionItems = Enum2.GetAll<ActionItem>();

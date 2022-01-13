@@ -5,10 +5,17 @@ namespace System.Application.Services.Implementation
 {
     partial class WindowsPlatformServiceImpl
     {
+        /// <inheritdoc cref="IPlatformService.DwmIsCompositionEnabled"/>
+        [DllImport("dwmapi.dll", PreserveSig = false)]
+        static extern bool DwmIsCompositionEnabled();
+
+        bool IPlatformService.DwmIsCompositionEnabled => DwmIsCompositionEnabled();
+
         #region 窗口右上角的三个按钮(最小化，最大化，关闭)
 
         // https://stackoverflow.com/questions/339620/how-do-i-remove-minimize-and-maximize-from-a-resizable-window-in-wpf
         // https://blog.magnusmontin.net/2014/11/30/disabling-or-hiding-the-minimize-maximize-or-close-button-of-a-wpf-window/
+        // https://straub.as/csharp/wpf/systembuttons.html
 
         public const int MF_BYCOMMAND = 0x00000000;
         public const int SC_CLOSE = 0xF060;
@@ -16,13 +23,18 @@ namespace System.Application.Services.Implementation
         public const int SC_MAXIMIZE = 0xF030;
         //public const int CS_DROPSHADOW = 0x20000;
 
-        public void FixAvaloniaFluentWindowStyleOnWin7(IntPtr hWnd)
+        void IPlatformService.SetWindowSystemButtonsIsVisible(IntPtr hWnd, bool isVisible)
         {
-            if (!OperatingSystem2.IsWindows7) return;
+            // https://stackoverflow.com/questions/5114389/how-make-sure-aero-effect-is-enabled
             var value = GetWindowLong(hWnd, GWL_STYLE);
-            value &= ~WS_MAXIMIZEBOX;
-            value &= ~WS_MINIMIZEBOX;
-            //value &= ~CS_DROPSHADOW;
+            if (isVisible)
+            {
+                value |= WS_SYSMENU;
+            }
+            else
+            {
+                value &= ~WS_SYSMENU;
+            }
             _ = SetWindowLong(hWnd, GWL_STYLE, value);
         }
 

@@ -31,8 +31,7 @@ namespace System.Application.UI.Activities
 
             var adapter = new ExplorerAdapter(ViewModel!);
             adapter.ItemClick += (_, e) => ViewModel!.OnItemClick(e.Current);
-            var layout = new LinearLayoutManager2(this, LinearLayoutManager.Vertical, false);
-            binding.rvExplorer.SetLayoutManager(layout);
+            binding.rvExplorer.SetLinearLayoutManager();
             binding.rvExplorer.SetAdapter(adapter);
         }
 

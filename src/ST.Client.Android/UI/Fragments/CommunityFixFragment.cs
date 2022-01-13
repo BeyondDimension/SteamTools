@@ -107,16 +107,14 @@ namespace System.Application.UI.Fragments
                 binding!.tvScriptsEnableContent.Text = s.ToString();
             }
 
-            var ctx = RequireContext();
             var adapter = new AccelerateProjectGroupAdapter();
             adapter.ItemClick += (_, e) =>
             {
                 var value = e.Current.ThreeStateEnable;
                 e.Current.ThreeStateEnable = value == null || !value.Value;
             };
-            var layout = new LinearLayoutManager2(ctx, LinearLayoutManager.Vertical, false);
-            binding!.rvAccelerateProjectGroup.SetLayoutManager(layout);
-            binding.rvAccelerateProjectGroup.AddItemDecoration(VerticalItemDecoration2.Get(ctx, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_height_with_margin_top_bottom));
+            binding!.rvAccelerateProjectGroup.SetLinearLayoutManager();
+            binding.rvAccelerateProjectGroup.AddVerticalItemDecorationIdRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_height_with_margin_top_bottom);
             binding.rvAccelerateProjectGroup.SetAdapter(adapter);
 
             binding.swipeRefreshLayout.InitDefaultStyles();

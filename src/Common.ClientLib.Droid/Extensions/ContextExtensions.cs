@@ -1,4 +1,4 @@
-﻿using Android.Content;
+using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Runtime;
 using AndroidX.Annotations;
@@ -60,5 +60,11 @@ namespace System
         /// <returns></returns>
         public static Drawable GetDrawableCompat(this Context context, [DrawableRes] int id)
             => ContextCompat.GetDrawable(context, id);
+
+        public static int GetDimensionPixelSize(this Context context, [IdRes] int resId)
+        {
+            var value = context.Resources!.GetDimensionPixelSize(resId);
+            return value;
+        }
     }
 }

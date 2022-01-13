@@ -123,8 +123,7 @@ namespace System.Application.UI.Controllers
                         break;
                 }
             };
-            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
-            binding.rvPreferenceButtons.SetLayoutManager(layout);
+            binding.rvPreferenceButtons.SetLinearLayoutManager();
             binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(Context, Resource.Dimension.preference_buttons_space_min));
             binding.rvPreferenceButtons.SetAdapter(adapter);
 
