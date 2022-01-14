@@ -135,11 +135,11 @@ namespace System.Application.UI.Fragments
 
             if (ProxyService.IsChangeSupportProxyServicesStatus)
             {
+                ProxyService.IsChangeSupportProxyServicesStatus = false;
                 SettingsHost.Save();
 #if DEBUG
                 Toast.Show("已保存勾选状态");
 #endif
-                ProxyService.IsChangeSupportProxyServicesStatus = false;
             }
         }
 
