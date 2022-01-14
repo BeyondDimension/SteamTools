@@ -47,9 +47,9 @@
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac')) ">
-    <PackageReference Include="nor0x.AppCenter" />
-    <PackageReference Include="nor0x.AppCenter.Analytics" />
-    <PackageReference Include="nor0x.AppCenter.Crashes" />
+    <PackageReference Include="Microsoft.AppCenter" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" />
   </ItemGroup>
 
  

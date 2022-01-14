@@ -97,15 +97,15 @@
 		<PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196" />
 
 		<!-- AppCenter.* -->
-		<PackageVersion Include="Microsoft.AppCenter" Version="4.4.0" />
-		<PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
-		<PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.4.0.2" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.4.0.2" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.4.0.2" />
-		<PackageVersion Include="nor0x.AppCenter" Version="4.4.0-XMAC" />
+		<PackageVersion Include="Microsoft.AppCenter" Version="4.5.0" />
+		<PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.0" />
+		<PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.5.0" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.5.0" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.5.0" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.5.0" />
+		<!--<PackageVersion Include="nor0x.AppCenter" Version="4.4.0-XMAC" />
 		<PackageVersion Include="nor0x.AppCenter.Analytics" Version="4.4.0-XMAC" />
-		<PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />
+		<PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />-->
 
 		<!-- .NET Platform Extensions 6 -->
 		<PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
