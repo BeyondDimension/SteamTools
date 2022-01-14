@@ -44,7 +44,7 @@ namespace System.Application.UI.Fragments
                 }
             };
             binding.rvFastLoginChannels.SetLinearLayoutManager();
-            binding.rvFastLoginChannels.AddVerticalItemDecorationIdRes(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding);
+            binding.rvFastLoginChannels.AddVerticalItemDecorationRes(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding);
             binding.rvFastLoginChannels.SetAdapter(adapter);
 
             if (Activity is AppCompatActivity activity)

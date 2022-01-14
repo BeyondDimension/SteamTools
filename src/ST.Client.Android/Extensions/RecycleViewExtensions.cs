@@ -41,7 +41,7 @@ namespace System
         /// </summary>
         /// <param name="recycleView"></param>
         /// <param name="heightResId"></param>
-        public static void AddVerticalGroupItemDecorationIdRes(this RecyclerView recycleView, [IdRes] int heightResId)
+        public static void AddVerticalGroupItemDecorationRes(this RecyclerView recycleView, [DimenRes] int heightResId)
         {
             var height = recycleView.Context!.GetDimensionPixelSize(heightResId);
             recycleView.AddVerticalGroupItemDecoration(height);
@@ -63,7 +63,7 @@ namespace System
         /// </summary>
         /// <param name="recycleView"></param>
         /// <param name="heightResId"></param>
-        public static void AddVerticalItemDecorationIdRes(this RecyclerView recycleView, [IdRes] int heightResId)
+        public static void AddVerticalItemDecorationRes(this RecyclerView recycleView, [DimenRes] int heightResId)
         {
             var height = recycleView.Context!.GetDimensionPixelSize(heightResId);
             recycleView.AddVerticalItemDecoration(height);
@@ -89,7 +89,7 @@ namespace System
         /// <param name="heightResId"></param>
         /// <param name="paddingBottomResId"></param>
         /// <param name="noTop"></param>
-        public static void AddVerticalItemDecorationIdRes(this RecyclerView recycleView, [IdRes] int heightResId, [IdRes] int paddingBottomResId = default, bool noTop = false)
+        public static void AddVerticalItemDecorationRes(this RecyclerView recycleView, [DimenRes] int heightResId, [DimenRes] int paddingBottomResId = default, bool noTop = false)
         {
             var itemDecoration = VerticalItemDecoration2.Get(recycleView.Context!, heightResId, paddingBottomResId, noTop);
             recycleView.AddItemDecoration(itemDecoration);
@@ -106,6 +106,18 @@ namespace System
             DividerItemDecoration itemDecoration = new(recycleView.Context!, orientation);
             itemDecoration.Drawable = drawable;
             recycleView.AddItemDecoration(itemDecoration);
+        }
+
+        /// <summary>
+        /// 添加分割线，由 <see cref="DrawableResAttribute"/> 绘制
+        /// </summary>
+        /// <param name="recycleView"></param>
+        /// <param name="drawableResId"></param>
+        /// <param name="orientation"></param>
+        public static void AddDividerItemDecorationRes(this RecyclerView recycleView, [DrawableRes] int drawableResId, int orientation = DividerItemDecoration.Vertical)
+        {
+            var drawable = recycleView.Context!.GetDrawableCompat(drawableResId);
+            recycleView.AddDividerItemDecoration(drawable, orientation);
         }
 
         /// <summary>
@@ -131,13 +143,13 @@ namespace System
         }
 
         /// <summary>
-        /// 添加分割线，由 <see cref="Color"/> 绘制
+        /// 添加分割线，由 <see cref="ColorResAttribute"/> 绘制
         /// </summary>
         /// <param name="recycleView"></param>
         /// <param name="colorResId"></param>
         /// <param name="size"></param>
         /// <param name="orientation"></param>
-        public static void AddDividerItemDecorationIdRes(this RecyclerView recycleView, [IdRes] int colorResId, int size = 1, int orientation = DividerItemDecoration.Vertical)
+        public static void AddDividerItemDecorationRes(this RecyclerView recycleView, [ColorRes] int colorResId, int size = 1, int orientation = DividerItemDecoration.Vertical)
         {
             var colorArgb = recycleView.Context!.GetColorCompat(colorResId);
             recycleView.AddDividerItemDecoration(colorArgb, size, orientation);
@@ -148,10 +160,10 @@ namespace System
         /// </summary>
         /// <param name="recycleView"></param>
         /// <param name="orientation"></param>
-        public static void AddDividerItemDecorationIdRes(this RecyclerView recycleView, int orientation = DividerItemDecoration.Vertical)
+        public static void AddDividerItemDecorationRes(this RecyclerView recycleView, int orientation = DividerItemDecoration.Vertical)
         {
             var colorResId = Resource.Color.bg_divider;
-            recycleView.AddDividerItemDecorationIdRes(colorResId, orientation: orientation);
+            recycleView.AddDividerItemDecorationRes(colorResId, orientation: orientation);
         }
     }
 }

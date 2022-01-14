@@ -273,7 +273,7 @@ namespace System.Application.UI.Activities
                 e.Current.NotChecked = !e.Current.NotChecked;
             };
             binding!.rvConfirmations.SetLinearLayoutManager();
-            binding.rvConfirmations.AddVerticalItemDecorationIdRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.tab_height, noTop: true);
+            binding.rvConfirmations.AddVerticalItemDecorationRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.tab_height, noTop: true);
             binding.rvConfirmations.SetAdapter(adapter);
 
             //var actionItems = Enum2.GetAll<ActionItem>().Where(x => x != ActionItem.Refresh);

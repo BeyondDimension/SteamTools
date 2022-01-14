@@ -11,6 +11,7 @@
   tools:layout_marginBottom="@dimen/activity_vertical_margin">
 
   <LinearLayout
+    android:id="@+id/itemClickView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -27,6 +28,7 @@
       android:id="@+id/rvAccelerateProject"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:nestedScrollingEnabled="false"
       android:overScrollMode="never"
       tools:itemCount="4"
       tools:listitem="@layout/layout_card_accelerate_project"

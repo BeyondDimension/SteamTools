@@ -9,12 +9,20 @@ using static System.Application.UI.Resx.AppResources;
 using System.Application.Services;
 using System.Collections.Generic;
 using DynamicData;
+using System.Linq;
+using System.Collections.ObjectModel;
+using System.Application.Models;
 
 namespace System.Application.UI.Adapters
 {
     internal sealed class AccelerateProjectAdapter : BaseReactiveRecycleViewAdapter<TViewHolder, TViewModel>
     {
-        public AccelerateProjectAdapter(IList<TViewModel> viewModels, ISourceList<TViewModel> sourceList) : base(viewModels, sourceList)
+        public AccelerateProjectAdapter(ObservableCollection<TViewModel> collection) : base(collection)
+        {
+
+        }
+
+        public AccelerateProjectAdapter(AccelerateProjectGroupDTO item) : base(item.ObservableItems!)
         {
 
         }
@@ -37,6 +45,15 @@ namespace System.Application.UI.Adapters
         public override void OnBind()
         {
             base.OnBind();
+
+            binding.tvName.Text = ViewModel!.Name;
+            binding.tvDomainName.Text = ViewModel.DomainNamesArray.FirstOrDefault();
+            ViewModel.WhenAnyValue(x => x.Enable)
+                .Subscribe(value =>
+                {
+                    if (binding.checkbox.Checked != value)
+                        binding.checkbox.Checked = value;
+                }).AddTo(this);
         }
     }
 }

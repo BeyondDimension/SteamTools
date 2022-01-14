@@ -9,6 +9,7 @@ using ReactiveUI;
 using System.Application.Services;
 using System.Application.Settings;
 using System.Application.UI.Adapters;
+using System.Application.UI.Adapters.Internals;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.IO;
@@ -110,11 +111,16 @@ namespace System.Application.UI.Fragments
             var adapter = new AccelerateProjectGroupAdapter();
             adapter.ItemClick += (_, e) =>
             {
-                var value = e.Current.ThreeStateEnable;
-                e.Current.ThreeStateEnable = value == null || !value.Value;
+                //var value = e.Current.ThreeStateEnable;
+                //e.Current.ThreeStateEnable = value == null || !value.Value;
+
+                if (e is IPlatformItemClickEventArgs e2 && e2.ViewHolder is AccelerateProjectGroupViewHolder vh)
+                {
+                    vh.IsOpen = !vh.IsOpen;
+                }
             };
             binding!.rvAccelerateProjectGroup.SetLinearLayoutManager();
-            binding.rvAccelerateProjectGroup.AddVerticalItemDecorationIdRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_height_with_margin_top_bottom);
+            binding.rvAccelerateProjectGroup.AddVerticalItemDecorationRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_height_with_margin_top_bottom);
             binding.rvAccelerateProjectGroup.SetAdapter(adapter);
 
             binding.swipeRefreshLayout.InitDefaultStyles();

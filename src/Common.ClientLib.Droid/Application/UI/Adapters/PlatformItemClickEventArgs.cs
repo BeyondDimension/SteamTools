@@ -1,4 +1,4 @@
-﻿using Android.Views;
+using Android.Views;
 
 namespace System.Application.UI.Adapters
 {
