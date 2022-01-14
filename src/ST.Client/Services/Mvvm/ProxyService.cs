@@ -395,7 +395,7 @@ namespace System.Application.Services
             #endregion
         }
 
-        public static bool IsChangeSupportProxyServicesStatus { get; private set; }
+        public static bool IsChangeSupportProxyServicesStatus { get; set; }
 
         public async Task InitializeScript()
         {

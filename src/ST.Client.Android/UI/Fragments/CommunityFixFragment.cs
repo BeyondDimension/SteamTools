@@ -139,6 +139,7 @@ namespace System.Application.UI.Fragments
 #if DEBUG
                 Toast.Show("已保存勾选状态");
 #endif
+                ProxyService.IsChangeSupportProxyServicesStatus = false;
             }
         }
 
