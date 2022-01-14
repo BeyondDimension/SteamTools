@@ -30,13 +30,15 @@ namespace System.Application
             Unknown = -2,
         }
 
+        const string TAG = nameof(Browser2);
+
         static void HandlerException(Exception e)
         {
             if (OnError == null)
             {
                 try
                 {
-                    Toast.Show(e, nameof(Browser2));
+                    e.LogAndShowT(TAG);
                 }
                 catch
                 {

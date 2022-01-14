@@ -20,6 +20,8 @@ namespace System.Application.Services.Implementation
 {
     public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
     {
+        const string TAG = "ArchiSteamFarmS";
+
         public event Action<string>? OnConsoleWirteLine;
 
         public TaskCompletionSource<string>? ReadLineTask { get; set; }
@@ -80,9 +82,9 @@ namespace System.Application.Services.Implementation
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Toast.Show(ex, nameof(ArchiSteamFarmServiceImpl));
+                e.LogAndShowT(TAG);
                 await Stop().ConfigureAwait(false);
             }
         }

@@ -2033,4 +2033,22 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_IsVpnMode" xml:space="preserve">
     <value>启用 VPN 模式</value>
   </data>
+  <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
+    <value>打开 Hosts 所在文件夹</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
+    <value>重置 Hosts 文件</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
+    <value>重置 Hosts 文件失败，错误：{0}</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
+    <value>重置 Hosts 文件将删除所有数据并还原当前操作系统默认值，建议先编辑 Hosts 文件查看是否有需要的数据先进行备份后再执行此操作，是否确认重置？</value>
+  </data>
+  <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
+    <value>Mark 出现多个 [{0}]，请尝试重置 Hosts 文件或编辑 Hosts 文件并删除多余的 Mark 后再试一次</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
+    <value>重置 Hosts 文件成功</value>
+  </data>
 </root>

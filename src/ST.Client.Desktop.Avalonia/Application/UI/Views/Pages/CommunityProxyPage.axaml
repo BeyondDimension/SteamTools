@@ -131,6 +131,7 @@
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
             <ui:CommandBarSeparator/>
+            
             <ui:CommandBarButton
          Command="{Binding EditHostsFileCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_EditHostsFile,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -138,6 +139,21 @@
                 <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
+            <ui:CommandBarButton
+         Command="{Binding OpenHostsDirCommand}"
+         Label="{ReflectionBinding Path=Res.CommunityFix_OpenHostsDir,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource FolderOpenDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            <ui:CommandBarButton
+         Command="{Binding ResetHostsFileCommand}"
+         Label="{ReflectionBinding Path=Res.CommunityFix_ResetHostsFile,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+          
           </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>
       </Border>

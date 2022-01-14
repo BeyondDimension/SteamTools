@@ -66,6 +66,10 @@ namespace System.Application.Services.CloudService
             {
                 case ExceptionKnownType.Canceled:
                     return (ApiResponseCode.Canceled, null);
+                case ExceptionKnownType.OperationCanceled:
+                    return (ApiResponseCode.OperationCanceled, null);
+                case ExceptionKnownType.TaskCanceled:
+                    return (ApiResponseCode.TaskCanceled, null);
                 case ExceptionKnownType.CertificateNotYetValid:
                     return (ApiResponseCode.CertificateNotYetValid, null);
             }

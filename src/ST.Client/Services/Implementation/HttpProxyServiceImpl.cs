@@ -428,8 +428,7 @@ namespace System.Application.Services.Implementation
 #if DEBUG
             catch (Exception e)
             {
-                Toast.Show("TrustRootCertificate Error" + Environment.NewLine + e.GetAllMessage());
-                Log.Error(TAG, e, "CertificateManager.TrustRootCertificate catch.");
+                e.LogAndShowT(TAG, msg: "TrustRootCertificate Error");
             }
 #else
             catch { }
@@ -442,8 +441,7 @@ namespace System.Application.Services.Implementation
 #if DEBUG
             catch (Exception e)
             {
-                Toast.Show("EnsureRootCertificate Error" + Environment.NewLine + e.GetAllMessage());
-                Log.Error(TAG, e, "CertificateManager.EnsureRootCertificate catch.");
+                e.LogAndShowT(TAG, msg: "EnsureRootCertificate Error");
             }
 #else
             catch { }
@@ -743,7 +741,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                Toast.Show(ex, nameof(HttpProxyServiceImpl), msg: nameof(StopProxy));
+                ex.LogAndShowT(TAG);
             }
         }
 

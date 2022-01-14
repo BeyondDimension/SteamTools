@@ -18,6 +18,7 @@ using System.Runtime.Versioning;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using Windows.ApplicationModel;
+using System.Application.Properties;
 
 namespace System.Application.Services.Implementation
 {
@@ -53,6 +54,8 @@ namespace System.Application.Services.Implementation
         });
 
         public string HostsFilePath => mHostsFilePath.Value;
+
+        public string DefaultHostsContent => SR.hosts;
 
         static string GetFolderPath(Environment.SpecialFolder folder)
         {

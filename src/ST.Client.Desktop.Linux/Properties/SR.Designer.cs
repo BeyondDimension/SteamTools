@@ -61,62 +61,20 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
-        ///   查找类似 # Copyright (c) 1993-2009 Microsoft Corp.
-        ///#
-        ///# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
-        ///#
-        ///# This file contains the mappings of IP addresses to host names. Each
-        ///# entry should be kept on an individual line. The IP address should
-        ///# be placed in the first column followed by the corresponding host name.
-        ///# The IP address and the host name should be separated by at least one
-        ///# space.
-        ///#
-        ///# Additionally, comments (such as these) may be inserted on individual
-        ///# lines or following th [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 127.0.0.1	localhost
+        ///127.0.1.1	${USERNAME}
+        ///
+        ///# The following lines are desirable for IPv6 capable hosts
+        ///::1     ip6-localhost ip6-loopback
+        ///fe00::0 ip6-localnet
+        ///ff00::0 ip6-mcastprefix
+        ///ff02::1 ip6-allnodes
+        ///ff02::2 ip6-allrouters
+        /// 的本地化字符串。
         /// </summary>
         internal static string hosts {
             get {
                 return ResourceManager.GetString("hosts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 @echo off
-        ///color a
-        ///
-        ///goto steam
-        ///
-        ///:steam
-        ///echo 正在检测Steam是否开启......
-        ///tasklist | find /I &quot;Steam.exe&quot;
-        ///if errorlevel 1 goto steamchina
-        ///if not errorlevel 1 goto start
-        ///
-        ///:steamchina
-        ///echo 正在检测国服启动器是否开启......
-        ///tasklist | find /I &quot;steamchina.exe&quot;
-        ///if errorlevel 1 goto stop
-        ///if not errorlevel 1 goto start
-        ///
-        ///:stop
-        ///echo Steam和国服启动器均未开启
-        ///goto start
-        ///
-        ///:killsteam
-        ///echo Steam已开启
-        ///echo 正在强制关闭
-        ///taskkill /F /IM Steam.exe
-        ///echo 已强制关闭
-        ///goto start
-        ///
-        ///:killsteamchina
-        ///echo Steam已开启
-        ///echo 正在强制关闭
-        ///taskkill /F /IM steamchin [字符串的其余部分被截断]&quot;; 的本地化字符串。
-        /// </summary>
-        internal static string VacFixCmd {
-            get {
-                return ResourceManager.GetString("VacFixCmd", resourceCulture);
             }
         }
     }

@@ -137,6 +137,11 @@ namespace System.Application.Services
         string HostsFilePath => string.Format("{0}etc{0}hosts", Path.DirectorySeparatorChar);
 
         /// <summary>
+        /// 默认 hosts 文件内容
+        /// </summary>
+        string DefaultHostsContent => string.Empty;
+
+        /// <summary>
         /// 使用资源管理器打开某个路径
         /// </summary>
         /// <param name="path"></param>

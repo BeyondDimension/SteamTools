@@ -1203,6 +1203,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Mark 出现多个 [{0}]，请尝试重置 Hosts 文件或编辑 Hosts 文件并删除多余的 Mark 后再试一次 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_Hosts_MarkDuplicate_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_Hosts_MarkDuplicate_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用 VPN 模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_IsVpnMode {
@@ -1253,6 +1262,15 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_OpenCertificateDir {
             get {
                 return ResourceManager.GetString("CommunityFix_OpenCertificateDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 Hosts 所在文件夹 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_OpenHostsDir {
+            get {
+                return ResourceManager.GetString("CommunityFix_OpenHostsDir", resourceCulture);
             }
         }
         
@@ -1334,6 +1352,42 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_ReadHosts_IOException {
             get {
                 return ResourceManager.GetString("CommunityFix_ReadHosts_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFile {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件失败，错误：{0} 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileCatchTip_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileCatchTip_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileOk {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件将删除所有数据并还原当前操作系统默认值，建议先编辑 Hosts 文件查看是否有需要的数据先进行备份后再执行此操作，是否确认重置？ 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileTip", resourceCulture);
             }
         }
         

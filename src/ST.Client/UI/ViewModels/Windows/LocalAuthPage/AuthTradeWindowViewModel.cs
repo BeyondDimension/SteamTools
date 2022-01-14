@@ -22,6 +22,8 @@ namespace System.Application.UI.ViewModels
 {
     public partial class AuthTradeWindowViewModel : MyAuthenticatorWindowViewModel
     {
+        const string TAG = "AuthTradeWindowVM";
+
         public AuthTradeWindowViewModel() : base()
         {
         }
@@ -547,12 +549,12 @@ namespace System.Application.UI.ViewModels
             }
             catch (WinAuthInvalidTradesResponseException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(AcceptTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
             catch (ApplicationException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(AcceptTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
         }
@@ -586,12 +588,12 @@ namespace System.Application.UI.ViewModels
             }
             catch (WinAuthInvalidTradesResponseException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(RejectTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
             catch (ApplicationException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(RejectTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
         }
