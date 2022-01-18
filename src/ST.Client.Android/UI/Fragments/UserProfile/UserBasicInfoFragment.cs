@@ -31,10 +31,16 @@ namespace System.Application.UI.Fragments
             binding!.layoutNickName.SetMaxLength(ModelValidatorLengths.NickName);
             binding.tbNickName.SetMaxLength(ModelValidatorLengths.NickName);
 
+            ViewModel!.Close = () => RequireActivity().Finish();
+
             // Gender 双向绑定
-            ViewModel!.WhenAnyValue(x => x.Gender).SubscribeInMainThread(value =>
+            UIGender = ViewModel.Gender;
+            ViewModel.WhenAnyValue(x => x.Gender).SubscribeInMainThread(value =>
             {
-                Gender = value;
+                if (gender != value)
+                {
+                    UIGender = value;
+                }
             }).AddTo(this);
             binding.rgGender.CheckedChange += RgGender_CheckedChange;
 
@@ -127,29 +133,33 @@ namespace System.Application.UI.Fragments
                 binding.btnSubmit);
         }
 
+        Gender gender;
         /// <summary>
         /// 设置或获取当前 UI 上的性别 Radio
         /// </summary>
-        public Gender Gender
+        Gender UIGender
         {
             get
             {
-                if (binding != null)
-                {
-                    var id = binding.rgGender.CheckedRadioButtonId;
-                    if (id == Resource.Id.rbGender1)
-                    {
-                        return Gender.Male;
-                    }
-                    else if (id == Resource.Id.rbGender2)
-                    {
-                        return Gender.Female;
-                    }
-                }
-                return Gender.Unknown;
+                return gender;
+                //if (binding != null)
+                //{
+                //    var id = binding.rgGender.CheckedRadioButtonId;
+                //    if (id == Resource.Id.rbGender1)
+                //    {
+                //        return Gender.Male;
+                //    }
+                //    else if (id == Resource.Id.rbGender2)
+                //    {
+                //        return Gender.Female;
+                //    }
+                //}
+                //return Gender.Unknown;
             }
             set
             {
+                if (gender == value) return;
+                gender = value;
                 if (binding != null)
                 {
                     var id = value switch
@@ -158,34 +168,50 @@ namespace System.Application.UI.Fragments
                         Gender.Female => Resource.Id.rbGender2,
                         _ => Resource.Id.rbGender0,
                     };
-                    if (id != binding.rgGender.CheckedRadioButtonId)
+                    var c_id = binding.rgGender.CheckedRadioButtonId;
+                    if (id != c_id)
                     {
                         binding.rgGender.Check(id);
                     }
+                    SetGenderImageResource(value);
                 }
             }
+        }
+
+        void SetGenderImageResource(Gender value)
+        {
+            binding!.ivIconGender.SetImageResource(value switch
+            {
+                Gender.Male => Resource.Drawable.baseline_male_black_24,
+                Gender.Female => Resource.Drawable.baseline_female_black_24,
+                _ => Resource.Drawable.baseline_visibility_off_black_24,
+            });
         }
 
         private void RgGender_CheckedChange(object sender, RadioGroup.CheckedChangeEventArgs e)
         {
             if (e == null || binding == null || ViewModel == null) return;
+            Gender value;
             if (e.CheckedId == Resource.Id.rbGender0)
             {
-                binding.ivIconGender.SetImageResource(Resource.Drawable.
-                    baseline_visibility_off_black_24);
-                ViewModel.Gender = Gender.Unknown;
+                value = Gender.Unknown;
             }
             else if (e.CheckedId == Resource.Id.rbGender1)
             {
-                binding.ivIconGender.SetImageResource(Resource.Drawable.
-                    baseline_male_black_24);
-                ViewModel.Gender = Gender.Male;
+                value = Gender.Male;
             }
             else if (e.CheckedId == Resource.Id.rbGender2)
             {
-                binding.ivIconGender.SetImageResource(Resource.Drawable.
-                    baseline_female_black_24);
-                ViewModel.Gender = Gender.Female;
+                value = Gender.Female;
+            }
+            else
+            {
+                return;
+            }
+            if (ViewModel.Gender != value)
+            {
+                ViewModel.Gender = value;
+                SetGenderImageResource(value);
             }
         }
 

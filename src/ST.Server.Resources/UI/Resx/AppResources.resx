@@ -180,6 +180,9 @@
   <data name="meta_description" xml:space="preserve">
     <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
   </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>新用户{0}</value>
+  </data>
   <data name="noscript" xml:space="preserve">
     <value>需要开启 JavaScript 才能浏览本站点。</value>
   </data>

@@ -13,7 +13,7 @@ namespace System.Application.UI.Activities
 {
     [Authorize]
     [Register(JavaPackageConstants.Activities + nameof(UserProfileActivity))]
-    [Activity(Theme = ManifestConstants.MainTheme2,
+    [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
          LaunchMode = LaunchMode.SingleTask,
          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
     internal sealed class UserProfileActivity : BaseActivity<activity_toolbar_tablayout_viewpager2, UserProfileWindowViewModel>, ViewPagerWithTabLayoutAdapter.IHost
@@ -23,6 +23,13 @@ namespace System.Application.UI.Activities
         protected override void OnCreate2(Bundle? savedInstanceState)
         {
             base.OnCreate2(savedInstanceState);
+
+            this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
+
+            R.Subscribe(() =>
+            {
+                Title = ViewModel!.Title;
+            }).AddTo(this);
 
             var adapter = new ViewPagerWithTabLayoutAdapter(this, this);
             binding!.pager.SetupWithTabLayout(binding!.tab_layout, adapter);
@@ -43,5 +50,19 @@ namespace System.Application.UI.Activities
             1 => AppResources.User_AccountBind,
             _ => throw new ArgumentOutOfRangeException(nameof(position), position.ToString()),
         };
+
+        public override void OnBackPressed()
+        {
+            var vm = ViewModel;
+            if (vm != null)
+            {
+                if (vm.OnClose())
+                {
+                    return;
+                }
+            }
+
+            base.OnBackPressed();
+        }
     }
 }

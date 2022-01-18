@@ -250,6 +250,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 新用户{0} 的本地化字符串。
+        /// </summary>
+        public static string NewUserNickName_ {
+            get {
+                return ResourceManager.GetString("NewUserNickName_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 需要开启 JavaScript 才能浏览本站点。 的本地化字符串。
         /// </summary>
         public static string noscript {
