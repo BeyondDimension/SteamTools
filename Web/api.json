@@ -9,14 +9,7 @@
       }
     ],
     "windows": [
-      {
-        "name": "安装版 x64.exe",
-        "url": "https://pan.bilnn.cn/api/v3/file/sourcejump/E5pxXWH9/Gr7kjKRL0ukgGZ2PCkKqxOYE202-ac75TdpIk4R0x2I*"
-      },
-      {
-        "name": "免安装版 x64.7z",
-        "url": "https://pan.bilnn.cn/api/v3/file/sourcejump/J8pxNdTz/8J8pOPbUawQ7W9bDxQNSExw3_5NPEw3zouFdY9pub-s*"
-      },
+     
       {
         "name": "(gitee)免安装版 x64.7z",
         "url": "https://gitee.com/rmbgame/SteamTools/attach_files/934911/download/Steam%20%20_win_x64_v2.6.4.7z"
@@ -24,11 +17,7 @@
       {
         "name": "(gitee)安装版 x64",
         "url": "https://gitee.com/rmbgame/SteamTools/attach_files/934909/download/Steam%20%20_win_x64_v2.6.4.exe"
-      },
-      {
-        "name": "比邻云盘",
-        "url": "https://pan.bilnn.cn/s/vOD6sm"
-      },
+      }, 
       {
         "name": "蓝奏云网盘",
         "url": "https://cliencer.lanzoux.com/b0165duja",
@@ -42,7 +31,7 @@
       },
       {
         "name": "Nas 分流(较慢)",
-        "url": "https://pan.mossimo.net:5212/s/w4h9"
+        "url": "https://pan.mossimo.net:5212/s/4yiQ"
       }
     ],
     "mac": [
@@ -51,13 +40,10 @@
         "url": "https://cliencer.lanzoux.com/b016odhfc",
         "code": "1234"
       },
-      {
-        "name": "比邻云盘",
-        "url": "https://pan.bilnn.cn/s/vOD6sm"
-      },
+    
       {
         "name": "Nas 分流(较慢)",
-        "url": "https://pan.mossimo.net:5212/s/w4h9"
+        "url": "https://pan.mossimo.net:5212/s/4yiQ"
       }
     ],
     "android": [
@@ -74,13 +60,10 @@
         "url": "https://cliencer.lanzoui.com/b016odhbi",
         "code": "1234"
       },
-      {
-        "name": "比邻云盘",
-        "url": "https://pan.bilnn.cn/s/vOD6sm"
-      },
+      
       {
         "name": "Nas 分流(较慢)",
-        "url": "https://pan.mossimo.net:5212/s/w4h9"
+        "url": "https://pan.mossimo.net:5212/s/4yiQ"
       }
     ]
   } 
