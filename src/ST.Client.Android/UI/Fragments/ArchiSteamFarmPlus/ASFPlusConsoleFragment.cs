@@ -29,6 +29,7 @@ namespace System.Application.UI.Fragments
             {
                 if (binding == null) return;
                 binding.tvConsole.Text = value;
+                binding.scrollView.ScrollToEnd();
             }).AddTo(this);
 
             SetConsoleFontSize(ASFSettings.ConsoleFontSize.Value);
