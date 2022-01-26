@@ -111,7 +111,7 @@
 		<PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
 
 		<!-- Xamarin -->
-		<PackageVersion Include="Xamarin.Essentials" Version="1.7.0" />
+		<PackageVersion Include="Xamarin.Essentials" Version="1.7.1" />
 		<!-- Xamarin.Forms -->
 		<PackageVersion Include="Xamarin.Forms" Version="5.0.0.2244" />
 		<PackageVersion Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2244" />
