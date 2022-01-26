@@ -1,4 +1,4 @@
-﻿namespace System.Application.Services
+namespace System.Application.Services
 {
     /// <summary>
     /// 通知重要性级别

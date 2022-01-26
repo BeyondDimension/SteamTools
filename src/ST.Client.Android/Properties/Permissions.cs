@@ -26,3 +26,7 @@ using static Android.Manifest.Permission;
 [assembly: UsesPermission(Flashlight)] // android.permission.FLASHLIGHT
 [assembly: UsesPermission(Camera)] // android.permission.CAMERA
 #endregion
+
+// 前台服务
+// https://developer.android.google.cn/about/versions/pie/android-9.0-changes-28?hl=zh_cn
+[assembly: UsesPermission(ForegroundService)] // android.permission.FOREGROUND_SERVICE

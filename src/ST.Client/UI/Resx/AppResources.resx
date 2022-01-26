@@ -2051,4 +2051,22 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
     <value>重置 Hosts 文件成功</value>
   </data>
+  <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
+    <value>当开启前台服务时的通知。</value>
+  </data>
+  <data name="NotificationChannelType_Description_Message" xml:space="preserve">
+    <value>当有提示消息时的通知。</value>
+  </data>
+  <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
+    <value>前台服务通知</value>
+  </data>
+  <data name="NotificationChannelType_Name_Message" xml:space="preserve">
+    <value>消息通知</value>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>停止服务</value>
+  </data>
+  <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
+    <value>本地加速代理服务正在运行。</value>
+  </data>
 </root>

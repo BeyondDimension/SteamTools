@@ -7,6 +7,7 @@ using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.Services.Native;
 using System.Application.Settings;
 using System.Application.UI.Adapters;
 using System.Application.UI.Adapters.Internals;
@@ -152,11 +153,14 @@ namespace System.Application.UI.Fragments
             }), "已知问题");
         }
 
+        void StartProxyButton_Click(bool start)
+            => ProxyForegroundService.Call(RequireActivity(), start);
+
         protected override bool OnClick(View view)
         {
             if (view.Id == Resource.Id.btnStartProxyService)
             {
-                ViewModel!.StartProxyButton_Click(true);
+                StartProxyButton_Click(true);
                 const string KEY = "CommunityFixFragment_IsShowTip";
                 var isShowTip = Preferences2.Get(KEY, false);
                 if (!isShowTip)
@@ -168,7 +172,7 @@ namespace System.Application.UI.Fragments
             }
             else if (view.Id == Resource.Id.btnStopProxyService)
             {
-                ViewModel!.StartProxyButton_Click(false);
+                StartProxyButton_Click(false);
                 return true;
             }
             return base.OnClick(view);

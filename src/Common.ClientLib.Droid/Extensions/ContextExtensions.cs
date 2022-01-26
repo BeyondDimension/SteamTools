@@ -1,5 +1,7 @@
+using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
+using Android.OS;
 using Android.Runtime;
 using AndroidX.Annotations;
 using AndroidX.Core.Content;
@@ -8,7 +10,7 @@ using AndroidApplication = Android.App.Application;
 // ReSharper disable once CheckNamespace
 namespace System
 {
-    public static class ContextExtensions
+    public static partial class ContextExtensions
     {
         /// <inheritdoc cref="ContextCompat.GetSystemService(Context, Java.Lang.Class)"/>
         public static TService GetSystemService<TService>(this Context context) where TService : class, IJavaObject

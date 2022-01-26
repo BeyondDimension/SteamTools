@@ -3663,6 +3663,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 当开启前台服务时的通知。 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Description_ForegroundService {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Description_ForegroundService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当有提示消息时的通知。 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Description_Message {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Description_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当有新版本可用时的提示通知与下载新版本时的进度通知。 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_NewVersion {
@@ -3677,6 +3695,24 @@ namespace System.Application.UI.Resx {
         public static string NotificationChannelType_Name_Announcement {
             get {
                 return ResourceManager.GetString("NotificationChannelType_Name_Announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 前台服务通知 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Name_ForegroundService {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Name_ForegroundService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 消息通知 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Name_Message {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Name_Message", resourceCulture);
             }
         }
         
@@ -3749,6 +3785,15 @@ namespace System.Application.UI.Resx {
         public static string ProgramUpdateEcho {
             get {
                 return ResourceManager.GetString("ProgramUpdateEcho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 本地加速代理服务正在运行。 的本地化字符串。
+        /// </summary>
+        public static string ProxyForegroundService_NotificationText {
+            get {
+                return ResourceManager.GetString("ProxyForegroundService_NotificationText", resourceCulture);
             }
         }
         
@@ -5066,6 +5111,15 @@ namespace System.Application.UI.Resx {
         public static string SteamInstallPathNotFound {
             get {
                 return ResourceManager.GetString("SteamInstallPathNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止服务 的本地化字符串。
+        /// </summary>
+        public static string StopService {
+            get {
+                return ResourceManager.GetString("StopService", resourceCulture);
             }
         }
         
