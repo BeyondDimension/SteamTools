@@ -17,7 +17,11 @@
       {
         "name": "(gitee)安装版 x64",
         "url": "https://gitee.com/rmbgame/SteamTools/attach_files/934909/download/Steam%20%20_win_x64_v2.6.4.exe"
-      }, 
+      },
+      {
+        "name": "阿里云盘",
+        "url": "https://www.aliyundrive.com/s/KDCFrongF7F"
+      },
       {
         "name": "蓝奏云网盘",
         "url": "https://cliencer.lanzoux.com/b0165duja",
@@ -40,13 +44,21 @@
         "url": "https://cliencer.lanzoux.com/b016odhfc",
         "code": "1234"
       },
-    
+
+      {
+        "name": "阿里云盘",
+        "url": "https://www.aliyundrive.com/s/KDCFrongF7F"
+      },
       {
         "name": "Nas 分流(较慢)",
         "url": "https://pan.mossimo.net:5212/s/4yiQ"
       }
     ],
     "android": [
+      {
+        "name": "阿里云盘",
+        "url": "https://www.aliyundrive.com/s/KDCFrongF7F"
+      },
       {
         "name": "蓝奏云网盘",
         "url": "https://cliencer.lanzoux.com/b016odheb",
@@ -56,11 +68,15 @@
     "ios": [],
     "linux": [
       {
+        "name": "阿里云盘",
+        "url": "https://www.aliyundrive.com/s/KDCFrongF7F"
+      },
+      {
         "name": "蓝奏云网盘",
         "url": "https://cliencer.lanzoui.com/b016odhbi",
         "code": "1234"
       },
-      
+
       {
         "name": "Nas 分流(较慢)",
         "url": "https://pan.mossimo.net:5212/s/4yiQ"
