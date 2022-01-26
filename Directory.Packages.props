@@ -56,11 +56,11 @@
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Entity Framework Plus -->
 		<!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.6" />
+		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.7" />
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
-		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.2" />
+		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.3" />
 		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.3" />
 	</ItemGroup>
 	<ItemGroup>
@@ -111,7 +111,7 @@
 		<PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
 
 		<!-- Xamarin -->
-		<PackageVersion Include="Xamarin.Essentials" Version="1.7.0" />
+		<PackageVersion Include="Xamarin.Essentials" Version="1.7.1" />
 		<!-- Xamarin.Forms -->
 		<PackageVersion Include="Xamarin.Forms" Version="5.0.0.2244" />
 		<PackageVersion Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2244" />
@@ -119,7 +119,7 @@
 
 		<!-- NUnit & NUnit.Xamarin & Moq -->
 		<PackageVersion Include="NUnit" Version="3.13.2" />
-		<PackageVersion Include="NUnit3TestAdapter" Version="4.2.0" />
+		<PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
 		<PackageVersion Include="nunit.xamarin" Version="3.6.1" />
 		<PackageVersion Include="PCLStorage" Version="1.0.2" />
 		<PackageVersion Include="Moq" Version="4.16.1" />
@@ -178,7 +178,7 @@
 		<PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
 
 		<!-- Win32/Windows -->
-		<PackageVersion Include="TaskScheduler" Version="2.9.3" />
+		<PackageVersion Include="TaskScheduler" Version="2.10.0" />
 
 		<!-- Swagger -->
 		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
@@ -201,17 +201,17 @@
 
 		<!-- .NET Compat -->
 		<PackageVersion Include="OperatingSystem2" Version="1.4.2.1" />
-		<PackageVersion Include="JustArchiNET.Madness" Version="3.1.1" />
+		<PackageVersion Include="JustArchiNET.Madness" Version="3.2.1" />
 
 		<!-- Serialize -->
 		<PackageVersion Include="MessagePack" Version="2.3.85" />
 		<PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
 
 		<!-- Html Parser -->
-		<PackageVersion Include="HtmlAgilityPack" Version="1.11.39" />
+		<PackageVersion Include="HtmlAgilityPack" Version="1.11.40" />
 
 		<!-- Clipboard -->
-		<PackageVersion Include="TextCopy" Version="5.0.0" />
+		<PackageVersion Include="TextCopy" Version="6.0.0" />
 
 		<!-- Nito.* -->
 		<PackageVersion Include="Nito.Comparers" Version="6.2.2" />
@@ -230,7 +230,7 @@
 		<PackageVersion Include="Portable.BouncyCastle" Version="1.9.0" />
 
 		<!-- Resilience & Transient Fault Handling -->
-		<PackageVersion Include="Polly" Version="7.2.2" />
+		<PackageVersion Include="Polly" Version="7.2.3" />
 
 		<!--Avalonia Start-->
 		<PackageVersion Include="Avalonia" Version="0.10.11" />
