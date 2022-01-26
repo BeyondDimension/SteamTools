@@ -239,7 +239,7 @@
 		<PackageVersion Include="Avalonia.Diagnostics" Version="0.10.11" />
 		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.11" />
 		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.11" />-->
-		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.11" />
+		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.12" />
 		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.11.5" />
 		<!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.4" />-->
 		<!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
