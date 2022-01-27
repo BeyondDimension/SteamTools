@@ -1,7 +1,7 @@
 # 下载指南
 - Desktop(桌面端)
 	- Windows
-		- 如果你使用 Intel、AMD 的 x64 芯片的 Mac（较为**普遍**），则下载文件名中带有 **win_x64** 的文件
+		- 如果你使用 Intel、AMD 的 x64 芯片的 PC（较为**普遍**），则下载文件名中带有 **win_x64** 的文件
 		- 如果你已安装了 [ASP.NET Core Runtime 6.0.1](https://dotnet.microsoft.com/download/dotnet/6.0) 则下载文件名中带有 **fde** 的文件，可减少磁盘占用空间
 			- [在 Windows 上安装 .NET](https://docs.microsoft.com/en-us/dotnet/core/install/windows)
 				- 在 Windows 上不需要 Hosting Bundle 和 IIS support
