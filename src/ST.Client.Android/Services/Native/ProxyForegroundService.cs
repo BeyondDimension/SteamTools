@@ -21,7 +21,7 @@ namespace System.Application.Services.Native
 {
     static partial class ProxyForegroundService
     {
-        public static async void Call(Activity activity, bool startOrStop)
+        public static async void StartOrStop(Activity activity, bool startOrStop)
         {
             if (ProxySettings.IsVpnMode.Value)
             {
@@ -32,18 +32,18 @@ namespace System.Application.Services.Native
                     if (intent != null)
                     {
                         void OnResult(Intent intent)
-                            => activity.CallForegroundService<VpnService>(true);
+                            => activity.StartOrStopForegroundService<VpnService>(true);
                         await IntermediateActivity.StartAsync(intent,
                             requestCodeVpnService, onResult: OnResult);
                         return;
                     }
                 }
                 // 不需要授权则直接启动
-                activity.CallForegroundService<VpnService>(startOrStop);
+                activity.StartOrStopForegroundService<VpnService>(startOrStop);
             }
             else
             {
-                activity.CallForegroundService<Service>(startOrStop);
+                activity.StartOrStopForegroundService<Service>(startOrStop);
             }
         }
 

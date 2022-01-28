@@ -154,7 +154,7 @@ namespace System.Application.UI.Fragments
         }
 
         void StartProxyButton_Click(bool start)
-            => ProxyForegroundService.Call(RequireActivity(), start);
+            => ProxyForegroundService.StartOrStop(RequireActivity(), start);
 
         protected override bool OnClick(View view)
         {

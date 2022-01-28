@@ -2069,4 +2069,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
     <value>本地加速代理服务正在运行。</value>
   </data>
+  <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
+    <value>ASF 服务正在运行。</value>
+  </data>
 </root>

@@ -63,7 +63,8 @@ namespace System
         public static Drawable GetDrawableCompat(this Context context, [DrawableRes] int id)
             => ContextCompat.GetDrawable(context, id);
 
-        public static int GetDimensionPixelSize(this Context context, [IdRes] int resId)
+        /// <inheritdoc cref="Android.Content.Res.Resources.GetDimensionPixelSize(int)"/>
+        public static int GetDimensionPixelSize(this Context context, [DimenRes] int resId)
         {
             var value = context.Resources!.GetDimensionPixelSize(resId);
             return value;

@@ -49,7 +49,7 @@ namespace System.Application.UI.Adapters
             binding.tvName.Text = ViewModel!.Name;
             binding.tvDomainName.Text = ViewModel.DomainNamesArray.FirstOrDefault();
             ViewModel.WhenAnyValue(x => x.Enable)
-                .Subscribe(value =>
+                .SubscribeInMainThread(value =>
                 {
                     if (binding.checkbox.Checked != value)
                         binding.checkbox.Checked = value;

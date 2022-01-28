@@ -36,7 +36,7 @@ namespace System.Application.Services
         /// 启动ASF
         /// </summary>
         /// <param name="args"></param>
-        Task Start(string[]? args = null);
+        Task<bool> Start(string[]? args = null);
 
         Task Stop();
 

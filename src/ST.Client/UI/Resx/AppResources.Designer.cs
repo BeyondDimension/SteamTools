@@ -480,6 +480,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 ASF 服务正在运行。 的本地化字符串。
+        /// </summary>
+        public static string ArchiSteamFarmForegroundService_NotificationText {
+            get {
+                return ResourceManager.GetString("ArchiSteamFarmForegroundService_NotificationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自动挂卡 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmPlus {

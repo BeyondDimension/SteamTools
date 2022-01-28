@@ -342,6 +342,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_add_circle_outline_24.xml">
       <Link>Resources\drawable\ic_baseline_add_circle_outline_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_delete_24.xml">
+      <Link>Resources\drawable\ic_baseline_delete_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_double_arrow_24.xml">
       <Link>Resources\drawable\ic_baseline_double_arrow_24.xml</Link>
     </AndroidResource>
@@ -350,6 +353,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_keyboard_arrow_up_24.xml">
       <Link>Resources\drawable\ic_baseline_keyboard_arrow_up_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_note_add_24.xml">
+      <Link>Resources\drawable\ic_baseline_note_add_24.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_open_in_new_24.xml">
       <Link>Resources\drawable\ic_baseline_open_in_new_24.xml</Link>
@@ -621,6 +627,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\community_fix_toolbar_menu.xml">
       <Link>Resources\menu\community_fix_toolbar_menu.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\explorer_toolbar_menu.xml">
+      <Link>Resources\menu\explorer_toolbar_menu.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\local_auth_toolbar_menu.xml">
       <Link>Resources\menu\local_auth_toolbar_menu.xml</Link>
     </AndroidResource>
@@ -722,6 +731,7 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
 
 
 

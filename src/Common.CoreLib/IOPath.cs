@@ -448,5 +448,8 @@ namespace System
             var t1 = Math.Round(t, 2);
             return Convert.ToInt32(t1 * 100);
         }
+
+        public const char UnixDirectorySeparatorChar = '/';
+        public const char WinDirectorySeparatorChar = '\\';
     }
 }

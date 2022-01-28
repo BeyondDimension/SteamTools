@@ -38,12 +38,12 @@ namespace System.Application.Services.Implementation
         public Version CurrentVersion => SharedInfo.Version;
 
         private bool isFirstStart = true;
-        public async Task Start(string[]? args = null)
+        public async Task<bool> Start(string[]? args = null)
         {
-            var isMainThread = MainThread2.IsMainThread;
             try
             {
                 StartTime = DateTimeOffset.Now;
+
                 if (isFirstStart)
                 {
                     IArchiSteamFarmService.InitCoreLoggers?.Invoke();
@@ -79,13 +79,16 @@ namespace System.Application.Services.Implementation
                     if (!await Program.InitASF().ConfigureAwait(false))
                     {
                         await Stop().ConfigureAwait(false);
+                        return false;
                     }
                 }
+                return true;
             }
             catch (Exception e)
             {
-                e.LogAndShowT(TAG);
+                e.LogAndShowT(TAG, msg: "ASF Start Fail.");
                 await Stop().ConfigureAwait(false);
+                return false;
             }
         }
 
