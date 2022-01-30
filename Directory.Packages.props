@@ -224,7 +224,7 @@
 		<PackageVersion Include="Fleck" Version="1.2.0" />
 
 		<!-- DNS -->
-		<PackageVersion Include="DnsClient" Version="1.5.0" />
+		<PackageVersion Include="DnsClient" Version="1.6.0" />
 
 		<!-- Cryptographic Algorithms & Protocols -->
 		<PackageVersion Include="Portable.BouncyCastle" Version="1.9.0" />
