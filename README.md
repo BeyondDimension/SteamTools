@@ -13,7 +13,7 @@
 [![GitHub Fork](https://img.shields.io/github/forks/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/network/members)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/BeyondDimension/SteamTools?style=flat-square&color=3cb371)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/search?l=c%23)
-[![NET 6.0](https://github.com/dotnet/core/blob/main/release-notes/6.0/6.0.1/6.0.1.md)
+[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://docs.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-6)
 [![C# 10.0](https://img.shields.io/badge/c%23-10.0-brightgreen.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-10)
 
 [![Desktop UI](https://img.shields.io/badge/ui@desktop-AvaloniaUI-purple.svg?style=flat-square&color=8c45ab)](https://github.com/AvaloniaUI/Avalonia)

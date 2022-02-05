@@ -2,6 +2,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Binding;
+using Google.Android.Material.DatePicker;
 using ReactiveUI;
 using System.Application.Entities;
 using System.Application.Services;
@@ -124,8 +125,24 @@ namespace System.Application.UI.Fragments
                 var text = binding.tbArea4.Text;
                 ViewModel!.AreaSelectItem4 = GetArea(text, ViewModel.AreaItems4);
             };
+            ViewModel!.WhenAnyValue(x => x.AreaNotVisible3).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                binding.layoutArea3.Visibility = value ? ViewStates.Invisible : ViewStates.Visible;
+            }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.AreaNotVisible4).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                binding.layoutArea4.Visibility = value ? ViewStates.Invisible : ViewStates.Visible;
+            }).AddTo(this);
 
             #endregion
+
+            ViewModel!.WhenAnyValue(x => x.BirthDate).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                binding.tbBirthDate.Text = value.HasValue ? value.Value.ToString(DateTimeFormat.Date) : string.Empty;
+            }).AddTo(this);
 
             SetOnClickListener(
                 binding.btnModifyPhoneNumber,
@@ -250,5 +267,7 @@ namespace System.Application.UI.Fragments
             if (ViewModel == null) return;
             ViewModel.BirthDate = selection;
         }
+
+        void IMaterialPickerOnPositiveButtonClickListener.OnPositiveButtonClick(Java.Lang.Object p0) => this.OnPositiveButtonClick(p0);
     }
 }

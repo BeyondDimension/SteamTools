@@ -350,7 +350,7 @@
 
   </com.google.android.material.textfield.TextInputLayout>
 
-  <Space
+  <View
     android:id="@+id/clickBirthDate"
     android:layout_width="0dp"
     android:layout_height="0dp"

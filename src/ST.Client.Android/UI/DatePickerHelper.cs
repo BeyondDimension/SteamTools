@@ -52,9 +52,9 @@ namespace System.Application.UI
                 builder.SetEnd(max.GetCurrentMonth().ToUnixTimeMilliseconds());
 
                 // 可选择的日期范围
-                builder.SetValidator(CompositeDateValidator.AllOf(new[] {
+                builder.SetValidator(CompositeDateValidator.AllOf(new CalendarConstraints.IDateValidator[] {
                     DateValidatorPointForward.From(min.ToUnixTimeMilliseconds()),
-                    DateValidatorPointForward.From(max.ToUnixTimeMilliseconds()),
+                    DateValidatorPointBackward.Before(max.ToUnixTimeMilliseconds()),
                 }));
                 dataPicker.SetCalendarConstraints(builder.Build());
             }
@@ -103,10 +103,17 @@ namespace System.Application.UI
         /// </summary>
         public interface IOnPositiveButtonClickListener : IMaterialPickerOnPositiveButtonClickListener
         {
-            void IMaterialPickerOnPositiveButtonClickListener.OnPositiveButtonClick(JObject selection) => OnPositiveButtonClick(GetDateTimeOffset(selection));
-
             /// <inheritdoc cref="IOnPositiveButtonClickListener"/>
             void OnPositiveButtonClick(DateTimeOffset selection);
         }
+
+        public static void OnPositiveButtonClick(this IOnPositiveButtonClickListener listener, JObject selection) => listener.OnPositiveButtonClick(GetDateTimeOffset(selection));
+        //public interface IOnPositiveButtonClickListener : IMaterialPickerOnPositiveButtonClickListener
+        //{
+        //    void IMaterialPickerOnPositiveButtonClickListener.OnPositiveButtonClick(JObject selection) => OnPositiveButtonClick(GetDateTimeOffset(selection));
+
+        //    /// <inheritdoc cref="IOnPositiveButtonClickListener"/>
+        //    void OnPositiveButtonClick(DateTimeOffset selection);
+        //}
     }
 }
