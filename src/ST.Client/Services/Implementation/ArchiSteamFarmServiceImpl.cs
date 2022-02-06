@@ -146,7 +146,8 @@ namespace System.Application.Services.Implementation
 
             ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? GlobalConfig.DefaultSteamOwnerID;
 
-            string? response = await targetBot.Commands.Response(steamOwnerID, command!);
+            var access = targetBot.GetAccess(steamOwnerID);
+            string? response = await targetBot.Commands.Response(access, command, steamOwnerID);
 
             if (!string.IsNullOrEmpty(response))
                 ASF.ArchiLogger.LogGenericInfo(response);
