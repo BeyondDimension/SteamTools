@@ -28,12 +28,12 @@ namespace System.Application.UI.ViewModels
 
             UpdateChannels = Enum2.GetAll<UpdateChannelType>();
 
-            SelectFont = R.Fonts.FirstOrDefault(x => x.Value == UISettings.FontName.Value);
-            this.WhenValueChanged(x => x.SelectFont, false)
-                  .Subscribe(x => UISettings.FontName.Value = x.Value);
-
             if (IApplication.IsDesktopPlatform)
             {
+                SelectFont = R.Fonts.FirstOrDefault(x => x.Value == UISettings.FontName.Value);
+                this.WhenValueChanged(x => x.SelectFont, false)
+                      .Subscribe(x => UISettings.FontName.Value = x.Value);
+
                 SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
                 {
                     FilePickerFileType fileTypes = new ValueTuple<string, string[]>[] {
