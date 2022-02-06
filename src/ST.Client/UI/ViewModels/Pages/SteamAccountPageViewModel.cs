@@ -214,6 +214,10 @@ namespace System.Application.UI.ViewModels
         private void ReStartSteamByUser(SteamUser user)
         {
             steamService.SetCurrentUser(user.AccountName ?? string.Empty);
+            var item= SteamUsers.FirstOrDefault(x => x.MostRecent);
+            steamService.UpdateLocalUserData(item);
+            user.MostRecent = true;
+            steamService.UpdateLocalUserData(user);
             steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
@@ -255,6 +259,11 @@ namespace System.Application.UI.ViewModels
                 if (s.Result == MessageBox.Result.OK)
                 {
                     steamService.SetCurrentUser("");
+                    foreach (var item in SteamUsers.Where(x => x.MostRecent))
+                    {
+                        item.MostRecent = false;
+                        steamService.UpdateLocalUserData(item);
+                    } 
                     steamService.TryKillSteamProcess();
                     steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
                 }
