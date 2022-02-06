@@ -42,19 +42,19 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
-                //#if !DEBUG
-                //                var isUnderConstruction = e.Current.Id switch
-                //                {
-                //                    PreferenceButton.BindPhoneNumber or
-                //                    PreferenceButton.ChangePhoneNumber or PreferenceButton.UserProfile => true,
-                //                    _ => false,
-                //                };
-                //                if (isUnderConstruction)
-                //                {
-                //                    MainApplication.ShowUnderConstructionTips();
-                //                    return;
-                //                }
-                //#endif
+#if !DEBUG
+                var isUnderConstruction = e.Current.Id switch
+                {
+                    PreferenceButton.BindPhoneNumber or
+                    PreferenceButton.ChangePhoneNumber or PreferenceButton.UserProfile => true,
+                    _ => false,
+                };
+                if (isUnderConstruction)
+                {
+                    MainApplication.ShowUnderConstructionTips();
+                    return;
+                }
+#endif
 
 #if __XAMARIN_FORMS__
                 var route = e.Current.Id switch
@@ -93,6 +93,9 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
+#if !DEBUG
+                MainApplication.ShowUnderConstructionTips();
+#else
                 if (UserService.Current.IsAuthenticated)
                 {
                     this.StartActivity<UserProfileActivity>();
@@ -101,6 +104,7 @@ namespace System.Application.UI.Fragments
                 {
                     this.StartActivity<LoginOrRegisterActivity>();
                 }
+#endif
                 return true;
             }
             //else if (view.Id == Resource.Id.???)

@@ -140,20 +140,31 @@ namespace System.Application.UI.Fragments
 
         protected override bool OnClick(View view)
         {
-            for (int i = 0; i < btnAccountBinds!.Length; i++)
+            if (btnAccountBinds != null)
             {
-                var item = btnAccountBinds[i];
-                if (item.Id == view.Id)
+                for (int i = 0; i < btnAccountBinds!.Length; i++)
                 {
-                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
-                    if (cha.IsSupported())
+                    var item = btnAccountBinds[i];
+                    if (item.Id == view.Id)
                     {
-                        ViewModel!.OnBindOrUnbundleFastLoginClick(cha);
-                        return true;
+                        var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                        if (cha.IsSupported())
+                        {
+                            ViewModel!.OnBindOrUnbundleFastLoginClick(cha);
+                            return true;
+                        }
                     }
                 }
             }
             return base.OnClick(view);
+        }
+
+        public override void OnDestroyView()
+        {
+            btnAccountBinds = null;
+            tbAccountBinds = null;
+            ivIconAccountBinds = null;
+            base.OnDestroyView();
         }
     }
 }
