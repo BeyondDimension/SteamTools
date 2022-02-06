@@ -222,6 +222,7 @@ namespace System.Application.UI.ViewModels
             steamService.SetCurrentUser(user.AccountName ?? string.Empty);
             user.MostRecent = true;
             steamService.UpdateLocalUserData(user);
+            user.OriginVdfString = user.CurrentVdfString;
             steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
             RefreshRememberUserList();
@@ -234,6 +235,7 @@ namespace System.Application.UI.ViewModels
             {
                 item.MostRecent = false;
                 steamService.UpdateLocalUserData(item);
+                item.OriginVdfString = item.CurrentVdfString;
             }
         }
         private void UserModeChange(SteamUser user, bool OfflineMode)

@@ -30,7 +30,7 @@ namespace System.Application
         {
             var text = File.ReadAllText(filePath, Encoding.UTF8);
             text = text.RemovePattern().Replace(
-                oldVaule.RemovePattern().Replace(" ", string.Empty), newValue.RemovePattern().Replace(" ", string.Empty));
+                oldVaule.RemovePattern().Replace(" ", string.Empty), newValue);
             File.WriteAllText(filePath, text, Encoding.UTF8);
         }
 
