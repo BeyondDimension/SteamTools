@@ -205,4 +205,8 @@
     <value>Неподдерживаемый сегмент номера мобильного телефона ({0})</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
+    <value>Открытие веб-ссылки завершается неудачей {0} 0x, установите системный браузер по умолчанию и повторите попытку</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

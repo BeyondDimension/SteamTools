@@ -233,4 +233,16 @@
     <value>連接程式出錯，請手動複製以下內容到程式點擊手動登錄。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>讀取 NameIdentifier 失敗，值：{0}，管道：{1}，請聯繫網站管理員。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>新使用者{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>目前 Steam 登錄的請求過多請刷新頁面重試或稍後再試。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

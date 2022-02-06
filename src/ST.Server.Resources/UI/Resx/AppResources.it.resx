@@ -233,4 +233,16 @@
     <value>Si è è verificato un errore con il programma di connessione, copiare manualmente quanto segue nel programma fare clic manualmente per accedere.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>Impossibile leggere NameIdentifier, Valore: {0}, Canale: {1}, contattare l&apos;amministratore del sito.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>Nuovo {0} utente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>Ci sono troppe richieste di accesso a Steam al momento, aggiorna la pagina e riprova o riprova più tardi.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

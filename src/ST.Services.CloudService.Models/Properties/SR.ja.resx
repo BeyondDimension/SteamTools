@@ -149,4 +149,8 @@
     <value>サービス側エラー {0} - {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
+    <value>現在のシステム時刻が正しくないか、サービス側の SSL 証明書が無効になっています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

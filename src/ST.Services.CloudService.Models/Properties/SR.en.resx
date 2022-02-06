@@ -149,4 +149,8 @@
     <value>Service-side error {0} - {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
+    <value>The current system time is incorrect or the server-side SSL certificate is invalid</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>
