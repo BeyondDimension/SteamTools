@@ -79,7 +79,9 @@ namespace System.Application.UI.ViewModels
         public ReadOnlyObservableCollection<SteamUser>? SteamUsers => _SteamUsers;
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
-
+        public void RefreshRememberUserList() {
+            _SteamUsersSourceList.AddOrUpdate(_SteamUsers!);
+        }
         public override async void Initialize()
         {
             var list = steamService.GetRememberUserList();
@@ -90,12 +92,14 @@ namespace System.Application.UI.ViewModels
             }
             _SteamUsersSourceList.AddOrUpdate(list);
 
+            RefreshRememberUserList();
+
             #region 加载备注信息
             IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
 
             MenuItems = new ObservableCollection<MenuItemViewModel>();
 
-            List<(string title, string accountName)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
+            List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
             foreach (var user in _SteamUsersSourceList.Items)
             {
                 if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
@@ -120,18 +124,22 @@ namespace System.Application.UI.ViewModels
                         }),
                     });
 
-                    if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((title, user.AccountName));
+                    if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((
+                        title: title,
+                        applicationPath: IApplication.ProgramPath,
+                        iconResourcePath: IApplication.ProgramPath,
+                        arguments: $"-clt steam -account {user.AccountName}",
+                        description: AppResources.UserChange_BtnTootlip,
+                        customCategory: Name));
                 }
             }
 
             if (jumplistData.Any_Nullable())
             {
-                MainThread2.BeginInvokeOnMainThread(() =>
+                MainThread2.BeginInvokeOnMainThread(async () =>
                 {
-                    foreach (var (title, accountName) in jumplistData)
-                    {
-                        IJumpListService.Instance.AddJumpTask(title, IApplication.ProgramPath, IApplication.ProgramPath, "-clt steam -account " + accountName, AppResources.UserChange_BtnTootlip, Name);
-                    }
+                    var s = IJumpListService.Instance;
+                    await s.AddJumpItemsAsync(jumplistData);
                 });
             }
 
@@ -209,16 +217,35 @@ namespace System.Application.UI.ViewModels
 
         private void ReStartSteamByUser(SteamUser user)
         {
+            DisableMostRecentSteamUser();
+
             steamService.SetCurrentUser(user.AccountName ?? string.Empty);
+            user.MostRecent = true;
+            steamService.UpdateLocalUserData(user);
             steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
+            RefreshRememberUserList();
         }
-
+        /// <summary>
+        /// All MostRecent true => false
+        /// </summary>
+        private void DisableMostRecentSteamUser() {
+            foreach (var item in SteamUsers.Where(x => x.MostRecent))
+            {
+                item.MostRecent = false;
+                steamService.UpdateLocalUserData(item);
+            }
+        }
         private void UserModeChange(SteamUser user, bool OfflineMode)
         {
+
+            DisableMostRecentSteamUser();
+
             user.WantsOfflineMode = OfflineMode;
+            user.MostRecent = true;
             steamService.UpdateLocalUserData(user);
             user.OriginVdfString = user.CurrentVdfString;
+            RefreshRememberUserList();
         }
 
         public async void DeleteUserButton_Click(SteamUser user)
@@ -250,9 +277,12 @@ namespace System.Application.UI.ViewModels
             {
                 if (s.Result == MessageBox.Result.OK)
                 {
+                    DisableMostRecentSteamUser();
+
                     steamService.SetCurrentUser("");
                     steamService.TryKillSteamProcess();
                     steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
+                    RefreshRememberUserList();
                 }
             });
         }

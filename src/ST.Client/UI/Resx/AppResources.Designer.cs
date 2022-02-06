@@ -480,6 +480,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 ASF 服务正在运行。 的本地化字符串。
+        /// </summary>
+        public static string ArchiSteamFarmForegroundService_NotificationText {
+            get {
+                return ResourceManager.GetString("ArchiSteamFarmForegroundService_NotificationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自动挂卡 的本地化字符串。
         /// </summary>
         public static string ArchiSteamFarmPlus {
@@ -1203,6 +1212,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 Mark 出现多个 [{0}]，请尝试重置 Hosts 文件或编辑 Hosts 文件并删除多余的 Mark 后再试一次 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_Hosts_MarkDuplicate_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_Hosts_MarkDuplicate_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用 VPN 模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_IsVpnMode {
@@ -1253,6 +1271,15 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_OpenCertificateDir {
             get {
                 return ResourceManager.GetString("CommunityFix_OpenCertificateDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 Hosts 所在文件夹 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_OpenHostsDir {
+            get {
+                return ResourceManager.GetString("CommunityFix_OpenHostsDir", resourceCulture);
             }
         }
         
@@ -1334,6 +1361,42 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_ReadHosts_IOException {
             get {
                 return ResourceManager.GetString("CommunityFix_ReadHosts_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFile {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件失败，错误：{0} 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileCatchTip_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileCatchTip_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileOk {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件将删除所有数据并还原当前操作系统默认值，建议先编辑 Hosts 文件查看是否有需要的数据先进行备份后再执行此操作，是否确认重置？ 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileTip", resourceCulture);
             }
         }
         
@@ -3609,6 +3672,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 当开启前台服务时的通知。 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Description_ForegroundService {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Description_ForegroundService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当有提示消息时的通知。 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Description_Message {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Description_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当有新版本可用时的提示通知与下载新版本时的进度通知。 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_NewVersion {
@@ -3623,6 +3704,24 @@ namespace System.Application.UI.Resx {
         public static string NotificationChannelType_Name_Announcement {
             get {
                 return ResourceManager.GetString("NotificationChannelType_Name_Announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 前台服务通知 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Name_ForegroundService {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Name_ForegroundService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 消息通知 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Name_Message {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Name_Message", resourceCulture);
             }
         }
         
@@ -3695,6 +3794,15 @@ namespace System.Application.UI.Resx {
         public static string ProgramUpdateEcho {
             get {
                 return ResourceManager.GetString("ProgramUpdateEcho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 本地加速代理服务正在运行。 的本地化字符串。
+        /// </summary>
+        public static string ProxyForegroundService_NotificationText {
+            get {
+                return ResourceManager.GetString("ProxyForegroundService_NotificationText", resourceCulture);
             }
         }
         
@@ -5012,6 +5120,15 @@ namespace System.Application.UI.Resx {
         public static string SteamInstallPathNotFound {
             get {
                 return ResourceManager.GetString("SteamInstallPathNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止服务 的本地化字符串。
+        /// </summary>
+        public static string StopService {
+            get {
+                return ResourceManager.GetString("StopService", resourceCulture);
             }
         }
         

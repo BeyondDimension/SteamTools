@@ -2612,4 +2612,100 @@ AAAAA-BBBBB-CCCC3</value>
     <value>ASF 서비스를 중지하는 동안 나중에...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
+    <value>가속 서비스 시작에 실패하여 {0} 포트가 사용 중입니다. {0} 포트를 사용하는 프로그램을 끄거나 시스템 프록시 모드를 사용해 보십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
+    <value>가속 서비스가 시작되지 {0} 포트가 {1}({2})에 의해 사용됩니다. {0} 포트를 사용하는 프로그램을 끄거나 시스템 프록시 모드를 사용해 보십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
+    <value>다른 프로세스에 의해 점유되고 호환되지 않는 다른 네트워크 가속기일 수 있기 때문에 파일을 읽거나 복원하지 못했습니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>시스템 설정</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_CertificateExport" xml:space="preserve">
+    <value>인증서 파일을 내보냅니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
+    <value>보안 설정을 켭니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExportedToPath_" xml:space="preserve">
+    <value>경로로 내보내기: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
+    <value>인증서를 내보내지 못했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
+    <value>시스템 설정 - 보안 - 암호화 및 자격 증명 - 자격 증명 저장소 - 사용자 자격 증명에서 {0} 항목을 클릭한 다음 팝업 창에서 제거를 클릭해야 합니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
+    <value>보안 설정에서 인증서를 제거합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
+    <value>VPN 모드를 사용하도록 설정합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
+    <value>Hosts가 있는 폴더를 엽니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
+    <value>Hosts 파일을 재설정합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
+    <value>Hosts 파일을 재설정하지 못했습니다. 오류: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
+    <value>Hosts 파일을 재설정하면 모든 데이터가 삭제되고 현재 운영 체제 기본값이 복원됩니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
+    <value>Mark에 여러 [{0}]가 나타나면 Hosts 파일을 재설정하거나 Hosts 파일을 편집하고 추가 Mark를 삭제한 다음 다시 시도하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
+    <value>Hosts 파일을 재설정했습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
+    <value>프런트 데스크 서비스가 켜져 있을 때의 알림입니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_Message" xml:space="preserve">
+    <value>메시지가 표시될 때 알림입니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
+    <value>프런트 데스크에서 안내해드립니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Message" xml:space="preserve">
+    <value>메시지 알림입니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>서비스를 중지합니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
+    <value>로컬 가속 프록시 서비스가 실행 중입니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
+    <value>ASF 서비스가 실행 중입니다.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

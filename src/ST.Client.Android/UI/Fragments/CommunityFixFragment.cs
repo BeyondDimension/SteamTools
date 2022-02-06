@@ -7,8 +7,10 @@ using AndroidX.SwipeRefreshLayout.Widget;
 using Binding;
 using ReactiveUI;
 using System.Application.Services;
+using System.Application.Services.Native;
 using System.Application.Settings;
 using System.Application.UI.Adapters;
+using System.Application.UI.Adapters.Internals;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.IO;
@@ -79,7 +81,7 @@ namespace System.Application.UI.Fragments
                     var menu_settings_proxy = menuBuilder.FindItem(Resource.Id.menu_settings_proxy);
                     if (menu_settings_proxy != null)
                     {
-                        menu_settings_proxy.SetEnabled(!value);
+                        menu_settings_proxy.SetVisible(!value);
                     }
                 }
             }).AddTo(this);
@@ -107,16 +109,19 @@ namespace System.Application.UI.Fragments
                 binding!.tvScriptsEnableContent.Text = s.ToString();
             }
 
-            var ctx = RequireContext();
             var adapter = new AccelerateProjectGroupAdapter();
             adapter.ItemClick += (_, e) =>
             {
-                var value = e.Current.ThreeStateEnable;
-                e.Current.ThreeStateEnable = value == null || !value.Value;
+                //var value = e.Current.ThreeStateEnable;
+                //e.Current.ThreeStateEnable = value == null || !value.Value;
+
+                if (e is IPlatformItemClickEventArgs e2 && e2.ViewHolder is AccelerateProjectGroupViewHolder vh)
+                {
+                    vh.IsOpen = !vh.IsOpen;
+                }
             };
-            var layout = new LinearLayoutManager2(ctx, LinearLayoutManager.Vertical, false);
-            binding!.rvAccelerateProjectGroup.SetLayoutManager(layout);
-            binding.rvAccelerateProjectGroup.AddItemDecoration(VerticalItemDecoration2.Get(ctx, Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_height_with_margin_top_bottom));
+            binding!.rvAccelerateProjectGroup.SetLinearLayoutManager();
+            binding.rvAccelerateProjectGroup.AddVerticalItemDecorationRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.fab_height_with_margin_top_bottom);
             binding.rvAccelerateProjectGroup.SetAdapter(adapter);
 
             binding.swipeRefreshLayout.InitDefaultStyles();
@@ -131,6 +136,7 @@ namespace System.Application.UI.Fragments
 
             if (ProxyService.IsChangeSupportProxyServicesStatus)
             {
+                ProxyService.IsChangeSupportProxyServicesStatus = false;
                 SettingsHost.Save();
 #if DEBUG
                 Toast.Show("已保存勾选状态");
@@ -138,16 +144,35 @@ namespace System.Application.UI.Fragments
             }
         }
 
+        public static void ShowTipKnownIssues()
+        {
+            MessageBox.Show(string.Join(Environment.NewLine, new[] {
+                "VPN 模式不能正常工作",
+                "需要在 Wifi 或 流量 上手动设置代理地址，关闭时手动清除设置",
+                "Android 7+ 不信任用户证书",
+            }), "已知问题");
+        }
+
+        void StartProxyButton_Click(bool start)
+            => ProxyForegroundService.StartOrStop(RequireActivity(), start);
+
         protected override bool OnClick(View view)
         {
             if (view.Id == Resource.Id.btnStartProxyService)
             {
-                ViewModel!.StartProxyButton_Click(true);
+                StartProxyButton_Click(true);
+                const string KEY = "CommunityFixFragment_IsShowTip";
+                var isShowTip = Preferences2.Get(KEY, false);
+                if (!isShowTip)
+                {
+                    ShowTipKnownIssues();
+                    Preferences2.Set(KEY, true);
+                }
                 return true;
             }
             else if (view.Id == Resource.Id.btnStopProxyService)
             {
-                ViewModel!.StartProxyButton_Click(false);
+                StartProxyButton_Click(false);
                 return true;
             }
             return base.OnClick(view);

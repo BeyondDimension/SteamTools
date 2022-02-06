@@ -85,13 +85,7 @@ namespace System.Application.UI.Fragments
                 var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
                 if (cha.IsSupported()) // 绑定文本框值
                 {
-                    var expression = GetIsBindOrUnbundleExpression(cha);
-                    UserService.Current.WhenAnyValue(expression).SubscribeInMainThread(value =>
-                    {
-                        if (binding == null) return;
-                        var item = tbAccountBinds[i];
-                        item.Text = value?.ToString() ?? string.Empty;
-                    }).AddTo(this);
+                    SubscribeIsBindOrUnbundle(i, cha);
                 }
                 else
                 {
@@ -131,22 +125,46 @@ namespace System.Application.UI.Fragments
             SetOnClickListener(btnAccountBinds);
         }
 
+        void SubscribeIsBindOrUnbundle(int i, FastLoginChannel cha)
+        {
+            if (tbAccountBinds == null) return;
+            var expression = GetIsBindOrUnbundleExpression(cha);
+            UserService.Current.WhenAnyValue(expression)
+                .SubscribeInMainThread(value =>
+                {
+                    if (binding == null) return;
+                    var item = tbAccountBinds[i];
+                    item.Text = value?.ToString() ?? string.Empty;
+                }).AddTo(this);
+        }
+
         protected override bool OnClick(View view)
         {
-            for (int i = 0; i < btnAccountBinds!.Length; i++)
+            if (btnAccountBinds != null)
             {
-                var item = btnAccountBinds[i];
-                if (item.Id == view.Id)
+                for (int i = 0; i < btnAccountBinds!.Length; i++)
                 {
-                    var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
-                    if (cha.IsSupported())
+                    var item = btnAccountBinds[i];
+                    if (item.Id == view.Id)
                     {
-                        ViewModel!.OnBindOrUnbundleFastLoginClick(cha);
-                        return true;
+                        var cha = ThirdPartyLoginHelper.FastLoginChannels[i];
+                        if (cha.IsSupported())
+                        {
+                            ViewModel!.OnBindOrUnbundleFastLoginClick(cha);
+                            return true;
+                        }
                     }
                 }
             }
             return base.OnClick(view);
+        }
+
+        public override void OnDestroyView()
+        {
+            btnAccountBinds = null;
+            tbAccountBinds = null;
+            ivIconAccountBinds = null;
+            base.OnDestroyView();
         }
     }
 }

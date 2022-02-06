@@ -1,7 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFrameworks>MonoAndroid11.0</TargetFrameworks>
+    <TargetFrameworks>MonoAndroid12.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>Xamarin.Forms.Platform.Android.UnitTests</AssemblyName>
     <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
@@ -147,6 +147,7 @@
     <PackageReference Include="Xamarin.AndroidX.Camera.Lifecycle" />
     <PackageReference Include="Xamarin.Google.Dagger" />
     <PackageReference Include="Xamarin.Google.MLKit.BarcodeScanning" />
+    <!--<PackageReference Include="Xamarin.AndroidX.Window" />-->
   </ItemGroup>
 
   <!--<ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -188,6 +189,9 @@
 
   <!--ST.Tools.AndroidResourceLink-->
   <ItemGroup>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\animator\animation_keyboard_arrow_rotation.xml">
+      <Link>Resources\animator\animation_keyboard_arrow_rotation.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\baseline_account_box_black_24.xml">
       <Link>Resources\drawable\baseline_account_box_black_24.xml</Link>
     </AndroidResource>
@@ -305,6 +309,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\bg_checkbox_indeterminate.xml">
       <Link>Resources\drawable\bg_checkbox_indeterminate.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\bg_divider_with_padding.xml">
+      <Link>Resources\drawable\bg_divider_with_padding.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\bg_textbox.xml">
       <Link>Resources\drawable\bg_textbox.xml</Link>
     </AndroidResource>
@@ -326,11 +333,29 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\icon_xbox_24.xml">
       <Link>Resources\drawable\icon_xbox_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_animated_keyboard_arrow_down_24.xml">
+      <Link>Resources\drawable\ic_animated_keyboard_arrow_down_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_animated_keyboard_arrow_up_24.xml">
+      <Link>Resources\drawable\ic_animated_keyboard_arrow_up_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_add_circle_outline_24.xml">
       <Link>Resources\drawable\ic_baseline_add_circle_outline_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_delete_24.xml">
+      <Link>Resources\drawable\ic_baseline_delete_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_double_arrow_24.xml">
       <Link>Resources\drawable\ic_baseline_double_arrow_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_keyboard_arrow_down_24.xml">
+      <Link>Resources\drawable\ic_baseline_keyboard_arrow_down_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_keyboard_arrow_up_24.xml">
+      <Link>Resources\drawable\ic_baseline_keyboard_arrow_up_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_note_add_24.xml">
+      <Link>Resources\drawable\ic_baseline_note_add_24.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_open_in_new_24.xml">
       <Link>Resources\drawable\ic_baseline_open_in_new_24.xml</Link>
@@ -536,6 +561,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_settings.xml">
       <Link>Resources\layout\fragment_settings.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project.xml">
+      <Link>Resources\layout\layout_card_accelerate_project.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_accelerate_project_group.xml">
       <Link>Resources\layout\layout_card_accelerate_project_group.xml</Link>
     </AndroidBoundLayout>
@@ -598,6 +626,9 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\community_fix_toolbar_menu.xml">
       <Link>Resources\menu\community_fix_toolbar_menu.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\explorer_toolbar_menu.xml">
+      <Link>Resources\menu\explorer_toolbar_menu.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\menu\local_auth_toolbar_menu.xml">
       <Link>Resources\menu\local_auth_toolbar_menu.xml</Link>
@@ -700,6 +731,8 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
+
+
 
 
 

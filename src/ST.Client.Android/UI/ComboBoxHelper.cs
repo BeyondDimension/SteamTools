@@ -133,6 +133,12 @@ namespace System.Application.UI
         public static ArrayAdapter<T> CreateArrayAdapter<T>(AutoCompleteTextView textView, int resource = 0, IEnumerable<T>? items = null)
         {
             var adapter = CreateArrayAdapter(textView.Context!, resource, items);
+            if (textView.Adapter != null)
+            {
+                var oldAdapter = textView.Adapter;
+                textView.Adapter = null;
+                oldAdapter.Dispose();
+            }
             textView.Adapter = adapter;
             textView.Threshold = int.MaxValue;
             return adapter;

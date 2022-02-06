@@ -149,4 +149,8 @@
     <value>服務端錯誤 {0} - {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
+    <value>當前系統時間不正確或服務端 SSL 證書失效</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

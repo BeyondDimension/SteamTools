@@ -1,8 +1,7 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Entities
 {
@@ -15,12 +14,10 @@ namespace System.Application.Entities
     public sealed class KeyValuePair : IEntity<string>, ISoftDeleted
     {
         [Key] // EF 主键
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         [Required] // EF not null
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Value { get; set; }
+        public string Value { get; set; } = string.Empty;
 
         public bool SoftDeleted { get; set; }
 

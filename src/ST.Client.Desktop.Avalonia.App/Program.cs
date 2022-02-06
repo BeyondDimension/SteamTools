@@ -23,7 +23,14 @@ namespace System.Application.UI
         [STAThread]
         static int Main(string[] args)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+            }
+            catch (NotSupportedException)
+            {
+
+            }
 
 #if WINDOWS_DESKTOP_BRIDGE
             if (!DesktopBridgeHelper.Init()) return 0;
@@ -34,6 +41,8 @@ namespace System.Application.UI
             FileSystemDesktopMac.InitFileSystem();
 #elif LINUX
             FileSystemDesktopXDG.InitFileSystem();
+#elif WINDOWS
+            FileSystemDesktopWindows.InitFileSystem();
 #else
             FileSystem2.InitFileSystem();
 #endif

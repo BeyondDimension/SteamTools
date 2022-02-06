@@ -292,8 +292,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error("OSAScript Error", e, "Run OSAScript Error");
-                Toast.Show(e);
+                e.LogAndShowT(TAG);
             }
             return string.Empty;
         }

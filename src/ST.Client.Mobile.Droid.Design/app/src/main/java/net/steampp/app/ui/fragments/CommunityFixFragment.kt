@@ -20,8 +20,8 @@ class CommunityFixFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(CommunityFixViewModel::class.java)
         binding = FragmentCommunityFixBinding.inflate(inflater, container, false)
         val root: View = binding!!.root
-        val textView: TextView = binding!!.textView
-        viewModel!!.text.observe(viewLifecycleOwner, { s -> textView.text = s })
+//        val textView: TextView = binding!!.textView
+//        viewModel!!.text.observe(viewLifecycleOwner, { s -> textView.text = s })
         return root
     }
 

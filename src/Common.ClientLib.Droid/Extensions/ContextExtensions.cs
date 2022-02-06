@@ -1,5 +1,7 @@
-﻿using Android.Content;
+using Android.App;
+using Android.Content;
 using Android.Graphics.Drawables;
+using Android.OS;
 using Android.Runtime;
 using AndroidX.Annotations;
 using AndroidX.Core.Content;
@@ -8,7 +10,7 @@ using AndroidApplication = Android.App.Application;
 // ReSharper disable once CheckNamespace
 namespace System
 {
-    public static class ContextExtensions
+    public static partial class ContextExtensions
     {
         /// <inheritdoc cref="ContextCompat.GetSystemService(Context, Java.Lang.Class)"/>
         public static TService GetSystemService<TService>(this Context context) where TService : class, IJavaObject
@@ -60,5 +62,12 @@ namespace System
         /// <returns></returns>
         public static Drawable GetDrawableCompat(this Context context, [DrawableRes] int id)
             => ContextCompat.GetDrawable(context, id);
+
+        /// <inheritdoc cref="Android.Content.Res.Resources.GetDimensionPixelSize(int)"/>
+        public static int GetDimensionPixelSize(this Context context, [DimenRes] int resId)
+        {
+            var value = context.Resources!.GetDimensionPixelSize(resId);
+            return value;
+        }
     }
 }

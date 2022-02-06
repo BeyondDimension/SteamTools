@@ -14,10 +14,9 @@
     android:id="@+id/checkbox"
     android:layout_width="@dimen/checkbox_width"
     android:layout_height="@dimen/checkbox_height"
+    android:layout_gravity="center_vertical"
     android:layout_marginStart="@dimen/checkbox_margin_left"
     android:buttonTint="?colorPrimary"
-    android:clickable="false"
-    android:focusable="false"
     tools:checked="true"
     tools:text=""
     xamarin:managedType="Google.Android.Material.CheckBox.MaterialCheckBox" />
@@ -26,16 +25,18 @@
     android:id="@+id/ivImage"
     android:layout_width="@dimen/accelerate_project_group_img_size"
     android:layout_height="@dimen/accelerate_project_group_img_size"
+    android:layout_gravity="center_vertical"
     android:layout_marginStart="@dimen/activity_horizontal_margin"
     tools:src="@color/green_700"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
   <androidx.appcompat.widget.AppCompatTextView
     android:id="@+id/tvName"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
     android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_weight="1"
     android:ellipsize="end"
     android:lines="1"
     android:textAllCaps="false"
@@ -44,5 +45,36 @@
     android:textSize="20sp"
     tools:text="一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+  <!--  <RelativeLayout-->
+  <!--    android:layout_width="48dp"-->
+  <!--    android:layout_height="32dp"-->
+  <!--    android:orientation="vertical">-->
+
+  <!--    <androidx.appcompat.widget.AppCompatImageView-->
+  <!--      android:layout_width="wrap_content"-->
+  <!--      android:layout_height="wrap_content"-->
+  <!--      android:layout_alignParentRight="true"-->
+  <!--      android:layout_marginEnd="10dp"-->
+  <!--      tools:src="@drawable/ic_animated_keyboard_arrow_down_24"-->
+  <!--      xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />-->
+
+  <!--    <View-->
+  <!--      android:layout_width="@dimen/activity_horizontal_margin"-->
+  <!--      android:layout_height="match_parent"-->
+  <!--      android:layout_alignParentRight="true"-->
+  <!--      android:background="@android:color/holo_red_dark" />-->
+
+  <!--  </RelativeLayout>-->
+
+  <androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/ivArrow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="@dimen/activity_horizontal_margin_subtract_icon"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin_subtract_icon"
+    tools:src="@drawable/ic_animated_keyboard_arrow_up_24"
+    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
 
 </LinearLayout>

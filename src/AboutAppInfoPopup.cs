@@ -106,6 +106,10 @@ namespace System.Application.UI
 #endif
                 b.AppendLine();
 
+                b.Append("[os.name] ");
+                b.Append(DeviceInfo2.OSNameValue);
+                b.AppendLine();
+
                 b.Append("[app.ver] ");
 #if __ANDROID__
                 GetAppDisplayVersion(activity, b);
@@ -140,6 +144,10 @@ namespace System.Application.UI
 
                 b.Append("[app.updcha] ");
                 b.Append(ApplicationUpdateServiceBaseImpl.UpdateChannelType);
+                b.AppendLine();
+
+                b.Append("[app.install] ");
+                b.Append(platformService.IsInstall);
                 b.AppendLine();
 
                 b.Append("[deploy.mode] ");
@@ -237,7 +245,9 @@ namespace System.Application.UI
 #if __ANDROID__
                 b.Append("[screen] ");
                 var metrics = new DisplayMetrics();
+#pragma warning disable CS0618 // 类型或成员已过时
                 activity.WindowManager?.DefaultDisplay?.GetRealMetrics(metrics);
+#pragma warning restore CS0618 // 类型或成员已过时
                 GetScreen(activity, metrics, b);
                 static void GetScreen(Context context, DisplayMetrics metrics, StringBuilder b)
                 {

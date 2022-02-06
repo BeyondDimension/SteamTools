@@ -2612,4 +2612,100 @@ AAAAA-BBBBB-CCCC3</value>
     <value>ASF サービスを停止しています。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
+    <value>アクセラレーション サービスの開始に失敗し、ポートが占有{0}。 {0} ポートを占有するプログラムをオフにするか、システム プロキシ モードを試してください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
+    <value>アクセラレーション サービスの開始に失敗し、ポートが {1} ({2}) によって占有{0}。 {0} ポートを占有するプログラムをオフにするか、システム プロキシ モードを試してください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
+    <value>ファイルの読み取りまたは復元に失敗しました。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>システム設定</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_CertificateExport" xml:space="preserve">
+    <value>証明書ファイルをエクスポートします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
+    <value>セキュリティ設定を開きます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExportedToPath_" xml:space="preserve">
+    <value>パスにエクスポート: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
+    <value>証明書のエクスポートに失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
+    <value>{0} は、[システム設定 - セキュリティ - 暗号化と資格情報 - 資格情報ストア - ユーザー資格情報] で見つかった{0} クリックした後、ポップアップで [アンインストール] をクリックする必要があります。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
+    <value>[セキュリティ設定] で証明書を削除します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
+    <value>VPN モードを有効にします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
+    <value>Hosts が存在するフォルダを開きます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
+    <value>Hosts ファイルをリセットします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
+    <value>Hosts ファイルのリセットに失敗しました(エラー: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
+    <value>Hosts ファイルをリセットすると、すべてのデータが削除され、現在のオペレーティング システムの既定値が復元されます。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
+    <value>Mark に複数の [{0}] が表示される場合は、Hosts ファイルをリセットするか、Hosts ファイルを編集して余分なマークを削除してから、やり直してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
+    <value>Hosts ファイルのリセットに成功しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
+    <value>フロントサービスがオンの場合の通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_Message" xml:space="preserve">
+    <value>プロンプト メッセージが表示された場合の通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
+    <value>フロントサービスのお知らせ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Message" xml:space="preserve">
+    <value>メッセージ通知</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>サービスを停止します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
+    <value>ローカル アクセラレーション プロキシ サービスが実行中です。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
+    <value>ASF サービスが実行中です。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

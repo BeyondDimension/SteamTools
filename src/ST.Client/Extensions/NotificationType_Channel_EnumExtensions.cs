@@ -20,6 +20,9 @@ namespace System.Application
         {
             NotificationType.Announcement => NotificationChannelType.Announcement,
             NotificationType.NewVersion => NotificationChannelType.NewVersion,
+            NotificationType.Message => NotificationChannelType.Message,
+            NotificationType.ProxyForegroundService or
+            NotificationType.ArchiSteamFarmForegroundService => NotificationChannelType.ForegroundService,
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
         };
 
@@ -35,6 +38,8 @@ namespace System.Application
             {
                 NotificationChannelType.Announcement => AppResources.NotificationChannelType_Name_Announcement,
                 NotificationChannelType.NewVersion => AppResources.NotificationChannelType_Name_NewVersion,
+                NotificationChannelType.Message => AppResources.NotificationChannelType_Name_Message,
+                NotificationChannelType.ForegroundService => AppResources.NotificationChannelType_Name_ForegroundService,
                 _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -53,7 +58,9 @@ namespace System.Application
             {
                 NotificationChannelType.Announcement => AppResources.NotificationChannelType_Description_Announcement,
                 NotificationChannelType.NewVersion => AppResources.NotificationChannelType_Description_NewVersion,
-                _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
+                NotificationChannelType.Message => AppResources.NotificationChannelType_Description_Message,
+                NotificationChannelType.ForegroundService => AppResources.NotificationChannelType_Description_ForegroundService,
+                _ => string.Empty,
             };
         }
 
@@ -68,8 +75,7 @@ namespace System.Application
             => value switch
             {
                 NotificationChannelType.Announcement => NotificationImportanceLevel.High,
-                NotificationChannelType.NewVersion => NotificationImportanceLevel.Medium,
-                _ => throw new ArgumentOutOfRangeException(nameof(value), value, null),
+                _ => NotificationImportanceLevel.Medium,
             };
     }
 }

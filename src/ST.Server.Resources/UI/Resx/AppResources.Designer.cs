@@ -88,6 +88,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 读取 NameIdentifier 失败，值：{0}，渠道：{1}，请联系网站管理员。 的本地化字符串。
+        /// </summary>
+        public static string ClaimTypes_NameIdentifier_IsNull__ {
+            get {
+                return ResourceManager.GetString("ClaimTypes_NameIdentifier_IsNull__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 点击此处重试 的本地化字符串。
         /// </summary>
         public static string ClickHereTryAgain {
@@ -237,6 +246,15 @@ namespace System.Application.UI.Resx {
         public static string meta_description {
             get {
                 return ResourceManager.GetString("meta_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 新用户{0} 的本地化字符串。
+        /// </summary>
+        public static string NewUserNickName_ {
+            get {
+                return ResourceManager.GetString("NewUserNickName_", resourceCulture);
             }
         }
         

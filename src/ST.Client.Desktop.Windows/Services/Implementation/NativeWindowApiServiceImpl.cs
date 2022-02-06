@@ -11,6 +11,8 @@ namespace System.Application.Services.Implementation
     [SupportedOSPlatform("Windows7.0")]
     internal sealed class NativeWindowApiServiceImpl : INativeWindowApiService
     {
+        const string TAG = "NativeWindowApiS";
+
         /// <summary>
         /// 拖拽指针获取目标窗口
         /// </summary>
@@ -62,7 +64,7 @@ namespace System.Application.Services.Implementation
                 }
                 catch (Exception e)
                 {
-                    Toast.Show(e, nameof(NativeWindowApiServiceImpl));
+                    e.LogAndShowT(TAG);
                 }
             }
             MouseHook.SetSystemCursor(MouseHook.LoadCursor(IntPtr.Zero, MouseHook.OCR_CROSS), MouseHook.OCR_NORMAL);

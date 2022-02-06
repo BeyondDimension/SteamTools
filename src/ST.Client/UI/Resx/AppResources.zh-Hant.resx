@@ -2612,4 +2612,100 @@ AAAAA-BBBBB-CCCC3</value>
     <value>正在停止 ASF 服務，請稍後...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
+    <value>加速服務啟動失敗，{0} 埠被佔用。 請關掉佔用 {0} 埠的程式或者嘗試使用系統代理模式。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
+    <value>加速服務啟動失敗，{0} 埠被 {1}（{2}） 佔用。 請關掉佔用 {0} 埠的程式或者嘗試使用系統代理模式。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
+    <value>讀取或還原文件時失敗，因被其他進程佔用，可能是其他不相容的網路加速程式，請找到佔用的進程將其關閉。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>系統設置</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_CertificateExport" xml:space="preserve">
+    <value>匯出證書檔</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
+    <value>打開安全設置</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExportedToPath_" xml:space="preserve">
+    <value>匯出到路徑：{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
+    <value>匯出證書失敗，請先開啟加速后再嘗試匯出</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
+    <value>必須在【系統設置 - 安全 - 加密與憑據 - 憑據存儲 - 使用者憑據】中找到 {0} 點擊該項后在彈窗中點擊卸載。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
+    <value>在「安全設置」中移除證書</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
+    <value>啟用 VPN 模式</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
+    <value>打開 Hosts 所在資料夾</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
+    <value>重置 Hosts 檔</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
+    <value>重置 Hosts 檔失敗，錯誤：{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
+    <value>重置 Hosts 檔將刪除所有資料並還原當前操作系統預設值，建議先編輯 Hosts 檔查看是否有需要的數據先進行備份後再執行此操作，是否確認重置？</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
+    <value>Mark 出現多個 [{0}]，請嘗試重置 Hosts 檔或編輯 Hosts 檔並刪除多餘的 Mark 后再試一次</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
+    <value>重置 Hosts 檔成功</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
+    <value>當開啟前台服務時的通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_Message" xml:space="preserve">
+    <value>當有提示消息時的通知。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
+    <value>前臺服務通知</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Message" xml:space="preserve">
+    <value>消息通知</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>停止服務</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
+    <value>本地加速代理服務正在運行。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
+    <value>ASF 服務正在運行。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

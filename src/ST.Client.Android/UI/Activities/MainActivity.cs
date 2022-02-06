@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
@@ -72,6 +73,31 @@ namespace System.Application.UI.Activities
 
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
             NavigationUI.SetupWithNavController(binding!.nav_view, navController);
+        }
+
+        protected override void OnNewIntent(Intent? intent)
+        {
+            base.OnNewIntent(intent);
+
+            var action = intent?.Action;
+            if (!string.IsNullOrWhiteSpace(action))
+            {
+                if (navController == null) return;
+                if (Enum.TryParse<TabItemViewModel.TabItemId>(action, out var tabItem))
+                {
+                    var id = tabItem switch
+                    {
+                        TabItemViewModel.TabItemId.CommunityProxy => Resource.Id.navigation_community_fix,
+                        TabItemViewModel.TabItemId.LocalAuth => Resource.Id.navigation_local_auth,
+                        TabItemViewModel.TabItemId.ArchiSteamFarmPlus => Resource.Id.navigation_asf_plus,
+                        _ => navController.CurrentDestination.Id,
+                    };
+                    if (id != navController.CurrentDestination.Id)
+                    {
+                        navController.Navigate(id);
+                    }
+                }
+            }
         }
 
         protected override void OnDestroy()

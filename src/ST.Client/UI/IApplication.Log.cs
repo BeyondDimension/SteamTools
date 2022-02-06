@@ -151,10 +151,13 @@ namespace System.Application.UI
 
         public static string LogDirPathASF { get; private set; } = string.Empty;
 
+#if DEBUG
         /// <summary>
         /// 日志文件夹是否存放在缓存文件夹中，通常日志文件夹将存放在基目录上，因某些平台基目录为只读，则只能放在缓存文件夹中
         /// </summary>
-        public static bool LogUnderCache { get; private set; }
+        [Obsolete("only True.", true)]
+        public static bool LogUnderCache => true;
+#endif
 
         public const string LogDirName = "Logs";
 
@@ -163,16 +166,16 @@ namespace System.Application.UI
             if (!string.IsNullOrEmpty(LogDirPath)) return;
 
             var devicePlatform = DeviceInfo2.Platform;
-            LogUnderCache = devicePlatform switch
-            {
-                Platform.Windows => DesktopBridge.IsRunningAsUwp,
-                Platform.Linux or Platform.Android or Platform.Apple or Platform.UWP => true,
-                _ => throw new ArgumentOutOfRangeException(nameof(devicePlatform), devicePlatform, null),
-            };
+            //LogUnderCache = devicePlatform switch
+            //{
+            //    Platform.Windows => DesktopBridge.IsRunningAsUwp,
+            //    Platform.Linux or Platform.Android or Platform.Apple or Platform.UWP => true,
+            //    _ => throw new ArgumentOutOfRangeException(nameof(devicePlatform), devicePlatform, null),
+            //};
 
-            var logDirPath = Path.Combine(LogUnderCache ?
-                IOPath.CacheDirectory :
-                IOPath.BaseDirectory,
+            var logDirPath = Path.Combine(/*LogUnderCache ?*/
+                IOPath.CacheDirectory /*:*/
+                /*IOPath.BaseDirectory*/,
                 LogDirName);
             IOPath.DirCreateByNotExists(logDirPath);
 #if StartupTrace

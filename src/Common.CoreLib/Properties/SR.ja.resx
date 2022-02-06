@@ -205,4 +205,8 @@
     <value>サポートされていない携帯電話番号セグメント ({0})</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
+    <value>Web リンクを開くと 0x {0}に失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

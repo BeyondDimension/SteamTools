@@ -30,6 +30,10 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit>? EditHostsFileCommand { get; }
 
+        public ReactiveCommand<Unit, Unit>? OpenHostsDirCommand { get; }
+
+        public ReactiveCommand<Unit, Unit>? ResetHostsFileCommand { get; }
+
         public ReactiveCommand<Unit, Unit>? NetworkFixCommand { get; }
 
         //public ReactiveCommand<Unit, Unit> AutoRunProxyCommand { get; }
@@ -57,6 +61,8 @@ namespace System.Application.UI.ViewModels
                 SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
                 DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
                 EditHostsFileCommand = ReactiveCommand.Create(hostsFileService.OpenFile);
+                OpenHostsDirCommand = ReactiveCommand.Create(hostsFileService.OpenFileDir);
+                ResetHostsFileCommand = ReactiveCommand.Create(hostsFileService.ResetFile);
                 NetworkFixCommand = ReactiveCommand.Create(ProxyService.Current.FixNetwork);
                 TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
                 OpenCertificateDirCommand = ReactiveCommand.Create(() =>

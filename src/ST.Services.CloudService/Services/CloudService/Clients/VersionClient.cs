@@ -20,9 +20,8 @@ namespace System.Application.Services.CloudService.Clients
             Architecture architecture,
             DeploymentMode deploymentMode)
         {
-            var isRunningAsUwp = platform == Platform.Windows && DesktopBridge.IsRunningAsUwp;
             var url =
-                $"api/version/checkupdate2/{id}/{(int)platform}/{(int)deviceIdiom}/{(int)architecture}/{osVersion.Major}/{osVersion.Minor}/{osVersion.Build}/{isRunningAsUwp}/{(int)deploymentMode}";
+                $"api/version/checkupdate3/{id}/{(int)platform}/{(int)deviceIdiom}/{(int)architecture}/{osVersion.Major}/{osVersion.Minor}/{osVersion.Build}/{(int)deploymentMode}";
             return conn.SendAsync<AppVersionDTO?>(
                 isAnonymous: true,
                 method: HttpMethod.Get,

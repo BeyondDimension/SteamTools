@@ -88,6 +88,8 @@ namespace System.Application
             /// 捐助提示
             /// </summary>
             Donate = 2,
+
+            ResetHostsFile,
         }
 
         /// <summary>
@@ -155,12 +157,12 @@ namespace System.Application
             await ShowAsync(messageBoxText, caption, button, icon);
         }
 
-        /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
-        public static Task<Result> ShowAsync(Exception exception, string caption = default_caption, Button button = default_button, Image icon = default)
-        {
-            var messageBoxText = exception.GetAllMessage();
-            return ShowAsync(messageBoxText, caption, button, icon);
-        }
+        ///// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
+        //public static Task<Result> ShowAsync(Exception exception, string caption = default_caption, Button button = default_button, Image icon = default)
+        //{
+        //    var messageBoxText = exception.GetAllMessage();
+        //    return ShowAsync(messageBoxText, caption, button, icon);
+        //}
 
         /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
         public static void Show(Exception exception, string caption = default_caption, Button button = default_button, Image icon = default)

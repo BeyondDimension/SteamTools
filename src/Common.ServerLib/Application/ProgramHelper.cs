@@ -19,6 +19,36 @@ namespace System.Application
         public static void Main<TStartup>(string projectName,
             string[] args, Action<string>? writeLine = null) where TStartup : class
         {
+            var logger = NLogBuilder.ConfigureNLog(InitNLogConfig()).GetCurrentClassLogger();
+            try
+            {
+                logger.Info("init main");
+                var host = CreateHostBuilder<TStartup>(args).Build();
+                DI.Init(host.Services);
+
+                writeLine ??= Console.WriteLine;
+                Console.OutputEncoding = Encoding.Unicode; // 使用UTF16编码输出控制台文字
+                Version = typeof(TStartup).Assembly.GetName().Version?.ToString() ?? string.Empty;
+
+                UnityConsoleOutputHead.Write(writeLine,
+                    projectName,
+                    Version,
+                    RuntimeVersion,
+                    CentralProcessorName);
+
+                host.Run();
+            }
+            catch (Exception exception)
+            {
+                //NLog: catch setup errors
+                logger.Error(exception, "Stopped program because of exception");
+                throw;
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                NLog.LogManager.Shutdown();
+            }
             static LoggingConfiguration InitNLogConfig()
             {
                 // https://github.com/NLog/NLog/wiki/Getting-started-with-ASP.NET-Core-5
@@ -61,36 +91,6 @@ namespace System.Application
                 var xmlConfig = XmlLoggingConfiguration.CreateFromXmlString(xmlConfigStr);
 
                 return xmlConfig;
-            }
-            var logger = NLogBuilder.ConfigureNLog(InitNLogConfig()).GetCurrentClassLogger();
-            try
-            {
-                logger.Info("init main");
-                var host = CreateHostBuilder<TStartup>(args).Build();
-                DI.Init(host.Services);
-
-                writeLine ??= Console.WriteLine;
-                Console.OutputEncoding = Encoding.Unicode; // 使用UTF16编码输出控制台文字
-                Version = typeof(TStartup).Assembly.GetName().Version?.ToString() ?? string.Empty;
-
-                UnityConsoleOutputHead.Write(writeLine,
-                    projectName,
-                    Version,
-                    RuntimeVersion,
-                    CentralProcessorName);
-
-                host.Run();
-            }
-            catch (Exception exception)
-            {
-                //NLog: catch setup errors
-                logger.Error(exception, "Stopped program because of exception");
-                throw;
-            }
-            finally
-            {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
             }
         }
 

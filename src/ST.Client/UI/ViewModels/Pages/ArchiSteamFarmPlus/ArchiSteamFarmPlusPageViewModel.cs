@@ -50,6 +50,27 @@ namespace System.Application.UI.ViewModels
                 await PickMultipleAsync(ASFService.Current.ImportBotFiles, fileTypes);
             });
 
+            SelectGlobalFiles = ReactiveCommand.CreateFromTask(async () =>
+            {
+                FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("Json Files", new[] { FileEx.JSON, }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else if (OperatingSystem2.IsAndroid)
+                {
+                    fileTypes = new[] { MediaTypeNames.JSON };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
+                await PickAsync(ASFService.Current.ImportGlobalFiles, fileTypes);
+            });
+
             MenuItems = new ObservableCollection<MenuItemViewModel>()
             {
                 new MenuItemCustomName(AppResources.ASF_Start, AppResources.ASF_Start)
@@ -103,6 +124,8 @@ namespace System.Application.UI.ViewModels
 
         public ICommand SelectBotFiles { get; }
 
+        public ICommand SelectGlobalFiles { get; }
+
         private bool _IsRedeemKeyDialogOpen;
         public bool IsRedeemKeyDialogOpen
         {
@@ -110,17 +133,22 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsRedeemKeyDialogOpen, value);
         }
 
-        public void RunOrStopASF() => Task.Run(async () =>
+        public static void StartOrStopASF(bool? startOrStop = null) => Task.Run(async () =>
         {
-            if (!ASFService.Current.IsASFRuning)
+            var s = ASFService.Current;
+            if (!s.IsASFRuning)
             {
-                await ASFService.Current.InitASF();
+                if (!startOrStop.HasValue || startOrStop.Value)
+                    await s.InitASF();
             }
             else
             {
-                await ASFService.Current.StopASF();
+                if (!startOrStop.HasValue || !startOrStop.Value)
+                    await s.StopASF();
             }
         });
+
+        public void RunOrStopASF() => StartOrStopASF();
 
         public void ShowAddBotWindow()
         {
@@ -235,7 +263,7 @@ namespace System.Application.UI.ViewModels
             {
                 ActionItem.Repo => "https://github.com/JustArchiNET/ArchiSteamFarm",
                 ActionItem.Wiki => "https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Home-zh-CN",
-                ActionItem.ConfigGenerator => "https://justarchinet.github.io/ASF-WebConfi.gGenerator/",
+                ActionItem.ConfigGenerator => "https://justarchinet.github.io/ASF-WebConfigGenerator",
                 ActionItem.WebConfig => IPCUrl + "/asf-config",
                 ActionItem.WebAddBot => IPCUrl + "/bot/new",
                 _ => IPCUrl,

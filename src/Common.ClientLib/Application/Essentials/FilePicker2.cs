@@ -57,6 +57,8 @@ namespace System.Application
             }
         }
 
+        const string TAG = nameof(FilePicker2);
+
         /// <summary>
         /// 启动文件选择器以选择单个文件。
         /// </summary>
@@ -86,7 +88,7 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e, nameof(FilePicker2));
+                        e.LogAndShowT(TAG);
                     }
                 }
             }
@@ -129,7 +131,7 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e, nameof(FilePicker2));
+                        e.LogAndShowT(TAG);
                     }
                 }
             }
@@ -202,7 +204,7 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e, nameof(FilePicker2));
+                        e.LogAndShowT(TAG);
                     }
                 }
             }
@@ -245,7 +247,7 @@ namespace System.Application
                     }
                     catch (Exception e)
                     {
-                        Toast.Show(e, nameof(FilePicker2));
+                        e.LogAndShowT(TAG);
                     }
                 }
             }

@@ -4,6 +4,7 @@ using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using ReactiveUI;
 using System.Application.UI.Adapters.Internals;
+using static AndroidX.RecyclerView.Widget.RecyclerView;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Adapters
@@ -92,6 +93,11 @@ namespace System.Application.UI.Adapters
             return null;
         }
     }
+
+    public interface IPlatformItemClickEventArgs : ItemClickEventArgs
+    {
+        ViewHolder ViewHolder { get; }
+    }
 }
 
 // ReSharper disable once CheckNamespace
@@ -125,7 +131,7 @@ namespace System.Application.UI.Adapters.Internals
     }
 
     public interface IItemClickViewAdapter<TViewHolder, TViewModel>
-        where TViewHolder : RecyclerView.ViewHolder, IItemClickViewHolder
+        where TViewHolder : ViewHolder, IItemClickViewHolder
     {
         ItemClickEventArgs<TViewModel>? GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs = null);
 
@@ -146,7 +152,7 @@ namespace System.Application.UI.Adapters.Internals
                 if (!current_.HasValue || !current_.Value.isSuccess) return null;
                 current = current_.Value.viewModel!;
             }
-            return new PlatformItemClickEventArgs<TViewModel>(view, position, current, longClickEventArgs);
+            return new PlatformItemClickEventArgs<TViewModel>(view, holder, position, current, longClickEventArgs);
         }
 
         /// <summary>
@@ -216,13 +222,14 @@ namespace System.Application.UI.Adapters.Internals
         }
     }
 
-    internal sealed class PlatformItemClickEventArgs<TViewModel> : EventArgs, ItemClickEventArgs<TViewModel>
+    internal sealed class PlatformItemClickEventArgs<TViewModel> : EventArgs, ItemClickEventArgs<TViewModel>, IPlatformItemClickEventArgs
     {
         readonly View.LongClickEventArgs? longClickEventArgs;
 
-        public PlatformItemClickEventArgs(View view, int position, TViewModel current, View.LongClickEventArgs? longClickEventArgs)
+        public PlatformItemClickEventArgs(View view, ViewHolder holder, int position, TViewModel current, View.LongClickEventArgs? longClickEventArgs)
         {
             View = view;
+            ViewHolder = holder;
             Position = position;
             Current = current;
             this.longClickEventArgs = longClickEventArgs;
@@ -245,5 +252,7 @@ namespace System.Application.UI.Adapters.Internals
                 if (longClickEventArgs != null) longClickEventArgs.Handled = value;
             }
         }
+
+        public ViewHolder ViewHolder { get; }
     }
 }

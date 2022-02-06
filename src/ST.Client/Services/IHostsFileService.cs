@@ -17,6 +17,16 @@ namespace System.Application.Services
         void OpenFile();
 
         /// <summary>
+        /// 打开 hosts 所在文件夹
+        /// </summary>
+        void OpenFileDir();
+
+        /// <summary>
+        /// 重置 hosts 文件
+        /// </summary>
+        void ResetFile();
+
+        /// <summary>
         /// 读取 hosts 文件
         /// </summary>
         /// <returns></returns>

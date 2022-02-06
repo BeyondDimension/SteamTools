@@ -272,9 +272,8 @@ namespace System.Application.UI.Activities
                 if (e.Current.IsOperate != 0) return;
                 e.Current.NotChecked = !e.Current.NotChecked;
             };
-            var layout = new LinearLayoutManager2(this, LinearLayoutManager.Vertical, false);
-            binding!.rvConfirmations.SetLayoutManager(layout);
-            binding.rvConfirmations.AddItemDecoration(VerticalItemDecoration2.Get(this, Resource.Dimension.activity_vertical_margin, Resource.Dimension.tab_height, noTop: true));
+            binding!.rvConfirmations.SetLinearLayoutManager();
+            binding.rvConfirmations.AddVerticalItemDecorationRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.tab_height, noTop: true);
             binding.rvConfirmations.SetAdapter(adapter);
 
             //var actionItems = Enum2.GetAll<ActionItem>().Where(x => x != ActionItem.Refresh);

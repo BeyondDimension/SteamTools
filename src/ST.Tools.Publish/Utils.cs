@@ -133,12 +133,14 @@ namespace System.Application
             using var s = new GZipOutputStream(fs);
             s.SetLevel(Deflater.BEST_COMPRESSION);
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }
@@ -172,12 +174,14 @@ namespace System.Application
             using var fs = File.Create(packPath);
             using var s = new XZOutputStream2(fs);
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }
@@ -188,12 +192,14 @@ namespace System.Application
             using var fs = File.Create(packPath);
             using var s = new BrotliStream(fs, NCompressionMode.Compress);
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }
@@ -223,12 +229,14 @@ namespace System.Application
             Console.WriteLine($"MaxCompressionLevel: {maxCompressionLevel}");
             using var s = new CompressionStream(fs, new CompressionOptions(maxCompressionLevel));
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }

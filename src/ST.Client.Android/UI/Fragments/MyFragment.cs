@@ -42,6 +42,7 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
+#if !DEBUG
                 var isUnderConstruction = e.Current.Id switch
                 {
                     PreferenceButton.BindPhoneNumber or
@@ -53,6 +54,7 @@ namespace System.Application.UI.Fragments
                     MainApplication.ShowUnderConstructionTips();
                     return;
                 }
+#endif
 
 #if __XAMARIN_FORMS__
                 var route = e.Current.Id switch
@@ -82,9 +84,8 @@ namespace System.Application.UI.Fragments
                 };
                 if (activityType != null) this.StartActivity(activityType);
             };
-            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
-            binding.rvPreferenceButtons.SetLayoutManager(layout);
-            binding.rvPreferenceButtons.AddItemDecoration(new VerticalGroupItemDecoration(binding.rvPreferenceButtons.PaddingTop));
+            binding.rvPreferenceButtons.SetLinearLayoutManager();
+            binding.rvPreferenceButtons.AddVerticalGroupItemDecoration(binding.rvPreferenceButtons.PaddingTop);
             binding.rvPreferenceButtons.SetAdapter(adapter);
         }
 
@@ -92,8 +93,18 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
+#if !DEBUG
                 MainApplication.ShowUnderConstructionTips();
-                //this.StartActivity<LoginOrRegisterActivity>();
+#else
+                if (UserService.Current.IsAuthenticated)
+                {
+                    this.StartActivity<UserProfileActivity>();
+                }
+                else
+                {
+                    this.StartActivity<LoginOrRegisterActivity>();
+                }
+#endif
                 return true;
             }
             //else if (view.Id == Resource.Id.???)

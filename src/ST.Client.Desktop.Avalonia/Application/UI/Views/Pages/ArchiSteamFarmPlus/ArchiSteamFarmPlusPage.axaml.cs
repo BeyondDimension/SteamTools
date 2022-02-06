@@ -21,10 +21,7 @@ namespace System.Application.UI.Views.Pages
 
         private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)
         {
-            if (e.Command != null)
-            {
-                asfService.CommandSubmit(e.Command);
-            }
+            asfService.CommandSubmit(e.Command);
         }
 
         private void InitializeComponent()

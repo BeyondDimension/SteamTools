@@ -67,8 +67,7 @@ namespace System.Application.UI.Controllers
                 switch (e.Current.Id)
                 {
                     case PreferenceButton.检查更新:
-                        MainApplication.ShowUnderConstructionTips();
-                        //ViewModel!.CheckUpdateCommand.Invoke();
+                        ViewModel!.CheckUpdateCommand.Invoke();
                         break;
                     case PreferenceButton.更新日志:
                         await Browser2.OpenAsync(string.Format(
@@ -124,8 +123,7 @@ namespace System.Application.UI.Controllers
                         break;
                 }
             };
-            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
-            binding.rvPreferenceButtons.SetLayoutManager(layout);
+            binding.rvPreferenceButtons.SetLinearLayoutManager();
             binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(Context, Resource.Dimension.preference_buttons_space_min));
             binding.rvPreferenceButtons.SetAdapter(adapter);
 

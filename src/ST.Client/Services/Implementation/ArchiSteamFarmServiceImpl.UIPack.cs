@@ -10,7 +10,6 @@ namespace System.Application.Services.Implementation
 {
     partial class ArchiSteamFarmServiceImpl
     {
-        const char WinDirectorySeparatorChar = '\\';
         const string _Version_ASFUI = "5.2.0.10";
         const string Version_FileName = "VERSION.txt";
 
@@ -50,34 +49,34 @@ namespace System.Application.Services.Implementation
 
                 using var stream = new MemoryStream(SR.asf_ui);
                 using var decompress = new BrotliStream(stream, CompressionMode.Decompress);
-                using var archive = TarArchive.CreateInputTarArchive(decompress, Encoding.UTF8);
+                using var archive = TarArchive.CreateInputTarArchive(decompress, EncodingCache.UTF8NoBOM);
                 archive.ExtractContents(dirPath);
 
-                if (Path.DirectorySeparatorChar != WinDirectorySeparatorChar) // 修正解压文件名中带有文件夹分隔符反斜杠的问题
-                {
-                    var files = Directory.GetFiles(dirPath);
-                    List<string> existsDirPaths = new();
-                    foreach (var item in files)
-                    {
-                        var fileName = Path.GetFileName(item);
-                        var fileRelativePaths = fileName.Split(WinDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
-                        if (fileRelativePaths.Length < 2) continue;
-                        var paths = new string[fileRelativePaths.Length];
-                        paths[0] = dirPath;
-                        for (int i = 1; i < paths.Length; i++)
-                        {
-                            paths[i] = fileRelativePaths[i - 1];
-                        }
-                        var destDirPath = Path.Combine(paths);
-                        if (!existsDirPaths.Contains(destDirPath) && !Directory.Exists(destDirPath))
-                        {
-                            Directory.CreateDirectory(destDirPath);
-                            existsDirPaths.Add(destDirPath);
-                        }
-                        var destFilePath = Path.Combine(destDirPath, fileRelativePaths[^1]);
-                        File.Move(item, destFilePath);
-                    }
-                }
+                //if (Path.DirectorySeparatorChar != WinDirectorySeparatorChar) // 修正解压文件名中带有文件夹分隔符反斜杠的问题
+                //{
+                //    var files = Directory.GetFiles(dirPath);
+                //    List<string> existsDirPaths = new();
+                //    foreach (var item in files)
+                //    {
+                //        var fileName = Path.GetFileName(item);
+                //        var fileRelativePaths = fileName.Split(WinDirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+                //        if (fileRelativePaths.Length < 2) continue;
+                //        var paths = new string[fileRelativePaths.Length];
+                //        paths[0] = dirPath;
+                //        for (int i = 1; i < paths.Length; i++)
+                //        {
+                //            paths[i] = fileRelativePaths[i - 1];
+                //        }
+                //        var destDirPath = Path.Combine(paths);
+                //        if (!existsDirPaths.Contains(destDirPath) && !Directory.Exists(destDirPath))
+                //        {
+                //            Directory.CreateDirectory(destDirPath);
+                //            existsDirPaths.Add(destDirPath);
+                //        }
+                //        var destFilePath = Path.Combine(destDirPath, fileRelativePaths[^1]);
+                //        File.Move(item, destFilePath);
+                //    }
+                //}
 
                 File.WriteAllText(versionFilePath, Version_ASFUI);
             }

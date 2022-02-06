@@ -7,10 +7,33 @@
   android:layout_height="wrap_content"
   android:layout_marginStart="@dimen/activity_horizontal_margin"
   android:layout_marginEnd="@dimen/activity_horizontal_margin"
-  android:clickable="true"
-  android:focusable="true"
+  android:clickable="false"
   tools:layout_marginBottom="@dimen/activity_vertical_margin">
 
-  <include layout="@layout/layout_card_accelerate_project_group_content" />
+  <LinearLayout
+    android:id="@+id/itemClickView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_card_accelerate_project_group_content" />
+
+    <View
+      android:id="@+id/divider"
+      android:layout_width="match_parent"
+      android:layout_height="1px"
+      android:background="@color/bg_divider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvAccelerateProject"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:nestedScrollingEnabled="false"
+      android:overScrollMode="never"
+      tools:itemCount="4"
+      tools:listitem="@layout/layout_card_accelerate_project"
+      xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
+
+  </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

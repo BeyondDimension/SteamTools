@@ -1,12 +1,16 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Entities
 {
+    /// <summary>
+    /// 验证码纪录表（短信或邮箱）
+    /// </summary>
+    /// <typeparam name="TSendSmsRequestType"></typeparam>
+    /// <typeparam name="TAuthMessageType"></typeparam>
     public class AuthMessageRecord<TSendSmsRequestType, TAuthMessageType> : IEntity<Guid>, ICreationTime
-        where TSendSmsRequestType : notnull, Enum
-        where TAuthMessageType : notnull, Enum
+        where TSendSmsRequestType : struct, Enum
+        where TAuthMessageType : struct, Enum
     {
         [Key] // EF 主键
         public Guid Id { get; set; }
@@ -30,8 +34,7 @@ namespace System.Application.Entities
         /// 调用方IP地址
         /// </summary>
         [Required] // EF not null
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? IPAddress { get; set; }
+        public string IPAddress { get; set; } = string.Empty;
 
         #region 提供商内容
 
@@ -40,8 +43,7 @@ namespace System.Application.Entities
         /// 比如网易/阿里云
         /// </summary>
         [Required] // EF not null
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Channel { get; set; }
+        public string Channel { get; set; } = string.Empty;
 
         /// <summary>
         /// 第三方提供商返回的内容
@@ -66,8 +68,7 @@ namespace System.Application.Entities
         /// 短信内容通常仅含有验证码数字，不包括其他的提示语文字
         /// </summary>
         [Required] // EF not null
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? Content { get; set; }
+        public string Content { get; set; } = string.Empty;
 
         /// <summary>
         /// 是否校验过

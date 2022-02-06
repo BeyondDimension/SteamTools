@@ -9,6 +9,7 @@ using System.Properties;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.FilePicker2;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -267,7 +268,7 @@ namespace System.Application.UI.ViewModels
                 var mark = SelectAuthenticatorMark;
                 var markIsNull = mark == default;
                 var now = DateTime.Now;
-                const string f = $"{ThisAssembly.AssemblyTrademark}  Authenticator{{0}} {{1}}{{2}}{FileEx.MPO}";
+                const string f = $"{_ThisAssembly.AssemblyTrademark}  Authenticator{{0}} {{1}}{{2}}{FileEx.MPO}";
                 return string.Format(f,
                     markIsNull ? "s" : default,
                     markIsNull ? default : $"({mark}) ",

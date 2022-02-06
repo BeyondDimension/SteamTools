@@ -475,7 +475,7 @@ namespace System.Application
             try
             {
 #if !__MOBILE__
-                var screens = PlatformApplication.Instance.MainWindow.Screens;
+                var screens = PlatformApplication.Instance.MainWindow!.Screens;
 #else
                 var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
                 var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
@@ -506,6 +506,7 @@ namespace System.Application
                 {
                     lastNotificationRecordId = await INotificationService.GetLastNotificationRecordId();
                 }
+                req.SetDeviceId();
                 var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req, lastNotificationRecordId);
                 INotificationService.Notify(rsp, type);
             }

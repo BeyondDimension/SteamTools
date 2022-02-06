@@ -1,7 +1,7 @@
-﻿using System.IO.FileFormats;
+using System.IO.FileFormats;
 using System.Application.Columns;
 
-namespace System.Application.Entities
+namespace System.Application.Entities.Abstractions
 {
     public interface IImage : IEntity<Guid>, ISoftDeleted
     {

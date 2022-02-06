@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Properties;
 
 namespace System
 {
@@ -79,6 +80,22 @@ namespace System
             }
             p.UseShellExecute = useShellExecute;
             return Process.Start(p);
+        }
+
+        public static bool OpenCoreByProcess(string url, Action<string>? onError = null)
+        {
+            try
+            {
+                Start(url, useShellExecute: true);
+                return true;
+            }
+            catch (Win32Exception e)
+            {
+                // [Win32Exception: 找不到应用程序] 39次报告
+                // 疑似缺失没有默认浏览器设置会导致此异常，可能与杀毒软件有关
+                onError?.Invoke(SR.OpenCoreByProcess_Win32Exception_.Format(Convert.ToString(e.NativeErrorCode, 16)));
+                return false;
+            }
         }
     }
 }

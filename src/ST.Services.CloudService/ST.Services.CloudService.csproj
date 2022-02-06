@@ -24,5 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Services.CloudService.ViewModels\ST.Services.CloudService.ViewModels.csproj" />
+    <ProjectReference Include="..\ST\ST.csproj" />
   </ItemGroup>
 </Project>

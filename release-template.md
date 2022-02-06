@@ -51,13 +51,13 @@
 		- [尚未公证](https://support.apple.com/zh-cn/guide/mac-help/mh40616/10.15/mac/10.15)，这会影响 macOS Catalina（版本 10.15）以上版本
 	- Linux
 		- **Hosts 代理模式**可能无法配置成功，推荐使用**系统代理模式**
-		- 系统代理模式下discord更新下载加速有问题暂不可用
+		- 系统代理模式下 Discord 更新下载加速不可用
 		- 窗口弹出位置不正确
 		- 鼠标指针浮动样式不正确
 	- Windows
 		- Windows 11 
 			- 在 CPU 不受支持的 Win11 上无法启动，Windows 日志中显示 ```Failed to create CoreCLR, HRESULT: 0x80004005```
-			- 仅 .NET 6.0 受此影响，在几周后的 Insider 中会修复，见 [issue](https://github.com/dotnet/core/issues/6733)
+			- 仅 .NET 6.0 受此影响，在内部版本 22509 中修复，见 [issue](https://github.com/dotnet/core/issues/6733)
 			- **解决方案：** 可尝试使用旧版本 例如 v2.3.0
 		- Windows 7
 			- 先决条件

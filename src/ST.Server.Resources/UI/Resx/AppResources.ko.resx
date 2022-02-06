@@ -233,4 +233,16 @@
     <value>연결 프로그램에 오류가 있는 경우 수동 로그인을 클릭하여 프로그램에 다음을 수동으로 복사합니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>NameIdentifier 읽기 실패, 값: {0}, 채널: {1}, 웹마스터에게 문의하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>새 사용자 {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>현재 Steam 로그인 요청이 너무 많으시면 페이지를 새로 고치고 다시 시도하거나 나중에 다시 시도하십시오.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

@@ -24,33 +24,40 @@ namespace System.Application.Services
 {
     public sealed class AuthService : ReactiveObject
     {
+        const string TAG = "AuthS";
+
         static AuthService? mCurrent;
         public static AuthService Current => mCurrent ?? new();
+
+        static Stream? GetQrCodeStream(IEnumerable<IGAPAuthenticatorDTO> datas)
+        {
+            var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
+            var bytes = Serializable.SMP(dtos);
+#if DEBUG
+            var bytes_compress_gzip = bytes.CompressByteArray();
+#endif
+            var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+#if DEBUG
+            Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
+#endif
+            (var result, var stream, var e) = QRCodeHelper.Create(bytes_compress_br);
+            switch (result)
+            {
+                case QRCodeHelper.QRCodeCreateResult.DataTooLong:
+                    Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
+                    break;
+                case QRCodeHelper.QRCodeCreateResult.Exception:
+                    e?.LogAndShowT(TAG);
+                    break;
+            }
+            return stream;
+        }
 
         public static async Task<Stream?> GetQrCodeStreamAsync(IEnumerable<IGAPAuthenticatorDTO> datas)
         {
             var qrCode = await Task.Run(() =>
             {
-                var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
-                var bytes = Serializable.SMP(dtos);
-#if DEBUG
-                var bytes_compress_gzip = bytes.CompressByteArray();
-#endif
-                var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-#if DEBUG
-                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
-#endif
-                (var result, var stream, var e) = QRCodeHelper.Create(bytes_compress_br);
-                switch (result)
-                {
-                    case QRCodeHelper.QRCodeCreateResult.DataTooLong:
-                        Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
-                        break;
-                    case QRCodeHelper.QRCodeCreateResult.Exception:
-                        Toast.Show(e!, nameof(AuthService), msg: nameof(GetQrCodeStreamAsync));
-                        break;
-                }
-                return stream;
+                return GetQrCodeStream(datas);
             });
             return qrCode;
         }
@@ -765,9 +772,9 @@ namespace System.Application.Services
                 await fileWriteStream.FlushAsync();
                 await fileWriteStream.DisposeAsync();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Toast.Show(ex, nameof(AuthService), msg: nameof(ExportAuthenticators));
+                e.LogAndShowT(TAG);
             }
         }
 

@@ -263,5 +263,28 @@ namespace System.Application.UI.ViewModels
                 NickName = user.NickName;
             }
         }
+
+        public bool OnClose()
+        {
+            if (IsModify && !IsComplete)
+            {
+                ShowUnsavedEditingWillBeDiscardedAsync();
+                return true;
+                async void ShowUnsavedEditingWillBeDiscardedAsync()
+                {
+                    // 有修改时，如果关闭窗口，则需二次确认
+                    var r = await MessageBox.ShowAsync(AppResources.UnsavedEditingWillBeDiscarded, AppResources.Warning, MessageBox.Button.OKCancel);
+                    if (r.IsOK())
+                    {
+                        IsComplete = true;
+                        Close?.Invoke();
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

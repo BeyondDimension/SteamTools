@@ -135,65 +135,73 @@ namespace System.Application
             }
         }
 
-        public static string? OSName
+        public static string OSName => OSNameValue.ToDisplayName();
+
+        static readonly Lazy<OSNames.Value> _OSNameValue = new(() =>
         {
-            get
+            if (OperatingSystem2.IsWindows)
             {
-                if (OperatingSystem2.IsWindows)
+                if (DeviceInfo.Platform == DevicePlatform.UWP)
                 {
-                    if (DeviceInfo.Platform == DevicePlatform.UWP)
-                    {
-                        return "UWP";
-                    }
-                    else if (DesktopBridge.IsRunningAsUwp)
-                    {
-                        return "Windows Desktop Bridge";
-                    }
-                    //else if (OperatingSystem2.IsRunningAsUwp)
-                    //{
-                    //    return "Windows Sparse Package";
-                    //}
-                    else
-                    {
-                        return "Windows";
-                    }
+                    return OSNames.Value.UWP;
                 }
-                else if (OperatingSystem2.IsAndroid)
+                else if (DesktopBridge.IsRunningAsUwp)
                 {
-                    if (OperatingSystem2.IsRunningOnWSA)
-                    {
-                        return "WSA";
-                    }
-                    else
-                    {
-                        return "Android";
-                    }
+                    return OSNames.Value.WindowsDesktopBridge;
                 }
-                else if (OperatingSystem2.IsIOS)
+                else
                 {
-                    if (DeviceInfo.Idiom == XEDeviceIdiom.Tablet)
-                        return "iPadOS";
-                    return "iOS";
+                    return OSNames.Value.Windows;
                 }
-                else if (OperatingSystem2.IsMacOS)
-                {
-                    return "macOS";
-                }
-                else if (OperatingSystem2.IsTvOS)
-                {
-                    return "tvOS";
-                }
-                else if (OperatingSystem2.IsWatchOS)
-                {
-                    return "watchOS";
-                }
-                else if (OperatingSystem2.IsLinux)
-                {
-                    return "Linux";
-                }
-                return default;
             }
-        }
+            else if (OperatingSystem2.IsAndroid)
+            {
+                if (OperatingSystem2.IsRunningOnWSA)
+                {
+                    return OSNames.Value.WSA;
+                }
+                else
+                {
+                    if (DeviceType == DeviceType.Virtual)
+                    {
+                        return OSNames.Value.AndroidVirtual;
+                    }
+                    return DeviceInfo.Idiom.Convert() switch
+                    {
+                        DeviceIdiom.Phone => OSNames.Value.AndroidPhone,
+                        DeviceIdiom.Tablet => OSNames.Value.AndroidTablet,
+                        DeviceIdiom.Desktop => OSNames.Value.AndroidDesktop,
+                        DeviceIdiom.TV => OSNames.Value.AndroidTV,
+                        DeviceIdiom.Watch => OSNames.Value.AndroidWatch,
+                        _ => OSNames.Value.AndroidUnknown,
+                    };
+                }
+            }
+            else if (OperatingSystem2.IsIOS)
+            {
+                if (DeviceInfo.Idiom == XEDeviceIdiom.Tablet)
+                    return OSNames.Value.iPadOS;
+                return OSNames.Value.iOS;
+            }
+            else if (OperatingSystem2.IsMacOS)
+            {
+                return OSNames.Value.macOS;
+            }
+            else if (OperatingSystem2.IsTvOS)
+            {
+                return OSNames.Value.tvOS;
+            }
+            else if (OperatingSystem2.IsWatchOS)
+            {
+                return OSNames.Value.watchOS;
+            }
+            else if (OperatingSystem2.IsLinux)
+            {
+                return OSNames.Value.Linux;
+            }
+            return default;
+        });
+        public static OSNames.Value OSNameValue => _OSNameValue.Value;
 
         /// <inheritdoc cref="DeviceInfo.DeviceType"/>
         public static DeviceType DeviceType

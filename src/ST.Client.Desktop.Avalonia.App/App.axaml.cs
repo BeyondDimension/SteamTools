@@ -259,11 +259,6 @@ namespace System.Application.UI
                         //#endif
                         //                        }
                     }
-#if WINDOWS
-#pragma warning disable CA1416 // 验证平台兼容性
-                    IJumpListService.Instance.InitJumpList();
-#pragma warning restore CA1416 // 验证平台兼容性
-#endif
                 }
 
                 desktop.MainWindow =
