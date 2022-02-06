@@ -19,7 +19,7 @@ namespace System.Application
         {
             var text = File.ReadAllText(filePath, Encoding.UTF8);
             return VdfConvert.Deserialize(text);
-        }
+        } 
         public static void UpdateValueByReplaceNoPattern(string filePath, string oldVaule, string newValue)
         {
             var text = File.ReadAllText(filePath, Encoding.UTF8);
@@ -30,7 +30,7 @@ namespace System.Application
         {
             var text = File.ReadAllText(filePath, Encoding.UTF8);
             text = text.RemovePattern().Replace(
-                oldVaule.RemovePattern().Replace(" ", string.Empty), newValue);
+                oldVaule.RemovePattern().Replace(" ", string.Empty), newValue.RemovePattern().Replace(" ", string.Empty));
             File.WriteAllText(filePath, text, Encoding.UTF8);
         }
 
