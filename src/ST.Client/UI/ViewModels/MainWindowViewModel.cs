@@ -61,6 +61,8 @@ namespace System.Application.UI.ViewModels
 
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
 
+        public AccountPageViewModel AccountPage => GetTabItemVM<AccountPageViewModel>();
+
         protected static readonly IPlatformService platformService = IPlatformService.Instance;
         public MainWindowViewModel()
         {
@@ -97,6 +99,7 @@ namespace System.Application.UI.ViewModels
             //AddTabItem<StartPageViewModel>();
             AddTabItem<CommunityProxyPageViewModel>();
             AddTabItem<ProxyScriptManagePageViewModel>();
+            AddTabItem<AccountPageViewModel>();
             if (useAvalonia)
             {
                 AddTabItem<SteamAccountPageViewModel>();

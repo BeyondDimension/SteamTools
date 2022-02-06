@@ -134,12 +134,19 @@
     <Compile Update="Application\UI\Views\Controls\Badge.xaml.cs">
       <DependentUpon>Badge.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Pages\Account\AccountPage.axaml.cs">
+      <DependentUpon>AccountPage.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Windows\NoticePage\NoticeWindow.axaml.cs">
       <DependentUpon>NoticeWindow.axaml</DependentUpon>
     </Compile>
     <Compile Update="Application\UI\Views\Windows\PlatformAccountPage\SignWindow.axaml.cs">
       <DependentUpon>SignWindow.axaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\UI\Views\Windows\Account\" />
   </ItemGroup>
 
 </Project>
