@@ -88,20 +88,14 @@ namespace System.Application.UI.ViewModels
                 });
             }
 
-            FooterTabItems = new List<TabItemViewModel>
-            {
-                SettingsPageViewModel.Instance,
-                AboutPageViewModel.Instance,
-            };
-
             #region InitTabItems
 
 
             //AddTabItem<StartPageViewModel>();
             AddTabItem<CommunityProxyPageViewModel>();
-            AddTabItem<ProxyScriptManagePageViewModel>();
             if (IApplication.IsDesktopPlatform)
             {
+                AddTabItem<ProxyScriptManagePageViewModel>();
                 AddTabItem<SteamAccountPageViewModel>();
                 AddTabItem<GameListPageViewModel>();
             }
@@ -134,7 +128,7 @@ namespace System.Application.UI.ViewModels
 
             R.Subscribe(() =>
             {
-                foreach (var item in AllTabItems)
+                foreach (var item in CurrentAllTabItems)
                 {
                     item.RaisePropertyChanged(nameof(TabItemViewModelBase.Name));
                 }

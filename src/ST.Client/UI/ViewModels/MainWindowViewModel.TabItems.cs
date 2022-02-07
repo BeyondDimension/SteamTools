@@ -9,7 +9,24 @@ namespace System.Application.UI.ViewModels
         readonly Dictionary<Type, Lazy<TabItemViewModel>> mTabItems = new();
         public IEnumerable<TabItemViewModel> TabItems => mTabItems.Values.Select(x => x.Value);
 
-        public IReadOnlyList<TabItemViewModel>? FooterTabItems { get; private set; }
+        IReadOnlyList<TabItemViewModel>? _FooterTabItems;
+        public IReadOnlyList<TabItemViewModel>? FooterTabItems
+        {
+            get
+            {
+                if (_FooterTabItems == null)
+                {
+                    var settingsPageVM = SettingsPageViewModel.Instance;
+                    var aboutPageVM = AboutPageViewModel.Instance;
+                    _FooterTabItems = new List<TabItemViewModel>
+                    {
+                        settingsPageVM,
+                        aboutPageVM,
+                    };
+                }
+                return _FooterTabItems;
+            }
+        }
 
         public IEnumerable<TabItemViewModel> AllTabItems
         {
@@ -17,6 +34,18 @@ namespace System.Application.UI.ViewModels
             {
                 if (FooterTabItems == null) return TabItems;
                 else return TabItems.Concat(FooterTabItems);
+            }
+        }
+
+        /// <summary>
+        /// 当前 <see cref="AllTabItems"/>，延时加载 <see cref="FooterTabItems"/>
+        /// </summary>
+        public IEnumerable<TabItemViewModel> CurrentAllTabItems
+        {
+            get
+            {
+                if (_FooterTabItems == null) return TabItems;
+                else return TabItems.Concat(_FooterTabItems);
             }
         }
 

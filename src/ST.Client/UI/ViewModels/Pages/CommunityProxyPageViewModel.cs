@@ -19,7 +19,7 @@ namespace System.Application.UI.ViewModels
 {
     public partial class CommunityProxyPageViewModel
     {
-        readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
+        readonly IHostsFileService? hostsFileService;
         readonly IPlatformService platformService = IPlatformService.Instance;
 
         public ReactiveCommand<Unit, Unit>? SetupCertificateCommand { get; }
@@ -58,6 +58,7 @@ namespace System.Application.UI.ViewModels
 
             if (IApplication.IsDesktopPlatform)
             {
+                hostsFileService = IHostsFileService.Instance;
                 SetupCertificateCommand = ReactiveCommand.Create(SetupCertificate_OnClick);
                 DeleteCertificateCommand = ReactiveCommand.Create(DeleteCertificate_OnClick);
                 EditHostsFileCommand = ReactiveCommand.Create(hostsFileService.OpenFile);

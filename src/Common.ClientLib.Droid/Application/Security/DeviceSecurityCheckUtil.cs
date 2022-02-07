@@ -267,23 +267,28 @@
 //                        newRating++;
 //                    }
 
-//                    try
-//                    {
-//                        var opengl = Android.Opengl.GLES20.GlGetString(Android.Opengl.GLES20.GlRenderer);
-//                        if (!string.IsNullOrWhiteSpace(opengl))
-//                        {
-//#pragma warning disable CS8604 // 可能的 null 引用参数。
-//                            if (contains(opengl, "Bluestacks") ||
-//                                contains(opengl, "Translator") ||
-//                                contains(opengl, "youwave")
-//                            )
-//#pragma warning restore CS8604 // 可能的 null 引用参数。
-//                                newRating += 10;
-//                        }
-//                    }
-//                    catch
-//                    {
-//                    }
+/* signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0xdd0
+ * Cause: null pointer dereference
+ * backtrace:
+ * #00 pc 0000000000005ff4  /system/lib64/libGLESv1_CM.so (glGetString+52)
+ */
+////                    try
+////                    {
+////                        var opengl = Android.Opengl.GLES20.GlGetString(Android.Opengl.GLES20.GlRenderer);
+////                        if (!string.IsNullOrWhiteSpace(opengl))
+////                        {
+////#pragma warning disable CS8604 // 可能的 null 引用参数。
+////                            if (contains(opengl, "Bluestacks") ||
+////                                contains(opengl, "Translator") ||
+////                                contains(opengl, "youwave")
+////                            )
+////#pragma warning restore CS8604 // 可能的 null 引用参数。
+////                                newRating += 10;
+////                        }
+////                    }
+////                    catch
+////                    {
+////                    }
 
 //                    try
 //                    {
