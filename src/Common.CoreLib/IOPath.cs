@@ -173,7 +173,7 @@ namespace System
                 string sourceAppDataPath, string sourceCachePath)
             {
                 var paths = new[] { destAppDataPath, destCachePath, };
-                var dict_paths = paths.ToDictionary(x => x, Directory.Exists);
+                var dict_paths = paths.ToDictionary(x => x, x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any());
 
                 if (dict_paths.Values.All(x => !x))
                 {
