@@ -178,7 +178,7 @@ namespace System
                 if (dict_paths.Values.All(x => !x))
                 {
                     var old_paths = new[] { sourceAppDataPath, sourceCachePath, };
-                    if (old_paths.All(Directory.Exists)) // 迁移之前根目录上的文件夹
+                    if (old_paths.All(x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any())) // 迁移之前根目录上的文件夹
                     {
                         for (int i = 0; i < old_paths.Length; i++)
                         {
@@ -191,7 +191,8 @@ namespace System
                             }
                             catch
                             {
-                                // 跨卷移动失败或其他原因失败，使用旧的目录
+                                // 跨卷移动失败或其他原因失败，使用旧的目录，并尝试删除创建的空文件夹
+                                DirTryDelete(path);
                                 paths[i] = old_path;
                             }
                         }
