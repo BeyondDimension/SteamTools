@@ -1,0 +1,27 @@
+{
+  "index": 25,
+  "oldversion": "2.6.4",
+  "version": "2.6.5",
+  "time": "(2022-01-05)",
+  "remarks": [
+    "<div class='ant-typography' style='font-size:18px;margin-bottom: 0px;font-weight: bold;'>版本亮点</div>",
+    "&emsp;1. ASF 升级至 V5.2.2.4",
+    "&emsp;2. Android 12 适配",
+    "&emsp;3. Android 上的 ASP.NET Core 升级至 2.2.5",
+    "&emsp;4. Desktop 上的 Avalonia 升级至 0.10.12",
+    "<div class='ant-typography' style='font-size:18px;margin-bottom: 0px;font-weight: bold;'>修复问题</div>",
+    "&emsp;1. 修复 Steam Beta 版账号切换失效",
+    "&emsp;2. 修复 ASF 在线配置文件生成器链接错误",
+    "&emsp;3. 修复 Linux 上运行时闪退",
+    "&emsp;4. 修复 Windows 7 上点击任务栏图标没有最小化",
+    "&emsp;5. 改进 打开 Web 链接失败时候的错误提示",
+    "&emsp;6. 改进 JumpList 在 Windows 10.0.10586 上使用 UWP API",
+    "&emsp;7. 改进 Windows 安装包默认路径使用 $PROGRAMFILES64",
+    "&emsp;8. 改进 Windows 安装版 AppData 与 Cache 文件夹不再使用根目录",
+    "&emsp;9. 改进 Android Apk 包使用单一包，不再根据 ABI 拆分",
+    "&emsp;10. 改进 Android 本地加速与 ASF 使用前台服务运行",
+    "&emsp;11. 改进 本地加速 增加 重置 Hosts 文件 与 打开 Hosts 所在文件夹",
+    "&emsp;12. 改进 Hosts 文件存在多个 Mark 导致失败的错误提示"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/2.6.4"
+}
