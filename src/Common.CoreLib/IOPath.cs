@@ -184,8 +184,16 @@ namespace System
                         {
                             var path = paths[i];
                             var old_path = old_paths[i];
-                            Directory.Move(old_path, path);
-                            dict_paths[path] = true;
+                            try
+                            {
+                                Directory.Move(old_path, path);
+                                dict_paths[path] = true;
+                            }
+                            catch
+                            {
+                                // 跨卷移动失败或其他原因失败，使用旧的目录
+                                paths[i] = old_path;
+                            }
                         }
                     }
                 }
@@ -199,8 +207,8 @@ namespace System
                 }
 
                 InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
-                string GetAppDataDirectory() => destAppDataPath;
-                string GetCacheDirectory() => destCachePath;
+                string GetAppDataDirectory() => paths[0];
+                string GetCacheDirectory() => paths[1];
             }
         }
 
