@@ -12,7 +12,7 @@
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.22" />
 		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.22" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.22" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.22" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.22" />
@@ -30,7 +30,7 @@
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.12" />
@@ -48,7 +48,7 @@
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
 		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.1" />
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.1" />
