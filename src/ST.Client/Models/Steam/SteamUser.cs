@@ -15,11 +15,6 @@ namespace System.Application.Models
         {
         }
 
-        public SteamUser(string vdfstring) : this()
-        {
-            OriginVdfString = vdfstring;
-        }
-
         [XmlIgnore]
         public string? SteamId3 { get; set; }
 
@@ -194,24 +189,24 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _MiniProfile, value);
         }
 
-        /// <summary>
-        /// 来源 Valve Data File 字符串
-        /// </summary>
-        [XmlIgnore]
-        public string? OriginVdfString { get; set; }
+        ///// <summary>
+        ///// 来源 Valve Data File 字符串
+        ///// </summary>
+        //[XmlIgnore]
+        //public string? OriginVdfString { get; set; }
 
-        /// <summary>
-        /// 导出 Valve Data File 配置字符串
-        /// </summary>
-        [XmlIgnore]
-        public string CurrentVdfString =>
-            "\"" + SteamId64 + "\"\n{\n" +
-            "\t\t\"AccountName\"\t\t\"" + AccountName + "\"\n" +
-            "\t\t\"PersonaName\"\t\t\"" + PersonaName + "\"\n" +
-            "\t\t\"RememberPassword\"\t\t\"" + Convert.ToByte(RememberPassword) + "\"\n" +
-            "\t\t\"MostRecent\"\t\t\"" + Convert.ToByte(MostRecent) + "\"\n" +
-            "\t\t\"WantsOfflineMode\"\t\t\"" + Convert.ToByte(WantsOfflineMode) + "\"\n" +
-            "\t\t\"SkipOfflineModeWarning\"\t\t\"" + Convert.ToByte(SkipOfflineModeWarning) + "\"\n" +
-            "\t\t\"Timestamp\"\t\t\"" + Timestamp + "\"\n}";
+        ///// <summary>
+        ///// 导出 Valve Data File 配置字符串
+        ///// </summary>
+        //[XmlIgnore]
+        //public string CurrentVdfString =>
+        //    "\"" + SteamId64 + "\"\n{\n" +
+        //    "\t\t\"AccountName\"\t\t\"" + AccountName + "\"\n" +
+        //    "\t\t\"PersonaName\"\t\t\"" + PersonaName + "\"\n" +
+        //    "\t\t\"RememberPassword\"\t\t\"" + Convert.ToByte(RememberPassword) + "\"\n" +
+        //    "\t\t\"MostRecent\"\t\t\"" + Convert.ToByte(MostRecent) + "\"\n" +
+        //    "\t\t\"WantsOfflineMode\"\t\t\"" + Convert.ToByte(WantsOfflineMode) + "\"\n" +
+        //    "\t\t\"SkipOfflineModeWarning\"\t\t\"" + Convert.ToByte(SkipOfflineModeWarning) + "\"\n" +
+        //    "\t\t\"Timestamp\"\t\t\"" + Timestamp + "\"\n}";
     }
 }

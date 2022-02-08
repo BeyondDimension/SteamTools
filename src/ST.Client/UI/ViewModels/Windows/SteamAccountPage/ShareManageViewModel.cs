@@ -54,6 +54,14 @@ namespace System.Application.UI.ViewModels
 
             var userlist = steamService.GetRememberUserList();
             var allList = steamService.GetAuthorizedDeviceList();
+            allList.Add(SteamAccountSettings.DisableAuthorizedDevice.Value!.Select(x => new AuthorizedDevice
+            {
+                SteamId3_Int = x.SteamId3_Int,
+                Timeused = x.Timeused,
+                Description = x.Description,
+                Disable = true,
+                Tokenid = x.Tokenid
+            }));
             int count = allList.Count - 1;
             foreach (var item in allList)
             {
@@ -129,7 +137,19 @@ namespace System.Application.UI.ViewModels
             item.Index = 1;
             Sort(item, true);
         }
-
+        public async void RemoveButton_Click(AuthorizedDevice item)
+        {
+            var result = await MessageBox.ShowAsync(AppResources.Steam_Share_RemoveShare, button: MessageBox.Button.OKCancel);
+            if (result.IsOK())
+            {
+                _AuthorizedSourceList.Remove(item);
+            }
+        }
+        public void DisableOrEnableButton_Click(AuthorizedDevice item)
+        {
+            item.Disable = !item.Disable;
+            _AuthorizedSourceList.AddOrUpdate(_AuthorizedList!);
+        }
         public void UpButton_Click(AuthorizedDevice item)
         {
             Sort(item, true);
@@ -163,7 +183,14 @@ namespace System.Application.UI.ViewModels
         public async void SetActivity_Click()
         {
             if (_AuthorizedList != null)
-                steamService.UpdateAuthorizedDeviceList(_AuthorizedList);
+                steamService.UpdateAuthorizedDeviceList(_AuthorizedList.Where(x => !x.Disable));
+            SteamAccountSettings.DisableAuthorizedDevice.Value = _AuthorizedList.Where(x => x.Disable).Select(x => new DisableAuthorizedDevice
+            {
+                Description = x.Description,
+                SteamId3_Int = x.SteamId3_Int,
+                Timeused = x.Timeused,
+                Tokenid = x.Tokenid,
+            }).ToArray();
             var result = await MessageBox.ShowAsync(AppResources.AccountChange_RestartSteam, button: MessageBox.Button.OKCancel);
             if (result.IsOK())
             {

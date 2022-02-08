@@ -2,6 +2,8 @@ using ReactiveUI;
 using System.Threading.Tasks;
 using static System.Application.SteamApiUrls;
 
+using MPKey = MessagePack.KeyAttribute;
+using MPObj = MessagePack.MessagePackObjectAttribute;
 namespace System.Application.Models
 {
     public class AuthorizedDevice : ReactiveObject
@@ -16,7 +18,7 @@ namespace System.Application.Models
         {
             OriginVdfString = vdfString;
         }
-
+        public bool Disable { get; set; }
         public string ProfileUrl => string.Format(STEAM_PROFILES_URL, SteamId64_Int);
 
         public bool First { get; set; }
@@ -85,5 +87,17 @@ namespace System.Application.Models
            "\t\t\t\"timeused\"\t\t\"" + Timeused + "\"\n" +
            "\t\t\t\"description\"\t\t\"" + Description + "\"\n" +
            "\t\t\t\"tokenid\"\t\t\"" + Tokenid + "\"\n\t\t}";
+    }
+    [MPObj]
+    public class DisableAuthorizedDevice
+    {
+        [MPKey(0)]
+        public long SteamId3_Int { get; set; }
+        [MPKey(1)]
+        public long Timeused { get; set; }
+        [MPKey(2)]
+        public string? Description { get; set; }
+        [MPKey(3)]
+        public string? Tokenid { get; set; }
     }
 }

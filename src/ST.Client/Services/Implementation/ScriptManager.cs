@@ -336,7 +336,9 @@ namespace System.Application.Services.Implementation
             }
             return item;
         }
-
+        public async Task SaveEnableScript(ScriptDTO item){
+            await scriptRepository.SaveScriptEnable(item);
+        }
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync()
         {
             var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());

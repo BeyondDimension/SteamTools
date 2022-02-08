@@ -235,7 +235,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启 Steam 生效。 的本地化字符串。
+        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，如果不生效可以禁用启用选项保留需要的共享库。调整后保存重启 Steam 生效！ 的本地化字符串。
         /// </summary>
         public static string AccountChange_ShareManageAboutTips {
             get {
@@ -4876,6 +4876,42 @@ namespace System.Application.UI.Resx {
         public static string Steam_Password {
             get {
                 return ResourceManager.GetString("Steam_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否删除此家庭库共享。 的本地化字符串。
+        /// </summary>
+        public static string Steam_Share_RemoveShare {
+            get {
+                return ResourceManager.GetString("Steam_Share_RemoveShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 (已禁用) 的本地化字符串。
+        /// </summary>
+        public static string Steam_ShareDisable {
+            get {
+                return ResourceManager.GetString("Steam_ShareDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 禁用共享库 的本地化字符串。
+        /// </summary>
+        public static string Steam_ShareDisableBtn {
+            get {
+                return ResourceManager.GetString("Steam_ShareDisableBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用共享库 的本地化字符串。
+        /// </summary>
+        public static string Steam_ShareEnableBtn {
+            get {
+                return ResourceManager.GetString("Steam_ShareEnableBtn", resourceCulture);
             }
         }
         

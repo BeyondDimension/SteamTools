@@ -165,7 +165,7 @@ namespace System.Application.Services.Implementation
                         try
                         {
                             var i = item.Value;
-                            var user = new SteamUser(item.ToString())
+                            var user = new SteamUser()
                             {
                                 SteamId64 = Convert.ToInt64(item.Key.ToString()),
                                 AccountName = i.AccountName?.ToString(),
@@ -216,28 +216,19 @@ namespace System.Application.Services.Implementation
                     var authorizedDevice = v.Value.AuthorizedDevice;
                     if (authorizedDevice != null)
                     {
-                        foreach (var item in authorizedDevice)
-                        {
-                            try
-                            {
-                                var i = item.Value;
-                                authorizeds.Add(new AuthorizedDevice(item.ToString())
-                                {
-                                    SteamId3_Int = Convert.ToInt64(item.Key.ToString()),
-                                    Timeused = Convert.ToInt64(i.timeused.ToString()),
-                                    Description = i.description.ToString(),
-                                    Tokenid = i.tokenid.ToString(),
-                                });
-                            }
-                            catch (Exception e)
-                            {
-                                Log.Error(TAG, e, "GetAuthorizedDeviceList Fail(0).");
-                            }
+                        
+                        var lists = new VObject();
+                        foreach (var item in model.OrderBy(x=>x.Index))
+                        { 
+                            VObject itemTemp=new VObject();
+                            itemTemp.Add("timeused", new VValue(item.Timeused));
+                            itemTemp.Add("description", new VValue(item.Description));
+                            itemTemp.Add("tokenid", new VValue(item.Tokenid));
+                            
+                            lists.Add(item.SteamId3_Int.ToString(), itemTemp);
                         }
-                        var oldStr = $"\t{{\n{string.Join("\n", authorizeds.Select(x => x.CurrentVdfString))}\n\t}}".TrimEnd("\n");
-                        //authorizedDevice.Select(x => x.ToString());
-                        var newStr = $"\t{{\n{string.Join("\n", model.OrderBy(x => x.Index).Select(x => x.CurrentVdfString))}\n\t}}".TrimEnd("\n");
-                        VdfHelper.UpdateValueByReplaceNoPattern(ConfigVdfPath, oldStr, newStr);
+                        v.Value.AuthorizedDevice = lists;
+                        VdfHelper.Write(ConfigVdfPath, v);
                         return true;
                     }
                     else
@@ -388,7 +379,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public void UpdateLocalUserData(SteamUser user)
+        public void UpdateLocalUserData(IEnumerable<SteamUser> user)
         {
             if (string.IsNullOrWhiteSpace(UserVdfPath))
             {
@@ -396,11 +387,32 @@ namespace System.Application.Services.Implementation
             }
             else
             {
-                var originVdfStr = user.OriginVdfString;
-                VdfHelper.UpdateValueByReplace(
-                    UserVdfPath,
-                    originVdfStr.ThrowIsNull(nameof(originVdfStr)),
-                    user.CurrentVdfString);
+                if (File.Exists(UserVdfPath))
+                {
+                    dynamic models = VdfHelper.Read(UserVdfPath);
+                    foreach (var item in models.Value.Children())
+                    {
+                        try
+                        {
+                            var itemUser = user.FirstOrDefault(x => x.SteamId64.ToString() == item.Key);
+                            if (itemUser == null)
+                            {
+                                item.Value.MostRecent = item.Value.MostRecent == 1 ? 0 : 1;
+                                break;
+                            }
+                            item.Value.MostRecent = Convert.ToByte(itemUser.MostRecent);
+                            item.Value.Timestamp = itemUser.Timestamp;
+                            item.Value.WantsOfflineMode = Convert.ToByte(itemUser.WantsOfflineMode);
+                            item.Value.SkipOfflineModeWarning = Convert.ToByte(itemUser.SkipOfflineModeWarning);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error(TAG, e, "GetUserVdfPath for catch");
+                        }
+                    }
+
+                    VdfHelper.Write(UserVdfPath, models);
+                }
             }
         }
 
@@ -863,6 +875,7 @@ namespace System.Application.Services.Implementation
             }
             return keys;
         }
+
     }
 }
 

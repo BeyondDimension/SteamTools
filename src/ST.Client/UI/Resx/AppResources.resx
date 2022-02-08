@@ -148,7 +148,7 @@
     <value>修改的数据生效需要重启 Steam 是否需要重启 Steam。</value>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启 Steam 生效。</value>
+    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，如果不生效可以禁用启用选项保留需要的共享库。调整后保存重启 Steam 生效！</value>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
@@ -2071,5 +2071,17 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
     <value>ASF 服务正在运行。</value>
+  </data>
+  <data name="Steam_ShareDisable" xml:space="preserve">
+    <value>(已禁用)</value>
+  </data>
+  <data name="Steam_ShareDisableBtn" xml:space="preserve">
+    <value>禁用共享库</value>
+  </data>
+  <data name="Steam_ShareEnableBtn" xml:space="preserve">
+    <value>启用共享库</value>
+  </data>
+  <data name="Steam_Share_RemoveShare" xml:space="preserve">
+    <value>是否删除此家庭库共享。</value>
   </data>
 </root>

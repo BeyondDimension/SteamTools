@@ -19,7 +19,18 @@ namespace System.Application
         {
             var text = File.ReadAllText(filePath, Encoding.UTF8);
             return VdfConvert.Deserialize(text);
-        } 
+        }
+        public static void Write(string filePath, VProperty content)
+        {
+            try
+            {
+                File.WriteAllText(filePath, VdfConvert.Serialize(content), Encoding.UTF8);
+            }
+            catch (Exception e)
+            {
+                Log.Error(nameof(VdfHelper), e, "Write Vdf Error");
+            }
+        }
         public static void UpdateValueByReplaceNoPattern(string filePath, string oldVaule, string newValue)
         {
             var text = File.ReadAllText(filePath, Encoding.UTF8);

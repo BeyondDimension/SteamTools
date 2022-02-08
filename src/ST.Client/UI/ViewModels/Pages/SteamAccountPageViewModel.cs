@@ -79,7 +79,8 @@ namespace System.Application.UI.ViewModels
         public ReadOnlyObservableCollection<SteamUser>? SteamUsers => _SteamUsers;
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
-        public void RefreshRememberUserList() {
+        public void RefreshRememberUserList()
+        {
             _SteamUsersSourceList.AddOrUpdate(_SteamUsers!);
         }
         public override async void Initialize()
@@ -221,8 +222,8 @@ namespace System.Application.UI.ViewModels
 
             steamService.SetCurrentUser(user.AccountName ?? string.Empty);
             user.MostRecent = true;
-            steamService.UpdateLocalUserData(user);
-            user.OriginVdfString = user.CurrentVdfString;
+            steamService.UpdateLocalUserData(SteamUsers!);
+            //user.OriginVdfString = user.CurrentVdfString;
             steamService.TryKillSteamProcess();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
             RefreshRememberUserList();
@@ -230,12 +231,13 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// All MostRecent true => false
         /// </summary>
-        private void DisableMostRecentSteamUser() {
+        private void DisableMostRecentSteamUser()
+        {
             foreach (var item in SteamUsers.Where(x => x.MostRecent))
             {
                 item.MostRecent = false;
-                steamService.UpdateLocalUserData(item);
-                item.OriginVdfString = item.CurrentVdfString;
+                //steamService.UpdateLocalUserData(item);
+                //item.OriginVdfString = item.CurrentVdfString;
             }
         }
         private void UserModeChange(SteamUser user, bool OfflineMode)
@@ -245,8 +247,8 @@ namespace System.Application.UI.ViewModels
 
             user.WantsOfflineMode = OfflineMode;
             user.MostRecent = true;
-            steamService.UpdateLocalUserData(user);
-            user.OriginVdfString = user.CurrentVdfString;
+            steamService.UpdateLocalUserData(SteamUsers!);
+            //user.OriginVdfString = user.CurrentVdfString;
             RefreshRememberUserList();
         }
 
