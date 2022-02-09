@@ -267,7 +267,19 @@ namespace System.Application
                 var mainDllPath = ProjectPathUtil.projPath + ProjectPathUtil.MainDllPath;
                 var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;
                 var versionArray = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
-                if (versionArray.Length > 3) version = string.Join('.', versionArray.Take(3));
+                switch (versionArray.Length)
+                {
+                    case 1:
+                        version = $"{versionArray[0]}.0.0";
+                        break;
+                    case 2:
+                        version = $"{versionArray[0]}.{versionArray[1]}.0";
+                        break;
+                    case 3:
+                    case 4:
+                        version = string.Join('.', versionArray);
+                        break;
+                }
                 return version;
             }
             set
@@ -283,7 +295,19 @@ namespace System.Application
             var mainDllPath = ProjectPathUtil.projPath + string.Format(ProjectPathUtil.MainDllPath_, configuration);
             var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;
             var versionArray = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
-            if (versionArray.Length > 3) version = string.Join('.', versionArray.Take(3));
+            switch (versionArray.Length)
+            {
+                case 1:
+                    version = $"{versionArray[0]}.0.0";
+                    break;
+                case 2:
+                    version = $"{versionArray[0]}.{versionArray[1]}.0";
+                    break;
+                case 3:
+                case 4:
+                    version = string.Join('.', versionArray);
+                    break;
+            }
             return version;
         }
 

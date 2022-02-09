@@ -50,7 +50,7 @@
 						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.6.7](https://img.shields.io/badge/Steam++-v2.6.7-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.6.8](https://img.shields.io/badge/Steam++-v2.6.8-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -59,21 +59,21 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.7.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.6.7.7z  | SHA256 |
+| Steam++_win_x64_v2.6.8.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.6.8.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.6.7.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.6.7.exe  | SHA256 |
+| Steam++_win_x64_v2.6.8.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.6.8.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.7.7z  | SHA256 |
-| Steam++_linux_arm64_v2.6.7.7z  | SHA256 |
+| Steam++_linux_x64_v2.6.8.7z  | SHA256 |
+| Steam++_linux_arm64_v2.6.8.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.7.deb  | SHA256 |
-| Steam++_linux_arm64_v2.6.7.deb  | SHA256 |
+| Steam++_linux_x64_v2.6.8.deb  | SHA256 |
+| Steam++_linux_arm64_v2.6.8.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.7.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.6.7.rpm  | SHA256 |
+| Steam++_linux_x64_v2.6.8.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.6.8.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.6.7.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.8.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.6.7.apk  | SHA256 |
+| Steam++_android_v2.6.8.apk  | SHA256 |

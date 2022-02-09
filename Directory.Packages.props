@@ -1,4 +1,40 @@
 <Project>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
+		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.2" />
+	</ItemGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0')) ">
+		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET50) -->
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.Extensions.Http" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.14" />
+	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.StartsWith('netcoreapp3.1'))">
 		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NETCOREAPP31) -->
 		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.22" />
@@ -17,46 +53,10 @@
 		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.22" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.22" />
 	</ItemGroup>
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0')) ">
-		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET50) -->
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.Extensions.Http" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.12" />
-	</ItemGroup>
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
-		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.1" />
-	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Entity Framework Plus -->
 		<!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.7" />
+		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.9" />
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
@@ -79,7 +79,7 @@
 	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
 		<!-- BCL(NETSTANDARD) -->
-		<PackageVersion Include="System.Text.Json" Version="6.0.1" />
+		<PackageVersion Include="System.Text.Json" Version="6.0.2" />
 		<PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0" />
 		<PackageVersion Include="System.Drawing.Common" Version="6.0.0" />
 		<PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
