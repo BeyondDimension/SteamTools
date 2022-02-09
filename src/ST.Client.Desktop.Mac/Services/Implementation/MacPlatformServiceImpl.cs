@@ -117,9 +117,8 @@ namespace System.Application.Services.Implementation
                     var autoLoginUser = v.Value.HKCU.Software.Valve.Steam.AutoLoginUser;
                     if (autoLoginUser != null)
                     {
-                        var oldStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{autoLoginUser}\"\n";
-                        var newStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{userName}\"\n";
-                        VdfHelper.UpdateValueByReplaceNoPattern(registryVdfPath, oldStr, newStr);
+                        autoLoginUser = userName;
+                        VdfHelper.Write(registryVdfPath, v);
                     }
                     else
                     {

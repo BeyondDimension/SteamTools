@@ -216,15 +216,14 @@ namespace System.Application.Services.Implementation
                     var authorizedDevice = v.Value.AuthorizedDevice;
                     if (authorizedDevice != null)
                     {
-                        
                         var lists = new VObject();
-                        foreach (var item in model.OrderBy(x=>x.Index))
-                        { 
-                            VObject itemTemp=new VObject();
+                        foreach (var item in model.OrderBy(x => x.Index))
+                        {
+                            VObject itemTemp = new VObject();
                             itemTemp.Add("timeused", new VValue(item.Timeused));
                             itemTemp.Add("description", new VValue(item.Description));
                             itemTemp.Add("tokenid", new VValue(item.Tokenid));
-                            
+
                             lists.Add(item.SteamId3_Int.ToString(), itemTemp);
                         }
                         v.Value.AuthorizedDevice = lists;
@@ -250,7 +249,13 @@ namespace System.Application.Services.Implementation
             {
                 if (!string.IsNullOrWhiteSpace(ConfigVdfPath) && File.Exists(ConfigVdfPath))
                 {
-                    VdfHelper.DeleteValueByKey(ConfigVdfPath, model.OriginVdfString.ThrowIsNull(nameof(model.OriginVdfString)));
+                    dynamic v = VdfHelper.Read(ConfigVdfPath);
+                    var authorizedDevice = v.Value.AuthorizedDevice;
+                    if (authorizedDevice != null)
+                    {
+                        authorizedDevice = ((IEnumerable<VProperty>)authorizedDevice).Where(x => x.Key != model.SteamId3_Int.ToString());
+                        VdfHelper.Write(ConfigVdfPath, v);
+                    }
                     return true;
                 }
             }
@@ -367,13 +372,37 @@ namespace System.Application.Services.Implementation
             }
             else
             {
-                VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
-                if (IsDeleteUserData)
+                dynamic v = VdfHelper.Read(UserVdfPath);
+                dynamic users = v.Value.Children();
+                if (users != null)
                 {
-                    var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
-                    if (Directory.Exists(temp))
+                    try
                     {
-                        Directory.Delete(temp, true);
+                        for (int i = 0; i < users.Count; i++)
+                        {
+                            var item = users[i];
+                            if (item != null&& item!.Key== user.SteamId64.ToString())
+                            {
+                                users.Remove(users[i]);
+                                VdfHelper.Write(UserVdfPath, v);
+                                //VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
+                                if (IsDeleteUserData)
+                                {
+                                    var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
+                                    if (Directory.Exists(temp))
+                                    {
+                                        Directory.Delete(temp, true);
+                                    }
+                                }
+                                return;
+                            }
+                        }
+                       
+                       
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(TAG, e, "GetUserVdfPath for Delete catch");
                     }
                 }
             }
