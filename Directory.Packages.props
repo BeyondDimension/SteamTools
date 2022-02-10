@@ -61,7 +61,7 @@
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
 		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.3" />
-		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.3" />
+		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.4" />
 	</ItemGroup>
 	<ItemGroup>
 	</ItemGroup>
