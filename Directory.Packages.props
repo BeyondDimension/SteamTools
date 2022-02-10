@@ -178,7 +178,7 @@
 		<PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
 
 		<!-- Win32/Windows -->
-		<PackageVersion Include="TaskScheduler" Version="2.10.0" />
+		<PackageVersion Include="TaskScheduler" Version="2.10.1" />
 
 		<!-- Swagger -->
 		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
