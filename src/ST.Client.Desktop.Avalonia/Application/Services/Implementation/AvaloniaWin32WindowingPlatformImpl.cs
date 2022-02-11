@@ -155,9 +155,9 @@ namespace System.Application.Services.Implementation
                         }
                         break;
 
-                    case WM.ACTIVATE:
-                        EnsureExtended();
-                        break;
+                    //case WM.ACTIVATE:
+                    //    EnsureExtended();
+                    //    break;
 
                     case WM.NCMOUSEMOVE:
                         if (_fakingMaximizeButton)
