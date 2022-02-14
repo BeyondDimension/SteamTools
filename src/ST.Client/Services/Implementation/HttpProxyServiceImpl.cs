@@ -233,7 +233,7 @@ namespace System.Application.Services.Implementation
                 {
                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host, StringComparison.OrdinalIgnoreCase))
                     {
-                        if (e.HttpClient.Request.RequestUri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
+                        if (!e.HttpClient.IsHttps)
                         {
                             e.HttpClient.Request.RequestUri = new Uri(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
                             //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
