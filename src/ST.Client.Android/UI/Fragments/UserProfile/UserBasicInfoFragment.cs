@@ -32,7 +32,9 @@ namespace System.Application.UI.Fragments
             binding!.layoutNickName.SetMaxLength(ModelValidatorLengths.NickName);
             binding.tbNickName.SetMaxLength(ModelValidatorLengths.NickName);
 
-            ViewModel!.Close = () => RequireActivity().Finish();
+            binding.btnUID.Text = $"UID: {ViewModel!.UID}";
+
+            ViewModel.Close = () => RequireActivity().Finish();
 
             // Gender 双向绑定
             UIGender = ViewModel.Gender;
@@ -182,7 +184,8 @@ namespace System.Application.UI.Fragments
             SetOnClickListener(
                 binding.btnModifyPhoneNumber,
                 binding.clickBirthDate,
-                binding.btnSubmit);
+                binding.btnSubmit,
+                binding.btnUID);
         }
 
         Gender gender;
@@ -291,6 +294,11 @@ namespace System.Application.UI.Fragments
                 else if (view.Id == Resource.Id.btnSubmit)
                 {
                     ViewModel.Submit();
+                    return true;
+                }
+                else if (view.Id == Resource.Id.btnUID)
+                {
+                    ViewModel.UIDCommand.Invoke();
                     return true;
                 }
             }
