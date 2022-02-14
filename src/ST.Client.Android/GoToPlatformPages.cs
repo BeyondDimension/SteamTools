@@ -6,6 +6,8 @@ using AndroidUri = Android.Net.Uri;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using JFile = Java.IO.File;
 using ASettings = Android.Provider.Settings;
+using Android.Security;
+using System.IO;
 
 namespace System.Application
 {
@@ -139,12 +141,16 @@ namespace System.Application
             StartActivity<TActivity, TViewModel>(activity, viewModel);
         }
 
-        public static bool OpenFile(Context context, JFile jFile, string mime)
+        public static bool OpenFile(Context context, JFile jFile, string mime, string? name = null)
         {
             try
             {
                 var sdkInt = (int)Build.VERSION.SdkInt;
                 var intent = new Intent(Intent.ActionView);
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    intent.PutExtra("name", name);
+                }
                 AndroidUri apkUri;
                 if (sdkInt >= (int)BuildVersionCodes.N) // 7.0 FileProvider
                 {
@@ -168,10 +174,28 @@ namespace System.Application
 
         public static bool InstallApk(Context context, JFile apkFile) => OpenFile(context, apkFile, MediaTypeNames.APK);
 
-        public static void InstallApk(Context context, string apkFilePath)
+        public static bool InstallApk(Context context, string apkFilePath)
         {
             JFile apkFile = new(apkFilePath);
-            InstallApk(context, apkFile);
+            return InstallApk(context, apkFile);
+        }
+
+        public static bool InstallCertificate(Context context, string filePath, string name)
+        {
+            try
+            {
+                // com.adguard.android.service.q(HttpsFilteringServiceImpl).f()
+                var intent = KeyChain.CreateInstallIntent();
+                intent.PutExtra("name", name);
+                intent.PutExtra("CERT", File.ReadAllBytes(filePath));
+                intent.AddFlags(ActivityFlags.NewTask);
+                context.StartActivity(intent);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         static void StartNewTaskActivity(Context context, string action)

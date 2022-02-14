@@ -119,7 +119,13 @@
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
-    <None Include="..\..\references\7z.dll">
+    <None Include="..\..\references\7z.dll" Condition=" '$(Platform)' != 'x86' And '$(Platform)' != 'ARM64' ">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\references\x86\7z.dll" Condition=" '$(Platform)' == 'x86' ">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\references\ARM64\7z.dll" Condition=" '$(Platform)' == 'ARM64' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.22" TargetingPackVersion="10.0.19041.22" />

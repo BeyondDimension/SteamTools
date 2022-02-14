@@ -255,14 +255,8 @@ namespace System.Application.UI.Fragments
             return default;
         }
 
-        void InstallCertificate() => ViewModel!.ExportCertificateFile(cefFilePath =>
-        {
-            var dest = Path.Combine(IOPath.CacheDirectory, IHttpProxyService.CerFileName);
-            File.Copy(cefFilePath, dest, true);
-            // AppData 目录仅本 App 读写，Cache 目录可给予其他 App 读取权限
-            GoToPlatformPages.OpenFile(RequireContext(),
-                new(dest), MediaTypeNames.CER);
-        });
+        void InstallCertificate() => GoToPlatformPages.InstallCertificate(RequireContext(),
+            ViewModel!.CerFilePath, IHttpProxyService.RootCertificateName);
 
 #if DEBUG
         async void Test()
