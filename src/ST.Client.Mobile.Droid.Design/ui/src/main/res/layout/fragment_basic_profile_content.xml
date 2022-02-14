@@ -36,6 +36,7 @@
     app:layout_constraintTop_toTopOf="parent" />
 
   <LinearLayout
+    android:id="@+id/linearLayout"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -60,9 +61,25 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="@color/text_primary"
+      android:textSize="12sp"
       tools:text="从您的设备上传一个文件。图片应为方形，至少为 400px x 400px\n该功能正在开发中，敬请期待"
       xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
   </LinearLayout>
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/btnUID"
+    style="@style/Widget.MaterialComponents.Button.TextButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:minHeight="0dp"
+    android:textAllCaps="false"
+    android:textSize="13sp"
+    app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
+    app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+    tools:text="UID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/layoutNickName"
@@ -70,10 +87,10 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginTop="5dp"
     app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
     app:layout_constraintStart_toEndOf="@+id/ivIconNickName"
-    app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
+    app:layout_constraintTop_toBottomOf="@+id/btnUID"
     tools:hint="昵称"
     xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
 
