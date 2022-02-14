@@ -24,33 +24,40 @@ namespace System.Application.Services
 {
     public sealed class AuthService : ReactiveObject
     {
+        const string TAG = "AuthS";
+
         static AuthService? mCurrent;
         public static AuthService Current => mCurrent ?? new();
+
+        static Stream? GetQrCodeStream(IEnumerable<IGAPAuthenticatorDTO> datas)
+        {
+            var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
+            var bytes = Serializable.SMP(dtos);
+#if DEBUG
+            var bytes_compress_gzip = bytes.CompressByteArray();
+#endif
+            var bytes_compress_br = bytes.CompressByteArrayByBrotli();
+#if DEBUG
+            Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
+#endif
+            (var result, var stream, var e) = QRCodeHelper.Create(bytes_compress_br);
+            switch (result)
+            {
+                case QRCodeHelper.QRCodeCreateResult.DataTooLong:
+                    Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
+                    break;
+                case QRCodeHelper.QRCodeCreateResult.Exception:
+                    e?.LogAndShowT(TAG);
+                    break;
+            }
+            return stream;
+        }
 
         public static async Task<Stream?> GetQrCodeStreamAsync(IEnumerable<IGAPAuthenticatorDTO> datas)
         {
             var qrCode = await Task.Run(() =>
             {
-                var dtos = datas.Select(x => x.ToLightweightExportDTO()).ToArray();
-                var bytes = Serializable.SMP(dtos);
-#if DEBUG
-                var bytes_compress_gzip = bytes.CompressByteArray();
-#endif
-                var bytes_compress_br = bytes.CompressByteArrayByBrotli();
-#if DEBUG
-                Toast.Show($"bytesLength, source: {bytes.Length}, gzip: {bytes_compress_gzip.Length}, br: {bytes_compress_br.Length}");
-#endif
-                (var result, var stream, var e) = QRCodeHelper.Create(bytes_compress_br);
-                switch (result)
-                {
-                    case QRCodeHelper.QRCodeCreateResult.DataTooLong:
-                        Toast.Show(AppResources.AuthLocal_ExportToQRCodeTooLongErrorTip);
-                        break;
-                    case QRCodeHelper.QRCodeCreateResult.Exception:
-                        Toast.Show(e!, nameof(AuthService), msg: nameof(GetQrCodeStreamAsync));
-                        break;
-                }
-                return stream;
+                return GetQrCodeStream(datas);
             });
             return qrCode;
         }
@@ -67,7 +74,7 @@ namespace System.Application.Services
 
         public GAPRepository Repository => repository;
 
-        public AuthService()
+        private AuthService()
         {
             mCurrent = this;
 
@@ -735,32 +742,39 @@ namespace System.Application.Services
             return items.Select(s => s.AuthenticatorData);
         }
 
-        public async Task<byte[]> GetExportAuthenticatorsAsync(bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
+        //public async Task<byte[]> GetExportAuthenticatorsAsync(bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
+        //{
+        //    var items = GetExportSourceAuthenticators(predicateWhere);
+        //    var bt = await repository.ExportAsync(isLocal, password, items);
+        //    return bt;
+        //}
+
+        public async Task GetExportAuthenticatorsAsync(Stream stream, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
         {
             var items = GetExportSourceAuthenticators(predicateWhere);
-            var bt = await repository.ExportAsync(isLocal, password, items);
-            return bt;
+            await repository.ExportAsync(stream, isLocal, password, items);
         }
 
-        public async void ExportAuthenticators(string? filePath, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
+        public async void ExportAuthenticators(Stream? fileWriteStream, bool isLocal, string? password = null, Func<MyAuthenticator, bool>? predicateWhere = null)
         {
             try
             {
-                if (string.IsNullOrEmpty(filePath))
+                if (fileWriteStream == null)
                 {
                     Toast.Show(AppResources.LocalAuth_ProtectionAuth_PathError);
                     return;
                 }
 
-                IOPath.FileIfExistsItDelete(filePath);
+                if (fileWriteStream.CanSeek && fileWriteStream.Position != 0)
+                    fileWriteStream.Position = 0;
 
-                var bt = await GetExportAuthenticatorsAsync(isLocal, password, predicateWhere);
-
-                await File.WriteAllBytesAsync(filePath, bt);
+                await GetExportAuthenticatorsAsync(fileWriteStream, isLocal, password, predicateWhere);
+                await fileWriteStream.FlushAsync();
+                await fileWriteStream.DisposeAsync();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Toast.Show(ex, nameof(AuthService), msg: nameof(ExportAuthenticators));
+                e.LogAndShowT(TAG);
             }
         }
 

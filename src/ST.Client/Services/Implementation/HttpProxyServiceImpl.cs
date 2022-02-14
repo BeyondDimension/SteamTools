@@ -1,7 +1,6 @@
 using System.Application.Models;
 using System.Application.Properties;
 using System.Application.UI.Resx;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -22,14 +21,17 @@ using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Models;
 using Titanium.Web.Proxy.Network;
+using static System.Application.Services.IHttpProxyService;
 
 namespace System.Application.Services.Implementation
 {
-    public class HttpProxyServiceImpl : IHttpProxyService
+    sealed class HttpProxyServiceImpl : IHttpProxyService
     {
-        protected readonly IPlatformService platformService;
+        readonly IPlatformService platformService;
 
         readonly ProxyServer proxyServer = new();
+
+        IDnsAnalysisService DnsAnalysis { get; }
 
         public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
 
@@ -40,8 +42,6 @@ namespace System.Application.Services.Implementation
         public bool IsEnableScript { get; set; }
 
         public bool IsOnlyWorkSteamBrowser { get; set; }
-
-        public string CertificateName { get; set; } = ThisAssembly.AssemblyProduct;
 
         public CertificateEngine CertificateEngine { get; set; } = CertificateEngine.BouncyCastle;
 
@@ -62,7 +62,7 @@ namespace System.Application.Services.Implementation
         public bool TwoLevelAgentEnable { get; set; }
 
         public ExternalProxyType TwoLevelAgentProxyType { get; set; }
-            = IHttpProxyService.DefaultTwoLevelAgentProxyType;
+            = DefaultTwoLevelAgentProxyType;
 
         public string? TwoLevelAgentIp { get; set; }
 
@@ -79,19 +79,19 @@ namespace System.Application.Services.Implementation
         public static IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
         private static bool IsIpv6Support = false;
-        private static IHttpClientFactory _clientFactory;
+        bool disposedValue;
 
-        public HttpProxyServiceImpl(IHttpClientFactory clientFactory, IPlatformService platformService)
+        public HttpProxyServiceImpl(IPlatformService platformService, IDnsAnalysisService dnsAnalysis)
         {
-            _clientFactory = clientFactory;
             this.platformService = platformService;
+            DnsAnalysis = dnsAnalysis;
             //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
             //else
-            proxyServer.ExceptionFunc = ((Exception exception) =>
+            proxyServer.ExceptionFunc = exception =>
             {
-                Log.Error("Proxy", exception, "ProxyServer ExceptionFunc");
-            });
+                Log.Error(TAG, exception, "ProxyServer ExceptionFunc");
+            };
 
             proxyServer.EnableHttp2 = true;
             proxyServer.EnableConnectionPool = true;
@@ -100,55 +100,34 @@ namespace System.Application.Services.Implementation
             proxyServer.CertificateManager.CertificateEngine = CertificateEngine;
             //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
             //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
-            proxyServer.CertificateManager.PfxFilePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pfx");
-            proxyServer.CertificateManager.RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
-            proxyServer.CertificateManager.RootCertificateName = $"{CertificateName} Certificate";
+            proxyServer.CertificateManager.PfxFilePath = ((IHttpProxyService)this).PfxFilePath;
+            proxyServer.CertificateManager.RootCertificateIssuerName = RootCertificateIssuerName;
+            proxyServer.CertificateManager.RootCertificateName = RootCertificateName;
             //mac和ios的证书信任时间不能超过300天
             proxyServer.CertificateManager.CertificateValidDays = 300;
             //proxyServer.CertificateManager.SaveFakeCertificates = true;
 
             proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
         }
-        public static List<HttpHeader> DefaultHttpHeader => new List<HttpHeader>
-        {
-                new HttpHeader("Access-Control-Allow-Headers", "*"),
-                new HttpHeader("Access-Control-Allow-Methods", "*"),
-                new HttpHeader("Access-Control-Expose-Headers", "SteamPPBrowserBefore"),
-                new HttpHeader("Access-Control-Allow-Credentials", "true")
-        };
+
         private static async Task HttpRequest(SessionEventArgs e)
         {
+            //IHttpService.Instance.SendAsync<object>();
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
             var cookie = e.HttpClient.Request.Headers.GetFirstHeader("cookie-steamTool")?.Value ??
                 e.HttpClient.Request.Headers.GetFirstHeader("Cookie")?.Value;
-            var headrs = DefaultHttpHeader;
-            headrs.Add(new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"));
+            var headrs = new List<HttpHeader>() {
+                new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
+                new HttpHeader("Access-Control-Allow-Headers", "*"), new HttpHeader("Access-Control-Allow-Methods", "*"),
+                new HttpHeader("Access-Control-Allow-Credentials", "true")
+            };
+            //if (cookie != null)
+            //    headrs.Add(new HttpHeader("Cookie", cookie));
             if (e.HttpClient.Request.ContentType != null)
                 headrs.Add(new HttpHeader("Content-Type", e.HttpClient.Request.ContentType));
             switch (e.HttpClient.Request.Method.ToUpperInvariant())
             {
                 case "GET":
-                    //cloudflare  实现操作太复杂放弃
-                    //var host = new Uri(url).Host;
-                    //var request = new HttpRequestMessage(HttpMethod.Get, url);
-                    //if (cookie != null)
-                    //{
-                    //    request.Headers.Add("Cookie", cookie);
-                    //}
-                    //using (var client = _clientFactory.CreateClient("cloudflare"))
-                    //{
-                    //    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-                    //    if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
-                    //    {
-                    //        var responseCookies = response.Headers.Where(header => header.Key == "Set-Cookie").ToArray();
-                    //        if (responseCookies.Length > 0)
-                    //        {
-                    //            
-                    //            headrs.Add(new HttpHeader("SteamPPBrowserBefore", $"Checking your browser before accessing {host}"));
-                    //        }
-                    //    }
-                    //    e.Ok(await response.Content.ReadAsStringAsync() ?? "500", headrs);
-                    //}
                     var body = await IHttpService.Instance.GetAsync<string>(url, cookie: cookie);
                     e.Ok(body ?? "500", headrs);
                     return;
@@ -169,7 +148,7 @@ namespace System.Application.Services.Implementation
                                 req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(e.HttpClient.Request.ContentType);
                                 req.Content.Headers.ContentLength = e.HttpClient.Request.BodyString.Length;
                                 return req;
-                            }, null, false, new CancellationToken());
+                            }, null/*, false*/, default);
                             e.Ok(conext ?? "500", headrs);
                         }
                         else
@@ -186,10 +165,9 @@ namespace System.Application.Services.Implementation
             //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
         }
 
-        private static async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
+        private async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
         {
-            IPAddress? ip = null;
-            if (isDomain || !IPAddress.TryParse(url, out ip))
+            if (isDomain || !IPAddress.TryParse(url, out var ip))
             {
                 if (proxyDns != null)
                 {
@@ -197,14 +175,14 @@ namespace System.Application.Services.Implementation
                 }
                 else
                 {
-                    if (!OperatingSystem2.IsWindows)
+                    if (!OperatingSystem2.IsWindows && !IsSystemProxy)
                     {
-                        ip = (await DnsAnalysis.AnalysisDomainIp(url, IsIpv6Support))?.First();
+                        //非windows环境hosts加速下不能使用系统默认DNS解析代理，会解析到hosts上无限循环
+                        ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(url, IsIpv6Support))?.First();
                     }
                     else
                     {
-                        //非windows环境不能使用系统默认DNS解析代理，会解析到hosts上无限循环
-                        ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(url, IsIpv6Support))?.First();
+                        ip = (await DnsAnalysis.AnalysisDomainIp(url, IsIpv6Support))?.First();
                     }
                 }
             }
@@ -220,7 +198,7 @@ namespace System.Application.Services.Implementation
 #endif
             if (e.HttpClient.Request.Host == null) return;
 
-            if (e.HttpClient.Request.Host.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
                 {
@@ -238,7 +216,7 @@ namespace System.Application.Services.Implementation
                         await HttpRequest(e);
                         return;
                     default:
-                        e.Ok(Scripts.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
+                        e.Ok(Scripts?.FirstOrDefault(x => x.JsPathUrl == e.HttpClient.Request.RequestUri.LocalPath)?.Content ?? "404", JsHeader);
                         return;
                 }
             }
@@ -255,7 +233,7 @@ namespace System.Application.Services.Implementation
                 {
                     if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host, StringComparison.OrdinalIgnoreCase))
                     {
-                        if (e.HttpClient.Request.RequestUri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
+                        if (!e.HttpClient.IsHttps)
                         {
                             e.HttpClient.Request.RequestUri = new Uri(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
                             //e.Redirect(e.HttpClient.Request.RequestUri.AbsoluteUri.Remove(0, 4).Insert(0, "https"));
@@ -318,7 +296,7 @@ namespace System.Application.Services.Implementation
                 if (ip == null || IPAddress.IsLoopback(ip))
                 {
                     e.TerminateSession();
-                    Log.Info("Proxy", "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
+                    Log.Info(TAG, "IsLoopback OnRequest: " + e.HttpClient.Request.RequestUri.AbsoluteUri);
                 }
                 else
                 {
@@ -332,7 +310,7 @@ namespace System.Application.Services.Implementation
         {
 #if DEBUG
             Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
-            Log.Info("Proxy", "OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
+            Log.Info(TAG, "OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
 #endif
             if (Scripts is null)
             {
@@ -346,13 +324,13 @@ namespace System.Application.Services.Implementation
                 if (IsOnlyWorkSteamBrowser)
                 {
                     var ua = e.HttpClient.Request.Headers.GetHeaders("User-Agent");
-                    if (ua.FirstOrDefault()?.Value.Contains("Valve Steam") == false)
+                    if (ua?.FirstOrDefault()?.Value.Contains("Valve Steam") == false)
                     {
                         return;
                     }
                 }
 
-                StringBuilder scriptHtml = new StringBuilder();
+                StringBuilder scriptHtml = new();
 
                 foreach (var script in Scripts)
                 {
@@ -367,7 +345,7 @@ namespace System.Application.Services.Implementation
                     {
                         var state = host.IndexOf("/") == 0;
                         if (state)
-                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host.Substring(1), RegexOptions.Compiled);
+                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host[1..], RegexOptions.Compiled);
                         else
                             state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
                         if (state)
@@ -419,10 +397,41 @@ namespace System.Application.Services.Implementation
             return Task.CompletedTask;
         }
 
+        string? IHttpProxyService.GetCerFilePathGeneratedWhenNoFileExists() => GetCerFilePathGeneratedWhenNoFileExists();
+
+        /// <inheritdoc cref="IHttpProxyService.GetCerFilePathGeneratedWhenNoFileExists"/>
+        public string? GetCerFilePathGeneratedWhenNoFileExists(string? filePath = null)
+        {
+            filePath ??= ((IHttpProxyService)this).CerFilePath;
+            if (!File.Exists(filePath))
+            {
+                if (!GenerateCertificate(filePath)) return null;
+            }
+            return filePath;
+        }
+
+        public bool GenerateCertificate(string? filePath = null)
+        {
+            var result = proxyServer.CertificateManager.CreateRootCertificate(true);
+            if (!result || proxyServer.CertificateManager.RootCertificate == null)
+            {
+                Log.Error(TAG, AppResources.CreateCertificateFaild);
+                Toast.Show(AppResources.CreateCertificateFaild);
+                return false;
+            }
+
+            filePath ??= ((IHttpProxyService)this).CerFilePath;
+
+            proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
+
+            return true;
+        }
+
         public void TrustCer()
         {
-            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
-            IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
+            var filePath = GetCerFilePathGeneratedWhenNoFileExists();
+            if (filePath != null)
+                IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
 
         public bool SetupCertificate()
@@ -432,32 +441,39 @@ namespace System.Application.Services.Implementation
             //proxyServer.CertificateManager
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
             //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
-            var result = proxyServer.CertificateManager.CreateRootCertificate(true);
-            if (!result || proxyServer.CertificateManager.RootCertificate == null)
-            {
-                Log.Error("Proxy", AppResources.CreateCertificateFaild);
-                Toast.Show(AppResources.CreateCertificateFaild);
-                return false;
-            }
 
-            var filePath = Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.cer");
+            if (!GenerateCertificate()) return false;
 
-            proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
             try
             {
                 proxyServer.CertificateManager.TrustRootCertificate();
             }
+#if DEBUG
+            catch (Exception e)
+            {
+                e.LogAndShowT(TAG, msg: "TrustRootCertificate Error");
+            }
+#else
             catch { }
+#endif
             try
             {
                 proxyServer.CertificateManager.EnsureRootCertificate();
             }
+
+#if DEBUG
+            catch (Exception e)
+            {
+                e.LogAndShowT(TAG, msg: "EnsureRootCertificate Error");
+            }
+#else
             catch { }
+#endif
             if (OperatingSystem2.IsMacOS)
             {
                 TrustCer();
             }
-            if (OperatingSystem2.IsLinux)
+            if (OperatingSystem2.IsLinux && !OperatingSystem2.IsAndroid)
             {
                 //IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
                 Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
@@ -498,20 +514,21 @@ namespace System.Application.Services.Implementation
             {
                 //取消删除证书
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             return true;
         }
 
         public int GetRandomUnusedPort() => SocketHelper.GetRandomUnusedPort(ProxyIp);
 
-        public bool PortInUse(int port) => SocketHelper.IsUsePort(port);
+        public bool PortInUse(int port) => SocketHelper.IsUsePort(ProxyIp, port);
 
         public async Task<bool> StartProxy()
         {
-            if (!IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate))
+            var isCertificateInstalled = IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
+            if (!isCertificateInstalled)
             {
                 DeleteCertificate();
                 var isOk = SetupCertificate();
@@ -529,7 +546,8 @@ namespace System.Application.Services.Implementation
 
             try
             {
-                var explicitProxyEndPoint = new ExplicitProxyEndPoint(ProxyIp, GetRandomUnusedPort(), true)
+                if (PortInUse(ProxyPort)) ProxyPort = GetRandomUnusedPort();
+                var explicitProxyEndPoint = new ExplicitProxyEndPoint(ProxyIp, ProxyPort, true)
                 {
                     // 通过不启用为每个http的域创建证书来优化性能
                     //GenericCertificate = proxyServer.CertificateManager.RootCertificate
@@ -612,7 +630,7 @@ namespace System.Application.Services.Implementation
                     {
                         if (!IPlatformService.Instance.SetAsSystemProxy(true, explicitProxyEndPoint.IpAddress, explicitProxyEndPoint.Port))
                         {
-                            Log.Error("Proxy", "系统代理开启失败");
+                            Log.Error(TAG, "系统代理开启失败");
                             return false;
                         }
                     }
@@ -621,7 +639,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                Log.Error("Proxy", ex, nameof(StartProxy));
+                Log.Error(TAG, ex, nameof(StartProxy));
                 return false;
             }
 
@@ -637,7 +655,7 @@ namespace System.Application.Services.Implementation
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
         {
             e.DecryptSsl = false;
-            if (e.SniHostName.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.SniHostName.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
                 return Task.CompletedTask;
@@ -684,7 +702,7 @@ namespace System.Application.Services.Implementation
             {
                 return;
             }
-            if (e.HttpClient.Request.Host.Contains(IHttpProxyService.LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
                 return;
@@ -746,7 +764,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception ex)
             {
-                Toast.Show(ex, nameof(HttpProxyServiceImpl), msg: nameof(StopProxy));
+                ex.LogAndShowT(TAG);
             }
         }
 
@@ -800,13 +818,31 @@ namespace System.Application.Services.Implementation
             return store.Certificates.Contains(certificate2);
         }
 
+        void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: 释放托管状态(托管对象)
+                    if (proxyServer.ProxyRunning)
+                    {
+                        StopProxy();
+                    }
+                    proxyServer.Dispose();
+                }
+
+                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+                // TODO: 将大型字段设置为 null
+                disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            if (proxyServer.ProxyRunning)
-            {
-                StopProxy();
-            }
-            proxyServer.Dispose();
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -2,6 +2,7 @@ using DynamicData;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -172,6 +173,16 @@ namespace System.Application.Repositories
         {
             IEnumerable<IGAPAuthenticatorDTO> sources_ = items;
             return ExportAsync(isLocal, secondaryPassword, sources_);
+        }
+
+        /// <inheritdoc cref="ExportAsync(bool, string?, IEnumerable{IGAPAuthenticatorDTO})"/>
+        Task ExportAsync(Stream stream, bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO> items);
+
+        /// <inheritdoc cref="ExportAsync(bool, string?, IEnumerable{IGAPAuthenticatorDTO})"/>
+        Task ExportAsync(Stream stream, bool isLocal, string? secondaryPassword, params IGAPAuthenticatorDTO[] items)
+        {
+            IEnumerable<IGAPAuthenticatorDTO> sources_ = items;
+            return ExportAsync(stream, isLocal, secondaryPassword, sources_);
         }
 
         /// <summary>

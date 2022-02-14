@@ -13,7 +13,7 @@
 [![GitHub Fork](https://img.shields.io/github/forks/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/network/members)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/BeyondDimension/SteamTools?style=flat-square&color=3cb371)
 [![GitHub Repo Languages](https://img.shields.io/github/languages/top/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/search?l=c%23)
-[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://github.com/dotnet/core/blob/main/release-notes/6.0/6.0.0/6.0.0.md?WT.mc_id=dotnet-35129-website)
+[![NET 6.0](https://img.shields.io/badge/dotnet-6.0-purple.svg?style=flat-square&color=512bd4)](https://docs.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-6)
 [![C# 10.0](https://img.shields.io/badge/c%23-10.0-brightgreen.svg?style=flat-square&color=6da86a)](https://docs.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-10)
 
 [![Desktop UI](https://img.shields.io/badge/ui@desktop-AvaloniaUI-purple.svg?style=flat-square&color=8c45ab)](https://github.com/AvaloniaUI/Avalonia)
@@ -34,6 +34,7 @@
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
 - [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
 
 ## ✨ 功能
 1. 反代 Steam 的社区网页使其能正常访问
@@ -61,8 +62,8 @@
 OS                                    | Version                 | Architectures   | Lifecycle
 --------------------------------------|-------------------------|-----------------|----------
 [Windows Client][Windows-client]      | 7 SP1(**\***), 8.1      | x64        | [Windows][Windows-lifecycle]
-[Windows 10 Client][Windows-client]   | Version 1607+(**\***)           | x64 | [Windows][Windows-lifecycle]
-[Windows Server][Windows-Server]      | 2012+                | x64        | [Windows Server][Windows-Server-lifecycle]
+[Windows 10 Client][Windows-client]   | Version 1607+(**\***)   | x64        | [Windows][Windows-lifecycle]
+[Windows Server][Windows-Server]      | 2012+                   | x64        | [Windows Server][Windows-Server-lifecycle]
 
 **\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
 **\*** Microsoft Store/Desktop Bridge Version 1809+
@@ -78,15 +79,16 @@ OS                                    | Version                 | Architectures 
 
 OS                                    | Version               | Architectures     | Lifecycle
 --------------------------------------|-----------------------|-------------------|----------
-[Alpine Linux][Alpine]                | 3.13+                 | x64, Arm64, Arm32 | [Alpine][Alpine-lifecycle]
+[Alpine Linux][Alpine]                | 3.13+                 | x64, Arm64        | [Alpine][Alpine-lifecycle]
 [CentOS][CentOS]                      | 7+                    | x64               | [CentOS][CentOS-lifecycle]
-[Debian][Debian]                      | 10+                   | x64, Arm64, Arm32 | [Debian][Debian-lifecycle]
+[Debian][Debian]                      | 10+                   | x64, Arm64        | [Debian][Debian-lifecycle]
 [Fedora][Fedora]                      | 33+                   | x64               | [Fedora][Fedora-lifecycle]
 [openSUSE][OpenSUSE]                  | 15+                   | x64               | [OpenSUSE][OpenSUSE-lifecycle]
 [Red Hat Enterprise Linux][RHEL]      | 7+                    | x64, Arm64        | [Red Hat][RHEL-lifecycle]
 [SUSE Enterprise Linux (SLES)][SLES]  | 12 SP2+               | x64               | [SUSE][SLES-lifecycle]
-[Ubuntu][Ubuntu]                      | 16.04, 18.04, 20.04+  | x64, Arm64, Arm32 | [Ubuntu][Ubuntu-lifecycle]
-[Deepin / UOS][Deepin]                      | 20+                   | x64 | [Deepin][Deepin-lifecycle]
+[Ubuntu][Ubuntu]                      | 16.04, 18.04, 20.04+  | x64, Arm64        | [Ubuntu][Ubuntu-lifecycle]
+[Deepin / UOS][Deepin]                | 20+                   | x64               | [Deepin][Deepin-lifecycle]
+[Arch Linux][Arch]                    |                       | x64               | 
 
 [Alpine]: https://alpinelinux.org/
 [Alpine-lifecycle]: https://wiki.alpinelinux.org/wiki/Alpine_Linux:Releases
@@ -118,22 +120,24 @@ OS                                    | Version               | Architectures   
 [Ubuntu-pm]: https://docs.microsoft.com/dotnet/core/install/linux-package-manager-ubuntu-2004
 [Deepin]: https://www.deepin.org/
 [Deepin-lifecycle]: https://www.deepin.org/release-notes
+[Arch]: https://archlinux.org/
 
 ### macOS
 
 OS                            | Version                   | Architectures     |
 ------------------------------|---------------------------|-------------------|
-[macOS][macOS]                | 10.14+                    | x64        |
+[macOS][macOS]                | 10.14+                    | x64               |
 
 [macOS]: https://support.apple.com/macos
 
-### Android
-
-OS                            | Version                 | Architectures     |
-------------------------------|-------------------------|-------------------|
-[Android][Android]            | 5.0(API 21)+                 | [x86](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#x86), [Arm32](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a), [Arm64](https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a) |
+OS                            | Version                 | Architectures                                                      |
+------------------------------|-------------------------|--------------------------------------------------------------------|
+[Android][Android]            | 5.0(API 21)+            | [x64][Android-x64], [Arm64][Android-Arm64], [Arm32][Android-Arm32] |
 
 [Android]: https://support.google.com/android
+[Android-x64]: https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#86-64
+[Android-Arm32]: https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#v7a
+[Android-Arm64]: https://developer.android.google.cn/ndk/guides/abis?hl=zh_cn#arm64-v8a
 
 ### ~~iOS / iPadOS~~
 
@@ -179,7 +183,7 @@ OS                            | Version                 | Architectures     |
 	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
 [OpenJDK 11](https://docs.microsoft.com/zh-cn/java/openjdk/download#openjdk-11)  
-[Android Studio 2020.3.1 或更高版本](https://developer.android.google.cn/studio/)  
+[Android Studio 2021.1.1 或更高版本](https://developer.android.google.cn/studio/)  
 [Xcode 13 或更高版本](https://developer.apple.com/xcode/)
 
 ## 🏗️ [项目结构](./src/README.md)
@@ -214,11 +218,13 @@ OS                            | Version                 | Architectures     |
 * [DnsClient.NET](https://github.com/MichaCo/DnsClient.NET)
 * [Costura.Fody](https://github.com/Fody/Costura)
 * [MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp)
+* [CSharpVitamins.ShortGuid](https://github.com/AigioL/CSharpVitamins.ShortGuid)
 * [Nito.Comparers](https://github.com/StephenCleary/Comparers)
 * [Nito.Disposables](https://github.com/StephenCleary/Disposables)
 * [Crc32.NET](https://github.com/force-net/Crc32.NET)
 * [gfoidl.Base64](https://github.com/gfoidl/Base64)
 * [sqlite-net-pcl](https://github.com/praeclarum/sqlite-net)
+* [AutoMapper](https://github.com/AutoMapper/AutoMapper)
 * [Polly](https://github.com/App-vNext/Polly)
 * [TaskScheduler](https://github.com/dahall/taskscheduler)
 * [SharpZipLib](https://github.com/icsharpcode/SharpZipLib)

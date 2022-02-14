@@ -23,16 +23,20 @@ namespace System.Application
     /// </summary>
     public enum NotificationChannelType
     {
-        /// <summary>
-        /// 新版本
-        /// <para>例如：</para>
-        /// <para>新版本下载进度</para>
-        /// </summary>
+        /// <inheritdoc cref="NotificationType.NewVersion"/>
         NewVersion = 2,
 
-        /// <summary>
-        /// 公告
-        /// </summary>
+        /// <inheritdoc cref="NotificationType.Announcement"/>
         Announcement,
+
+        /// <inheritdoc cref="NotificationType.Message"/>
+        Message,
+
+        /// <summary>
+        /// Android 前台服务
+        /// <para><see cref="NotificationType.ProxyForegroundService"/></para>
+        /// <para><see cref="NotificationType.ArchiSteamFarmForegroundService"/></para>
+        /// </summary>
+        ForegroundService,
     }
 }

@@ -205,4 +205,8 @@
     <value>지원되지 않는 휴대폰 번호 세그먼트({0})</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
+    <value>웹 링크를 열지 못한 경우 0x{0} 시스템 기본 브라우저를 설정한 다음 다시 시도하십시오</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

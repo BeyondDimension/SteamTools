@@ -1,4 +1,5 @@
 using System.Net;
+using System.Threading.Tasks;
 
 namespace System.Application.Models
 {
@@ -127,12 +128,26 @@ namespace System.Application.Models
         /// </summary>
         AppObsolete,
 
+        /// <summary>
+        /// 必须在 WebView3 中打开
+        /// </summary>
         RequiredWebViwe3,
+
+        /// <summary>
+        /// 证书不在有效期内或本地系统时间不正确
+        /// </summary>
+        CertificateNotYetValid,
 
         /// <summary>
         /// 短信服务故障
         /// </summary>
         SMSServerError = 5001,
+
+        /// <inheritdoc cref="TaskCanceledException"/>
+        TaskCanceled,
+
+        /// <inheritdoc cref="OperationCanceledException"/>
+        OperationCanceled,
 
         #endregion
     }

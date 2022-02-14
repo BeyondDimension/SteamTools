@@ -17,10 +17,10 @@ namespace System.Application.UI.Views.Windows
             SystemDecorations = SystemDecorations.Full;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
 
-            if (OperatingSystem2.IsWindows11AtLeast)
-            {
-                AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
-            }
+            //if (OperatingSystem2.IsWindows11AtLeast)
+            //{
+            //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
+            //}
 #if DEBUG
             this.AttachDevTools();
 #endif

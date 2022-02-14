@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using System.Application.Services;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace System
@@ -21,41 +22,42 @@ namespace System
             toast.Show(text, duration);
         }
 
+        static void ShowLong(string text) => Show(text, ToastLength.Long);
+
+#if DEBUG
+        [Obsolete("use e.LogAndShowT(..", true)]
+        public static void Show(Exception e,
+            string? tag = null, LogLevel level = LogLevel.Error,
+            string? msg = null, params object?[] args) => e.LogAndShowT(tag, level, "", msg, args);
+#endif
+
         /// <summary>
-        /// 通过 <see cref="Exception"/> 显示 Toast 并纪录日志，传入 <see cref="LogLevel.None"/> 可不写日志
+        /// 通过 <see cref="Exception"/> 纪录日志并在 Toast 上显示，传入 <see cref="LogLevel.None"/> 可不写日志
         /// </summary>
         /// <param name="e"></param>
+        /// <param name="logger"></param>
         /// <param name="tag"></param>
         /// <param name="level"></param>
         /// <param name="msg"></param>
         /// <param name="args"></param>
-        public static void Show(Exception e, string? tag = null, LogLevel level = LogLevel.Error, string? msg = null, params string[] args)
-        {
-            if (string.IsNullOrWhiteSpace(tag)) tag = nameof(Toast);
-            var has_msg = !string.IsNullOrWhiteSpace(msg);
-            var has_args = args.Any_Nullable();
-            if (level < LogLevel.None)
-            {
-                var logger = Log.CreateLogger(tag);
-                if (has_msg)
-                {
-                    if (has_args)
-                    {
-                        logger.Log(level, e, msg!, args);
-                    }
-                    else
-                    {
-                        logger.Log(level, e, msg!);
-                    }
-                }
-                else
-                {
-                    logger.Log(level, e, null);
-                }
-            }
+        /// <param name="memberName"></param>
+        public static void LogAndShowT(this Exception? e,
+            string? tag = null, LogLevel level = LogLevel.Error,
+            [CallerMemberName] string memberName = "",
+            string? msg = null, params object?[] args)
+            => ExceptionExtensions.LogAndShow(e,
+                ShowLong,
+                string.IsNullOrWhiteSpace(tag) ? nameof(Toast) : tag, level,
+                memberName,
+                msg, args);
 
-            var text = ExceptionExtensions.GetAllMessageCore(e, has_msg, has_args, msg, args);
-            Show(text, ToastLength.Long);
-        }
+        /// <inheritdoc cref="LogAndShowT(Exception, string?, LogLevel, string, string?, string[])"/>
+        public static void LogAndShowT(this Exception? e,
+            ILogger logger, LogLevel level = LogLevel.Error,
+            [CallerMemberName] string memberName = "",
+            string? msg = null, params object?[] args) => ExceptionExtensions.LogAndShow(e,
+                ShowLong,
+                logger, level,
+                memberName, msg, args);
     }
 }

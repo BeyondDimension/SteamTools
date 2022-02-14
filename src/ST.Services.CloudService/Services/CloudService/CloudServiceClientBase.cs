@@ -117,8 +117,9 @@ namespace System.Application.Services.CloudService
             HttpCompletionOption completionOption,
             CancellationToken cancellationToken)
         {
-            request.RequestUri = new Uri(ForwardHelper.GetForwardRelativeUrl(request), UriKind.Relative);
-            return connection.SendAsync(request, completionOption, cancellationToken);
+            throw new NotImplementedException();
+            //request.RequestUri = new Uri(ForwardHelper.GetForwardRelativeUrl(request), UriKind.Relative);
+            //return connection.SendAsync(request, completionOption, cancellationToken);
         }
 
         async Task<string> ICloudServiceClient.Info()

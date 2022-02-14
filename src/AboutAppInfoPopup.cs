@@ -106,6 +106,10 @@ namespace System.Application.UI
 #endif
                 b.AppendLine();
 
+                b.Append("[os.name] ");
+                b.Append(DeviceInfo2.OSNameValue);
+                b.AppendLine();
+
                 b.Append("[app.ver] ");
 #if __ANDROID__
                 GetAppDisplayVersion(activity, b);
@@ -140,6 +144,10 @@ namespace System.Application.UI
 
                 b.Append("[app.updcha] ");
                 b.Append(ApplicationUpdateServiceBaseImpl.UpdateChannelType);
+                b.AppendLine();
+
+                b.Append("[app.install] ");
+                b.Append(platformService.IsInstall.ToLowerString());
                 b.AppendLine();
 
                 b.Append("[deploy.mode] ");
@@ -237,7 +245,9 @@ namespace System.Application.UI
 #if __ANDROID__
                 b.Append("[screen] ");
                 var metrics = new DisplayMetrics();
+#pragma warning disable CS0618 // 类型或成员已过时
                 activity.WindowManager?.DefaultDisplay?.GetRealMetrics(metrics);
+#pragma warning restore CS0618 // 类型或成员已过时
                 GetScreen(activity, metrics, b);
                 static void GetScreen(Context context, DisplayMetrics metrics, StringBuilder b)
                 {
@@ -404,18 +414,18 @@ namespace System.Application.UI
                 //    b.Append(DeviceSecurityCheckUtil.IsEmulator.ToLowerString());
                 //    b.AppendLine();
                 //}
-                b.Append("[device.gl.renderer] ");
-                b.Append(GLES20.GlGetString(GLES20.GlRenderer) ?? "");
-                b.AppendLine();
-                b.Append("[device.gl.vendor] ");
-                b.Append(GLES20.GlGetString(GLES20.GlVendor) ?? "");
-                b.AppendLine();
-                b.Append("[device.gl.version] ");
-                b.Append(GLES20.GlGetString(GLES20.GlVersion) ?? "");
-                b.AppendLine();
-                b.Append("[device.gl.extensions] ");
-                b.Append(GLES20.GlGetString(GLES20.GlExtensions) ?? "");
-                b.AppendLine();
+                //b.Append("[device.gl.renderer] ");
+                //b.Append(GLES20.GlGetString(GLES20.GlRenderer) ?? "");
+                //b.AppendLine();
+                //b.Append("[device.gl.vendor] ");
+                //b.Append(GLES20.GlGetString(GLES20.GlVendor) ?? "");
+                //b.AppendLine();
+                //b.Append("[device.gl.version] ");
+                //b.Append(GLES20.GlGetString(GLES20.GlVersion) ?? "");
+                //b.AppendLine();
+                //b.Append("[device.gl.extensions] ");
+                //b.Append(GLES20.GlGetString(GLES20.GlExtensions) ?? "");
+                //b.AppendLine();
                 b.Append("[device.biometric] ");
                 b.Append(IBiometricService.Instance.IsSupportedAsync().Result.ToLowerString());
                 b.AppendLine();

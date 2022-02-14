@@ -73,7 +73,7 @@ namespace System.Application
             var options = new AppSettings
             {
                 ApiBaseUrl = "https://localhost:5001",
-                AppVersion = Guid.ParseExact(DevAppVersion, "N"),
+                //AppVersion = Guid.ParseExact(DevAppVersion, "N"),
                 RSASecret = DevRSAPublicKey,
             };
             // app 配置项

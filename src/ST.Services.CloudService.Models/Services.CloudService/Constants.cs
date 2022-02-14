@@ -1,4 +1,5 @@
 using System.Application.Properties;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.Services.CloudService
 {
@@ -9,6 +10,10 @@ namespace System.Application.Services.CloudService
         public const string DefaultUserAgent = "Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; Microsoft; Lumia 950) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Mobile Safari/537.36 Edge/14.14263";
 
         public static string NetworkConnectionInterruption => SR.NetworkConnectionInterruption;
+
+        public const string Scheme = "spp://";
+
+        public const string Referrer_ = $"{Scheme}{{0}}/{_ThisAssembly.Version}";
 
         public static class Headers
         {

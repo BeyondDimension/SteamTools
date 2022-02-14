@@ -13,6 +13,7 @@ using System.Application.UI.Views.Controls;
 using System.Linq;
 using System.Collections.Generic;
 using System.Application.UI.Views.Pages;
+using Avalonia.Layout;
 
 namespace System.Application.UI.Views
 {
@@ -51,6 +52,12 @@ namespace System.Application.UI.Views
             var avatar = this.FindControl<Image2>("avatar");
             var nav = this.FindControl<NavigationView>("NavigationView");
             var back = this.FindControl<ExperimentalAcrylicBorder>("NavBarBackground");
+            //var bg = this.FindControl<Control>("Background");
+
+            //if (!TitleBar.GetIsVisible())
+            //{
+            //    bg.Margin = new(0, 0, 0, 0);
+            //}
 
             if (back != null && nav != null)
             {

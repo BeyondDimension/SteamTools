@@ -1,4 +1,4 @@
-﻿using Android.Runtime;
+using Android.Runtime;
 using Java.Security.Cert;
 using System.IO;
 using Xamarin.Android.Net;
@@ -14,7 +14,7 @@ namespace System
         /// <param name="handler"></param>
         /// <param name="certificateFileData">证书文件数据(文件流，内嵌资源流)</param>
         /// <param name="certificateFileType">证书文件类型，默认使用X.509</param>
-        public static void AddTrustedCerts(
+        public static void AddTrustedCert(
             this AndroidClientHandler handler,
             Stream certificateFileData,
             string certificateFileType = "X.509")

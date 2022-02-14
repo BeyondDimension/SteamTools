@@ -90,10 +90,6 @@ namespace System
             return stream.ReadStringInternalDynamic(Encoding.UTF8, '\0');
         }
 
-        static readonly Lazy<Encoding> _UTF8NoBOM = new(() => new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true));
-
-        internal static Encoding UTF8NoBOM => _UTF8NoBOM.Value;
-
         const int DefaultBufferSize = 1024;
 
         public static StreamWriter GetWriter(this Stream stream, Encoding? encoding = null, int bufferSize = -1, bool leaveOpen = false)
@@ -108,7 +104,7 @@ namespace System
             {
                 if (encoding == null)
                 {
-                    encoding = UTF8NoBOM;
+                    encoding = EncodingCache.UTF8NoBOM;
                 }
                 if (bufferSize == -1)
                 {

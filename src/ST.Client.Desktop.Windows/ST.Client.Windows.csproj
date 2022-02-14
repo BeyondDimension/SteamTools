@@ -38,6 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DnsClient" />
+    <PackageReference Include="Gameloop.Vdf" />
     <PackageReference Include="Aigio.Avalonia.AppCenter" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />

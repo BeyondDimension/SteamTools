@@ -1,22 +1,21 @@
 <Project>
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.StartsWith('netcoreapp3.1'))">
-		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NETCOREAPP31) -->
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.Extensions.Http" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.Extensions.Logging" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.21" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.21" />
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
+		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.2" />
 	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net5.0')) ">
 		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET50) -->
@@ -24,47 +23,45 @@
 		<PackageVersion Include="Microsoft.Extensions.Http" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.12" />
 		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.12" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.12" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.14" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.14" />
 	</ItemGroup>
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
-		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.0" />
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.StartsWith('netcoreapp3.1'))">
+		<!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NETCOREAPP31) -->
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.Extensions.Http" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.Extensions.Logging" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.22" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.22" />
 	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Entity Framework Plus -->
 		<!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.2" />
+		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.9" />
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
-		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.1" />
-		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.1" />
+		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.4" />
+		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.4" />
 	</ItemGroup>
 	<ItemGroup>
 	</ItemGroup>
@@ -82,7 +79,7 @@
 	</ItemGroup>
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
 		<!-- BCL(NETSTANDARD) -->
-		<PackageVersion Include="System.Text.Json" Version="6.0.0" />
+		<PackageVersion Include="System.Text.Json" Version="6.0.2" />
 		<PackageVersion Include="System.Text.Encodings.Web" Version="6.0.0" />
 		<PackageVersion Include="System.Drawing.Common" Version="6.0.0" />
 		<PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
@@ -97,32 +94,32 @@
 		<!--<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />-->
 		<!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
 		<!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
-		<PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.196" />
+		<PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.197" />
 
 		<!-- AppCenter.* -->
-		<PackageVersion Include="Microsoft.AppCenter" Version="4.4.0" />
-		<PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
-		<PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.4.0.2" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.4.0.2" />
-		<PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.4.0.2" />
-		<PackageVersion Include="nor0x.AppCenter" Version="4.4.0-XMAC" />
+		<PackageVersion Include="Microsoft.AppCenter" Version="4.5.0" />
+		<PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.0" />
+		<PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.5.0" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.5.0" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.5.0" />
+		<PackageVersion Include="Aigio.Avalonia.AppCenter.Crashes" Version="4.5.0" />
+		<!--<PackageVersion Include="nor0x.AppCenter" Version="4.4.0-XMAC" />
 		<PackageVersion Include="nor0x.AppCenter.Analytics" Version="4.4.0-XMAC" />
-		<PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />
+		<PackageVersion Include="nor0x.AppCenter.Crashes" Version="4.4.0-XMAC" />-->
 
 		<!-- .NET Platform Extensions 6 -->
 		<PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
 
 		<!-- Xamarin -->
-		<PackageVersion Include="Xamarin.Essentials" Version="1.7.0" />
+		<PackageVersion Include="Xamarin.Essentials" Version="1.7.1" />
 		<!-- Xamarin.Forms -->
-		<PackageVersion Include="Xamarin.Forms" Version="5.0.0.2244" />
-		<PackageVersion Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2244" />
+		<PackageVersion Include="Xamarin.Forms" Version="5.0.0.2337" />
+		<PackageVersion Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2337" />
 		<PackageVersion Include="Xam.Plugins.Forms.ImageCircle" Version="3.1.1.1-beta" />
 
 		<!-- NUnit & NUnit.Xamarin & Moq -->
 		<PackageVersion Include="NUnit" Version="3.13.2" />
-		<PackageVersion Include="NUnit3TestAdapter" Version="4.1.0" />
+		<PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
 		<PackageVersion Include="nunit.xamarin" Version="3.6.1" />
 		<PackageVersion Include="PCLStorage" Version="1.0.2" />
 		<PackageVersion Include="Moq" Version="4.16.1" />
@@ -134,18 +131,18 @@
 
 		<!-- ReactiveUI -->
 		<PackageVersion Include="System.Reactive" Version="5.0.0" />
-		<PackageVersion Include="Splat" Version="14.1.1" />
-		<PackageVersion Include="DynamicData" Version="7.4.3" />
-		<PackageVersion Include="ReactiveUI" Version="17.1.9" />
-		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.6" /> -->
-		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.9" />
-		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.0.1" />
+		<PackageVersion Include="Splat" Version="14.1.45" />
+		<PackageVersion Include="DynamicData" Version="7.5.2" />
+		<PackageVersion Include="ReactiveUI" Version="17.1.50" />
+		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.50" /> -->
+		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.50" />
+		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.1.50" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
-		<PackageVersion Include="HarfBuzzSharp" Version="2.6.1.8" />
-		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.6.1.8" />
-		<PackageVersion Include="SkiaSharp" Version="2.80.3" />
-		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
+		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.179" />
+		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.179" />
+		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.179" />
+		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.179" />
 
 		<!-- AutoMapper -->
 		<PackageVersion Include="AutoMapper" Version="10.1.1" />
@@ -181,7 +178,7 @@
 		<PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
 
 		<!-- Win32/Windows -->
-		<PackageVersion Include="TaskScheduler" Version="2.9.2" />
+		<PackageVersion Include="TaskScheduler" Version="2.10.1" />
 
 		<!-- Swagger -->
 		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
@@ -203,18 +200,18 @@
 		<PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
 
 		<!-- .NET Compat -->
-		<PackageVersion Include="OperatingSystem2" Version="1.4.2.1" />
-		<PackageVersion Include="JustArchiNET.Madness" Version="3.1.1" />
+		<PackageVersion Include="OperatingSystem2" Version="1.4.3" />
+		<PackageVersion Include="JustArchiNET.Madness" Version="3.2.1" />
 
 		<!-- Serialize -->
 		<PackageVersion Include="MessagePack" Version="2.3.85" />
 		<PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
 
 		<!-- Html Parser -->
-		<PackageVersion Include="HtmlAgilityPack" Version="1.11.39" />
+		<PackageVersion Include="HtmlAgilityPack" Version="1.11.42" />
 
 		<!-- Clipboard -->
-		<PackageVersion Include="TextCopy" Version="4.3.1" />
+		<PackageVersion Include="TextCopy" Version="6.1.0" />
 
 		<!-- Nito.* -->
 		<PackageVersion Include="Nito.Comparers" Version="6.2.2" />
@@ -227,26 +224,27 @@
 		<PackageVersion Include="Fleck" Version="1.2.0" />
 
 		<!-- DNS -->
-		<PackageVersion Include="DnsClient" Version="1.5.0" />
+		<PackageVersion Include="DnsClient" Version="1.6.0" />
 
 		<!-- Cryptographic Algorithms & Protocols -->
 		<PackageVersion Include="Portable.BouncyCastle" Version="1.9.0" />
 
 		<!-- Resilience & Transient Fault Handling -->
-		<PackageVersion Include="Polly" Version="7.2.2" />
+		<PackageVersion Include="Polly" Version="7.2.3" />
 
 		<!--Avalonia Start-->
-		<PackageVersion Include="Avalonia" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.Desktop" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.Diagnostics" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.10" />
-		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.9" />-->
-		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.10" />
-		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.10.4" />
+		<PackageVersion Include="Avalonia" Version="0.10.12" />
+		<PackageVersion Include="Avalonia.Desktop" Version="0.10.12" />
+		<PackageVersion Include="Avalonia.Skia" Version="0.10.12" />
+		<PackageVersion Include="Avalonia.Diagnostics" Version="0.10.12" />
+		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.12" />
+		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.12" />-->
+		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.12" />
+		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.12" />
 		<!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.4" />-->
 		<!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
 		<!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-		<!--<PackageVersion Include="FluentAvaloniaUI" Version="1.1.6" />-->
+		<!--<PackageVersion Include="FluentAvaloniaUI" Version="1.1.8" />-->
 		<PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
 		<!--Avalonia End-->
 
@@ -257,30 +255,30 @@
 		<PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0" />
 		<PackageVersion Include="Square.OkHttp3" Version="4.9.2" />
 		<PackageVersion Include="Square.Picasso" Version="2.71828.0" />
-		<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />
+		<!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
 		<!--<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />-->
 
 		<!-- Xamarin.AndroidX -->
 		<PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
-		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.3" />
+		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.4" />
 		<PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.5" />
-		<PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.3.6.3" />
+		<PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.3.6.4" />
 		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.3" />
-		<PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.3" />
-		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.12" />
-		<PackageVersion Include="Xamarin.Google.Android.Material" Version="1.4.0.4" />
-		<PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.5" />
-		<PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.1.2" />
+		<PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.4" />
+		<PackageVersion Include="Xamarin.Google.Android.Material" Version="1.4.0.5" />
+		<PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.6" />
+		<PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.2.1" />
 		<PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.3.5.3" />
-		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.12" />
-		<PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.3.1.2" />
+		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.13" />
+		<PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.4.0.1" />
 		<PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.6" />
-		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.2" />
-		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.11" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.3.1.3" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2" />
+		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.3" />
+		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.12" />
+		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.4.0.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.2" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.2" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
+		<!--<PackageVersion Include="Xamarin.AndroidX.Window" Version="1.0.0.3-beta02" />-->
 
 		<!-- Xamarin.iOS -->
 		<PackageVersion Include="Toast.iOS" Version="1.2.0" />

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using APoint = Avalonia.Point;
+using FluentAvalonia.UI.Controls.Primitives;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls

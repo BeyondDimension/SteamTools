@@ -1,4 +1,4 @@
-using System;
+#if __XAMARIN_FORMS__
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Text;
@@ -32,3 +32,4 @@ namespace System.Application.Services.Implementation
         }
     }
 }
+#endif

@@ -1,20 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Essentials;
 
 namespace System.Application.Services
 {
     public interface IDeviceInfoPlatformService
     {
-        string Model => string.Empty;
+        string Model { get; }
 
-        string Manufacturer => string.Empty;
+        string Manufacturer { get; }
 
-        string Name => string.Empty;
+        string Name { get; }
 
-        string VersionString => string.Empty;
+        string VersionString { get; }
 
-        DeviceType DeviceType => DeviceType.Unknown;
+        DeviceType DeviceType { get; }
+    }
+}
+
+
+namespace System.Application.Services.Implementation
+{
+    public abstract class DeviceInfoPlatformServiceImpl : IDeviceInfoPlatformService
+    {
+        public /*virtual*/ string Model => DeviceInfo.Model;
+
+        public /*virtual*/ string Manufacturer => DeviceInfo.Manufacturer;
+
+        public /*virtual*/ string Name => DeviceInfo.Name;
+
+        public /*virtual*/ string VersionString => DeviceInfo.VersionString;
+
+        public virtual DeviceType DeviceType => DeviceInfo.DeviceType;
     }
 }

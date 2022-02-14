@@ -114,7 +114,7 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _AvatarPath, value);
         }
 
-        public UserService()
+        private UserService()
         {
             mCurrent = this;
 

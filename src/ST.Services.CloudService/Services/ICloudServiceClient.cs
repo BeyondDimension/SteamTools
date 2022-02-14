@@ -30,6 +30,7 @@ namespace System.Application.Services
         /// <param name="completionOption"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        [Obsolete("Http Error 403", true)]
         Task<HttpResponseMessage> Forward(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default);
 
         Task<string> Info();

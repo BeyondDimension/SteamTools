@@ -17,7 +17,7 @@ namespace System.Application.Services.Implementation
     {
         // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Email/Email.uwp.cs
 
-        static string NormalizePath(string path) => path.Replace('/', Path.DirectorySeparatorChar);
+        static string NormalizePath(string path) => path.Replace(IOPath.UnixDirectorySeparatorChar, Path.DirectorySeparatorChar);
 
         [SupportedOSPlatform("Windows10.0.10240.0")]
         public async Task PlatformComposeAsync(EmailMessage? message)

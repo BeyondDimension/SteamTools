@@ -8,14 +8,6 @@
   xamarin:managedType="AndroidX.ConstraintLayout.Widget.ConstraintLayout">
 
   <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline_vertical_50"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintGuide_percent="0.45"
-    xamarin:managedType="AndroidX.ConstraintLayout.Widget.Guideline" />
-
-  <androidx.constraintlayout.widget.Guideline
     android:id="@+id/guideline_vertical_begin"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -35,42 +27,42 @@
     android:id="@+id/ivAvatar"
     android:layout_width="100dp"
     android:layout_height="100dp"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:src="@drawable/avatar_default"
     app:civ_border_color="@color/border_color"
     app:civ_border_width="@dimen/avatar_border_width"
-    app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_50"
     app:layout_constraintStart_toStartOf="@+id/guideline_vertical_begin"
     app:layout_constraintTop_toTopOf="parent" />
 
-  <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/tvUploadYourAvatarDesc"
+  <LinearLayout
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:textColor="@color/text_primary"
-    android:textSize="12sp"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
     app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_end"
-    app:layout_constraintStart_toStartOf="@+id/guideline_vertical_50"
-    tools:text="从您的设备上传一个文件。图片应为方形，至少为 400px x 400px\n该功能正在开发中，敬请期待"
-    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+    app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+    app:layout_constraintTop_toTopOf="@+id/ivAvatar">
 
-  <com.google.android.material.button.MaterialButton
-    android:id="@+id/btnUploadYourAvatar"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:enabled="false"
-    android:insetTop="0dp"
-    android:insetBottom="0dp"
-    android:textAllCaps="false"
-    android:textSize="@dimen/input_font_size_min"
-    app:layout_constraintBottom_toTopOf="@+id/tvUploadYourAvatarDesc"
-    app:layout_constraintEnd_toEndOf="@+id/tvUploadYourAvatarDesc"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="@+id/tvUploadYourAvatarDesc"
-    tools:text="上传您的头像"
-    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btnUploadYourAvatar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:enabled="false"
+      android:textAllCaps="false"
+      android:textSize="@dimen/input_font_size_min"
+      tools:text="上传您的头像"
+      xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/tvUploadYourAvatarDesc"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@color/text_primary"
+      tools:text="从您的设备上传一个文件。图片应为方形，至少为 400px x 400px\n该功能正在开发中，敬请期待"
+      xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+  </LinearLayout>
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/layoutNickName"
@@ -109,7 +101,7 @@
     android:id="@+id/btnModifyPhoneNumber"
     android:layout_width="wrap_content"
     android:layout_height="0dp"
-    android:insetBottom="0dp"
+    android:layout_marginTop="@dimen/text_field_outlined_top_space_height"
     android:textAllCaps="false"
     android:textSize="@dimen/input_font_size_min"
     app:layout_constraintBottom_toBottomOf="@+id/layoutPhoneNumber"
@@ -358,7 +350,7 @@
 
   </com.google.android.material.textfield.TextInputLayout>
 
-  <Space
+  <View
     android:id="@+id/clickBirthDate"
     android:layout_width="0dp"
     android:layout_height="0dp"
@@ -380,6 +372,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/activity_vertical_margin"
+    android:clickable="false"
+    android:focusable="false"
     android:visibility="invisible"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/layoutBirthDate"

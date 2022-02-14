@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,11 +25,27 @@ namespace System.Application.Services.Implementation
             return rsp?.AppList?.Apps ?? new List<SteamApp>();
         }
 
+        /// <summary>
+        /// 获取steam个人资料
+        /// </summary>
+        /// <param name="steamId64"></param>
+        /// <returns></returns>
         public async Task<SteamUser> GetUserInfo(long steamId64)
         {
-            var requestUri = string.Format(SteamApiUrls.STEAM_USERINFO_XML_URL, steamId64);
-            var rsp = await s.GetAsync<SteamUser>(requestUri);
-            return rsp ?? new SteamUser() { SteamId64 = steamId64 };
+            //因为某些原因放弃从社区页链接获取详细资料
+            //var requestUri = string.Format(SteamApiUrls.STEAM_USERINFO_XML_URL, steamId64);
+            //var rsp = await s.GetAsync<SteamUser>(requestUri);
+
+            var data = new SteamUser() { SteamId64 = steamId64 };
+            var rsp = await GetUserMiniProfile(data.SteamId3_Int);
+            if (rsp != null)
+            {
+                data.MiniProfile = rsp;
+                data.SteamID = rsp.PersonaName;
+                data.AvatarFull = rsp.AvatarUrl;
+                data.AvatarMedium = rsp.AvatarUrl;
+            }
+            return data;
         }
 
         /// <summary>

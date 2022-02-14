@@ -2,6 +2,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Binding;
+using Google.Android.Material.DatePicker;
 using ReactiveUI;
 using System.Application.Entities;
 using System.Application.Services;
@@ -31,10 +32,16 @@ namespace System.Application.UI.Fragments
             binding!.layoutNickName.SetMaxLength(ModelValidatorLengths.NickName);
             binding.tbNickName.SetMaxLength(ModelValidatorLengths.NickName);
 
+            ViewModel!.Close = () => RequireActivity().Finish();
+
             // Gender 双向绑定
-            ViewModel!.WhenAnyValue(x => x.Gender).SubscribeInMainThread(value =>
+            UIGender = ViewModel.Gender;
+            ViewModel.WhenAnyValue(x => x.Gender).SubscribeInMainThread(value =>
             {
-                Gender = value;
+                if (gender != value)
+                {
+                    UIGender = value;
+                }
             }).AddTo(this);
             binding.rgGender.CheckedChange += RgGender_CheckedChange;
 
@@ -84,42 +91,93 @@ namespace System.Application.UI.Fragments
 
             #region Area ComboBox
 
-            var areaItem2 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea2);
-            var areaItem3 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea3);
-            var areaItem4 = ComboBoxHelper.CreateArrayAdapter<IArea>(binding.tbArea4);
-            static Action<IReadOnlyList<IArea>?> AreaDelegate(ArrayAdapter<IArea> adapter) => value =>
-            {
-                adapter.Clear();
-                if (value != null)
-                {
-                    adapter.AddAll(value.ToJavaCollectionNoGeneric());
-                }
-                adapter.NotifyDataSetChanged();
-            };
+            static void AreaDelegate(IReadOnlyList<IArea>? value, AutoCompleteTextView textView) => ComboBoxHelper.CreateArrayAdapter(textView, items: value);
             ViewModel!.WhenAnyValue(x => x.AreaItems2)
-                .SubscribeInMainThread(AreaDelegate(areaItem2)).AddTo(this);
+                .SubscribeInMainThread(value =>
+                {
+                    AreaDelegate(value, binding.tbArea2);
+                }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.AreaItems3)
-                .SubscribeInMainThread(AreaDelegate(areaItem3)).AddTo(this);
+                .SubscribeInMainThread(value =>
+                {
+                    AreaDelegate(value, binding.tbArea3);
+                }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.AreaItems4)
-                .SubscribeInMainThread(AreaDelegate(areaItem4)).AddTo(this);
-            static IArea? GetArea(string? str, IReadOnlyList<IArea>? areas) => string.IsNullOrWhiteSpace(str) ? null : areas?.FirstOrDefault(x => x.ToString() == str);
+                .SubscribeInMainThread(value =>
+                {
+                    AreaDelegate(value, binding.tbArea4);
+                }).AddTo(this);
+
+            static IArea GetArea(string? str, IReadOnlyList<IArea>? areas) => (string.IsNullOrWhiteSpace(str) ? null : areas?.FirstOrDefault(x => x.ToString() == str)) ?? AreaUIHelper.PleaseSelect;
             binding.tbArea2.TextChanged += (_, _) =>
             {
                 var text = binding.tbArea2.Text;
+                if (text == AppResources.PleaseSelect) return;
                 ViewModel!.AreaSelectItem2 = GetArea(text, ViewModel.AreaItems2);
+                binding.tbArea3.Text = AppResources.PleaseSelect;
+                binding.tbArea4.Text = AppResources.PleaseSelect;
             };
             binding.tbArea3.TextChanged += (_, _) =>
             {
                 var text = binding.tbArea3.Text;
+                if (text == AppResources.PleaseSelect) return;
                 ViewModel!.AreaSelectItem3 = GetArea(text, ViewModel.AreaItems3);
+                binding.tbArea4.Text = AppResources.PleaseSelect;
             };
             binding.tbArea4.TextChanged += (_, _) =>
             {
                 var text = binding.tbArea4.Text;
+                if (text == AppResources.PleaseSelect) return;
                 ViewModel!.AreaSelectItem4 = GetArea(text, ViewModel.AreaItems4);
             };
 
+            ViewModel!.WhenAnyValue(x => x.AreaNotVisible3).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                //binding.layoutArea3.Enabled = !value;
+                //binding.layoutArea3.Visibility = value ? ViewStates.Invisible : ViewStates.Visible;
+                binding.layoutArea3.Visibility = value ? ViewStates.Gone : ViewStates.Visible;
+            }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.AreaNotVisible4).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                //binding.layoutArea4.Enabled = !value;
+                //binding.layoutArea4.Visibility = value ? ViewStates.Invisible : ViewStates.Visible;
+                binding.layoutArea4.Visibility = value ? ViewStates.Gone : ViewStates.Visible;
+            }).AddTo(this);
+
+            ViewModel!.WhenAnyValue(x => x.AreaSelectItem2)
+                .SubscribeInMainThread(value =>
+                {
+                    var text = binding.tbArea2.Text;
+                    var newText = value?.ToString();
+                    if (text == newText) return;
+                    binding.tbArea2.Text = newText;
+                }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.AreaSelectItem3)
+                .SubscribeInMainThread(value =>
+                {
+                    var text = binding.tbArea3.Text;
+                    var newText = value?.ToString();
+                    if (text == newText) return;
+                    binding.tbArea3.Text = newText;
+                }).AddTo(this);
+            ViewModel!.WhenAnyValue(x => x.AreaSelectItem4)
+                .SubscribeInMainThread(value =>
+                {
+                    var text = binding.tbArea4.Text;
+                    var newText = value?.ToString();
+                    if (text == newText) return;
+                    binding.tbArea4.Text = newText;
+                }).AddTo(this);
+
             #endregion
+
+            ViewModel!.WhenAnyValue(x => x.BirthDate).SubscribeInMainThread(value =>
+            {
+                if (binding == null) return;
+                binding.tbBirthDate.Text = value.HasValue ? value.Value.ToString(DateTimeFormat.Date) : string.Empty;
+            }).AddTo(this);
 
             SetOnClickListener(
                 binding.btnModifyPhoneNumber,
@@ -127,29 +185,33 @@ namespace System.Application.UI.Fragments
                 binding.btnSubmit);
         }
 
+        Gender gender;
         /// <summary>
         /// 设置或获取当前 UI 上的性别 Radio
         /// </summary>
-        public Gender Gender
+        Gender UIGender
         {
             get
             {
-                if (binding != null)
-                {
-                    var id = binding.rgGender.CheckedRadioButtonId;
-                    if (id == Resource.Id.rbGender1)
-                    {
-                        return Gender.Male;
-                    }
-                    else if (id == Resource.Id.rbGender2)
-                    {
-                        return Gender.Female;
-                    }
-                }
-                return Gender.Unknown;
+                return gender;
+                //if (binding != null)
+                //{
+                //    var id = binding.rgGender.CheckedRadioButtonId;
+                //    if (id == Resource.Id.rbGender1)
+                //    {
+                //        return Gender.Male;
+                //    }
+                //    else if (id == Resource.Id.rbGender2)
+                //    {
+                //        return Gender.Female;
+                //    }
+                //}
+                //return Gender.Unknown;
             }
             set
             {
+                if (gender == value) return;
+                gender = value;
                 if (binding != null)
                 {
                     var id = value switch
@@ -158,34 +220,50 @@ namespace System.Application.UI.Fragments
                         Gender.Female => Resource.Id.rbGender2,
                         _ => Resource.Id.rbGender0,
                     };
-                    if (id != binding.rgGender.CheckedRadioButtonId)
+                    var c_id = binding.rgGender.CheckedRadioButtonId;
+                    if (id != c_id)
                     {
                         binding.rgGender.Check(id);
                     }
+                    SetGenderImageResource(value);
                 }
             }
+        }
+
+        void SetGenderImageResource(Gender value)
+        {
+            binding!.ivIconGender.SetImageResource(value switch
+            {
+                Gender.Male => Resource.Drawable.baseline_male_black_24,
+                Gender.Female => Resource.Drawable.baseline_female_black_24,
+                _ => Resource.Drawable.baseline_visibility_off_black_24,
+            });
         }
 
         private void RgGender_CheckedChange(object sender, RadioGroup.CheckedChangeEventArgs e)
         {
             if (e == null || binding == null || ViewModel == null) return;
+            Gender value;
             if (e.CheckedId == Resource.Id.rbGender0)
             {
-                binding.ivIconGender.SetImageResource(Resource.Drawable.
-                    baseline_visibility_off_black_24);
-                ViewModel.Gender = Gender.Unknown;
+                value = Gender.Unknown;
             }
             else if (e.CheckedId == Resource.Id.rbGender1)
             {
-                binding.ivIconGender.SetImageResource(Resource.Drawable.
-                    baseline_male_black_24);
-                ViewModel.Gender = Gender.Male;
+                value = Gender.Male;
             }
             else if (e.CheckedId == Resource.Id.rbGender2)
             {
-                binding.ivIconGender.SetImageResource(Resource.Drawable.
-                    baseline_female_black_24);
-                ViewModel.Gender = Gender.Female;
+                value = Gender.Female;
+            }
+            else
+            {
+                return;
+            }
+            if (ViewModel.Gender != value)
+            {
+                ViewModel.Gender = value;
+                SetGenderImageResource(value);
             }
         }
 
@@ -224,5 +302,7 @@ namespace System.Application.UI.Fragments
             if (ViewModel == null) return;
             ViewModel.BirthDate = selection;
         }
+
+        void IMaterialPickerOnPositiveButtonClickListener.OnPositiveButtonClick(Java.Lang.Object p0) => this.OnPositiveButtonClick(p0);
     }
 }

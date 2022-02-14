@@ -4,6 +4,7 @@ using System.Application.Entities;
 using System.Application.Models;
 using System.Application.Services;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
@@ -278,12 +279,6 @@ namespace System.Application.Repositories.Implementation
             }
         }
 
-        byte[] Export(IEnumerable<GameAccountPlatformAuthenticator> sources)
-        {
-            var result = Serializable.SMP(sources);
-            return result;
-        }
-
         IEnumerable<GameAccountPlatformAuthenticator>? Import(byte[] content)
         {
             try
@@ -297,7 +292,7 @@ namespace System.Application.Repositories.Implementation
             }
         }
 
-        public async Task<byte[]> ExportAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO> items)
+        async Task<List<GameAccountPlatformAuthenticator>> ExportCoreAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO> items)
         {
             var list = new List<GameAccountPlatformAuthenticator>();
             foreach (var item in items)
@@ -305,8 +300,20 @@ namespace System.Application.Repositories.Implementation
                 var entity = await Convert(item, isLocal, secondaryPassword);
                 list.Add(entity);
             }
-            var result = Export(list);
+            return list;
+        }
+
+        public async Task<byte[]> ExportAsync(bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO> items)
+        {
+            var list = await ExportCoreAsync(isLocal, secondaryPassword, items);
+            var result = Serializable.SMP(list);
             return result;
+        }
+
+        public async Task ExportAsync(Stream stream, bool isLocal, string? secondaryPassword, IEnumerable<IGAPAuthenticatorDTO> items)
+        {
+            var list = await ExportCoreAsync(isLocal, secondaryPassword, items);
+            await Serializable.SMPAsync(stream, list);
         }
 
         public async Task<(ImportResultCode resultCode, IReadOnlyList<IGAPAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content)

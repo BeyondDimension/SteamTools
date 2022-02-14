@@ -1,8 +1,8 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
+using System.Application.Entities.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Entities
 {
@@ -11,12 +11,11 @@ namespace System.Application.Entities
     /// </summary>
     [Table("ImageUploadRecords")]
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-    public class ImageUploadRecord<TUserKey, TUser, TUploadImageType> : INEWSEQUENTIALID, ICreationTime
-        where TUser : IUser<TUserKey>
-        where TUserKey : IEquatable<TUserKey>
-        where TUploadImageType : Enum
+    public class ImageUploadRecord<TUser, TUploadImageType> : INEWSEQUENTIALID, ICreationTime
+        where TUser : IUser
+        where TUploadImageType : struct, Enum
     {
-        string DebuggerDisplay() => $"{ImagesId}, {Type}, {User?.NickName ?? (UserId?.ToString())}";
+        string DebuggerDisplay() => $"{ImagesId}, {Type}, {User?.NickName ?? (UserId.ToString())}";
 
         [Key] // EF 主键
         public Guid Id { get; set; }
@@ -25,8 +24,7 @@ namespace System.Application.Entities
         /// 上传的用户ID
         /// </summary>
         [Required] // EF not null
-        [NotNull, DisallowNull] // C# 8 not null
-        public TUserKey? UserId { get; set; }
+        public Guid UserId { get; set; }
 
         /// <summary>
         /// 上传的用户
@@ -44,7 +42,6 @@ namespace System.Application.Entities
         /// 上传图片类型（用途）
         /// </summary>
         [Required] // EF not null
-        [NotNull, DisallowNull] // C# 8 not null
-        public TUploadImageType? Type { get; set; }
+        public TUploadImageType Type { get; set; }
     }
 }

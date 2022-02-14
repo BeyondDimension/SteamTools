@@ -36,7 +36,7 @@ namespace System.Application.Services
         /// 启动ASF
         /// </summary>
         /// <param name="args"></param>
-        Task Start(string[]? args = null);
+        Task<bool> Start(string[]? args = null);
 
         Task Stop();
 
@@ -60,10 +60,11 @@ namespace System.Application.Services
 
         GlobalConfig? GetGlobalConfig();
 
-        async void CommandSubmit(string command)
+        async void CommandSubmit(string? command)
         {
             if (string.IsNullOrEmpty(command))
                 return;
+
             if (ReadLineTask is null)
             {
                 if (command[0] == '!')

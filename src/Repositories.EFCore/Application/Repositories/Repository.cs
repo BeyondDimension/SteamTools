@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Application.Columns;
 using System.Application.Entities;
@@ -53,7 +53,7 @@ namespace System.Application.Repositories
         public Repository(TDbContext dbContext) : base(dbContext)
         {
             Entity = dbContext.Set<TEntity>();
-            mEntityType = new Lazy<IEntityType>(() => dbContext.Model.FindEntityType(entityType));
+            mEntityType = new Lazy<IEntityType>(() => dbContext.Model.FindEntityType(entityType).ThrowIsNull(nameof(entityType)));
             mTableName = new Lazy<string>(() => EFCoreUtils.GetTableNameByClrType(dbContext.Database, EntityType));
         }
 
@@ -144,7 +144,7 @@ namespace System.Application.Repositories
 
         #region 查(通用查询)
 
-        public virtual Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate) => FirstOrDefaultAsync(predicate, default);
+        //public virtual Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate) => FirstOrDefaultAsync(predicate, default);
 
         /// <inheritdoc cref="FirstOrDefaultAsync(Expression{Func{TEntity, bool}})"/>
         public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)

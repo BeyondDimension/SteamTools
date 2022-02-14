@@ -151,7 +151,8 @@ namespace System.Application.Services.CloudService
 
         public Task<HttpResponseMessage> Forward(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default)
         {
-            return real.Forward(request, completionOption, cancellationToken);
+            throw new NotImplementedException();
+            //return real.Forward(request, completionOption, cancellationToken);
         }
 
         public async Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)

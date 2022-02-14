@@ -1,8 +1,8 @@
 ---
-name: Feature request 👑
+name: "Feature request \U0001F451"
 about: 对程序的需求或建议 / Suggest an idea for program
-title: "👑[Enhancement] "
-labels: enhancement 
+title: "\U0001F451[Enhancement] "
+labels: enhancement
 assignees: ''
 
 ---

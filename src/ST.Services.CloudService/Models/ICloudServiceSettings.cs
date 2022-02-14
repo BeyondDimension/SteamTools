@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
 
 namespace System.Application.Models
 {
@@ -6,10 +6,13 @@ namespace System.Application.Models
     {
         string? ApiBaseUrl { get; set; }
 
+        [Obsolete("Delete", true)]
         Guid AppVersion { get; set; }
 
         RSA RSA { get; }
 
-        string AppVersionStr => AppVersion.ToStringN();
+        [Obsolete("Delete", true)]
+        string AppVersionStr => throw new NotImplementedException();
+        //=> AppVersion.ToStringN();
     }
 }

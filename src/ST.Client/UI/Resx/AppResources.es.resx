@@ -297,10 +297,6 @@
     <value>Acelerar para la comunidad</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>Acelerar directamente</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>Servicios de aceleración  funcionados</value>
     <comment>Comment=;Author=EspRoy</comment>
@@ -935,14 +931,6 @@
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>Introduzca la contraseña de los datos exportados</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>Ruta del archivo de exportación</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>Exportación exitosa {0}</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
@@ -1890,11 +1878,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Detalles de la aplicación (configuración del sistema)</value>
+    <value>Detalles de la aplicación</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>Notificaciones de aplicaciones (configuración del sistema)</value>
+    <value>Notificaciones de aplicaciones</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
@@ -2618,6 +2606,98 @@ El sistema se {1} después de {0} segundos.</value>
   </data>
   <data name="ASF_Stoping" xml:space="preserve">
     <value>Detener el servicio de ASF, por favor...</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
+    <value>El servicio de aceleración no pudo iniciarse {0} puerto. Cierre el programa que ocupa el puerto {0} o intente utilizar el modo Proxy del sistema.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
+    <value>El servicio de aceleración no pudo iniciar {0} puerto ocupado por {1} ({2}). Cierre el programa que ocupa el puerto {0} o intente utilizar el modo Proxy del sistema.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
+    <value>La lectura o restauración de archivos falló debido a que está ocupado por otros procesos, posiblemente otros aceleradores de red incompatibles, localice el proceso ocupado y ciérrelo.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>Configuración del sistema</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_CertificateExport" xml:space="preserve">
+    <value>Exportar el archivo de certificado</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
+    <value>Abrir Configuración de seguridad</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExportedToPath_" xml:space="preserve">
+    <value>Exportado a Ruta: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
+    <value>Debe encontrar la Configuración del sistema - Seguridad - Cifrado y credenciales - Almacén de credenciales - Credenciales de usuario {0} Haga clic en el elemento y haga clic en Desinstalar en la ventana emergente.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
+    <value>Quitar el certificado en Configuración de seguridad</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
+    <value>Habilitar el modo VPN</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
+    <value>Abra la carpeta donde se encuentra Hosts</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
+    <value>Restablecer el archivo Hosts</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
+    <value>Error al restablecer el archivo Hosts con Error: {0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
+    <value>Restablecer el archivo Hosts eliminará todos los datos y restaurará los valores predeterminados actuales del sistema operativo, se recomienda editar primero el archivo Hosts para ver si hay datos necesarios para hacer una copia de seguridad antes de hacerlo, ¿desea confirmar el restablecimiento?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
+    <value>La marca aparece varias [{0}], intente restablecer el archivo Hosts o editar el archivo Hosts y elimine la marca adicional e inténtelo de nuevo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
+    <value>El restablecimiento del archivo Hosts se realizó correctamente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
+    <value>Notificación cuando el servicio de recepción está activado.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Description_Message" xml:space="preserve">
+    <value>Notificación cuando hay un mensaje de aviso.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
+    <value>Notificación de servicio de recepción</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NotificationChannelType_Name_Message" xml:space="preserve">
+    <value>Notificación de mensajes</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>Detener el servicio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
+    <value>El servicio del agente de aceleración local se está ejecutando.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
+    <value>El servicio ASF se está ejecutando.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

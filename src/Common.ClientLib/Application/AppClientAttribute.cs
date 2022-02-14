@@ -95,7 +95,7 @@ namespace System.Application
             {
                 if (format == ResValueFormat.String)
                 {
-                    using var reader = new StreamReader(stream, Encoding.UTF8);
+                    using var reader = new StreamReader(stream, EncodingCache.UTF8NoBOM);
                     return reader.ReadToEnd();
                 }
                 if (format == ResValueFormat.StringGuidD || format == ResValueFormat.StringGuidN)

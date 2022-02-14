@@ -82,5 +82,7 @@ namespace System
         public const string All = "*/*";
 
         public const string _7Z = "application/x-7z-compressed";
+
+        public const string CER = "application/x-x509-ca-cert";
     }
 }

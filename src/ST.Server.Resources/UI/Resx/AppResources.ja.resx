@@ -233,4 +233,16 @@
     <value>接続プログラムにエラーがありますので、手動でログインしてクリックしてプログラムに以下を手動でコピーしてください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>NameIdentifier の読み取りに失敗しました, 値: {0}, チャネル: {1}, ウェブマスターに連絡してください。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>新規ユーザー{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>現在、Steam ログインのリクエストが多すぎます。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

@@ -17,7 +17,7 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -53,7 +53,7 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
@@ -83,6 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\arm64-v8a\libtun2http.so" Link="lib\arm64-v8a\libtun2http.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\armeabi-v7a\libtun2http.so" Link="lib\armeabi-v7a\libtun2http.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\x86_64\libtun2http.so" Link="lib\x86_64\libtun2http.so" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.Migration" />
@@ -115,7 +118,7 @@
   <Import Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Xamarin.Android.KeyStore.props') " Project="..\..\Xamarin.Android.KeyStore.props" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionSTClientAndroidAppHideInfoBar="True" XamarinHotReloadWrongLinkerErrorInfoBarSTClientMobileDroidAppHideInfoBar="True" />
+      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarSTClientMobileDroidAppHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionSTClientAndroidAppHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -11,6 +11,7 @@ using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using System.ComponentModel;
+using FluentAvalonia.UI.Controls.Primitives;
 
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
@@ -81,10 +82,12 @@ namespace Avalonia.Controls
                 //PositionChanged += FluentWindow_PositionChanged;
             }
 
+#pragma warning disable CA1416 // 验证平台兼容性
             if (OperatingSystem2.IsWindows)
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
+                PseudoClasses.Add(":windows");
             }
             else if (OperatingSystem2.IsMacOS)
             {
@@ -96,23 +99,24 @@ namespace Avalonia.Controls
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.SystemChrome;
             }
-
-            if (!ViewModelBase.IsInDesignMode)
-            {
-                if (OperatingSystem2.IsWindows)
-                {
-                    if (OperatingSystem2.IsWindows7)
-                    {
-#pragma warning disable CA1416 // 验证平台兼容性
-                        IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
 #pragma warning restore CA1416 // 验证平台兼容性
-                    }
-                    //else if (OperatingSystem2.IsWindows10AtLeast)
-                    //{
-                    //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
-                    //}
-                }
-            }
+
+            //if (!ViewModelBase.IsInDesignMode)
+            //{
+            //    //if (OperatingSystem2.IsWindows)
+            //    //{
+            //    //    //                    if (OperatingSystem2.IsWindows7)
+            //    //    //                    {
+            //    //    //#pragma warning disable CA1416 // 验证平台兼容性
+            //    //    //                        IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+            //    //    //#pragma warning restore CA1416 // 验证平台兼容性
+            //    //    //                    }
+            //    //    //else if (OperatingSystem2.IsWindows10AtLeast)
+            //    //    //{
+            //    //    //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
+            //    //    //}
+            //    //}
+            //}
         }
 
         private void FluentWindow_Closing(object? sender, CancelEventArgs e)
@@ -184,16 +188,25 @@ namespace Avalonia.Controls
             _systemCaptionButtons = e.NameScope.Find<MinMaxCloseControl>("SystemCaptionButtons");
             if (_systemCaptionButtons != null)
             {
-                _systemCaptionButtons.Height = 30;
+                _systemCaptionButtons.Height = TitleBar.DefaultHeight;
             }
 
             _defaultTitleBar = e.NameScope.Find<Control>("DefaultTitleBar");
             if (_defaultTitleBar != null)
             {
                 _defaultTitleBar.Margin = new Thickness(0, 0, 138 /* 46x3 */, 0);
-                _defaultTitleBar.Height = 30;
+                _defaultTitleBar.Height = TitleBar.DefaultHeight;
             }
 
+//#pragma warning disable CA1416 // 验证平台兼容性
+//            if (OperatingSystem2.IsWindows)
+//            {
+//                if (OperatingSystem2.IsWindows7)
+//                {
+//                    IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+//                }
+//            }
+//#pragma warning restore CA1416 // 验证平台兼容性
         }
 
         protected override void OnClosed(EventArgs e)

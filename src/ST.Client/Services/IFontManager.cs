@@ -16,11 +16,11 @@ namespace System.Application.Services
         IReadOnlyCollection<KeyValuePair<string, string>> GetFonts();
 
         public const string KEY_Default = "Default";
-        public const string KEY_DefaultConsole = "DefaultConsole";
-        public const string ConsoleFont_CascadiaCode = "Cascadia Code";
-        public const string ConsoleFont_Consolas = "Consolas";
-        public const string ConsoleFont_SourceCodePro = "Source Code Pro";
-        public const string ConsoleFont_JetBrainsMono = "JetBrains Mono";
+        //public const string KEY_DefaultConsole = "DefaultConsole";
+        //public const string ConsoleFont_CascadiaCode = "Cascadia Code";
+        //public const string ConsoleFont_Consolas = "Consolas";
+        //public const string ConsoleFont_SourceCodePro = "Source Code Pro";
+        //public const string ConsoleFont_JetBrainsMono = "JetBrains Mono";
     }
 
     partial interface IPlatformService

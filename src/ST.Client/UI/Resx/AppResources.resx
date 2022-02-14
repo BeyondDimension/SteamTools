@@ -148,7 +148,7 @@
     <value>修改的数据生效需要重启 Steam 是否需要重启 Steam。</value>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启 Steam 生效。</value>
+    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，如果不生效可以禁用启用选项保留需要的共享库。调整后保存重启 Steam 生效！</value>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
@@ -376,9 +376,6 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="CommunityFix" xml:space="preserve">
     <value>网络加速</value>
-  </data>
-  <data name="CommunityFix_Acceleration" xml:space="preserve">
-    <value>一键加速</value>
   </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
     <value>启用的加速服务</value>
@@ -876,12 +873,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
     <value>请输入导出的数据密码</value>
   </data>
-  <data name="LocalAuth_ExportAuth_ExportPath" xml:space="preserve">
-    <value>导出文件路径</value>
-  </data>
-  <data name="LocalAuth_ExportAuth_ExportSuccess" xml:space="preserve">
-    <value>导出成功 {0}</value>
-  </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
     <value>选择路径</value>
   </data>
@@ -979,7 +970,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>在 Steam 中启用两步验证令牌后，便会生成一个恢复代码，您可以在 Steam 客户端中使用恢复代码解除两步验证令牌，复制下来并保存在安全的地方。</value>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>请输入发送到您手机的短信验证代码。</value>
+    <value>还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。</value>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
     <value>手机 Steam 导入</value>
@@ -1669,10 +1660,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>下载更新渠道</value>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>应用详情(系统设置)</value>
+    <value>应用详情</value>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>应用通知(系统设置)</value>
+    <value>应用通知</value>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
     <value>打开 {0} 文件夹</value>
@@ -2018,7 +2009,76 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_Stoping" xml:space="preserve">
     <value>正在停止 ASF 服务，请稍后...</value>
   </data>
-  <data name="NoticeEmpty" xml:space="preserve">
-    <value>暂无新消息。</value>
+  <data name="Settings_System" xml:space="preserve">
+    <value>系统设置</value>
+  </data>
+  <data name="CommunityFix_CertificateExport" xml:space="preserve">
+    <value>导出证书文件</value>
+  </data>
+  <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
+    <value>打开安全设置</value>
+  </data>
+  <data name="ExportedToPath_" xml:space="preserve">
+    <value>已导出到路径：{0}</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
+    <value>必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。</value>
+  </data>
+  <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
+    <value>在“安全设置”中移除证书</value>
+  </data>
+  <data name="CommunityFix_IsVpnMode" xml:space="preserve">
+    <value>启用 VPN 模式</value>
+  </data>
+  <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
+    <value>打开 Hosts 所在文件夹</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFile" xml:space="preserve">
+    <value>重置 Hosts 文件</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
+    <value>重置 Hosts 文件失败，错误：{0}</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
+    <value>重置 Hosts 文件将删除所有数据并还原当前操作系统默认值，建议先编辑 Hosts 文件查看是否有需要的数据先进行备份后再执行此操作，是否确认重置？</value>
+  </data>
+  <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
+    <value>Mark 出现多个 [{0}]，请尝试重置 Hosts 文件或编辑 Hosts 文件并删除多余的 Mark 后再试一次</value>
+  </data>
+  <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
+    <value>重置 Hosts 文件成功</value>
+  </data>
+  <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
+    <value>当开启前台服务时的通知。</value>
+  </data>
+  <data name="NotificationChannelType_Description_Message" xml:space="preserve">
+    <value>当有提示消息时的通知。</value>
+  </data>
+  <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
+    <value>前台服务通知</value>
+  </data>
+  <data name="NotificationChannelType_Name_Message" xml:space="preserve">
+    <value>消息通知</value>
+  </data>
+  <data name="StopService" xml:space="preserve">
+    <value>停止服务</value>
+  </data>
+  <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
+    <value>本地加速代理服务正在运行。</value>
+  </data>
+  <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
+    <value>ASF 服务正在运行。</value>
+  </data>
+  <data name="Steam_ShareDisable" xml:space="preserve">
+    <value>(已禁用)</value>
+  </data>
+  <data name="Steam_ShareDisableBtn" xml:space="preserve">
+    <value>禁用共享库</value>
+  </data>
+  <data name="Steam_ShareEnableBtn" xml:space="preserve">
+    <value>启用共享库</value>
+  </data>
+  <data name="Steam_Share_RemoveShare" xml:space="preserve">
+    <value>是否删除此家庭库共享。</value>
   </data>
 </root>

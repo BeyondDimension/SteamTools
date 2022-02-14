@@ -133,7 +133,8 @@ namespace System.Application.Services.Implementation
             if (isCheckUpdateing) return;
             isCheckUpdateing = true;
 
-            var id = settings.AppVersion;
+            //var id = settings.AppVersion;
+            Guid id = default;
             var platform = DeviceInfo2.Platform;
             var deviceIdiom = DeviceInfo2.Idiom;
             if (deviceIdiom == DeviceIdiom.Tablet && platform == Platform.Apple)
@@ -152,7 +153,7 @@ namespace System.Application.Services.Implementation
                 deploymentMode);
             if (rsp.IsSuccess)
             {
-                if (!rsp.Content.HasValue())
+                if (!rsp.Content.HasValue() || rsp.Content?.Version == ThisAssembly.Version)
                 {
                     IsExistUpdate = false;
                     if (showIsExistUpdateFalse) toast.Show(AppResources.IsExistUpdateFalse);
@@ -429,7 +430,7 @@ namespace System.Application.Services.Implementation
                         var packFilePath = Path.Combine(GetPackCacheDirPath(!isSupportedResume), packFileName);
                         if (File.Exists(packFilePath)) // 存在压缩包文件
                         {
-                            if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (已有文件)哈希验证成功，进行覆盖安装
+                            if (string.IsNullOrWhiteSpace(download.SHA256) || UpdatePackVerification(packFilePath, download.SHA256)) // (已有文件)哈希验证成功，进行覆盖安装
                             {
                                 isCallOverwriteUpgrade = true;
                                 OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);
@@ -534,7 +535,7 @@ namespace System.Application.Services.Implementation
                         {
                             File.Move(cacheFilePath, packFilePath);
 
-                            if (UpdatePackVerification(packFilePath, download!.SHA256!)) // (下载文件)哈希验证成功，进行覆盖安装
+                            if (string.IsNullOrWhiteSpace(download.SHA256) || UpdatePackVerification(packFilePath, download.SHA256)) // (下载文件)哈希验证成功，进行覆盖安装
                             {
                                 isCallOverwriteUpgrade = true;
                                 OverwriteUpgrade(packFilePath, isIncrement: false, downloadType: download.DownloadType);

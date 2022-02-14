@@ -150,6 +150,7 @@ namespace System.Application
 #if StartupTrace
             StartupTrace.Restart("DI.ConfigureDemandServices.Calc");
 #endif
+            services.AddDnsAnalysisService();
 #if !CONSOLEAPP
             if (options.HasGUI)
             {
@@ -333,8 +334,10 @@ namespace System.Application
 #endif
             if (options.HasSteam)
             {
+#if !__ANDROID__
                 // Steam 相关助手、工具类服务
                 services.AddSteamService();
+#endif
 
                 // Steamworks LocalApi Service
                 services.TryAddSteamworksLocalApiService();
@@ -385,7 +388,7 @@ namespace System.Application
 #endif
                     mAppSettings = new AppSettings
                     {
-                        AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
+                        //AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
                         AesSecret = GetResValue("aes-key", isSingle: true, ResValueFormat.String),
                         RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
                         //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResValueFormat.StringGuidN),
@@ -395,7 +398,7 @@ namespace System.Application
                     stopwatch.Stop();
                     Console.WriteLine($"Load AppSettings, value: {stopwatch.ElapsedMilliseconds}");
 #endif
-                    static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
+                    //static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
                     static string? GetResValue(string name, bool isSingle, ResValueFormat format)
                     {
                         const string namespacePrefix = "System.Application.UI.Resources.";
@@ -472,7 +475,7 @@ namespace System.Application
             try
             {
 #if !__MOBILE__
-                var screens = PlatformApplication.Instance.MainWindow.Screens;
+                var screens = PlatformApplication.Instance.MainWindow!.Screens;
 #else
                 var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
                 var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
@@ -503,6 +506,7 @@ namespace System.Application
                 {
                     lastNotificationRecordId = await INotificationService.GetLastNotificationRecordId();
                 }
+                req.SetDeviceId();
                 var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req, lastNotificationRecordId);
                 INotificationService.Notify(rsp, type);
             }

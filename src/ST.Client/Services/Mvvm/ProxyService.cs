@@ -1,11 +1,14 @@
 using DynamicData;
 using DynamicData.Binding;
+using MessagePack;
 using ReactiveUI;
 using System.Application.Models;
 using System.Application.Properties;
 using System.Application.Settings;
+using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -19,6 +22,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy.Models;
+
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
@@ -32,7 +36,7 @@ namespace System.Application.Services
         readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
         readonly IPlatformService platformService = IPlatformService.Instance;
 
-        public ProxyService()
+        private ProxyService()
         {
             mCurrent = this;
 
@@ -55,15 +59,23 @@ namespace System.Application.Services
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.Scripts = EnableProxyScripts;
-                        httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                        httpProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
-                        httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+                        if (IApplication.IsDesktopPlatform)
+                        {
+                            httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
+                            httpProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
+                            httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+                        }
+                        else
+                        {
+                            httpProxyService.IsSystemProxy = true;
+                        }
 
                         // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
                         httpProxyService.ProxyIp = (!OperatingSystem2.IsMacOS && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
 
                         httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
+                        if (!ModelValidatorProvider.IsPortId(httpProxyService.Socks5ProxyPortId)) httpProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
 
                         //httpProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
                         httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
@@ -73,11 +85,11 @@ namespace System.Application.Services
 
                         httpProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
                         httpProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
+                        if (!ModelValidatorProvider.IsPortId(httpProxyService.TwoLevelAgentPortId)) httpProxyService.TwoLevelAgentPortId = ProxySettings.DefaultTwoLevelAgentPortId;
                         httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
                         httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 
-                        if (IPAddress.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns))
-                            httpProxyService.ProxyDNS = dns;
+                        httpProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
 
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
@@ -163,6 +175,7 @@ namespace System.Application.Services
                         StopTimer();
                         void OnStopRemoveHostsByTag()
                         {
+                            if (!IApplication.IsDesktopPlatform) return;
                             var needClear = hostsFileService.ContainsHostsByTag();
                             if (needClear)
                             {
@@ -193,7 +206,7 @@ namespace System.Application.Services
         public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
 
         private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomainsList;
-        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? ProxyDomainsList => _ProxyDomainsList;
+        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList ?? throw new ArgumentNullException(nameof(_ProxyDomainsList));
 
         bool _IsLoading;
         public bool IsLoading
@@ -211,30 +224,28 @@ namespace System.Application.Services
 
         public SourceList<ScriptDTO> ProxyScripts { get; }
 
-        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains
+        public IEnumerable<AccelerateProjectDTO>? GetEnableProxyDomains()
         {
-            get
-            {
-                if (!ProxyDomains.Items.Any_Nullable())
-                    return null;
-                return ProxyDomains.Items
-                    .Where(x => x.Items != null)
-                    .SelectMany(s => s.Items!.Where(w => w.Enable))
-                    .ToArray();
-            }
+            if (!ProxyDomains.Items.Any_Nullable())
+                return null;
+            return ProxyDomains.Items
+                .Where(x => x.Items != null)
+                .SelectMany(s => s.Items!.Where(w => w.Enable));
         }
 
-        public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts
+        public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToArray();
+
+
+        public IEnumerable<ScriptDTO>? GetEnableProxyScripts()
         {
-            get
-            {
-                //if (!IsEnableScript)
-                //return null;
-                if (!ProxyScripts.Items.Any_Nullable())
-                    return null;
-                return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x=>x.Order).ToArray();
-            }
+            //if (!IsEnableScript)
+            //return null;
+            if (!ProxyScripts.Items.Any_Nullable())
+                return null;
+            return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
         }
+
+        public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts => GetEnableProxyScripts()?.ToArray();
 
         private DateTimeOffset _StartAccelerateTime;
 
@@ -259,9 +270,14 @@ namespace System.Application.Services
 
         public bool IsOnlyWorkSteamBrowser
         {
-            get => ProxySettings.IsOnlyWorkSteamBrowser.Value;
+            get
+            {
+                if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return false;
+                return ProxySettings.IsOnlyWorkSteamBrowser.Value;
+            }
             set
             {
+                if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return;
                 if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
                 {
                     ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
@@ -308,6 +324,19 @@ namespace System.Application.Services
             }
         }
 
+        /// <summary>
+        /// 是否使用 <see cref="IHttpService"/> 加载确认物品图片 <see cref="Stream"/>
+        /// </summary>
+        static bool IsLoadImage
+        {
+            get
+            {
+                // 此页面当前使用 Square.Picasso 库加载图片
+                if (OperatingSystem2.IsAndroid) return false;
+                return true;
+            }
+        }
+
         public async Task InitializeAccelerate()
         {
             #region 加载代理服务数据
@@ -340,7 +369,7 @@ namespace System.Application.Services
 
             LoadOrSaveLocalAccelerate();
 
-            if (ProxyDomains.Items.Any_Nullable())
+            if (IsLoadImage && ProxyDomains.Items.Any_Nullable())
             {
                 foreach (var item in ProxyDomains.Items)
                 {
@@ -359,11 +388,14 @@ namespace System.Application.Services
                   {
                       if (EnableProxyDomains != null)
                       {
-                          ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToList();
+                          IsChangeSupportProxyServicesStatus = true;
+                          ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToImmutableHashSet();
                       }
                   }));
             #endregion
         }
+
+        public static bool IsChangeSupportProxyServicesStatus { get; set; }
 
         public async Task InitializeScript()
         {
@@ -376,16 +408,16 @@ namespace System.Application.Services
             //}
             //new ObservableCollection<ScriptDTO>(response.Content);
             var scriptList = await scriptManager.GetAllScriptAsync();
-            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
-            {
-                foreach (var item in scriptList)
-                {
-                    if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
-                    {
-                        item.Enable = true;
-                    }
-                }
-            }
+            //if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
+            //{
+            //    foreach (var item in scriptList)
+            //    {
+            //        if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
+            //        {
+            //            item.Enable = true;
+            //        }
+            //    }
+            //}
 
             ProxyScripts.AddRange(scriptList);
             BasicsInfo();
@@ -396,10 +428,12 @@ namespace System.Application.Services
                   .Connect()
                   .AutoRefresh(x => x.Enable)
                   .WhenPropertyChanged(x => x.Enable, false)
-                  .Subscribe(_ =>
+                  .Subscribe(item =>
                   {
-                      //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToList();
-                      ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToList();
+                      //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
+                      //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
+                      item.Sender.Enable = item.Value;
+                      scriptManager.SaveEnableScript(item.Sender);
                       httpProxyService.Scripts = EnableProxyScripts;
                       this.RaisePropertyChanged(nameof(EnableProxyScripts));
                   }));
@@ -414,10 +448,7 @@ namespace System.Application.Services
                 if (IOPath.TryOpen(filepath, FileMode.Create, FileAccess.Write, FileShare.Read, out var fileStream, out var _))
                 {
                     using var stream = fileStream;
-                    using var writer = new StreamWriter(stream, Encoding.UTF8);
-                    var content = Serializable.SMPB64U(ProxyDomains.Items);
-                    writer.Write(content);
-                    writer.Flush();
+                    MessagePackSerializer.Serialize(stream, ProxyDomains.Items, options: Serializable.lz4Options);
                 }
             }
             else
@@ -426,12 +457,10 @@ namespace System.Application.Services
                 {
                     using var stream = fileStream;
                     ProxyDomains.Clear();
-                    using var reader = new StreamReader(stream, Encoding.UTF8);
-                    var content = reader.ReadToEnd();
                     List<AccelerateProjectGroupDTO>? accelerates = null;
                     try
                     {
-                        accelerates = Serializable.DMPB64U<List<AccelerateProjectGroupDTO>>(content);
+                        accelerates = MessagePackSerializer.Deserialize<List<AccelerateProjectGroupDTO>>(stream, options: Serializable.lz4Options);
                     }
                     catch (Exception ex)
                     {
@@ -573,16 +602,16 @@ namespace System.Application.Services
         {
             var scriptList = await scriptManager.GetAllScriptAsync();
             ProxyScripts.Clear();
-            if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
-            {
-                foreach (var item in scriptList)
-                {
-                    if (ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
-                    {
-                        item.Enable = true;
-                    }
-                }
-            }
+            //if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
+            //{
+            //    foreach (var item in scriptList)
+            //    {
+            //        if (ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
+            //        {
+            //            item.Enable = true;
+            //        }
+            //    }
+            //}
             ProxyScripts.AddRange(scriptList);
 
             CheckUpdate();
@@ -671,5 +700,8 @@ namespace System.Application.Services
             OnExitRestoreHosts();
             httpProxyService.Dispose();
         }
+
+        public string IPEndPointString
+            => $"IPEndPoint: {httpProxyService.ProxyIp}:{httpProxyService.ProxyPort}";
     }
 }

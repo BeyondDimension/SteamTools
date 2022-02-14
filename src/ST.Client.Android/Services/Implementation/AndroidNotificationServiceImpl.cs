@@ -3,16 +3,20 @@ using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
 using System.Application.UI;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using AndroidApplication = Android.App.Application;
 using CC = System.Common.Constants;
 using JClass = Java.Lang.Class;
+using NativeService = System.Application.Services.Native.IServiceBase;
 
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="INotificationService"/>
     internal sealed class AndroidNotificationServiceImpl : INotificationService
     {
+        public static AndroidNotificationServiceImpl Instance => (AndroidNotificationServiceImpl)INotificationService.Instance;
+
         readonly IAndroidApplication app;
         public AndroidNotificationServiceImpl(IAndroidApplication app)
         {
@@ -21,6 +25,12 @@ namespace System.Application.Services.Implementation
 
         public static bool IsSupportedNotificationChannel
             => Build.VERSION.SdkInt >= BuildVersionCodes.O;
+
+        JClass? GetEntrance(Entrance entrance)
+        {
+            var notificationEntrance = (entrance != default ? GetActivityType(entrance)?.GetJClass() : null) ?? app.NotificationEntrance;
+            return notificationEntrance;
+        }
 
         Type? GetActivityType(Entrance entrance) => entrance switch
         {
@@ -97,10 +107,8 @@ namespace System.Application.Services.Implementation
                 var name = notificationChannelType.GetName();
                 var description = notificationChannelType.GetDescription();
                 var level = GetNotificationImportance(notificationChannelType.GetImportanceLevel());
-                notificationChannel = new NotificationChannel(channelId, name, level)
-                {
-                    Description = description,
-                };
+                notificationChannel = new NotificationChannel(channelId, name, level);
+                if (!string.IsNullOrWhiteSpace(description)) notificationChannel.Description = description;
                 CreateNotificationChannel(notificationChannelType, notificationChannel);
                 manager.CreateNotificationChannel(notificationChannel);
             }
@@ -137,17 +145,19 @@ namespace System.Application.Services.Implementation
             _ => throw new ArgumentOutOfRangeException(nameof(level), level, null),
         };
 
-        NotificationCompat.Builder BuildNotify(
+        static NotificationCompat.Builder BuildNotify(
             Context context,
-            NotificationManagerCompat manager,
+            NotificationManagerCompat? manager,
             string text,
             NotificationType notificationType,
             bool? autoCancel = null,
             string? title = null,
             JClass? entrance = null,
+            string? entranceAction = null,
             IReadOnlyCollection<NotificationCompat.Action>? actions = null)
         {
             var channelType = notificationType.GetChannel();
+            manager ??= NotificationManagerCompat.From(context);
             CreateNotificationChannel(manager, channelType, out var channelId);
             var builder = new NotificationCompat.Builder(context, channelId);
             var level = channelType.GetImportanceLevel();
@@ -168,7 +178,8 @@ namespace System.Application.Services.Implementation
             if (entrance != null)
             {
                 var intent = new Intent(context, entrance);
-                var pendingIntent = PendingIntent.GetActivity(context, 0, intent, 0);
+                if (!string.IsNullOrWhiteSpace(entranceAction)) intent.SetAction(entranceAction);
+                var pendingIntent = PendingIntent.GetActivity(context, 0, intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
                 builder.SetContentIntent(pendingIntent);
             }
             return builder;
@@ -180,7 +191,7 @@ namespace System.Application.Services.Implementation
            string? title,
            Entrance entrance)
         {
-            var notificationEntrance = (entrance != default ? GetActivityType(entrance)?.GetJClass() : null) ?? app.NotificationEntrance;
+            var notificationEntrance = GetEntrance(entrance);
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
             var builder = BuildNotify(context, manager, text, notificationType,
@@ -250,6 +261,51 @@ namespace System.Application.Services.Implementation
                 }
             }
             return new Progress<float>(Handler);
+        }
+
+        /// <summary>
+        /// 停止服务按钮
+        /// </summary>
+        /// <param name="service"></param>
+        /// <returns></returns>
+        NotificationCompat.Action BuildStopServiceAction(Service service)
+        {
+            var intent = new Intent(service, service.GetType());
+            intent.SetAction(NativeService.STOP);
+            const int requestCode = 0;
+            const PendingIntentFlags flags = PendingIntentFlags.Immutable;
+            var pendingIntent = Build.VERSION.SdkInt >= BuildVersionCodes.O ?
+                PendingIntent.GetForegroundService(service, requestCode, intent, flags) :
+                PendingIntent.GetService(service, requestCode, intent, flags);
+            const int icon = 0;
+            var builder = new NotificationCompat.Action.Builder(icon,
+                AppResources.StopService, pendingIntent);
+            return builder.Build();
+        }
+
+        /// <summary>
+        /// 使用通知栏来设置前台服务
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="notificationType"></param>
+        /// <param name="text"></param>
+        /// <param name="entranceAction"></param>
+        public void StartForeground(Service service,
+            NotificationType notificationType,
+            string text,
+            string? entranceAction = null)
+        {
+            var stopAction = BuildStopServiceAction(service);
+            var builder = BuildNotify(service, null,
+                text, notificationType,
+                entrance: GetEntrance(Entrance.Main),
+                actions: new NotificationCompat.Action[] {
+                    stopAction,
+                },
+                entranceAction: entranceAction);
+            var notification = builder.Build();
+            var notifyId = GetNotifyId(notificationType);
+            service.StartForeground(notifyId, notification);
         }
     }
 }

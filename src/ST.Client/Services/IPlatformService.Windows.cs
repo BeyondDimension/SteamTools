@@ -53,10 +53,31 @@ namespace System.Application.Services
 
         }
 
+        /// <summary>
+        /// 在 Win7 上是否开启了 Aero
+        /// <para>https://docs.microsoft.com/zh-cn/windows/win32/api/dwmapi/nf-dwmapi-dwmiscompositionenabled</para>
+        /// </summary>
+        [SupportedOSPlatform("Windows7.0")]
+        bool DwmIsCompositionEnabled => throw new PlatformNotSupportedException();
+
+        /// <summary>
+        /// 设置窗口右上角系统按钮显示或隐藏
+        /// </summary>
+        /// <param name="hWnd"></param>
+        [SupportedOSPlatform("Windows7.0")]
+        void SetWindowSystemButtonsIsVisible(IntPtr hWnd, bool isVisible) => throw new PlatformNotSupportedException();
+
+        /// <summary>
+        /// 在 Win7 上开启 Aero 时隐藏 SystemButtons
+        /// </summary>
+        /// <param name="hWnd"></param>
         [SupportedOSPlatform("Windows7.0")]
         void FixAvaloniaFluentWindowStyleOnWin7(IntPtr hWnd)
         {
-
+            if (DwmIsCompositionEnabled)
+            {
+                SetWindowSystemButtonsIsVisible(hWnd, true);
+            }
         }
 
         /// <summary>

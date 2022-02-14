@@ -10,7 +10,7 @@ namespace System.Application.Services.Implementation
         static void AddFiddlerRootCertificate(AndroidClientHandler handler)
         {
 #if DEBUG
-            //handler.AddTrustedCerts(FiddlerRootCertificateStream); // 添加https抓包调试用的证书，仅测试环境下
+            //handler.AddTrustedCert(FiddlerRootCertificateStream); // 添加https抓包调试用的证书，仅测试环境下
 #endif
         }
 

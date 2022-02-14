@@ -235,7 +235,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，调整后保存重启 Steam 生效。 的本地化字符串。
+        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，如果不生效可以禁用启用选项保留需要的共享库。调整后保存重启 Steam 生效！ 的本地化字符串。
         /// </summary>
         public static string AccountChange_ShareManageAboutTips {
             get {
@@ -476,6 +476,15 @@ namespace System.Application.UI.Resx {
         public static string And {
             get {
                 return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASF 服务正在运行。 的本地化字符串。
+        /// </summary>
+        public static string ArchiSteamFarmForegroundService_NotificationText {
+            get {
+                return ResourceManager.GetString("ArchiSteamFarmForegroundService_NotificationText", resourceCulture);
             }
         }
         
@@ -1077,15 +1086,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 一键加速 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_Acceleration {
-            get {
-                return ResourceManager.GetString("CommunityFix_Acceleration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 启用的加速服务 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AccelerationsEnable {
@@ -1122,6 +1122,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 导出证书文件 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_CertificateExport {
+            get {
+                return ResourceManager.GetString("CommunityFix_CertificateExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 证书设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_CertificateSettings {
@@ -1149,6 +1158,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 必须在【系统设置 - 安全 - 加密与凭据 - 凭据存储 - 用户凭据】中找到 {0} 点击该项后在弹窗中点击卸载。 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificateTipText_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificateTipText_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 在“安全设置”中移除证书 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_DeleteCertificateTipTitle {
+            get {
+                return ResourceManager.GetString("CommunityFix_DeleteCertificateTipTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编辑 Hosts 文件 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EditHostsFile {
@@ -1163,6 +1190,33 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_EnableScriptService {
             get {
                 return ResourceManager.GetString("CommunityFix_EnableScriptService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开安全设置 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_GoToSystemSecuritySettings {
+            get {
+                return ResourceManager.GetString("CommunityFix_GoToSystemSecuritySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Mark 出现多个 [{0}]，请尝试重置 Hosts 文件或编辑 Hosts 文件并删除多余的 Mark 后再试一次 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_Hosts_MarkDuplicate_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_Hosts_MarkDuplicate_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用 VPN 模式 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_IsVpnMode {
+            get {
+                return ResourceManager.GetString("CommunityFix_IsVpnMode", resourceCulture);
             }
         }
         
@@ -1208,6 +1262,15 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_OpenCertificateDir {
             get {
                 return ResourceManager.GetString("CommunityFix_OpenCertificateDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 Hosts 所在文件夹 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_OpenHostsDir {
+            get {
+                return ResourceManager.GetString("CommunityFix_OpenHostsDir", resourceCulture);
             }
         }
         
@@ -1289,6 +1352,42 @@ namespace System.Application.UI.Resx {
         public static string CommunityFix_ReadHosts_IOException {
             get {
                 return ResourceManager.GetString("CommunityFix_ReadHosts_IOException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFile {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件失败，错误：{0} 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileCatchTip_ {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileCatchTip_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件成功 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileOk {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 重置 Hosts 文件将删除所有数据并还原当前操作系统默认值，建议先编辑 Hosts 文件查看是否有需要的数据先进行备份后再执行此操作，是否确认重置？ 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ResetHostsFileTip {
+            get {
+                return ResourceManager.GetString("CommunityFix_ResetHostsFileTip", resourceCulture);
             }
         }
         
@@ -1676,6 +1775,15 @@ namespace System.Application.UI.Resx {
         public static string Export {
             get {
                 return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 已导出到路径：{0} 的本地化字符串。
+        /// </summary>
+        public static string ExportedToPath_ {
+            get {
+                return ResourceManager.GetString("ExportedToPath_", resourceCulture);
             }
         }
         
@@ -2888,24 +2996,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导出文件路径 的本地化字符串。
-        /// </summary>
-        public static string LocalAuth_ExportAuth_ExportPath {
-            get {
-                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 导出成功 {0} 的本地化字符串。
-        /// </summary>
-        public static string LocalAuth_ExportAuth_ExportSuccess {
-            get {
-                return ResourceManager.GetString("LocalAuth_ExportAuth_ExportSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 选择路径 的本地化字符串。
         /// </summary>
         public static string LocalAuth_ExportAuth_SelectPath {
@@ -3230,7 +3320,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 请输入发送到您手机的短信验证代码。 的本地化字符串。
+        ///   查找类似 还差一步，请输入发送到您手机的短信验证代码，并点击继续按钮。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SMSCodeTip {
             get {
@@ -3582,6 +3672,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 当开启前台服务时的通知。 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Description_ForegroundService {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Description_ForegroundService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当有提示消息时的通知。 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Description_Message {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Description_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当有新版本可用时的提示通知与下载新版本时的进度通知。 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_NewVersion {
@@ -3596,6 +3704,24 @@ namespace System.Application.UI.Resx {
         public static string NotificationChannelType_Name_Announcement {
             get {
                 return ResourceManager.GetString("NotificationChannelType_Name_Announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 前台服务通知 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Name_ForegroundService {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Name_ForegroundService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 消息通知 的本地化字符串。
+        /// </summary>
+        public static string NotificationChannelType_Name_Message {
+            get {
+                return ResourceManager.GetString("NotificationChannelType_Name_Message", resourceCulture);
             }
         }
         
@@ -3668,6 +3794,15 @@ namespace System.Application.UI.Resx {
         public static string ProgramUpdateEcho {
             get {
                 return ResourceManager.GetString("ProgramUpdateEcho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 本地加速代理服务正在运行。 的本地化字符串。
+        /// </summary>
+        public static string ProxyForegroundService_NotificationText {
+            get {
+                return ResourceManager.GetString("ProxyForegroundService_NotificationText", resourceCulture);
             }
         }
         
@@ -4168,7 +4303,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 应用详情(系统设置) 的本地化字符串。
+        ///   查找类似 应用详情 的本地化字符串。
         /// </summary>
         public static string Settings_General_AppDetailsSettings {
             get {
@@ -4177,7 +4312,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 应用通知(系统设置) 的本地化字符串。
+        ///   查找类似 应用通知 的本地化字符串。
         /// </summary>
         public static string Settings_General_AppNotificationSettings {
             get {
@@ -4474,6 +4609,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 系统设置 的本地化字符串。
+        /// </summary>
+        public static string Settings_System {
+            get {
+                return ResourceManager.GetString("Settings_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 主题 的本地化字符串。
         /// </summary>
         public static string Settings_Theme {
@@ -4736,6 +4880,42 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 是否删除此家庭库共享。 的本地化字符串。
+        /// </summary>
+        public static string Steam_Share_RemoveShare {
+            get {
+                return ResourceManager.GetString("Steam_Share_RemoveShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 (已禁用) 的本地化字符串。
+        /// </summary>
+        public static string Steam_ShareDisable {
+            get {
+                return ResourceManager.GetString("Steam_ShareDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 禁用共享库 的本地化字符串。
+        /// </summary>
+        public static string Steam_ShareDisableBtn {
+            get {
+                return ResourceManager.GetString("Steam_ShareDisableBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启用共享库 的本地化字符串。
+        /// </summary>
+        public static string Steam_ShareEnableBtn {
+            get {
+                return ResourceManager.GetString("Steam_ShareEnableBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Steam 国服 的本地化字符串。
         /// </summary>
         public static string Steam_SteamChina {
@@ -4976,6 +5156,15 @@ namespace System.Application.UI.Resx {
         public static string SteamInstallPathNotFound {
             get {
                 return ResourceManager.GetString("SteamInstallPathNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止服务 的本地化字符串。
+        /// </summary>
+        public static string StopService {
+            get {
+                return ResourceManager.GetString("StopService", resourceCulture);
             }
         }
         

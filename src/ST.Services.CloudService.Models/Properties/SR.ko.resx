@@ -149,4 +149,8 @@
     <value>서버 측 오류 {0} - {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
+    <value>현재 시스템 시간이 올바르지 않거나 서버 측 SSL 인증서가 만료되었습니다</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

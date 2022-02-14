@@ -21,7 +21,7 @@ namespace System.Application.Steps
     /// </summary>
     internal static class Step_cd
     {
-        public static readonly string[] all_val = new[] { "win-x64", "osx-x64", "linux-x64", "linux-arm64", };
+        public static readonly string[] all_val = new[] { "win-x64", "osx-x64", "osx-arm64", "linux-x64", "linux-arm64", };
 
         public static void Add(RootCommand command)
         {
@@ -52,24 +52,41 @@ namespace System.Application.Steps
 #if DEBUG
             var nsis = new Command("nsis", "调试 NSIS 打包")
             {
-                Handler = CommandHandler.Create(() =>
+                Handler = CommandHandler.Create((string path) =>
                 {
-                    var publish_json_path = PublishJsonFilePath;
-                    var publish_json_str = File.ReadAllText(publish_json_path);
-                    var dirNames = Serializable.DJSON<PublishDirInfo[]>(publish_json_str)
-                        ?.Where(x => x.Name.StartsWith("win-")).ToArray();
-
-                    if (!dirNames.Any_Nullable())
+                    if (!string.IsNullOrWhiteSpace(path))
                     {
-                        Console.WriteLine($"错误：发布配置文件读取失败！{publish_json_path}");
-                        return;
+                        var buildDownloads = new Dictionary<AppDownloadType, PublishFileInfo>
+                        {
+                            { AppDownloadType.Compressed_7z, new PublishFileInfo { Path = path } }
+                        };
+                        var dirName = new PublishDirInfo
+                        {
+                            BuildDownloads = buildDownloads,
+                        };
+
+                        NSISBuild(true, new[] { dirName });
                     }
+                    else
+                    {
+                        var publish_json_path = PublishJsonFilePath;
+                        var publish_json_str = File.ReadAllText(publish_json_path);
+                        var dirNames = Serializable.DJSON<PublishDirInfo[]>(publish_json_str)
+                            ?.Where(x => x.Name.StartsWith("win-")).ToArray();
 
-                    dirNames = dirNames.ThrowIsNull(nameof(dirNames));
+                        if (!dirNames.Any_Nullable())
+                        {
+                            Console.WriteLine($"错误：发布配置文件读取失败！{publish_json_path}");
+                            return;
+                        }
 
-                    NSISBuild(true, dirNames);
+                        dirNames = dirNames.ThrowIsNull(nameof(dirNames));
+
+                        NSISBuild(true, dirNames);
+                    }
                 })
             };
+            nsis.AddOption(new Option<string>("-path", "7z Path"));
             command.AddCommand(nsis);
 #endif
         }

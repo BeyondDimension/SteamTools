@@ -32,18 +32,11 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
-        protected override async void OnClosing(CancelEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            if (DataContext is UserProfileWindowViewModel vm && vm.IsModify && !vm.IsComplete)
+            if (DataContext is UserProfileWindowViewModel vm)
             {
-                // 有修改时，如果关闭窗口，则需二次确认
-                e.Cancel = true;
-                var r = await MessageBox.ShowAsync(AppResources.UnsavedEditingWillBeDiscarded, AppResources.Warning, MessageBox.Button.OKCancel);
-                if (r.IsOK())
-                {
-                    vm.IsComplete = true;
-                    Close();
-                }
+                e.Cancel = vm.OnClose();
             }
 
             base.OnClosing(e);

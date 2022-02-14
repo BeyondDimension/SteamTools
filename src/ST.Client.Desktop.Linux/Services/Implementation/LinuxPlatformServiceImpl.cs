@@ -1,4 +1,5 @@
 using System.Application.Models;
+using System.Application.Properties;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Diagnostics;
@@ -94,9 +95,8 @@ namespace System.Application.Services.Implementation
                     var autoLoginUser = v.Value.HKCU.Software.Valve.Steam.AutoLoginUser;
                     if (autoLoginUser != null)
                     {
-                        var oldStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{autoLoginUser}\"\n";
-                        var newStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{userName}\"\n";
-                        VdfHelper.UpdateValueByReplaceNoPattern(registryVdfPath, oldStr, newStr);
+                        autoLoginUser = userName;
+                        VdfHelper.Write(registryVdfPath, v);
                     }
                     else
                     {
@@ -208,8 +208,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error("Shell Error", e, "Run Shell Error");
-                Toast.Show(e);
+                e.LogAndShowT(TAG);
             }
             return string.Empty;
         }
@@ -225,7 +224,7 @@ namespace System.Application.Services.Implementation
                 };
                 var pwd = await TextBoxWindowViewModel.ShowDialogAsync(vm);
                 if (!string.IsNullOrWhiteSpace(pwd))
-                { 
+                {
                     if (!string.IsNullOrWhiteSpace(RunShell($"echo \"{pwd}\" | sudo -S sh -c \"sudo -n true\"")))
                     {
                         SystemUserPassword = pwd;
@@ -246,5 +245,7 @@ namespace System.Application.Services.Implementation
                 }
             }
         }
+
+        public string DefaultHostsContent => SR.hosts.Replace("${USERNAME}", Environment.UserName);
     }
 }

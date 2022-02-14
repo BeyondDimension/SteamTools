@@ -1,6 +1,5 @@
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
-using System.Application.UI.Adapters.Internals;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Adapters
@@ -17,7 +16,7 @@ namespace System.Application.UI.Adapters
 
         public virtual TViewHolder OnCreateViewHolder(TViewType viewType, ViewGroup parent)
         {
-            var holder = RecycleViewAdapterHelper.OnCreateViewHolder<TViewHolder, TViewType>(GetLayoutResource, OnCreateViewHolder, viewType, parent);
+            var holder = RecycleViewAdapterHelper.OnCreateViewHolder(GetLayoutResource, OnCreateViewHolder, viewType, parent);
             return holder;
         }
 
@@ -40,7 +39,7 @@ namespace System.Application.UI.Adapters
 
         public virtual TViewHolder OnCreateViewHolder(TViewType viewType, ViewGroup parent)
         {
-            var holder = RecycleViewAdapterHelper.OnCreateViewHolder<TViewHolder, TViewType>(GetLayoutResource, OnCreateViewHolder, viewType, parent);
+            var holder = RecycleViewAdapterHelper.OnCreateViewHolder(GetLayoutResource, OnCreateViewHolder, viewType, parent);
             return holder;
         }
 

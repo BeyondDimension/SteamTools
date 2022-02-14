@@ -16,6 +16,8 @@ namespace System.Application.UI.ViewModels
 {
     public partial class GameListPageViewModel
     {
+        const string TAG = "GameListPageVM";
+
         readonly Dictionary<string, string[]> dictPinYinArray = new();
         Func<SteamApp, bool> PredicateName(string? text)
         {
@@ -71,7 +73,7 @@ namespace System.Application.UI.ViewModels
         {
             _IconKey = nameof(GameListPageViewModel);
 
-            if (IsMobileLayout)
+            if (!IApplication.IsDesktopPlatform)
             {
                 return;
             }
@@ -301,9 +303,10 @@ namespace System.Application.UI.ViewModels
             }
             catch (Exception e)
             {
-                Toast.Show(e, nameof(GameListPageViewModel));
+                e.LogAndShowT(TAG);
             }
         }
+
         public void AddAFKAppListFunc(SteamApp app)
         {
             try
@@ -321,9 +324,10 @@ namespace System.Application.UI.ViewModels
             }
             catch (Exception e)
             {
-                Toast.Show(e, nameof(GameListPageViewModel));
+                e.LogAndShowT(TAG);
             }
         }
+
         public void AddHideAppList(SteamApp app)
         {
             try
@@ -336,9 +340,10 @@ namespace System.Application.UI.ViewModels
             }
             catch (Exception e)
             {
-                Toast.Show(e, nameof(GameListPageViewModel));
+                e.LogAndShowT(TAG);
             }
         }
+
         public async void UnlockAchievement_Click(SteamApp app)
         {
             if (!ISteamService.Instance.IsRunningSteamProcess)
