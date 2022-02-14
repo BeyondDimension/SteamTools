@@ -2640,10 +2640,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>匯出到路徑：{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
-    <value>匯出證書失敗，請先開啟加速后再嘗試匯出</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
     <value>必須在【系統設置 - 安全 - 加密與憑據 - 憑據存儲 - 使用者憑據】中找到 {0} 點擊該項后在彈窗中點擊卸載。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

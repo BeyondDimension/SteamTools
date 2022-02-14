@@ -397,10 +397,41 @@ namespace System.Application.Services.Implementation
             return Task.CompletedTask;
         }
 
+        string? IHttpProxyService.GetCerFilePathGeneratedWhenNoFileExists() => GetCerFilePathGeneratedWhenNoFileExists();
+
+        /// <inheritdoc cref="IHttpProxyService.GetCerFilePathGeneratedWhenNoFileExists"/>
+        public string? GetCerFilePathGeneratedWhenNoFileExists(string? filePath = null)
+        {
+            filePath ??= ((IHttpProxyService)this).CerFilePath;
+            if (!File.Exists(filePath))
+            {
+                if (!GenerateCertificate(filePath)) return null;
+            }
+            return filePath;
+        }
+
+        public bool GenerateCertificate(string? filePath = null)
+        {
+            var result = proxyServer.CertificateManager.CreateRootCertificate(true);
+            if (!result || proxyServer.CertificateManager.RootCertificate == null)
+            {
+                Log.Error(TAG, AppResources.CreateCertificateFaild);
+                Toast.Show(AppResources.CreateCertificateFaild);
+                return false;
+            }
+
+            filePath ??= ((IHttpProxyService)this).CerFilePath;
+
+            proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
+
+            return true;
+        }
+
         public void TrustCer()
         {
-            var filePath = ((IHttpProxyService)this).CerFilePath;
-            IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
+            var filePath = GetCerFilePathGeneratedWhenNoFileExists();
+            if (filePath != null)
+                IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
         }
 
         public bool SetupCertificate()
@@ -410,17 +441,9 @@ namespace System.Application.Services.Implementation
             //proxyServer.CertificateManager
             //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
             //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
-            var result = proxyServer.CertificateManager.CreateRootCertificate(true);
-            if (!result || proxyServer.CertificateManager.RootCertificate == null)
-            {
-                Log.Error(TAG, AppResources.CreateCertificateFaild);
-                Toast.Show(AppResources.CreateCertificateFaild);
-                return false;
-            }
 
-            var filePath = ((IHttpProxyService)this).CerFilePath;
+            if (!GenerateCertificate()) return false;
 
-            proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
             try
             {
                 proxyServer.CertificateManager.TrustRootCertificate();

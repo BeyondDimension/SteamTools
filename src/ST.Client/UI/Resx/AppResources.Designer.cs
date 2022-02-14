@@ -1194,15 +1194,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导出证书失败，请先开启加速后再尝试导出 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_ExportCertificateFileNotExists {
-            get {
-                return ResourceManager.GetString("CommunityFix_ExportCertificateFileNotExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 打开安全设置 的本地化字符串。
         /// </summary>
         public static string CommunityFix_GoToSystemSecuritySettings {

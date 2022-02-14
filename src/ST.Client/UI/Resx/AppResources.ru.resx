@@ -2640,10 +2640,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Экспортирован в путь: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
-    <value>Не удалось экспортировать сертификат, включите ускорение перед попыткой экспорта</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
     <value>Вы должны найти его в системных настройках - Безопасность - Шифрование и учетные данные - Хранение учетных данных - Учетные данные пользователя{0} Нажмите Удалить в всплывающем окне после нажатия на элемент.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

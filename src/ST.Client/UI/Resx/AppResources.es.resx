@@ -2636,10 +2636,6 @@ El sistema se {1} después de {0} segundos.</value>
     <value>Exportado a Ruta: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
-    <value>Error al exportar el certificado, habilite la aceleración antes de intentar exportar</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
     <value>Debe encontrar la Configuración del sistema - Seguridad - Cifrado y credenciales - Almacén de credenciales - Credenciales de usuario {0} Haga clic en el elemento y haga clic en Desinstalar en la ventana emergente.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

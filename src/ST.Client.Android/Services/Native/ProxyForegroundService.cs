@@ -89,7 +89,7 @@ namespace System.Application.Services.Native
                 base.OnCreate();
             }
 
-            public /*async*/ void OnStart()
+            public void OnStart()
             {
                 if (isStart) return;
                 isStart = true;
@@ -98,9 +98,6 @@ namespace System.Application.Services.Native
                 AndroidNotificationServiceImpl.Instance.StartForeground(this, f.NotificationType, f.NotificationText, f.NotificationEntranceAction);
 
                 ProxyService.Current.ProxyStatus = true;
-
-                // wait ???
-                //await Task.Delay(3500);
 
                 if (localTunnel != null) return;
 
@@ -111,12 +108,12 @@ namespace System.Application.Services.Native
                 // Create a local TUN interface using predetermined addresses. In your app,
                 // you typically use values returned from the VPN gateway during handshaking.
                 builder.AddAddress("10.1.10.1", 32);
-                //builder.AddAddress("fd00:1:fd00:1:fd00:1:fd00:1", 128);
+                builder.AddAddress("fd00:1:fd00:1:fd00:1:fd00:1", 128);
                 builder.AddRoute("0.0.0.0", 0);
-                //builder.AddRoute("0:0:0:0:0:0:0:0", 0);
+                builder.AddRoute("0:0:0:0:0:0:0:0", 0);
 
-                var dnss = GetDefaultDNS();
-                Array.ForEach(dnss, x => builder.AddDnsServer(x));
+                //var dnss = GetDefaultDNS();
+                //Array.ForEach(dnss, x => builder.AddDnsServer(x));
 
                 int mtu = jni_get_mtu();
                 builder.SetMtu(mtu);

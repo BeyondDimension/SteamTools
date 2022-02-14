@@ -2636,10 +2636,6 @@ Il sistema verrà {1} dopo {0} secondi.</value>
     <value>Esportato nel percorso: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
-    <value>Certificato di esportazione non riuscito, abilitare l&apos;accelerazione prima di tentare di esportare</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
     <value>È necessario trovare le impostazioni di sistema - Sicurezza - Crittografia e credenziali - Archivio credenziali - Credenziali utente {0} Fare clic sull&apos;elemento e fare clic su Disinstalla nella finestra pop-up.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

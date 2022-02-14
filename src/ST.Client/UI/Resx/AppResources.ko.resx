@@ -2640,10 +2640,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>경로로 내보내기: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
-    <value>인증서를 내보내지 못했습니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
     <value>시스템 설정 - 보안 - 암호화 및 자격 증명 - 자격 증명 저장소 - 사용자 자격 증명에서 {0} 항목을 클릭한 다음 팝업 창에서 제거를 클릭해야 합니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

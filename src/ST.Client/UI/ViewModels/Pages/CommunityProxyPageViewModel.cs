@@ -68,6 +68,7 @@ namespace System.Application.UI.ViewModels
                 TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
                 OpenCertificateDirCommand = ReactiveCommand.Create(() =>
                 {
+                    httpProxyService.GetCerFilePathGeneratedWhenNoFileExists();
                     platformService.OpenFolder(httpProxyService.PfxFilePath);
                 });
                 RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);

@@ -255,8 +255,10 @@ namespace System.Application.UI.Fragments
             return default;
         }
 
-        void InstallCertificate() => GoToPlatformPages.InstallCertificate(RequireContext(),
-            ViewModel!.CerFilePath, IHttpProxyService.RootCertificateName);
+        void InstallCertificate() => ViewModel!.ExportCertificateFile(cefFilePath =>
+        {
+            GoToPlatformPages.InstallCertificate(RequireContext(), cefFilePath, IHttpProxyService.RootCertificateName);
+        });
 
 #if DEBUG
         async void Test()
@@ -265,7 +267,9 @@ namespace System.Application.UI.Fragments
             var s = IHttpProxyService.Instance;
             Xamarin.Android.Net.AndroidClientHandler handler = new();
             handler.Proxy = new WebProxy(s.ProxyIp.ToString(), s.ProxyPort);
-            handler.AddTrustedCert(File.OpenRead(s.CerFilePath));
+            var certFilePath = s.GetCerFilePathGeneratedWhenNoFileExists();
+            if (certFilePath != null)
+                handler.AddTrustedCert(File.OpenRead(certFilePath));
             using var client = new HttpClient(handler);
             using var rsp = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get,
                 "https://steamcommunity.com"));

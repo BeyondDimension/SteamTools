@@ -50,7 +50,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string CerFilePath => httpProxyService.CerFilePath;
+        public string? CerFilePath => httpProxyService.GetCerFilePathGeneratedWhenNoFileExists();
 
         /// <summary>
         /// 导出证书公钥，通过委托自定义导出逻辑
@@ -58,14 +58,10 @@ namespace System.Application.UI.ViewModels
         /// <param name="action"></param>
         public void ExportCertificateFile(Action<string> action)
         {
-            var cefFilePath = httpProxyService.CerFilePath;
-            if (File.Exists(cefFilePath))
+            var cefFilePath = CerFilePath;
+            if (cefFilePath != null)
             {
                 action(cefFilePath);
-            }
-            else
-            {
-                Toast.Show(AppResources.CommunityFix_ExportCertificateFileNotExists);
             }
         }
 

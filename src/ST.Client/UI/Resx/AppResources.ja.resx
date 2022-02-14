@@ -2640,10 +2640,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>パスにエクスポート: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
-    <value>証明書のエクスポートに失敗しました</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
     <value>{0} は、[システム設定 - セキュリティ - 暗号化と資格情報 - 資格情報ストア - ユーザー資格情報] で見つかった{0} クリックした後、ポップアップで [アンインストール] をクリックする必要があります。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

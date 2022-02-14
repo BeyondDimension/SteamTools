@@ -111,5 +111,11 @@ namespace System.Application.Services
         string PfxFilePath => Path.Combine(IOPath.AppDataDirectory, PfxFileName);
 
         string CerFilePath => Path.Combine(IOPath.AppDataDirectory, CerFileName);
+
+        /// <summary>
+        /// 获取 Cer 证书路径，当不存在时生成文件后返回路径
+        /// </summary>
+        /// <returns></returns>
+        string? GetCerFilePathGeneratedWhenNoFileExists();
     }
 }

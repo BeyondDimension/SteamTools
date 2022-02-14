@@ -147,7 +147,7 @@ namespace System.Application.UI
                 b.AppendLine();
 
                 b.Append("[app.install] ");
-                b.Append(platformService.IsInstall);
+                b.Append(platformService.IsInstall.ToLowerString());
                 b.AppendLine();
 
                 b.Append("[deploy.mode] ");

@@ -2636,10 +2636,6 @@ The system will {1} after {0} seconds.</value>
     <value>Exported to Path: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ExportCertificateFileNotExists" xml:space="preserve">
-    <value>Export certificate failed, please enable acceleration before attempting to export</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
     <value>You must find the System Settings - Security - Encryption &amp; Credentials - Credential Store - User Credentials {0} Click on the item and click Uninstall in the pop-up window.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
