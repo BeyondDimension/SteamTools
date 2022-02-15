@@ -170,8 +170,6 @@
                  ClipToBounds="True"
                  Items="{ReflectionBinding Source={x:Static service:ProxyService.Current},Path=ProxyDomainsList,Mode=OneWay}"
                  SelectedItem="{ReflectionBinding Source={x:Static service:ProxyService.Current},Path=SelectGroup,Mode=TwoWay}"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 AutoScrollToSelectedItem="True"
                  Background="Transparent">
           <ListBox.ItemTemplate>
             <DataTemplate>

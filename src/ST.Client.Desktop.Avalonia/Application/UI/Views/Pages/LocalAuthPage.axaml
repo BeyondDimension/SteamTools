@@ -87,6 +87,12 @@
                                  CommandParameter="https://keylol.com/t710508-1-1"
                                  Label="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           </ui:CommandBar.SecondaryCommands>
+          <ui:CommandBar.SecondaryCommands>
+            <ui:CommandBarButton Icon="Help"
+                                 Command="{Binding OpenBrowserCommand}"
+                                 CommandParameter="https://store.steampowered.com/twofactor/manage"
+                                 Label="{ReflectionBinding Path=Res.LocalAuth_RemoveAuth,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>
       </DockPanel>
     </Border>

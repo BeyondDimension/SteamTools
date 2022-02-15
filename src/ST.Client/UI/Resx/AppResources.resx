@@ -762,6 +762,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="LocalAuth" xml:space="preserve">
     <value>本地令牌</value>
   </data>
+  <data name="LocalAuth_RemoveAuth" xml:space="preserve">
+    <value>解绑令牌</value>
+  </data>
   <data name="LocalAuth_AddAuth" xml:space="preserve">
     <value>导入令牌</value>
   </data>
@@ -850,7 +853,8 @@ AAAAA-BBBBB-CCCC3</value>
     <value>已复制令牌 </value>
   </data>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
-    <value>确定要永久删除此令牌吗？</value>
+    <value>确定要永久删除此令牌吗，这只是删除令牌文件数据，并不会解绑你的账号和令牌，
+    如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除。</value>
   </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
     <value>编辑令牌</value>
