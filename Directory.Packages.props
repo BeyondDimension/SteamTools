@@ -132,17 +132,17 @@
 		<!-- ReactiveUI -->
 		<PackageVersion Include="System.Reactive" Version="5.0.0" />
 		<PackageVersion Include="Splat" Version="14.1.45" />
-		<PackageVersion Include="DynamicData" Version="7.5.2" />
+		<PackageVersion Include="DynamicData" Version="7.5.4" />
 		<PackageVersion Include="ReactiveUI" Version="17.1.50" />
 		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.50" /> -->
 		<PackageVersion Include="ReactiveUI.XamForms" Version="17.1.50" />
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.1.50" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
-		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.179" />
-		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.179" />
-		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.179" />
-		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.179" />
+		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.187" />
+		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.187" />
+		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.187" />
+		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.187" />
 
 		<!-- AutoMapper -->
 		<PackageVersion Include="AutoMapper" Version="10.1.1" />
@@ -252,7 +252,7 @@
 		<PackageVersion Include="Xamarin.Google.Dagger" Version="2.39.1" />
 		<PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.3" />
 		<PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
-		<PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0" />
+		<PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0.1" />
 		<PackageVersion Include="Square.OkHttp3" Version="4.9.2" />
 		<PackageVersion Include="Square.Picasso" Version="2.71828.0" />
 		<!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
