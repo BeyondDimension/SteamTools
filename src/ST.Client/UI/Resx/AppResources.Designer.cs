@@ -2924,7 +2924,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要永久删除此令牌吗？ 的本地化字符串。
+        ///   查找类似 确定要永久删除此令牌吗，这只是删除令牌文件数据，并不会解绑你的账号和令牌，
+        ///    如果需要解绑令牌请到 https://store.steampowered.com/twofactor/manage 解绑后在删除。 的本地化字符串。
         /// </summary>
         public static string LocalAuth_DeleteAuthTip {
             get {
@@ -3262,6 +3263,15 @@ namespace System.Application.UI.Resx {
         public static string LocalAuth_RefreshAuthSuccess {
             get {
                 return ResourceManager.GetString("LocalAuth_RefreshAuthSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 解绑令牌 的本地化字符串。
+        /// </summary>
+        public static string LocalAuth_RemoveAuth {
+            get {
+                return ResourceManager.GetString("LocalAuth_RemoveAuth", resourceCulture);
             }
         }
         
