@@ -14,19 +14,20 @@
              x:Class="System.Application.UI.Views.Pages.AccountPage">
   <StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
     <StackPanel Spacing="8" DockPanel.Dock="Right">
-      <Border DockPanel.Dock="Top"
+      <Border
           Classes="paper"
           Background="{DynamicResource ThemeBrushKey}"
           Padding="10"
           Margin="10 20 10 10">
-        <Panel>
-          <DockPanel >
+        <Panel >
+          <DockPanel>
             <gif:Image2 x:Name="avatar"
                           Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
                           Stretch="Uniform"
                           VerticalAlignment="Center"
                           HorizontalAlignment="Left"
                           DecodeWidth="64"
+                          Margin="10 0"
                           Height="64"
                           Width="64"
                           FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
@@ -34,43 +35,64 @@
                 <EllipseGeometry Rect="0,0,64,64" />
               </gif:Image2.Clip>
             </gif:Image2>
-            <StackPanel Spacing="5" Margin="10" >
-              <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
-                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                        FontSize="14"
-                        VerticalAlignment="Center"/>
-              <StackPanel IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+            <StackPanel Spacing="5" Margin="10"  IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+              <DockPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                          IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
+                          Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                          FontSize="14"
+                          VerticalAlignment="Center"/>
                 <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                        FontSize="14"
                        VerticalAlignment="Center"/>
                 <Label Content="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="12"/>
-              </StackPanel>
-            </StackPanel>
-            <WrapPanel HorizontalAlignment="Right">
-              <Button Background="Transparent" Cursor="Hand"
-                      Margin="10 0 10 0"
-                 Command="{ReflectionBinding RefreshScriptButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
-              </Button>
-              <Button Background="Transparent" Cursor="Hand"
-                 Command="{ReflectionBinding RefreshScriptButton}"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                <PathIcon Width="16"  Data="{StaticResource SearchDrawing}" />
-              </Button>
-            </WrapPanel>
-          </DockPanel>
 
-          <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
-          <DockPanel >
-            <TextBlock Text=" / v" FontSize="14"></TextBlock>
+
+                <WrapPanel HorizontalAlignment="Right">
+                  <Button Background="Transparent" Cursor="Hand"
+                          Margin="10 0 10 0"
+                     Command="{ReflectionBinding RefreshScriptButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
+                  </Button>
+                  <Button Background="Transparent" Cursor="Hand"
+                     Command="{ReflectionBinding RefreshScriptButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <PathIcon Width="16"  Data="{StaticResource SearchDrawing}" />
+                  </Button>
+
+
+                </WrapPanel>
+              </DockPanel>
+              <Separator Classes="Separator"></Separator>
+              <DockPanel>
+                <TextBlock Text="积分" FontSize="12"></TextBlock>
+                <TextBlock Text="余额" FontSize="12"></TextBlock>
+              </DockPanel>
+
+            </StackPanel>
+
           </DockPanel>
         </Panel>
       </Border>
-
-
+      <Separator Classes="Separator"></Separator>
+      <Grid  ColumnDefinitions="Auto,*"
+              RowDefinitions="Auto,*">
+        <Border Grid.Column="0"
+              Margin="10 0 10 10"
+              MinWidth="300"  
+            Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
+          <DockPanel>
+            <TextBlock Text="这里预留 1行 系统公告" FontSize="14"></TextBlock>
+          </DockPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" Classes="paper"  Margin="0 0 10 10"  Background="{DynamicResource ThemeBrushKey}" Padding="10">
+          <DockPanel >
+            <TextBlock Text="这里部分常见内容 官网Json获取 手动编辑" FontSize="14"></TextBlock>
+          </DockPanel>
+        </Border>
+      </Grid>
     </StackPanel>
   </StackPanel>
 </UserControl>

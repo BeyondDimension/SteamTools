@@ -261,6 +261,18 @@ namespace System.Application.Services.CloudService
             await Task.Delay(1500);
             return ApiResponse.Ok(new PagedModel<NoticeDTO> { });
         }
+
+        public async Task<IApiResponse<ClockInResponse>> ClockIn(ClockInRequest request)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new ClockInResponse { });
+        }
+
+        public async Task<IApiResponse<IEnumerable<DateTimeOffset>>> ClockInLogs(DateTimeOffset? time)
+        {
+            await Task.Delay(1500);
+            return ApiResponse.Ok(new List<DateTimeOffset> { });
+        }
     }
 }
 #endif

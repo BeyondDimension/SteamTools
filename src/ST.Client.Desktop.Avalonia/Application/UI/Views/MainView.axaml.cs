@@ -32,7 +32,7 @@ namespace System.Application.UI.Views
                 { typeof(SteamAccountPageViewModel), typeof(SteamAccountPage) },
                 { typeof(SettingsPageViewModel), typeof(SettingsPage) },
                 { typeof(AboutPageViewModel), typeof(AboutPage) },
-                { typeof(AccountPageViewModel), typeof(AccountPage) },
+                { typeof(AccountPageViewModel), typeof(AccountPage) }, 
 #if DEBUG
                 { typeof(DebugPageViewModel), typeof(DebugPage) },
 #endif
