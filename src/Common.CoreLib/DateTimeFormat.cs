@@ -31,5 +31,7 @@ namespace System
         public const string RFC1123 = "r";
 
         public const string File = "yyyy-MM-dd HHmmssfffffff";
+
+        public const string YearMonth = "yyyy/MM";
     }
 }
