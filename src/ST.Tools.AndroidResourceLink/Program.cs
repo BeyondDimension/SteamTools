@@ -38,7 +38,7 @@ foreach (var file in files)
 }
 sb.AppendLine("  </ItemGroup>");
 Array.ForEach(bottom, x => sb.AppendLine(x));
-csprojContent = sb.ToString();
+csprojContent = sb.ToString().Trim();
 File.WriteAllText(androidProjFilePath, csprojContent);
 
 Console.WriteLine("OK");

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
@@ -12,7 +11,7 @@ using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 namespace System.Application.Models
 {
     [MPObj]
-    public class RankingResponse
+    public partial class RankingResponse
     {
         /// <summary>
         /// 用户昵称 
@@ -62,4 +61,11 @@ namespace System.Application.Models
         [S_JsonProperty("5")]
         public CurrencyCode CurrencyCode { get; set; }
     }
+
+#if MVVM_VM
+    partial class RankingResponse : ReactiveUI.ReactiveObject
+    {
+
+    }
+#endif
 }

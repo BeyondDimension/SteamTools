@@ -119,6 +119,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="XAB.FlexboxLayout" />
     <PackageReference Include="de.hdodenhof.circleimageview" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
     <PackageReference Include="Xamarin.AndroidX.SwipeRefreshLayout" />
@@ -456,6 +457,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_detail_auth.xml">
       <Link>Resources\layout\activity_detail_auth.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_donate.xml">
+      <Link>Resources\layout\activity_donate.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_encryption_auth.xml">
       <Link>Resources\layout\activity_encryption_auth.xml</Link>
     </AndroidBoundLayout>
@@ -581,6 +585,9 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation_content.xml">
       <Link>Resources\layout\layout_card_steam_auth_trade_confirmation_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_donate_user.xml">
+      <Link>Resources\layout\layout_donate_user.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_file_or_dir.xml">
       <Link>Resources\layout\layout_file_or_dir.xml</Link>
@@ -731,26 +738,3 @@
     </AndroidResource>
   </ItemGroup>
 </Project>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

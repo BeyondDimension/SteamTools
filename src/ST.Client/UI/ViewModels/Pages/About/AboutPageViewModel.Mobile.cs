@@ -23,6 +23,7 @@ namespace System.Application.UI.ViewModels
 
         public enum PreferenceButton
         {
+            捐助,
             检查更新 = 1,
             更新日志,
             常见问题疑难解答,
@@ -57,6 +58,7 @@ namespace System.Application.UI.ViewModels
             {
                 var title = id switch
                 {
+                    PreferenceButton.捐助 => AppResources.About_Donate,
                     PreferenceButton.检查更新 => AppResources.CheckUpdate,
                     PreferenceButton.更新日志 => AppResources.About_UpdateLog,
                     PreferenceButton.常见问题疑难解答 => AppResources.About_FAQ,

@@ -131,18 +131,16 @@ namespace System.Application.UI.ViewModels
                     }
                 }).AddTo(this);
             }
-            else
-            {
-                DonateFliterDate = DateTimeOffset.Now.GetCurrentMonth();
 
-                this.WhenValueChanged(x => x.DonateFliterDate, false)
-                    .Subscribe(x => LoadDonateRankListData(true));
-            }
+            DonateFliterDate = DateTimeOffset.Now.GetCurrentMonth();
+
+            this.WhenValueChanged(x => x.DonateFliterDate, false)
+                .Subscribe(x => LoadDonateRankListData(true));
         }
 
         public override void Activation()
         {
-            if (IApplication.IsDesktopPlatform)
+            if (IApplication.IsDesktopPlatform) // Android 上手动调用加载
             {
                 LoadDonateRankListData(true);
             }
@@ -158,7 +156,17 @@ namespace System.Application.UI.ViewModels
         public async void LoadDonateRankListData(bool refresh = false, bool nextPage = false)
         {
             if (refresh)
-                DonateList = null;
+            {
+                if (IApplication.IsDesktopPlatform)
+                {
+                    DonateList = null;
+                }
+                else
+                {
+                    // Android 上 List 关联 Adapter 在初始化时，这里不能执行 null 赋值
+                    DonateList?.Clear();
+                }
+            }
 
             DonateList ??= new();
 
