@@ -1,4 +1,5 @@
 using Android.Content;
+using Android.Flexbox;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using AndroidX.Annotations;
@@ -22,6 +23,16 @@ namespace System
         public static void SetLinearLayoutManager(this RecyclerView recycleView, int orientation = LinearLayoutManager.Vertical, bool reverseLayout = false)
         {
             var layout = new LinearLayoutManager2(recycleView.Context!, orientation, reverseLayout);
+            recycleView.SetLayoutManager(layout);
+        }
+
+        public static void SetFlexboxLayoutManager(this RecyclerView recycleView, int flexDirection = FlexDirection.Row, int justifyContent = JustifyContent.FlexStart)
+        {
+            var layout = new FlexboxLayoutManager(recycleView.Context!)
+            {
+                FlexDirection = flexDirection,
+                JustifyContent = justifyContent,
+            };
             recycleView.SetLayoutManager(layout);
         }
 

@@ -144,34 +144,49 @@
         tools:text="在此感谢记录上的每一个人"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-      <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layoutDate"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_end"
-        app:layout_constraintStart_toEndOf="@+id/ivIconGender"
-        app:layout_constraintTop_toBottomOf="@+id/layoutGender"
-        tools:hint="2022/02"
-        xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
+        android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
-        <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/tbDate"
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutDate"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:clickable="false"
           android:focusable="false"
           android:focusableInTouchMode="false"
-          android:inputType="none"
-          xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:hint="2022/02"
+          xamarin:managedType="Google.Android.Material.TextField.TextInputLayout">
 
-      </com.google.android.material.textfield.TextInputLayout>
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tbDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="none"
+            xamarin:managedType="Google.Android.Material.TextField.TextInputEditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+          android:id="@+id/clickDate"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:clickable="true"
+          android:focusable="true"
+          app:layout_constraintBottom_toBottomOf="@+id/layoutDate"
+          app:layout_constraintEnd_toEndOf="@id/layoutDate"
+          app:layout_constraintStart_toStartOf="@+id/layoutDate"
+          app:layout_constraintTop_toTopOf="@id/layoutDate" />
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDonateList"
@@ -185,6 +200,19 @@
         tools:itemCount="5"
         tools:listitem="@layout/layout_donate_user"
         xamarin:managedType="AndroidX.RecyclerView.Widget.RecyclerView" />
+
+      <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDonateRecordNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:textColor="@color/text_primary"
+        tools:text="这个月还没有人捐助过啊..."
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
     </LinearLayout>
   </ScrollView>
 </LinearLayout>

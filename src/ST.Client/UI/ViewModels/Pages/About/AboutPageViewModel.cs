@@ -183,8 +183,8 @@ namespace System.Application.UI.ViewModels
                 Params = new RankingRequest()
                 {
                     TimeRange = new[] {
-                        DonateFliterDate,DonateFliterDate.GetCurrentMonthLastDay(),
-                    }
+                        DonateFliterDate, DonateFliterDate.GetCurrentMonthLastDay(),
+                    },
                 }
             });
 
@@ -192,7 +192,57 @@ namespace System.Application.UI.ViewModels
             {
                 if (DonateList.Count <= content.Total)
                 {
-                    DonateList.AddRange(content.DataSource);
+                    if (content.DataSource.Any())
+                    {
+                        DonateList.AddRange(content.DataSource);
+                    }
+#if DEBUG
+                    else
+                    {
+                        if (DonateFliterDate.Year == 2022 && DonateFliterDate.Month == 1)
+                        {
+                            var mockDatas = new[]
+                            {
+                                new RankingResponse
+                                {
+                                    Name = "Name1",
+                                    Amount = 648,
+                                    CurrencyCode = CurrencyCode.USD,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name2",
+                                    Amount = 99,
+                                    CurrencyCode = CurrencyCode.CNY,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name3",
+                                    Amount = 1500,
+                                    CurrencyCode = CurrencyCode.CNY,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name4",
+                                    Amount = 666,
+                                    CurrencyCode = CurrencyCode.USD,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name5",
+                                    Amount = 999,
+                                    CurrencyCode = CurrencyCode.USD,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                            };
+                            DonateList.AddRange(mockDatas);
+                        }
+                    }
+#endif
                 }
             }
             else

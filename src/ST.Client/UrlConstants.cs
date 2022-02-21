@@ -35,5 +35,9 @@ namespace System.Application
         public const string MicrosoftStoreAppWebsite = "https://www.microsoft.com/store/apps/" + MicrosoftStoreId;
         public const string MicrosoftStoreProtocolLink = "ms-windows-store://pdp/?productid=" + MicrosoftStoreId;
         public const string MicrosoftStoreReviewLink = "ms-windows-store://review/?ProductId=" + MicrosoftStoreId;
+
+        public const string DonateUrl_afdian = "https://afdian.net/@rmbgame";
+        public const string DonateUrl_ko_fi = "https://ko-fi.com/rmbgame";
+        public const string DonateUrl_patreon = "https://www.patreon.com/rmbgame";
     }
 }
