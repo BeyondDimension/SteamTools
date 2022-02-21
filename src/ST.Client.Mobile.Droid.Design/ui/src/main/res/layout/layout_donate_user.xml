@@ -28,10 +28,9 @@
 
     <androidx.appcompat.widget.AppCompatTextView
       android:id="@+id/tvNickName"
-      android:layout_width="wrap_content"
+      android:layout_width="80dp"
       android:layout_height="wrap_content"
       android:ellipsize="end"
-      android:maxWidth="100dp"
       android:maxLines="1"
       android:textColor="#D22222"
       tools:text="NickNameNickNamNickNameNickNamNickNameNickNamNickNameNickNamNickNameNickNam"

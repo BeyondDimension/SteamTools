@@ -41,7 +41,7 @@ namespace System.Application.UI.ViewModels
 
         public static bool IsHeaderPreferenceButton(PreferenceButton button) => button switch
         {
-            PreferenceButton.检查更新 or
+            PreferenceButton.捐助 or
             PreferenceButton.联系我们 or
             PreferenceButton.源码仓库 or
             PreferenceButton.账号注销 => true,
