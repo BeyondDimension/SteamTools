@@ -1,23 +1,50 @@
-﻿using System.Common;
+using System.Common;
 
 // ReSharper disable once CheckNamespace
 namespace System
 {
     public static class GuidExtensions
     {
+        // N 32 digits:
+        // 00000000000000000000000000000000
+        // D 32 digits separated by hyphens:
+        // 00000000-0000-0000-0000-000000000000
+        // B 32 digits separated by hyphens, enclosed in braces:
+        // {00000000-0000-0000-0000-000000000000}
+        // P 32 digits separated by hyphens, enclosed in parentheses:
+        // (00000000-0000-0000-0000-000000000000)
+        // X Four hexadecimal values enclosed in braces, where the fourth value is a subset of eight hexadecimal values that is also enclosed in braces:
+        // {0x00000000,0x0000,0x0000,{0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}}
+
+        // S Base64Url ShortGuid
+
         /// <summary>
-        /// 返回 <see cref="Guid"/> 结构的此实例值的字符串表示形式(格式N)
+        /// 返回 <see cref="Guid"/> 结构的此实例值的字符串表示形式，格式：N
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
         public static string ToStringN(this Guid guid) => guid.ToString(Constants.N);
 
         /// <summary>
-        /// 返回 <see cref="Guid"/> 结构的此实例值的字符串表示形式(格式N)
+        /// 返回 <see cref="Guid"/> 结构的此实例值的字符串表示形式，格式：N
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
         public static string? ToStringN(this Guid? guid) => guid.HasValue ? guid.Value.ToStringN() : null;
+
+        /// <summary>
+        /// 返回 <see cref="Guid"/> 结构的此实例值的字符串表示形式，格式：<see cref="ShortGuid"/>
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static string ToStringS(this Guid guid) => ShortGuid.Encode(guid);
+
+        /// <summary>
+        /// 返回 <see cref="Guid"/> 结构的此实例值的字符串表示形式，格式：<see cref="ShortGuid"/>
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static string? ToStringS(this Guid? guid) => guid.HasValue ? guid.Value.ToStringS() : null;
 
         static bool TryParseGuid_Format_D(string? input, out Guid result) => Guid.TryParse(input, out result);
 

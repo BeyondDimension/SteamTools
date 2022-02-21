@@ -14,45 +14,45 @@ namespace System.Application.Services.Implementation
 
         public override string UserAgent => mUserAgent.Value;
 
-        protected override bool IsConnected
-        {
-            get
-            {
-                if (OperatingSystem2.IsWindows10AtLeast)
-                {
-#pragma warning disable CA1416 // 验证平台兼容性
-                    var networkAccess = PlatformNetworkAccess;
-#pragma warning restore CA1416 // 验证平台兼容性
-                    return networkAccess == NetworkAccess.Internet;
-                }
-                else
-                {
-                    return base.IsConnected;
-                }
-            }
-        }
+        //        protected override bool IsConnected
+        //        {
+        //            get
+        //            {
+        //                if (OperatingSystem2.IsWindows10AtLeast)
+        //                {
+        //#pragma warning disable CA1416 // 验证平台兼容性
+        //                    var networkAccess = PlatformNetworkAccess;
+        //#pragma warning restore CA1416 // 验证平台兼容性
+        //                    return networkAccess == NetworkAccess.Internet;
+        //                }
+        //                else
+        //                {
+        //                    return base.IsConnected;
+        //                }
+        //            }
+        //        }
 
-        [SupportedOSPlatform("Windows10.0.10240.0")]
-        static NetworkAccess PlatformNetworkAccess
-        {
-            get
-            {
-                // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Connectivity/Connectivity.uwp.cs#L19
+        //[SupportedOSPlatform("Windows10.0.10240.0")]
+        //static NetworkAccess PlatformNetworkAccess
+        //{
+        //    get
+        //    {
+        //        // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Connectivity/Connectivity.uwp.cs#L19
 
-                // 必须在同一个线程中调用，否则其他线程将返回 null。
-                var profile = NetworkInformation.GetInternetConnectionProfile();
-                if (profile == null)
-                    return NetworkAccess.Unknown;
+        //        // 必须在同一个线程中调用，否则其他线程将返回 null。
+        //        var profile = NetworkInformation.GetInternetConnectionProfile();
+        //        if (profile == null)
+        //            return NetworkAccess.Unknown;
 
-                var level = profile.GetNetworkConnectivityLevel();
-                return level switch
-                {
-                    NetworkConnectivityLevel.LocalAccess => NetworkAccess.Local,
-                    NetworkConnectivityLevel.InternetAccess => NetworkAccess.Internet,
-                    NetworkConnectivityLevel.ConstrainedInternetAccess => NetworkAccess.ConstrainedInternet,
-                    _ => NetworkAccess.None,
-                };
-            }
-        }
+        //        var level = profile.GetNetworkConnectivityLevel();
+        //        return level switch
+        //        {
+        //            NetworkConnectivityLevel.LocalAccess => NetworkAccess.Local,
+        //            NetworkConnectivityLevel.InternetAccess => NetworkAccess.Internet,
+        //            NetworkConnectivityLevel.ConstrainedInternetAccess => NetworkAccess.ConstrainedInternet,
+        //            _ => NetworkAccess.None,
+        //        };
+        //    }
+        //}
     }
 }

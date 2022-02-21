@@ -123,8 +123,10 @@ namespace System.Application.Services.Implementation
                             var db = mapper.Map<Script>(info);
                             db.MD5 = md5;
                             db.SHA512 = sha512;
-                            if (db.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001"))
+                            if (db.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001")) {
                                 info.IsBasics = true;
+                                order = 1;
+                            }
                             if (order.HasValue)
                                 db.Order = order.Value;
                             else if (db.Order == 0)
@@ -334,7 +336,9 @@ namespace System.Application.Services.Implementation
             }
             return item;
         }
-
+        public async Task SaveEnableScript(ScriptDTO item){
+            await scriptRepository.SaveScriptEnable(item);
+        }
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync()
         {
             var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());

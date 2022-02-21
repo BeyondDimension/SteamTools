@@ -13,8 +13,7 @@ namespace System.Application.Services
     /// </summary>
     public interface IScriptManager
     {
-        public const string DirName = "Scripts";
-
+        public const string DirName = "Scripts"; 
         static IScriptManager Instance => DI.Get<IScriptManager>();
 
         /// <summary>
@@ -57,5 +56,11 @@ namespace System.Application.Services
         /// <param name="url"></param>
         /// <returns></returns>
         Task<IApiResponse<string>> DownloadScriptAsync(string url);
+        /// <summary>
+        /// 保存脚本启用状态
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task SaveEnableScript(ScriptDTO item);
     }
 }

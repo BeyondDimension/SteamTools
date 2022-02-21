@@ -149,4 +149,8 @@
     <value>Ошибка на стороне службы {0} - {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
+    <value>Текущее системное время неверно или SSL-сертификат на стороне службы недействителен</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

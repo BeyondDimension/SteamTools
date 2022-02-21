@@ -13,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
+#pragma warning disable CA1416 // 验证平台兼容性
             if (OperatingSystem2.IsWindows)
             {
                 services.AddSingleton<IHttpPlatformHelperService, WindowsClientHttpPlatformHelperServiceImpl>();
@@ -35,7 +36,14 @@ namespace Microsoft.Extensions.DependencyInjection
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }
                 services.AddSingleton<INativeWindowApiService, NativeWindowApiServiceImpl>();
-                services.AddSingleton<IJumpListService, JumpListServiceImpl>();
+                if (Windows10JumpListServiceImpl.IsSupported)
+                {
+                    services.AddSingleton<IJumpListService, Windows10JumpListServiceImpl>();
+                }
+                else
+                {
+                    services.AddSingleton<IJumpListService, JumpListServiceImpl>();
+                }
                 if (options.HasMainProcessRequired)
                 {
                     services.AddSingleton(typeof(NotifyIcon), NotifyIcon.ImplType);
@@ -49,6 +57,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             services.AddMSAppCenterApplicationSettings();
             return services;
+#pragma warning restore CA1416 // 验证平台兼容性
         }
     }
 }

@@ -1,10 +1,10 @@
 using ArchiSteamFarm;
+using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.Storage;
 using DynamicData;
 using ReactiveUI;
-using System;
 using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _GlobalConfig, value);
         }
 
-        public ASFService()
+        private ASFService()
         {
             mCurrent = this;
 
@@ -80,7 +80,7 @@ namespace System.Application.Services
         /// <summary>
         /// 是否正在启动或停止中
         /// </summary>
-        bool IsASFRunOrStoping;
+        public bool IsASFRunOrStoping { get; private set; }
 
         public Task InitASF() => InitASFCore(true);
 
@@ -92,7 +92,12 @@ namespace System.Application.Services
 
             IsASFRunOrStoping = true;
 
-            await archiSteamFarmService.Start();
+            var isOk = await archiSteamFarmService.Start();
+            if (!isOk)
+            {
+                if (showToast) Toast.Show(AppResources.ASF_Stoped, ToastLength.Short);
+                return;
+            }
 
             RefreshBots();
 
@@ -144,16 +149,34 @@ namespace System.Application.Services
             GlobalConfig = archiSteamFarmService.GetGlobalConfig();
         }
 
-        public async void ImportBotFiles(IEnumerable<string> files)
+        public async void ImportBotFiles(IEnumerable<string>? files) => await ImportJsonFileAsync(files, allowBot: true, allowGlobal: false);
+
+        public async void ImportGlobalFiles(string? file) => await ImportJsonFileAsync(new[] { file }, allowBot: false, allowGlobal: true);
+
+        async Task ImportJsonFileAsync(IEnumerable<string?>? files, bool allowBot, bool allowGlobal)
         {
+            if (files == null) return;
             var num = 0;
             foreach (var filename in files)
             {
+                if (string.IsNullOrWhiteSpace(filename)) continue;
                 var file = new FileInfo(filename);
-                if (file.Exists)
+                if (file.Exists && string.Equals(file.Extension, SharedInfo.JsonConfigExtension, StringComparison.OrdinalIgnoreCase))
                 {
-                    var bot = await BotConfig.Load(file.FullName).ConfigureAwait(false);
-                    if (bot.BotConfig != null)
+                    object? config;
+                    if (file.Name != SharedInfo.GlobalConfigFileName)
+                    {
+                        if (!allowBot) continue;
+                        var bot = await BotConfig.Load(file.FullName).ConfigureAwait(false);
+                        config = bot.BotConfig;
+                    }
+                    else
+                    {
+                        if (!allowGlobal) continue;
+                        var g = await GlobalConfig.Load(file.FullName).ConfigureAwait(false);
+                        config = g.GlobalConfig;
+                    }
+                    if (config != null)
                     {
                         try
                         {
@@ -163,6 +186,11 @@ namespace System.Application.Services
                         catch (Exception ex)
                         {
                             Log.Error(nameof(ASFService), ex, nameof(ImportBotFiles));
+                            continue;
+                        }
+                        if (allowGlobal && config is GlobalConfig g)
+                        {
+                            GlobalConfig = ASF.GlobalConfig = g;
                         }
                     }
                 }

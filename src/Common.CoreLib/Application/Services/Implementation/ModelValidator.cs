@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="IModelValidator"/>
     public class ModelValidator : IModelValidator
     {
-        static readonly MethodInfo matchValidateMethod = typeof(ModelValidator).GetMethod(nameof(MatchValidate), BindingFlags.NonPublic | BindingFlags.Static);
+        static readonly MethodInfo matchValidateMethod = typeof(ModelValidator).GetMethod(nameof(MatchValidate), BindingFlags.NonPublic | BindingFlags.Static)!;
         static readonly IDictionary<Type, object> validators = new Dictionary<Type, object>();
 
         public static void AddColumnValidate<T>(Func<T, string?> validate)

@@ -233,4 +233,16 @@
     <value>Что-то пошло не так с соединителем, пожалуйста, скопируйте следующее вручную в программу, нажав кнопку Вручную войти в систему.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>Чтение NameIdentifier завершается неудачей со значением: {0}, канал: {1}, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>{0} новых пользователей</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>В настоящее время Steam имеет слишком много запросов на вход, пожалуйста, обновите страницу и повторите попытку позже.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

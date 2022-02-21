@@ -1,4 +1,4 @@
-﻿#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 using SQLite;
 using System.Application.Columns;
 using System.Diagnostics;
@@ -12,13 +12,16 @@ namespace System.Application.Entities
     /// <summary>
     /// 脚本
     /// </summary>
-    [SQLiteTable("1B2D820C")]
+    [SQLiteTable(TableName)]
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
     public class Script : IEntity<int>, IOrder
     {
+        public const string TableName = "1B2D820C";
+        public const string ColumnName_Id = "E386BC36";
+        public const string ColumnName_Enable = "6DB11594";
         string DebuggerDisplay() => $"{Name}, {Id}";
 
-        [Column("E386BC36")]
+        [Column(ColumnName_Id)]
         [PrimaryKey]
         [AutoIncrement]
         public int Id { get; set; }
@@ -99,7 +102,7 @@ namespace System.Application.Entities
         /// <summary>
         /// 是否启用
         /// </summary>
-        [Column("6DB11594")]
+        [Column(ColumnName_Enable)]
         public bool Enable { get; set; } = false;
 
         /// <summary>

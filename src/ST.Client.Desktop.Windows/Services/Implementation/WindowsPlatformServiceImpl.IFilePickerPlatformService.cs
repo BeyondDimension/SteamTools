@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Versioning;
@@ -53,7 +52,11 @@ namespace System.Application.Services.Implementation
         [SupportedOSPlatform("Windows10.0.10240.0")]
         static void SetFileTypes(PickOptions? options, FileOpenPicker picker)
         {
-            FormatExtensions(options?.FileTypes?.Value, picker.FileTypeFilter.Add);
+            var values = FormatExtensions(options?.FileTypes?.Value);
+            foreach (var item in values)
+            {
+                picker.FileTypeFilter.Add(item);
+            }
         }
     }
 }

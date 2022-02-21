@@ -28,7 +28,7 @@ namespace System.Application
             using var fs = File.Create(filePath);
             using var s = new GZipOutputStream(fs);
             s.SetLevel(level);
-            using var archive = TarArchive.CreateOutputTarArchive(s, TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+            using var archive = TarArchive.CreateOutputTarArchive(s, TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             if (progress != null) archive.ProgressMessageEvent += progress;
 
             HandleFiles(dirPath);
@@ -40,6 +40,8 @@ namespace System.Application
                 {
                     var entry = TarEntry.CreateEntryFromFile(file);
                     entry.Name = file.TrimStart(dirPath).Trim(Path.DirectorySeparatorChar);
+                    if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                        entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                     archive.WriteEntry(entry, false);
                 }
             }
@@ -95,7 +97,7 @@ namespace System.Application
             }
             Directory.CreateDirectory(dirPath);
             using var s = new GZipInputStream(fs);
-            using var archive = TarArchive.CreateInputTarArchive(s, Encoding.UTF8);
+            using var archive = TarArchive.CreateInputTarArchive(s, EncodingCache.UTF8NoBOM);
             if (progressMessage != null) archive.ProgressMessageEvent += progressMessage;
             var hasProgress = progress != null;
             if (hasProgress)

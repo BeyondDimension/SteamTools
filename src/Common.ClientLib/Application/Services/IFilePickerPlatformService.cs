@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using static System.Application.FilePicker2;
@@ -13,7 +14,7 @@ namespace System.Application.Services
 
         public interface IServiceBase
         {
-            protected static void FormatExtensions(IEnumerable<string>? extensions, Action<string> add, bool trimLeadingPeriod = false)
+            protected static IEnumerable<string> FormatExtensions(IEnumerable<string>? extensions, bool trimLeadingPeriod = false)
             {
                 var hasAtLeastOneType = false;
 
@@ -21,24 +22,33 @@ namespace System.Application.Services
                 {
                     foreach (var extension in extensions)
                     {
-                        var ext = FileEx.Clean(extension, trimLeadingPeriod);
+                        var ext = Clean(extension, trimLeadingPeriod);
+                        static string Clean(string extension, bool trimLeadingPeriod = false)
+                        {
+                            if (string.IsNullOrWhiteSpace(extension))
+                                return string.Empty;
+
+                            if (extension.StartsWith('.'))
+                            {
+                                if (!trimLeadingPeriod) return extension;
+                                return extension.TrimStart('.');
+                            }
+                            else
+                            {
+                                if (!trimLeadingPeriod) return "." + extension;
+                                return extension;
+                            }
+                        }
                         if (!string.IsNullOrWhiteSpace(ext))
                         {
-                            add(ext);
+                            yield return ext;
                             hasAtLeastOneType = true;
                         }
                     }
                 }
 
                 if (!hasAtLeastOneType)
-                    add("*");
-            }
-
-            protected static List<string> FormatExtensions(IEnumerable<string>? extensions, bool trimLeadingPeriod = false)
-            {
-                var list = new List<string>();
-                FormatExtensions(extensions, list.Add, trimLeadingPeriod);
-                return list;
+                    yield return "*";
             }
         }
 
@@ -55,7 +65,7 @@ namespace System.Application.Services
         {
             static ISaveFileDialogService? Instance => DI.Get_Nullable<ISaveFileDialogService>();
 
-            Task<FileResult?> PlatformSaveAsync(SaveOptions? options);
+            Task<SaveFileResult?> PlatformSaveAsync(SaveOptions? options);
         }
     }
 }

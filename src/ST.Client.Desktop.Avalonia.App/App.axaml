@@ -21,10 +21,7 @@
   </Application.Resources>
   <Application.Styles>
     <!--<FluentTheme Mode="Dark" />-->
-    <sty:FluentAvaloniaTheme RequestedTheme="Dark"
-                             DefaultToUserTheme="False"
-                             GetUserAccentColor="False"
-                             UseSegoeUIOnWindows="True"/>
+    <sty:FluentAvaloniaTheme />
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeDark.xaml" />
     <StyleInclude Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/ThemeAccent.xaml" />
     

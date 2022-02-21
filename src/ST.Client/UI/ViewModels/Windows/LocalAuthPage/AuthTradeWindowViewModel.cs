@@ -22,6 +22,8 @@ namespace System.Application.UI.ViewModels
 {
     public partial class AuthTradeWindowViewModel : MyAuthenticatorWindowViewModel
     {
+        const string TAG = "AuthTradeWindowVM";
+
         public AuthTradeWindowViewModel() : base()
         {
         }
@@ -34,7 +36,7 @@ namespace System.Application.UI.ViewModels
 
         protected override void InitializeComponent()
         {
-            Title = GetTitleByDisplayName(DisplayName);
+            Title = DisplayName;
 
             _ConfirmationsSourceList
               .Connect()
@@ -43,7 +45,7 @@ namespace System.Application.UI.ViewModels
               .Bind(out _Confirmations)
               .Subscribe(_ =>
               {
-                  this.RaisePropertyChanged(nameof(IsConfirmationsEmpty));
+                  this.RaisePropertyChanged(nameof(IsConfirmationsAny));
                   this.RaisePropertyChanged(nameof(ConfirmationsConutMessage));
               });
 
@@ -54,7 +56,10 @@ namespace System.Application.UI.ViewModels
             if (_Authenticator != null)
             {
                 UserName = _Authenticator.AccountName;
-
+                if (!string.IsNullOrEmpty(_MyAuthenticator?.Name))
+                {
+                    Title = $"{Title} | {_MyAuthenticator.Name}";
+                }
                 Refresh_Click();
             }
             else if (MyAuthenticator != null)
@@ -67,7 +72,15 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 是否使用 <see cref="IHttpService"/> 加载确认物品图片 <see cref="Stream"/>
         /// </summary>
-        public static bool IsLoadImage { protected get; set; } = true;
+        static bool IsLoadImage
+        {
+            get
+            {
+                // 此页面当前使用 Square.Picasso 库加载图片
+                if (OperatingSystem2.IsAndroid) return false;
+                return true;
+            }
+        }
 
         private string? AuthPassword;
         private bool AuthIsLocal;
@@ -226,10 +239,10 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public bool IsConfirmationsEmpty
-        {
-            get => _ConfirmationsSourceList.Items.Any_Nullable();
-        }
+        /// <summary>
+        /// Confirmations SourceList Any
+        /// </summary>
+        public bool IsConfirmationsAny => _ConfirmationsSourceList.Items.Any_Nullable();
 
         public string ConfirmationsConutMessage
         {
@@ -239,7 +252,7 @@ namespace System.Application.UI.ViewModels
                 {
                     return string.Empty;
                 }
-                if (!IsConfirmationsEmpty)
+                if (!IsConfirmationsAny)
                 {
                     return AppResources.LocalAuth_AuthTrade_ListNullTip;
                 }
@@ -536,12 +549,12 @@ namespace System.Application.UI.ViewModels
             }
             catch (WinAuthInvalidTradesResponseException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(AcceptTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
             catch (ApplicationException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(AcceptTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
         }
@@ -575,12 +588,12 @@ namespace System.Application.UI.ViewModels
             }
             catch (WinAuthInvalidTradesResponseException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(RejectTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
             catch (ApplicationException ex)
             {
-                Toast.Show(ex, nameof(AuthTradeWindowViewModel), msg: nameof(RejectTrade));
+                ex.LogAndShowT(TAG);
                 return false;
             }
         }

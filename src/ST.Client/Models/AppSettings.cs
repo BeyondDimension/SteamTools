@@ -22,6 +22,7 @@ namespace System.Application.Models
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
+        [Obsolete("Delete", true)]
         public Guid AppVersion { get; set; }
 
         [MPKey(1)]

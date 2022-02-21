@@ -43,9 +43,8 @@ namespace System.Application.UI.Fragments
                         break;
                 }
             };
-            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
-            binding.rvFastLoginChannels.SetLayoutManager(layout);
-            binding.rvFastLoginChannels.AddItemDecoration(new VerticalItemDecoration(Context.Resources!.GetDimensionPixelSize(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding)));
+            binding.rvFastLoginChannels.SetLinearLayoutManager();
+            binding.rvFastLoginChannels.AddVerticalItemDecorationRes(Resource.Dimension.fast_login_or_register_margin_subtract_compat_padding);
             binding.rvFastLoginChannels.SetAdapter(adapter);
 
             if (Activity is AppCompatActivity activity)

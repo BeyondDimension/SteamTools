@@ -1233,24 +1233,24 @@ namespace WinAuth
         /// <returns>returned data</returns>
         //[Obsolete("use SendAsync")]
         protected byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers)
-        {
-            byte[]? responsedata;
-            //try
-            //{
-            //    responsedata = Request(url, method, data, headers, true);
-            //}
-            //catch (Exception e)
-            //{
-            //    Log.Error(nameof(WinAuthSteamClient), e, "Forward Request Fail.");
-            //}
+        //{
+        //    byte[]? responsedata;
+        //    //try
+        //    //{
+        //    //    responsedata = Request(url, method, data, headers, true);
+        //    //}
+        //    //catch (Exception e)
+        //    //{
+        //    //    Log.Error(nameof(WinAuthSteamClient), e, "Forward Request Fail.");
+        //    //}
 
-            responsedata = Request(url, method, data, headers, false);
+        //    responsedata = Request(url, method, data, headers/*, false*/);
 
-            return responsedata;
-        }
+        //    return responsedata;
+        //}
 
-        //[Obsolete("use SendAsync")]
-        byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers, bool enableForward)
+        ////[Obsolete("use SendAsync")]
+        //byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers/*, bool enableForward*/)
         {
             // ensure only one request per account at a time
             lock (this)
@@ -1262,11 +1262,11 @@ namespace WinAuth
                     url += (!url.Contains("?", StringComparison.CurrentCulture) ? "?" : "&") + query;
                 }
 
-                var isForward = enableForward && TryGetForwardUrl(ref url);
+                //var isForward = enableForward && TryGetForwardUrl(ref url);
 
                 // call the server
                 HttpWebRequest request = GeneralHttpClientFactory.Create(url);
-                request.Timeout = GeneralHttpClientFactory.DefaultTimeoutTotalMilliseconds;
+                request.Timeout = GeneralHttpClientFactory.DefaultTimeoutMilliseconds;
                 request.Method = method;
                 request.Accept = "text/javascript, text/html, application/xml, text/xml, */*";
                 request.ServicePoint.Expect100Continue = false;
@@ -1278,7 +1278,7 @@ namespace WinAuth
                     request.Headers.Add(headers);
                 }
 
-                if (isForward) AppendForwardHeaders(request.Headers);
+                //if (isForward) AppendForwardHeaders(request.Headers);
 
                 request.CookieContainer = Session.Cookies;
 

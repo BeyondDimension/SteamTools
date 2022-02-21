@@ -126,6 +126,9 @@
   <data name="BrowserIsSupported2" xml:space="preserve">
     <value>等其他现代浏览器，以提高您的体验。</value>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>读取 NameIdentifier 失败，值：{0}，渠道：{1}，请联系网站管理员。</value>
+  </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
     <value>点击此处重试</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="meta_description" xml:space="preserve">
     <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
   </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>新用户{0}</value>
+  </data>
   <data name="noscript" xml:space="preserve">
     <value>需要开启 JavaScript 才能浏览本站点。</value>
   </data>
@@ -191,6 +197,9 @@
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
     <value>读取 UnionId 失败，值：{0}，请联系网站管理员。</value>
+  </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>目前 Steam 登录的请求过多请刷新页面重试或稍后再试。</value>
   </data>
   <data name="Title_Error" xml:space="preserve">
     <value>错误!</value>

@@ -20,38 +20,11 @@ namespace System.Application
         /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
         public static void InitFileSystem()
         {
-            var appDataPath = AppDataDirectory;
-            var cachePath = CacheDirectory;
-
-            var paths = new[] { appDataPath, cachePath, };
-            var dict_paths = paths.ToDictionary(x => x, Directory.Exists);
-
-            if (dict_paths.Values.All(x => !x))
-            {
-                var old_paths = new[] { FileSystem2.BaseDirectory.AppDataDirectory, FileSystem2.BaseDirectory.CacheDirectory, };
-                if (old_paths.All(Directory.Exists)) // 迁移之前根目录上的文件夹
-                {
-                    for (int i = 0; i < old_paths.Length; i++)
-                    {
-                        var path = paths[i];
-                        var old_path = old_paths[i];
-                        Directory.Move(old_path, path);
-                        dict_paths[path] = true;
-                    }
-                }
-            }
-
-            foreach (var item in dict_paths)
-            {
-                if (!item.Value)
-                {
-                    Directory.CreateDirectory(item.Key);
-                }
-            }
-
-            InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
-            string GetAppDataDirectory() => appDataPath;
-            string GetCacheDirectory() => cachePath;
+            InitFileSystemWithMigrations(
+                AppDataDirectory,
+                CacheDirectory,
+                FileSystem2.BaseDirectory.AppDataDirectory,
+                FileSystem2.BaseDirectory.CacheDirectory);
         }
 
         static string AppDataDirectory

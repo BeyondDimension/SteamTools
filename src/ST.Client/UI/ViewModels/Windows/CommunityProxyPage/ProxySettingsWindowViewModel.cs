@@ -1,8 +1,6 @@
-using ReactiveUI;
-using System.Application.Models;
+using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
-using System.Properties;
 using Titanium.Web.Proxy.Models;
 
 // ReSharper disable once CheckNamespace
@@ -17,17 +15,21 @@ namespace System.Application.UI.ViewModels
             Title = GetTitleByDisplayName(DisplayName);
         }
 
-        public IEnumerable<ExternalProxyType> ProxyTypes { get; } = Enum2.GetAll<ExternalProxyType>();
+        public IEnumerable<ExternalProxyType> ProxyTypes { get; }
+            = Enum2.GetAll<ExternalProxyType>();
 
-        public IEnumerable<string?> ProxyDNSs { get; } = new List<string?>()
+        public IEnumerable<string> ProxyDNSs { get; } = new[]
         {
-            null,
-            DnsAnalysis.PrimaryDNS_114,
-            DnsAnalysis.PrimaryDNS_Ali,
-            DnsAnalysis.PrimaryDNS_Dnspod,
-            DnsAnalysis.PrimaryDNS_Baidu,
-            DnsAnalysis.PrimaryDNS_Google,
-            DnsAnalysis.PrimaryDNS_Cloudflare,
+            "System Default",
+            IDnsAnalysisService.PrimaryDNS_114,
+            IDnsAnalysisService.PrimaryDNS_Ali,
+            IDnsAnalysisService.PrimaryDNS_Dnspod,
+            IDnsAnalysisService.PrimaryDNS_Baidu,
+            IDnsAnalysisService.PrimaryDNS_Google,
+            IDnsAnalysisService.PrimaryDNS_Cloudflare,
         };
+
+        public IEnumerable<string> SystemProxyIps { get; }
+            = new[] { "0.0.0.0", "127.0.0.1" };
     }
 }

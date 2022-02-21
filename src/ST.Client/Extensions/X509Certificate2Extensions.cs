@@ -27,7 +27,7 @@ namespace System
         //    if (@this.PrivateKey is RSACryptoServiceProvider pkey)
         //    {
         //        var keyPair = DotNetUtilities.GetRsaKeyPair(pkey);
-        //        using TextWriter tw = new StreamWriter(Path.Combine(IOPath.BaseDirectory, @this.IssuerName.Name + ".key"), false, new UTF8Encoding(false));
+        //        using TextWriter tw = new StreamWriter(Path.Combine(IOPath.BaseDirectory, @this.IssuerName.Name + ".key"), false, EncodingCache.UTF8NoBOM);
         //        PemWriter pw = new PemWriter(tw);
         //        pw.WriteObject(keyPair.Private);
         //        tw.Flush();
@@ -62,7 +62,7 @@ namespace System
             builder.AppendLine(
                 Convert.ToBase64String(@this.Export(X509ContentType.Cert), Base64FormattingOptions.InsertLineBreaks));
             builder.AppendLine("-----END CERTIFICATE-----");
-            File.WriteAllText(pathOrName, builder.ToString(), new UTF8Encoding(false));
+            File.WriteAllText(pathOrName, builder.ToString(), EncodingCache.UTF8NoBOM);
         }
     }
 }

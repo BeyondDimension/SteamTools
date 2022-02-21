@@ -20,6 +20,8 @@ namespace System.Application.Services.Implementation
 {
     public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
     {
+        const string TAG = "ArchiSteamFarmS";
+
         public event Action<string>? OnConsoleWirteLine;
 
         public TaskCompletionSource<string>? ReadLineTask { get; set; }
@@ -36,12 +38,12 @@ namespace System.Application.Services.Implementation
         public Version CurrentVersion => SharedInfo.Version;
 
         private bool isFirstStart = true;
-        public async Task Start(string[]? args = null)
+        public async Task<bool> Start(string[]? args = null)
         {
-            var isMainThread = MainThread2.IsMainThread;
             try
             {
                 StartTime = DateTimeOffset.Now;
+
                 if (isFirstStart)
                 {
                     IArchiSteamFarmService.InitCoreLoggers?.Invoke();
@@ -77,13 +79,16 @@ namespace System.Application.Services.Implementation
                     if (!await Program.InitASF().ConfigureAwait(false))
                     {
                         await Stop().ConfigureAwait(false);
+                        return false;
                     }
                 }
+                return true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Toast.Show(ex, nameof(ArchiSteamFarmServiceImpl));
+                e.LogAndShowT(TAG, msg: "ASF Start Fail.");
                 await Stop().ConfigureAwait(false);
+                return false;
             }
         }
 
@@ -141,7 +146,8 @@ namespace System.Application.Services.Implementation
 
             ulong steamOwnerID = ASF.GlobalConfig?.SteamOwnerID ?? GlobalConfig.DefaultSteamOwnerID;
 
-            string? response = await targetBot.Commands.Response(steamOwnerID, command!);
+            var access = targetBot.GetAccess(steamOwnerID);
+            string? response = await targetBot.Commands.Response(access, command, steamOwnerID);
 
             if (!string.IsNullOrEmpty(response))
                 ASF.ArchiLogger.LogGenericInfo(response);

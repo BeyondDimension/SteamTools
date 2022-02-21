@@ -133,12 +133,14 @@ namespace System.Application
             using var s = new GZipOutputStream(fs);
             s.SetLevel(Deflater.BEST_COMPRESSION);
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }
@@ -172,12 +174,14 @@ namespace System.Application
             using var fs = File.Create(packPath);
             using var s = new XZOutputStream2(fs);
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }
@@ -188,12 +192,14 @@ namespace System.Application
             using var fs = File.Create(packPath);
             using var s = new BrotliStream(fs, NCompressionMode.Compress);
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }
@@ -223,12 +229,14 @@ namespace System.Application
             Console.WriteLine($"MaxCompressionLevel: {maxCompressionLevel}");
             using var s = new CompressionStream(fs, new CompressionOptions(maxCompressionLevel));
             using var archive = TarArchive.CreateOutputTarArchive(s,
-                TarBuffer.DefaultBlockFactor, Encoding.UTF8);
+                TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
             foreach (var file in files)
             {
                 Console.WriteLine($"正在压缩：{file.Path}");
                 var entry = TarEntry.CreateEntryFromFile(file.Path);
                 entry.Name = file.RelativePath;
+                if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
+                    entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
                 archive.WriteEntry(entry, false);
             }
         }
@@ -259,7 +267,19 @@ namespace System.Application
                 var mainDllPath = ProjectPathUtil.projPath + ProjectPathUtil.MainDllPath;
                 var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;
                 var versionArray = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
-                if (versionArray.Length > 3) version = string.Join('.', versionArray.Take(3));
+                switch (versionArray.Length)
+                {
+                    case 1:
+                        version = $"{versionArray[0]}.0.0";
+                        break;
+                    case 2:
+                        version = $"{versionArray[0]}.{versionArray[1]}.0";
+                        break;
+                    case 3:
+                    case 4:
+                        version = string.Join('.', versionArray);
+                        break;
+                }
                 return version;
             }
             set
@@ -275,7 +295,19 @@ namespace System.Application
             var mainDllPath = ProjectPathUtil.projPath + string.Format(ProjectPathUtil.MainDllPath_, configuration);
             var version = (File.Exists(mainDllPath) ? FileVersionInfo.GetVersionInfo(mainDllPath).FileVersion : null) ?? ThisAssembly.Version;
             var versionArray = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
-            if (versionArray.Length > 3) version = string.Join('.', versionArray.Take(3));
+            switch (versionArray.Length)
+            {
+                case 1:
+                    version = $"{versionArray[0]}.0.0";
+                    break;
+                case 2:
+                    version = $"{versionArray[0]}.{versionArray[1]}.0";
+                    break;
+                case 3:
+                case 4:
+                    version = string.Join('.', versionArray);
+                    break;
+            }
             return version;
         }
 
@@ -283,7 +315,7 @@ namespace System.Application
         {
             var name = item.Name.Replace("-", "_");
             if (name.Contains("osx_")) name = name.Replace("osx_", "macos_");
-            var version = Utils.GetVersion(dev);
+            var version = GetVersion(dev);
             var fileName = item.DeploymentMode switch
             {
                 DeploymentMode.SCD =>

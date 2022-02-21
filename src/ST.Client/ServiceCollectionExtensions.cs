@@ -12,7 +12,7 @@ using System.Windows;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static partial class IdentityServiceCollectionExtensions
+    public static partial class ServiceCollectionExtensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
@@ -104,17 +104,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddHostsFileService(this IServiceCollection services)
         {
             services.AddSingleton<IHostsFileService, HostsFileServiceImpl>();
-            return services;
-        }
-
-        /// <summary>
-        /// 添加 Steam 相关助手、工具类服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddSteamService(this IServiceCollection services)
-        {
-            services.AddSingleton<ISteamService, SteamServiceImpl>();
             return services;
         }
 

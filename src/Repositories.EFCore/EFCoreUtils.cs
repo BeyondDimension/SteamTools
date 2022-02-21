@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Application.Repositories;
@@ -41,7 +41,7 @@ namespace System
         public static string GetTableNameByClrType(DbContext context, Type entityType)
         {
             var entityType_ = context.Model.FindEntityType(entityType);
-            return GetTableNameByClrType(context.Database, entityType_);
+            return GetTableNameByClrType(context.Database, entityType_.ThrowIsNull(nameof(entityType)));
         }
 
         /// <summary>

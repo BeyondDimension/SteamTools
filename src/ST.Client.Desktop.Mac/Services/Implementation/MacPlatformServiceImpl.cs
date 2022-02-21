@@ -8,6 +8,7 @@ using Foundation;
 using System.Application.Models;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -116,9 +117,8 @@ namespace System.Application.Services.Implementation
                     var autoLoginUser = v.Value.HKCU.Software.Valve.Steam.AutoLoginUser;
                     if (autoLoginUser != null)
                     {
-                        var oldStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{autoLoginUser}\"\n";
-                        var newStr = $"\t\t\t\t\t\"AutoLoginUser\"\t\t\"{userName}\"\n";
-                        VdfHelper.UpdateValueByReplaceNoPattern(registryVdfPath, oldStr, newStr);
+                        autoLoginUser = userName;
+                        VdfHelper.Write(registryVdfPath, v);
                     }
                     else
                     {
@@ -224,9 +224,10 @@ namespace System.Application.Services.Implementation
             throw new PlatformNotSupportedException();
         }
 
-        public bool SetAsSystemProxy(bool state, string ip, int port)
+        public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
-            var stringList = IPlatformService.Instance.GetMacNetworkSetup();
+            IPlatformService @this = this;
+            var stringList = @this.GetMacNetworkSetup();
             var shellContent = new StringBuilder();
             foreach (var item in stringList)
             {
@@ -290,8 +291,7 @@ namespace System.Application.Services.Implementation
             }
             catch (Exception e)
             {
-                Log.Error("OSAScript Error", e, "Run OSAScript Error");
-                Toast.Show(e);
+                e.LogAndShowT(TAG);
             }
             return string.Empty;
         }

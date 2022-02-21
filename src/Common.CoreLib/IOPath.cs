@@ -167,6 +167,50 @@ namespace System
                 IOPath.getAppDataDirectory = getAppDataDirectory;
                 IOPath.getCacheDirectory = getCacheDirectory;
             }
+
+            protected static void InitFileSystemWithMigrations(
+                string destAppDataPath, string destCachePath,
+                string sourceAppDataPath, string sourceCachePath)
+            {
+                var paths = new[] { destAppDataPath, destCachePath, };
+                var dict_paths = paths.ToDictionary(x => x, x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any());
+
+                if (dict_paths.Values.All(x => !x))
+                {
+                    var old_paths = new[] { sourceAppDataPath, sourceCachePath, };
+                    if (old_paths.All(x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any())) // 迁移之前根目录上的文件夹
+                    {
+                        for (int i = 0; i < old_paths.Length; i++)
+                        {
+                            var path = paths[i];
+                            var old_path = old_paths[i];
+                            try
+                            {
+                                Directory.Move(old_path, path);
+                                dict_paths[path] = true;
+                            }
+                            catch
+                            {
+                                // 跨卷移动失败或其他原因失败，使用旧的目录，并尝试删除创建的空文件夹
+                                DirTryDelete(path);
+                                paths[i] = old_path;
+                            }
+                        }
+                    }
+                }
+
+                foreach (var item in dict_paths)
+                {
+                    if (!item.Value)
+                    {
+                        Directory.CreateDirectory(item.Key);
+                    }
+                }
+
+                InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+                string GetAppDataDirectory() => paths[0];
+                string GetCacheDirectory() => paths[1];
+            }
         }
 
         /// <summary>
@@ -413,5 +457,8 @@ namespace System
             var t1 = Math.Round(t, 2);
             return Convert.ToInt32(t1 * 100);
         }
+
+        public const char UnixDirectorySeparatorChar = '/';
+        public const char WinDirectorySeparatorChar = '\\';
     }
 }

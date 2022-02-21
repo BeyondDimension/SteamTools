@@ -8,11 +8,12 @@
        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
        Title="Steam++"
        x:DataType="vm:MainWindowViewModel"
-       FlyoutBackgroundColor="{DynamicResource ShellBackgroundColor}"
-       FlyoutWidth="240"
-       ItemTemplate="{x:StaticResource AppShellFlyoutItemTemplate}"
-       MenuItemTemplate="{x:StaticResource AppShellFlyoutItemTemplate}"
+       FlyoutBehavior="Disabled"
        Visual="Material">
+  <!--FlyoutBackgroundColor="{DynamicResource ShellBackgroundColor}"-->
+  <!--FlyoutWidth="240"-->
+  <!--ItemTemplate="{x:StaticResource AppShellFlyoutItemTemplate}"-->
+  <!--MenuItemTemplate="{x:StaticResource AppShellFlyoutItemTemplate}"-->
   <!--
         The overall app visual hierarchy is defined here, along with navigation.
         
@@ -138,7 +139,7 @@
       <!-- Shell.MenuItemTemplate 是 MenuItem 的模板 -->
       <!-- 这两个模板通常使用同一个 -->
       <!--https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/shell/flyout#default-template-for-flyoutitems-->
-      <DataTemplate x:Key="AppShellFlyoutItemTemplate" x:DataType="BaseShellItem">
+      <!--<DataTemplate x:Key="AppShellFlyoutItemTemplate" x:DataType="BaseShellItem">
         <Grid x:Name="FlyoutItemLayout"
           HeightRequest="{x:OnPlatform Android=50}"
           ColumnSpacing="{x:OnPlatform UWP=0}"
@@ -151,13 +152,17 @@
                     <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
                   </VisualState.Setters>
                 </VisualState>
-                <!--<VisualState x:Name="Selected">
+                -->
+      <!--<VisualState x:Name="Selected">
                   <VisualState.Setters>
-                    --><!-- 左侧浮动菜单项(选中)时背景 --><!--
+                    -->
+      <!-- 左侧浮动菜单项(选中)时背景 -->
+      <!--
                     <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
                     <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="White" />
                   </VisualState.Setters>
                 </VisualState>-->
+      <!--
               </VisualStateGroup>
             </VisualStateGroupList>
           </VisualStateManager.VisualStateGroups>
@@ -189,7 +194,8 @@
                  FontAttributes="{x:OnPlatform iOS=Bold}"
                  TextColor="{DynamicResource ShellTitleColor}"
                  VerticalTextAlignment="Center">
-            <!--<Label.TextColor>
+            -->
+      <!--<Label.TextColor>
               <OnPlatform x:TypeArguments="Color">
                 <OnPlatform.Platforms>
                   <On Platform="Android"
@@ -197,7 +203,7 @@
                 </OnPlatform.Platforms>
               </OnPlatform>
             </Label.TextColor>-->
-            <!--<Label.Margin>
+      <!--<Label.Margin>
             <OnPlatform x:TypeArguments="Thickness">
               <OnPlatform.Platforms>
                 <On Platform="Android"
@@ -205,6 +211,7 @@
               </OnPlatform.Platforms>
             </OnPlatform>
           </Label.Margin>-->
+      <!--
             <Label.FontFamily>
               <OnPlatform x:TypeArguments="x:String">
                 <OnPlatform.Platforms>
@@ -215,10 +222,10 @@
             </Label.FontFamily>
           </Label>
         </Grid>
-      </DataTemplate>
+      </DataTemplate>-->
     </ResourceDictionary>
   </Shell.Resources>
-  <Shell.FlyoutHeaderTemplate>
+  <!--<Shell.FlyoutHeaderTemplate>
     <DataTemplate>
       <StackLayout Padding="16" Orientation="Horizontal">
         <StackLayout.GestureRecognizers>
@@ -238,7 +245,7 @@
                     VerticalTextAlignment="Center" />
       </StackLayout>
     </DataTemplate>
-  </Shell.FlyoutHeaderTemplate>
+  </Shell.FlyoutHeaderTemplate>-->
   <!--
         When the Flyout is visible this defines the content to display in the flyout.
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element

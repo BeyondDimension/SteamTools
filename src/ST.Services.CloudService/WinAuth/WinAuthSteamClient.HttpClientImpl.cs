@@ -21,7 +21,7 @@ namespace WinAuth
     {
         #region HttpClient
 
-        protected async Task<T?> SendAsync<T>(string url, HttpMethod method, IReadOnlyDictionary<string, string?>? data, IReadOnlyDictionary<string, string?>? headers, CancellationToken cancellationToken, bool enableForward = true) where T : notnull
+        protected async Task<T?> SendAsync<T>(string url, HttpMethod method, IReadOnlyDictionary<string, string?>? data, IReadOnlyDictionary<string, string?>? headers, CancellationToken cancellationToken/*, bool enableForward = true*/) where T : notnull
         {
             var query = data == null ? string.Empty : string.Join("&", data.Select(x => string.Format("{0}={1}", HttpUtility.UrlEncode(x.Key), HttpUtility.UrlEncode(x.Value))));
             if (method == HttpMethod.Get)
@@ -66,7 +66,7 @@ namespace WinAuth
             HttpStatusCode? statusCode = null;
             try
             {
-                var response = await IHttpService.Instance.SendAsync<T>(url, GetRequest, null, enableForward, cancellationToken,
+                var response = await IHttpService.Instance.SendAsync<T>(url, GetRequest, null/*, enableForward*/, cancellationToken,
                     handlerResponse: rsp =>
                     {
                         statusCode = rsp.StatusCode;
@@ -99,6 +99,7 @@ namespace WinAuth
                 else throw new WinAuthInvalidSteamRequestException(ex.Message, ex);
             }
         }
+
         /// <summary>
         /// Log an exception from a Request
         /// </summary>

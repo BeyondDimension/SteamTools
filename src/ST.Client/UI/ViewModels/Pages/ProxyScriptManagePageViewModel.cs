@@ -9,11 +9,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
-using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -41,7 +39,7 @@ namespace System.Application.UI.ViewModels
         {
             IconKey = nameof(ProxyScriptManagePageViewModel);
 
-            if (IsMobileLayout)
+            if (!IApplication.IsDesktopPlatform)
             {
                 return;
             }
@@ -50,11 +48,23 @@ namespace System.Application.UI.ViewModels
             AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
             AddNewScriptButton_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                var fileTypes = !FilePicker2.IsSupportedFileExtensionFilter ? (FilePickerFileType?)null : new FilePicker2.FilePickerFilter(new (string, IEnumerable<string>)[] {
-                    ("JavaScript Files", new[] { "js" }),
-                    ("Text Files", new[] { "txt" }),
-                    ("All Files", new[] { "*" }),
-                });
+                FilePicker2.FilePickerFileType? fileTypes;
+                if (IApplication.IsDesktopPlatform)
+                {
+                    fileTypes = new ValueTuple<string, string[]>[] {
+                        ("JavaScript Files", new[] { FileEx.JS, }),
+                        ("Text Files", new[] { FileEx.TXT, }),
+                        //("All Files", new[] { "*", }),
+                    };
+                }
+                else if (OperatingSystem2.IsAndroid)
+                {
+                    fileTypes = new[] { MediaTypeNames.TXT, MediaTypeNames.JS };
+                }
+                else
+                {
+                    fileTypes = null;
+                }
                 await FilePicker2.PickAsync(ProxyService.Current.AddNewScript, fileTypes);
             });
 

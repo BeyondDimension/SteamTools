@@ -30,13 +30,15 @@ namespace System.Application
             Unknown = -2,
         }
 
+        const string TAG = nameof(Browser2);
+
         static void HandlerException(Exception e)
         {
             if (OnError == null)
             {
                 try
                 {
-                    Toast.Show(e, nameof(Browser2));
+                    e.LogAndShowT(TAG);
                 }
                 catch
                 {
@@ -69,18 +71,8 @@ namespace System.Application
 
             static OpenResultCode OpenCoreByProcess(string url)
             {
-                try
-                {
-                    Process2.Start(url, useShellExecute: true);
-                    return OpenResultCode.StartedByProcess2;
-                }
-                catch (Win32Exception e)
-                {
-                    // [Win32Exception: 找不到应用程序] 39次报告
-                    // 疑似缺失没有默认浏览器设置会导致此异常，可能与杀毒软件有关
-                    HandlerException(e);
-                    return OpenResultCode.Exception;
-                }
+                var r = Process2.OpenCoreByProcess(url, s => Toast.Show(s));
+                return r ? OpenResultCode.StartedByProcess2 : OpenResultCode.Exception;
             }
         }
 

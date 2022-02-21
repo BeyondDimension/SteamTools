@@ -8,7 +8,9 @@ using System.Application.UI.Activities;
 using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.ViewModels.MyPageViewModel;
+#if __XAMARIN_FORMS__
 using XFShell = Xamarin.Forms.Shell;
+#endif
 
 namespace System.Application.UI.Fragments
 {
@@ -40,6 +42,7 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
+#if !DEBUG
                 var isUnderConstruction = e.Current.Id switch
                 {
                     PreferenceButton.BindPhoneNumber or
@@ -51,11 +54,15 @@ namespace System.Application.UI.Fragments
                     MainApplication.ShowUnderConstructionTips();
                     return;
                 }
+#endif
 
+#if __XAMARIN_FORMS__
                 var route = e.Current.Id switch
                 {
-                    PreferenceButton.Settings => "//SettingsPage",
-                    PreferenceButton.About => "//AboutPage",
+                    PreferenceButton.Settings => AppShell.IsUseBottomNav ?
+                        "//MyPage/SettingsPage" : "//SettingsPage",
+                    PreferenceButton.About => AppShell.IsUseBottomNav ?
+                        "//MyPage/AboutPage" : "//AboutPage",
                     _ => null,
                 };
 
@@ -64,21 +71,21 @@ namespace System.Application.UI.Fragments
                     XFShell.Current.GoToAsync(route);
                     return;
                 }
+#endif
 
                 var activityType = e.Current.Id switch
                 {
                     PreferenceButton.UserProfile => typeof(UserProfileActivity),
                     PreferenceButton.BindPhoneNumber => typeof(BindPhoneNumberActivity),
                     PreferenceButton.ChangePhoneNumber => typeof(ChangePhoneNumberActivity),
-                    //PreferenceButton.Settings => typeof(SettingsActivity),
-                    //PreferenceButton.About => typeof(AboutActivity),
+                    PreferenceButton.Settings => typeof(SettingsActivity),
+                    PreferenceButton.About => typeof(AboutActivity),
                     _ => (Type?)null,
                 };
                 if (activityType != null) this.StartActivity(activityType);
             };
-            var layout = new LinearLayoutManager2(Context, LinearLayoutManager.Vertical, false);
-            binding.rvPreferenceButtons.SetLayoutManager(layout);
-            binding.rvPreferenceButtons.AddItemDecoration(new VerticalGroupItemDecoration(binding.rvPreferenceButtons.PaddingTop));
+            binding.rvPreferenceButtons.SetLinearLayoutManager();
+            binding.rvPreferenceButtons.AddVerticalGroupItemDecoration(binding.rvPreferenceButtons.PaddingTop);
             binding.rvPreferenceButtons.SetAdapter(adapter);
         }
 
@@ -86,8 +93,18 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
+#if !DEBUG
                 MainApplication.ShowUnderConstructionTips();
-                //this.StartActivity<LoginOrRegisterActivity>();
+#else
+                if (UserService.Current.IsAuthenticated)
+                {
+                    this.StartActivity<UserProfileActivity>();
+                }
+                else
+                {
+                    this.StartActivity<LoginOrRegisterActivity>();
+                }
+#endif
                 return true;
             }
             //else if (view.Id == Resource.Id.???)

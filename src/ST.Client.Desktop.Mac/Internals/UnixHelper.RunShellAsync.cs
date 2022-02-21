@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 static partial class UnixHelper
 {
+    const string TAG = nameof(UnixHelper);
+
     static readonly Lazy<string> _bin_bash = new(() => string.Format("{0}bin{0}bash", Path.DirectorySeparatorChar));
     /// <summary>
     /// /bin/bash
@@ -98,7 +100,7 @@ static partial class UnixHelper
         try
         {
             using var p = new Process();
-            p.StartInfo.FileName = UnixHelper.BinBash;
+            p.StartInfo.FileName = BinBash;
             p.StartInfo.Arguments = "";
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardInput = true;
@@ -115,8 +117,7 @@ static partial class UnixHelper
         }
         catch (Exception e)
         {
-            Log.Error("Shell Error", e, "Run Shell Error");
-            Toast.Show(e);
+            e.LogAndShowT(TAG);
         }
         return string.Empty;
     }

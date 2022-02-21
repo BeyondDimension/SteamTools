@@ -3,7 +3,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using AndroidX.AppCompat.App;
 using System.Application.Security;
 
 namespace System.Application.UI.Activities
@@ -17,7 +16,7 @@ namespace System.Application.UI.Activities
         LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ManifestConstants.ConfigurationChanges,
         NoHistory = true)]
-    internal sealed class SplashActivity : AppCompatActivity
+    internal sealed class SplashActivity : Activity
     {
         protected override void OnCreate(Bundle? savedInstanceState)
         {

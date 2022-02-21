@@ -19,5 +19,6 @@ namespace System.Application.Repositories
         Task<Script> ExistsScriptName(string name);
 
         Task<IList<Script>> GetAllAsync();
+        Task SaveScriptEnable(ScriptDTO item);
     }
 }

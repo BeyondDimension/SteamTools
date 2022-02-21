@@ -2,17 +2,15 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.View.Menu;
-using AndroidX.Fragment.App;
 using Binding;
 using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI.Adapters;
-using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using ASF_FS = System.Application.Services.Native.ArchiSteamFarmForegroundService;
 using static System.Application.UI.ViewModels.ArchiSteamFarmPlusPageViewModel;
-using System.Text;
 
 namespace System.Application.UI.Fragments
 {
@@ -70,12 +68,28 @@ namespace System.Application.UI.Fragments
 
         void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
 
+        void StartOrStopASF_ForegroundService()
+        {
+            var s = ASFService.Current;
+            if (s.IsASFRunOrStoping) return;
+            var isASFRuning = s.IsASFRuning;
+            RequireActivity().StartOrStopForegroundService<ASF_FS>(!isASFRuning);
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             var actionItem = MenuIdResToEnum(item.ItemId);
             if (actionItem.IsDefined())
             {
-                ViewModel!.MenuItemClick(actionItem);
+                switch (actionItem)
+                {
+                    case ActionItem.StartOrStop:
+                        StartOrStopASF_ForegroundService();
+                        break;
+                    default:
+                        ViewModel!.MenuItemClick(actionItem);
+                        break;
+                }
                 return true;
             }
             return base.OnOptionsItemSelected(item);
@@ -89,7 +103,7 @@ namespace System.Application.UI.Fragments
             }
             else if (resId == Resource.Id.menu_add)
             {
-                return ActionItem.AddBot;
+                return ActionItem.WebAddBot;
             }
             else if (resId == Resource.Id.menu_refresh)
             {
@@ -98,6 +112,18 @@ namespace System.Application.UI.Fragments
             else if (resId == Resource.Id.menu_open_web_console)
             {
                 return ActionItem.OpenWebConsole;
+            }
+            else if (resId == Resource.Id.menu_asf_wiki)
+            {
+                return ActionItem.Wiki;
+            }
+            else if (resId == Resource.Id.menu_asf_github)
+            {
+                return ActionItem.Repo;
+            }
+            else if (resId == Resource.Id.menu_asf_online_config_generator)
+            {
+                return ActionItem.ConfigGenerator;
             }
             return default;
         }

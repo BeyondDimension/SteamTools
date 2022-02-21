@@ -115,6 +115,26 @@ namespace System.Application.Models
         [S_JsonProperty("11")]
         public bool? IsAuthenticated { get; set; }
 
+        /// <summary>
+        /// 首次启动生成的设备标识符
+        /// </summary>
+        [MPKey(12)]
+        [N_JsonProperty("12")]
+        [S_JsonProperty("12")]
+        public Guid DeviceIdG { get; set; }
+
+        /// <inheritdoc cref="DeviceIdG"/>
+        [MPKey(13)]
+        [N_JsonProperty("13")]
+        [S_JsonProperty("13")]
+        public string? DeviceIdR { get; set; }
+
+        /// <inheritdoc cref="DeviceIdG"/>
+        [MPKey(14)]
+        [N_JsonProperty("14")]
+        [S_JsonProperty("14")]
+        public string? DeviceIdN { get; set; }
+
         bool IExplicitHasValue.ExplicitHasValue()
         {
             return Type.IsDefined() && Platform.IsDefined() && DeviceIdiom.IsDefined() && !string.IsNullOrWhiteSpace(OSVersion) && ProcessArch.IsDefined();

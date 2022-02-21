@@ -2,6 +2,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using AndroidX.Annotations;
+using System;
 using System.Application.UI.Adapters;
 
 // ReSharper disable once CheckNamespace
@@ -52,10 +53,10 @@ namespace AndroidX.RecyclerView.Widget
             this.noTop = noTop;
         }
 
-        public static VerticalItemDecoration2 Get(Context context, [IdRes] int heightResId, [IdRes] int paddingBottomResId = default, bool noTop = default)
+        public static VerticalItemDecoration2 Get(Context context, [DimenRes] int heightResId, [DimenRes] int paddingBottomResId = default, bool noTop = false)
         {
-            var height = context.Resources!.GetDimensionPixelSize(heightResId);
-            var paddingBottom = paddingBottomResId != default ? context.Resources!.GetDimensionPixelSize(paddingBottomResId) : default;
+            var height = context.GetDimensionPixelSize(heightResId);
+            var paddingBottom = paddingBottomResId != default ? context.GetDimensionPixelSize(paddingBottomResId) : default;
             return new(height, paddingBottom, noTop);
         }
 

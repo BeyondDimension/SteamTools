@@ -74,6 +74,15 @@ namespace System.Application.Services.Implementation
         /// </summary>
         const long MaxFileLength = 52428800;
 
+        void WriteDefaultHostsContent(FileStream stream)
+        {
+            var encoding = GetEncoding();
+            using StreamWriter sw = new(stream, encoding);
+            sw.Write(s.DefaultHostsContent);
+            sw.Flush();
+            stream.SetLength(stream.Position);
+        }
+
         /// <summary>
         /// 尝试开始操作前
         /// </summary>
@@ -98,7 +107,7 @@ namespace System.Application.Services.Implementation
                 {
                     try
                     {
-                        fileInfo.Create().Dispose();
+                        WriteDefaultHostsContent(fileInfo.Create());
                         return true;
                     }
                     catch (Exception ex)
@@ -317,7 +326,7 @@ namespace System.Application.Services.Implementation
                                     var removeLen = last_line_value.Length + Environment.NewLine.Length;
                                     stringBuilder.Remove(stringBuilder.Length - removeLen, removeLen);
                                 }
-                                if (!markLength.Add(mark)) throw new Exception($"hosts file mark duplicate, value: {mark}");
+                                if (!markLength.Add(mark)) throw new HandleHostsFileException(AppResources.CommunityFix_Hosts_MarkDuplicate_.Format(mark));
                                 return null;
                             });
                             if (is_effective_value_v2 != HandleLineResult.Duplicate)
@@ -461,7 +470,11 @@ namespace System.Application.Services.Implementation
                     Log.Error(TAG, ex, "UpdateHosts catch.");
                     result.ResultType = OperationResultType.Error;
                     result.AppendData = ex;
-                    if (ex is UnauthorizedAccessException || ex is SecurityException)
+                    if (ex is HandleHostsFileException)
+                    {
+                        result.Message = ex.Message;
+                    }
+                    else if (ex is UnauthorizedAccessException || ex is SecurityException)
                     {
                         result.Message = AppResources.FileUnauthorized;
                     }
@@ -480,6 +493,30 @@ namespace System.Application.Services.Implementation
         #endregion
 
         public void OpenFile() => s.OpenFileByTextReader(s.HostsFilePath);
+
+        public void OpenFileDir() => s.OpenFolder(s.HostsFilePath);
+
+        public async void ResetFile()
+        {
+            var r = await MessageBox.ShowAsync(
+                AppResources.CommunityFix_ResetHostsFileTip,
+                AppResources.Warning,
+                button: MessageBox.Button.OKCancel,
+                rememberChooseKey: MessageBox.DontPromptType.ResetHostsFile);
+            if (r.IsOK())
+            {
+                try
+                {
+                    WriteDefaultHostsContent(new FileStream(s.HostsFilePath, FileMode.OpenOrCreate));
+                    Toast.Show(AppResources.CommunityFix_ResetHostsFileOk);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e, nameof(ResetFile));
+                    Toast.Show(AppResources.CommunityFix_ResetHostsFileCatchTip_.Format(e.Message));
+                }
+            }
+        }
 
         /// <summary>
         /// 获取 hosts 文件编码
@@ -695,5 +732,13 @@ namespace System.Application.Services.Implementation
             mOccupyHostsFileStream = new FileStream(s.HostsFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
         }
 #endif
+
+        sealed class HandleHostsFileException : Exception
+        {
+            public HandleHostsFileException(string message) : base(message)
+            {
+
+            }
+        }
     }
 }

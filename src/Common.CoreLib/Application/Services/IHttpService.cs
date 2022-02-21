@@ -22,7 +22,7 @@ namespace System.Application.Services
             string? requestUri,
             Func<HttpRequestMessage> requestFactory,
             string? accept,
-            bool enableForward,
+            //bool enableForward,
             CancellationToken cancellationToken,
             Action<HttpResponseMessage>? handlerResponse = null,
             Action<HttpResponseMessage>? handlerResponseByIsNotSuccessStatusCode = null,

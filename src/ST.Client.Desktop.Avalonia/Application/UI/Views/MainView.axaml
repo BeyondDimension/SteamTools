@@ -20,7 +20,7 @@
     <controls:TitleBar x:Name="title" IsVisibleBackground="False"/>
 
     <!--Background-->
-    <DockPanel Margin="{StaticResource TitleBarAfterMargin}">
+    <DockPanel x:Name="Background" Margin="{StaticResource TitleBarAfterMargin}">
       <ExperimentalAcrylicBorder x:Name="NavBarBackground"
                                  DockPanel.Dock="Left"
                                  HorizontalAlignment="Left"

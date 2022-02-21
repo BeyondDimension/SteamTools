@@ -20,7 +20,7 @@ namespace System.Net.Http
         {
             request.AllowAutoRedirect = true;
             request.MaximumAutomaticRedirections = 1000;
-            request.Timeout = DefaultTimeoutTotalMilliseconds;
+            request.Timeout = DefaultTimeoutMilliseconds;
 #if NETSTANDARD
             // .NET Core 3+ 上已由 HttpClient.DefaultProxy 生效
             // https://docs.microsoft.com/zh-cn/dotnet/api/system.net.http.httpclient.defaultproxy?view=net-6.0

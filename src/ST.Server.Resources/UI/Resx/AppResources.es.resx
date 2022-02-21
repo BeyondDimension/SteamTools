@@ -233,4 +233,16 @@
     <value>Hubo un error con el programa de conexión, copie manualmente lo siguiente al programa, haga clic manualmente para iniciar sesión.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
+    <value>Error al leer NameIdentifier, Value: {0}, Channel: {1}, contact site administrator.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewUserNickName_" xml:space="preserve">
+    <value>Nueva {0} de usuario</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamLoginException" xml:space="preserve">
+    <value>Hay demasiadas solicitudes de inicio de sesión de Steam en este momento, actualice la página e inténtelo de nuevo o vuelva a intentarlo más tarde.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

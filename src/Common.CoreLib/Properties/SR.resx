@@ -175,6 +175,9 @@
     <value>Collection was of a fixed size.</value>
     <comment>https://github.com/dotnet/runtime/blob/v5.0.0-rc.1.20451.14/src/libraries/System.Private.CoreLib/src/Resources/Strings.resx#L2893</comment>
   </data>
+  <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
+    <value>打开 Web 链接失败 0x{0}，请设置系统默认浏览器后再尝试</value>
+  </data>
   <data name="She" xml:space="preserve">
     <value>她</value>
   </data>

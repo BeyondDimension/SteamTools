@@ -1,4 +1,5 @@
-﻿using System.Application.Models;
+using System.Application.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace System.Application.Models
 {
@@ -15,7 +16,7 @@ namespace System
 {
     public static class ExplicitHasValueExtensions
     {
-        public static bool HasValue(this IExplicitHasValue? obj)
+        public static bool HasValue([NotNullWhen(true)] this IExplicitHasValue? obj)
         {
             return obj != null && obj.ExplicitHasValue();
         }

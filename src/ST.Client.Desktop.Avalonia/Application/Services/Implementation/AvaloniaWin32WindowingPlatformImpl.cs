@@ -1,4 +1,3 @@
-#if WINDOWS
 #pragma warning disable CA1416 // 验证平台兼容性
 using Avalonia;
 using Avalonia.Controls;
@@ -147,11 +146,18 @@ namespace System.Application.Services.Implementation
 
                     case WM.SIZE:
                         EnsureExtended();
+
+                        if (_fakingMaximizeButton)
+                        {
+                            // Sometimes the effect can get stuck, so if we resize, clear it
+                            _owner.FakeMaximizePressed(false);
+                            _wasFakeMaximizeDown = false;
+                        }
                         break;
 
-                    case WM.ACTIVATE:
-                        EnsureExtended();
-                        break;
+                    //case WM.ACTIVATE:
+                    //    EnsureExtended();
+                    //    break;
 
                     case WM.NCMOUSEMOVE:
                         if (_fakingMaximizeButton)
@@ -355,4 +361,3 @@ namespace System.Application.Services.Implementation
     }
 }
 #pragma warning restore CA1416 // 验证平台兼容性
-#endif

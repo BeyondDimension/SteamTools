@@ -139,6 +139,12 @@ namespace System.Application
         static bool IsSmsCodeCorrect(string value)
             => !(value.Length != ModelValidatorLengths.SMS_CAPTCHA || !value.IsDigital());
 
+        public static bool IsPortId(ushort value) => value != 0;
+
+        public static bool IsPortId(int value) => value > 0 && value <= ushort.MaxValue;
+
+        public static bool IsPortId(string value, out ushort value2) => ushort.TryParse(value, out value2) && IsPortId(value2);
+
         #endregion
     }
 

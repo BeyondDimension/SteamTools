@@ -97,7 +97,4 @@
         <Setter Property="Background" Value="#3fffffff" />
     </Style>
 
-    <Style Selector="ui|CommandBar:labelbottom /template/ Popup#OverflowPopup">
-        <Setter Property="VerticalOffset" Value="16" />
-    </Style>
 </Styles>
