@@ -46,8 +46,17 @@
                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                        FontSize="14"
                        VerticalAlignment="Center"/>
-                <Label Content="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="12"/>
-
+                <Label Margin="15 0 0 0" Content="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="12"/>
+                <Border CornerRadius="2" Height="5" Width="25" Background="#ffffff" Opacity="0.2" Margin="0 5 5 0">
+                  <Border Width="10" HorizontalAlignment="Left" CornerRadius="10">
+                    <Border.Background>
+                      <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="#9490BE"/>
+                        <GradientStop Offset="1" Color="#580083"/>
+                      </LinearGradientBrush>
+                    </Border.Background>
+                  </Border>
+                </Border>
 
                 <WrapPanel HorizontalAlignment="Right">
                   <Button Background="Transparent" Cursor="Hand"
@@ -67,8 +76,8 @@
               </DockPanel>
               <Separator Classes="Separator"></Separator>
               <DockPanel>
-                <TextBlock Text="积分" FontSize="12"></TextBlock>
-                <TextBlock Text="余额" FontSize="12"></TextBlock>
+                <TextBlock  Margin="0 0 10 0" Text="积分 : 153111" FontSize="12"></TextBlock>
+                <TextBlock Text="余额 : 116666" FontSize="12"></TextBlock>
               </DockPanel>
 
             </StackPanel>
@@ -81,7 +90,7 @@
               RowDefinitions="Auto,*">
         <Border Grid.Column="0"
               Margin="10 0 10 10"
-              MinWidth="300"  
+              MinWidth="300"
             Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
           <DockPanel>
             <TextBlock Text="这里预留 1行 系统公告" FontSize="14"></TextBlock>
@@ -90,6 +99,23 @@
         <Border Grid.Column="1" Grid.Row="0" Classes="paper"  Margin="0 0 10 10"  Background="{DynamicResource ThemeBrushKey}" Padding="10">
           <DockPanel >
             <TextBlock Text="这里部分常见内容 官网Json获取 手动编辑" FontSize="14"></TextBlock>
+          </DockPanel>
+        </Border>
+      </Grid>
+      
+      <Grid  ColumnDefinitions="Auto,*"
+              RowDefinitions="Auto,*">
+        <Border Grid.Column="0"
+                Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+          <DockPanel> 
+            
+          </DockPanel>
+        </Border>
+        <Border Grid.Column="1" 
+                Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+          <DockPanel >
+           
+          
           </DockPanel>
         </Border>
       </Grid>
