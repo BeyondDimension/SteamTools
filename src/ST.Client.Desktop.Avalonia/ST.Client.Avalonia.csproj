@@ -63,6 +63,7 @@
   <ItemGroup>
     <None Remove="Application\UI\Assets\afdian.png" />
     <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
+    <None Remove="Application\UI\Assets\avalonia-logo.ico" />
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
     <None Remove="Application\UI\Assets\ko-fi.png" />
     <None Remove="Application\UI\Assets\movecross.png" />
