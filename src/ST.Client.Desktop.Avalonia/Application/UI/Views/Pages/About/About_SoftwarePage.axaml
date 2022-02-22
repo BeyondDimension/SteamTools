@@ -13,120 +13,110 @@
              x:DataType="vm:AboutPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.About_SoftwarePage">
-  <UserControl.Styles>
-    <Style Selector="TextBlock#LogoText1">
-      <Style.Animations>
-        <Animation Delay="0.3" Duration="0.37" Easing="{StaticResource FluentEasing}">
-          <KeyFrame Cue="0%">
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="(TranslateTransform.Y)" Value="12" />
-          </KeyFrame>
-          <KeyFrame Cue="100%">
-            <Setter Property="Opacity" Value="1" />
-            <Setter Property="(TranslateTransform.Y)" Value="0" />
-          </KeyFrame>
-        </Animation>
-      </Style.Animations>
-    </Style>
-    <Style Selector="TextBlock#LogoText2">
-      <Style.Animations>
-        <Animation Delay="0.32" Duration="0.37" Easing="{StaticResource FluentEasing}">
-          <KeyFrame Cue="0%">
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="(TranslateTransform.Y)" Value="-12" />
-          </KeyFrame>
-          <KeyFrame Cue="100%">
-            <Setter Property="Opacity" Value="1" />
-            <Setter Property="(TranslateTransform.Y)" Value="0" />
-          </KeyFrame>
-        </Animation>
-      </Style.Animations>
-    </Style>
-    <Style Selector="TextBlock#LogoText3">
-      <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
-      <Setter Property="RenderTransformOrigin" Value="50%,50%" />
-      <Style.Animations>
-        <Animation Delay="0.34" Duration="0.37" Easing="{StaticResource FluentEasing}">
-          <KeyFrame Cue="0%">
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="(ScaleTransform.ScaleX)" Value="0.80" />
-            <Setter Property="(ScaleTransform.ScaleY)" Value="0.80" />
-          </KeyFrame>
-          <KeyFrame Cue="100%">
-            <Setter Property="Opacity" Value="1" />
-            <Setter Property="(ScaleTransform.ScaleX)" Value="1" />
-            <Setter Property="(ScaleTransform.ScaleY)" Value="1" />
-          </KeyFrame>
-        </Animation>
-      </Style.Animations>
-    </Style>
-    <Style Selector="TextBlock.LinkSeparatorPadding">
-      <Setter Property="Margin" Value="5 -0.5" />
-      <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-    <Style Selector="TextBlock.Header">
-      <Setter Property="FontWeight" Value="Regular" />
-    </Style>
-    <Style Selector="TextBox.Content">
-      <Setter Property="Padding" Value="0" />
-      <Setter Property="VerticalAlignment" Value="Center" />
-      <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
-  </UserControl.Styles>
   <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto">
 
     <StackPanel Classes="Settings">
+
+
+      <Grid Margin="0 0 0 10"
+            ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+
+        <DockPanel x:Name="LogoPanel">
+          <Image Source="/Application/UI/Assets/Icon.ico"
+             DockPanel.Dock="Left"
+             Height="78"/>
+
+          <StackPanel Spacing="0" Margin="12 0">
+            <TextBlock Text="Steam++"
+                       Classes="TitleTextBlockStyle"/>
+
+            <TextBlock Text="{Binding VersionDisplay}"
+                       Classes="BodyTextBlockStyle"/>
+
+            <TextBlock Text="GPLv3 License"
+                       Classes="CaptionTextBlockStyle"/>
+
+            <TextBlock Classes="CaptionTextBlockStyle"
+                       Text="https://github.com/BeyondDimension/SteamTools"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+          </StackPanel>
+        </DockPanel>
+
+
+        <DockPanel Name="HeaderRightContent" Grid.Column="1" Opacity="1">
+          <DockPanel.RenderTransform>
+            <TranslateTransform X="0" Y="0" />
+          </DockPanel.RenderTransform>
+          <Image Source="/Application/UI/Assets/avalonia-logo.ico"
+                 DockPanel.Dock="Left"
+                 Height="48"/>
+
+          <StackPanel Margin="12 0"
+                      VerticalAlignment="Center">
+            <TextBlock Text="Avalonia"
+                       Classes="SubtitleTextBlockStyle"/>
+
+            <TextBlock x:Name="AvaloniaVersionTextBlock"
+                       Classes="CaptionTextBlockStyle"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+
+            <TextBlock Text="https://github.com/AvaloniaUI/Avalonia"
+                       Classes="CaptionTextBlockStyle"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+          </StackPanel>
+        </DockPanel>
+        
+      </Grid>
+      
+      <Button Classes="plain"
+              Command="{Binding CheckUpdateCommand}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}"/>
+
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
+      
+      <Button Classes="plain" 
+              IsVisible="{x:Static sys:DesktopBridge.IsRunningAsUwp}"
+              Command="{Binding OpenBrowserCommand}"
+              CommandParameter="{x:Static vm:AboutPageViewModel.MicrosoftStoreReviewLink}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.About_AppReview,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
+      
+      <Button Classes="plain"
+              Command="{Binding OpenBrowserCommand}"
+              CommandParameter="{x:Static vm:AboutPageViewModel.ChangeLogLink}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
+      
       <Expander>
         <Expander.Header>
-          <StackPanel x:Name="LogoPanel"
-                      VerticalAlignment="Center"
-                      Orientation="Horizontal">
-            <TextBlock Name="LogoText1" Classes="h2 light">Steam++</TextBlock>
-            <Panel Width="5" Height="5" />
-            <TextBlock Name="LogoText2" Classes="h2 light">Tools</TextBlock>
-            <Panel Width="10" Height="10" />
-            <TextBlock Name="LogoText3" Classes="h2 ultrabold">2.0</TextBlock>
-          </StackPanel>
+          <TextBlock Text="{ReflectionBinding Path=Res.About_Contactus,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                     VerticalAlignment="Center"/>
         </Expander.Header>
         <StackPanel Orientation="Vertical" Spacing="15">
-          <!--<StackPanel x:Name="LogoPanel"
-                      Orientation="Horizontal">
-            <TextBlock Name="LogoText1" Classes="h1 light">Steam++</TextBlock>
-            <Panel Width="5" Height="5" />
-            <TextBlock Name="LogoText2" Classes="h1 light">Tools</TextBlock>
-            <Panel Width="10" Height="10" />
-            <TextBlock Name="LogoText3" Classes="h1 ultrabold">2.0</TextBlock>
-          </StackPanel>-->
-
-          <StackPanel Orientation="Horizontal" Spacing="6">
-            <TextBlock Classes="Header light"
-                       Text="{Binding LabelVersionDisplay,Mode=OneTime}"
-                       VerticalAlignment="Center"/>
-            <TextBox Classes="Content readonlybox"
-                     IsReadOnly="True"
-                     MinWidth="10"
-                     Text="{Binding VersionDisplay,Mode=OneTime}"/>
-            <Button Classes="Hyperlink"
-                    Content="{ReflectionBinding Path=Res.CheckUpdate,Source={x:Static resx:R.Current},Mode=OneWay}"
-                    Command="{Binding CheckUpdateCommand}"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"/>
-            <Button Classes="Hyperlink"
-                    Content="{ReflectionBinding Path=Res.About_UpdateLog,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                    Command="{Binding OpenBrowserCommand}"
-                    CommandParameter="{x:Static vm:AboutPageViewModel.ChangeLogLink}"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"/>
-            <Button Classes="Hyperlink"
-                    IsVisible="{x:Static sys:DesktopBridge.IsRunningAsUwp}"
-                    Content="{ReflectionBinding Path=Res.About_AppReview,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                    Command="{Binding OpenBrowserCommand}"
-                    CommandParameter="{x:Static vm:AboutPageViewModel.MicrosoftStoreReviewLink}"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"/>
-          </StackPanel>
-
           <StackPanel Orientation="Horizontal">
             <TextBlock Classes="Header light"
                        Margin="0,0,6,0"
@@ -170,7 +160,7 @@
                     CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}"/>
           </StackPanel>
 
-          <WrapPanel>
+          <!--<WrapPanel>
             <TextBlock Margin=" 0 0 6 -0.5"
                        VerticalAlignment="Center"
                        Text="This open source software is licensed with " />
@@ -180,7 +170,7 @@
                       Command="{Binding OpenBrowserCommand}"
                       CommandParameter="{x:Static vm:AboutPageViewModel.LicenseLink}"/>
             </StackPanel>
-          </WrapPanel>
+          </WrapPanel>-->
         </StackPanel>
       </Expander>
 

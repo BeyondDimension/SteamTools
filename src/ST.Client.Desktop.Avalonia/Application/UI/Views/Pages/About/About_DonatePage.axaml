@@ -98,6 +98,11 @@
               <ItemsRepeater.ItemTemplate>
                 <DataTemplate>
                   <Border Padding="10"
+                          Background="{DynamicResource ControlFillColorDefaultBrush}"
+                          BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                          BorderThickness="1"
+                          CornerRadius="{StaticResource OverlayCornerRadius}"
+                          MinWidth="200"
                           MaxWidth="300">
                     <DockPanel>
                       <!--<gif:Image2 Source="{Binding Avatar,Converter={StaticResource GuidToUrlConverter}}"
@@ -186,7 +191,8 @@
                       <StackPanel DockPanel.Dock="Right"
                                   Spacing="5"
                                   Margin="10">
-                        <controls:ScrollingTextBlock Text="{Binding Name}" Classes="h6 semibold" Foreground="#D22222"/>
+                        <controls:ScrollingTextBlock Text="{Binding Name}" Classes="h6 semibold"/>
+                        <!--Foreground="#D22222"-->
                         <!--<controls:ScrollingTextBlock Text="{Binding Amount,Converter={StaticResource StringFormatConverter},ConverterParameter={ReflectionBinding CurrencyCode}}"/>-->
                         <controls:ScrollingTextBlock>
                           <controls:ScrollingTextBlock.Text>
