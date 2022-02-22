@@ -2085,4 +2085,10 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Steam_Share_RemoveShare" xml:space="preserve">
     <value>是否删除此家庭库共享。</value>
   </data>
+  <data name="ASF_SetCryptKey" xml:space="preserve">
+    <value>设置自定义密钥</value>
+  </data>
+  <data name="ASF_ConsoleSettings" xml:space="preserve">
+    <value>控制台设置</value>
+  </data>
 </root>

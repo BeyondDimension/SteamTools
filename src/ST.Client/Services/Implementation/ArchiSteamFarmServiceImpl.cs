@@ -71,6 +71,8 @@ namespace System.Application.Services.Implementation
                         return result;
                     };
 
+                    await ReadEncryptionKeyAsync();
+
                     await Program.Init(args).ConfigureAwait(false);
                     isFirstStart = false;
                 }

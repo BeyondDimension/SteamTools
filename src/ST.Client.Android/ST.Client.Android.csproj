@@ -364,6 +364,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_remove_circle_outline_24.xml">
       <Link>Resources\drawable\ic_baseline_remove_circle_outline_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_security_24.xml">
+      <Link>Resources\drawable\ic_baseline_security_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_stop_24.xml">
       <Link>Resources\drawable\ic_baseline_stop_24.xml</Link>
     </AndroidResource>

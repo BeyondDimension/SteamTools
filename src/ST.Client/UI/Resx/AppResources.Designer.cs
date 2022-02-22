@@ -570,6 +570,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 控制台设置 的本地化字符串。
+        /// </summary>
+        public static string ASF_ConsoleSettings {
+            get {
+                return ResourceManager.GetString("ASF_ConsoleSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定要删除这个Bot吗？ 的本地化字符串。
         /// </summary>
         public static string ASF_DeleteBotTip {
@@ -857,6 +866,15 @@ namespace System.Application.UI.Resx {
         public static string ASF_RuningTip {
             get {
                 return ResourceManager.GetString("ASF_RuningTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置自定义密钥 的本地化字符串。
+        /// </summary>
+        public static string ASF_SetCryptKey {
+            get {
+                return ResourceManager.GetString("ASF_SetCryptKey", resourceCulture);
             }
         }
         
