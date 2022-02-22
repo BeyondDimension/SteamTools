@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.FilePicker2;
@@ -303,5 +304,7 @@ namespace System.Application.UI.ViewModels
         //    get => _ConsoleSelectFont;
         //    set => this.RaiseAndSetIfChanged(ref _ConsoleSelectFont, value);
         //}
+
+        public async void SetEncryptionKey() => await asfSerivce.SetEncryptionKeyAsync();
     }
 }

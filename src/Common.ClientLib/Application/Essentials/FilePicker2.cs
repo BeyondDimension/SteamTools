@@ -51,8 +51,14 @@ namespace System.Application
                     throw new PlatformNotSupportedException();
                 }
             }
+            catch (PermissionException e)
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return null;
+            }
             catch (OperationCanceledException)
             {
+                // The user canceled or something went wrong
                 return null;
             }
         }
@@ -96,7 +102,7 @@ namespace System.Application
             {
                 Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
-            catch
+            catch (OperationCanceledException)
             {
                 // The user canceled or something went wrong
             }
@@ -139,7 +145,7 @@ namespace System.Application
             {
                 Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
-            catch
+            catch (OperationCanceledException)
             {
                 // The user canceled or something went wrong
             }
@@ -169,8 +175,14 @@ namespace System.Application
                     throw new PlatformNotSupportedException();
                 }
             }
+            catch (PermissionException e)
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return null;
+            }
             catch (OperationCanceledException)
             {
+                // The user canceled or something went wrong
                 return null;
             }
         }
@@ -212,7 +224,7 @@ namespace System.Application
             {
                 Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
-            catch
+            catch (OperationCanceledException)
             {
                 // The user canceled or something went wrong
             }
@@ -255,7 +267,7 @@ namespace System.Application
             {
                 Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
             }
-            catch
+            catch (OperationCanceledException)
             {
                 // The user canceled or something went wrong
             }
@@ -278,8 +290,14 @@ namespace System.Application
                 }
                 throw new PlatformNotSupportedException();
             }
+            catch (PermissionException e)
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return null;
+            }
             catch (OperationCanceledException)
             {
+                // The user canceled or something went wrong
                 return null;
             }
         }
