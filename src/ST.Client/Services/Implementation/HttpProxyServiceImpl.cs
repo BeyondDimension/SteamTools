@@ -227,6 +227,9 @@ namespace System.Application.Services.Implementation
 
             //if (item != null)
             //{
+
+            //e.HttpClient.Request.Headers.AddHeader("User-Agent", "Steam++ Proxy/" + ThisAssembly.Version);
+
             foreach (var item in ProxyDomains)
             {
                 foreach (var host in item.DomainNamesArray)
