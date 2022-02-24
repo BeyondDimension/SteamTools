@@ -42,6 +42,7 @@
                           Foreground="{DynamicResource HighlightForegroundBrushKey}"
                           FontSize="14"
                           VerticalAlignment="Center"/>
+                <TextBlock  Margin="0 0 10 0" Text="捐助用户" FontSize="12"></TextBlock>
                 <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                        FontSize="14"
@@ -51,7 +52,7 @@
                   <Border Width="10" HorizontalAlignment="Left" CornerRadius="10">
                     <Border.Background>
                       <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.5,1">
-                        <GradientStop Offset="0" Color="#9490BE"/>
+                        <GradientStop Offset="0" Color="#b00dff"/>
                         <GradientStop Offset="1" Color="#580083"/>
                       </LinearGradientBrush>
                     </Border.Background>
@@ -76,8 +77,14 @@
               </DockPanel>
               <Separator Classes="Separator"></Separator>
               <DockPanel>
-                <TextBlock  Margin="0 0 10 0" Text="积分 : 153111" FontSize="12"></TextBlock>
-                <TextBlock Text="余额 : 116666" FontSize="12"></TextBlock>
+                <DockPanel>
+                  <Label Content="积分 : "></Label>
+                  <Label Content="{ReflectionBinding Path=User.EngineOil,Mode=OneWay,Source={x:Static service:UserService.Current}}"></Label>
+                </DockPanel>
+                <DockPanel>
+                  <Label Content="余额 : "></Label>
+                  <Label Content="{ReflectionBinding Path=User.EngineOil,Mode=OneWay,Source={x:Static service:UserService.Current}}"></Label>
+                </DockPanel>
               </DockPanel>
 
             </StackPanel>
