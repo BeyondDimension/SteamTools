@@ -268,6 +268,14 @@ namespace System.Application.Services.Implementation
                             e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
                         }
 
+                        if (!string.IsNullOrEmpty(item.UserAgent))
+                        {
+                            var oldua = e.HttpClient.Request.Headers.GetFirstHeader("User-Agent")?.Value;
+                            e.HttpClient.Request.Headers.RemoveHeader("User-Agent");
+                            var newUA = item.UserAgent.Replace("${origin}", oldua);
+                            e.HttpClient.Request.Headers.AddHeader("User-Agent", newUA);
+                        }
+
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
                         {
 #if DEBUG

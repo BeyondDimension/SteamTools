@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         d:DesignWidth="720" d:DesignHeight="400"
         MinWidth="720" MinHeight="400"
         Width="720" Height="550"
@@ -22,8 +22,8 @@
         Title="{Binding Title}">
   <Panel>
     <controls:TitleBar></controls:TitleBar>
-    
-    <TabControl Classes="flat" 
+
+    <TabControl Classes="flat"
                 Margin="0 20 0 0">
       <TabItem Header="{ReflectionBinding Path=Res.LocalAuth_SteamUserImport,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <Panel>
@@ -39,22 +39,23 @@
 
             <TextBlock Grid.Row="2" Margin="10,0" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" TextAlignment="Center" Text="{ReflectionBinding Path=Res.Steam_UserLoginTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
           </Grid>
-          <StackPanel IsVisible="{Binding !CaptchaImage,Converter={StaticResource IsNullConverter}}" 
-                      Orientation="Vertical" 
-                      HorizontalAlignment="Center" 
-                      VerticalAlignment="Bottom" 
-                      Margin="0 0 0 90" 
+          <StackPanel IsVisible="{Binding !CaptchaImage,Converter={StaticResource IsNullConverter}}"
+                      Orientation="Vertical"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Bottom"
+                      Margin="0 0 0 90"
                       Spacing="10">
-            <WrapPanel>
-              <gif:Image2 Width="206"
-                          Height="37"
-                          Stretch="Uniform"
-                          Source="{Binding CaptchaImage}"/>
+            <gif:Image2 Width="206"
+                        Height="37"
+                        Stretch="Uniform"
+                        Source="{Binding CaptchaImage}"/>
+            <StackPanel Orientation="Horizontal" Spacing="5">
+              <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CaptchaText}" MaxWidth="200"></TextBox>
+              
               <Button Content="{ReflectionBinding Path=Res.Steam_ImageCodeShowError,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Margin="5 0 0 0"
                       Command="{ReflectionBinding CaptchaUrlButton_Click}"/>
-            </WrapPanel>
-            <TextBox Watermark="{ReflectionBinding Path=Res.Steam_ImageCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" Text="{Binding CaptchaText}" MaxWidth="200"></TextBox>
+            </StackPanel>
           </StackPanel>
           <Grid IsVisible="{Binding !EmailDomain,Converter={StaticResource IsNullConverter}}" RowDefinitions="Auto,*,Auto" Margin="10">
             <StackPanel Grid.Row="1" Spacing="10" VerticalAlignment="Center">
@@ -66,10 +67,10 @@
 
             <StackPanel Grid.Row="2">
               <TextBlock Margin="10,0" HorizontalAlignment="Center" Text="{Binding EmailDomain}"></TextBlock>
-              <TextBlock Margin="10,0" 
-                         TextWrapping="WrapWithOverflow" 
-                         TextAlignment="Center" 
-                         HorizontalAlignment="Center" 
+              <TextBlock Margin="10,0"
+                         TextWrapping="WrapWithOverflow"
+                         TextAlignment="Center"
+                         HorizontalAlignment="Center"
                          Text="{ReflectionBinding Path=Res.LocalAuth_EmailCodeTip,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
             </StackPanel>
           </Grid>
