@@ -160,5 +160,7 @@ namespace System.Application.Models
         [N_JsonProperty("10")]
         [S_JsonProperty("10")]
         public int Order { get; set; }
+
+        public string? UserAgent { get; set; }
     }
 }
