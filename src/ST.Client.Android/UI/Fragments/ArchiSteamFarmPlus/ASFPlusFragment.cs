@@ -11,6 +11,7 @@ using static System.Application.UI.Resx.AppResources;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using ASF_FS = System.Application.Services.Native.ArchiSteamFarmForegroundService;
 using static System.Application.UI.ViewModels.ArchiSteamFarmPlusPageViewModel;
+using System.Application.Services.Implementation;
 
 namespace System.Application.UI.Fragments
 {
@@ -69,12 +70,8 @@ namespace System.Application.UI.Fragments
         void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
 
         void StartOrStopASF_ForegroundService()
-        {
-            var s = ASFService.Current;
-            if (s.IsASFRunOrStoping) return;
-            var isASFRuning = s.IsASFRuning;
-            RequireActivity().StartOrStopForegroundService<ASF_FS>(!isASFRuning);
-        }
+            => AndroidPlatformServiceImpl.StartOrStopForegroundService(
+                RequireActivity(), nameof(ASFService));
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {

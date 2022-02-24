@@ -18,6 +18,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using static System.Application.UI.ViewModels.CommunityProxyPageViewModel;
+using System.Application.Services.Implementation;
 
 namespace System.Application.UI.Fragments
 {
@@ -154,7 +155,8 @@ namespace System.Application.UI.Fragments
         }
 
         void StartProxyButton_Click(bool start)
-            => ProxyForegroundService.StartOrStop(RequireActivity(), start);
+            => AndroidPlatformServiceImpl.StartOrStopForegroundService(
+                RequireActivity(), nameof(ProxyService), start);
 
         protected override bool OnClick(View view)
         {
