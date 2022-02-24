@@ -42,6 +42,7 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -83,9 +84,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
-    <AndroidNativeLibrary Include="..\..\references\Android Native Library\arm64-v8a\libtun2http.so" Link="lib\arm64-v8a\libtun2http.so" />
-    <AndroidNativeLibrary Include="..\..\references\Android Native Library\armeabi-v7a\libtun2http.so" Link="lib\armeabi-v7a\libtun2http.so" />
-    <AndroidNativeLibrary Include="..\..\references\Android Native Library\x86_64\libtun2http.so" Link="lib\x86_64\libtun2http.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\arm64-v8a\libtun2socks.so" Link="lib\arm64-v8a\libtun2socks.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\armeabi-v7a\libtun2socks.so" Link="lib\armeabi-v7a\libtun2socks.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\x86_64\libtun2socks.so" Link="lib\x86_64\libtun2socks.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\x86\libtun2socks.so" Link="lib\x86_64\libtun2socks.so" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.AndroidX.Migration" />

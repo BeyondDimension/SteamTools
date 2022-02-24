@@ -1,22 +1,18 @@
 ### 版本亮点
-1. ASF 升级至 **V5.2.2.4**
-2. Android 12 适配
-3. Android 上的 ASP.NET Core 升级至 2.2.5
-4. Desktop 上的 Avalonia 升级至 0.10.12
+1. ASF 升级至 **V5.2.2.5**
+2. ASF 配置 中新增 设置自定义密钥(ASF_CRYPTKEY) 与 导入 Bot 文件
+3. Linux 发行压缩包由 7z 格式更改为 tar.zst
+4. 网络加速 支持 Steam 社区/讨论区
+5. Android 端 新增 关于 - 捐助页
 
 ### 修复问题
-1. 修复 Steam Beta 版账号切换失效
-2. 修复 ASF 在线配置文件生成器链接错误
-3. 修复 Linux 上运行时闪退
-4. 修复 Windows 7 上点击任务栏图标没有最小化
-5. 改进 打开 Web 链接失败时候的错误提示
-6. 改进 JumpList 在 Windows 10.0.10586 上使用 UWP API
-7. 改进 Windows 安装包默认路径使用 $PROGRAMFILES64
-8. 改进 Windows 安装版 AppData 与 Cache 文件夹不再使用根目录
-9. 改进 Android Apk 包使用单一包，不再根据 ABI 拆分
-10. 改进 Android 本地加速与 ASF 使用前台服务运行
-11. 改进 本地加速 增加 重置 Hosts 文件 与 打开 Hosts 所在文件夹
-12. 改进 Hosts 文件存在多个 Mark 导致失败的错误提示
+1. 修复 Android 端 程序启动时自动运行 网络加速 与 ASF 服务
+2. 修复 Android 端 网络加速 VPN 模式
+3. 修复 Android 端 切换系统语言时可能导致的闪退
+4. 修复 Android 端 拒绝授予存储权限导致的闪退
+5. 改进 网络加速 中的代理证书生成
+6. 改进 账号切换 中读取 Vdf 配置操作
+7. 修复 Desktop 端 家庭共享库管理 在 Steam Beta 版上不能正常使用
 
 ### 已知问题
 - 除 Windows 之外的平台此软件自动更新尚不可用
