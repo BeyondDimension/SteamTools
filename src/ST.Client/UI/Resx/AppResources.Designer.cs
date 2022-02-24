@@ -5584,7 +5584,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要登出 Steam++? 的本地化字符串。
+        ///   查找类似 确定要登出 Steam++ ? 的本地化字符串。
         /// </summary>
         public static string User_SignOutTip {
             get {
@@ -5837,7 +5837,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 已记住密码 的本地化字符串。
+        ///   查找类似 已记住登录状态 的本地化字符串。
         /// </summary>
         public static string UserChange_RememberMe {
             get {
