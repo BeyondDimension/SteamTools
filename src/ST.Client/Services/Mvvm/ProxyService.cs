@@ -320,7 +320,14 @@ namespace System.Application.Services
 
             if (ProxySettings.ProgramStartupRunProxy.Value)
             {
-                ProxyStatus = ProxySettings.ProgramStartupRunProxy.Value;
+                if (platformService.UsePlatformForegroundService)
+                {
+                    await platformService.StartOrStopForegroundServiceAsync(nameof(ProxyService), true);
+                }
+                else
+                {
+                    ProxyStatus = ProxySettings.ProgramStartupRunProxy.Value;
+                }
             }
         }
 
