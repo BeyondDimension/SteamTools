@@ -262,6 +262,7 @@
 		<!-- V2Ray -->
 		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0" />
 		<PackageVersion Include="Karamunting.KotlinX.Coroutines.Core" Version="1.4.2" />
+		<PackageVersion Include="Naxam.RxJava.Droid" Version="1.3.8-pre1" />
 		
 		<!-- Xamarin.AndroidX -->
 		<PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />

@@ -12,4 +12,8 @@ internal object AppConfig {
     const val ANG_PACKAGE = "net.steampp.app.v2ray"
 
     const val DNS_AGENT = "1.1.1.1"
+
+    const val TAG_AGENT = "proxy"
+    const val TAG_DIRECT = "direct"
+    const val TAG_BLOCKED = "block"
 }

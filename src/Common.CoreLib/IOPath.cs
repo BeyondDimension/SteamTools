@@ -425,7 +425,7 @@ namespace System
         }
 
         const double unit = 1024d;
-        static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB" };
+        static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB" };
 
         public static (double length, string unit) GetSize(double length)
         {

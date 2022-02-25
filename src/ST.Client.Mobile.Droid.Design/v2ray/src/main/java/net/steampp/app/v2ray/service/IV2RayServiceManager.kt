@@ -1,11 +1,9 @@
 package net.steampp.app.v2ray.service
 
 interface IV2RayServiceManager {
-    fun startSpeedNotification()
+//    fun cancelNotification()
 
-    fun cancelNotification()
-
-    fun showNotification()
+//    fun showNotification()
 
     fun getConfigureFileContent(): String
 
@@ -14,4 +12,6 @@ interface IV2RayServiceManager {
     fun getEnableLocalDns(): Boolean
 
     fun getForwardIpv6(): Boolean
+
+    fun updateNotification(contentText: String?, proxyTraffic: Long, directTraffic: Long)
 }

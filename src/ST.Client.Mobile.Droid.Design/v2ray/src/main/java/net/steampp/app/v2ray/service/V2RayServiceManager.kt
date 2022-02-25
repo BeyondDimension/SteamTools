@@ -15,6 +15,13 @@ import libv2ray.V2RayVPNServiceSupportsSet
 import net.steampp.app.v2ray.util.Utils
 import java.lang.ref.SoftReference
 import net.steampp.app.v2ray.AppConfig.ANG_PACKAGE
+import net.steampp.app.v2ray.AppConfig.TAG_AGENT
+import net.steampp.app.v2ray.AppConfig.TAG_BLOCKED
+import net.steampp.app.v2ray.AppConfig.TAG_DIRECT
+import net.steampp.app.v2ray.extension.toSpeedString
+import rx.Observable
+import rx.Subscription
+import kotlin.math.min
 
 object V2RayServiceManager {
     private val v2rayPoint: V2RayPoint = Libv2ray.newV2RayPoint(V2RayCallback())
@@ -35,6 +42,7 @@ object V2RayServiceManager {
         }
 
     private var lastQueryTime = 0L
+    private var mSubscription: Subscription? = null
 
     private class V2RayCallback : V2RayVPNServiceSupportsSet {
         override fun shutdown(): Long {
@@ -115,10 +123,10 @@ object V2RayServiceManager {
 
             if (v2rayPoint.isRunning) {
 //                MessageUtil.sendMsg2UI(service, AppConfig.MSG_STATE_START_SUCCESS, "")
-                i.showNotification()
+//                i.showNotification()
             } else {
 //                MessageUtil.sendMsg2UI(service, AppConfig.MSG_STATE_START_FAILURE, "")
-                i.cancelNotification()
+                cancelNotification()
             }
         }
     }
@@ -137,13 +145,73 @@ object V2RayServiceManager {
         }
 
 //        MessageUtil.sendMsg2UI(service, AppConfig.MSG_STATE_STOP_SUCCESS, "")
-        i.cancelNotification()
+        cancelNotification()
 
 //        try {
 //            service.unregisterReceiver(mMsgReceive)
 //        } catch (e: Exception) {
 //            Log.d(ANG_PACKAGE, e.toString())
 //        }
+    }
+
+    private fun cancelNotification() {
+        mSubscription?.unsubscribe()
+        mSubscription = null
+        val service = serviceControl?.get()?.getService() ?: return
+        service.stopForeground(true)
+//        getInterface()?.cancelNotification()
+    }
+
+    private fun updateNotification(contentText: String?, proxyTraffic: Long, directTraffic: Long) {
+        getInterface()?.updateNotification(contentText, proxyTraffic, directTraffic)
+    }
+
+    private fun startSpeedNotification() {
+        if (mSubscription == null &&
+                v2rayPoint.isRunning) {
+            var lastZeroSpeed = false
+            val outboundTags = getAllOutboundTags()
+            outboundTags?.remove(TAG_DIRECT)
+
+            mSubscription = Observable.interval(3, java.util.concurrent.TimeUnit.SECONDS)
+                    .subscribe {
+                        val queryTime = System.currentTimeMillis()
+                        val sinceLastQueryInSeconds = (queryTime - lastQueryTime) / 1000.0
+                        var proxyTotal = 0L
+                        val text = StringBuilder()
+                        outboundTags?.forEach {
+                            val up = v2rayPoint.queryStats(it, "uplink")
+                            val down = v2rayPoint.queryStats(it, "downlink")
+                            if (up + down > 0) {
+                                appendSpeedString(text, it, up / sinceLastQueryInSeconds, down / sinceLastQueryInSeconds)
+                                proxyTotal += up + down
+                            }
+                        }
+                        val directUplink = v2rayPoint.queryStats(TAG_DIRECT, "uplink")
+                        val directDownlink = v2rayPoint.queryStats(TAG_DIRECT, "downlink")
+                        val zeroSpeed = (proxyTotal == 0L && directUplink == 0L && directDownlink == 0L)
+                        if (!zeroSpeed || !lastZeroSpeed) {
+                            if (proxyTotal == 0L) {
+                                appendSpeedString(text, outboundTags?.firstOrNull(), 0.0, 0.0)
+                            }
+                            appendSpeedString(text, TAG_DIRECT, directUplink / sinceLastQueryInSeconds,
+                                    directDownlink / sinceLastQueryInSeconds)
+                            updateNotification(text.toString(), proxyTotal, directDownlink + directUplink)
+                        }
+                        lastZeroSpeed = zeroSpeed
+                        lastQueryTime = queryTime
+                    }
+        }
+    }
+
+    private fun appendSpeedString(text: StringBuilder, name: String?, up: Double, down: Double) {
+        var n = name ?: "no tag"
+        n = n.substring(0, min(n.length, 6))
+        text.append(n)
+        for (i in n.length..6 step 2) {
+            text.append("\t")
+        }
+        text.append("•  ${up.toLong().toSpeedString()}↑  ${down.toLong().toSpeedString()}↓\n")
     }
 
     private fun getInterface(): IV2RayServiceManager? {
@@ -154,7 +222,7 @@ object V2RayServiceManager {
         return null
     }
 
-    private fun startSpeedNotification() {
-        getInterface()?.startSpeedNotification()
+    private fun getAllOutboundTags(): MutableList<String> {
+        return mutableListOf(TAG_AGENT, TAG_DIRECT, TAG_BLOCKED)
     }
 }

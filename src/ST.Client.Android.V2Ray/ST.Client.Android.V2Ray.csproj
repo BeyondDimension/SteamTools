@@ -1,7 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>MonoAndroid11.0</TargetFramework>
+    <TargetFramework>MonoAndroid12.0</TargetFramework>
     <IsBindingProject>true</IsBindingProject>
     <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
@@ -37,7 +37,9 @@
 
   <ItemGroup>
     <PackageReference Include="XAB.AndroidLibV2rayLite" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" />
     <PackageReference Include="Karamunting.KotlinX.Coroutines.Core" />
+    <PackageReference Include="Naxam.RxJava.Droid" />
     <!--<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />-->
   </ItemGroup>
 </Project>

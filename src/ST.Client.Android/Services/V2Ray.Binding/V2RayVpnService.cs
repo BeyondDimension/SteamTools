@@ -5,6 +5,7 @@ using Android.Runtime;
 using System.Application.Services.Implementation;
 using static System.Application.Services.Native.IServiceBase;
 using SR = System.Application.Properties.SR;
+using AndroidX.Core.App;
 
 namespace System.Application.Services.Native
 {
@@ -13,17 +14,34 @@ namespace System.Application.Services.Native
         partial class VpnService : V2RayVpnService, IV2RayServiceManager
         {
             bool isStart;
+            int notifyId;
+            NotificationCompat.Builder? builder;
+            NotificationManagerCompat? mNotificationManager;
+            NotificationManagerCompat NotificationManager
+            {
+                get
+                {
+                    if (mNotificationManager == null)
+                    {
+                        mNotificationManager = NotificationManagerCompat.From(this);
+                    }
+                    return mNotificationManager;
+                }
+            }
 
             public override void OnStart()
             {
                 if (isStart) return;
                 isStart = true;
 
+                // 先显示通知 UI
                 IForegroundService f = this;
-                AndroidNotificationServiceImpl.Instance.StartForeground(this, f.NotificationType, f.NotificationText, f.NotificationEntranceAction);
+                (builder, mNotificationManager, notifyId) = AndroidNotificationServiceImpl.Instance.StartForeground(this, f.NotificationType, f.NotificationText, f.NotificationEntranceAction);
 
+                // 启动本地代理服务
                 ProxyService.Current.ProxyStatus = true;
 
+                // 启动 VPN tun2socks
                 base.OnStart();
             }
 
@@ -32,9 +50,14 @@ namespace System.Application.Services.Native
                 if (!isStart) return;
                 isStart = false;
 
+                // 停止通知栏 UI
                 StopForeground(true);
 
+                // 停止 VPN tun2socks
                 base.OnStop();
+
+                // 停止本地代理服务
+                ProxyService.Current.ProxyStatus = false;
             }
 
             [return: GeneratedEnum]
@@ -58,7 +81,7 @@ namespace System.Application.Services.Native
                 return StartCommandResult.NotSticky;
             }
 
-            public string ConfigureFileContent
+            string IV2RayServiceManager.ConfigureFileContent
             {
                 get
                 {
@@ -70,7 +93,7 @@ namespace System.Application.Services.Native
                 }
             }
 
-            public string DomainName
+            string IV2RayServiceManager.DomainName
             {
                 get
                 {
@@ -79,18 +102,21 @@ namespace System.Application.Services.Native
                 }
             }
 
-            public bool ForwardIpv6 => false;
+            bool IV2RayServiceManager.ForwardIpv6 => false;
 
-            public void CancelNotification()
+            void IV2RayServiceManager.UpdateNotification(string? contentText, long proxyTraffic, long directTraffic)
             {
-            }
-
-            public void ShowNotification()
-            {
-            }
-
-            public void StartSpeedNotification()
-            {
+                if (builder == null) return;
+                //if (proxyTraffic < NOTIFICATION_ICON_THRESHOLD && directTraffic < NOTIFICATION_ICON_THRESHOLD) {
+                //    mBuilder?.setSmallIcon(R.drawable.ic_v)
+                //} else if (proxyTraffic > directTraffic) {
+                //    mBuilder?.setSmallIcon(R.drawable.ic_stat_proxy)
+                //} else {
+                //    mBuilder?.setSmallIcon(R.drawable.ic_stat_direct)
+                //}
+                builder.SetStyle(new NotificationCompat.BigTextStyle().BigText(contentText));
+                builder.SetContentText(contentText);
+                NotificationManager.Notify(notifyId, builder.Build());
             }
         }
     }

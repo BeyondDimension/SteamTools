@@ -11,4 +11,5 @@
   <remove-node path="/api/package[@name='net.steampp.app.v2ray.service.ServiceControl']" />
   <attr path="/api/package[@name='net.steampp.app.v2ray.service']"
     name="managedName">V2RayNG</attr>
+  <remove-node path="/api/package[@name='net.steampp.app.v2ray.extension']" />
 </metadata>
