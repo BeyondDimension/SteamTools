@@ -60,7 +60,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutRootCommunityFixContentStarting.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
                 if (value)
                 {
-                    binding.tvProxyMode.Text = proxyS.IPEndPointString;
+                    binding.tvProxyMode.Text = $"IPEndPoint: {proxyS.ProxyIp}:{proxyS.ProxyPort}";
                     StringBuilder s = new();
                     var enableProxyDomains = proxyS.GetEnableProxyDomains();
                     if (enableProxyDomains != null)

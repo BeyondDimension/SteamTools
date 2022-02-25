@@ -112,6 +112,11 @@
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddWindowManager.cs" />
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddApplicationUpdateService.cs" />
     <AndroidResource Include="Resources\**\*" />
+    <Compile Remove="Services\V2Ray\**" />
+    <EmbeddedResource Remove="Services\V2Ray\**" />
+    <None Remove="Services\V2Ray\**" />
+    <AndroidResource Remove="Resources\v2rayPoint.configure.txt" />
+    <Compile Remove="Services\Native\ProxyForegroundService.JNI.tun2http.cs" />
     <None Remove="Resources\layout\controls_btntext.xml" />
     <Compile Include="..\AboutAppInfoPopup.cs">
       <LinkBase>UI</LinkBase>
@@ -156,6 +161,7 @@
   </ItemGroup>-->
 
   <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Android.V2Ray\ST.Client.Android.V2Ray.csproj" />
     <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" Condition=" $(DefineConstants.Contains(`__XAMARIN_FORMS__`)) " />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
@@ -739,5 +745,10 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\xml\local_auth_appwidget_info.xml">
       <Link>Resources\xml\local_auth_appwidget_info.xml</Link>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
 </Project>
