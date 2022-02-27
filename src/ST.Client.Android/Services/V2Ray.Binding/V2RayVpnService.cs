@@ -6,6 +6,7 @@ using System.Application.Services.Implementation;
 using static System.Application.Services.Native.IServiceBase;
 using SR = System.Application.Properties.SR;
 using AndroidX.Core.App;
+using static System.Properties.ThisAssembly;
 
 namespace System.Application.Services.Native
 {
@@ -80,6 +81,8 @@ namespace System.Application.Services.Native
                 }
                 return StartCommandResult.NotSticky;
             }
+
+            public override string Session => AssemblyTrademark;
 
             string IV2RayServiceManager.ConfigureFileContent
             {

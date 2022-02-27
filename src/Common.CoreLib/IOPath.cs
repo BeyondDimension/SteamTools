@@ -394,16 +394,16 @@ namespace System
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns>单位 字节</returns>
-        public static double GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0D;
+        public static decimal GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0M;
 
         /// <summary>
         /// 获取指定路径的大小
         /// </summary>
         /// <param name="dirPath">路径</param>
         /// <returns>单位 字节</returns>
-        public static double GetDirectorySize(string dirPath)
+        public static decimal GetDirectorySize(string dirPath)
         {
-            double len = 0D;
+            var len = 0M;
             // 判断该路径是否存在（是否为文件夹）
             var isDirectory = IsDirectory(dirPath, out var fileInfo, out var directoryInfo);
             if (isDirectory.HasValue)
@@ -424,12 +424,12 @@ namespace System
             return len;
         }
 
-        const double unit = 1024d;
+        const decimal unit = 1024M;
         static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB" };
 
-        public static (double length, string unit) GetSize(double length)
+        public static (decimal length, string unit) GetSize(decimal length)
         {
-            if (length > 0d)
+            if (length > 0M)
             {
                 for (int i = 0; i < units.Length; i++)
                 {
@@ -440,11 +440,11 @@ namespace System
             }
             else
             {
-                return (0, units.First());
+                return (0M, units.First());
             }
         }
 
-        public static string GetSizeString(double length)
+        public static string GetSizeString(decimal length)
         {
             (length, string unit) = GetSize(length);
             return $"{length:0.00} {unit}";

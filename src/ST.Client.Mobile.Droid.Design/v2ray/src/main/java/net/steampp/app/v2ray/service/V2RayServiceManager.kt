@@ -118,7 +118,7 @@ object V2RayServiceManager {
             try {
                 v2rayPoint.runLoop()
             } catch (e: Exception) {
-                Log.d(ANG_PACKAGE, e.toString())
+                Log.e(ANG_PACKAGE, e.toString())
             }
 
             if (v2rayPoint.isRunning) {
@@ -126,7 +126,10 @@ object V2RayServiceManager {
 //                i.showNotification()
             } else {
 //                MessageUtil.sendMsg2UI(service, AppConfig.MSG_STATE_START_FAILURE, "")
-                cancelNotification()
+//                cancelNotification()
+                val service = serviceControl?.get()?.getService()
+                service?.stopSelf()
+                // 启动 v2rayPoint 失败，停止当前服务
             }
         }
     }
@@ -168,39 +171,51 @@ object V2RayServiceManager {
 
     private fun startSpeedNotification() {
         if (mSubscription == null &&
-                v2rayPoint.isRunning) {
+            v2rayPoint.isRunning
+        ) {
             var lastZeroSpeed = false
             val outboundTags = getAllOutboundTags()
             outboundTags?.remove(TAG_DIRECT)
 
             mSubscription = Observable.interval(3, java.util.concurrent.TimeUnit.SECONDS)
-                    .subscribe {
-                        val queryTime = System.currentTimeMillis()
-                        val sinceLastQueryInSeconds = (queryTime - lastQueryTime) / 1000.0
-                        var proxyTotal = 0L
-                        val text = StringBuilder()
-                        outboundTags?.forEach {
-                            val up = v2rayPoint.queryStats(it, "uplink")
-                            val down = v2rayPoint.queryStats(it, "downlink")
-                            if (up + down > 0) {
-                                appendSpeedString(text, it, up / sinceLastQueryInSeconds, down / sinceLastQueryInSeconds)
-                                proxyTotal += up + down
-                            }
+                .subscribe {
+                    val queryTime = System.currentTimeMillis()
+                    val sinceLastQueryInSeconds = (queryTime - lastQueryTime) / 1000.0
+                    var proxyTotal = 0L
+                    val text = StringBuilder()
+                    outboundTags?.forEach {
+                        val up = v2rayPoint.queryStats(it, "uplink")
+                        val down = v2rayPoint.queryStats(it, "downlink")
+                        if (up + down > 0) {
+                            appendSpeedString(
+                                text,
+                                it,
+                                up / sinceLastQueryInSeconds,
+                                down / sinceLastQueryInSeconds
+                            )
+                            proxyTotal += up + down
                         }
-                        val directUplink = v2rayPoint.queryStats(TAG_DIRECT, "uplink")
-                        val directDownlink = v2rayPoint.queryStats(TAG_DIRECT, "downlink")
-                        val zeroSpeed = (proxyTotal == 0L && directUplink == 0L && directDownlink == 0L)
-                        if (!zeroSpeed || !lastZeroSpeed) {
-                            if (proxyTotal == 0L) {
-                                appendSpeedString(text, outboundTags?.firstOrNull(), 0.0, 0.0)
-                            }
-                            appendSpeedString(text, TAG_DIRECT, directUplink / sinceLastQueryInSeconds,
-                                    directDownlink / sinceLastQueryInSeconds)
-                            updateNotification(text.toString(), proxyTotal, directDownlink + directUplink)
-                        }
-                        lastZeroSpeed = zeroSpeed
-                        lastQueryTime = queryTime
                     }
+                    val directUplink = v2rayPoint.queryStats(TAG_DIRECT, "uplink")
+                    val directDownlink = v2rayPoint.queryStats(TAG_DIRECT, "downlink")
+                    val zeroSpeed = (proxyTotal == 0L && directUplink == 0L && directDownlink == 0L)
+                    if (!zeroSpeed || !lastZeroSpeed) {
+                        if (proxyTotal == 0L) {
+                            appendSpeedString(text, outboundTags?.firstOrNull(), 0.0, 0.0)
+                        }
+                        appendSpeedString(
+                            text, TAG_DIRECT, directUplink / sinceLastQueryInSeconds,
+                            directDownlink / sinceLastQueryInSeconds
+                        )
+                        updateNotification(
+                            text.toString(),
+                            proxyTotal,
+                            directDownlink + directUplink
+                        )
+                    }
+                    lastZeroSpeed = zeroSpeed
+                    lastQueryTime = queryTime
+                }
         }
     }
 

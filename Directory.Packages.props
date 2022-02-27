@@ -260,7 +260,7 @@
 		<PackageVersion Include="XAB.FlexboxLayout" Version="3.0.0" />
 		
 		<!-- V2Ray -->
-		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0" />
+		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />
 		<PackageVersion Include="Karamunting.KotlinX.Coroutines.Core" Version="1.4.2" />
 		<PackageVersion Include="Naxam.RxJava.Droid" Version="1.3.8-pre1" />
 		
