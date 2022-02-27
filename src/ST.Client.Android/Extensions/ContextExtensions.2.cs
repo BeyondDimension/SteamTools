@@ -18,20 +18,13 @@ namespace System
         {
             Intent intent = new(context, typeof(TService));
             intent.SetAction(startOrStop ? NativeService.START : NativeService.STOP);
-            if (startOrStop)
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-                {
-                    context.StartForegroundService(intent);
-                }
-                else
-                {
-                    context.StartService(intent);
-                }
+                context.StartForegroundService(intent);
             }
             else
             {
-                context.StopService(intent);
+                context.StartService(intent);
             }
         }
     }

@@ -178,10 +178,6 @@ namespace System.Application.UI.Activities
             {
                 IsVpnMode.Value = !IsVpnMode.Value;
                 SetIsVpnMode();
-                if (IsVpnMode.Value)
-                {
-                    CommunityFixFragment.ShowTipKnownIssues();
-                }
                 return;
             }
 
