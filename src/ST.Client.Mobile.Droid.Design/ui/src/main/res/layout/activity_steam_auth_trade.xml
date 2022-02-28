@@ -139,8 +139,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
           android:id="@+id/ivCaptchaImage"
-          android:layout_width="206dp"
-          android:layout_height="37dp"
+          android:layout_width="@dimen/img_size_captcha_w"
+          android:layout_height="@dimen/img_size_captcha_h"
           android:layout_gravity="center_horizontal"
           tools:background="@color/icon_background"
           xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />

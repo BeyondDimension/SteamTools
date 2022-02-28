@@ -1,7 +1,6 @@
 using Net.Codecrete.QrCodeGenerator;
 using SkiaSharp;
 using System.Application.Models;
-using System.Application.Services;
 using System.IO;
 
 namespace System.Application.UI

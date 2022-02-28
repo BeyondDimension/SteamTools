@@ -86,8 +86,7 @@ namespace System.Application.UI.Adapters
                     SetOperateText(value);
                     SetOperatePanel(value);
                 }).AddTo(this);
-            binding.ivImage.SetImageSource(ViewModel!.Image,
-                    targetResId: Resource.Dimension.steam_auth__trade_confirmation_img_size);
+            binding.ivImage.SetImageSource(ViewModel!.Image, Resource.Dimension.steam_auth__trade_confirmation_img_size);
             binding.tvDetails.Text = ViewModel.Details;
             binding.tvTraded.Text = ViewModel.Traded;
             binding.tvWhen.Text = ViewModel.When;
