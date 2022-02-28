@@ -218,7 +218,7 @@
 		<!--<PackageVersion Include="Nito.Disposables" Version="2.2.1" />-->
 
 		<!-- Valve Data File -->
-		<PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />
+		<!--<PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />-->
 
 		<!-- WebSocket -->
 		<PackageVersion Include="Fleck" Version="1.2.0" />
