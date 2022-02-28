@@ -3,11 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-var s = new CharBuffer();
-
-s[2] = 'd';
-
-
 const string Mark = "<!--ST.Tools.AndroidResourceLink-->";
 var resPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + string.Join(Path.DirectorySeparatorChar, new[] { "ST.Client.Mobile.Droid.Design", "ui", "src", "main", "res" });
 var androidProjPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + "ST.Client.Android";
@@ -47,28 +42,3 @@ csprojContent = sb.ToString().Trim();
 File.WriteAllText(androidProjFilePath, csprojContent);
 
 Console.WriteLine("OK");
-
-internal sealed class CharBuffer
-{
-    readonly StringBuilder thiz;
-
-    public CharBuffer() => thiz = new StringBuilder();
-
-    public char this[int index]
-    {
-        get => thiz[index];
-        set
-        {
-            var t = index - thiz.Length;
-            for (int i = 0; i <= t; i++)
-            {
-                thiz.Append((char)default);
-            }
-            thiz[index] = value;
-        }
-    }
-
-    public string ToString(int startIndex, int length) => thiz.ToString(startIndex, length);
-
-    public override string ToString() => thiz.ToString();
-}
