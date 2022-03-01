@@ -73,7 +73,7 @@
             android:minHeight="@dimen/abc_action_button_min_height_material"
             android:textAllCaps="false"
             android:textColor="@color/text_primary"
-            tools:text="Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码在导入)"
+            tools:text="Steam的移动身份验证器应用程序的桌面实现。导入方法：选择SDA目录下maFiles文件夹的maFile文件进行导入。(不支持导入加密文件，请先移除密码再导入)"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
         <com.google.android.material.button.MaterialButton

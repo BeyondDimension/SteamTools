@@ -1037,10 +1037,6 @@
     <value>Steam Desktop Auth インポート</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam のモバイル認証アプリケーションのデスクトップ実装。 インポート方法: インポートする SDA ディレクトリの下の maFiles フォルダの maFile ファイルを選択します。 (暗号化されたファイルのインポートはサポートされていません。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>トークンを表示します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

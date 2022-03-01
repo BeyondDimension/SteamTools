@@ -1037,10 +1037,6 @@
     <value>Steam Desktop Auth導入</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam 的行動身份驗證器應用程式的桌面實現。 導入方法：選擇 SDA 目錄下 maFiles 資料夾的 maFile 檔案進行匯入。 （不支援匯入加密檔，請先移除密碼在導入）</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>查看令牌</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

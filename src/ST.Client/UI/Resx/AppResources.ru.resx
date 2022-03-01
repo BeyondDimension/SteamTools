@@ -1037,10 +1037,6 @@
     <value>Импорт Steam Desktop Auth</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Реализация рабочего стола мобильного приложения аутентификатора Steam. Способ импорта: Выберите файл maFile папки maFiles в каталоге SDA для импорта. (Импорт зашифрованных файлов не поддерживается, сначала удалите пароль во время импорта)</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>Просмотр маркеров</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

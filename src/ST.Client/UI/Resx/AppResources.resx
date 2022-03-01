@@ -959,7 +959,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Steam Desktop Auth导入</value>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入。(不支持导入加密文件，请先移除密码在导入)</value>
+    <value>Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入。(不支持导入加密文件，请先移除密码再导入)</value>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>查看令牌</value>

@@ -1037,10 +1037,6 @@
     <value>Steam Desktop Auth 가져오기</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="LocalAuth_SDATip" xml:space="preserve">
-    <value>Steam의 모바일 인증자 응용 프로그램의 데스크톱 구현입니다. 가져오기 방법: SDA 디렉토리의 maFiles 폴더에 있는 maFile 파일을 선택하여 가져옵니다. (암호화된 파일 가져오기는 지원되지 않습니다. 먼저 가져오기에서 암호를 제거하십시오.)</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>토큰을 봅니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
