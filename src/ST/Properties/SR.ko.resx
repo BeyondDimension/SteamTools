@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>서버 오류 {0} - 로그인 자격 증명이 만료되었습니다. 다시 로그인하십시오</value>
+    <value>서버 측 오류 {0} - 로그인 자격 증명이 만료되었습니다. 다시 로그인하십시오</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
@@ -222,7 +222,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
-    <value>업데이트 패키지 캐시 파일 확인에 실패하고 오류가 제거 {0}되었습니다</value>
+    <value>업데이트 패키지 캐시 파일 확인에 실패하고 오류가 제거되었습니다 {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">

@@ -158,7 +158,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>調整當前設備上共用的 Steam 帳號優先順序順序，用於解決想玩帳號 B 的共用卻一直使用的是帳號 A 的共用這種問題，從上到下的排序為共用庫使用的優先順序順序，調整後保存重啟 Steam 生效。</value>
+    <value>調整當前設備上共用的 Steam 帳號優先順序順序，用於解決想玩帳號B的共用卻一直使用的是帳號A的共用這種問題，從上到下的排序為共用庫使用的優先順序順序順序，也可以選擇暫時禁用或啟用指定帳號的共用。 調整後保存重啟 Steam 生效！</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
@@ -566,7 +566,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_ListCount" xml:space="preserve">
-    <value>已新增 （{0}/{1}）</value>
+    <value>新增 （{0}/{1}）</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_LoaingTips" xml:space="preserve">
@@ -898,7 +898,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
-    <value>確定要永久刪除此令牌嗎？</value>
+    <value>確定要永久刪除此令牌嗎，這隻是刪除令牌文件數據，並不會解綁你的帳號和令牌，
+    如果需要解綁令牌請到 https://store.steampowered.com/twofactor/manage 解綁后在刪除。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
@@ -1054,7 +1055,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>請輸入發送到您手機的簡訊驗證代碼。</value>
+    <value>還差一步，請輸入發送到您手機的簡訊驗證代碼，並點擊繼續按鈕。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
@@ -1307,7 +1308,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SelectFileImport" xml:space="preserve">
-    <value>選擇 {0} 檔案匯入</value>
+    <value>選擇 {0} 檔匯入</value>
     <comment>Comment=*.txt;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings" xml:space="preserve">
@@ -1587,7 +1588,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
-    <value>已記住密碼</value>
+    <value>已記住登錄狀態</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserFastChange" xml:space="preserve">
@@ -1727,7 +1728,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>確定要登出 Steam++？</value>
+    <value>確定要登出Steam++帳號嗎？</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -1859,7 +1860,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseGPURendering" xml:space="preserve">
-    <value>使用硬體加速</value>
+    <value>使用 GPU 渲染介面（硬體加速）</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_RestartEffective" xml:space="preserve">
@@ -1871,11 +1872,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>套用詳情</value>
+    <value>應用詳情</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>應用程式通知</value>
+    <value>應用通知</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
@@ -1883,7 +1884,7 @@
     <comment>Comment={0}文件夹名称英文字母组成;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
-    <value>快取檔已佔用 {0}</value>
+    <value>快取檔案已佔用 {0}</value>
     <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_ClearCache" xml:space="preserve">
@@ -2112,7 +2113,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>腳本：{0} 檔丟失，刪除失敗去嘗試手動刪除</value>
+    <value>腳本：{0} 檔案丟失，刪除失敗去嘗試手動刪除</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
@@ -2633,7 +2634,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExportedToPath_" xml:space="preserve">
-    <value>匯出到路徑：{0}</value>
+    <value>匯出路徑：{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
@@ -2698,6 +2699,38 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
     <value>ASF 服務正在運行。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_RemoveAuth" xml:space="preserve">
+    <value>解綁令牌</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Steam 的行動身份驗證器應用程式的桌面實現。 導入方法：選擇 SDA 目錄下 maFiles 資料夾的 maFile 檔案進行匯入。 （不支援匯入加密檔，請先移除密碼再匯入）</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareDisable" xml:space="preserve">
+    <value>（已關閉）</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareDisableBtn" xml:space="preserve">
+    <value>禁用</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareEnableBtn" xml:space="preserve">
+    <value>啟用</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_Share_RemoveShare" xml:space="preserve">
+    <value>是否刪除此家庭庫共用。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_SetCryptKey" xml:space="preserve">
+    <value>設置自訂金鑰</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleSettings" xml:space="preserve">
+    <value>主控台設置</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

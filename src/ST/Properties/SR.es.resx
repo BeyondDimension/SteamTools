@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>Error del lado del servicio {0}: las credenciales de inicio de sesión no son válidas, vuelva a iniciar sesión</value>
+    <value>Error del servidor {0} : las credenciales de inicio de sesión no son válidas, vuelva a iniciar sesión</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
@@ -126,7 +126,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
-    <value>El número de cuenta ha sido bloqueado</value>
+    <value>La cuenta ha sido bloqueada</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
@@ -134,11 +134,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>El número de adquisiciones de códigos de verificación alcanzó el límite de hoy Oh, inténtalo de nuevo mañana</value>
+    <value>El número de adquisiciones de códigos de verificación ha alcanzado el límite superior de hoy, oh, inténtalo de nuevo mañana</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>La operación es un poco frecuente Oh, inténtalo de nuevo en 1 minuto</value>
+    <value>La operación es un poco frecuente, oh, inténtalo de nuevo en 1 minuto</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
@@ -146,23 +146,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在" xml:space="preserve">
-    <value>Este número de teléfono celular ha sido utilizado</value>
+    <value>Este número de teléfono ha sido utilizado</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_换绑手机" xml:space="preserve">
-    <value>Este número de teléfono celular ha sido enlazado</value>
+    <value>Este número de teléfono móvil ha sido enlazado</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_注册" xml:space="preserve">
-    <value>Este número de teléfono celular ha sido registrado</value>
+    <value>Este número de teléfono móvil ha sido registrado</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
-    <value>El nuevo número de teléfono no puede ser el mismo que el anterior</value>
+    <value>El nuevo número de teléfono no puede ser el mismo que el número de teléfono anterior</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>Los apodos no deben tener más de {0} palabras de longitud</value>
+    <value>La longitud máxima de un apodo no puede exceder {0} palabra</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>Error del lado de servicio 5001 - Servicio sms</value>
+    <value>Error del lado del servidor 5001 - Servicio SMS</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入昵称" xml:space="preserve">
-    <value>Por favor, introduzca su apodo</value>
+    <value>Introduce un apodo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入正确的手机号码哦" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请选择头像" xml:space="preserve">
-    <value>Seleccione el avatar</value>
+    <value>Selecciona un avatar</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
@@ -214,23 +214,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>No se pudo descargar el paquete de actualización, descargue la nueva versión manualmente en el sitio web oficial</value>
+    <value>No se pudo descargar el paquete de actualización, descargue la nueva versión en el sitio web oficial para actualizar manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateEnumOutOfRange" xml:space="preserve">
-    <value>Error en la resolución de la información del paquete de actualización, descargue la nueva versión manualmente en el sitio web oficial</value>
+    <value>Si se analiza la información del paquete de actualización, descargue la nueva versión en el sitio web oficial para actualizarla manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
-    <value>Al descargar el error de validación del archivo de caché del paquete de actualización y el error de eliminación, elimine {0} después de intentar actualizar manualmente en el sitio web oficial</value>
+    <value>Descargue el error de verificación del archivo de caché del paquete de actualización y elimine el error, elimine el {0} e intente actualizar manualmente en el sitio web oficial</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>Error de verificación de archivos, descargue la nueva versión manualmente en el sitio web oficial</value>
+    <value>Si la verificación del archivo falla, descargue la nueva versión en el sitio web oficial para actualizarla manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>El paquete de actualización descomprimido falló, descargue la nueva versión manualmente en el sitio web oficial</value>
+    <value>El paquete de actualización no se puede extraer, descargue la nueva versión en el sitio web oficial para actualizarla manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

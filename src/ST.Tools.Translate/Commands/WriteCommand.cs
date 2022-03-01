@@ -28,7 +28,7 @@ namespace System.Commands
         public static void Add(RootCommand command)
         {
             // t write-xlsx -resx all -lang all
-            // t write-xlsx -resx all -lang all -refresh-machine true
+            // t write-xlsx -resx all -lang all -refresh_machine
             var write_xlsx = new Command("write-xlsx", "读取 resx 写入 xlsx")
             {
                 Handler = CommandHandler.Create(HandlerAsync),

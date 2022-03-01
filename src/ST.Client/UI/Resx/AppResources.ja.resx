@@ -158,7 +158,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>現在のデバイスで共有されている Steam アカウントの優先順位を調整し、アカウント B の共有をプレイしたいが、アカウント A の共有を使用しているという問題を解決し、共有ライブラリで使用される優先順位を上から下に並べ替え、Steam を再起動して保存します。</value>
+    <value>現在のデバイスで共有されている Steam アカウントの優先順位を調整して、アカウント B の共有をプレイしたいが、アカウント A の共有を使用している問題を解決するため、共有ライブラリで使用される優先順位を上から下に並べ替えるか、指定したアカウントの共有を一時的に無効または有効にするかを選択できます。 調整後保存してSteamを再起動すると有効になります!</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
@@ -498,7 +498,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
-    <value>警告: Steam が同時に実行できるゲームの数は {0} 個で、{1} ゲームを同時にハングアップすると、通常のゲームプレイはできません。</value>
+    <value>警告: Steam は同時に {0} ゲームを実行することができ、{1} ゲームを同時にハングアップすると、通常のゲームをプレイできません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAfkGameList" xml:space="preserve">
@@ -898,7 +898,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
-    <value>このトークンを完全に削除しますか?</value>
+    <value>このトークンを完全に削除しますか?
+    トークンをアンパックする必要がある場合は、https://store.steampowered.com/twofactor/manage に切断してから削除します。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
@@ -1054,7 +1055,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>携帯電話に送信されたテキスト メッセージ確認コードを入力してください。</value>
+    <value>さらに一歩下がって、お使いの携帯電話に送信されたSMS確認コードを入力し、[続行]ボタンをクリックします。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
@@ -1499,7 +1500,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Success_" xml:space="preserve">
-    <value>{0}成功した</value>
+    <value>{0}成功</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Toolbox" xml:space="preserve">
@@ -1587,7 +1588,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
-    <value>パスワードは記憶されています</value>
+    <value>ログイン状態を記憶します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserFastChange" xml:space="preserve">
@@ -1727,7 +1728,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>Steam++ をチェックアウトしますか?</value>
+    <value>Steam++ アカウントを登録しますか?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -1859,7 +1860,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseGPURendering" xml:space="preserve">
-    <value>ハードウェア アクセラレーションを使用します</value>
+    <value>GPU を使用したインターフェイスのレンダリング (ハードウェア アクセラレーション)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_RestartEffective" xml:space="preserve">
@@ -1871,11 +1872,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>アプリケーションの詳細</value>
+    <value>アプリの詳細</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>通知の適用</value>
+    <value>アプリの通知</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
@@ -1899,7 +1900,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
-    <value>原因: {0}</value>
+    <value>{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
@@ -2232,7 +2233,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>{0} 個の Key がアクティブ化キューに追加され、キュー内の Key は自動的にアクティブ化のためにキューに入れられました。</value>
+    <value>アクティブ化キューに {0} 個の Key が追加され、キュー内の Key は自動的にアクティブ化のためにキューに入れられました。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
@@ -2528,7 +2529,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
-    <value>ファイル プロパティは読み取り専用で、変更に失敗しました {0}。</value>
+    <value>ファイル プロパティは読み取り専用で、変更に失敗しました{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
@@ -2698,6 +2699,38 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
     <value>ASF サービスが実行中です。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_RemoveAuth" xml:space="preserve">
+    <value>トークンをアンパックします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Steam のモバイル認証アプリケーションのデスクトップ実装。 インポート方法: インポートする SDA ディレクトリの下の maFiles フォルダの maFile ファイルを選択します。 (暗号化されたファイルのインポートはサポートされていません。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareDisable" xml:space="preserve">
+    <value>(無効)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareDisableBtn" xml:space="preserve">
+    <value>無効です</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareEnableBtn" xml:space="preserve">
+    <value>有効にします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_Share_RemoveShare" xml:space="preserve">
+    <value>このホーム ライブラリ共有を削除するかどうか。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_SetCryptKey" xml:space="preserve">
+    <value>カスタム キーを設定します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleSettings" xml:space="preserve">
+    <value>コンソールの設定</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

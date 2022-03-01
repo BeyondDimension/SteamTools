@@ -174,39 +174,39 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DayOfWeek_S6" xml:space="preserve">
-    <value>В субботу</value>
+    <value>Суббота</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>Женщина</value>
+    <value>женщина</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="He" xml:space="preserve">
-    <value>Его</value>
+    <value>он</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Male" xml:space="preserve">
-    <value>Мужчины</value>
+    <value>мужчина</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupported_FixedSizeCollection" xml:space="preserve">
-    <value>Collection was of a fixed size.</value>
+    <value>Коллекция была фиксированного размера.</value>
     <comment>Comment=https://github.com/dotnet/runtime/blob/v5.0.0-rc.1.20451.14/src/libraries/System.Private.CoreLib/src/Resources/Strings.resx#L2893;Author=MicrosoftTranslator</comment>
   </data>
   <data name="She" xml:space="preserve">
-    <value>ее</value>
+    <value>она</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Неизвестно</value>
+    <value>Неизвестный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>Неподдерживаемый сегмент номера мобильного телефона ({0})</value>
+    <value>Сегмент неподдерживаемых номеров мобильных телефонов ({0})</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
-    <value>Открытие веб-ссылки завершается неудачей {0} 0x, установите системный браузер по умолчанию и повторите попытку</value>
+    <value>Открыть веб-ссылку не удалось 0x{0}, пожалуйста, установите системный браузер по умолчанию перед попыткой</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

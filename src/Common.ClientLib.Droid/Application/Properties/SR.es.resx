@@ -122,7 +122,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsRoot" xml:space="preserve">
-    <value>Esta aplicación no admite la ejecución en dispositivos con permisos ROOT</value>
+    <value>Esta aplicación no es compatible para ejecutarse en dispositivos con privilegios ROOT</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsVirtualApk" xml:space="preserve">
@@ -130,7 +130,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsXposedExists" xml:space="preserve">
-    <value>Esta aplicación no admite la ejecución en dispositivos con marcos Xposed</value>
+    <value>Esta aplicación no admite la ejecución en dispositivos con el marco Xposed instalado</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

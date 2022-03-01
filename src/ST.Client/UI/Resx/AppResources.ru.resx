@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>О</value>
+    <value>относительно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Contactus" xml:space="preserve">
@@ -126,7 +126,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_FAQ" xml:space="preserve">
-    <value>Устранение неполадок часто задаваемых вопросов</value>
+    <value>Устранение часто задаваемых вопросов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Joinus" xml:space="preserve">
@@ -134,11 +134,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_OpenSource" xml:space="preserve">
-    <value>Лицензия с открытым исходным кодом</value>
+    <value>Лицензирование с открытым исходным кодом</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_ProductionStaff" xml:space="preserve">
-    <value>Список продюсеров</value>
+    <value>Список производителей</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_ThisSoft" xml:space="preserve">
@@ -146,39 +146,39 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_UpdateHistory" xml:space="preserve">
-    <value>Обновите запись</value>
+    <value>Обновление записи</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_UpdateLog" xml:space="preserve">
-    <value>Обновите журнал</value>
+    <value>Список изменений</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_RestartSteam" xml:space="preserve">
-    <value>Измененные данные вступают в силу, требуется ли перезагрузка Steam для перезапуска Steam.</value>
+    <value>Измененные данные требуют перезагрузки в Steam и того, требуется ли перезагрузка в Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>Отрегулируйте порядок приоритетов учетных записей Steam, совместно используемых на текущем устройстве, чтобы решить проблему, в которой общий ресурс, который вы хотите играть с учетной записью B, всегда использовал общий доступ к учетной записи A, отсортировал сверху вниз по порядку приоритета, используемому общей библиотекой, и отрегулировал вступление в силу перезагрузки сохранения Steam.</value>
+    <value>Настройте порядок приоритетов учетной записи Steam, совместно используемой на текущем устройстве, чтобы решить проблему, заключающуюся в том, что совместное использование учетной записи B, которая хочет играть, всегда используется общий доступ к учетной записи A, сверху вниз, используется порядок приоритетов общей библиотеки, или вы можете временно отключить или включить общий доступ к указанной учетной записи. Сохраните после настройки и перезапустите Steam, чтобы вступить в силу!</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
-    <value>Управление библиотеками семейного доступа</value>
+    <value>Главная Управление общей библиотекой</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Description" xml:space="preserve">
-    <value>Описание</value>
+    <value>описание</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_EditSucces" xml:space="preserve">
-    <value>Изменено {0} достижений и {1} статистических данных</value>
+    <value>{0} достижения и {1} статистика изменены</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Icon" xml:space="preserve">
-    <value>значок</value>
+    <value>икона</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_IsProtection" xml:space="preserve">
-    <value>Защищено</value>
+    <value>Защищенный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_LoadData" xml:space="preserve">
@@ -186,7 +186,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_LoadSucces" xml:space="preserve">
-    <value>Получите {0} достижений и {1} статистику</value>
+    <value>Получает {0} достижения и статистику {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Manage" xml:space="preserve">
@@ -194,27 +194,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Name" xml:space="preserve">
-    <value>Имя</value>
+    <value>имя</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_RefreshTip" xml:space="preserve">
-    <value>Обновите достижения и статистику</value>
+    <value>Обновление достижений и статистики</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetTip" xml:space="preserve">
-    <value>Сброс достижений и статистика</value>
+    <value>Сброс достижений и статистики</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_1" xml:space="preserve">
-    <value>Вы действительно хотите свернуть статистику?</value>
+    <value>Вы уверены, что хотите сбросить статистику?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_2" xml:space="preserve">
-    <value>Хотите свернуть информацию о достижениях?</value>
+    <value>Хотите также сбросить информацию о достижениях?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_RiskWarning" xml:space="preserve">
-    <value>Советы по рискам: Разблокировка достижений может рассматриваться разработчиками игр как мошенничество и заблокирована веб-сайтом статистики достижений. Если вы решите продолжать использовать его, возьмите на себя риск и последствия разблокировки достижений.</value>
+    <value>【Предупреждение о рисках】Разблокировка достижений может считаться мошенничеством со стороны разработчиков игр и будет заблокирована веб-сайтами статистики достижений. Если вы решите продолжить его использование, разблокируйте свои достижения на свой страх и риск.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
@@ -222,19 +222,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
-    <value>Сохранение и применение достижений и статистики</value>
+    <value>Сохраняйте и применяйте достижения и статистику</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_TimeFormat" xml:space="preserve">
-    <value>Разблокировано в |0:yyyy-MM-dd HH:mm:ss}</value>
+    <value>Разблокировано в {0:гггг-ММ-дд ЧЧ:мм:сс}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>Достижения разблокированы</value>
+    <value>Разблокированные достижения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
-    <value>Не удалось установить соединение со Steam, возможно, игра не имеет достижений, или у вас нет игры.</value>
+    <value>Если вам не удастся подключиться к Steam, у вас может не быть достижений в игре, или у вас может не быть игры.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Warning_3" xml:space="preserve">
@@ -246,15 +246,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Добавлено</value>
+    <value>Новые функции</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Agree" xml:space="preserve">
-    <value>Согласен</value>
+    <value>соглашаться</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="And" xml:space="preserve">
-    <value>И</value>
+    <value>и</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ArchiSteamFarmPlus" xml:space="preserve">
@@ -262,15 +262,15 @@
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="ASF_RuningTip" xml:space="preserve">
-    <value>ASF уже запущен</value>
+    <value>ASF уже работает</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Bind" xml:space="preserve">
-    <value>Привязка</value>
+    <value>связывать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Btn_Text_Complete" xml:space="preserve">
-    <value>Готово</value>
+    <value>заканчивать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Btn_Text_Continue" xml:space="preserve">
@@ -278,7 +278,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BugFeedback" xml:space="preserve">
-    <value>Обратная связь по ошибке</value>
+    <value>Обратная связь об ошибке</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
@@ -286,7 +286,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CheckUpdate" xml:space="preserve">
-    <value>Проверьте наличие обновлений</value>
+    <value>Проверка наличия обновлений</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CloudSync" xml:space="preserve">
@@ -294,19 +294,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix" xml:space="preserve">
-    <value>Ускорение сети</value>
+    <value>Сетевое ускорение</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AccelerationsEnable" xml:space="preserve">
-    <value>Включенная служба ускорения</value>
+    <value>Включение службы ускорения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AllCheck" xml:space="preserve">
-    <value>Все включено</value>
+    <value>Включить все</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AlreadyProxy" xml:space="preserve">
-    <value>Ускорилось  </value>
+    <value>Ускоренный  </value>
     <comment>Comment=末尾带空格;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
@@ -318,35 +318,35 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_DeleteCertificate" xml:space="preserve">
-    <value>Удалите сертификат</value>
+    <value>Удаление сертификата</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_EditHostsFile" xml:space="preserve">
-    <value>Отредактируйте файл Hosts</value>
+    <value>Редактирование файла Hosts</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_EnableScriptService" xml:space="preserve">
-    <value>Включите сценарий</value>
+    <value>Включение сценариев</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_MenuName" xml:space="preserve">
-    <value>Ускорьте настройки</value>
+    <value>Настройки ускорения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_NetworkFix" xml:space="preserve">
-    <value>Исправление сети</value>
+    <value>Ремонт сети</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_NoSelectAcceleration" xml:space="preserve">
-    <value>Ускоренная служба не выбрана</value>
+    <value>Служба ускорения не выбрана</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
-    <value>Действует только для встроенных браузеров Steam</value>
+    <value>Работает только для браузеров, созданных Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
-    <value>Откройте папку сертификатов</value>
+    <value>Откройте папку «Сертификаты»</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
@@ -358,31 +358,31 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Режим прокси-сервера Hosts (рекомендуется)</value>
+    <value>Режим прокси-сервера хоста (рекомендуется)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
-    <value>Изменение файла Hosts для прослушивания агентов реализации личных запросов является более быстрым и влияет на ускоренные веб-сайты, которые работают лучше всего, но требуют, чтобы их 443 порты не использовались.</value>
+    <value>Изменение файла Hosts для прослушивания собственных запросов для реализации прокси-сервера происходит быстрее и влияет только на ускоренные веб-сайты, но требует, чтобы собственный порт 443 не использовался.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
-    <value>Режим системного прокси-сервера</value>
+    <value>Режим системного прокси</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
-    <value>Настройка системного прокси-сервера для прослушивания запросов, не нужно занимать 443 порта, будет глобальный прокси-сервер для всего трафика, если у вас нет проблем с использованием метода Hosts, вам не нужно использовать этот режим.</value>
+    <value>Настройте системный прокси для прослушивания запросов, не нужно занимать порт 443, будет глобально прокси весь собственный трафик, если вы используете режим хостов не проблема, то вам не нужно использовать этот режим.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ScriptManage" xml:space="preserve">
-    <value>Управление сценариями</value>
+    <value>Управление скриптами</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ScriptsEnable" xml:space="preserve">
-    <value>Включенная служба сценариев</value>
+    <value>Включение службы сценариев</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_SetupCertificate" xml:space="preserve">
-    <value>Установите сертификат</value>
+    <value>Установка сертификата</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxy" xml:space="preserve">
@@ -390,19 +390,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>Сбой службы ускорения запуска и сбой установки сертификата.</value>
+    <value>Не удалось запустить службу ускорения, не удалось установить сертификат.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
-    <value>Ускорение успешно запущено</value>
+    <value>Ускорение стартовало успешно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StopProxy" xml:space="preserve">
-    <value>Остановите ускорение</value>
+    <value>Остановка ускорения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>ОК</value>
+    <value>Уверен</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ConfirmImport" xml:space="preserve">
@@ -414,23 +414,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Copy" xml:space="preserve">
-    <value>Скопируйте</value>
+    <value>копировать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cut" xml:space="preserve">
-    <value>Вырезать</value>
+    <value>срез</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>По умолчанию</value>
+    <value>по умолчанию</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DelAccount" xml:space="preserve">
-    <value>Списание учетной записи</value>
+    <value>Аннулирование аккаунта</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DelAccountTips" xml:space="preserve">
-    <value>Ваша существующая информация об учетной записи и все данные, генерируемые во время использования учетной записи, будут удалены и не смогут снова войти в систему в исходной идентификационной информации, пожалуйста, обратите внимание, что резервное копирование важных данных перед подтверждением не приведет к необратимым потерям, вы уверены, чтобы выйти из системы?</value>
+    <value>Ваша существующая информация об учетной записи и все данные, сгенерированные во время использования учетной записи, будут удалены, и вы не сможете снова войти в систему с исходной идентификационной информацией, пожалуйста, обратите внимание на резервное копирование важных данных перед подтверждением, чтобы избежать непоправимых потерь, вы обязательно выйдете из системы?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Delete" xml:space="preserve">
@@ -438,15 +438,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DoNotUpdate" xml:space="preserve">
-    <value>Он не обновляется</value>
+    <value>В настоящее время обновление не обновляется</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Dow" xml:space="preserve">
-    <value>Переместитесь вниз</value>
+    <value>Перемещение вниз</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Скачать</value>
+    <value>Загружать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Downloading" xml:space="preserve">
@@ -454,31 +454,31 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_ScriptError" xml:space="preserve">
-    <value>Повторите попытку ошибки загрузки сценария.</value>
+    <value>Повторите попытку при ошибках загрузки скрипта.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_ScriptOk" xml:space="preserve">
-    <value>Сценарий был успешно установлен</value>
+    <value>Установка скрипта выполнена успешно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Редактирование</value>
+    <value>редактировать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Почтовый ящик</value>
+    <value>почтовый ящик</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="EmailCode" xml:space="preserve">
-    <value>Код проверки почтового ящика</value>
+    <value>Код подтверждения электронной почты</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Encrypt" xml:space="preserve">
-    <value>Шифрование</value>
+    <value>шифровать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>Выход</value>
+    <value>покидать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Export" xml:space="preserve">
@@ -490,39 +490,39 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAFKAppsMaxCountTips" xml:space="preserve">
-    <value>Висячие игры достигли предела {0}, удалите некоторые игры и добавьте их.</value>
+    <value>Игра для зависания достигла предела {0}, пожалуйста, удалите некоторые игры и добавьте их.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAFKAppsSuccess" xml:space="preserve">
-    <value>Добавление в список длины висячения выполнено успешно</value>
+    <value>Успешное добавление в список ожидающих времени</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAFKAppsWarningCountTips" xml:space="preserve">
-    <value>Предупреждение: Steam позволяет одновременно запускать {0} игр, и вы не сможете играть в игры должным образом, если вы повесить {1} игр одновременно!</value>
+    <value>Предупреждение: Steam позволяет запускать {0} игры одновременно, и если вы повесите {1} игры одновременно, вы не сможете играть в игру нормально!</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddAfkGameList" xml:space="preserve">
-    <value>Добавьте в список продолжительности висит</value>
+    <value>Добавлено в список ожидающих длительностей</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddHideAppEmpty" xml:space="preserve">
-    <value>Список скрытых игр пуст, пожалуйста, добавьте игру, которую необходимо скрыть, правой кнопкой мыши из списка игр.</value>
+    <value>Скрытый список игр пуст, пожалуйста, щелкните правой кнопкой мыши из списка игр, чтобы добавить игру, которую нужно скрыть.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AddIdeaAppEmpty" xml:space="preserve">
-    <value>Игра, которая висела долго, не была добавлена, пожалуйста, добавьте ее правой кнопкой мыши из списка игр.</value>
+    <value>Если вы не добавили игру с длительностью зависания, щелкните правой кнопкой мыши в списке игр.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>Время автоматического висят при запуске программы</value>
+    <value>Программа зависает автоматически при запуске</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
-    <value>Удалить все игры, которые висят в течение длительного времени?</value>
+    <value>Вы хотите удалить все игры, которые были зависшими в течение длительного времени?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_DeleteItem" xml:space="preserve">
-    <value>Вы повесили игру на длительный срок?</value>
+    <value>Как долго игра будет приостановлена?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_DeleteSuccess" xml:space="preserve">
@@ -530,7 +530,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_EditAppInfo" xml:space="preserve">
-    <value>Отредактируйте информацию об игре</value>
+    <value>Редактирование информации об игре</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideAppsSuccess" xml:space="preserve">
@@ -538,7 +538,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideApp_AllCheck" xml:space="preserve">
-    <value>Выберите все</value>
+    <value>Выберите их все</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideGameManger" xml:space="preserve">
@@ -546,11 +546,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_HideTheGame" xml:space="preserve">
-    <value>Спрячьте эту игру</value>
+    <value>Скрыть эту игру</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_IdleGamesManger" xml:space="preserve">
-    <value>Список игровых тайм-аутов</value>
+    <value>Список зависаний продолжительности игры</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_Install" xml:space="preserve">
@@ -558,7 +558,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_IsEmpty" xml:space="preserve">
-    <value>Игровые данные не получены</value>
+    <value>Данные игры не были получены</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
@@ -570,7 +570,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_LoaingTips" xml:space="preserve">
-    <value>Повторите попытку позже во время операции</value>
+    <value>Повторите попытку позже, пока выполняется операция</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
@@ -578,59 +578,59 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenFolder" xml:space="preserve">
-    <value>Просмотрите папку установки</value>
+    <value>Перейдите к папке установки</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenSteamCardUrl" xml:space="preserve">
-    <value>Steam Card Exchange</value>
+    <value>Обмен карт Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenSteamDBUrl" xml:space="preserve">
-    <value>SteamDB Info</value>
+    <value>Информация о SteamDB</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenSteamGridUrl" xml:space="preserve">
-    <value>SteamGrid</value>
+    <value>Паровая сетка</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OpenStoreUrl" xml:space="preserve">
-    <value>Откройте страницу магазина</value>
+    <value>Открытие страницы &quot;Магазин&quot;</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_OperationSuccess" xml:space="preserve">
-    <value>Операция прошла успешно</value>
+    <value>Операция выполнена успешно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_Play" xml:space="preserve">
-    <value>Начните игру</value>
+    <value>Запустите игру</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RefreshGamesList" xml:space="preserve">
-    <value>Обновите список игр</value>
+    <value>Обновить список игр</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RefreshGamesListSucess" xml:space="preserve">
-    <value>Обновление списка игр завершено</value>
+    <value>Обновление списка игр для завершения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RemoveBtn" xml:space="preserve">
-    <value>Удалите все</value>
+    <value>Удалить все</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RemoveItemBtn" xml:space="preserve">
-    <value>Отмена висит в течение длительного времени</value>
+    <value>Отмена срока приостановки</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_ResizeAppLogo" xml:space="preserve">
-    <value>Измените размер обложки</value>
+    <value>Изменение размера титульной страницы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RuningBtn" xml:space="preserve">
-    <value>Запустите все</value>
+    <value>Запустить все</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RuningCount" xml:space="preserve">
-    <value>Запущено {0}/{1}</value>
+    <value>Беговые {0}/{1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RuningItemBtn" xml:space="preserve">
@@ -638,35 +638,35 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RuningWait" xml:space="preserve">
-    <value>В запуске...</value>
+    <value>Пусковой...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_RunState" xml:space="preserve">
-    <value>В эксплуатации</value>
+    <value>Бег</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SetCustomImage" xml:space="preserve">
-    <value>Настройка пользовательской обложки</value>
+    <value>Настройка пользовательской титульной страницы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamNotRuning" xml:space="preserve">
-    <value>Steam не запущен</value>
+    <value>Пар не запускается</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_StopBtn" xml:space="preserve">
-    <value>Все приостановлено</value>
+    <value>Приостановить все</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_StopItemBtn" xml:space="preserve">
-    <value>Пауза</value>
+    <value>Тайм-аут</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_StopState" xml:space="preserve">
-    <value>Пауза</value>
+    <value>Приостановлена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_Unsupport" xml:space="preserve">
-    <value>Неподдерживаемые действия</value>
+    <value>Неподдерживаемые операции</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated" xml:space="preserve">
@@ -674,11 +674,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless" xml:space="preserve">
-    <value>Окно без границ</value>
+    <value>Окна без полей</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_BorderlessWindow" xml:space="preserve">
-    <value>Окно без границ</value>
+    <value>Окна без полей</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_ClassName" xml:space="preserve">
@@ -686,19 +686,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_Hide" xml:space="preserve">
-    <value>Скрыть</value>
+    <value>прятать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_KillProcess" xml:space="preserve">
-    <value>Завершите процесс</value>
+    <value>Завершение процесса</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_Maximize" xml:space="preserve">
-    <value>Максимизируйте</value>
+    <value>максимизировать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_MoveMouseTip" xml:space="preserve">
-    <value>Перетащите перекрестие в окно игры, чтобы получить информацию об игре, чтобы выполнить соответствующее действие.</value>
+    <value>Перетащите крестик в окно игры, чтобы получить информацию об игре и выполнить соответствующую операцию.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_Normal" xml:space="preserve">
@@ -714,39 +714,39 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_ResetWallerpaper" xml:space="preserve">
-    <value>Обновите обои</value>
+    <value>Обновление обоев</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_Show" xml:space="preserve">
-    <value>отображается</value>
+    <value>дисплей</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_Title" xml:space="preserve">
-    <value>Название</value>
+    <value>титул</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaper" xml:space="preserve">
-    <value>Поместите его на слой обоев</value>
+    <value>Поместить в слой обоев</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameRelated_Borderless_ToWallerpaperTip" xml:space="preserve">
-    <value>Игра, размещенная на уровне обоев, может быть неуправимой, эта проблема может быть решена, но в настоящее время усилия по разработке не здесь, в настоящее время эта функция такова. Рабочий стол остается замороженным после игры, когда вы можете нажать обновить обои, чтобы восстановить обои по умолчанию. Кроме того, размещение окон на уровне обоев для рабочего стола несовместимо с Wallpaper Engine и другим программным обеспечением для динамического рабочего стола, при использовании обратите внимание на выключение программного обеспечения, такого как Wallpaper Engine.</value>
+    <value>Игра, размещенная на слое обоев, может быть не управляемой, эту проблему можно решить, но текущей энергии развития здесь нет, текущая функция такова. После игры рабочий стол все равно останется замороженным экраном, в это время можно нажать кнопку «Обновить обои», чтобы восстановить обои по умолчанию. А функция размещения окон на слое обоев рабочего стола не совместима с Wallpaper Engine и другим динамическим программным обеспечением для рабочего стола, поэтому, пожалуйста, обратите внимание на отключение программного обеспечения, такого как Wallpaper Engine при его использовании.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender" xml:space="preserve">
-    <value>Пол</value>
+    <value>род</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender_Female" xml:space="preserve">
-    <value>Женщина</value>
+    <value>женщина</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender_Male" xml:space="preserve">
-    <value>Мужчины</value>
+    <value>мужчина</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Gender_Unknown" xml:space="preserve">
-    <value>Конфиденциальность</value>
+    <value>секретность</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookies" xml:space="preserve">
@@ -754,11 +754,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GetLoginUsingSteamClientCookiesFail_" xml:space="preserve">
-    <value>{0}, когда не удалось получить состояние входа Steam, введите пароль имени пользователя Steam для быстрого входа в систему</value>
+    <value>Не удалось получить статус входа в Steam {0}, пожалуйста, введите свое имя пользователя и пароль Steam для быстрого входа в систему</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_Exists" xml:space="preserve">
-    <value>Записанный Hosts уже существует</value>
+    <value>Написанные хосты уже существуют</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_ReadError" xml:space="preserve">
@@ -766,19 +766,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_ReadSuccess" xml:space="preserve">
-    <value>Чтение Hosts прошло успешно</value>
+    <value>Успешное чтение узлов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_UpdateSuccess" xml:space="preserve">
-    <value>Запись в Hosts прошла успешно</value>
+    <value>Успешная запись хостов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hosts_WirteError" xml:space="preserve">
-    <value>Произошла ошибка при записи в Hosts</value>
+    <value>Произошла ошибка при записи на хосты</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IdleCard" xml:space="preserve">
-    <value>Автоматическая карта набора</value>
+    <value>Автоматический сбор карт</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Import" xml:space="preserve">
@@ -786,19 +786,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Загрузка</value>
+    <value>Погрузка</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth" xml:space="preserve">
-    <value>Локальный маркер</value>
+    <value>Локальный токен</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AddAuth" xml:space="preserve">
-    <value>Импорт маркера</value>
+    <value>Импорт токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AddAuthSuccess" xml:space="preserve">
-    <value>Импорт маркера завершен</value>
+    <value>Импорт токена завершен</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AddAuthSyncTip" xml:space="preserve">
@@ -806,27 +806,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AddAuth_PartSuccess" xml:space="preserve">
-    <value>Часть данных была успешно импортирована</value>
+    <value>Частичный импорт данных выполнен успешно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthData" xml:space="preserve">
-    <value>Данные маркера</value>
+    <value>Данные токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthName" xml:space="preserve">
-    <value>Пользовательское имя маркера</value>
+    <value>Пользовательское имя токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade" xml:space="preserve">
-    <value>Подтвердите сделку</value>
+    <value>Подтвердите транзакцию</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Cancel" xml:space="preserve">
-    <value>Отмена сделки</value>
+    <value>Отмена транзакции</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelAll" xml:space="preserve">
-    <value>Отмените все транзакции</value>
+    <value>Отмена всех транзакций</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_CancelError" xml:space="preserve">
@@ -834,11 +834,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Confirm" xml:space="preserve">
-    <value>Подтвердите сделку</value>
+    <value>Подтвердите транзакцию</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmAll" xml:space="preserve">
-    <value>Подтвердите все сделки</value>
+    <value>Подтвердите все транзакции</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmCancel" xml:space="preserve">
@@ -854,23 +854,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ConfirmTip" xml:space="preserve">
-    <value>{0} все сделки...</value>
+    <value>Все сделки {0}...</value>
     <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError" xml:space="preserve">
-    <value>У вас нет разрешения на просмотр подтверждения. Включена ли домашняя опека? Подтверждение транзакции после включения функции домашней опеки временно не поддерживается.</value>
+    <value>У вас нет разрешения на просмотр сведений о подтверждении. Включен ли домашний мониторинг? Управление подтверждениями транзакций после включения функции мониторинга семейства в настоящее время не поддерживается.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError2" xml:space="preserve">
-    <value>Не удалось получить данные транзакции маркера Steam, чтобы убедиться, что адрес сообщества Steam был ускорен в обычном режиме.</value>
+    <value>Не удалось получить данные транзакции токена Steam, пожалуйста, подтвердите, что адрес сообщества Steam ускоряется нормально.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
-    <value>Получение последней информации о торговом предложении...</value>
+    <value>Получение последней информации о торговых котировках...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListCountTip" xml:space="preserve">
-    <value>{0} сделки находятся на рассмотрении</value>
+    <value>{0} транзакций в ожидании</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_ListNullTip" xml:space="preserve">
@@ -878,39 +878,40 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
-    <value>В настоящее время нет сделок</value>
+    <value>В настоящее время нет транзакций</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
-    <value>Недействительная транзакция</value>
+    <value>Недействительные транзакции</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_CloudSync" xml:space="preserve">
-    <value>Синхронизация облака маркеров</value>
+    <value>Синхронизация облака токенов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Copy" xml:space="preserve">
-    <value>Скопируйте маркер</value>
+    <value>Скопируйте токен</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_CopyAuthTip" xml:space="preserve">
-    <value>Маркер скопирован </value>
+    <value>Токен был скопирован </value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_DeleteAuthTip" xml:space="preserve">
-    <value>Вы действительно хотите окончательно удалить этот маркер?</value>
+    <value>Вы уверены, что хотите навсегда удалить этот токен, это просто удаление данных файла токена и не будет развязывать вашу учетную запись и токен,
+    Если необходимо отменить привязку маркера, перейдите в раздел https://store.steampowered.com/twofactor/manage удалить после отмены привязки.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_EditAuth" xml:space="preserve">
-    <value>Отредактируйте маркер</value>
+    <value>Редактирование токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_EmailCodeTip" xml:space="preserve">
-    <value>Введите код, отправленный на ваш адрес электронной почты, чтобы утвердить доступ с нового устройства.</value>
+    <value>Пожалуйста, введите код, отправленный на ваш адрес электронной почты, чтобы подтвердить доступ с вашего нового устройства.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth" xml:space="preserve">
-    <value>Экспорт маркера</value>
+    <value>Экспорт токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ConfirmExport" xml:space="preserve">
@@ -918,15 +919,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_EncryptionExport" xml:space="preserve">
-    <value>Необходимо ли экспортировать зашифрованные данные</value>
+    <value>Нужно ли экспортировать зашифрованные данные</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_Error" xml:space="preserve">
-    <value>Произошла ошибка при импорте данных, код ошибки: {0}</value>
+    <value>Произошла ошибка с импортированными данными, код ошибки: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ExportPassword" xml:space="preserve">
-    <value>Введите пароль экспортированных данных</value>
+    <value>Пожалуйста, введите пароль для экспортируемых данных</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_SelectPath" xml:space="preserve">
@@ -934,23 +935,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_HasPasswordUnEncryptionAuth" xml:space="preserve">
-    <value>Текущие данные зашифрованы, и вы разблокировали их, прежде чем получить к ним доступ.</value>
+    <value>Текущие данные шифруются и должны быть разблокированы, прежде чем к ним можно будет получить доступ.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ImportFaild" xml:space="preserve">
-    <value>Не удалось импортировать, проверьте правильность данных.</value>
+    <value>Импорт не удался, пожалуйста, проверьте правильность данных.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_LockError" xml:space="preserve">
-    <value>Маркер не может быть заблокирован без установки пароля</value>
+    <value>Токены не могут быть заблокированы без пароля</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_MenuName" xml:space="preserve">
-    <value>Отредактируйте маркер</value>
+    <value>Редактирование токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_NoAuthTip" xml:space="preserve">
-    <value>Вы еще не импортили маркеры, сначала добавьте их.</value>
+    <value>Вы еще не импортировали токены, поэтому сначала добавьте их.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_OtherImport" xml:space="preserve">
@@ -958,15 +959,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_PasswordRequired" xml:space="preserve">
-    <value>Для продолжения требуется расшифровка</value>
+    <value>Для продолжения расшифровки необходимо</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_PasswordRequired1" xml:space="preserve">
-    <value>Введите пароль</value>
+    <value>Пожалуйста, введите пароль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth" xml:space="preserve">
-    <value>Шифрование маркеров</value>
+    <value>Шифрование токенов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePassword" xml:space="preserve">
@@ -974,27 +975,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_EnablePasswordTip" xml:space="preserve">
-    <value>*Примечание: Ваш маркер будет шифроваться с помощью собственного пароля, и вам нужно будет ввести пароль, чтобы открыть зашифрованный маркер. Если вы забыли пароль и у вас нет резервной копии, маркер не будет доступен, и вы можете использовать только код восстановления, чтобы разблокировать или забыть учетную запись, чтобы снять маркер.</value>
+    <value>*Примечание: Ваш токен будет зашифрован вашим собственным паролем, вам нужно будет ввести свой пароль, чтобы открыть зашифрованный токен. Если вы забыли свой пароль и нет резервной копии, ваш токен будет недоступен, и вы можете только отвязать его, используя код восстановления или забытую учетную запись.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Error" xml:space="preserve">
-    <value>Произошла ошибка при сохранении параметров шифрования</value>
+    <value>Произошла ошибка с параметром Сохранить шифрование</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Info" xml:space="preserve">
-    <value>Очень рекомендуется использовать пароль для защиты маркеров, в противном случае ваши данные могут быть прочитаны и украдены вредоносными программами, работающими на вашем компьютере. Конечно, вы также можете не включать шифрование, которое не является обязательным, но ваши данные маркера рискуют быть украденными!!!</value>
+    <value>Настоятельно рекомендуется защитить свой токен паролем, иначе ваши данные могут быть прочитаны и украдены вредоносным ПО, работающим на вашем компьютере. Конечно, вы также не можете включить какое-либо шифрование, которое не является обязательным, но ваши данные токена рискуют быть украденными!!!</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt" xml:space="preserve">
-    <value>Маркеры могут быть расшифрованы только на этом компьютере</value>
+    <value>Токен расшифровывается только на этом ПК</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip" xml:space="preserve">
-    <value>Можно также использовать встроенное в систему шифрование учетной записи для защиты и шифрования данных. Это заблокирует маркеры на этом компьютере, поэтому вы не сможете открыть файлы, даже если они скопированы. Если вы хотите переформатировать диск, переустановить систему или удалить учетную запись пользователя, необходимо отключить эту функцию, иначе ваши данные не будут расшифрованы.</value>
+    <value>Вы также можете защитить и зашифровать свои данные с помощью встроенного в систему шифрования учетной записи. Это заблокирует ваши токены на этом компьютере, поэтому вы не сможете открывать файлы, даже если они скопированы. Если вы хотите переформатировать диск, переустановить систему или удалить эту учетную запись пользователя, необходимо отключить эту функцию, иначе ваши данные не будут расшифрованы.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_NoChangeTip" xml:space="preserve">
-    <value>Никакие изменения не должны быть сохранены</value>
+    <value>Нет изменений, которые необходимо сохранить</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Password" xml:space="preserve">
@@ -1002,11 +1003,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PasswordError" xml:space="preserve">
-    <value>Неправильный пароль</value>
+    <value>Неверный пароль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PasswordErrorTip" xml:space="preserve">
-    <value>Введите правильный пароль</value>
+    <value>Пожалуйста, введите правильный пароль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_PathError" xml:space="preserve">
@@ -1014,11 +1015,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_SaveApply" xml:space="preserve">
-    <value>Сохраните и примените</value>
+    <value>Сохранить и применить</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_Success" xml:space="preserve">
-    <value>Параметры шифрования сохранения выполнены успешно</value>
+    <value>Сохранение параметров шифрования выполнено успешно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPassword" xml:space="preserve">
@@ -1026,51 +1027,51 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ProtectionAuth_VerifyPasswordErrorTip" xml:space="preserve">
-    <value>Пароль, введенный дважды, не совпадает</value>
+    <value>Пароль, введенный дважды, не соответствует</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_RefreshAuthSuccess" xml:space="preserve">
-    <value>Загрузка данных маркера завершена</value>
+    <value>Загрузка данных токена завершена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SDAImport" xml:space="preserve">
-    <value>Импорт Steam Desktop Auth</value>
+    <value>Импорт аутентификации на настольный компьютер Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
-    <value>Просмотр маркеров</value>
+    <value>Просмотр токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowAuthInfo" xml:space="preserve">
-    <value>Просмотр подробных данных маркера</value>
+    <value>Просмотр сведений о токене</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip1" xml:space="preserve">
-    <value>Полные данные аутентификатора Steam, которые можно использовать при импорте различного программного обеспечения</value>
+    <value>Полные данные Steam Authenticator, которые можно использовать при импорте различного программного обеспечения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ShowSteamAuthTip2" xml:space="preserve">
-    <value>После включения двухэтапного маркера проверки в Steam создается код восстановления, который можно использовать в клиенте Steam для снятия двухэтапного маркера проверки, копирования и сохранения в надежном месте.</value>
+    <value>Когда вы включаете 2-этапный токен проверки в Steam, генерируется код восстановления, который вы можете использовать в клиенте Steam, чтобы закрыть 2-этапный токен проверки, скопировать его и сохранить в безопасном месте.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SMSCodeTip" xml:space="preserve">
-    <value>Введите код подтверждения SMS, отправленный на телефон.</value>
+    <value>На шаг ближе, введите код подтверждения SMS, отправленный на ваш телефон, и нажмите кнопку Продолжить.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAppImport" xml:space="preserve">
-    <value>Импорт телефона Steam</value>
+    <value>Мобильный импорт Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAppImportTip" xml:space="preserve">
-    <value>Путь к аутентификатору SteamGuard можно импортировать на устройство Android с root: /data/data/com.valvesoftware.android.steam.community, а затем скопировать содержимое следующих двух файлов в соответствующее поле ввода ниже</value>
+    <value>Вы можете импортировать путь аутентификатора SteamGuard с корневого устройства Android: /data/data/com.valvesoftware.android.steam.community, а затем скопировать содержимое следующих двух файлов в соответствующие поля ввода ниже.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamAuthTrade" xml:space="preserve">
-    <value>Подтвердите сделку</value>
+    <value>Подтвердите транзакцию</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamGuardTip" xml:space="preserve">
-    <value>В папке files откройте файл &apos;SteamGuard-NNNNNNNN&apos;, вставьте все содержимое файла</value>
+    <value>В папке файлов откройте файл &apos;SteamGuard-NNNNNNNN&apos; и вставьте все содержимое файла</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
@@ -1078,28 +1079,28 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Импорт данных маркера для экспорта версии Steam++V1</value>
+    <value>Импорт экспортированных данных токена для версии Steam++ V1</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>Импорт данных маркера для экспорта версии Steam++V2</value>
+    <value>Импорт экспортированных данных токена для версии Steam++ V2</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
-    <value>Убедитесь, что транзакция требует входа в Steam, программа не записывает ваш пароль, а только сохраняет статус входа локально.
-    (Если ускорение сети Steam не включено, вход в систему не будет успешным)</value>
+    <value>Для подтверждения транзакции нужно авторизоваться в Steam, программа не будет записывать ваш пароль, только сохранит статус логина локально.
+    (Не удалось успешно войти в систему без ускорения сети Steam)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
-    <value>Импорт учетной записи Steam</value>
+    <value>Импорт аккаунта Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUser_Error" xml:space="preserve">
-    <value>Не удается добавить дополнительный аутентификатор в свою учетную запись, повторите попытку позже.</value>
+    <value>Не удается добавить аутентификатор в свою учетную запись, повторите попытку позже.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUser_Requires2FA" xml:space="preserve">
-    <value>Ваша учетная запись, кажется, добавила аутентификатор, и вам нужно удалить существующий аутентификатор, чтобы его можно было импортировать через учетную запись.</value>
+    <value>Похоже, что в вашей учетной записи добавлен аутентификатор, и вам нужно удалить существующий аутентификатор, чтобы импортировать его через свою учетную запись.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUUID" xml:space="preserve">
@@ -1107,7 +1108,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamuuidTip" xml:space="preserve">
-    <value>В папке shared_prefs вставьте &apos;steam_uuid.xml&apos; uuidKey</value>
+    <value>В папку shared_prefs вставьте uuidKey для &apos;steam_uuid.xml&apos;</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SyncTime" xml:space="preserve">
@@ -1119,15 +1120,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_WinAuthTip" xml:space="preserve">
-    <value>WinAuth — это портативный аутентификатор с открытым исходным кодом для Windows, предоставляющий аутентификаторы RFC 6238 на основе счетчиков или времени и общие реализации. Способ импорта: После экспорта txt-файла из WinAuth выберите TXT-файл, экспортированный из WinAuth для импорта.</value>
+    <value>WinAuth — это портативный аутентификатор с открытым исходным кодом для Windows, который предоставляет аутентификаторы RFC 6238 на основе счетчиков или времени и общие реализации. Метод импорта: После экспорта txt-файла из WinAuth выберите txt-файл, экспортированный из WinAuth, для импорта.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Lock" xml:space="preserve">
-    <value>Блокировка</value>
+    <value>замок</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>запись</value>
+    <value>Логин</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
@@ -1139,15 +1140,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Выход из системы</value>
+    <value>Выходить</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
-    <value>Введите системный пароль для продолжения или выполните команду копирования вручную</value>
+    <value>Пожалуйста, введите системный пароль, чтобы продолжить или скопировать команду вручную</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Modify" xml:space="preserve">
-    <value>изменения</value>
+    <value>пересматривать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="More" xml:space="preserve">
@@ -1155,35 +1156,35 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MoveDown" xml:space="preserve">
-    <value>Переместитесь вниз</value>
+    <value>Перемещение вниз</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MoveUp" xml:space="preserve">
-    <value>Переместитесь вверх</value>
+    <value>Придвигаться</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="My" xml:space="preserve">
-    <value>Мой</value>
+    <value>Это моё</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NextStep" xml:space="preserve">
-    <value>Далее</value>
+    <value>Следующий</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NickName" xml:space="preserve">
-    <value>Прозвище</value>
+    <value>прозвище</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OtherGamePlaform" xml:space="preserve">
-    <value>другие платформы</value>
+    <value>Другие платформы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Paste" xml:space="preserve">
-    <value>Вставьте</value>
+    <value>торчащий</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseEnterNickName" xml:space="preserve">
-    <value>Введите псевдоним</value>
+    <value>Пожалуйста, введите никнейм</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseSelect" xml:space="preserve">
@@ -1203,15 +1204,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>Ваш маркер был добавлен в учетную запись Steam и успешно импортирован в Steam++. Это код восстановления, который можно использовать для удаления из учетной записи, если вы потеряли аутентификатор. Пожалуйста, запишите его сейчас и оставьте его в надежном месте.</value>
+    <value>Ваш токен был добавлен в ваш аккаунт Steam и успешно импортирован в Steam++. Это ваш код восстановления, который вы можете использовать для удаления из своей учетной записи в случае потери аутентификатора. Пожалуйста, запишите его сейчас и храните в надежном месте.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
-    <value>Обновите</value>
+    <value>Покраснел</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RefreshList" xml:space="preserve">
-    <value>Обновите список</value>
+    <value>Обновить список</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RefreshOK" xml:space="preserve">
@@ -1223,47 +1224,47 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptConfig" xml:space="preserve">
-    <value>Конфигурация сценария</value>
+    <value>Конфигурация скрипта</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptConfig_ScriptEmptyTip" xml:space="preserve">
-    <value>Соответствующий файл сценария не запрашивается, и его можно загрузить из мастерской сценариев.</value>
+    <value>Если соответствующий файл сценария не запрашивается, его можно загрузить из мастерской сценариев.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptShop_GetTableError" xml:space="preserve">
-    <value>Не удалось получить список мастерских сценариев.</value>
+    <value>Не удалось получить список мастерских скриптов.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptShop_NoDelete_Basics" xml:space="preserve">
-    <value>GM — это базовая платформа, которая не допускает удаления</value>
+    <value>ГМ является базовой структурой, которая не допускает исключения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptShop_NoLogin" xml:space="preserve">
-    <value>С помощью мастерской сценариев необходимо сначала войти в систему.</value>
+    <value>Чтобы использовать Мастерскую сценариев, сначала необходимо войти в систему.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ScriptStore" xml:space="preserve">
-    <value>Мастерская сценариев</value>
+    <value>Семинар по сценариям</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_AutoUpdate" xml:space="preserve">
-    <value>Включите автоматическое обновление проверки сценариев</value>
+    <value>Включение сценариев для автоматической проверки наличия обновлений</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteItem" xml:space="preserve">
-    <value>Вы действительно хотите удалить сценарий?</value>
+    <value>Вы уверены, что хотите удалить этот скрипт?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Edit" xml:space="preserve">
-    <value>Отредактируйте сценарий</value>
+    <value>Редактирование скрипта</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_EditTxt" xml:space="preserve">
-    <value>Чтобы завершить изменение сценария, нажмите кнопку ОК, чтобы обновить кэш.</value>
+    <value>Если изменение сценария завершено, нажмите кнопку ОК, чтобы обновить кэш.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileError" xml:space="preserve">
-    <value>Не удается найти файл, проверьте путь {0}</value>
+    <value>Файл не найден, проверьте путь {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Home" xml:space="preserve">
@@ -1271,11 +1272,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ImportLoading" xml:space="preserve">
-    <value>Работа со сценарием импорта</value>
+    <value>Обработка в скрипте импорта</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Install" xml:space="preserve">
-    <value>Установите сценарий</value>
+    <value>Сценарий установки</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Installed" xml:space="preserve">
@@ -1283,19 +1284,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
-    <value>Текстовый файл был потерян, следует ли удалять записи сценариев.</value>
+    <value>Текстовый файл отсутствует, независимо от того, удалена ли запись скрипта.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Refresh" xml:space="preserve">
-    <value>Обновите кэш</value>
+    <value>Обновление кэша</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ReplaceTips" xml:space="preserve">
-    <value>Этот сценарий установлен, чтобы определить замену установленной версии?</value>
+    <value>Установлен ли этот сценарий ОК, заменяя установленную версию?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_Update" xml:space="preserve">
-    <value>Обновите сценарий</value>
+    <value>Обновление скрипта</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_UpdateError" xml:space="preserve">
@@ -1303,23 +1304,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Поиск...</value>
+    <value>Искать...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SelectFileImport" xml:space="preserve">
-    <value>Выберите импорт файла {0}</value>
+    <value>Выберите {0} импорт файлов</value>
     <comment>Comment=*.txt;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>настройки</value>
+    <value>Устанавливать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Auth" xml:space="preserve">
-    <value>Настройки маркера</value>
+    <value>Настройки токена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Fonts" xml:space="preserve">
-    <value>Шрифты</value>
+    <value>шрифт</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General" xml:space="preserve">
@@ -1327,19 +1328,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
-    <value>Автоматическая проверка обновлений</value>
+    <value>Автоматическая проверка наличия обновлений</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
-    <value>Сведите к минимуму лоток при запуске</value>
+    <value>Свернуть в лоток при запуске</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_StartAutoRun" xml:space="preserve">
-    <value>Загрузка начинается с момента запуска</value>
+    <value>Автоматическая загрузка</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value>язык</value>
+    <value>Язык</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam" xml:space="preserve">
@@ -1347,7 +1348,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>Программа запускается автоматически при запуске Steam</value>
+    <value>Steam запускается автоматически при запуске программы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
@@ -1355,7 +1356,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_RuningMinimize" xml:space="preserve">
-    <value>Сведите к минимуму лоток при запуске Steam</value>
+    <value>Пар сворачивается в лоток при запуске</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_SteamStratParameter" xml:space="preserve">
@@ -1363,7 +1364,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
-    <value>Темы</value>
+    <value>тема</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI" xml:space="preserve">
@@ -1375,55 +1376,55 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_Dark" xml:space="preserve">
-    <value>Темный цвет</value>
+    <value>Темный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_Light" xml:space="preserve">
-    <value>Светлый цвет</value>
+    <value>свет</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_SystemDefault" xml:space="preserve">
-    <value>Следуйте за системой</value>
+    <value>Следите за системой</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SignOut" xml:space="preserve">
-    <value>Выйдите из системы</value>
+    <value>Выйти</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SMSCode" xml:space="preserve">
-    <value>Код проверки SMS</value>
+    <value>Код подтверждения SMS</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SourceRepository" xml:space="preserve">
-    <value>Хранилище исходного кода</value>
+    <value>Исходный репозиторий</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="StartUpdate" xml:space="preserve">
-    <value>Начните обновление</value>
+    <value>Запустите обновление</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAccount" xml:space="preserve">
-    <value>Учетная запись Steam</value>
+    <value>Аккаунт Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Application" xml:space="preserve">
-    <value>программное обеспечение</value>
+    <value>Программное обеспечение</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Beta" xml:space="preserve">
-    <value>тест</value>
+    <value>Тест</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Config" xml:space="preserve">
-    <value>Конфигурация</value>
+    <value>расположение</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Demo" xml:space="preserve">
-    <value>Demo</value>
+    <value>Демонстрация</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_DepotOnly" xml:space="preserve">
-    <value>Склад</value>
+    <value>склад</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_DLC" xml:space="preserve">
@@ -1431,55 +1432,55 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Driver" xml:space="preserve">
-    <value>Привод</value>
+    <value>гнать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Franchise" xml:space="preserve">
-    <value>Авторизация</value>
+    <value>авторизация</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Game" xml:space="preserve">
-    <value>Игры</value>
+    <value>Игра</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Guide" xml:space="preserve">
-    <value>Руководство</value>
+    <value>гид</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Hardware" xml:space="preserve">
-    <value>Аппаратное обеспечение</value>
+    <value>скобяные изделия</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Media" xml:space="preserve">
-    <value>Трейлер видео</value>
+    <value>Тизерное видео</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Mod" xml:space="preserve">
-    <value>Мод</value>
+    <value>Модуль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Music" xml:space="preserve">
-    <value>Оригинальная звуковая дорожка</value>
+    <value>Саундтрек</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Plugin" xml:space="preserve">
-    <value>Подключаемый модуль</value>
+    <value>Плагины</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Series" xml:space="preserve">
-    <value>Кино- и телевизионные наборы</value>
+    <value>Кино и телевизионные эпизоды</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Shortcut" xml:space="preserve">
-    <value>Ярлыки</value>
+    <value>ярлык</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Tool" xml:space="preserve">
-    <value>инструменты</value>
+    <value>инструмент</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Unknown" xml:space="preserve">
-    <value>Неизвестно</value>
+    <value>Неизвестный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAppType_Video" xml:space="preserve">
@@ -1487,7 +1488,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ImageCodeTip" xml:space="preserve">
-    <value>Введите проверочный код на рисунке</value>
+    <value>Введите проверочный код на картинке</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_Password" xml:space="preserve">
@@ -1503,35 +1504,35 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Toolbox" xml:space="preserve">
-    <value>Набор инструментов</value>
+    <value>ящик для инструментов</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Поставить на вершину</value>
+    <value>Вверх</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Unbound" xml:space="preserve">
-    <value>Не привязан</value>
+    <value>Не связано</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Unbundling" xml:space="preserve">
-    <value>Расстегни</value>
+    <value>Развязывать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UnderConstruction" xml:space="preserve">
-    <value>Эта функция находится в стадии разработки, так что следите за обновлениями</value>
+    <value>Функция находится в стадии разработки, так что следите за обновлениями</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UnsavedEditingWillBeDiscarded" xml:space="preserve">
-    <value>Несохраненные изменения будут удалены</value>
+    <value>Несохраненные правки отбрасываются</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Up" xml:space="preserve">
-    <value>Переместитесь вверх</value>
+    <value>Придвигаться</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateContent" xml:space="preserve">
-    <value>Обновите содержимое</value>
+    <value>Обновление содержимого</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadYourAvatar" xml:space="preserve">
@@ -1539,43 +1540,43 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UploadYourAvatarDesc" xml:space="preserve">
-    <value>Загрузите файл с устройства. Изображение должно быть квадратным, не менее 400px x 400px</value>
+    <value>Загрузите файл со своего устройства. Изображение должно быть квадратным, не менее 400px x 400px</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_BtnText" xml:space="preserve">
-    <value>Войдите в Steam одним щелчком мыши</value>
+    <value>Вход в Steam в один клик</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_BtnTootlip" xml:space="preserve">
-    <value>Нажатие этой кнопки перезапустит Steam и войдет в систему с этой учетной записью</value>
+    <value>Нажатие этой кнопки перезапустит Steam и войдет в эту учетную запись</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_DeleteUser" xml:space="preserve">
-    <value>Удалите эти данные учетной записи</value>
+    <value>Удаление данных этой учетной записи</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_DeleteUserDataTip" xml:space="preserve">
-    <value>Следует ли также удалить данные кэша Steam для этой учетной записи локально (включая профили и файлы мастерской для этой игры учетной записи).</value>
+    <value>Следует ли одновременно удалять локальные данные кэша Steam этой учетной записи (включая конфигурационный файл игры этой учетной записи и файлы мастерской этой учетной записи)?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
-    <value>Вы действительно хотите удалить эту локальную учетную запись записи?</value>
+    <value>Вы уверены, что хотите удалить эту локальную учетную запись записей?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
-    <value>Измените заметки об учетной записи</value>
+    <value>Изменение заметок учетной записи</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_LoginNewAccount" xml:space="preserve">
-    <value>Войдите в новую учетную запись Steam</value>
+    <value>Войдите в свой новый аккаунт Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_NoUserTip" xml:space="preserve">
-    <value>Данные учетной записи Steam не были прочитаны на компьютере.</value>
+    <value>Данные учетной записи Steam не считываются на вашем компьютере.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_OfflineBtn" xml:space="preserve">
-    <value>Запуск в автономном режиме</value>
+    <value>Запуск автономного режима</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_OpenUserUrl" xml:space="preserve">
@@ -1583,27 +1584,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RecentLogin" xml:space="preserve">
-    <value>Недавно войти в систему</value>
+    <value>Недавно выполнен вход</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
-    <value>Пароль запомнился</value>
+    <value>Статус входа запоминается</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserFastChange" xml:space="preserve">
-    <value>Переключение учетных записей</value>
+    <value>Переключение аккаунта</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile" xml:space="preserve">
-    <value>Профиль</value>
+    <value>Персональные данные</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile_BirthDate" xml:space="preserve">
-    <value>День рождения</value>
+    <value>день рождения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserProfile_Location" xml:space="preserve">
-    <value>Месторасположение</value>
+    <value>местоположение</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_AccountBind" xml:space="preserve">
@@ -1611,7 +1612,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_AccountBindTip" xml:space="preserve">
-    <value>Для распаковки учетной записи третьей стороны требуется привязанный номер мобильного телефона, и если вы хотите связать связанную учетную запись третьей стороны на другую учетную запись, вы можете выйти из связанной учетной записи с помощью [О -- Программное обеспечение - Выход из учетной записи].</value>
+    <value>Для отмены привязки учетной записи третьей стороны требуется привязанный номер мобильного телефона, если вы хотите отменить привязку сторонней учетной записи к другой учетной записи, вы можете использовать [О программе -Это программное обеспечение -Выход из учетной записи], чтобы отменить связанную учетную запись.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Agreement" xml:space="preserve">
@@ -1619,7 +1620,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_AppleLogin" xml:space="preserve">
-    <value>Войдите в систему с помощью Apple</value>
+    <value>Вход с помощью Apple</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_BasicInfo" xml:space="preserve">
@@ -1631,11 +1632,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_ChangePhoneNum" xml:space="preserve">
-    <value>Переодевайте телефон</value>
+    <value>Смена телефона</value>
     <comment>Comment=修改手机号;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_EditProfile" xml:space="preserve">
-    <value>Отредактируйте материал</value>
+    <value>Редактирование материала</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLogin" xml:space="preserve">
@@ -1643,7 +1644,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>Выберите способ входа в свою учетную запись Steam++</value>
+    <value>Выберите способ входа в свой аккаунт Steam++</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
@@ -1651,11 +1652,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_GetSMSCode" xml:space="preserve">
-    <value>Получите код подтверждения</value>
+    <value>Получить проверочный код</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Login" xml:space="preserve">
-    <value>Войдите в систему</value>
+    <value>логин</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginCodeTimeLimitTip" xml:space="preserve">
@@ -1663,31 +1664,31 @@
     <comment>Comment=短信验证码倒计时;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginError" xml:space="preserve">
-    <value>Неправильная учетная запись или пароль</value>
+    <value>Неверный номер счета или пароль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginError_Auth" xml:space="preserve">
-    <value>Текущая учетная запись маркера не соответствует учетной записи, в которую вы вошли</value>
+    <value>Текущая учетная запись токена не соответствует учетной записи, вошедшей в систему</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginError_CodeImage" xml:space="preserve">
-    <value>Введите код подтверждения изображения</value>
+    <value>Пожалуйста, введите код подтверждения изображения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginError_Null" xml:space="preserve">
-    <value>Пожалуйста, введите свою учетную запись и пароль</value>
+    <value>Пожалуйста, введите номер вашего счета и пароль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoginTroubleshoot" xml:space="preserve">
-    <value>Не можете войти в систему?</value>
+    <value>Не удается войти?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_LoiginSuccess" xml:space="preserve">
-    <value>Вход выполнен успешно</value>
+    <value>Вход в систему выполнен успешно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_MicroSoftLogin" xml:space="preserve">
-    <value>Войдите в систему с помощью корпорации Майкрософт</value>
+    <value>Вход с помощью майкрософт</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_NewPhone" xml:space="preserve">
@@ -1695,7 +1696,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_OtherFastLogin" xml:space="preserve">
-    <value>Другие быстрые входы</value>
+    <value>Другие быстрые входы в систему</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Phone" xml:space="preserve">
@@ -1703,7 +1704,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_PhoneLogin" xml:space="preserve">
-    <value>Номер мобильного телефона вошел в систему</value>
+    <value>Войдите в систему со своим номером телефона</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Privacy" xml:space="preserve">
@@ -1711,23 +1712,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_QQLogin" xml:space="preserve">
-    <value>Войдите в систему с помощью QQ</value>
+    <value>Вход с помощью QQ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Register" xml:space="preserve">
-    <value>Зарегистрируйтесь</value>
+    <value>зачислять</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_RegisterAgreed" xml:space="preserve">
-    <value>Регистрация означает, что вы прочитали и согласились</value>
+    <value>Зарегистрировавшись, вы прочитали и согласились</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_Rememberme" xml:space="preserve">
-    <value>Запомните статус входа в систему</value>
+    <value>Запомнить статус входа в систему</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>Вы действительно хотите выйти из Steam++?</value>
+    <value>Вы уверены, что хотите выйти из своей учетной записи Steam++?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -1735,35 +1736,35 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode_Error" xml:space="preserve">
-    <value>Пожалуйста, сначала получите код подтверждения</value>
+    <value>Пожалуйста, сначала получите проверочный код</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamAvatarTip" xml:space="preserve">
-    <value>Нажмите на аватар, чтобы быстро войти в систему</value>
+    <value>Коснитесь своего аватара, чтобы быстро войти в систему</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamFastLogin" xml:space="preserve">
-    <value>Steam быстрый вход</value>
+    <value>Быстрый вход в Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamFastLoginTimeoutErrorMessage" xml:space="preserve">
-    <value>Время ожидания подключения к сообществу Steam идентичено, проверьте, включено ли ускорение сети сообщества Steam.</value>
+    <value>При подключении к тайм-ауту сообщества Steam проверьте, включено ли ускорение сети сообщества Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamLogoTip" xml:space="preserve">
-    <value>Нажмите Перейти к быстрому окну входа</value>
+    <value>Нажмите, чтобы перейти к окну быстрого входа в систему</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SteamUnLoginTip" xml:space="preserve">
-    <value>Нажмите Steam Logo, чтобы войти в систему</value>
+    <value>Нажмите на логотип Steam, чтобы войти в систему.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_UnbundleAccountTip" xml:space="preserve">
-    <value>После распаковки связи со сторонней учетной записью, вы не сможете быстро войти в систему с этой сторонней учетной записью, вы уверены, чтобы разблокировать?</value>
+    <value>После отмены привязки сторонней учетной записи вы не сможете быстро войти в систему со сторонней учетной записью, обязательно ли она отвяжет?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_UseFastLoginChannel_" xml:space="preserve">
-    <value>Войдите в систему с помощью {0}</value>
+    <value>Вход с помощью {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_UsePhoneNumLoginChannel" xml:space="preserve">
@@ -1771,19 +1772,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Предупреждение</value>
+    <value>предупреждать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Начальная страница</value>
+    <value>домашняя страница</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_CertificateTrust" xml:space="preserve">
-    <value>Сертификат доверия</value>
+    <value>Доверяйте сертификату</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Loading" xml:space="preserve">
-    <value>Загрузка данных маркера...</value>
+    <value>Загрузка данных токена...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Code" xml:space="preserve">
@@ -1791,15 +1792,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Code_Desc" xml:space="preserve">
-    <value>Для проверки входа можно использовать одноразовый код пароля, созданный этим приложением</value>
+    <value>Вы можете использовать одноразовый код пароля, сгенерированный этим приложением, для проверки входа</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Code_Title" xml:space="preserve">
-    <value>Одноразовый пароль включен</value>
+    <value>Одноразовые пароли включены</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="EditName" xml:space="preserve">
-    <value>Измените имя</value>
+    <value>Изменение имени</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SeeData" xml:space="preserve">
@@ -1807,19 +1808,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_Delete" xml:space="preserve">
-    <value>Удалите маркер</value>
+    <value>Удаление маркера</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Cancelled" xml:space="preserve">
-    <value>Отменено</value>
+    <value>Аннулированный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Confirmed" xml:space="preserve">
-    <value>Подтверждено</value>
+    <value>Хронический</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SelectAllText_" xml:space="preserve">
-    <value>Полный выбор ({0}/{1})</value>
+    <value>Выбрать все ({0}/{1})</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ImportByFilePicker" xml:space="preserve">
@@ -1827,19 +1828,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ImportByQRCode" xml:space="preserve">
-    <value>Импорт сканирования кода</value>
+    <value>Сканирование кода для импорта</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_LogoutTip" xml:space="preserve">
-    <value>Вы действительно хотите выйти из данных учетной записи для входа в текущий маркер?</value>
+    <value>Вы уверены, что хотите выйти из учетной записи для текущего входа в токен?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ExportAuth_ToQRCode" xml:space="preserve">
-    <value>Экспортируется в QR-код</value>
+    <value>Экспорт в виде QR-кода</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AuthLocal_ExportToQRCodeTooLongErrorTip" xml:space="preserve">
-    <value>Длина данных превышает максимальное значение QR-кода, попробуйте другой способ экспорта или один экспорт</value>
+    <value>Длина данных превышает максимальное значение QR-кода, попробуйте другой метод экспорта или один экспорт</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RememberChooseNotToAskAgain" xml:space="preserve">
@@ -1847,7 +1848,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown" xml:space="preserve">
-    <value>Загрузка Steam завершается помедленным завершением работы</value>
+    <value>Загрузка Steam завершает запланированное завершение работы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Translators" xml:space="preserve">
@@ -1855,27 +1856,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RemarkReplaceName" xml:space="preserve">
-    <value>Замените отображение псевдонима заметкой</value>
+    <value>Замена отображения псевдонима заметкой</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseGPURendering" xml:space="preserve">
-    <value>Используйте аппаратное ускорение</value>
+    <value>Интерфейс рендеринга с использованием GPU (аппаратное ускорение)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_RestartEffective" xml:space="preserve">
-    <value>* Программное обеспечение должно быть перезапущено и вступило в силу</value>
+    <value>*Для вступления в силу требуется перезагрузка программного обеспечения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UpdateChannel" xml:space="preserve">
-    <value>Загрузите канал обновления</value>
+    <value>Загрузка канала обновления</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppDetailsSettings" xml:space="preserve">
-    <value>Сведения о приложении</value>
+    <value>Сведения о заявке</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_AppNotificationSettings" xml:space="preserve">
-    <value>Применение уведомлений</value>
+    <value>Уведомления приложений</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
@@ -1883,11 +1884,11 @@
     <comment>Comment={0}文件夹名称英文字母组成;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
-    <value>Файл кэша занят {0}</value>
+    <value>Файл кэша, потребляемый {0}</value>
     <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_ClearCache" xml:space="preserve">
-    <value>Очистите кэшированные файлы</value>
+    <value>Очистка файлов кэша</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_StorageSpace" xml:space="preserve">
@@ -1895,35 +1896,35 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_Calcing" xml:space="preserve">
-    <value>В расчете...</value>
+    <value>Расчётливый...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SetBootAutoStartTrueFail_" xml:space="preserve">
-    <value>Сбой включения автозапуска по причине: {0}</value>
+    <value>Не удалось включить автозапуск загрузки, потому что: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_CheckSteamRuningNotification" xml:space="preserve">
-    <value>Всплывающее уведомление появляется при входе клиента Steam</value>
+    <value>При входе клиента Steam в систему появляется уведомление</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_CheckStarted" xml:space="preserve">
-    <value>Обнаружен запуск:</value>
+    <value>Обнаружен при запуске:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_CurrentIPCountry" xml:space="preserve">
-    <value>Область входа клиента Steam:</value>
+    <value>Вход в систему клиента Steam:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_CurrentUser" xml:space="preserve">
-    <value>Steam Вошедшие в систему пользователи:</value>
+    <value>Пользователи входа в Steam:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_SteamChina" xml:space="preserve">
-    <value>Национальная одежда Steam</value>
+    <value>Паровая национальная униформа</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_SteamWorld" xml:space="preserve">
-    <value>Международная одежда Steam</value>
+    <value>Стим Интернэшнл</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_LogSize" xml:space="preserve">
@@ -1931,11 +1932,11 @@
     <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_WaitFastLoginTip" xml:space="preserve">
-    <value>Мы открыли окно быстрого входа с помощью вашего системного браузера, пожалуйста, перейдите на эту страницу и войдите в систему. Оставьте окно открытым</value>
+    <value>Мы открыли окно быстрого входа в систему с помощью вашего системного браузера, пожалуйста, перейдите на эту страницу и войдите в систему. Оставьте окно открытым</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Retry" xml:space="preserve">
-    <value>Повторите попытку</value>
+    <value>снова пробовать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RefreshAvatar" xml:space="preserve">
@@ -1943,15 +1944,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AsyncSteamAvatar" xml:space="preserve">
-    <value>Синхронизируйте аватары Steam</value>
+    <value>Синхронизация аватара Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="AsyncSteamAvatarDesc" xml:space="preserve">
-    <value>После привязки учетной записи Steam можно вручную одновременно обновить аватар учетной записи Steam.</value>
+    <value>После привязки аккаунта Steam вы можете вручную синхронизировать и обновить аватар аккаунта Steam.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_ThemeAccent" xml:space="preserve">
-    <value>Цвет темы</value>
+    <value>Акцентный цвет</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_Custom" xml:space="preserve">
@@ -1959,7 +1960,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
-    <value>Включите закругленный интерфейс</value>
+    <value>Включение интерфейса с закругленным углом</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_UnLogin" xml:space="preserve">
@@ -1971,11 +1972,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Полный выбор</value>
+    <value>Выбрать все</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Helper" xml:space="preserve">
-    <value>Помощь</value>
+    <value>Справка</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_CustomBackgroundImage" xml:space="preserve">
@@ -1983,55 +1984,55 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Сброс</value>
+    <value>сброс</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_SelectImage" xml:space="preserve">
-    <value>Выберите изображение</value>
+    <value>Выберите рисунок</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login_ManualLogin" xml:space="preserve">
-    <value>Войдите в систему вручную</value>
+    <value>Войти вручную</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginInputManualLoginToken" xml:space="preserve">
-    <value>Вставьте содержимое, скопированное на веб-странице.</value>
+    <value>Пожалуйста, вставьте скопированное содержимое веб-страницы.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login_ManualLoginEmpt" xml:space="preserve">
-    <value>Введенное содержимое не может быть пустым.</value>
+    <value>Входные данные не могут быть пустыми.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login_WebSocketOnMessage" xml:space="preserve">
-    <value>Не удалось расшифровать данные, убедитесь, что данные были правильно повторен.</value>
+    <value>Не удалось выполнить расшифровку данных, убедитесь, что данные повторены правильно.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamAccountPage_ShareEmpt" xml:space="preserve">
-    <value>Библиотека семейного доступа пуста.</value>
+    <value>Домашняя разделяемая библиотека пуста.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxySettings" xml:space="preserve">
-    <value>Параметры прокси-сервера</value>
+    <value>Настройки прокси-сервера</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CaptureScreen" xml:space="preserve">
-    <value>Захват экрана</value>
+    <value>Снимок экрана</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CaptureScreen_Desc" xml:space="preserve">
-    <value>Позвольте другим приложениям захватывать экраны</value>
+    <value>Разрешить другим приложениям захватывать ваш экран</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_ChangeUserTip" xml:space="preserve">
-    <value>Переключитесь на {0} войдите в Steam</value>
+    <value>Переключитесь {0} войдите в Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
-    <value>Агент включает только функцию сценария</value>
+    <value>Агент включает только функцию создания сценариев</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_AppReview" xml:space="preserve">
-    <value>Оценка и оценка</value>
+    <value>Скоринг и рейтинг</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CalcHashing3_" xml:space="preserve">
@@ -2063,7 +2064,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdate" xml:space="preserve">
-    <value>Новая версия обновлена</value>
+    <value>Обновление новой версии</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
@@ -2071,24 +2072,24 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
-    <value>Уведомление о приглашении при появлении нового объявления.</value>
+    <value>Оперативное уведомление о появлении нового объявления.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
-    <value>Новая версия уведомления</value>
+    <value>Уведомление о новой версии</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
-    <value>Сценарий зависит от ошибки загрузки: {0}
+    <value>Ошибка загрузки зависимостей скрипта: {0}
     {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_BuildError" xml:space="preserve">
-    <value>Ошибка привязки сценария: {0}</value>
+    <value>Ошибка привязки скрипта: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_CacheDeleteError" xml:space="preserve">
-    <value>Сбой удаления файла кэша: {0}</value>
+    <value>Ошибка удаления файла кэша: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_DeleteError" xml:space="preserve">
@@ -2100,43 +2101,43 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileDeleteError" xml:space="preserve">
-    <value>Сбой удаления файла: {0}</value>
+    <value>Ошибка удаления файла: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_FileRepeat" xml:space="preserve">
-    <value>Сценарий повторяется</value>
+    <value>Скрипт повторяется</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFile" xml:space="preserve">
-    <value>Сценарий: {0} файл потерян</value>
+    <value>Скрипт: {0} файлы отсутствуют и удалены</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_NoFileDeleteError" xml:space="preserve">
-    <value>Сценарий: {0} файл отсутствует, удаление не удалось попытаться удалить вручную</value>
+    <value>Сценарий: {0} файл отсутствует, удалить не удалось попытаться удалить вручную</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_ReadFileError" xml:space="preserve">
-    <value>Сценарий считывает исключение, проверьте синтаксис на наличие ошибок: {0}</value>
+    <value>Исключения чтения сценариевПроверьте синтаксис на наличие ошибок: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDBError" xml:space="preserve">
-    <value>Повторите попытку сохранения данных по ошибке</value>
+    <value>Ошибка сохранения данных, пожалуйста, повторите попытку</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_SaveDbSuccess" xml:space="preserve">
-    <value>Добавление выполнено успешно</value>
+    <value>Успешно добавлено</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_NewVersion" xml:space="preserve">
-    <value>Уведомление о ходе выполнения при загрузке новой версии, когда доступна новая версия.</value>
+    <value>Уведомление о доступности новой версии и уведомление о ходе работы при загрузке новой версии.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
-    <value>Уведомление о объявлении</value>
+    <value>Уведомление об объявлении</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
-    <value>Размер файла слишком велик</value>
+    <value>Слишком большой размер файла</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
@@ -2144,11 +2145,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
-    <value>Ошибка HOSTS {0}</value>
+    <value>{0} ошибок узла операции</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ в обновлении замены...</value>
+    <value>Обновление замены Steam++ в процессе...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
@@ -2156,7 +2157,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>Не удалось распаковать пакет обновления, откройте официальный сайт для ручного обновления</value>
+    <value>Пакет обновления не может быть извлечен, пожалуйста, откройте официальный сайт для обновления вручную</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_NoValidkey" xml:space="preserve">
@@ -2164,15 +2165,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey" xml:space="preserve">
-    <value>Активируйте Key в пакетном режиме</value>
+    <value>Клавиша активации тома</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey" xml:space="preserve">
-    <value>Введите Key</value>
+    <value>Введите ключ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_UsedKeys" xml:space="preserve">
-    <value>Используется</value>
+    <value>Использованный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_UnusedKey" xml:space="preserve">
@@ -2184,19 +2185,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Stop" xml:space="preserve">
-    <value>Остановите ASF</value>
+    <value>Остановить АЧС</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AddBot" xml:space="preserve">
-    <value>Добавлен Бот</value>
+    <value>Добавление бота</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RefreshBot" xml:space="preserve">
-    <value>Обновите Бот</value>
+    <value>Обновление бота</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIConsole" xml:space="preserve">
-    <value>Откройте консоль веб-интерфейса пользователя</value>
+    <value>Открытие консоли WebUI</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Console" xml:space="preserve">
@@ -2204,7 +2205,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_BotManage" xml:space="preserve">
-    <value>Конфигурация Bot</value>
+    <value>Конфигурация бота</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_GlobalConfig" xml:space="preserve">
@@ -2212,7 +2213,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_VersionNum" xml:space="preserve">
-    <value>Текущая версия ArchiSteamFarm: </value>
+    <value>Текущая версия ArchiSteamFarm : </value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
@@ -2220,11 +2221,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
-    <value>Перейдите к глобальным параметрам веб-интерфейса пользователя</value>
+    <value>Переход к глобальным параметрам WebUI</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_ImportBotFile" xml:space="preserve">
-    <value>Импорт существующих файлов ASF Bot</value>
+    <value>Импорт существующего файла ASF-бота</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequirRunASF" xml:space="preserve">
@@ -2232,7 +2233,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKeyBotSuccessTip" xml:space="preserve">
-    <value>{0} ключей были добавлены в очередь активации, и ключи в очереди автоматически помещаются в очередь для активации.</value>
+    <value>{0} ключ был добавлен в очередь активации, и ключ в очереди автоматически ставится в очередь для активации.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_CardsRemaining" xml:space="preserve">
@@ -2244,7 +2245,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_GamesRemaining" xml:space="preserve">
-    <value>Оставшиеся игры</value>
+    <value>Остальные игры</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RunCardFarming" xml:space="preserve">
@@ -2252,19 +2253,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_StopCardFarming" xml:space="preserve">
-    <value>Остановите висячие карты</value>
+    <value>Остановите карту с повешением</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Enable" xml:space="preserve">
-    <value>Включено</value>
+    <value>давать возможность</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Disable" xml:space="preserve">
-    <value>Отключено</value>
+    <value>отключить</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Offline" xml:space="preserve">
-    <value>В автономном режиме</value>
+    <value>автономный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Online" xml:space="preserve">
@@ -2272,7 +2273,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_NowCardFarming" xml:space="preserve">
-    <value>Висит карта</value>
+    <value>Висячая карточка</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput" xml:space="preserve">
@@ -2280,7 +2281,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_TwoFactorAuthentication" xml:space="preserve">
-    <value>Токен</value>
+    <value>жетон</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_Login" xml:space="preserve">
@@ -2288,11 +2289,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_Password" xml:space="preserve">
-    <value>Пароль</value>
+    <value>пароль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RequiredInput_SteamParentalCode" xml:space="preserve">
-    <value>Код домашней опеки</value>
+    <value>Код семейного мониторинга</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SelectFile" xml:space="preserve">
@@ -2304,27 +2305,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
-    <value>Попробуйте снова войти в систему, если состояние входа истекло.</value>
+    <value>Срок действия статуса входа истек Пожалуйста, попробуйте войти в систему еще раз.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
-    <value>Вы успешно импортировали маркер через вход в учетную запись, и, наконец, проверьте, работает ли маркер, и если вы не можете использовать возможный сбой импорта, попробуйте повторно импортировать и удалить недопустимый маркер.</value>
+    <value>Вы успешно импортировали свой токен через логин учетной записи, пожалуйста, наконец, проверьте, можно ли использовать ваш токен нормально, если он недоступен, импорт может завершиться ошибкой, попробуйте повторно импортировать и удалить недействительный токен.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground" xml:space="preserve">
-    <value>Используйте динамический фон рабочего стола</value>
+    <value>Использование динамического фона рабочего стола</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Error" xml:space="preserve">
-    <value>Эта функция не поддерживается, если фоновый прозрачный материал {0}</value>
+    <value>Включение этой функции, когда фоновый прозрачный материал {0} не поддерживается</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_InGame" xml:space="preserve">
-    <value>В игре</value>
+    <value>игра</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_CustomBackgroundImage_Error" xml:space="preserve">
-    <value>Выбранное изображение имеет неправильный формат</value>
+    <value>Выбранное изображение отформатировано неправильно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_WindowTransparencyMaterial" xml:space="preserve">
@@ -2332,31 +2333,31 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
-    <value>Агент прослушивает IP-адрес</value>
+    <value>IP-адрес прослушивания прокси-сервера</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
-    <value>Локальный агент Socks5</value>
+    <value>Локальный прокси Socks5</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
-    <value>Прослушивание портов</value>
+    <value>Порт прослушивания</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
-    <value>Агент уровня 2</value>
+    <value>Вторичный агент</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_ProxyType" xml:space="preserve">
-    <value>Тип агента</value>
+    <value>Тип прокси</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_IPAddress" xml:space="preserve">
-    <value>Адрес</value>
+    <value>адрес</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_Port" xml:space="preserve">
-    <value>Порт</value>
+    <value>порт</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_UserName" xml:space="preserve">
@@ -2364,88 +2365,88 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_Password" xml:space="preserve">
-    <value>Пароль</value>
+    <value>пароль</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_UseOpenGL" xml:space="preserve">
-    <value>Используйте визуализацию OpenGL</value>
+    <value>Использование рендеринга OpenGL</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Download_ScriptError_" xml:space="preserve">
-    <value>Ошибка загрузки сценария {0}, повторите попытку.</value>
+    <value>Ошибка загрузки скрипта {0}, пожалуйста, повторите попытку.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FixNetworkComplete" xml:space="preserve">
-    <value>Исправлена ошибка, из-за которой была завершена сеть</value>
+    <value>Восстановление сети завершено</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Script_AllEnable" xml:space="preserve">
-    <value>Все включено</value>
+    <value>Включить все</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_ImportSuccessTip" xml:space="preserve">
-    <value>Успешно импортировано {0} файлов</value>
+    <value>{0} файлы успешно импортированы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DelAccount_VerifyDesc_NickName" xml:space="preserve">
-    <value>Введите псевдоним для проверки</value>
+    <value>Пожалуйста, введите псевдоним для проверки</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DelAccount_VerifyDesc_PhoneNumber" xml:space="preserve">
-    <value>Пожалуйста, введите номер мобильного телефона для проверки</value>
+    <value>Пожалуйста, введите номер вашего мобильного телефона для подтверждения</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DelAccount_VerifyError_NickName" xml:space="preserve">
-    <value>Введено неправильное прозвище, введите его еще раз</value>
+    <value>Введенный никнейм неправильный, пожалуйста, введите его повторно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DelAccount_VerifyError_PhoneNumber" xml:space="preserve">
-    <value>Введите неправильный номер мобильного телефона, пожалуйста, введите его снова</value>
+    <value>Введенный номер мобильного телефона неверен, пожалуйста, введите его повторно</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate" xml:space="preserve">
-    <value>взносы</value>
+    <value>дарить</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateType" xml:space="preserve">
-    <value>Способы внесения взносов</value>
+    <value>Способы пожертвования</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateRecord" xml:space="preserve">
-    <value>Отчеты о взносах</value>
+    <value>Записи о пожертвованиях</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateRecord_Prompt" xml:space="preserve">
-    <value>Спасибо всем на записи здесь</value>
+    <value>Спасибо всем в записи</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateRecord_NoData" xml:space="preserve">
-    <value>Никто не пожертвовал в этом месяце ...</value>
+    <value>Никто не пожертвовал в этом месяце...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_DonateRecord_Error" xml:space="preserve">
-    <value>Произошла ошибка при загрузке данных списка пожертвований:</value>
+    <value>Ошибка загрузки данных списка пожертвований:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Поддержка разработки Steam++</value>
+    <value>Поддержка разработки в Steam++</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_3" xml:space="preserve">
-    <value>Вместо восстановления текущей модификации все достижения и статистика обнуляются.
-Ты уверен в этом?</value>
+    <value>Вместо того, чтобы отменять текущие изменения, эта операция обнуляет все достижения и статистику.
+Вы действительно уверены?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Warning_2" xml:space="preserve">
     <value>Код ошибки: {0}
-Произошла ошибка при извлечении статистики достижений, возможно, игра не была выполнена или у вас ее нет.</value>
+Произошла ошибка при получении статистики достижений, либо потому, что в игре нет достижений, либо у вас нет игры.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_RedeemKey_InputKey_Watermark" xml:space="preserve">
-    <value>Вы можете ввести любой текст, который будет автоматически распознаваться до тех пор, пока он содержит SteamKey, чтобы добавить в список активации, или введите его в следующем формате:
-AAAAA-BBBBB-CCCC1
-AAAAA-BBBBB-CCCC2
-AAAAA-BBBBB-CCCC3</value>
+    <value>Вы можете ввести любой текст, который будет автоматически распознан и добавлен в список активаций, если он содержит SteamKey, или вы можете ввести его в следующем формате:
+ААААА-BBBBB-CCCC1
+ААААА-BBBBB-CCCC2
+ААААА-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_MessageBoxTip" xml:space="preserve">
@@ -2454,25 +2455,25 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=同意 or 取消;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_UI_EnableDesktopBackground_Tip" xml:space="preserve">
-    <value>*Экспериментальная функция (рекомендуется установить прозрачный материал в Transparent или AcrylicBlur при включении этой функции)
-Эта функция устанавливает живые обои Wallpaper Engine и другого программного обеспечения обоев в качестве фона программы, а также фон рабочего стола по умолчанию, если вы не запустили Wallpaper Engine. Фон вступает в силу только в главном окне, другие окна рекомендуют настроить прозрачность не полностью прозрачно или использовать фон рисунка. При использовании, будьте осторожны, чтобы переключить соответствующие темы самостоятельно в соответствии с темным цветом обоев для получения лучших результатов.</value>
+    <value>* Экспериментальная функция (рекомендуется установить прозрачные материалы в Transparent или AcrylicBlur при включении)
+Эта функция может установить обои Wallpaper Engine и другое программное обеспечение для обоев в качестве фона программы, и если вы не запустили Wallpaper Engine, вы будете использовать фон рабочего стола по умолчанию. Фон работает только в главном окне, другие окна рекомендуют настроить прозрачность, чтобы она не была полностью прозрачной или использовать фон изображения. При использовании обратите внимание на переключение соответствующей темы в соответствии с яркостью и темнотой обоев, чтобы получить лучшие результаты.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_UserLoginTip" xml:space="preserve">
-    <value>Войдите в учетную запись Steam для импорта маркеров, перед импортом необходимо удалить старый маркер, и этот способ импорта будет иметь 15-дневный период охлаждения для рыночных сделок.
-(Если ускорение сети Steam не включено, вход в систему не будет успешным)</value>
+    <value>Войдите в свою учетную запись Steam для импорта токенов, вам нужно удалить старый токен перед импортом, и этот метод импорта будет иметь 15-дневный период охлаждения для рыночных транзакций.
+(Не удалось успешно войти в систему без ускорения сети Steam)</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
-    <value>Вы действительно хотите войти в новую учетную запись Steam?
-Это завершает переход запущенного Steam к новому окну входа в учетную запись.</value>
+    <value>Вы уверены, что хотите войти в свой новый аккаунт Steam?
+Это действие заканчивается запуском Steam в окно входа в новую учетную запись.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Выпуск текущей версии &quot;Steam++&quot; неотделим от вашей поддержки, и если Steam++ поможет вам, и вы хотите, чтобы мы сохранили разработку и обслуживание новых функций в течение длительного времени, вы можете рассмотреть вопрос о внесении нам небольшого вклада, чтобы сделать наше обновление и обслуживание Steam++.
-*При внесении взносов, пожалуйста, не забудьте отметить UID вашей учетной записи Steam++ в сообщении для комментариев, чтобы мы могли позже обратной связи с наградами пожертвований на ваш счет.
+    <value>Релиз текущей версии &quot;Steam++&quot; неотделим от поддержки всех, если Steam++ поможет вам, и вы надеетесь, что мы сможем поддерживать разработку и обслуживание новых функций в течение длительного времени, вы можете рассмотреть возможность предоставления нам небольшого пожертвования, чтобы сделать нас более мотивированными для обновления и поддержки Steam++.
+*При пожертвовании, пожалуйста, помните, что UID вашей учетной записи Steam++ находится в сообщении комментария, чтобы мы могли отозвать награду за пожертвование на ваш аккаунт в будущем.
 
-После того, как люди, которые пожертвовали в версии 1.x, мы разработаем ссылку на веб-страницу для дополнения данных учетной записи, пожалуйста, обратите внимание на обновленную информацию и сохраните номер заказа, который вы когда-то пожертвовали.</value>
+После версии 1.x пожертвования мы разработаем ссылку на веб-страницу для записи данных учетной записи, пожалуйста, обратите внимание на обновление информации и сохранение номера заказа платежа, который вы пожертвовали.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
@@ -2484,63 +2485,63 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>Для получения UID необходимо войти в учетную запись Steam++</value>
+    <value>Вам нужно войти в свою учетную запись Steam++, чтобы получить UID</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Sleep" xml:space="preserve">
-    <value>Сон</value>
+    <value>спать</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Hibernate" xml:space="preserve">
-    <value>Спящий режим</value>
+    <value>спячка</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Shutdown" xml:space="preserve">
-    <value>Выключите его</value>
+    <value>Выключение</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Steam_ImageCodeShowError" xml:space="preserve">
-    <value>Не удается отобразить код подтверждения изображения?</value>
+    <value>Не удается отобразить коды подтверждения изображений?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
-    <value>Отображение/скрытие имени пользователя</value>
+    <value>Отображение/скрытие имен пользователей</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown_EnableWatchDownloading" xml:space="preserve">
-    <value>Включите мониторинг загрузки</value>
+    <value>Включить мониторинг загрузок</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Downloaded" xml:space="preserve">
-    <value>Загружено</value>
+    <value>Загрузить</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Installed" xml:space="preserve">
-    <value>Установлено</value>
+    <value>Установленный</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown_DownloadComplete" xml:space="preserve">
-    <value>Выполняется после выбора загрузки игры и завершения установки</value>
+    <value>Выполнение после завершения загрузки и установки выбранной игры</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
-    <value>Пользовательский прокси-DNS</value>
+    <value>Пользовательский прокси-сервер DNS</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
-    <value>Свойства файла доступны только для чтения, и изменение завершается неудачей, следуйте инструкциям по веб-странице {0}</value>
+    <value>Атрибут файла доступен только для чтения, изменение не удалось, пожалуйста, следуйте руководству по веб-странице {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
-    <value>Свойства файла доступны только для чтения, и изменение завершается неудачей, и вы можете попробовать создать резервную копию файла, а затем удалить его и повторить попытку</value>
+    <value>Атрибут file доступен только для чтения, изменение не удалось, вы можете сначала попытаться создать резервную копию файла, удалить его и повторить попытку</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
-    <value>Не удалось загрузить файл кэша пакета обновления, и кэш был удален, чтобы попытаться загрузить его снова, подождите</value>
+    <value>Загрузка пакета обновления проверка файла кэша не удалась, удаленный кэш пытается повторно загрузить, пожалуйста, подождите</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_ConsoleFontName" xml:space="preserve">
-    <value>Шрифт консоли</value>
+    <value>Консольный шрифт</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_ConsoleFontSize" xml:space="preserve">
@@ -2548,7 +2549,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_ConsoleMaxLine" xml:space="preserve">
-    <value>Консоль показывает максимальное количество строк</value>
+    <value>Консоль отображает максимальное количество строк</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_IPCPortId" xml:space="preserve">
@@ -2556,40 +2557,40 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_IPCPortOccupiedRandom" xml:space="preserve">
-    <value>Используйте случайный номер порта при использовании порта IPC</value>
+    <value>Случайный номер порта используется, когда порт IPC занят</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_IPCIsReadyFalse" xml:space="preserve">
-    <value>Пожалуйста, дождитесь запуска IPC...</value>
+    <value>Пожалуйста, подождите, пока IPC загрузится...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ShowHide" xml:space="preserve">
-    <value>Отображение/скрытие</value>
+    <value>Показать/Скрыть</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_DeleteBotTip" xml:space="preserve">
-    <value>Вы действительно хотите удалить этот бот?</value>
+    <value>Вы уверены, что хотите удалить этого бота?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_WebConfigGenerator" xml:space="preserve">
-    <value>Онлайн-генератор профилей</value>
+    <value>Онлайн генератор профилей</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
-    <value>Игра Steam загружена
-Система {1} через {0} секунды.</value>
+    <value>Игра Steam была загружена
+Система {1} через {0} секунд.</value>
     <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
-    <value>Linux необходимо предоставить системный пароль root для правильного использования этой функции</value>
+    <value>Linux требует системного пароля root для правильного использования этой функции</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Restarted" xml:space="preserve">
-    <value>Служба ASF была перезапущена</value>
+    <value>Служба ASF перезапущена</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Restarting" xml:space="preserve">
-    <value>Перезапуск службы ASF, пожалуйста, позже...</value>
+    <value>Перезапустив службу ASF, пожалуйста, подождите...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Started" xml:space="preserve">
@@ -2597,7 +2598,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Starting" xml:space="preserve">
-    <value>Запуск службы ASF, пожалуйста, позже...</value>
+    <value>Запуская услугу ASF, пожалуйста...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Stoped" xml:space="preserve">
@@ -2605,19 +2606,19 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_Stoping" xml:space="preserve">
-    <value>Служба ASF остановлена, пожалуйста, позже...</value>
+    <value>Остановив ассафетный сервис, пожалуйста, подождите...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
-    <value>Сбой запуска службы ускорения, {0} порт занят. Выключите программу, занимают {0} порт, или попробуйте использовать режим системного прокси-сервера.</value>
+    <value>Служба ускорения не запускается {0} порт занят. Закройте программу, занимающую {0} порт, или попробуйте использовать режим системного прокси.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild443___" xml:space="preserve">
-    <value>Сбой запуска службы ускорения, {0} порт занят {1} ({2}). Выключите программу, занимают {0} порт, или попробуйте использовать режим системного прокси-сервера.</value>
+    <value>Не удалось запустить службу ускорения, и {0} порт был занят {1} ({2}). Закройте программу, занимающую {0} порт, или попробуйте использовать режим системного прокси.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ReadHosts_IOException" xml:space="preserve">
-    <value>Не удалось прочитать или восстановить файл, так как он занят другими процессами и может быть другим несовместимым сетевым ускорителем, найдите занятый процесс, чтобы закрыть его.</value>
+    <value>Чтение или восстановление файлов не удалось из-за того, что они заняты другими процессами, возможно, другими несовместимыми сетевыми ускорителями, пожалуйста, найдите занятый процесс и закройте его.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_System" xml:space="preserve">
@@ -2629,23 +2630,23 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_GoToSystemSecuritySettings" xml:space="preserve">
-    <value>Откройте параметры безопасности</value>
+    <value>Открытие параметров безопасности</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExportedToPath_" xml:space="preserve">
-    <value>Экспортирован в путь: {0}</value>
+    <value>Экспортировано в путь: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_DeleteCertificateTipText_" xml:space="preserve">
-    <value>Вы должны найти его в системных настройках - Безопасность - Шифрование и учетные данные - Хранение учетных данных - Учетные данные пользователя{0} Нажмите Удалить в всплывающем окне после нажатия на элемент.</value>
+    <value>Вы должны найти {0} в Системных настройках - Безопасность - Шифрование и учетные данные - Хранилище учетных данных - Учетные данные пользователя Нажмите на элемент и нажмите Удалить во всплывающем окне.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_DeleteCertificateTipTitle" xml:space="preserve">
-    <value>Удалите сертификат в настройках безопасности</value>
+    <value>Удаление сертификата в параметрах безопасности</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_IsVpnMode" xml:space="preserve">
-    <value>Включите режим VPN</value>
+    <value>Включить режим VPN</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_OpenHostsDir" xml:space="preserve">
@@ -2657,15 +2658,15 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ResetHostsFileCatchTip_" xml:space="preserve">
-    <value>Сбой сброса файла Hosts, ошибка: {0}</value>
+    <value>Сбой сброса файла Hosts с ошибкой: {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ResetHostsFileTip" xml:space="preserve">
-    <value>Сброс файла Hosts приведет к удалению всех данных и восстановлению текущего значения операционной системы по умолчанию, рекомендуется ли редактировать файл Hosts, чтобы увидеть, есть ли необходимые данные для резервного копирования перед выполнением этой операции, подтвердите сброс?</value>
+    <value>Сброс файла Hosts удалит все данные и восстановит текущие значения операционной системы по умолчанию, рекомендуется сначала отредактировать файл Hosts, чтобы увидеть, есть ли необходимые данные для резервного копирования, прежде чем сделать это, вы хотите подтвердить сброс?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_Hosts_MarkDuplicate_" xml:space="preserve">
-    <value>В Mark появляется несколько [{0}], попробуйте сбросить файл Hosts или отредактировать файл Hosts и удалить лишний Mark и повторите попытку</value>
+    <value>Метка появляется несколько [{0}], попробуйте сбросить файл Hosts или отредактировать файл Hosts и удалить лишний Mark и повторите попытку</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ResetHostsFileOk" xml:space="preserve">
@@ -2673,11 +2674,11 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_ForegroundService" xml:space="preserve">
-    <value>Уведомление при включении службы регистрации.</value>
+    <value>Уведомление о включении службы поддержки на стойке регистрации.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Message" xml:space="preserve">
-    <value>Уведомление при появлении приглашенного сообщения.</value>
+    <value>Уведомление о появлении сообщения с запросом.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Name_ForegroundService" xml:space="preserve">
@@ -2689,15 +2690,47 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="StopService" xml:space="preserve">
-    <value>Остановите службу</value>
+    <value>Остановка службы</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyForegroundService_NotificationText" xml:space="preserve">
-    <value>Выполняется локальная служба агента ускорения.</value>
+    <value>Запущена служба локального агента ускорения.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ArchiSteamFarmForegroundService_NotificationText" xml:space="preserve">
     <value>Служба ASF запущена.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_RemoveAuth" xml:space="preserve">
+    <value>Отмена привязки маркера</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Настольная реализация мобильного аутентификатора Steam. Метод импорта: Выберите файл maFile в папке maFiles в каталоге SDA для импорта. (Импорт зашифрованных файлов не поддерживается, пожалуйста, удалите пароль перед импортом)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareDisable" xml:space="preserve">
+    <value>(Отключено)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareDisableBtn" xml:space="preserve">
+    <value>отключить</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_ShareEnableBtn" xml:space="preserve">
+    <value>давать возможность</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Steam_Share_RemoveShare" xml:space="preserve">
+    <value>Следует ли удалять эту общую папку домашней библиотеки.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_SetCryptKey" xml:space="preserve">
+    <value>Настройка пользовательского ключа</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ASF_ConsoleSettings" xml:space="preserve">
+    <value>Настройки консоли</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
-    <value>Клиент устарел, обновите новую версию</value>
+    <value>Клиент устарел, пожалуйста, обновитесь до новой версии</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
-    <value>Учетные данные для входа не работают, пожалуйста, снова войдите в систему</value>
+    <value>Учетные данные для входа в систему недействительны, пожалуйста, войдите в систему еще раз</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClientError_" xml:space="preserve">
-    <value>Ошибка клиента {0}</value>
+    <value>{0} ошибок клиента</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClientError__" xml:space="preserve">
-    <value>Ошибка клиента {0} - {1}</value>
+    <value>{0} ошибок клиента — {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
-    <value>Запущенная в данный момент программа не поступает из официальных источников</value>
+    <value>Запущенная в настоящее время программа не с официального канала</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
@@ -142,15 +142,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
-    <value>Ошибка на стороне службы {0}</value>
+    <value>{0} ошибок на стороне сервера</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
-    <value>Ошибка на стороне службы {0} - {1}</value>
+    <value>{0} ошибок на стороне сервера — {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
-    <value>Текущее системное время неверно или SSL-сертификат на стороне службы недействителен</value>
+    <value>Текущее системное время неверно или SSL-сертификат на стороне сервера недействителен</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>Service-side error {0} - login credentials are invalid, please log back in</value>
+    <value>Server error {0} - Login credentials are invalid, please log in again</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
-    <value>The binding failed and this account has been bound by another user</value>
+    <value>The binding failed, and this account has been bound by another user</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
-    <value>The account number has been blocked</value>
+    <value>The account has been blocked</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
@@ -134,11 +134,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>The number of verification code acquisitions reached today&apos;s limit Oh, try again tomorrow</value>
+    <value>The number of verification code acquisitions has reached the upper limit of today, oh, try it again tomorrow</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>Operation is a little frequent Oh, try again in 1 minute</value>
+    <value>The operation is a bit frequent, oh, try it again in 1 minute</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
@@ -146,23 +146,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在" xml:space="preserve">
-    <value>This cell phone number has been used</value>
+    <value>This phone number has been used</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_换绑手机" xml:space="preserve">
-    <value>This cell phone number has been bound</value>
+    <value>This mobile phone number has been bound</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="手机号码已存在_注册" xml:space="preserve">
-    <value>This cell phone number has been registered</value>
+    <value>This mobile phone number has been registered</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
-    <value>The new phone number cannot be the same as the old one</value>
+    <value>The new phone number cannot be the same as the old phone number</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>Nicknames must be no longer than {0} words in length</value>
+    <value>The maximum length of a nickname cannot exceed {0} word</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
@@ -170,7 +170,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>Service-side error 5001 - SMS service</value>
+    <value>Server-side error 5001 - SMS service</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入昵称" xml:space="preserve">
-    <value>Please enter your nickname</value>
+    <value>Please enter a nickname</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请输入正确的手机号码哦" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="请选择头像" xml:space="preserve">
-    <value>Please select the avatar</value>
+    <value>Please select an avatar</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
@@ -214,23 +214,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>Failed to download the update package, please download the new version manually on the official website</value>
+    <value>Failed to download the update package, please download the new version on the official website to manually update</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateEnumOutOfRange" xml:space="preserve">
-    <value>The resolution of the update package information failed, please download the new version manually on the official website</value>
+    <value>If the update package information is parsed, please download the new version on the official website to manually update it</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
-    <value>Downloading the update package cache file validation failed and deletion error, please remove {0} after trying to manually update on the official website</value>
+    <value>Download the update package cache file verification failed and delete error, please delete the {0} and try to update manually on the official website</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>File verification failed, please download the new version manually on the official website</value>
+    <value>If the file verification fails, please download the new version on the official website to manually update it</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>The update package unzipped failed, please download the new version manually on the official website</value>
+    <value>The update package fails to be extracted, please download the new version on the official website to manually update it</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

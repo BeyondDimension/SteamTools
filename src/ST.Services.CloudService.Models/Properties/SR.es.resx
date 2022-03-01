@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
-    <value>El cliente está disponible, actualice la nueva versión</value>
+    <value>El cliente está obsoleto, por favor actualice a la nueva versión</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
-    <value>Sus credenciales de inicio de sesión no son válidas, vuelva a iniciar sesión</value>
+    <value>Las credenciales de inicio de sesión no son válidas, vuelva a iniciar sesión</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClientError_" xml:space="preserve">
-    <value>{0} de errores de cliente</value>
+    <value>{0} de error de cliente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClientError__" xml:space="preserve">
@@ -134,19 +134,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
-    <value>El programa que se está ejecutando actualmente no es de un canal oficial</value>
+    <value>El programa actualmente en ejecución no es de un canal oficial</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
-    <value>La conexión de red está caída</value>
+    <value>La conectividad de red está interrumpida</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
-    <value>{0} de errores del lado del servicio</value>
+    <value>{0} de error del lado del servidor</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
-    <value>{0} de errores del lado del servicio: {1}</value>
+    <value>{0} de errores del lado del servidor: {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
