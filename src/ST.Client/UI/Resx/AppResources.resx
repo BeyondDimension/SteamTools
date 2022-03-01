@@ -148,7 +148,7 @@
     <value>修改的数据生效需要重启 Steam 是否需要重启 Steam。</value>
   </data>
   <data name="AccountChange_ShareManageAboutTips" xml:space="preserve">
-    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，如果不生效可以禁用启用选项保留需要的共享库。调整后保存重启 Steam 生效！</value>
+    <value>调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号B的共享却一直使用的是账号A的共享这种问题，从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！</value>
   </data>
   <data name="AccountChange_Title" xml:space="preserve">
     <value>家庭共享库管理</value>
@@ -1539,7 +1539,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>记住登录状态</value>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>确定要登出 Steam++ ?</value>
+    <value>确定要登出Steam++账号吗?</value>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
     <value>短信验证码</value>
@@ -1655,7 +1655,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>使用备注替换昵称显示</value>
   </data>
   <data name="Settings_General_UseGPURendering" xml:space="preserve">
-    <value>使用硬件加速</value>
+    <value>使用GPU渲染界面(硬件加速)</value>
   </data>
   <data name="Settings_RestartEffective" xml:space="preserve">
     <value>*需重启软件后生效</value>
@@ -2077,10 +2077,10 @@ AAAAA-BBBBB-CCCC3</value>
     <value>(已禁用)</value>
   </data>
   <data name="Steam_ShareDisableBtn" xml:space="preserve">
-    <value>禁用共享库</value>
+    <value>禁用</value>
   </data>
   <data name="Steam_ShareEnableBtn" xml:space="preserve">
-    <value>启用共享库</value>
+    <value>启用</value>
   </data>
   <data name="Steam_Share_RemoveShare" xml:space="preserve">
     <value>是否删除此家庭库共享。</value>

@@ -111,12 +111,11 @@ namespace System.Application.Services
                 //MainThread2.BeginInvokeOnMainThread(() =>
                 //{
                 Authenticators.Clear();
-                Authenticators.AddOrUpdate(authenticators);
                 if (isSync)
                 {
                     Task.Run(() =>
                     {
-                        foreach (var item in Authenticators.Items)
+                        foreach (var item in authenticators)
                             item.Sync();
                         //ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
                     }).ForgetAndDispose();
@@ -124,6 +123,7 @@ namespace System.Application.Services
                 //else
                 //    ToastService.Current.Notify(AppResources.LocalAuth_RefreshAuthSuccess);
                 //});
+                Authenticators.AddOrUpdate(authenticators);
             }
             else
             {
