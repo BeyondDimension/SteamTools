@@ -1041,6 +1041,10 @@
     <value>Importazione dell&apos;autorizzazione del desktop di Steam</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
+  <data name="LocalAuth_SDATip" xml:space="preserve">
+    <value>Implementazione desktop dell&apos;applicazione Mobile Authenticator di Steam. Metodo di importazione: selezionare il file maFile nella cartella maFiles nella directory SDA da importare. (L&apos;importazione di file criptati non è supportata, si prega di rimuovere la password prima di importare)</value>
+    <comment>Comment=;Author=Zhengye</comment>
+  </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>Visualizza gettone</value>
     <comment>Comment=;Author=Zhengye</comment>
