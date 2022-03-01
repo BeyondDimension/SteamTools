@@ -60,9 +60,10 @@ namespace System.Application.Services
             if (result.IsSuccess)
             {
                 NoticeTypes.Clear();
-                NoticeTypes.AddRange(result.Content!);
+                NoticeTypes.AddRange(result.Content!.OrderBy(x=>x.Index));
             }
         }
+
         public async Task GetTable(NoticeTypeDTO selectGroup)
         {
             if (selectGroup != null)
@@ -71,12 +72,13 @@ namespace System.Application.Services
                 var result = await client.Table(selectGroup.Id, selectGroup.Index);
                 if (result.IsSuccess)
                 {
-                    SelectGroup.Items = result.Content!;
+                    SelectGroup!.Items = result.Content!;
                 }
-                IsEmpty = SelectGroup.Items == null || SelectGroup.Items?.DataSource.Count == 0;
+                IsEmpty = SelectGroup!.Items == null || SelectGroup.Items?.DataSource.Count == 0;
 
             }
         }
+
         public NotificationService()
         {
             mCurrent = this;

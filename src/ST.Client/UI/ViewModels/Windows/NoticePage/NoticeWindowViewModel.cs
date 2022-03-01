@@ -20,7 +20,7 @@ namespace System.Application.UI.ViewModels
         }
         public override async void Activation()
         {
-            if (IsFirstActivation)
+            if (IsFirstActivation && NotificationService.Current.NoticeTypes.Count == 0)
                 await NotificationService.Current.InitializeNotice();
             base.Activation();
         }
