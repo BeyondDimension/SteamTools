@@ -58,6 +58,7 @@ namespace System.Application.Services
                     {
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
+                        httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
                         httpProxyService.Scripts = EnableProxyScripts;
                         if (IApplication.IsDesktopPlatform)
                         {
