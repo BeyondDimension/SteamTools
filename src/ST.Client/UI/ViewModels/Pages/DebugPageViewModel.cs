@@ -39,7 +39,7 @@ namespace System.Application.UI.ViewModels
 
         public DebugPageViewModel()
         {
-            IconKey = nameof(DebugPageViewModel);
+            IconKey = nameof(GameRelatedPageViewModel);
         }
 
         //async void TestHttp()
