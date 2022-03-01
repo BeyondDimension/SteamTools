@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: recursive
@@ -52,7 +52,7 @@ jobs:
       
     - name: Checkout NSIS-Build repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: SteamTools-Team/NSIS-Build
         token: ${{ secrets.REPO_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
 
     - name: Checkout Credentials repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: SteamTools-Team/Credentials
         token: ${{ secrets.REPO_TOKEN }}
@@ -264,7 +264,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: recursive
@@ -314,7 +314,7 @@ jobs:
 
     - name: Checkout Credentials repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: SteamTools-Team/Credentials
         token: ${{ secrets.REPO_TOKEN }}
