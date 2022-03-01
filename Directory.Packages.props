@@ -219,6 +219,8 @@
 
 		<!-- Valve Data File -->
 		<!--<PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />-->
+		<PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageVersion Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
 
 		<!-- WebSocket -->
 		<PackageVersion Include="Fleck" Version="1.2.0" />
