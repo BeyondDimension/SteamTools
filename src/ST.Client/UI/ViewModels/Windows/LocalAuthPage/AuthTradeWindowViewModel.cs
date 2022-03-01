@@ -282,10 +282,7 @@ namespace System.Application.UI.ViewModels
 
         public void Refresh_Click()
         {
-            if (IsLoggedIn)
-            {
-                Process();
-            }
+            Process();
         }
 
         private void RefreshConfirmationsList()
