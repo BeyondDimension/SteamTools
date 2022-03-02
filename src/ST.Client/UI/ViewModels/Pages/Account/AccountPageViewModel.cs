@@ -1,18 +1,24 @@
+using ReactiveUI;
 using System;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reactive;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
     public partial class AccountPageViewModel
     {
+        public ReactiveCommand<Unit, Unit>? OpenUserProfile { get; }
         public AccountPageViewModel()
         {
-
+            OpenUserProfile = ReactiveCommand.Create(() =>
+            {
+                UserService.Current.ShowWindow(CustomWindow.UserProfile);
+            });
         }
         public override async void Activation()
         {

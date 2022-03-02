@@ -6,9 +6,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:service="using:System.Application.Services" 
+             xmlns:service="using:System.Application.Services"
              xmlns:models="using:System.Application.Models"
              xmlns:ms="using:System.Application.Settings"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:DataType="vm:AccountPageViewModel"
              xmlns:gif="using:AvaloniaGif"
              x:CompileBindings="True"
@@ -22,20 +24,61 @@
           Margin="10 20 10 10">
         <Panel >
           <DockPanel>
-            <gif:Image2 x:Name="avatar"
-                          Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
-                          Stretch="Uniform"
-                          VerticalAlignment="Center"
-                          HorizontalAlignment="Left"
-                          DecodeWidth="64"
-                          Margin="10 0"
-                          Height="64"
-                          Width="64"
-                          FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
-              <gif:Image2.Clip>
-                <EllipseGeometry Rect="0,0,64,64" />
-              </gif:Image2.Clip>
-            </gif:Image2>
+            <DockPanel>
+              <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
+                  <ia:InvokeCommandAction Command="{ReflectionBinding OpenUserProfile}"/>
+                </ia:EventTriggerBehavior>
+                <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #avatar}">
+                  <ia:ChangePropertyAction
+                      PropertyName="IsVisible"
+                      TargetObject="{ReflectionBinding #avatarMask}"
+                      Value="True" />
+                </ia:EventTriggerBehavior>
+                <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #avatar}">
+                  <ia:ChangePropertyAction
+                      PropertyName="IsVisible"
+                      TargetObject="{ReflectionBinding #avatarMask}"
+                      Value="False" />
+                </ia:EventTriggerBehavior>
+              </i:Interaction.Behaviors>
+              <Canvas x:Name="DrawCanvas"
+                      VerticalAlignment="Center" 
+                      Margin="10 0"
+                      Height="64"
+                      Width="64"
+                      Background="Transparent"> 
+                <gif:Image2 x:Name="avatar"
+                      Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                      Stretch="Uniform"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      DecodeWidth="64"
+                      Height="64"
+                      Width="64" 
+                      Cursor="Hand"
+                      FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
+                      ToolTip.Tip="{ReflectionBinding Path=Res.UserProfile,
+                                                Mode=OneWay,
+                                                Source={x:Static resx:R.Current}}">
+                  <gif:Image2.Clip>
+                    <EllipseGeometry Rect="0,0,64,64" />
+                  </gif:Image2.Clip>
+                </gif:Image2>
+                <Rectangle x:Name="avatarMask"
+                           IsVisible="false"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Width="64"
+                           Height="64"
+                           Fill="#99000000">
+                   <Rectangle.Clip>
+                    <EllipseGeometry Rect="0,0,64,64" />
+                    </Rectangle.Clip>
+                </Rectangle>
+              </Canvas>
+            </DockPanel>
             <StackPanel Spacing="5" Margin="10"  IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
               <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -89,7 +132,6 @@
               </DockPanel>
 
             </StackPanel>
-
           </DockPanel>
         </Panel>
       </Border>
@@ -108,44 +150,44 @@
                Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate  x:DataType="models:NoticeDTO">
-                   
-                      <DockPanel>
-                        <StackPanel Spacing="8" DockPanel.Dock="Right">
-                          <DockPanel>
-                            <controls:ScrollingTextBlock
-                                Width="{Binding $parent.Width}"
-                                Text="{Binding Title,Mode=OneWay}"
-                                FontSize="16"
+
+                    <DockPanel>
+                      <StackPanel Spacing="8" DockPanel.Dock="Right">
+                        <DockPanel>
+                          <controls:ScrollingTextBlock
+                              Width="{Binding $parent.Width}"
+                              Text="{Binding Title,Mode=OneWay}"
+                              FontSize="16"
+                              VerticalAlignment="Center"
+                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+
+                          <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <TextBlock
+                                Text="{Binding Author}"
+                                FontSize="14"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
 
-                            <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                              <TextBlock
-                                  Text="{Binding Author}"
-                                  FontSize="14"
-                                  VerticalAlignment="Center"
-                                  Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                            <TextBlock Text=" / " FontSize="14"></TextBlock>
+                            <TextBlock
+                                Text="{Binding CreationTime}"
+                                FontSize="14"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                          </WrapPanel>
+                        </DockPanel>
 
-                              <TextBlock Text=" / " FontSize="14"></TextBlock>
-                              <TextBlock
-                                  Text="{Binding CreationTime}"
-                                  FontSize="14"
-                                  VerticalAlignment="Center"
-                                  Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                            </WrapPanel>
-                          </DockPanel>
+                        <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
 
-                          <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+                        <TextBlock
+                        Width="{Binding $parent.Width}"
+                        TextWrapping="WrapWithOverflow"
+                        Text="{Binding Introduction}"
+                        FontSize="12"
+                        Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
 
-                          <TextBlock
-                          Width="{Binding $parent.Width}"
-                          TextWrapping="WrapWithOverflow"
-                          Text="{Binding Introduction}"
-                          FontSize="12"
-                          Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-
-                        </StackPanel>
-                      </DockPanel> 
+                      </StackPanel>
+                    </DockPanel>
                   </DataTemplate>
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
@@ -159,20 +201,20 @@
           </DockPanel>
         </Border>
       </Grid>
-      
+
       <Grid  ColumnDefinitions="Auto,*"
               RowDefinitions="Auto,*">
         <Border Grid.Column="0"
                 Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
-          <DockPanel> 
-            
+          <DockPanel>
+
           </DockPanel>
         </Border>
-        <Border Grid.Column="1" 
+        <Border Grid.Column="1"
                 Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
           <DockPanel >
-           
-          
+
+
           </DockPanel>
         </Border>
       </Grid>
