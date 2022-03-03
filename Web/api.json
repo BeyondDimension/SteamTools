@@ -1,5 +1,5 @@
 {
-  "version": "2.6.5",
+  "version": "2.6.9",
   "download": {
     "uwp": [
       {
@@ -12,11 +12,11 @@
 
       {
         "name": "(gitee)免安装版 x64.7z",
-        "url": "https://gitee.com/rmbgame/SteamTools/attach_files/959650/download/Steam%20%20_win_x64_v2.6.5.7z"
+        "url": "https://gitee.com/rmbgame/SteamTools/attach_files/984964/download/Steam%20%20_win_x64_v2.6.9.7z"
       },
       {
         "name": "(gitee)安装版 x64",
-        "url": "https://gitee.com/rmbgame/SteamTools/attach_files/959652/download/Steam%20%20_win_x64_v2.6.5.exe"
+        "url": "https://gitee.com/rmbgame/SteamTools/attach_files/984963/download/Steam%20%20_win_x64_v2.6.9.exe"
       },
       {
         "name": "阿里云盘",

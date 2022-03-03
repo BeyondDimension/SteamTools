@@ -1,0 +1,17 @@
+{
+  "index": 27,
+  "oldversion": "2.6.5",
+  "version": "2.6.7",
+  "time": "(2022-02-08)",
+  "remarks": [
+    "<div class='ant-typography' style='font-size:18px;margin-bottom: 0px;font-weight: bold;'>版本亮点</div>",
+    "&emsp;1. 修复更新后无法启动的 Bug",
+    "&emsp;2. 当前版本仅发布受影响平台的包",
+    "<div class='ant-typography' style='font-size:18px;margin-bottom: 0px;font-weight: bold;'>修复问题</div>",
+    "&emsp;1. 修复 目录迁移跨卷错误导致的无法启动",
+    "&emsp;&emsp;仅当 Windows 安装版之前安装在非系统盘上引发",
+    "&emsp;&emsp;Linux 也可能受影响(较小概率)，能启动则可忽略此更新，其他平台不受此影响",
+    "&emsp;2. 优化 程序内图片资源占用空间"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/2.6.4"
+}

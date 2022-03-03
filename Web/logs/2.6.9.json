@@ -1,0 +1,32 @@
+{
+  "index": 29,
+  "oldversion": "2.6.7",
+  "version": "2.6.9",
+  "time": "(2022-03-03)",
+  "remarks": [
+    "<div class='ant-typography' style='font-size:18px;margin-bottom: 0px;font-weight: bold;'>版本亮点</div>",
+    "&emsp;1. ASF 升级至 V5.2.3.5",
+    "&emsp;2. ASF 配置 中新增 设置自定义密钥(ASF_CRYPTKEY) 与 导入 Bot 文件",
+    "&emsp;3. Linux 发行压缩包由 7z 格式更改为 tar.zst",
+    "&emsp;4. 网络加速 支持 IPv6 网络访问 Steam 讨论/留言相关功能",
+    "&emsp;5. 网络加速 支持 Steam 商店 访问被限制的游戏页面",
+    "&emsp;6. 网络加速 新增了部分被限制的 CDN 加速，支持访问 stackoverflow",
+    "&emsp;7. 账号切换 家庭库共享管理新增暂时禁用启用指定账号的功能 可在排序失效时使用",
+    "<div class='ant-typography' style='font-size:18px;margin-bottom: 0px;font-weight: bold;'>修复问题</div>",
+    "&emsp;1. 修复 Android 端 程序启动时自动运行 网络加速 与 ASF 服务",
+    "&emsp;2. 修复 Android 端 网络加速 VPN 模式",
+    "&emsp;3. 修复 Android 端 切换系统语言时可能导致的闪退",
+    "&emsp;4. 修复 Android 端 拒绝授予存储权限导致的闪退",
+    "&emsp;5. 改进 网络加速 中的代理证书生成",
+    "&emsp;6. 改进 账号切换 中读取 Vdf 配置操作",
+    "&emsp;7. 修复 Desktop 端 家庭共享库管理 在 Steam Beta 版上不能正常使用",
+    "&emsp;8. 修复 网络加速 Twitch 聊天服务链接不上的问题",
+    "&emsp;9. 修复 网络加速 github.io 加速影响部分仓库访问 404 的问题",
+    "&emsp;10. 修复 网络加速 Steam 社区加速后会出现【请重新输入下方验证码中的字符来验证此为人工操作】的问题",
+    "&emsp;11. 暂时移除了网络加速中部分失效的加速项目",
+    "&emsp;12. 修复 令牌交易 登录状态失效时刷新应该回到登录界面",
+    "&emsp;12. 改进 本地令牌 移除令牌时的提示",
+    "&emsp;12. 修复 网络加速 滚动条错误滚动的问题"
+  ],
+  "gitHubRelease": "https://github.com/BeyondDimension/SteamTools/releases/tag/2.6.4"
+}
