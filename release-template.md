@@ -1,10 +1,10 @@
 ### 版本亮点
-1. ASF 升级至 **V5.2.2.5**
+1. ASF 升级至 **V5.2.3.5**
 2. ASF 配置 中新增 设置自定义密钥(ASF_CRYPTKEY) 与 导入 Bot 文件
 3. Linux 发行压缩包由 7z 格式更改为 tar.zst
 4. 网络加速 支持 IPv6 网络访问 Steam 讨论/留言相关功能
 6. 网络加速 支持 Steam 商店 访问被限制的游戏页面
-7. 网络加速 新增了部分被限制的CDN加速，支持访问stackoverflow
+7. 网络加速 新增了部分被限制的 CDN 加速，支持访问 stackoverflow
 8. 账号切换 家庭库共享管理新增暂时禁用启用指定账号的功能 可在排序失效时使用
 
 ### 修复问题
@@ -15,9 +15,9 @@
 5. 改进 网络加速 中的代理证书生成
 6. 改进 账号切换 中读取 Vdf 配置操作
 7. 修复 Desktop 端 家庭共享库管理 在 Steam Beta 版上不能正常使用
-8. 修复 网络加速 Twitch聊天服务链接不上的问题
-9. 修复 网络加速 github.io 加速影响部分仓库访问404的问题
-10. 修复 网络加速 Steam社区加速后会出现【请重新输入下方验证码中的字符来验证此为人工操作】的问题
+8. 修复 网络加速 Twitch 聊天服务链接不上的问题
+9. 修复 网络加速 github.io 加速影响部分仓库访问 404 的问题
+10. 修复 网络加速 Steam 社区加速后会出现【请重新输入下方验证码中的字符来验证此为人工操作】的问题
 11. 暂时移除了网络加速中部分失效的加速项目
 12. 修复 令牌交易 登录状态失效时刷新应该回到登录界面
 13. 改进 本地令牌 移除令牌时的提示
@@ -54,7 +54,7 @@
 						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.6.8](https://img.shields.io/badge/Steam++-v2.6.8-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.6.9](https://img.shields.io/badge/Steam++-v2.6.9-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -63,21 +63,21 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.8.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.6.8.7z  | SHA256 |
+| Steam++_win_x64_v2.6.9.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.6.9.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.6.8.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.6.8.exe  | SHA256 |
+| Steam++_win_x64_v2.6.9.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.6.9.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.7z  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.7z  | SHA256 |
+| Steam++_linux_x64_v2.6.9.7z  | SHA256 |
+| Steam++_linux_arm64_v2.6.9.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.deb  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.deb  | SHA256 |
+| Steam++_linux_x64_v2.6.9.deb  | SHA256 |
+| Steam++_linux_arm64_v2.6.9.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.rpm  | SHA256 |
+| Steam++_linux_x64_v2.6.9.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.6.9.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.6.8.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.9.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.6.8.apk  | SHA256 |
+| Steam++_android_v2.6.9.apk  | SHA256 |
