@@ -38,5 +38,12 @@ namespace System.Application.UI.ViewModels
                 OnUnbundleFastLoginClick.Invoke(channel.ToString());
             }
         }
+
+        public enum SubPageType : ushort
+        {
+            UserBasicInfo,
+            UserAccountBind,
+            ChangeOrBindPhoneNumber,
+        }
     }
 }

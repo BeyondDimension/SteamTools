@@ -359,4 +359,10 @@ namespace System.Application.UI.ViewModels
             }
         }
     }
+
+    partial class UserProfileWindowViewModel
+    {
+        readonly Lazy<ChangeBindPhoneNumberWindowViewModel> mChangeBindPhoneNumberVM = new(() => new ChangeBindPhoneNumberWindowViewModel());
+        public ChangeBindPhoneNumberWindowViewModel ChangeBindPhoneNumberVM => mChangeBindPhoneNumberVM.Value;
+    }
 }

@@ -529,6 +529,18 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_basic_profile_content.xml">
       <Link>Resources\layout\fragment_basic_profile_content.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number.xml">
+      <Link>Resources\layout\fragment_bind_phone_number.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number_content.xml">
+      <Link>Resources\layout\fragment_bind_phone_number_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number.xml">
+      <Link>Resources\layout\fragment_change_bind_phone_number.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number_content.xml">
+      <Link>Resources\layout\fragment_change_bind_phone_number_content.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix.xml">
       <Link>Resources\layout\fragment_community_fix.xml</Link>
     </AndroidBoundLayout>
