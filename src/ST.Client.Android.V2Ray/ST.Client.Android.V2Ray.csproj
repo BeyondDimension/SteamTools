@@ -38,8 +38,8 @@
   <ItemGroup>
     <PackageReference Include="XAB.AndroidLibV2rayLite" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
-    <PackageReference Include="Karamunting.KotlinX.Coroutines.Core" />
-    <PackageReference Include="Naxam.RxJava.Droid" />
+    <PackageReference Include="Xamarin.KotlinX.Coroutines.Core" />
+    <PackageReference Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" />
     <!--<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />-->
   </ItemGroup>
 </Project>

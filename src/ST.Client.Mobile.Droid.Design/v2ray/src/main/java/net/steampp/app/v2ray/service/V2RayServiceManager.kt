@@ -19,8 +19,8 @@ import net.steampp.app.v2ray.AppConfig.TAG_AGENT
 import net.steampp.app.v2ray.AppConfig.TAG_BLOCKED
 import net.steampp.app.v2ray.AppConfig.TAG_DIRECT
 import net.steampp.app.v2ray.extension.toSpeedString
-import rx.Observable
-import rx.Subscription
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
 import kotlin.math.min
 
 object V2RayServiceManager {
@@ -42,7 +42,7 @@ object V2RayServiceManager {
         }
 
     private var lastQueryTime = 0L
-    private var mSubscription: Subscription? = null
+    private var mSubscription: Disposable? = null
 
     private class V2RayCallback : V2RayVPNServiceSupportsSet {
         override fun shutdown(): Long {
@@ -158,7 +158,7 @@ object V2RayServiceManager {
     }
 
     private fun cancelNotification() {
-        mSubscription?.unsubscribe()
+        mSubscription?.dispose()
         mSubscription = null
         val service = serviceControl?.get()?.getService() ?: return
         service.stopForeground(true)
