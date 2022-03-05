@@ -1285,10 +1285,6 @@
     <value>Installare lo script</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>Installato</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>Il file di testo manca, il record dello script è stato cancellato.</value>
     <comment>Comment=;Author=Zhengye</comment>

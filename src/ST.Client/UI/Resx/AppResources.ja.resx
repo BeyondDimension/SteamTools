@@ -1279,10 +1279,6 @@
     <value>スクリプトをインストールします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>インストールされています</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>テキスト ファイルが失われ、スクリプト レコードを削除するかどうか。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

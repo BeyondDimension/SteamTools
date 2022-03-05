@@ -1285,10 +1285,6 @@
     <value>Install userscript</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>Installed</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>The text file is missing. Do you want to delete this userscript history?</value>
     <comment>Comment=;Author=沙中金</comment>

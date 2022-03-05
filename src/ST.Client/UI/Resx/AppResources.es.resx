@@ -1285,10 +1285,6 @@
     <value>Script de instalación</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>Instalado</value>
-    <comment>Comment=;Author=EspRoy</comment>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>¿El archivo de texto se ha perdido. Desea borrar el registro del script?</value>
     <comment>Comment=;Author=EspRoy</comment>

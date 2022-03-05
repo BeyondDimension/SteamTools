@@ -163,7 +163,7 @@ namespace System.Commands
                         { CommentKey, string.Empty },
                         { AuthorKey, string.Empty },
                     };
-                    resxFileDictLang.dict.AddOrReplace(originalText.Key, (value, comment));
+                    resxFileDictLang.dict.AddOrReplace(originalText.Key, (value, comment), resxFilePathLang);
                 }
             }
 

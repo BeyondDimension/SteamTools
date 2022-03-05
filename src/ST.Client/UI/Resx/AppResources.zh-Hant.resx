@@ -1279,10 +1279,6 @@
     <value>安裝腳本</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>已安裝</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>該文字檔已丟失，是否刪除腳本記錄。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

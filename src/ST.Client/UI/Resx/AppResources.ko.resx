@@ -1279,10 +1279,6 @@
     <value>스크립트를 설치합니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>이미 설치되어 있습니다</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>텍스트 파일이 누락되었으며 스크립트 레코드를 삭제할지 여부입니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

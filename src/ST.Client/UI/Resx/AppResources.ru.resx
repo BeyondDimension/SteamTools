@@ -1220,7 +1220,7 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="LocalAuth_SDATip" xml:space="preserve">
     <value>Настольная реализация приложения Steam Mobile Authenticator. Метод импорта: выберите файл maFile в папке maFiles в каталоге SDA для импорта. (Импорт зашифрованных файлов не поддерживается, удалите пароль перед импортом)</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_ShowAuthCode" xml:space="preserve">
     <value>Показать токен</value>
@@ -1487,10 +1487,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Установить сценарий</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
-  <data name="Script_Installed" xml:space="preserve">
-    <value>Установлен</value>
-    <comment>Comment=;Author=vanja-san</comment>
-  </data>
   <data name="Script_NoFileDeleteItem" xml:space="preserve">
     <value>Текстовый файл отсутствует, запись сценария удалена.</value>
     <comment>Comment=;Author=vanja-san</comment>
@@ -1577,15 +1573,15 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Settings_ThemeAccent" xml:space="preserve">
     <value>Цвет темы</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_Custom" xml:space="preserve">
     <value>Пользовательский</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI_EnableFilletUI" xml:space="preserve">
     <value>Включить интерфейс с закругленными углами</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_UI" xml:space="preserve">
     <value>Интерфейс</value>
@@ -2265,43 +2261,43 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Settings_Proxy_SystemProxyIp" xml:space="preserve">
     <value>IP-адрес прокси</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_CustomDNS" xml:space="preserve">
     <value>Пользовательский DNS прокси</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_Socks5Proxy" xml:space="preserve">
     <value>Локальный Socks5 прокси</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_ProxyPort" xml:space="preserve">
     <value>Порт</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_TwoLevelAgent" xml:space="preserve">
     <value>Вторичный агент</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_ProxyType" xml:space="preserve">
     <value>Тип прокси</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_IPAddress" xml:space="preserve">
     <value>IP-адрес</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_Port" xml:space="preserve">
     <value>Порт</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_UserName" xml:space="preserve">
     <value>Имя пользователя</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_Proxy_Password" xml:space="preserve">
     <value>Пароль</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Settings_General_CaptureScreen" xml:space="preserve">
     <value>Снимок экрана</value>
@@ -2325,7 +2321,7 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Settings_General_UseOpenGL" xml:space="preserve">
     <value>Рендеринг с помощью OpenGL</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Download_ScriptError_" xml:space="preserve">
     <value>Ошибка загрузки сценария {0}, повторите попытку.</value>
@@ -2361,19 +2357,19 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailSeeWebPage_" xml:space="preserve">
     <value>Атрибут файла доступен только для чтения, модификация не удалась, следуйте веб-руководству {0}</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FileAttributeIsReadOnlyModifyFailTryBakDelAgain" xml:space="preserve">
     <value>Если атрибут файла доступен только для чтения и модификация не удалась, вы можете попробовать создать резервную копию файла, затем удалить его и повторить попытку</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FileSizeTooLarge" xml:space="preserve">
     <value>Слишком большой размер файла</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="FileUnauthorized" xml:space="preserve">
     <value>Доступ к файлу запрещён, нет разрешения</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="IsExistUpdateFalse" xml:space="preserve">
     <value>На данный момент последняя версия</value>
@@ -2397,7 +2393,7 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="NotificationChannelType_Name_Announcement" xml:space="preserve">
     <value>Уведомление о объявлении</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Name_NewVersion" xml:space="preserve">
     <value>Уведомление о новой версии.</value>
@@ -2405,11 +2401,11 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="OperationHostsError_" xml:space="preserve">
     <value>Ошибка Hosts операции {0}</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
     <value>Идёт обновление с заменой Steam++...</value>
-    <comment>Author=vanja-san</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
     <value>Ошибка скачивания зависимости сценария. {0}
@@ -2728,5 +2724,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="ASF_ConsoleSettings" xml:space="preserve">
     <value>Настройки консоли</value>
     <comment>Comment=;Author=vanja-san</comment>
+  </data>
+  <data name="Settings_General_LogSize" xml:space="preserve">
+    <value>Файл журнала занят {0}</value>
+    <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
 </root>
