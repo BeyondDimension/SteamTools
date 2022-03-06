@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ExitCode_IsEmulator" xml:space="preserve">
-    <value>Это приложение не поддерживает запуск в эмуляторе</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Это приложение невозможно запустить через эмулятор</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ExitCode_IsRoot" xml:space="preserve">
-    <value>Это приложение не поддерживается для запуска на устройствах с привилегиями ROOT</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Это приложение невозможно запустить на устройствах с root правами</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ExitCode_IsVirtualApk" xml:space="preserve">
-    <value>Это приложение не поддерживает мультиоткрытие</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Это приложение не поддерживает несколько окон</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ExitCode_IsXposedExists" xml:space="preserve">
-    <value>Это приложение не поддерживает запуск на устройствах с установленной платформой Xposed</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Это приложение невозможно запустить на устройствах с установленным Xposed Framework</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
 </root>
