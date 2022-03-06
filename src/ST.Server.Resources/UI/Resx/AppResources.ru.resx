@@ -118,131 +118,131 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bind" xml:space="preserve">
-    <value>связывать</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Привязать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>К сожалению, вы используете устаревший браузер. Рекомендуется обновить браузер или использовать его</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>К сожалению, вы используете устаревший браузер. Рекомендуется обновить браузер или использовать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>и другие современные браузеры для улучшения вашего опыта.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>и другие современные браузеры, чтобы улучшить свой опыт.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>Нажмите здесь, чтобы повторить попытку</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Кликните здесь, чтобы повторить попытку</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>Ошибки от сторонних провайдеров входа, {0}, обратитесь к администратору сайта.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибки от стороннего провайдера входа {0}. Обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>Неизвестный сторонний провайдер входа, {0}, обратитесь к администратору сайта.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Неизвестный сторонний провайдер входа {0}. Обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>Неизвестный сторонний канал входа, {0}, пожалуйста, свяжитесь с веб-мастером.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Неизвестный сторонний канал входа {0}. Обратитесь к веб-мастеру.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>Произошла ошибка при загрузке сторонней регистрационной информации, пожалуйста, свяжитесь с вашим веб-мастером.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Произошла ошибка при загрузке сторонних данных для входа. Обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>Экспресс-вход доступен только в том случае, если он не авторизован, пожалуйста, свяжитесь с вашим веб-мастером.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Быстрый вход может быть использован только в том случае, если вы не авторизованы. Свяжитесь с веб-мастером.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>Не удалось привязать учетную запись для получения текущего вошедшего в систему пользователя, обратитесь к веб-мастеру.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>При привязке учётной записи не удалось получить текущего вошедшего пользователя. Обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>логин</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Войти</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
     <value>Вход / Регистрация</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
     <value>{0} {1} завершено, вы можете закрыть это окно и вернуться в Steam++.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>Это окно/вкладка браузера попытается автоматически закрыться в течение 10 секунд, или вы можете закрыть его вручную.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Это окно/вкладка браузера автоматически закроется в течение 10 секунд. Можете закрыть вручную.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
     <value>Давно не прыгали?</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>Steam++ - это набор инструментов с различными функциями инструментов Steam.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>«Steam++» - это набор инструментов, содержащий широкий спектр инструментов Steam.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>JavaScript должен быть включен для просмотра этого сайта.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Для просмотра этого сайта, должен быть включён JavaScript.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>Пожалуйста, убедитесь, что вы можете получить доступ к сообществу Steam правильно.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Убедитесь, что вы можете исправно получить доступ к сообществу Steam.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Подождите...</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>Не удалось прочитать SteamAccountId64, значение: {0}, пожалуйста, свяжитесь с веб-мастером.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Не удалось прочитать SteamAccountId64, значение: {0}. Обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>Не удалось прочитать UnionId, значение: {0} обратитесь к администратору сайта.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Не удалось прочитать UnionId, значение: {0}. Обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
-    <value>ошибка!</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка!</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Title_Success_" xml:space="preserve">
-    <value>{0} успехов!</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>{0} успешно!</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>Соединение с программой потеряно, нажмите кнопку Повторить или Снова щелкните Быстрый вход в программу.</value>
+    <value>Соединение с программой разорвано, нажмите кнопку «Повторить» или снова щёлкните «Быстрый вход в программу».</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
     <value>Номер порта должен быть типа UInt16, обратитесь к администратору сайта.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CopyButton" xml:space="preserve">
-    <value>Нажмите здесь, чтобы скопировать</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Кликните здесь, чтобы скопировать</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CopyNoSupport" xml:space="preserve">
-    <value>Этот браузер не поддерживает технологию &quot;нажми и скопируй в буфер обмена&quot;</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Этот браузер не поддерживает нажатие для копирования в буфер обмена</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CopySuccess" xml:space="preserve">
     <value>Успешно скопировано в буфер обмена</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ManualCopyTip" xml:space="preserve">
     <value>Произошла ошибка с коннектором, пожалуйста, вручную скопируйте следующее в программу и нажмите Ручной вход.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
-    <value>Не удалось прочитать NameIdentifier, значение: {0}, канал: {1}, связаться с администратором сайта.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Не удалось прочитать NameIdentifier, значение: {0}, канал: {1}, обратитесь к администратору сайта.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NewUserNickName_" xml:space="preserve">
-    <value>Новый пользовательский {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>{0} новый пользователь</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="SteamLoginException" xml:space="preserve">
-    <value>На данный момент слишком много запросов на вход в Steam, пожалуйста, обновите страницу и повторите попытку или повторите попытку позже.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>На данный момент запросов на вход в Steam слишком много. Обновите страницу и повторите попытку или попробуйте позже.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
 </root>
