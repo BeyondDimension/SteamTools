@@ -136,6 +136,12 @@
     <Compile Update="Application\UI\Views\Controls\Badge.xaml.cs">
       <DependentUpon>Badge.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Pages\Account\Account_EngineOilLogsPage.axaml.cs">
+      <DependentUpon>Account_EngineOilLogsPage.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Views\Pages\Account\Account_BalanceLogsPage.axaml.cs">
+      <DependentUpon>Account_BalanceLogsPage.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Pages\Account\AccountPage.axaml.cs">
       <DependentUpon>AccountPage.axaml</DependentUpon>
     </Compile>
