@@ -118,95 +118,95 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Age_" xml:space="preserve">
-    <value>{0} лет</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Возраст: {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_L0" xml:space="preserve">
     <value>Воскресенье</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_L1" xml:space="preserve">
     <value>Понедельник</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_L2" xml:space="preserve">
     <value>Вторник</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_L3" xml:space="preserve">
     <value>Среда</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_L4" xml:space="preserve">
     <value>Четверг</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_L5" xml:space="preserve">
     <value>Пятница</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_L6" xml:space="preserve">
     <value>Суббота</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_S0" xml:space="preserve">
     <value>Воскресенье</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_S1" xml:space="preserve">
     <value>Понедельник</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_S2" xml:space="preserve">
     <value>Вторник</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_S3" xml:space="preserve">
     <value>Среда</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_S4" xml:space="preserve">
     <value>Четверг</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_S5" xml:space="preserve">
     <value>Пятница</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DayOfWeek_S6" xml:space="preserve">
     <value>Суббота</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>женщина</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Женщина</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="He" xml:space="preserve">
-    <value>он</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Он</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Male" xml:space="preserve">
-    <value>мужчина</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Мужчина</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotSupported_FixedSizeCollection" xml:space="preserve">
-    <value>Коллекция была фиксированного размера.</value>
-    <comment>Comment=https://github.com/dotnet/runtime/blob/v5.0.0-rc.1.20451.14/src/libraries/System.Private.CoreLib/src/Resources/Strings.resx#L2893;Author=MicrosoftTranslator</comment>
+    <value>Коллекция имела фиксированный размер.</value>
+    <comment>Comment=https://github.com/dotnet/runtime/blob/v5.0.0-rc.1.20451.14/src/libraries/System.Private.CoreLib/src/Resources/Strings.resx#L2893;Author=vanja-san</comment>
   </data>
   <data name="She" xml:space="preserve">
-    <value>она</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Она</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Неизвестный</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Неизвестно</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
-    <value>Сегмент неподдерживаемых номеров мобильных телефонов ({0})</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Неподдерживаемые номера телефонов ({0})</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
-    <value>Открыть веб-ссылку не удалось 0x{0}, пожалуйста, установите системный браузер по умолчанию перед попыткой</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Невозможно открыть ссылку 0x{0}, повторите снова, после установки браузер по умолчанию.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
 </root>
