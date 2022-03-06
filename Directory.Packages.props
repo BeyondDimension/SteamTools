@@ -172,7 +172,7 @@
 		<PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
 
 		<!--Command Line Tools-->
-		<PackageVersion Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
+		<PackageVersion Include="System.CommandLine" Version="2.0.0-beta3.22114.1" />
 
 		<!-- Pinyin -->
 		<PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
