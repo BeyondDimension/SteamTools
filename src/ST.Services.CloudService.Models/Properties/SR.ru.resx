@@ -118,39 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
-    <value>Клиент устарел, пожалуйста, обновитесь до новой версии</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>У вас старая версия программы, вом стоит обновить её до последней версии.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
-    <value>Учетные данные для входа в систему недействительны, пожалуйста, войдите в систему еще раз</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Учётные данные для входа недействительны, повторите вход</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ClientError_" xml:space="preserve">
-    <value>{0} ошибок клиента</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка клиента {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ClientError__" xml:space="preserve">
-    <value>{0} ошибок клиента — {1}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка клиента {0} - {1}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
-    <value>Запущенная в настоящее время программа не с официального канала</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Работающая в настоящее время программа не из официального источника</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
-    <value>Сетевое подключение прервано</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Интернет-соединение разорвано</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
-    <value>{0} ошибок на стороне сервера</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка сервера {0}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
-    <value>{0} ошибок на стороне сервера — {1}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка сервера {0} — {1}</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
-    <value>Текущее системное время неверно или SSL-сертификат на стороне сервера недействителен</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>У вас неправильно настроено время или SSL-сертификат на стороне сервера недействителен</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
 </root>
