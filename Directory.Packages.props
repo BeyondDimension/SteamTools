@@ -139,7 +139,7 @@
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="17.1.50" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
-		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.187" />
+		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.209" />
 		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.187" />
 		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.187" />
 		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.187" />
