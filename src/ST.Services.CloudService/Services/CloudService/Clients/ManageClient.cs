@@ -81,5 +81,13 @@ namespace System.Application.Services.CloudService.Clients
                 method: HttpMethod.Delete,
                 requestUri: $"api/Manage/UnbundleAccount/{(int)channel}",
                 cancellationToken: default);
+
+        public Task<IApiResponse<UserInfoDTO>> RefreshUserInfo()
+            => conn.SendAsync<UserInfoDTO>(
+                isAnonymous: false,
+                isSecurity: true,
+                method: HttpMethod.Get,
+                requestUri: $"api/Manage/RefreshUserInfo",
+                cancellationToken: default);
     }
 }

@@ -165,21 +165,31 @@ namespace System.Application.Services
             HasPhoneNumber = !string.IsNullOrWhiteSpace(currentUser?.PhoneNumber);
         }
 
-        public async Task RefreshUserAsync(UserInfoDTO? user)
+        public async Task SaveUserAsync(UserInfoDTO user)
+        {
+            await userManager.SetCurrentUserInfoAsync(user, true);
+
+            await RefreshUserAsync(user, refreshCurrentUser: false);
+        }
+
+        public async Task RefreshUserAsync(UserInfoDTO? user, bool refreshCurrentUser = true)
         {
             User = user;
             this.RaisePropertyChanged(nameof(IsAuthenticated));
 
             await RefreshUserAvatarAsync();
 
-            var currentUser = await userManager.GetCurrentUserAsync();
-            RefreshCurrentUser(currentUser);
+            if (refreshCurrentUser)
+            {
+                var currentUser = await userManager.GetCurrentUserAsync();
+                RefreshCurrentUser(currentUser);
+            }
         }
 
-        public async Task RefreshUserAsync()
+        public async Task RefreshUserAsync(bool refreshCurrentUser = true)
         {
             var user = await userManager.GetCurrentUserInfoAsync();
-            await RefreshUserAsync(user);
+            await RefreshUserAsync(user, refreshCurrentUser);
         }
 
         public async Task RefreshUserAvatarAsync()

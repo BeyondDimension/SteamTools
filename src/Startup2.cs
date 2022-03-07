@@ -474,6 +474,18 @@ namespace System.Application
             if (!Program.IsMainProcess) return;
             try
             {
+                var us = UserService.Current;
+                var isAuthenticated = us.IsAuthenticated;
+                var csc = ICloudServiceClient.Instance;
+                if (isAuthenticated)
+                {
+                    // 刷新用户信息
+                    var rspRUserInfo = await csc.Manage.RefreshUserInfo();
+                    if (rspRUserInfo.IsSuccess && rspRUserInfo.Content != null)
+                    {
+                        await us.SaveUserAsync(rspRUserInfo.Content);
+                    }
+                }
 #if !__MOBILE__
                 var screens = PlatformApplication.Instance.MainWindow!.Screens;
 #else
@@ -499,7 +511,7 @@ namespace System.Application
                     SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
                     SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
 #endif
-                    IsAuthenticated = UserService.Current.IsAuthenticated,
+                    IsAuthenticated = isAuthenticated,
                 };
                 Guid? lastNotificationRecordId = default;
                 if (type == ActiveUserType.OnStartup)
@@ -507,7 +519,8 @@ namespace System.Application
                     lastNotificationRecordId = await INotificationService.GetLastNotificationRecordId();
                 }
                 req.SetDeviceId();
-                var rsp = await ICloudServiceClient.Instance.ActiveUser.Post(req, lastNotificationRecordId);
+                // 匿名统计与通知公告
+                var rsp = await csc.ActiveUser.Post(req, lastNotificationRecordId);
                 INotificationService.Notify(rsp, type);
             }
             catch (Exception e)
