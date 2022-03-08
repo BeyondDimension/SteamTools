@@ -182,7 +182,7 @@
 		<PackageVersion Include="TaskScheduler" Version="2.10.1" />
 
 		<!-- Swagger -->
-		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.0" />
 
 		<!-- Pay -->
 		<!--<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.109" />-->
