@@ -173,8 +173,21 @@ namespace System
                 string destAppDataPath, string destCachePath,
                 string sourceAppDataPath, string sourceCachePath)
             {
+                bool ExistsNotEmptyDir(string path)
+                {
+                    var exists = Directory.Exists(path);
+                    if (DesktopBridge.IsRunningAsUwp)
+                    {
+                        if (path == destCachePath || path == sourceCachePath)
+                        {
+                            return false;
+                        }
+                    }
+                    return exists && Directory.EnumerateFileSystemEntries(path).Any();
+                }
+
                 var paths = new[] { destAppDataPath, destCachePath, };
-                var dict_paths = paths.ToDictionary(x => x, x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any());
+                var dict_paths = paths.ToDictionary(x => x, x => ExistsNotEmptyDir(x));
 
                 if (dict_paths.Values.All(x => !x))
                 {
@@ -212,17 +225,47 @@ namespace System
                                             }
                                             catch
                                             {
-
                                             }
                                         }
                                     }
                                     catch
                                     {
-
                                     }
                                     isNotFirst = true;
                                 }
-                                Directory.Move(old_path, path);
+                                try
+                                {
+                                    Directory.Move(old_path, path);
+                                }
+                                catch
+                                {
+                                    try
+                                    {
+                                        CopyDirectory(old_path, path);
+                                    }
+                                    catch
+                                    {
+                                        if (OperatingSystem2.IsWindows)
+                                        {
+                                            var psi = new ProcessStartInfo
+                                            {
+                                                FileName = "cmd.exe",
+                                                UseShellExecute = false,
+                                                CreateNoWindow = true,
+                                                RedirectStandardInput = true,
+                                            };
+                                            var p = Process.Start(psi);
+                                            p.Start();
+                                            p.StandardInput.WriteLine($"xcopy \"{old_path}\" \"{path}\" /y &exit");
+                                            p.WaitForExit(10000);
+                                            p.Kill();
+                                        }
+                                        else
+                                        {
+                                            throw;
+                                        }
+                                    }
+                                }
                                 dict_paths[path] = true;
                             }
                             catch
@@ -499,5 +542,38 @@ namespace System
 
         public const char UnixDirectorySeparatorChar = '/';
         public const char WinDirectorySeparatorChar = '\\';
+
+        public static void CopyDirectory(string sourceDir, string destinationDir, bool recursive = true)
+        {
+            // Get information about the source directory
+            var dir = new DirectoryInfo(sourceDir);
+
+            // Check if the source directory exists
+            if (!dir.Exists)
+                throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
+
+            // Cache directories before we start copying
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            // Create the destination directory
+            Directory.CreateDirectory(destinationDir);
+
+            // Get the files in the source directory and copy to the destination directory
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                file.CopyTo(targetFilePath);
+            }
+
+            // If recursive and copying subdirectories, recursively call this method
+            if (recursive)
+            {
+                foreach (DirectoryInfo subDir in dirs)
+                {
+                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                    CopyDirectory(subDir.FullName, newDestinationDir, true);
+                }
+            }
+        }
     }
 }
