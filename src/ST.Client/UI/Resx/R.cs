@@ -108,12 +108,26 @@ namespace System.Application.UI.Resx
         /// <param name="cultureName"></param>
         public static void ChangeLanguage(string? cultureName) => MainThread2.BeginInvokeOnMainThread(() => ChangeLanguageCore(cultureName));
 
+        static CultureInfo TryGetCultureInfo(string? cultureName, CultureInfo defaultCultureInfo)
+        {
+            if (string.IsNullOrWhiteSpace(cultureName))
+            {
+                return defaultCultureInfo;
+            }
+            try
+            {
+                return CultureInfo.GetCultureInfo(cultureName);
+            }
+            catch
+            {
+                return defaultCultureInfo;
+            }
+        }
+
         static void ChangeLanguageCore(string? cultureName)
         {
             if (cultureName == null || IsMatch(AppResources.Culture, cultureName)) return;
-            AppResources.Culture = string.IsNullOrWhiteSpace(cultureName) ?
-                DefaultCurrentUICulture :
-                CultureInfo.GetCultureInfo(Languages.SingleOrDefault(x => x.Key == cultureName).Key);
+            AppResources.Culture = TryGetCultureInfo(cultureName, DefaultCurrentUICulture);
             Thread.CurrentThread.CurrentUICulture = AppResources.Culture;
             Thread.CurrentThread.CurrentCulture = AppResources.Culture;
             CultureInfo.DefaultThreadCurrentUICulture = AppResources.Culture;

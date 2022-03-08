@@ -38,16 +38,14 @@
                     VerticalScrollBarVisibility="Auto"
                     Grid.Row="2"
                     x:Name="content">
-        <StackPanel>
-          <TextBox Classes="Content readonlybox h7"
-                   IsReadOnly="True"
-                   Text="{Binding Content}"
-                   MaxHeight="500"
-                   MaxWidth="600"
-                   HorizontalAlignment="Left"
-                   TextWrapping="Wrap"
-                   VerticalAlignment="Center"/>
-        </StackPanel>
+        <TextBox Classes="Content readonlybox h7"
+                 IsReadOnly="True"
+                 Text="{Binding Content}"
+                 MaxHeight="500"
+                 MaxWidth="600"
+                 HorizontalAlignment="Left"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Center"/>
       </ScrollViewer>
       <DockPanel Grid.Row="3"
                  DockPanel.Dock="Bottom"

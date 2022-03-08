@@ -1,22 +1,27 @@
 ### 版本亮点
-1. ASF 升级至 **V5.2.2.4**
-2. Android 12 适配
-3. Android 上的 ASP.NET Core 升级至 2.2.5
-4. Desktop 上的 Avalonia 升级至 0.10.12
+1. ASF 升级至 **V5.2.3.5**
+2. ASF 配置 中新增 设置自定义密钥(ASF_CRYPTKEY) 与 导入 Bot 文件
+3. Linux 发行压缩包由 7z 格式更改为 tar.zst
+4. 网络加速 支持 IPv6 网络访问 Steam 讨论/留言相关功能
+6. 网络加速 支持 Steam 商店 访问被限制的游戏页面
+7. 网络加速 新增了部分被限制的 CDN 加速，支持访问 stackoverflow
+8. 账号切换 家庭库共享管理新增暂时禁用启用指定账号的功能 可在排序失效时使用
 
 ### 修复问题
-1. 修复 Steam Beta 版账号切换失效
-2. 修复 ASF 在线配置文件生成器链接错误
-3. 修复 Linux 上运行时闪退
-4. 修复 Windows 7 上点击任务栏图标没有最小化
-5. 改进 打开 Web 链接失败时候的错误提示
-6. 改进 JumpList 在 Windows 10.0.10586 上使用 UWP API
-7. 改进 Windows 安装包默认路径使用 $PROGRAMFILES64
-8. 改进 Windows 安装版 AppData 与 Cache 文件夹不再使用根目录
-9. 改进 Android Apk 包使用单一包，不再根据 ABI 拆分
-10. 改进 Android 本地加速与 ASF 使用前台服务运行
-11. 改进 本地加速 增加 重置 Hosts 文件 与 打开 Hosts 所在文件夹
-12. 改进 Hosts 文件存在多个 Mark 导致失败的错误提示
+1. 修复 Android 端 程序启动时自动运行 网络加速 与 ASF 服务
+2. 修复 Android 端 网络加速 VPN 模式
+3. 修复 Android 端 切换系统语言时可能导致的闪退
+4. 修复 Android 端 拒绝授予存储权限导致的闪退
+5. 改进 网络加速 中的代理证书生成
+6. 改进 账号切换 中读取 Vdf 配置操作
+7. 修复 Desktop 端 家庭共享库管理 在 Steam Beta 版上不能正常使用
+8. 修复 网络加速 Twitch 聊天服务链接不上的问题
+9. 修复 网络加速 github.io 加速影响部分仓库访问 404 的问题
+10. 修复 网络加速 Steam 社区加速后会出现【请重新输入下方验证码中的字符来验证此为人工操作】的问题
+11. 暂时移除了网络加速中部分失效的加速项目
+12. 修复 令牌交易 登录状态失效时刷新应该回到登录界面
+13. 改进 本地令牌 移除令牌时的提示
+14. 修复 网络加速 滚动条错误滚动的问题
 
 ### 已知问题
 - 除 Windows 之外的平台此软件自动更新尚不可用
@@ -25,7 +30,6 @@
 		- [尚未公证](https://support.apple.com/zh-cn/guide/mac-help/mh40616/10.15/mac/10.15)，这会影响 macOS Catalina（版本 10.15）以上版本
 	- Linux
 		- **Hosts 代理模式**可能无法配置成功，推荐使用**系统代理模式**
-		- 系统代理模式下 Discord 更新下载加速不可用
 		- 窗口弹出位置不正确
 		- 鼠标指针浮动样式不正确
 	- Windows
@@ -50,7 +54,7 @@
 						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.6.8](https://img.shields.io/badge/Steam++-v2.6.8-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.6.9](https://img.shields.io/badge/Steam++-v2.6.9-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -59,21 +63,21 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.8.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.6.8.7z  | SHA256 |
+| Steam++_win_x64_v2.6.9.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.6.9.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.6.8.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.6.8.exe  | SHA256 |
+| Steam++_win_x64_v2.6.9.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.6.9.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.7z  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.7z  | SHA256 |
+| Steam++_linux_x64_v2.6.9.7z  | SHA256 |
+| Steam++_linux_arm64_v2.6.9.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.deb  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.deb  | SHA256 |
+| Steam++_linux_x64_v2.6.9.deb  | SHA256 |
+| Steam++_linux_arm64_v2.6.9.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.rpm  | SHA256 |
+| Steam++_linux_x64_v2.6.9.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.6.9.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.6.8.dmg  | SHA256 |
+| Steam++_macos_x64_v2.6.9.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.6.8.apk  | SHA256 |
+| Steam++_android_v2.6.9.apk  | SHA256 |

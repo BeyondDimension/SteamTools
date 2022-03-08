@@ -226,10 +226,18 @@ namespace System
         /// </summary>
         /// <param name="pattern">The wildcard pattern to convert.</param>
         /// <returns>A regex equivalent of the given wildcard.</returns>
-        public static bool IsWildcard(this string str, string pattern)
+        public static bool IsWildcard(this string str, string pattern, RegexOptions options = RegexOptions.Compiled)
             => Regex.IsMatch(str, "^" + Regex.Escape(pattern)
                 .Replace("\\*", ".*")
-                .Replace("\\?", ".") + "$", RegexOptions.Compiled);
+                .Replace("\\?", ".") + "$", options);
+
+        /// <summary>
+        /// 域名表达式
+        /// *表示任意0到多个字符
+        /// </summary>
+        public static bool IsDomainPattern(this string str, string pattern, RegexOptions options = RegexOptions.IgnoreCase)
+            => Regex.IsMatch(str, Regex.Escape(pattern)
+                .Replace(@"\*", @"[^\.]*"), options);
 
         #region Compressor
 

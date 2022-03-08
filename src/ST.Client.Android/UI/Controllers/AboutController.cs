@@ -66,6 +66,9 @@ namespace System.Application.UI.Controllers
             {
                 switch (e.Current.Id)
                 {
+                    case PreferenceButton.捐助:
+                        Activity.StartActivity<DonateActivity>();
+                        break;
                     case PreferenceButton.检查更新:
                         ViewModel!.CheckUpdateCommand.Invoke();
                         break;

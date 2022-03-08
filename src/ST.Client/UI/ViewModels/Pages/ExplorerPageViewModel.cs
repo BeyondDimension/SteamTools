@@ -24,6 +24,12 @@ namespace System.Application.UI.ViewModels
             title = DefaultTitle;
         }
 
+        public ExplorerPageViewModel(string rootPath)
+        {
+            CurrentAbsolutePath = rootPath;
+            DefaultTitle = Title;
+        }
+
         void RefreshCore(bool isChangePath)
         {
             PathInfos.Clear();
@@ -114,7 +120,7 @@ namespace System.Application.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _IsEditMode, value);
         }
 
-        static readonly string DefaultTitle = Path.DirectorySeparatorChar.ToString();
+        public string DefaultTitle { get; set; } = Path.DirectorySeparatorChar.ToString();
 
         public ObservableCollection<PathInfoViewModel> PathInfos { get; } = GetRootPathInfoViewModels<ObservableCollection<PathInfoViewModel>>();
 

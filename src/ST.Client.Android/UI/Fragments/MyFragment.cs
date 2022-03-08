@@ -42,19 +42,19 @@ namespace System.Application.UI.Fragments
                     return;
                 }
 
-#if !DEBUG
-                var isUnderConstruction = e.Current.Id switch
-                {
-                    PreferenceButton.BindPhoneNumber or
-                    PreferenceButton.ChangePhoneNumber or PreferenceButton.UserProfile => true,
-                    _ => false,
-                };
-                if (isUnderConstruction)
-                {
-                    MainApplication.ShowUnderConstructionTips();
-                    return;
-                }
-#endif
+                //#if !DEBUG
+                //                var isUnderConstruction = e.Current.Id switch
+                //                {
+                //                    PreferenceButton.BindPhoneNumber or
+                //                    PreferenceButton.ChangePhoneNumber or PreferenceButton.UserProfile => true,
+                //                    _ => false,
+                //                };
+                //                if (isUnderConstruction)
+                //                {
+                //                    MainApplication.ShowUnderConstructionTips();
+                //                    return;
+                //                }
+                //#endif
 
 #if __XAMARIN_FORMS__
                 var route = e.Current.Id switch
@@ -73,16 +73,23 @@ namespace System.Application.UI.Fragments
                 }
 #endif
 
-                var activityType = e.Current.Id switch
+                switch (e.Current.Id)
                 {
-                    PreferenceButton.UserProfile => typeof(UserProfileActivity),
-                    PreferenceButton.BindPhoneNumber => typeof(BindPhoneNumberActivity),
-                    PreferenceButton.ChangePhoneNumber => typeof(ChangePhoneNumberActivity),
-                    PreferenceButton.Settings => typeof(SettingsActivity),
-                    PreferenceButton.About => typeof(AboutActivity),
-                    _ => (Type?)null,
-                };
-                if (activityType != null) this.StartActivity(activityType);
+                    case PreferenceButton.UserProfile:
+                        this.StartActivity<UserProfileActivity>();
+                        break;
+                    case PreferenceButton.BindPhoneNumber:
+                    case PreferenceButton.ChangePhoneNumber:
+                        UserProfileActivity.StartActivity(RequireActivity(),
+                            UserProfileWindowViewModel.SubPageType.ChangeOrBindPhoneNumber);
+                        break;
+                    case PreferenceButton.Settings:
+                        this.StartActivity<SettingsActivity>();
+                        break;
+                    case PreferenceButton.About:
+                        this.StartActivity<AboutActivity>();
+                        break;
+                }
             };
             binding.rvPreferenceButtons.SetLinearLayoutManager();
             binding.rvPreferenceButtons.AddVerticalGroupItemDecoration(binding.rvPreferenceButtons.PaddingTop);
@@ -93,9 +100,9 @@ namespace System.Application.UI.Fragments
         {
             if (view.Id == Resource.Id.layoutUser)
             {
-#if !DEBUG
-                MainApplication.ShowUnderConstructionTips();
-#else
+                //#if !DEBUG
+                //                MainApplication.ShowUnderConstructionTips();
+                //#else
                 if (UserService.Current.IsAuthenticated)
                 {
                     this.StartActivity<UserProfileActivity>();
@@ -104,7 +111,7 @@ namespace System.Application.UI.Fragments
                 {
                     this.StartActivity<LoginOrRegisterActivity>();
                 }
-#endif
+                //#endif
                 return true;
             }
             //else if (view.Id == Resource.Id.???)

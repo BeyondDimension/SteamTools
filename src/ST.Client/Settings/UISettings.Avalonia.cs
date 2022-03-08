@@ -41,7 +41,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<double> AcrylicOpacity => _AcrylicOpacity ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<int>? _WindowBackgroundMateria = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: OperatingSystem2.IsWindows11AtLeast ? 4 : 3, autoSave: true) : null;
+        static readonly SerializableProperty<int>? _WindowBackgroundMateria = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: OperatingSystem2.IsWindows7 ? 0 : (OperatingSystem2.IsWindows11AtLeast ? 4 : 3), autoSave: true) : null;
         /// <summary>
         /// 窗口背景材质
         /// </summary>

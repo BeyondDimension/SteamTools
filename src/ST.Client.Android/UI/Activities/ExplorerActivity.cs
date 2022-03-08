@@ -19,6 +19,16 @@ namespace System.Application.UI.Activities
     {
         protected override int? LayoutResource => Resource.Layout.activity_explorer;
 
+        protected override ExplorerPageViewModel? OnCreateViewModel()
+        {
+            var path = this.GetViewModel<string>();
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                return new(path!);
+            }
+            return new();
+        }
+
         protected override void OnCreate2(Bundle? savedInstanceState)
         {
             base.OnCreate2(savedInstanceState);

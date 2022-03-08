@@ -227,11 +227,14 @@ namespace System.Application.Services.Implementation
 
             //if (item != null)
             //{
+
+            //e.HttpClient.Request.Headers.AddHeader("User-Agent", "Steam++ Proxy/" + ThisAssembly.Version);
+
             foreach (var item in ProxyDomains)
             {
                 foreach (var host in item.DomainNamesArray)
                 {
-                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host, StringComparison.OrdinalIgnoreCase))
+                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsDomainPattern(host, RegexOptions.IgnoreCase))
                     {
                         if (!e.HttpClient.IsHttps)
                         {
@@ -263,6 +266,14 @@ namespace System.Application.Services.Implementation
                             if (ip == null || IPAddress.IsLoopback(ip) || ip.Equals(IPAddress.Any))
                                 goto exit;
                             e.HttpClient.UpStreamEndPoint = new IPEndPoint(ip, item.PortId);
+                        }
+
+                        if (!string.IsNullOrEmpty(item.UserAgent))
+                        {
+                            var oldua = e.HttpClient.Request.Headers.GetFirstHeader("User-Agent")?.Value;
+                            e.HttpClient.Request.Headers.RemoveHeader("User-Agent");
+                            var newUA = item.UserAgent.Replace("${origin}", oldua);
+                            e.HttpClient.Request.Headers.AddHeader("User-Agent", newUA);
                         }
 
                         if (e.HttpClient.ConnectRequest?.ClientHelloInfo?.Extensions != null)
@@ -337,7 +348,7 @@ namespace System.Application.Services.Implementation
                     if (script.ExcludeDomainNamesArray != null)
                         foreach (var host in script.ExcludeDomainNamesArray)
                         {
-                            if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                            if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host, RegexOptions.IgnoreCase))
                                 goto next;
                         }
 
@@ -345,9 +356,9 @@ namespace System.Application.Services.Implementation
                     {
                         var state = host.IndexOf("/") == 0;
                         if (state)
-                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host[1..], RegexOptions.Compiled);
+                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host[1..], RegexOptions.IgnoreCase);
                         else
-                            state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
+                            state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host, RegexOptions.IgnoreCase);
                         if (state)
                         {
                             var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");

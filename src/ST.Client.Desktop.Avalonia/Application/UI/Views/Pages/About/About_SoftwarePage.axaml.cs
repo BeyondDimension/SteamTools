@@ -14,10 +14,16 @@ namespace System.Application.UI.Views.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
-            var logoPanel = this.FindControl<StackPanel>("LogoPanel");
+            var logoPanel = this.FindControl<DockPanel>("LogoPanel");
             if (logoPanel != null)
             {
                 logoPanel.Tapped += (_, _) => AboutAppInfoPopup.OnClick();
+            }
+
+            var avaloniaVersion = this.FindControl<TextBlock>("AvaloniaVersionTextBlock");
+            if (avaloniaVersion != null)
+            {
+                avaloniaVersion.Text = typeof(Avalonia.Application).Assembly.GetName().Version?.ToString();
             }
         }
     }

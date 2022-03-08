@@ -22,13 +22,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: recursive
 
     - name: Setup .NET 6
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
 
@@ -52,7 +52,7 @@ jobs:
       
     - name: Checkout NSIS-Build repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: SteamTools-Team/NSIS-Build
         token: ${{ secrets.REPO_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
 
     - name: Checkout Credentials repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: SteamTools-Team/Credentials
         token: ${{ secrets.REPO_TOKEN }}
@@ -160,21 +160,21 @@ jobs:
         Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_macos_arm64_v${{ steps.tag.outputs.tag }}.7z" "${env:PublishFilePath}"
         Write-Output "macos_arm64_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_macos_arm64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
-    - name: Package linux-x64 7z
+    - name: Package linux-x64 tar.zst
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Path ${env:PublishFilePath} -Force > $null
-        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_linux_x64_v${{ steps.tag.outputs.tag }}.7z" "${env:PublishFilePath}"
-        Write-Output "linux_x64_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_linux_x64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_linux_x64_v${{ steps.tag.outputs.tag }}.tar.zst" "${env:PublishFilePath}"
+        Write-Output "linux_x64_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_linux_x64_v${{ steps.tag.outputs.tag }}.tar.zst)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
                 
-    - name: Package linux-arm64 7z
+    - name: Package linux-arm64 tar.zst
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Path ${env:PublishFilePath} -Force > $null
-        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_linux_arm64_v${{ steps.tag.outputs.tag }}.7z" "${env:PublishFilePath}"
-        Write-Output "linux_arm64_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_linux_arm64_v${{ steps.tag.outputs.tag }}.7z)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        Copy-Item ".\src\ST.Client.Desktop.Avalonia.App\bin\${env:Configuration}\Publish\${env:ProjectName}_linux_arm64_v${{ steps.tag.outputs.tag }}.tar.zst" "${env:PublishFilePath}"
+        Write-Output "linux_arm64_SHA256=$(.\packaging\SHA256.ps1 ${env:PublishFilePath}\${env:ProjectName}_linux_arm64_v${{ steps.tag.outputs.tag }}.tar.zst)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         
     - name: Package linux-x64 deb
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
@@ -237,8 +237,8 @@ jobs:
           | <sub>${{ env.ProjectName }}_win_x64_v${{ steps.tag.outputs.tag }}.exe</sub> | <sub>${{ env.exe_win_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_win_x64_fde_v${{ steps.tag.outputs.tag }}.exe</sub> | <sub>${{ env.exe_fd_win_x64_SHA256 }}</sub> |
           |||
-          | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_x64_SHA256 }}</sub> |
-          | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.7z</sub> | <sub>${{ env.linux_arm64_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.tar.zst</sub> | <sub>${{ env.linux_x64_SHA256 }}</sub> |
+          | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.tar.zst</sub> | <sub>${{ env.linux_arm64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.deb</sub> | <sub>${{ env.deb_linux_x64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_arm64_v${{ steps.tag.outputs.tag }}.deb</sub> | <sub>${{ env.deb_linux_arm64_SHA256 }}</sub> |
           | <sub>${{ env.ProjectName }}_linux_x64_v${{ steps.tag.outputs.tag }}.rpm</sub> | <sub>${{ env.rpm_linux_x64_SHA256 }}</sub> |
@@ -264,13 +264,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: recursive
     
     - name: Setup .NET 6
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
 
@@ -314,7 +314,7 @@ jobs:
 
     - name: Checkout Credentials repository
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: SteamTools-Team/Credentials
         token: ${{ secrets.REPO_TOKEN }}

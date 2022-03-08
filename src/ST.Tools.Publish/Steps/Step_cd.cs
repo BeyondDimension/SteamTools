@@ -3,6 +3,7 @@ using System.Application.Models.Internals;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.CommandLine.NamingConventionBinder;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -314,7 +315,7 @@ namespace System.Application.Steps
         /// <returns></returns>
         static AppDownloadType GetCompressedTypeByRID(string rid)
         {
-            //if (rid.StartsWith("linux-")) return AppDownloadType.Compressed_Zstd;
+            if (rid.StartsWith("linux-")) return AppDownloadType.Compressed_Zstd;
             return AppDownloadType.Compressed_7z;
         }
 

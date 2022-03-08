@@ -1,5 +1,4 @@
 using ArchiSteamFarm;
-using System;
 using System.Application.Settings;
 using System.Collections.Generic;
 using System.Net;

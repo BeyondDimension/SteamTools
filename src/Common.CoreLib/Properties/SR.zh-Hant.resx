@@ -206,7 +206,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
-    <value>打開 Web 連結失敗 0x{0}，請設置系統預設瀏覽器後再嘗試</value>
+    <value>打開 Web 連結失敗 0x{0}，請設定系統預設瀏覽器後再嘗試</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

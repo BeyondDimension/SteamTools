@@ -206,7 +206,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
-    <value>Il collegamento Web aperto non riesce 0x{0}, impostare il browser predefinito del sistema prima di provare</value>
+    <value>Apri collegamento Web non riuscito 0x{0}, imposta il browser predefinito del sistema prima di provare</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

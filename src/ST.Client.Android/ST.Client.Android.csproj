@@ -112,6 +112,11 @@
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddWindowManager.cs" />
     <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddApplicationUpdateService.cs" />
     <AndroidResource Include="Resources\**\*" />
+    <Compile Remove="Services\V2Ray\**" />
+    <EmbeddedResource Remove="Services\V2Ray\**" />
+    <None Remove="Services\V2Ray\**" />
+    <AndroidResource Remove="Resources\v2rayPoint.configure.txt" />
+    <Compile Remove="Services\Native\ProxyForegroundService.JNI.tun2http.cs" />
     <None Remove="Resources\layout\controls_btntext.xml" />
     <Compile Include="..\AboutAppInfoPopup.cs">
       <LinkBase>UI</LinkBase>
@@ -119,6 +124,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="XAB.FlexboxLayout" />
     <PackageReference Include="de.hdodenhof.circleimageview" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
     <PackageReference Include="Xamarin.AndroidX.SwipeRefreshLayout" />
@@ -155,6 +161,7 @@
   </ItemGroup>-->
 
   <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Android.V2Ray\ST.Client.Android.V2Ray.csproj" />
     <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" Condition=" $(DefineConstants.Contains(`__XAMARIN_FORMS__`)) " />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
@@ -363,6 +370,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_remove_circle_outline_24.xml">
       <Link>Resources\drawable\ic_baseline_remove_circle_outline_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_security_24.xml">
+      <Link>Resources\drawable\ic_baseline_security_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_stop_24.xml">
       <Link>Resources\drawable\ic_baseline_stop_24.xml</Link>
     </AndroidResource>
@@ -456,6 +466,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_detail_auth.xml">
       <Link>Resources\layout\activity_detail_auth.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_donate.xml">
+      <Link>Resources\layout\activity_donate.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_encryption_auth.xml">
       <Link>Resources\layout\activity_encryption_auth.xml</Link>
     </AndroidBoundLayout>
@@ -515,6 +528,18 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_basic_profile_content.xml">
       <Link>Resources\layout\fragment_basic_profile_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number.xml">
+      <Link>Resources\layout\fragment_bind_phone_number.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_bind_phone_number_content.xml">
+      <Link>Resources\layout\fragment_bind_phone_number_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number.xml">
+      <Link>Resources\layout\fragment_change_bind_phone_number.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_change_bind_phone_number_content.xml">
+      <Link>Resources\layout\fragment_change_bind_phone_number_content.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_community_fix.xml">
       <Link>Resources\layout\fragment_community_fix.xml</Link>
@@ -581,6 +606,9 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_card_steam_auth_trade_confirmation_content.xml">
       <Link>Resources\layout\layout_card_steam_auth_trade_confirmation_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_donate_user.xml">
+      <Link>Resources\layout\layout_donate_user.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\layout_file_or_dir.xml">
       <Link>Resources\layout\layout_file_or_dir.xml</Link>
@@ -730,27 +758,9 @@
       <Link>Resources\xml\local_auth_appwidget_info.xml</Link>
     </AndroidResource>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
 </Project>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

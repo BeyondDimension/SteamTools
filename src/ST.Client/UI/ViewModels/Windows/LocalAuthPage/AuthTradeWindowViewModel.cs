@@ -282,10 +282,7 @@ namespace System.Application.UI.ViewModels
 
         public void Refresh_Click()
         {
-            if (IsLoggedIn)
-            {
-                Process();
-            }
+            Process();
         }
 
         private void RefreshConfirmationsList()
@@ -332,6 +329,10 @@ namespace System.Application.UI.ViewModels
                         MainThread2.BeginInvokeOnMainThread(() =>
                         {
                             IsLoading = false;
+                            if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(UserName))
+                            {
+                                return;
+                            }
                             if (ToastService.IsSupported)
                             {
                                 ToastService.Current.Set(AppResources.Logining);
@@ -342,7 +343,7 @@ namespace System.Application.UI.ViewModels
                                 captchaId = null;
                             }
                         });
-                        var loginResult = steam.Login(UserName!, Password!, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
+                        var loginResult = steam.Login(UserName, Password, captchaId, codeChar, R.GetCurrentCultureSteamLanguageName());
                         MainThread2.BeginInvokeOnMainThread(() =>
                         {
                             LoadingText = null;

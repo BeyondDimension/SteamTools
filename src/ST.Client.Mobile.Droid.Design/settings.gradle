@@ -2,3 +2,4 @@ rootProject.name = "Steam++"
 include ':app'
 include ':ui'
 include ':ui'
+include ':v2ray'

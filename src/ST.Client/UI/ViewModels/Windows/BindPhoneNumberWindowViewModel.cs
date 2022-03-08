@@ -123,4 +123,10 @@ namespace System.Application.UI.ViewModels
             i.RemoveAllDelegate();
         }
     }
+
+    partial class UserProfileWindowViewModel
+    {
+        readonly Lazy<BindPhoneNumberWindowViewModel> mBindPhoneNumberVM = new(() => new BindPhoneNumberWindowViewModel());
+        public BindPhoneNumberWindowViewModel BindPhoneNumberVM => mBindPhoneNumberVM.Value;
+    }
 }

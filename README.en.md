@@ -32,7 +32,7 @@ English | [简体中文](./README.md)
 - [GitHub Releases](https://github.com/BeyondDimension/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
-- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
+- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9PB0L9J4K006)
 - [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
 
 ## ✨ Functions

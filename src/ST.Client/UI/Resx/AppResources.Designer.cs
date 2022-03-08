@@ -235,7 +235,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号 B 的共享却一直使用的是账号 A 的共享这种问题，从上到下的排序为共享库使用的优先级顺序，如果不生效可以禁用启用选项保留需要的共享库。调整后保存重启 Steam 生效！ 的本地化字符串。
+        ///   查找类似 调整当前设备上共享的 Steam 账号优先级顺序，用于解决想玩账号B的共享却一直使用的是账号A的共享这种问题，从上到下的排序为共享库使用的优先级顺序，也可以选择暂时禁用或启用指定账号的共享。调整后保存重启 Steam 生效！ 的本地化字符串。
         /// </summary>
         public static string AccountChange_ShareManageAboutTips {
             get {
@@ -570,6 +570,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 控制台设置 的本地化字符串。
+        /// </summary>
+        public static string ASF_ConsoleSettings {
+            get {
+                return ResourceManager.GetString("ASF_ConsoleSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定要删除这个Bot吗？ 的本地化字符串。
         /// </summary>
         public static string ASF_DeleteBotTip {
@@ -857,6 +866,15 @@ namespace System.Application.UI.Resx {
         public static string ASF_RuningTip {
             get {
                 return ResourceManager.GetString("ASF_RuningTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置自定义密钥 的本地化字符串。
+        /// </summary>
+        public static string ASF_SetCryptKey {
+            get {
+                return ResourceManager.GetString("ASF_SetCryptKey", resourceCulture);
             }
         }
         
@@ -3285,7 +3303,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入。(不支持导入加密文件，请先移除密码在导入) 的本地化字符串。
+        ///   查找类似 Steam 的移动身份验证器应用程序的桌面实现。导入方法：选择 SDA 目录下 maFiles 文件夹的 maFile 文件进行导入。(不支持导入加密文件，请先移除密码再导入) 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SDATip {
             get {
@@ -4430,7 +4448,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 使用硬件加速 的本地化字符串。
+        ///   查找类似 使用GPU渲染界面(硬件加速) 的本地化字符串。
         /// </summary>
         public static string Settings_General_UseGPURendering {
             get {
@@ -4899,7 +4917,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 禁用共享库 的本地化字符串。
+        ///   查找类似 禁用 的本地化字符串。
         /// </summary>
         public static string Steam_ShareDisableBtn {
             get {
@@ -4908,7 +4926,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启用共享库 的本地化字符串。
+        ///   查找类似 启用 的本地化字符串。
         /// </summary>
         public static string Steam_ShareEnableBtn {
             get {
@@ -5566,7 +5584,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要登出 Steam++? 的本地化字符串。
+        ///   查找类似 确定要登出Steam++账号吗? 的本地化字符串。
         /// </summary>
         public static string User_SignOutTip {
             get {
@@ -5819,7 +5837,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 已记住密码 的本地化字符串。
+        ///   查找类似 已记住登录状态 的本地化字符串。
         /// </summary>
         public static string UserChange_RememberMe {
             get {

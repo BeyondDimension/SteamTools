@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.Versioning;
 using Windows.Storage;
 
@@ -14,9 +15,19 @@ namespace System.Application
             // https://github.com/xamarin/Essentials/blob/1.6.1/Xamarin.Essentials/FileSystem/FileSystem.uwp.cs#L12
             // https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-behind-the-scenes
             // 不允许在 C:\Program Files\WindowsApps\package_name 下写入。
-            // C:\Users\{user}\AppData\Local\Packages\4651ED44255E.47979655102CE_gvn1zxq6vcwjj\LocalState
-            // C:\Users\{user}\AppData\Local\Packages\4651ED44255E.47979655102CE_gvn1zxq6vcwjj\LocalCache
-            InitFileSystem(() => ApplicationData.Current.LocalFolder.Path, () => ApplicationData.Current.LocalCacheFolder.Path);
+
+            var destAppDataPath = ApplicationData.Current.LocalFolder.Path;
+            var destCachePath = ApplicationData.Current.LocalCacheFolder.Path;
+
+            // %HOMEPATH%\AppData\Local\Packages\4651ED44255E.47979655102CE_gvn1zxq6vcwjj\LocalState
+            // %HOMEPATH%\AppData\Local\Packages\4651ED44255E.47979655102CE_gvn1zxq6vcwjj\LocalCache
+            var sourceAppDataPath = ApplicationData.Current.LocalFolder.Path.Replace(DEST_PACKAGE_ID, SOURCE_PACKAGE_ID);
+            var sourceCachePath = ApplicationData.Current.LocalCacheFolder.Path.Replace(DEST_PACKAGE_ID, SOURCE_PACKAGE_ID);
+
+            InitFileSystemWithMigrations(destAppDataPath, destCachePath, sourceAppDataPath, sourceCachePath);
         }
+
+        const string SOURCE_PACKAGE_ID = "4651ED44255E.47979655102CE_k6txddmbb6c52";
+        const string DEST_PACKAGE_ID = "31F8A90E.SteamforWindows_0pj7be8rz1f1e";
     }
 }

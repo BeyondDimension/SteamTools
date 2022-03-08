@@ -68,7 +68,7 @@ namespace System.Application.UI.Fragments
                 var state = value == null ? ViewStates.Gone : ViewStates.Visible;
                 binding.ivCaptchaImage.Visibility = state;
                 binding.layoutCaptcha.Visibility = state;
-                binding.ivCaptchaImage.SetImageSource(value);
+                binding.ivCaptchaImage.SetImageSource(value, Resource.Dimension.img_size_captcha_w, Resource.Dimension.img_size_captcha_h);
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.EmailDomain).SubscribeInMainThread(value =>
             {

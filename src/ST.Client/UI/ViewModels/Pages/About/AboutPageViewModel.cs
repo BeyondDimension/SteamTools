@@ -131,18 +131,16 @@ namespace System.Application.UI.ViewModels
                     }
                 }).AddTo(this);
             }
-            else
-            {
-                DonateFliterDate = DateTimeOffset.Now.GetCurrentMonth();
 
-                this.WhenValueChanged(x => x.DonateFliterDate, false)
-                    .Subscribe(x => LoadDonateRankListData(true));
-            }
+            DonateFliterDate = DateTimeOffset.Now.GetCurrentMonth();
+
+            this.WhenValueChanged(x => x.DonateFliterDate, false)
+                .Subscribe(x => LoadDonateRankListData(true));
         }
 
         public override void Activation()
         {
-            if (IApplication.IsDesktopPlatform)
+            if (IApplication.IsDesktopPlatform) // Android 上手动调用加载
             {
                 LoadDonateRankListData(true);
             }
@@ -158,7 +156,17 @@ namespace System.Application.UI.ViewModels
         public async void LoadDonateRankListData(bool refresh = false, bool nextPage = false)
         {
             if (refresh)
-                DonateList = null;
+            {
+                if (IApplication.IsDesktopPlatform)
+                {
+                    DonateList = null;
+                }
+                else
+                {
+                    // Android 上 List 关联 Adapter 在初始化时，这里不能执行 null 赋值
+                    DonateList?.Clear();
+                }
+            }
 
             DonateList ??= new();
 
@@ -175,8 +183,8 @@ namespace System.Application.UI.ViewModels
                 Params = new RankingRequest()
                 {
                     TimeRange = new[] {
-                        DonateFliterDate,DonateFliterDate.GetCurrentMonthLastDay(),
-                    }
+                        DonateFliterDate, DonateFliterDate.GetCurrentMonthLastDay(),
+                    },
                 }
             });
 
@@ -184,7 +192,57 @@ namespace System.Application.UI.ViewModels
             {
                 if (DonateList.Count <= content.Total)
                 {
-                    DonateList.AddRange(content.DataSource);
+                    if (content.DataSource.Any())
+                    {
+                        DonateList.AddRange(content.DataSource);
+                    }
+#if DEBUG
+                    else
+                    {
+                        if (DonateFliterDate.Year == 2022 && DonateFliterDate.Month == 1)
+                        {
+                            var mockDatas = new[]
+                            {
+                                new RankingResponse
+                                {
+                                    Name = "Name1",
+                                    Amount = 648,
+                                    CurrencyCode = CurrencyCode.USD,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name2",
+                                    Amount = 99,
+                                    CurrencyCode = CurrencyCode.CNY,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name3",
+                                    Amount = 1500,
+                                    CurrencyCode = CurrencyCode.CNY,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name4",
+                                    Amount = 666,
+                                    CurrencyCode = CurrencyCode.USD,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                                new RankingResponse
+                                {
+                                    Name = "Name5",
+                                    Amount = 999,
+                                    CurrencyCode = CurrencyCode.USD,
+                                    Avatar = "https://cn.bing.com/th?id=OHR.WhalesDolphins_EN-CN1280683758_1920x1080.jpg&rf=LaDigue_1920x1080.jpg",
+                                },
+                            };
+                            DonateList.AddRange(mockDatas);
+                        }
+                    }
+#endif
                 }
             }
             else

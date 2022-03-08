@@ -42,11 +42,15 @@ namespace System.Application.Settings
 
         #endregion
 
+        public const int DefaultConsoleFontSize = 14;
+        public const int MinRangeConsoleFontSize = 8;
+        public const int MaxRangeConsoleFontSize = 24;
+
         /// <summary>
         /// 控制台字体大小，默认值 14，Android 上单位为 sp
         /// </summary>
         public static SerializableProperty<int> ConsoleFontSize { get; }
-            = GetProperty(defaultValue: 14, autoSave: true);
+            = GetProperty(defaultValue: DefaultConsoleFontSize, autoSave: true);
 
         public const int DefaultIPCPortIdValue = 6242;
 

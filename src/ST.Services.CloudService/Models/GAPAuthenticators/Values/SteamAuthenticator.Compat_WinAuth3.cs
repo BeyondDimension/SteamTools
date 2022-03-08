@@ -30,6 +30,7 @@ using System.Net.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using WinAuth;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
@@ -67,7 +68,7 @@ namespace System.Application.Models
             /// </summary>
             const string COMMUNITY_BASE = "https://steamcommunity.com";
             const string WEBAPI_BASE = "https://api.steampowered.com";
-            const string SYNC_URL = "https://api.steampowered.com:443/ITwoFactorService/QueryTime/v0001";
+            const string SYNC_URL = "https://api.steampowered.com/ITwoFactorService/QueryTime/v0001";
 
             /// <summary>
             /// Character set for authenticator code
@@ -667,7 +668,7 @@ namespace System.Application.Models
                     }
                     else
                     {
-                        Sync();
+                        Task.Run(Sync);
                     }
                 }
 

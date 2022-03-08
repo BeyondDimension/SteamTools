@@ -234,7 +234,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
-    <value>NameIdentifier 읽기 실패, 값: {0}, 채널: {1}, 웹마스터에게 문의하십시오.</value>
+    <value>NameIdentifier 읽기 실패, 값: {0}, 채널: {1} 웹마스터에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewUserNickName_" xml:space="preserve">

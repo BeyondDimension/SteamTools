@@ -8,13 +8,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="4651ED44255E.47979655102CE"
-    Publisher="CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66"
-    Version="2.6.8.0" />
+    Name="31F8A90E.SteamforWindows"
+    Publisher="CN=E82D30B2-4455-4D63-8292-8C87C7AA4526"
+    Version="2.6.9.0" />
 
   <Properties>
-    <DisplayName>Steam++</DisplayName>
-    <PublisherDisplayName>软妹币玩家</PublisherDisplayName>
+    <DisplayName>Steam++ for Windows</DisplayName>
+    <PublisherDisplayName>长沙次元超越科技有限公司</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Steam++"
+        DisplayName="Steam++ for Windows"
         Description="「Steam++」是一个包含多种Steam工具功能的工具箱。"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"

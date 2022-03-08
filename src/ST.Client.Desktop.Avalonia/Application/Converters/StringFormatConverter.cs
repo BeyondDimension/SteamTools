@@ -22,9 +22,9 @@ namespace System.Application.Converters
             if (!string.IsNullOrEmpty(para))
             {
                 if (string.Equals(para, Size, StringComparison.OrdinalIgnoreCase)
-                    && double.TryParse(str, out double b))
+                    && decimal.TryParse(str, out var num))
                 {
-                    (var length, string unit) = IOPath.GetSize(b);
+                    (var length, string unit) = IOPath.GetSize(num);
                     if (length == 0)
                         return "0 B";
                     return $"{length:###,###.##} {unit}";

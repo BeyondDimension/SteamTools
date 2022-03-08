@@ -38,10 +38,27 @@
         <Border Classes="Item">
           <DockPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.ASF_OpenWebUIGlobalConfig,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          </DockPanel>
+        </Border>
+      </Button>
 
-            <ui:SymbolIcon Classes="right"
-                           Symbol="Open"
-                           FontSize="24"/>
+      <Button Classes="plain"
+              Command="{ReflectionBinding SetEncryptionKey}">
+        <Border Classes="Item">
+          <DockPanel>
+            <StackPanel>
+              <TextBlock Text="{ReflectionBinding Path=Res.ASF_SetCryptKey,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              <TextBlock Classes="prompt" Text="ASF_CRYPTKEY" />
+            </StackPanel>
+          </DockPanel>
+        </Border>
+      </Button>
+
+      <Button Classes="plain"
+              Command="{ReflectionBinding SelectBotFiles}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.ASF_ImportBotFile,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           </DockPanel>
         </Border>
       </Button>

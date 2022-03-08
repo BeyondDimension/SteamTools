@@ -25,7 +25,7 @@ namespace System
         /// <param name="dt"></param>
         /// <returns></returns>
         public static DateTimeOffset GetCurrentMonth(this DateTimeOffset dt)
-            => new(dt.Year, dt.Month, 1, 0, 0, 0, TimeSpan.Zero);
+            => new(dt.Year, dt.Month, 1, 0, 0, 0, dt.Offset);
 
         /// <summary>
         /// 根据时间日期获取当前月(最后一天)
@@ -33,6 +33,6 @@ namespace System
         /// <param name="dt"></param>
         /// <returns></returns>
         public static DateTimeOffset GetCurrentMonthLastDay(this DateTimeOffset dt)
-            => new DateTimeOffset(dt.Year, dt.Month, 1, 0, 0, 0, TimeSpan.Zero).AddMonths(1).AddDays(-1);
+            => new DateTimeOffset(dt.Year, dt.Month, 1, 0, 0, 0, dt.Offset).AddMonths(1).AddDays(-1);
     }
 }

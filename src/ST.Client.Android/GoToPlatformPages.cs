@@ -84,34 +84,38 @@ namespace System.Application
             return default;
         }
 
-        public static void StartActivity(Activity activity, Type activityType, object viewModel, Type? viewModelType = null)
-        {
-            viewModelType ??= viewModel.GetType();
-            var viewModel_ = Serializable.SMP(viewModelType, viewModel);
-#if DEBUG
-            var t = Serializable.DMP(viewModelType, viewModel_);
-#endif
-            StartActivity(activity, activityType, viewModel_);
-        }
+//        [Obsolete]
+//        public static void StartActivity(Activity activity, Type activityType, object viewModel, Type? viewModelType = null)
+//        {
+//            viewModelType ??= viewModel.GetType();
+//            var viewModel_ = Serializable.SMP(viewModelType, viewModel);
+//#if DEBUG
+//            var t = Serializable.DMP(viewModelType, viewModel_);
+//#endif
+//            StartActivity(activity, activityType, viewModel_);
+//        }
 
-        public static void StartActivity(Fragment fragment, Type activityType, object viewModel, Type? viewModelType = null)
-        {
-            var activity = fragment.Activity;
-            if (activity == null) return;
-            StartActivity(activity, activityType, viewModel, viewModelType);
-        }
+//        [Obsolete]
+//        public static void StartActivity(Fragment fragment, Type activityType, object viewModel, Type? viewModelType = null)
+//        {
+//            var activity = fragment.Activity;
+//            if (activity == null) return;
+//            StartActivity(activity, activityType, viewModel, viewModelType);
+//        }
 
-        public static void StartActivity<TActivity>(Activity activity, object viewModel, Type? viewModelType = null)
-        {
-            StartActivity(activity, typeof(TActivity), viewModel, viewModelType);
-        }
+//        [Obsolete]
+//        public static void StartActivity<TActivity>(Activity activity, object viewModel, Type? viewModelType = null)
+//        {
+//            StartActivity(activity, typeof(TActivity), viewModel, viewModelType);
+//        }
 
-        public static void StartActivity<TActivity>(Fragment fragment, object viewModel, Type? viewModelType = null)
-        {
-            var activity = fragment.Activity;
-            if (activity == null) return;
-            StartActivity<TActivity>(activity, viewModel, viewModelType);
-        }
+//        [Obsolete]
+//        public static void StartActivity<TActivity>(Fragment fragment, object viewModel, Type? viewModelType = null)
+//        {
+//            var activity = fragment.Activity;
+//            if (activity == null) return;
+//            StartActivity<TActivity>(activity, viewModel, viewModelType);
+//        }
 
         public static void StartActivity<TViewModel>(Activity activity, Type activityType, TViewModel viewModel)
         {

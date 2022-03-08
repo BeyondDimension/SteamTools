@@ -206,7 +206,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
-    <value>Abrir enlace web falla 0x{0}, configure el navegador predeterminado del sistema antes de intentarlo</value>
+    <value>Abrir enlace web falló 0x{0}, configure el navegador predeterminado del sistema antes de intentarlo</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

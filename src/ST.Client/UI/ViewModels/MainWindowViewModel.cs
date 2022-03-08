@@ -147,7 +147,14 @@ namespace System.Application.UI.ViewModels
                         await ProxyService.Current.Initialize();
                         if (ASFSettings.AutoRunArchiSteamFarm.Value)
                         {
-                            await ASFService.Current.InitASF();
+                            if (platformService.UsePlatformForegroundService)
+                            {
+                                await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
+                            }
+                            else
+                            {
+                                await ASFService.Current.InitASF();
+                            }
                         }
                     });
 

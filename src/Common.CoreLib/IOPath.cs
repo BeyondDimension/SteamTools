@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading;
 #if !NET35 && !NOT_XE
 using System.Threading.Tasks;
@@ -172,27 +173,108 @@ namespace System
                 string destAppDataPath, string destCachePath,
                 string sourceAppDataPath, string sourceCachePath)
             {
+                bool ExistsNotEmptyDir(string path)
+                {
+                    var exists = Directory.Exists(path);
+                    if (DesktopBridge.IsRunningAsUwp)
+                    {
+                        if (path == destCachePath || path == sourceCachePath)
+                        {
+                            return false;
+                        }
+                    }
+                    return exists && Directory.EnumerateFileSystemEntries(path).Any();
+                }
+
                 var paths = new[] { destAppDataPath, destCachePath, };
-                var dict_paths = paths.ToDictionary(x => x, x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any());
+                var dict_paths = paths.ToDictionary(x => x, x => ExistsNotEmptyDir(x));
 
                 if (dict_paths.Values.All(x => !x))
                 {
                     var old_paths = new[] { sourceAppDataPath, sourceCachePath, };
                     if (old_paths.All(x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any())) // 迁移之前根目录上的文件夹
                     {
+                        var isNotFirst = false;
                         for (int i = 0; i < old_paths.Length; i++)
                         {
                             var path = paths[i];
                             var old_path = old_paths[i];
                             try
                             {
-                                Directory.Move(old_path, path);
+                                if (!isNotFirst)
+                                {
+                                    try
+                                    {
+                                        // 尝试搜索之前版本的进程将其结束
+                                        var currentProcess = Process.GetCurrentProcess();
+                                        var query = from x in Process.GetProcessesByName(currentProcess.ProcessName)
+                                                    where x != currentProcess
+                                                    let m = x.TryGetMainModule()
+                                                    where m != null && m.FileName != currentProcess.TryGetMainModule()?.FileName
+                                                    select x;
+                                        var process = query.ToArray();
+                                        foreach (var proces in process)
+                                        {
+                                            try
+                                            {
+#if NETCOREAPP3_0_OR_GREATER
+                                                proces.Kill(true);
+#else
+                                                proces.Kill();
+#endif
+                                            }
+                                            catch
+                                            {
+                                            }
+                                        }
+                                    }
+                                    catch
+                                    {
+                                    }
+                                    isNotFirst = true;
+                                }
+                                try
+                                {
+                                    Directory.Move(old_path, path);
+                                }
+                                catch
+                                {
+                                    try
+                                    {
+                                        CopyDirectory(old_path, path);
+                                    }
+                                    catch
+                                    {
+                                        if (OperatingSystem2.IsWindows)
+                                        {
+                                            var psi = new ProcessStartInfo
+                                            {
+                                                FileName = "cmd.exe",
+                                                UseShellExecute = false,
+                                                CreateNoWindow = true,
+                                                RedirectStandardInput = true,
+                                            };
+                                            var p = Process.Start(psi);
+                                            p.Start();
+                                            p.StandardInput.WriteLine($"xcopy \"{old_path}\" \"{path}\" /y &exit");
+                                            p.WaitForExit(10000);
+                                            p.Kill();
+                                        }
+                                        else
+                                        {
+                                            throw;
+                                        }
+                                    }
+                                }
                                 dict_paths[path] = true;
                             }
                             catch
                             {
-                                // 跨卷移动失败或其他原因失败，使用旧的目录，并尝试删除创建的空文件夹
-                                DirTryDelete(path);
+                                if (!DesktopBridge.IsRunningAsUwp)
+                                {
+                                    // 跨卷移动失败或其他原因失败，使用旧的目录，并尝试删除创建的空文件夹
+                                    DirTryDelete(path);
+                                }
                                 paths[i] = old_path;
                             }
                         }
@@ -394,16 +476,16 @@ namespace System
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns>单位 字节</returns>
-        public static double GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0D;
+        public static decimal GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0M;
 
         /// <summary>
         /// 获取指定路径的大小
         /// </summary>
         /// <param name="dirPath">路径</param>
         /// <returns>单位 字节</returns>
-        public static double GetDirectorySize(string dirPath)
+        public static decimal GetDirectorySize(string dirPath)
         {
-            double len = 0D;
+            var len = 0M;
             // 判断该路径是否存在（是否为文件夹）
             var isDirectory = IsDirectory(dirPath, out var fileInfo, out var directoryInfo);
             if (isDirectory.HasValue)
@@ -424,12 +506,12 @@ namespace System
             return len;
         }
 
-        const double unit = 1024d;
-        static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB" };
+        const decimal unit = 1024M;
+        static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB" };
 
-        public static (double length, string unit) GetSize(double length)
+        public static (decimal length, string unit) GetSize(decimal length)
         {
-            if (length > 0d)
+            if (length > 0M)
             {
                 for (int i = 0; i < units.Length; i++)
                 {
@@ -440,11 +522,11 @@ namespace System
             }
             else
             {
-                return (0, units.First());
+                return (0M, units.First());
             }
         }
 
-        public static string GetSizeString(double length)
+        public static string GetSizeString(decimal length)
         {
             (length, string unit) = GetSize(length);
             return $"{length:0.00} {unit}";
@@ -460,5 +542,38 @@ namespace System
 
         public const char UnixDirectorySeparatorChar = '/';
         public const char WinDirectorySeparatorChar = '\\';
+
+        public static void CopyDirectory(string sourceDir, string destinationDir, bool recursive = true)
+        {
+            // Get information about the source directory
+            var dir = new DirectoryInfo(sourceDir);
+
+            // Check if the source directory exists
+            if (!dir.Exists)
+                throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
+
+            // Cache directories before we start copying
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            // Create the destination directory
+            Directory.CreateDirectory(destinationDir);
+
+            // Get the files in the source directory and copy to the destination directory
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                file.CopyTo(targetFilePath);
+            }
+
+            // If recursive and copying subdirectories, recursively call this method
+            if (recursive)
+            {
+                foreach (DirectoryInfo subDir in dirs)
+                {
+                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                    CopyDirectory(subDir.FullName, newDestinationDir, true);
+                }
+            }
+        }
     }
 }

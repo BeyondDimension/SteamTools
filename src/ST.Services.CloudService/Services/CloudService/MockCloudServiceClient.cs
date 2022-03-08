@@ -129,6 +129,14 @@ namespace System.Application.Services.CloudService
             return Task.FromResult(ApiResponse.Ok());
         }
 
+        public Task<IApiResponse<UserInfoDTO>> RefreshUserInfo()
+        {
+            return Task.FromResult(ApiResponse.Ok(new UserInfoDTO
+            {
+
+            }));
+        }
+
         public Task<IApiResponse<ClockInResponse>> ClockIn()
         {
             return Task.FromResult(ApiResponse.Ok(new ClockInResponse

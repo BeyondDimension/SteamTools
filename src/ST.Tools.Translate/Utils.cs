@@ -144,11 +144,13 @@ namespace System
             return true;
         }
 
-        public static void AddOrReplace<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue value)
+        public static void AddOrReplace<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue value, string mark = "")
         {
             if (dict.ContainsKey(key))
             {
                 dict[key] = value;
+                if (!string.IsNullOrWhiteSpace(mark))
+                    Console.WriteLine($"WRAN: Duplicate key[{key}], mark: {mark}");
             }
             else
             {

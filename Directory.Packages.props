@@ -56,7 +56,7 @@
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Entity Framework Plus -->
 		<!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.9" />
+		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.13" />
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
@@ -90,7 +90,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<!-- Microsoft.* -->
-		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
 		<!--<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />-->
 		<!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
 		<!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
@@ -122,10 +122,10 @@
 		<PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
 		<PackageVersion Include="nunit.xamarin" Version="3.6.1" />
 		<PackageVersion Include="PCLStorage" Version="1.0.2" />
-		<PackageVersion Include="Moq" Version="4.16.1" />
+		<PackageVersion Include="Moq" Version="4.17.2" />
 
 		<!-- NLog -->
-		<PackageVersion Include="NLog" Version="4.7.13" />
+		<PackageVersion Include="NLog" Version="4.7.14" />
 		<PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
 		<PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
 
@@ -172,7 +172,8 @@
 		<PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
 
 		<!--Command Line Tools-->
-		<PackageVersion Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
+		<PackageVersion Include="System.CommandLine" Version="2.0.0-beta3.22114.1" />
+		<PackageVersion Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta3.22114.1" />
 
 		<!-- Pinyin -->
 		<PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
@@ -201,7 +202,7 @@
 
 		<!-- .NET Compat -->
 		<PackageVersion Include="OperatingSystem2" Version="1.4.3" />
-		<PackageVersion Include="JustArchiNET.Madness" Version="3.2.1" />
+		<PackageVersion Include="JustArchiNET.Madness" Version="3.3.0" />
 
 		<!-- Serialize -->
 		<PackageVersion Include="MessagePack" Version="2.3.85" />
@@ -218,7 +219,9 @@
 		<!--<PackageVersion Include="Nito.Disposables" Version="2.2.1" />-->
 
 		<!-- Valve Data File -->
-		<PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />
+		<!--<PackageVersion Include="Gameloop.Vdf" Version="0.6.1" />-->
+		<PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageVersion Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
 
 		<!-- WebSocket -->
 		<PackageVersion Include="Fleck" Version="1.2.0" />
@@ -233,18 +236,18 @@
 		<PackageVersion Include="Polly" Version="7.2.3" />
 
 		<!--Avalonia Start-->
-		<PackageVersion Include="Avalonia" Version="0.10.12" />
-		<PackageVersion Include="Avalonia.Desktop" Version="0.10.12" />
-		<PackageVersion Include="Avalonia.Skia" Version="0.10.12" />
-		<PackageVersion Include="Avalonia.Diagnostics" Version="0.10.12" />
-		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.12" />
-		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.12" />-->
-		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.12" />
-		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.12" />
-		<!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.4" />-->
+		<PackageVersion Include="Avalonia" Version="0.10.13" />
+		<PackageVersion Include="Avalonia.Desktop" Version="0.10.13" />
+		<PackageVersion Include="Avalonia.Skia" Version="0.10.13" />
+		<PackageVersion Include="Avalonia.Diagnostics" Version="0.10.13" />
+		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.13" />
+		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.13" />-->
+		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.13" />
+		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.12.2" />
+		<!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.12.2" />-->
 		<!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
 		<!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-		<!--<PackageVersion Include="FluentAvaloniaUI" Version="1.1.8" />-->
+		<!--<PackageVersion Include="FluentAvaloniaUI" Version="1.3.0" />-->
 		<PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
 		<!--Avalonia End-->
 
@@ -257,26 +260,33 @@
 		<PackageVersion Include="Square.Picasso" Version="2.71828.0" />
 		<!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
 		<!--<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />-->
-
+		<PackageVersion Include="XAB.FlexboxLayout" Version="3.0.0" />
+		
+		<!-- V2Ray -->
+		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />
+		<!--<PackageVersion Include="Karamunting.KotlinX.Coroutines.Core" Version="1.4.2" />-->
+		<PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.0" />
+		<PackageVersion Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" Version="3.1.3.2" />
+		
 		<!-- Xamarin.AndroidX -->
 		<PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
-		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.3.1.4" />
-		<PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.5" />
-		<PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.3.6.4" />
-		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.3" />
-		<PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.4" />
-		<PackageVersion Include="Xamarin.Google.Android.Material" Version="1.4.0.5" />
-		<PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.6" />
-		<PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.2.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.3.5.3" />
-		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.13" />
+		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.4.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.7" />
+		<PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.4.1" />
+		<PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.5" />
+		<PackageVersion Include="Xamarin.Google.Android.Material" Version="1.5.0" />
+		<PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.7" />
+		<PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.3" />
+		<PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.3.5.5" />
+		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.5" />
+		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.14" />
 		<PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.4.0.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.6" />
-		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.3" />
-		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.12" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.4.0.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.2" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.2" />
+		<PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.8" />
+		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.4" />
+		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.13" />
+		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.4.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.3" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.3" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
 		<!--<PackageVersion Include="Xamarin.AndroidX.Window" Version="1.0.0.3-beta02" />-->
 
