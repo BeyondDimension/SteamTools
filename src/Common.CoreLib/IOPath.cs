@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading;
 #if !NET35 && !NOT_XE
 using System.Threading.Tasks;
@@ -180,19 +181,57 @@ namespace System
                     var old_paths = new[] { sourceAppDataPath, sourceCachePath, };
                     if (old_paths.All(x => Directory.Exists(x) && Directory.EnumerateFileSystemEntries(x).Any())) // 迁移之前根目录上的文件夹
                     {
+                        var isNotFirst = false;
                         for (int i = 0; i < old_paths.Length; i++)
                         {
                             var path = paths[i];
                             var old_path = old_paths[i];
                             try
                             {
+                                if (!isNotFirst)
+                                {
+                                    try
+                                    {
+                                        // 尝试搜索之前版本的进程将其结束
+                                        var currentProcess = Process.GetCurrentProcess();
+                                        var query = from x in Process.GetProcessesByName(currentProcess.ProcessName)
+                                                    where x != currentProcess
+                                                    let m = x.TryGetMainModule()
+                                                    where m != null && m.FileName != currentProcess.TryGetMainModule()?.FileName
+                                                    select x;
+                                        var process = query.ToArray();
+                                        foreach (var proces in process)
+                                        {
+                                            try
+                                            {
+#if NETCOREAPP3_0_OR_GREATER
+                                                proces.Kill(true);
+#else
+                                                proces.Kill();
+#endif
+                                            }
+                                            catch
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                    isNotFirst = true;
+                                }
                                 Directory.Move(old_path, path);
                                 dict_paths[path] = true;
                             }
                             catch
                             {
-                                // 跨卷移动失败或其他原因失败，使用旧的目录，并尝试删除创建的空文件夹
-                                DirTryDelete(path);
+                                if (!DesktopBridge.IsRunningAsUwp)
+                                {
+                                    // 跨卷移动失败或其他原因失败，使用旧的目录，并尝试删除创建的空文件夹
+                                    DirTryDelete(path);
+                                }
                                 paths[i] = old_path;
                             }
                         }

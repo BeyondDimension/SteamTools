@@ -91,6 +91,7 @@
   <ItemGroup>
     <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
     <PackageReference Include="System.CommandLine" />
+    <PackageReference Include="System.CommandLine.NamingConventionBinder" />
     <PackageReference Include="TextCopy" />
     <PackageReference Include="SharpZipLib" />
     <PackageReference Include="Portable.BouncyCastle" />

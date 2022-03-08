@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using static System.ProjectPathUtil;
 using static System.Application.Utils;
+using System.CommandLine.NamingConventionBinder;
 
 namespace System.Application.Steps
 {
