@@ -4,6 +4,7 @@ using System.Application.Services;
 using System.Application.UI;
 using System.Collections.Generic;
 using IPAddress = System.Net.IPAddress;
+using EProxyMode = System.Application.ProxyMode;
 
 namespace System.Application.Settings
 {
@@ -127,5 +128,27 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: string.Empty, autoSave: false);
 
         #endregion
+
+        static EProxyMode DefaultProxyMode
+        {
+            get
+            {
+                if (OperatingSystem2.IsWindows)
+                {
+                    return EProxyMode.DNSIntercept;
+                }
+                else if (OperatingSystem2.IsAndroid)
+                {
+                    return EProxyMode.VPN;
+                }
+                return EProxyMode.Hosts;
+            }
+        }
+
+        /// <summary>
+        /// 当前代理模式
+        /// </summary>
+        public static SerializableProperty<EProxyMode> ProxyMode { get; }
+            = GetProperty(defaultValue: DefaultProxyMode, autoSave: true);
     }
 }
