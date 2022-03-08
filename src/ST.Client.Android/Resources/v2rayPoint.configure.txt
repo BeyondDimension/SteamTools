@@ -4,7 +4,17 @@
       "domain:googleapis.cn": "googleapis.com"
     },
     "servers": [
-      "1.1.1.1"
+      "1.1.1.1",
+      {
+        "address": "${VpnDns}",
+        "domains": [
+          "geosite:cn"
+        ],
+        "expectIPs": [
+          "geoip:cn"
+        ],
+        "port": 53
+      }
     ]
   },
   "inbounds": [
@@ -84,6 +94,20 @@
       "tag": "block"
     }
   ],
+  "policy": {
+    "levels": {
+      "8": {
+        "connIdle": 300,
+        "downlinkOnly": 1,
+        "handshake": 4,
+        "uplinkOnly": 1
+      }
+    },
+    "system": {
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
   "routing": {
     "domainStrategy": "IPIfNonMatch",
     "rules": [
@@ -97,11 +121,41 @@
       },
       {
         "ip": [
+          "${VpnDns}"
+        ],
+        "outboundTag": "direct",
+        "port": "53",
+        "type": "field"
+      },
+      {
+        "domain": [
+          "domain:googleapis.cn"
+        ],
+        "outboundTag": "proxy",
+        "type": "field"
+      },
+      {
+        "ip": [
           "geoip:private"
+        ],
+        "outboundTag": "direct",
+        "type": "field"
+      },
+      {
+        "ip": [
+          "geoip:cn"
+        ],
+        "outboundTag": "direct",
+        "type": "field"
+      },
+      {
+        "domain": [
+          "geosite:cn"
         ],
         "outboundTag": "direct",
         "type": "field"
       }
     ]
-  }
+  },
+  "stats": {}
 }

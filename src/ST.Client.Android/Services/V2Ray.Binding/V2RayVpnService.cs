@@ -92,6 +92,7 @@ namespace System.Application.Services.Native
                     var s = ProxyService.Current;
                     text = text.Replace("${ProxyIp}", s.ProxyIp.ToString());
                     text = text.Replace("${ProxyPort}", s.Socks5ProxyPortId.ToString());
+                    text = text.Replace("${VpnDns}", IDnsAnalysisService.PrimaryDNS_Ali);
                     return text;
                 }
             }
@@ -105,7 +106,7 @@ namespace System.Application.Services.Native
                 }
             }
 
-            bool IV2RayServiceManager.ForwardIpv6 => false;
+            bool IV2RayServiceManager.ForwardIpv6 => true;
 
             void IV2RayServiceManager.UpdateNotification(string? contentText, long proxyTraffic, long directTraffic)
             {
@@ -126,6 +127,8 @@ namespace System.Application.Services.Native
             {
                 builder.AddDisallowedApplication(PackageName!);
             }
+
+            public override string RoutingMode => "3";
         }
     }
 }

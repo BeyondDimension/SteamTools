@@ -197,6 +197,10 @@ namespace System.Application.UI
 
 #if __ANDROID__
 
+                b.Append("[v2ray.ver] ");
+                b.Append(Libv2ray.Libv2ray.CheckVersionX());
+                b.AppendLine();
+
                 //if (_ThisAssembly.Debuggable)
                 //{
                 //    b.Append("[app.multi] ");
