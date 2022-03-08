@@ -121,6 +121,11 @@ namespace System.Application.Services.Native
                 builder.SetContentText(contentText);
                 NotificationManager.Notify(notifyId, builder.Build());
             }
+
+            public override void OnConfigure(Builder builder)
+            {
+                builder.AddDisallowedApplication(PackageName!);
+            }
         }
     }
 }

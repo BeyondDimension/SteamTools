@@ -37,9 +37,9 @@ abstract class V2RayVpnService : VpnService(), ServiceControl {
     @delegate:RequiresApi(Build.VERSION_CODES.P)
     private val defaultNetworkRequest by lazy {
         NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
-                .build()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED)
+            .build()
     }
 
     private val connectivity by lazy { getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
@@ -51,7 +51,10 @@ abstract class V2RayVpnService : VpnService(), ServiceControl {
                 setUnderlyingNetworks(arrayOf(network))
             }
 
-            override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
                 // it's a good idea to refresh capabilities
                 setUnderlyingNetworks(arrayOf(network))
             }
@@ -100,6 +103,10 @@ abstract class V2RayVpnService : VpnService(), ServiceControl {
         return ""
     }
 
+    open fun onConfigure(builder: Builder) {
+
+    }
+
     private fun setup(parameters: String) {
 
         val prepare = prepare(this)
@@ -114,29 +121,30 @@ abstract class V2RayVpnService : VpnService(), ServiceControl {
         val routingMode = getRoutingMode()
 
         parameters.split(" ")
-                .map { it.split(",") }
-                .forEach {
-                    when (it[0][0]) {
-                        'm' -> builder.setMtu(java.lang.Short.parseShort(it[1]).toInt())
-                        's' -> builder.addSearchDomain(it[1])
-                        'a' -> builder.addAddress(it[1], Integer.parseInt(it[2]))
-                        'r' -> {
-                            if (routingMode == "1" || routingMode == "3") {
-                                if (it[1] == "::") { //not very elegant, should move Vpn setting in Kotlin, simplify go code
-                                    builder.addRoute("2000::", 3)
-                                } else {
-                                    resources.getStringArray(R.array.bypass_private_ip_address).forEach { cidr ->
+            .map { it.split(",") }
+            .forEach {
+                when (it[0][0]) {
+                    'm' -> builder.setMtu(java.lang.Short.parseShort(it[1]).toInt())
+                    's' -> builder.addSearchDomain(it[1])
+                    'a' -> builder.addAddress(it[1], Integer.parseInt(it[2]))
+                    'r' -> {
+                        if (routingMode == "1" || routingMode == "3") {
+                            if (it[1] == "::") { //not very elegant, should move Vpn setting in Kotlin, simplify go code
+                                builder.addRoute("2000::", 3)
+                            } else {
+                                resources.getStringArray(R.array.bypass_private_ip_address)
+                                    .forEach { cidr ->
                                         val addr = cidr.split('/')
                                         builder.addRoute(addr[0], addr[1].toInt())
                                     }
-                                }
-                            } else {
-                                builder.addRoute(it[1], Integer.parseInt(it[2]))
                             }
+                        } else {
+                            builder.addRoute(it[1], Integer.parseInt(it[2]))
                         }
-                        'd' -> builder.addDnsServer(it[1])
                     }
+                    'd' -> builder.addDnsServer(it[1])
                 }
+            }
 
         if (!enableLocalDns) {
 //            Utils.getVpnDnsServers()
@@ -166,6 +174,8 @@ abstract class V2RayVpnService : VpnService(), ServiceControl {
 //                }
 //            }
 //        }
+
+        onConfigure(builder)
 
         // Close the old interface since the parameters have been changed.
         try {
@@ -208,7 +218,12 @@ abstract class V2RayVpnService : VpnService(), ServiceControl {
                 Thread.sleep(1000L shl tries)
                 Log.d(packageName, "sendFd tries: $tries")
                 LocalSocket().use { localSocket ->
-                    localSocket.connect(LocalSocketAddress(path, LocalSocketAddress.Namespace.FILESYSTEM))
+                    localSocket.connect(
+                        LocalSocketAddress(
+                            path,
+                            LocalSocketAddress.Namespace.FILESYSTEM
+                        )
+                    )
                     localSocket.setFileDescriptorsForSend(arrayOf(fd))
                     localSocket.outputStream.write(42)
                 }
