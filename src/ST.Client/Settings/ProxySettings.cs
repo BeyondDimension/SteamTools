@@ -141,6 +141,10 @@ namespace System.Application.Settings
                 {
                     return EProxyMode.VPN;
                 }
+                else if (OperatingSystem2.IsLinux)
+                {
+                    return EProxyMode.System;
+                }
                 return EProxyMode.Hosts;
             }
         }
