@@ -25,6 +25,8 @@ namespace System.Application.Models
 
         private const string NodeCommon = "common";
 
+        private const string NodeExtended = "extended";
+
         private const string NodeId = "gameid";
 
         private const string NodeName = "name";
@@ -58,6 +60,11 @@ namespace System.Application.Models
         public string? InstalledDir { get; set; }
 
         public string? Name { get; set; }
+        public string? SortAs { get; set; }
+        public string? Developer { get; set; }
+        public string? Publisher { get; set; }
+        public uint? SteamReleaseDate { get; set; }
+        public uint? OriginReleaseDate { get; set; }
 
         public string? EditName
         {
@@ -65,35 +72,28 @@ namespace System.Application.Models
             {
                 if (_cachedName == null)
                 {
-                    _cachedName = _properties?.GetPropertyValue<string>(null, new string[]
-                    {
-                        NodeAppInfo,
+                    _cachedName = _properties?.GetPropertyValue<string>(null, NodeAppInfo,
                         NodeCommon,
-                        "name"
-                    });
+                        NodeName);
                 }
                 return _cachedName;
             }
             set
             {
-                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, new string[]
-                {
-                    NodeAppInfo,
+                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
                     NodeCommon,
-                    "name"
-                });
+                    NodeName);
                 ClearCachedProps();
             }
         }
 
-        public string? SortAs
+        public string? EditSortAs
         {
             get
             {
                 if (this._cachedSortAs == null)
                 {
-                    this._cachedSortAs = this._properties?.GetPropertyValue<string>(this.Name, new string[] {
-                        NodeAppInfo, NodeCommon, "sortas" });
+                    this._cachedSortAs = this._properties?.GetPropertyValue<string>(this.Name, NodeAppInfo, NodeCommon, "sortas");
                     if (this._cachedSortAs?.Length == 0)
                     {
                         this._cachedSortAs = this.Name;
@@ -103,8 +103,7 @@ namespace System.Application.Models
             }
             set
             {
-                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, new string[] {
-                    NodeAppInfo, NodeCommon, "sortas" });
+                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo, NodeCommon, "sortas");
                 this.ClearCachedProps();
             }
         }
@@ -442,14 +441,14 @@ namespace System.Application.Models
 
         public static SteamApp? FromReader(BinaryReader reader)
         {
-            uint num = reader.ReadUInt32();
-            if (num == 0)
+            uint id = reader.ReadUInt32();
+            if (id == 0)
             {
                 return null;
             }
             SteamApp app = new()
             {
-                AppId = num,
+                AppId = id,
             };
             try
             {
@@ -459,8 +458,14 @@ namespace System.Application.Models
                 app._stuffBeforeHash = binaryReader.ReadBytes(16);
                 binaryReader.ReadBytes(20);
                 app._changeNumber = binaryReader.ReadUInt32();
-                app._properties = SteamAppPropertyHelper.ReadPropertyTable(binaryReader)!;
-                var nodes = new string[3] { NodeAppInfo, NodeCommon, string.Empty };
+
+                var properties = SteamAppPropertyHelper.ReadPropertyTable(binaryReader);
+
+                if (properties == null)
+                    return app;
+
+                //app._properties = properties;
+
                 //var installpath = app._properties.GetPropertyValue<string>(null, new string[]
                 //{
                 //    NodeAppInfo,
@@ -471,13 +476,16 @@ namespace System.Application.Models
                 //{
                 //    app.InstalledDir = Path.Combine(ISteamService.Instance.SteamDirPath, ISteamService.dirname_steamapps, NodeCommon, installpath);
                 //}
+                app.Name = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeName);
+                app.SortAs = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, "sortas");
 
-                nodes[2] = NodeParentId;
-                app.ParentId = (uint)app._properties.GetPropertyValue<int>(0, nodes);
+                app.ParentId = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, NodeParentId);
+                app.Developer = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "developer");
+                app.Publisher = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "publisher");
+                //app.SteamReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "steam_release_date");
+                //app.OriginReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "original_release_date");
 
-                nodes[2] = NodeAppType;
-                var type = app._properties.GetPropertyValue<string>("", nodes);
-
+                var type = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeAppType);
                 if (Enum.TryParse(type, true, out SteamAppType apptype))
                 {
                     app.Type = apptype;
@@ -488,36 +496,30 @@ namespace System.Application.Models
                     Debug.WriteLine(string.Format("AppInfo: New AppType '{0}'", type));
                 }
 
+                //var oslist = app._properties.GetPropertyValue("", NodeAppInfo, NodeCommon, NodePlatforms);
 
-                nodes[2] = NodePlatforms;
-                var oslist = app._properties.GetPropertyValue("", NodePlatforms);
-
-
-
-                var propertyValue = app._properties.GetPropertyValue<string>("", new string[]
-                {
-                        "appinfo",
-                        "steam_edit",
-                        "base_name"
-                });
-                if (propertyValue != "")
-                {
-                    nodes[2] = NodeName;
-                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue, nodes);
-                }
-                var propertyValue2 = app._properties.GetPropertyValue<string>("", new string[]
-                {
-                        "appinfo",
-                        "steam_edit",
-                        "base_type"
-                });
-                if (propertyValue2 != "")
-                {
-                    nodes[2] = NodeAppType;
-                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, nodes);
-                }
-                app._originalData = array;
-                app.ClearCachedProps();
+                //var propertyValue = app._properties.GetPropertyValue<string>("", new string[]
+                //{
+                //        "appinfo",
+                //        "steam_edit",
+                //        "base_name"
+                //});
+                //if (propertyValue != "")
+                //{
+                //    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue, NodeAppInfo, NodeCommon, NodeName);
+                //}
+                //var propertyValue2 = app._properties.GetPropertyValue<string>("", new string[]
+                //{
+                //        "appinfo",
+                //        "steam_edit",
+                //        "base_type"
+                //});
+                //if (propertyValue2 != "")
+                //{
+                //    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, NodeAppInfo, NodeCommon, NodeAppType);
+                //}
+                //app._originalData = array;
+                //app.ClearCachedProps();
 
             }
             catch (Exception ex)

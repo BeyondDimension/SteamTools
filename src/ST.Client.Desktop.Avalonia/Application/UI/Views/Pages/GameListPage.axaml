@@ -310,13 +310,13 @@
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
-        <ScrollViewer
+        <ScrollViewer 
               HorizontalScrollBarVisibility="Disabled"
               VerticalScrollBarVisibility="Auto"
               Padding="10 0 10 10">
           <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
             <ItemsRepeater.Layout>
-              <UniformGridLayout ItemsJustification="SpaceBetween"
+              <UniformGridLayout ItemsJustification="Start"
                                  MinRowSpacing="20"
                                  MinColumnSpacing="10"/>
             </ItemsRepeater.Layout>
@@ -498,7 +498,7 @@
                                                FontSize="12"
                                                FontWeight="Bold"
                                                Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
+                  <TextBlock Width="{ReflectionBinding #app.Width}"
                                                Text="{Binding AppId}"
                                                FontSize="10"
                                                Foreground="{DynamicResource InactiveForegroundBrushKey}" />

@@ -16,8 +16,9 @@
         x:DataType="vm:EditAppInfoWindowViewModel"
         x:CompileBindings="True">
   <Panel>
-    <controls:TitleBar DockPanel.Dock="Top"></controls:TitleBar>
-    <DockPanel Margin="0 35 0 0">
+    <controls:TitleBar DockPanel.Dock="Top" />
+    <Grid Margin="0 35 0 0"
+          RowDefinitions="*,Auto">
       <TabControl Classes="flat"
                   DockPanel.Dock="Top">
         <TabItem Header="信息">
@@ -26,8 +27,15 @@
 
               <Border Classes="Item">
                 <DockPanel>
+                  <TextBlock Text="AppId"/>
+                  <TextBox Text="{ReflectionBinding App.AppId}"/>
+                </DockPanel>
+              </Border>
+
+              <Border Classes="Item">
+                <DockPanel>
                   <TextBlock Text="名称"/>
-                  <TextBox Text="{ReflectionBinding App.EditName}"/>
+                  <TextBox Text="{ReflectionBinding App.Name}"/>
                 </DockPanel>
               </Border>
 
@@ -41,43 +49,49 @@
               <Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="开发商"/>
-                  <TextBlock Classes="right"
-                             Text="D://"
-                             TextWrapping="Wrap"/>
+                  <TextBox Text="{ReflectionBinding App.Developer}"/>
                 </DockPanel>
               </Border>
 
               <Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="发行商"/>
-                  <TextBlock Classes="right"
-                             Text="D://"
-                             TextWrapping="Wrap"/>
+                  <TextBox Text="{ReflectionBinding App.Publisher}"/>
                 </DockPanel>
               </Border>
 
-              <Border Classes="Item">
+              <!--<Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="发布日期"/>
+                  <TextBox Text="{ReflectionBinding App.SteamReleaseDate}"/>
+                </DockPanel>
+              </Border>-->
+
+              <Border Classes="Item" IsVisible="{ReflectionBinding App.IsInstalled}">
                 <DockPanel>
                   <TextBlock Text="磁盘占用"/>
                   <TextBlock Classes="right"
-                             Text="D://"
+                             Text="{ReflectionBinding App.SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
                              TextWrapping="Wrap"/>
                 </DockPanel>
               </Border>
 
-              <Border Classes="Item">
+              <Border Classes="Item" IsVisible="{ReflectionBinding App.IsInstalled}">
                 <DockPanel>
                   <TextBlock Text="安装路径"/>
-                  <Button Classes="Hyperlink"
-                          Content="D://"/>
+                  <TextBlock Classes="right"
+                             Text="{ReflectionBinding App.InstalledDir}"
+                             TextWrapping="Wrap"/>
+                  <!--<Button Classes="Hyperlink"
+                          Content="{ReflectionBinding App.InstalledDir}"/>-->
                 </DockPanel>
               </Border>
 
-              <Border Classes="Item">
+              <Border Classes="Item" IsVisible="{ReflectionBinding App.IsInstalled}">
                 <DockPanel>
-                  <TextBlock Text="最后更新"/>
+                  <TextBlock Text="最后更新时间"/>
                   <TextBlock Classes="right"
-                             Text="2020-01-31 12:50:44"
+                             Text="{ReflectionBinding App.LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                              TextWrapping="Wrap"/>
                 </DockPanel>
               </Border>
@@ -89,11 +103,11 @@
         <TabItem Header="媒体">
 
         </TabItem>
-        
+
         <TabItem Header="启动项">
 
         </TabItem>
-        
+
         <TabItem Header="DLC">
 
         </TabItem>
@@ -102,6 +116,7 @@
                   Margin="10"
                   Spacing="10"
                   Height="35"
+                  Grid.Row="1"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Bottom"
                   Orientation="Horizontal">
@@ -113,6 +128,6 @@
                 VerticalAlignment="Stretch"
                 Content="保存"/>
       </StackPanel>
-    </DockPanel>
+    </Grid>
   </Panel>
 </Window>

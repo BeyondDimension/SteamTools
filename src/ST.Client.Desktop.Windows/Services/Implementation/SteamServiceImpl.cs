@@ -381,7 +381,7 @@ namespace System.Application.Services.Implementation
                         for (int i = 0; i < users.Count; i++)
                         {
                             var item = users[i];
-                            if (item != null&& item!.Key== user.SteamId64.ToString())
+                            if (item != null && item!.Key == user.SteamId64.ToString())
                             {
                                 users.Remove(users[i]);
                                 VdfHelper.Write(UserVdfPath, v);
@@ -397,8 +397,8 @@ namespace System.Application.Services.Implementation
                                 return;
                             }
                         }
-                       
-                       
+
+
                     }
                     catch (Exception e)
                     {
@@ -445,7 +445,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        private uint unknownValueAtStart;
+        private uint univeseNumber;
         private const uint MagicNumber = 123094055U;
 
         /// <summary>
@@ -466,36 +466,34 @@ namespace System.Application.Services.Implementation
                     {
                         return apps;
                     }
-                    using (BinaryReader binaryReader = new(stream))
+                    using BinaryReader binaryReader = new(stream);
+                    uint num = binaryReader.ReadUInt32();
+                    if (num != MagicNumber)
                     {
-                        uint num = binaryReader.ReadUInt32();
-                        if (num != MagicNumber)
+                        Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
+                        return apps;
+                    }
+                    SteamApp? app = new();
+                    univeseNumber = binaryReader.ReadUInt32();
+                    while ((app = SteamApp.FromReader(binaryReader)) != null)
+                    {
+                        if (app.AppId > 0)
                         {
-                            Log.Error(nameof(GetAppInfos), string.Format("\"{0}\" magic code is not supported: 0x{1:X8}", Path.GetFileName(AppInfoPath), num));
-                            return apps;
-                        }
-                        SteamApp? app = new();
-                        unknownValueAtStart = binaryReader.ReadUInt32();
-                        while ((app = SteamApp.FromReader(binaryReader)) != null)
-                        {
-                            if (app.AppId > 0)
-                            {
-                                //if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
-                                //    continue;
-                                if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
-                                    continue;
-                                //if (app.ParentId > 0)
-                                //{
-                                //    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
-                                //    if (parentApp != null)
-                                //        parentApp.ChildApp.Add(app.AppId);
-                                //    //continue;
-                                //}
-                                apps.Add(app);
-                                //app.Modified += (s, e) =>
-                                //{
-                                //};
-                            }
+                            //if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
+                            //    continue;
+                            if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
+                                continue;
+                            //if (app.ParentId > 0)
+                            //{
+                            //    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
+                            //    if (parentApp != null)
+                            //        parentApp.ChildApp.Add(app.AppId);
+                            //    //continue;
+                            //}
+                            apps.Add(app);
+                            //app.Modified += (s, e) =>
+                            //{
+                            //};
                         }
                     }
                     return apps;
@@ -503,7 +501,6 @@ namespace System.Application.Services.Implementation
                 catch (Exception ex)
                 {
                     Log.Error(nameof(SteamServiceImpl), ex, nameof(GetAppInfos));
-                    GC.Collect();
                     return apps;
                 }
             }
@@ -883,26 +880,6 @@ namespace System.Application.Services.Implementation
                 steamDownloadingWatchers.Clear();
                 steamDownloadingWatchers = null;
             }
-        }
-
-        /// <summary>
-        /// 从任意文本中匹配批量提取Steamkey
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public IEnumerable<string> ExtractKeysFromString(string source)
-        {
-            MatchCollection m = Regex.Matches(source, "([0-9A-Z]{5})(?:\\-[0-9A-Z]{5}){2,4}",
-                  RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            var keys = new List<string>();
-            if (m.Count > 0)
-            {
-                foreach (Match v in m)
-                {
-                    keys.Add(v.Value);
-                }
-            }
-            return keys;
         }
 
     }
