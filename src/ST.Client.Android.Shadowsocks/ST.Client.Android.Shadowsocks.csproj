@@ -9,17 +9,17 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/AigioL/xamarin-bindings</PackageProjectUrl>
     <RepositoryUrl>https://github.com/AigioL/xamarin-bindings.git</RepositoryUrl>
-    <PackageTags>v2rayNG V2Ray Xamarin Plugin Binding Xamarin.Android</PackageTags>
-    <Product>v2rayNG</Product>
+    <PackageTags>Shadowsocks Shadowsocks-Android Xamarin Plugin Binding Xamarin.Android</PackageTags>
+    <Product>Shadowsocks</Product>
     <Company />
-    <PackageId>XAB.v2rayNG</PackageId>
-    <Title>Xamarin Android Binding Library - v2rayNG</Title>
+    <PackageId>XAB.Shadowsocks</PackageId>
+    <Title>Xamarin Android Binding Library - Shadowsocks</Title>
     <Authors>https://github.com/AigioL</Authors>
     <Description>
-      v2rayNG Binding for Xamarin Android. https://github.com/2dust/v2rayNG
+      Shadowsocks Binding for Xamarin Android. https://github.com/shadowsocks/shadowsocks-android
 
       Commonly Used Types:
-      com.v2ray.ang.service.V2RayVpnService -&gt; V2RayNG.V2RayVpnService
+      com.github.shadowsocks -&gt; Shadowsocks
     </Description>
     <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
     <!--<AllowUnsafeBlocks>true</AllowUnsafeBlocks>-->
@@ -36,11 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="XAB.AndroidLibV2rayLite" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
     <PackageReference Include="Xamarin.KotlinX.Coroutines.Core" />
     <PackageReference Include="Xamarin.KotlinX.Coroutines.Android" />
-    <PackageReference Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" />
     <!--<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />-->
   </ItemGroup>
 </Project>
