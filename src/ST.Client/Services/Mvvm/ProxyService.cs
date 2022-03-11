@@ -59,7 +59,14 @@ namespace System.Application.Services
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
-                        httpProxyService.Scripts =await EnableProxyScripts();
+
+                        if (httpProxyService.IsEnableScript) 
+                        {
+                            await EnableProxyScripts.ContinueWith(e => {
+                                httpProxyService.Scripts = e.Result.ToImmutableArray();
+                            });
+                        }
+
                         if (IApplication.IsDesktopPlatform)
                         {
                             httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
@@ -248,7 +255,7 @@ namespace System.Application.Services
             return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
         }
 
-        public async Task<IReadOnlyCollection<ScriptDTO>?> EnableProxyScripts() => (await scriptManager.LoadingScriptContent(GetEnableProxyScripts()))?.ToArray();
+        public Task<IEnumerable<ScriptDTO>?> EnableProxyScripts => scriptManager.LoadingScriptContent(GetEnableProxyScripts());
 
         private DateTimeOffset _StartAccelerateTime;
 
@@ -446,7 +453,10 @@ namespace System.Application.Services
                       {
                           item.Sender.Enable = item.Value;
                           await scriptManager.SaveEnableScript(item.Sender);
-                          httpProxyService.Scripts = await EnableProxyScripts();
+
+                          await EnableProxyScripts.ContinueWith(e => {
+                              httpProxyService.Scripts = e.Result.ToImmutableArray();
+                          });
                           this.RaisePropertyChanged(nameof(EnableProxyScripts));
                       }
                   }));

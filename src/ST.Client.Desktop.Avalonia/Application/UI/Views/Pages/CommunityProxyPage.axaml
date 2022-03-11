@@ -307,7 +307,7 @@
                        Margin="0 0 0 10"
                        DockPanel.Dock="Top"></TextBlock>
             <ScrollViewer>
-              <ItemsControl Items="{ReflectionBinding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
+              <ItemsControl Items="{ReflectionBinding EnableProxyScripts^,Source={x:Static service:ProxyService.Current}}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <StackPanel Margin="10">
