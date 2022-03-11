@@ -15,7 +15,7 @@ namespace System.Properties
         /// <summary>
         /// 提供程序集的文本说明
         /// </summary>
-        public const string AssemblyDescription = "「Steam++」是一个包含多种Steam工具功能的工具箱。";
+        public const string AssemblyDescription = "「Steam++ 工具箱」是一个开源跨平台的多功能游戏工具箱。";
 
         /// <summary>
         /// 定义程序集清单的版权自定义属性

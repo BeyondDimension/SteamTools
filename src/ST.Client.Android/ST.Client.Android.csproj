@@ -4,7 +4,8 @@
     <TargetFrameworks>MonoAndroid12.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>Xamarin.Forms.Platform.Android.UnitTests</AssemblyName>
-    <DefineConstants>__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
+    <DefineConstants>SHADOWSOCKS;__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
+    <!--<DefineConstants>SHADOWSOCKS;V2RAY;__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>-->
     <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
@@ -161,7 +162,8 @@
   </ItemGroup>-->
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client.Android.V2Ray\ST.Client.Android.V2Ray.csproj" />
+    <ProjectReference Condition=" $(DefineConstants.Contains(`V2RAY`)) " Include="..\ST.Client.Android.V2Ray\ST.Client.Android.V2Ray.csproj" />
+    <ProjectReference Condition=" $(DefineConstants.Contains(`SHADOWSOCKS`)) " Include="..\ST.Client.Android.Shadowsocks\ST.Client.Android.Shadowsocks.csproj" />
     <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" Condition=" $(DefineConstants.Contains(`__XAMARIN_FORMS__`)) " />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>

@@ -174,6 +174,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Android.V2Ray", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gameloop.Vdf", "references\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj", "{DFC341E8-5290-428C-8D2B-6DE2AA163FFE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Android.Shadowsocks", "src\ST.Client.Android.Shadowsocks\ST.Client.Android.Shadowsocks.csproj", "{920EF29F-406F-43A9-B002-29DD6B0B4FBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1886,6 +1888,34 @@ Global
 		{DFC341E8-5290-428C-8D2B-6DE2AA163FFE}.Release|x64.Build.0 = Release|Any CPU
 		{DFC341E8-5290-428C-8D2B-6DE2AA163FFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{DFC341E8-5290-428C-8D2B-6DE2AA163FFE}.Release|x86.Build.0 = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|ARM.Build.0 = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|x64.Build.0 = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Debug|x86.Build.0 = Debug|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|ARM.Build.0 = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|ARM64.Build.0 = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|iPhone.Build.0 = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|x64.ActiveCfg = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|x64.Build.0 = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|x86.ActiveCfg = Release|Any CPU
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1953,9 +1983,10 @@ Global
 		{80EBD601-28AC-4840-B9B8-E6064816A443} = {327FDEE7-C4C8-4AA4-A7B0-8BCE3D75346F}
 		{4A79264D-5BF5-4F89-8066-44E154BF557F} = {80EBD601-28AC-4840-B9B8-E6064816A443}
 		{DFC341E8-5290-428C-8D2B-6DE2AA163FFE} = {673FF8CD-9E85-4FA1-ABFC-D1149675E138}
+		{920EF29F-406F-43A9-B002-29DD6B0B4FBF} = {80EBD601-28AC-4840-B9B8-E6064816A443}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = zh-Hans
 		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal

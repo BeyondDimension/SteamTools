@@ -1,3 +1,4 @@
+#if V2RAY
 using V2RayNG;
 using Android.App;
 using Android.Content;
@@ -132,3 +133,4 @@ namespace System.Application.Services.Native
         }
     }
 }
+#endif
