@@ -475,7 +475,8 @@ namespace System.Application.Services.Implementation
                     }
                     SteamApp? app = new();
                     univeseNumber = binaryReader.ReadUInt32();
-                    while ((app = SteamApp.FromReader(binaryReader)) != null)
+                    var installAppIds = GetInstalledAppIds();
+                    while ((app = SteamApp.FromReader(binaryReader, installAppIds)) != null)
                     {
                         if (app.AppId > 0)
                         {
@@ -504,6 +505,11 @@ namespace System.Application.Services.Implementation
                     return apps;
                 }
             }
+        }
+
+        public uint[] GetInstalledAppIds()
+        {
+            return GetDownloadingAppList().Where(x => x.IsInstalled).Select(x => x.AppId).ToArray();
         }
 
         public string? GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
@@ -566,7 +572,6 @@ namespace System.Application.Services.Implementation
             //    app.HeaderLogoStream = await GetAppImageAsync(app, SteamApp.LibCacheType.Header);
             //}
         }
-
 
         string[]? GetLibraryPaths()
         {
@@ -666,12 +671,6 @@ namespace System.Application.Services.Implementation
             return value_int64.ToDateTimeS();
         }
 
-        static uint GetAppId(dynamic v)
-        {
-            uint appId = GetUInt32(v.appid ?? v.appID ?? v.AppID);
-            return appId;
-        }
-
         /// <summary>
         /// acf文件转SteamApp
         /// </summary>
@@ -698,7 +697,7 @@ namespace System.Application.Services.Implementation
                 string installdir = v.installdir.ToString();
                 var newInfo = new SteamApp
                 {
-                    AppId = GetAppId(v),
+                    AppId = GetUInt32(v.appid ?? v.appID ?? v.AppID),
                     Name = v.name.ToString() ?? installdir,
                     InstalledDir = Path.Combine(Path.GetDirectoryName(filename), "common", installdir),
                     State = GetInt32(v.StateFlags),
@@ -720,7 +719,7 @@ namespace System.Application.Services.Implementation
         }
 
         /// <summary>
-        /// 获取正在下载的SteamApp列表
+        /// 获取正在下载和已下载的SteamApp列表
         /// </summary>
         public List<SteamApp> GetDownloadingAppList()
         {

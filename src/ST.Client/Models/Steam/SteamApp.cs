@@ -449,7 +449,7 @@ namespace System.Application.Models
             return true;
         }
 
-        public static SteamApp? FromReader(BinaryReader reader)
+        public static SteamApp? FromReader(BinaryReader reader, uint[] installedAppIds)
         {
             uint id = reader.ReadUInt32();
             if (id == 0)
@@ -508,7 +508,8 @@ namespace System.Application.Models
 
                 app.OSList = properties.GetPropertyValue(string.Empty, NodeAppInfo, NodeCommon, NodePlatforms);
 
-                if ((app.Type == SteamAppType.Application ||
+                if (installedAppIds.Contains(app.AppId) &&
+                    (app.Type == SteamAppType.Application ||
                     app.Type == SteamAppType.Game ||
                     app.Type == SteamAppType.Tool ||
                     app.Type == SteamAppType.Demo))

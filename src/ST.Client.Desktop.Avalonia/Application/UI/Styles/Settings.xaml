@@ -168,7 +168,8 @@
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; TextBox">
-        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="(DockPanel.Dock)" Value="Right" />
