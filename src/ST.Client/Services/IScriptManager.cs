@@ -15,7 +15,12 @@ namespace System.Application.Services
     {
         public const string DirName = "Scripts"; 
         static IScriptManager Instance => DI.Get<IScriptManager>();
-
+        /// <summary>
+        /// 加载列表js内容
+        /// </summary>
+        /// <param name="all">加载的列表</param>
+        /// <returns></returns>
+        Task<IEnumerable<ScriptDTO>?> LoadingScriptContent(IEnumerable<ScriptDTO>? all);
         /// <summary>
         /// 绑定JS
         /// </summary>
