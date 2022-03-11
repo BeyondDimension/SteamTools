@@ -424,8 +424,7 @@ namespace System.Application.Services.Implementation
         }
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync()
         {
-            var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-            return scriptList.Where(x => !string.IsNullOrWhiteSpace(x.Content));
+            return mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
         }
 
         public async Task<IApiResponse<string>> DownloadScriptAsync(string url)
