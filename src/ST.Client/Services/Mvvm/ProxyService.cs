@@ -60,9 +60,12 @@ namespace System.Application.Services
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
 
-                        await EnableProxyScripts.ContinueWith(e => {
-                            httpProxyService.Scripts = e.Result.ToImmutableArray();
-                        });
+                        if (httpProxyService.IsEnableScript) 
+                        {
+                            await EnableProxyScripts.ContinueWith(e => {
+                                httpProxyService.Scripts = e.Result.ToImmutableArray();
+                            });
+                        }
 
                         if (IApplication.IsDesktopPlatform)
                         {
@@ -442,7 +445,7 @@ namespace System.Application.Services
                   .Connect()
                   .AutoRefresh(x => x.Enable)
                   .WhenPropertyChanged(x => x.Enable, false)
-                  .Subscribe(item =>
+                  .Subscribe(async item =>
                   {
                       //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                       //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
@@ -454,7 +457,6 @@ namespace System.Application.Services
                           await EnableProxyScripts.ContinueWith(e => {
                               httpProxyService.Scripts = e.Result.ToImmutableArray();
                           });
-
                           this.RaisePropertyChanged(nameof(EnableProxyScripts));
                       }
                   }));
