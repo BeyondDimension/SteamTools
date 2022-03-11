@@ -67,12 +67,19 @@
                 </DockPanel>
               </Border>-->
 
+              <Border Classes="Item">
+                <DockPanel>
+                  <TextBlock Text="支持系统"/>
+                  <TextBlock Classes="right"
+                             Text="{ReflectionBinding App.OSList}"/>
+                </DockPanel>
+              </Border>
+
               <Border Classes="Item" IsVisible="{ReflectionBinding App.IsInstalled}">
                 <DockPanel>
                   <TextBlock Text="磁盘占用"/>
                   <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
-                             TextWrapping="Wrap"/>
+                             Text="{ReflectionBinding App.SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"/>
                 </DockPanel>
               </Border>
 
@@ -80,8 +87,7 @@
                 <DockPanel>
                   <TextBlock Text="安装路径"/>
                   <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.InstalledDir}"
-                             TextWrapping="Wrap"/>
+                             Text="{ReflectionBinding App.InstalledDir}"/>
                   <!--<Button Classes="Hyperlink"
                           Content="{ReflectionBinding App.InstalledDir}"/>-->
                 </DockPanel>
@@ -91,8 +97,7 @@
                 <DockPanel>
                   <TextBlock Text="最后更新时间"/>
                   <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
-                             TextWrapping="Wrap"/>
+                             Text="{ReflectionBinding App.LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"/>
                 </DockPanel>
               </Border>
 
@@ -102,15 +107,54 @@
 
         <TabItem Header="媒体">
 
+
         </TabItem>
 
         <TabItem Header="启动项">
+          <ScrollViewer>
+            <StackPanel Classes="Settings">
+              <ItemsRepeater Items="{ReflectionBinding App.LaunchItems}">
+                <ItemsRepeater.Layout>
+                  <StackLayout Orientation="Vertical" Spacing="10"/>
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                  <DataTemplate>
+                    <Border Classes="Item">
+                      <StackPanel Spacing="5">
+                        <DockPanel>
+                          <Label Content="Label"/>
+                          <TextBox Text="{ReflectionBinding Label}"/>
+                        </DockPanel>
+                        <DockPanel>
+                          <Label Content="Executable"/>
+                          <TextBox Text="{ReflectionBinding Executable}"/>
+                        </DockPanel>
+                        <DockPanel>
+                          <Label Content="Arguments"/>
+                          <TextBox Text="{ReflectionBinding Arguments}"/>
+                        </DockPanel>
+                        <DockPanel>
+                          <Label Content="WorkingDir"/>
+                          <TextBox Text="{ReflectionBinding WorkingDir}"/>
+                        </DockPanel>
+                        <DockPanel>
+                          <Label Content="Platform"/>
+                          <TextBox Text="{ReflectionBinding Platform}"/>
+                        </DockPanel>
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+              </ItemsRepeater>
+            </StackPanel>
+          </ScrollViewer>
 
         </TabItem>
 
-        <TabItem Header="DLC">
+        <!--<TabItem Header="DLC">
 
-        </TabItem>
+          
+        </TabItem>-->
       </TabControl>
       <StackPanel DockPanel.Dock="Bottom"
                   Margin="10"

@@ -25,6 +25,8 @@ namespace System.Application.Models
 
         private const string NodeCommon = "common";
 
+        private const string NodeConfig = "config";
+
         private const string NodeExtended = "extended";
 
         private const string NodeId = "gameid";
@@ -65,6 +67,7 @@ namespace System.Application.Models
         public string? Publisher { get; set; }
         public uint? SteamReleaseDate { get; set; }
         public uint? OriginReleaseDate { get; set; }
+        public string? OSList { get; set; }
 
         public string? EditName
         {
@@ -94,7 +97,7 @@ namespace System.Application.Models
                 if (this._cachedSortAs == null)
                 {
                     this._cachedSortAs = this._properties?.GetPropertyValue<string>(this.Name, NodeAppInfo, NodeCommon, "sortas");
-                    if (this._cachedSortAs?.Length == 0)
+                    if (!this._cachedSortAs.Any_Nullable())
                     {
                         this._cachedSortAs = this.Name;
                     }
@@ -190,6 +193,13 @@ namespace System.Application.Models
         public long BytesStaged { get; set; }
 
         public IList<uint> ChildApp { get; set; } = new List<uint>();
+
+        private IList<SteamAppLaunchItem>? _LaunchItems;
+        public IList<SteamAppLaunchItem>? LaunchItems
+        {
+            get => _LaunchItems;
+            set => this.RaiseAndSetIfChanged(ref _LaunchItems, value);
+        }
 
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Logo);
@@ -466,19 +476,19 @@ namespace System.Application.Models
 
                 //app._properties = properties;
 
-                //var installpath = app._properties.GetPropertyValue<string>(null, new string[]
-                //{
-                //    NodeAppInfo,
-                //    "config",
-                //    "installdir"
-                // });
+                //var installpath = properties.GetPropertyValue<string>(null, NodeAppInfo, NodeConfig, "installdir");
+
                 //if (!string.IsNullOrEmpty(installpath))
                 //{
                 //    app.InstalledDir = Path.Combine(ISteamService.Instance.SteamDirPath, ISteamService.dirname_steamapps, NodeCommon, installpath);
                 //}
+
                 app.Name = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeName);
                 app.SortAs = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, "sortas");
-
+                if (!app.SortAs.Any_Nullable())
+                {
+                    app.SortAs = app.Name;
+                }
                 app.ParentId = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, NodeParentId);
                 app.Developer = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "developer");
                 app.Publisher = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "publisher");
@@ -493,10 +503,37 @@ namespace System.Application.Models
                 else
                 {
                     app.Type = SteamAppType.Unknown;
-                    Debug.WriteLine(string.Format("AppInfo: New AppType '{0}'", type));
+                    Debug.WriteLineIf(!string.IsNullOrEmpty(type), string.Format("AppInfo: New AppType '{0}'", type));
                 }
 
-                //var oslist = app._properties.GetPropertyValue("", NodeAppInfo, NodeCommon, NodePlatforms);
+                app.OSList = properties.GetPropertyValue(string.Empty, NodeAppInfo, NodeCommon, NodePlatforms);
+
+                if ((app.Type == SteamAppType.Application ||
+                    app.Type == SteamAppType.Game ||
+                    app.Type == SteamAppType.Tool ||
+                    app.Type == SteamAppType.Demo))
+                {
+                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, "launch");
+
+                    if (launchTable != null)
+                    {
+                        var launchItems = from table in (from prop in (from prop in launchTable.Properties
+                                                                       where prop.PropertyType == SteamAppPropertyType.Table
+                                                                       select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
+                                                         select prop.GetValue<SteamAppPropertyTable>())
+                                          select new SteamAppLaunchItem
+                                          {
+                                              Label = table.GetPropertyValue<string>("description", ""),
+                                              Executable = table.GetPropertyValue<string>("executable", ""),
+                                              Arguments = table.GetPropertyValue<string>("arguments", ""),
+                                              WorkingDir = table.GetPropertyValue<string>("workingdir", ""),
+                                              Platform = table.TryGetPropertyValue<SteamAppPropertyTable>(NodeConfig, out var propertyTable) ?
+                                              propertyTable.TryGetPropertyValue<string>(NodePlatforms, out var os) ? os : null : null,
+                                          };
+
+                        app.LaunchItems = launchItems.ToList();
+                    }
+                }
 
                 //var propertyValue = app._properties.GetPropertyValue<string>("", new string[]
                 //{
