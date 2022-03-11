@@ -59,7 +59,7 @@ namespace System.Application.Services
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
-                        httpProxyService.Scripts =await EnableProxyScripts();
+                        httpProxyService.Scripts = EnableProxyScripts;
                         if (IApplication.IsDesktopPlatform)
                         {
                             httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
@@ -248,7 +248,7 @@ namespace System.Application.Services
             return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
         }
 
-        public async Task<IReadOnlyCollection<ScriptDTO>?> EnableProxyScripts() => (await scriptManager.LoadingScriptContent(GetEnableProxyScripts()))?.ToArray();
+        public IReadOnlyCollection<ScriptDTO?> EnableProxyScripts => scriptManager.LoadingScriptContent(GetEnableProxyScripts()).Result.ToArray();
 
         private DateTimeOffset _StartAccelerateTime;
 
@@ -438,15 +438,15 @@ namespace System.Application.Services
                   .Connect()
                   .AutoRefresh(x => x.Enable)
                   .WhenPropertyChanged(x => x.Enable, false)
-                  .Subscribe(async item =>
+                  .Subscribe(item =>
                   {
                       //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                       //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                       if (httpProxyService.ProxyRunning)
                       {
                           item.Sender.Enable = item.Value;
-                          await scriptManager.SaveEnableScript(item.Sender);
-                          httpProxyService.Scripts = await EnableProxyScripts();
+                          scriptManager.SaveEnableScript(item.Sender);
+                          httpProxyService.Scripts = EnableProxyScripts;
                           this.RaisePropertyChanged(nameof(EnableProxyScripts));
                       }
                   }));
