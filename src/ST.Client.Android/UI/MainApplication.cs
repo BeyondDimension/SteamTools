@@ -70,6 +70,9 @@ namespace System.Application.UI
         public override void OnCreate()
         {
             base.OnCreate();
+#if SHADOWSOCKS
+            Shadowsocks.Core.Instance.Init(this);
+#endif
             //#if DEBUG
             //            //SetupLeakCanary();
             //#endif

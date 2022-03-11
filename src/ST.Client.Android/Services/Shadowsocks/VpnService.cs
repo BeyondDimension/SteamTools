@@ -1,19 +1,18 @@
-#if V2RAY
-using V2RayNG;
+#if SHADOWSOCKS
 using Android.App;
 using Android.Content;
 using Android.Runtime;
 using System.Application.Services.Implementation;
 using static System.Application.Services.Native.IServiceBase;
-using SR = System.Application.Properties.SR;
 using AndroidX.Core.App;
 using static System.Properties.ThisAssembly;
+using System.Collections.Generic;
 
 namespace System.Application.Services.Native
 {
     partial class ProxyForegroundService
     {
-        partial class VpnService : V2RayVpnService, IV2RayServiceManager
+        partial class VpnService : Shadowsocks.VpnService
         {
             bool isStart;
             int notifyId;
@@ -85,20 +84,7 @@ namespace System.Application.Services.Native
 
             public override string Session => AssemblyTrademark;
 
-            string IV2RayServiceManager.ConfigureFileContent
-            {
-                get
-                {
-                    var text = SR.v2rayPoint_configure;
-                    var s = ProxyService.Current;
-                    text = text.Replace("${ProxyIp}", s.ProxyIp.ToString());
-                    text = text.Replace("${ProxyPort}", s.Socks5ProxyPortId.ToString());
-                    text = text.Replace("${VpnDns}", IDnsAnalysisService.PrimaryDNS_Ali);
-                    return text;
-                }
-            }
-
-            string IV2RayServiceManager.DomainName
+            public override string SocksServerAddress
             {
                 get
                 {
@@ -107,29 +93,36 @@ namespace System.Application.Services.Native
                 }
             }
 
-            bool IV2RayServiceManager.ForwardIpv6 => true;
-
-            void IV2RayServiceManager.UpdateNotification(string? contentText, long proxyTraffic, long directTraffic)
-            {
-                if (builder == null) return;
-                //if (proxyTraffic < NOTIFICATION_ICON_THRESHOLD && directTraffic < NOTIFICATION_ICON_THRESHOLD) {
-                //    mBuilder?.setSmallIcon(R.drawable.ic_v)
-                //} else if (proxyTraffic > directTraffic) {
-                //    mBuilder?.setSmallIcon(R.drawable.ic_stat_proxy)
-                //} else {
-                //    mBuilder?.setSmallIcon(R.drawable.ic_stat_direct)
-                //}
-                builder.SetStyle(new NotificationCompat.BigTextStyle().BigText(contentText));
-                builder.SetContentText(contentText);
-                NotificationManager.Notify(notifyId, builder.Build());
-            }
-
             public override void OnConfigure(Builder builder)
             {
+                builder.AddDnsServer(IDnsAnalysisService.PrimaryDNS_Ali);
                 builder.AddDisallowedApplication(PackageName!);
             }
 
-            public override string RoutingMode => "3";
+#if DEBUG
+            public override void OnError(string msg, Java.Lang.Throwable tr)
+            {
+                base.OnError(msg, tr);
+            }
+
+            public override IList<string> GetTun2socksArgs(int mtu, bool isSupportIpv6, string PRIVATE_VLAN4_ROUTER, string PRIVATE_VLAN6_ROUTER)
+            {
+                var args = base.GetTun2socksArgs(mtu, isSupportIpv6, PRIVATE_VLAN4_ROUTER, PRIVATE_VLAN6_ROUTER);
+                var value = string.Join(' ', args);
+                Log.Info(nameof(VpnService), $"Tun2socksArgs: {value}");
+                return args;
+            }
+
+            public override string SockPath
+            {
+                get
+                {
+                    var value = base.SockPath;
+                    Log.Info(nameof(VpnService), $"SockPath: {value}");
+                    return value;
+                }
+            }
+#endif
         }
     }
 }

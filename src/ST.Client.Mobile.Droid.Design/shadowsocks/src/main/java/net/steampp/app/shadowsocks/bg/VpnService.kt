@@ -56,6 +56,7 @@ abstract class VpnService : BaseVpnService() {
 
     private var processes: GuardedProcessPool? = null
     private var conn: ParcelFileDescriptor? = null
+    private var connectingJob: Job? = null
 
     open fun getMtu(): Int {
         return VPN_MTU
@@ -85,14 +86,66 @@ abstract class VpnService : BaseVpnService() {
 
     abstract fun getSocksServerAddress(): String
 
-    abstract fun getPortLocalDns(): String
+//    abstract fun getPortLocalDns(): String
 
-    open suspend fun onStart() {
-        startProcesses()
+    open fun onError(msg: String, tr: Throwable) {
+        Log.e(TAG, msg, tr)
+    }
+
+    open fun onStart() {
+        connectingJob = GlobalScope.launch(Dispatchers.Main) {
+            try {
+                Executable.killAll()
+                processes = GuardedProcessPool {
+                    onError("new GuardedProcessPool onFatal", it)
+                    stopRunner()
+                }
+                startProcesses()
+            } catch (_: CancellationException) {
+                // if the job was cancelled, it is canceller's responsibility to call stopRunner
+            } catch (exc: Throwable) {
+                onError("startProcesses", exc)
+                stopRunner()
+            } finally {
+                connectingJob = null
+            }
+        }
     }
 
     private suspend fun startProcesses() {
         sendFd(startVpn())
+    }
+
+    fun getTun2socksExecutablePath(): String {
+        return File(applicationInfo.nativeLibraryDir, Executable.TUN2SOCKS).absolutePath
+    }
+
+    open fun getTun2socksLogLevel(): String {
+        return "warning"
+    }
+
+    open fun getTun2socksArgs(
+        mtu: Int,
+        isSupportIpv6: Boolean,
+        PRIVATE_VLAN4_ROUTER: String,
+        PRIVATE_VLAN6_ROUTER: String
+    ): ArrayList<String> {
+        val cmd = arrayListOf(
+            getTun2socksExecutablePath(),
+            "--netif-ipaddr", PRIVATE_VLAN4_ROUTER,
+            "--socks-server-addr", getSocksServerAddress(),
+            "--tunmtu", mtu.toString(),
+            "--sock-path", "sock_path",
+//            "--dnsgw", "127.0.0.1:${getPortLocalDns()}",
+            "--loglevel", getTun2socksLogLevel()
+        )
+        if (isSupportIpv6) {
+            cmd += "--netif-ip6addr"
+            cmd += PRIVATE_VLAN6_ROUTER
+        }
+        cmd += "--enable-udprelay"
+
+        return cmd
     }
 
     private suspend fun startVpn(): FileDescriptor {
@@ -105,7 +158,7 @@ abstract class VpnService : BaseVpnService() {
             .setSession(getSession())
             .setMtu(mtu)
             .addAddress(PRIVATE_VLAN4_CLIENT, 30)
-            .addDnsServer(PRIVATE_VLAN4_ROUTER)
+//            .addDnsServer(PRIVATE_VLAN4_ROUTER)
 
         val isSupportIpv6 = isSupportIpv6();
         if (isSupportIpv6) builder.addAddress(PRIVATE_VLAN6_CLIENT, 126)
@@ -115,32 +168,13 @@ abstract class VpnService : BaseVpnService() {
         val conn = builder.establish() ?: throw NullConnectionException()
         this.conn = conn
 
-        val cmd = arrayListOf(
-            File(applicationInfo.nativeLibraryDir, Executable.TUN2SOCKS).absolutePath,
-            "--netif-ipaddr", PRIVATE_VLAN4_ROUTER,
-            "--socks-server-addr", getSocksServerAddress(),
-            "--tunmtu", mtu.toString(),
-            "--sock-path", "sock_path",
-            "--dnsgw", "127.0.0.1:${getPortLocalDns()}",
-            "--loglevel", "warning"
-        )
-        if (isSupportIpv6) {
-            cmd += "--netif-ip6addr"
-            cmd += PRIVATE_VLAN6_ROUTER
-        }
-        cmd += "--enable-udprelay"
-
-        if (processes == null) {
-            processes = GuardedProcessPool {
-                Log.w(TAG, it)
-                onStop()
-            }
-        }
+        val cmd = getTun2socksArgs(mtu, isSupportIpv6, PRIVATE_VLAN4_ROUTER, PRIVATE_VLAN6_ROUTER)
 
         processes!!.start(cmd, onRestartCallback = {
             try {
                 sendFd(conn.fileDescriptor)
             } catch (e: ErrnoException) {
+                onError("processes.start catch", e)
                 stopRunner()
             }
         })
@@ -148,9 +182,13 @@ abstract class VpnService : BaseVpnService() {
         return conn.fileDescriptor
     }
 
+    open fun getSockPath(): String {
+        return File(Core.deviceStorage.noBackupFilesDir, "sock_path").absolutePath
+    }
+
     private suspend fun sendFd(fd: FileDescriptor) {
         var tries = 0
-        val path = File(Core.deviceStorage.noBackupFilesDir, "sock_path").absolutePath
+        val path = getSockPath()
         while (true) try {
             delay(50L shl tries)
             LocalSocket().use { localSocket ->
@@ -165,6 +203,7 @@ abstract class VpnService : BaseVpnService() {
             }
             return
         } catch (e: IOException) {
+            onError("sendFd tries: $tries", e)
             if (tries > 5) throw e
             tries += 1
         }
@@ -176,6 +215,7 @@ abstract class VpnService : BaseVpnService() {
 
     private fun stopRunner() {
         GlobalScope.launch(Dispatchers.Main.immediate) {
+            connectingJob?.cancelAndJoin() // ensure stop connecting first
             // we use a coroutineScope here to allow clean-up in parallel
             coroutineScope {
                 killProcesses(this)

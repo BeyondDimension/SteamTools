@@ -317,5 +317,7 @@ namespace System.Application.UI.ViewModels
         public static string MicrosoftStoreReviewLink => UrlConstants.MicrosoftStoreReviewLink;
 
         #endregion
+
+        public string AppName => ThisAssembly.DisplayTrademark;
     }
 }
