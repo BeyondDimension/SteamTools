@@ -59,7 +59,11 @@ namespace System.Application.Services
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
-                        httpProxyService.Scripts = EnableProxyScripts;
+
+                        await EnableProxyScripts.ContinueWith(e => {
+                            httpProxyService.Scripts = e.Result.ToImmutableArray();
+                        });
+
                         if (IApplication.IsDesktopPlatform)
                         {
                             httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
@@ -248,7 +252,7 @@ namespace System.Application.Services
             return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
         }
 
-        public IReadOnlyCollection<ScriptDTO?> EnableProxyScripts => scriptManager.LoadingScriptContent(GetEnableProxyScripts()).Result.ToArray();
+        public Task<IEnumerable<ScriptDTO>?> EnableProxyScripts => scriptManager.LoadingScriptContent(GetEnableProxyScripts());
 
         private DateTimeOffset _StartAccelerateTime;
 
@@ -445,8 +449,12 @@ namespace System.Application.Services
                       if (httpProxyService.ProxyRunning)
                       {
                           item.Sender.Enable = item.Value;
-                          scriptManager.SaveEnableScript(item.Sender);
-                          httpProxyService.Scripts = EnableProxyScripts;
+                          await scriptManager.SaveEnableScript(item.Sender);
+
+                          await EnableProxyScripts.ContinueWith(e => {
+                              httpProxyService.Scripts = e.Result.ToImmutableArray();
+                          });
+
                           this.RaisePropertyChanged(nameof(EnableProxyScripts));
                       }
                   }));
