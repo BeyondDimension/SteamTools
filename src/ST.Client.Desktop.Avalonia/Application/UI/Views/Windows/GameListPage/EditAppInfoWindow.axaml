@@ -106,8 +106,17 @@
         </TabItem>
 
         <TabItem Header="媒体">
+          <StackPanel Classes="Settings">
+            <Border Classes="Item">
+              
+            </Border>
+            <Border Classes="Item">
 
+            </Border>
+            <Border Classes="Item">
 
+            </Border>
+          </StackPanel>
         </TabItem>
 
         <TabItem Header="启动项">
