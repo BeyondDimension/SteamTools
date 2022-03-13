@@ -9,6 +9,7 @@
         xmlns:vm="using:System.Application.UI.ViewModels"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ms="using:System.Application.Settings"
+        xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
@@ -106,17 +107,51 @@
         </TabItem>
 
         <TabItem Header="媒体">
-          <StackPanel Classes="Settings">
-            <Border Classes="Item">
-              
-            </Border>
-            <Border Classes="Item">
+          <ScrollViewer>
+            <StackPanel Classes="Settings">
+              <Border Classes="Item">
+                <DockPanel>
+                  <StackPanel>
+                    <TextBlock Text="封面"/>
 
-            </Border>
-            <Border Classes="Item">
+                    <TextBlock Text="建议的分辨率"/>
+                    <TextBlock Text="660 x 930 px"/>
+                  </StackPanel>
 
-            </Border>
-          </StackPanel>
+                  <controls:FilePicker>
+                    <gif:Image2 DecodeWidth="120"
+                                Source="{ReflectionBinding App.LibraryLogoStream^}"/>
+                  </controls:FilePicker>
+                </DockPanel>
+              </Border>
+              <Border Classes="Item">
+                <DockPanel>
+                  <StackPanel>
+                    <TextBlock Text="背景"/>
+
+                    <TextBlock Text="建议的分辨率"/>
+                    <TextBlock Text="1600 x 650 px"/>
+                  </StackPanel>
+
+                  <controls:FilePicker/>
+                </DockPanel>
+              </Border>
+              <Border Classes="Item">
+
+                <DockPanel>
+                  <StackPanel>
+                    <TextBlock Text="图标"/>
+
+                    <TextBlock Text="建议的分辨率"/>
+                    <TextBlock Text="112 x 112 px"/>
+                  </StackPanel>
+
+                  <gif:Image2 DecodeWidth="120"
+                              Source="{ReflectionBinding App.LibraryLogoStream^}"/>
+                </DockPanel>
+              </Border>
+            </StackPanel>
+          </ScrollViewer>
         </TabItem>
 
         <TabItem Header="启动项">

@@ -58,22 +58,22 @@ namespace System.Application.UI.Views
             //    bg.Margin = new(0, 0, 0, 0);
             //}
 
-            if (back != null && nav != null)
-            {
-                nav.GetObservable(NavigationView.IsPaneOpenProperty)
-                    .Subscribe(x =>
-                    {
-                        if (nav.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
-                        {
-                            back.IsVisible = false;
-                            //back.Width = 0;
-                        }
-                        else
-                        {
-                            back.Width = x ? 240 : 48;
-                        }
-                    });
-            }
+            //if (back != null && nav != null)
+            //{
+            //    nav.GetObservable(NavigationView.IsPaneOpenProperty)
+            //        .Subscribe(x =>
+            //        {
+            //            if (nav.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
+            //            {
+            //                back.IsVisible = false;
+            //                //back.Width = 0;
+            //            }
+            //            else
+            //            {
+            //                back.Width = x ? 240 : 48;
+            //            }
+            //        });
+            //}
 
             if (avatar != null && nav != null)
             {

@@ -21,7 +21,7 @@
 
     <!--Background-->
     <DockPanel x:Name="Background" Margin="{StaticResource TitleBarAfterMargin}">
-      <ExperimentalAcrylicBorder x:Name="NavBarBackground"
+      <!--<ExperimentalAcrylicBorder x:Name="NavBarBackground"
                                  DockPanel.Dock="Left"
                                  HorizontalAlignment="Left"
                                  Width="240">
@@ -30,7 +30,7 @@
                                        TintOpacity="1"
                                        MaterialOpacity="{ReflectionBinding Value,Source={x:Static ms:UISettings.AcrylicOpacity},Mode=OneWay}"/>
         </ExperimentalAcrylicBorder.Material>
-      </ExperimentalAcrylicBorder>
+      </ExperimentalAcrylicBorder>-->
       <ExperimentalAcrylicBorder DockPanel.Dock="Right">
         <ExperimentalAcrylicBorder.Material>
           <ExperimentalAcrylicMaterial TintColor="{DynamicResource ThemeColorKey}"
