@@ -317,7 +317,7 @@
           <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
             <ItemsRepeater.Layout>
               <UniformGridLayout ItemsJustification="Start"
-                                 MinRowSpacing="20"
+                                 MinRowSpacing="10"
                                  MinColumnSpacing="10"/>
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
@@ -484,7 +484,7 @@
                                      VerticalAlignment="Center"
                                      Margin="0 0 5 0"
                                      FontSize="11"/>
-                          <controls:ScrollingTextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
+                          <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
                                      Foreground="#FFFFFFFF"
                                      TextWrapping="Wrap"
                                      VerticalAlignment="Center"
@@ -493,15 +493,17 @@
                       </Border>
                     </Panel>
                   </Border>
-                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
-                                               Text="{Binding DisplayName}"
-                                               FontSize="12"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
                   <TextBlock Width="{ReflectionBinding #app.Width}"
-                                               Text="{Binding AppId}"
-                                               FontSize="10"
-                                               Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                             Text="{Binding DisplayName}"
+                             ToolTip.Tip="{Binding DisplayName}"
+                             FontSize="12"
+                             FontWeight="Bold"
+                             TextTrimming="CharacterEllipsis"
+                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                  <TextBlock Width="{ReflectionBinding #app.Width}"
+                             Text="{Binding AppId}"
+                             FontSize="10"
+                             Foreground="{DynamicResource InactiveForegroundBrushKey}" />
                 </StackPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>

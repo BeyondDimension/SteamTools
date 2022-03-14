@@ -154,7 +154,7 @@
           </ScrollViewer>
         </TabItem>
 
-        <TabItem Header="启动项">
+        <TabItem Header="启动项" IsVisible="{ReflectionBinding App.IsInstalled}">
           <ScrollViewer>
             <StackPanel Classes="Settings">
               <ItemsRepeater Items="{ReflectionBinding App.LaunchItems}">
