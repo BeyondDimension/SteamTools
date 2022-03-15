@@ -95,7 +95,7 @@ namespace System.Application.Services.Native
 
             public override void OnConfigure(Builder builder)
             {
-                builder.AddDnsServer(IDnsAnalysisService.PrimaryDNS_Ali);
+                //builder.AddDnsServer(IDnsAnalysisService.PrimaryDNS_Ali);
                 builder.AddDisallowedApplication(PackageName!);
             }
 
@@ -105,12 +105,33 @@ namespace System.Application.Services.Native
                 base.OnError(msg, tr);
             }
 
+            string PackagePath => FilesDir!.ToString().Replace("files", "");
+
             public override IList<string> GetTun2socksArgs(int mtu, bool isSupportIpv6, string PRIVATE_VLAN4_ROUTER, string PRIVATE_VLAN6_ROUTER)
             {
-                var args = base.GetTun2socksArgs(mtu, isSupportIpv6, PRIVATE_VLAN4_ROUTER, PRIVATE_VLAN6_ROUTER);
-                var value = string.Join(' ', args);
-                Log.Info(nameof(VpnService), $"Tun2socksArgs: {value}");
-                return args;
+                return new List<string>
+                {
+                    Tun2socksExecutablePath,
+                    "--netif-ipaddr",
+                    "26.26.26.2",
+                    "--netif-netmask",
+                    "255.255.255.252",
+                    "--socks-server-addr",
+                    SocksServerAddress,
+                    "--tunmtu",
+                    "1500",
+                    "--loglevel",
+                    "notice",
+                    "--enable-udprelay",
+                    "--sock-path",
+                    PackagePath + "sock_path",
+                    "--netif-ip6addr",
+                    "da26:2626::2"
+                };
+                //var args = base.GetTun2socksArgs(mtu, isSupportIpv6, PRIVATE_VLAN4_ROUTER, PRIVATE_VLAN6_ROUTER);
+                //var value = string.Join(' ', args);
+                //Log.Info(nameof(VpnService), $"Tun2socksArgs: {value}");
+                //return args;
             }
 
             public override string SockPath
