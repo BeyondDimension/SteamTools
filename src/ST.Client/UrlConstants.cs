@@ -31,9 +31,13 @@ namespace System.Application
 
         public const string License_GPLv3 = "https://www.gnu.org/licenses/gpl-3.0.html";
 
+        [Obsolete]
         public const string MicrosoftStoreId = "9PB0L9J4K006";
+        [Obsolete]
         public const string MicrosoftStoreAppWebsite = "https://www.microsoft.com/store/apps/" + MicrosoftStoreId;
+        [Obsolete]
         public const string MicrosoftStoreProtocolLink = "ms-windows-store://pdp/?productid=" + MicrosoftStoreId;
+        [Obsolete]
         public const string MicrosoftStoreReviewLink = "ms-windows-store://review/?ProductId=" + MicrosoftStoreId;
 
         public const string DonateUrl_afdian = "https://afdian.net/@rmbgame";

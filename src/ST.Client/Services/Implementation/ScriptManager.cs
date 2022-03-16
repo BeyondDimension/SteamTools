@@ -346,32 +346,6 @@ namespace System.Application.Services.Implementation
         {
             if (all.Any_Nullable())
             {
-                var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
-                if (all.Count(x => x.Id == basicsId) > 1)
-                {
-                    var allpath = all.Where(x => x.Id == basicsId);
-                    string? savePath = null;
-                    foreach (var item in allpath)
-                    {
-                        var path = new FileInfo(Path.Combine(IOPath.AppDataDirectory, item.FilePath));
-                        if (path.Exists)
-                        {
-                            if (savePath == null)
-                            {
-                                savePath = item.FilePath;
-                            }
-                            else
-                            {
-                                var state = (await scriptRepository.DeleteAsync(item.LocalId)) > 0;
-                            }
-                        }
-                        else
-                        {
-                            await DeleteScriptAsync(item);
-                        }
-                    }
-                    all = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-                }
                 try
                 {
                     foreach (var item in all)
@@ -379,36 +353,6 @@ namespace System.Application.Services.Implementation
                         if (string.IsNullOrEmpty(item.Content))
                         {
                             await TryReadFile(item);
-                            if (item.Id == basicsId)
-                            {
-                                item.IsBasics = true;
-                                item.Order = 1;
-                                if (item.IsBuild)
-                                {
-                                    item.IsBuild = false;
-                                    var fileInfo = new FileInfo(item.FilePath);
-                                    if (fileInfo.Exists)
-                                    {
-                                        var state = await AddScriptAsync(fileInfo, item, item, false, 1, ignoreCache: true);
-                                        if (state.IsSuccess && state.Content?.Content != null)
-                                            item.Content = state.Content!.Content;
-                                    }
-                                    else
-                                    {
-                                        var basicsInfo = await csc.Script.Basics(AppResources.Script_NoFile.Format(item.FilePath));
-                                        if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
-                                        {
-                                            var jspath = await DownloadScriptAsync(basicsInfo.Content.UpdateLink);
-                                            if (jspath.IsSuccess)
-                                            {
-                                                var build = await AddScriptAsync(jspath.Content!, item, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
-                                                if (build.IsSuccess && build.Content?.Content != null)
-                                                    item.Content = build.Content!.Content;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                 }
@@ -424,7 +368,40 @@ namespace System.Application.Services.Implementation
         }
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync()
         {
-            return mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+            var scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+            var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
+            int count = scripts.Count(x => x.Id == basicsId);
+            if (count == 0)
+            {
+                ProxyService.Current.BasicsInfo();
+                scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+            }
+            else if (count > 1)
+            {
+                var allpath = scripts.Where(x => x.Id == basicsId);
+                string? savePath = null;
+                foreach (var item in allpath)
+                {
+                    var path = new FileInfo(Path.Combine(IOPath.AppDataDirectory, item.FilePath));
+                    if (path.Exists)
+                    {
+                        if (savePath == null)
+                        {
+                            savePath = item.FilePath;
+                        }
+                        else
+                        {
+                            var state = (await scriptRepository.DeleteAsync(item.LocalId)) > 0;
+                        }
+                    }
+                    else
+                    {
+                        await DeleteScriptAsync(item);
+                    }
+                }
+                scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+            }
+            return scripts;
         }
 
         public async Task<IApiResponse<string>> DownloadScriptAsync(string url)

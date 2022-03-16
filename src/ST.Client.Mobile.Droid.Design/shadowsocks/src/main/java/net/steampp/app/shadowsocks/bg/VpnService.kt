@@ -37,17 +37,17 @@ import java.io.IOException
 import android.net.VpnService as BaseVpnService
 
 abstract class VpnService : BaseVpnService() {
-    companion object {
-        const val VPN_MTU = 1500
-        const val PRIVATE_VLAN4_CLIENT = "172.19.0.1"
-        const val PRIVATE_VLAN4_ROUTER = "172.19.0.2"
-        const val PRIVATE_VLAN6_CLIENT = "fdfe:dcba:9876::1"
-        const val PRIVATE_VLAN6_ROUTER = "fdfe:dcba:9876::2"
-        const val KEY_PRIVATE_VLAN4_CLIENT = "PRIVATE_VLAN4_CLIENT";
-        const val KEY_PRIVATE_VLAN4_ROUTER = "PRIVATE_VLAN4_ROUTER";
-        const val KEY_PRIVATE_VLAN6_CLIENT = "PRIVATE_VLAN6_CLIENT";
-        const val KEY_PRIVATE_VLAN6_ROUTER = "PRIVATE_VLAN6_ROUTER";
-    }
+//    companion object {
+//        const val VPN_MTU = 1500
+//        const val PRIVATE_VLAN4_CLIENT = "172.19.0.1"
+//        const val PRIVATE_VLAN4_ROUTER = "172.19.0.2"
+//        const val PRIVATE_VLAN6_CLIENT = "fdfe:dcba:9876::1"
+//        const val PRIVATE_VLAN6_ROUTER = "fdfe:dcba:9876::2"
+//        const val KEY_PRIVATE_VLAN4_CLIENT = "PRIVATE_VLAN4_CLIENT";
+//        const val KEY_PRIVATE_VLAN4_ROUTER = "PRIVATE_VLAN4_ROUTER";
+//        const val KEY_PRIVATE_VLAN6_CLIENT = "PRIVATE_VLAN6_CLIENT";
+//        const val KEY_PRIVATE_VLAN6_ROUTER = "PRIVATE_VLAN6_ROUTER";
+//    }
 
     inner class NullConnectionException : NullPointerException() {
         override fun getLocalizedMessage() =
@@ -58,23 +58,23 @@ abstract class VpnService : BaseVpnService() {
     private var conn: ParcelFileDescriptor? = null
     private var connectingJob: Job? = null
 
-    open fun getMtu(): Int {
-        return VPN_MTU
-    }
+//    open fun getMtu(): Int {
+//        return VPN_MTU
+//    }
 
-    open fun getPrivateVLAN(key: String): String {
-        return when (key) {
-            KEY_PRIVATE_VLAN4_CLIENT -> PRIVATE_VLAN4_CLIENT
-            KEY_PRIVATE_VLAN4_ROUTER -> PRIVATE_VLAN4_ROUTER
-            KEY_PRIVATE_VLAN6_CLIENT -> PRIVATE_VLAN6_CLIENT
-            KEY_PRIVATE_VLAN6_ROUTER -> PRIVATE_VLAN6_ROUTER
-            else -> ""
-        }
-    }
+//    open fun getPrivateVLAN(key: String): String {
+//        return when (key) {
+//            KEY_PRIVATE_VLAN4_CLIENT -> PRIVATE_VLAN4_CLIENT
+//            KEY_PRIVATE_VLAN4_ROUTER -> PRIVATE_VLAN4_ROUTER
+//            KEY_PRIVATE_VLAN6_CLIENT -> PRIVATE_VLAN6_CLIENT
+//            KEY_PRIVATE_VLAN6_ROUTER -> PRIVATE_VLAN6_ROUTER
+//            else -> ""
+//        }
+//    }
 
-    open fun getSession(): String {
-        return ""
-    }
+//    open fun getSession(): String {
+//        return ""
+//    }
 
     open fun onConfigure(builder: Builder) {
 
@@ -124,51 +124,54 @@ abstract class VpnService : BaseVpnService() {
         return "warning"
     }
 
-    open fun getTun2socksArgs(
-        mtu: Int,
-        isSupportIpv6: Boolean,
-        PRIVATE_VLAN4_ROUTER: String,
-        PRIVATE_VLAN6_ROUTER: String
-    ): ArrayList<String> {
-        val cmd = arrayListOf(
-            getTun2socksExecutablePath(),
-            "--netif-ipaddr", PRIVATE_VLAN4_ROUTER,
-            "--socks-server-addr", getSocksServerAddress(),
-            "--tunmtu", mtu.toString(),
-            "--sock-path", "sock_path",
-//            "--dnsgw", "127.0.0.1:${getPortLocalDns()}",
-            "--loglevel", getTun2socksLogLevel()
-        )
-        if (isSupportIpv6) {
-            cmd += "--netif-ip6addr"
-            cmd += PRIVATE_VLAN6_ROUTER
-        }
-        cmd += "--enable-udprelay"
+    abstract fun getTun2socksArgs(): ArrayList<String>
 
-        return cmd
-    }
+//    open fun getTun2socksArgs(
+//        mtu: Int,
+//        isSupportIpv6: Boolean,
+//        PRIVATE_VLAN4_ROUTER: String,
+//        PRIVATE_VLAN6_ROUTER: String
+//    ): ArrayList<String> {
+//        val cmd = arrayListOf(
+//            getTun2socksExecutablePath(),
+//            "--netif-ipaddr", PRIVATE_VLAN4_ROUTER,
+//            "--socks-server-addr", getSocksServerAddress(),
+//            "--tunmtu", mtu.toString(),
+//            "--sock-path", "sock_path",
+////            "--dnsgw", "127.0.0.1:${getPortLocalDns()}",
+//            "--loglevel", getTun2socksLogLevel()
+//        )
+//        if (isSupportIpv6) {
+//            cmd += "--netif-ip6addr"
+//            cmd += PRIVATE_VLAN6_ROUTER
+//        }
+//        cmd += "--enable-udprelay"
+//
+//        return cmd
+//    }
 
     private suspend fun startVpn(): FileDescriptor {
-        val mtu = getMtu();
-        val PRIVATE_VLAN4_CLIENT = getPrivateVLAN(KEY_PRIVATE_VLAN4_CLIENT)
-        val PRIVATE_VLAN4_ROUTER = getPrivateVLAN(KEY_PRIVATE_VLAN4_ROUTER)
-        val PRIVATE_VLAN6_CLIENT = getPrivateVLAN(KEY_PRIVATE_VLAN6_CLIENT)
-        val PRIVATE_VLAN6_ROUTER = getPrivateVLAN(KEY_PRIVATE_VLAN6_ROUTER)
+//        val mtu = getMtu();
+//        val PRIVATE_VLAN4_CLIENT = getPrivateVLAN(KEY_PRIVATE_VLAN4_CLIENT)
+//        val PRIVATE_VLAN4_ROUTER = getPrivateVLAN(KEY_PRIVATE_VLAN4_ROUTER)
+//        val PRIVATE_VLAN6_CLIENT = getPrivateVLAN(KEY_PRIVATE_VLAN6_CLIENT)
+//        val PRIVATE_VLAN6_ROUTER = getPrivateVLAN(KEY_PRIVATE_VLAN6_ROUTER)
         val builder = Builder()
-            .setSession(getSession())
-            .setMtu(mtu)
-            .addAddress(PRIVATE_VLAN4_CLIENT, 30)
-//            .addDnsServer(PRIVATE_VLAN4_ROUTER)
+//            .setSession(getSession())
+//            .setMtu(mtu)
+//            .addAddress(PRIVATE_VLAN4_CLIENT, 30)
+////            .addDnsServer(PRIVATE_VLAN4_ROUTER)
 
-        val isSupportIpv6 = isSupportIpv6();
-        if (isSupportIpv6) builder.addAddress(PRIVATE_VLAN6_CLIENT, 126)
+//        val isSupportIpv6 = isSupportIpv6();
+//        if (isSupportIpv6) builder.addAddress(PRIVATE_VLAN6_CLIENT, 126)
 
         onConfigure(builder)
 
         val conn = builder.establish() ?: throw NullConnectionException()
         this.conn = conn
 
-        val cmd = getTun2socksArgs(mtu, isSupportIpv6, PRIVATE_VLAN4_ROUTER, PRIVATE_VLAN6_ROUTER)
+        val cmd =
+            getTun2socksArgs(/*mtu, isSupportIpv6, PRIVATE_VLAN4_ROUTER, PRIVATE_VLAN6_ROUTER*/)
 
         processes!!.start(cmd, onRestartCallback = {
             try {
