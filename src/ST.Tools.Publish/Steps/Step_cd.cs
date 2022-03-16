@@ -123,6 +123,7 @@ namespace System.Application.Steps
 
             var hasWindows = val.Any(x => x.StartsWith("win-"));
             var hasLinux = val.Any(x => x.StartsWith("linux-"));
+            var hasOsx = val.Any(x => x.StartsWith("osx-"));
 
             Dictionary<DeploymentMode, string[]> publishDict = new()
             {
@@ -139,6 +140,12 @@ namespace System.Application.Steps
                 await Task.WhenAll(hpTasks);
             }
 
+            if (hasOsx)
+            {
+                var osx_publishDirs = val.Where(x => x.StartsWith("osx-")).ToArray();
+                if (osx_publishDirs.Any_Nullable())
+                    OSXBuild(dev, osx_publishDirs);
+            }
             List<PublishDirInfo> publishDirs = new();
             // 5. (本地)验证发布文件夹与计算文件哈希
             foreach (var item in publishDict)
@@ -191,7 +198,6 @@ namespace System.Application.Steps
                 await Task.WhenAll(parallelTasks);
                 parallelTasks.Clear();
             }
-
             #region rel 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
 
             //Console.WriteLine("rel Step 正在写入 SHA256...");
@@ -521,7 +527,7 @@ namespace System.Application.Steps
             }
         }
 
-        static void OSXBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
+        static void OSXBuild(bool dev, string[] publishDirs)
         {
             var shExeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             shExeFilePath = Path.Combine(shExeFilePath, "Git", "bin", "sh.exe");
@@ -535,7 +541,38 @@ namespace System.Application.Steps
             var CFBundleVersion = GetFullVersion(dev);
             var CFBundleShortVersionString = CFBundleVersion.TrimEnd(".0");
 
-            // ...TODO
+            string rootDirPath = Path.Combine(projPath, @"packaging");
+            if (!Directory.Exists(rootDirPath))
+            {
+                Console.WriteLine($"找不到 packaging 目录，值：{rootDirPath}");
+                return;
+            }
+            var shFilePath = Path.Combine(projPath, "build-osx-app.sh");
+            var icnsFilePath = Path.Combine(projPath, "resources", "AppIcon", "Logo.icns");
+
+            var shFileContent = File.ReadAllText(shFilePath);
+            foreach (var item in publishDirs)
+            {
+                var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
+                var shFileContent2 = shFileContent
+                        .Replace("${{ Steam++_AppName }}", appName)
+                        .Replace("${{ Steam++_Version }}", CFBundleVersion)
+                        .Replace("${{ Steam++_ShortVersion }}", CFBundleShortVersionString)
+                        .Replace("${{ Steam++_IcnsFile }}", icnsFilePath)
+                        .Replace("${{ Steam++_OutPutFilePath }}", projPath)
+                        .Replace("${{ Steam++_APPDIR }}", string.Format(DirPublishOsx, item))
+                        ;
+                File.WriteAllText(shFileContent, shFileContent2);
+
+                var process = Process.Start(new ProcessStartInfo()
+                {
+                    FileName = shFilePath,
+                    UseShellExecute = false,
+                });
+
+                process!.WaitForExit();
+            }
+
         }
     }
 }

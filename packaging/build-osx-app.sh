@@ -1,7 +1,7 @@
 create_app_structure() {
     APPNAME=$1
     APPDIR="$APPNAME.app/Contents"
-    APPICONS="/Users/mossimo/bin/logo.icns"
+    APPICONS="${{ Steam++_IcnsFile }}"
 
     if [ ! -d "$APPDIR" ]; then
         echo "creating app structure $APPDIR"
@@ -33,11 +33,11 @@ emit_plist() {
 	<key>CFBundleIdentifier</key>
 	<string>net.steampp.app</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.6.9</string>
+	<string>${{ Steam++_ShortVersion }}</string>
 	<key>CFBundleVersion</key>
-	<string>2.6.9.0</string>
+	<string>${{ Steam++_Version }}</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.14</string>
+	<string>11.0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_CN</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -64,10 +64,10 @@ EOF
     fi
 }
 
-cd "/Users/mossimo/bin"
+cd "${{ Steam++_OutPutFilePath }}"
 
 
-BINARYNAME="Steam++"
+BINARYNAME="${{ Steam++_AppName }}"
 
 echo "Building Avalonia demo..."
 
@@ -86,8 +86,9 @@ APPNAME="$BINARYNAME Helper"
 APPDIR="$APPNAME.app/Contents"
 create_app_structure "$APPNAME"
 emit_plist "$APPNAME" "$APPDIR"
-cp -R "../../../steampp/" "../MacOS"
+mv -f "${{ Steam++_APPDIR }}" "../MacOS"
 ln -s "../../MacOS" "Frameworks/$APPDIR/MacOS"
 chmod +x "../MacOS/$BINARYNAME"
 cp "../MacOS/$BINARYNAME" "../MacOS/$APPNAME"
 chmod +x "../MacOS/$APPNAME"
+mv -f "${{ Steam++_APPDIR }}/$BINARYNAME.app" "${{ Steam++_APPDIR }}"
