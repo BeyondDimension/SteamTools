@@ -1,0 +1,62 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:System.Application.UI.Views.Controls"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <Border Padding="40">
+            <StackPanel Spacing="10">
+                <controls:FilePicker>
+                    <Image
+                        Width="150"
+                        Height="150"
+                        Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico"
+                        Stretch="UniformToFill" />
+                </controls:FilePicker>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|FilePicker">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <ContentPresenter
+                        Name="ContentPresenter"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    <Border
+                        Name="FilePickerTipBorder"
+                        Margin="5"
+                        Padding="5"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource ButtonBorderThemeBrush}"
+                        BorderDashArray="3,3"
+                        BorderLineCap="Round"
+                        BorderLineJoin="Round"
+                        BorderThickness="2"
+                        CornerRadius="5">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ui:SymbolIcon FontSize="22" Symbol="DownloadFilled" />
+                            <TextBlock
+                                Margin="5"
+                                Text="选择文件或拖拽到这里"
+                                TextAlignment="Center"
+                                TextWrapping="WrapWithOverflow" />
+                        </StackPanel>
+                    </Border>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="controls|FilePicker /template/ Border#FilePickerTipBorder">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="controls|FilePicker:pointerover /template/ Border#FilePickerTipBorder">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+</Styles>

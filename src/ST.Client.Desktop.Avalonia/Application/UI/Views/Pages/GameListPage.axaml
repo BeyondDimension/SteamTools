@@ -234,7 +234,7 @@
                 <ui:PathIcon Data="{StaticResource GridDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            
+
             <ui:CommandBarSeparator/>
 
             <ui:CommandBarButton
@@ -245,7 +245,7 @@
                 <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            
+
             <ui:CommandBarButton
                        IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                        Command="{Binding IdleAppCommand}"
@@ -310,7 +310,7 @@
                    TextWrapping="WrapWithOverflow"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"/>
-        <ScrollViewer 
+        <ScrollViewer
               HorizontalScrollBarVisibility="Disabled"
               VerticalScrollBarVisibility="Auto"
               Padding="10 0 10 10">
@@ -448,7 +448,7 @@
                           <gif:Image2 x:Name="library"
                                       Stretch="UniformToFill"
                                       DecodeWidth="{ReflectionBinding $parent.Width}"
-                                      Source="{Binding LibraryLogoStream^}"
+                                      Source="{Binding LibraryGridStream^}"
                                       FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
                           </gif:Image2>
                           <!--<Image Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
@@ -468,7 +468,7 @@
                           FontSize="18"
                           Foreground="#FFFFFFFF"
                           IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
-                      
+
                       <Border IsVisible="{Binding IsInstalled}"
                               Margin="10 0 10 -3"
                               CornerRadius="3"
@@ -493,6 +493,7 @@
                       </Border>
                     </Panel>
                   </Border>
+
                   <TextBlock Width="{ReflectionBinding #app.Width}"
                              Text="{Binding DisplayName}"
                              ToolTip.Tip="{Binding DisplayName}"

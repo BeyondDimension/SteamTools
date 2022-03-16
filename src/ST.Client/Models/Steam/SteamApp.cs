@@ -204,47 +204,23 @@ namespace System.Application.Models
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Logo);
 
-        public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
+        public string LibraryGridUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
+        public Task<string> LibraryGridStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Grid);
 
-        public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_600x900);
 
-        public string LibraryHeaderUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
+        public string LibraryHeroUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
+        public Task<string> LibraryHeroStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero);
 
-        //private string? _LibraryHeaderStream;
-        //public string? LibraryHeaderStream
-        //{
-        //    get => _LibraryHeaderStream;
-        //    set => this.RaiseAndSetIfChanged(ref _LibraryHeaderStream, value);
-        //}
 
-        public string LibraryHeaderBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
+        public string LibraryHeroBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
+        public Task<string> LibraryHeroBlurStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero_Blur);
 
-        //private string? _LibraryHeaderBlurStream;
-        //public string? LibraryHeaderBlurStream
-        //{
-        //    get => _LibraryHeaderBlurStream;
-        //    set => this.RaiseAndSetIfChanged(ref _LibraryHeaderBlurStream, value);
-        //}
 
-        public string LibraryNameUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
-
-        //private string? _LibraryNameStream;
-        //public string? LibraryNameStream
-        //{
-        //    get => _LibraryNameStream;
-        //    set => this.RaiseAndSetIfChanged(ref _LibraryNameStream, value);
-        //}
+        public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
+        public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Logo);
 
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_HEADIMAGE_URL, AppId);
-
-        //private string? _HeaderLogoStream;
-        //public string? HeaderLogoStream
-        //{
-        //    get => _HeaderLogoStream;
-        //    set => this.RaiseAndSetIfChanged(ref _HeaderLogoStream, value);
-        //}
-
         public string CAPSULELogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 
 
@@ -611,22 +587,22 @@ namespace System.Application.Models
             Icon,
 
             /// <summary>
-            /// <see cref="LibraryLogoUrl"/>
+            /// <see cref="LibraryGridUrl"/>
             /// </summary>
-            Library_600x900,
+            Library_Grid,
 
             /// <summary>
-            /// <see cref="LibraryHeaderUrl"/>
+            /// <see cref="LibraryHeroUrl"/>
             /// </summary>
             Library_Hero,
 
             /// <summary>
-            /// <see cref="LibraryHeaderBlurUrl"/>
+            /// <see cref="LibraryHeroBlurUrl"/>
             /// </summary>
             Library_Hero_Blur,
 
             /// <summary>
-            /// <see cref="LibraryNameUrl"/>
+            /// <see cref="LibraryLogoUrl"/>
             /// </summary>
             Logo,
         }

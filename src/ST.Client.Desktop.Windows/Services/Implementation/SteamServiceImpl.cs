@@ -519,7 +519,7 @@ namespace System.Application.Services.Implementation
             {
                 SteamApp.LibCacheType.Header => $"{appId}_header.jpg",
                 SteamApp.LibCacheType.Icon => $"{appId}_icon.jpg",
-                SteamApp.LibCacheType.Library_600x900 => $"{appId}_library_600x900.jpg",
+                SteamApp.LibCacheType.Library_Grid => $"{appId}_library_600x900.jpg",
                 SteamApp.LibCacheType.Library_Hero => $"{appId}_library_hero.jpg",
                 SteamApp.LibCacheType.Library_Hero_Blur => $"{appId}_library_hero_blur.jpg",
                 SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
@@ -537,10 +537,10 @@ namespace System.Application.Services.Implementation
             {
                 SteamApp.LibCacheType.Header => app.HeaderLogoUrl,
                 SteamApp.LibCacheType.Icon => app.IconUrl,
-                SteamApp.LibCacheType.Library_600x900 => app.LibraryLogoUrl,
-                SteamApp.LibCacheType.Library_Hero => app.LibraryHeaderUrl,
-                SteamApp.LibCacheType.Library_Hero_Blur => app.LibraryHeaderBlurUrl,
-                SteamApp.LibCacheType.Logo => app.LibraryNameUrl,
+                SteamApp.LibCacheType.Library_Grid => app.LibraryGridUrl,
+                SteamApp.LibCacheType.Library_Hero => app.LibraryHeroUrl,
+                SteamApp.LibCacheType.Library_Hero_Blur => app.LibraryHeroBlurUrl,
+                SteamApp.LibCacheType.Logo => app.LibraryLogoUrl,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
             if (url == null) return string.Empty;
