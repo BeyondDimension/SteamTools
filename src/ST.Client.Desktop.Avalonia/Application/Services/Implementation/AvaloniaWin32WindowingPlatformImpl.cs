@@ -122,7 +122,7 @@ namespace System.Application.Services.Implementation
                             if (WindowState == WindowState.Maximized ||
                                 WindowState == WindowState.FullScreen)
                             {
-                                //newSize.top += GetResizeHandleHeight();
+                                newSize.top += GetResizeHandleHeight();
                             }
                             else
                             {

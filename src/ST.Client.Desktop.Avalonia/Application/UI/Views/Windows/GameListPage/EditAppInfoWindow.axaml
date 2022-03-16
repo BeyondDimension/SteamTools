@@ -114,13 +114,13 @@
                   <StackPanel Margin="0">
                     <TextBlock Text="封面"/>
 
-                    <TextBlock Text="建议的分辨率"/>
-                    <TextBlock Text="300 x 450 px"/>
+                    <TextBlock Classes="prompt" Text="建议的分辨率"/>
+                    <TextBlock Classes="prompt" Text="300 x 450 px"/>
                   </StackPanel>
 
-                  <controls:FilePicker Margin="50 0 0 0"  
+                  <controls:FilePicker Margin="50 0 0 0"
                                        HorizontalAlignment="Right">
-                    <gif:Image2 DecodeHeight="160"
+                    <gif:Image2 DecodeWidth="135"
                                 Source="{ReflectionBinding App.LibraryGridStream^}"/>
                   </controls:FilePicker>
                 </DockPanel>
@@ -129,11 +129,11 @@
                 <DockPanel>
                   <StackPanel Margin="0">
                     <TextBlock Text="背景"/>
-                    <TextBlock Text="建议的分辨率"/>
-                    <TextBlock Text="1920 x 620 px"/>
+                    <TextBlock Classes="prompt" Text="建议的分辨率"/>
+                    <TextBlock Classes="prompt" Text="1920 x 620 px"/>
                   </StackPanel>
 
-                  <controls:FilePicker Margin="50 0 0 0"  
+                  <controls:FilePicker Margin="50 0 0 0"
                                        HorizontalAlignment="Right">
                     <gif:Image2 DecodeHeight="120"
                                 Stretch="UniformToFill"
@@ -147,13 +147,13 @@
                   <StackPanel Margin="0">
                     <TextBlock Text="图标"/>
 
-                    <TextBlock Text="建议的分辨率"/>
-                    <TextBlock Text="120 x 120 px"/>
+                    <TextBlock Classes="prompt" Text="建议的分辨率"/>
+                    <TextBlock Classes="prompt" Text="120 x 120 px"/>
                   </StackPanel>
 
-                  <controls:FilePicker Margin="50 0 0 0" 
+                  <controls:FilePicker Margin="50 0 0 0"
                                        HorizontalAlignment="Right">
-                    <gif:Image2 DecodeHeight="120"
+                    <gif:Image2 DecodeWidth="220"
                                 Source="{ReflectionBinding App.LibraryLogoStream^}"/>
                   </controls:FilePicker>
                 </DockPanel>

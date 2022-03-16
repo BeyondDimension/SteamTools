@@ -64,7 +64,7 @@
             <ui:CommandBarSeparator/>
 
             <ui:CommandBarButton
-                       Command="{Binding LockCommand}" 
+                       Command="{Binding LockCommand}"
                        Focusable="False"
                        Label="{ReflectionBinding Path=Res.Lock,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>

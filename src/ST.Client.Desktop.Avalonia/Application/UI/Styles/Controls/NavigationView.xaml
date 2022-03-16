@@ -42,11 +42,7 @@
         <Setter Property="Icon">
             <Setter.Value>
                 <Template>
-                    <ui:BitmapIcon
-                        Width="26"
-                        Height="26"
-                        HorizontalAlignment="Center"
-                        UriSource="{Binding IconSource}" />
+                    <ui:BitmapIcon HorizontalAlignment="Center" UriSource="{Binding IconSource}" />
                 </Template>
             </Setter.Value>
         </Setter>

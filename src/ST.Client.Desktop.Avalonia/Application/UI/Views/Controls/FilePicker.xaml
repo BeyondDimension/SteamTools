@@ -22,41 +22,59 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel>
-                    <ContentPresenter
-                        Name="ContentPresenter"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}" />
-                    <Border
-                        Name="FilePickerTipBorder"
-                        Margin="5"
-                        Padding="5"
-                        Background="Transparent"
-                        BorderBrush="{DynamicResource ButtonBorderThemeBrush}"
-                        BorderDashArray="3,3"
-                        BorderLineCap="Round"
-                        BorderLineJoin="Round"
-                        BorderThickness="2"
-                        CornerRadius="5">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <ui:SymbolIcon FontSize="22" Symbol="DownloadFilled" />
-                            <TextBlock
+                <Border
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    BorderThickness="1"
+                    ClipToBounds="True"
+                    CornerRadius="5">
+                    <Panel>
+                        <ContentPresenter
+                            Name="ContentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        <Panel
+                            Name="FilePickerTipBorder"
+                            MaxWidth="{ReflectionBinding $parent.Bounds.Width}"
+                            MaxHeight="{ReflectionBinding $parent.Bounds.Height}">
+                            <ExperimentalAcrylicBorder>
+                                <ExperimentalAcrylicBorder.Material>
+                                    <ExperimentalAcrylicMaterial
+                                        MaterialOpacity="0.1"
+                                        TintColor="#000000"
+                                        TintOpacity="1" />
+                                </ExperimentalAcrylicBorder.Material>
+                            </ExperimentalAcrylicBorder>
+                            <Border
                                 Margin="5"
-                                Text="选择文件或拖拽到这里"
-                                TextAlignment="Center"
-                                TextWrapping="WrapWithOverflow" />
-                        </StackPanel>
-                    </Border>
-                </Panel>
+                                Background="Transparent"
+                                BorderBrush="{DynamicResource ButtonBorderThemeBrush}"
+                                BorderDashArray="3,3"
+                                BorderLineCap="Round"
+                                BorderLineJoin="Round"
+                                BorderThickness="2">
+                                <StackPanel
+                                    Margin="10,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <ui:SymbolIcon FontSize="22" Symbol="DownloadFilled" />
+                                    <TextBlock
+                                        Text="选择文件或拖拽到这里"
+                                        TextAlignment="Center"
+                                        TextWrapping="WrapWithOverflow" />
+                                </StackPanel>
+                            </Border>
+                        </Panel>
+                    </Panel>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>
 
-    <Style Selector="controls|FilePicker /template/ Border#FilePickerTipBorder">
+    <Style Selector="controls|FilePicker /template/ Panel#FilePickerTipBorder">
         <Setter Property="IsVisible" Value="False" />
     </Style>
-    <Style Selector="controls|FilePicker:pointerover /template/ Border#FilePickerTipBorder">
+    <Style Selector="controls|FilePicker:pointerover /template/ Panel#FilePickerTipBorder">
         <Setter Property="IsVisible" Value="True" />
     </Style>
 </Styles>
