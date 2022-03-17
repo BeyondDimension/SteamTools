@@ -397,18 +397,28 @@ namespace System.Application.Services
         /// Steam APP令牌导入
         /// </summary>
         /// <returns>true if successful</returns>
-        public bool ImportSteamGuard(string name, string uuid, string steamGuard, bool isLocal, string? password)
+        public bool ImportSteamGuard(string? name, string? uuid, string? steamGuard, bool isLocal, string? password)
         {
             if (string.IsNullOrEmpty(uuid))
             {
                 //WinAuthForm.ErrorDialog(this, "Please enter the contents of the steam.uuid.xml file or your DeviceId");
                 return false;
             }
-            if (steamGuard.Length == 0)
+            if (string.IsNullOrEmpty(steamGuard))
             {
                 //WinAuthForm.ErrorDialog(this, "Please enter the contents of your SteamGuard file");
                 return false;
             }
+            if (string.IsNullOrEmpty(uuid))
+            {
+                return false;
+            }
+
+            /* AuthService.ImportSteamGuard (System.String name, System.String uuid, System.String steamGuard, System.Boolean isLocal, System.String password)
+             * System.NullReferenceException: Object reference not set to an instance of an object
+             * Crash Version 2.6.5(20220206) 12 users 14 reports
+             * Android 9 ~ 12
+             */
 
             // check the deviceid
             string deviceId;

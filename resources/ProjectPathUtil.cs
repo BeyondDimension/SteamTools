@@ -46,6 +46,9 @@ namespace System
         public const string DirPublishWinX64_ =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish\win-x64";
 
+        public const string DirPublishOsx =
+           @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\{0}";
+
         public const string DirPublishWinX64_FDE_ =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Publish\FrameworkDependent\win-x64";
 

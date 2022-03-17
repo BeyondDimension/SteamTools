@@ -1446,7 +1446,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启动加速服务失败，证书安装失败。 的本地化字符串。
+        ///   查找类似 启动加速服务失败，遇到未知错误，具体原因请查看logs日志。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild {
             get {

@@ -221,7 +221,9 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            if (ProxyDomains is null || TwoLevelAgentEnable || OnlyEnableProxyScript) return;
+            //host模式下不启用加速会出现无限循环问题
+            if (ProxyDomains is null || TwoLevelAgentEnable || (OnlyEnableProxyScript && IsSystemProxy)) return;
+
 
             //var item = ProxyDomains.FirstOrDefault(f => f.DomainNamesArray.Any(h => e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(h, StringComparison.OrdinalIgnoreCase)));
 

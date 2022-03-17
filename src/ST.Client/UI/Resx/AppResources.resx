@@ -448,7 +448,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>一键加速</value>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>启动加速服务失败，证书安装失败。</value>
+    <value>启动加速服务失败，遇到未知错误，具体原因请查看logs日志。</value>
   </data>
   <data name="CommunityFix_StartProxyFaild443_" xml:space="preserve">
     <value>加速服务启动失败，{0} 端口被占用。请关掉占用 {0} 端口的程序或者尝试使用系统代理模式。</value>
