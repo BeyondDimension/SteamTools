@@ -29,9 +29,6 @@ namespace System.Application.UI.Views.Controls
                         {
                             if (window == null)
                             {
-                                LayoutUpdated += EmptyControl_LayoutUpdated;
-                                AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
-                                DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
                                 window = new Window
                                 {
                                     Width = Bounds.Width,
@@ -53,6 +50,9 @@ namespace System.Application.UI.Views.Controls
                                     IsTabStop = false,
                                     IsHitTestVisible = false,
                                 };
+                                AttachedToVisualTree += EmptyControl_AttachedToVisualTree;
+                                DetachedFromVisualTree += EmptyControl_DetachedFromVisualTree;
+                                LayoutUpdated += EmptyControl_LayoutUpdated;
                                 window.GotFocus += Window_GotFocus;
                                 if (Parent != null && VisualRoot != null)
                                     EmptyControl_AttachedToVisualTree(null, new VisualTreeAttachmentEventArgs(Parent, VisualRoot));
@@ -163,8 +163,7 @@ namespace System.Application.UI.Views.Controls
             {
                 windowApiService.BackgroundUpdate(_DwmHandle, (int)(window.Width * (dpi ?? 0)), (int)(window.Height * (dpi ?? 0)));
                 //NativeMethods.SetWindowPos(HWND, NativeMethods.HWND_TOPMOST, window.Position.X, window.Position.Y, (int)window.Width, (int)window.Height, 0);
-
-                window.IsVisible = true;
+                //window.IsVisible = true;
             }
         }
 
