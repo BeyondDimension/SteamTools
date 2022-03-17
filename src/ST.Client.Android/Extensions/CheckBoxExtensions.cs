@@ -18,13 +18,13 @@ namespace System
             if (value.HasValue)
             {
                 checkBox.Checked = value.Value;
-                if (checkBox.GetTag(R.Id.checkbox_indeterminate_state) is Drawable d && checkBox.ButtonDrawable != d) drawable = d;
+                if (checkBox.GetTag(R.Id.checkbox_indeterminate_state) is Drawable d && checkBox.GetButtonDrawableCompat() != d) drawable = d;
                 checkBox.SetTag(R.Id.checkbox_indeterminate_state, null);
             }
             else
             {
                 if (checkBox.GetTag(R.Id.checkbox_indeterminate_state) == null)
-                    checkBox.SetTag(R.Id.checkbox_indeterminate_state, checkBox.ButtonDrawable);
+                    checkBox.SetTag(R.Id.checkbox_indeterminate_state, checkBox.GetButtonDrawableCompat());
                 drawable = checkBox.Context!.GetDrawableCompat(R.Drawable.bg_checkbox_indeterminate);
             }
             if (drawable != null) checkBox.SetButtonDrawable(drawable);
