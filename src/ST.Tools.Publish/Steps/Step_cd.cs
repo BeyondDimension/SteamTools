@@ -51,6 +51,7 @@ namespace System.Application.Steps
             command.AddCommand(full);
 
 #if DEBUG
+            // p nsis -path "path"
             var nsis = new Command("nsis", "调试 NSIS 打包")
             {
                 Handler = CommandHandler.Create((string path) =>
@@ -89,6 +90,18 @@ namespace System.Application.Steps
             };
             nsis.AddOption(new Option<string>("-path", "7z Path"));
             command.AddCommand(nsis);
+
+            // ./p osxapp -val osx-x64 osx-arm64 
+            var osxapp = new Command("osxapp", "调试 OSX 打包")
+            {
+                Handler = CommandHandler.Create((string[] val, bool dev) =>
+                {
+                    OSXBuild(dev, val);
+                }),
+            };
+            osxapp.AddOption(new Option<string[]>("-val", InputPubDirNameDesc));
+            osxapp.AddOption(new Option<bool>("-dev", DevDesc));
+            command.AddCommand(osxapp);
 #endif
         }
 
@@ -142,9 +155,11 @@ namespace System.Application.Steps
 
             if (hasOsx)
             {
-                var osx_publishDirs = val.Where(x => x.StartsWith("osx-")).ToArray();
-                if (osx_publishDirs.Any_Nullable())
-                    OSXBuild(dev, osx_publishDirs);
+                if (OperatingSystem2.IsMacOS)
+                {
+                    var osx_val = val.Where(x => x.StartsWith("osx-")).ToArray();
+                    if (osx_val.Any()) OSXBuild(dev, osx_val);
+                }
             }
             List<PublishDirInfo> publishDirs = new();
             // 5. (本地)验证发布文件夹与计算文件哈希
@@ -527,40 +542,41 @@ namespace System.Application.Steps
             }
         }
 
-        static void OSXBuild(bool dev, string[] publishDirs)
+        static void OSXBuild(bool dev, string[] osx_val)
         {
-            var shExeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            shExeFilePath = Path.Combine(shExeFilePath, "Git", "bin", "sh.exe");
-
-            if (!File.Exists(shExeFilePath))
+            var shFilePath = Path.Combine(projPath, "packaging", "build-osx-app.sh");
+            var icnsFilePath = Path.Combine(projPath, "resources", "AppIcon", "Logo.icns");
+            if (!File.Exists(shFilePath))
             {
-                Console.WriteLine($"找不到 sh 文件，值：{shExeFilePath}");
+                Console.WriteLine($"找不到 sh 文件，值：{shFilePath}");
+                return;
+            }
+            if (!File.Exists(icnsFilePath))
+            {
+                Console.WriteLine($"找不到 icns 文件，值：{icnsFilePath}");
                 return;
             }
 
             var CFBundleVersion = GetFullVersion(dev);
             var CFBundleShortVersionString = CFBundleVersion.TrimEnd(".0");
 
-            string rootDirPath = Path.Combine(projPath, @"packaging");
-            if (!Directory.Exists(rootDirPath))
-            {
-                Console.WriteLine($"找不到 packaging 目录，值：{rootDirPath}");
-                return;
-            }
-            var shFilePath = Path.Combine(projPath, "build-osx-app.sh");
-            var icnsFilePath = Path.Combine(projPath, "resources", "AppIcon", "Logo.icns");
-
             var shFileContent = File.ReadAllText(shFilePath);
-            foreach (var item in publishDirs)
+            foreach (var item in osx_val)
             {
+                var destPath = string.Format(DirPublishOsx, item);
+                if (!Directory.Exists(icnsFilePath))
+                {
+                    Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
+                    continue;
+                }
                 var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)
                         .Replace("${{ Steam++_Version }}", CFBundleVersion)
                         .Replace("${{ Steam++_ShortVersion }}", CFBundleShortVersionString)
                         .Replace("${{ Steam++_IcnsFile }}", icnsFilePath)
-                        .Replace("${{ Steam++_OutPutFilePath }}", projPath)
-                        .Replace("${{ Steam++_APPDIR }}", string.Format(DirPublishOsx, item))
+                        .Replace("${{ Steam++_OutPutFilePath }}", destPath)
+                        .Replace("${{ Steam++_APPDIR }}", destPath)
                         ;
                 File.WriteAllText(shFileContent, shFileContent2);
 
@@ -572,7 +588,6 @@ namespace System.Application.Steps
 
                 process!.WaitForExit();
             }
-
         }
     }
 }
