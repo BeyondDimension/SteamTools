@@ -570,7 +570,8 @@ namespace System.Application.Steps
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
                     continue;
                 }
-                var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
+                var isArm = item == "osx-x64";
+                var appName = $"Steam++{(isArm ? "" : " Arm64")}";
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)
                         .Replace("${{ Steam++_Version }}", CFBundleVersion)
@@ -578,6 +579,7 @@ namespace System.Application.Steps
                         .Replace("${{ Steam++_IcnsFile }}", icnsFilePath)
                         .Replace("${{ Steam++_OutPutFilePath }}", projPath)
                         .Replace("${{ Steam++_APPDIR }}", destPath)
+                        .Replace("${{ Steam++_RunName }}", "Steam++")
                         ;
                 File.WriteAllText(shFilePath, shFileContent2);
 

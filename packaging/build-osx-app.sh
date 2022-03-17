@@ -43,9 +43,9 @@ emit_plist() {
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleExecutable</key>
-	<string>$PLIST_APPNAME</string>
+	<string>${{ Steam++_RunName }}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>$PLIST_APPNAME</string>
+	<string>${{ Steam++_RunName }}</string>
 	<key>CFBundleIconFile</key>
 	<string>$PLIST_APPNAME</string>
 	<key>CFBundlePackageType</key>
@@ -80,7 +80,6 @@ rm -rf "$APPDIR"
 create_app_structure "$APPNAME"
 emit_plist "$APPNAME" "$APPDIR" true
 
-mv -f "${{ Steam++_APPDIR }}" "./MacOS"
-chmod +x "./MacOS/Steam++"
-
-mv -f "${{ Steam++_OutPutFilePath }}/$APPNAME.app" "${{ Steam++_APPDIR }}"
+mv -f "${{ Steam++_APPDIR }}" "$APPDIR/MacOS"
+chmod +x "$APPDIR/MacOS/Steam++"
+mv -f "${{ Steam++_OutPutFilePath }}/$BINARYNAME.app" "${{ Steam++_APPDIR }}/$BINARYNAME.app"
