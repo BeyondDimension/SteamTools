@@ -563,7 +563,7 @@ namespace System.Application.Steps
             var shFileContent = File.ReadAllText(shFilePath);
             foreach (var item in osx_val)
             {
-                var destPath = string.Format(DirPublishOsx, item);
+                var destPath = projPath + string.Format(DirPublishOsx, item);
                 if (!Directory.Exists(destPath))
                 {
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
