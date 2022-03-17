@@ -564,6 +564,7 @@ namespace System.Application.Steps
             foreach (var item in osx_val)
             {
                 var destPath = projPath + string.Format(DirPublishOsx, item);
+                destPath = destPath.Replace('\\', '/');
                 if (!Directory.Exists(destPath))
                 {
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
@@ -578,7 +579,7 @@ namespace System.Application.Steps
                         .Replace("${{ Steam++_OutPutFilePath }}", destPath)
                         .Replace("${{ Steam++_APPDIR }}", destPath)
                         ;
-                File.WriteAllText(shFileContent, shFileContent2);
+                File.WriteAllText(shFilePath, shFileContent2);
 
                 var process = Process.Start(new ProcessStartInfo()
                 {
