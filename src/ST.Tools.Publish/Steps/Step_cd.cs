@@ -576,7 +576,7 @@ namespace System.Application.Steps
                         .Replace("${{ Steam++_Version }}", CFBundleVersion)
                         .Replace("${{ Steam++_ShortVersion }}", CFBundleShortVersionString)
                         .Replace("${{ Steam++_IcnsFile }}", icnsFilePath)
-                        .Replace("${{ Steam++_OutPutFilePath }}", destPath)
+                        .Replace("${{ Steam++_OutPutFilePath }}", projPath)
                         .Replace("${{ Steam++_APPDIR }}", destPath)
                         ;
                 File.WriteAllText(shFilePath, shFileContent2);

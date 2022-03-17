@@ -80,11 +80,7 @@ rm -rf "$APPDIR"
 create_app_structure "$APPNAME"
 emit_plist "$APPNAME" "$APPDIR" true
 
-cd "$APPDIR/Frameworks"
-
-APPNAME="$BINARYNAME Helper"
-APPDIR="$APPNAME.app/Contents"
-create_app_structure "$APPNAME"
-emit_plist "$APPNAME" "$APPDIR"
-mv -f "${{ Steam++_APPDIR }}" "$APPDIR/../MacOS"
+mv -f "${{ Steam++_APPDIR }}" "./MacOS"
 chmod +x "./MacOS/Steam++"
+
+mv -f "${{ Steam++_OutPutFilePath }}/$APPNAME.app" "${{ Steam++_APPDIR }}"
