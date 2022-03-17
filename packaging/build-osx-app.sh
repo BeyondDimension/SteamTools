@@ -82,4 +82,6 @@ emit_plist "$APPNAME" "$APPDIR" true
 
 mv -f "${{ Steam++_APPDIR }}" "$APPDIR/MacOS"
 chmod +x "$APPDIR/MacOS/Steam++"
+
+mkdir "${{ Steam++_APPDIR }}"
 mv -f "${{ Steam++_OutPutFilePath }}/$BINARYNAME.app" "${{ Steam++_APPDIR }}/$BINARYNAME.app"

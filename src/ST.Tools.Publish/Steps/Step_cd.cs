@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -569,9 +571,8 @@ namespace System.Application.Steps
                 {
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
                     continue;
-                }
-                var isArm = item == "osx-x64";
-                var appName = $"Steam++{(isArm ? "" : " Arm64")}";
+                } 
+                var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)
                         .Replace("${{ Steam++_Version }}", CFBundleVersion)
@@ -582,7 +583,7 @@ namespace System.Application.Steps
                         .Replace("${{ Steam++_RunName }}", "Steam++")
                         ;
                 File.WriteAllText(shFilePath, shFileContent2);
-
+                Chmod(shFilePath, (int)EUnixPermission.UserExecute);
                 var process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = shFilePath,
@@ -591,6 +592,29 @@ namespace System.Application.Steps
 
                 process!.WaitForExit();
             }
+        }
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        [DllImport("libc", EntryPoint = "chmod", SetLastError = true)]
+        [SupportedOSPlatform("FreeBSD")]
+        [SupportedOSPlatform("Linux")]
+        [SupportedOSPlatform("MacOS")]
+        internal static extern int Chmod(string path, int mode);
+        [Flags]
+        [SupportedOSPlatform("FreeBSD")]
+        [SupportedOSPlatform("Linux")]
+        [SupportedOSPlatform("MacOS")]
+        internal enum EUnixPermission : ushort
+        {
+            OtherExecute = 0x1,
+            OtherWrite = 0x2,
+            OtherRead = 0x4,
+            GroupExecute = 0x8,
+            GroupWrite = 0x10,
+            GroupRead = 0x20,
+            UserExecute = 0x40,
+            UserWrite = 0x80,
+            UserRead = 0x100,
+            Combined777 = UserRead | UserWrite | UserExecute | GroupRead | GroupWrite | GroupExecute | OtherRead | OtherWrite | OtherExecute
         }
     }
 }
