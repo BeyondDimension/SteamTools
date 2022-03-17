@@ -564,7 +564,7 @@ namespace System.Application.Steps
             foreach (var item in osx_val)
             {
                 var destPath = string.Format(DirPublishOsx, item);
-                if (!Directory.Exists(icnsFilePath))
+                if (!Directory.Exists(destPath))
                 {
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
                     continue;
