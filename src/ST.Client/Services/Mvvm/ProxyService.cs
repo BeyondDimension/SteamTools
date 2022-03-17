@@ -60,9 +60,10 @@ namespace System.Application.Services
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
                         httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
 
-                        if (httpProxyService.IsEnableScript) 
+                        if (httpProxyService.IsEnableScript)
                         {
-                            await EnableProxyScripts.ContinueWith(e => {
+                            await EnableProxyScripts.ContinueWith(e =>
+                            {
                                 httpProxyService.Scripts = e.Result.ToImmutableArray();
                             });
                         }
@@ -119,6 +120,10 @@ namespace System.Application.Services
                                     }
                                 }
                                 error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443_.Format(httpsPort);
+                                if (OperatingSystem2.IsLinux)
+                                {
+                                    Browser2.Open(string.Format(UrlConstants.OfficialWebsite_UnixHostAccess_, WebUtility.UrlEncode(IApplication.ProgramPath)));
+                                }
                                 Toast.Show(error_CommunityFix_StartProxyFaild443);
                                 return;
                             }
@@ -454,7 +459,8 @@ namespace System.Application.Services
                           item.Sender.Enable = item.Value;
                           await scriptManager.SaveEnableScript(item.Sender);
 
-                          await EnableProxyScripts.ContinueWith(e => {
+                          await EnableProxyScripts.ContinueWith(e =>
+                          {
                               httpProxyService.Scripts = e.Result.ToImmutableArray();
                           });
                           this.RaisePropertyChanged(nameof(EnableProxyScripts));
