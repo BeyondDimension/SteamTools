@@ -583,10 +583,11 @@ namespace System.Application.Steps
                         .Replace("${{ Steam++_RunName }}", "Steam++")
                         ;
                 File.WriteAllText(shFilePath, shFileContent2);
-                Chmod(shFilePath, (int)EUnixPermission.UserExecute);
+                Chmod(shFilePath, (int)EUnixPermission.Combined777);
                 var process = Process.Start(new ProcessStartInfo()
                 {
-                    FileName = shFilePath,
+                    FileName = "bash",
+                    Arguments = $"-c {shFilePath}",
                     UseShellExecute = false,
                 });
 
