@@ -31,6 +31,7 @@ namespace System.Application.UI
             if (programName == null)
                 throw new ArgumentNullException(nameof(programName));
             ProgramName = programName;
+            
         }
 
         /// <summary>

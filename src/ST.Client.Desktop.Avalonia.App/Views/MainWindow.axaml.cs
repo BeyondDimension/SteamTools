@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml;
+using System.Application.Services;
 using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
@@ -42,29 +43,29 @@ namespace System.Application.UI.Views
 #endif
         }
 
-//        protected override void OnClosing(CancelEventArgs e)
-//        {
-//#if !UI_DEMO
-//            if (StartupOptions.Value.HasNotifyIcon)
-//            {
-//                //IsHideWindow = true;
-//                //e.Cancel = true;
-//                //Hide();
+        //        protected override void OnClosing(CancelEventArgs e)
+        //        {
+        //#if !UI_DEMO
+        //            if (StartupOptions.Value.HasNotifyIcon)
+        //            {
+        //                //IsHideWindow = true;
+        //                //e.Cancel = true;
+        //                //Hide();
 
-//                //if (ViewModel is not null)
-//                //    foreach (var tab in ViewModel.TabItems)
-//                //        tab.Deactivation();
-//            }
-//#endif
-//            base.OnClosing(e);
-//        }
+        //                //if (ViewModel is not null)
+        //                //    foreach (var tab in ViewModel.TabItems)
+        //                //        tab.Deactivation();
+        //            }
+        //#endif
+        //            base.OnClosing(e);
+        //        }
 
         protected override void OnClosed(EventArgs e)
         {
 #if !UI_DEMO
             if (StartupOptions.Value.HasNotifyIcon)
             {
-                if (App.Current.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+                if (App.Current!.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
                 {
                     desktop.MainWindow = App.Instance.MainWindow = null;
                 }
@@ -75,6 +76,13 @@ namespace System.Application.UI.Views
             }
 #endif
             //base.OnClosed(e);
+        }
+
+        protected override void OnOpened(EventArgs e)
+        {
+            base.OnOpened(e);
+
+            IApplicationUpdateService.Instance.OnMainOpenTryShowNewVersionWindow();
         }
 
         //protected override void FluentWindow_Opened(object? sender, EventArgs e)

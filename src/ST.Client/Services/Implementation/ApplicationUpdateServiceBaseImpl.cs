@@ -33,6 +33,18 @@ namespace System.Application.Services.Implementation
 
         public ICommand StartUpdateCommand { get; }
 
+        public bool ShowNewVersionWindowOnMainOpen { get; protected set; }
+
+        protected virtual Task ShowNewVersionWindowAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual void OnMainOpenTryShowNewVersionWindow()
+        {
+
+        }
+
         public ApplicationUpdateServiceBaseImpl(
             IApplication application,
             IToast toast,
