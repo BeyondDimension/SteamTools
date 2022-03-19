@@ -31,6 +31,7 @@ import android.util.Log
 import kotlinx.coroutines.*
 import net.steampp.app.shadowsocks.Core
 import net.steampp.app.shadowsocks.Core.TAG
+import net.steampp.app.shadowsocks.R
 import java.io.File
 import java.io.FileDescriptor
 import java.io.IOException
@@ -223,8 +224,8 @@ abstract class VpnService : BaseVpnService() {
             coroutineScope {
                 killProcesses(this)
             }
+            stopSelf()
         }
-
     }
 
     private fun killProcesses(scope: CoroutineScope) {
@@ -232,5 +233,16 @@ abstract class VpnService : BaseVpnService() {
             close(scope)
             processes = null
         }
+
+        conn?.close()
+        conn = null
+    }
+
+    protected fun addRouteByPassPrivateIPAddress(builder: Builder) {
+        resources.getStringArray(R.array.bypass_private_ip_address)
+            .forEach { cidr ->
+                val addr = cidr.split('/')
+                builder.addRoute(addr[0], addr[1].toInt())
+            }
     }
 }
