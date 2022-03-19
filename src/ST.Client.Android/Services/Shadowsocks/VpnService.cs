@@ -118,7 +118,7 @@ namespace System.Application.Services.Native
                 get
                 {
                     // https://github.com/2dust/v2rayNG/blob/master/AndroidLibV2rayLite/CoreI/Status.go#L28
-                    return new List<string>
+                    return new JavaList<string>
                     {
                         Tun2socksExecutablePath,
                         "--netif-ipaddr",
