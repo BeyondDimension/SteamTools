@@ -6,19 +6,20 @@
     <Design.PreviewWith>
         <Border Padding="40">
             <StackPanel Spacing="10">
-                <controls:FilePicker>
+                <controls:CustomFilePicker>
                     <Image
                         Width="150"
                         Height="150"
                         Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico"
                         Stretch="UniformToFill" />
-                </controls:FilePicker>
+                </controls:CustomFilePicker>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="controls|FilePicker">
+    <Style Selector="controls|CustomFilePicker">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="DragDrop.AllowDrop" Value="True" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -71,10 +72,10 @@
         </Setter>
     </Style>
 
-    <Style Selector="controls|FilePicker /template/ Panel#FilePickerTipBorder">
+    <Style Selector="controls|CustomFilePicker /template/ Panel#FilePickerTipBorder">
         <Setter Property="IsVisible" Value="False" />
     </Style>
-    <Style Selector="controls|FilePicker:pointerover /template/ Panel#FilePickerTipBorder">
+    <Style Selector="controls|CustomFilePicker:pointerover /template/ Panel#FilePickerTipBorder">
         <Setter Property="IsVisible" Value="True" />
     </Style>
 </Styles>

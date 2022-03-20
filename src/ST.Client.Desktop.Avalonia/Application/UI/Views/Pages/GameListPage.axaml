@@ -458,11 +458,11 @@
                           Text="{Binding DisplayName}"
                           VerticalAlignment="Center"
                           HorizontalAlignment="Center"
-                          TextTrimming="CharacterEllipsis"
+                          TextWrapping="WrapWithOverflow"
                           TextAlignment="Center"
-                          FontSize="18"
+                          Classes="h6"
                           Foreground="#FFFFFFFF"
-                          IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
+                          IsVisible="{Binding LibraryGridStream^,Converter={StaticResource IsNullConverter}}"/>
 
                       <Border IsVisible="{Binding IsInstalled}"
                               Margin="10 0 10 -3"

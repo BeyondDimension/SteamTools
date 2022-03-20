@@ -70,7 +70,7 @@
     <None Remove="Application\UI\Assets\pateron.png" />
     <None Remove="Application\UI\Styles\Controls\NavigationView.xaml" />
     <None Remove="Application\UI\Styles\Controls\ProgressBar.xaml" />
-    <None Remove="Application\UI\Views\Controls\FilePicker.xaml" />
+    <None Remove="Application\UI\Views\Controls\CustomFilePicker.xaml" />
     <None Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
   </ItemGroup>
 
@@ -131,7 +131,7 @@
     <AvaloniaResource Update="Application\UI\Styles\Controls\ProgressBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Views\Controls\FilePicker.xaml">
+    <AvaloniaResource Update="Application\UI\Views\Controls\CustomFilePicker.xaml">
       <Generator>MSBuild:Compile</Generator>
     </AvaloniaResource>
   </ItemGroup>
@@ -142,6 +142,9 @@
     </Compile>
     <Compile Update="Application\UI\Views\Controls\Badge.xaml.cs">
       <DependentUpon>Badge.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Application\UI\Views\Controls\CustomFilePicker.xaml.cs">
+      <DependentUpon>CustomFilePicker.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

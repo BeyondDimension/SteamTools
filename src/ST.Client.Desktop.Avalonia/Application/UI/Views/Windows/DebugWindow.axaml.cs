@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using FluentAvalonia.Styling;
+using Avalonia.Input;
 
 namespace System.Application.UI.Views.Windows
 {
@@ -10,17 +11,20 @@ namespace System.Application.UI.Views.Windows
         public DebugWindow()
         {
             InitializeComponent();
-
-            ExtendClientAreaToDecorationsHint = true;
+            
+            ExtendClientAreaToDecorationsHint = false;
             ExtendClientAreaTitleBarHeightHint = -1;
-            TransparencyLevelHint = WindowTransparencyLevel.Transparent;
+            TransparencyLevelHint = WindowTransparencyLevel.Mica;
             SystemDecorations = SystemDecorations.Full;
-            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.PreferSystemChrome;
+            ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.Default;
+
 
             //if (OperatingSystem2.IsWindows11AtLeast)
             //{
             //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this, "Dark");
             //}
+
+            DragDrop.SetAllowDrop(this, true);
 #if DEBUG
             this.AttachDevTools();
 #endif

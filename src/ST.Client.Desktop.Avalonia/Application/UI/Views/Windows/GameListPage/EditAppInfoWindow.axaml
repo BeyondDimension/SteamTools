@@ -9,6 +9,7 @@
         xmlns:vm="using:System.Application.UI.ViewModels"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ms="using:System.Application.Settings"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:gif="using:AvaloniaGif"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
@@ -107,59 +108,67 @@
         </TabItem>
 
         <TabItem Header="媒体">
-          <ScrollViewer>
-            <StackPanel Classes="Settings">
-              <Border Classes="Item">
-                <DockPanel>
-                  <StackPanel Margin="0">
-                    <TextBlock Text="封面"/>
+          <Panel>
+            <ScrollViewer>
+              <StackPanel Classes="Settings">
+                <Border Classes="Item">
+                  <DockPanel>
+                    <StackPanel Margin="0">
+                      <TextBlock Text="封面"/>
 
-                    <TextBlock Classes="prompt" Text="建议的分辨率"/>
-                    <TextBlock Classes="prompt" Text="300 x 450 px"/>
-                  </StackPanel>
+                      <TextBlock Classes="prompt h8"
+                                 Text="建议的分辨率"/>
+                      <TextBlock Classes="prompt h8"
+                                 Text="300 x 450 px"/>
+                    </StackPanel>
 
-                  <controls:FilePicker Margin="50 0 0 0"
-                                       HorizontalAlignment="Right">
-                    <gif:Image2 DecodeWidth="135"
-                                Source="{ReflectionBinding App.LibraryGridStream^}"/>
-                  </controls:FilePicker>
-                </DockPanel>
-              </Border>
-              <Border Classes="Item">
-                <DockPanel>
-                  <StackPanel Margin="0">
-                    <TextBlock Text="背景"/>
-                    <TextBlock Classes="prompt" Text="建议的分辨率"/>
-                    <TextBlock Classes="prompt" Text="1920 x 620 px"/>
-                  </StackPanel>
+                    <controls:FilePicker Margin="50 0 0 0"
+                                         HorizontalAlignment="Right">
+                      <gif:Image2 DecodeWidth="135"
+                                  Source="{ReflectionBinding App.LibraryGridStream^}"/>
+                    </controls:FilePicker>
+                  </DockPanel>
+                </Border>
+                <Border Classes="Item">
+                  <DockPanel>
+                    <StackPanel Margin="0">
+                      <TextBlock Text="背景"/>
+                      <TextBlock Classes="prompt h8"
+                                 Text="建议的分辨率"/>
+                      <TextBlock Classes="prompt h8"
+                                 Text="1920 x 620 px"/>
+                    </StackPanel>
 
-                  <controls:FilePicker Margin="50 0 0 0"
-                                       HorizontalAlignment="Right">
-                    <gif:Image2 DecodeHeight="120"
-                                Stretch="UniformToFill"
-                                Source="{ReflectionBinding App.LibraryHeroStream^}"/>
-                  </controls:FilePicker>
-                </DockPanel>
-              </Border>
-              <Border Classes="Item">
+                    <controls:FilePicker Margin="50 0 0 0"
+                                         HorizontalAlignment="Right">
+                      <gif:Image2 DecodeHeight="120"
+                                  Stretch="UniformToFill"
+                                  Source="{ReflectionBinding App.LibraryHeroStream^}"/>
+                    </controls:FilePicker>
+                  </DockPanel>
+                </Border>
+                <Border Classes="Item">
+                  <DockPanel>
+                    <StackPanel Margin="0">
+                      <TextBlock Text="图标"/>
 
-                <DockPanel>
-                  <StackPanel Margin="0">
-                    <TextBlock Text="图标"/>
+                      <TextBlock Classes="prompt h8"
+                                 Text="建议的分辨率"/>
+                      <TextBlock Classes="prompt h8"
+                                 Text="120 x 120 px"/>
+                    </StackPanel>
 
-                    <TextBlock Classes="prompt" Text="建议的分辨率"/>
-                    <TextBlock Classes="prompt" Text="120 x 120 px"/>
-                  </StackPanel>
+                    <controls:FilePicker Margin="50 0 0 0"
+                                         HorizontalAlignment="Right">
+                      <gif:Image2 DecodeWidth="220"
+                                  Source="{ReflectionBinding App.LibraryLogoStream^}"/>
+                    </controls:FilePicker>
+                  </DockPanel>
+                </Border>
 
-                  <controls:FilePicker Margin="50 0 0 0"
-                                       HorizontalAlignment="Right">
-                    <gif:Image2 DecodeWidth="220"
-                                Source="{ReflectionBinding App.LibraryLogoStream^}"/>
-                  </controls:FilePicker>
-                </DockPanel>
-              </Border>
-            </StackPanel>
-          </ScrollViewer>
+              </StackPanel>
+            </ScrollViewer>
+          </Panel>
         </TabItem>
 
         <TabItem Header="启动项" IsVisible="{ReflectionBinding App.IsInstalled}">
