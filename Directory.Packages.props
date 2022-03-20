@@ -118,7 +118,7 @@
 		<PackageVersion Include="Xam.Plugins.Forms.ImageCircle" Version="3.1.1.1-beta" />
 
 		<!-- NUnit & NUnit.Xamarin & Moq -->
-		<PackageVersion Include="NUnit" Version="3.13.2" />
+		<PackageVersion Include="NUnit" Version="3.13.3" />
 		<PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
 		<PackageVersion Include="nunit.xamarin" Version="3.6.1" />
 		<PackageVersion Include="PCLStorage" Version="1.0.2" />
