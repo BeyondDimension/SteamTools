@@ -8,13 +8,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="31F8A90E.SteamforWindows"
-    Publisher="CN=E82D30B2-4455-4D63-8292-8C87C7AA4526"
-    Version="2.6.9.0" />
+    Name="4651ED44255E.47979655102CE"
+    Publisher="CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66"
+    Version="2.7.0.0" />
 
   <Properties>
-    <DisplayName>蒸汽++</DisplayName>
-    <PublisherDisplayName>长沙次元超越科技有限公司</PublisherDisplayName>
+    <DisplayName>Steam++</DisplayName>
+    <PublisherDisplayName>软妹币玩家</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="蒸汽++"
+        DisplayName="Steam++"
         Description="「蒸汽++」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装蒸汽平台才能使用。"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"

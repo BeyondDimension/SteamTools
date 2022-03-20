@@ -1446,7 +1446,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启动加速服务失败，遇到未知错误，具体原因请查看logs日志。 的本地化字符串。
+        ///   查找类似 启动加速服务失败，遇到未知错误，具体原因请在 [设置] - [通用设置] - [存储空间] - [打开 Logs 文件夹] 查看当天日志。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_StartProxyFaild {
             get {
@@ -3651,6 +3651,15 @@ namespace System.Application.UI.Resx {
         public static string NewVersionUpdate {
             get {
                 return ResourceManager.GetString("NewVersionUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 检测到新版本 v{0} 的本地化字符串。
+        /// </summary>
+        public static string NewVersionUpdateNotifyText_ {
+            get {
+                return ResourceManager.GetString("NewVersionUpdateNotifyText_", resourceCulture);
             }
         }
         

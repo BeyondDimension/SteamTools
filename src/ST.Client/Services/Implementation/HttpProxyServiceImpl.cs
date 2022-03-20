@@ -580,32 +580,18 @@ namespace System.Application.Services.Implementation
                     //}
 
                     TransparentProxyEndPoint transparentProxyEndPoint;
-                    if (OperatingSystem2.IsLinux && !platformService.IsAdministrator)
-                    {
-                        var freeport = GetRandomUnusedPort();
-                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, freeport, true)
-                        {
-                            // 通过不启用为每个http的域创建证书来优化性能
-                            //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-                        };
 
-                        Browser2.Open(string.Format(UrlConstants.OfficialWebsite_UnixHostAccess_, freeport));
-                    }
-                    else
+                    transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
                     {
-                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
-                        {
-                            // 通过不启用为每个http的域创建证书来优化性能
-                            //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-                        };
-                    }
-
+                        // 通过不启用为每个http的域创建证书来优化性能
+                        //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                    };
                     //transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
                     proxyServer.AddEndPoint(transparentProxyEndPoint);
 
                     try
                     {
-                        if (!OperatingSystem2.IsLinux && PortInUse(80) == false)
+                        if (PortInUse(80) == false)
                             proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
                     }
                     catch { }

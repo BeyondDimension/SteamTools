@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Options;
 using System.Application.Models;
 using System.Application.UI;
+using System.Application.UI.Resx;
+using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
 {
@@ -9,8 +11,10 @@ namespace System.Application.Services.Implementation
     {
         readonly IAvaloniaApplication app;
         readonly IWindowManager windowManager;
+        readonly INotificationService notificationService;
         public AvaloniaApplicationUpdateServiceImpl(
             IAvaloniaApplication app,
+            INotificationService notificationService,
             IWindowManager windowManager,
             IToast toast,
             ICloudServiceClient client,
@@ -18,6 +22,21 @@ namespace System.Application.Services.Implementation
         {
             this.app = app;
             this.windowManager = windowManager;
+            this.notificationService = notificationService;
+        }
+
+        protected override async Task ShowNewVersionWindowAsync()
+        {
+            await windowManager.Show(typeof(object), CustomWindow.NewVersion, isParent: false);
+        }
+
+        public override async void OnMainOpenTryShowNewVersionWindow()
+        {
+            if (ShowNewVersionWindowOnMainOpen)
+            {
+                ShowNewVersionWindowOnMainOpen = false;
+                await ShowNewVersionWindowAsync();
+            }
         }
 
         protected override async void OnExistNewVersion()
@@ -25,7 +44,12 @@ namespace System.Application.Services.Implementation
             var hasActiveWindow = app.HasActiveWindow();
             if (hasActiveWindow)
             {
-                await windowManager.Show(typeof(object), CustomWindow.NewVersion, isParent: false);
+                await ShowNewVersionWindowAsync();
+            }
+            else
+            {
+                ShowNewVersionWindowOnMainOpen = true;
+                notificationService.Notify(AppResources.NewVersionUpdateNotifyText_.Format(NewVersionInfo?.Version), NotificationType.NewVersion);
             }
         }
 

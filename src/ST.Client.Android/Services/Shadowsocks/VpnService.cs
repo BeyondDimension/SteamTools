@@ -61,6 +61,12 @@ namespace System.Application.Services.Native
                 ProxyService.Current.ProxyStatus = false;
             }
 
+            public override void OnRevoke()
+            {
+                OnStop();
+                base.OnRevoke();
+            }
+
             [return: GeneratedEnum]
             public override StartCommandResult OnStartCommand(Intent? intent, [GeneratedEnum] StartCommandFlags flags, int startId)
             {
@@ -82,8 +88,6 @@ namespace System.Application.Services.Native
                 return StartCommandResult.NotSticky;
             }
 
-            public override string Session => AssemblyTrademark;
-
             public override string SocksServerAddress
             {
                 get
@@ -93,45 +97,53 @@ namespace System.Application.Services.Native
                 }
             }
 
+            const int VPN_MTU = 1500;
+            const string VPN_MTU_STR = "1500";
+
             public override void OnConfigure(Builder builder)
             {
+                builder.SetSession(AssemblyTrademark);
                 //builder.AddDnsServer(IDnsAnalysisService.PrimaryDNS_Ali);
+                // https://github.com/2dust/v2rayNG/blob/master/AndroidLibV2rayLite/CoreI/Status.go#L56
+                builder.SetMtu(VPN_MTU);
+                builder.AddAddress("26.26.26.1", 30);
+                AddRouteByPassPrivateIPAddress(builder);
+                builder.AddAddress("da26:2626::1", 126);
+                builder.AddRoute("2000::", 3);
                 builder.AddDisallowedApplication(PackageName!);
+            }
+
+            public override IList<string> Tun2socksArgs
+            {
+                get
+                {
+                    // https://github.com/2dust/v2rayNG/blob/master/AndroidLibV2rayLite/CoreI/Status.go#L28
+                    return new JavaList<string>
+                    {
+                        Tun2socksExecutablePath,
+                        "--netif-ipaddr",
+                        "26.26.26.2",
+                        "--netif-netmask",
+                        "255.255.255.252",
+                        "--socks-server-addr",
+                        SocksServerAddress,
+                        "--tunmtu",
+                        VPN_MTU_STR,
+                        "--loglevel",
+                        "notice",
+                        "--enable-udprelay",
+                        "--sock-path",
+                        "sock_path",
+                        "--netif-ip6addr",
+                        "da26:2626::2"
+                    };
+                }
             }
 
 #if DEBUG
             public override void OnError(string msg, Java.Lang.Throwable tr)
             {
                 base.OnError(msg, tr);
-            }
-
-            string PackagePath => FilesDir!.ToString().Replace("files", "");
-
-            public override IList<string> GetTun2socksArgs(int mtu, bool isSupportIpv6, string PRIVATE_VLAN4_ROUTER, string PRIVATE_VLAN6_ROUTER)
-            {
-                return new List<string>
-                {
-                    Tun2socksExecutablePath,
-                    "--netif-ipaddr",
-                    "26.26.26.2",
-                    "--netif-netmask",
-                    "255.255.255.252",
-                    "--socks-server-addr",
-                    SocksServerAddress,
-                    "--tunmtu",
-                    "1500",
-                    "--loglevel",
-                    "notice",
-                    "--enable-udprelay",
-                    "--sock-path",
-                    PackagePath + "sock_path",
-                    "--netif-ip6addr",
-                    "da26:2626::2"
-                };
-                //var args = base.GetTun2socksArgs(mtu, isSupportIpv6, PRIVATE_VLAN4_ROUTER, PRIVATE_VLAN6_ROUTER);
-                //var value = string.Join(' ', args);
-                //Log.Info(nameof(VpnService), $"Tun2socksArgs: {value}");
-                //return args;
             }
 
             public override string SockPath

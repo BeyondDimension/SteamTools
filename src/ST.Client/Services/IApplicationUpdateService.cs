@@ -125,5 +125,15 @@ namespace System.Application.Services
                 }
             }
         }
+
+        /// <summary>
+        /// 是否需要在主窗口显示时显示新版本通知窗口
+        /// </summary>
+        bool ShowNewVersionWindowOnMainOpen { get; }
+
+        /// <summary>
+        /// 在主窗口显示时调用此函数检查是否需要显示新版本通知窗口
+        /// </summary>
+        void OnMainOpenTryShowNewVersionWindow();
     }
 }
