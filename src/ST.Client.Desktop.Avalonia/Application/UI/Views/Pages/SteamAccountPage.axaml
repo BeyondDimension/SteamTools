@@ -105,7 +105,21 @@
                         Header="{ReflectionBinding Path=Res.UserChange_OfflineBtn,
                                                                        Mode=OneWay,
                                                                        Source={x:Static resx:R.Current}}" />
-                    <MenuItem Header="-" />
+                    <MenuItem Header="-"/>
+                    <!--<MenuItem Header="{ReflectionBinding Path=Res.Copy,
+                                                         Mode=OneWay,
+                                                         Source={x:Static resx:R.Current}}">
+                      <MenuItem Header="SteamID32"></MenuItem>
+                      <MenuItem Header="SteamID64"></MenuItem>
+                      <MenuItem Header="AccountName"></MenuItem>
+                    </MenuItem>-->
+                    <MenuItem
+                        Command="{ReflectionBinding #u.DataContext.OpenUserDataFolder}"
+                        CommandParameter="{Binding}"
+                        Header="{ReflectionBinding Path=Res.UserChange_ShowUserDataFolder,
+                                                                       Mode=OneWay,
+                                                                       Source={x:Static resx:R.Current}}" />
+                    <MenuItem Header="-"/>
                     <MenuItem
                         Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}"
                         CommandParameter="{Binding}"

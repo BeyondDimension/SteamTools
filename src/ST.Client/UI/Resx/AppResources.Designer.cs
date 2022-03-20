@@ -5864,6 +5864,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 打开 Userdata 文件夹 的本地化字符串。
+        /// </summary>
+        public static string UserChange_ShowUserDataFolder {
+            get {
+                return ResourceManager.GetString("UserChange_ShowUserDataFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 账号切换 的本地化字符串。
         /// </summary>
         public static string UserFastChange {

@@ -37,7 +37,7 @@ namespace System.Application.Services.Implementation
             //var rsp = await s.GetAsync<SteamUser>(requestUri);
 
             var data = new SteamUser() { SteamId64 = steamId64 };
-            var rsp = await GetUserMiniProfile(data.SteamId3_Int);
+            var rsp = await GetUserMiniProfile(data.SteamId32);
             if (rsp != null)
             {
                 data.MiniProfile = rsp;

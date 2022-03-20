@@ -122,11 +122,11 @@
                                  Text="300 x 450 px"/>
                     </StackPanel>
 
-                    <controls:FilePicker Margin="50 0 0 0"
+                    <controls:CustomFilePicker Margin="50 0 0 0"
                                          HorizontalAlignment="Right">
                       <gif:Image2 DecodeWidth="135"
                                   Source="{ReflectionBinding App.LibraryGridStream^}"/>
-                    </controls:FilePicker>
+                    </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
                 <Border Classes="Item">
@@ -139,12 +139,12 @@
                                  Text="1920 x 620 px"/>
                     </StackPanel>
 
-                    <controls:FilePicker Margin="50 0 0 0"
+                    <controls:CustomFilePicker Margin="50 0 0 0"
                                          HorizontalAlignment="Right">
                       <gif:Image2 DecodeHeight="120"
                                   Stretch="UniformToFill"
                                   Source="{ReflectionBinding App.LibraryHeroStream^}"/>
-                    </controls:FilePicker>
+                    </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
                 <Border Classes="Item">
@@ -158,11 +158,11 @@
                                  Text="120 x 120 px"/>
                     </StackPanel>
 
-                    <controls:FilePicker Margin="50 0 0 0"
+                    <controls:CustomFilePicker Margin="50 0 0 0"
                                          HorizontalAlignment="Right">
                       <gif:Image2 DecodeWidth="220"
                                   Source="{ReflectionBinding App.LibraryLogoStream^}"/>
-                    </controls:FilePicker>
+                    </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
 

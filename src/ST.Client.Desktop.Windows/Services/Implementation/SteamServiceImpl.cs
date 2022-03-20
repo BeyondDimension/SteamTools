@@ -388,7 +388,7 @@ namespace System.Application.Services.Implementation
                                 //VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
                                 if (IsDeleteUserData)
                                 {
-                                    var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId3_Int.ToString());
+                                    var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId32.ToString());
                                     if (Directory.Exists(temp))
                                     {
                                         Directory.Delete(temp, true);
