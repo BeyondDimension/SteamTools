@@ -29,6 +29,11 @@
         </ControlTemplate>
     </Styles.Resources>
 
+    <Style Selector="PopupRoot">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TransparencyBackgroundFallback" Value="Transparent" />
+    </Style>
+
     <Style Selector="Window">
         <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
         <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
