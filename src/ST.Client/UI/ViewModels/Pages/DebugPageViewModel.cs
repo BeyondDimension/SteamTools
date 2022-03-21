@@ -477,20 +477,21 @@ namespace System.Application.UI.ViewModels
             TextBoxWindowViewModel vm = new()
             {
                 Title = "Title",
-                InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
-                Description = @"Steam++ v1.1.2   
-                                        2021-01-29
-                                        更新内容
-                                        1、新增账号切换的状态栏右下角登录新账号功能
-                                        2、新增实时刷新获取Steam新登录的账号数据功能
-                                        3、新增FAQ常见问题疑难解答文本，可以在关于中找到它
-                                        4、优化配置文件备份机制，如果配置文件出错会提示还原上次读取成功的配置
-                                        5、优化错误日志记录，现在它更详细了
-                                        6、修复谷歌验证码代理方式为全局跳转recatpcha
-                                        7、修复配置文件加载时提示根元素错误
-                                        8、修复某些情况下开机自启失效问题",
+                InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
+                Description = @"xxxxx",
             };
             await TextBoxWindowViewModel.ShowDialogAsync(vm);
+
+            var r = await MessageBox.ShowAsync(@"Steam++ v1.1.2   2021-01-29
+            更新内容
+            1、新增账号切换的状态栏右下角登录新账号功能
+            2、新增实时刷新获取Steam新登录的账号数据功能
+            3、新增FAQ常见问题疑难解答文本，可以在关于中找到它
+            4、优化配置文件备份机制，如果配置文件出错会提示还原上次读取成功的配置
+            5、优化错误日志记录，现在它更详细了
+            6、修复谷歌验证码代理方式为全局跳转recatpcha
+            7、修复配置文件加载时提示根元素错误
+            8、修复某些情况下开机自启失效问题", "Steam++", MessageBox.Button.OKCancel);
             //await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync();
 #endif
 
@@ -502,16 +503,7 @@ namespace System.Application.UI.ViewModels
 
             //await IWindowManager .Instance.Show(typeof(object), CustomWindow.NewVersion);
 
-            //    var r = await MessageBox.ShowAsync(@"Steam++ v1.1.2   2021-01-29
-            //更新内容
-            //1、新增账号切换的状态栏右下角登录新账号功能
-            //2、新增实时刷新获取Steam新登录的账号数据功能
-            //3、新增FAQ常见问题疑难解答文本，可以在关于中找到它
-            //4、优化配置文件备份机制，如果配置文件出错会提示还原上次读取成功的配置
-            //5、优化错误日志记录，现在它更详细了
-            //6、修复谷歌验证码代理方式为全局跳转recatpcha
-            //7、修复配置文件加载时提示根元素错误
-            //8、修复某些情况下开机自启失效问题", "Steam++", MessageBox.Button.OKCancel);
+
 
             //    DebugString += r + Environment.NewLine;
 

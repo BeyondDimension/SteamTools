@@ -13,12 +13,26 @@
         xmlns:ms="using:System.Application.Settings"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
+        WindowStartupLocation="CenterOwner"
         ExtendClientAreaTitleBarHeightHint="30"
         Title="{Binding Title}"
         x:Name="u"
         CanResize="False"
         x:DataType="vm:TextBoxWindowViewModel"
         x:CompileBindings="True">
+  <Design.DesignStyle>
+    <Styles>
+      <Style Selector="Window">
+        <Setter Property="Title" Value="TextBoxWindow"/>
+      </Style>
+      <Style Selector="TextBox#DescriptionBox">
+        <Setter Property="Text" Value="test"/>
+      </Style>
+      <Style Selector="TextBox#PasswordBox">
+        <Setter Property="Text" Value="test"/>
+      </Style>
+    </Styles>
+  </Design.DesignStyle>
   <Grid RowDefinitions="1,30,*,Auto,1">
     <controls:TitleBar Grid.RowSpan="5"></controls:TitleBar>
     <Border Padding="10" Grid.Row="2">
@@ -29,7 +43,7 @@
                  IsVisible="{Binding Description,Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                  Text="{Binding Description}"
                  Classes="readonlybox"
-                 Padding="0"
+                 Padding="5 0"
                  TextWrapping="Wrap"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
@@ -41,12 +55,29 @@
                  HorizontalAlignment="Stretch"
                  Text="{Binding Value}"
                  MaxLength="{Binding MaxLength}"
-                 PasswordChar="{StaticResource PasswordChar}" 
+                 PasswordChar="{StaticResource PasswordChar}"
                  Classes="revealPasswordButton" />
-        <Separator Classes="Separator"></Separator>
-        <StackPanel Spacing="10" HorizontalAlignment="Right" Orientation="Horizontal">
-          <Button MinWidth="90" Padding="30,6" IsDefault="True" Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
-          <Button MinWidth="90" Padding="30,6" IsCancel="True" Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}"></Button>
+
+        <Separator Classes="Separator" />
+
+        <StackPanel HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+          <StackPanel.Styles>
+            <Style Selector="Button">
+              <Setter Property="MinWidth" Value="100"></Setter>
+              <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+              <Setter Property="Margin" Value="6"></Setter>
+              <Setter Property="IsDefault" Value="True"></Setter>
+              <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+              <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+              <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}" />
+              <Setter Property="HorizontalAlignment" Value="Stretch" />
+              <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+              <Setter Property="Padding" Value="{DynamicResource ButtonPadding}" />
+            </Style>
+          </StackPanel.Styles>
+          <Button Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
+          <Button Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}"></Button>
         </StackPanel>
       </StackPanel>
     </Border>
