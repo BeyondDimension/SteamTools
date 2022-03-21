@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Application.Columns;
 using System.Application.Services;
 using System.Application.UI;
@@ -129,23 +129,30 @@ namespace System.Application.Settings
 
         #endregion
 
-        static EProxyMode DefaultProxyMode
+        #region 代理模式设置
+
+        static EProxyMode DefaultProxyMode => ProxyModes.FirstOrDefault();
+
+        public static IEnumerable<EProxyMode> ProxyModes
         {
             get
             {
                 if (OperatingSystem2.IsWindows)
                 {
-                    return EProxyMode.DNSIntercept;
+                    yield return EProxyMode.DNSIntercept;
+                    yield return EProxyMode.Hosts;
+                    yield return EProxyMode.System;
                 }
                 else if (OperatingSystem2.IsAndroid)
                 {
-                    return EProxyMode.VPN;
+                    yield return EProxyMode.VPN;
+                    yield return EProxyMode.ProxyOnly;
                 }
-                else if (OperatingSystem2.IsLinux)
+                else if (OperatingSystem2.IsLinux || OperatingSystem2.IsMacOS)
                 {
-                    return EProxyMode.System;
+                    yield return EProxyMode.Hosts;
+                    yield return EProxyMode.System;
                 }
-                return EProxyMode.Hosts;
             }
         }
 
@@ -154,5 +161,17 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<EProxyMode> ProxyMode { get; }
             = GetProperty(defaultValue: DefaultProxyMode, autoSave: true);
+
+        public static EProxyMode ProxyModeValue
+        {
+            get
+            {
+                var value = ProxyMode.Value;
+                if (ProxyModes.Contains(value)) return value;
+                return DefaultProxyMode;
+            }
+        }
+
+        #endregion
     }
 }

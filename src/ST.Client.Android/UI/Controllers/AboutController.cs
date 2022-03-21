@@ -130,7 +130,7 @@ namespace System.Application.UI.Controllers
             binding.rvPreferenceButtons.AddItemDecoration(new PreferenceButtonItemDecoration(Context, Resource.Dimension.preference_buttons_space_min));
             binding.rvPreferenceButtons.SetAdapter(adapter);
 
-            SetOnClickListener(binding.ivLogo, binding.tvTitle);
+            SetOnClickListener(binding.ivLogo, binding.tvTitle, binding.chip_xamarin, binding.chip_kotlin);
         }
 
         public override bool OnClick(View view)
@@ -139,6 +139,27 @@ namespace System.Application.UI.Controllers
             {
                 AboutAppInfoPopup.OnClick();
                 return true;
+            }
+            else if (view.Id == Resource.Id.chip_xamarin)
+            {
+                string lang;
+                if (R.IsChineseSimplified)
+                {
+                    lang = "zh-cn";
+                }
+                else if (R.Culture.Name.StartsWith("ja", StringComparison.OrdinalIgnoreCase))
+                {
+                    lang = "ja-jp";
+                }
+                else
+                {
+                    lang = "en-us";
+                }
+                Browser2.Open($"https://dotnet.microsoft.com/{lang}/learn/xamarin/what-is-xamarin");
+            }
+            else if (view.Id == Resource.Id.chip_kotlin)
+            {
+                Browser2.Open("https://kotlinlang.org");
             }
             return base.OnClick(view);
         }

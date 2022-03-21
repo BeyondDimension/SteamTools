@@ -443,6 +443,12 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\logo.png">
       <Link>Resources\drawable-xxhdpi\logo.png</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\logo_kotlin_20.png">
+      <Link>Resources\drawable-xxhdpi\logo_kotlin_20.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\logo_xamarin_20.png">
+      <Link>Resources\drawable-xxhdpi\logo_xamarin_20.png</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable-xxhdpi\splash_logo.png">
       <Link>Resources\drawable-xxhdpi\splash_logo.png</Link>
     </AndroidResource>

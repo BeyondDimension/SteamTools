@@ -90,7 +90,7 @@ namespace System.Application.UI.Activities
             }
             else if (view.Id == Resource.Id.clickDate)
             {
-                this.ShowBirthDatePicker(ViewModel!.DonateFliterDate.Date);
+                this.ShowBirthDatePicker(ViewModel!.DonateFliterDate.Date, title: AppResources.PleaseSelect);
                 return;
             }
             else if (view.Id == Resource.Id.btn_afdian)
