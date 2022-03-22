@@ -183,9 +183,7 @@
             </ui:NavigationViewItem.Content>
             <ui:NavigationViewItem.Icon>
               <!--<ui:PathIcon Data="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>-->
-              <ui:BitmapIcon UriSource="{Binding IconSource}"
-                             HorizontalAlignment="Center"
-                             Width="26" Height="26"/>
+              <ui:BitmapIcon UriSource="{Binding IconSource}"/>
               <!--<ui:ImageIcon Margin="3 0 0 0"
                             Width="16" Height="16">
                             <DrawingImage Drawing="{Binding IconKey,Converter={StaticResource DrawingKeyValueConverter}}"/>

@@ -146,6 +146,9 @@
     <Compile Update="Application\UI\Views\Controls\CustomFilePicker.xaml.cs">
       <DependentUpon>CustomFilePicker.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Application\UI\Views\Windows\CommunityProxyPage\NetworkFixWindow.axaml.cs">
+      <DependentUpon>NetworkFixWindow.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

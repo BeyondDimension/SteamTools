@@ -5,12 +5,27 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
 using System.Collections;
+using static System.Application.FilePicker2;
 
 namespace System.Application.UI.Views.Controls
 {
     public class CustomFilePicker : ContentControl
     {
+        public static readonly StyledProperty<string?> FileNameProperty = AvaloniaProperty.Register<CustomFilePicker, string?>(nameof(FileName), null);
 
+        public static readonly StyledProperty<string?> FileExtensionsProperty = AvaloniaProperty.Register<CustomFilePicker, string?>(nameof(FileExtensions), "*");
+
+        public string? FileName
+        {
+            get => GetValue(FileNameProperty);
+            set => SetValue(FileNameProperty, value);
+        }
+
+        public string? FileExtensions
+        {
+            get => GetValue(FileExtensionsProperty);
+            set => SetValue(FileExtensionsProperty, value);
+        }
 
         public CustomFilePicker()
         {
@@ -32,16 +47,39 @@ namespace System.Application.UI.Views.Controls
 
             void Drop(object? sender, DragEventArgs e)
             {
-                //if (e.Data.Contains(DataFormats.Text))
-                //    file = e.Data.GetText();
-                //else if (e.Data.Contains(DataFormats.FileNames))
-                //    file = string.Join(Environment.NewLine, e.Data.GetFileNames());
+                if (e.Data.Contains(DataFormats.Text))
+                    FileName = e.Data.GetText();
+                else if (e.Data.Contains(DataFormats.FileNames))
+                    FileName = string.Join(Environment.NewLine, e.Data.GetFileNames());
             }
 
             AddHandler(DragDrop.DropEvent, Drop);
             AddHandler(DragDrop.DragOverEvent, DragOver);
             #endregion
+
+            this.Tapped += CustomFilePicker_Tapped;
         }
 
+        private async void CustomFilePicker_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            FilePickerFileType fileTypes;
+
+            if (string.IsNullOrEmpty(FileExtensions) || FileExtensions == "*")
+            {
+                fileTypes = new ValueTuple<string, string[]>[] { ("All Files", new[] { "*" }) };
+            }
+            else
+            {
+                fileTypes = new ValueTuple<string, string[]>[] {
+                        ("Required Files", FileExtensions.Split(",")),
+                        ("All Files", new[] { "*"}),
+                       };
+            }
+
+            await PickAsync((file) =>
+            {
+                FileName = file;
+            }, fileTypes);
+        }
     }
 }

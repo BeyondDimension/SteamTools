@@ -353,7 +353,7 @@
                                Command="{ReflectionBinding #u.DataContext.EditAppInfoClick}"
                                CommandParameter="{Binding}">
                           <MenuItem.Icon>
-                            <PathIcon Data="{StaticResource EditDrawing}" Width="14"></PathIcon>
+                            <ui:SymbolIcon Symbol="EditFilled" Width="14"/>
                           </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem

@@ -11,14 +11,32 @@
         xmlns:ms="using:System.Application.Settings"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:gif="using:AvaloniaGif"
-        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         Background="Transparent"
-        ExtendClientAreaTitleBarHeightHint="30"
-        Title="{Binding Title}"
         x:DataType="vm:EditAppInfoWindowViewModel"
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar DockPanel.Dock="Top" />
+    <!--Header-->
+    <Menu Classes="BarMenu">
+      <MenuItem 
+                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
+        </MenuItem.Header>
+      </MenuItem>
+      <MenuItem 
+                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource ResetDrawing}" Width="14"></PathIcon>
+        </MenuItem.Header>
+      </MenuItem>
+      <MenuItem
+                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
+        <MenuItem.Header>
+          <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
+        </MenuItem.Header>
+      </MenuItem>
+    </Menu>
     <Grid Margin="0 35 0 0"
           RowDefinitions="*,Auto">
       <TabControl Classes="flat"
