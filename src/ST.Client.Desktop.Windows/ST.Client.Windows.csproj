@@ -39,7 +39,7 @@
 
   <ItemGroup>
     <PackageReference Include="DnsClient" />
-    <PackageReference Include="Gameloop.Vdf" />
+    <!--<PackageReference Include="Gameloop.Vdf" />-->
     <PackageReference Include="Aigio.Avalonia.AppCenter" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
     <PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />
@@ -63,6 +63,7 @@
 
   <ItemGroup>
     <!--<ProjectReference Include="..\..\references\Steam4NET\Steam4NET\Steam4NET.csproj" />-->
+    <ProjectReference Include="..\..\references\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
     <ProjectReference Include="..\..\references\SteamAchievementManager\SAM.API\SAM.API.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>

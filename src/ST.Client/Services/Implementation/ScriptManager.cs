@@ -119,11 +119,12 @@ namespace System.Application.Services.Implementation
                         saveInfo = new FileInfo(cachePath);
                         saveInfo.Refresh();
                         if (await BuildScriptAsync(info, saveInfo, build))
-                        { 
+                        {
                             var db = mapper.Map<Script>(info);
                             db.MD5 = md5;
                             db.SHA512 = sha512;
-                            if (db.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001")) {
+                            if (db.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001"))
+                            {
                                 info.IsBasics = true;
                                 order = 1;
                             }
@@ -303,7 +304,8 @@ namespace System.Application.Services.Implementation
         public async Task<ScriptDTO> TryReadFile(ScriptDTO item)
         {
             var cachePath = Path.Combine(IOPath.CacheDirectory, item.CachePath);
-            if (File.Exists(cachePath)) { 
+            if (File.Exists(cachePath))
+            {
                 item.Content = File.ReadAllText(cachePath);
             }
             else
@@ -336,17 +338,47 @@ namespace System.Application.Services.Implementation
             }
             return item;
         }
-        public async Task SaveEnableScript(ScriptDTO item){
+        public async Task SaveEnableScript(ScriptDTO item)
+        {
             await scriptRepository.SaveScriptEnable(item);
+        }
+        public async Task<IEnumerable<ScriptDTO>?> LoadingScriptContent(IEnumerable<ScriptDTO>? all)
+        {
+            if (all.Any_Nullable())
+            {
+                try
+                {
+                    foreach (var item in all)
+                    {
+                        if (string.IsNullOrEmpty(item.Content))
+                        {
+                            await TryReadFile(item);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    var errorMsg = AppResources.Script_ReadFileError.Format(e.GetAllMessage());//$"文件读取出错:[{e}]";
+                    logger.LogError(e, errorMsg);
+                    toast.Show(errorMsg);
+                }
+                return all;
+            }
+            return null;
         }
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync()
         {
-            var scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-
+            var scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
             var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
-            if (scriptList.Count(x => x.Id == basicsId) > 1)
+            int count = scripts.Count(x => x.Id == basicsId);
+            if (count == 0)
             {
-                var allpath = scriptList.Where(x => x.Id == basicsId);
+                ProxyService.Current.BasicsInfo();
+                scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+            }
+            else if (count > 1)
+            {
+                var allpath = scripts.Where(x => x.Id == basicsId);
                 string? savePath = null;
                 foreach (var item in allpath)
                 {
@@ -367,55 +399,9 @@ namespace System.Application.Services.Implementation
                         await DeleteScriptAsync(item);
                     }
                 }
-                scriptList = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+                scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
             }
-            try
-            {
-                foreach (var item in scriptList)
-                {
-                    await TryReadFile(item);
-                    if (item.Id == basicsId)
-                    {
-                        item.IsBasics = true;
-                        item.Order = 1;
-                        if (item.IsBuild)
-                        {
-                            item.IsBuild = false;
-                            var fileInfo = new FileInfo(item.FilePath);
-                            if (fileInfo.Exists)
-                            {
-                                var state = await AddScriptAsync(fileInfo, item, item, false, 1, ignoreCache: true);
-                                if (state.IsSuccess && state.Content?.Content != null)
-                                    item.Content = state.Content!.Content;
-                            }
-                            else
-                            {
-                                var basicsInfo = await csc.Script.Basics(AppResources.Script_NoFile.Format(item.FilePath));
-                                if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
-                                {
-                                    var jspath = await DownloadScriptAsync(basicsInfo.Content.UpdateLink);
-                                    if (jspath.IsSuccess)
-                                    {
-                                        var build = await AddScriptAsync(jspath.Content!, item, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
-                                        if (build.IsSuccess && build.Content?.Content != null)
-                                            item.Content = build.Content!.Content;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //if (item.Content!= null) { 
-
-                    //}
-                }
-            }
-            catch (Exception e)
-            {
-                var errorMsg = AppResources.Script_ReadFileError.Format(e.GetAllMessage());//$"文件读取出错:[{e}]";
-                logger.LogError(e, errorMsg);
-                toast.Show(errorMsg);
-            }
-            return scriptList.Where(x => !string.IsNullOrWhiteSpace(x.Content));
+            return scripts;
         }
 
         public async Task<IApiResponse<string>> DownloadScriptAsync(string url)

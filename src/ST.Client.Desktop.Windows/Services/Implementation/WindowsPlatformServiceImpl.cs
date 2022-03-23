@@ -182,7 +182,7 @@ namespace System.Application.Services.Implementation
                         td.Actions.Add(new ExecAction(IApplication.ProgramName,
                             IPlatformService.SystemBootRunArguments,
                             IOPath.BaseDirectory));
-                        if (IsAdministrator)
+                        if (((IPlatformService)this).IsAdministrator)
                             td.Principal.RunLevel = TaskRunLevel.Highest;
                         TaskService.Instance.RootFolder.RegisterTaskDefinition(tdName, td);
                     }
@@ -274,7 +274,7 @@ namespace System.Application.Services.Implementation
 
         public Process? StartAsInvoker(string fileName, string? arguments = null)
         {
-            if (IsAdministrator)
+            if (((IPlatformService)this).IsAdministrator)
             {
                 // runas /trustlevel:0x20000 没有真正的降权，只是作为具有限制特权，使用 explorer 最好，但不接受参数，可以创建一个临时cmd脚本启动
                 //return StartAsInvokerByRunas(fileName, arguments);

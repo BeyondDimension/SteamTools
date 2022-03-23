@@ -29,7 +29,7 @@ namespace System.Application.Services
             if ((!string.IsNullOrWhiteSpace(value)) &&
                 (string.IsNullOrWhiteSpace(textBoxText) ||
                     (textBoxText.Length < value.Length &&
-                        value.Substring(0, textBoxText.Length) == textBoxText)))
+                        value[..textBoxText.Length] == textBoxText)))
             {
                 return value;
             }

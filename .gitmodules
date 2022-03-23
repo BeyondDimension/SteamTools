@@ -37,3 +37,6 @@
 [submodule "references/SevenZipSharp"]
 	path = references/SevenZipSharp
 	url = https://github.com/SteamTools-Team/SevenZipSharp.git
+[submodule "references/Gameloop.Vdf"]
+	path = references/Gameloop.Vdf
+	url = https://github.com/BeyondDimension/Gameloop.Vdf.git

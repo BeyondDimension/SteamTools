@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Application.UI.Activities;
 
 namespace System.Application.UI.Fragments
 {
@@ -276,14 +277,18 @@ namespace System.Application.UI.Fragments
             {
                 if (view.Id == Resource.Id.btnModifyPhoneNumber)
                 {
-                    if (UserService.Current.HasPhoneNumber)
+                    if (RequireActivity() is UserProfileActivity userProfileActivity)
                     {
-                        ViewModel.OnBtnChangeBindPhoneNumberClick.Invoke();
+                        userProfileActivity.GoToSubPage(UserProfileWindowViewModel.SubPageType.ChangeOrBindPhoneNumber);
                     }
-                    else
-                    {
-                        ViewModel.OnBtnBindPhoneNumberClick.Invoke();
-                    }
+                    //if (UserService.Current.HasPhoneNumber)
+                    //{
+                    //    ViewModel.OnBtnChangeBindPhoneNumberClick.Invoke();
+                    //}
+                    //else
+                    //{
+                    //    ViewModel.OnBtnBindPhoneNumberClick.Invoke();
+                    //}
                     return true;
                 }
                 else if (view.Id == Resource.Id.clickBirthDate)

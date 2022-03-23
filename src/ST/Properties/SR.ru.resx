@@ -118,119 +118,119 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthorizationFailErrorMessage_" xml:space="preserve">
-    <value>Ошибка на стороне службы {0} - Учетные данные для входа не работают, пожалуйста, войдите снова</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка на стороне сервера {0} - Учётные данные для входа недействительны, повторите вход</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="BindFail_UserIsNotNull" xml:space="preserve">
-    <value>Сбой привязки, и эта учетная запись была привязана другим пользователем</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка привязки, эта учётная запись была привязана другим пользователем</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UserIsBanErrorMessage" xml:space="preserve">
-    <value>Учетная запись заблокирована</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Учётная запись заблокирована</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="内容值不能为空或不正确" xml:space="preserve">
-    <value>Значение содержимого не может быть пустым или неправильным</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Содержимое значения не может быть пустым или неправильным</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="当前手机号今日发送短信数量超过最大上限" xml:space="preserve">
-    <value>Количество проверочных кодов, полученных достигло сегодняшнего верхнего предела, попробуйте еще раз завтра</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Количество полученных проверочных кодов сегодня достигло предела, повторите попытку завтра</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="当前手机号发送短信过于频繁" xml:space="preserve">
-    <value>Операция немного часто, 1 минута спустя, попробуйте еще раз</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Операция выполняется часто, повторите попытку через 1 минуту</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="当前手机号码不存在" xml:space="preserve">
-    <value>Текущий номер мобильного телефона не существует</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Такого номера телефона не существует</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="手机号码已存在" xml:space="preserve">
-    <value>Этот номер мобильного телефона уже используется</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Номер телефона уже используется</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="手机号码已存在_换绑手机" xml:space="preserve">
-    <value>Этот номер мобильного телефона уже привязан</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Номер телефона уже привязан</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="手机号码已存在_注册" xml:space="preserve">
-    <value>Этот номер мобильного телефона уже зарегистрирован</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Номер телефона уже зарегистрирован</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="新手机号不能与旧手机号一样" xml:space="preserve">
-    <value>Новый номер мобильного телефона не может совпадать со старым номером мобильного телефона</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Новый номер телефона не должен совпадать со старым</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="昵称最大长度不能超过_" xml:space="preserve">
-    <value>Максимальная длина псевдонима не может превышать {0} слов</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Максимальная длина никнейма не должна превышать {0} символов</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="用户不存在" xml:space="preserve">
-    <value>Пользователь не существует</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Пользователя не существует</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="短信服务故障" xml:space="preserve">
-    <value>Ошибка на стороне службы 5001 - служба обмена текстовыми сообщениями</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Ошибка 5001 на стороне сервера - Служба смс</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="短信验证码不正确" xml:space="preserve">
-    <value>Код подтверждения SMS неверен</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Неверно указан проверочный код из смс</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="请输入手机号码哦" xml:space="preserve">
-    <value>Пожалуйста, введите номер мобильного телефона</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Введите свой номер телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="请输入昵称" xml:space="preserve">
-    <value>Введите псевдоним</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Введите никнейм</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="请输入正确的手机号码哦" xml:space="preserve">
-    <value>Пожалуйста, введите правильный номер мобильного телефона</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Введите правильный номер телефона</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="请输入正确的邀请码哦" xml:space="preserve">
-    <value>Пожалуйста, введите правильный код приглашения</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Введите правильный код приглашения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="请输入短信验证码哦" xml:space="preserve">
-    <value>Пожалуйста, введите код подтверждения SMS</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Введите проверочный код из смс</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="请输入邀请码哦" xml:space="preserve">
-    <value>Пожалуйста, введите код приглашения</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Введите код приглашения</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="请选择头像" xml:space="preserve">
     <value>Выберите аватар</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="验证码不正确" xml:space="preserve">
-    <value>Код подтверждения неверен</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Неверный проверочный код</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="验证码已过期或不存在" xml:space="preserve">
-    <value>Код проверки неверен или устарел</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Проверочный код введён не верно или его срок действия истёк</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="DownloadUpdateFail" xml:space="preserve">
-    <value>Загрузка пакета обновления завершается неудачей, пожалуйста, загрузите новую версию ручного обновления на официальном сайте</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Не удалось скачать пакет обновления. Перейдите на официальный сайт и скачайте обновление, затем установите его вручную.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdateEnumOutOfRange" xml:space="preserve">
-    <value>Сбой разрешения сведений о пакете обновления, загрузите новую версию ручного обновления на веб-сайте</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Не удалось выполнить анализ информации о пакете обновлений, скачайте новую версию с официального сайта и установите её вручную.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileFail_" xml:space="preserve">
-    <value>Не удалось загрузить файл кэша пакета обновления и удалить ошибку, попробуйте обновить его вручную на официальном сайте после удаления {0}</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Не удалось проверить файл кеша пакета обновления и удалить ошибку. Удалите {0}, затем скачайте новую версию с официального сайта и установите её вручную.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdatePackVerificationFail" xml:space="preserve">
-    <value>Проверка файлов завершается неудачей, пожалуйста, загрузите новую версию ручного обновления на официальном сайте</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Проверка файла не удалась. Перейдите на официальный сайт и скачайте обновление, затем установите его вручную.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdateUnpackFail" xml:space="preserve">
-    <value>Не удалось распаковать пакет обновления, загрузите новую версию ручного обновления на веб-сайте</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>Не удалось распаковать пакет обновления. Перейдите на официальный сайт и скачайте обновление, затем установите его вручную.</value>
+    <comment>Comment=;Author=vanja-san</comment>
   </data>
 </root>

@@ -123,6 +123,7 @@ namespace System.Application.UI.ViewModels
             { 沙中金, "English" },
             { EspRoy, "Spanish" },
             { Zhengye, "Italian" },
+            { "vanja-san", "Russian" },
         };
 
         public const string Translators_0 = "Translators:";

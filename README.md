@@ -4,7 +4,7 @@
 
 [English](./README.en.md) | 简体中文
 
-「Steam++」是一个包含多种Steam工具功能的工具箱，此工具的大部分功能都是需要您下载安装Steam才能使用。
+「Steam++」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。
 
 ![Release Download](https://img.shields.io/github/downloads/BeyondDimension/SteamTools/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/releases/latest)
@@ -33,26 +33,24 @@
 - [GitHub Releases](https://github.com/BeyondDimension/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
-- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 - [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
 
 ## ✨ 功能
-1. 反代 Steam 的社区网页使其能正常访问
-	- 功能类似羽翼城大佬的 [steamcommunity_302](https://www.dogfight360.com/blog/686/)
-	- 使用 [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) 开源项目进行本地反代，使国内用户可以正常访问 Steam 社区页
-	- 相比 **302工具** 具有更快的启动速度，以及支持简单的脚本注入（还顺便支持了Pixiv、Discord、Twitch等网站的反代支持）
-2. 快速切换当前设备已记住登陆的 Steam 账号
-	- 该功能是读取 Steam 路径下存储的本地用户登录记录直接展示操作，可以多账号切换无需重新输入密码和令牌
-3. Steam游戏的成就统计管理功能
-	- 功能参考 [SteamAchievementManager](https://github.com/gibbed/SteamAchievementManager) 进行二次开发，修改了游戏列表的加载和操作易用性
-4. Steam本地两步身份验证器
-	- 功能参考 [WinAuth](https://github.com/winauth/winauth) 开发，可以使您不用启动移动版 Steam App 也能查看您的令牌
-	- 本地令牌交易市场报价确认
-	- 功能类似的软件例如：
-		- [WinAuth](https://github.com/winauth/winauth)
-		- [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator)
-5. 其他游戏工具
-	- 目前已有强制游戏无边框窗口化
+1. 网络加速 (Support Windows / Linux / macOS / Android)
+	- 使 Steam 社区、Github、谷歌验证码、Pixiv、Discord、Twitch 等国内难以访问的网页正常访问。
+	- 功能类似 [Steamcommunity 302](https://www.dogfight360.com/blog/686/) ，使用 [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) 开源项目进行本地反代。
+2. 脚本配置 (Windows / Linux / macOS Only)
+	- 通过加速服务拦截网络请求将一些 JS 脚本注入在网页中，提供类似网页插件的功能。
+3. 账号切换 (Windows / Linux / macOS Only)
+	- 一键切换已在当前 PC 上登录过的 Steam 账号，与管理家庭共享库排序等功能。
+4. 库存管理 (Windows / Linux / macOS Only)
+	- 让您直接管理到 Steam 游戏库存，不仅能够下载老版本的 Steam 游戏，也能够对 Steam 游戏成就进行直接管理，支持解锁成就以及反解锁成就。
+5. 本地令牌 (Support Windows / Linux / macOS / Android)
+	- 让您的手机令牌统一保存在电脑中，目前仅支持 Steam 令牌，后续会开发支持更多的令牌种类与云同步令牌。
+6. 自动挂卡 (Support Windows / Linux / macOS / Android)
+	- 集成 [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) 在应用内提供 挂机掉落 Steam 集换式卡牌 等功能。
+7. 游戏工具 (Windows Only)
+	- 强制游戏窗口使用无边框窗口化
 
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
@@ -66,7 +64,7 @@ OS                                    | Version                 | Architectures 
 [Windows Server][Windows-Server]      | 2012+                   | x64        | [Windows Server][Windows-Server-lifecycle]
 
 **\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
-**\*** Microsoft Store/Desktop Bridge Version 1809+
+**\*** Microsoft Store(Desktop Bridge) Version 1809+
 
 [Windows-client]: https://www.microsoft.com/windows/
 [Windows-lifecycle]: https://support.microsoft.com/help/13853/windows-lifecycle-fact-sheet

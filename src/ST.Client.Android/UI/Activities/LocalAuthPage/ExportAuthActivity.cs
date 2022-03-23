@@ -1,5 +1,6 @@
 using Android.App;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -39,6 +40,7 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
+
             R.Subscribe(() =>
             {
                 Title = ViewModel!.Title;
@@ -69,7 +71,19 @@ namespace System.Application.UI.Activities
                 if (binding == null) return;
                 var hasValue = value != null;
                 binding.ivQRCode.Visibility = !hasValue ? ViewStates.Gone : ViewStates.Visible;
-                binding.ivQRCode.SetImageSource(value);
+                int imgSize;
+                if (value != null)
+                {
+                    imgSize = Resources!.DisplayMetrics!.WidthPixels;
+                    imgSize -= Resources.GetDimensionPixelSize(Resource.Dimension.activity_horizontal_margin) * 2;
+                }
+                else
+                {
+                    imgSize = default;
+                }
+#pragma warning disable CS0618 // 类型或成员已过时
+                binding.ivQRCode.SetImageSource(value, targetW: imgSize, inPreferredConfig: Bitmap.Config.Argb4444);
+#pragma warning restore CS0618 // 类型或成员已过时
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.IsExporting).SubscribeInMainThread(value =>
             {
@@ -89,7 +103,7 @@ namespace System.Application.UI.Activities
             {
                 ViewModel!.VerifyPassword = binding.tbPassword2.Text;
             };
-            binding!.swExportQRCode.CheckedChange += (_, e) =>
+            binding.swExportQRCode.CheckedChange += (_, e) =>
             {
                 ViewModel!.IsExportQRCode = e.IsChecked;
             };

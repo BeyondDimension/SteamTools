@@ -58,7 +58,16 @@ namespace System.Application.Services
                     {
                         httpProxyService.ProxyDomains = EnableProxyDomains;
                         httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
-                        httpProxyService.Scripts = EnableProxyScripts;
+                        httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
+
+                        if (httpProxyService.IsEnableScript)
+                        {
+                            await EnableProxyScripts.ContinueWith(e =>
+                            {
+                                httpProxyService.Scripts = e.Result.ToImmutableArray();
+                            });
+                        }
+
                         if (IApplication.IsDesktopPlatform)
                         {
                             httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
@@ -73,7 +82,8 @@ namespace System.Application.Services
                         // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
                         httpProxyService.ProxyIp = (!OperatingSystem2.IsMacOS && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
 
-                        httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value;
+                        // Android VPN 模式使用 tun2socks
+                        httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem2.IsAndroid && ProxySettings.IsVpnMode.Value);
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
                         if (!ModelValidatorProvider.IsPortId(httpProxyService.Socks5ProxyPortId)) httpProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
 
@@ -110,6 +120,10 @@ namespace System.Application.Services
                                     }
                                 }
                                 error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443_.Format(httpsPort);
+                                if (OperatingSystem2.IsLinux)
+                                {
+                                    Browser2.Open(string.Format(UrlConstants.OfficialWebsite_UnixHostAccess_, WebUtility.UrlEncode(IApplication.ProgramPath)));
+                                }
                                 Toast.Show(error_CommunityFix_StartProxyFaild443);
                                 return;
                             }
@@ -173,6 +187,7 @@ namespace System.Application.Services
                     {
                         httpProxyService.StopProxy();
                         StopTimer();
+                        httpProxyService.Scripts = null;
                         void OnStopRemoveHostsByTag()
                         {
                             if (!IApplication.IsDesktopPlatform) return;
@@ -245,7 +260,7 @@ namespace System.Application.Services
             return ProxyScripts.Items!.Where(w => w.Enable).OrderBy(x => x.Order);
         }
 
-        public IReadOnlyCollection<ScriptDTO>? EnableProxyScripts => GetEnableProxyScripts()?.ToArray();
+        public Task<IEnumerable<ScriptDTO>?> EnableProxyScripts => scriptManager.LoadingScriptContent(GetEnableProxyScripts());
 
         private DateTimeOffset _StartAccelerateTime;
 
@@ -435,14 +450,21 @@ namespace System.Application.Services
                   .Connect()
                   .AutoRefresh(x => x.Enable)
                   .WhenPropertyChanged(x => x.Enable, false)
-                  .Subscribe(item =>
+                  .Subscribe(async item =>
                   {
                       //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                       //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                      item.Sender.Enable = item.Value;
-                      scriptManager.SaveEnableScript(item.Sender);
-                      httpProxyService.Scripts = EnableProxyScripts;
-                      this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                      if (httpProxyService.ProxyRunning)
+                      {
+                          item.Sender.Enable = item.Value;
+                          await scriptManager.SaveEnableScript(item.Sender);
+
+                          await EnableProxyScripts.ContinueWith(e =>
+                          {
+                              httpProxyService.Scripts = e.Result.ToImmutableArray();
+                          });
+                          this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                      }
                   }));
             #endregion
         }
@@ -708,7 +730,10 @@ namespace System.Application.Services
             httpProxyService.Dispose();
         }
 
-        public string IPEndPointString
-            => $"IPEndPoint: {httpProxyService.ProxyIp}:{httpProxyService.ProxyPort}";
+        public IPAddress ProxyIp => httpProxyService.ProxyIp;
+
+        public int ProxyPort => httpProxyService.ProxyPort;
+
+        public int Socks5ProxyPortId => httpProxyService.Socks5ProxyPortId;
     }
 }

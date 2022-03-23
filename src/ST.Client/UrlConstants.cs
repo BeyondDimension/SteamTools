@@ -32,6 +32,7 @@ namespace System.Application
         public const string License_GPLv3 = "https://www.gnu.org/licenses/gpl-3.0.html";
 
         public const string MicrosoftStoreId = "9MTCFHS560NG";
+        //public const string MicrosoftStoreId2 = "9PB0L9J4K006";
         public const string MicrosoftStoreAppWebsite = "https://www.microsoft.com/store/apps/" + MicrosoftStoreId;
         public const string MicrosoftStoreProtocolLink = "ms-windows-store://pdp/?productid=" + MicrosoftStoreId;
         public const string MicrosoftStoreReviewLink = "ms-windows-store://review/?ProductId=" + MicrosoftStoreId;

@@ -1,9 +1,10 @@
-using System;
+using System.Linq;
 using System.Application.Columns;
 using System.Application.Services;
 using System.Application.UI;
 using System.Collections.Generic;
 using IPAddress = System.Net.IPAddress;
+using EProxyMode = System.Application.ProxyMode;
 
 namespace System.Application.Settings
 {
@@ -125,6 +126,51 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<string> TwoLevelAgentPassword { get; }
             = GetProperty(defaultValue: string.Empty, autoSave: false);
+
+        #endregion
+
+        #region 代理模式设置
+
+        static EProxyMode DefaultProxyMode => ProxyModes.FirstOrDefault();
+
+        public static IEnumerable<EProxyMode> ProxyModes
+        {
+            get
+            {
+                if (OperatingSystem2.IsWindows)
+                {
+                    yield return EProxyMode.DNSIntercept;
+                    yield return EProxyMode.Hosts;
+                    yield return EProxyMode.System;
+                }
+                else if (OperatingSystem2.IsAndroid)
+                {
+                    yield return EProxyMode.VPN;
+                    yield return EProxyMode.ProxyOnly;
+                }
+                else if (OperatingSystem2.IsLinux || OperatingSystem2.IsMacOS)
+                {
+                    yield return EProxyMode.Hosts;
+                    yield return EProxyMode.System;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 当前代理模式
+        /// </summary>
+        public static SerializableProperty<EProxyMode> ProxyMode { get; }
+            = GetProperty(defaultValue: DefaultProxyMode, autoSave: true);
+
+        public static EProxyMode ProxyModeValue
+        {
+            get
+            {
+                var value = ProxyMode.Value;
+                if (ProxyModes.Contains(value)) return value;
+                return DefaultProxyMode;
+            }
+        }
 
         #endregion
     }

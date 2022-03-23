@@ -1,6 +1,3 @@
-using DynamicData;
-using System;
-using System.Application.Models;
 using System.Collections.Generic;
 using System.Properties;
 using System.Text;
@@ -17,9 +14,7 @@ namespace System.Application.Services.Implementation
         public NotificationServiceImpl(NotifyIcon notifyIcon)
         {
             this.notifyIcon = notifyIcon;
-          
         }
-
 
         bool INotificationService<NotificationType, Entrance, INotificationService>.AreNotificationsEnabled() => true;
 

@@ -23,6 +23,7 @@
   <ItemGroup>
     <PackageReference Include="NPOI" />
     <PackageReference Include="System.CommandLine" />
+    <PackageReference Include="System.CommandLine.NamingConventionBinder" />
   </ItemGroup>
 
   <ItemGroup>

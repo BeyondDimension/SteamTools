@@ -28,7 +28,7 @@
              Height="78"/>
 
           <StackPanel Spacing="0" Margin="12 0">
-            <TextBlock Text="Steam++"
+            <TextBlock Text="{Binding AppName}"
                        Classes="TitleTextBlockStyle"/>
 
             <TextBlock Text="{Binding VersionDisplay}"
@@ -192,6 +192,8 @@ English: 沙中金
 Spanish: EspRoy
 
 Italian: Zhengye
+
+Russian: vanja-san
             </TextBox.Text>
           </TextBox>
         </StackPanel>

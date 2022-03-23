@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ExitCode_IsEmulator" xml:space="preserve">
-    <value>This app does not support running in the emulator</value>
+    <value>This app doesn&apos;t support running in the emulator</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsRoot" xml:space="preserve">
-    <value>This app does not support running on devices with ROOT permissions</value>
+    <value>This app is not supported to run on devices with ROOT privileges</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsVirtualApk" xml:space="preserve">
@@ -130,7 +130,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ExitCode_IsXposedExists" xml:space="preserve">
-    <value>This app does not support running on devices with Xposed frameworks</value>
+    <value>This app does not support running on devices with the Xposed framework installed</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -46,7 +46,7 @@ namespace System.Application.UI.Adapters
         {
             base.OnBind();
 
-            binding.ivAvatar.SetImageSource(ViewModel!.Avatar);
+            binding.ivAvatar.SetImageSource(ViewModel!.Avatar, Resource.Dimension.img_size_donate_user_avatar);
             binding.tvNickName.Text = ViewModel.Name;
             binding.tvValue.Text = ViewModel.Amount.ToString("C", ViewModel.CurrencyCode.GetCultureInfo());
         }

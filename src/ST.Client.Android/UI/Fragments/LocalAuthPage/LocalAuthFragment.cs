@@ -69,30 +69,6 @@ namespace System.Application.UI.Fragments
                 SetMenuTitle();
             }).AddTo(this);
 
-            void OnAuthenticatorsChanged(bool isAuthenticatorsEmpty, bool isFirstActivation)
-            {
-                if (binding == null) return;
-                ViewStates state, state_reverse, /*fab_state,*/ loading_state;
-                if (isFirstActivation)
-                {
-                    state = ViewStates.Gone;
-                    state_reverse = ViewStates.Gone;
-                    //fab_state = ViewStates.Gone;
-                    loading_state = ViewStates.Visible;
-                }
-                else
-                {
-                    state = isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
-                    state_reverse = !isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
-                    //fab_state = ViewStates.Visible;
-                    loading_state = ViewStates.Gone;
-                }
-                binding.tvEmptyTip.Visibility = state;
-                binding.rvAuthenticators.Visibility = state_reverse;
-                //binding.speedDial.Visibility = fab_state;
-                binding.layoutLoading.Visibility = loading_state;
-            }
-
             ViewModel!.WhenAnyValue(x => x.IsAuthenticatorsEmpty)
                 .SubscribeInMainThread(x => OnAuthenticatorsChanged(x, ViewModel!.IsFirstActivation))
                 .AddTo(this);
@@ -119,7 +95,7 @@ namespace System.Application.UI.Fragments
                 AuthDetailActivity.StartActivity(Activity, e.Current.Id);
             };
             binding!.rvAuthenticators.SetLinearLayoutManager();
-            binding.rvAuthenticators.AddVerticalItemDecorationRes(Resource.Dimension.activity_vertical_margin/*, Resource.Dimension.fab_full_height*/);
+            binding.rvAuthenticators.AddVerticalItemDecorationRes(Resource.Dimension.activity_vertical_margin, Resource.Dimension.activity_vertical_margin);
             binding.rvAuthenticators.SetAdapter(adapter);
 
             //var actionItems = Enum2.GetAll<ActionItem>();
@@ -136,10 +112,45 @@ namespace System.Application.UI.Fragments
             binding.swipeRefreshLayout.SetOnRefreshListener(this);
         }
 
+        void OnAuthenticatorsChanged(bool isAuthenticatorsEmpty, bool isFirstActivation)
+        {
+            if (binding == null) return;
+            ViewStates state, state_reverse, /*fab_state,*/ loading_state;
+            if (isFirstActivation)
+            {
+                state = ViewStates.Gone;
+                state_reverse = ViewStates.Gone;
+                //fab_state = ViewStates.Gone;
+                loading_state = ViewStates.Visible;
+            }
+            else
+            {
+                state = isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
+                state_reverse = !isAuthenticatorsEmpty ? ViewStates.Visible : ViewStates.Gone;
+                //fab_state = ViewStates.Visible;
+                loading_state = ViewStates.Gone;
+            }
+            if (binding.tvEmptyTip.Visibility != state)
+                binding.tvEmptyTip.Visibility = state;
+            if (binding.rvAuthenticators.Visibility != state_reverse)
+                binding.rvAuthenticators.Visibility = state_reverse;
+            //binding.speedDial.Visibility = fab_state;
+            if (binding.layoutLoading.Visibility != loading_state)
+                binding.layoutLoading.Visibility = loading_state;
+        }
+
+        //void OnAuthenticatorsChanged() => OnAuthenticatorsChanged(ViewModel!.IsAuthenticatorsEmpty, ViewModel.IsFirstActivation);
+
         //public override void OnStop()
         //{
         //    base.OnStop();
         //    AuthService.Current.SaveEditNameAuthenticators();
+        //}
+
+        //public override void OnStart()
+        //{
+        //    OnAuthenticatorsChanged();
+        //    base.OnStart();
         //}
 
         public override void OnResume()

@@ -23,9 +23,11 @@ namespace System.Application
         EditAppInfo,
         IdleApp,
         ShareManage,
+        [Obsolete]
         ChangeBindPhoneNumber,
         UserProfile,
         NewVersion,
+        [Obsolete]
         BindPhoneNumber,
         ASF_AddBot,
         SteamShutdown,

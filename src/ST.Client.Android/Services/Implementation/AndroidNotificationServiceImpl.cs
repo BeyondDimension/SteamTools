@@ -145,7 +145,7 @@ namespace System.Application.Services.Implementation
             _ => throw new ArgumentOutOfRangeException(nameof(level), level, null),
         };
 
-        static NotificationCompat.Builder BuildNotify(
+        static (NotificationCompat.Builder builder, NotificationManagerCompat manager) BuildNotify(
             Context context,
             NotificationManagerCompat? manager,
             string text,
@@ -182,7 +182,7 @@ namespace System.Application.Services.Implementation
                 var pendingIntent = PendingIntent.GetActivity(context, 0, intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
                 builder.SetContentIntent(pendingIntent);
             }
-            return builder;
+            return (builder, manager);
         }
 
         public void Notify(string text,
@@ -194,7 +194,7 @@ namespace System.Application.Services.Implementation
             var notificationEntrance = GetEntrance(entrance);
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
-            var builder = BuildNotify(context, manager, text, notificationType,
+            var (builder, _) = BuildNotify(context, manager, text, notificationType,
                 autoCancel, title, entrance: notificationEntrance);
             var notifyId = GetNotifyId(notificationType);
             manager.Notify(notifyId, builder.Build());
@@ -207,7 +207,7 @@ namespace System.Application.Services.Implementation
         {
             var context = AndroidApplication.Context;
             var manager = NotificationManagerCompat.From(context);
-            var builder = BuildNotify(context, manager,
+            var (builder, _) = BuildNotify(context, manager,
                 text: text(),
                 notificationType,
                 title: title);
@@ -290,13 +290,13 @@ namespace System.Application.Services.Implementation
         /// <param name="notificationType"></param>
         /// <param name="text"></param>
         /// <param name="entranceAction"></param>
-        public void StartForeground(Service service,
+        public (NotificationCompat.Builder builder, NotificationManagerCompat manager, int notifyId) StartForeground(Service service,
             NotificationType notificationType,
             string text,
             string? entranceAction = null)
         {
             var stopAction = BuildStopServiceAction(service);
-            var builder = BuildNotify(service, null,
+            var (builder, manager) = BuildNotify(service, null,
                 text, notificationType,
                 entrance: GetEntrance(Entrance.Main),
                 actions: new NotificationCompat.Action[] {
@@ -306,6 +306,7 @@ namespace System.Application.Services.Implementation
             var notification = builder.Build();
             var notifyId = GetNotifyId(notificationType);
             service.StartForeground(notifyId, notification);
+            return (builder, manager, notifyId);
         }
     }
 }

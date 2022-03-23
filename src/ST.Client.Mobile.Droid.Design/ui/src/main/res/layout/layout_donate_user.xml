@@ -13,8 +13,8 @@
 
   <de.hdodenhof.circleimageview.CircleImageView
     android:id="@+id/ivAvatar"
-    android:layout_width="52dp"
-    android:layout_height="52dp"
+    android:layout_width="@dimen/img_size_donate_user_avatar"
+    android:layout_height="@dimen/img_size_donate_user_avatar"
     android:src="@drawable/avatar_default"
     app:civ_border_color="@color/border_color"
     app:civ_border_width="@dimen/avatar_border_width" />

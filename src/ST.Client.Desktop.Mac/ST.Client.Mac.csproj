@@ -43,7 +43,7 @@
 
   <ItemGroup>
     <PackageReference Include="DnsClient" />
-    <PackageReference Include="Gameloop.Vdf" />
+    <!--<PackageReference Include="Gameloop.Vdf" />-->
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac20')) OR $(TargetFramework.Contains('-mac')) ">
@@ -69,6 +69,7 @@
     <EmbeddedResource Include="..\..\appcenter-secret-mac-release.pfx" Link="Resources\93850BFE" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\references\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 </Project>

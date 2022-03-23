@@ -33,17 +33,50 @@ namespace System.Application.UI
 
         public static Picasso Picasso => _Picasso.Value;
 
+        #region 高效加载大型位图 https://developer.android.google.cn/topic/performance/graphics/load-bitmap?hl=zh-cn#java
+
         public static void SetImageSource(this ImageView imageView,
-            Stream? stream)
+            Stream? stream,
+            int targetResIdW = 0,
+            int targetResIdH = 0,
+            int targetW = 0,
+            int targetH = 0,
+            Bitmap.Config? inPreferredConfig = null)
         {
-            if (stream == null)
+            if (stream == null || !stream.CanRead)
             {
                 imageView.SetImageDrawable(null);
                 return;
             }
             try
             {
-                var bitmap = BitmapFactory.DecodeStream(stream);
+                Bitmap? bitmap = null;
+                if (stream.CanSeek)
+                {
+                    if (targetResIdW > 0)
+                    {
+                        if (targetResIdH <= 0) targetResIdH = targetResIdW;
+                        var resources = imageView.Resources!;
+                        var reqWidth = resources.GetDimensionPixelSize(targetResIdW);
+                        var reqHeight = resources.GetDimensionPixelSize(targetResIdH);
+                        bitmap = DecodeSampledBitmapFromStream(stream, reqWidth, reqHeight, inPreferredConfig);
+                    }
+                    else if (targetW > 0)
+                    {
+                        if (targetH <= 0) targetH = targetW;
+                        bitmap = DecodeSampledBitmapFromStream(stream, targetW, targetH, inPreferredConfig);
+                    }
+                }
+                bitmap ??= BitmapFactory.DecodeStream(stream)!;
+#if DEBUG
+                Log.Info(TAG,
+                    $"Context: {imageView.Context!.GetType().Name}, " +
+                    $"Bitmap.Width: {bitmap.Width}, " +
+                    $"Bitmap.Height: {bitmap.Height}, " +
+                    $"Bitmap.Config: {bitmap.GetConfig()}, " +
+                    $"Bitmap.Size1: {IOPath.GetSizeString(bitmap.ByteCount)}, " +
+                    $"Bitmap.Size2: {IOPath.GetSizeString(bitmap.AllocationByteCount)}.");
+#endif
                 imageView.SetImageBitmap(bitmap);
             }
             catch (Exception e)
@@ -52,10 +85,57 @@ namespace System.Application.UI
             }
         }
 
+        static int CalculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)
+        {
+            // Raw height and width of image
+            int height = options.OutHeight;
+            int width = options.OutWidth;
+            int inSampleSize = 1;
+
+            if (height > reqHeight || width > reqWidth)
+            {
+                int halfHeight = height / 2;
+                int halfWidth = width / 2;
+
+                // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+                // height and width larger than the requested height and width.
+                while ((halfHeight / inSampleSize) >= reqHeight
+                        && (halfWidth / inSampleSize) >= reqWidth)
+                {
+                    inSampleSize *= 2;
+                }
+            }
+
+            return inSampleSize;
+        }
+
+        static Bitmap DecodeSampledBitmapFromStream(Stream stream, int reqWidth, int reqHeight, Bitmap.Config? inPreferredConfig = null)
+        {
+            // First decode with inJustDecodeBounds=true to check dimensions
+            BitmapFactory.Options options = new();
+            if (inPreferredConfig != null)
+            {
+                options.InPreferredConfig = inPreferredConfig;
+            }
+            options.InJustDecodeBounds = true;
+            BitmapFactory.DecodeStream(stream, null, options);
+
+            // Calculate inSampleSize
+            options.InSampleSize = CalculateInSampleSize(options, reqWidth, reqHeight);
+
+            // Decode bitmap with inSampleSize set
+            options.InJustDecodeBounds = false;
+            stream.Position = 0;
+            return BitmapFactory.DecodeStream(stream, null, options)!;
+        }
+
+        #endregion
+
         public static void SetImageSource(this ImageView imageView,
             string? requestUri,
-            int targetSize = 0,
-            int targetResId = 0,
+            //int targetSize = 0,
+            int targetResIdW,
+            int targetResIdH = 0,
             ScaleType scaleType = default)
         {
             if (string.IsNullOrWhiteSpace(requestUri))
@@ -72,14 +152,16 @@ namespace System.Application.UI
                     .Placeholder(placeholder)
                     .Error(errorDrawable);
                 var useCenterCropDefault = false;
-                if (targetSize > 0)
+                //if (targetSize > 0)
+                //{
+                //    requestCreator = requestCreator.Resize(targetSize, targetSize);
+                //    useCenterCropDefault = true;
+                //}
+                //else
+                if (targetResIdW > 0)
                 {
-                    requestCreator = requestCreator.Resize(targetSize, targetSize);
-                    useCenterCropDefault = true;
-                }
-                else if (targetResId > 0)
-                {
-                    requestCreator = requestCreator.ResizeDimen(targetResId, targetResId);
+                    if (targetResIdH <= 0) targetResIdH = targetResIdW;
+                    requestCreator = requestCreator.ResizeDimen(targetResIdW, targetResIdH);
                     useCenterCropDefault = true;
                 }
                 if (scaleType == ScaleType.CenterCrop || (useCenterCropDefault && scaleType == default))

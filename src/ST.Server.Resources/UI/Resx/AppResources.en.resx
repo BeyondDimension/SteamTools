@@ -122,11 +122,11 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>Sorry, you&apos;re using an outdated browser. It is recommended to upgrade your browser or use it</value>
+    <value>Sorry, you are using an outdated browser. It is recommended to upgrade your browser or use it</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>other modern browsers to enhance your experience.</value>
+    <value>and other modern browsers to enhance your experience.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
@@ -134,27 +134,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>Errors from third-party login providers, {0}, contact the webmaster.</value>
+    <value>Errors from third-party login providers, {0}, contact the site administrator.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>For unknown third-party login providers, {0}, contact your webmaster.</value>
+    <value>Unknown third-party login provider, {0}, contact the site administrator.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>For unknown third-party login channels, {0}, please contact your webmaster.</value>
+    <value>Unknown third-party login channel, {0}, please contact the webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>There was an error loading third-party login information, please contact your site administrator.</value>
+    <value>An error occurred while loading third-party login information, please contact your webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>Quick sign-in is only available when unauthorized, please contact your site administrator.</value>
+    <value>Express login is only available when not authorized, please contact your webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>Account binding failed to get the current login user, please contact the site administrator.</value>
+    <value>Failed to bind the account to obtain the current logged-in user, please contact the webmaster.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
@@ -166,7 +166,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1} is complete, you can close this window and return to Steam.</value>
+    <value>{0} {1} is complete, you can close this window and return to Steam++.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
@@ -174,23 +174,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>Haven&apos;t jumped for a long time?</value>
+    <value>Haven&apos;t jumped in a long time?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>&quot;Steam&quot; is a toolbox with a variety of Steam tool features.</value>
+    <value>Steam++is a toolbox with a variety of Steam tool features.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
-    <value>JavaScript needs to be turned on to browse the site.</value>
+    <value>JavaScript needs to be turned on to browse this site.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>Check to see if you can access the Steam community properly.</value>
+    <value>Please check that you can access the Steam Community properly.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>Please...</value>
+    <value>Please wait...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
@@ -198,7 +198,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>Failed to read UnionId, value: {0}, contact your site administrator.</value>
+    <value>Failed to read UnionId, value: {0}, contact the site administrator.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
@@ -210,19 +210,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>Lost connection to the program, click Try again or re-click Quick Login within the program.</value>
+    <value>The connection to the program is lost, click Retry or Click Quick Login again within the program.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>The port number must be of the UInt16 type, contact your webmaster.</value>
+    <value>The port number must be of type UInt16, contact your site administrator.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyButton" xml:space="preserve">
-    <value>Point to this copy</value>
+    <value>Click here to copy</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyNoSupport" xml:space="preserve">
-    <value>This browser does not support click copy to the clipboard</value>
+    <value>This browser does not support click-to-copy to clipboard</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopySuccess" xml:space="preserve">
@@ -230,11 +230,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ManualCopyTip" xml:space="preserve">
-    <value>There was an error with the connection program, please manually copy the following to the program click manually to log in.</value>
+    <value>There was an error with the connector, please manually copy the following to the program and click Manual Login.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
-    <value>Failed to read NameIdentifier, Value: {0}, Channel: {1}, contact site administrator.</value>
+    <value>Failed to read NameIdentifier, value: {0}, channel: {1}, contact site administrator.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewUserNickName_" xml:space="preserve">

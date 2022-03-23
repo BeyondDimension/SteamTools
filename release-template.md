@@ -1,22 +1,19 @@
 ### 版本亮点
-1. ASF 升级至 **V5.2.2.4**
-2. Android 12 适配
-3. Android 上的 ASP.NET Core 升级至 2.2.5
-4. Desktop 上的 Avalonia 升级至 0.10.12
+1. macOS 支持 Arm64(Apple Silicon)
+2. Android 支持 VPN 模式(推荐) 进行本地加速
+3. ~~Windows 支持 DNS 驱动拦截模式(推荐) 进行本地加速~~
+4. ASF 升级至 V5.x.x.x
 
 ### 修复问题
-1. 修复 Steam Beta 版账号切换失效
-2. 修复 ASF 在线配置文件生成器链接错误
-3. 修复 Linux 上运行时闪退
-4. 修复 Windows 7 上点击任务栏图标没有最小化
-5. 改进 打开 Web 链接失败时候的错误提示
-6. 改进 JumpList 在 Windows 10.0.10586 上使用 UWP API
-7. 改进 Windows 安装包默认路径使用 $PROGRAMFILES64
-8. 改进 Windows 安装版 AppData 与 Cache 文件夹不再使用根目录
-9. 改进 Android Apk 包使用单一包，不再根据 ABI 拆分
-10. 改进 Android 本地加速与 ASF 使用前台服务运行
-11. 改进 本地加速 增加 重置 Hosts 文件 与 打开 Hosts 所在文件夹
-12. 改进 Hosts 文件存在多个 Mark 导致失败的错误提示
+1. 修复 本地令牌 无令牌刷新时提示密码错误
+2. 改进 Android 端 本地令牌 列表样式第一条与最后一条的上下外边距
+3. 改进 俄语翻译，由 vanja-san 提供
+4. 改进 .NET 运行时升级至 6.0.3(仅 Desktop 端)
+5. 改进 脚本配置 未启动时的内存占用，以及减少总体内存占用率
+6. 修复 Hosts 加速模式下使用仅启用脚本功能导致死循环
+7. 改进 Linux 端 可监听 443 端口配置
+8. 修复 Windows 端，动态桌面背景窗口显示时一些可能导致闪退的潜在问题
+9. 修复 Android 端，因 CheckBox 导致在低于 6.0 Marshmallow 系统上引发的闪退
 
 ### 已知问题
 - 除 Windows 之外的平台此软件自动更新尚不可用
@@ -24,8 +21,6 @@
 	- macOS
 		- [尚未公证](https://support.apple.com/zh-cn/guide/mac-help/mh40616/10.15/mac/10.15)，这会影响 macOS Catalina（版本 10.15）以上版本
 	- Linux
-		- **Hosts 代理模式**可能无法配置成功，推荐使用**系统代理模式**
-		- 系统代理模式下 Discord 更新下载加速不可用
 		- 窗口弹出位置不正确
 		- 鼠标指针浮动样式不正确
 	- Windows
@@ -50,7 +45,7 @@
 						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.6.8](https://img.shields.io/badge/Steam++-v2.6.8-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.7.0](https://img.shields.io/badge/Steam++-v2.7.0-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -59,21 +54,22 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.6.8.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.6.8.7z  | SHA256 |
+| Steam++_win_x64_v2.7.0.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.7.0.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.6.8.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.6.8.exe  | SHA256 |
+| Steam++_win_x64_v2.7.0.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.7.0.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.7z  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.7z  | SHA256 |
+| Steam++_linux_x64_v2.7.0.7z  | SHA256 |
+| Steam++_linux_arm64_v2.7.0.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.deb  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.deb  | SHA256 |
+| Steam++_linux_x64_v2.7.0.deb  | SHA256 |
+| Steam++_linux_arm64_v2.7.0.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.6.8.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.6.8.rpm  | SHA256 |
+| Steam++_linux_x64_v2.7.0.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.7.0.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.6.8.dmg  | SHA256 |
+| Steam++_macos_x64_v2.7.0.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.7.0.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.6.8.apk  | SHA256 |
+| Steam++_android_v2.7.0.apk  | SHA256 |

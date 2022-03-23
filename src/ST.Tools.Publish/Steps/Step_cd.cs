@@ -3,11 +3,14 @@ using System.Application.Models.Internals;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.CommandLine.NamingConventionBinder;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +53,7 @@ namespace System.Application.Steps
             command.AddCommand(full);
 
 #if DEBUG
+            // p nsis -path "path"
             var nsis = new Command("nsis", "调试 NSIS 打包")
             {
                 Handler = CommandHandler.Create((string path) =>
@@ -88,6 +92,18 @@ namespace System.Application.Steps
             };
             nsis.AddOption(new Option<string>("-path", "7z Path"));
             command.AddCommand(nsis);
+
+            // ./p osxapp -val osx-x64 osx-arm64 
+            var osxapp = new Command("osxapp", "调试 OSX 打包")
+            {
+                Handler = CommandHandler.Create((string[] val, bool dev) =>
+                {
+                    OSXBuild(dev, val);
+                }),
+            };
+            osxapp.AddOption(new Option<string[]>("-val", InputPubDirNameDesc));
+            osxapp.AddOption(new Option<bool>("-dev", DevDesc));
+            command.AddCommand(osxapp);
 #endif
         }
 
@@ -122,6 +138,7 @@ namespace System.Application.Steps
 
             var hasWindows = val.Any(x => x.StartsWith("win-"));
             var hasLinux = val.Any(x => x.StartsWith("linux-"));
+            var hasOsx = val.Any(x => x.StartsWith("osx-"));
 
             Dictionary<DeploymentMode, string[]> publishDict = new()
             {
@@ -138,6 +155,14 @@ namespace System.Application.Steps
                 await Task.WhenAll(hpTasks);
             }
 
+            if (hasOsx)
+            {
+                if (OperatingSystem2.IsMacOS)
+                {
+                    var osx_val = val.Where(x => x.StartsWith("osx-")).ToArray();
+                    if (osx_val.Any()) OSXBuild(dev, osx_val);
+                }
+            }
             List<PublishDirInfo> publishDirs = new();
             // 5. (本地)验证发布文件夹与计算文件哈希
             foreach (var item in publishDict)
@@ -190,7 +215,6 @@ namespace System.Application.Steps
                 await Task.WhenAll(parallelTasks);
                 parallelTasks.Clear();
             }
-
             #region rel 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
 
             //Console.WriteLine("rel Step 正在写入 SHA256...");
@@ -520,21 +544,78 @@ namespace System.Application.Steps
             }
         }
 
-        static void OSXBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
+        static void OSXBuild(bool dev, string[] osx_val)
         {
-            var shExeFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            shExeFilePath = Path.Combine(shExeFilePath, "Git", "bin", "sh.exe");
-
-            if (!File.Exists(shExeFilePath))
+            var shFilePath = Path.Combine(projPath, "packaging", "build-osx-app.sh");
+            var icnsFilePath = Path.Combine(projPath, "resources", "AppIcon", "Logo.icns");
+            if (!File.Exists(shFilePath))
             {
-                Console.WriteLine($"找不到 sh 文件，值：{shExeFilePath}");
+                Console.WriteLine($"找不到 sh 文件，值：{shFilePath}");
+                return;
+            }
+            if (!File.Exists(icnsFilePath))
+            {
+                Console.WriteLine($"找不到 icns 文件，值：{icnsFilePath}");
                 return;
             }
 
             var CFBundleVersion = GetFullVersion(dev);
             var CFBundleShortVersionString = CFBundleVersion.TrimEnd(".0");
 
-            // ...TODO
+            var shFileContent = File.ReadAllText(shFilePath);
+            foreach (var item in osx_val)
+            {
+                var destPath = projPath + string.Format(DirPublishOsx, item);
+                destPath = destPath.Replace('\\', '/');
+                if (!Directory.Exists(destPath))
+                {
+                    Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
+                    continue;
+                } 
+                var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
+                var shFileContent2 = shFileContent
+                        .Replace("${{ Steam++_AppName }}", appName)
+                        .Replace("${{ Steam++_Version }}", CFBundleVersion)
+                        .Replace("${{ Steam++_ShortVersion }}", CFBundleShortVersionString)
+                        .Replace("${{ Steam++_IcnsFile }}", icnsFilePath)
+                        .Replace("${{ Steam++_OutPutFilePath }}", projPath)
+                        .Replace("${{ Steam++_APPDIR }}", destPath)
+                        .Replace("${{ Steam++_RunName }}", "Steam++")
+                        ;
+                File.WriteAllText(shFilePath, shFileContent2);
+                Chmod(shFilePath, (int)EUnixPermission.Combined777);
+                var process = Process.Start(new ProcessStartInfo()
+                {
+                    FileName = "bash",
+                    Arguments = $"-c {shFilePath}",
+                    UseShellExecute = false,
+                });
+
+                process!.WaitForExit();
+            }
+        }
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        [DllImport("libc", EntryPoint = "chmod", SetLastError = true)]
+        [SupportedOSPlatform("FreeBSD")]
+        [SupportedOSPlatform("Linux")]
+        [SupportedOSPlatform("MacOS")]
+        internal static extern int Chmod(string path, int mode);
+        [Flags]
+        [SupportedOSPlatform("FreeBSD")]
+        [SupportedOSPlatform("Linux")]
+        [SupportedOSPlatform("MacOS")]
+        internal enum EUnixPermission : ushort
+        {
+            OtherExecute = 0x1,
+            OtherWrite = 0x2,
+            OtherRead = 0x4,
+            GroupExecute = 0x8,
+            GroupWrite = 0x10,
+            GroupRead = 0x20,
+            UserExecute = 0x40,
+            UserWrite = 0x80,
+            UserRead = 0x100,
+            Combined777 = UserRead | UserWrite | UserExecute | GroupRead | GroupWrite | GroupExecute | OtherRead | OtherWrite | OtherExecute
         }
     }
 }

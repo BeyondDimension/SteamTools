@@ -221,7 +221,9 @@ namespace System.Application.Services.Implementation
                 }
             }
 
-            if (ProxyDomains is null || TwoLevelAgentEnable || OnlyEnableProxyScript) return;
+            //host模式下不启用加速会出现无限循环问题
+            if (ProxyDomains is null || TwoLevelAgentEnable || (OnlyEnableProxyScript && IsSystemProxy)) return;
+
 
             //var item = ProxyDomains.FirstOrDefault(f => f.DomainNamesArray.Any(h => e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(h, StringComparison.OrdinalIgnoreCase)));
 
@@ -234,7 +236,7 @@ namespace System.Application.Services.Implementation
             {
                 foreach (var host in item.DomainNamesArray)
                 {
-                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(host, StringComparison.OrdinalIgnoreCase))
+                    if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsDomainPattern(host, RegexOptions.IgnoreCase))
                     {
                         if (!e.HttpClient.IsHttps)
                         {
@@ -348,7 +350,7 @@ namespace System.Application.Services.Implementation
                     if (script.ExcludeDomainNamesArray != null)
                         foreach (var host in script.ExcludeDomainNamesArray)
                         {
-                            if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host))
+                            if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host, RegexOptions.IgnoreCase))
                                 goto next;
                         }
 
@@ -356,9 +358,9 @@ namespace System.Application.Services.Implementation
                     {
                         var state = host.IndexOf("/") == 0;
                         if (state)
-                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host[1..], RegexOptions.Compiled);
+                            state = Regex.IsMatch(e.HttpClient.Request.RequestUri.AbsoluteUri, host[1..], RegexOptions.IgnoreCase);
                         else
-                            state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host);
+                            state = e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host, RegexOptions.IgnoreCase);
                         if (state)
                         {
                             var t = e.HttpClient.Response.Headers.GetFirstHeader("Content-Security-Policy");
@@ -578,32 +580,18 @@ namespace System.Application.Services.Implementation
                     //}
 
                     TransparentProxyEndPoint transparentProxyEndPoint;
-                    if (OperatingSystem2.IsLinux && !platformService.IsAdministrator)
-                    {
-                        var freeport = GetRandomUnusedPort();
-                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, freeport, true)
-                        {
-                            // 通过不启用为每个http的域创建证书来优化性能
-                            //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-                        };
 
-                        Browser2.Open(string.Format(UrlConstants.OfficialWebsite_UnixHostAccess_, freeport));
-                    }
-                    else
+                    transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
                     {
-                        transparentProxyEndPoint = new TransparentProxyEndPoint(ProxyIp, 443, true)
-                        {
-                            // 通过不启用为每个http的域创建证书来优化性能
-                            //GenericCertificate = proxyServer.CertificateManager.RootCertificate
-                        };
-                    }
-
+                        // 通过不启用为每个http的域创建证书来优化性能
+                        //GenericCertificate = proxyServer.CertificateManager.RootCertificate
+                    };
                     //transparentProxyEndPoint.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
                     proxyServer.AddEndPoint(transparentProxyEndPoint);
 
                     try
                     {
-                        if (!OperatingSystem2.IsLinux && PortInUse(80) == false)
+                        if (PortInUse(80) == false)
                             proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
                     }
                     catch { }

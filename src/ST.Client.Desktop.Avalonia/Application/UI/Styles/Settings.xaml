@@ -147,10 +147,12 @@
     <Style Selector="StackPanel.Settings DockPanel &gt; Button:not(.plain)">
         <Setter Property="Padding" Value="30 5" />
         <Setter Property="Height" Value="30" />
-        <Setter Property="BorderBrush" Value="{DynamicResource ExpanderBorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="IsDefault" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}" />
         <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="HorizontalContentAlignment" Value="Right" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="(DockPanel.Dock)" Value="Right" />

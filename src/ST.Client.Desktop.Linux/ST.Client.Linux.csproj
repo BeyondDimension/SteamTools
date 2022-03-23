@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="DnsClient" />
-    <PackageReference Include="Gameloop.Vdf" />
+    <!--<PackageReference Include="Gameloop.Vdf" />-->
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\references\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 

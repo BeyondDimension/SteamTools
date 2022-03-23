@@ -76,164 +76,164 @@ namespace System.Application.Services.Native
         [Register(JavaPackageConstants.Services + TAG)]
         [Service(Permission = Manifest.Permission.BindVpnService, Exported = true)]
         [IntentFilter(new[] { "android.net.VpnService" })]
-        sealed partial class VpnService : AndroidNetVpnService
+        sealed partial class VpnService /*: AndroidNetVpnService*/
         {
             const string TAG = nameof(ProxyForegroundService) + "_VPN";
 
-            bool isStart;
-            ParcelFileDescriptor? localTunnel;
+            //bool isStart;
+            //ParcelFileDescriptor? localTunnel;
 
-            public override void OnCreate()
-            {
-                jni_init();
-                base.OnCreate();
-            }
+            //public override void OnCreate()
+            //{
+            //    jni_init();
+            //    base.OnCreate();
+            //}
 
-            public void OnStart()
-            {
-                if (isStart) return;
-                isStart = true;
+            //public void OnStart()
+            //{
+            //    if (isStart) return;
+            //    isStart = true;
 
-                IForegroundService f = this;
-                AndroidNotificationServiceImpl.Instance.StartForeground(this, f.NotificationType, f.NotificationText, f.NotificationEntranceAction);
+            //    IForegroundService f = this;
+            //    AndroidNotificationServiceImpl.Instance.StartForeground(this, f.NotificationType, f.NotificationText, f.NotificationEntranceAction);
 
-                ProxyService.Current.ProxyStatus = true;
+            //    ProxyService.Current.ProxyStatus = true;
 
-                if (localTunnel != null) return;
+            //    if (localTunnel != null) return;
 
-                // Configure a new interface from our VpnService instance. This must be done
-                // from inside a VpnService.
-                var builder = new Builder(this).SetSession(AssemblyTrademark);
+            //    // Configure a new interface from our VpnService instance. This must be done
+            //    // from inside a VpnService.
+            //    var builder = new Builder(this).SetSession(AssemblyTrademark);
 
-                // Create a local TUN interface using predetermined addresses. In your app,
-                // you typically use values returned from the VPN gateway during handshaking.
-                builder.AddAddress("10.1.10.1", 32);
-                builder.AddAddress("fd00:1:fd00:1:fd00:1:fd00:1", 128);
-                builder.AddRoute("0.0.0.0", 0);
-                builder.AddRoute("0:0:0:0:0:0:0:0", 0);
+            //    // Create a local TUN interface using predetermined addresses. In your app,
+            //    // you typically use values returned from the VPN gateway during handshaking.
+            //    builder.AddAddress("10.1.10.1", 32);
+            //    builder.AddAddress("fd00:1:fd00:1:fd00:1:fd00:1", 128);
+            //    builder.AddRoute("0.0.0.0", 0);
+            //    builder.AddRoute("0:0:0:0:0:0:0:0", 0);
 
-                //var dnss = GetDefaultDNS();
-                //Array.ForEach(dnss, x => builder.AddDnsServer(x));
+            //    //var dnss = GetDefaultDNS();
+            //    //Array.ForEach(dnss, x => builder.AddDnsServer(x));
 
-                int mtu = jni_get_mtu();
-                builder.SetMtu(mtu);
+            //    int mtu = jni_get_mtu();
+            //    builder.SetMtu(mtu);
 
-                var pkg = PackageName!;
-                builder.AddDisallowedApplication(pkg);
+            //    var pkg = PackageName!;
+            //    builder.AddDisallowedApplication(pkg);
 
-                localTunnel = builder.Establish()!;
+            //    localTunnel = builder.Establish()!;
 
-                var httpProxyService = IHttpProxyService.Instance;
-                var address = httpProxyService.ProxyIp;
-                var port = httpProxyService.ProxyPort;
-                jni_start(localTunnel.Fd, false, 3, address!.ToString(), port);
-            }
+            //    var httpProxyService = IHttpProxyService.Instance;
+            //    var address = httpProxyService.ProxyIp;
+            //    var port = httpProxyService.ProxyPort;
+            //    jni_start(localTunnel.Fd, false, 3, address!.ToString(), port);
+            //}
 
-            public void OnStop()
-            {
-                if (!isStart) return;
-                isStart = false;
+            //public void OnStop()
+            //{
+            //    if (!isStart) return;
+            //    isStart = false;
 
-                StopForeground(true);
+            //    StopForeground(true);
 
-                if (localTunnel != null)
-                {
-                    try
-                    {
-                        jni_stop(localTunnel.Fd);
-                    }
-                    catch (Java.Lang.Throwable ex)
-                    {
-                        Log.Error(TAG, ex, "jni_stop");
-                        jni_stop(-1);
-                    }
-                    try
-                    {
-                        localTunnel.Close();
-                    }
-                    catch (Java.IO.IOException ex)
-                    {
-                        Log.Error(TAG, ex, "localTunnel.Close");
-                    }
-                    localTunnel.Dispose();
-                    localTunnel = null;
-                }
+            //    if (localTunnel != null)
+            //    {
+            //        try
+            //        {
+            //            jni_stop(localTunnel.Fd);
+            //        }
+            //        catch (Java.Lang.Throwable ex)
+            //        {
+            //            Log.Error(TAG, ex, "jni_stop");
+            //            jni_stop(-1);
+            //        }
+            //        try
+            //        {
+            //            localTunnel.Close();
+            //        }
+            //        catch (Java.IO.IOException ex)
+            //        {
+            //            Log.Error(TAG, ex, "localTunnel.Close");
+            //        }
+            //        localTunnel.Dispose();
+            //        localTunnel = null;
+            //    }
 
-                ProxyService.Current.ProxyStatus = false;
-            }
+            //    ProxyService.Current.ProxyStatus = false;
+            //}
 
-            [return: GeneratedEnum]
-            public override StartCommandResult OnStartCommand(Intent? intent, [GeneratedEnum] StartCommandFlags flags, int startId)
-            {
-                if (intent != null)
-                {
-                    var action = intent.Action;
-                    switch (action)
-                    {
-                        case START:
-                            OnStart();
-                            return StartCommandResult.RedeliverIntent;
-                        case STOP:
-                        default:
-                            OnStop();
-                            StopSelf();
-                            break;
-                    }
-                }
-                return StartCommandResult.NotSticky;
-            }
+            //[return: GeneratedEnum]
+            //public override StartCommandResult OnStartCommand(Intent? intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+            //{
+            //    if (intent != null)
+            //    {
+            //        var action = intent.Action;
+            //        switch (action)
+            //        {
+            //            case START:
+            //                OnStart();
+            //                return StartCommandResult.RedeliverIntent;
+            //            case STOP:
+            //            default:
+            //                OnStop();
+            //                StopSelf();
+            //                break;
+            //        }
+            //    }
+            //    return StartCommandResult.NotSticky;
+            //}
 
-            public override void OnRevoke()
-            {
-                OnStop();
-                base.OnRevoke();
-            }
+            //public override void OnRevoke()
+            //{
+            //    OnStop();
+            //    base.OnRevoke();
+            //}
 
-            public override void OnDestroy()
-            {
-                OnStop();
-                base.OnDestroy();
-            }
+            //public override void OnDestroy()
+            //{
+            //    OnStop();
+            //    base.OnDestroy();
+            //}
 
-            string[] GetDefaultDNS()
-            {
-                //return new[] {
-                //    IDnsAnalysisService.PrimaryDNS_Ali,
-                //    IDnsAnalysisService.SecondaryDNS_Ali,
-                //};
-                var context = Android.App.Application.Context;
-                string? dns1 = null, dns2 = null;
-                if (Build.VERSION.SdkInt > BuildVersionCodes.NMr1)
-                {
-                    var cm = context.GetSystemService<ConnectivityManager>();
-                    var an = cm.ActiveNetwork;
-                    if (an != null)
-                    {
-                        var lp = cm.GetLinkProperties(an);
-                        if (lp != null)
-                        {
-                            var dns = lp.DnsServers;
-                            if (dns != null)
-                            {
-                                if (dns.Count > 0)
-                                    dns1 = dns[0].HostAddress;
-                                if (dns.Count > 1)
-                                    dns2 = dns[1].HostAddress;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    dns1 = jni_getprop("net.dns1");
-                    dns2 = jni_getprop("net.dns2");
-                }
-                return new[]
-                {
-                string.IsNullOrEmpty(dns1) ? IDnsAnalysisService.PrimaryDNS_Ali : dns1!,
-                string.IsNullOrEmpty(dns2) ? IDnsAnalysisService.SecondaryDNS_Ali : dns2!,
-            };
-            }
+            //string[] GetDefaultDNS()
+            //{
+            //    //return new[] {
+            //    //    IDnsAnalysisService.PrimaryDNS_Ali,
+            //    //    IDnsAnalysisService.SecondaryDNS_Ali,
+            //    //};
+            //    var context = Android.App.Application.Context;
+            //    string? dns1 = null, dns2 = null;
+            //    if (Build.VERSION.SdkInt > BuildVersionCodes.NMr1)
+            //    {
+            //        var cm = context.GetSystemService<ConnectivityManager>();
+            //        var an = cm.ActiveNetwork;
+            //        if (an != null)
+            //        {
+            //            var lp = cm.GetLinkProperties(an);
+            //            if (lp != null)
+            //            {
+            //                var dns = lp.DnsServers;
+            //                if (dns != null)
+            //                {
+            //                    if (dns.Count > 0)
+            //                        dns1 = dns[0].HostAddress;
+            //                    if (dns.Count > 1)
+            //                        dns2 = dns[1].HostAddress;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        dns1 = jni_getprop("net.dns1");
+            //        dns2 = jni_getprop("net.dns2");
+            //    }
+            //    return new[]
+            //    {
+            //    string.IsNullOrEmpty(dns1) ? IDnsAnalysisService.PrimaryDNS_Ali : dns1!,
+            //    string.IsNullOrEmpty(dns2) ? IDnsAnalysisService.SecondaryDNS_Ali : dns2!,
+            //};
+            //}
         }
 
         const NotificationType notificationType

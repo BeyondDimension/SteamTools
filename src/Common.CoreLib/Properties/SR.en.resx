@@ -206,7 +206,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
-    <value>Open web link fails 0x{0}, please set the system default browser before trying</value>
+    <value>Open web link failed 0x{0}, please set the system default browser before trying</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

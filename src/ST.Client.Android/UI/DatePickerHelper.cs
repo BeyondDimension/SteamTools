@@ -67,15 +67,15 @@ namespace System.Application.UI
             return dialogFragment;
         }
 
-        static MaterialDatePicker GetBirthDatePicker(object listener, DateTime selected = default)
+        static MaterialDatePicker GetBirthDatePicker(object listener, string? title = null, DateTime selected = default)
             => GetDatePicker(listener,
-                AppResources.UserProfile_BirthDate,
+                title ?? AppResources.UserProfile_BirthDate,
                 selected == default ? IBirthDate.DefaultSelected : selected,
                 IBirthDate.SelectionRange);
 
-        static void ShowBirthDatePicker(this FragmentManager fragmentManager, object listener, DateTime selected = default)
+        static void ShowBirthDatePicker(this FragmentManager fragmentManager, object listener, string? title = null, DateTime selected = default)
         {
-            var dialogFragment = GetBirthDatePicker(listener, selected);
+            var dialogFragment = GetBirthDatePicker(listener, title, selected);
             dialogFragment.Show(fragmentManager, dialogFragment.ToString());
         }
 
@@ -94,8 +94,8 @@ namespace System.Application.UI
         /// <param name="activity"></param>
         /// <param name="selected"></param>
         /// <param name="listener"></param>
-        public static void ShowBirthDatePicker(this FragmentActivity activity, DateTime selected = default, object? listener = null)
-            => ShowBirthDatePicker(activity.SupportFragmentManager, listener ?? activity, selected);
+        public static void ShowBirthDatePicker(this FragmentActivity activity, DateTime selected = default, object? listener = null, string? title = null)
+            => ShowBirthDatePicker(activity.SupportFragmentManager, listener ?? activity, title, selected);
 
         /// <summary>
         /// 日期选择确定按钮点击时监听

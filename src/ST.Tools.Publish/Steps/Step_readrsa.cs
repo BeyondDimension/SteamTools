@@ -1,6 +1,7 @@
 using System.Application.Models;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.CommandLine.NamingConventionBinder;
 using System.IO;
 using TextCopy;
 using static System.Application.Utils;

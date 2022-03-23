@@ -187,7 +187,7 @@ namespace System.Application.UI.Activities
             ViewModel!.WhenAnyValue(x => x.CaptchaImage).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
-                binding.ivCaptchaImage.SetImageSource(value);
+                binding.ivCaptchaImage.SetImageSource(value, Resource.Dimension.img_size_captcha_w, Resource.Dimension.img_size_captcha_h);
             }).AddTo(this);
             ViewModel!.WhenAnyValue(x => x.ConfirmationsConutMessage).SubscribeInMainThread(value =>
             {

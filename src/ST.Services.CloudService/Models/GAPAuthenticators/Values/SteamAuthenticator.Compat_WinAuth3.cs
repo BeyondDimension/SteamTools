@@ -30,6 +30,7 @@ using System.Net.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using WinAuth;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
@@ -667,7 +668,7 @@ namespace System.Application.Models
                     }
                     else
                     {
-                        Sync();
+                        Task.Run(Sync);
                     }
                 }
 

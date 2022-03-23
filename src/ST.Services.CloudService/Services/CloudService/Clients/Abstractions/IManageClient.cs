@@ -57,5 +57,11 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// <param name="channel"></param>
         /// <returns></returns>
         Task<IApiResponse> UnbundleAccount(FastLoginChannel channel);
+
+        /// <summary>
+        /// 刷新用户信息
+        /// </summary>
+        /// <returns></returns>
+        Task<IApiResponse<UserInfoDTO>> RefreshUserInfo();
     }
 }

@@ -3,6 +3,7 @@ using NPOI.XSSF.UserModel;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.CommandLine.NamingConventionBinder;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace System.Commands
         public static void Add(RootCommand command)
         {
             // t write-xlsx -resx all -lang all
-            // t write-xlsx -resx all -lang all -refresh-machine true
+            // t write-xlsx -resx all -lang all -refresh_machine
             var write_xlsx = new Command("write-xlsx", "读取 resx 写入 xlsx")
             {
                 Handler = CommandHandler.Create(HandlerAsync),
@@ -163,7 +164,7 @@ namespace System.Commands
                         { CommentKey, string.Empty },
                         { AuthorKey, string.Empty },
                     };
-                    resxFileDictLang.dict.AddOrReplace(originalText.Key, (value, comment));
+                    resxFileDictLang.dict.AddOrReplace(originalText.Key, (value, comment), resxFilePathLang);
                 }
             }
 

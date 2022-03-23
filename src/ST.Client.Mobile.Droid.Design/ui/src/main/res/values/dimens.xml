@@ -50,4 +50,7 @@
   <dimen name="settings_ui_item_title_font_size">16sp</dimen>
   <dimen name="settings_ui_icon_size">24dp</dimen>
   <dimen name="settings_ui_item_textbox_fix_material_bottom">5dp</dimen>
+  <dimen name="img_size_donate_user_avatar">52dp</dimen>
+  <dimen name="img_size_captcha_w">206dp</dimen>
+  <dimen name="img_size_captcha_h">37dp</dimen>
 </resources>

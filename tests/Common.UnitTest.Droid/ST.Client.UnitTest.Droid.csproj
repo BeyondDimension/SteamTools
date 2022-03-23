@@ -1,7 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>MonoAndroid11.0</TargetFramework>
+    <TargetFramework>MonoAndroid12.0</TargetFramework>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Droid.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>

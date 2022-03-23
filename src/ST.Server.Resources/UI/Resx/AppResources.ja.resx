@@ -138,7 +138,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>不明なサード パーティのサインイン プロバイダー{0}、ウェブマスターにお問い合わせください。</value>
+    <value>不明なサード パーティのサインイン プロバイダー{0}、ウェブマスターに問い合わせてください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">

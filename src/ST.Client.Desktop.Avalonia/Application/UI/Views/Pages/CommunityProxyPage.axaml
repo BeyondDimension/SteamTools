@@ -65,6 +65,15 @@
             </ui:CommandBarElementContainer>
 
             <ui:CommandBarSeparator/>
+            <!--<ui:CommandBarElementContainer Margin="8 0"
+                                           HorizontalContentAlignment="Center">
+              <ComboBox VerticalAlignment="Center">
+                <ComboBoxItem Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                </ComboBoxItem>
+                <ComboBoxItem Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                </ComboBoxItem>
+              </ComboBox>
+            </ui:CommandBarElementContainer>-->
             <ui:CommandBarElementContainer Margin="8 0"
                                            HorizontalContentAlignment="Center">
               <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
@@ -139,18 +148,20 @@
                 <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            <ui:CommandBarButton
-         Command="{Binding OpenHostsDirCommand}"
-         Label="{ReflectionBinding Path=Res.CommunityFix_OpenHostsDir,Mode=OneWay,Source={x:Static resx:R.Current}}">
-              <ui:CommandBarButton.Icon>
-                <ui:PathIcon Data="{StaticResource FolderOpenDrawing}"/>
-              </ui:CommandBarButton.Icon>
-            </ui:CommandBarButton>
+            
             <ui:CommandBarButton
          Command="{Binding ResetHostsFileCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_ResetHostsFile,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
                 <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            
+            <ui:CommandBarButton
+         Command="{Binding OpenHostsDirCommand}"
+         Label="{ReflectionBinding Path=Res.CommunityFix_OpenHostsDir,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarButton.Icon>
+                <ui:PathIcon Data="{StaticResource FolderOpenDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
@@ -296,7 +307,7 @@
                        Margin="0 0 0 10"
                        DockPanel.Dock="Top"></TextBlock>
             <ScrollViewer>
-              <ItemsControl Items="{ReflectionBinding EnableProxyScripts,Source={x:Static service:ProxyService.Current}}">
+              <ItemsControl Items="{ReflectionBinding EnableProxyScripts^,Source={x:Static service:ProxyService.Current}}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <StackPanel Margin="10">
