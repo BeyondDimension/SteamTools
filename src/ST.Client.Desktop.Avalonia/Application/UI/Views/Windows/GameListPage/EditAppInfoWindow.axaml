@@ -16,27 +16,6 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar DockPanel.Dock="Top" />
-    <!--Header-->
-    <Menu Classes="BarMenu">
-      <MenuItem 
-                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_RefreshTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-        <MenuItem.Header>
-          <PathIcon Data="{StaticResource RefreshDrawing}" Width="14"></PathIcon>
-        </MenuItem.Header>
-      </MenuItem>
-      <MenuItem 
-                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_ResetTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-        <MenuItem.Header>
-          <PathIcon Data="{StaticResource ResetDrawing}" Width="14"></PathIcon>
-        </MenuItem.Header>
-      </MenuItem>
-      <MenuItem
-                ToolTip.Tip="{ReflectionBinding Path=Res.Achievement_StoreTip,Mode=OneWay,Source={x:Static resx:R.Current}}">
-        <MenuItem.Header>
-          <PathIcon Data="{StaticResource SaveDrawing}" Width="14"></PathIcon>
-        </MenuItem.Header>
-      </MenuItem>
-    </Menu>
     <Grid Margin="0 35 0 0"
           RowDefinitions="*,Auto">
       <TabControl Classes="flat"
@@ -243,13 +222,19 @@
                   HorizontalAlignment="Right"
                   VerticalAlignment="Bottom"
                   Orientation="Horizontal">
-        <Button Content="取消"
-                Padding="45 0"
-                VerticalAlignment="Stretch"/>
-        <Button Classes="action"
-                Padding="45 0"
-                VerticalAlignment="Stretch"
-                Content="保存"/>
+        <StackPanel.Styles>
+          <Style Selector="Button.DialogButton">
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="45 0" />
+            <Setter Property="Margin" Value="1" />
+          </Style>
+        </StackPanel.Styles>
+        <Button Classes="DialogButton"
+                Command="{ReflectionBinding CancelEditAppInfo}"
+                Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <Button Classes="action DialogButton" 
+                Command="{ReflectionBinding SaveEditAppInfo}"
+                Content="{ReflectionBinding Path=Res.Save,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
       </StackPanel>
     </Grid>
   </Panel>

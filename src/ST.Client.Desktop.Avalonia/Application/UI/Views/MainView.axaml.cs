@@ -27,20 +27,20 @@ namespace System.Application.UI.Views
         {
             PageTypes = new Dictionary<Type, Type>
             {
-                { typeof(ProxyScriptManagePageViewModel), typeof(ProxyScriptManagePage) },
                 { typeof(StartPageViewModel), typeof(StartPage) },
+                { typeof(ProxyScriptManagePageViewModel), typeof(ProxyScriptManagePage) },
                 { typeof(SteamAccountPageViewModel), typeof(SteamAccountPage) },
                 { typeof(SettingsPageViewModel), typeof(SettingsPage) },
                 { typeof(AboutPageViewModel), typeof(AboutPage) },
-#if DEBUG
-                { typeof(DebugPageViewModel), typeof(DebugPage) },
-#endif
                 { typeof(GameListPageViewModel), typeof(GameListPage) },
                 { typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
                 { typeof(LocalAuthPageViewModel), typeof(LocalAuthPage) },
                 { typeof(GameRelatedPageViewModel), typeof(GameRelatedPage) },
                 { typeof(ArchiSteamFarmPlusPageViewModel), typeof(ArchiSteamFarmPlusPage) },
                 //{ typeof(GameRelated_BorderlessPageViewModel), typeof(GameRelated_BorderlessPage) },
+#if DEBUG
+                { typeof(DebugPageViewModel), typeof(DebugPage) },
+#endif
             };
         }
 

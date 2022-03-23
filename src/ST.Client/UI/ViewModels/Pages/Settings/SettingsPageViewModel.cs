@@ -20,8 +20,6 @@ namespace System.Application.UI.ViewModels
     {
         public SettingsPageViewModel()
         {
-            IconKey = nameof(SettingsPageViewModel);
-
             SelectLanguage = R.Languages.FirstOrDefault(x => x.Key == UISettings.Language.Value);
             this.WhenValueChanged(x => x.SelectLanguage, false)
                   .Subscribe(x => UISettings.Language.Value = x.Key);

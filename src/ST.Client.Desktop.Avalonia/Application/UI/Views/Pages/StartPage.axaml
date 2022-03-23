@@ -8,9 +8,35 @@
              x:DataType="vm:StartPageViewModel"
              x:CompileBindings="True"
              x:Class="System.Application.UI.Views.Pages.StartPage">
-	<StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
-		<Grid ColumnDefinitions="Auto,Auto">
-        
-		</Grid>
-	</StackPanel>
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+      <TextBlock VerticalAlignment="Top"
+                 Text="欢迎使用 Steam++"
+                 Classes="TitleTextBlockStyle"
+                 Padding="32 20 0 0" />
+
+
+      <ItemsRepeater Margin="18 0 18 18">
+        <ItemsRepeater.Layout>
+          <StackLayout Spacing="20" />
+        </ItemsRepeater.Layout>
+
+        <ItemsRepeater.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Spacing="4">
+              <TextBlock Classes="SubtitleTextBlockStyle"
+                         Margin="0 8"/>
+
+              <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                            HorizontalScrollBarVisibility="Auto"
+                            Padding="0 0 0 17">
+
+              </ScrollViewer>
+            </StackPanel>
+          </DataTemplate>
+        </ItemsRepeater.ItemTemplate>
+      </ItemsRepeater>
+    </StackPanel>
+  </ScrollViewer>
 </UserControl>

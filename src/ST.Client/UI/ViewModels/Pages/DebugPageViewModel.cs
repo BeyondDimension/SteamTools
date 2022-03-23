@@ -37,11 +37,6 @@ namespace System.Application.UI.ViewModels
             protected set => this.RaiseAndSetIfChanged(ref _DebugString, value);
         }
 
-        public DebugPageViewModel()
-        {
-            IconKey = nameof(GameRelatedPageViewModel);
-        }
-
         //async void TestHttp()
         //{
         //    var task1 = IHttpService.Instance.GetAsync<string>("https://developers.google.com/android");

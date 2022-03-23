@@ -21,5 +21,16 @@ namespace System.Application.UI.ViewModels
             App = app;
             Title = App.DisplayName;
         }
+
+
+        public void SaveEditAppInfo() 
+        {
+
+        }
+
+        public void CancelEditAppInfo()
+        {
+            this.Close();
+        }
     }
 }

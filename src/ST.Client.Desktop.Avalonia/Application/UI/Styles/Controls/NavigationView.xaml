@@ -13,7 +13,7 @@
         <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0,0,0,0</CornerRadius>
         <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
         <Thickness x:Key="NavigationViewHeaderMargin">10,0,0,0</Thickness>
-        <x:Double x:Key="NavigationViewItemOnLeftIconBoxHeight">26</x:Double>
+        <x:Double x:Key="NavigationViewItemOnLeftIconBoxHeight">20</x:Double>
     </Styles.Resources>
     <Style Selector="ui|NavigationView.NavBar">
         <Setter Property="OpenPaneLength" Value="240" />

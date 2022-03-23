@@ -10,7 +10,6 @@ namespace System.Application.UI.ViewModels
     {
         public StartPageViewModel()
         {
-            IconKey = nameof(StartPageViewModel);
         }
     }
 }

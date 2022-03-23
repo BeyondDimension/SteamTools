@@ -2097,4 +2097,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
     <value>检测到新版本 v{0}</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
 </root>

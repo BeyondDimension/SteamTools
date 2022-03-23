@@ -27,8 +27,6 @@ namespace System.Application.UI.ViewModels
 
         public SteamAccountPageViewModel()
         {
-            IconKey = nameof(SteamAccountPageViewModel);
-
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
