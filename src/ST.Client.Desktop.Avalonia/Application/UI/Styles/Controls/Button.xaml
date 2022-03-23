@@ -7,7 +7,7 @@
                 <Button Classes="CodeButton" Content="Code Font Family" />
                 <Button Classes="flatbutton" Content="Code Font Family" />
                 <Button Classes="action" Content="Code Font Family" />
-                <Button Classes="dialogButton" Content="Code Font Family" />
+                <Button Classes="DialogButton" Content="Code Font Family" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>

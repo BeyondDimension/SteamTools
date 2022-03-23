@@ -119,18 +119,13 @@
                                                      Text="{Binding SteamNickName}"
                                                      FontSize="20"
                                                      Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                        <!--<WrapPanel VerticalAlignment="Center" IsVisible="{Binding Remark,Converter={StaticResource IsNullConverter},ConverterParameter=invert}">-->
                         <WrapPanel VerticalAlignment="Center">
-                          <!--<TextBlock Text="("></TextBlock>-->
-                          <!--<controls:ScrollingTextBlock Text="{Binding Remark}">
-                                                    </controls:ScrollingTextBlock>-->
-                          <!--<TextBlock Text=")"></TextBlock>-->
-                          <!--<PathIcon Data="{StaticResource EditDrawing}" Width="10" Height="10"></PathIcon>-->
                           <controls:ScrollingTextBlock
                                Padding="10 0 10 0"
-                               FontSize="14"
-                               Text="{Binding Remark,Mode=TwoWay}"
-                               Foreground="{DynamicResource InactiveForegroundBrushKey}">
+                               Classes="h6 semibold"
+                               Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                               IsVisible="{Binding Remark, Mode=OneWay,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                               Text="{Binding Remark, Mode=OneWay,StringFormat={}({0})}">
                           </controls:ScrollingTextBlock>
                         </WrapPanel>
 
@@ -163,74 +158,48 @@
 
                   </Panel>
                   <Grid Grid.Column="3" RowDefinitions="*,Auto">
-                    <!--<Panel>
-                    <Button Classes="flatbutton"
-                            IsVisible="False"
-                            x:Name="delete_btn"
-                            Background="Transparent"
-                            Cursor="Hand"
-                            HorizontalAlignment="Right"
-                            Margin="0,0,0,68"
-                            ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_DeleteUser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                            Command="{ReflectionBinding #u.DataContext.DeleteUserButton_Click}" CommandParameter="{Binding}">
-                      <PathIcon Width="12" Data="{DynamicResource CloseDrawing}">
-                      </PathIcon>
-                    </Button>
-                  </Panel>-->
                     <WrapPanel Grid.Row="1" Orientation="Horizontal">
-                      <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
-                             BorderThickness="0 .66 0 0">
-                        <Button Classes="flatbutton"
-                                Cursor="Hand"
-                                MaxWidth="200"
-                                HorizontalAlignment="Stretch"
-                                Command="{ReflectionBinding #u.DataContext.DisableOrEnableButton_Click}"
-                                CommandParameter="{Binding}">
-                          <Panel>
-                            <controls:ScrollingTextBlock IsVisible="{Binding Disable}" Text="{ReflectionBinding Path=Res.Steam_ShareEnableBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                            <controls:ScrollingTextBlock IsVisible="{Binding !Disable}"  Text="{ReflectionBinding Path=Res.Steam_ShareDisableBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                          </Panel>
-                        </Button>
-                      </Border>
-                      <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
-                              IsEnabled="{Binding !First}"
-                              BorderThickness=".66 .66 .66 0"
-                              ToolTip.Tip="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                        <Button Classes="flatbutton"
-                                Cursor="Hand"
-                                HorizontalAlignment="Stretch"
-                                MaxWidth="200"
-                                Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
-                                CommandParameter="{Binding}">
-                          <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                        </Button>
-                      </Border>
-                      <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
-                              IsEnabled="{Binding !First}"
-                              BorderThickness=".66 .66 .66 0"
-                              ToolTip.Tip="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                        <Button Classes="flatbutton"
-                                Cursor="Hand"
-                                HorizontalAlignment="Stretch"
-                                MaxWidth="200"
-                                Command="{ReflectionBinding #u.DataContext.UpButton_Click}"
-                                CommandParameter="{Binding}">
-                          <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                        </Button>
-                      </Border>
-                      <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
+                      <Button Classes="flatbutton"
+                              Cursor="Hand"
+                              MaxWidth="200"
+                              HorizontalAlignment="Stretch"
+                              Command="{ReflectionBinding #u.DataContext.DisableOrEnableButton_Click}"
+                              CommandParameter="{Binding}">
+                        <Panel>
+                          <controls:ScrollingTextBlock IsVisible="{Binding Disable}" Text="{ReflectionBinding Path=Res.Steam_ShareEnableBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                          <controls:ScrollingTextBlock IsVisible="{Binding !Disable}"  Text="{ReflectionBinding Path=Res.Steam_ShareDisableBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                        </Panel>
+                      </Button>
+                      <Button Classes="flatbutton"
+                            IsEnabled="{Binding !First}"
+                              Cursor="Hand"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              HorizontalAlignment="Stretch"
+                              MaxWidth="200"
+                              Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
+                              CommandParameter="{Binding}">
+                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                      </Button>
+                      <Button Classes="flatbutton"
+                            IsEnabled="{Binding !First}"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Cursor="Hand"
+                              HorizontalAlignment="Stretch"
+                              MaxWidth="200"
+                              Command="{ReflectionBinding #u.DataContext.UpButton_Click}"
+                              CommandParameter="{Binding}">
+                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                      </Button>
+                      <Button Classes="flatbutton"
                               IsEnabled="{Binding !End}"
-                              BorderThickness="0 .66 0 0"
-                              ToolTip.Tip="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                        <Button Classes="flatbutton"
-                                Cursor="Hand"
-                                MaxWidth="200"
-                                HorizontalAlignment="Stretch"
-                                Command="{ReflectionBinding #u.DataContext.DowButton_Click}"
-                                CommandParameter="{Binding}">
-                          <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
-                        </Button>
-                      </Border>
+                              ToolTip.Tip="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Cursor="Hand"
+                              MaxWidth="200"
+                              HorizontalAlignment="Stretch"
+                              Command="{ReflectionBinding #u.DataContext.DowButton_Click}"
+                              CommandParameter="{Binding}">
+                        <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
+                      </Button>
                     </WrapPanel>
                   </Grid>
                 </Grid>

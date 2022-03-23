@@ -7,10 +7,12 @@
         x:Class="System.Application.UI.Views.Windows.EditAppInfoWindow"
         xmlns:resx="using:System.Application.UI.Resx"
         xmlns:vm="using:System.Application.UI.ViewModels"
+        xmlns:models="using:System.Application.Models"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ms="using:System.Application.Settings"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:gif="using:AvaloniaGif"
+        x:Name="u"
         Background="Transparent"
         x:DataType="vm:EditAppInfoWindowViewModel"
         x:CompileBindings="True">
@@ -28,42 +30,42 @@
                 <DockPanel>
                   <TextBlock Text="AppId"/>
                   <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.AppId}"/>
+                             Text="{Binding App.AppId}"/>
                 </DockPanel>
               </Border>
 
               <Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="名称"/>
-                  <TextBox Text="{ReflectionBinding App.Name}"/>
+                  <TextBox Text="{Binding App.Name}"/>
                 </DockPanel>
               </Border>
 
               <Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="排序标题"/>
-                  <TextBox Text="{ReflectionBinding App.SortAs}"/>
+                  <TextBox Text="{Binding App.SortAs}"/>
                 </DockPanel>
               </Border>
 
               <Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="开发商"/>
-                  <TextBox Text="{ReflectionBinding App.Developer}"/>
+                  <TextBox Text="{Binding App.Developer}"/>
                 </DockPanel>
               </Border>
 
               <Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="发行商"/>
-                  <TextBox Text="{ReflectionBinding App.Publisher}"/>
+                  <TextBox Text="{Binding App.Publisher}"/>
                 </DockPanel>
               </Border>
 
               <!--<Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="发布日期"/>
-                  <TextBox Text="{ReflectionBinding App.SteamReleaseDate}"/>
+                  <TextBox Text="{Binding App.SteamReleaseDate}"/>
                 </DockPanel>
               </Border>-->
 
@@ -71,11 +73,11 @@
                 <DockPanel>
                   <TextBlock Text="支持系统"/>
                   <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.OSList}"/>
+                             Text="{Binding App.OSList}"/>
                 </DockPanel>
               </Border>
 
-              <Border Classes="Item" IsVisible="{ReflectionBinding App.IsInstalled}">
+              <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                 <DockPanel>
                   <TextBlock Text="磁盘占用"/>
                   <TextBlock Classes="right"
@@ -83,7 +85,7 @@
                 </DockPanel>
               </Border>
 
-              <Border Classes="Item" IsVisible="{ReflectionBinding App.IsInstalled}">
+              <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                 <DockPanel>
                   <TextBlock Text="安装路径"/>
                   <TextBlock Classes="right"
@@ -93,11 +95,11 @@
                 </DockPanel>
               </Border>
 
-              <Border Classes="Item" IsVisible="{ReflectionBinding App.IsInstalled}">
+              <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                 <DockPanel>
                   <TextBlock Text="最后更新时间"/>
                   <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"/>
+                             Text="{Binding App.LastUpdated,StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"/>
                 </DockPanel>
               </Border>
 
@@ -123,7 +125,7 @@
                     <controls:CustomFilePicker Margin="50 0 0 0"
                                          HorizontalAlignment="Right">
                       <gif:Image2 DecodeWidth="135"
-                                  Source="{ReflectionBinding App.LibraryGridStream^}"/>
+                                  Source="{Binding App.LibraryGridStream^}"/>
                     </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
@@ -141,7 +143,7 @@
                                          HorizontalAlignment="Right">
                       <gif:Image2 DecodeHeight="120"
                                   Stretch="UniformToFill"
-                                  Source="{ReflectionBinding App.LibraryHeroStream^}"/>
+                                  Source="{Binding App.LibraryHeroStream^}"/>
                     </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
@@ -159,7 +161,7 @@
                     <controls:CustomFilePicker Margin="50 0 0 0"
                                          HorizontalAlignment="Right">
                       <gif:Image2 DecodeWidth="220"
-                                  Source="{ReflectionBinding App.LibraryLogoStream^}"/>
+                                  Source="{Binding App.LibraryLogoStream^}"/>
                     </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
@@ -169,42 +171,64 @@
           </Panel>
         </TabItem>
 
-        <TabItem Header="启动项" IsVisible="{ReflectionBinding App.IsInstalled}">
+        <TabItem Header="启动项" IsVisible="{Binding App.IsInstalled}">
           <ScrollViewer>
             <StackPanel Classes="Settings">
-              <ItemsRepeater Items="{ReflectionBinding App.LaunchItems}">
+              <ItemsRepeater Items="{Binding App.LaunchItems}">
                 <ItemsRepeater.Layout>
                   <StackLayout Orientation="Vertical" Spacing="10"/>
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
-                  <DataTemplate>
+                  <DataTemplate DataType="{x:Type models:SteamAppLaunchItem}">
                     <Border Classes="Item">
                       <StackPanel Spacing="5">
                         <DockPanel>
                           <Label Content="Label"/>
-                          <TextBox Text="{ReflectionBinding Label}"/>
+                          <TextBox Text="{Binding Label}"/>
                         </DockPanel>
                         <DockPanel>
                           <Label Content="Executable"/>
-                          <TextBox Text="{ReflectionBinding Executable}"/>
+                          <TextBox Text="{Binding Executable}"/>
                         </DockPanel>
                         <DockPanel>
                           <Label Content="Arguments"/>
-                          <TextBox Text="{ReflectionBinding Arguments}"/>
+                          <TextBox Text="{Binding Arguments}"/>
                         </DockPanel>
                         <DockPanel>
                           <Label Content="WorkingDir"/>
-                          <TextBox Text="{ReflectionBinding WorkingDir}"/>
+                          <TextBox Text="{Binding WorkingDir}"/>
                         </DockPanel>
                         <DockPanel>
                           <Label Content="Platform"/>
-                          <TextBox Text="{ReflectionBinding Platform}"/>
+                          <TextBox Text="{Binding Platform}"/>
                         </DockPanel>
+
+                        <ui:Button HorizontalAlignment="Stretch"
+                                   Margin="0 5"
+                                   Command="{ReflectionBinding #u.DataContext.DeleteLaunchItem}"
+                                   CommandParameter="{Binding}"
+                                   Cursor="Hand">
+                          <DockPanel>
+                            <ui:SymbolIcon Symbol="Delete"
+                                           FontSize="18"/>
+                            <TextBlock Text="删除此项"/>
+                          </DockPanel>
+                        </ui:Button>
                       </StackPanel>
                     </Border>
                   </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
               </ItemsRepeater>
+              <Border Classes="Item">
+                <ui:Button HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           Command="{ReflectionBinding AddLaunchItem}"
+                           Cursor="Hand">
+                  <ui:SymbolIcon Symbol="Add"
+                                 Margin="0 20"
+                                 FontSize="64"/>
+                </ui:Button>
+              </Border>
             </StackPanel>
           </ScrollViewer>
 
@@ -233,7 +257,7 @@
         <Button Classes="DialogButton"
                 Command="{ReflectionBinding CancelEditAppInfo}"
                 Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <Button Classes="action DialogButton" 
+        <Button Classes="action DialogButton"
                 Command="{ReflectionBinding SaveEditAppInfo}"
                 Content="{ReflectionBinding Path=Res.Save,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
       </StackPanel>
