@@ -13,11 +13,19 @@ namespace System.Application.UI.ViewModels
     public partial class AccountPageViewModel
     {
         public ReactiveCommand<Unit, Unit>? OpenUserProfile { get; }
+        public ReactiveCommand<Unit, Unit>? OpenEngineOilLogs { get; }
+        public ReactiveCommand<Unit, Unit>? OpenBalanceLogs { get; }
         public AccountPageViewModel()
         {
             OpenUserProfile = ReactiveCommand.Create(() =>
             {
                 UserService.Current.ShowWindow(CustomWindow.UserProfile);
+            });
+            OpenEngineOilLogs = ReactiveCommand.Create(() =>
+            { 
+            });
+            OpenBalanceLogs = ReactiveCommand.Create(() =>
+            { 
             });
         }
         public override async void Activation()

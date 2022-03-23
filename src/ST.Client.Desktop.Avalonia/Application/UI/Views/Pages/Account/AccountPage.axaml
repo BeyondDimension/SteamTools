@@ -43,11 +43,11 @@
                 </ia:EventTriggerBehavior>
               </i:Interaction.Behaviors>
               <Canvas x:Name="DrawCanvas"
-                      VerticalAlignment="Center" 
+                      VerticalAlignment="Center"
                       Margin="10 0"
                       Height="64"
                       Width="64"
-                      Background="Transparent"> 
+                      Background="Transparent">
                 <gif:Image2 x:Name="avatar"
                       Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
                       Stretch="Uniform"
@@ -55,7 +55,7 @@
                       HorizontalAlignment="Center"
                       DecodeWidth="64"
                       Height="64"
-                      Width="64" 
+                      Width="64"
                       Cursor="Hand"
                       FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
                       ToolTip.Tip="{ReflectionBinding Path=Res.UserProfile,
@@ -73,9 +73,9 @@
                            Width="64"
                            Height="64"
                            Fill="#99000000">
-                   <Rectangle.Clip>
+                  <Rectangle.Clip>
                     <EllipseGeometry Rect="0,0,64,64" />
-                    </Rectangle.Clip>
+                  </Rectangle.Clip>
                 </Rectangle>
               </Canvas>
             </DockPanel>
@@ -86,7 +86,7 @@
                           Foreground="{DynamicResource HighlightForegroundBrushKey}"
                           FontSize="14"
                           VerticalAlignment="Center"/>
-                <TextBlock  IsVisible="{Binding IsSponsor}" Margin="0 0 10 0" Text="捐助用户" FontSize="12"></TextBlock>
+                <TextBlock  IsVisible="{Binding IsSponsor}" Margin="0 0 10 0" Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="12"></TextBlock>
                 <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                        FontSize="14"
@@ -106,8 +106,8 @@
                 <WrapPanel HorizontalAlignment="Right">
                   <Button Background="Transparent" Cursor="Hand"
                           Margin="10 0 10 0"
-                     Command="{ReflectionBinding RefreshScriptButton}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          Command="{ReflectionBinding RefreshScriptButton}"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
                     <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
                   </Button>
                   <Button Background="Transparent" Cursor="Hand"
@@ -122,12 +122,27 @@
               <Separator Classes="Separator"></Separator>
               <DockPanel>
                 <DockPanel>
-                  <Label Content="积分 : "></Label>
-                  <Label Content="{ReflectionBinding Path=User.EngineOil,Mode=OneWay,Source={x:Static service:UserService.Current}}"></Label>
+                  <Label Content="{ReflectionBinding Path=Res.User_EngineOil,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
+                  <Label Content=":"></Label>
+                  <Button Background="Transparent" Cursor="Hand"
+                          Padding="0"
+                          Command="{ReflectionBinding OpenEngineOilLogs}"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.User_EngineOil,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Label Content="{ReflectionBinding Path=User.EngineOil,Mode=OneWay,Source={x:Static service:UserService.Current}}">
+                    </Label>
+                  </Button>
                 </DockPanel>
                 <DockPanel>
-                  <Label Content="余额 : "></Label>
-                  <Label Content="{ReflectionBinding Path=User.Balance,Mode=OneWay,Source={x:Static service:UserService.Current}}"></Label>
+                  <Label Content="{ReflectionBinding Path=Res.User_Balance,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
+                  <Label Content=":"></Label>
+                  <Button Background="Transparent" Cursor="Hand"
+                          Padding="0"
+                          Command="{ReflectionBinding OpenEngineOilLogs}"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.User_Balance,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Label Content="{ReflectionBinding Path=User.Balance,Mode=OneWay,Source={x:Static service:UserService.Current}}">
+                    </Label>
+                  </Button>
+
                 </DockPanel>
               </DockPanel>
 

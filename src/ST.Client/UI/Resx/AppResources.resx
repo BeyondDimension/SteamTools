@@ -2094,4 +2094,13 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
     <value>检测到新版本 v{0}</value>
   </data>
+  <data name="User_Balance" xml:space="preserve">
+    <value>余额</value>
+  </data>
+  <data name="User_EngineOil" xml:space="preserve">
+    <value>积分</value>
+  </data>
+  <data name="User_Sponsor" xml:space="preserve">
+    <value>捐助用户</value>
+  </data>
 </root>
