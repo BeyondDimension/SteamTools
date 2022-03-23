@@ -101,7 +101,6 @@ namespace System.Application.UI.ViewModels
                 AddTabItem<GameListPageViewModel>();
             }
             AddTabItem<LocalAuthPageViewModel>();
-            AddTabItem<AccountPageViewModel>();
             AddTabItem<ArchiSteamFarmPlusPageViewModel>();
 
             //AddTabItem<SteamIdlePageViewModel>();
@@ -115,6 +114,7 @@ namespace System.Application.UI.ViewModels
             if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
             {
                 AddTabItem<DebugPageViewModel>();
+                AddTabItem<AccountPageViewModel>();
                 //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
 
                 //if (AppHelper.IsSystemWebViewAvailable)
