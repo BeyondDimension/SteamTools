@@ -16,7 +16,6 @@
         xmlns:service="using:System.Application.Services"
         xmlns:gif="using:AvaloniaGif"
         xmlns:vm="using:System.Application.UI.ViewModels"
-        ExtendClientAreaTitleBarHeightHint="30"
         WindowStartupLocation="CenterOwner"
         x:DataType="vm:UserProfileWindowViewModel"
         x:CompileBindings="True">

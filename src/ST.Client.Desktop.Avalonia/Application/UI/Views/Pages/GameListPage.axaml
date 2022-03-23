@@ -322,8 +322,8 @@
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
               <DataTemplate>
-                <StackPanel Spacing="5"
-                          Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
+                <DockPanel Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}"
+                           ToolTip.Tip="{Binding DisplayName}">
                   <Border DockPanel.Dock="Top"
                           Cursor="Hand"
                           x:Name="AppAvatar"
@@ -491,16 +491,17 @@
 
                   <TextBlock Width="{ReflectionBinding #app.Width}"
                              Text="{Binding DisplayName}"
-                             ToolTip.Tip="{Binding DisplayName}"
                              FontSize="12"
                              FontWeight="Bold"
                              TextTrimming="CharacterEllipsis"
+                             DockPanel.Dock="Bottom"
+                             Margin="0 5 0 0"
                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <TextBlock Width="{ReflectionBinding #app.Width}"
+                  <!--<TextBlock Width="{ReflectionBinding #app.Width}"
                              Text="{Binding AppId}"
                              FontSize="10"
-                             Foreground="{DynamicResource InactiveForegroundBrushKey}" />
-                </StackPanel>
+                             Foreground="{DynamicResource InactiveForegroundBrushKey}" />-->
+                </DockPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>
           </ItemsRepeater>

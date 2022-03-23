@@ -101,7 +101,7 @@
 
       <ui:NavigationView.PaneCustomContent>
         <ui:Button Cursor="Hand"
-                   Margin="6"
+                   Margin="5"
                    Padding="10 5"
                    MaxWidth="240"
                    BorderThickness="0"
@@ -130,12 +130,12 @@
               <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                        FontSize="14"
+                        Classes="h6"
                         VerticalAlignment="Center"/>
               <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                      IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
                      Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                     FontSize="14"
+                     Classes="h6"
                      VerticalAlignment="Center"/>
               <!--<TextBlock Text="{ReflectionBinding Path=PhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                         IsVisible="{ReflectionBinding Path=User.HasPhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"

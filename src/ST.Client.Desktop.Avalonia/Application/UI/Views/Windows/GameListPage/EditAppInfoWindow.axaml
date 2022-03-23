@@ -27,7 +27,8 @@
               <Border Classes="Item">
                 <DockPanel>
                   <TextBlock Text="AppId"/>
-                  <TextBox Text="{ReflectionBinding App.AppId}"/>
+                  <TextBlock Classes="right"
+                             Text="{ReflectionBinding App.AppId}"/>
                 </DockPanel>
               </Border>
 
