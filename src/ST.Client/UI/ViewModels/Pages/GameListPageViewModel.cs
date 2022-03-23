@@ -79,10 +79,19 @@ namespace System.Application.UI.ViewModels
             }
 
             AppTypeFiltres = new ObservableCollection<EnumModel<SteamAppType>>(EnumModel.GetEnums<SteamAppType>());
-            AppTypeFiltres[1].Enable = true;
-            AppTypeFiltres[2].Enable = true;
-            AppTypeFiltres[3].Enable = true;
-            AppTypeFiltres[4].Enable = true;
+
+            foreach (var type in AppTypeFiltres)
+            {
+                if (GameLibrarySettings.GameTypeFiltres.Value?.Contains(type.Value) == true)
+                {
+                    type.Enable = true;
+                }
+            }
+
+            IsInstalledFilter = GameLibrarySettings.GameIsInstalledFilter.Value;
+
+            this.WhenValueChanged(x => x.IsInstalledFilter, false)
+                .Subscribe(s => GameLibrarySettings.GameIsInstalledFilter.Value = s);
 
             var nameFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
 
@@ -97,6 +106,7 @@ namespace System.Application.UI.ViewModels
                       .Subscribe(_ =>
                       {
                           EnableAppTypeFiltres = AppTypeFiltres.Where(s => s.Enable).ToList();
+                          GameLibrarySettings.GameTypeFiltres.Value = EnableAppTypeFiltres.Select(s => s.Value).ToList();
                           this.RaisePropertyChanged(nameof(TypeFilterString));
                       }));
 

@@ -27,7 +27,7 @@
 
           <Border Classes="Item">
             <StackPanel Spacing="6">
-              <WrapPanel>
+              <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowAuthInfo,Mode=OneWay,Source={x:Static resx:R.Current}}"
                            Classes="h4"/>
                 <ToggleButton Classes="revealPasswordButton"
@@ -43,7 +43,7 @@
                     </WrapPanel>
                   </ToggleButton.Content>
                 </ToggleButton>
-              </WrapPanel>
+              </StackPanel>
               <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_ShowSteamAuthTip2,Mode=OneWay,Source={x:Static resx:R.Current}}"
                          Classes="prompt"/>
             </StackPanel>

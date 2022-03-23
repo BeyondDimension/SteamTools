@@ -17,6 +17,9 @@
         xmlns:gif="using:AvaloniaGif"
         xmlns:vm="using:System.Application.UI.ViewModels"
         WindowStartupLocation="CenterOwner"
+        Background="Transparent"
+        ExtendClientAreaTitleBarHeightHint="30"
+        CanResize="True"
         x:DataType="vm:UserProfileWindowViewModel"
         x:CompileBindings="True">
   <Panel>
@@ -61,12 +64,12 @@
     </Panel.Styles>
     <controls:TitleBar/>
     <ProgressBar Width="100"
-                       Height="100"
-                       Classes="Circle"
-                       IsIndeterminate="True"
-                       IsVisible="{Binding IsLoading}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
+                 Height="100"
+                 Classes="Circle"
+                 IsIndeterminate="True"
+                 IsVisible="{Binding IsLoading}"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"/>
 
     <TabControl Classes="flat"
                 Margin="0 20 0 0"
