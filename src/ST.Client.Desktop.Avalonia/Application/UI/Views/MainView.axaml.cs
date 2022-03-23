@@ -28,12 +28,12 @@ namespace System.Application.UI.Views
             PageTypes = new Dictionary<Type, Type>
             {
                 { typeof(StartPageViewModel), typeof(StartPage) },
+                { typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
                 { typeof(ProxyScriptManagePageViewModel), typeof(ProxyScriptManagePage) },
                 { typeof(SteamAccountPageViewModel), typeof(SteamAccountPage) },
                 { typeof(SettingsPageViewModel), typeof(SettingsPage) },
                 { typeof(AboutPageViewModel), typeof(AboutPage) },
                 { typeof(GameListPageViewModel), typeof(GameListPage) },
-                { typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
                 { typeof(LocalAuthPageViewModel), typeof(LocalAuthPage) },
                 { typeof(GameRelatedPageViewModel), typeof(GameRelatedPage) },
                 { typeof(ArchiSteamFarmPlusPageViewModel), typeof(ArchiSteamFarmPlusPage) },
@@ -104,6 +104,20 @@ namespace System.Application.UI.Views
             var frame = this.FindControl<Frame>("frame");
             if (frame != null && nav != null)
             {
+                //frame.Navigating += (s, e) =>
+                //{
+                //    DebugPageViewModel.Instance.DebugString += $"Frame Navigating: {e?.SourcePageType?.Name} {Environment.NewLine}";
+                //};
+                //frame.Navigated += (s, e) =>
+                //{
+                //    DebugPageViewModel.Instance.DebugString += $"Frame Navigated: {e?.SourcePageType?.Name} {Environment.NewLine}";
+                //};
+                //frame.NavigationFailed += (s, e) =>
+                //{
+                //    DebugPageViewModel.Instance.DebugString += $"TabItem Change Error: {e.Exception} {e.SourcePageType} {Environment.NewLine}";
+                //    Log.Error("TabItem Changed", e.Exception, nameof(MainWindowViewModel));
+                //};
+
                 if (nav.IsBackButtonVisible)
                 {
                     nav.BackRequested += (sender, e) =>
@@ -121,6 +135,7 @@ namespace System.Application.UI.Views
                             //{
                             //    frame.Navigate(template.Build(null).GetType());
                             //}
+
                             frame.Navigate(PageTypes[x.GetType()]);
                         }
                     });

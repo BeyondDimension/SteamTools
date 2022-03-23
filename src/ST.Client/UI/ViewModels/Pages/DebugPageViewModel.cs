@@ -30,11 +30,13 @@ namespace System.Application.UI.ViewModels
 {
     public partial class DebugPageViewModel
     {
+        public static DebugPageViewModel Instance { get; } = new();
+
         string _DebugString = string.Empty;
         public string DebugString
         {
             get => _DebugString;
-            protected set => this.RaiseAndSetIfChanged(ref _DebugString, value);
+            set => this.RaiseAndSetIfChanged(ref _DebugString, value);
         }
 
         //async void TestHttp()
