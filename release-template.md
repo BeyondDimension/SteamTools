@@ -1,7 +1,7 @@
 ### 版本亮点
 1. macOS 支持 Arm64(Apple Silicon)
 2. Android 支持 VPN 模式(推荐) 进行本地加速
-3. Windows 支持 DNS 驱动拦截模式(推荐) 进行本地加速
+3. ~~Windows 支持 DNS 驱动拦截模式(推荐) 进行本地加速~~
 4. ASF 升级至 V5.x.x.x
 
 ### 修复问题

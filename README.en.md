@@ -35,20 +35,20 @@ English | [简体中文](./README.md)
 - [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
 
 ## ✨ Functions
-1. Network Acceleration(Support Windows/Linux/macOS/Android)
+1. Network Acceleration (Support Windows / Linux / macOS / Android)
 	- Make the Steam community, Github, Google reCAPTCHA, Pixiv, Discord, Twitch and other domestic hard-to-access pages accessible properly.
 	- Functions similar to [Steamcommunity 302](https://www.dogfight360.com/blog/686/), using [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) open source project for local anti-generation.
-2. Script Configuration(Windows/Linux/macOS only)
+2. Script Configuration (Windows / Linux / macOS Only)
 	- Some JS scripts are injected into web pages through an acceleration service that intercepts web requests, providing functionality similar to that of a web plugin.
-3. Account Switch(Windows/Linux/macOS only)
+3. Account Switch (Windows / Linux / macOS Only)
 	- Switch between Steam accounts that are already logged in on the current PC with one click, and manage features such as sorting your home shared library.
-4. Inventory Management(Windows/Linux/macOS only)
+4. Inventory Management (Windows / Linux / macOS Only)
 	- Lets you manage your Steam game inventory directly, not only by downloading older Steam games, but also by managing Steam game achievements directly, supporting unlocked achievements and unlocked achievements.
-5. Local Authentication(Support Windows/Linux/macOS/Android)
+5. Local Authentication (Support Windows / Linux / macOS / Android)
 	- Let your cell phone token unified save in the computer, currently only support Steam token, later will develop support more token types with cloud synchronization token.
-6. ArchiSteamFarm(Support Windows/Linux/macOS/Android)
+6. ArchiSteamFarm (Support Windows / Linux / macOS / Android)
 	- Integration with [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) provides functions such as hanging and dropping Steam Collectible Cards within the app.
-7. Game Tools (Windows only)
+7. Game Tools (Windows Only)
 	- Force game windows to use borderless windowing
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
