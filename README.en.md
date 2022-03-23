@@ -4,7 +4,7 @@
 
 English | [简体中文](./README.md)
 
-「Steam++」is a toolkit that contains a variety of Steam tools, most of which require you to download and install Steam in order to use them.
+"Steam++" is an open source cross-platform multi-purpose game toolkit, most of its features require you to download and install Steam to use it.
 
 ![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/releases/latest)
@@ -35,15 +35,21 @@ English | [简体中文](./README.md)
 - [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
 
 ## ✨ Functions
-1. Local reverse proxy for Steam's community webpage to enable normal access in **the Chinese Mainland, Mainland of China**
-2. Quickly switch the Steam account that the current PC has remembered to log into
-	- This feature is to read the local user login records stored under the Steam path to directly display the operation, you can switch between multiple accounts without re-entering passwords and tokens.
-3. Achievement stat modifications for Steam games
-	- Function reference SteamAchievementManager for secondary development, modified the game list loading and operation ease of use. 
-4. Steam Local Two-Step Authenticator
-    - The function reference [WinAuth](https://github.com/winauth/winauth) is developed to enable you to view your token without launching the mobile version of Steam App, similar function software are [WinAuth](https://github.com/winauth/winauth), [SteamDesktopAuthenticator](https://github.com/Jessecar96/SteamDesktopAuthenticator).
-5. Some game tools
-	- Currently there is a forced game borderless windowing.
+1. Network Acceleration (Support Windows / Linux / macOS / Android)
+	- Make the Steam community, Github, Google reCAPTCHA, Pixiv, Discord, Twitch and other domestic hard-to-access pages accessible properly.
+	- Functions similar to [Steamcommunity 302](https://www.dogfight360.com/blog/686/), using [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) open source project for local anti-generation.
+2. Script Configuration (Windows / Linux / macOS Only)
+	- Some JS scripts are injected into web pages through an acceleration service that intercepts web requests, providing functionality similar to that of a web plugin.
+3. Account Switch (Windows / Linux / macOS Only)
+	- Switch between Steam accounts that are already logged in on the current PC with one click, and manage features such as sorting your home shared library.
+4. Inventory Management (Windows / Linux / macOS Only)
+	- Lets you manage your Steam game inventory directly, not only by downloading older Steam games, but also by managing Steam game achievements directly, supporting unlocked achievements and unlocked achievements.
+5. Local Authentication (Support Windows / Linux / macOS / Android)
+	- Let your cell phone token unified save in the computer, currently only support Steam token, later will develop support more token types with cloud synchronization token.
+6. ArchiSteamFarm (Support Windows / Linux / macOS / Android)
+	- Integration with [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) provides functions such as hanging and dropping Steam Collectible Cards within the app.
+7. Game Tools (Windows Only)
+	- Force game windows to use borderless windowing
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 Supported Operating Systems
@@ -56,7 +62,7 @@ OS                                    | Version                 | Architectures 
 [Windows Server][Windows-Server]      | 2012+                   | x64        | [Windows Server][Windows-Server-lifecycle]
 
 **\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
-**\*** Microsoft Store/Desktop Bridge Version 1809+
+**\*** Microsoft Store(Desktop Bridge) Version 1809+
 
 [Windows-client]: https://www.microsoft.com/windows/
 [Windows-lifecycle]: https://support.microsoft.com/help/13853/windows-lifecycle-fact-sheet

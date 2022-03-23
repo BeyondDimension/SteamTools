@@ -48,7 +48,7 @@
         android:layout_marginTop="12dp"
         android:textColor="@color/text_primary"
         android:textSize="15sp"
-        tools:text="Current Version: 2.4.1 for Android(Arm64)"
+        tools:text="Current Version: a.b.c for Android(Arm64)"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
       <androidx.appcompat.widget.AppCompatTextView
@@ -72,6 +72,48 @@
         android:textSize="14sp"
         tools:text="Business Cooperation Contact: @Cliencer克总"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+      <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/preference_buttons_space_min"
+        android:text="Powered by"
+        android:textColor="@color/text_primary"
+        android:textColorLink="@color/text_link"
+        android:textSize="14sp"
+        tools:ignore="HardcodedText"
+        xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+      <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/preference_buttons_space_min">
+
+        <com.google.android.material.chip.Chip
+          android:id="@+id/chip_xamarin"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Xamarin"
+          app:chipIcon="@drawable/logo_xamarin_20"
+          app:chipIconSize="20dp"
+          app:chipMinTouchTargetSize="0dp"
+          app:iconStartPadding="4dp"
+          tools:ignore="HardcodedText"
+          xamarin:managedType="Google.Android.Material.Chip.Chip" />
+
+        <com.google.android.material.chip.Chip
+          android:id="@+id/chip_kotlin"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Kotlin"
+          app:chipIcon="@drawable/logo_kotlin_20"
+          app:chipIconSize="16dp"
+          app:chipMinTouchTargetSize="0dp"
+          app:iconStartPadding="4dp"
+          tools:ignore="HardcodedText"
+          xamarin:managedType="Google.Android.Material.Chip.Chip" />
+
+      </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
