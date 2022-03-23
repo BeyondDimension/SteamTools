@@ -16,7 +16,6 @@
       "src\\Avalonia.Win32\\Avalonia.Win32.csproj",
       "src\\Avalonia.X11\\Avalonia.X11.csproj",
       "src\\Common.AreaLib\\Common.AreaLib.csproj",
-      "src\\Common.ClientLib.Droid\\Common.ClientLib.Droid.csproj",
       "src\\Common.ClientLib.iOS\\Common.ClientLib.iOS.csproj",
       "src\\Common.ClientLib\\Common.ClientLib.csproj",
       "src\\Common.CoreLib\\Common.CoreLib.csproj",
