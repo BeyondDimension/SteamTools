@@ -62,21 +62,19 @@
         <WrapPanel  Grid.Row="3" Margin="0 6"
              HorizontalAlignment="Right">
           <WrapPanel.Styles>
-            <Style Selector="Button">
+            <Style Selector="Button.DialogButton">
               <Setter Property="MinWidth" Value="100"></Setter>
               <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
               <Setter Property="Margin" Value="6"></Setter>
-              <Setter Property="IsDefault" Value="True"></Setter>
-              <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
-              <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
-              <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}" />
-              <Setter Property="HorizontalAlignment" Value="Stretch" />
-              <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-              <Setter Property="Padding" Value="{DynamicResource ButtonPadding}" />
             </Style>
           </WrapPanel.Styles>
-          <Button Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding OK}"></Button>
-          <Button Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" Command="{Binding Cancel}" IsVisible="{Binding IsCancelcBtn}"></Button>
+          <Button Classes="DialogButton" 
+                  Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                  Command="{Binding OK}"></Button>
+          <Button Classes="DialogButton" 
+                  Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                  Command="{Binding Cancel}" 
+                  IsVisible="{Binding IsCancelcBtn}"></Button>
         </WrapPanel>
       </DockPanel>
     </DockPanel>

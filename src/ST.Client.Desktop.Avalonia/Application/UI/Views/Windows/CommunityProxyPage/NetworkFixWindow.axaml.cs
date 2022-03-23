@@ -1,17 +1,15 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
 {
-    public class EditAppInfoWindow : FluentWindow<EditAppInfoWindowViewModel>
+    public class NetworkFixWindow : FluentWindow<ProxySettingsWindowViewModel>
     {
-        public EditAppInfoWindow() : base()
+        public NetworkFixWindow() : base()
         {
             InitializeComponent();
-
 #if DEBUG
             this.AttachDevTools();
 #endif

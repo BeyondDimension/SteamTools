@@ -1,21 +1,21 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:service="using:System.Application.Services"
+             xmlns:models="using:System.Application.Models"
              xmlns:ms="using:System.Application.Settings"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
-             xmlns:i="using:Avalonia.Xaml.Interactivity"
-             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
              xmlns:sys="using:System"
              x:Name="u"
              x:DataType="vm:CommunityProxyPageViewModel"
+             x:CompileBindings="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="System.Application.UI.Views.Pages.CommunityProxyPage">
-  <Panel HorizontalAlignment="Stretch">
+  <Panel>
     <Grid IsVisible="{ReflectionBinding Source={x:Static service:ProxyService.Current},Path=!ProxyStatus,Mode=OneWay}"
           ColumnDefinitions="Auto,*"
           RowDefinitions="Auto,*">
@@ -46,7 +46,7 @@
                    MinHeight="40"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Command="{Binding StartProxyButton_Click}"
+                   Command="{ReflectionBinding StartProxyButton_Click}"
                    CommandParameter="True"/>
             </ui:CommandBarElementContainer>
 
@@ -185,14 +185,15 @@
                  AutoScrollToSelectedItem="True"
                  Background="Transparent">
           <ListBox.ItemTemplate>
-            <DataTemplate>
+            <DataTemplate DataType="{x:Type models:AccelerateProjectGroupDTO}">
               <StackPanel Orientation="Horizontal"
                          Margin="20 15">
                 <CheckBox Classes="onlyCheckBox"
                           IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
                           Margin="0 0 20 0">
                 </CheckBox>
-                <Image Width="30" Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=30}">
+                <Image Width="30" 
+                       Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=30}">
                 </Image>
                 <!--<Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
                                     </Image>-->
@@ -214,9 +215,9 @@
             <DockPanel Margin="0 10" DockPanel.Dock="Top">
               <CheckBox MinWidth="20"
                         Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        IsChecked="{Binding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
+                        IsChecked="{ReflectionBinding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
               </CheckBox>
-              <TextBlock Text="{Binding #items.SelectedItem.Name}"
+              <TextBlock Text="{ReflectionBinding #items.SelectedItem.Name}"
                          FontSize="20"
                          VerticalAlignment="Center"
                          HorizontalAlignment="Right"
@@ -226,7 +227,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Bottom">
               <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
                 <ItemsControl.ItemTemplate>
-                  <DataTemplate>
+                  <DataTemplate DataType="{x:Type models:AccelerateProjectDTO}">
                     <StackPanel>
                       <DockPanel>
                         <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Enable}">
@@ -285,7 +286,7 @@
             <ScrollViewer>
               <ItemsControl Items="{ReflectionBinding EnableProxyDomains,Source={x:Static service:ProxyService.Current}}">
                 <ItemsControl.ItemTemplate>
-                  <DataTemplate>
+                  <DataTemplate DataType="{x:Type models:AccelerateProjectDTO}">
                     <StackPanel Margin="10">
                       <DockPanel>
                         <TextBlock Text="{Binding Name}"></TextBlock>
@@ -309,7 +310,7 @@
             <ScrollViewer>
               <ItemsControl Items="{ReflectionBinding EnableProxyScripts^,Source={x:Static service:ProxyService.Current}}">
                 <ItemsControl.ItemTemplate>
-                  <DataTemplate>
+                  <DataTemplate DataType="{x:Type models:ScriptDTO}">
                     <StackPanel Margin="10">
                       <DockPanel>
                         <TextBlock Text="{Binding Name}"></TextBlock>
@@ -325,7 +326,16 @@
       </StackPanel>
 
       <StackPanel Grid.Row="2" Margin="20 0 20 50">
-        <Button Classes="action" Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" MinHeight="40" Width="250" VerticalContentAlignment="Center" FontSize="16" Command="{Binding StartProxyButton_Click}" CommandParameter="False"></Button>
+        <Button Classes="action" 
+                Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+                HorizontalAlignment="Stretch" 
+                HorizontalContentAlignment="Center" 
+                MinHeight="40" 
+                Width="250" 
+                VerticalContentAlignment="Center" 
+                FontSize="16" 
+                Command="{ReflectionBinding StartProxyButton_Click}" 
+                CommandParameter="False"></Button>
       </StackPanel>
     </Grid>
   </Panel>

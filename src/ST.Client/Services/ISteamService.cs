@@ -1,5 +1,6 @@
 using System.Application.Models;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Application.Browser2;
 
@@ -119,6 +120,19 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        IEnumerable<string> ExtractKeysFromString(string source);
+        IEnumerable<string> ExtractKeysFromString(string source) 
+        {
+            MatchCollection m = Regex.Matches(source, "([0-9A-Z]{5})(?:\\-[0-9A-Z]{5}){2,4}",
+           RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            var keys = new List<string>();
+            if (m.Count > 0)
+            {
+                foreach (Match v in m)
+                {
+                    keys.Add(v.Value);
+                }
+            }
+            return keys;
+        }
     }
 }

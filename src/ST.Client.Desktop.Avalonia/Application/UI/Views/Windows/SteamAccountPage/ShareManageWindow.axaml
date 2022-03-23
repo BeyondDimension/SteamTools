@@ -48,6 +48,7 @@
                TextWrapping="WrapWithOverflow"
                VerticalAlignment="Center"
                HorizontalAlignment="Center"/>
+
     <ScrollViewer  HorizontalScrollBarVisibility="Disabled"
                    VerticalScrollBarVisibility="Auto"
                    Margin="{StaticResource TitleBarAfterMargin}"

@@ -51,7 +51,7 @@
         <Setter Property="Title" Value="{Binding Title, Mode=OneWay}" />
         <!--<Setter Property="FontSize" Value="14"></Setter>-->
         <Setter Property="FontFamily" Value="{Binding Source={x:Static ms:UISettings.FontName}, Path=Value, Mode=OneWay, Converter={StaticResource NameToFontFamilyConverter}}" />
-        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="WindowStartupLocation" Value="CenterScreen" />
         <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="{StaticResource TitleBarHeight}" />
         <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource BackgroundColorKey}" />

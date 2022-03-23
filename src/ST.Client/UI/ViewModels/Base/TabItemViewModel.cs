@@ -30,8 +30,9 @@ namespace System.Application.UI.ViewModels
         }
         #endregion
 
-        protected TabItemViewModelBase()
+        protected TabItemViewModelBase() : base()
         {
+            IconKey = this.GetType().Name;
         }
 
         public virtual void Initialize()

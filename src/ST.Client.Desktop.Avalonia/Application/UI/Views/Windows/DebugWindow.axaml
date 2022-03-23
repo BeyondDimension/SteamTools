@@ -7,5 +7,7 @@
         Background="{x:Null}"
         CanResize="False"
         Title="DebugWindow">
-  Welcome to Avalonia!
+  <Panel Background="Transparent" DragDrop.AllowDrop="True">
+    <TextBlock Text="Welcome to Avalonia!"/>
+  </Panel>
 </Window>

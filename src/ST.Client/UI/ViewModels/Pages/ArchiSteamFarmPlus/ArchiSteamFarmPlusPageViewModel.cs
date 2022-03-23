@@ -28,8 +28,6 @@ namespace System.Application.UI.ViewModels
 
         public ArchiSteamFarmPlusPageViewModel()
         {
-            IconKey = nameof(ArchiSteamFarmPlusPageViewModel);
-
             SelectBotFiles = ReactiveCommand.CreateFromTask(async () =>
             {
                 FilePickerFileType? fileTypes;

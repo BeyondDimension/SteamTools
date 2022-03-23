@@ -91,7 +91,7 @@ namespace System.Application.UI.ViewModels
             #region InitTabItems
 
 
-            //AddTabItem<StartPageViewModel>();
+            AddTabItem<StartPageViewModel>();
             AddTabItem<CommunityProxyPageViewModel>();
             if (IApplication.IsDesktopPlatform)
             {
@@ -109,18 +109,18 @@ namespace System.Application.UI.ViewModels
 #endif
             //AddTabItem<OtherPlatformPageViewModel>();
 
-#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
-            if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
-            {
-                AddTabItem<DebugPageViewModel>();
-                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
+//#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
+//            if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
+//            {
+//                AddTabItem<DebugPageViewModel>();
+//                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
 
-                //if (AppHelper.IsSystemWebViewAvailable)
-                //{
-                //    AddTabItem<DebugWebViewPageViewModel>();
-                //}
-            }
-#endif
+//                //if (AppHelper.IsSystemWebViewAvailable)
+//                //{
+//                //    AddTabItem<DebugWebViewPageViewModel>();
+//                //}
+//            }
+//#endif
 
             #endregion
 

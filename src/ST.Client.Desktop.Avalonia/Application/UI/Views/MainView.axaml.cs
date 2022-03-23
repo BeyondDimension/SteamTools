@@ -27,20 +27,20 @@ namespace System.Application.UI.Views
         {
             PageTypes = new Dictionary<Type, Type>
             {
-                { typeof(ProxyScriptManagePageViewModel), typeof(ProxyScriptManagePage) },
                 { typeof(StartPageViewModel), typeof(StartPage) },
+                { typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
+                { typeof(ProxyScriptManagePageViewModel), typeof(ProxyScriptManagePage) },
                 { typeof(SteamAccountPageViewModel), typeof(SteamAccountPage) },
                 { typeof(SettingsPageViewModel), typeof(SettingsPage) },
                 { typeof(AboutPageViewModel), typeof(AboutPage) },
-#if DEBUG
-                { typeof(DebugPageViewModel), typeof(DebugPage) },
-#endif
                 { typeof(GameListPageViewModel), typeof(GameListPage) },
-                { typeof(CommunityProxyPageViewModel), typeof(CommunityProxyPage) },
                 { typeof(LocalAuthPageViewModel), typeof(LocalAuthPage) },
                 { typeof(GameRelatedPageViewModel), typeof(GameRelatedPage) },
                 { typeof(ArchiSteamFarmPlusPageViewModel), typeof(ArchiSteamFarmPlusPage) },
                 //{ typeof(GameRelated_BorderlessPageViewModel), typeof(GameRelated_BorderlessPage) },
+#if DEBUG
+                { typeof(DebugPageViewModel), typeof(DebugPage) },
+#endif
             };
         }
 
@@ -58,22 +58,22 @@ namespace System.Application.UI.Views
             //    bg.Margin = new(0, 0, 0, 0);
             //}
 
-            if (back != null && nav != null)
-            {
-                nav.GetObservable(NavigationView.IsPaneOpenProperty)
-                    .Subscribe(x =>
-                    {
-                        if (nav.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
-                        {
-                            back.IsVisible = false;
-                            //back.Width = 0;
-                        }
-                        else
-                        {
-                            back.Width = x ? 240 : 48;
-                        }
-                    });
-            }
+            //if (back != null && nav != null)
+            //{
+            //    nav.GetObservable(NavigationView.IsPaneOpenProperty)
+            //        .Subscribe(x =>
+            //        {
+            //            if (nav.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
+            //            {
+            //                back.IsVisible = false;
+            //                //back.Width = 0;
+            //            }
+            //            else
+            //            {
+            //                back.Width = x ? 240 : 48;
+            //            }
+            //        });
+            //}
 
             if (avatar != null && nav != null)
             {
@@ -104,6 +104,20 @@ namespace System.Application.UI.Views
             var frame = this.FindControl<Frame>("frame");
             if (frame != null && nav != null)
             {
+                //frame.Navigating += (s, e) =>
+                //{
+                //    DebugPageViewModel.Instance.DebugString += $"Frame Navigating: {e?.SourcePageType?.Name} {Environment.NewLine}";
+                //};
+                //frame.Navigated += (s, e) =>
+                //{
+                //    DebugPageViewModel.Instance.DebugString += $"Frame Navigated: {e?.SourcePageType?.Name} {Environment.NewLine}";
+                //};
+                //frame.NavigationFailed += (s, e) =>
+                //{
+                //    DebugPageViewModel.Instance.DebugString += $"TabItem Change Error: {e.Exception} {e.SourcePageType} {Environment.NewLine}";
+                //    Log.Error("TabItem Changed", e.Exception, nameof(MainWindowViewModel));
+                //};
+
                 if (nav.IsBackButtonVisible)
                 {
                     nav.BackRequested += (sender, e) =>
@@ -121,6 +135,7 @@ namespace System.Application.UI.Views
                             //{
                             //    frame.Navigate(template.Build(null).GetType());
                             //}
+
                             frame.Navigate(PageTypes[x.GetType()]);
                         }
                     });

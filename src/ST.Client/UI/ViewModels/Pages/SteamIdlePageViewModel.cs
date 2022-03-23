@@ -9,7 +9,6 @@ namespace System.Application.UI.ViewModels
     {
         public SteamIdlePageViewModel()
         {
-            IconKey = nameof(SteamIdlePageViewModel);
         }
     }
 }

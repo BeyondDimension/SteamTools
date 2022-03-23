@@ -19,7 +19,18 @@ namespace System.Application.UI.ViewModels
                 return;
             }
             App = app;
-            Title = App.GetIdAndName();
+            Title = App.DisplayName;
+        }
+
+
+        public void SaveEditAppInfo() 
+        {
+
+        }
+
+        public void CancelEditAppInfo()
+        {
+            this.Close();
         }
     }
 }
