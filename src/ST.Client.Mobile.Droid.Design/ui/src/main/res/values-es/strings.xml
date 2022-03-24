@@ -8,7 +8,8 @@
   <string name="guide_export_ca_cert_desc1">Este certificado es necesario para que la Aceleración de Red funcione correctamente.</string>
   <string name="guide_export_ca_cert_desc2">El certificado es único, generado por su dispositivo y almacenado localmente en el mismo.</string>
   <string name="guide_export_ca_cert_desc3">Por favor, guarde el certificado. El siguiente paso describe cómo instalarlo manualmente.</string>
-  <string name="guide_export_ca_cert_btn">Guárdalo ahora</string>
+  <string name="guide_export_ca_cert_btn_save">Guárdalo ahora</string>
+  <string name="guide_export_ca_cert_btn_install">Instalación de certificados CA</string>
   <!-- Guide How Install CA Cert ↓ -->
   <string name="guide_how_install_ca_cert_title">¿Cómo se instala un certificado?</string>
   <string name="guide_how_install_ca_cert_desc1">1. Abrir la configuración de [Seguridad]</string>

@@ -33,8 +33,15 @@ namespace System.Application.Services.Native
                     {
                         void OnResult(Intent intent)
                             => activity.StartOrStopForegroundService<VpnService>(true);
-                        await IntermediateActivity.StartAsync(intent,
-                            requestCodeVpnService, onResult: OnResult);
+                        try
+                        {
+                            await IntermediateActivity.StartAsync(intent,
+                                requestCodeVpnService, onResult: OnResult);
+                        }
+                        catch (OperationCanceledException)
+                        {
+
+                        }
                         return;
                     }
                 }

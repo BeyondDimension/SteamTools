@@ -39,6 +39,7 @@ namespace AndroidX.Activity.Result
             const string actualIntentExtra = "actual_intent";
             const string guidExtra = "guid";
             const string requestCodeExtra = "request_code";
+            const string resultExtra = "droid_app_result";
 
             static readonly ConcurrentDictionary<string?, IntermediateTask> pendingTasks =
                 new();
@@ -173,17 +174,15 @@ namespace AndroidX.Activity.Result
                 public Action<Intent>? OnResult { get; }
             }
 
-            const string AndroidAppResult = "AndroidAppResult";
-
             public static Intent SetResult(Intent? data, AndroidAppResult resultCode)
             {
                 if (data == null) data = new();
-                data.PutExtra(AndroidAppResult, (int)resultCode);
+                data.PutExtra(resultExtra, (int)resultCode);
                 return data;
             }
 
             public static AndroidAppResult GetResult(Intent data, int defaultValue = int.MinValue)
-                => (AndroidAppResult)data.GetIntExtra(AndroidAppResult, defaultValue);
+                => (AndroidAppResult)data.GetIntExtra(resultExtra, defaultValue);
         }
     }
 }

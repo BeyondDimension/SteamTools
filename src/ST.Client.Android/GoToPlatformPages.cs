@@ -84,38 +84,38 @@ namespace System.Application
             return default;
         }
 
-//        [Obsolete]
-//        public static void StartActivity(Activity activity, Type activityType, object viewModel, Type? viewModelType = null)
-//        {
-//            viewModelType ??= viewModel.GetType();
-//            var viewModel_ = Serializable.SMP(viewModelType, viewModel);
-//#if DEBUG
-//            var t = Serializable.DMP(viewModelType, viewModel_);
-//#endif
-//            StartActivity(activity, activityType, viewModel_);
-//        }
+        //        [Obsolete]
+        //        public static void StartActivity(Activity activity, Type activityType, object viewModel, Type? viewModelType = null)
+        //        {
+        //            viewModelType ??= viewModel.GetType();
+        //            var viewModel_ = Serializable.SMP(viewModelType, viewModel);
+        //#if DEBUG
+        //            var t = Serializable.DMP(viewModelType, viewModel_);
+        //#endif
+        //            StartActivity(activity, activityType, viewModel_);
+        //        }
 
-//        [Obsolete]
-//        public static void StartActivity(Fragment fragment, Type activityType, object viewModel, Type? viewModelType = null)
-//        {
-//            var activity = fragment.Activity;
-//            if (activity == null) return;
-//            StartActivity(activity, activityType, viewModel, viewModelType);
-//        }
+        //        [Obsolete]
+        //        public static void StartActivity(Fragment fragment, Type activityType, object viewModel, Type? viewModelType = null)
+        //        {
+        //            var activity = fragment.Activity;
+        //            if (activity == null) return;
+        //            StartActivity(activity, activityType, viewModel, viewModelType);
+        //        }
 
-//        [Obsolete]
-//        public static void StartActivity<TActivity>(Activity activity, object viewModel, Type? viewModelType = null)
-//        {
-//            StartActivity(activity, typeof(TActivity), viewModel, viewModelType);
-//        }
+        //        [Obsolete]
+        //        public static void StartActivity<TActivity>(Activity activity, object viewModel, Type? viewModelType = null)
+        //        {
+        //            StartActivity(activity, typeof(TActivity), viewModel, viewModelType);
+        //        }
 
-//        [Obsolete]
-//        public static void StartActivity<TActivity>(Fragment fragment, object viewModel, Type? viewModelType = null)
-//        {
-//            var activity = fragment.Activity;
-//            if (activity == null) return;
-//            StartActivity<TActivity>(activity, viewModel, viewModelType);
-//        }
+        //        [Obsolete]
+        //        public static void StartActivity<TActivity>(Fragment fragment, object viewModel, Type? viewModelType = null)
+        //        {
+        //            var activity = fragment.Activity;
+        //            if (activity == null) return;
+        //            StartActivity<TActivity>(activity, viewModel, viewModelType);
+        //        }
 
         public static void StartActivity<TViewModel>(Activity activity, Type activityType, TViewModel viewModel)
         {
@@ -184,7 +184,7 @@ namespace System.Application
             return InstallApk(context, apkFile);
         }
 
-        public static bool InstallCertificate(Context context, string filePath, string name)
+        public static Intent? GetInstallCertificateIntent(string filePath, string name)
         {
             try
             {
@@ -193,6 +193,20 @@ namespace System.Application
                 intent.PutExtra("name", name);
                 intent.PutExtra("CERT", File.ReadAllBytes(filePath));
                 intent.AddFlags(ActivityFlags.NewTask);
+                return intent;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static bool InstallCertificate(Context context, string filePath, string name)
+        {
+            try
+            {
+                var intent = GetInstallCertificateIntent(filePath, name);
+                if (intent == null) return false;
                 context.StartActivity(intent);
                 return true;
             }
@@ -202,10 +216,16 @@ namespace System.Application
             }
         }
 
-        static void StartNewTaskActivity(Context context, string action)
+        public static Intent GetNewTaskIntent(string action)
         {
             var intent = new Intent(action);
             intent.AddFlags(ActivityFlags.NewTask);
+            return intent;
+        }
+
+        static void StartNewTaskActivity(Context context, string action)
+        {
+            var intent = GetNewTaskIntent(action);
             context.StartActivity(intent);
         }
 

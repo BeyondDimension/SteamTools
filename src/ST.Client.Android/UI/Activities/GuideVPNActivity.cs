@@ -26,7 +26,7 @@ namespace System.Application.UI.Activities
     [Register(JavaPackageConstants.Activities + nameof(GuideVPNActivity))]
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
       LaunchMode = LaunchMode.SingleTask,
-      ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+      ConfigurationChanges = ManifestConstants.ConfigurationChangesWithOutOrientationLocale)]
     internal sealed class GuideVPNActivity : BaseActivity<activity_guide_vpn>
     {
         protected override int? LayoutResource => Resource.Layout.activity_guide_vpn;
@@ -36,6 +36,8 @@ namespace System.Application.UI.Activities
             base.OnCreate2(savedInstanceState);
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
+
+            Title = string.Empty;
 
             SetOnClickListener(binding.btnDone);
         }
@@ -51,8 +53,15 @@ namespace System.Application.UI.Activities
                     SetResult(Result.Ok, intent);
                     Finish();
                 }
-                await IntermediateActivity.StartAsync(intent,
-                    NextRequestCode(), onResult: OnResult);
+                try
+                {
+                    await IntermediateActivity.StartAsync(intent,
+                        NextRequestCode(), onResult: OnResult);
+                }
+                catch (OperationCanceledException)
+                {
+
+                }
             }
             else
             {

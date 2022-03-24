@@ -807,24 +807,36 @@ namespace System.Application.Services.Implementation
             {
                 if (proxyServer.CertificateManager.RootCertificate == null)
                     if (GetCerFilePathGeneratedWhenNoFileExists() == null) return false;
-                return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
+                return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate, usePlatformCheck: true);
             }
         }
 
-        public bool IsCertificateInstalled(X509Certificate2? certificate2)
+        public bool IsCertificateInstalled(X509Certificate2? certificate2) => IsCertificateInstalled(certificate2, false);
+
+        public bool IsCertificateInstalled(X509Certificate2? certificate2, bool usePlatformCheck)
         {
             if (certificate2 == null)
                 return false;
             if (certificate2.NotAfter <= DateTime.Now)
                 return false;
 
-            if (OperatingSystem2.IsLinux)
+            if (!OperatingSystem2.IsAndroid && OperatingSystem2.IsLinux)
             {
                 return true;
             }
-            using var store = new X509Store(OperatingSystem2.IsMacOS ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.ReadOnly);
-            return store.Certificates.Contains(certificate2);
+
+            bool result;
+            if (usePlatformCheck && OperatingSystem2.IsAndroid)
+            {
+                result = platformService.IsCertificateInstalled(certificate2);
+            }
+            else
+            {
+                using var store = new X509Store(OperatingSystem2.IsMacOS ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
+                store.Open(OpenFlags.ReadOnly);
+                result = store.Certificates.Contains(certificate2);
+            }
+            return result;
         }
 
         void Dispose(bool disposing)

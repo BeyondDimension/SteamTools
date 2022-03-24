@@ -8,7 +8,8 @@
   <string name="guide_export_ca_cert_desc1">Questo certificato è necessario per far funzionare correttamente Network Acceleration.</string>
   <string name="guide_export_ca_cert_desc2">Il certificato è unico, generato dal tuo dispositivo e memorizzato localmente sul dispositivo.</string>
   <string name="guide_export_ca_cert_desc3">Si prega di salvare il certificato. Il prossimo passo descrive come installarlo manualmente.</string>
-  <string name="guide_export_ca_cert_btn">Salvare ora</string>
+  <string name="guide_export_ca_cert_btn_save">Salvare ora</string>
+  <string name="guide_export_ca_cert_btn_install">Installazione di certificati CA</string>
   <!-- Guide How Install CA Cert ↓ -->
   <string name="guide_how_install_ca_cert_title">Come si installa un certificato?</string>
   <string name="guide_how_install_ca_cert_desc1">1. Aprire le impostazioni [Sicurezza].</string>

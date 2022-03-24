@@ -163,7 +163,14 @@ namespace System.Application.UI.Fragments
                     {
                         // 需要授予 VPN 权限
                         intent = new Intent(a, typeof(GuideVPNActivity));
-                        intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
+                        try
+                        {
+                            intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            return;
+                        }
                     }
                 }
 
@@ -171,7 +178,14 @@ namespace System.Application.UI.Fragments
                 {
                     // 当未安装证书时
                     intent = new Intent(a, typeof(GuideCACertActivity));
-                    intent = await IntermediateActivity.StartAsync(intent, NextRequestCode(), onResult: OnResult);
+                    try
+                    {
+                        intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        return;
+                    }
                 }
 
                 if (intent != null)

@@ -17,7 +17,8 @@
   <string name="guide_export_ca_cert_desc1">为了使 网络加速 正常工作，需要安装此证书。</string>
   <string name="guide_export_ca_cert_desc2">该证书是唯一的，由您的设备生成，并存储在本地设备上。</string>
   <string name="guide_export_ca_cert_desc3">请保存证书。下一步介绍如何手动安装它。</string>
-  <string name="guide_export_ca_cert_btn">现在保存它</string>
+  <string name="guide_export_ca_cert_btn_save">现在保存它</string>
+  <string name="guide_export_ca_cert_btn_install">安装 CA 证书</string>
   <!-- Guide How Install CA Cert ↓ -->
   <string name="guide_how_install_ca_cert_title">如何安装证书？</string>
   <string name="guide_how_install_ca_cert_desc1">1. 打开【安全】设置</string>

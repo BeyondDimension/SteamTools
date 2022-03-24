@@ -8,7 +8,8 @@
   <string name="guide_export_ca_cert_desc1">Этот сертификат необходим для правильной работы Network Acceleration.</string>
   <string name="guide_export_ca_cert_desc2">Сертификат является уникальным, генерируется вашим устройством и хранится локально на устройстве.</string>
   <string name="guide_export_ca_cert_desc3">Пожалуйста, сохраните сертификат. Следующий шаг описывает, как установить его вручную.</string>
-  <string name="guide_export_ca_cert_btn">Сохранить сейчас</string>
+  <string name="guide_export_ca_cert_btn_save">Сохранить сейчас</string>
+  <string name="guide_export_ca_cert_btn_install">Установка сертификатов ЦС</string>
   <!-- Guide How Install CA Cert ↓ -->
   <string name="guide_how_install_ca_cert_title">Как установить сертификат?</string>
   <string name="guide_how_install_ca_cert_desc1">1. Откройте настройки [Безопасность]</string>

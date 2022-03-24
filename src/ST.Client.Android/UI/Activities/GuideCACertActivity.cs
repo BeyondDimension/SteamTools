@@ -18,6 +18,8 @@ using Android.Views;
 using System.Application.Services;
 using ASettings = Android.Provider.Settings;
 using static AndroidX.Activity.Result.ActivityResultTask;
+using System.Threading.Tasks;
+using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.UI.Activities
 {
@@ -27,7 +29,7 @@ namespace System.Application.UI.Activities
     [Register(JavaPackageConstants.Activities + nameof(GuideCACertActivity))]
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
       LaunchMode = LaunchMode.SingleTask,
-      ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+      ConfigurationChanges = ManifestConstants.ConfigurationChangesWithOutOrientationLocale)]
     internal sealed class GuideCACertActivity : BaseActivity<activity_guide_ca_cert>
     {
         protected override int? LayoutResource => Resource.Layout.activity_guide_ca_cert;
@@ -38,9 +40,13 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
+            Title = string.Empty;
+
             var appBarConfiguration = new AppBarConfiguration.Builder(Resource.Id.navigation_guide_export_ca_cert).Build();
             navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
+
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
         }
 
         [Register(JavaPackageConstants.Fragments + nameof(GuideExportCACertFragment))]
@@ -53,9 +59,23 @@ namespace System.Application.UI.Activities
                 return IViewModelManager.Instance.GetMainPageViewModel<CommunityProxyPageViewModel>();
             }
 
+            bool canInstalledCACert;
             public override void OnCreateView(View view)
             {
                 base.OnCreateView(view);
+
+                var sdkInt = (int)Build.VERSION.SdkInt;
+                canInstalledCACert = !(sdkInt > 29 || (sdkInt == 29 && Build.VERSION.PreviewSdkInt > 0));
+                // com.adguard.kit.compatibility.h()
+                // com.adguard.android.ui.fragments.https_ca_installation.b()
+                // return com.adguard.kit.compatibility.a.h() ? super.b() : R.l.https_ca_installation_guide_install_ca;
+                // Android 10+ 只能通过系统设置从存储区导入 CA 证书
+
+                if (canInstalledCACert)
+                {
+                    binding!.tvDesc3.Visibility = ViewStates.Gone;
+                    binding!.btnDone.Text = GetString(Resource.String.guide_export_ca_cert_btn_install);
+                }
 
                 SetOnClickListener(binding!.btnDone);
             }
@@ -64,7 +84,14 @@ namespace System.Application.UI.Activities
             {
                 if (view.Id == Resource.Id.btnDone)
                 {
-                    ExportCertificateFile();
+                    if (canInstalledCACert)
+                    {
+                        InstallCertificate();
+                    }
+                    else
+                    {
+                        ExportCertificateFile();
+                    }
                     return true;
                 }
                 return base.OnClick(view);
@@ -75,14 +102,47 @@ namespace System.Application.UI.Activities
                 var isOK = await ViewModel!.ExportCertificateFileAsync();
                 if (isOK)
                 {
-                    GoToGuideHowInstallCACertPage();
+                    await GoToGuideHowInstallCACertPageAsync();
                 }
             }
 
-            void GoToGuideHowInstallCACertPage()
+            async Task GoToGuideHowInstallCACertPageAsync()
             {
+                int count = 0;
+                while (XEPlatform.CurrentActivity != RequireActivity() && count < 10)
+                {
+                    await Task.Delay(200);
+                    count++;
+                }
                 var navController = this.GetNavController();
                 navController?.Navigate(Resource.Id.action_navigation_guide_export_ca_cert_to_navigation_guide_how_install_ca_cert);
+            }
+
+            async void InstallCertificate()
+            {
+                var isOK = await ViewModel!.ExportCertificateFileAsync(InstallCertificateAsync);
+                if (isOK)
+                {
+                    var a = RequireActivity();
+                    var intent = IntermediateActivity.SetResult(new(), Result.Ok);
+                    a.SetResult(Result.Ok, intent);
+                    a.Finish();
+                }
+            }
+
+            async Task<bool> InstallCertificateAsync(string cefFilePath)
+            {
+                var intent = GoToPlatformPages.GetInstallCertificateIntent(cefFilePath, IHttpProxyService.RootCertificateName);
+                if (intent == null) return false;
+                try
+                {
+                    await IntermediateActivity.StartAsync(intent, NextRequestCode());
+                }
+                catch (OperationCanceledException)
+                {
+
+                }
+                return IHttpProxyService.Instance.IsCurrentCertificateInstalled;
             }
         }
 
@@ -98,28 +158,27 @@ namespace System.Application.UI.Activities
                 SetOnClickListener(binding!.btnDone);
             }
 
+            public override void OnResume()
+            {
+                base.OnResume();
+
+                if (IHttpProxyService.Instance.IsCurrentCertificateInstalled)
+                {
+                    var intent = IntermediateActivity.SetResult(new(), Result.Ok);
+                    var a = RequireActivity();
+                    a.SetResult(Result.Ok, intent);
+                    a.Finish();
+                }
+            }
+
             protected override bool OnClick(View view)
             {
                 if (view.Id == Resource.Id.btnDone)
                 {
-                    GoToSystemSettingsSecurity();
+                    GoToPlatformPages.SystemSettingsSecurity(RequireActivity());
                     return true;
                 }
                 return base.OnClick(view);
-            }
-
-            async void GoToSystemSettingsSecurity()
-            {
-                var intent = new Intent(ASettings.ActionSecuritySettings);
-                intent.AddFlags(ActivityFlags.NewTask);
-                intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
-                var a = RequireActivity();
-                if (IHttpProxyService.Instance.IsCurrentCertificateInstalled)
-                {
-                    intent = IntermediateActivity.SetResult(intent, Result.Ok);
-                    a.SetResult(Result.Ok, intent);
-                }
-                a.Finish();
             }
         }
     }

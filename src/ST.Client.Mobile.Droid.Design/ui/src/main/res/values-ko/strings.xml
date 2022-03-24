@@ -8,7 +8,8 @@
   <string name="guide_export_ca_cert_desc1">네트워크가 정상적으로 작동하도록 하기 위해서 이 인증서를 설치해야 합니다.</string>
   <string name="guide_export_ca_cert_desc2">인증서는 고유하며 디바이스에서 생성되어 로컬 디바이스에 저장됩니다.</string>
   <string name="guide_export_ca_cert_desc3">인증서를 저장하십시오.다음 단계에서는 수동으로 설치하는 방법을 소개합니다.</string>
-  <string name="guide_export_ca_cert_btn">지금 저장</string>
+  <string name="guide_export_ca_cert_btn_save">지금 저장</string>
+  <string name="guide_export_ca_cert_btn_install">CA 인증서 설치</string>
   <!-- Guide How Install CA Cert ↓ -->
   <string name="guide_how_install_ca_cert_title">인증서는 어떻게 설치합니까?</string>
   <string name="guide_how_install_ca_cert_desc1">1. [안전] 설정 열기</string>
