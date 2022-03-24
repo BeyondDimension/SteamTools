@@ -36,6 +36,7 @@
     <StyleInclude Source="/Application/UI/Styles/Controls/ToggleSwitch.xaml" />
 
     <StyleInclude Source="/Application/UI/Views/Controls/Badge.xaml" />
+    <StyleInclude Source="/Application/UI/Views/Controls/OptionsDisplayItem.xaml" />
     <StyleInclude Source="/Application/UI/Views/Controls/CustomFilePicker.xaml" />
 
     <StyleInclude Source="/Application/UI/Styles/Window.xaml" />

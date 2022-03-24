@@ -35,10 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AvaloniaXaml Remove="Application\UI\Views\Controls\WebView3.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_ChangeLog.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml" />
@@ -63,6 +59,7 @@
   <ItemGroup>
     <None Remove="Application\UI\Assets\afdian.png" />
     <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
+    <None Remove="Application\UI\Assets\AppResources\Xbox.png" />
     <None Remove="Application\UI\Assets\avalonia-logo.ico" />
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
     <None Remove="Application\UI\Assets\ko-fi.png" />
@@ -71,13 +68,8 @@
     <None Remove="Application\UI\Styles\Controls\NavigationView.xaml" />
     <None Remove="Application\UI\Styles\Controls\ProgressBar.xaml" />
     <None Remove="Application\UI\Views\Controls\CustomFilePicker.xaml" />
+    <None Remove="Application\UI\Views\Controls\OptionsDisplayItem.xaml" />
     <None Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaXaml Include="Application\UI\Views\Controls\Badge.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaXaml>
   </ItemGroup>
 
   <ItemGroup>
@@ -122,33 +114,6 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\NavigationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\ProgressBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Views\Controls\CustomFilePicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Application\UI\Views\Controls\Badge - 复制.xaml.cs">
-      <DependentUpon>Badge.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Controls\Badge.xaml.cs">
-      <DependentUpon>Badge.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Controls\CustomFilePicker.xaml.cs">
-      <DependentUpon>CustomFilePicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\CommunityProxyPage\NetworkFixWindow.axaml.cs">
-      <DependentUpon>NetworkFixWindow.axaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>
