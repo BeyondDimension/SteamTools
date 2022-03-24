@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <!-- Guide VPN ↓ -->
+  <string name="guide_vpn_title">L\'accelerazione di rete richiede una VPN locale</string>
+  <string name="guide_vpn_desc">Dovrai autorizzare la nostra app a creare una connessione VPN. Steam++ non instrada il tuo traffico attraverso un server remoto, quindi l\'accelerazione avviene sul tuo dispositivo. Se si tocca OK, si vedrà una finestra di dialogo di sistema che chiede l\'approvazione.</string>
+  <string name="guide_vpn_btn">Creare una VPN locale</string>
+  <!-- Guide Export CA Cert ↓ -->
+  <string name="guide_export_ca_cert_title">Steam++ CA Certificati</string>
+  <string name="guide_export_ca_cert_desc1">Questo certificato è necessario per far funzionare correttamente Network Acceleration.</string>
+  <string name="guide_export_ca_cert_desc2">Il certificato è unico, generato dal tuo dispositivo e memorizzato localmente sul dispositivo.</string>
+  <string name="guide_export_ca_cert_desc3">Si prega di salvare il certificato. Il prossimo passo descrive come installarlo manualmente.</string>
+  <string name="guide_export_ca_cert_btn">Salvare ora</string>
+  <!-- Guide How Install CA Cert ↓ -->
+  <string name="guide_how_install_ca_cert_title">Come si installa un certificato?</string>
+  <string name="guide_how_install_ca_cert_desc1">1. Aprire le impostazioni [Sicurezza].</string>
+  <string name="guide_how_install_ca_cert_desc2">2. Scorri fino a [Crittografia e credenziali].</string>
+  <string name="guide_how_install_ca_cert_desc3">3. Clicca su [Install Certificate] - [CA Certificate].</string>
+  <string name="guide_how_install_ca_cert_desc4">4. Selezionate il [Certificato CA] salvato in precedenza.</string>
+  <string name="guide_how_install_ca_cert_desc5">5. Ignora il messaggio di avvertimento e clicca su [Install].</string>
+  <string name="guide_how_install_ca_cert_btn">Aprire le impostazioni di sicurezza</string>
+</resources>

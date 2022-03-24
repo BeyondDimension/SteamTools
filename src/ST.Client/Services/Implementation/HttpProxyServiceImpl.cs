@@ -801,6 +801,16 @@ namespace System.Application.Services.Implementation
             return false;
         }
 
+        public bool IsCurrentCertificateInstalled
+        {
+            get
+            {
+                if (proxyServer.CertificateManager.RootCertificate == null)
+                    if (GetCerFilePathGeneratedWhenNoFileExists() == null) return false;
+                return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
+            }
+        }
+
         public bool IsCertificateInstalled(X509Certificate2? certificate2)
         {
             if (certificate2 == null)

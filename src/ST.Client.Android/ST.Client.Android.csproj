@@ -323,6 +323,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\bg_textbox.xml">
       <Link>Resources\drawable\bg_textbox.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\bg_vpn_shape_gradient.xml">
+      <Link>Resources\drawable\bg_vpn_shape_gradient.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\icon_apple_24.xml">
       <Link>Resources\drawable\icon_apple_24.xml</Link>
     </AndroidResource>
@@ -376,6 +379,12 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_stop_24.xml">
       <Link>Resources\drawable\ic_baseline_stop_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_vpn_key_24.xml">
+      <Link>Resources\drawable\ic_baseline_vpn_key_24.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_fluent_certificate_24_regular.xml">
+      <Link>Resources\drawable\ic_fluent_certificate_24_regular.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\mdi_rocket_black_24.xml">
       <Link>Resources\drawable\mdi_rocket_black_24.xml</Link>
@@ -485,6 +494,15 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_export_auth.xml">
       <Link>Resources\layout\activity_export_auth.xml</Link>
     </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_ca_cert.xml">
+      <Link>Resources\layout\activity_guide_ca_cert.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn.xml">
+      <Link>Resources\layout\activity_guide_vpn.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn_content.xml">
+      <Link>Resources\layout\activity_guide_vpn_content.xml</Link>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
       <Link>Resources\layout\activity_login_or_register.xml</Link>
     </AndroidBoundLayout>
@@ -559,6 +577,18 @@
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_game_list.xml">
       <Link>Resources\layout\fragment_game_list.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_export_ca_cert.xml">
+      <Link>Resources\layout\fragment_guide_export_ca_cert.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_export_ca_cert_content.xml">
+      <Link>Resources\layout\fragment_guide_export_ca_cert_content.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_how_install_ca_cert.xml">
+      <Link>Resources\layout\fragment_guide_how_install_ca_cert.xml</Link>
+    </AndroidBoundLayout>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_guide_how_install_ca_cert_content.xml">
+      <Link>Resources\layout\fragment_guide_how_install_ca_cert_content.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\fragment_local_auth.xml">
       <Link>Resources\layout\fragment_local_auth.xml</Link>
@@ -722,6 +752,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\mobile_navigation.xml">
       <Link>Resources\navigation\mobile_navigation.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\nav_graph_guide_ca_cert.xml">
+      <Link>Resources\navigation\nav_graph_guide_ca_cert.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\nav_graph_login_or_register.xml">
       <Link>Resources\navigation\nav_graph_login_or_register.xml</Link>
     </AndroidResource>
@@ -746,6 +779,21 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values\themes.xml">
       <Link>Resources\values\themes.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-en\strings.xml">
+      <Link>Resources\values-en\strings.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-es\strings.xml">
+      <Link>Resources\values-es\strings.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-it\strings.xml">
+      <Link>Resources\values-it\strings.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-ja\strings.xml">
+      <Link>Resources\values-ja\strings.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-ko\strings.xml">
+      <Link>Resources\values-ko\strings.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-land\dimens_fixed_width.xml">
       <Link>Resources\values-land\dimens_fixed_width.xml</Link>
     </AndroidResource>
@@ -755,11 +803,17 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-night\themes.xml">
       <Link>Resources\values-night\themes.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-ru\strings.xml">
+      <Link>Resources\values-ru\strings.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-v23\themes.xml">
       <Link>Resources\values-v23\themes.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-v28\themes.xml">
       <Link>Resources\values-v28\themes.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\values-zh-rHK\strings.xml">
+      <Link>Resources\values-zh-rHK\strings.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\xml\local_auth_appwidget_info.xml">
       <Link>Resources\xml\local_auth_appwidget_info.xml</Link>

@@ -172,6 +172,18 @@ namespace AndroidX.Activity.Result
 
                 public Action<Intent>? OnResult { get; }
             }
+
+            const string AndroidAppResult = "AndroidAppResult";
+
+            public static Intent SetResult(Intent? data, AndroidAppResult resultCode)
+            {
+                if (data == null) data = new();
+                data.PutExtra(AndroidAppResult, (int)resultCode);
+                return data;
+            }
+
+            public static AndroidAppResult GetResult(Intent data, int defaultValue = int.MinValue)
+                => (AndroidAppResult)data.GetIntExtra(AndroidAppResult, defaultValue);
         }
     }
 }

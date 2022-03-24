@@ -9,6 +9,5 @@
   android:fillViewport="true"
   android:overScrollMode="never">
 
-  <include layout="@layout/fragment_account_binding_content" />
-
+  <include layout="@layout/fragment_guide_how_install_ca_cert_content" />
 </ScrollView>

@@ -19,6 +19,11 @@ using System.Net.Http;
 using System.Text;
 using static System.Application.UI.ViewModels.CommunityProxyPageViewModel;
 using System.Application.Services.Implementation;
+using Android.Net;
+using static AndroidX.Activity.Result.ActivityResultTask;
+using Android.Content;
+using System.Application.UI.Activities;
+using Android.App;
 
 namespace System.Application.UI.Fragments
 {
@@ -145,9 +150,48 @@ namespace System.Application.UI.Fragments
             }
         }
 
-        void StartProxyButton_Click(bool start)
-            => AndroidPlatformServiceImpl.StartOrStopForegroundService(
-                RequireActivity(), nameof(ProxyService), start);
+        async void StartProxyButton_Click(bool start/*, bool ignoreVPNCheck = false*/)
+        {
+            var a = RequireActivity();
+            if (start)
+            {
+                Intent? intent = null;
+                if (/*!ignoreVPNCheck &&*/ ProxySettings.IsVpnMode.Value) // 当启用 VPN 模式时
+                {
+                    intent = VpnService.Prepare(a);
+                    if (intent != null)
+                    {
+                        // 需要授予 VPN 权限
+                        intent = new Intent(a, typeof(GuideVPNActivity));
+                        intent = await IntermediateActivity.StartAsync(intent, requestCodeVpnService);
+                    }
+                }
+
+                if (!IHttpProxyService.Instance.IsCurrentCertificateInstalled) // 检查 CA 证书是否已安装
+                {
+                    // 当未安装证书时
+                    intent = new Intent(a, typeof(GuideCACertActivity));
+                    intent = await IntermediateActivity.StartAsync(intent, requestCodeVpnService, onResult: OnResult);
+                }
+
+                if (intent != null)
+                {
+                    var result = IntermediateActivity.GetResult(intent);
+                    if (result != Result.Ok)
+                    {
+                        // 从引导页面返回结果不为 Ok 时则不启动加速
+                        return;
+                    }
+                }
+            }
+            AndroidPlatformServiceImpl.StartOrStopForegroundService(a, nameof(ProxyService), start);
+        }
+
+        void OnResult(Intent _)
+        {
+            // 已授予权限，重新执行启动
+            StartProxyButton_Click(true, ignoreVPNCheck: true);
+        }
 
         protected override bool OnClick(View view)
         {
