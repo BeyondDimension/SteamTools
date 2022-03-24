@@ -112,7 +112,7 @@ namespace System.Application.UI.Activities
             {
                 var intent = new Intent(ASettings.ActionSecuritySettings);
                 intent.AddFlags(ActivityFlags.NewTask);
-                intent = await IntermediateActivity.StartAsync(intent, requestCodeVpnService);
+                intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
                 var a = RequireActivity();
                 if (IHttpProxyService.Instance.IsCurrentCertificateInstalled)
                 {

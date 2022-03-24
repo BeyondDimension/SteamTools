@@ -52,7 +52,7 @@ namespace System.Application.UI.Activities
                     Finish();
                 }
                 await IntermediateActivity.StartAsync(intent,
-                    requestCodeVpnService, onResult: OnResult);
+                    NextRequestCode(), onResult: OnResult);
             }
             else
             {

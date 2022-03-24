@@ -163,7 +163,7 @@ namespace System.Application.UI.Fragments
                     {
                         // 需要授予 VPN 权限
                         intent = new Intent(a, typeof(GuideVPNActivity));
-                        intent = await IntermediateActivity.StartAsync(intent, requestCodeVpnService);
+                        intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
                     }
                 }
 
@@ -171,7 +171,7 @@ namespace System.Application.UI.Fragments
                 {
                     // 当未安装证书时
                     intent = new Intent(a, typeof(GuideCACertActivity));
-                    intent = await IntermediateActivity.StartAsync(intent, requestCodeVpnService, onResult: OnResult);
+                    intent = await IntermediateActivity.StartAsync(intent, NextRequestCode(), onResult: OnResult);
                 }
 
                 if (intent != null)
@@ -185,12 +185,6 @@ namespace System.Application.UI.Fragments
                 }
             }
             AndroidPlatformServiceImpl.StartOrStopForegroundService(a, nameof(ProxyService), start);
-        }
-
-        void OnResult(Intent _)
-        {
-            // 已授予权限，重新执行启动
-            StartProxyButton_Click(true, ignoreVPNCheck: true);
         }
 
         protected override bool OnClick(View view)
