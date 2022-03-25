@@ -444,7 +444,7 @@ namespace System.Application.Services.Implementation
         {
             var filePath = GetCerFilePathGeneratedWhenNoFileExists();
             if (filePath != null)
-                IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain \"{filePath}\"", true);
+                IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /User/{Environment.UserName}/Library/Keychains/System.keychain-db \"{filePath}\"", true);
         }
 
         public bool SetupCertificate()
@@ -494,7 +494,20 @@ namespace System.Application.Services.Implementation
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
+        public void DeleteCer()
+        {
+            using (var store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            {
+                store.Open(OpenFlags.ReadOnly);
+                X509Certificate2Collection collection = store.Certificates.Find(X509FindType.FindByIssuerName, RootCertificateName, false); 
+                foreach (var item in collection)
+                {
+                    if (item != null) 
+                        IPlatformService.Instance.RunShell($"security delete-certificate -Z {item.GetCertHashString()}", true);
+                }
+            }
 
+        }
         public bool DeleteCertificate()
         {
             if (ProxyRunning)
@@ -513,6 +526,11 @@ namespace System.Application.Services.Implementation
                 //    }
                 //}
                 //proxyServer.CertificateManager.ClearRootCertificate();
+
+                if (OperatingSystem2.IsMacOS)
+                {
+                    DeleteCer();
+                }
                 proxyServer.CertificateManager.RemoveTrustedRootCertificate();
                 if (IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate) == false)
                 {
