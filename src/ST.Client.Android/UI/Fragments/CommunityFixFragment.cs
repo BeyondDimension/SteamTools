@@ -145,7 +145,7 @@ namespace System.Application.UI.Fragments
                 ProxyService.IsChangeSupportProxyServicesStatus = false;
                 SettingsHost.Save();
 #if DEBUG
-                Toast.Show("已保存勾选状态");
+                Toast.Show("[DEBUG] 已保存勾选状态");
 #endif
             }
         }
@@ -293,10 +293,12 @@ namespace System.Application.UI.Fragments
             return default;
         }
 
-        void InstallCertificate() => ViewModel!.ExportCertificateFile(cefFilePath =>
+        internal static void InstallCertificate(Context context, CommunityProxyPageViewModel vm) => vm.ExportCertificateFile(cefFilePath =>
         {
-            GoToPlatformPages.InstallCertificate(RequireContext(), cefFilePath, IHttpProxyService.RootCertificateName);
+            GoToPlatformPages.InstallCertificate(context, cefFilePath, IHttpProxyService.RootCertificateName);
         });
+
+        void InstallCertificate() => InstallCertificate(RequireContext(), ViewModel!);
 
 #if DEBUG
         async void Test()

@@ -18,9 +18,23 @@ namespace System.Application.Services.Implementation
                 if (instance2 == null) return null;
                 instance2.Init(instance);
                 var trustManager = instance2.GetTrustManagers()?
-                       .Select(x => x is IX509TrustManager x509TrustManager ? x509TrustManager : null)
+                       .Select(Convert)
                        .FirstOrDefault(x => x != null);
                 return trustManager;
+            }
+        }
+
+        static IX509TrustManager? Convert(ITrustManager? trustManager)
+        {
+            if (trustManager == null) return null;
+            if (trustManager is IX509TrustManager x509TrustManager) return x509TrustManager;
+            try
+            {
+                return Android.Runtime.Extensions.JavaCast<IX509TrustManager>(trustManager);
+            }
+            catch
+            {
+                return null;
             }
         }
 
@@ -35,8 +49,15 @@ namespace System.Application.Services.Implementation
                 x509TrustManager.CheckServerTrusted(new[] { certificate }, authType);
                 return true;
             }
+#if DEBUG
             catch (Exception e)
+#else
+            catch
+#endif
             {
+#if DEBUG
+                //Toast.Show($"[DEBUG] {e}");
+#endif
                 return false;
             }
         }

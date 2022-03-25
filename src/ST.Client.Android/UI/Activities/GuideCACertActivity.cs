@@ -80,13 +80,26 @@ namespace System.Application.UI.Activities
                 SetOnClickListener(binding!.btnDone);
             }
 
+            public override void OnResume()
+            {
+                base.OnResume();
+
+                if (IHttpProxyService.Instance.IsCurrentCertificateInstalled)
+                {
+                    var intent = IntermediateActivity.SetResult(new(), Result.Ok);
+                    var a = RequireActivity();
+                    a.SetResult(Result.Ok, intent);
+                    a.Finish();
+                }
+            }
+
             protected override bool OnClick(View view)
             {
                 if (view.Id == Resource.Id.btnDone)
                 {
                     if (canInstalledCACert)
                     {
-                        InstallCertificate();
+                        CommunityFixFragment.InstallCertificate(RequireContext(), ViewModel!);
                     }
                     else
                     {
@@ -116,33 +129,6 @@ namespace System.Application.UI.Activities
                 }
                 var navController = this.GetNavController();
                 navController?.Navigate(Resource.Id.action_navigation_guide_export_ca_cert_to_navigation_guide_how_install_ca_cert);
-            }
-
-            async void InstallCertificate()
-            {
-                var isOK = await ViewModel!.ExportCertificateFileAsync(InstallCertificateAsync);
-                if (isOK)
-                {
-                    var a = RequireActivity();
-                    var intent = IntermediateActivity.SetResult(new(), Result.Ok);
-                    a.SetResult(Result.Ok, intent);
-                    a.Finish();
-                }
-            }
-
-            async Task<bool> InstallCertificateAsync(string cefFilePath)
-            {
-                var intent = GoToPlatformPages.GetInstallCertificateIntent(cefFilePath, IHttpProxyService.RootCertificateName);
-                if (intent == null) return false;
-                try
-                {
-                    await IntermediateActivity.StartAsync(intent, NextRequestCode());
-                }
-                catch (OperationCanceledException)
-                {
-
-                }
-                return IHttpProxyService.Instance.IsCurrentCertificateInstalled;
             }
         }
 

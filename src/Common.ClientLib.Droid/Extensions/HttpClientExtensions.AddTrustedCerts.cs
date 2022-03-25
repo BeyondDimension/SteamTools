@@ -30,7 +30,7 @@ namespace System
         }
 
         /// <summary>
-        /// 添加可信任证书，可用于调试时HTTPS抓包
+        /// 添加可信任证书，可用于调试时 HTTPS 抓包
         /// </summary>
         /// <param name="handler"></param>
         /// <param name="certificateFileData">证书文件数据(文件流，内嵌资源流)</param>
@@ -46,6 +46,14 @@ namespace System
             handler.TrustedCerts.Add(certificate);
         }
 
+        /// <summary>
+        /// 将 .NET 中的 X509 证书对象 转换为 JVM 中的 X509 证书对象
+        /// <para>Java.Security.Cert.X509Certificate</para>
+        /// <para>=></para>
+        /// <para>System.Security.Cryptography.X509Certificates.X509Certificate2</para>
+        /// </summary>
+        /// <param name="certificate2"></param>
+        /// <returns></returns>
         public static X509Certificate Convert(this X509Certificate2 certificate2)
         {
             using var stream = new MemoryStream(certificate2.RawData);
