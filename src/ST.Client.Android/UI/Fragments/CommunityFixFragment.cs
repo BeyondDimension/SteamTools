@@ -156,7 +156,7 @@ namespace System.Application.UI.Fragments
             if (start)
             {
                 Intent? intent = null;
-                if (/*!ignoreVPNCheck &&*/ ProxySettings.IsVpnMode.Value) // 当启用 VPN 模式时
+                if (/*!ignoreVPNCheck &&*/ ProxySettings.ProxyModeValue == ProxyMode.VPN) // 当启用 VPN 模式时
                 {
                     intent = VpnService.Prepare(a);
                     if (intent != null)

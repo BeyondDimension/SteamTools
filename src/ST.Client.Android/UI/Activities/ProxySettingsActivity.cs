@@ -176,7 +176,7 @@ namespace System.Application.UI.Activities
             }
             else if (view.Id == Resource.Id.layoutRootIsVpnMode)
             {
-                IsVpnMode.Value = !IsVpnMode.Value;
+                ProxyModeValue = ProxyModeValue == ProxyMode.VPN ? ProxyMode.ProxyOnly : ProxyMode.VPN;
                 SetIsVpnMode();
                 return;
             }
@@ -188,6 +188,6 @@ namespace System.Application.UI.Activities
         void SetOnlyEnableProxyScript() => binding!.swOnlyEnableProxyScript.Checked = OnlyEnableProxyScript.Value;
         void SetProxySettingsSocks5() => binding!.swProxySettingsSocks5.Checked = Socks5ProxyEnable.Value;
         void SetProxySettingsTwoLevelAgent() => binding!.swProxySettingsTwoLevelAgent.Checked = TwoLevelAgentEnable.Value;
-        void SetIsVpnMode() => binding!.swIsVpnMode.Checked = IsVpnMode.Value;
+        void SetIsVpnMode() => binding!.swIsVpnMode.Checked = ProxyModeValue == ProxyMode.VPN;
     }
 }

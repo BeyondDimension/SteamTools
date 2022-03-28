@@ -133,35 +133,37 @@ namespace System.Application.Settings
 
         static EProxyMode DefaultProxyMode => ProxyModes.FirstOrDefault();
 
-        public static IEnumerable<EProxyMode> ProxyModes
+        static IEnumerable<EProxyMode> GetProxyModes()
         {
-            get
+            if (OperatingSystem2.IsWindows)
             {
-                if (OperatingSystem2.IsWindows)
-                {
-                    yield return EProxyMode.DNSIntercept;
-                    yield return EProxyMode.Hosts;
-                    yield return EProxyMode.System;
-                }
-                else if (OperatingSystem2.IsAndroid)
-                {
-                    yield return EProxyMode.VPN;
-                    yield return EProxyMode.ProxyOnly;
-                }
-                else if (OperatingSystem2.IsLinux || OperatingSystem2.IsMacOS)
-                {
-                    yield return EProxyMode.Hosts;
-                    yield return EProxyMode.System;
-                }
+                yield return EProxyMode.DNSIntercept;
+                yield return EProxyMode.Hosts;
+                yield return EProxyMode.System;
+            }
+            else if (OperatingSystem2.IsAndroid)
+            {
+                yield return EProxyMode.VPN;
+                yield return EProxyMode.ProxyOnly;
+            }
+            else if (OperatingSystem2.IsLinux || OperatingSystem2.IsMacOS)
+            {
+                yield return EProxyMode.Hosts;
+                yield return EProxyMode.System;
             }
         }
+
+        public static IReadOnlyList<EProxyMode> ProxyModes => mProxyModes.Value;
+
+        static readonly Lazy<IReadOnlyList<EProxyMode>> mProxyModes = new(() => GetProxyModes().ToArray());
 
         /// <summary>
         /// 当前代理模式
         /// </summary>
         public static SerializableProperty<EProxyMode> ProxyMode { get; }
-            = GetProperty(defaultValue: DefaultProxyMode, autoSave: true);
+           = GetProperty(defaultValue: DefaultProxyMode, autoSave: true);
 
+        /// <inheritdoc cref="ProxyMode"/>
         public static EProxyMode ProxyModeValue
         {
             get
@@ -169,6 +171,10 @@ namespace System.Application.Settings
                 var value = ProxyMode.Value;
                 if (ProxyModes.Contains(value)) return value;
                 return DefaultProxyMode;
+            }
+            set
+            {
+                ProxyMode.Value = value;
             }
         }
 
