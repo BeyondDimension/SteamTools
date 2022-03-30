@@ -27,7 +27,7 @@ namespace System.Application.Services.CloudService.Clients
         /// <returns></returns>
         public Task<IApiResponse<ClockInResponse>> ClockIn(ClockInRequest request)
             => conn.SendAsync<ClockInRequest, ClockInResponse>(
-                isAnonymous: true,
+                isAnonymous: false,
                 isSecurity: true,
                 method: HttpMethod.Post,
                 requestUri: "api/Manage/ClockIn",

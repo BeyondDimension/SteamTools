@@ -122,6 +122,11 @@ namespace System.Application.Services.CloudService
             //return connection.SendAsync(request, completionOption, cancellationToken);
         }
 
+        Task<IApiResponse<ClockInResponse>> ICloudServiceClient.AccountClockIn()
+        {
+         return  Account.ClockIn(new ClockInRequest { CreationTime=DateTimeOffset.Now});
+        }
+
         async Task<string> ICloudServiceClient.Info()
         {
             var api = await connection.GetHtml(default, "/info");

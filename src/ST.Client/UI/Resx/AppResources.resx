@@ -2103,4 +2103,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="User_Sponsor" xml:space="preserve">
     <value>捐助用户</value>
   </data>
+  <data name="Account_SignIn_Ok" xml:space="preserve">
+    <value>签到成功</value>
+  </data>
 </root>

@@ -5,6 +5,9 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         Width="800" Height="600"
         x:Name="u"
+        xmlns:gif="using:AvaloniaGif"
+        xmlns:i="using:Avalonia.Xaml.Interactivity"
+        xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         x:Class="System.Application.UI.Views.Windows.NoticeWindow"
         xmlns:service="using:System.Application.Services"
         xmlns:resx="using:System.Application.UI.Resx"
@@ -61,21 +64,27 @@
                    x:Name="item"
                    Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
                     <ItemsControl.ItemTemplate>
-                      <DataTemplate  x:DataType="models:NoticeDTO">
+                      <DataTemplate x:DataType="models:NoticeDTO">
                         <Border Classes="paper"
                     Margin="0 10"
                     Background="{DynamicResource ThemeBrushKey}"
                     Padding="20 10">
                           <DockPanel>
                             <StackPanel Spacing="8" DockPanel.Dock="Right">
-                              <DockPanel>
+                              <DockPanel >
+                                <i:Interaction.Behaviors>
+                                  <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #title}">
+                                    <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.OpenNoticeWeb}"  CommandParameter="{Binding}"/>
+                                  </ia:EventTriggerBehavior>
+                                </i:Interaction.Behaviors>
                                 <controls:ScrollingTextBlock
+                                   x:Name="title"
                                     Width="{Binding $parent.Width}"
                                     Text="{Binding Title,Mode=OneWay}"
                                     FontSize="16"
                                     VerticalAlignment="Center"
-                                    Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-
+                                    Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                                    />
                                 <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                                   <TextBlock
                                       Text="{Binding Author}"
@@ -91,16 +100,30 @@
                                       Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
                                 </WrapPanel>
                               </DockPanel>
-
                               <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
-
-                              <TextBlock
-                              Width="{Binding $parent.Width}"
-                              TextWrapping="WrapWithOverflow"
-                              Text="{Binding Introduction}"
-                              FontSize="12"
-                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/> 
-                              
+                              <Grid ColumnDefinitions="Auto,*">
+                                <Border ClipToBounds="True">
+                                  <Panel
+                                      x:Name="avatar"
+                                      Cursor="Hand" >
+                                    <gif:Image2
+                                        Width="150"
+                                        DecodeWidth="150"
+                                        AutoStart="true"
+                                        Source="{Binding PictureStream^}"
+                                        FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
+                                        Stretch="Uniform" /> 
+                                  </Panel>
+                                </Border>
+                                <Panel Grid.Column="1" Margin="10,0,0,0">
+                                  <TextBlock
+                                  Width="{Binding $parent.Width}"
+                                  TextWrapping="WrapWithOverflow"
+                                  Text="{Binding Introduction}"
+                                  FontSize="12"
+                                  Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                                </Panel>
+                              </Grid>
                             </StackPanel>
                           </DockPanel>  
                         </Border>

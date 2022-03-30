@@ -281,6 +281,11 @@ namespace System.Application.Services.CloudService
             await Task.Delay(1500);
             return ApiResponse.Ok(new List<DateTimeOffset> { });
         }
+
+        public Task<IApiResponse<ClockInResponse>> AccountClockIn()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 #endif

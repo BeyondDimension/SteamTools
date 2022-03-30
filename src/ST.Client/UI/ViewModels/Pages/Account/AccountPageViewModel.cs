@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reactive;
+using System.Application.Models;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -15,6 +16,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit>? OpenUserProfile { get; }
         public ReactiveCommand<Unit, Unit>? OpenEngineOilLogs { get; }
         public ReactiveCommand<Unit, Unit>? OpenBalanceLogs { get; }
+        public ReactiveCommand<Unit, Unit>? SignIn { get; }
         public AccountPageViewModel()
         {
             OpenUserProfile = ReactiveCommand.Create(() =>
@@ -22,10 +24,23 @@ namespace System.Application.UI.ViewModels
                 UserService.Current.ShowWindow(CustomWindow.UserProfile);
             });
             OpenEngineOilLogs = ReactiveCommand.Create(() =>
-            { 
+            {
             });
             OpenBalanceLogs = ReactiveCommand.Create(() =>
-            { 
+            {
+            });
+            SignIn = ReactiveCommand.CreateFromTask(async () =>
+            {
+                var state = await UserService.Current.SignIn();
+                if (state.IsSuccess)
+                {
+                    UserService.Current.User!.Experience = state.Content!.Experience;
+                    Toast.Show(AppResources.Account_SignIn_Ok);
+                }
+                else
+                {
+                    Toast.Show(state.Message);
+                }
             });
         }
         public override async void Activation()

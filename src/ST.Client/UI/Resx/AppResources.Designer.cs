@@ -226,6 +226,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 签到成功 的本地化字符串。
+        /// </summary>
+        public static string Account_SignIn_Ok {
+            get {
+                return ResourceManager.GetString("Account_SignIn_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 修改的数据生效需要重启 Steam 是否需要重启 Steam。 的本地化字符串。
         /// </summary>
         public static string AccountChange_RestartSteam {

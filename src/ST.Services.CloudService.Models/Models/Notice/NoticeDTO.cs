@@ -10,11 +10,15 @@ using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
+using System.Threading.Tasks;
 
 namespace System.Application.Models
 {
     [MPObj]
     public class NoticeDTO
+#if MVVM_VM
+        :ReactiveObject
+#endif
     {
         [MPKey(0)]
         [N_JsonProperty("0")]
@@ -33,6 +37,14 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public string Picture { get; set; } = string.Empty;
+#if MVVM_VM
+        Task<string?>? _PictureStream;
+        public Task<string?>? PictureStream
+        {
+            get => _PictureStream;
+            set => this.RaiseAndSetIfChanged(ref _PictureStream, value);
+        }
+#endif
         /// <summary>
         /// 标题
         /// </summary>

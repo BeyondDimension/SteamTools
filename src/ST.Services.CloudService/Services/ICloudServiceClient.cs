@@ -22,7 +22,11 @@ namespace System.Application.Services
 
         /// <inheritdoc cref="IApiConnection.DownloadAsync(bool, CancellationToken, string, string, IProgress{float})"/>
         Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float>? progress, CancellationToken cancellationToken = default);
-
+        /// <summary>
+        /// 签到
+        /// </summary>
+        /// <returns></returns>
+        Task<IApiResponse<ClockInResponse>> AccountClockIn();
         /// <summary>
         /// 请求代理
         /// </summary>

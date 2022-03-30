@@ -106,7 +106,7 @@
                 <WrapPanel HorizontalAlignment="Right">
                   <Button Background="Transparent" Cursor="Hand"
                           Margin="10 0 10 0"
-                          Command="{ReflectionBinding RefreshScriptButton}"
+                          Command="{ReflectionBinding SignIn}"
                           ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
                     <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
                   </Button>

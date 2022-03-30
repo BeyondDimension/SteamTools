@@ -26,6 +26,8 @@ namespace System.Application.Services
     {
         static NotificationService? mCurrent;
         public static NotificationService Current => mCurrent ?? new();
+
+        readonly IHttpService httpService = DI.Get<IHttpService>();
         public SourceList<NoticeTypeDTO> NoticeTypes { get; }
 
         private ReadOnlyObservableCollection<NoticeTypeDTO>? _ObservableItems;
@@ -60,10 +62,9 @@ namespace System.Application.Services
             if (result.IsSuccess)
             {
                 NoticeTypes.Clear();
-                NoticeTypes.AddRange(result.Content!.OrderBy(x=>x.Index));
+                NoticeTypes.AddRange(result.Content!.OrderBy(x => x.Index));
             }
-        }
-
+        } 
         public async Task GetTable(NoticeTypeDTO selectGroup)
         {
             if (selectGroup != null)
@@ -72,6 +73,11 @@ namespace System.Application.Services
                 var result = await client.Table(selectGroup.Id, selectGroup.Index);
                 if (result.IsSuccess)
                 {
+                    foreach (var item in result.Content!.DataSource)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item.Picture))
+                            item.PictureStream = httpService.GetImageAsync(item.Picture, ImageChannelType.NoticePicture);
+                    }
                     SelectGroup!.Items = result.Content!;
                 }
                 IsEmpty = SelectGroup!.Items == null || SelectGroup.Items?.DataSource.Count == 0;
@@ -86,10 +92,11 @@ namespace System.Application.Services
             this.WhenAnyValue(x => x.SelectGroup)
                .Subscribe(async x =>
                {
-                   if (x != null) { 
-                   IsLoading = true;
-                   await GetTable(x);
-                   IsLoading = false;
+                   if (x != null)
+                   {
+                       IsLoading = true;
+                       await GetTable(x);
+                       IsLoading = false;
                    }
                });
             NoticeTypes
@@ -97,12 +104,12 @@ namespace System.Application.Services
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<NoticeTypeDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
                 .Bind(out _ObservableItems)
-                .Subscribe( _ =>
-                {
-                    SelectGroup = NoticeTypes.Items.FirstOrDefault();
+                .Subscribe(_ =>
+               {
+                   SelectGroup = NoticeTypes.Items.FirstOrDefault();
 
-                });
-           
+               });
+
         }
     }
 }
