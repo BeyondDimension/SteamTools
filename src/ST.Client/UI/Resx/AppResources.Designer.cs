@@ -1203,6 +1203,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启用Http协议转发到Https(需监听80端口) 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_EnableHttpProxyToHttps {
+            get {
+                return ResourceManager.GetString("CommunityFix_EnableHttpProxyToHttps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 启用脚本 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EnableScriptService {

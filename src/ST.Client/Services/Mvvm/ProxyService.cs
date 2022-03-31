@@ -100,6 +100,7 @@ namespace System.Application.Services
                         httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 
                         httpProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
+                        httpProxyService.EnableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
 
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));

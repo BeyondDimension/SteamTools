@@ -1804,6 +1804,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
     <value>代理仅启用脚本功能</value>
   </data>
+  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+    <value>启用Http协议转发到Https(需监听80端口)</value>
+  </data>
   <data name="About_AppReview" xml:space="preserve">
     <value>打分&amp;评价</value>
   </data>

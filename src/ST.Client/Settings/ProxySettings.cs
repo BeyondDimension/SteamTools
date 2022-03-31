@@ -65,6 +65,12 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<string?> ProxyMasterDns { get; }
             = GetProperty<string?>(defaultValue: "223.5.5.5", autoSave: false);
+
+        /// <summary>
+        /// 启用Http链接转发到Https
+        /// </summary>
+        public static SerializableProperty<bool> EnableHttpProxyToHttps { get; }
+            = GetProperty(defaultValue: true, autoSave: true);
         #endregion
 
         #region 本地代理设置
