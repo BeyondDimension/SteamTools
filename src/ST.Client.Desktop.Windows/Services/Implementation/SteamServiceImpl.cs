@@ -140,7 +140,9 @@ namespace System.Application.Services.Implementation
             {
                 if (OperatingSystem2.IsWindows)
                 {
+#pragma warning disable CA1416 // 验证平台兼容性
                     platformService.StartAsInvoker(SteamProgramPath, arguments);
+#pragma warning restore CA1416 // 验证平台兼容性
                 }
                 else
                 {
@@ -505,6 +507,32 @@ namespace System.Application.Services.Implementation
                     return apps;
                 }
             }
+        }
+
+        /// <summary>
+        /// 保存修改后的游戏数据到steam本地客户端缓存文件
+        /// </summary>
+        public bool SaveAppInfosToSteam()
+        {
+            if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
+                return false;
+
+            using (BinaryWriter binaryWriter = new (new MemoryStream()))
+            {
+                binaryWriter.Write(MagicNumber);
+                binaryWriter.Write(univeseNumber);
+                foreach (SteamApp app in SteamConnectService.Current.SteamApps.Items)
+                {
+                    app.Write(binaryWriter);
+                }
+                binaryWriter.Write(0);
+                using (FileStream fileStream = File.Open(AppInfoPath, FileMode.Create, FileAccess.Write))
+                {
+                    binaryWriter.BaseStream.Position = 0L;
+                    binaryWriter.BaseStream.CopyTo(fileStream);
+                }
+            }
+            return false;
         }
 
         public uint[] GetInstalledAppIds()

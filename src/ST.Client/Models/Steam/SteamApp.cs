@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using static System.Application.SteamApiUrls;
 
@@ -541,6 +543,64 @@ namespace System.Application.Models
                 Log.Error(nameof(SteamApp), ex, string.Format("Failed to load entry with appId {0}", app.AppId));
             }
             return app;
+        }
+
+        public void Write(BinaryWriter writer)
+        {
+            this.ClearCachedProps();
+            SteamAppPropertyTable propertyTable = new SteamAppPropertyTable(this._properties);
+            SteamAppPropertyTable? propertyValue = propertyTable.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeCommon);
+            if (propertyValue != null)
+            {
+                string? text = Name;
+                if (text != null)
+                {
+                    SteamAppPropertyTable? propertyValue2 = propertyValue.GetPropertyValue<SteamAppPropertyTable>(null, "name_localized");
+                    if (propertyValue2 != null)
+                    {
+                        propertyTable.SetPropertyValue(SteamAppPropertyType.Table, propertyValue2, NodeAppInfo, "steam_edit", "base_name_localized");
+                        propertyValue.RemoveProperty("name_localized");
+                    }
+                    propertyTable.SetPropertyValue(SteamAppPropertyType.String, text, NodeAppInfo, "steam_edit", "base_name");
+                    //if (SteamData.UseCompleted && this.IsCompleted)
+                    //{
+                    //    text += SteamData.CompletedSuffix;
+                    //}
+                    propertyValue.SetPropertyValue("name", SteamAppPropertyType.String, text);
+                }
+                else
+                {
+                    Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null name!");
+                }
+                string? text2 = propertyValue.GetPropertyValue<string>("type", "game");
+                if (text2 != null)
+                {
+                    propertyTable.SetPropertyValue(SteamAppPropertyType.String, text2, NodeAppInfo, "steam_edit", "base_type");
+                    //if (SteamData.UseHidden && this.IsHidden)
+                    //{
+                    //    text2 = "hidden_" + text2;
+                    //}
+                    propertyValue.SetPropertyValue("type", SteamAppPropertyType.String, text2);
+                }
+                else
+                {
+                    Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null type!");
+                }
+            }
+            string s = propertyTable.ToString();
+            byte[] bytes = Encoding.UTF8.GetBytes(s);
+            byte[] buffer = SHA1.Create().ComputeHash(bytes);
+            writer.Write(this.AppId);
+            using (BinaryWriter binaryWriter = new BinaryWriter(new MemoryStream()))
+            {
+                binaryWriter.Write(this._stuffBeforeHash);
+                binaryWriter.Write(buffer);
+                binaryWriter.Write(this._changeNumber);
+                SteamAppPropertyHelper.Write(binaryWriter, propertyTable);
+                MemoryStream memoryStream = (MemoryStream)binaryWriter.BaseStream;
+                writer.Write((int)memoryStream.Length);
+                writer.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+            }
         }
 
         private static bool IsBitSet(int b, int pos)
