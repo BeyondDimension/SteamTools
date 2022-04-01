@@ -10,7 +10,6 @@ namespace System.Application.UI.ViewModels
     {
         public GameRelatedPageViewModel()
         {
-            IconKey = nameof(GameRelatedPageViewModel);
             //SelectsOnInvoked = false;
             //Items = new ObservableCollection<ItemViewModel>()
             //{

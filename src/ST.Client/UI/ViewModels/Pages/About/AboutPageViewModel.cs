@@ -46,8 +46,6 @@ namespace System.Application.UI.ViewModels
 
         public AboutPageViewModel()
         {
-            IconKey = nameof(AboutPageViewModel);
-
             OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
 
             CheckUpdateCommand = ReactiveCommand.CreateFromTask(async () =>

@@ -4,7 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   xmlns:xamarin="http://schemas.xamarin.com/android/xamarin/tools"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
+  android:layout_height="match_parent"
+  android:background="@color/grey_window_background"
   xamarin:managedType="AndroidX.ConstraintLayout.Widget.ConstraintLayout">
 
   <androidx.constraintlayout.widget.Guideline

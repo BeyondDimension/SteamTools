@@ -36,7 +36,7 @@ namespace System.Application.UI.Fragments
                 switch (e.Current.Id)
                 {
                     case FastLoginChannelViewModel.PhoneNumber:
-                        GoToUsePhoneNumberPage(e.GetView());
+                        GoToUsePhoneNumberPage();
                         break;
                     default:
                         ViewModel!.ChooseChannel.Invoke(e.Current.Id);
@@ -53,9 +53,9 @@ namespace System.Application.UI.Fragments
             }
         }
 
-        void GoToUsePhoneNumberPage(View? view)
+        void GoToUsePhoneNumberPage()
         {
-            var navController = this.GetNavController(view);
+            var navController = this.GetNavController();
             navController?.Navigate(Resource.Id.action_navigation_login_or_register_fast_to_navigation_login_or_register_phone_number);
         }
     }

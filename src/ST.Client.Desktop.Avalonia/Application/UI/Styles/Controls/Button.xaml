@@ -3,9 +3,11 @@
         <Border Padding="20" Background="Black">
             <StackPanel Spacing="5">
                 <Button Classes="Hyperlink" Content="Code Font Family" />
+                <Button Classes="plain" Content="Code Font Family" />
                 <Button Classes="CodeButton" Content="Code Font Family" />
                 <Button Classes="flatbutton" Content="Code Font Family" />
                 <Button Classes="action" Content="Code Font Family" />
+                <Button Classes="DialogButton" Content="Code Font Family" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -16,12 +18,23 @@
         <Setter Property="BorderThickness" Value="0" />
     </Style>
 
+    <Style Selector="Button.DialogButton">
+        <Setter Property="IsDefault" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource ButtonBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{DynamicResource ButtonBorderThemeThickness}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="Padding" Value="{DynamicResource ButtonPadding}" />
+    </Style>
+
     <Style Selector="Button.CodeButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Cursor" Value="Hand" />
     </Style>
+
     <Style Selector="Button.CodeButton /template/ ContentPresenter">
         <!--<Setter Property="CornerRadius" Value="0" />-->
         <Setter Property="Padding" Value="8 10" />

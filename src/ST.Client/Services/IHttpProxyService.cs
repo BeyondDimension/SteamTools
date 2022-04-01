@@ -117,5 +117,7 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         string? GetCerFilePathGeneratedWhenNoFileExists();
+
+        bool IsCurrentCertificateInstalled { get; }
     }
 }

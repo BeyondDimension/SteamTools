@@ -35,10 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AvaloniaXaml Remove="Application\UI\Views\Controls\WebView3.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_ChangeLog.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml" />
@@ -63,6 +59,7 @@
   <ItemGroup>
     <None Remove="Application\UI\Assets\afdian.png" />
     <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
+    <None Remove="Application\UI\Assets\AppResources\Xbox.png" />
     <None Remove="Application\UI\Assets\avalonia-logo.ico" />
     <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
     <None Remove="Application\UI\Assets\ko-fi.png" />
@@ -70,13 +67,9 @@
     <None Remove="Application\UI\Assets\pateron.png" />
     <None Remove="Application\UI\Styles\Controls\NavigationView.xaml" />
     <None Remove="Application\UI\Styles\Controls\ProgressBar.xaml" />
+    <None Remove="Application\UI\Views\Controls\CustomFilePicker.xaml" />
+    <None Remove="Application\UI\Views\Controls\OptionsDisplayItem.xaml" />
     <None Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaXaml Include="Application\UI\Views\Controls\Badge.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaXaml>
   </ItemGroup>
 
   <ItemGroup>
@@ -121,40 +114,6 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="Avalonia.Diagnostics" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\NavigationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\ProgressBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Application\UI\Views\Controls\Badge.xaml.cs">
-      <DependentUpon>Badge.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Pages\Account\Account_EngineOilLogsPage.axaml.cs">
-      <DependentUpon>Account_EngineOilLogsPage.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Pages\Account\Account_BalanceLogsPage.axaml.cs">
-      <DependentUpon>Account_BalanceLogsPage.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Pages\Account\AccountPage.axaml.cs">
-      <DependentUpon>AccountPage.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\NoticePage\NoticeWindow.axaml.cs">
-      <DependentUpon>NoticeWindow.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\PlatformAccountPage\SignWindow.axaml.cs">
-      <DependentUpon>SignWindow.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\UI\Views\Windows\Account\" />
   </ItemGroup>
 
 </Project>

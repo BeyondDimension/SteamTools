@@ -54,8 +54,6 @@ namespace System.Application.UI.ViewModels
 
         public CommunityProxyPageViewModel()
         {
-            IconKey = nameof(CommunityProxyPageViewModel);
-
             if (IApplication.IsDesktopPlatform)
             {
                 hostsFileService = IHostsFileService.Instance;

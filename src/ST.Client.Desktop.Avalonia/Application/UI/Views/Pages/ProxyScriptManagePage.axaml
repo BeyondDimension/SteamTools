@@ -9,6 +9,7 @@
              xmlns:pages="clr-namespace:System.Application.UI.Views.Pages"
              xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:gif="using:AvaloniaGif"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
@@ -82,52 +83,6 @@
             </ui:CommandBarToggleButton>
           </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>
-        <!--<StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Left">
-          <ToggleSwitch Classes="onlyToggleSwitch"
-                        Margin="5 0 0 5"
-                        IsChecked="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_EnableScriptService,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        VerticalAlignment="Center"></ToggleSwitch>
-          <ProgressBar
-                        Width="30"
-                        Height="30"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}"
-                        Classes="Circle"
-                        IsIndeterminate="True"
-                        Orientation="Vertical" />
-          -->
-        <!--<controls:ProgressRing IsIndeterminate="True" ToolTip.Tip="{ReflectionBinding Path=Res.Script_ImportLoading,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" Height="30" Width="30" IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsLoading,Mode=OneWay}" />-->
-        <!--
-          <Button IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=!IsLoading,Mode=OneWay}"
-                  Background="Transparent"
-                  Cursor="Hand"
-                  Command="{Binding AddNewScriptButton_Click}"
-                   ToolTip.Tip="{ReflectionBinding Path=Res.Import,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Width="16"  Data="{StaticResource AddDrawing}" />
-          </Button>
-          <Button Background="Transparent"
-                  Cursor="Hand"
-                  Command="{ReflectionBinding RefreshScriptButton}"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
-          </Button>
-          <Button Background="Transparent"
-                  Cursor="Hand"
-                  Command="{Binding ScriptStoreCommand}"
-                  ToolTip.Tip="{ReflectionBinding Path=Res.ScriptStore,Mode=OneWay,Source={x:Static resx:R.Current}}">
-            <PathIcon Width="16"  Data="{StaticResource JavaScriptDrawing}" />
-          </Button>
-          <Menu Classes="BindMenu">
-            <MenuItem Items="{Binding MenuItems}"
-                      Classes="BindItem"
-                      IsVisible="{Binding !MenuItems,Converter={StaticResource IsNullConverter}}">
-              <MenuItem.Header>
-                <PathIcon Data="{StaticResource MoreDrawing}" Width="14"></PathIcon>
-              </MenuItem.Header>
-            </MenuItem>
-          </Menu>
-        </StackPanel>-->
 
         <StackPanel Orientation="Horizontal"
                     Spacing="15"
@@ -174,7 +129,8 @@
                       Background="{DynamicResource ThemeBrushKey}"
                       Padding="20 10">
                 <DockPanel>
-                  <Image Source="{Binding Icon}" DockPanel.Dock="Left"></Image>
+                  <!--<gif:Image2 Source="{Binding Icon}"
+                              DockPanel.Dock="Left"/>-->
                   <StackPanel Spacing="8" DockPanel.Dock="Right">
                     <DockPanel>
                       <controls:ScrollingTextBlock

@@ -16,13 +16,20 @@ namespace System.Application.UI.ViewModels
             {
                 if (_FooterTabItems == null)
                 {
-                    var settingsPageVM = SettingsPageViewModel.Instance;
-                    var aboutPageVM = AboutPageViewModel.Instance;
-                    _FooterTabItems = new List<TabItemViewModel>
+                    var items = new List<TabItemViewModel>
                     {
-                        settingsPageVM,
-                        aboutPageVM,
+                        SettingsPageViewModel.Instance,
+                        AboutPageViewModel.Instance,
                     };
+
+#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
+                    if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
+                    {
+                        items.Insert(0, DebugPageViewModel.Instance);
+                    }
+#endif
+
+                    _FooterTabItems = items;
                 }
                 return _FooterTabItems;
             }

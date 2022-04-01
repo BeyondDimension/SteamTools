@@ -234,7 +234,7 @@
                 <ui:PathIcon Data="{StaticResource GridDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            
+
             <ui:CommandBarSeparator/>
 
             <ui:CommandBarButton
@@ -245,7 +245,7 @@
                 <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            
+
             <ui:CommandBarButton
                        IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                        Command="{Binding IdleAppCommand}"
@@ -316,18 +316,18 @@
               Padding="10 0 10 10">
           <ItemsRepeater x:Name="Apps" Items="{Binding SteamApps}">
             <ItemsRepeater.Layout>
-              <UniformGridLayout ItemsJustification="SpaceBetween"
-                                 MinRowSpacing="20"
+              <UniformGridLayout ItemsJustification="SpaceAround"
+                                 MinRowSpacing="10"
                                  MinColumnSpacing="10"/>
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
               <DataTemplate>
-                <StackPanel Spacing="5">
+                <DockPanel Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}"
+                           ToolTip.Tip="{Binding DisplayName}">
                   <Border DockPanel.Dock="Top"
                           Cursor="Hand"
                           x:Name="AppAvatar"
-                          Classes="paper"
-                          Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
+                          Classes="paper">
                     <FlyoutBase.AttachedFlyout>
                       <MenuFlyout Placement="Auto">
                         <MenuItem
@@ -348,14 +348,14 @@
                             <PathIcon Data="{StaticResource DownloadDrawing}" Width="14"></PathIcon>
                           </MenuItem.Icon>
                         </MenuItem>
-                        <!--<MenuItem
+                        <MenuItem
                                Header="{ReflectionBinding Path=Res.GameList_EditAppInfo,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                Command="{ReflectionBinding #u.DataContext.EditAppInfoClick}"
                                CommandParameter="{Binding}">
                           <MenuItem.Icon>
-                            <PathIcon Data="{StaticResource EditDrawing}" Width="14"></PathIcon>
+                            <ui:SymbolIcon Symbol="EditFilled" Width="14"/>
                           </MenuItem.Icon>
-                        </MenuItem>-->
+                        </MenuItem>
                         <MenuItem
                                   IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                                   Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -433,8 +433,7 @@
                         </MenuItem>
                       </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
-                    <Panel x:Name="app"
-                          Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
+                    <Panel x:Name="app">
                       <!--<i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #app}">
                           <ia:InvokeCommandAction Command="{ReflectionBinding #u.DataContext.AppClick}" CommandParameter="{Binding}"/>
@@ -443,19 +442,15 @@
                       <Border CornerRadius="{DynamicResource ControlCornerRadius}"
                               Classes="paper"
                               ClipToBounds="True">
-                        <Panel
+                        <Viewbox
                           Width="{ReflectionBinding Value,Source={x:Static ms:UISettings.AppGridSize},Mode=OneWay}">
                           <gif:Image2 x:Name="library"
                                       Stretch="UniformToFill"
-                                      DecodeWidth="{ReflectionBinding $parent.Width}"
-                                      Source="{Binding LibraryLogoStream^}"
+                                      DecodeWidth="{ReflectionBinding $parent.Width,Mode=OneWay}"
+                                      Source="{Binding LibraryGridStream^}"
                                       FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
                           </gif:Image2>
-                          <!--<Image Source="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png"
-                                 Stretch="UniformToFill"
-                                 IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}">
-                          </Image>-->
-                        </Panel>
+                        </Viewbox>
                       </Border>
 
                       <TextBlock
@@ -463,12 +458,12 @@
                           Text="{Binding DisplayName}"
                           VerticalAlignment="Center"
                           HorizontalAlignment="Center"
-                          TextTrimming="CharacterEllipsis"
+                          TextWrapping="WrapWithOverflow"
                           TextAlignment="Center"
-                          FontSize="18"
+                          Classes="h6"
                           Foreground="#FFFFFFFF"
-                          IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>
-                      
+                          IsVisible="{Binding LibraryGridStream^,Converter={StaticResource IsNullConverter}}"/>
+
                       <Border IsVisible="{Binding IsInstalled}"
                               Margin="10 0 10 -3"
                               CornerRadius="3"
@@ -484,7 +479,7 @@
                                      VerticalAlignment="Center"
                                      Margin="0 0 5 0"
                                      FontSize="11"/>
-                          <controls:ScrollingTextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
+                          <TextBlock Text="{Binding SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"
                                      Foreground="#FFFFFFFF"
                                      TextWrapping="Wrap"
                                      VerticalAlignment="Center"
@@ -493,16 +488,20 @@
                       </Border>
                     </Panel>
                   </Border>
-                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
-                                               Text="{Binding DisplayName}"
-                                               FontSize="12"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <controls:ScrollingTextBlock Width="{ReflectionBinding #app.Width}"
-                                               Text="{Binding AppId}"
-                                               FontSize="10"
-                                               Foreground="{DynamicResource InactiveForegroundBrushKey}" />
-                </StackPanel>
+
+                  <TextBlock Width="{ReflectionBinding #app.Width}"
+                             Text="{Binding DisplayName}"
+                             FontSize="12"
+                             FontWeight="Bold"
+                             TextTrimming="CharacterEllipsis"
+                             DockPanel.Dock="Bottom"
+                             Margin="0 5 0 0"
+                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                  <!--<TextBlock Width="{ReflectionBinding #app.Width}"
+                             Text="{Binding AppId}"
+                             FontSize="10"
+                             Foreground="{DynamicResource InactiveForegroundBrushKey}" />-->
+                </DockPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>
           </ItemsRepeater>

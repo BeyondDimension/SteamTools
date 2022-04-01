@@ -78,15 +78,19 @@
           <DockPanel>
             <StackPanel Spacing="10" Orientation="Horizontal">
               <Button Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Classes="DialogButton"
                       Command="{ReflectionBinding ConfirmAllButton_Click,Mode=OneTime}"
                       IsEnabled="{Binding IsConfirmationsAny}"></Button>
               <Button Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Classes="DialogButton"
                       Command="{ReflectionBinding CancelAllButton_Click,Mode=OneTime}"
                       IsEnabled="{Binding IsConfirmationsAny}"></Button>
               <Button Content="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                      Command="{ReflectionBinding Refresh_Click,Mode=OneTime}"></Button>
+                      Command="{ReflectionBinding Refresh_Click,Mode=OneTime}"
+                      Classes="DialogButton"></Button>
               <Button Content="{ReflectionBinding Path=Res.Logout,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                      Command="{ReflectionBinding Logout_Click,Mode=OneTime}"></Button>
+                      Command="{ReflectionBinding Logout_Click,Mode=OneTime}"
+                      Classes="DialogButton"></Button>
             </StackPanel>
             <TextBlock Text="{Binding ConfirmationsConutMessage}" Grid.Column="1"
                        VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"></TextBlock>

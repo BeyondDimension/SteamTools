@@ -42,53 +42,7 @@ static partial class UnixHelper
         scriptContent.AppendLine(script);
         var msg = RunShell(scriptContent.ToString());
         if (!string.IsNullOrWhiteSpace(msg))
-            Toast.Show(msg);
-        //var file = new FileInfo(Path.Combine(IOPath.AppDataDirectory, $@"{(admin ? "sudo" : "")}shell.sh"));
-
-        //if (file.Exists)
-        //    file.Delete();
-        //var scriptContent = new StringBuilder();
-        //if (admin)
-        //{
-        //    TextBoxWindowViewModel vm = new()
-        //    {
-        //        Title = AppResources.MacSudoPasswordTips,
-        //        InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-        //        Description = $"sudo {script}",
-        //    };
-        //    await TextBoxWindowViewModel.ShowDialogAsync(vm);
-        //    if (string.IsNullOrWhiteSpace(vm.Value))
-        //        return;
-        //    scriptContent.AppendLine($"echo \"{vm.Value}\" | sudo -S {script}");
-        //}
-        //else
-        //{
-        //    scriptContent.AppendLine(script);
-        //}
-        //using (var stream = file.CreateText())
-        //{
-        //    stream.Write(scriptContent);
-        //    stream.Flush();
-        //}
-        //using var p = new Process();
-        //p.StartInfo.FileName = BinBash;
-        //p.StartInfo.Arguments = $"\"{file.FullName}\"";
-        //p.StartInfo.UseShellExecute = false;
-        //p.StartInfo.RedirectStandardOutput = true;
-        //p.Exited += async (_, _) =>
-        //{
-        //    if (file.Exists)
-        //        file.Delete();
-        //    if (p.ExitCode != 0)
-        //    {
-        //        await RunShellAsync(script, admin, --retry_count);
-        //    }
-        //};
-        //p.Start();
-        //var ret = p.StandardOutput.ReadToEnd();
-        //p.Kill();
-        //if (file.Exists)
-        //    file.Delete();
+            Toast.Show(msg); 
     }
     /// <summary>
     /// 执行脚本

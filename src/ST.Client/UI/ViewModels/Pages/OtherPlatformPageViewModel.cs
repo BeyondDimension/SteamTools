@@ -10,7 +10,6 @@ namespace System.Application.UI.ViewModels
     {
         public OtherPlatformPageViewModel()
         {
-            IconKey = nameof(OtherPlatformPageViewModel);
         }
     }
 }

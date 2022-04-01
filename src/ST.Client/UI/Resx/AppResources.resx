@@ -1412,6 +1412,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="UserChange_ShowHideUserName" xml:space="preserve">
     <value>显示/隐藏用户名</value>
   </data>
+  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
+    <value>打开 Userdata 文件夹</value>
+  </data>
   <data name="UserChange_LoginNewAccountTip" xml:space="preserve">
     <value>确定要登录 Steam 新账户吗？
 此操作会结束正在运行的 Steam 跳转到新账号登录窗口。</value>
@@ -2105,5 +2108,8 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Account_SignIn_Ok" xml:space="preserve">
     <value>签到成功</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
   </data>
 </root>

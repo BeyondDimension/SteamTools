@@ -65,10 +65,17 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        /// <summary>
-        /// 通过保存对话框导出证书公钥
-        /// </summary>
-        public void ExportCertificateFile() => ExportCertificateFile(async cefFilePath =>
+        public async Task<bool> ExportCertificateFileAsync(Func<string, Task<bool>> func)
+        {
+            var cefFilePath = CerFilePath;
+            if (cefFilePath != null)
+            {
+                return await func(cefFilePath);
+            }
+            return false;
+        }
+
+        async Task<bool> ExportCertificateFileAsync(string cefFilePath)
         {
             var fileName = IHttpProxyService.CerExportFileName;
             using var result = await FilePicker2.SaveAsync(new()
@@ -81,8 +88,20 @@ namespace System.Application.UI.ViewModels
                 using var source = new FileStream(cefFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 await source.CopyToAsync(dest);
                 Toast.Show(AppResources.ExportedToPath_.Format(result.ToString()));
+                return true;
             }
+            return false;
+        }
+
+        /// <summary>
+        /// 通过保存对话框导出证书公钥
+        /// </summary>
+        public void ExportCertificateFile() => ExportCertificateFile(async cefFilePath =>
+        {
+            await ExportCertificateFileAsync(cefFilePath);
         });
+
+        public Task<bool> ExportCertificateFileAsync() => ExportCertificateFileAsync(ExportCertificateFileAsync);
 
         /// <summary>
         /// 移除证书弹窗提示，在一些平台上不能自动操作，弹窗提示操作步骤文本

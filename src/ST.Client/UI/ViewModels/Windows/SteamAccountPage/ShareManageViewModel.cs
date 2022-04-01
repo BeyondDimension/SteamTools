@@ -65,7 +65,7 @@ namespace System.Application.UI.ViewModels
             int count = allList.Count - 1;
             foreach (var item in allList)
             {
-                var temp = userlist.FirstOrDefault(x => x.SteamId3_Int == item.SteamId3_Int);
+                var temp = userlist.FirstOrDefault(x => x.SteamId32 == item.SteamId3_Int);
                 item.SteamNickName = temp?.SteamNickName;
                 item.ShowName = item.SteamNickName + $"({item.SteamId64_Int})";
                 item.AccountName = temp?.AccountName;

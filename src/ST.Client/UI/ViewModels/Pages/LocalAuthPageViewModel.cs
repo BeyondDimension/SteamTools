@@ -44,8 +44,6 @@ namespace System.Application.UI.ViewModels
 
         public LocalAuthPageViewModel()
         {
-            IconKey = nameof(LocalAuthPageViewModel);
-
             OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.CreateFromTask(async () =>

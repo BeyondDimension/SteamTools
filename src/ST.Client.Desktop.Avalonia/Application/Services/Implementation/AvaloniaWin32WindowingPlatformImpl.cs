@@ -64,7 +64,7 @@ namespace System.Application.Services.Implementation
         [SupportedOSPlatform("Windows10.0.10240.0")]
         internal class Window10Impl : WindowImpl
         {
-            public Window10Impl()
+            public Window10Impl() : base()
             {
                 //Win32Interop.OSVERSIONINFOEX version = new Win32Interop.OSVERSIONINFOEX
                 //{

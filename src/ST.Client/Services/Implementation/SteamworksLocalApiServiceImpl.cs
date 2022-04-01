@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Collections.Generic;
 using static System.Application.Services.ISteamworksLocalApiService;
 
@@ -18,7 +18,7 @@ namespace System.Application.Services.Implementation
 
         public bool OwnsApps(uint appid) => default;
 
-        public IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps) => new List<SteamApp>();
+        public IEnumerable<SteamApp> OwnsApps(IEnumerable<SteamApp> apps) => apps;
 
         public string GetAppData(uint appid, string key) => string.Empty;
 

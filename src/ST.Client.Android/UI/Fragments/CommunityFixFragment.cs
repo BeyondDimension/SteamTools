@@ -19,6 +19,11 @@ using System.Net.Http;
 using System.Text;
 using static System.Application.UI.ViewModels.CommunityProxyPageViewModel;
 using System.Application.Services.Implementation;
+using Android.Net;
+using static AndroidX.Activity.Result.ActivityResultTask;
+using Android.Content;
+using System.Application.UI.Activities;
+using Android.App;
 
 namespace System.Application.UI.Fragments
 {
@@ -140,14 +145,61 @@ namespace System.Application.UI.Fragments
                 ProxyService.IsChangeSupportProxyServicesStatus = false;
                 SettingsHost.Save();
 #if DEBUG
-                Toast.Show("已保存勾选状态");
+                Toast.Show("[DEBUG] 已保存勾选状态");
 #endif
             }
         }
 
-        void StartProxyButton_Click(bool start)
-            => AndroidPlatformServiceImpl.StartOrStopForegroundService(
-                RequireActivity(), nameof(ProxyService), start);
+        async void StartProxyButton_Click(bool start/*, bool ignoreVPNCheck = false*/)
+        {
+            var a = RequireActivity();
+            if (start)
+            {
+                Intent? intent = null;
+                if (/*!ignoreVPNCheck &&*/ ProxySettings.IsVpnMode.Value) // 当启用 VPN 模式时
+                {
+                    intent = VpnService.Prepare(a);
+                    if (intent != null)
+                    {
+                        // 需要授予 VPN 权限
+                        intent = new Intent(a, typeof(GuideVPNActivity));
+                        try
+                        {
+                            intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                if (!IHttpProxyService.Instance.IsCurrentCertificateInstalled) // 检查 CA 证书是否已安装
+                {
+                    // 当未安装证书时
+                    intent = new Intent(a, typeof(GuideCACertActivity));
+                    try
+                    {
+                        intent = await IntermediateActivity.StartAsync(intent, NextRequestCode());
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        return;
+                    }
+                }
+
+                if (intent != null)
+                {
+                    var result = IntermediateActivity.GetResult(intent);
+                    if (result != Result.Ok)
+                    {
+                        // 从引导页面返回结果不为 Ok 时则不启动加速
+                        return;
+                    }
+                }
+            }
+            AndroidPlatformServiceImpl.StartOrStopForegroundService(a, nameof(ProxyService), start);
+        }
 
         protected override bool OnClick(View view)
         {
@@ -241,10 +293,12 @@ namespace System.Application.UI.Fragments
             return default;
         }
 
-        void InstallCertificate() => ViewModel!.ExportCertificateFile(cefFilePath =>
+        internal static void InstallCertificate(Context context, CommunityProxyPageViewModel vm) => vm.ExportCertificateFile(cefFilePath =>
         {
-            GoToPlatformPages.InstallCertificate(RequireContext(), cefFilePath, IHttpProxyService.RootCertificateName);
+            GoToPlatformPages.InstallCertificate(context, cefFilePath, IHttpProxyService.RootCertificateName);
         });
+
+        void InstallCertificate() => InstallCertificate(RequireContext(), ViewModel!);
 
 #if DEBUG
         async void Test()

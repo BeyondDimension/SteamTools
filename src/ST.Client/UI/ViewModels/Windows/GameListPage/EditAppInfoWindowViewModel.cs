@@ -1,7 +1,9 @@
 using Newtonsoft.Json.Linq;
 using System.Application.Models;
 using System.Application.UI.Resx;
+using System.Collections.Generic;
 using System.Properties;
+using ReactiveUI;
 
 namespace System.Application.UI.ViewModels
 {
@@ -9,7 +11,12 @@ namespace System.Application.UI.ViewModels
     {
         public static string DisplayName => AppResources.GameList_EditAppInfo;
 
-        SteamApp App { get; }
+        private SteamApp? _App;
+        public SteamApp? App
+        {
+            get => _App;
+            set => this.RaiseAndSetIfChanged(ref _App, value);
+        }
 
         public EditAppInfoWindowViewModel(SteamApp app)
         {
@@ -19,7 +26,41 @@ namespace System.Application.UI.ViewModels
                 return;
             }
             App = app;
-            Title = App.GetIdAndName();
+            Title = App.DisplayName;
+        }
+
+        public void AddLaunchItem()
+        {
+            if (App.LaunchItems == null)
+            {
+                App.LaunchItems = new List<SteamAppLaunchItem> { new() };
+            }
+            else
+            {
+                App.LaunchItems.Add(new());
+            }
+
+            App.RaisePropertyChanged(nameof(App.LaunchItems));
+        }
+
+        public void DeleteLaunchItem(SteamAppLaunchItem item)
+        {
+            if (App.LaunchItems != null)
+            {
+                App.LaunchItems.Remove(item);
+            }
+
+            App.RaisePropertyChanged(nameof(App.LaunchItems));
+        }
+
+        public void SaveEditAppInfo()
+        {
+
+        }
+
+        public void CancelEditAppInfo()
+        {
+            this.Close();
         }
     }
 }

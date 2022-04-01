@@ -16,16 +16,10 @@ namespace System.Application.Models
         }
 
         [XmlIgnore]
-        public string? SteamId3 { get; set; }
+        public string? SteamId3 => $"[U:1:{SteamId32}]";
 
         [XmlIgnore]
-        public long SteamId3_Int => (SteamId64 >> 0) & 0xFFFFFFFF;
-
-        [XmlIgnore]
-        public string? SteamId32 { get; set; }
-
-        [XmlIgnore]
-        public long SteamId32_Int => (SteamId64 >> 0) & 0xFFFFFFFF;
+        public int SteamId32 => Convert.ToInt32((SteamId64 >> 0) & 0xFFFFFFFF);
 
         [XmlElement("steamID64")]
         public long SteamId64 { get; set; }
@@ -35,6 +29,12 @@ namespace System.Application.Models
         /// </summary>
         [XmlIgnore]
         public string ProfileUrl => string.Format(STEAM_PROFILES_URL, SteamId64);
+
+        /// <summary>
+        /// Userdata文件夹相对路径
+        /// </summary>
+        [XmlIgnore]
+        public string UserdataPath => Path.Combine("userdata", SteamId32.ToString());
 
         private string? _OnlineState;
         /// <summary>

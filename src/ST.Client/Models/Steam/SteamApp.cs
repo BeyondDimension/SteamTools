@@ -25,6 +25,10 @@ namespace System.Application.Models
 
         private const string NodeCommon = "common";
 
+        private const string NodeConfig = "config";
+
+        private const string NodeExtended = "extended";
+
         private const string NodeId = "gameid";
 
         private const string NodeName = "name";
@@ -58,6 +62,12 @@ namespace System.Application.Models
         public string? InstalledDir { get; set; }
 
         public string? Name { get; set; }
+        public string? SortAs { get; set; }
+        public string? Developer { get; set; }
+        public string? Publisher { get; set; }
+        public uint? SteamReleaseDate { get; set; }
+        public uint? OriginReleaseDate { get; set; }
+        public string? OSList { get; set; }
 
         public string? EditName
         {
@@ -65,36 +75,29 @@ namespace System.Application.Models
             {
                 if (_cachedName == null)
                 {
-                    _cachedName = _properties?.GetPropertyValue<string>(null, new string[]
-                    {
-                        NodeAppInfo,
+                    _cachedName = _properties?.GetPropertyValue<string>(null, NodeAppInfo,
                         NodeCommon,
-                        "name"
-                    });
+                        NodeName);
                 }
                 return _cachedName;
             }
             set
             {
-                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, new string[]
-                {
-                    NodeAppInfo,
+                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
                     NodeCommon,
-                    "name"
-                });
+                    NodeName);
                 ClearCachedProps();
             }
         }
 
-        public string? SortAs
+        public string? EditSortAs
         {
             get
             {
                 if (this._cachedSortAs == null)
                 {
-                    this._cachedSortAs = this._properties?.GetPropertyValue<string>(this.Name, new string[] {
-                        NodeAppInfo, NodeCommon, "sortas" });
-                    if (this._cachedSortAs?.Length == 0)
+                    this._cachedSortAs = this._properties?.GetPropertyValue<string>(this.Name, NodeAppInfo, NodeCommon, "sortas");
+                    if (!this._cachedSortAs.Any_Nullable())
                     {
                         this._cachedSortAs = this.Name;
                     }
@@ -103,8 +106,7 @@ namespace System.Application.Models
             }
             set
             {
-                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, new string[] {
-                    NodeAppInfo, NodeCommon, "sortas" });
+                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo, NodeCommon, "sortas");
                 this.ClearCachedProps();
             }
         }
@@ -192,50 +194,33 @@ namespace System.Application.Models
 
         public IList<uint> ChildApp { get; set; } = new List<uint>();
 
+        private IList<SteamAppLaunchItem>? _LaunchItems;
+        public IList<SteamAppLaunchItem>? LaunchItems
+        {
+            get => _LaunchItems;
+            set => this.RaiseAndSetIfChanged(ref _LaunchItems, value);
+        }
+
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Logo);
 
-        public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
+        public string LibraryGridUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
+        public Task<string> LibraryGridStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Grid);
 
-        public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_600x900);
 
-        public string LibraryHeaderUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
+        public string LibraryHeroUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
+        public Task<string> LibraryHeroStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero);
 
-        //private string? _LibraryHeaderStream;
-        //public string? LibraryHeaderStream
-        //{
-        //    get => _LibraryHeaderStream;
-        //    set => this.RaiseAndSetIfChanged(ref _LibraryHeaderStream, value);
-        //}
 
-        public string LibraryHeaderBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
+        public string LibraryHeroBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
+        public Task<string> LibraryHeroBlurStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero_Blur);
 
-        //private string? _LibraryHeaderBlurStream;
-        //public string? LibraryHeaderBlurStream
-        //{
-        //    get => _LibraryHeaderBlurStream;
-        //    set => this.RaiseAndSetIfChanged(ref _LibraryHeaderBlurStream, value);
-        //}
 
-        public string LibraryNameUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
-
-        //private string? _LibraryNameStream;
-        //public string? LibraryNameStream
-        //{
-        //    get => _LibraryNameStream;
-        //    set => this.RaiseAndSetIfChanged(ref _LibraryNameStream, value);
-        //}
+        public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
+        public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Logo);
 
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_HEADIMAGE_URL, AppId);
-
-        //private string? _HeaderLogoStream;
-        //public string? HeaderLogoStream
-        //{
-        //    get => _HeaderLogoStream;
-        //    set => this.RaiseAndSetIfChanged(ref _HeaderLogoStream, value);
-        //}
-
         public string CAPSULELogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 
 
@@ -440,16 +425,16 @@ namespace System.Application.Models
             return true;
         }
 
-        public static SteamApp? FromReader(BinaryReader reader)
+        public static SteamApp? FromReader(BinaryReader reader, uint[] installedAppIds)
         {
-            uint num = reader.ReadUInt32();
-            if (num == 0)
+            uint id = reader.ReadUInt32();
+            if (id == 0)
             {
                 return null;
             }
             SteamApp app = new()
             {
-                AppId = num,
+                AppId = id,
             };
             try
             {
@@ -459,25 +444,34 @@ namespace System.Application.Models
                 app._stuffBeforeHash = binaryReader.ReadBytes(16);
                 binaryReader.ReadBytes(20);
                 app._changeNumber = binaryReader.ReadUInt32();
-                app._properties = SteamAppPropertyHelper.ReadPropertyTable(binaryReader)!;
-                var nodes = new string[3] { NodeAppInfo, NodeCommon, string.Empty };
-                //var installpath = app._properties.GetPropertyValue<string>(null, new string[]
-                //{
-                //    NodeAppInfo,
-                //    "config",
-                //    "installdir"
-                // });
+
+                var properties = SteamAppPropertyHelper.ReadPropertyTable(binaryReader);
+
+                if (properties == null)
+                    return app;
+
+                //app._properties = properties;
+
+                //var installpath = properties.GetPropertyValue<string>(null, NodeAppInfo, NodeConfig, "installdir");
+
                 //if (!string.IsNullOrEmpty(installpath))
                 //{
                 //    app.InstalledDir = Path.Combine(ISteamService.Instance.SteamDirPath, ISteamService.dirname_steamapps, NodeCommon, installpath);
                 //}
 
-                nodes[2] = NodeParentId;
-                app.ParentId = (uint)app._properties.GetPropertyValue<int>(0, nodes);
+                app.Name = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeName);
+                app.SortAs = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, "sortas");
+                if (!app.SortAs.Any_Nullable())
+                {
+                    app.SortAs = app.Name;
+                }
+                app.ParentId = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, NodeParentId);
+                app.Developer = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "developer");
+                app.Publisher = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "publisher");
+                //app.SteamReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "steam_release_date");
+                //app.OriginReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "original_release_date");
 
-                nodes[2] = NodeAppType;
-                var type = app._properties.GetPropertyValue<string>("", nodes);
-
+                var type = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeAppType);
                 if (Enum.TryParse(type, true, out SteamAppType apptype))
                 {
                     app.Type = apptype;
@@ -485,39 +479,61 @@ namespace System.Application.Models
                 else
                 {
                     app.Type = SteamAppType.Unknown;
-                    Debug.WriteLine(string.Format("AppInfo: New AppType '{0}'", type));
+                    Debug.WriteLineIf(!string.IsNullOrEmpty(type), string.Format("AppInfo: New AppType '{0}'", type));
                 }
 
+                app.OSList = properties.GetPropertyValue(string.Empty, NodeAppInfo, NodeCommon, NodePlatforms);
 
-                nodes[2] = NodePlatforms;
-                var oslist = app._properties.GetPropertyValue("", NodePlatforms);
-
-
-
-                var propertyValue = app._properties.GetPropertyValue<string>("", new string[]
+                if (installedAppIds.Contains(app.AppId) &&
+                    (app.Type == SteamAppType.Application ||
+                    app.Type == SteamAppType.Game ||
+                    app.Type == SteamAppType.Tool ||
+                    app.Type == SteamAppType.Demo))
                 {
-                        "appinfo",
-                        "steam_edit",
-                        "base_name"
-                });
-                if (propertyValue != "")
-                {
-                    nodes[2] = NodeName;
-                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue, nodes);
+                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, "launch");
+
+                    if (launchTable != null)
+                    {
+                        var launchItems = from table in (from prop in (from prop in launchTable.Properties
+                                                                       where prop.PropertyType == SteamAppPropertyType.Table
+                                                                       select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
+                                                         select prop.GetValue<SteamAppPropertyTable>())
+                                          select new SteamAppLaunchItem
+                                          {
+                                              Label = table.GetPropertyValue<string>("description", ""),
+                                              Executable = table.GetPropertyValue<string>("executable", ""),
+                                              Arguments = table.GetPropertyValue<string>("arguments", ""),
+                                              WorkingDir = table.GetPropertyValue<string>("workingdir", ""),
+                                              Platform = table.TryGetPropertyValue<SteamAppPropertyTable>(NodeConfig, out var propertyTable) ?
+                                              propertyTable.TryGetPropertyValue<string>(NodePlatforms, out var os) ? os : null : null,
+                                          };
+
+                        app.LaunchItems = launchItems.ToList();
+                    }
                 }
-                var propertyValue2 = app._properties.GetPropertyValue<string>("", new string[]
-                {
-                        "appinfo",
-                        "steam_edit",
-                        "base_type"
-                });
-                if (propertyValue2 != "")
-                {
-                    nodes[2] = NodeAppType;
-                    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, nodes);
-                }
-                app._originalData = array;
-                app.ClearCachedProps();
+
+                //var propertyValue = app._properties.GetPropertyValue<string>("", new string[]
+                //{
+                //        "appinfo",
+                //        "steam_edit",
+                //        "base_name"
+                //});
+                //if (propertyValue != "")
+                //{
+                //    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue, NodeAppInfo, NodeCommon, NodeName);
+                //}
+                //var propertyValue2 = app._properties.GetPropertyValue<string>("", new string[]
+                //{
+                //        "appinfo",
+                //        "steam_edit",
+                //        "base_type"
+                //});
+                //if (propertyValue2 != "")
+                //{
+                //    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, NodeAppInfo, NodeCommon, NodeAppType);
+                //}
+                //app._originalData = array;
+                //app.ClearCachedProps();
 
             }
             catch (Exception ex)
@@ -571,22 +587,22 @@ namespace System.Application.Models
             Icon,
 
             /// <summary>
-            /// <see cref="LibraryLogoUrl"/>
+            /// <see cref="LibraryGridUrl"/>
             /// </summary>
-            Library_600x900,
+            Library_Grid,
 
             /// <summary>
-            /// <see cref="LibraryHeaderUrl"/>
+            /// <see cref="LibraryHeroUrl"/>
             /// </summary>
             Library_Hero,
 
             /// <summary>
-            /// <see cref="LibraryHeaderBlurUrl"/>
+            /// <see cref="LibraryHeroBlurUrl"/>
             /// </summary>
             Library_Hero_Blur,
 
             /// <summary>
-            /// <see cref="LibraryNameUrl"/>
+            /// <see cref="LibraryLogoUrl"/>
             /// </summary>
             Logo,
         }

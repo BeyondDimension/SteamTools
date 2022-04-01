@@ -15,6 +15,13 @@ namespace System.Application
             ConfigChanges.LayoutDirection |
             ConfigChanges.SmallestScreenSize;
 
+        public const ConfigChanges ConfigurationChangesWithOutOrientationLocale =
+            ConfigChanges.ScreenSize |
+            ConfigChanges.Keyboard |
+            ConfigChanges.KeyboardHidden |
+            ConfigChanges.ScreenLayout |
+            ConfigChanges.SmallestScreenSize;
+
         public const string MainTheme2 = "@style/MainTheme2";
         public const string MainTheme2_NoActionBar = "@style/MainTheme2.NoActionBar";
         public const string MainTheme2_Splash = "@style/MainTheme2.Splash";

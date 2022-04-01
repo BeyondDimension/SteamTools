@@ -46,6 +46,11 @@ namespace System.Application.UI
                 AllowEglInitialization = useGpu,
             };
             builder.With(options);
+
+            builder.With(new SkiaOptions
+            {
+                MaxGpuResourceSizeBytes = 1024000000,
+            });
 #else
             throw new PlatformNotSupportedException();
 #endif

@@ -129,7 +129,7 @@
         <Setter Property="Foreground" Value="{DynamicResource SemiActiveForegroundColorKey}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <!--<Setter Property="Margin" Value="10 0" />-->
-        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; Label">
@@ -142,6 +142,7 @@
         <Setter Property="Margin" Value="0 0 20 0" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="(DockPanel.Dock)" Value="Left" />
+        <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; Button:not(.plain)">
@@ -169,7 +170,8 @@
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; TextBox">
-        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="(DockPanel.Dock)" Value="Right" />
