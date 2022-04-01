@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using FluentAvalonia.UI.Controls;
+using System.Application.Models;
 using System.Application.UI.ViewModels;
 
 namespace System.Application.UI.Views.Windows
@@ -26,7 +27,8 @@ namespace System.Application.UI.Views.Windows
         {
             if (GridDialog != null && ViewModel != null)
             {
-                ViewModel.RefreshSteamGridItemList();
+                var type = (SteamGridItemType?)((sender as Control)?.Tag);
+                ViewModel.RefreshSteamGridItemList(type ?? SteamGridItemType.Grid);
                 var r = await GridDialog.ShowAsync();
                 if (r == ContentDialogResult.Primary)
                 {

@@ -81,13 +81,15 @@ namespace System.Application.UI.ViewModels
             this.Close();
         }
 
-        public async void RefreshSteamGridItemList()
+        public async void RefreshSteamGridItemList(SteamGridItemType type = SteamGridItemType.Grid)
         {
+            _SteamGridItemSourceList.Clear();
+
             var grid = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridAppBySteamAppId(App.AppId);
 
             if (grid != null)
             {
-                var items = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridItemsByGameId(grid.Id);
+                var items = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridItemsByGameId(grid.Id, type);
 
                 if (items.Any_Nullable())
                 {

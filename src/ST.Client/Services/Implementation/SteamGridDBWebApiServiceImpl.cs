@@ -1,5 +1,7 @@
 using System.Application.Models;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.Implementation
@@ -8,6 +10,8 @@ namespace System.Application.Services.Implementation
     {
         readonly IHttpService s;
 
+        string ApiKey = "ae93db7411cac53190aa5a9b633bf5e2";
+
         public SteamGridDBWebApiServiceImpl(IHttpService s)
         {
             this.s = s;
@@ -15,7 +19,14 @@ namespace System.Application.Services.Implementation
 
         public async Task<SteamGridApp?> GetSteamGridAppBySteamAppId(long appId)
         {
-            var rsp = await s.GetAsync<SteamGridAppData>(String.Format(SteamGridDBApiUrls.RetrieveGameBySteamAppId_Url, appId));
+            var url = String.Format(SteamGridDBApiUrls.RetrieveGameBySteamAppId_Url, appId);
+            var rsp = await s.SendAsync<SteamGridAppData>
+                (url, () =>
+                 {
+                     var rq = new HttpRequestMessage(HttpMethod.Get, url);
+                     rq.Headers.Authorization = new AuthenticationHeaderValue("Bearer", ApiKey);
+                     return rq;
+                 }, MediaTypeNames.JSON, new Threading.CancellationToken());
 
             if (rsp != null)
             {
@@ -40,8 +51,14 @@ namespace System.Application.Services.Implementation
                 SteamGridItemType.Icon => string.Format(SteamGridDBApiUrls.RetrieveIcons_Url, gameId),
                 _ => string.Format(SteamGridDBApiUrls.RetrieveGrids_Url, gameId),
             };
-
-            var rsp = await s.GetAsync<SteamGridItemData>(url);
+            url += $"nsfw=any&humor=any";
+            var rsp = await s.SendAsync<SteamGridItemData>
+                            (url, () =>
+                            {
+                                var rq = new HttpRequestMessage(HttpMethod.Get, url);
+                                rq.Headers.Authorization = new Net.Http.Headers.AuthenticationHeaderValue("Bearer", ApiKey);
+                                return rq;
+                            }, MediaTypeNames.JSON, new Threading.CancellationToken());
 
             if (rsp != null)
             {
