@@ -143,7 +143,7 @@ namespace System.Application.Settings
         {
             if (OperatingSystem2.IsWindows)
             {
-                yield return EProxyMode.DNSIntercept;
+                //yield return EProxyMode.DNSIntercept; // TODO... https://github.com/BeyondDimension/WinDivertSharp
                 yield return EProxyMode.Hosts;
                 yield return EProxyMode.System;
             }

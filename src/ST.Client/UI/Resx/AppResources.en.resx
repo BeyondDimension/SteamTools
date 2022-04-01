@@ -366,8 +366,8 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ProxyMode_System" xml:space="preserve">
-    <value>Windows proxy mode</value>
-    <comment>Comment=;Author=沙中金</comment>
+    <value>System proxy mode</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>Route your traffic by setting up a Windows system proxy. It does not require a free port 443, yet it will affect all local network traffic. If hosts routing mode works, you won&apos;t be needing this mode.</value>

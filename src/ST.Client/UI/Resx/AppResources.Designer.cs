@@ -1203,7 +1203,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启用Http协议转发到Https(需监听80端口) 的本地化字符串。
+        ///   查找类似 启用 Http 协议转发到 Https (需监听 80 端口) 的本地化字符串。
         /// </summary>
         public static string CommunityFix_EnableHttpProxyToHttps {
             get {

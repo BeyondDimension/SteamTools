@@ -366,8 +366,8 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="ProxyMode_System" xml:space="preserve">
-    <value>Modalità proxy di Windows</value>
-    <comment>Comment=;Author=Zhengye</comment>
+    <value>Modello di agente di sistema</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>Impostate il proxy di sistema di Windows per ascoltare le richieste senza usare la porta 443, farà il proxy globale di tutto il traffico locale, se non avete problemi ad usare il metodo Hosts, allora non avete bisogno di usare questa modalità.</value>

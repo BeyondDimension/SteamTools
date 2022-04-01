@@ -366,8 +366,8 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="ProxyMode_System" xml:space="preserve">
-    <value>Modo proxy del sistema de Windows</value>
-    <comment>Comment=;Author=EspRoy</comment>
+    <value>Modelo de agente del sistema</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>Configurar el proxy del sistema de Windows para monitorear la solicitud. No necesita ocupar el puerto 443. Representará todo el tráfico de la máquina globalmente. Si no tiene problemas para usar el método Hosts, no necesita usar este modo.</value>
