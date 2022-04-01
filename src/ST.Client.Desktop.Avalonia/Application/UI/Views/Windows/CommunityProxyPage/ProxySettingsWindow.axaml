@@ -60,7 +60,13 @@
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript},Path=Value, Mode=TwoWay}"/>
               </DockPanel>
-
+              
+              <DockPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_EnableHttpProxyToHttps,Mode=OneWay,Source={x:Static resx:R.Current}}" ></TextBlock>
+                <ToggleSwitch
+                            IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps},Path=Value, Mode=TwoWay}"/>
+              </DockPanel>
+              
               <!--<DockPanel>
                 <Label Content="自定义根证书密码"></Label>
                 <TextBox></TextBox>

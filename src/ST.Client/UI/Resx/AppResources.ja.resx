@@ -357,15 +357,15 @@
     <value>加速モード:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts プロキシ モード (推奨)</value>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts プロキシ モード</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>Hosts ファイルを変更してネイティブ要求実装エージェントをリッスンすると、この方法はより高速になり、アクセラレーションされた Web サイトにのみ影響しますが、ネイティブ 443 ポートは使用されません。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+  <data name="ProxyMode_System" xml:space="preserve">
     <value>システム プロキシ モード</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>

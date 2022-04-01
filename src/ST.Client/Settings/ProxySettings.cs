@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Application.Columns;
 using System.Application.Services;
-using System.Application.UI;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using IPAddress = System.Net.IPAddress;
 using EProxyMode = System.Application.ProxyMode;
@@ -65,6 +65,12 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<string?> ProxyMasterDns { get; }
             = GetProperty<string?>(defaultValue: "223.5.5.5", autoSave: false);
+
+        /// <summary>
+        /// 启用Http链接转发到Https
+        /// </summary>
+        public static SerializableProperty<bool> EnableHttpProxyToHttps { get; }
+            = GetProperty(defaultValue: true, autoSave: true);
         #endregion
 
         #region 本地代理设置
@@ -133,35 +139,37 @@ namespace System.Application.Settings
 
         static EProxyMode DefaultProxyMode => ProxyModes.FirstOrDefault();
 
-        public static IEnumerable<EProxyMode> ProxyModes
+        static IEnumerable<EProxyMode> GetProxyModes()
         {
-            get
+            if (OperatingSystem2.IsWindows)
             {
-                if (OperatingSystem2.IsWindows)
-                {
-                    yield return EProxyMode.DNSIntercept;
-                    yield return EProxyMode.Hosts;
-                    yield return EProxyMode.System;
-                }
-                else if (OperatingSystem2.IsAndroid)
-                {
-                    yield return EProxyMode.VPN;
-                    yield return EProxyMode.ProxyOnly;
-                }
-                else if (OperatingSystem2.IsLinux || OperatingSystem2.IsMacOS)
-                {
-                    yield return EProxyMode.Hosts;
-                    yield return EProxyMode.System;
-                }
+                //yield return EProxyMode.DNSIntercept; // TODO... https://github.com/BeyondDimension/WinDivertSharp
+                yield return EProxyMode.Hosts;
+                yield return EProxyMode.System;
+            }
+            else if (OperatingSystem2.IsAndroid)
+            {
+                yield return EProxyMode.VPN;
+                yield return EProxyMode.ProxyOnly;
+            }
+            else if (OperatingSystem2.IsLinux || OperatingSystem2.IsMacOS)
+            {
+                yield return EProxyMode.Hosts;
+                yield return EProxyMode.System;
             }
         }
+
+        public static IReadOnlyList<EProxyMode> ProxyModes => mProxyModes.Value;
+
+        static readonly Lazy<IReadOnlyList<EProxyMode>> mProxyModes = new(() => GetProxyModes().ToArray());
 
         /// <summary>
         /// 当前代理模式
         /// </summary>
         public static SerializableProperty<EProxyMode> ProxyMode { get; }
-            = GetProperty(defaultValue: DefaultProxyMode, autoSave: true);
+           = GetProperty(defaultValue: DefaultProxyMode, autoSave: true);
 
+        /// <inheritdoc cref="ProxyMode"/>
         public static EProxyMode ProxyModeValue
         {
             get
@@ -170,7 +178,23 @@ namespace System.Application.Settings
                 if (ProxyModes.Contains(value)) return value;
                 return DefaultProxyMode;
             }
+            set
+            {
+                ProxyMode.Value = value;
+            }
         }
+
+        public static string ToStringByProxyMode(EProxyMode mode) => mode switch
+        {
+            EProxyMode.DNSIntercept => AppResources.ProxyMode_DNSIntercept,
+            EProxyMode.Hosts => AppResources.ProxyMode_Hosts,
+            EProxyMode.System => AppResources.ProxyMode_System,
+            EProxyMode.VPN => AppResources.ProxyMode_VPN,
+            EProxyMode.ProxyOnly => AppResources.ProxyMode_ProxyOnly,
+            _ => string.Empty,
+        };
+
+        public static string ProxyModeValueString => ToStringByProxyMode(ProxyModeValue);
 
         #endregion
     }

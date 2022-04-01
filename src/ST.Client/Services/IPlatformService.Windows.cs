@@ -21,7 +21,7 @@ namespace System.Application.Services
         }
 
         /// <summary>
-        /// 已正常权限启动进程
+        /// 以正常权限启动进程
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>

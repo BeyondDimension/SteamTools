@@ -57,6 +57,8 @@ namespace System.Application.Services.Implementation
 
         public bool Socks5ProxyEnable { get; set; }
 
+        public bool EnableHttpProxyToHttps { get; set; }
+
         public int Socks5ProxyPortId { get; set; }
 
         public bool TwoLevelAgentEnable { get; set; }
@@ -499,10 +501,10 @@ namespace System.Application.Services.Implementation
             using (var store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
             {
                 store.Open(OpenFlags.ReadOnly);
-                X509Certificate2Collection collection = store.Certificates.Find(X509FindType.FindByIssuerName, RootCertificateName, false); 
+                X509Certificate2Collection collection = store.Certificates.Find(X509FindType.FindByIssuerName, RootCertificateName, false);
                 foreach (var item in collection)
                 {
-                    if (item != null) 
+                    if (item != null)
                         IPlatformService.Instance.RunShell($"security delete-certificate -Z {item.GetCertHashString()}", true);
                 }
             }
@@ -609,7 +611,7 @@ namespace System.Application.Services.Implementation
 
                     try
                     {
-                        if (PortInUse(80) == false)
+                        if (EnableHttpProxyToHttps && PortInUse(80) == false)
                             proxyServer.AddEndPoint(new TransparentProxyEndPoint(ProxyIp, 80, false));
                     }
                     catch { }

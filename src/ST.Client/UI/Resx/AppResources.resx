@@ -423,14 +423,8 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
     <value>加速模式：</value>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts 代理模式(推荐)</value>
-  </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。</value>
-  </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
-    <value>系统代理模式</value>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>设置系统代理来监听请求，不需要占用 443 端口，会全局代理本机所有流量，如果你使用 Hosts 方式没有问题，那就不需要使用此模式。</value>
@@ -1804,6 +1798,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_ProxyOnlyOnScript" xml:space="preserve">
     <value>代理仅启用脚本功能</value>
   </data>
+  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+    <value>启用 Http 协议转发到 Https (需监听 80 端口)</value>
+  </data>
   <data name="About_AppReview" xml:space="preserve">
     <value>打分&amp;评价</value>
   </data>
@@ -2111,5 +2108,20 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="ProxyMode_DNSIntercept" xml:space="preserve">
+    <value>DNS 驱动拦截模式</value>
+  </data>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts 代理模式</value>
+  </data>
+  <data name="ProxyMode_ProxyOnly" xml:space="preserve">
+    <value>仅代理模式</value>
+  </data>
+  <data name="ProxyMode_System" xml:space="preserve">
+    <value>系统代理模式</value>
+  </data>
+  <data name="ProxyMode_VPN" xml:space="preserve">
+    <value>VPN 代理模式</value>
   </data>
 </root>

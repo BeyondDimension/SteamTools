@@ -59,6 +59,8 @@ namespace System.Application.Services
 
         bool Socks5ProxyEnable { get; set; }
 
+        bool EnableHttpProxyToHttps { get; set; }
+
         int Socks5ProxyPortId { get; set; }
 
         bool TwoLevelAgentEnable { get; set; }

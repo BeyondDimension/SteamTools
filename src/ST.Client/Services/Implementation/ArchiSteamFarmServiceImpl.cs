@@ -197,9 +197,30 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        string IPCRootUrl
+        {
+            get
+            {
+                string? value = null;
+                var a = ArchiSteamFarm.IPC.ArchiKestrel.ServerAddresses;
+                var loopback = IPAddress.Loopback.ToString();
+                if (a != null)
+                {
+                    value = a.FirstOrDefault(x => x.Contains(loopback) && x.StartsWith(Browser2.Prefix_HTTP))
+                        ?? a.FirstOrDefault(x => x.Contains(loopback))
+                        ?? a.FirstOrDefault();
+                }
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = $"http://{loopback}:{CurrentIPCPortValue}";
+                }
+                return value;
+            }
+        }
+
         public string GetIPCUrl()
         {
-            var defaultUrl = $"http://{IPAddress.Loopback}:{CurrentIPCPortValue}";
+            var defaultUrl = IPCRootUrl;
             string absoluteConfigDirectory = Path.Combine(ASFPathHelper.AppDataDirectory, SharedInfo.ConfigDirectory);
             string customConfigPath = Path.Combine(absoluteConfigDirectory, SharedInfo.IPCConfigFile);
             if (File.Exists(customConfigPath))

@@ -68,26 +68,26 @@
             <!--<ui:CommandBarElementContainer Margin="8 0"
                                            HorizontalContentAlignment="Center">
               <ComboBox VerticalAlignment="Center">
-                <ComboBoxItem Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                <ComboBoxItem Content="{ReflectionBinding Path=Res.ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}">
                 </ComboBoxItem>
-                <ComboBoxItem Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                <ComboBoxItem Content="{ReflectionBinding Path=Res.ProxyMode_System,Mode=OneWay,Source={x:Static resx:R.Current}}">
                 </ComboBoxItem>
               </ComboBox>
             </ui:CommandBarElementContainer>-->
             <ui:CommandBarElementContainer Margin="8 0"
                                            HorizontalContentAlignment="Center">
-              <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
+              <RadioButton Content="{ReflectionBinding Path=Res.ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"></RadioButton>
             </ui:CommandBarElementContainer>
             <ui:CommandBarElementContainer Margin="8 0"
                                            HorizontalContentAlignment="Center">
-              <RadioButton Content="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
+              <RadioButton Content="{ReflectionBinding Path=Res.ProxyMode_System,Mode=OneWay,Source={x:Static resx:R.Current}}" ToolTip.Tip="{ReflectionBinding Path=Res.ProxyMode_SystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"></RadioButton>
             </ui:CommandBarElementContainer>
             <!--<ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value, Mode=TwoWay}"
-                                       Label="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                       ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                                       Label="{ReflectionBinding Path=Res.ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                       ToolTip.Tip="{ReflectionBinding Path=Res.ProxyMode_HostsTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value, Mode=TwoWay}"
-                                       Label="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                       ToolTip.Tip="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
+                                       Label="{ReflectionBinding Path=Res.ProxyMode_System,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                       ToolTip.Tip="{ReflectionBinding Path=Res.ProxyMode_SystemTip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
 
             <ui:CommandBarSeparator/>
             <ui:CommandBarButton
@@ -267,11 +267,11 @@
           <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ProxyModeTip,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="14"/>
 
           <TextBlock
-            Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_WinSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            Text="{ReflectionBinding Path=Res.ProxyMode_System,Mode=OneWay,Source={x:Static resx:R.Current}}"
             FontSize="14"
             IsVisible="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=Value}}"/>
           <TextBlock
-            Text="{ReflectionBinding Path=Res.CommunityFix_ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            Text="{ReflectionBinding Path=Res.ProxyMode_Hosts,Mode=OneWay,Source={x:Static resx:R.Current}}"
             FontSize="14"
             IsVisible="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value}}"/>
         </WrapPanel>

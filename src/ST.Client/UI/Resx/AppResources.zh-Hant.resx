@@ -357,15 +357,15 @@
     <value>加速模式：</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts 代理模式（推薦）</value>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts 代理模式</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>修改 Hosts 檔來監聽本機請求實現代理，此方式速度更快且只會影響加速的網站，效果最好，但需要本機 443 埠未被使用。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+  <data name="ProxyMode_System" xml:space="preserve">
     <value>系統代理模式</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>

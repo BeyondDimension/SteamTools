@@ -357,17 +357,17 @@
     <value>Modalità accelerata :</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Modalità proxy Hosts (raccomandato)</value>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Modalità proxy Hosts</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>Modificare il file Hosts per ascoltare le richieste locali per ottenere il proxy, questo modo è più veloce e interesserà solo il sito accelerato, i migliori risultati, ma richiede che la porta locale 443 non sia usata.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
-    <value>Modalità proxy di Windows</value>
-    <comment>Comment=;Author=Zhengye</comment>
+  <data name="ProxyMode_System" xml:space="preserve">
+    <value>Modello di agente di sistema</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="CommunityFix_ProxyMode_WinSystemTip" xml:space="preserve">
     <value>Impostate il proxy di sistema di Windows per ascoltare le richieste senza usare la porta 443, farà il proxy globale di tutto il traffico locale, se non avete problemi ad usare il metodo Hosts, allora non avete bisogno di usare questa modalità.</value>

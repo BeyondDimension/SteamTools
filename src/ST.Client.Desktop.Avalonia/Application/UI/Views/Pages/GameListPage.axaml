@@ -217,7 +217,7 @@
                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        Label="{ReflectionBinding Path=Res.GameList_ResizeAppLogo,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Styles>
-                <Style Selector="ui|CommandBarButton:flyout /template/ ui|SymbolIcon#SubItemChevron">
+                <Style Selector="ui|CommandBarButton:flyout /template/ ui|FontIcon#SubItemChevron">
                   <Setter Property="IsVisible" Value="False"/>
                 </Style>
               </ui:CommandBarButton.Styles>

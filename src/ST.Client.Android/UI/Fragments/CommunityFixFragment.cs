@@ -41,18 +41,28 @@ namespace System.Application.UI.Fragments
         {
             base.OnCreateView(view);
 
+            var proxyS = ProxyService.Current;
+            void SetProxyModeText()
+            {
+                var proxyMode = ProxySettings.ProxyModeValue;
+                binding!.tvProxyMode.Text = proxyMode switch
+                {
+                    ProxyMode.ProxyOnly => $"{AppResources.CommunityFix_ProxyModeTip}{ProxySettings.ToStringByProxyMode(proxyMode)}{Environment.NewLine}IPEndPoint: {proxyS.ProxyIp}:{proxyS.ProxyPort}",
+                    _ => $"{AppResources.CommunityFix_ProxyModeTip}{ProxySettings.ToStringByProxyMode(proxyMode)}",
+                };
+            }
+
             R.Subscribe(() =>
             {
                 if (binding == null) return;
                 binding.btnStartProxyService.Text = AppResources.CommunityFix_StartProxy;
                 binding.btnStopProxyService.Text = AppResources.CommunityFix_StopProxy;
-                //binding.tvProxyMode.Text = AppResources.CommunityFix_ProxyModeTip + AppResources.CommunityFix_ProxyMode_WinSystem;
+                SetProxyModeText();
                 binding.tvAccelerationsEnable.Text = AppResources.CommunityFix_AccelerationsEnable;
                 binding.tvScriptsEnable.Text = AppResources.CommunityFix_ScriptsEnable;
                 SetMenuTitle();
             }).AddTo(this);
 
-            var proxyS = ProxyService.Current;
             proxyS.WhenAnyValue(x => x.AccelerateTime).SubscribeInMainThread(value =>
             {
                 if (binding == null) return;
@@ -65,7 +75,7 @@ namespace System.Application.UI.Fragments
                 binding.layoutRootCommunityFixContentStarting.Visibility = value ? ViewStates.Visible : ViewStates.Gone;
                 if (value)
                 {
-                    binding.tvProxyMode.Text = $"IPEndPoint: {proxyS.ProxyIp}:{proxyS.ProxyPort}";
+                    SetProxyModeText();
                     StringBuilder s = new();
                     var enableProxyDomains = proxyS.GetEnableProxyDomains();
                     if (enableProxyDomains != null)
@@ -156,7 +166,7 @@ namespace System.Application.UI.Fragments
             if (start)
             {
                 Intent? intent = null;
-                if (/*!ignoreVPNCheck &&*/ ProxySettings.IsVpnMode.Value) // 当启用 VPN 模式时
+                if (/*!ignoreVPNCheck &&*/ ProxySettings.ProxyModeValue == ProxyMode.VPN) // 当启用 VPN 模式时
                 {
                     intent = VpnService.Prepare(a);
                     if (intent != null)

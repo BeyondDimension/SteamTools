@@ -23,7 +23,7 @@ namespace System.Application.Services.Native
     {
         public static async void StartOrStop(Activity activity, bool startOrStop)
         {
-            if (ProxySettings.IsVpnMode.Value)
+            if (ProxySettings.ProxyModeValue == ProxyMode.VPN)
             {
                 if (startOrStop)
                 {
