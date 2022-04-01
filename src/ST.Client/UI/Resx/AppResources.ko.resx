@@ -357,15 +357,15 @@
     <value>가속 모드:</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Hosts 프록시 모드(권장)</value>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Hosts 프록시 모드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>네이티브 요청 구현 에이전트를 수신하도록 Hosts 파일을 수정하면 속도가 빨라지고 가속화된 웹 사이트에만 영향을 줄 수 있지만 기본 443 포트가 사용되지 않아야 합니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+  <data name="ProxyMode_System" xml:space="preserve">
     <value>시스템 프록시 모드입니다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>

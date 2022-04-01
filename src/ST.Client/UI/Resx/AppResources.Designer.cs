@@ -1311,29 +1311,11 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Hosts 代理模式(推荐) 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_ProxyMode_Hosts {
-            get {
-                return ResourceManager.GetString("CommunityFix_ProxyMode_Hosts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode_HostsTip {
             get {
                 return ResourceManager.GetString("CommunityFix_ProxyMode_HostsTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 系统代理模式 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_ProxyMode_WinSystem {
-            get {
-                return ResourceManager.GetString("CommunityFix_ProxyMode_WinSystem", resourceCulture);
             }
         }
         
@@ -3840,6 +3822,51 @@ namespace System.Application.UI.Resx {
         public static string ProxyForegroundService_NotificationText {
             get {
                 return ResourceManager.GetString("ProxyForegroundService_NotificationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 DNS 驱动拦截模式 的本地化字符串。
+        /// </summary>
+        public static string ProxyMode_DNSIntercept {
+            get {
+                return ResourceManager.GetString("ProxyMode_DNSIntercept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hosts 代理模式 的本地化字符串。
+        /// </summary>
+        public static string ProxyMode_Hosts {
+            get {
+                return ResourceManager.GetString("ProxyMode_Hosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅代理模式 的本地化字符串。
+        /// </summary>
+        public static string ProxyMode_ProxyOnly {
+            get {
+                return ResourceManager.GetString("ProxyMode_ProxyOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 系统代理模式 的本地化字符串。
+        /// </summary>
+        public static string ProxyMode_System {
+            get {
+                return ResourceManager.GetString("ProxyMode_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 VPN 代理模式 的本地化字符串。
+        /// </summary>
+        public static string ProxyMode_VPN {
+            get {
+                return ResourceManager.GetString("ProxyMode_VPN", resourceCulture);
             }
         }
         

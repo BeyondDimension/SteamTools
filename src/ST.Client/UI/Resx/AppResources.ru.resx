@@ -517,15 +517,15 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Режим ускорения:</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Режим хоста прокси (рекомендуется)</value>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Режим хоста прокси</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>Измените файл Hosts, чтобы прослушивать локальные запросы для реализации прокси, это быстрее и влияет только на ускоренные сайты, и работает лучше всего, если локальный порт 443 не используется.</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+  <data name="ProxyMode_System" xml:space="preserve">
     <value>Режим системного прокси</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>

@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Application.Columns;
 using System.Application.Services;
-using System.Application.UI;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using IPAddress = System.Net.IPAddress;
 using EProxyMode = System.Application.ProxyMode;
@@ -183,6 +183,18 @@ namespace System.Application.Settings
                 ProxyMode.Value = value;
             }
         }
+
+        public static string ToStringByProxyMode(EProxyMode mode) => mode switch
+        {
+            EProxyMode.DNSIntercept => AppResources.ProxyMode_DNSIntercept,
+            EProxyMode.Hosts => AppResources.ProxyMode_Hosts,
+            EProxyMode.System => AppResources.ProxyMode_System,
+            EProxyMode.VPN => AppResources.ProxyMode_VPN,
+            EProxyMode.ProxyOnly => AppResources.ProxyMode_ProxyOnly,
+            _ => string.Empty,
+        };
+
+        public static string ProxyModeValueString => ToStringByProxyMode(ProxyModeValue);
 
         #endregion
     }

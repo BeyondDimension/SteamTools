@@ -357,15 +357,15 @@
     <value>Modo de aceleración:</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Modo proxy de hosts (recomendado)</value>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Modo proxy de hosts</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>Se modifica el archivo Hosts para monitorear las solicitudes locales para implementar el proxy,este método es más rápido y solo afecta a los sitios web acelerados, y tiene el mejor efecto, pero requiere que no se use el puerto 443 de la máquina.</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+  <data name="ProxyMode_System" xml:space="preserve">
     <value>Modo proxy del sistema de Windows</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>

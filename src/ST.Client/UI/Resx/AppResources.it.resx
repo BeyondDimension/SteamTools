@@ -357,15 +357,15 @@
     <value>Modalità accelerata :</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
-    <value>Modalità proxy Hosts (raccomandato)</value>
+  <data name="ProxyMode_Hosts" xml:space="preserve">
+    <value>Modalità proxy Hosts</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>Modificare il file Hosts per ascoltare le richieste locali per ottenere il proxy, questo modo è più veloce e interesserà solo il sito accelerato, i migliori risultati, ma richiede che la porta locale 443 non sia usata.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+  <data name="ProxyMode_System" xml:space="preserve">
     <value>Modalità proxy di Windows</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>

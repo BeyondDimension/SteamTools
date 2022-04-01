@@ -357,7 +357,7 @@
     <value>Routing mode</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_Hosts" xml:space="preserve">
+  <data name="ProxyMode_Hosts" xml:space="preserve">
     <value>Hosts routing mode</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
@@ -365,7 +365,7 @@
     <value>Route your traffic by modifying the hosts file based on your preferences. This mode runs more smoothly and only affects those websites that you select below, but it requires port 443 not to be in use.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="CommunityFix_ProxyMode_WinSystem" xml:space="preserve">
+  <data name="ProxyMode_System" xml:space="preserve">
     <value>Windows proxy mode</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
