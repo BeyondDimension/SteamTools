@@ -619,7 +619,9 @@ namespace System.Application.Services.Implementation
 
                 if (Socks5ProxyEnable)
                 {
-                    proxyServer.AddEndPoint(new SocksProxyEndPoint(ProxyIp, Socks5ProxyPortId, true));
+                    var socks5 = new SocksProxyEndPoint(ProxyIp, Socks5ProxyPortId, true);
+                    socks5.BeforeSslAuthenticate += TransparentProxyEndPoint_BeforeSslAuthenticate;
+                    proxyServer.AddEndPoint(socks5);
                 }
 
                 if (TwoLevelAgentEnable && TwoLevelAgentIp != null)
@@ -674,13 +676,13 @@ namespace System.Application.Services.Implementation
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
         {
             e.DecryptSsl = false;
+            if (ProxyDomains is null)
+            {
+                return Task.CompletedTask;
+            }
             if (e.SniHostName.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
             {
                 e.DecryptSsl = true;
-                return Task.CompletedTask;
-            }
-            if (ProxyDomains is null)
-            {
                 return Task.CompletedTask;
             }
             foreach (var item in ProxyDomains)
@@ -695,7 +697,7 @@ namespace System.Application.Services.Implementation
                         else
                             h = u.OriginalString;
 
-                        if (e.SniHostName.Contains(h, StringComparison.OrdinalIgnoreCase))
+                        if (e.SniHostName.IsDomainPattern(h, RegexOptions.IgnoreCase))
                         {
                             e.ForwardHttpsHostName = item.ServerName;
                             e.ForwardHttpsPort = item.PortId;
@@ -730,7 +732,7 @@ namespace System.Application.Services.Implementation
             {
                 foreach (var host in item.DomainNamesArray)
                 {
-                    if (e.HttpClient.Request.Url.Contains(host, StringComparison.OrdinalIgnoreCase))
+                    if (e.HttpClient.Request.Url.IsDomainPattern(host, RegexOptions.IgnoreCase))
                     {
                         e.DecryptSsl = true;
                         if (item.ProxyType == ProxyType.Local ||

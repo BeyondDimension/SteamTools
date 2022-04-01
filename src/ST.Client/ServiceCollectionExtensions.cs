@@ -130,6 +130,17 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
+        /// 添加 SteamGridDB WebApi Service
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSteamGridDBWebApiService(this IServiceCollection services)
+        {
+            services.AddSingleton<ISteamGridDBWebApiServiceImpl, SteamGridDBWebApiServiceImpl>();
+            return services;
+        }
+
+        /// <summary>
         /// 添加 Steamworks WebApi Service
         /// </summary>
         /// <param name="services"></param>

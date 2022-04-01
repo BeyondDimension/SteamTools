@@ -109,12 +109,54 @@
 
         <TabItem Header="媒体">
           <Panel>
+            <ui:ContentDialog x:Name="SteamGridDBDialog"
+                        Title="SteamGridDB Image"
+                        IsVisible="False"
+                        PrimaryButtonText="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        CloseButtonText="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        DefaultButton="Primary">
+              <ui:ContentDialog.Content>
+                <ListBox Items="{Binding SteamGridItems}">
+                  <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Horizontal" Spacing="8" />
+                    </ItemsPanelTemplate>
+                  </ListBox.ItemsPanel>
+                  <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:SteamGridItem}">
+                      <StackPanel Margin="15" Spacing="8">
+                        <Panel Width="200" MinHeight="200">
+                          <gif:Image2 Width="200"
+                                      Stretch="UniformToFill"
+                                      Source="{Binding Url}" />
+
+                          <Panel.ContextMenu>
+                            <ContextMenu>
+                              <MenuItem Header="Open Url"/>
+                            </ContextMenu>
+                          </Panel.ContextMenu>
+                        </Panel>
+                        <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="{Binding Style}" FontSize="12"
+                                   FontWeight="Bold" />
+                        <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="{Binding Author.Name}" FontSize="10"
+                                   Foreground="#686858" />
+                      </StackPanel>
+                    </DataTemplate>
+                  </ListBox.ItemTemplate>
+                </ListBox>
+              </ui:ContentDialog.Content>
+            </ui:ContentDialog>
             <ScrollViewer>
               <StackPanel Classes="Settings">
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <TextBlock Text="封面"/>
+                      <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="封面"/>
+                        <Button Classes="Hyperlink h8"
+                                Content="从SteamGridDB获取"
+                                Click="ShowGridDialog_Click"/>
+                      </StackPanel>
 
                       <TextBlock Classes="prompt h8"
                                  Text="建议的分辨率"/>

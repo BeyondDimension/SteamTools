@@ -77,8 +77,4 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\SteamGridDB\" />
-  </ItemGroup>
 </Project>

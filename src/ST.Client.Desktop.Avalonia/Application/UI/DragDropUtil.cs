@@ -1,4 +1,4 @@
-﻿using Avalonia.Input;
+using Avalonia.Input;
 using System.Collections.Generic;
 
 namespace System.Application.UI

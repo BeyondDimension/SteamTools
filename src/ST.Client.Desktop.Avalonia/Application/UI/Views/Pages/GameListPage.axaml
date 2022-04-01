@@ -107,6 +107,7 @@
                 <ui:DropDownButton.Content>
                   <!--<DockPanel>-->
                   <TextBlock VerticalAlignment="Center"
+                             Classes="h8"
                              Text="{Binding TypeFilterString}"
                              DockPanel.Dock="Left"
                              TextTrimming="CharacterEllipsis"/>

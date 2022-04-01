@@ -343,10 +343,13 @@ namespace System.Application
                 services.TryAddSteamworksLocalApiService();
 
                 // SteamDb WebApi Service
-                services.AddSteamDbWebApiService();
+                //services.AddSteamDbWebApiService();
 
                 // Steamworks WebApi Service
                 services.AddSteamworksWebApiService();
+
+                // SteamGridDB WebApi Service
+                services.AddSteamGridDBWebApiService();
 
                 // ASF Service
                 services.AddArchiSteamFarmService();
