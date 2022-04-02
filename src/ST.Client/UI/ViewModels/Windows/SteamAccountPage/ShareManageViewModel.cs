@@ -173,7 +173,7 @@ namespace System.Application.UI.ViewModels
             var index = item.Index;
             if (up ? item.Index != 0 : item.Index != _AuthorizedSourceList.Count - 1)
             {
-                var dest = _AuthorizedSourceList.Items.First(x => x.Index == (up ? index - 1 : index + 1));
+                var dest = AuthorizedList[(up ? index - 1 : index + 1)];
 
                 item.Index = dest.Index;
                 dest.Index = index;
