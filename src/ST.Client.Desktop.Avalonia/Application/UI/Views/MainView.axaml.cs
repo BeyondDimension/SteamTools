@@ -40,6 +40,7 @@ namespace System.Application.UI.Views
                 //{ typeof(GameRelated_BorderlessPageViewModel), typeof(GameRelated_BorderlessPage) },
 #if DEBUG
                 { typeof(DebugPageViewModel), typeof(DebugPage) },
+                { typeof(AccountPageViewModel), typeof(AccountPage) }, 
 #endif
             };
         }

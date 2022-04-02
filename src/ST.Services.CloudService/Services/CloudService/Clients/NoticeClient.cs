@@ -15,25 +15,26 @@ namespace System.Application.Services.CloudService.Clients
          => conn.SendAsync<NoticeTypeDTO[]>(
              isPolly: true,
              isAnonymous: true,
-             isSecurity: false,
+             isSecurity: true,
              method: HttpMethod.Get,
              requestUri: "api/Notice/Types",
              cancellationToken: default);
 
-        public Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid typeId, int index, int size)
+
+        public Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid typeId, int index, int? size = null)
                  => conn.SendAsync<PagedModel<NoticeDTO>>(
                      isPolly: true,
                      isAnonymous: true,
-                     isSecurity: false,
+                     isSecurity: true,
                      method: HttpMethod.Post,
-                     requestUri: $"api/Notice/Table/{typeId}?index={index}&size={size}",
+                     requestUri: $"api/Notice/List/{typeId}?index={index}{(size.HasValue ? $"&size={size}" : "")}",
                      cancellationToken: default);
 
         public Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid typeId,DateTimeOffset? time)
                  => conn.SendAsync<NoticeDTO[]>(
                      isPolly: true,
                      isAnonymous: true,
-                     isSecurity: false,
+                     isSecurity: true,
                      method: HttpMethod.Get,
                      requestUri: $"api/Notice/NewMsg/{typeId}{(time.HasValue?$"?time={time}":"")}",
                      cancellationToken: default);

@@ -152,7 +152,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_linux_x64_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_x64_${{ env.GITHUB_SHA_SHORT }}.7z
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_x64_${{ env.GITHUB_SHA_SHORT }}.tar.zst
 
     - name: Upload linux-arm64 App ${{ matrix.configuration }}
       continue-on-error: true
@@ -160,4 +160,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_linux_arm64_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_arm64_${{ env.GITHUB_SHA_SHORT }}.7z
+        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_arm64_${{ env.GITHUB_SHA_SHORT }}.tar.zst

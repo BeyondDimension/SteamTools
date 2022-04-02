@@ -147,6 +147,15 @@ namespace System.Application.UI.ViewModels
         }
     }
 
+    partial class AccountPageViewModel : TabItemViewModel
+    {
+        public static string DisplayName => AppResources.UserProfile;
+
+        public override string Name
+        {
+            get => DisplayName;
+        }
+    }
 #if DEBUG
     partial class DebugPageViewModel : TabItemViewModel
     {

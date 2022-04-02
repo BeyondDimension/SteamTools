@@ -22,6 +22,7 @@ namespace System.Application
         public const string OfficialWebsite_UnixHostAccess_ = "https://steampp.net/unixhostaccess?prot={0}";
         public const string OfficialWebsite_UnixHostAccess = "https://steampp.net/unixhostaccess";
         public const string OfficialWebsite_ApplicationUpdateFailCode_ = "https://steampp.net?appUpdFailCode={0}";
+        public const string OfficialWebsite_Notice = "https://steampp.net/notice?id={0}";
 
         public const string GitHub_Repository = "https://github.com/BeyondDimension/SteamTools";
         public const string Gitee_Repository = "https://gitee.com/rmbgame/SteamTools";

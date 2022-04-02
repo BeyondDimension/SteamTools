@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        Width="800" Height="600"
+        x:Name="u"
+        x:Class="System.Application.UI.Views.Windows.SignWindow"
+        xmlns:resx="using:System.Application.UI.Resx"
+        xmlns:vm="using:System.Application.UI.ViewModels"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:ms="using:System.Application.Settings"
+        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+        Background="Transparent"
+        ExtendClientAreaTitleBarHeightHint="30"
+        Title="{Binding Title}"
+        x:DataType="vm:SignWindowViewModel"
+        x:CompileBindings="True">
+  <Panel HorizontalAlignment="Stretch">
+    <controls:TitleBar></controls:TitleBar>
+
+    <DockPanel>
+      <Border DockPanel.Dock="Top" 
+              Classes="paper" 
+              Background="{DynamicResource ThemeBrushKey}" 
+              Padding="10" 
+              Margin="10 40 10 10">
+        <DockPanel>
+          
+        </DockPanel>
+      </Border> 
+    </DockPanel>
+  </Panel>
+</Window>

@@ -34,6 +34,10 @@ namespace System.Application.Services
             {
                 isDialog = false;
             }
+            else if (windowName == CustomWindow.Notice)
+            {
+                isDialog = true;
+            }
             else if (windowName == CustomWindow.ChangeBindPhoneNumber)
             {
                 var cUser = await userManager.GetCurrentUserAsync();
@@ -71,7 +75,10 @@ namespace System.Application.Services
                 await SignOutAsync(csc.Manage.SignOut);
             }
         }
-
+        public async Task<IApiResponse<ClockInResponse>> SignIn()
+        {
+            return await csc.AccountClockIn();
+        }
         public async Task DelAccountAsync()
         {
             if (!IsAuthenticated) return;

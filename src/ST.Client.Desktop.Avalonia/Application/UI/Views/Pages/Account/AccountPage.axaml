@@ -1,0 +1,239 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:service="using:System.Application.Services"
+             xmlns:models="using:System.Application.Models"
+             xmlns:ms="using:System.Application.Settings"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             x:DataType="vm:AccountPageViewModel"
+             xmlns:gif="using:AvaloniaGif"
+             x:CompileBindings="True"
+             x:Class="System.Application.UI.Views.Pages.AccountPage">
+  <StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
+    <StackPanel Spacing="8" DockPanel.Dock="Right">
+      <Border
+          Classes="paper"
+          Background="{DynamicResource ThemeBrushKey}"
+          Padding="10"
+          Margin="10 20 10 10">
+        <Panel >
+          <DockPanel>
+            <DockPanel>
+              <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #avatar}">
+                  <ia:InvokeCommandAction Command="{ReflectionBinding OpenUserProfile}"/>
+                </ia:EventTriggerBehavior>
+                <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #avatar}">
+                  <ia:ChangePropertyAction
+                      PropertyName="IsVisible"
+                      TargetObject="{ReflectionBinding #avatarMask}"
+                      Value="True" />
+                </ia:EventTriggerBehavior>
+                <ia:EventTriggerBehavior EventName="PointerLeave" SourceObject="{ReflectionBinding #avatar}">
+                  <ia:ChangePropertyAction
+                      PropertyName="IsVisible"
+                      TargetObject="{ReflectionBinding #avatarMask}"
+                      Value="False" />
+                </ia:EventTriggerBehavior>
+              </i:Interaction.Behaviors>
+              <Canvas x:Name="DrawCanvas"
+                      VerticalAlignment="Center"
+                      Margin="10 0"
+                      Height="64"
+                      Width="64"
+                      Background="Transparent">
+                <gif:Image2 x:Name="avatar"
+                      Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                      Stretch="Uniform"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      DecodeWidth="64"
+                      Height="64"
+                      Width="64"
+                      Cursor="Hand"
+                      FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
+                      ToolTip.Tip="{ReflectionBinding Path=Res.UserProfile,
+                                                Mode=OneWay,
+                                                Source={x:Static resx:R.Current}}">
+                  <gif:Image2.Clip>
+                    <EllipseGeometry Rect="0,0,64,64" />
+                  </gif:Image2.Clip>
+                </gif:Image2>
+                <Rectangle x:Name="avatarMask"
+                           IsVisible="false"
+                           IsHitTestVisible="False"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Width="64"
+                           Height="64"
+                           Fill="#99000000">
+                  <Rectangle.Clip>
+                    <EllipseGeometry Rect="0,0,64,64" />
+                  </Rectangle.Clip>
+                </Rectangle>
+              </Canvas>
+            </DockPanel>
+            <StackPanel Spacing="5" Margin="10"  IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+              <DockPanel>
+                <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                          IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
+                          Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                          FontSize="14"
+                          VerticalAlignment="Center"/>
+                <TextBlock  IsVisible="{Binding IsSponsor}" Margin="0 0 10 0" Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current}}" FontSize="12"></TextBlock>
+                <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                       Foreground="{DynamicResource HighlightForegroundBrushKey}"
+                       FontSize="14"
+                       VerticalAlignment="Center"/>
+                <Label Margin="15 0 0 0" Content="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="12"/>
+                <Border CornerRadius="2" Height="5" Width="25" Background="#ffffff" Opacity="0.2" Margin="0 5 5 0">
+                  <Border Width="10" HorizontalAlignment="Left" CornerRadius="10">
+                    <Border.Background>
+                      <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="#b00dff"/>
+                        <GradientStop Offset="1" Color="#580083"/>
+                      </LinearGradientBrush>
+                    </Border.Background>
+                  </Border>
+                </Border>
+
+                <WrapPanel HorizontalAlignment="Right">
+                  <Button Background="Transparent" Cursor="Hand"
+                          Margin="10 0 10 0"
+                          Command="{ReflectionBinding SignIn}"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
+                  </Button>
+                  <Button Background="Transparent" Cursor="Hand"
+                     Command="{ReflectionBinding RefreshScriptButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <PathIcon Width="16"  Data="{StaticResource SearchDrawing}" />
+                  </Button>
+
+
+                </WrapPanel>
+              </DockPanel>
+              <Separator Classes="Separator"></Separator>
+              <DockPanel>
+                <DockPanel>
+                  <Label Content="{ReflectionBinding Path=Res.User_EngineOil,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
+                  <Label Content=":"></Label>
+                  <Button Background="Transparent" Cursor="Hand"
+                          Padding="0"
+                          Command="{ReflectionBinding OpenEngineOilLogs}"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.User_EngineOil,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Label Content="{ReflectionBinding Path=User.EngineOil,Mode=OneWay,Source={x:Static service:UserService.Current}}">
+                    </Label>
+                  </Button>
+                </DockPanel>
+                <DockPanel>
+                  <Label Content="{ReflectionBinding Path=Res.User_Balance,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
+                  <Label Content=":"></Label>
+                  <Button Background="Transparent" Cursor="Hand"
+                          Padding="0"
+                          Command="{ReflectionBinding OpenEngineOilLogs}"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.User_Balance,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <Label Content="{ReflectionBinding Path=User.Balance,Mode=OneWay,Source={x:Static service:UserService.Current}}">
+                    </Label>
+                  </Button>
+
+                </DockPanel>
+              </DockPanel>
+
+            </StackPanel>
+          </DockPanel>
+        </Panel>
+      </Border>
+      <Separator Classes="Separator"></Separator>
+      <Grid  ColumnDefinitions="Auto,*"
+              RowDefinitions="Auto,*">
+        <Border Grid.Column="0"
+              Margin="10 0 10 10"
+              MinWidth="300"
+            Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
+          <DockPanel>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                 Padding="0 0 0 10">
+              <ItemsControl
+               x:Name="item"
+               Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate  x:DataType="models:NoticeDTO">
+
+                    <DockPanel>
+                      <StackPanel Spacing="8" DockPanel.Dock="Right">
+                        <DockPanel>
+                          <controls:ScrollingTextBlock
+                              Width="{Binding $parent.Width}"
+                              Text="{Binding Title,Mode=OneWay}"
+                              FontSize="16"
+                              VerticalAlignment="Center"
+                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+
+                          <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <TextBlock
+                                Text="{Binding Author}"
+                                FontSize="14"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+
+                            <TextBlock Text=" / " FontSize="14"></TextBlock>
+                            <TextBlock
+                                Text="{Binding CreationTime}"
+                                FontSize="14"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+                          </WrapPanel>
+                        </DockPanel>
+
+                        <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+
+                        <TextBlock
+                        Width="{Binding $parent.Width}"
+                        TextWrapping="WrapWithOverflow"
+                        Text="{Binding Introduction}"
+                        FontSize="12"
+                        Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+
+                      </StackPanel>
+                    </DockPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+
+          </DockPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0" Classes="paper"  Margin="0 0 10 10"  Background="{DynamicResource ThemeBrushKey}" Padding="10">
+          <DockPanel >
+            <TextBlock Text="这里部分常见内容 官网Json获取 手动编辑" FontSize="14"></TextBlock>
+          </DockPanel>
+        </Border>
+      </Grid>
+
+      <Grid  ColumnDefinitions="Auto,*"
+              RowDefinitions="Auto,*">
+        <Border Grid.Column="0"
+                Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+          <DockPanel>
+
+          </DockPanel>
+        </Border>
+        <Border Grid.Column="1"
+                Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+          <DockPanel >
+
+
+          </DockPanel>
+        </Border>
+      </Grid>
+    </StackPanel>
+  </StackPanel>
+</UserControl>
+

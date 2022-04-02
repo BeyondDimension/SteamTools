@@ -1,4 +1,4 @@
-﻿using System.Application;
+using System.Application;
 using System.Application.Services;
 using System.IO;
 using System.Threading;
@@ -45,6 +45,10 @@ namespace System.Application
         /// 验证码图片
         /// </summary>
         CodeImage,
+        /// <summary>
+        /// 通知公告封面图
+        /// </summary>
+        NoticePicture
     }
 }
 

@@ -60,6 +60,7 @@ namespace System.Application.UI.ViewModels
         public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
 
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
+        public AccountPageViewModel AccountPage => GetTabItemVM<AccountPageViewModel>();
 
         protected static readonly IPlatformService platformService = IPlatformService.Instance;
         public MainWindowViewModel()
@@ -82,7 +83,7 @@ namespace System.Application.UI.ViewModels
                 {
                     IsOpenUserMenu = UserService.Current.IsAuthenticated;
                     if (!IsOpenUserMenu)
-                    {
+                    { 
                         UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
                     }
                 });

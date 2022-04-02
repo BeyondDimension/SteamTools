@@ -32,5 +32,6 @@ namespace System.Application
         ASF_AddBot,
         SteamShutdown,
         ProxySettings,
+        Notice,
     }
 }

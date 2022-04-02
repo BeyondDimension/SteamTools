@@ -226,6 +226,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 签到成功 的本地化字符串。
+        /// </summary>
+        public static string Account_SignIn_Ok {
+            get {
+                return ResourceManager.GetString("Account_SignIn_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 修改的数据生效需要重启 Steam 是否需要重启 Steam。 的本地化字符串。
         /// </summary>
         public static string AccountChange_RestartSteam {
@@ -5404,6 +5413,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 余额 的本地化字符串。
+        /// </summary>
+        public static string User_Balance {
+            get {
+                return ResourceManager.GetString("User_Balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 基本资料 的本地化字符串。
         /// </summary>
         public static string User_BasicInfo {
@@ -5436,6 +5454,15 @@ namespace System.Application.UI.Resx {
         public static string User_EditProfile {
             get {
                 return ResourceManager.GetString("User_EditProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 积分 的本地化字符串。
+        /// </summary>
+        public static string User_EngineOil {
+            get {
+                return ResourceManager.GetString("User_EngineOil", resourceCulture);
             }
         }
         
@@ -5661,6 +5688,15 @@ namespace System.Application.UI.Resx {
         public static string User_SMSCode_Error {
             get {
                 return ResourceManager.GetString("User_SMSCode_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 捐助用户 的本地化字符串。
+        /// </summary>
+        public static string User_Sponsor {
+            get {
+                return ResourceManager.GetString("User_Sponsor", resourceCulture);
             }
         }
         
