@@ -51,12 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Xamarin.Mac">
-      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.Mac\v2.0\Xamarin.Mac.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Properties\SR.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
