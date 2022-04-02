@@ -516,7 +516,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 程序启动时自动运行 ASF 的本地化字符串。
+        ///   查找类似 启动时自动运行 ASF 的本地化字符串。
         /// </summary>
         public static string ASF_AutoRunASF {
             get {
@@ -1140,7 +1140,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 程序启动时自动启动加速 的本地化字符串。
+        ///   查找类似 启动时自动启动加速 的本地化字符串。
         /// </summary>
         public static string CommunityFix_AutoRunProxy {
             get {
@@ -1914,7 +1914,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 程序启动时自动挂时长 的本地化字符串。
+        ///   查找类似 启动时自动挂时长 的本地化字符串。
         /// </summary>
         public static string GameList_AutoAFK {
             get {
@@ -4646,7 +4646,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 程序启动时自动运行 Steam 的本地化字符串。
+        ///   查找类似 启动时自动运行 Steam 的本地化字符串。
         /// </summary>
         public static string Settings_Steam_AutoRunSteam {
             get {

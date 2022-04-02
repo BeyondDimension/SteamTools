@@ -288,7 +288,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>当前 ArchiSteamFarm 版本 ： </value>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>程序启动时自动运行 ASF</value>
+    <value>启动时自动运行 ASF</value>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
     <value>跳转到 WebUI 全局设置</value>
@@ -388,7 +388,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=末尾带空格;</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>程序启动时自动启动加速</value>
+    <value>启动时自动启动加速</value>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
     <value>证书设置</value>
@@ -544,7 +544,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>未添加挂时长的游戏，请从游戏列表右键添加。</value>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>程序启动时自动挂时长</value>
+    <value>启动时自动挂时长</value>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
     <value>是否移除全部挂时长的游戏？</value>
@@ -1207,7 +1207,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Steam 设置</value>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>程序启动时自动运行 Steam</value>
+    <value>启动时自动运行 Steam</value>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
     <value>Steam 启动时不检查更新</value>

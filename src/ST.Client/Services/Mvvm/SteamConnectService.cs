@@ -55,6 +55,8 @@ namespace System.Application.Services
                             value.BytesToStage = app.BytesToStage;
                             value.BytesStaged = app.BytesStaged;
                             value.LastUpdated = app.LastUpdated;
+
+                            SteamApps.Refresh(app);
                         }
                     }
                 });
@@ -66,7 +68,7 @@ namespace System.Application.Services
                     {
                         InitializeDownloadGameList();
                         if (OperatingSystem2.IsLinux)
-                           IPlatformService.Instance.TryGetSystemUserPassword();
+                            IPlatformService.Instance.TryGetSystemUserPassword();
                         SteamTool.StartWatchSteamDownloading(app =>
                         {
                             var optional = DownloadApps.Lookup(app.AppId);

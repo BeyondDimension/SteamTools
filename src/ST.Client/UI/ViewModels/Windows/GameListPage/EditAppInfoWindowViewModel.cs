@@ -27,6 +27,15 @@ namespace System.Application.UI.ViewModels
         readonly ReadOnlyObservableCollection<SteamGridItem>? _SteamGridItems;
         public ReadOnlyObservableCollection<SteamGridItem>? SteamGridItems => _SteamGridItems;
 
+        private bool _IsLoadingSteamGrid;
+        public bool IsLoadingSteamGrid
+        {
+            get => _IsLoadingSteamGrid;
+            set => this.RaiseAndSetIfChanged(ref _IsLoadingSteamGrid, value);
+        }
+
+        public bool IsSteamGridEmpty => !IsLoadingSteamGrid && !SteamGridItems.Any_Nullable();
+
         public EditAppInfoWindowViewModel(SteamApp app)
         {
             if (app == null)
@@ -44,7 +53,7 @@ namespace System.Application.UI.ViewModels
               .ObserveOn(RxApp.MainThreadScheduler)
               .Sort(SortExpressionComparer<SteamGridItem>.Ascending(x => x.Id))
               .Bind(out _SteamGridItems)
-              .Subscribe();
+              .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamGridEmpty)));
         }
 
         public void AddLaunchItem()
@@ -83,6 +92,7 @@ namespace System.Application.UI.ViewModels
 
         public async void RefreshSteamGridItemList(SteamGridItemType type = SteamGridItemType.Grid)
         {
+            IsLoadingSteamGrid = true;
             _SteamGridItemSourceList.Clear();
 
             var grid = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridAppBySteamAppId(App.AppId);
@@ -96,6 +106,8 @@ namespace System.Application.UI.ViewModels
                     _SteamGridItemSourceList.AddOrUpdate(items);
                 }
             }
+
+            IsLoadingSteamGrid = false;
         }
     }
 }

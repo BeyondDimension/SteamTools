@@ -117,45 +117,57 @@
                         CloseButtonText="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         DefaultButton="Primary">
               <ui:ContentDialog.Content>
-                <ListBox Items="{Binding SteamGridItems}"
-                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                         ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                  <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                      <StackPanel Orientation="Horizontal" Spacing="8" />
-                    </ItemsPanelTemplate>
-                  </ListBox.ItemsPanel>
-                  <ListBox.ItemTemplate>
-                    <DataTemplate DataType="{x:Type models:SteamGridItem}">
-                      <StackPanel Margin="0 0 0 15" Spacing="6">
-                        <Panel Width="150"
-                               MinHeight="150">
-                          <gif:Image2 Width="150"
-                                      DecodeWidth="150"
-                                      Stretch="Uniform"
-                                      Source="{Binding Thumb}" />
-                          <Panel.ContextMenu>
-                            <ContextMenu>
-                              <MenuItem Header="Open Url"/>
-                            </ContextMenu>
-                          </Panel.ContextMenu>
-                        </Panel>
-                        <!--<TextBlock MaxWidth="150" 
+                <Panel>
+                  <ProgressBar
+                          Width="60"
+                          Height="60"
+                          Classes="Circle"
+                          IsIndeterminate="True"
+                          Orientation="Vertical"
+                          IsVisible="{Binding IsLoadingSteamGrid}"/>
+                  <TextBlock Text="未能从 SteamGridDB 获取到图片"
+                             IsVisible="{Binding IsSteamGridEmpty}"/>
+                  <ListBox Items="{Binding SteamGridItems}"
+                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                           ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="8" />
+                      </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                      <DataTemplate DataType="{x:Type models:SteamGridItem}">
+                        <StackPanel Margin="0 0 0 15" Spacing="6">
+                          <Panel Width="150"
+                                 MinHeight="150">
+                            <gif:Image2 Width="150"
+                                        DecodeWidth="150"
+                                        Stretch="Uniform"
+                                        Source="{Binding Thumb}" />
+                            <Panel.ContextFlyout>
+                              <MenuFlyout>
+                                <MenuItem Header="下载图片"/>
+                                <MenuItem Header="在浏览器中打开原图"/>
+                              </MenuFlyout>
+                            </Panel.ContextFlyout>
+                          </Panel>
+                          <!--<TextBlock MaxWidth="150" 
                                    TextWrapping="Wrap" 
                                    Text="{Binding Style}" 
                                    FontSize="12"
                                    FontWeight="Bold" />-->
-                        <TextBlock MaxWidth="150"
-                                   TextWrapping="Wrap"
-                                   TextTrimming="CharacterEllipsis"
-                                   ToolTip.Tip="{Binding Author.Name}"
-                                   Text="{Binding Author.Name}"
-                                   FontSize="10"
-                                   Foreground="{DynamicResource InactiveForegroundBrushKey}" />
-                      </StackPanel>
-                    </DataTemplate>
-                  </ListBox.ItemTemplate>
-                </ListBox>
+                          <TextBlock MaxWidth="150"
+                                     TextWrapping="Wrap"
+                                     TextTrimming="CharacterEllipsis"
+                                     ToolTip.Tip="{Binding Author.Name}"
+                                     Text="{Binding Author.Name}"
+                                     FontSize="10"
+                                     Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                        </StackPanel>
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                </Panel>
               </ui:ContentDialog.Content>
             </ui:ContentDialog>
             <ScrollViewer>
