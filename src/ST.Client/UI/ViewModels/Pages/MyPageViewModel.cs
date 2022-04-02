@@ -18,6 +18,8 @@ namespace System.Application.UI.ViewModels
 
         public static string DisplayName => AppResources.My;
 
+        static PreferenceButtonViewModel GetSignOutItem(MyPageViewModel @this) => PreferenceButtonViewModel.Create(PreferenceButton.SignOut, @this, 2);
+
         public MyPageViewModel()
         {
             preferenceButtons = new()
@@ -26,10 +28,13 @@ namespace System.Application.UI.ViewModels
                 PreferenceButtonViewModel.Create(PreferenceButton.BindPhoneNumber, this),
                 PreferenceButtonViewModel.Create(PreferenceButton.Settings, this, 1),
                 PreferenceButtonViewModel.Create(PreferenceButton.About, this, 1),
+                GetSignOutItem(this),
             };
 
             UserService.Current.WhenAnyValue(x => x.User).Subscribe(value =>
             {
+                var signOutItems = preferenceButtons.Where(x => x.Id == PreferenceButton.SignOut).ToArray();
+
                 if (value == null)
                 {
                     nickNameNullValLangChangeSubscribe?.RemoveTo(this);
@@ -38,8 +43,12 @@ namespace System.Application.UI.ViewModels
                         // 未登录时显示的文本，多语言绑定
                         NickName = NickNameNullVal;
                     }).AddTo(this);
-
                     //PreferenceButtonViewModel.RemoveAuthorized(preferenceButtons, this);
+
+                    if (signOutItems.Any())
+                    {
+                        PreferenceButtonViewModel.RemoveRange(preferenceButtons, signOutItems, this);
+                    }
                 }
                 else
                 {
@@ -60,6 +69,9 @@ namespace System.Application.UI.ViewModels
                     //    phoneNumber = PreferenceButtonViewModel.Create(PreferenceButtonViewModel.GetPhoneNumberId(UserService.Current.HasPhoneNumber), this);
                     //    preferenceButtons.Insert(1, phoneNumber);
                     //}
+
+                    var signOutItem = signOutItems.FirstOrDefault() ?? GetSignOutItem(this);
+                    preferenceButtons.Add(signOutItem);
                 }
             }).AddTo(this);
 
@@ -110,6 +122,7 @@ namespace System.Application.UI.ViewModels
             ChangePhoneNumber,
             Settings,
             About,
+            SignOut,
         }
 
         /// <summary>
@@ -132,6 +145,7 @@ namespace System.Application.UI.ViewModels
                     PreferenceButton.ChangePhoneNumber => AppResources.User_ChangePhoneNum,
                     PreferenceButton.Settings => AppResources.Settings,
                     PreferenceButton.About => AppResources.About,
+                    PreferenceButton.SignOut => AppResources.SignOut,
                     _ => string.Empty,
                 };
                 return title;
@@ -146,6 +160,7 @@ namespace System.Application.UI.ViewModels
                     PreferenceButton.ChangePhoneNumber => ResIcon.PlatformPhone,
                     PreferenceButton.Settings => ResIcon.Settings,
                     PreferenceButton.About => ResIcon.Info,
+                    PreferenceButton.SignOut => ResIcon.Exit,
                     _ => default,
                 };
                 return icon;
@@ -167,14 +182,19 @@ namespace System.Application.UI.ViewModels
             [Obsolete("未登录时不隐藏选项，点击相关选项跳转登录", true)]
             public static void RemoveAuthorized(ICollection<PreferenceButtonViewModel> collection, IDisposableHolder vm)
             {
-                var removeArray = collection.Where(x => IsPhoneNumber(x.Id) || x.Id == PreferenceButton.UserProfile).ToArray();
-                Array.ForEach(removeArray, x =>
+                var removeArray = collection.Where(x => IsPhoneNumber(x.Id) || x.Id == PreferenceButton.UserProfile);
+                RemoveRange(collection, removeArray, vm);
+            }
+#endif
+
+            public static void RemoveRange(ICollection<PreferenceButtonViewModel> collection, IEnumerable<PreferenceButtonViewModel> removeArray, IDisposableHolder vm)
+            {
+                Array.ForEach(removeArray.ToArray(), x =>
                 {
                     collection.Remove(x);
                     x.OnUnbind(vm);
                 });
             }
-#endif
 
             /// <summary>
             /// 根据是否有手机号码确定键为[绑定手机]还是[换绑手机]
@@ -205,7 +225,8 @@ namespace System.Application.UI.ViewModels
                 {
                     PreferenceButton.UserProfile or
                     PreferenceButton.BindPhoneNumber or
-                    PreferenceButton.ChangePhoneNumber => true,
+                    PreferenceButton.ChangePhoneNumber or
+                    PreferenceButton.SignOut => true,
                     _ => false,
                 };
                 return r;

@@ -24,6 +24,7 @@ namespace System
                 ResIcon.Apple => Resource.Drawable.icon_apple_24,
                 ResIcon.QQ => Resource.Drawable.icon_qq_24,
                 ResIcon.Phone => Resource.Drawable.icon_phone_24,
+                ResIcon.Exit => Resource.Drawable.ic_baseline_exit_to_app_24,
                 _ => (int?)null,
             };
             return resId;

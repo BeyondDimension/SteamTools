@@ -359,6 +359,9 @@
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_double_arrow_24.xml">
       <Link>Resources\drawable\ic_baseline_double_arrow_24.xml</Link>
     </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_exit_to_app_24.xml">
+      <Link>Resources\drawable\ic_baseline_exit_to_app_24.xml</Link>
+    </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\drawable\ic_baseline_keyboard_arrow_down_24.xml">
       <Link>Resources\drawable\ic_baseline_keyboard_arrow_down_24.xml</Link>
     </AndroidResource>

@@ -89,6 +89,9 @@ namespace System.Application.UI.Fragments
                     case PreferenceButton.About:
                         this.StartActivity<AboutActivity>();
                         break;
+                    case PreferenceButton.SignOut:
+                        UserService.Current.SignOut();
+                        break;
                 }
             };
             binding.rvPreferenceButtons.SetLinearLayoutManager();
