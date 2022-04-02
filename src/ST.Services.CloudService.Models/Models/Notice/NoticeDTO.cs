@@ -39,6 +39,10 @@ namespace System.Application.Models
         public string Picture { get; set; } = string.Empty;
 #if MVVM_VM
         Task<string?>? _PictureStream;
+        
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
         public Task<string?>? PictureStream
         {
             get => _PictureStream;
