@@ -3,17 +3,20 @@ using System.Properties;
 using System.Text;
 using System.Windows;
 using static System.Application.Services.INotificationService;
+using System.Runtime.Versioning;
 
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="INotificationService"/>
     internal sealed class NotificationServiceImpl : INotificationService
     {
-        readonly NotifyIcon notifyIcon;
+        [SupportedOSPlatform("windows")]
+        [SupportedOSPlatform("macos")]
+        [SupportedOSPlatform("linux")]
+        static NotifyIcon? NotifyIcon => DI.Get_Nullable<NotifyIcon>();
 
-        public NotificationServiceImpl(NotifyIcon notifyIcon)
+        public NotificationServiceImpl()
         {
-            this.notifyIcon = notifyIcon;
         }
 
         bool INotificationService<NotificationType, Entrance, INotificationService>.AreNotificationsEnabled() => true;
@@ -22,7 +25,9 @@ namespace System.Application.Services.Implementation
         {
             if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
             {
-                notifyIcon.HideBalloonTip();
+#pragma warning disable CA1416 // 验证平台兼容性
+                NotifyIcon?.HideBalloonTip();
+#pragma warning restore CA1416 // 验证平台兼容性
             }
         }
 
@@ -30,7 +35,9 @@ namespace System.Application.Services.Implementation
         {
             if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
             {
-                notifyIcon.HideBalloonTip();
+#pragma warning disable CA1416 // 验证平台兼容性
+                NotifyIcon?.HideBalloonTip();
+#pragma warning restore CA1416 // 验证平台兼容性
             }
         }
 
@@ -40,7 +47,9 @@ namespace System.Application.Services.Implementation
             {
                 title ??= ThisAssembly.AssemblyTrademark;
                 // 调用托盘显示通知
-                notifyIcon.ShowBalloonTip(title, text, ToolTipIcon.None);
+#pragma warning disable CA1416 // 验证平台兼容性
+                NotifyIcon?.ShowBalloonTip(title, text, ToolTipIcon.None);
+#pragma warning restore CA1416 // 验证平台兼容性
             }
         }
 

@@ -2,6 +2,7 @@ using Android.App;
 using Android.Runtime;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
+using System.Application.Mvvm;
 using System.Diagnostics;
 using System.Text;
 using Xamarin.Essentials;
@@ -250,7 +251,7 @@ namespace System.Application.UI
         const AppTheme _DefaultActualTheme = AppTheme.Light;
         AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
-        public bool IsRuntimeSwitchXFAppTheme { get; set; } = true;
+        //public bool IsRuntimeSwitchXFAppTheme { get; set; } = true;
 
         #region AppTheme
 
@@ -340,7 +341,7 @@ namespace System.Application.UI
 
         readonly CompositeDisposable compositeDisposable = new();
 
-        CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         #endregion
 

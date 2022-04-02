@@ -1,4 +1,3 @@
-using System;
 using System.Application.Models;
 using System.Application.Mvvm;
 using System.Collections.Generic;
@@ -36,14 +35,20 @@ namespace System.Application.UI
         /// </summary>
         IReadOnlyDictionary<string, ICommand> NotifyIconMenus { get; }
 
-        new CompositeDisposable CompositeDisposable { get; }
-
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => CompositeDisposable;
-
         /// <summary>
         /// 是否有活动窗口
         /// </summary>
         /// <returns></returns>
         bool HasActiveWindow();
     }
+
+#if NET6_0_OR_GREATER
+    // 接口默认实现在 Xamarin.Android 上不可用，将引发 Java.Lang.AbstractMethodError: Exception of type 'Java.Lang.AbstractMethodError' was thrown.
+    partial interface IApplication
+    {
+        new CompositeDisposable CompositeDisposable { get; }
+
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => CompositeDisposable;
+    }
+#endif
 }
