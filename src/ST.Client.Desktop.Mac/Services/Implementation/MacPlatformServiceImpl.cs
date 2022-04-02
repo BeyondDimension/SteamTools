@@ -1,16 +1,21 @@
 #if MONO_MAC
 using MonoMac.AppKit;
 using MonoMac.Foundation;
+using MonoMac.Security;
 #elif XAMARIN_MAC
 using AppKit;
 using Foundation;
+using Security;
 #endif
 using System.Application.Models;
+using System.Application.UI.Resx;
+using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,9 +52,70 @@ namespace System.Application.Services.Implementation
             var ret = p.StandardOutput.ReadToEnd().Replace("An asterisk (*) denotes that a network service is disabled.", "");
             p.Kill();
             return ret.Split("\n");
-        }
+        } 
+        internal static bool IsCertificateInstalled(X509Certificate2 certificate2)
+        {
+            //bool result = false;
+            //using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            //store.Open(OpenFlags.ReadOnly); 
+            //foreach (var item in store.Certificates.Find(X509FindType.FindByIssuerName, "SteamTools Certificate", false))
+            //{ 
+            //    var itemCertificate = new SecRecord((SecKind)2); 
+            //    if (item.GetCertHashString() == certificate2.GetCertHashString())
+            //    {
+            //        using (var policy = SecPolicy.CreateSslPolicy(true, null))
+            //        using (var trust = new SecTrust(item, null))
+            //        {
+            //            Console.WriteLine(trust.Evaluate());
+            //        }
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        //var rcode = SecKeyChain.Remove(cers);
+            //        //if (rcode != SecStatusCode.Success)
+            //        //    await RunShellAsync($"security delete-certificate -Z {item.GetCertHashString()}", true);
+            //        //result = false;
+            //    }
 
-        ValueTask IPlatformService.RunShellAsync(string script, bool admin) => UnixHelper.RunShellAsync(script, admin);
+            //}
+            //return result;
+            using var p = new Process();
+            p.StartInfo.FileName = "security";
+            p.StartInfo.Arguments = $" verify-cert -c \"{IHttpProxyService.Instance.GetCerFilePathGeneratedWhenNoFileExists()}\"";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.Start();
+            var returnStr = p.StandardOutput.ReadToEnd().TrimEnd();
+            p.Kill();
+            return returnStr == "...certificate verification successful.";
+        }
+        bool IPlatformService.IsCertificateInstalled(X509Certificate2 certificate2) => IsCertificateInstalled(certificate2);
+ 
+        ValueTask IPlatformService.RunShellAsync(string script, bool admin) => RunShellAsync(script,admin);
+
+
+        static async ValueTask RunShellAsync(string script, bool admin)
+        {
+            var scriptContent = new StringBuilder();
+            if (admin)
+            {
+                TextBoxWindowViewModel vm = new()
+                {
+                    Title = AppResources.MacSudoPasswordTips,
+                    InputType = TextBoxWindowViewModel.TextBoxInputType.ReadOnlyText,
+                    Description = $"sudo {script}",
+                };
+                if (await TextBoxWindowViewModel.ShowDialogAsync(vm) == null)
+                    return;
+                scriptContent.AppendLine($"osascript -e 'tell app \"Terminal\" to do script \"sudo -S {script}\"'");
+            }
+            else
+                scriptContent.AppendLine(script);
+            var msg = UnixHelper.RunShell(scriptContent.ToString());
+            if (!string.IsNullOrWhiteSpace(msg))
+                Toast.Show(msg);
+        }
 
         public static void OpenFile(string appName, string filePath) => NSWorkspace.SharedWorkspace.OpenFile(filePath, appName);
 

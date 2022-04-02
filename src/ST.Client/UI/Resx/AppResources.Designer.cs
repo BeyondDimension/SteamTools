@@ -3592,7 +3592,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 请输入系统密码继续或者复制命令手动执行 的本地化字符串。
+        ///   查找类似 请在弹出的控制台窗口中输入密码或者手动执行 的本地化字符串。
         /// </summary>
         public static string MacSudoPasswordTips {
             get {
@@ -5310,6 +5310,15 @@ namespace System.Application.UI.Resx {
         public static string UnderConstruction {
             get {
                 return ResourceManager.GetString("UnderConstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入系统密码继续或者复制命令手动执行 的本地化字符串。
+        /// </summary>
+        public static string UnixSudoPasswordTips {
+            get {
+                return ResourceManager.GetString("UnixSudoPasswordTips", resourceCulture);
             }
         }
         

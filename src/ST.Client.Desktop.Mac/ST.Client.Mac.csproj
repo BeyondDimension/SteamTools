@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFrameworks>net6.0-macos</TargetFrameworks>-->
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <!--<TargetFrameworks>net6.0</TargetFrameworks> -->
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mac</AssemblyName>
   </PropertyGroup>
@@ -52,7 +52,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" />
   </ItemGroup>
 
- 
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) OR $(TargetFramework.EndsWith('net5.0')) OR $(TargetFramework.EndsWith('net6.0')) ">
     <PackageReference Include="MonoMac.NetStandard" />
   </ItemGroup>

@@ -446,7 +446,7 @@ namespace System.Application.Services.Implementation
         {
             var filePath = GetCerFilePathGeneratedWhenNoFileExists();
             if (filePath != null)
-                IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /User/{Environment.UserName}/Library/Keychains/System.keychain-db \"{filePath}\"", true);
+                IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
         }
 
         public bool SetupCertificate()
@@ -848,13 +848,14 @@ namespace System.Application.Services.Implementation
             }
 
             bool result;
-            if (usePlatformCheck && OperatingSystem2.IsAndroid)
+            //|| OperatingSystem2.IsMacOS 
+            if ((usePlatformCheck && OperatingSystem2.IsAndroid) || OperatingSystem2.IsMacOS)
             {
                 result = platformService.IsCertificateInstalled(certificate2);
             }
             else
             {
-                using var store = new X509Store(OperatingSystem2.IsMacOS ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
+                using var store = new X509Store(OperatingSystem2.IsMacOS? StoreName .My: StoreName.Root, StoreLocation.CurrentUser);
                 store.Open(OpenFlags.ReadOnly);
                 result = store.Certificates.Contains(certificate2);
             }

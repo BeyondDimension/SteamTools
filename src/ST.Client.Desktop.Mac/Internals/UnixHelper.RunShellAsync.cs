@@ -30,7 +30,7 @@ static partial class UnixHelper
         {
             TextBoxWindowViewModel vm = new()
             {
-                Title = AppResources.MacSudoPasswordTips,
+                Title = AppResources.UnixSudoPasswordTips,
                 InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
                 Description = $"sudo {script}",
             };
@@ -44,6 +44,7 @@ static partial class UnixHelper
         if (!string.IsNullOrWhiteSpace(msg))
             Toast.Show(msg); 
     }
+
     /// <summary>
     /// 执行脚本
     /// </summary>
