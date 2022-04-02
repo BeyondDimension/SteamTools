@@ -175,14 +175,12 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <StackPanel Orientation="Horizontal" Spacing="6">
-                        <TextBlock Text="封面"/>
-                        <Button Classes="Hyperlink"
-                                FontSize="12"
-                                Content="从 SteamGridDB 获取"
-                                Tag="{x:Static models:SteamGridItemType.Grid}"
-                                Click="ShowGridDialog_Click"/>
-                      </StackPanel>
+                      <TextBlock Text="封面"/>
+                      <Button Classes="Hyperlink"
+                              FontSize="12"
+                              Content="从 SteamGridDB 获取"
+                              Tag="{x:Static models:SteamGridItemType.Grid}"
+                              Click="ShowGridDialog_Click"/>
 
                       <TextBlock Classes="prompt h8"
                                  Text="建议的分辨率"/>
@@ -200,14 +198,12 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <StackPanel Orientation="Horizontal" Spacing="6">
-                        <TextBlock Text="背景"/>
-                        <Button Classes="Hyperlink"
-                                FontSize="12"
-                                Content="从 SteamGridDB 获取"
-                                Tag="{x:Static models:SteamGridItemType.Hero}"
-                                Click="ShowGridDialog_Click"/>
-                      </StackPanel>
+                      <TextBlock Text="背景"/>
+                      <Button Classes="Hyperlink"
+                              FontSize="12"
+                              Content="从 SteamGridDB 获取"
+                              Tag="{x:Static models:SteamGridItemType.Hero}"
+                              Click="ShowGridDialog_Click"/>
 
                       <TextBlock Classes="prompt h8"
                                  Text="建议的分辨率"/>
@@ -226,14 +222,12 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <StackPanel Orientation="Horizontal" Spacing="6">
-                        <TextBlock Text="图标"/>
-                        <Button Classes="Hyperlink"
-                                FontSize="12"
-                                Content="从 SteamGridDB 获取"
-                                Tag="{x:Static models:SteamGridItemType.Logo}"
-                                Click="ShowGridDialog_Click"/>
-                      </StackPanel>
+                      <TextBlock Text="图标"/>
+                      <Button Classes="Hyperlink"
+                              FontSize="12"
+                              Content="从 SteamGridDB 获取"
+                              Tag="{x:Static models:SteamGridItemType.Logo}"
+                              Click="ShowGridDialog_Click"/>
 
                       <TextBlock Classes="prompt h8"
                                  Text="建议的分辨率"/>
@@ -286,17 +280,31 @@
                           <TextBox Text="{Binding Platform}"/>
                         </DockPanel>
 
-                        <ui:Button HorizontalAlignment="Stretch"
-                                   Margin="0 5"
-                                   Command="{ReflectionBinding #u.DataContext.DeleteLaunchItem}"
-                                   CommandParameter="{Binding}"
-                                   Cursor="Hand">
-                          <DockPanel>
-                            <ui:SymbolIcon Symbol="Delete"
-                                           FontSize="18"/>
-                            <TextBlock Text="删除此项"/>
-                          </DockPanel>
-                        </ui:Button>
+                        <Grid ColumnDefinitions="*,*,*">
+                          <ui:Button HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Center"
+                                     Margin="5"
+                                     Content="上移"
+                                     Command="{ReflectionBinding #u.DataContext.UpLaunchItem}"
+                                     CommandParameter="{Binding}"
+                                     Cursor="Hand" />
+                          <ui:Button HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Center"
+                                     Grid.Column="1"
+                                     Margin="5"
+                                     Content="下移"
+                                     Command="{ReflectionBinding #u.DataContext.DownLaunchItem}"
+                                     CommandParameter="{Binding}"
+                                     Cursor="Hand" />
+                          <ui:Button HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Center"
+                                     Grid.Column="2"
+                                     Margin="5"
+                                     Content="删除"
+                                     Command="{ReflectionBinding #u.DataContext.DeleteLaunchItem}"
+                                     CommandParameter="{Binding}"
+                                     Cursor="Hand" />
+                        </Grid>
                       </StackPanel>
                     </Border>
                   </DataTemplate>
@@ -309,7 +317,7 @@
                            Cursor="Hand">
                   <ui:SymbolIcon Symbol="Add"
                                  Margin="0 20"
-                                 FontSize="64"/>
+                                 FontSize="32"/>
                 </ui:Button>
               </Border>
             </StackPanel>

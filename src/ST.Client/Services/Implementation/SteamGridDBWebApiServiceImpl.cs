@@ -19,14 +19,14 @@ namespace System.Application.Services.Implementation
 
         public async Task<SteamGridApp?> GetSteamGridAppBySteamAppId(long appId)
         {
-            var url = String.Format(SteamGridDBApiUrls.RetrieveGameBySteamAppId_Url, appId);
+            var url = string.Format(SteamGridDBApiUrls.RetrieveGameBySteamAppId_Url, appId);
             var rsp = await s.SendAsync<SteamGridAppData>
                 (url, () =>
                  {
                      var rq = new HttpRequestMessage(HttpMethod.Get, url);
                      rq.Headers.Authorization = new AuthenticationHeaderValue("Bearer", ApiKey);
                      return rq;
-                 }, MediaTypeNames.JSON, new Threading.CancellationToken());
+                 }, MediaTypeNames.JSON, default);
 
             if (rsp != null)
             {
@@ -58,7 +58,7 @@ namespace System.Application.Services.Implementation
                                 var rq = new HttpRequestMessage(HttpMethod.Get, url);
                                 rq.Headers.Authorization = new Net.Http.Headers.AuthenticationHeaderValue("Bearer", ApiKey);
                                 return rq;
-                            }, MediaTypeNames.JSON, new Threading.CancellationToken());
+                            }, MediaTypeNames.JSON, default);
 
             if (rsp != null)
             {

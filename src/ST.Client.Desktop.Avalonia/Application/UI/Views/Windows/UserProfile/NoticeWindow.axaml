@@ -1,0 +1,125 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        Width="800" Height="600"
+        x:Name="u"
+        xmlns:gif="using:AvaloniaGif"
+        xmlns:i="using:Avalonia.Xaml.Interactivity"
+        xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+        x:Class="System.Application.UI.Views.Windows.NoticeWindow"
+        xmlns:service="using:System.Application.Services"
+        xmlns:resx="using:System.Application.UI.Resx"
+        xmlns:vm="using:System.Application.UI.ViewModels"
+        xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+        xmlns:ms="using:System.Application.Settings"
+        xmlns:models="using:System.Application.Models"
+        Background="Transparent"
+        ExtendClientAreaTitleBarHeightHint="30"
+        CanResize="True"
+        Title="{Binding Title}"
+        x:DataType="vm:NoticeWindowViewModel"
+        x:CompileBindings="True">
+  <Panel HorizontalAlignment="Stretch">
+    <controls:TitleBar></controls:TitleBar>
+    <Border Margin="{StaticResource TitleBarAfterMargin}"
+            Padding="10">
+      <TabControl Classes="flat"
+                  Items="{ReflectionBinding ObservableItems,Source={x:Static service:NotificationService.Current}}"
+                  SelectedItem="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=SelectGroup,Mode=TwoWay}"
+                  Background="Transparent">
+        <TabControl.ItemTemplate>
+          <DataTemplate x:DataType="models:NoticeTypeDTO">
+            <TextBlock Text="{Binding Name}"/>
+          </DataTemplate>
+        </TabControl.ItemTemplate>
+
+        <TabControl.ContentTemplate>
+          <DataTemplate>
+            <Panel>
+              <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsLoading,Mode=OneWay}"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                <ProgressBar
+                    Width="100"
+                    Height="100"
+                    Classes="Circle"
+                    IsIndeterminate="True"
+                    Orientation="Vertical" />
+                <TextBlock Text="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+              </StackPanel>
+              
+              <TextBlock Text="{ReflectionBinding Path=Res.NoticeEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsEmpty,Mode=OneWay}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+              
+              <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                   Padding="0 0 0 10">
+                <ItemsControl
+                 x:Name="item"
+                 Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:NoticeDTO">
+                      <Border Classes="paper"
+                              Margin="0 10"
+                              Background="{DynamicResource ThemeBrushKey}"
+                              Padding="20 10">
+                        <DockPanel>
+                          <StackPanel Spacing="8" DockPanel.Dock="Right">
+                            <DockPanel>
+                              <Button Content="{Binding Title,Mode=OneWay}"
+                                      VerticalAlignment="Center"
+                                      Classes="plain"
+                                      Command="{ReflectionBinding #u.DataContext.OpenNoticeWeb}"
+                                      CommandParameter="{Binding}">
+                                <TextBlock Text="{Binding Title,Mode=OneWay}"
+                                           Classes="h6"
+                                           TextTrimming="CharacterEllipsis"/>
+                              </Button>
+                              <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="{Binding Author,StringFormat={}{0} / }"
+                                    VerticalAlignment="Center"/>
+
+                                <TextBlock
+                                    Text="{Binding CreationTime}"
+                                    VerticalAlignment="Center"/>
+                              </WrapPanel>
+                            </DockPanel>
+                            <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+                            <Grid ColumnDefinitions="Auto,*">
+                              <Border ClipToBounds="True">
+                                <Panel Cursor="Hand" >
+                                  <gif:Image2
+                                      Width="150"
+                                      DecodeWidth="150"
+                                      AutoStart="true"
+                                      Source="{Binding PictureStream^}"
+                                      Stretch="Uniform" />
+                                </Panel>
+                              </Border>
+                              <Panel Grid.Column="1" Margin="10,0,0,0">
+                                <TextBlock
+                                Width="{Binding $parent.Width}"
+                                TextWrapping="WrapWithOverflow"
+                                Text="{Binding Introduction}"
+                                Classes="h8"/>
+                              </Panel>
+                            </Grid>
+                          </StackPanel>
+                        </DockPanel>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </ScrollViewer>
+
+            </Panel>
+          </DataTemplate>
+        </TabControl.ContentTemplate>
+      </TabControl>
+
+    </Border>
+  </Panel>
+</Window>

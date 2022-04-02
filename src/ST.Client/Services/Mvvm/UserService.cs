@@ -24,25 +24,29 @@ namespace System.Application.Services
         public async void ShowWindow(CustomWindow windowName)
         {
             var isDialog = true;
-            if (windowName == CustomWindow.LoginOrRegister)
+            switch (windowName)
             {
-                var cUser = await userManager.GetCurrentUserAsync();
-                if (cUser.HasValue()) return;
-                isDialog = false;
-            }
-            else if (windowName == CustomWindow.UserProfile)
-            {
-                isDialog = false;
-            }
-            else if (windowName == CustomWindow.Notice)
-            {
-                isDialog = true;
-            }
-            else if (windowName == CustomWindow.ChangeBindPhoneNumber)
-            {
-                var cUser = await userManager.GetCurrentUserAsync();
-                if (!cUser.HasValue()) return;
-                if (string.IsNullOrWhiteSpace(cUser!.PhoneNumber)) return;
+                case CustomWindow.LoginOrRegister:
+                    {
+                        var cUser = await userManager.GetCurrentUserAsync();
+                        if (cUser.HasValue()) return;
+                        isDialog = false;
+                        break;
+                    }
+
+                case CustomWindow.UserProfile:
+                    isDialog = false;
+                    break;
+                case CustomWindow.Notice:
+                    isDialog = false;
+                    break;
+                case CustomWindow.ChangeBindPhoneNumber:
+                    {
+                        var cUser = await userManager.GetCurrentUserAsync();
+                        if (!cUser.HasValue()) return;
+                        if (string.IsNullOrWhiteSpace(cUser!.PhoneNumber)) return;
+                        break;
+                    }
             }
             await windowManager.ShowDialog(windowName, isDialog: isDialog);
         }

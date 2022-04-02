@@ -1,5 +1,6 @@
 using System.Application.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Application.Browser2;
@@ -101,6 +102,12 @@ namespace System.Application.Services
         ValueTask LoadAppImageAsync(SteamApp app);
 
         /// <summary>
+        /// 保存图片流到 Steam 自定义封面文件夹
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> SaveAppImageToSteamFile(Stream? imageStream, SteamUser user, long appId, SteamGridItemType gridType);
+
+        /// <summary>
         /// 获取已安装的SteamApp列表(包括正在下载的项)
         /// </summary>
         List<SteamApp> GetDownloadingAppList();
@@ -120,7 +127,7 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        IEnumerable<string> ExtractKeysFromString(string source) 
+        IEnumerable<string> ExtractKeysFromString(string source)
         {
             MatchCollection m = Regex.Matches(source, "([0-9A-Z]{5})(?:\\-[0-9A-Z]{5}){2,4}",
            RegexOptions.IgnoreCase | RegexOptions.Singleline);

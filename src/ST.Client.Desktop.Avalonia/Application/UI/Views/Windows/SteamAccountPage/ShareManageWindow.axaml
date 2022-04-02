@@ -171,9 +171,8 @@
                         </Panel>
                       </Button>
                       <Button Classes="flatbutton"
-                            IsEnabled="{Binding !First}"
                               Cursor="Hand"
-                            ToolTip.Tip="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              ToolTip.Tip="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               HorizontalAlignment="Stretch"
                               MaxWidth="200"
                               Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
@@ -181,8 +180,7 @@
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
                       <Button Classes="flatbutton"
-                            IsEnabled="{Binding !First}"
-                            ToolTip.Tip="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              ToolTip.Tip="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Cursor="Hand"
                               HorizontalAlignment="Stretch"
                               MaxWidth="200"
@@ -191,12 +189,11 @@
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
                       <Button Classes="flatbutton"
-                              IsEnabled="{Binding !End}"
                               ToolTip.Tip="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Cursor="Hand"
                               MaxWidth="200"
                               HorizontalAlignment="Stretch"
-                              Command="{ReflectionBinding #u.DataContext.DowButton_Click}"
+                              Command="{ReflectionBinding #u.DataContext.DownButton_Click}"
                               CommandParameter="{Binding}">
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>

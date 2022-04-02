@@ -60,6 +60,7 @@
                                     VerticalAlignment="Center">
                                     <ui:SymbolIcon FontSize="22" Symbol="DownloadFilled" />
                                     <TextBlock
+                                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                         Text="选择文件或拖拽到这里"
                                         TextAlignment="Center"
                                         TextWrapping="WrapWithOverflow" />

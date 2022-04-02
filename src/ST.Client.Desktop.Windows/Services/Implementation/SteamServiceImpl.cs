@@ -517,7 +517,7 @@ namespace System.Application.Services.Implementation
             if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
                 return false;
 
-            using (BinaryWriter binaryWriter = new (new MemoryStream()))
+            using (BinaryWriter binaryWriter = new(new MemoryStream()))
             {
                 binaryWriter.Write(MagicNumber);
                 binaryWriter.Write(univeseNumber);
@@ -540,7 +540,25 @@ namespace System.Application.Services.Implementation
             return GetDownloadingAppList().Where(x => x.IsInstalled).Select(x => x.AppId).ToArray();
         }
 
-        public string? GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
+        private string? GetAppCustomImageFilePath(uint appId, SteamUser user, SteamApp.LibCacheType type)
+        {
+            if (string.IsNullOrEmpty(SteamDirPath)) return null;
+
+            var path = Path.Combine(SteamDirPath, UserDataDirectory,
+                user.SteamId32.ToString(), "config", "grid");
+
+            var fileName = type switch
+            {
+                SteamApp.LibCacheType.Library_Grid => $"{appId}p.png",
+                SteamApp.LibCacheType.Library_Hero => $"{appId}_hero.png",
+                SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+            };
+            var filePath = Path.Combine(path, fileName);
+            return filePath;
+        }
+
+        private string? GetAppLibCacheFilePath(uint appId, SteamApp.LibCacheType type)
         {
             if (LibrarycacheDirPath == null) return null;
             var fileName = type switch
@@ -574,6 +592,43 @@ namespace System.Application.Services.Implementation
             if (url == null) return string.Empty;
             var value = await Http.GetImageAsync(url, ImageChannelType.SteamGames);
             return value ?? string.Empty;
+        }
+
+        /// <summary>
+        /// 保存图片流到 Steam 自定义封面文件夹
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> SaveAppImageToSteamFile(Stream? imageStream, SteamUser user, long appId, SteamGridItemType gridType)
+        {
+            if (!string.IsNullOrEmpty(SteamDirPath) && imageStream != null)
+            {
+                var path = Path.Combine(SteamDirPath, UserDataDirectory,
+                    user.SteamId32.ToString(), "config", "grid");
+                if (Directory.Exists(path))
+                {
+                    var filePath = gridType switch
+                    {
+                        SteamGridItemType.Hero => Path.Combine(path, $"{appId}_hero.png"),
+                        SteamGridItemType.Logo => Path.Combine(path, $"{appId}_logo.png"),
+                        //SteamGridItemType.Icon => Path.Combine(path, $"{appId}.ico"),
+                        _ => Path.Combine(path, $"{appId}p.png"),
+                    };
+                    try
+                    {
+                        using FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write);
+                        await imageStream.CopyToAsync(fs);
+                        await fs.FlushAsync();
+                        fs.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(nameof(SteamServiceImpl), ex, nameof(SaveAppImageToSteamFile));
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
 
         public /*async*/ ValueTask LoadAppImageAsync(SteamApp app)

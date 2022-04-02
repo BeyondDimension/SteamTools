@@ -27,12 +27,12 @@ namespace System.Application.UI.Views.Windows
         {
             if (GridDialog != null && ViewModel != null)
             {
-                var type = (SteamGridItemType?)((sender as Control)?.Tag);
-                ViewModel.RefreshSteamGridItemList(type ?? SteamGridItemType.Grid);
+                var type = (SteamGridItemType?)((sender as Control)?.Tag) ?? SteamGridItemType.Grid;
+                ViewModel.RefreshSteamGridItemList(type);
                 var r = await GridDialog.ShowAsync();
                 if (r == ContentDialogResult.Primary)
                 {
-
+                    ViewModel.ApplyCustomImageToApp(type);
                 }
             }
         }

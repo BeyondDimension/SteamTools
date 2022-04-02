@@ -27,6 +27,13 @@ namespace System.Application.UI.ViewModels
         readonly ReadOnlyObservableCollection<SteamGridItem>? _SteamGridItems;
         public ReadOnlyObservableCollection<SteamGridItem>? SteamGridItems => _SteamGridItems;
 
+        private SteamGridItem? _SelectGrid;
+        public SteamGridItem? SelectGrid
+        {
+            get => _SelectGrid;
+            set => this.RaiseAndSetIfChanged(ref _SelectGrid, value);
+        }
+
         private bool _IsLoadingSteamGrid;
         public bool IsLoadingSteamGrid
         {
@@ -60,14 +67,35 @@ namespace System.Application.UI.ViewModels
         {
             if (App.LaunchItems == null)
             {
-                App.LaunchItems = new List<SteamAppLaunchItem> { new() };
+                App.LaunchItems = new ObservableCollection<SteamAppLaunchItem> { new() };
             }
             else
             {
                 App.LaunchItems.Add(new());
             }
+        }
 
-            App.RaisePropertyChanged(nameof(App.LaunchItems));
+        public void UpLaunchItem(SteamAppLaunchItem item)
+        {
+            MoveLaunchItem(item, true);
+        }
+
+        public void DownLaunchItem(SteamAppLaunchItem item)
+        {
+            MoveLaunchItem(item, false);
+        }
+
+        private void MoveLaunchItem(SteamAppLaunchItem item, bool isUp)
+        {
+            if (App.LaunchItems != null)
+            {
+                var oldindex = App.LaunchItems.IndexOf(item);
+                if (isUp ? oldindex == 0 : oldindex == App.LaunchItems.Count - 1)
+                {
+                    return;
+                }
+                App.LaunchItems.Move(oldindex, isUp ? oldindex - 1 : oldindex + 1);
+            }
         }
 
         public void DeleteLaunchItem(SteamAppLaunchItem item)
@@ -76,8 +104,6 @@ namespace System.Application.UI.ViewModels
             {
                 App.LaunchItems.Remove(item);
             }
-
-            App.RaisePropertyChanged(nameof(App.LaunchItems));
         }
 
         public void SaveEditAppInfo()
@@ -108,6 +134,28 @@ namespace System.Application.UI.ViewModels
             }
 
             IsLoadingSteamGrid = false;
+        }
+
+        public async void ApplyCustomImageToApp(SteamGridItemType type)
+        {
+            if (SteamConnectService.Current.CurrentSteamUser == null)
+            {
+                Toast.Show("因为修改自定义封面是根据账号生效的，所以必须要先运行Steam");
+                return;
+            }
+
+            if (SelectGrid == null)
+            {
+                Toast.Show("请选择一张要应用的图片");
+                return;
+            }
+
+            App.EditLibraryGridStream = IHttpService.Instance.GetImageStreamAsync(SelectGrid.Url, default);
+
+            //if (await ISteamService.Instance.SaveAppImageToSteamFile(stream, SteamConnectService.Current.CurrentSteamUser, App.AppId, type) == false)
+            //{
+            //    Toast.Show("下载图片失败");
+            //}
         }
     }
 }

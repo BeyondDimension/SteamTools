@@ -2,6 +2,7 @@ using ReactiveUI;
 using System.Application.Services;
 using System.Application.UI;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,13 +15,6 @@ namespace System.Application.Models
 {
     public class SteamApp : ReactiveObject, IComparable<SteamApp>
     {
-        public SteamApp() { }
-
-        public SteamApp(uint appid)
-        {
-            AppId = appid;
-        }
-
         private const string NodeAppInfo = "appinfo";
 
         private const string NodeAppType = "type";
@@ -44,6 +38,14 @@ namespace System.Application.Models
         private const string NodePlatformsMac = "mac";
 
         private const string NodePlatformsWindows = "windows";
+
+
+        public SteamApp() { }
+
+        public SteamApp(uint appid)
+        {
+            AppId = appid;
+        }
 
         public int Index { get; set; }
 
@@ -196,8 +198,8 @@ namespace System.Application.Models
 
         public IList<uint> ChildApp { get; set; } = new List<uint>();
 
-        private IList<SteamAppLaunchItem>? _LaunchItems;
-        public IList<SteamAppLaunchItem>? LaunchItems
+        private ObservableCollection<SteamAppLaunchItem>? _LaunchItems;
+        public ObservableCollection<SteamAppLaunchItem>? LaunchItems
         {
             get => _LaunchItems;
             set => this.RaiseAndSetIfChanged(ref _LaunchItems, value);
@@ -209,6 +211,12 @@ namespace System.Application.Models
         public string LibraryGridUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
         public Task<string> LibraryGridStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Grid);
 
+        private Task<Stream?> _EditLibraryGridStream;
+        public Task<Stream?> EditLibraryGridStream
+        {
+            get => _EditLibraryGridStream;
+            set => this.RaiseAndSetIfChanged(ref _EditLibraryGridStream, value);
+        }
 
         public string LibraryHeroUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
         public Task<string> LibraryHeroStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero);
@@ -510,7 +518,7 @@ namespace System.Application.Models
                                               propertyTable.TryGetPropertyValue<string>(NodePlatforms, out var os) ? os : null : null,
                                           };
 
-                        app.LaunchItems = launchItems.ToList();
+                        app.LaunchItems = new ObservableCollection<SteamAppLaunchItem>(launchItems.ToList());
                     }
                 }
 

@@ -43,8 +43,8 @@ namespace System.Application.UI.ViewModels
 
         public bool IsAuthorizedListEmpty => !AuthorizedList.Any_Nullable();
 
-        readonly ReadOnlyObservableCollection<AuthorizedDevice>? _AuthorizedList;
-        public ReadOnlyObservableCollection<AuthorizedDevice>? AuthorizedList => _AuthorizedList;
+        readonly ReadOnlyObservableCollection<AuthorizedDevice> _AuthorizedList;
+        public ReadOnlyObservableCollection<AuthorizedDevice> AuthorizedList => _AuthorizedList;
 
         readonly SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;
 
@@ -67,10 +67,8 @@ namespace System.Application.UI.ViewModels
             {
                 var temp = userlist.FirstOrDefault(x => x.SteamId32 == item.SteamId3_Int);
                 item.SteamNickName = temp?.SteamNickName;
-                item.ShowName = item.SteamNickName + $"({item.SteamId64_Int})";
+                item.ShowName = $"{item.SteamNickName}({item.SteamId64_Int})";
                 item.AccountName = temp?.AccountName;
-                item.First = item.Index == 0;
-                item.End = item.Index == count;
                 list.Add(item);
             }
             _AuthorizedSourceList.Clear();
@@ -134,9 +132,17 @@ namespace System.Application.UI.ViewModels
 
         public void SetFirstButton_Click(AuthorizedDevice item)
         {
-            item.Index = 1;
-            Sort(item, true);
+            if (item.Index != 0)
+            {
+                item.Index = -1;
+                _AuthorizedSourceList.Refresh(item);
+                for (var i = 0; i < AuthorizedList.Count; i++)
+                {
+                    _AuthorizedSourceList.Lookup(AuthorizedList[i].SteamId3_Int).Value.Index = i;
+                }
+            }
         }
+
         public async void RemoveButton_Click(AuthorizedDevice item)
         {
             var result = await MessageBox.ShowAsync(AppResources.Steam_Share_RemoveShare, button: MessageBox.Button.OKCancel);
@@ -145,38 +151,35 @@ namespace System.Application.UI.ViewModels
                 _AuthorizedSourceList.Remove(item);
             }
         }
+
         public void DisableOrEnableButton_Click(AuthorizedDevice item)
         {
             item.Disable = !item.Disable;
             _AuthorizedSourceList.AddOrUpdate(_AuthorizedList!);
         }
+
         public void UpButton_Click(AuthorizedDevice item)
         {
             Sort(item, true);
         }
 
-        public void DowButton_Click(AuthorizedDevice item)
+        public void DownButton_Click(AuthorizedDevice item)
         {
             Sort(item, false);
         }
 
-        public void Sort(AuthorizedDevice item, bool up)
+        private void Sort(AuthorizedDevice item, bool up)
         {
             var index = item.Index;
-            int count = _AuthorizedSourceList.Count - 1;
-            if (up ? item.Index != 0 : item.Index != count)
+            if (up ? item.Index != 0 : item.Index != _AuthorizedSourceList.Count - 1)
             {
-                _AuthorizedSourceList.AddOrUpdate(_AuthorizedSourceList.Items.Select(x =>
-                {
-                    if (up ? x.Index == index - 1 : x.Index == index + 1)
-                        x.Index = up ? x.Index + 1 : x.Index - 1;
-                    if (x.SteamId3_Int == item.SteamId3_Int)
-                        x.Index = up ? item.Index - 1 : item.Index + 1;
+                var dest = _AuthorizedSourceList.Items.First(x => x.Index == (up ? index - 1 : index + 1));
 
-                    x.First = x.Index == 0;
-                    x.End = x.Index == count;
-                    return x;
-                }).ToList());
+                item.Index = dest.Index;
+                dest.Index = index;
+
+                _AuthorizedSourceList.Refresh(item);
+                _AuthorizedSourceList.Refresh(dest);
             }
         }
 

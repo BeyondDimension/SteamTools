@@ -70,7 +70,6 @@ namespace System.Application.Services
         /// <param name="requestUri"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [Obsolete("use cached")]
         Task<Stream?> GetImageStreamAsync(string requestUri, CancellationToken cancellationToken = default);
 
         static string GetImagesCacheDirectory(string? channelType)
