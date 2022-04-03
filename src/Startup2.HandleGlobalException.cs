@@ -120,9 +120,9 @@ namespace System.Application
 
             try
             {
-                if (AvaloniaApplication.Current is App app)
+                if (AvaloniaApplication.Current is IApplication app)
                 {
-                    app.compositeDisposable.Dispose();
+                    app.CompositeDisposable.Dispose();
                 }
             }
             catch
