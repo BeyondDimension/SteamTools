@@ -25,7 +25,7 @@
             Padding="10"
             Margin="{StaticResource TitleBarAfterMargin}">
       <DockPanel>
-
+        
       </DockPanel>
     </Border>
   </Panel>

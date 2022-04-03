@@ -28,8 +28,9 @@
                      MaxWidth="596"
                      Margin="12,0"
                      FontSize="15"
-                     HorizontalAlignment="Left"
-                     TextWrapping="WrapWithOverflow"
+                     TextAlignment="Left"
+                     HorizontalAlignment="Stretch"
+                     TextWrapping="Wrap"
                      VerticalAlignment="Center"/>
         </StackPanel>
       </ScrollViewer>

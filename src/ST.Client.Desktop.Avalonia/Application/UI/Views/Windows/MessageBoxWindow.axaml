@@ -15,11 +15,11 @@
         SizeToContent="WidthAndHeight"
         MinWidth="450"
         MinHeight="50"
-        MaxWidth="600"
+        MaxWidth="500"
         MaxHeight="600"
         ShowInTaskbar="False"
-        Padding="0"
-        Background="{x:Null}"
+        x:Name="u"
+        Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         CanResize="False"
         Title="{Binding Title}"
@@ -33,21 +33,22 @@
   <Panel>
     <controls:TitleBar />
     <DockPanel Margin="{StaticResource TitleBarAfterMargin}">
-      <ScrollViewer Padding="10 5"
-                    DockPanel.Dock="Top"
-                    HorizontalScrollBarVisibility="Disabled"
-                    VerticalScrollBarVisibility="Auto"
-                    Grid.Row="2"
-                    x:Name="content">
-        <TextBox Classes="Content readonlybox h7"
-                 IsReadOnly="True"
-                 Text="{Binding Content}"
-                 MaxHeight="500"
-                 MaxWidth="600"
-                 HorizontalAlignment="Left"
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Center"/>
-      </ScrollViewer>
+      <TextBox Classes="Content readonlybox h7"
+               DockPanel.Dock="Top"
+               Padding="15 8"
+               IsReadOnly="True"
+               Text="{Binding Content}"
+               AcceptsReturn="True"
+               MaxHeight="500"
+               MaxWidth="{ReflectionBinding #u.MaxWidth}"
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+               ScrollViewer.VerticalScrollBarVisibility="Auto"
+               TextAlignment="Left"
+               HorizontalAlignment="Stretch"
+               HorizontalContentAlignment="Stretch"
+               VerticalContentAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               TextWrapping="Wrap"/>
       <DockPanel Grid.Row="3"
                  DockPanel.Dock="Bottom"
                  Margin="10 0">
@@ -68,12 +69,12 @@
               <Setter Property="Margin" Value="6"></Setter>
             </Style>
           </WrapPanel.Styles>
-          <Button Classes="DialogButton" 
-                  Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" 
+          <Button Classes="DialogButton"
+                  Content="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}"
                   Command="{Binding OK}"></Button>
-          <Button Classes="DialogButton" 
-                  Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                  Command="{Binding Cancel}" 
+          <Button Classes="DialogButton"
+                  Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  Command="{Binding Cancel}"
                   IsVisible="{Binding IsCancelcBtn}"></Button>
         </WrapPanel>
       </DockPanel>

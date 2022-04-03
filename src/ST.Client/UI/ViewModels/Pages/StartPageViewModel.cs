@@ -115,5 +115,6 @@ namespace System.Application.UI.ViewModels
 
 
         public List<FeatureGroup> FeatureGroups { get; }
+
     }
 }

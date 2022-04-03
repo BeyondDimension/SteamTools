@@ -106,7 +106,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void SaveEditAppInfo()
+        public void SaveEditAppInfo() 
         {
 
         }

@@ -15,6 +15,7 @@ namespace System.Application.UI.Views.Controls
 
         public static readonly StyledProperty<string?> FileExtensionsProperty = AvaloniaProperty.Register<CustomFilePicker, string?>(nameof(FileExtensions), "*");
 
+        
         public string? FileName
         {
             get => GetValue(FileNameProperty);

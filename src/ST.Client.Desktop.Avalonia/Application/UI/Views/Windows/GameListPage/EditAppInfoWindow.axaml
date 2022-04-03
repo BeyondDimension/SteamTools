@@ -330,6 +330,7 @@
           
         </TabItem>-->
       </TabControl>
+      
       <StackPanel DockPanel.Dock="Bottom"
                   Margin="10"
                   Spacing="10"
