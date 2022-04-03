@@ -496,7 +496,10 @@ namespace System.Application.Services.Implementation
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
-        public void DeleteCer()
+        /// <summary>
+        /// 删除全部Steam++证书 如失败尝试 命令删除
+        /// </summary>
+        public async void DeleteCer()
         {
             using (var store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
             {
@@ -505,12 +508,22 @@ namespace System.Application.Services.Implementation
                 foreach (var item in collection)
                 {
                     if (item != null)
-                        IPlatformService.Instance.RunShell($"security delete-certificate -Z {item.GetCertHashString()}", true);
+                    {
+                        try
+                        {
+                            store.Open(OpenFlags.ReadWrite);
+                            store.Remove(item);
+                        }
+                        catch
+                        {
+                          await IPlatformService.Instance.RunShellAsync($"security delete-certificate -Z \\\"{item.GetCertHashString()}\\\"", true);
+                        }
+                    }
                 }
             }
 
         }
-        public bool DeleteCertificate()
+        public  bool DeleteCertificate()
         {
             if (ProxyRunning)
                 return false;
@@ -533,7 +546,10 @@ namespace System.Application.Services.Implementation
                 {
                     DeleteCer();
                 }
-                proxyServer.CertificateManager.RemoveTrustedRootCertificate();
+                else
+                {
+                    proxyServer.CertificateManager.RemoveTrustedRootCertificate();
+                }
                 if (IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate) == false)
                 {
                     proxyServer.CertificateManager.RootCertificate = null;
@@ -855,7 +871,7 @@ namespace System.Application.Services.Implementation
             }
             else
             {
-                using var store = new X509Store(OperatingSystem2.IsMacOS? StoreName .My: StoreName.Root, StoreLocation.CurrentUser);
+                using var store = new X509Store(OperatingSystem2.IsMacOS ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
                 store.Open(OpenFlags.ReadOnly);
                 result = store.Certificates.Contains(certificate2);
             }

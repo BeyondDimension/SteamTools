@@ -52,34 +52,11 @@ namespace System.Application.Services.Implementation
             var ret = p.StandardOutput.ReadToEnd().Replace("An asterisk (*) denotes that a network service is disabled.", "");
             p.Kill();
             return ret.Split("\n");
-        } 
+        }
         internal static bool IsCertificateInstalled(X509Certificate2 certificate2)
         {
-            //bool result = false;
-            //using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            //store.Open(OpenFlags.ReadOnly); 
-            //foreach (var item in store.Certificates.Find(X509FindType.FindByIssuerName, "SteamTools Certificate", false))
-            //{ 
-            //    var itemCertificate = new SecRecord((SecKind)2); 
-            //    if (item.GetCertHashString() == certificate2.GetCertHashString())
-            //    {
-            //        using (var policy = SecPolicy.CreateSslPolicy(true, null))
-            //        using (var trust = new SecTrust(item, null))
-            //        {
-            //            Console.WriteLine(trust.Evaluate());
-            //        }
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        //var rcode = SecKeyChain.Remove(cers);
-            //        //if (rcode != SecStatusCode.Success)
-            //        //    await RunShellAsync($"security delete-certificate -Z {item.GetCertHashString()}", true);
-            //        //result = false;
-            //    }
 
-            //}
-            //return result;
+#if MONO_MAC
             using var p = new Process();
             p.StartInfo.FileName = "security";
             p.StartInfo.Arguments = $" verify-cert -c \"{IHttpProxyService.Instance.GetCerFilePathGeneratedWhenNoFileExists()}\"";
@@ -88,12 +65,78 @@ namespace System.Application.Services.Implementation
             p.Start();
             var returnStr = p.StandardOutput.ReadToEnd().TrimEnd();
             p.Kill();
-            return returnStr == "...certificate verification successful.";
+            return returnStr.Contains("...certificate verification successful.", StringComparison.OrdinalIgnoreCase);
+#elif XAMARIN_MAC
+            bool result = false;
+            var scer = new SecCertificate(cer);
+            var addCertificate = new SecRecord(scer);
+            var cerTrust = SecKeyChain.QueryAsRecord(addCertificate, out var t2code);
+            if (cerTrust != SecStatusCode.ItemNotFound)
+            {
+                using (var trust = new SecTrust(cerTrust, null))
+                {
+                    trust.SetPolicy(policy);
+                    trust.SetAnchorCertificates(fcollection);
+                    result=trust.Evaluate(out var error);
+                    Toast.Show(error.Description);
+                }
+            }
+            return result;
+#endif
+
         }
         bool IPlatformService.IsCertificateInstalled(X509Certificate2 certificate2) => IsCertificateInstalled(certificate2);
- 
-        ValueTask IPlatformService.RunShellAsync(string script, bool admin) => RunShellAsync(script,admin);
 
+        ValueTask IPlatformService.RunShellAsync(string script, bool admin) => RunShellAsync(script, admin);
+        /// <summary>
+        /// 尝试删除证书
+        /// </summary>
+        /// <param name="certificate2">要删除的证书</param>
+        async void IPlatformService.RemoveCertificate(X509Certificate2 certificate2)
+        {
+#if MONO_MAC
+            using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            try
+            {
+                store.Open(OpenFlags.ReadWrite);
+                store.Remove(certificate2);
+            }
+            catch
+            {
+                //出现错误尝试命令删除
+                await RunShellAsync($"security delete-certificate -Z {certificate2.GetCertHashString()}", true);
+            }
+#elif XAMARIN_MAC
+            var itemCertificate = new SecRecord(new SecCertificate(certificate2));
+            var cers = SecKeyChain.QueryAsRecord(itemCertificate, out SecStatusCode code);
+            if (code != SecStatusCode.ItemNotFound)
+            {
+                var rcode = SecKeyChain.Remove(cers);
+                if (rcode != SecStatusCode.Success && rcode != SecStatusCode.ItemNotFound)
+                {
+                    await RunShellAsync($"security delete-certificate -Z {certificate2.GetCertHashString()}", true);
+                }
+            }
+            //using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            //store.Open(OpenFlags.ReadOnly);
+            //var lisrts = store.Certificates.Find(X509FindType.FindByIssuerName, IHttpProxyService.RootCertificateName, false);
+            //foreach (var item in lisrts)
+            //{
+            //    var ces2 = new SecCertificate(item);
+            //    var itemCertificate = new SecRecord(ces2);
+            //    var cers = SecKeyChain.QueryAsRecord(itemCertificate, out SecStatusCode code);
+            //    if (code != SecStatusCode.ItemNotFound)
+            //    {
+            //        var rcode = SecKeyChain.Remove(cers);
+            //        if (rcode != SecStatusCode.Success && rcode != SecStatusCode.ItemNotFound)
+            //        {
+            //            await RunShellAsync($"security delete-certificate -Z {item.GetCertHashString()}", true);
+            //        }
+            //    }
+            //}
+#endif
+
+        }
 
         static async ValueTask RunShellAsync(string script, bool admin)
         {
