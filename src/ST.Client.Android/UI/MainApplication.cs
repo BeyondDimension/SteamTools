@@ -340,7 +340,7 @@ namespace System.Application.UI
         IReadOnlyDictionary<string, ICommand> IApplication.NotifyIconMenus => _NotifyIconMenus;
 
         readonly CompositeDisposable compositeDisposable = new();
-
+        CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         #endregion

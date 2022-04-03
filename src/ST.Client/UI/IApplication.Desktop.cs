@@ -9,6 +9,8 @@ namespace System.Application.UI
 {
     partial interface IApplication : IDisposableHolder
     {
+        new CompositeDisposable CompositeDisposable { get; }
+
         /// <summary>
         /// 切换当前桌面应用的主题而不改变设置值
         /// </summary>
@@ -41,14 +43,4 @@ namespace System.Application.UI
         /// <returns></returns>
         bool HasActiveWindow();
     }
-
-#if NET6_0_OR_GREATER
-    // 接口默认实现在 Xamarin.Android 上不可用，将引发 Java.Lang.AbstractMethodError: Exception of type 'Java.Lang.AbstractMethodError' was thrown.
-    partial interface IApplication
-    {
-        new CompositeDisposable CompositeDisposable { get; }
-
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => CompositeDisposable;
-    }
-#endif
 }

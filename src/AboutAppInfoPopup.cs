@@ -179,6 +179,7 @@ namespace System.Application.UI
                 b.Append(RuntimeInformation.ProcessArchitecture);
                 b.AppendLine();
 
+#if MONOANDROID
                 b.Append("[clr.ver] ");
                 string? clrVersion;
                 try
@@ -194,6 +195,7 @@ namespace System.Application.UI
                 else
                     b.Append(clrVersion);
                 b.AppendLine();
+#endif
 
 #if __ANDROID__
 
@@ -368,9 +370,15 @@ namespace System.Application.UI
                 b.Append(GetJavaSystemGetProperty("java.vm.version"));
                 b.AppendLine();
 
+#if MONOANDROID
                 b.Append("[mono.ver] ");
                 b.Append(Mono.Runtime.GetDisplayName());
                 b.AppendLine();
+#else
+                b.Append("[clr.ver] ");
+                b.Append(Environment.Version);
+                b.AppendLine();
+#endif
 
                 b.Append("[kernel.ver] ");
                 b.Append(GetJavaSystemGetProperty("os.version"));

@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>System.Application.Launcher</RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ST.Client.Android\ST.Client.Android.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.App\Resources\xml\auto_backup_rules.xml">
+      <Link>Resources\xml\auto_backup_rules.xml</Link>
+    </AndroidResource>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
+      <Link>Properties\AssemblyInfo.Version.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <!--libtun2socks(V2RAY)-->
+  <ItemGroup>
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\arm64-v8a\libtun2socks.so" Link="lib\arm64-v8a\libtun2socks.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\armeabi-v7a\libtun2socks.so" Link="lib\armeabi-v7a\libtun2socks.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\x86_64\libtun2socks.so" Link="lib\x86_64\libtun2socks.so" />
+    <AndroidNativeLibrary Include="..\..\references\Android Native Library\x86\libtun2socks.so" Link="lib\x86\libtun2socks.so" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.Migration" />
+    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" />
+  </ItemGroup>
+
+  <Import Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Xamarin.Android.KeyStore.props') " Project="..\..\Xamarin.Android.KeyStore.props" />
+</Project>

@@ -1,7 +1,7 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+<Project Sdk="Xamarin.Legacy.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>MonoAndroid12.0</TargetFramework>
+    <TargetFrameworks>MonoAndroid12.0;net6.0-android</TargetFrameworks>
     <IsBindingProject>true</IsBindingProject>
     <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>

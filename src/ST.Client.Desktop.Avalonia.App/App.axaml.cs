@@ -547,9 +547,9 @@ namespace System.Application.UI
 
         #region IDisposable members
 
-        public readonly CompositeDisposable compositeDisposable = new();
-
+        readonly CompositeDisposable compositeDisposable = new();
         CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
+        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         void IDisposable.Dispose()
         {
