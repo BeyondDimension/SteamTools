@@ -282,7 +282,7 @@
 		<PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.3.5.5" />
 		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.5" />
 		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.14" />
-		<PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.4.0.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.4.0.2" />
 		<PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.8" />
 		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.4" />
 		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.13" />
