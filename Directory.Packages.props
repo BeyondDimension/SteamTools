@@ -113,7 +113,7 @@
 		<!-- Xamarin -->
 		<PackageVersion Include="Xamarin.Essentials" Version="1.7.1" />
 		<!-- Xamarin.Forms -->
-		<PackageVersion Include="Xamarin.Forms" Version="5.0.0.2337" />
+		<PackageVersion Include="Xamarin.Forms" Version="5.0.0.2401+905-sha.aeec18668-azdo.5950840" />
 		<PackageVersion Include="Xamarin.Forms.Visual.Material" Version="5.0.0.2337" />
 		<PackageVersion Include="Xam.Plugins.Forms.ImageCircle" Version="3.1.1.1-beta" />
 
