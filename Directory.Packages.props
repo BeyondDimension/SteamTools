@@ -296,12 +296,12 @@
 	</ItemGroup>
 	
 	<ItemGroup Condition=" !$(TargetFramework.Contains('-android')) ">
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.3" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.4" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.3" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.4" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2" />
 	</ItemGroup>
 </Project>
