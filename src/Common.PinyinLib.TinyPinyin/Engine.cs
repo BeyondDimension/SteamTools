@@ -1,4 +1,4 @@
-#if MONOANDROID
+#if MONOANDROID || ANDROID
 using Org.Ahocorasick.Trie;
 using System;
 using System.Collections;

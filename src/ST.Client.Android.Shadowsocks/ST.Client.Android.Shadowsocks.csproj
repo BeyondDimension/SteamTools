@@ -1,4 +1,4 @@
-<Project Sdk="Xamarin.Legacy.Sdk">
+<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <TargetFrameworks>MonoAndroid12.0;net6.0-android</TargetFrameworks>

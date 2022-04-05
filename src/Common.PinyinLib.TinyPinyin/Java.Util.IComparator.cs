@@ -1,4 +1,4 @@
-#if MONOANDROID
+#if MONOANDROID || ANDROID
 using Android.Runtime;
 
 namespace Org.Ahocorasick.Interval

@@ -27,15 +27,17 @@
     <FrameLayout
       android:id="@+id/layoutRootASFSettingsAutoRunArchiSteamFarm"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -55,7 +57,6 @@
           android:layout_gravity="center_vertical"
           android:ellipsize="end"
           android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
-          android:maxLines="2"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="程序启动时自动运行 ASF"
@@ -83,15 +84,17 @@
     <FrameLayout
       android:id="@+id/layoutRootGoToWebUIGlobalSettings"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -111,10 +114,9 @@
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
           android:ellipsize="end"
-          android:maxLines="1"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
-          tools:text="跳转到 WebUI 全局设置 跳转到 WebUI 全局设置 跳转到 WebUI 全局设置 "
+          tools:text="跳转到 WebUI 全局设置"
           xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
       </LinearLayout>
     </FrameLayout>
@@ -122,15 +124,17 @@
     <FrameLayout
       android:id="@+id/layoutRootImportASFBot"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -150,7 +154,6 @@
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
           android:ellipsize="end"
-          android:maxLines="1"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="导入已有的 ASF Bot 文件"
@@ -161,15 +164,17 @@
     <FrameLayout
       android:id="@+id/layoutRootSetCryptKey"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -185,8 +190,9 @@
         <LinearLayout
           android:id="@+id/layoutUISettingsLanguage"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:gravity="center_vertical"
+          android:minHeight="@dimen/preference_button_height_large"
           android:orientation="vertical">
 
           <androidx.appcompat.widget.AppCompatTextView
@@ -194,7 +200,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="设置自定义密钥"
@@ -226,12 +231,14 @@
 
     <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
-      android:background="?android:windowBackground">
+      android:layout_height="wrap_content"
+      android:background="?android:windowBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -241,7 +248,6 @@
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/settings_ui_subtitle_margin_start"
           android:ellipsize="end"
-          android:maxLines="2"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="控制台字体大小"
@@ -276,12 +282,14 @@
 
     <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
-      android:background="?android:windowBackground">
+      android:layout_height="wrap_content"
+      android:background="?android:windowBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -291,7 +299,6 @@
           android:layout_gravity="center_vertical"
           android:layout_marginStart="@dimen/settings_ui_subtitle_margin_start"
           android:ellipsize="end"
-          android:maxLines="2"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="控制台显示行数"
@@ -339,15 +346,17 @@
     <FrameLayout
       android:id="@+id/layoutRootOpenDirASFConfig"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -367,7 +376,6 @@
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
           android:ellipsize="end"
-          android:maxLines="1"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="打开 ASF Config 文件夹"
@@ -378,15 +386,17 @@
     <FrameLayout
       android:id="@+id/layoutRootOpenDirASFPlugin"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -406,7 +416,6 @@
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
           android:ellipsize="end"
-          android:maxLines="1"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="打开 ASF Plugin 文件夹"
@@ -417,15 +426,17 @@
     <FrameLayout
       android:id="@+id/layoutRootOpenDirASFLog"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -445,7 +456,6 @@
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
           android:ellipsize="end"
-          android:maxLines="1"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="打开 ASF Log 文件夹"
@@ -456,15 +466,17 @@
     <FrameLayout
       android:id="@+id/layoutRootOpenDirASFWebUI"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -484,7 +496,6 @@
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/activity_horizontal_margin"
           android:ellipsize="end"
-          android:maxLines="1"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="打开 ASF WebUI 文件夹"

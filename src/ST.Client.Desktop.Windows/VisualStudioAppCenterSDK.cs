@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security;
 using System.Threading.Tasks;
-using static System.Application.AppClientAttribute;
+//using static System.Application.AppClientAttribute;
 #if WINDOWS
 using System.Reflection;
 using static System.Application.VisualStudioAppCenterSDK;
@@ -43,24 +43,21 @@ namespace System.Application
             }
         }
 
+        static string? GetResValue(string name) => PlatformResSecrets.GetResValue(name, isSingle: false, ResSecrets.ResValueFormat.StringGuidD, ResSecrets.Prefix_Res);
+
         static readonly Lazy<string?> _AppSecret = new(() =>
         {
-            var assembly = typeof(VisualStudioAppCenterSDK).Assembly;
-            const string namespacePrefix = "System.Application.Resources.";
-            Stream? func(string x) => assembly!.GetManifestResourceStream(x);
-            var r = GetResValue(func,
+            var r = GetResValue(
 #if XAMARIN_MAC || MONO_MAC || MAC
-                    "appcenter-secret-mac",
+                    "appcenter-secret-mac"
 #elif __ANDROID__
-                    "appcenter-secret-android",
+                    "appcenter-secret-android"
 #elif __IOS__
-                    "appcenter-secret-ios",
+                    "appcenter-secret-ios"
 #else
-                    "appcenter-secret",
+                    "appcenter-secret"
 #endif
-                    isSingle: false,
-                namespacePrefix,
-                ResValueFormat.StringGuidD);
+                    );
             return r;
         });
 

@@ -199,23 +199,6 @@
     </None>
   </ItemGroup>
 
-  <!--AppSettings namespacePrefix = "System.Application.UI.Resources."-->
-  <ItemGroup Condition="Exists('$(MSBuildProjectDirectory)\..\..\aes-key.pfx')">
-    <EmbeddedResource Include="..\..\aes-key.pfx" Link="Resources\3A613E8D" />
-  </ItemGroup>
-  <!--<ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-debug.pfx')">
-    <EmbeddedResource Include="..\..\app-id-debug.pfx" Link="Resources\0093BF84" />
-  </ItemGroup>-->
-  <ItemGroup Condition="'$(Configuration)'=='Debug' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-debug.pfx')">
-    <EmbeddedResource Include="..\..\rsa-public-key-debug.pfx" Link="Resources\6D72ED26" />
-  </ItemGroup>
-  <!--<ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\app-id-release.pfx')">
-    <EmbeddedResource Include="..\..\app-id-release.pfx" Link="Resources\F1D827AB" />
-  </ItemGroup>-->
-  <ItemGroup Condition="'$(Configuration)'=='Release' And Exists('$(MSBuildProjectDirectory)\..\..\rsa-public-key-release.pfx')">
-    <EmbeddedResource Include="..\..\rsa-public-key-release.pfx" Link="Resources\E88CA4F9" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(ExtraDefineConstants)' == 'osx-arm64' Or '$(ExtraDefineConstants)' == 'dev-osx-arm64'">
     <None Include="..\..\references\ARM64\libe_sqlite3.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

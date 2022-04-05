@@ -28,7 +28,7 @@
   <dimen name="auth_progress_track_corner_radius">2dp</dimen>
   <dimen name="auth_progress_track_thickness">3dp</dimen>
   <dimen name="auth_value_font_size">33sp</dimen>
-  <dimen name="preference_button_height_large">56dp</dimen>
+  <dimen name="preference_button_height_large">68dp</dimen>
   <dimen name="preference_button_font_size">18sp</dimen>
   <dimen name="preference_button_height_small">52dp</dimen>
   <dimen name="tab_height">48dp</dimen>

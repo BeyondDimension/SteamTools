@@ -142,7 +142,7 @@
   <Import Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Xamarin.Android.KeyStore.props') " Project="..\..\Xamarin.Android.KeyStore.props" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarSTClientMobileDroidAppHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionSTClientAndroidAppHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionSTClientAndroidAppHideInfoBar="True" XamarinHotReloadWrongLinkerErrorInfoBarSTClientMobileDroidAppHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -18,7 +18,7 @@ using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Linq;
 using static System.Application.Browser2;
 using System.IO;
-using static System.Application.AppClientAttribute;
+//using static System.Application.AppClientAttribute;
 using System.Net;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -391,10 +391,10 @@ namespace System.Application
 #endif
                     mAppSettings = new AppSettings
                     {
-                        //AppVersion = GetResValueGuid("app-id", isSingle: false, ResValueFormat.StringGuidN),
-                        AesSecret = GetResValue("aes-key", isSingle: true, ResValueFormat.String),
-                        RSASecret = GetResValue("rsa-public-key", isSingle: false, ResValueFormat.String),
-                        //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResValueFormat.StringGuidN),
+                        //AppVersion = GetResValueGuid("app-id", isSingle: false, ResSecrets.ResValueFormat.StringGuidN),
+                        AesSecret = ResSecrets.GetResValue("aes-key", isSingle: true, ResSecrets.ResValueFormat.String),
+                        RSASecret = ResSecrets.GetResValue("rsa-public-key", isSingle: false, ResSecrets.ResValueFormat.String),
+                        //MASLClientId = GetResValueGuid("masl-client-id", isSingle: true, ResSecrets.ResValueFormat.StringGuidN),
                     };
                     SetApiBaseUrl(mAppSettings);
 #if StartupTrace
@@ -402,14 +402,14 @@ namespace System.Application
                     Console.WriteLine($"Load AppSettings, value: {stopwatch.ElapsedMilliseconds}");
 #endif
                     //static Guid GetResValueGuid(string name, bool isSingle, ResValueFormat format) => GetResValue(name, isSingle, format).TryParseGuidN() ?? default;
-                    static string? GetResValue(string name, bool isSingle, ResValueFormat format)
-                    {
-                        const string namespacePrefix = "System.Application.UI.Resources.";
-                        var assembly = Assembly.GetExecutingAssembly();
-                        Stream? func(string x) => assembly.GetManifestResourceStream(x);
-                        var r = AppClientAttribute.GetResValue(func, name, isSingle, namespacePrefix, format);
-                        return r;
-                    }
+                    //static string? GetResValue(string name, bool isSingle, ResValueFormat format)
+                    //{
+                    //    const string namespacePrefix = "System.Application.UI.Resources.";
+                    //    var assembly = Assembly.GetExecutingAssembly();
+                    //    Stream? func(string x) => assembly.GetManifestResourceStream(x);
+                    //    var r = AppClientAttribute.GetResValue(func, name, isSingle, namespacePrefix, format);
+                    //    return r;
+                    //}
                     static void SetApiBaseUrl(AppSettings s)
                     {
                         //#if DEBUG

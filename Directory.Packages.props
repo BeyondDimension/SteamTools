@@ -252,6 +252,7 @@
 		<!--Avalonia End-->
 
 		<!-- Xamarin.Android -->
+		<PackageVersion Include="Xamarin.Build.Download" Version="0.11.0" />
 		<PackageVersion Include="Xamarin.Google.Dagger" Version="2.39.1" />
 		<PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.3" />
 		<PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
@@ -286,13 +287,21 @@
 		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.4" />
 		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.13" />
 		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.4.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.3" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.3" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
 		<!--<PackageVersion Include="Xamarin.AndroidX.Window" Version="1.0.0.3-beta02" />-->
 
 		<!-- Xamarin.iOS -->
 		<PackageVersion Include="Toast.iOS" Version="1.2.0" />
 
+	</ItemGroup>
+	
+	<ItemGroup Condition=" !$(TargetFramework.Contains('-android')) ">
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.3" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.3" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2" />
 	</ItemGroup>
 </Project>

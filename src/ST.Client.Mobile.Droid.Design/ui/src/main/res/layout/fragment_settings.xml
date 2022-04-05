@@ -27,15 +27,17 @@
     <FrameLayout
       android:id="@+id/layoutRootUISettingsLanguage"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -51,8 +53,9 @@
         <LinearLayout
           android:id="@+id/layoutUISettingsLanguage"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:gravity="center_vertical"
+          android:minHeight="@dimen/preference_button_height_large"
           android:orientation="vertical">
 
           <androidx.appcompat.widget.AppCompatTextView
@@ -60,7 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="语言"
@@ -80,15 +82,17 @@
     <FrameLayout
       android:id="@+id/layoutRootUISettingsTheme"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -104,8 +108,9 @@
         <LinearLayout
           android:id="@+id/layoutUISettingsTheme"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:gravity="center_vertical"
+          android:minHeight="@dimen/preference_button_height_large"
           android:orientation="vertical">
 
           <androidx.appcompat.widget.AppCompatTextView
@@ -113,7 +118,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="主题"
@@ -145,15 +149,17 @@
     <FrameLayout
       android:id="@+id/layoutRootGeneralSettingsIsAutoCheckUpdate"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -173,7 +179,6 @@
           android:layout_gravity="center_vertical"
           android:ellipsize="end"
           android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
-          android:maxLines="2"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="启动时自动检查更新"
@@ -201,15 +206,17 @@
     <FrameLayout
       android:id="@+id/layoutRootGeneralSettingsUpdateChannel"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -225,8 +232,9 @@
         <LinearLayout
           android:id="@+id/layoutGeneralSettingsUpdateChannel"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:gravity="center_vertical"
+          android:minHeight="@dimen/preference_button_height_large"
           android:orientation="vertical">
 
           <androidx.appcompat.widget.AppCompatTextView
@@ -234,7 +242,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="下载更新渠道"
@@ -254,15 +261,17 @@
     <FrameLayout
       android:id="@+id/layoutRootGeneralSettingsCaptureScreen"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -277,8 +286,9 @@
 
         <LinearLayout
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:gravity="center_vertical"
+          android:minHeight="@dimen/preference_button_height_large"
           android:orientation="vertical">
 
           <androidx.appcompat.widget.AppCompatTextView
@@ -287,7 +297,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
-            android:maxLines="1"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="屏幕捕获"
@@ -299,7 +308,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
-            android:maxLines="2"
             android:textColor="@color/text_secondary"
             tools:text="允许其他应用程序捕获你的屏幕"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
@@ -326,15 +334,17 @@
     <FrameLayout
       android:id="@+id/layoutRootGeneralSettingsStorageSpace"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -354,7 +364,6 @@
           android:layout_gravity="center_vertical"
           android:ellipsize="end"
           android:maxWidth="126dp"
-          android:maxLines="1"
           android:textColor="@color/text_primary"
           android:textSize="@dimen/settings_ui_item_title_font_size"
           tools:text="存储空间"
@@ -408,15 +417,17 @@
     <FrameLayout
       android:id="@+id/layoutRootOSAppDetailsSettings"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -431,8 +442,9 @@
 
         <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:gravity="center_vertical"
+          android:minHeight="@dimen/preference_button_height_large"
           android:orientation="vertical">
 
           <androidx.appcompat.widget.AppCompatTextView
@@ -440,7 +452,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="应用详情"
@@ -450,9 +461,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="2"
             android:text="APPLICATION_DETAILS_SETTINGS"
             android:textColor="@color/text_secondary"
+            tools:ignore="HardcodedText"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
         </LinearLayout>
       </LinearLayout>
@@ -461,15 +472,17 @@
     <FrameLayout
       android:id="@+id/layoutRootOSAppNotificationSettings"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/preference_button_height_large"
+      android:layout_height="wrap_content"
       android:background="?android:windowBackground"
       android:clickable="true"
       android:focusable="true"
-      android:foreground="?android:attr/selectableItemBackground">
+      android:foreground="?android:attr/selectableItemBackground"
+      android:minHeight="@dimen/preference_button_height_large">
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/preference_button_height_large"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -484,8 +497,9 @@
 
         <LinearLayout
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:gravity="center_vertical"
+          android:minHeight="@dimen/preference_button_height_large"
           android:orientation="vertical">
 
           <androidx.appcompat.widget.AppCompatTextView
@@ -494,7 +508,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
-            android:maxLines="1"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/settings_ui_item_title_font_size"
             tools:text="应用通知"
@@ -505,9 +518,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxWidth="@dimen/settings_ui_item_switch_title_width_with_icon"
-            android:maxLines="2"
             android:text="APP_NOTIFICATION_SETTINGS"
             android:textColor="@color/text_secondary"
+            tools:ignore="HardcodedText"
             xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
         </LinearLayout>
 

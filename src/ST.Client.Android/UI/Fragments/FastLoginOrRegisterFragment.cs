@@ -55,8 +55,12 @@ namespace System.Application.UI.Fragments
 
         void GoToUsePhoneNumberPage()
         {
+#if !DEBUG
+            MainApplication.ShowUnderConstructionTips();
+#else
             var navController = this.GetNavController();
             navController?.Navigate(Resource.Id.action_navigation_login_or_register_fast_to_navigation_login_or_register_phone_number);
+#endif
         }
     }
 }

@@ -92,9 +92,11 @@ namespace Xamarin.Android.Design
         {
             return __FindFragment(resourceId, (activity) =>
             {
-                if (activity is AndroidX.AppCompat.App.AppCompatActivity activity_)
+                if (activity is AndroidX.Fragment.App.FragmentActivity activity_)
                 {
-                    return global::Android.Runtime.Extensions.JavaCast<T>(activity_.SupportFragmentManager.FindFragmentById(resourceId));
+                    var f = activity_.SupportFragmentManager.FindFragmentById(resourceId);
+                    if (f is T t) return t;
+                    return global::Android.Runtime.Extensions.JavaCast<T>(f);
                 }
                 else
                 {

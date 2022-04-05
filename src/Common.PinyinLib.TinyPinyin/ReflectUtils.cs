@@ -1,4 +1,4 @@
-#if MONOANDROID
+#if MONOANDROID || ANDROID
 using System;
 
 namespace TinyPinyin
