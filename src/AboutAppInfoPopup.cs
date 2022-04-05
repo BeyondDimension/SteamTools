@@ -251,18 +251,25 @@ namespace System.Application.UI
                 static void GetStartTime(StringBuilder b)
                 {
                     string startTimeStr;
-                    const string f = "yy-MM-dd HH:mm:ss";
-                    const string f2 = "HH:mm:ss";
-                    const string f3 = "dd HH:mm:ss";
-                    var starttime = Process.GetCurrentProcess().StartTime;
-                    starttime = starttime.ToLocalTime();
-                    var utc_time = starttime.ToUniversalTime();
-                    var local = TimeZoneInfo.Local;
-                    startTimeStr = utc_time.Hour == starttime.Hour
-                        ? starttime.ToString(starttime.Year >= 2100 ? DateTimeFormat.Standard : f)
-                        : utc_time.Day == starttime.Day
-                        ? $"{utc_time.ToString(f)}({starttime.ToString(f2)} {local.StandardName})"
-                        : $"{utc_time.ToString(f)}({starttime.ToString(f3)} {local.StandardName})";
+                    try
+                    {
+                        const string f = "yy-MM-dd HH:mm:ss";
+                        const string f2 = "HH:mm:ss";
+                        const string f3 = "dd HH:mm:ss";
+                        var starttime = Process.GetCurrentProcess().StartTime;
+                        starttime = starttime.ToLocalTime();
+                        var utc_time = starttime.ToUniversalTime();
+                        var local = TimeZoneInfo.Local;
+                        startTimeStr = utc_time.Hour == starttime.Hour
+                            ? starttime.ToString(starttime.Year >= 2100 ? DateTimeFormat.Standard : f)
+                            : utc_time.Day == starttime.Day
+                            ? $"{utc_time.ToString(f)}({starttime.ToString(f2)} {local.StandardName})"
+                            : $"{utc_time.ToString(f)}({starttime.ToString(f3)} {local.StandardName})";
+                    }
+                    catch (Exception e)
+                    {
+                        startTimeStr = e.ToString();
+                    }
                     b.Append(startTimeStr);
                 }
                 b.AppendLine();

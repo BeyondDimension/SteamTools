@@ -37,6 +37,10 @@
       "src\\ST.Tools.OpenSourceLibraryList\\ST.Tools.OpenSourceLibraryList.csproj",
       "src\\ST.Tools.Translate\\ST.Tools.Translate.csproj",
       "src\\ST\\ST.csproj",
+      "src\\ST.Client.ResSecrets\\ST.Client.ResSecrets.csproj"
+      "src\\ST.Client.iOS.ResSecrets\\ST.Client.iOS.ResSecrets.csproj"
+      "src\\ST.Client.Android.ResSecrets\\ST.Client.Android.ResSecrets.csproj"
+      "src\\ST.Client.Mac.ResSecrets\\ST.Client.Mac.ResSecrets.csproj"
       "tests\\Common.UnitTest.Droid.App\\ST.Client.UnitTest.Droid.App.csproj",
       "tests\\Common.UnitTest.Droid\\ST.Client.UnitTest.Droid.csproj",
       "tests\\Common.UnitTest\\Common.UnitTest.csproj",
