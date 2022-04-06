@@ -50,6 +50,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\references\Gameloop.Vdf\Gameloop.Vdf\Gameloop.Vdf.csproj" />
+    <ProjectReference Include="..\ST.Client.ResSecrets\ST.Client.ResSecrets.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 

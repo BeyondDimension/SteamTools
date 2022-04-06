@@ -5,12 +5,12 @@ using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.Security
 {
-    public static class ResSecrets
+    internal static class ResSecrets
     {
         public const string Prefix_UIRes = "System.Application.UI.Resources.";
         public const string Prefix_Res = "System.Application.Resources.";
 
-        public static string? GetResValue(string name, bool isSingle, ResValueFormat format, string namespacePrefix = Prefix_UIRes, Assembly? assembly = null)
+        internal static string? GetResValue(string name, bool isSingle, ResValueFormat format, string namespacePrefix = Prefix_UIRes, Assembly? assembly = null)
         {
             assembly ??= Assembly.GetExecutingAssembly();
             Stream? func(string x) => assembly.GetManifestResourceStream(x);
@@ -18,7 +18,7 @@ namespace System.Application.Security
             return r;
         }
 
-        public enum ResValueFormat : byte
+        internal enum ResValueFormat : byte
         {
             String,
             StringGuidD,
