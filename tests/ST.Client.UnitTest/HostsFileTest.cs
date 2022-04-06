@@ -16,6 +16,18 @@ namespace System.Application
     [TestFixture]
     public class HostsFileTest
     {
+        static string hosts_8F473F98
+        {
+            get
+            {
+                if (Environment.NewLine != "\r\n")
+                {
+                    return R.hosts_8F473F98.Replace("\r\n", Environment.NewLine);
+                }
+                return R.hosts_8F473F98;
+            }
+        }
+
         static readonly List<string> tempFileNames = new();
 
         public static void DeleteAllTempFileName()
@@ -126,7 +138,7 @@ namespace System.Application
             hosts_list = new()
             {
                 hosts_,
-                R.hosts_8F473F98.Split(Environment.NewLine),
+                hosts_8F473F98.Split(Environment.NewLine),
             };
         }
 
@@ -344,7 +356,7 @@ namespace System.Application
             var hosts_list = new List<string[]>()
             {
                 hosts_,
-                R.hosts_8F473F98.Split(Environment.NewLine),
+                hosts_8F473F98.Split(Environment.NewLine),
             };
 
             foreach (var hosts in hosts_list)
