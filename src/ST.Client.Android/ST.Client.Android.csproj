@@ -162,6 +162,7 @@
   </ItemGroup>-->
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Condition=" $(DefineConstants.Contains(`V2RAY`)) " Include="..\ST.Client.Android.V2Ray\ST.Client.Android.V2Ray.csproj" />
     <ProjectReference Condition=" $(DefineConstants.Contains(`SHADOWSOCKS`)) " Include="..\ST.Client.Android.Shadowsocks\ST.Client.Android.Shadowsocks.csproj" />
     <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" Condition=" $(DefineConstants.Contains(`__XAMARIN_FORMS__`)) " />
@@ -484,8 +485,8 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
       <Link>Resources\layout\activity_login_or_register.xml</Link>
     </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
-      <Link>Resources\layout\activity_main.xml</Link>
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main_3.xml">
+      <Link>Resources\layout\activity_main_3.xml</Link>
     </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_proxy_settings.xml">
       <Link>Resources\layout\activity_proxy_settings.xml</Link>
@@ -726,9 +727,6 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxxhdpi\ic_launcher_round.png">
       <Link>Resources\mipmap-xxxhdpi\ic_launcher_round.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\mobile_navigation.xml">
-      <Link>Resources\navigation\mobile_navigation.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\nav_graph_guide_ca_cert.xml">
       <Link>Resources\navigation\nav_graph_guide_ca_cert.xml</Link>

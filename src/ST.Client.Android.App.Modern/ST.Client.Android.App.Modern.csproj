@@ -521,9 +521,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
       <Link>Resources\layout\activity_login_or_register.xml</Link>
     </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main.xml">
-      <Link>Resources\layout\activity_main.xml</Link>
-    </AndroidBoundLayout>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main_3.xml">
+      <Link>Resources\layout\activity_main_3.xml</Link>
+    </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_proxy_settings.xml">
       <Link>Resources\layout\activity_proxy_settings.xml</Link>
     </AndroidBoundLayout>
@@ -763,9 +763,6 @@
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\mipmap-xxxhdpi\ic_launcher_round.png">
       <Link>Resources\mipmap-xxxhdpi\ic_launcher_round.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\mobile_navigation.xml">
-      <Link>Resources\navigation\mobile_navigation.xml</Link>
     </AndroidResource>
     <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\navigation\nav_graph_guide_ca_cert.xml">
       <Link>Resources\navigation\nav_graph_guide_ca_cert.xml</Link>

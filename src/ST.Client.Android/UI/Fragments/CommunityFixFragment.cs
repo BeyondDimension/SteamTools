@@ -27,6 +27,14 @@ using Android.App;
 
 namespace System.Application.UI.Fragments
 {
+    /// <summary>
+    /// 网络加速 Fragment
+    /// <para>已知问题：</para>
+    /// <para>1. (中等概率)首次启动时列表 UI 不显示，触摸列表区域上下滑动即可正常显示，属于 UI Bug，网络请求数据正常</para>
+    /// <para>2. (较小概率)首次启动时列表项间距不正确，与 VerticalItemDecoration2 实现相关</para>
+    /// <para>解决方案：</para>
+    /// <para>使用 MainActivity3 后在进行观察或使用 Xamarin.Forms/MAUI/Avalonia 重写</para>
+    /// </summary>
     [Register(JavaPackageConstants.Fragments + nameof(CommunityFixFragment))]
     internal sealed class CommunityFixFragment : BaseFragment<fragment_community_fix, CommunityProxyPageViewModel>, SwipeRefreshLayout.IOnRefreshListener
     {
@@ -213,6 +221,9 @@ namespace System.Application.UI.Fragments
 
         protected override bool OnClick(View view)
         {
+#if DEBUG
+            Toast.Show($"[DEBUG] Ready: {binding!.layoutRootCommunityFixContentReady.Visibility}, Starting: {binding!.layoutRootCommunityFixContentStarting.Visibility}, rv: {binding.rvAccelerateProjectGroup.Visibility}");
+#endif
             if (view.Id == Resource.Id.btnStartProxyService)
             {
                 StartProxyButton_Click(true);

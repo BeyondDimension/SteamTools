@@ -3,6 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+var ignoreArray = new[]
+{
+    @"layout\activity_main.xml",
+    @"navigation\mobile_navigation.xml",
+};
+
 const string Mark = "<!--ST.Tools.AndroidResourceLink-->";
 var resPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + string.Join(Path.DirectorySeparatorChar, new[] { "ST.Client.Mobile.Droid.Design", "ui", "src", "main", "res" });
 var androidProjPath = ProjectPathUtil.projPath + Path.DirectorySeparatorChar + "src" + Path.DirectorySeparatorChar + "ST.Client.Android";
@@ -31,6 +37,16 @@ foreach (var file in files)
     var include = Path.GetRelativePath(androidProjPath, file);
     var link = Path.GetRelativePath(androidProjPath, resPath);
     link = "Resources" + include[link.Length..];
+    var isContinue = false;
+    foreach (var ignoreItem in ignoreArray)
+    {
+        if (link.EndsWith(ignoreItem, StringComparison.OrdinalIgnoreCase))
+        {
+            isContinue = true;
+            break;
+        }
+    }
+    if (isContinue) continue;
     var tag = link.Contains("\\layout") && /*!link.Contains("\\shared_") && !link.Contains("_content.xml") &&*/ !link.Contains("_not_binding.xml") ? "AndroidBoundLayout" : "AndroidResource";
     sb.AppendFormat("    <{1} Include=\"{0}\">", include, tag).AppendLine()
         .AppendFormat("      <Link>{0}</Link>", link).AppendLine()

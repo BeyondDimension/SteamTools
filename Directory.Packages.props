@@ -56,12 +56,12 @@
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
 		<!-- Entity Framework Plus -->
 		<!-- A FREE & Open Source library to enhance EF6 and EF Core -->
-		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.15" />
+		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.16" />
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
-		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.4" />
-		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.4" />
+		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.5" />
+		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.5" />
 	</ItemGroup>
 	<ItemGroup>
 	</ItemGroup>
@@ -125,13 +125,13 @@
 		<PackageVersion Include="Moq" Version="4.17.2" />
 
 		<!-- NLog -->
-		<PackageVersion Include="NLog" Version="4.7.14" />
+		<PackageVersion Include="NLog" Version="4.7.15" />
 		<PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
 		<PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
 
 		<!-- ReactiveUI -->
 		<PackageVersion Include="System.Reactive" Version="5.0.0" />
-		<PackageVersion Include="Splat" Version="14.1.45" />
+		<PackageVersion Include="Splat" Version="14.2.1" />
 		<PackageVersion Include="DynamicData" Version="7.6.5" />
 		<PackageVersion Include="ReactiveUI" Version="17.1.50" />
 		<!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.50" /> -->
@@ -243,7 +243,7 @@
 		<PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.13" />
 		<!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.13" />-->
 		<PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.13" />
-		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.13.2" />
+		<PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.13.3" />
 		<!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.12.2" />-->
 		<!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
 		<!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
@@ -266,42 +266,34 @@
 		<!-- V2Ray -->
 		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />
 		<!--<PackageVersion Include="Karamunting.KotlinX.Coroutines.Core" Version="1.4.2" />-->
-		<PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.0" />
-		<PackageVersion Include="Xamarin.KotlinX.Coroutines.Android" Version="1.6.0" />
-		<PackageVersion Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" Version="3.1.3.2" />
+		<PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.0.1" />
+		<PackageVersion Include="Xamarin.KotlinX.Coroutines.Android" Version="1.6.0.1" />
+		<PackageVersion Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" Version="3.1.4.1" />
 		
 		<!-- Xamarin.AndroidX -->
 		<PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
-		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.4.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.7" />
-		<PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.4.1" />
-		<PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.5" />
-		<PackageVersion Include="Xamarin.Google.Android.Material" Version="1.5.0.1" />
-		<PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.7" />
-		<PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.3" />
-		<PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.3.5.5" />
-		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.3.5.5" />
-		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.14" />
-		<PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.4.0.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.8" />
-		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.4" />
-		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.13" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.4.1" />
+		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.4.1.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Emoji.AppCompat" Version="1.1.0.8" />
+		<PackageVersion Include="Xamarin.AndroidX.Fragment" Version="1.4.1.1" />
+		<PackageVersion Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.6" />
+		<PackageVersion Include="Xamarin.Google.Android.Material" Version="1.5.0.2" />
+		<PackageVersion Include="Xamarin.AndroidX.SwipeRefreshLayout" Version="1.1.0.8" />
+		<PackageVersion Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.3.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Navigation.UI" Version="2.4.1.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Navigation.Fragment" Version="2.4.1.2" />
+		<PackageVersion Include="Xamarin.AndroidX.ViewPager2" Version="1.0.0.15" />
+		<PackageVersion Include="Xamarin.AndroidX.Activity" Version="1.4.0.2" />
+		<PackageVersion Include="Xamarin.AndroidX.Biometric" Version="1.1.0.9" />
+		<PackageVersion Include="Xamarin.AndroidX.ExifInterface" Version="1.3.3.5" />
+		<PackageVersion Include="Xamarin.AndroidX.Legacy.Support.Core.UI" Version="1.0.0.14" />
+		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.4.1.1" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.4" />
+		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.4" />
 		<PackageVersion Include="Xamarin.AndroidX.Camera.View" Version="1.0.0.5-alpha20" />
 		<!--<PackageVersion Include="Xamarin.AndroidX.Window" Version="1.0.0.3-beta02" />-->
 
 		<!-- Xamarin.iOS -->
 		<PackageVersion Include="Toast.iOS" Version="1.2.0" />
 
-	</ItemGroup>
-	
-	<ItemGroup Condition=" !$(TargetFramework.Contains('-android')) ">
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2.3" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2.3" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" $(TargetFramework.Contains('-android')) ">
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Camera2" Version="1.0.2" />
-		<PackageVersion Include="Xamarin.AndroidX.Camera.Lifecycle" Version="1.0.2" />
 	</ItemGroup>
 </Project>

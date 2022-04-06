@@ -8,6 +8,9 @@ using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.UI.Activities
 {
+    /// <summary>
+    /// 使用 Xamarin.Forms 实现的 MainActivity
+    /// </summary>
     [Register(JavaPackageConstants.Activities + nameof(MainActivity2))]
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
         LaunchMode = LaunchMode.SingleTask,

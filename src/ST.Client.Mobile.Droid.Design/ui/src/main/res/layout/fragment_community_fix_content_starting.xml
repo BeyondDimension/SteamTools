@@ -6,7 +6,9 @@
   android:id="@+id/layoutRootCommunityFixContentStarting"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:visibility="gone"
   tools:background="@color/grey_window_background"
+  tools:visibility="visible"
   xamarin:managedType="AndroidX.CoordinatorLayout.Widget.CoordinatorLayout">
 
   <androidx.core.widget.NestedScrollView

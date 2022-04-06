@@ -66,25 +66,23 @@ namespace AndroidX.RecyclerView.Widget
 
             var holder = parent.GetChildViewHolder(view);
             var position = holder.BindingAdapterPosition;
-            if (parent.GetAdapter() is IReadOnlyViewModels<object> viewModels)
+            var adapter = parent.GetAdapter();
+            var count = adapter.ItemCount;
+            if (count == 0)
             {
-                var count = viewModels.ViewModels.Count;
-                if (count == 0)
-                {
-                    return;
-                }
-                else if (position == 0)
-                {
-                    if (!noTop) outRect.Top = height;
-                }
-                if (position < viewModels.ViewModels.Count - 1)
-                {
-                    outRect.Bottom = height;
-                }
-                else
-                {
-                    outRect.Bottom = PaddingBottomWithHeight ? paddingBottom + height : (paddingBottom == 0 ? height : paddingBottom);
-                }
+                return;
+            }
+            else if (position == 0)
+            {
+                if (!noTop) outRect.Top = height;
+            }
+            if (position < count - 1)
+            {
+                outRect.Bottom = height;
+            }
+            else
+            {
+                outRect.Bottom = PaddingBottomWithHeight ? paddingBottom + height : (paddingBottom == 0 ? height : paddingBottom);
             }
         }
     }
