@@ -3,14 +3,14 @@ using System.Reflection;
 using System.Security.Cryptography;
 using _ThisAssembly = System.Properties.ThisAssembly;
 
-namespace System.Application
+namespace System.Application.Security
 {
-    static class ResSecrets
+    public static class ResSecrets
     {
         public const string Prefix_UIRes = "System.Application.UI.Resources.";
         public const string Prefix_Res = "System.Application.Resources.";
 
-        internal static string? GetResValue(string name, bool isSingle, ResValueFormat format, string namespacePrefix = Prefix_UIRes, Assembly? assembly = null)
+        public static string? GetResValue(string name, bool isSingle, ResValueFormat format, string namespacePrefix = Prefix_UIRes, Assembly? assembly = null)
         {
             assembly ??= Assembly.GetExecutingAssembly();
             Stream? func(string x) => assembly.GetManifestResourceStream(x);
@@ -18,7 +18,7 @@ namespace System.Application
             return r;
         }
 
-        internal enum ResValueFormat : byte
+        public enum ResValueFormat : byte
         {
             String,
             StringGuidD,

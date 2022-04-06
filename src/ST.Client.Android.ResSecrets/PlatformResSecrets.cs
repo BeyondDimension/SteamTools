@@ -1,11 +1,11 @@
 using System.Reflection;
-using static System.Application.ResSecrets;
+using static System.Application.Security.ResSecrets;
 
-namespace System.Application
+namespace System.Application.Security
 {
-    static class PlatformResSecrets
+    public static class PlatformResSecrets
     {
-        internal static string? GetResValue(string name, bool isSingle, ResValueFormat format, string namespacePrefix = Prefix_Res, Assembly? assembly = null)
+        public static string? GetResValue(string name, bool isSingle, ResValueFormat format, string namespacePrefix = Prefix_Res, Assembly? assembly = null)
         {
             assembly ??= typeof(PlatformResSecrets).Assembly;
             return ResSecrets.GetResValue(name, isSingle, format, namespacePrefix, assembly);

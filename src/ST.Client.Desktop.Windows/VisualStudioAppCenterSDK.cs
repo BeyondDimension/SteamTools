@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security;
 using System.Threading.Tasks;
+using System.Application.Security;
 //using static System.Application.AppClientAttribute;
 #if WINDOWS
 using System.Reflection;

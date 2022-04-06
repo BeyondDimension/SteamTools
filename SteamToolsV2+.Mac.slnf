@@ -19,6 +19,8 @@
       "src\\Common.ClientLib.iOS\\Common.ClientLib.iOS.csproj",
       "src\\Common.ClientLib\\Common.ClientLib.csproj",
       "src\\Common.CoreLib\\Common.CoreLib.csproj",
+      "src\\Common.PinyinLib\\Common.PinyinLib.csproj",
+      "src\\Common.PinyinLib.CFStringTransform\\Common.PinyinLib.CFStringTransform.csproj",
       "src\\Repositories.sqlite-net-pcl\\Repositories.sqlite-net-pcl.csproj",
       "src\\ST.Client.Android\\ST.Client.Android.csproj",
       "src\\ST.Client.Desktop.Mac\\ST.Client.Mac.csproj",
