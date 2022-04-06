@@ -45,7 +45,7 @@ namespace System.Application
             tempFileNames.Remove(tempFileName);
         }
 
-#region DefaultEncoding
+        #region DefaultEncoding
 
         static volatile Encoding? defaultEncoding;
 
@@ -79,18 +79,21 @@ namespace System.Application
         [ResourceExposure(ResourceScope.None)]
         static extern int GetACP();
 
-#endregion
+        #endregion
 
         static bool TestEquals(IEnumerable<(string ip, string domain)> left, IEnumerable<(string ip, string domain)> right)
         {
             if (left.Count() != right.Count()) return false;
+            int i = 0;
             foreach (var (ip, domain) in left)
             {
                 var item = right.FirstOrDefault(x => x.domain == domain);
                 if (item.ip != ip)
                 {
+                    TestContext.WriteLine($"({i})domain: {domain}, {item.ip} != {ip}");
                     return false;
                 }
+                i++;
             }
             return true;
         }
