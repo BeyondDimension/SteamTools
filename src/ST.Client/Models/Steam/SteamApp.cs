@@ -211,8 +211,8 @@ namespace System.Application.Models
         public string LibraryGridUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
         public Task<string> LibraryGridStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Grid);
 
-        private Task<Stream?> _EditLibraryGridStream;
-        public Task<Stream?> EditLibraryGridStream
+        private object? _EditLibraryGridStream;
+        public object? EditLibraryGridStream
         {
             get => _EditLibraryGridStream;
             set => this.RaiseAndSetIfChanged(ref _EditLibraryGridStream, value);
@@ -221,6 +221,12 @@ namespace System.Application.Models
         public string LibraryHeroUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
         public Task<string> LibraryHeroStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero);
 
+        private object? _EditLibraryHeroStream;
+        public object? EditLibraryHeroStream
+        {
+            get => _EditLibraryHeroStream;
+            set => this.RaiseAndSetIfChanged(ref _EditLibraryHeroStream, value);
+        }
 
         public string LibraryHeroBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
         public Task<string> LibraryHeroBlurStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero_Blur);
@@ -229,6 +235,12 @@ namespace System.Application.Models
         public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
         public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Logo);
 
+        private object? _EditLibraryLogoStream;
+        public object? EditLibraryLogoStream
+        {
+            get => _EditLibraryLogoStream;
+            set => this.RaiseAndSetIfChanged(ref _EditLibraryLogoStream, value);
+        }
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_HEADIMAGE_URL, AppId);
         public string CAPSULELogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
@@ -552,7 +564,7 @@ namespace System.Application.Models
             }
             return app;
         }
-
+        
         public void Write(BinaryWriter writer)
         {
             this.ClearCachedProps();
@@ -640,6 +652,13 @@ namespace System.Application.Models
              *             Because for a very short time after starting the download for this DLC the stateFlags becomes 20 = 00000010100
              *             I think Bit 5 indicates if "something" is happening with a DLC and Bit 10 indicates if it is downloading.
              */
+        }
+
+        public async void RefreshEditImage()
+        {
+            this.EditLibraryGridStream = await this.LibraryGridStream;
+            this.EditLibraryHeroStream = await this.LibraryHeroStream;
+            this.EditLibraryLogoStream = await this.LibraryLogoStream;
         }
 
         public enum LibCacheType : byte

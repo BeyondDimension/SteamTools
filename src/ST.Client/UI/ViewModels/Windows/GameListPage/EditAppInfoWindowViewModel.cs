@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using DynamicData.Binding;
 using System.Application.Services;
+using System.ComponentModel;
+using System.IO;
 
 namespace System.Application.UI.ViewModels
 {
@@ -16,11 +18,18 @@ namespace System.Application.UI.ViewModels
     {
         public static string DisplayName => AppResources.GameList_EditAppInfo;
 
-        private SteamApp? _App;
-        public SteamApp? App
+        private SteamApp _App;
+        public SteamApp App
         {
             get => _App;
             set => this.RaiseAndSetIfChanged(ref _App, value);
+        }
+        
+        private bool _IsEdited;
+        public bool IsEdited
+        {
+            get => _IsEdited;
+            set => this.RaiseAndSetIfChanged(ref _IsEdited, value);
         }
 
         readonly SourceCache<SteamGridItem, long> _SteamGridItemSourceList;
@@ -50,8 +59,11 @@ namespace System.Application.UI.ViewModels
                 this.Close();
                 return;
             }
+
             App = app;
             Title = App.DisplayName;
+
+            App.RefreshEditImage();
 
             _SteamGridItemSourceList = new SourceCache<SteamGridItem, long>(t => t.Id);
 
@@ -106,7 +118,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void SaveEditAppInfo() 
+        public void SaveEditAppInfo()
         {
 
         }
@@ -150,12 +162,48 @@ namespace System.Application.UI.ViewModels
                 return;
             }
 
-            App.EditLibraryGridStream = IHttpService.Instance.GetImageStreamAsync(SelectGrid.Url, default);
+            var stream = await IHttpService.Instance.GetImageStreamAsync(SelectGrid.Url, default);
+            switch (type)
+            {
+                case SteamGridItemType.Grid:
+                    App.EditLibraryGridStream = stream;
+                    break;
+                case SteamGridItemType.Hero:
+                    App.EditLibraryHeroStream = stream;
+                    break;
+                case SteamGridItemType.Logo:
+                    App.EditLibraryLogoStream = stream;
+                    break;
+            }
 
             //if (await ISteamService.Instance.SaveAppImageToSteamFile(stream, SteamConnectService.Current.CurrentSteamUser, App.AppId, type) == false)
             //{
             //    Toast.Show("下载图片失败");
             //}
+        }
+
+        public override void OnClosing(object? sender, CancelEventArgs e)
+        {
+            if (App != null)
+            {
+                if (App.EditLibraryGridStream is MemoryStream ms)
+                {
+                    ms.Close();
+                    ms.Dispose();
+                }
+                if (App.EditLibraryHeroStream is MemoryStream ms1)
+                {
+                    ms1.Close();
+                    ms1.Dispose();
+                }
+                if (App.EditLibraryLogoStream is MemoryStream ms2)
+                {
+                    ms2.Close();
+                    ms2.Dispose();
+                }
+            }
+
+            _SteamGridItemSourceList.Dispose();
         }
     }
 }

@@ -577,8 +577,15 @@ namespace System.Application.Services.Implementation
 
         public async Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type)
         {
+            if (SteamConnectService.Current.CurrentSteamUser != null)
+            {
+                var customFilePath = GetAppCustomImageFilePath(app.AppId, SteamConnectService.Current.CurrentSteamUser, type);
+                if (File.Exists(customFilePath)) return customFilePath!;
+            }
+
             var cacheFilePath = GetAppLibCacheFilePath(app.AppId, type);
             if (File.Exists(cacheFilePath)) return cacheFilePath!;
+
             var url = type switch
             {
                 SteamApp.LibCacheType.Header => app.HeaderLogoUrl,
@@ -589,8 +596,10 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Logo => app.LibraryLogoUrl,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
+
             if (url == null) return string.Empty;
             var value = await Http.GetImageAsync(url, ImageChannelType.SteamGames);
+
             return value ?? string.Empty;
         }
 

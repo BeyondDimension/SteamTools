@@ -4,6 +4,7 @@ using ReactiveUI;
 using System.Application.UI;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AvaloniaApplication = Avalonia.Application;
@@ -224,8 +225,13 @@ namespace System.Application.Services.Implementation
             {
                 if (app.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
                 {
-                    var window = desktop.Windows.FirstOrDefault(x => x.DataContext == vm);
-                    window?.Close();
+                    var e = new CancelEventArgs();
+                    vm.OnClosing(vm, e);
+                    if (!e.Cancel)
+                    {
+                        var window = desktop.Windows.FirstOrDefault(x => x.DataContext == vm);
+                        window?.Close();
+                    }
                 }
             }
             catch (Exception e)

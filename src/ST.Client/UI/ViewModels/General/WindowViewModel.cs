@@ -4,6 +4,7 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.Settings;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -71,5 +72,9 @@ namespace System.Application.UI.ViewModels
         /// 隐藏当前 ViewModel 绑定的窗口
         /// </summary>
         public virtual void Hide() => windowManager.HideWindow(this);
+
+        public virtual void OnClosing(object? sender, CancelEventArgs e)
+        {
+        }
     }
 }

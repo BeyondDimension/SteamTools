@@ -1554,6 +1554,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 选择文件或拖拽到这里 的本地化字符串。
+        /// </summary>
+        public static string CustomFilePicker_Tip {
+            get {
+                return ResourceManager.GetString("CustomFilePicker_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 剪切 的本地化字符串。
         /// </summary>
         public static string Cut {

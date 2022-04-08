@@ -128,6 +128,7 @@
                   <TextBlock Text="未能从 SteamGridDB 获取到图片"
                              IsVisible="{Binding IsSteamGridEmpty}"/>
                   <ListBox Items="{Binding SteamGridItems}"
+                           SelectedItem="{Binding SelectGrid}"
                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
@@ -188,10 +189,11 @@
                                  Text="300 x 450 px"/>
                     </StackPanel>
 
-                    <controls:CustomFilePicker Margin="50 0 0 0"
-                                         HorizontalAlignment="Right">
+                    <controls:CustomFilePicker Margin="50 0 0 0" 
+                                               FileName="{Binding App.EditLibraryGridStream,Mode=TwoWay}"
+                                               HorizontalAlignment="Right">
                       <gif:Image2 DecodeWidth="135"
-                                  Source="{Binding App.LibraryGridStream^}"/>
+                                  Source="{Binding App.EditLibraryGridStream}"/>
                     </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
@@ -212,10 +214,11 @@
                     </StackPanel>
 
                     <controls:CustomFilePicker Margin="50 0 0 0"
-                                         HorizontalAlignment="Right">
+                                               FileName="{Binding App.EditLibraryHeroStream,Mode=TwoWay}"
+                                               HorizontalAlignment="Right">
                       <gif:Image2 DecodeHeight="120"
                                   Stretch="UniformToFill"
-                                  Source="{Binding App.LibraryHeroStream^}"/>
+                                  Source="{Binding App.EditLibraryHeroStream}"/>
                     </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
@@ -236,9 +239,10 @@
                     </StackPanel>
 
                     <controls:CustomFilePicker Margin="50 0 0 0"
-                                         HorizontalAlignment="Right">
+                                               FileName="{Binding App.EditLibraryLogoStream,Mode=TwoWay}"
+                                               HorizontalAlignment="Right">
                       <gif:Image2 DecodeWidth="220"
-                                  Source="{Binding App.LibraryLogoStream^}"/>
+                                  Source="{Binding App.EditLibraryLogoStream}"/>
                     </controls:CustomFilePicker>
                   </DockPanel>
                 </Border>
@@ -330,7 +334,7 @@
           
         </TabItem>-->
       </TabControl>
-      
+
       <StackPanel DockPanel.Dock="Bottom"
                   Margin="10"
                   Spacing="10"
@@ -348,11 +352,16 @@
         </StackPanel.Styles>
         <Button Classes="DialogButton"
                 Command="{ReflectionBinding CancelEditAppInfo}"
+                Content="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+        <Button Classes="DialogButton"
+                Command="{ReflectionBinding CancelEditAppInfo}"
                 Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <Button Classes="action DialogButton"
                 Command="{ReflectionBinding SaveEditAppInfo}"
                 Content="{ReflectionBinding Path=Res.Save,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
       </StackPanel>
     </Grid>
+
+    <controls:ToastMessage/>
   </Panel>
 </Window>
