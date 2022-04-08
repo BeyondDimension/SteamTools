@@ -97,6 +97,11 @@ namespace System.Application.Services
         /// </summary>
         Task<List<SteamApp>> GetAppInfos();
 
+        /// <summary>
+        /// 保存修改后的游戏数据到steam本地客户端缓存文件
+        /// </summary>
+        Task<bool> SaveAppInfosToSteam();
+
         Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type);
 
         ValueTask LoadAppImageAsync(SteamApp app);
@@ -105,7 +110,7 @@ namespace System.Application.Services
         /// 保存图片流到 Steam 自定义封面文件夹
         /// </summary>
         /// <returns></returns>
-        Task<bool> SaveAppImageToSteamFile(Stream? imageStream, SteamUser user, long appId, SteamGridItemType gridType);
+        Task<bool> SaveAppImageToSteamFile(object? imageObject, SteamUser user, long appId, SteamGridItemType gridType);
 
         /// <summary>
         /// 获取已安装的SteamApp列表(包括正在下载的项)

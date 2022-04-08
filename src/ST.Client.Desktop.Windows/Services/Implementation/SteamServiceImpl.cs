@@ -512,7 +512,7 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 保存修改后的游戏数据到steam本地客户端缓存文件
         /// </summary>
-        public bool SaveAppInfosToSteam()
+        public async Task<bool> SaveAppInfosToSteam()
         {
             if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
                 return false;
@@ -529,7 +529,7 @@ namespace System.Application.Services.Implementation
                 using (FileStream fileStream = File.Open(AppInfoPath, FileMode.Create, FileAccess.Write))
                 {
                     binaryWriter.BaseStream.Position = 0L;
-                    binaryWriter.BaseStream.CopyTo(fileStream);
+                    await binaryWriter.BaseStream.CopyToAsync(fileStream);
                 }
             }
             return false;
@@ -607,35 +607,45 @@ namespace System.Application.Services.Implementation
         /// 保存图片流到 Steam 自定义封面文件夹
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> SaveAppImageToSteamFile(Stream? imageStream, SteamUser user, long appId, SteamGridItemType gridType)
+        public async Task<bool> SaveAppImageToSteamFile(object? imageObject, SteamUser user, long appId, SteamGridItemType gridType)
         {
-            if (!string.IsNullOrEmpty(SteamDirPath) && imageStream != null)
+            if (!string.IsNullOrEmpty(SteamDirPath) && imageObject != null)
             {
                 var path = Path.Combine(SteamDirPath, UserDataDirectory,
                     user.SteamId32.ToString(), "config", "grid");
-                if (Directory.Exists(path))
+
+                if (!Directory.Exists(path))
                 {
-                    var filePath = gridType switch
-                    {
-                        SteamGridItemType.Hero => Path.Combine(path, $"{appId}_hero.png"),
-                        SteamGridItemType.Logo => Path.Combine(path, $"{appId}_logo.png"),
-                        //SteamGridItemType.Icon => Path.Combine(path, $"{appId}.ico"),
-                        _ => Path.Combine(path, $"{appId}p.png"),
-                    };
-                    try
+                    Directory.CreateDirectory(path);
+                }
+
+                var filePath = gridType switch
+                {
+                    SteamGridItemType.Hero => Path.Combine(path, $"{appId}_hero.png"),
+                    SteamGridItemType.Logo => Path.Combine(path, $"{appId}_logo.png"),
+                    //SteamGridItemType.Icon => Path.Combine(path, $"{appId}.ico"),
+                    _ => Path.Combine(path, $"{appId}p.png"),
+                };
+                try
+                {
+                    if (imageObject is Stream imageStream)
                     {
                         using FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write);
                         await imageStream.CopyToAsync(fs);
                         await fs.FlushAsync();
                         fs.Close();
                     }
-                    catch (Exception ex)
+                    else if (imageObject is string imagePath && File.Exists(imagePath))
                     {
-                        Log.Error(nameof(SteamServiceImpl), ex, nameof(SaveAppImageToSteamFile));
-                        return false;
+                        File.Copy(imagePath, filePath, true);
                     }
-                    return true;
                 }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(SteamServiceImpl), ex, nameof(SaveAppImageToSteamFile));
+                    return false;
+                }
+                return true;
             }
             return false;
         }

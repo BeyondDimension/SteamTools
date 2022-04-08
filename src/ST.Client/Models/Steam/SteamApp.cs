@@ -115,10 +115,17 @@ namespace System.Application.Models
             }
         }
 
-        public string DisplayName => string.IsNullOrEmpty(EditName) ? (Name ?? string.Empty) : EditName;
+        private bool _IsEdited;
+        public bool IsEdited
+        {
+            get => _IsEdited;
+            set => this.RaiseAndSetIfChanged(ref _IsEdited, value);
+        }
 
-        string _baseDLSSVersion = string.Empty;
-        public string BaseDLSSVersion
+        public string DisplayName => string.IsNullOrEmpty(Name) ? AppId.ToString() : Name;
+
+        string? _baseDLSSVersion;
+        public string? BaseDLSSVersion
         {
             get { return _baseDLSSVersion; }
             set
@@ -131,8 +138,8 @@ namespace System.Application.Models
             }
         }
 
-        string _currentDLSSVersion = string.Empty;
-        public string CurrentDLSSVersion
+        string? _currentDLSSVersion;
+        public string? CurrentDLSSVersion
         {
             get { return _currentDLSSVersion; }
             set
@@ -564,7 +571,7 @@ namespace System.Application.Models
             }
             return app;
         }
-        
+
         public void Write(BinaryWriter writer)
         {
             this.ClearCachedProps();

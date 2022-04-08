@@ -139,6 +139,10 @@ namespace System.Application.UI.ViewModels
             {
                 IWindowManager.Instance.Show(CustomWindow.SteamShutdown, resizeMode: ResizeMode.CanResize);
             });
+            SaveEditedAppInfoCommand = ReactiveCommand.Create(() =>
+            {
+                IWindowManager.Instance.Show(CustomWindow.SaveEditedAppInfo, resizeMode: ResizeMode.CanResize);
+            });
         }
 
         //public ReactiveCommand<Unit, Unit> EnableAFKAutoUpdateCommand { get; }
@@ -148,6 +152,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit>? HideAppCommand { get; }
         public ReactiveCommand<Unit, Unit>? IdleAppCommand { get; }
         public ReactiveCommand<Unit, Unit>? SteamShutdownCommand { get; }
+        public ReactiveCommand<Unit, Unit>? SaveEditedAppInfoCommand { get; }
 
         public override void Activation()
         {

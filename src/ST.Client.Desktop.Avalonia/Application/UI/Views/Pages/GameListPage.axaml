@@ -237,7 +237,16 @@
             </ui:CommandBarButton>
 
             <ui:CommandBarSeparator/>
-
+            
+            <ui:CommandBarButton
+                       Command="{Binding SaveEditedAppInfoCommand}"
+                       ToolTip.Tip="保存游戏编辑后信息到Steam"
+                       Label="保存编辑信息">
+              <ui:CommandBarButton.Icon>
+                <ui:SymbolIcon Symbol="SaveLocal" FontSize="26"/>
+              </ui:CommandBarButton.Icon>
+            </ui:CommandBarButton>
+            
             <ui:CommandBarButton
                        Command="{Binding SteamShutdownCommand}"
                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -490,18 +499,20 @@
                     </Panel>
                   </Border>
 
-                  <TextBlock Width="{ReflectionBinding #app.Width}"
-                             Text="{Binding DisplayName}"
-                             FontSize="12"
-                             FontWeight="Bold"
-                             TextTrimming="CharacterEllipsis"
-                             DockPanel.Dock="Bottom"
-                             Margin="0 5 0 0"
-                             Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                  <!--<TextBlock Width="{ReflectionBinding #app.Width}"
-                             Text="{Binding AppId}"
-                             FontSize="10"
-                             Foreground="{DynamicResource InactiveForegroundBrushKey}" />-->
+                  <StackPanel Spacing="5"
+                              Margin="0 5 0 0"
+                              DockPanel.Dock="Bottom">
+                    <TextBlock Width="{ReflectionBinding #app.Width}"
+                               Text="{Binding DisplayName}"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip.Tip="{Binding DisplayName}"/>
+                    <TextBlock Width="{ReflectionBinding #app.Width}"
+                               Text="{Binding AppId}"
+                               FontSize="10"
+                               Foreground="{DynamicResource InactiveForegroundBrushKey}" />
+                  </StackPanel>
                 </DockPanel>
               </DataTemplate>
             </ItemsRepeater.ItemTemplate>

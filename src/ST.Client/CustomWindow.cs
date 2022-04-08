@@ -33,5 +33,6 @@ namespace System.Application
         SteamShutdown,
         ProxySettings,
         Notice,
+        SaveEditedAppInfo,
     }
 }

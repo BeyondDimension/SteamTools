@@ -43,12 +43,14 @@
       </MenuItem>
     </Menu>
     <TextBlock IsVisible="{CompiledBinding IsHideGameListEmpty}"
-          Text="{ReflectionBinding Path=Res.GameList_AddHideAppEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
-          TextWrapping="WrapWithOverflow"
-          VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+               Text="{ReflectionBinding Path=Res.GameList_AddHideAppEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
+               TextWrapping="WrapWithOverflow"
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Center"></TextBlock>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto"
-                  Padding="{StaticResource TitleBarAfterMargin}">
+                  Padding="{StaticResource TitleBarAfterMargin}"
+                  IsVisible="{CompiledBinding !IsHideGameListEmpty}">
       <StackPanel>
         <!--<TextBox Watermark="{ReflectionBinding Path=Res.Search,Source={x:Static resx:R.Current},Mode=OneWay}" Margin="20 10"></TextBox>-->
         <!--<Button Content="保存列表"

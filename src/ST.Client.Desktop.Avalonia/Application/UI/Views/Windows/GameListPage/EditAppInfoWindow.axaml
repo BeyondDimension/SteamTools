@@ -20,6 +20,11 @@
     <controls:TitleBar DockPanel.Dock="Top" />
     <Grid Margin="0 35 0 0"
           RowDefinitions="*,Auto">
+      <Grid.Styles>
+        <Style Selector="TextBox">
+          <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+      </Grid.Styles>
       <TabControl Classes="flat"
                   DockPanel.Dock="Top">
         <TabItem Header="信息">
@@ -189,7 +194,7 @@
                                  Text="300 x 450 px"/>
                     </StackPanel>
 
-                    <controls:CustomFilePicker Margin="50 0 0 0" 
+                    <controls:CustomFilePicker Margin="50 0 0 0"
                                                FileName="{Binding App.EditLibraryGridStream,Mode=TwoWay}"
                                                HorizontalAlignment="Right">
                       <gif:Image2 DecodeWidth="135"
@@ -281,7 +286,12 @@
                         </DockPanel>
                         <DockPanel>
                           <Label Content="Platform"/>
-                          <TextBox Text="{Binding Platform}"/>
+                          <ui:ComboBox IsEditable="True"
+                                       Text="{Binding Platform,Mode=TwoWay}">
+                            <ui:ComboBoxItem Content="windows"/>
+                            <ui:ComboBoxItem Content="linux"/>
+                            <ui:ComboBoxItem Content="macos"/>
+                          </ui:ComboBox>
                         </DockPanel>
 
                         <Grid ColumnDefinitions="*,*,*">
@@ -352,11 +362,14 @@
         </StackPanel.Styles>
         <Button Classes="DialogButton"
                 Command="{ReflectionBinding CancelEditAppInfo}"
+                IsDefault="False"
                 Content="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <Button Classes="DialogButton"
                 Command="{ReflectionBinding CancelEditAppInfo}"
+                IsDefault="False"
                 Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <Button Classes="action DialogButton"
+        <Button Classes="action DialogButton" 
+                IsDefault="False"
                 Command="{ReflectionBinding SaveEditAppInfo}"
                 Content="{ReflectionBinding Path=Res.Save,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
       </StackPanel>
