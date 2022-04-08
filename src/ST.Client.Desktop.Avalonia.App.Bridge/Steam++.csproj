@@ -15,6 +15,7 @@
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
     <PlatformTarget>x64</PlatformTarget>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -91,12 +92,6 @@
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Avalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
-    <!--<ProjectReference Include="..\ST.Client.Desktop.Console.App.Bridge\ST.Client.Desktop.Console.App.Bridge.csproj" />-->
-    <!--<Reference Include="Microsoft.Windows.SDK.NET">
-      <HintPath>..\..\references\Microsoft.Windows.SDK.NET.dll</HintPath>
-    </Reference>-->
-    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.22" TargetingPackVersion="10.0.19041.22" />
-    <PublishReadyToRunExclude Include="Microsoft.Windows.SDK.NET.dll" />
   </ItemGroup>
 
   <ItemGroup>

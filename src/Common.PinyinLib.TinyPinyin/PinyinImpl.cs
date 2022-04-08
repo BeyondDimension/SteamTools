@@ -24,7 +24,7 @@ namespace System.Application.Services.Implementation
         string[] IPinyin.GetPinyinArray(string s)
         {
             if (string.IsNullOrEmpty(s)) return Array.Empty<string>();
-#if MONOANDROID
+#if MONOANDROID || ANDROID
             var trie = PinyinHelper.TrieDict;
             var selector = PinyinHelper.Selector;
             var pinyinDictList = PinyinHelper.PinyinDicts;

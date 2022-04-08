@@ -13,6 +13,7 @@
 
   <PropertyGroup Condition=" $(TargetFramework.Contains('-windows')) ">
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -45,4 +45,9 @@
     <PackageReference Include="TinyPinyin.Net" />
   </ItemGroup>
 
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+    <Compile Remove="obj\Debug\net6.0-android\**" />
+    <Compile Remove="obj\Release\net6.0-android\**" />
+  </ItemGroup>
+
 </Project>

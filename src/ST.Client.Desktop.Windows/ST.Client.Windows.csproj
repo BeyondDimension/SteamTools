@@ -6,14 +6,8 @@
     <AssemblyName>System.Application.SteamTools.Client.Windows</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" $(TargetFramework.Contains('-windows')) ">
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
-    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
+    <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,10 +44,6 @@
     <!--<PackageReference Include="Avalonia.Direct2D1" />
     <PackageReference Include="System.Diagnostics.Tracing" />-->
     <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.22" TargetingPackVersion="10.0.19041.22" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
