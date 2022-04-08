@@ -160,6 +160,10 @@ namespace System.Application
                 {
                     return OSNames.Value.WSA;
                 }
+                else if (Interface != null && Interface.IsChromeOS)
+                {
+                    return OSNames.Value.ChromeOS;
+                }
                 else
                 {
                     if (DeviceType == DeviceType.Virtual)

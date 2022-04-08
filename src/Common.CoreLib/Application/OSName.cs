@@ -92,6 +92,11 @@ namespace System.Application
             /// Android 模拟器
             /// </summary>
             AndroidVirtual,
+
+            /// <summary>
+            /// https://github.com/chromeos
+            /// </summary>
+            ChromeOS,
         }
 
         public static string ToDisplayName(this Value value) => value == default ? string.Empty :
@@ -119,7 +124,8 @@ namespace System.Application
             Value.AndroidDesktop or
             Value.AndroidTV or
             Value.AndroidWatch or
-            Value.AndroidVirtual => true,
+            Value.AndroidVirtual or
+            Value.ChromeOS => true,
             _ => false,
         };
     }

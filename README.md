@@ -124,9 +124,11 @@ OS                                    | Version               | Architectures   
 
 OS                            | Version                   | Architectures     |
 ------------------------------|---------------------------|-------------------|
-[macOS][macOS]                | 10.14+                    | x64               |
+[macOS][macOS]                | 10.14+                    | x64, Arm64        |
 
 [macOS]: https://support.apple.com/macos
+
+### Android
 
 OS                            | Version                 | Architectures                                                      |
 ------------------------------|-------------------------|--------------------------------------------------------------------|

@@ -16,15 +16,23 @@ namespace System.Application
     [TestFixture]
     public class HostsFileTest
     {
+        static string? _hosts_8F473F98;
         static string hosts_8F473F98
         {
             get
             {
-                if (Environment.NewLine != "\r\n")
+                if (_hosts_8F473F98 == null)
                 {
-                    return R.hosts_8F473F98.Replace("\r\n", Environment.NewLine);
+                    if (Environment.NewLine != "\r\n")
+                    {
+                        _hosts_8F473F98 = R.hosts_8F473F98.Replace("\r\n", Environment.NewLine);
+                    }
+                    else
+                    {
+                        _hosts_8F473F98 = R.hosts_8F473F98;
+                    }
                 }
-                return R.hosts_8F473F98;
+                return _hosts_8F473F98;
             }
         }
 

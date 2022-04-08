@@ -13,6 +13,8 @@ namespace System.Application.Services
         string VersionString { get; }
 
         DeviceType DeviceType { get; }
+
+        bool IsChromeOS { get; }
     }
 }
 
@@ -30,5 +32,7 @@ namespace System.Application.Services.Implementation
         public /*virtual*/ string VersionString => DeviceInfo.VersionString;
 
         public virtual DeviceType DeviceType => DeviceInfo.DeviceType;
+
+        public virtual bool IsChromeOS => false;
     }
 }

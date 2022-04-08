@@ -119,23 +119,23 @@ namespace System.Application.Services.Implementation
                      * backtrace:
                      * #00 pc 0000000000005ff4  /system/lib64/libGLESv1_CM.so (glGetString+52)
                      */
-//                    try
-//                    {
-//                        var opengl = Android.Opengl.GLES20.GlGetString(Android.Opengl.GLES20.GlRenderer);
-//                        if (!string.IsNullOrWhiteSpace(opengl))
-//                        {
-//#pragma warning disable CS8604 // 可能的 null 引用参数。
-//                            if (contains(opengl, "Bluestacks") ||
-//                                contains(opengl, "Translator") ||
-//                                contains(opengl, "youwave")
-//                            )
-//#pragma warning restore CS8604 // 可能的 null 引用参数。
-//                                newRating += 10;
-//                        }
-//                    }
-//                    catch
-//                    {
-//                    }
+                    //                    try
+                    //                    {
+                    //                        var opengl = Android.Opengl.GLES20.GlGetString(Android.Opengl.GLES20.GlRenderer);
+                    //                        if (!string.IsNullOrWhiteSpace(opengl))
+                    //                        {
+                    //#pragma warning disable CS8604 // 可能的 null 引用参数。
+                    //                            if (contains(opengl, "Bluestacks") ||
+                    //                                contains(opengl, "Translator") ||
+                    //                                contains(opengl, "youwave")
+                    //                            )
+                    //#pragma warning restore CS8604 // 可能的 null 引用参数。
+                    //                                newRating += 10;
+                    //                        }
+                    //                    }
+                    //                    catch
+                    //                    {
+                    //                    }
 
                     try
                     {
@@ -178,5 +178,22 @@ namespace System.Application.Services.Implementation
                 return base.DeviceType;
             }
         }
+
+        public override bool IsChromeOS => mIsChromeOS.Value;
+
+        static bool GetIsChromeOS()
+        {
+            // https://stackoverflow.com/questions/51489132/how-to-find-if-android-app-is-started-by-androidos-or-chromeoss-android-contain
+            // https://github.com/maxim-saplin/xOPS-App/blob/1.1.2/Saplin.xOPS.Android/DeviceInfo.cs#L75
+            try
+            {
+                return Android.App.Application.Context.PackageManager!.HasSystemFeature("org.chromium.arc.device_management");
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        static readonly Lazy<bool> mIsChromeOS = new(GetIsChromeOS);
     }
 }
