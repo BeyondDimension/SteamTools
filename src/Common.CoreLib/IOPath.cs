@@ -159,7 +159,7 @@ namespace System
             }
 
             /// <summary>
-            /// (可选)初始化文件系统
+            /// 初始化文件系统
             /// </summary>
             /// <param name="getAppDataDirectory">获取应用目录文件夹</param>
             /// <param name="getCacheDirectory">获取缓存目录文件夹</param>
@@ -169,6 +169,13 @@ namespace System
                 IOPath.getCacheDirectory = getCacheDirectory;
             }
 
+            /// <summary>
+            /// 带迁移的初始化文件系统，使用 <see cref="Directory.Move(string, string)"/> 或 xcopy 进行移动，如果迁移失败则回退源目录
+            /// </summary>
+            /// <param name="destAppDataPath">新的 AppData 文件夹路径</param>
+            /// <param name="destCachePath">新的 Cache 文件夹路径</param>
+            /// <param name="sourceAppDataPath">旧的 AppData 文件夹路径</param>
+            /// <param name="sourceCachePath">旧的 Cache 文件夹路径</param>
             protected static void InitFileSystemWithMigrations(
                 string destAppDataPath, string destCachePath,
                 string sourceAppDataPath, string sourceCachePath)
@@ -183,7 +190,7 @@ namespace System
                             return false;
                         }
                     }
-                    return exists && Directory.EnumerateFileSystemEntries(path).Any();
+                    return exists && Directory.EnumerateFileSystemEntries(path).Any(); // 文件夹存在且不为空文件夹
                 }
 
                 var paths = new[] { destAppDataPath, destCachePath, };
@@ -286,6 +293,34 @@ namespace System
                     if (!item.Value)
                     {
                         Directory.CreateDirectory(item.Key);
+                    }
+                }
+
+                InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+                string GetAppDataDirectory() => paths[0];
+                string GetCacheDirectory() => paths[1];
+            }
+
+            /// <summary>
+            /// 初始化文件系统，但优先使用旧目录上的文件夹，如果存在的话(允许空文件夹)，不会进行文件迁移
+            /// </summary>
+            /// <param name="destAppDataPath">新的 AppData 文件夹路径</param>
+            /// <param name="destCachePath">新的 Cache 文件夹路径</param>
+            /// <param name="sourceAppDataPath">旧的 AppData 文件夹路径</param>
+            /// <param name="sourceCachePath">旧的 Cache 文件夹路径</param>
+            protected static void InitFileSystemUseDestFirst(
+                string destAppDataPath, string destCachePath,
+                string sourceAppDataPath, string sourceCachePath)
+            {
+                var paths = new[] { destAppDataPath, destCachePath, };
+                var old_paths = new[] { sourceAppDataPath, sourceCachePath, };
+
+                for (int i = 0; i < old_paths.Length; i++)
+                {
+                    var item = old_paths[i];
+                    if (Directory.Exists(item))
+                    {
+                        paths[i] = item;
                     }
                 }
 

@@ -16,7 +16,11 @@ namespace System.Application
         {
             if (WindowsPlatformServiceImpl.IsInstall)
             {
-                InitFileSystemWithMigrations(
+                /* 安装版将使用以下路径，但如果根目录上有文件夹则会优先使用根目录上的文件夹(从 2.7.0+ 开始)
+                 * Environment.SpecialFolder.LocalApplicationData
+                 * Path.GetTempPath()
+                 */
+                InitFileSystemUseDestFirst(
                     AppDataDirectory,
                     CacheDirectory,
                     FileSystem2.BaseDirectory.AppDataDirectory,

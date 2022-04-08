@@ -33,6 +33,9 @@ namespace System.Application.UI
             }
 
 #if WINDOWS_DESKTOP_BRIDGE
+#if DEBUG
+            Threading.Thread.Sleep(8000);
+#endif
             if (!DesktopBridgeHelper.Init()) return 0;
             DesktopBridgeHelper.OnActivated(ref args);
 #elif !__MOBILE__

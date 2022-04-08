@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Runtime.Versioning;
+using Windows.ApplicationModel;
 using Windows.Storage;
 
 // ReSharper disable once CheckNamespace
@@ -21,10 +22,21 @@ namespace System.Application
 
             // %HOMEPATH%\AppData\Local\Packages\4651ED44255E.47979655102CE_gvn1zxq6vcwjj\LocalState
             // %HOMEPATH%\AppData\Local\Packages\4651ED44255E.47979655102CE_gvn1zxq6vcwjj\LocalCache
-            var sourceAppDataPath = ApplicationData.Current.LocalFolder.Path.Replace(DEST_PACKAGE_ID, SOURCE_PACKAGE_ID);
-            var sourceCachePath = ApplicationData.Current.LocalCacheFolder.Path.Replace(DEST_PACKAGE_ID, SOURCE_PACKAGE_ID);
 
-            InitFileSystemWithMigrations(destAppDataPath, destCachePath, sourceAppDataPath, sourceCachePath);
+            var packageId = Package.Current.Id.FamilyName;
+            switch (packageId)
+            {
+                case DEST_PACKAGE_ID:
+                    var sourceAppDataPath = ApplicationData.Current.LocalFolder.Path.Replace(DEST_PACKAGE_ID, SOURCE_PACKAGE_ID);
+                    var sourceCachePath = ApplicationData.Current.LocalCacheFolder.Path.Replace(DEST_PACKAGE_ID, SOURCE_PACKAGE_ID);
+
+                    InitFileSystemWithMigrations(destAppDataPath, destCachePath, sourceAppDataPath, sourceCachePath);
+                    break;
+                //case SOURCE_PACKAGE_ID:
+                default:
+                    InitFileSystem(() => destAppDataPath, () => destCachePath);
+                    break;
+            }
         }
 
         const string SOURCE_PACKAGE_ID = "4651ED44255E.47979655102CE_k6txddmbb6c52";

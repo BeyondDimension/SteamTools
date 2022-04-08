@@ -151,6 +151,17 @@ namespace System.Application.UI
                 b.Append(platformService.IsInstall.ToLowerString());
                 b.AppendLine();
 
+#if WINDOWS10_0_17763_0_OR_GREATER
+                if (OperatingSystem2.IsWindows10AtLeast)
+                {
+                    b.Append("[app.pkg] ");
+#pragma warning disable CA1416 // 验证平台兼容性
+                    b.Append(global::Windows.ApplicationModel.Package.Current.Id.FamilyName);
+#pragma warning restore CA1416 // 验证平台兼容性
+                    b.AppendLine();
+                }
+#endif
+
 
                 b.Append("[memory.usage] ");
 #if __ANDROID__
