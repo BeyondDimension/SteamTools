@@ -57,6 +57,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="..\..\references\Android Assets\cncity.txt" Link="Assets\cncity.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <!--AppIcon-Start-->
     <AndroidResource Include="..\..\Resources\AppIcon\UnitTest.Droid\mipmap-xxxhdpi\ic_launcher2.png">
       <Link>Resources\mipmap-xxxhdpi\ic_launcher2.png</Link>
@@ -152,6 +155,11 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
   </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionSTClientUnitTestDroidAppHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
      Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

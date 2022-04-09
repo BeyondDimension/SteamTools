@@ -85,6 +85,9 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\..\references\Android Assets\cncity.txt" Link="Assets\cncity.txt" />
+  </ItemGroup>
   <!--Assets(V2RAY)-->
   <!--<ItemGroup>
     <AndroidAsset Include="Assets\geoip.dat" />

@@ -28,7 +28,7 @@ namespace System
         public const string MainDllPath_ =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\{0}\Steam++.dll";
 
-        [Obsolete("use DirPublishWinX86_", true)]
+        [Obsolete("use DirPublishWinX86_")]
         public const string DirPublishWinX86 =
             @"\src\" + ProjectDir_AvaloniaApp + @"\bin\Release\Publish\win-x86";
 

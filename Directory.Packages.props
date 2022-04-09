@@ -177,6 +177,7 @@
 
 		<!-- Pinyin -->
 		<PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
+		<PackageVersion Include="XAB.TinyPinyin" Version="2.0.4.2" />
 
 		<!-- Win32/Windows -->
 		<PackageVersion Include="TaskScheduler" Version="2.10.1" />
@@ -261,7 +262,7 @@
 		<PackageVersion Include="Square.Picasso" Version="2.71828.0" />
 		<!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
 		<!--<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />-->
-		<PackageVersion Include="XAB.FlexboxLayout" Version="3.0.0" />
+		<PackageVersion Include="XAB.FlexboxLayout" Version="3.0.0.1" />
 		
 		<!-- V2Ray -->
 		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />

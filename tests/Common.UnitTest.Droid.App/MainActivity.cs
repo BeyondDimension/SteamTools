@@ -7,7 +7,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using NUnitApp = NUnit.Runner.App;
 using XEPlatform = Xamarin.Essentials.Platform;
-using TinyPinyin;
 
 namespace System.UnitTest
 {
@@ -18,8 +17,7 @@ namespace System.UnitTest
         {
             base.OnCreate(savedInstanceState);
 
-            PinyinHelper.InitWithCnCityDict(ApplicationContext!);
-
+            XEPlatform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
 
             // This will load all tests within the current project

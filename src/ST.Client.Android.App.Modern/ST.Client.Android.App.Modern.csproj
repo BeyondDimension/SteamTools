@@ -193,6 +193,10 @@
     <PackageReference Include="Xamarin.Build.Download" />
     <!--<PackageReference Include="Xamarin.AndroidX.Window" />-->
   </ItemGroup>
+  
+  <ItemGroup>
+    <AndroidAsset Include="..\..\references\Android Assets\cncity.txt" Link="Assets\cncity.txt" />
+  </ItemGroup>
 
   <!--<ItemGroup Condition="'$(Configuration)'=='Debug'">
     <PackageReference Include="LeakCanaryBinding" />
@@ -521,9 +525,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_login_or_register.xml">
       <Link>Resources\layout\activity_login_or_register.xml</Link>
     </AndroidBoundLayout>
-    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main_3.xml">
+    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_main_3.xml">
       <Link>Resources\layout\activity_main_3.xml</Link>
-    </AndroidResource>
+    </AndroidBoundLayout>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_proxy_settings.xml">
       <Link>Resources\layout\activity_proxy_settings.xml</Link>
     </AndroidBoundLayout>

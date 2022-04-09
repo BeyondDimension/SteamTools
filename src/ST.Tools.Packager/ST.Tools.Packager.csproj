@@ -10,32 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
-      <Link>Properties\AssemblyInfo.Version.cs</Link>
-    </Compile>
-    <Compile Include="..\Common.CoreLib\Common\Constants.cs">
-      <Link>Common\Constants.cs</Link>
-    </Compile>
-    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.cs">
-      <Link>Properties\ThisAssembly.cs</Link>
-    </Compile>
-    <Compile Include="..\Common.CoreLib\Properties\ThisAssembly.Version.cs">
-      <Link>Properties\ThisAssembly.Version.cs</Link>
-    </Compile>
-    <Compile Include="..\ST.Client.Desktop\TarGZipHelper.cs">
+    <Compile Include="..\ST.Client\TarGZipHelper.cs">
       <Link>Application\TarGZipHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\Common.CoreLib\Extensions\ObjectExtensions.cs">
-      <Link>ObjectExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Common.CoreLib\Extensions\StringExtensions.Trim.cs">
-      <Link>StringExtensions.Trim.cs</Link>
-    </Compile>
-    <Compile Include="..\Common.CoreLib\FileEx.cs">
-      <Link>FileEx.cs</Link>
     </Compile>
     <Compile Include="..\..\resources\ProjectPathUtil.cs">
       <Link>ProjectPathUtil.cs</Link>
@@ -44,6 +20,10 @@
 
   <ItemGroup>
     <PackageReference Include="SharpZipLib" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
 
 </Project>

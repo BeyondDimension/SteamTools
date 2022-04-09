@@ -13,7 +13,7 @@ namespace System.Application.Services.Implementation
         static readonly IDictionary<Type, object> validators = new Dictionary<Type, object>();
 
         public static void AddColumnValidate<T>(Func<T, string?> validate)
-            => validators.Add(typeof(T), validate);
+            => validators.TryAdd(typeof(T), validate);
 
         const string I = "I";
         const string IReadOnly = "IReadOnly";
