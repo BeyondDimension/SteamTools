@@ -177,7 +177,7 @@
 
 		<!-- Pinyin -->
 		<PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />
-		<PackageVersion Include="XAB.TinyPinyin" Version="2.0.4.2" />
+		<PackageVersion Include="XAB.TinyPinyin" Version="2.0.4.3" />
 
 		<!-- Win32/Windows -->
 		<PackageVersion Include="TaskScheduler" Version="2.10.1" />
