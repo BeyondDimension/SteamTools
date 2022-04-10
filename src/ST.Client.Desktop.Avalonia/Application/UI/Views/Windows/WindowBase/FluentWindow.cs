@@ -143,38 +143,43 @@ namespace Avalonia.Controls
         {
             if (DataContext is WindowViewModel vm)
             {
-                if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
+                var primaryScreen = Screens?.Primary;
+                if (primaryScreen != null)
                 {
-                    var leftTopPoint = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
-                    var rightBottomPoint = new PixelPoint(vm.SizePosition.X + (int)Width, vm.SizePosition.Y + (int)Height);
-                    if (Screens.Primary.Bounds.Contains(leftTopPoint) &&
-                        Screens.Primary.Bounds.Contains(rightBottomPoint))
+                    var primaryScreenBounds = primaryScreen.Bounds;
+                    if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
                     {
-                        Position = leftTopPoint;
-                    }
-                }
-
-                if (CanResize && !IsHideWindow)
-                {
-                    if (vm.SizePosition.Width > 0 &&
-                        Screens.Primary.Bounds.Width >= vm.SizePosition.Width)
-                        Width = vm.SizePosition.Width;
-
-                    if (vm.SizePosition.Height > 0 &&
-                        Screens.Primary.Bounds.Height >= vm.SizePosition.Height)
-                        Height = vm.SizePosition.Height;
-
-                    if (ClientSize.Width != Width || ClientSize.Height != Height)
-                    {
-                        HandleResized(new Size(Width += 16, Height += 8), PlatformResizeReason.Application);
-                    }
-
-                    this.WhenAnyValue(x => x.ClientSize)
-                        .Subscribe(x =>
+                        var leftTopPoint = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
+                        var rightBottomPoint = new PixelPoint(vm.SizePosition.X + (int)Width, vm.SizePosition.Y + (int)Height);
+                        if (primaryScreenBounds.Contains(leftTopPoint) &&
+                            primaryScreenBounds.Contains(rightBottomPoint))
                         {
-                            vm.SizePosition.Width = x.Width;
-                            vm.SizePosition.Height = x.Height;
-                        });
+                            Position = leftTopPoint;
+                        }
+                    }
+
+                    if (CanResize && !IsHideWindow)
+                    {
+                        if (vm.SizePosition.Width > 0 &&
+                            primaryScreenBounds.Width >= vm.SizePosition.Width)
+                            Width = vm.SizePosition.Width;
+
+                        if (vm.SizePosition.Height > 0 &&
+                            primaryScreenBounds.Height >= vm.SizePosition.Height)
+                            Height = vm.SizePosition.Height;
+
+                        if (ClientSize.Width != Width || ClientSize.Height != Height)
+                        {
+                            HandleResized(new Size(Width += 16, Height += 8), PlatformResizeReason.Application);
+                        }
+
+                        this.WhenAnyValue(x => x.ClientSize)
+                            .Subscribe(x =>
+                            {
+                                vm.SizePosition.Width = x.Width;
+                                vm.SizePosition.Height = x.Height;
+                            });
+                    }
                 }
             }
 
@@ -198,15 +203,15 @@ namespace Avalonia.Controls
                 _defaultTitleBar.Height = TitleBar.DefaultHeight;
             }
 
-//#pragma warning disable CA1416 // 验证平台兼容性
-//            if (OperatingSystem2.IsWindows)
-//            {
-//                if (OperatingSystem2.IsWindows7)
-//                {
-//                    IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
-//                }
-//            }
-//#pragma warning restore CA1416 // 验证平台兼容性
+            //#pragma warning disable CA1416 // 验证平台兼容性
+            //            if (OperatingSystem2.IsWindows)
+            //            {
+            //                if (OperatingSystem2.IsWindows7)
+            //                {
+            //                    IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
+            //                }
+            //            }
+            //#pragma warning restore CA1416 // 验证平台兼容性
         }
 
         protected override void OnClosed(EventArgs e)

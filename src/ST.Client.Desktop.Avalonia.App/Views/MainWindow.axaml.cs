@@ -25,7 +25,7 @@ namespace System.Application.UI.Views
             //var wp = this.FindControl<WallpaperControl>("DesktopBackground");
             var panel = this.FindControl<Panel>("Panel");
             var wp = new WallpaperControl();
-            wp.Bind(WallpaperControl.IsVisibleProperty, new Binding
+            wp.Bind(IsVisibleProperty, new Binding
             {
                 Source = UISettings.EnableDesktopBackground,
                 Mode = BindingMode.OneWay,
