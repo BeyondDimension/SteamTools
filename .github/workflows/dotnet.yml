@@ -126,7 +126,7 @@ jobs:
     - name: Upload fd-win-x64 App ${{ matrix.configuration }}
       continue-on-error: true
       if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x64_fde_${{ env.GITHUB_SHA_SHORT }}'
         path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x64_fde_${{ env.GITHUB_SHA_SHORT }}.7z
@@ -134,7 +134,7 @@ jobs:
     - name: Upload win-x64 App ${{ matrix.configuration }}
       continue-on-error: true
       if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x64_${{ env.GITHUB_SHA_SHORT }}'
         path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x64_${{ env.GITHUB_SHA_SHORT }}.7z
@@ -142,7 +142,7 @@ jobs:
     - name: Upload macos-x64 App ${{ matrix.configuration }}
       continue-on-error: true
       if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_macos_x64_${{ env.GITHUB_SHA_SHORT }}'
         path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_macos_x64_${{ env.GITHUB_SHA_SHORT }}.7z
@@ -150,7 +150,7 @@ jobs:
     - name: Upload macos-arm64 App ${{ matrix.configuration }}
       continue-on-error: true
       if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_macos_arm64_${{ env.GITHUB_SHA_SHORT }}'
         path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_macos_arm64_${{ env.GITHUB_SHA_SHORT }}.7z
@@ -158,7 +158,7 @@ jobs:
     - name: Upload linux-x64 App ${{ matrix.configuration }}
       continue-on-error: true
       if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_linux_x64_${{ env.GITHUB_SHA_SHORT }}'
         path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_x64_${{ env.GITHUB_SHA_SHORT }}.tar.zst
@@ -166,7 +166,7 @@ jobs:
     - name: Upload linux-arm64 App ${{ matrix.configuration }}
       continue-on-error: true
       if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_linux_arm64_${{ env.GITHUB_SHA_SHORT }}'
         path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_arm64_${{ env.GITHUB_SHA_SHORT }}.tar.zst
