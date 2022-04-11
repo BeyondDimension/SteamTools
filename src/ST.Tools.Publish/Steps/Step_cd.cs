@@ -303,6 +303,12 @@ namespace System.Application.Steps
         /// <param name="type"></param>
         public static void GenerateCompressedPackage(bool dev, PublishDirInfo item, AppDownloadType type)
         {
+            var isLinux = item.Name.StartsWith("linux-");
+            if (isLinux)
+            {
+                type = AppDownloadType.Compressed_Zstd;
+            }
+
             var fileEx = GetFileExByCompressedType(type);
 
             var packPath = GetPackPath(dev, item, fileEx);
@@ -571,7 +577,7 @@ namespace System.Application.Steps
                 {
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
                     continue;
-                } 
+                }
                 var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)
