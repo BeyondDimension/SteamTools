@@ -262,7 +262,7 @@
 		<PackageVersion Include="Square.Picasso" Version="2.71828.0" />
 		<!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
 		<!--<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />-->
-		<PackageVersion Include="XAB.FlexboxLayout" Version="3.0.0.1" />
+		<PackageVersion Include="XAB.FlexboxLayout" Version="3.0.0.2" />
 		
 		<!-- V2Ray -->
 		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />
