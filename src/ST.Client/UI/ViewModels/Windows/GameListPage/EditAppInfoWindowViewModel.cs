@@ -147,6 +147,7 @@ namespace System.Application.UI.ViewModels
         {
             this.Close();
         }
+
         public void ResetEditAppInfo()
         {
             App.RefreshEditImage();
@@ -224,6 +225,30 @@ namespace System.Application.UI.ViewModels
             }
 
             _SteamGridItemSourceList.Dispose();
+        }
+
+        public async void OpenSteamGridDBImageUrl(SteamGridItem item)
+        {
+            await Browser2.OpenAsync(item.Url);
+        }
+
+        public async void OpenSteamGridDBAppUrl(SteamGridItem item)
+        {
+            var url = item.GridType switch
+            {
+                SteamGridItemType.Grid => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Grid, item.Id),
+                SteamGridItemType.Hero => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Hero, item.Id),
+                SteamGridItemType.Icon => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Icon, item.Id),
+                SteamGridItemType.Logo => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Logo, item.Id),
+                _ => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Grid, item.Id),
+            };
+
+            await Browser2.OpenAsync(url);
+        }
+
+        public async void OpenSteamGridDBAuthorUrl(SteamGridItem item)
+        {
+            await Browser2.OpenAsync(string.Format(SteamGridDBApiUrls.SteamGridDB_Author_URL, item.Author.Steam64));
         }
     }
 }

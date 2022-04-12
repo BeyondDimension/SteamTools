@@ -2,13 +2,16 @@ namespace System.Application
 {
     public static class SteamGridDBApiUrls
     {
-        public const string STEAMGRID_APP_URL = "https://www.steamgriddb.com/game/{0}";
-
+        public const string SteamGridDB_APP_URL = "https://www.steamgriddb.com/game/{0}";
+        
+        public const string SteamGridDB_Author_URL = "https://www.steamgriddb.com/profile/{0}";
 
         public const string API_BaseUrl = "https://www.steamgriddb.com/api/v2";
 
+        public const string SteamGridDBUrl = "https://www.steamgriddb.com";
+
         //Retrieve game by game ID.
-        public const string RetrieveGameById_Url = API_BaseUrl + "games/id/{0}";
+        public const string RetrieveGameById_Url = API_BaseUrl + "/games/id/{0}";
 
         //Retrieve game by Steam App ID.
         public const string RetrieveGameBySteamAppId_Url = API_BaseUrl + "/games/steam/{0}";
@@ -52,5 +55,15 @@ namespace System.Application
 
         //Search for a game by name.
         public const string SearchGameByName_Url = API_BaseUrl + "/search/autocomplete/{0}";
+
+
+
+        public const string SteamGridDBUrl_Grid = SteamGridDBUrl + "/grid/{0}";
+
+        public const string SteamGridDBUrl_Hero = SteamGridDBUrl + "/hero/{0}";
+
+        public const string SteamGridDBUrl_Icon = SteamGridDBUrl + "/icon/{0}";
+        
+        public const string SteamGridDBUrl_Logo = SteamGridDBUrl + "/logo/{0}";
     }
 }

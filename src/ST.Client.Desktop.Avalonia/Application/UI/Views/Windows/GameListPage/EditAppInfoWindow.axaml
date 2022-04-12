@@ -152,8 +152,15 @@
                                         Source="{Binding Thumb}" />
                             <Panel.ContextFlyout>
                               <MenuFlyout>
-                                <MenuItem Header="下载图片"/>
-                                <MenuItem Header="在浏览器中打开原图"/>
+                                <MenuItem Header="在浏览器中打开原图"
+                                          Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBImageUrl}"
+                                          CommandParameter="{Binding}"/>
+                                <MenuItem Header="打开SteamGridDB页面"
+                                          Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAppUrl}"
+                                          CommandParameter="{Binding}"/>
+                                <MenuItem Header="查看作者更多内容"
+                                          Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAuthorUrl}"
+                                          CommandParameter="{Binding}"/>
                               </MenuFlyout>
                             </Panel.ContextFlyout>
                           </Panel>
@@ -368,7 +375,7 @@
                 Command="{ReflectionBinding CancelEditAppInfo}"
                 IsDefault="False"
                 Content="{ReflectionBinding Path=Res.Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-        <Button Classes="action DialogButton" 
+        <Button Classes="action DialogButton"
                 IsDefault="False"
                 Command="{ReflectionBinding SaveEditAppInfo}"
                 Content="{ReflectionBinding Path=Res.Save,Mode=OneWay,Source={x:Static resx:R.Current}}"/>

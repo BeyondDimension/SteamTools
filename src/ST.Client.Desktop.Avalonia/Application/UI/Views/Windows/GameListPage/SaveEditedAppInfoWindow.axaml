@@ -18,5 +18,19 @@
   <Panel>
     <controls:TitleBar></controls:TitleBar>
 
+    <Border>
+      <ScrollViewer>
+        <ItemsRepeater Items="{Binding SteamEditedApps}">
+          <ItemsRepeater.Layout>
+            <UniformGridLayout ItemsJustification="Start" MinColumnSpacing="10" MinRowSpacing="10"/>
+          </ItemsRepeater.Layout>
+          <ItemsRepeater.ItemTemplate>
+            <DataTemplate>
+
+            </DataTemplate>
+          </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+      </ScrollViewer>
+    </Border>
   </Panel>
 </Window>

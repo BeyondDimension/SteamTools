@@ -40,6 +40,11 @@ namespace System.Application.Models
         /// 
         /// </summary>
         public SteamGridItemAuthor Author { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public SteamGridItemType GridType { get; set; }
     }
 
     public class SteamGridItemAuthor

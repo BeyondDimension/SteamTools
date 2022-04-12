@@ -10,7 +10,7 @@ namespace System.Application.Services.Implementation
     {
         readonly IHttpService s;
 
-        string ApiKey = "ae93db7411cac53190aa5a9b633bf5e2";
+        const string ApiKey = "ae93db7411cac53190aa5a9b633bf5e2";
 
         public SteamGridDBWebApiServiceImpl(IHttpService s)
         {
@@ -64,6 +64,10 @@ namespace System.Application.Services.Implementation
             {
                 if (rsp.Success == true)
                 {
+                    foreach (var item in rsp.Data)
+                    {
+                        item.GridType = type;
+                    }
                     return rsp.Data;
                 }
                 else
