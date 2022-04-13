@@ -2,11 +2,11 @@
 - Desktop(桌面端)
 	- Windows
 		- 如果你使用 Intel、AMD 的 x64(x86-64) 芯片的 PC，则下载文件名中带有 **win_x64** 的文件
-		- 如果你 **已安装** 了 [ASP.NET Core 运行时 6.0.3](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0) 则下载文件名中带有 **fde(框架依赖)** 的文件
+		- 如果你 **已安装** 了 [ASP.NET Core 运行时 6.0.4](https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0) 则下载文件名中带有 **fde(框架依赖)** 的文件
 		- 注意：是 《ASP.NET Core 运行时》 而不是 《.NET 桌面运行时》
 			- [在 Windows 上安装 .NET](https://docs.microsoft.com/zh-cn/dotnet/core/install/windows)
 				- 本程序在 Windows 上不需要 Hosting Bundle 和 IIS support
-				- [下载安装程序并手动安装(aspnetcore-runtime-6.0.3-win-x64.exe)](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-aspnetcore-6.0.3-windows-x64-installer)
+				- [下载安装程序并手动安装(aspnetcore-runtime-6.0.4-win-x64.exe)](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/runtime-aspnetcore-6.0.4-windows-x64-installer)
 				- [使用 PowerShell 自动化安装](https://docs.microsoft.com/zh-cn/dotnet/core/install/windows?tabs=net60#install-with-powershell-automation)
 	- macOS
 		- 如果你使用 Intel 的 x64(x86-64) 芯片的 Mac，则下载文件名中带有 **macos_x64** 的文件
