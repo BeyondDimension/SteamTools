@@ -3,6 +3,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using System.Application.UI.ViewModels;
+using System.Application.UI.Views.Controls;
 using System.Reactive.Disposables;
 
 namespace System.Application.UI.Views.Pages
@@ -17,11 +18,11 @@ namespace System.Application.UI.Views.Pages
             apps.PointerPressed += App_PointerPressed;
         }
 
-        private void App_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        private static void App_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
         {
             if (e.Source is Control c)
             {
-                var border = c.FindParentControl<Border>("AppAvatar");
+                var border = c.FindParentControl<AppCard>("AppCard");
                 if (border is not null)
                 {
                     var flyout = FlyoutBase.GetAttachedFlyout(border);

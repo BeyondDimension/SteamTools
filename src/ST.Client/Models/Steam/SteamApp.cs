@@ -65,8 +65,35 @@ namespace System.Application.Models
 
         public string? InstalledDir { get; set; }
 
-        public string? Name { get; set; }
-        public string? SortAs { get; set; }
+        string? _Name;
+        public string? Name
+        {
+            get { return _Name; }
+            set
+            {
+                if (_Name != value)
+                {
+                    _Name = value;
+                    SortAs = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
+        string? _SortAs;
+        public string? SortAs
+        {
+            get { return _SortAs; }
+            set
+            {
+                if (_SortAs != value)
+                {
+                    _SortAs = value;
+                    this.RaisePropertyChanged();
+                }
+            }
+        }
+
         public string? Developer { get; set; }
         public string? Publisher { get; set; }
         public uint? SteamReleaseDate { get; set; }
@@ -218,8 +245,8 @@ namespace System.Application.Models
         public string LibraryGridUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
         public Task<string> LibraryGridStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Grid);
 
-        private object? _EditLibraryGridStream;
-        public object? EditLibraryGridStream
+        private Stream? _EditLibraryGridStream;
+        public Stream? EditLibraryGridStream
         {
             get => _EditLibraryGridStream;
             set => this.RaiseAndSetIfChanged(ref _EditLibraryGridStream, value);
@@ -228,8 +255,8 @@ namespace System.Application.Models
         public string LibraryHeroUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
         public Task<string> LibraryHeroStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero);
 
-        private object? _EditLibraryHeroStream;
-        public object? EditLibraryHeroStream
+        private Stream? _EditLibraryHeroStream;
+        public Stream? EditLibraryHeroStream
         {
             get => _EditLibraryHeroStream;
             set => this.RaiseAndSetIfChanged(ref _EditLibraryHeroStream, value);
@@ -242,8 +269,8 @@ namespace System.Application.Models
         public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
         public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Logo);
 
-        private object? _EditLibraryLogoStream;
-        public object? EditLibraryLogoStream
+        private Stream? _EditLibraryLogoStream;
+        public Stream? EditLibraryLogoStream
         {
             get => _EditLibraryLogoStream;
             set => this.RaiseAndSetIfChanged(ref _EditLibraryLogoStream, value);
@@ -663,9 +690,9 @@ namespace System.Application.Models
 
         public async void RefreshEditImage()
         {
-            this.EditLibraryGridStream = await this.LibraryGridStream;
-            this.EditLibraryHeroStream = await this.LibraryHeroStream;
-            this.EditLibraryLogoStream = await this.LibraryLogoStream;
+            this.EditLibraryGridStream = IOPath.OpenRead(await this.LibraryGridStream);
+            this.EditLibraryHeroStream = IOPath.OpenRead(await this.LibraryHeroStream);
+            this.EditLibraryLogoStream = IOPath.OpenRead(await this.LibraryLogoStream);
         }
 
         public enum LibCacheType : byte

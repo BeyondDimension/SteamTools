@@ -544,7 +544,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>未添加挂时长的游戏，请从游戏列表右键添加。</value>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>启动时自动挂时长</value>
+    <value>自动运行挂时长游戏</value>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
     <value>是否移除全部挂时长的游戏？</value>
@@ -2129,5 +2129,77 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="CustomFilePicker_Tip" xml:space="preserve">
     <value>选择文件或拖拽到这里</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="SortAs" xml:space="preserve">
+    <value>排序标题</value>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>开发商</value>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>发行商</value>
+  </data>
+  <data name="SupportSystem" xml:space="preserve">
+    <value>支持的系统</value>
+  </data>
+  <data name="LastUpdatedDateTime" xml:space="preserve">
+    <value>最后更新时间</value>
+  </data>
+  <data name="DiskUsage" xml:space="preserve">
+    <value>磁盘占用</value>
+  </data>
+  <data name="InstalledPath" xml:space="preserve">
+    <value>安装路径</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>媒体</value>
+  </data>
+  <data name="SteamGridDBTitle" xml:space="preserve">
+    <value>SteamGridDB Image</value>
+  </data>
+  <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
+    <value>未能从 SteamGridDB 获取到图片</value>
+  </data>
+  <data name="OpenImageInBrowser" xml:space="preserve">
+    <value>在浏览器中打开原图</value>
+  </data>
+  <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
+    <value>打开SteamGridDB网页浏览</value>
+  </data>
+  <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
+    <value>查看该作者更多作品</value>
+  </data>
+  <data name="GetImageFromSteamGridDB" xml:space="preserve">
+    <value>从 SteamGridDB 获取</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>封面</value>
+  </data>
+  <data name="Background" xml:space="preserve">
+    <value>背景</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="RecommendedResolution" xml:space="preserve">
+    <value>建议的分辨率</value>
+  </data>
+  <data name="LaunchItem" xml:space="preserve">
+    <value>启动项</value>
+  </data>
+  <data name="ExecutableFile" xml:space="preserve">
+    <value>可执行文件</value>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>启动参数</value>
+  </data>
+  <data name="WorkingDir" xml:space="preserve">
+    <value>工作目录</value>
   </data>
 </root>

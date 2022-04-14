@@ -19,8 +19,6 @@ namespace System.Application.UI.Views.Windows
 
         public TaskBarWindow()
         {
-            InitializeComponent();
-
             TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
 
             if (TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
@@ -35,7 +33,7 @@ namespace System.Application.UI.Views.Windows
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
             SystemDecorations = SystemDecorations.Full;
             SizeToContent = Avalonia.Controls.SizeToContent.Height;
-
+            IsVisible = false;
             //Initialized += Window_Opened;
             Opened += Window_Opened;
             LostFocus += Window_LostFocus;
@@ -57,6 +55,9 @@ namespace System.Application.UI.Views.Windows
             //{
             //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
             //}
+            
+            InitializeComponent();
+
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -135,6 +136,8 @@ namespace System.Application.UI.Views.Windows
                 Topmost = true;
                 IAvaloniaApplication.Instance.SetTopmostOneTime();
             }
+
+            IsVisible = true;
         }
 
         private void InitializeComponent()

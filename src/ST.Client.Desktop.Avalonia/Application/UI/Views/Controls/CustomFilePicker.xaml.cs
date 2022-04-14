@@ -5,6 +5,7 @@ using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
 using System.Collections;
+using System.IO;
 using static System.Application.FilePicker2;
 
 namespace System.Application.UI.Views.Controls
@@ -13,13 +14,24 @@ namespace System.Application.UI.Views.Controls
     {
         public static readonly StyledProperty<string?> FileNameProperty = AvaloniaProperty.Register<CustomFilePicker, string?>(nameof(FileName), null);
 
+        public static readonly StyledProperty<Stream?> FileStreamProperty = AvaloniaProperty.Register<CustomFilePicker, Stream?>(nameof(FileStream), null);
+
         public static readonly StyledProperty<string?> FileExtensionsProperty = AvaloniaProperty.Register<CustomFilePicker, string?>(nameof(FileExtensions), "*");
 
-        
+        public Stream? FileStream
+        {
+            get => GetValue(FileStreamProperty);
+            set => SetValue(FileStreamProperty, value);
+        }
+
         public string? FileName
         {
             get => GetValue(FileNameProperty);
-            set => SetValue(FileNameProperty, value);
+            set
+            {
+                FileStream = IOPath.OpenRead(FileName);
+                SetValue(FileNameProperty, value);
+            }
         }
 
         public string? FileExtensions

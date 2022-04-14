@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        Width="600" Height="450"
+        Width="770" Height="550"
         x:Name="u"
         x:Class="System.Application.UI.Views.Windows.IdleAppWindow"
         xmlns:resx="using:System.Application.UI.Resx"
@@ -19,7 +19,7 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar></controls:TitleBar>
-    <DockPanel Margin="0 30 0 0">
+    <DockPanel Margin="{StaticResource TitleBarAfterMargin}">
       <Border
         DockPanel.Dock="Top"
         Classes="paper"
@@ -73,8 +73,8 @@
             <TextBlock IsVisible="{CompiledBinding RunState}" VerticalAlignment="Center" Text="{Binding RuningCountTxt}" TextTrimming="CharacterEllipsis"/>
           </StackPanel>
           <ToggleSwitch Content=""
-                        OnContent=""
-                        OffContent=""
+                        OnContent="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                        OffContent="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         HorizontalAlignment="Right"
                         Margin="5 0 0 5"
                         IsChecked="{ReflectionBinding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps},Path=Value}"
@@ -95,12 +95,20 @@
                   HorizontalAlignment="Center"></TextBlock>
           <ItemsRepeater Items="{Binding IdleGameList}">
             <ItemsRepeater.Layout>
-              <UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="10" MinColumnSpacing="20" MaximumRowsOrColumns="10" ItemsStretch="Fill" />
+              <UniformGridLayout ItemsJustification="Start" 
+                                 MinRowSpacing="10"
+                                 MinColumnSpacing="10" 
+                                 MaximumRowsOrColumns="10" 
+                                 ItemsStretch="Fill" />
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
               <DataTemplate>
                 <StackPanel Spacing="8" Width="120">
-                  <Border DockPanel.Dock="Top" Classes="paper" x:Name="card">
+                  <Border DockPanel.Dock="Top" 
+                          Classes="paper" 
+                          x:Name="card"
+                          CornerRadius="{DynamicResource ControlCornerRadius}"
+                          ClipToBounds="True">
                     <i:Interaction.Behaviors>
                       <ia:EventTriggerBehavior EventName="PointerEnter" SourceObject="{ReflectionBinding #card}">
                         <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="True"/>
@@ -109,14 +117,15 @@
                         <ia:ChangePropertyAction TargetObject="{ReflectionBinding #item_box}" PropertyName="IsVisible" Value="False"/>
                       </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
-                    <Panel x:Name="app" Width="{ReflectionBinding $parent[StackPanel].Width}">
+                    <Panel x:Name="app" 
+                           Width="{ReflectionBinding $parent[StackPanel].Width}">
                       <Border CornerRadius="{DynamicResource ControlCornerRadius}"
-                              Classes="paper"
-                              ClipToBounds="True">
+                              ClipToBounds="True"
+                              Classes="paper">
                         <gif:Image2 x:Name="library"
                                     Stretch="UniformToFill"
                                     DecodeWidth="{ReflectionBinding $parent[StackPanel].Width}"
-                                    Source="{Binding LibraryLogoStream^}"
+                                    Source="{Binding LibraryGridStream^}"
                                     FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Placeholders/0.png">
                         </gif:Image2>
                       </Border>
@@ -124,7 +133,7 @@
                         Text="{Binding DisplayName}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
-                        TextWrapping="WrapWithOverflow"
+                        TextWrapping="Wrap"
                         FontSize="20"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
                         IsVisible="{Binding LibraryLogoStream^,Converter={StaticResource IsNullConverter}}"/>

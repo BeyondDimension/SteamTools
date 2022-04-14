@@ -141,10 +141,13 @@ namespace System.Application.UI.ViewModels
             #endregion
 
             App.IsEdited = true;
+
+            this.Close();
         }
 
         public void CancelEditAppInfo()
         {
+            ResetEditAppInfo();
             this.Close();
         }
 

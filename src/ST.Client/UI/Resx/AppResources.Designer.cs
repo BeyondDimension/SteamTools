@@ -507,6 +507,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启动参数 的本地化字符串。
+        /// </summary>
+        public static string Arguments {
+            get {
+                return ResourceManager.GetString("Arguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 新增 Bot 的本地化字符串。
         /// </summary>
         public static string ASF_AddBot {
@@ -1001,6 +1010,15 @@ namespace System.Application.UI.Resx {
         public static string AuthLocal_ExportToQRCodeTooLongErrorTip {
             get {
                 return ResourceManager.GetString("AuthLocal_ExportToQRCodeTooLongErrorTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 背景 的本地化字符串。
+        /// </summary>
+        public static string Background {
+            get {
+                return ResourceManager.GetString("Background", resourceCulture);
             }
         }
         
@@ -1653,6 +1671,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 开发商 的本地化字符串。
+        /// </summary>
+        public static string Developer {
+            get {
+                return ResourceManager.GetString("Developer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 磁盘占用 的本地化字符串。
+        /// </summary>
+        public static string DiskUsage {
+            get {
+                return ResourceManager.GetString("DiskUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 暂不更新 的本地化字符串。
         /// </summary>
         public static string DoNotUpdate {
@@ -1788,6 +1824,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 可执行文件 的本地化字符串。
+        /// </summary>
+        public static string ExecutableFile {
+            get {
+                return ResourceManager.GetString("ExecutableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 退出 的本地化字符串。
         /// </summary>
         public static string Exit {
@@ -1811,6 +1856,15 @@ namespace System.Application.UI.Resx {
         public static string ExportedToPath_ {
             get {
                 return ResourceManager.GetString("ExportedToPath_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 未能从 SteamGridDB 获取到图片 的本地化字符串。
+        /// </summary>
+        public static string FailedGetImageFromSteamGridDB {
+            get {
+                return ResourceManager.GetString("FailedGetImageFromSteamGridDB", resourceCulture);
             }
         }
         
@@ -1923,7 +1977,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 启动时自动挂时长 的本地化字符串。
+        ///   查找类似 自动运行挂时长游戏 的本地化字符串。
         /// </summary>
         public static string GameList_AutoAFK {
             get {
@@ -2500,6 +2554,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 从 SteamGridDB 获取 的本地化字符串。
+        /// </summary>
+        public static string GetImageFromSteamGridDB {
+            get {
+                return ResourceManager.GetString("GetImageFromSteamGridDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在获取 Steam 登录状态 的本地化字符串。
         /// </summary>
         public static string GetLoginUsingSteamClientCookies {
@@ -2581,6 +2644,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 图标 的本地化字符串。
+        /// </summary>
+        public static string Icon {
+            get {
+                return ResourceManager.GetString("Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 自动集卡 的本地化字符串。
         /// </summary>
         public static string IdleCard {
@@ -2617,6 +2689,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 信息 的本地化字符串。
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已安装 的本地化字符串。
         /// </summary>
         public static string Installed {
@@ -2626,11 +2707,38 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 安装路径 的本地化字符串。
+        /// </summary>
+        public static string InstalledPath {
+            get {
+                return ResourceManager.GetString("InstalledPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当前已是最新版本 的本地化字符串。
         /// </summary>
         public static string IsExistUpdateFalse {
             get {
                 return ResourceManager.GetString("IsExistUpdateFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最后更新时间 的本地化字符串。
+        /// </summary>
+        public static string LastUpdatedDateTime {
+            get {
+                return ResourceManager.GetString("LastUpdatedDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动项 的本地化字符串。
+        /// </summary>
+        public static string LaunchItem {
+            get {
+                return ResourceManager.GetString("LaunchItem", resourceCulture);
             }
         }
         
@@ -3610,6 +3718,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 媒体 的本地化字符串。
+        /// </summary>
+        public static string Media {
+            get {
+                return ResourceManager.GetString("Media", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 修改 的本地化字符串。
         /// </summary>
         public static string Modify {
@@ -3651,6 +3768,15 @@ namespace System.Application.UI.Resx {
         public static string My {
             get {
                 return ResourceManager.GetString("My", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 名称 的本地化字符串。
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -3772,6 +3898,33 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 在浏览器中打开原图 的本地化字符串。
+        /// </summary>
+        public static string OpenImageInBrowser {
+            get {
+                return ResourceManager.GetString("OpenImageInBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开SteamGridDB网页浏览 的本地化字符串。
+        /// </summary>
+        public static string OpenSteamGridDBInBrowser {
+            get {
+                return ResourceManager.GetString("OpenSteamGridDBInBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查看该作者更多作品 的本地化字符串。
+        /// </summary>
+        public static string OpenTheAuthorPageInBrowser {
+            get {
+                return ResourceManager.GetString("OpenTheAuthorPageInBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 操作 Hosts 错误 {0} 的本地化字符串。
         /// </summary>
         public static string OperationHostsError_ {
@@ -3885,6 +4038,24 @@ namespace System.Application.UI.Resx {
         public static string ProxyMode_VPN {
             get {
                 return ResourceManager.GetString("ProxyMode_VPN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 发行商 的本地化字符串。
+        /// </summary>
+        public static string Publisher {
+            get {
+                return ResourceManager.GetString("Publisher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 建议的分辨率 的本地化字符串。
+        /// </summary>
+        public static string RecommendedResolution {
+            get {
+                return ResourceManager.GetString("RecommendedResolution", resourceCulture);
             }
         }
         
@@ -4899,6 +5070,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 排序标题 的本地化字符串。
+        /// </summary>
+        public static string SortAs {
+            get {
+                return ResourceManager.GetString("SortAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 源码仓库 的本地化字符串。
         /// </summary>
         public static string SourceRepository {
@@ -5242,6 +5422,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 SteamGridDB Image 的本地化字符串。
+        /// </summary>
+        public static string SteamGridDBTitle {
+            get {
+                return ResourceManager.GetString("SteamGridDBTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 找不到 Steam 安装路径 的本地化字符串。
         /// </summary>
         public static string SteamInstallPathNotFound {
@@ -5265,6 +5454,24 @@ namespace System.Application.UI.Resx {
         public static string Success_ {
             get {
                 return ResourceManager.GetString("Success_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 支持的系统 的本地化字符串。
+        /// </summary>
+        public static string SupportSystem {
+            get {
+                return ResourceManager.GetString("SupportSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 封面 的本地化字符串。
+        /// </summary>
+        public static string TitlePage {
+            get {
+                return ResourceManager.GetString("TitlePage", resourceCulture);
             }
         }
         
@@ -6022,6 +6229,15 @@ namespace System.Application.UI.Resx {
         public static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 工作目录 的本地化字符串。
+        /// </summary>
+        public static string WorkingDir {
+            get {
+                return ResourceManager.GetString("WorkingDir", resourceCulture);
             }
         }
         

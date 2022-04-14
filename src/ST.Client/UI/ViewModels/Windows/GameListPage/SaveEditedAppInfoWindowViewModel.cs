@@ -46,13 +46,20 @@ namespace System.Application.UI.ViewModels
         public void LoadSteamEditedApps()
         {
             _SteamEditedAppsSourceList.Clear();
-            
+
             _SteamEditedAppsSourceList.AddOrUpdate(SteamConnectService.Current.SteamApps.Items.Where(s => s.IsEdited));
         }
 
         public void SaveSteamEditedApps()
         {
             ISteamService.Instance.SaveAppInfosToSteam();
+        }
+        public async void ClearSteamEditedApps()
+        {
+            if (await MessageBox.ShowAsync("确定要清空重置所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+            {
+                _SteamEditedAppsSourceList.Clear();
+            }
         }
     }
 }
