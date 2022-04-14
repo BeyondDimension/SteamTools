@@ -114,23 +114,23 @@ namespace System.Application.UI.ViewModels
         public async void SaveEditAppInfo()
         {
             #region 自定义图片保存
-            if (App.EditLibraryLogoStream?.ToString() != await App.LibraryLogoStream)
+            if (!(App.EditLibraryLogoStream is FileStream fs && fs.Name == await App.LibraryLogoStream))
             {
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryLogoStream,
-                 SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Grid) == false)
+                 SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Logo) == false)
                 {
                     Toast.Show($"保存 {SteamGridItemType.Grid} 自定义图片失败");
                 }
             }
-            if (App.EditLibraryHeroStream?.ToString() != await App.LibraryHeroStream)
+            if (!(App.EditLibraryHeroStream is FileStream fs1 && fs1.Name == await App.LibraryHeroStream))
             {
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryHeroStream,
-                 SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Grid) == false)
+                 SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Hero) == false)
                 {
                     Toast.Show($"保存 {SteamGridItemType.Grid} 自定义图片失败");
                 }
             }
-            if (App.EditLibraryGridStream?.ToString() != await App.LibraryGridStream)
+            if (!(App.EditLibraryGridStream is FileStream fs2 && fs2.Name == await App.LibraryGridStream))
             {
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryGridStream,
                     SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Grid) == false)
@@ -142,19 +142,23 @@ namespace System.Application.UI.ViewModels
 
             App.IsEdited = true;
 
+            SteamConnectService.Current.SteamApps.AddOrUpdate(App);
+
             this.Close();
         }
 
         public void CancelEditAppInfo()
         {
-            ResetEditAppInfo();
+            App.RefreshEditImage();
             this.Close();
         }
 
-        public void ResetEditAppInfo()
+        public async void ResetEditAppInfo()
         {
-            App.RefreshEditImage();
-            App.IsEdited = false;
+            if (await MessageBox.ShowAsync("确定要重置当前App所有更改吗？", ThisAssembly.AssemblyTrademark, MessageBox.Button.OK) == MessageBox.Result.OK)
+            {
+                App.RefreshEditImage();
+            }
         }
 
         public async void RefreshSteamGridItemList(SteamGridItemType type = SteamGridItemType.Grid)
@@ -208,23 +212,11 @@ namespace System.Application.UI.ViewModels
 
         public override void OnClosing(object? sender, CancelEventArgs e)
         {
-            if (App != null)
+            if (App != null && !App.IsEdited)
             {
-                if (App.EditLibraryGridStream is MemoryStream ms)
-                {
-                    ms.Close();
-                    ms.Dispose();
-                }
-                if (App.EditLibraryHeroStream is MemoryStream ms1)
-                {
-                    ms1.Close();
-                    ms1.Dispose();
-                }
-                if (App.EditLibraryLogoStream is MemoryStream ms2)
-                {
-                    ms2.Close();
-                    ms2.Dispose();
-                }
+                App.EditLibraryGridStream = null;
+                App.EditLibraryHeroStream = null;
+                App.EditLibraryLogoStream = null;
             }
 
             _SteamGridItemSourceList.Dispose();

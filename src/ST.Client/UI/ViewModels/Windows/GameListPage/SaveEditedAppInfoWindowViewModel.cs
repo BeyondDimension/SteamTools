@@ -16,7 +16,7 @@ namespace System.Application.UI.ViewModels
 {
     public class SaveEditedAppInfoWindowViewModel : WindowViewModel
     {
-        public static string DisplayName => AppResources.GameList_HideGameManger;
+        public static string DisplayName => AppResources.GameList_EditedAppsSaveManger;
 
         public SaveEditedAppInfoWindowViewModel()
         {
@@ -54,12 +54,18 @@ namespace System.Application.UI.ViewModels
         {
             ISteamService.Instance.SaveAppInfosToSteam();
         }
+        
         public async void ClearSteamEditedApps()
         {
-            if (await MessageBox.ShowAsync("确定要清空重置所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+            if (await MessageBox.ShowAsync("确定要清空所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
             {
                 _SteamEditedAppsSourceList.Clear();
             }
+        }
+
+        public void EditSteamApp(SteamApp app)
+        {
+            ISteamService.Instance.SaveAppInfosToSteam();
         }
     }
 }

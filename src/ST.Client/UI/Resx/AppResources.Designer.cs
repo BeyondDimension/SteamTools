@@ -2022,6 +2022,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 保存编辑后的App数据 的本地化字符串。
+        /// </summary>
+        public static string GameList_EditedAppsSaveManger {
+            get {
+                return ResourceManager.GetString("GameList_EditedAppsSaveManger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 全部选中 的本地化字符串。
         /// </summary>
         public static string GameList_HideApp_AllCheck {

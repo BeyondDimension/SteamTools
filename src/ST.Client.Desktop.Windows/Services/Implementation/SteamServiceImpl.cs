@@ -630,7 +630,11 @@ namespace System.Application.Services.Implementation
                 {
                     if (imageObject is Stream imageStream)
                     {
-                        using FileStream fs = new FileStream(filePath, FileMode.CreateNew, FileAccess.Write);
+                        using FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+                        if (imageStream.Position > 0)
+                        {
+                            imageStream.Position = 0;
+                        }
                         await imageStream.CopyToAsync(fs);
                         await fs.FlushAsync();
                         fs.Close();
