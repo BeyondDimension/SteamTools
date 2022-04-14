@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using TinyPinyin;
 #if MONOANDROID || ANDROID
-using Org.Ahocorasick.Trie;
+using Org.AhoCorasick.Trie;
 #endif
 
 // ReSharper disable once CheckNamespace
