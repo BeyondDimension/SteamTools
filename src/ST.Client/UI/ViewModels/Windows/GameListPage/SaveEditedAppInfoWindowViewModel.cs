@@ -23,10 +23,9 @@ namespace System.Application.UI.ViewModels
             Title = GetTitleByDisplayName(DisplayName);
 
 
-            _SteamEditedAppsSourceList = new SourceCache<SteamApp, long>(t => t.AppId);
-
-            _SteamEditedAppsSourceList
+            SteamConnectService.Current.SteamApps
               .Connect()
+              .Filter(x => x.IsEdited)
               .ObserveOn(RxApp.MainThreadScheduler)
               .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId))
               .Bind(out _SteamEditedApps)
@@ -35,9 +34,9 @@ namespace System.Application.UI.ViewModels
             LoadSteamEditedApps();
         }
 
-        readonly SourceCache<SteamApp, long> _SteamEditedAppsSourceList;
-        readonly ReadOnlyObservableCollection<SteamApp>? _SteamEditedApps;
-        public ReadOnlyObservableCollection<SteamApp>? SteamEditedApps => _SteamEditedApps;
+        
+        readonly ReadOnlyObservableCollection<SteamApp> _SteamEditedApps;
+        public ReadOnlyObservableCollection<SteamApp> SteamEditedApps => _SteamEditedApps;
 
 
         public bool IsSteamEditedAppsEmpty => !SteamEditedApps.Any_Nullable();
@@ -45,27 +44,42 @@ namespace System.Application.UI.ViewModels
 
         public void LoadSteamEditedApps()
         {
-            _SteamEditedAppsSourceList.Clear();
-
-            _SteamEditedAppsSourceList.AddOrUpdate(SteamConnectService.Current.SteamApps.Items.Where(s => s.IsEdited));
+            SteamConnectService.Current.SteamApps.Refresh();
         }
 
-        public void SaveSteamEditedApps()
+        public async void SaveSteamEditedApps()
         {
-            ISteamService.Instance.SaveAppInfosToSteam();
+            if (await ISteamService.Instance.SaveAppInfosToSteam())
+            {
+                if (await MessageBox.ShowAsync("修改的数据已保存到 Steam 本地文件中，是否立即重启Steam生效？", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+                {
+                    ISteamService.Instance.TryKillSteamProcess();
+                    ISteamService.Instance.StartSteam();
+                }
+            }
         }
-        
+
         public async void ClearSteamEditedApps()
         {
             if (await MessageBox.ShowAsync("确定要清空所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
             {
-                _SteamEditedAppsSourceList.Clear();
+                foreach (var item in SteamEditedApps) 
+                {
+                    
+                }
             }
         }
 
-        public void EditSteamApp(SteamApp app)
-        {
-            ISteamService.Instance.SaveAppInfosToSteam();
-        }
+        public static void EditSteamApp(SteamApp app) => GameListPageViewModel.EditAppInfoClick(app);
+
+        public static void NavAppToSteamView(SteamApp app) => GameListPageViewModel.NavAppToSteamView(app);
+
+        public static void OpenFolder(SteamApp app) => GameListPageViewModel.OpenFolder(app);
+
+        public static void OpenAppStoreUrl(SteamApp app) => GameListPageViewModel.OpenAppStoreUrl(app);
+
+        public static void OpenSteamDBUrl(SteamApp app) => GameListPageViewModel.OpenSteamDBUrl(app);
+
+        public static void OpenSteamCardUrl(SteamApp app) => GameListPageViewModel.OpenSteamCardUrl(app);
     }
 }

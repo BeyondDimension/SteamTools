@@ -7,13 +7,13 @@ namespace System.Application.Models
     public enum SteamAppPropertyType
     {
         _Invalid_ = -1,
-        Table,
-        String,
-        Int32,
-        Float,
+        Table = 0,
+        String = 1,
+        Int32 = 2,
+        Float = 3,
         WString = 5,
-        Color,
-        Uint64,
-        _EndOfTable_
+        Color = 6,
+        Uint64 = 7,
+        _EndOfTable_ = 8
     }
 }

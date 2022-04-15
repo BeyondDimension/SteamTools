@@ -39,6 +39,14 @@ namespace System.Application.Models
 
         private const string NodePlatformsWindows = "windows";
 
+        private const string NodeSortAs = "sortas";
+
+        private const string NodeDeveloper = "developer";
+
+        private const string NodePublisher = "publisher";
+
+        private const string NodeLaunch = "launch";
+
 
         public SteamApp() { }
 
@@ -95,51 +103,135 @@ namespace System.Application.Models
         }
 
         public string? Developer { get; set; }
+
         public string? Publisher { get; set; }
+
         public uint? SteamReleaseDate { get; set; }
+
         public uint? OriginReleaseDate { get; set; }
+
         public string? OSList { get; set; }
 
-        public string? EditName
+        #region 暂时不用
+        //public string? EditName
+        //{
+        //    get
+        //    {
+        //        return _properties?.GetPropertyValue<string>(null, NodeAppInfo,
+        //            NodeCommon,
+        //            NodeName);
+        //    }
+        //    set
+        //    {
+        //        _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
+        //            NodeCommon,
+        //            NodeName);
+        //    }
+        //}
+
+        //public string? EditSortAs
+        //{
+        //    get
+        //    {
+        //        return this._properties?.GetPropertyValue<string>(this.Name, NodeAppInfo, NodeCommon, NodeSortAs);
+        //    }
+        //    set
+        //    {
+        //        _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo, NodeCommon, NodeSortAs);
+        //    }
+        //}
+
+        //public string? EditDeveloper
+        //{
+        //    get
+        //    {
+        //        return _properties?.GetPropertyValue<string>(null, NodeAppInfo,
+        //             NodeCommon,
+        //             NodeDeveloper);
+        //    }
+        //    set
+        //    {
+        //        _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
+        //            NodeCommon,
+        //            NodeDeveloper);
+        //    }
+        //}
+
+        //public string? EditPublisher
+        //{
+        //    get
+        //    {
+        //        return _properties?.GetPropertyValue<string>(null, NodeAppInfo,
+        //             NodeCommon,
+        //             NodePublisher);
+        //    }
+        //    set
+        //    {
+        //        _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
+        //            NodeCommon,
+        //            NodePublisher);
+        //    }
+        //}
+        #endregion
+
+        public bool SetEditProperty(SteamApp appInfo)
         {
-            get
+            Name = appInfo.Name;
+            if (_properties != null)
             {
-                if (_cachedName == null)
-                {
-                    _cachedName = _properties?.GetPropertyValue<string>(null, NodeAppInfo,
-                        NodeCommon,
-                        NodeName);
-                }
-                return _cachedName;
-            }
-            set
-            {
-                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
+                _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Name, NodeAppInfo,
                     NodeCommon,
                     NodeName);
-                ClearCachedProps();
-            }
-        }
 
-        public string? EditSortAs
-        {
-            get
-            {
-                if (this._cachedSortAs == null)
+                _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.SortAs, NodeAppInfo,
+                    NodeCommon,
+                    NodeSortAs);
+
+                _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Developer, NodeAppInfo,
+                    NodeExtended,
+                    NodeDeveloper);
+
+                _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Publisher, NodeAppInfo,
+                    NodeExtended,
+                    NodePublisher);
+
+                if (appInfo.LaunchItems.Any_Nullable())
                 {
-                    this._cachedSortAs = this._properties?.GetPropertyValue<string>(this.Name, NodeAppInfo, NodeCommon, "sortas");
-                    if (!this._cachedSortAs.Any_Nullable())
+                    var launchTable = _properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, NodeLaunch);
+
+                    if (launchTable == null)
                     {
-                        this._cachedSortAs = this.Name;
+                        launchTable = new SteamAppPropertyTable();
                     }
+
+                    foreach (var item in appInfo.LaunchItems)
+                    {
+                        var propertyTable = new SteamAppPropertyTable();
+
+                        propertyTable.SetPropertyValue("executable", SteamAppPropertyType.String, item.Executable);
+
+                        if (!string.IsNullOrEmpty(item.Label))
+                        {
+                            propertyTable.SetPropertyValue("description", SteamAppPropertyType.String, item.Label);
+                        }
+                        if (!string.IsNullOrEmpty(item.Arguments))
+                        {
+                            propertyTable.SetPropertyValue("arguments", SteamAppPropertyType.String, item.Arguments);
+                        }
+                        if (!string.IsNullOrEmpty(item.WorkingDir))
+                        {
+                            propertyTable.SetPropertyValue("workingdir", SteamAppPropertyType.String, item.WorkingDir);
+                        }
+
+                        launchTable.SetPropertyValue(launchTable.Count.ToString(), SteamAppPropertyType.Table, propertyTable);
+                    }
+
+                    _properties.SetPropertyValue(SteamAppPropertyType.Table, launchTable, NodeAppInfo, NodeConfig, NodeLaunch);
                 }
-                return this._cachedSortAs;
+
+                return true;
             }
-            set
-            {
-                _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo, NodeCommon, "sortas");
-                this.ClearCachedProps();
-            }
+            return false;
         }
 
         private bool _IsEdited;
@@ -308,12 +400,6 @@ namespace System.Application.Models
 
         public int CompareTo(SteamApp? other) => string.Compare(Name, other?.Name);
 
-        private string? _cachedName;
-
-        private string? _cachedSortAs;
-
-        private bool? _cachedHasSortAs;
-
         private byte[]? _stuffBeforeHash;
 
         private uint _changeNumber;
@@ -322,24 +408,17 @@ namespace System.Application.Models
 
         private SteamAppPropertyTable? _properties;
 
-        private void ClearCachedProps()
-        {
-            _cachedName = null;
-            _cachedSortAs = null;
-            _cachedHasSortAs = null;
-        }
+        //public event EventHandler? Modified;
 
-        public event EventHandler? Modified;
-
-        private void OnEntryModified(object sender, EventArgs e)
-        {
-            var modified = Modified;
-            if (modified == null)
-            {
-                return;
-            }
-            modified(this, new EventArgs());
-        }
+        //private void OnEntryModified(object sender, EventArgs e)
+        //{
+        //    var modified = Modified;
+        //    if (modified == null)
+        //    {
+        //        return;
+        //    }
+        //    modified(this, new EventArgs());
+        //}
 
         public Process? StartSteamAppProcess()
         {
@@ -481,7 +560,7 @@ namespace System.Application.Models
             return true;
         }
 
-        public static SteamApp? FromReader(BinaryReader reader, uint[] installedAppIds)
+        public static SteamApp? FromReader(BinaryReader reader, uint[] installedAppIds, bool isSaveProperties = false)
         {
             uint id = reader.ReadUInt32();
             if (id == 0)
@@ -506,7 +585,11 @@ namespace System.Application.Models
                 if (properties == null)
                     return app;
 
-                //app._properties = properties;
+                if (isSaveProperties)
+                {
+                    app._properties = properties;
+                    app._originalData = array;
+                }
 
                 //var installpath = properties.GetPropertyValue<string>(null, NodeAppInfo, NodeConfig, "installdir");
 
@@ -516,14 +599,14 @@ namespace System.Application.Models
                 //}
 
                 app.Name = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeName);
-                app.SortAs = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, "sortas");
+                app.SortAs = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeSortAs);
                 if (!app.SortAs.Any_Nullable())
                 {
                     app.SortAs = app.Name;
                 }
                 app.ParentId = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, NodeParentId);
-                app.Developer = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "developer");
-                app.Publisher = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, "publisher");
+                app.Developer = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, NodeDeveloper);
+                app.Publisher = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, NodePublisher);
                 //app.SteamReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "steam_release_date");
                 //app.OriginReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "original_release_date");
 
@@ -546,7 +629,7 @@ namespace System.Application.Models
                     app.Type == SteamAppType.Tool ||
                     app.Type == SteamAppType.Demo))
                 {
-                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, "launch");
+                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, NodeLaunch);
 
                     if (launchTable != null)
                     {
@@ -556,10 +639,10 @@ namespace System.Application.Models
                                                          select prop.GetValue<SteamAppPropertyTable>())
                                           select new SteamAppLaunchItem
                                           {
-                                              Label = table.GetPropertyValue<string>("description", ""),
-                                              Executable = table.GetPropertyValue<string>("executable", ""),
-                                              Arguments = table.GetPropertyValue<string>("arguments", ""),
-                                              WorkingDir = table.GetPropertyValue<string>("workingdir", ""),
+                                              Label = table.GetPropertyValue<string?>("description"),
+                                              Executable = table.GetPropertyValue<string?>("executable"),
+                                              Arguments = table.GetPropertyValue<string?>("arguments"),
+                                              WorkingDir = table.GetPropertyValue<string?>("workingdir"),
                                               Platform = table.TryGetPropertyValue<SteamAppPropertyTable>(NodeConfig, out var propertyTable) ?
                                               propertyTable.TryGetPropertyValue<string>(NodePlatforms, out var os) ? os : null : null,
                                           };
@@ -588,9 +671,6 @@ namespace System.Application.Models
                 //{
                 //    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, NodeAppInfo, NodeCommon, NodeAppType);
                 //}
-                //app._originalData = array;
-                //app.ClearCachedProps();
-
             }
             catch (Exception ex)
             {
@@ -601,60 +681,57 @@ namespace System.Application.Models
 
         public void Write(BinaryWriter writer)
         {
-            this.ClearCachedProps();
             SteamAppPropertyTable propertyTable = new SteamAppPropertyTable(this._properties);
-            SteamAppPropertyTable? propertyValue = propertyTable.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeCommon);
-            if (propertyValue != null)
-            {
-                string? text = Name;
-                if (text != null)
-                {
-                    SteamAppPropertyTable? propertyValue2 = propertyValue.GetPropertyValue<SteamAppPropertyTable>(null, "name_localized");
-                    if (propertyValue2 != null)
-                    {
-                        propertyTable.SetPropertyValue(SteamAppPropertyType.Table, propertyValue2, NodeAppInfo, "steam_edit", "base_name_localized");
-                        propertyValue.RemoveProperty("name_localized");
-                    }
-                    propertyTable.SetPropertyValue(SteamAppPropertyType.String, text, NodeAppInfo, "steam_edit", "base_name");
-                    //if (SteamData.UseCompleted && this.IsCompleted)
-                    //{
-                    //    text += SteamData.CompletedSuffix;
-                    //}
-                    propertyValue.SetPropertyValue("name", SteamAppPropertyType.String, text);
-                }
-                else
-                {
-                    Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null name!");
-                }
-                string? text2 = propertyValue.GetPropertyValue<string>("type", "game");
-                if (text2 != null)
-                {
-                    propertyTable.SetPropertyValue(SteamAppPropertyType.String, text2, NodeAppInfo, "steam_edit", "base_type");
-                    //if (SteamData.UseHidden && this.IsHidden)
-                    //{
-                    //    text2 = "hidden_" + text2;
-                    //}
-                    propertyValue.SetPropertyValue("type", SteamAppPropertyType.String, text2);
-                }
-                else
-                {
-                    Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null type!");
-                }
-            }
+            //SteamAppPropertyTable? propertyValue = propertyTable.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeCommon);
+            //if (propertyValue != null)
+            //{
+            //    string? text = Name;
+            //    if (text != null)
+            //    {
+            //        SteamAppPropertyTable? propertyValue2 = propertyValue.GetPropertyValue<SteamAppPropertyTable>(null, "name_localized");
+            //        if (propertyValue2 != null)
+            //        {
+            //            propertyTable.SetPropertyValue(SteamAppPropertyType.Table, propertyValue2, NodeAppInfo, "steam_edit", "base_name_localized");
+            //            propertyValue.RemoveProperty("name_localized");
+            //        }
+            //        propertyTable.SetPropertyValue(SteamAppPropertyType.String, text, NodeAppInfo, "steam_edit", "base_name");
+            //        //if (SteamData.UseCompleted && this.IsCompleted)
+            //        //{
+            //        //    text += SteamData.CompletedSuffix;
+            //        //}
+            //        propertyValue.SetPropertyValue("name", SteamAppPropertyType.String, text);
+            //    }
+            //    else
+            //    {
+            //        Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null name!");
+            //    }
+            //    string? text2 = propertyValue.GetPropertyValue<string>("type", "game");
+            //    if (text2 != null)
+            //    {
+            //        propertyTable.SetPropertyValue(SteamAppPropertyType.String, text2, NodeAppInfo, "steam_edit", "base_type");
+            //        //if (SteamData.UseHidden && this.IsHidden)
+            //        //{
+            //        //    text2 = "hidden_" + text2;
+            //        //}
+            //        propertyValue.SetPropertyValue("type", SteamAppPropertyType.String, text2);
+            //    }
+            //    else
+            //    {
+            //        Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null type!");
+            //    }
+            //}
             string s = propertyTable.ToString();
             byte[] bytes = Encoding.UTF8.GetBytes(s);
             byte[] buffer = SHA1.Create().ComputeHash(bytes);
-            writer.Write(this.AppId);
-            using (BinaryWriter binaryWriter = new BinaryWriter(new MemoryStream()))
-            {
-                binaryWriter.Write(this._stuffBeforeHash);
-                binaryWriter.Write(buffer);
-                binaryWriter.Write(this._changeNumber);
-                SteamAppPropertyHelper.Write(binaryWriter, propertyTable);
-                MemoryStream memoryStream = (MemoryStream)binaryWriter.BaseStream;
-                writer.Write((int)memoryStream.Length);
-                writer.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
-            }
+            writer.Write((int)AppId);
+            using BinaryWriter binaryWriter = new BinaryWriter(new MemoryStream());
+            binaryWriter.Write(_stuffBeforeHash);
+            binaryWriter.Write(buffer);
+            binaryWriter.Write(_changeNumber);
+            binaryWriter.Write(propertyTable);
+            MemoryStream memoryStream = (MemoryStream)binaryWriter.BaseStream;
+            writer.Write((int)memoryStream.Length);
+            writer.Write(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
         }
 
         private static bool IsBitSet(int b, int pos)

@@ -453,7 +453,7 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
-        public /*async*/ Task<List<SteamApp>> GetAppInfos()
+        public /*async*/ Task<List<SteamApp>> GetAppInfos(bool isSaveProperties = false)
         {
             return Task.FromResult(GetAppInfos_());
             List<SteamApp> GetAppInfos_()
@@ -478,21 +478,24 @@ namespace System.Application.Services.Implementation
                     SteamApp? app = new();
                     univeseNumber = binaryReader.ReadUInt32();
                     var installAppIds = GetInstalledAppIds();
-                    while ((app = SteamApp.FromReader(binaryReader, installAppIds)) != null)
+                    while ((app = SteamApp.FromReader(binaryReader, installAppIds, isSaveProperties)) != null)
                     {
                         if (app.AppId > 0)
                         {
-                            //if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
-                            //    continue;
-                            if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
-                                continue;
-                            //if (app.ParentId > 0)
-                            //{
-                            //    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
-                            //    if (parentApp != null)
-                            //        parentApp.ChildApp.Add(app.AppId);
-                            //    //continue;
-                            //}
+                            if (!isSaveProperties)
+                            {
+                                //if (GameLibrarySettings.DefaultIgnoreList.Value.Contains(app.AppId))
+                                //    continue;
+                                if (GameLibrarySettings.HideGameList.Value!.ContainsKey(app.AppId))
+                                    continue;
+                                //if (app.ParentId > 0)
+                                //{
+                                //    var parentApp = apps.FirstOrDefault(f => f.AppId == app.ParentId);
+                                //    if (parentApp != null)
+                                //        parentApp.ChildApp.Add(app.AppId);
+                                //    //continue;
+                                //}
+                            }
                             apps.Add(app);
                             //app.Modified += (s, e) =>
                             //{
@@ -514,25 +517,52 @@ namespace System.Application.Services.Implementation
         /// </summary>
         public async Task<bool> SaveAppInfosToSteam()
         {
-            if (string.IsNullOrEmpty(AppInfoPath) && !File.Exists(AppInfoPath))
+            if (string.IsNullOrEmpty(AppInfoPath) || !File.Exists(AppInfoPath) || !SteamConnectService.Current.SteamApps.Items.Any_Nullable())
                 return false;
 
-            using (BinaryWriter binaryWriter = new(new MemoryStream()))
+            //var bakFile = AppInfoPath + ".bak";
+
+            try
             {
+                //File.Copy(AppInfoPath, bakFile, true);
+
+                var applist = await GetAppInfos(true);
+                var editApps = SteamConnectService.Current.SteamApps.Items.Where(s => s.IsEdited);
+
+                using BinaryWriter binaryWriter = new(new MemoryStream());
                 binaryWriter.Write(MagicNumber);
                 binaryWriter.Write(univeseNumber);
-                foreach (SteamApp app in SteamConnectService.Current.SteamApps.Items)
+
+                foreach (SteamApp app in applist)
                 {
+                    var editApp = editApps.FirstOrDefault(s => s.AppId == app.AppId);
+                    if (editApp != null)
+                    {
+                        app.SetEditProperty(editApp);
+                    }
                     app.Write(binaryWriter);
                 }
+
                 binaryWriter.Write(0);
-                using (FileStream fileStream = File.Open(AppInfoPath, FileMode.Create, FileAccess.Write))
-                {
-                    binaryWriter.BaseStream.Position = 0L;
-                    await binaryWriter.BaseStream.CopyToAsync(fileStream);
-                }
+                using FileStream fileStream = File.Open(AppInfoPath, FileMode.Create, FileAccess.Write);
+                binaryWriter.BaseStream.Position = 0L;
+                await binaryWriter.BaseStream.CopyToAsync(fileStream);
+                fileStream.Close();
+                binaryWriter.Close();
+
             }
-            return false;
+            catch (Exception ex)
+            {
+                Log.Error(nameof(SaveAppInfosToSteam), ex, "保存AppInfos出现错误");
+
+                Toast.Show("保存AppInfos出现错误");
+
+                //if (File.Exists(bakFile))
+                //    File.Copy(bakFile, AppInfoPath, true);
+
+                return false;
+            }
+            return true;
         }
 
         public uint[] GetInstalledAppIds()

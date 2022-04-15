@@ -76,6 +76,46 @@
                 Padding="10"
                 Background="{DynamicResource ThemeBrushKey}">
           <DockPanel>
+            <!--<ui:CommandBar DefaultLabelPosition="Right"
+                      IsSticky="False">
+              <ui:CommandBar.PrimaryCommands>
+
+                <ui:CommandBarButton Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                     Command="{ReflectionBinding LoadSteamEditedApps}">
+                  <ui:CommandBarButton.Icon>
+                    <ui:SymbolIcon Symbol="Checkmark"/>
+                  </ui:CommandBarButton.Icon>
+                </ui:CommandBarButton>
+
+                <ui:CommandBarButton Label="保存全部更改到Steam"
+                                     Command="{ReflectionBinding SaveSteamEditedApps}">
+                  <ui:CommandBarButton.Icon>
+                    <ui:SymbolIcon Symbol="Cancel"/>
+                  </ui:CommandBarButton.Icon>
+                </ui:CommandBarButton>
+
+                <ui:CommandBarButton Label="备份已修改的数据">
+                  <ui:CommandBarButton.Icon>
+                    <ui:SymbolIcon Symbol="Refresh"/>
+                  </ui:CommandBarButton.Icon>
+                </ui:CommandBarButton>
+
+                <ui:CommandBarButton Label="还原备份的数据">
+                  <ui:CommandBarButton.Icon>
+                    <ui:SymbolIcon Symbol="OutlineStar"/>
+                  </ui:CommandBarButton.Icon>
+                </ui:CommandBarButton>
+
+                <ui:CommandBarSeparator/>
+
+                <ui:CommandBarButton Label="清空"
+                                     Command="{ReflectionBinding SaveSteamEditedApps}">
+                  <ui:CommandBarButton.Icon>
+                    <ui:SymbolIcon Symbol="Delete"/>
+                  </ui:CommandBarButton.Icon>
+                </ui:CommandBarButton>
+              </ui:CommandBar.PrimaryCommands>
+            </ui:CommandBar>-->
             <StackPanel Spacing="10" Orientation="Horizontal">
               <Button Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Classes="DialogButton"

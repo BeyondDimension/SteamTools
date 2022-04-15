@@ -254,7 +254,7 @@ namespace System.Application.UI.ViewModels
             IWindowManager.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, ResizeMode.CanResize);
         }
 
-        public void InstallOrStartApp(SteamApp app)
+        public static void InstallOrStartApp(SteamApp app)
         {
             string url;
             if (app.IsInstalled)
@@ -264,34 +264,34 @@ namespace System.Application.UI.ViewModels
             Process2.Start(url, useShellExecute: true);
         }
 
-        public void NavAppToSteamView(SteamApp app)
+        public static void NavAppToSteamView(SteamApp app)
         {
             var url = string.Format(SteamApiUrls.STEAM_NAVGAME_URL, app.AppId);
             Process2.Start(url, useShellExecute: true);
         }
 
-        public void OpenFolder(SteamApp app)
+        public static void OpenFolder(SteamApp app)
         {
             if (!string.IsNullOrEmpty(app.InstalledDir))
                 IPlatformService.Instance.OpenFolder(app.InstalledDir);
         }
 
-        public async void OpenAppStoreUrl(SteamApp app)
+        public static async void OpenAppStoreUrl(SteamApp app)
         {
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMSTORE_APP_URL, app.AppId));
         }
 
-        public async void OpenSteamDBUrl(SteamApp app)
+        public static async void OpenSteamDBUrl(SteamApp app)
         {
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
         }
 
-        public async void OpenSteamCardUrl(SteamApp app)
+        public static async void OpenSteamCardUrl(SteamApp app)
         {
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));
         }
 
-        public async void AddAFKAppList(SteamApp app)
+        public static async void AddAFKAppList(SteamApp app)
         {
             try
             {
@@ -322,7 +322,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void AddAFKAppListFunc(SteamApp app)
+        public static void AddAFKAppListFunc(SteamApp app)
         {
             try
             {
@@ -343,7 +343,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void AddHideAppList(SteamApp app)
+        public static void AddHideAppList(SteamApp app)
         {
             try
             {
@@ -359,7 +359,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public async void UnlockAchievement_Click(SteamApp app)
+        public static async void UnlockAchievement_Click(SteamApp app)
         {
             if (!ISteamService.Instance.IsRunningSteamProcess)
             {
@@ -387,7 +387,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public void AppGridReSize()
+        public static void AppGridReSize()
         {
             UISettings.AppGridSize.Value = UISettings.AppGridSize.Value == 200 ? 150 : 200;
         }

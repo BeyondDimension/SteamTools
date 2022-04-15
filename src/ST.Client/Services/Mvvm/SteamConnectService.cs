@@ -119,6 +119,7 @@ namespace System.Application.Services
 
         #region Steam游戏列表
         public SourceCache<SteamApp, uint> SteamApps { get; }
+        
         public SourceCache<SteamApp, uint> DownloadApps { get; }
         #endregion
 

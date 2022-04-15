@@ -9,11 +9,11 @@ namespace System.Application
 {
     public static class SteamAppPropertyHelper
     {
-        public static string ReadAppInfoString(BinaryReader reader)
+        internal static string ReadAppInfoString(this BinaryReader reader)
         {
             byte[] buffer;
             int count;
-            using (MemoryStream memoryStream = new())
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 byte value;
                 while ((value = reader.ReadByte()) != 0)
@@ -26,117 +26,100 @@ namespace System.Application
             return Encoding.UTF8.GetString(buffer, 0, count);
         }
 
-        public static string ReadAppInfoWideString(BinaryReader reader)
+        internal static string ReadAppInfoWideString(this BinaryReader reader)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            for (char value = (char)reader.ReadUInt16(); value != '\0'; value = (char)reader.ReadUInt16())
+            for (char c = (char)reader.ReadUInt16(); c != 0; c = (char)reader.ReadUInt16())
             {
-                stringBuilder.Append(value);
+                stringBuilder.Append(c);
             }
             return stringBuilder.ToString();
         }
 
-        public static void WriteAppInfoString(BinaryWriter writer, string str)
+        internal static void WriteAppInfoString(this BinaryWriter writer, string str)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(str);
             writer.Write(bytes);
-            writer.Write(0);
+            writer.Write((byte)0);
         }
 
-        public static void WriteAppInfoWideString(BinaryWriter writer, string str)
+        internal static void WriteAppInfoWideString(this BinaryWriter writer, string str)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(str);
             writer.Write(bytes);
-            writer.Write(0);
+            writer.Write((byte)0);
         }
 
-        public static Color ReadColor(BinaryReader reader)
+        internal static Color ReadColor(this BinaryReader reader)
         {
-            int red = reader.ReadByte();
+            byte red = reader.ReadByte();
             byte green = reader.ReadByte();
             byte blue = reader.ReadByte();
             return Color.FromArgb(red, green, blue);
         }
 
-        public static void Write(BinaryWriter writer, Color color)
+        internal static void Write(this BinaryWriter writer, Color color)
         {
             writer.Write(color.R);
             writer.Write(color.G);
             writer.Write(color.B);
         }
 
-        internal static void Write(BinaryWriter writer, SteamAppPropertyTable table)
+        internal static void Write(this BinaryWriter writer, SteamAppPropertyTable table)
         {
             foreach (SteamAppProperty property in table.Properties)
             {
                 writer.Write((byte)property.PropertyType);
-                WriteAppInfoString(writer, property.Name);
+                writer.WriteAppInfoString(property.Name);
                 switch (property.PropertyType)
                 {
                     case SteamAppPropertyType.Table:
-                        Write(writer, (SteamAppPropertyTable)property.Value!);
-                        continue;
-                    case SteamAppPropertyType.String:
-                        WriteAppInfoString(writer, (string)property.Value!);
-                        continue;
-                    case SteamAppPropertyType.Int32:
-                        writer.Write((int)property.Value!);
-                        continue;
-                    case SteamAppPropertyType.Float:
-                        writer.Write((float)property.Value!);
-                        continue;
-                    case SteamAppPropertyType.WString:
-                        WriteAppInfoWideString(writer, (string)property.Value!);
-                        continue;
-                    case SteamAppPropertyType.Color:
-                        Write(writer, (Color)property.Value!);
-                        continue;
-                    case SteamAppPropertyType.Uint64:
-                        writer.Write((ulong)property.Value!);
-                        continue;
-                }
-                throw new NotImplementedException("The value type " + property.PropertyType.ToString() + " has not been implemented.");
-            }
-            writer.Write(8);
-        }
-
-        internal static SteamAppPropertyTable? ReadPropertyTable(BinaryReader reader)
-        {
-            SteamAppPropertyTable propertyTable = new();
-            SteamAppPropertyType type;
-            while ((type = (SteamAppPropertyType)reader.ReadByte()) != SteamAppPropertyType._EndOfTable_)
-            {
-                var name = ReadAppInfoString(reader);
-                object? value;
-                switch (type)
-                {
-                    case SteamAppPropertyType.Table:
-                        value = ReadPropertyTable(reader);
+                        writer.Write((SteamAppPropertyTable)property.Value);
                         break;
                     case SteamAppPropertyType.String:
-                        value = ReadAppInfoString(reader);
-                        break;
-                    case SteamAppPropertyType.Int32:
-                        value = reader.ReadInt32();
-                        break;
-                    case SteamAppPropertyType.Float:
-                        value = reader.ReadSingle();
+                        writer.WriteAppInfoString((string)property.Value);
                         break;
                     case SteamAppPropertyType.WString:
-                        value = ReadAppInfoWideString(reader);
+                        writer.WriteAppInfoWideString((string)property.Value);
                         break;
-                    case SteamAppPropertyType.Color:
-                        value = ReadColor(reader);
+                    case SteamAppPropertyType.Int32:
+                        writer.Write((int)property.Value);
                         break;
                     case SteamAppPropertyType.Uint64:
-                        value = reader.ReadUInt64();
+                        writer.Write((ulong)property.Value);
+                        break;
+                    case SteamAppPropertyType.Float:
+                        writer.Write((float)property.Value);
+                        break;
+                    case SteamAppPropertyType.Color:
+                        writer.Write((Color)property.Value);
                         break;
                     default:
-                        Log.Error(nameof(SteamAppPropertyTable), "The property type " + type.ToString() + " has not been implemented.");
-                        return null;
+                        throw new NotImplementedException("The value type " + property.PropertyType.ToString() + " has not been implemented.");
                 }
-                propertyTable.AddPropertyValue(name, type, value);
-                continue;
+            }
+            writer.Write((byte)8);
+        }
+
+        internal static SteamAppPropertyTable ReadPropertyTable(this BinaryReader reader)
+        {
+            SteamAppPropertyTable propertyTable = new SteamAppPropertyTable();
+            SteamAppPropertyType propertyType;
+            while ((propertyType = (SteamAppPropertyType)reader.ReadByte()) != SteamAppPropertyType._EndOfTable_)
+            {
+                string name = reader.ReadAppInfoString();
+                object obj = null;
+                propertyTable.AddPropertyValue(value: propertyType switch
+                {
+                    SteamAppPropertyType.Table => reader.ReadPropertyTable(),
+                    SteamAppPropertyType.String => reader.ReadAppInfoString(),
+                    SteamAppPropertyType.WString => reader.ReadAppInfoWideString(),
+                    SteamAppPropertyType.Int32 => reader.ReadInt32(),
+                    SteamAppPropertyType.Uint64 => reader.ReadUInt64(),
+                    SteamAppPropertyType.Float => reader.ReadSingle(),
+                    SteamAppPropertyType.Color => reader.ReadColor(),
+                    _ => throw new NotImplementedException("The property type " + propertyType.ToString() + " has not been implemented."),
+                }, name: name, type: propertyType);
             }
             return propertyTable;
         }
