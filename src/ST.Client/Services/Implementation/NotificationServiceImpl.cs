@@ -1,62 +1,21 @@
-using System.Collections.Generic;
-using System.Properties;
-using System.Text;
-using System.Windows;
-using static System.Application.Services.INotificationService;
-using System.Runtime.Versioning;
-
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="INotificationService"/>
     internal sealed class NotificationServiceImpl : INotificationService
     {
-        [SupportedOSPlatform("windows")]
-        [SupportedOSPlatform("macos")]
-        [SupportedOSPlatform("linux")]
-        static NotifyIcon? NotifyIcon => DI.Get_Nullable<NotifyIcon>();
-
-        public NotificationServiceImpl()
+        void INotificationService.Cancel(NotificationType notificationType)
         {
+
         }
 
-        bool INotificationService<NotificationType, Entrance, INotificationService>.AreNotificationsEnabled() => true;
-
-        void INotificationService<NotificationType, Entrance, INotificationService>.Cancel(NotificationType notificationType)
+        void INotificationService.CancelAll()
         {
-            if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
-            {
-#pragma warning disable CA1416 // 验证平台兼容性
-                NotifyIcon?.HideBalloonTip();
-#pragma warning restore CA1416 // 验证平台兼容性
-            }
+
         }
 
-        void INotificationService<NotificationType, Entrance, INotificationService>.CancelAll()
+        void INotificationService.Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance, string? requestUri)
         {
-            if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
-            {
-#pragma warning disable CA1416 // 验证平台兼容性
-                NotifyIcon?.HideBalloonTip();
-#pragma warning restore CA1416 // 验证平台兼容性
-            }
-        }
 
-        void INotificationService<NotificationType, Entrance, INotificationService>.Notify(string text, NotificationType notificationType, bool autoCancel, string? title, Entrance entrance)
-        {
-            if (OperatingSystem2.IsWindows && NotifyIconHelper.IsInitialized)
-            {
-                title ??= ThisAssembly.AssemblyTrademark;
-                // 调用托盘显示通知
-#pragma warning disable CA1416 // 验证平台兼容性
-                NotifyIcon?.ShowBalloonTip(title, text, ToolTipIcon.None);
-#pragma warning restore CA1416 // 验证平台兼容性
-            }
-        }
-
-        Progress<float> INotificationService<NotificationType, Entrance, INotificationService>.NotifyDownload(Func<string> text, NotificationType notificationType, string? title)
-        {
-            // 桌面端不支持带进度的通知，下载新版本改用桌面端的窗口进度条控件，由更新服务桌面端版实现
-            throw new PlatformNotSupportedException();
         }
     }
 }

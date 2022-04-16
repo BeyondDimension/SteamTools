@@ -1,3 +1,3 @@
 using System.Runtime.Versioning;
 
-[assembly: SupportedOSPlatform("macOS")]
+[assembly: SupportedOSPlatform("macOS10.14")]

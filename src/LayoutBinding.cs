@@ -90,19 +90,12 @@ namespace Xamarin.Android.Design
 #if __HAVE_ANDROIDX__
         protected T FindFragment<T>(int resourceId, global::AndroidX.Fragment.App.Fragment __ignoreMe, ref T cachedField) where T : global::AndroidX.Fragment.App.Fragment
         {
-            return __FindFragment(resourceId, (activity) =>
-            {
-                if (activity is AndroidX.Fragment.App.FragmentActivity activity_)
-                {
-                    var f = activity_.SupportFragmentManager.FindFragmentById(resourceId);
-                    if (f is T t) return t;
-                    return global::Android.Runtime.Extensions.JavaCast<T>(f);
-                }
-                else
-                {
-                    throw new InvalidCastException(activity.GetType().ToString());
-                }
-            }, ref cachedField);
+            return __FindFragment(resourceId, (activity) => {
+				if (activity is AndroidX.Fragment.App.FragmentActivity activity_) {
+					return global::Android.Runtime.Extensions.JavaCast<T>(activity_.SupportFragmentManager.FindFragmentById(resourceId));
+				}
+				throw new InvalidOperationException ($"When using AndroidX, your activity needs to derive from a subclass of {nameof(AndroidX.Fragment.App.FragmentActivity)}.");
+			}, ref cachedField);
         }
 #endif // __HAVE_ANDROIDX__
     }

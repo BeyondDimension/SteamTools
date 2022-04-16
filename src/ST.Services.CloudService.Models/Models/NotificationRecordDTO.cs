@@ -1,4 +1,4 @@
-﻿using MPKey = MessagePack.KeyAttribute;
+using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 
 namespace System.Application.Models
@@ -7,6 +7,7 @@ namespace System.Application.Models
     /// 通知纪录
     /// </summary>
     [MPObj]
+    [Obsolete("use NoticeDTO")]
     public class NotificationRecordDTO
     {
         [MPKey(0)]

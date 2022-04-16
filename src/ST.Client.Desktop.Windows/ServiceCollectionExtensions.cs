@@ -50,14 +50,26 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
                 //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
                 services.AddSingleton<ISevenZipHelper, SevenZipHelper>();
+                services.AddMSAppCenterApplicationSettings();
+                services.AddPlatformNotificationService();
             }
             else
             {
                 throw new PlatformNotSupportedException();
             }
-            services.AddMSAppCenterApplicationSettings();
             return services;
 #pragma warning restore CA1416 // 验证平台兼容性
+        }
+
+        /// <summary>
+        /// 添加适用于 Windows 的 <see cref="INotificationService"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        static IServiceCollection AddPlatformNotificationService(this IServiceCollection services)
+        {
+            services.AddSingleton<INotificationService, WindowsNotificationServiceImpl>();
+            return services;
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.UI;
 using System.Net.Http;
-using System.Windows;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -20,6 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<MacPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());
                 services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());
+                //services.AddPlatformNotificationService();
             }
             else
             {
@@ -27,5 +27,16 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             return services;
         }
+
+        ///// <summary>
+        ///// 添加适用于 macOS 的 <see cref="INotificationService"/>
+        ///// </summary>
+        ///// <param name="services"></param>
+        ///// <returns></returns>
+        //static IServiceCollection AddPlatformNotificationService(this IServiceCollection services)
+        //{
+        //    services.AddSingleton<INotificationService, MacNotificationServiceImpl>();
+        //    return services;
+        //}
     }
 }

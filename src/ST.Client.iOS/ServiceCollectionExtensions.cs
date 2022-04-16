@@ -77,15 +77,15 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-        /// <summary>
-        /// 添加适用于 iOS 的 <see cref="INotificationService"/>
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddNotificationService(this IServiceCollection services)
-        {
-            //services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
-            return services;
-        }
+        ///// <summary>
+        ///// 添加适用于 iOS 的 <see cref="INotificationService"/>
+        ///// </summary>
+        ///// <param name="services"></param>
+        ///// <returns></returns>
+        //public static IServiceCollection AddNotificationService(this IServiceCollection services)
+        //{
+        //    //services.AddSingleton<INotificationService, PlatformNotificationServiceImpl>();
+        //    return services;
+        //}
     }
 }

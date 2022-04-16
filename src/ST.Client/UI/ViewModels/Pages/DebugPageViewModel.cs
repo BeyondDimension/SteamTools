@@ -77,7 +77,9 @@ namespace System.Application.UI.ViewModels
         {
             //IHostsFileService.Instance.OccupyHosts();
 
+#if DEBUG
             TestHttp3Quic();
+#endif
             return;
 
             //#if DEBUG
@@ -106,6 +108,7 @@ namespace System.Application.UI.ViewModels
         //    });
         //}
 
+#if DEBUG
         public async void TestHttp3Quic()
         {
             // https://docs.microsoft.com/zh-cn/dotnet/core/extensions/httpclient-http3
@@ -131,6 +134,7 @@ namespace System.Application.UI.ViewModels
             var r = await MessageBox.ShowAsync(DebugString);
             Toast.Show(r.ToString());
         }
+#endif
 
         //static async void TestTextBoxWindow(int state)
         //{

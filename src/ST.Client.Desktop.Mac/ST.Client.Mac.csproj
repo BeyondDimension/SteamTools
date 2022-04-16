@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--<TargetFrameworks>net6.0</TargetFrameworks> -->
+    <!--<TargetFramework>net6.0-macos</TargetFramework>-->
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Mac</AssemblyName>

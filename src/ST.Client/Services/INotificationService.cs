@@ -1,27 +1,84 @@
 using System.Application.Models;
+using System.Properties;
 using System.Security;
 using System.Threading.Tasks;
 using static System.Application.KeyConstants;
 
 namespace System.Application.Services
 {
-    /// <inheritdoc cref="INotificationService{TNotificationType, TEntrance, TNotificationService}"/>
-    public interface INotificationService : INotificationService<NotificationType, Entrance, INotificationService>
+    /// <summary>
+    /// 本地通知服务
+    /// </summary>
+    public interface INotificationService
     {
         static INotificationService Instance => DI.Get<INotificationService>();
+
+        /// <summary>
+        /// 默认通知标题
+        /// </summary>
+        protected const string DefaultTitle = ThisAssembly.AssemblyTrademark;
+
+        /// <summary>
+        /// 获取是否有通知权限
+        /// </summary>
+        /// <returns></returns>
+        bool AreNotificationsEnabled() => true;
+
+        /// <summary>
+        /// 显示本地通知
+        /// </summary>
+        /// <param name="text">通知内容</param>
+        /// <param name="notificationType">通知类型</param>
+        /// <param name="autoCancel"></param>
+        /// <param name="title">通知标题</param>
+        /// <param name="entrance">点击通知的入口点</param>
+        /// <param name="requestUri">入口点为 <see cref="Entrance.Browser"/> 时的 HttpUrl</param>
+        void Notify(
+            string text,
+            NotificationType notificationType,
+            bool autoCancel = true,
+            string? title = default,
+            Entrance entrance = default,
+            string? requestUri = default);
 
         /// <summary>
         /// 显示从服务端获取到通知纪录
         /// </summary>
         /// <param name="notification"></param>
+        [Obsolete("use NoticeDTO")]
         void Notify(NotificationRecordDTO notification)
-           => Notify(notification.Content, notification.Type, title: notification.Title);
+            => Notify(notification.Content, notification.Type, title: notification.Title);
+
+        /// <summary>
+        /// 取消通知
+        /// </summary>
+        /// <param name="notificationType"></param>
+        void Cancel(NotificationType notificationType);
+
+        /// <summary>
+        /// 取消所有通知
+        /// </summary>
+        void CancelAll();
+
+        /// <summary>
+        /// 当前平台是否支持下载进度通知
+        /// </summary>
+        bool IsSupportNotifyDownload => false;
+
+        /// <summary>
+        /// 下载进度通知
+        /// </summary>
+        Progress<float> NotifyDownload(
+            Func<string> text,
+            NotificationType notificationType,
+            string? title = default) => throw new PlatformNotSupportedException();
 
         /// <summary>
         /// 显示从服务端获取到通知纪录
         /// </summary>
         /// <param name="rsp"></param>
         /// <param name="type"></param>
+        [Obsolete("use NoticeDTO")]
         static async void Notify(IApiResponse<NotificationRecordDTO?> rsp, ActiveUserType type)
         {
             if (rsp.IsSuccess && rsp.Content != null)

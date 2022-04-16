@@ -82,7 +82,7 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
   </ItemGroup>
 

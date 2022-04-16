@@ -5,6 +5,7 @@ namespace System.Application.Services
     /// <summary>
     /// 公告服务
     /// </summary>
+    [Obsolete("use NoticeDTO")]
     public interface IAnnouncementService
     {
         static IAnnouncementService Instance => DI.Get<IAnnouncementService>();

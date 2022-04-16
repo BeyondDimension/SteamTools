@@ -5,6 +5,7 @@ using AndroidX.Core.App;
 using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using AndroidApplication = Android.App.Application;
 using CC = System.Common.Constants;
 using JClass = Java.Lang.Class;
@@ -18,9 +19,12 @@ namespace System.Application.Services.Implementation
         public static AndroidNotificationServiceImpl Instance => (AndroidNotificationServiceImpl)INotificationService.Instance;
 
         readonly IAndroidApplication app;
+        readonly NotificationManagerCompat manager;
         public AndroidNotificationServiceImpl(IAndroidApplication app)
         {
             this.app = app;
+            var context = AndroidApplication.Context;
+            manager = NotificationManagerCompat.From(context);
         }
 
         public static bool IsSupportedNotificationChannel
@@ -40,26 +44,20 @@ namespace System.Application.Services.Implementation
 
         static int GetNotifyId(NotificationType notificationType) => Enum2.ConvertToInt32(notificationType);
 
-        public bool AreNotificationsEnabled()
+        bool INotificationService.AreNotificationsEnabled()
         {
             // https://www.jianshu.com/p/1e27efb1dcac
-            var context = AndroidApplication.Context;
-            var manager = NotificationManagerCompat.From(context);
             return manager.AreNotificationsEnabled();
         }
 
-        public void Cancel(NotificationType notificationType)
+        void INotificationService.Cancel(NotificationType notificationType)
         {
-            var context = AndroidApplication.Context;
-            var manager = NotificationManagerCompat.From(context);
             var id = GetNotifyId(notificationType);
             manager.Cancel(id);
         }
 
-        public void CancelAll()
+        void INotificationService.CancelAll()
         {
-            var context = AndroidApplication.Context;
-            var manager = NotificationManagerCompat.From(context);
             manager.CancelAll();
         }
 
@@ -75,7 +73,52 @@ namespace System.Application.Services.Implementation
             return "chan_" + valueInt;
         }
 
-        static void CreateNotificationChannel(NotificationChannelType notificationChannelType, NotificationChannel notificationChannel)
+        /// <summary>
+        /// 尝试创建通知渠道，当 >= Android O 时，否则将返回 <see langword="null"/>
+        /// </summary>
+        /// <param name="notificationChannelType"></param>
+        /// <param name="channelId"></param>
+        /// <returns></returns>
+        NotificationChannel? CreateNotificationChannel(NotificationChannelType notificationChannelType, out string channelId)
+        {
+            channelId = GetChannelId(notificationChannelType);
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return null;
+#pragma warning disable CA1416 // 验证平台兼容性
+            return CreateNotificationChannel(manager, notificationChannelType, channelId);
+#pragma warning restore CA1416 // 验证平台兼容性
+        }
+
+        /// <summary>
+        /// 创建通知渠道
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="notificationChannelType"></param>
+        /// <param name="channelId"></param>
+        /// <returns></returns>
+        [SupportedOSPlatform("android26.0")]
+        static NotificationChannel? CreateNotificationChannel(NotificationManagerCompat manager, NotificationChannelType notificationChannelType, string channelId)
+        {
+            var notificationChannel = manager.GetNotificationChannel(channelId);
+            if (notificationChannel == null)
+            {
+                var name = notificationChannelType.GetName();
+                var description = notificationChannelType.GetDescription();
+                var level = GetNotificationImportance(notificationChannelType.GetImportanceLevel());
+                notificationChannel = new NotificationChannel(channelId, name, level);
+                if (!string.IsNullOrWhiteSpace(description)) notificationChannel.Description = description;
+                SetNotificationChannel(notificationChannelType, notificationChannel);
+                manager.CreateNotificationChannel(notificationChannel);
+            }
+            return notificationChannel;
+        }
+
+        /// <summary>
+        /// 设置通知渠道附加参数，根据类型 <see cref="NotificationChannelType"/>
+        /// </summary>
+        /// <param name="notificationChannelType"></param>
+        /// <param name="notificationChannel"></param>
+        [SupportedOSPlatform("android26.0")]
+        static void SetNotificationChannel(NotificationChannelType notificationChannelType, NotificationChannel notificationChannel)
         {
             switch (notificationChannelType)
             {
@@ -88,31 +131,6 @@ namespace System.Application.Services.Implementation
                     notificationChannel.EnableVibration(false);
                     break;
             }
-        }
-
-        /// <summary>
-        /// 创建通知渠道 >= Android O
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="notificationChannelType"></param>
-        /// <returns></returns>
-        static NotificationChannel? CreateNotificationChannel(NotificationManagerCompat manager,
-            NotificationChannelType notificationChannelType, out string channelId)
-        {
-            channelId = GetChannelId(notificationChannelType);
-            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return null;
-            var notificationChannel = manager.GetNotificationChannel(channelId);
-            if (notificationChannel == null)
-            {
-                var name = notificationChannelType.GetName();
-                var description = notificationChannelType.GetDescription();
-                var level = GetNotificationImportance(notificationChannelType.GetImportanceLevel());
-                notificationChannel = new NotificationChannel(channelId, name, level);
-                if (!string.IsNullOrWhiteSpace(description)) notificationChannel.Description = description;
-                CreateNotificationChannel(notificationChannelType, notificationChannel);
-                manager.CreateNotificationChannel(notificationChannel);
-            }
-            return notificationChannel;
         }
 
         /// <summary>
@@ -145,26 +163,25 @@ namespace System.Application.Services.Implementation
             _ => throw new ArgumentOutOfRangeException(nameof(level), level, null),
         };
 
-        static (NotificationCompat.Builder builder, NotificationManagerCompat manager) BuildNotify(
-            Context context,
-            NotificationManagerCompat? manager,
+        NotificationCompat.Builder BuildNotify(
             string text,
             NotificationType notificationType,
             bool? autoCancel = null,
             string? title = null,
             JClass? entrance = null,
             string? entranceAction = null,
-            IReadOnlyCollection<NotificationCompat.Action>? actions = null)
+            IReadOnlyCollection<NotificationCompat.Action>? actions = null,
+            Context? context = null)
         {
+            context ??= AndroidApplication.Context;
             var channelType = notificationType.GetChannel();
-            manager ??= NotificationManagerCompat.From(context);
-            CreateNotificationChannel(manager, channelType, out var channelId);
+            CreateNotificationChannel(channelType, out var channelId);
             var builder = new NotificationCompat.Builder(context, channelId);
             var level = channelType.GetImportanceLevel();
             builder.SetPriority(GetNotificationPriority(level));
             var status_bar_icon = IAndroidApplication.Instance.NotificationSmallIconResId;
             if (status_bar_icon.HasValue) builder.SetSmallIcon(status_bar_icon.Value);
-            title ??= Constants.HARDCODED_APP_NAME;
+            title ??= INotificationService.DefaultTitle;
             builder.SetContentTitle(title);
             builder.SetContentText(text);
             if (autoCancel.HasValue) builder.SetAutoCancel(autoCancel.Value);
@@ -182,32 +199,31 @@ namespace System.Application.Services.Implementation
                 var pendingIntent = PendingIntent.GetActivity(context, 0, intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
                 builder.SetContentIntent(pendingIntent);
             }
-            return (builder, manager);
+            return builder;
         }
 
-        public void Notify(string text,
-           NotificationType notificationType,
-           bool autoCancel,
-           string? title,
-           Entrance entrance)
+        void INotificationService.Notify(string text,
+            NotificationType notificationType,
+            bool autoCancel,
+            string? title,
+            Entrance entrance,
+            string? requestUri)
         {
             var notificationEntrance = GetEntrance(entrance);
-            var context = AndroidApplication.Context;
-            var manager = NotificationManagerCompat.From(context);
-            var (builder, _) = BuildNotify(context, manager, text, notificationType,
+            var builder = BuildNotify(text, notificationType,
                 autoCancel, title, entrance: notificationEntrance);
             var notifyId = GetNotifyId(notificationType);
             manager.Notify(notifyId, builder.Build());
         }
 
-        public Progress<float> NotifyDownload(
+        bool INotificationService.IsSupportNotifyDownload => true;
+
+        Progress<float> INotificationService.NotifyDownload(
             Func<string> text,
             NotificationType notificationType,
             string? title)
         {
-            var context = AndroidApplication.Context;
-            var manager = NotificationManagerCompat.From(context);
-            var (builder, _) = BuildNotify(context, manager,
+            var builder = BuildNotify(
                 text: text(),
                 notificationType,
                 title: title);
@@ -244,17 +260,16 @@ namespace System.Application.Services.Implementation
                     if (manager != null)
                     {
                         manager.Cancel(notifyId);
-                        manager = null;
                     }
                     // 手动释放相关资源
-                    context = null;
                     builder = null;
                 }
                 else
                 {
                     // 在报告进度值满后不可再更改进度
+#pragma warning disable CA2208 // 正确实例化参数异常
                     if (builder == null) throw new ArgumentNullException(nameof(builder));
-                    if (manager == null) throw new ArgumentNullException(nameof(manager));
+#pragma warning restore CA2208 // 正确实例化参数异常
                     builder.SetProgress(PROGRESS_MAX_INT32, currentInt32, false);
                     builder.SetContentText(text());
                     manager.Notify(notifyId, builder.Build());
@@ -268,14 +283,16 @@ namespace System.Application.Services.Implementation
         /// </summary>
         /// <param name="service"></param>
         /// <returns></returns>
-        NotificationCompat.Action BuildStopServiceAction(Service service)
+        static NotificationCompat.Action BuildStopServiceAction(Service service)
         {
             var intent = new Intent(service, service.GetType());
             intent.SetAction(NativeService.STOP);
             const int requestCode = 0;
             const PendingIntentFlags flags = PendingIntentFlags.Immutable;
             var pendingIntent = Build.VERSION.SdkInt >= BuildVersionCodes.O ?
+#pragma warning disable CA1416 // 验证平台兼容性
                 PendingIntent.GetForegroundService(service, requestCode, intent, flags) :
+#pragma warning restore CA1416 // 验证平台兼容性
                 PendingIntent.GetService(service, requestCode, intent, flags);
             const int icon = 0;
             var builder = new NotificationCompat.Action.Builder(icon,
@@ -296,13 +313,13 @@ namespace System.Application.Services.Implementation
             string? entranceAction = null)
         {
             var stopAction = BuildStopServiceAction(service);
-            var (builder, manager) = BuildNotify(service, null,
-                text, notificationType,
+            var builder = BuildNotify(text, notificationType,
                 entrance: GetEntrance(Entrance.Main),
                 actions: new NotificationCompat.Action[] {
                     stopAction,
                 },
-                entranceAction: entranceAction);
+                entranceAction: entranceAction,
+                context: service);
             var notification = builder.Build();
             var notifyId = GetNotifyId(notificationType);
             service.StartForeground(notifyId, notification);

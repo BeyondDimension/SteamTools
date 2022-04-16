@@ -25,5 +25,6 @@
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl" />
     <PackageReference Include="Polly" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" />
   </ItemGroup>
 </Project>
