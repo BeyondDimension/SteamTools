@@ -113,5 +113,16 @@ namespace System
                 return new(stream, encoding, bufferSize, leaveOpen);
             }
         }
+
+        public static byte[] ToByteArray2(this Stream stream)
+        {
+            byte[] bytes = new byte[stream.Length];
+            stream.Seek(0, SeekOrigin.Begin);
+
+            stream.Read(bytes, 0, bytes.Length);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            return bytes;
+        }
     }
 }

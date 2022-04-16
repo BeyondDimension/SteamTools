@@ -96,6 +96,8 @@ namespace System.Application.Services
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
         Task<List<SteamApp>> GetAppInfos(bool isSaveProperties = false);
+        
+        List<ModifiedApp>? GetModifiedApps();
 
         /// <summary>
         /// 保存修改后的游戏数据到steam本地客户端缓存文件

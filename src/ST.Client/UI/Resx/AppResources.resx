@@ -2220,4 +2220,20 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="DirPath" xml:space="preserve">
     <value>文件夹路径</value>
   </data>
+  <data name="SaveImageFileFailed" xml:space="preserve">
+    <value>保存 {0} 图片失败</value>
+    <comment> {0} 图片类型;</comment>
+  </data>
+  <data name="ResetAll" xml:space="preserve">
+    <value>重置全部</value>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
+    <value>保存全部更改到Steam</value>
+  </data>
+  <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
+    <value>没有获取到已编辑的游戏数据</value>
+  </data>
+  <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
+    <value>保存AppInfos出现错误</value>
+  </data>
 </root>

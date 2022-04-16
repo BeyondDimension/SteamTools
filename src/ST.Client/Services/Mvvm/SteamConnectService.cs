@@ -285,11 +285,12 @@ namespace System.Application.Services
                                     //仅在有游戏数据情况下加载登录用户的游戏
                                     if (SteamApps.Items.Any())
                                     {
-                                        LoadGames(ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos()));
-                                        if (!SteamApps.Items.Any())
+                                        var applist = ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos());
+                                        if (!applist.Any_Nullable())
                                         {
                                             continue;
                                         }
+                                        LoadGames(applist);
                                         InitializeDownloadGameList();
                                     }
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
@@ -335,7 +336,31 @@ namespace System.Application.Services
         {
             SteamApps.Clear();
             if (apps.Any_Nullable())
-                SteamApps.AddOrUpdate(apps!);
+            {
+                SteamApps.AddOrUpdate(apps);
+
+                var modifiedApps = ISteamService.Instance.GetModifiedApps();
+                if (modifiedApps.Any_Nullable())
+                {
+                    foreach (var modifiedApp in modifiedApps)
+                    {
+                        modifiedApp.ReadChanges();
+                        
+                        if (modifiedApp.Changes != null)
+                        {
+                            var optional = SteamApps.Lookup(modifiedApp.AppId);
+                            if (optional.HasValue)
+                            {
+                                var value = optional.Value;
+                                value.ExtractReaderProperty(modifiedApp.Changes);
+                                value.OriginalData = modifiedApp.OriginalData;
+                                value.IsEdited = true;
+                                SteamApps.Refresh(value);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public async void InitializeGameList()
@@ -387,7 +412,7 @@ namespace System.Application.Services
             }
         }
 
-        public async void RefreshGamesList()
+        public async Task RefreshGamesList()
         {
             if (IsLoadingGameList == false)
             {
@@ -414,11 +439,9 @@ namespace System.Application.Services
                                              InitializeDownloadGameList();
                                              Toast.Show(AppResources.GameList_RefreshGamesListSucess);
                                              DisposeSteamClient();
-                                             IsLoadingGameList = false;
                                              return;
                                          }
                                      }
-                                     DisposeSteamClient();
                                  }
                                  await Task.Delay(2000);
                              }
@@ -427,6 +450,11 @@ namespace System.Application.Services
                          {
                              Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
                              ToastService.Current.Notify(ex.Message);
+                         }
+                         finally
+                         {
+                             DisposeSteamClient();
+                             IsLoadingGameList = false;
                          }
                      }, TaskCreationOptions.DenyChildAttach).Forget().ConfigureAwait(false);
                 }

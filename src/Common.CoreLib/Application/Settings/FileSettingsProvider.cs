@@ -68,7 +68,7 @@ namespace System.Application.Settings
                     stream.Position = 0;
                 }
                 var data = Serializable.SMP(_settings);
-                stream.Write(data, 0, data.Length);
+                stream.Write(data);
                 //XamlServices.Save(stream, this._settings);
             }
         }

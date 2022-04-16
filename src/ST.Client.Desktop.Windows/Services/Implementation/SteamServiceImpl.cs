@@ -6,6 +6,7 @@ using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.Settings;
 using System.Application.UI;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -26,6 +27,8 @@ namespace System.Application.Services.Implementation
     internal sealed class SteamServiceImpl : ISteamService
     {
         const string TAG = "SteamS";
+
+        const string ModifiedFileName = "modifications.vdf";
 
         /// <summary>
         /// <list type="bullet">
@@ -249,6 +252,7 @@ namespace System.Application.Services.Implementation
             }
             return false;
         }
+
         public bool RemoveAuthorizedDeviceList(AuthorizedDevice model)
         {
             try
@@ -272,6 +276,7 @@ namespace System.Application.Services.Implementation
             }
             return false;
         }
+
         public List<AuthorizedDevice> GetAuthorizedDeviceList()
         {
             var authorizeds = new List<AuthorizedDevice>();
@@ -516,6 +521,26 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        public List<ModifiedApp>? GetModifiedApps()
+        {
+            try
+            {
+                var file = Path.Combine(IOPath.AppDataDirectory, ModifiedFileName);
+                if (!File.Exists(file))
+                {
+                    return null;
+                }
+
+                using FileStream modifiedFileStream = File.Open(file, FileMode.Open, FileAccess.Read);
+                return Serializable.DMP<List<ModifiedApp>>(modifiedFileStream);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(TAG, ex, nameof(GetModifiedApps));
+            }
+            return null;
+        }
+
         /// <summary>
         /// 保存修改后的游戏数据到steam本地客户端缓存文件
         /// </summary>
@@ -532,6 +557,7 @@ namespace System.Application.Services.Implementation
 
                 var applist = await GetAppInfos(true);
                 var editApps = SteamConnectService.Current.SteamApps.Items.Where(s => s.IsEdited);
+                var modifiedApps = new List<ModifiedApp>();
 
                 using BinaryWriter binaryWriter = new(new MemoryStream());
                 binaryWriter.Write(MagicNumber);
@@ -543,6 +569,7 @@ namespace System.Application.Services.Implementation
                     if (editApp != null)
                     {
                         app.SetEditProperty(editApp);
+                        modifiedApps.Add(new ModifiedApp(app));
                     }
                     app.Write(binaryWriter);
                 }
@@ -554,15 +581,21 @@ namespace System.Application.Services.Implementation
                 fileStream.Close();
                 binaryWriter.Close();
 
-                int identificador = GC.GetGeneration(applist);
+                using FileStream modifiedFileStream = File.Open(Path.Combine(IOPath.AppDataDirectory, ModifiedFileName), FileMode.Create, FileAccess.Write);
+                modifiedFileStream.Write(Serializable.SMP(modifiedApps));
+                modifiedFileStream.Close();
+
                 applist = null;
-                GC.Collect(identificador, GCCollectionMode.Forced);
+                modifiedApps = null;
+                editApps = null;
+
+                GC.Collect();
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(SaveAppInfosToSteam), ex, "保存AppInfos出现错误");
+                Log.Error(nameof(SaveAppInfosToSteam), ex, AppResources.SaveEditedAppInfo_SaveFailed);
 
-                Toast.Show("保存AppInfos出现错误");
+                Toast.Show(AppResources.SaveEditedAppInfo_SaveFailed);
 
                 //if (File.Exists(bakFile))
                 //    File.Copy(bakFile, AppInfoPath, true);

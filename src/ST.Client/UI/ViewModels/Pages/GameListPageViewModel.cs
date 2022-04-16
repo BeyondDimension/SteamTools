@@ -156,7 +156,7 @@ namespace System.Application.UI.ViewModels
 
         public override void Activation()
         {
-            if (IsFirstActivation)
+            if (IsFirstActivation && !SteamConnectService.Current.SteamApps.Items.Any())
             {
                 //SteamConnectService.Current.Initialize();
                 Task.Run(SteamConnectService.Current.RefreshGamesList).ForgetAndDispose();

@@ -73,6 +73,8 @@ namespace System.Application.Models
 
         public string? InstalledDir { get; set; }
 
+        public string? BaseName { get; set; }
+
         string? _Name;
         public string? Name
         {
@@ -176,12 +178,77 @@ namespace System.Application.Models
 
         public bool SetEditProperty(SteamApp appInfo)
         {
-            Name = appInfo.Name;
             if (_properties != null)
             {
-                _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Name, NodeAppInfo,
-                    NodeCommon,
-                    NodeName);
+                #region steam_edit Data
+                //SteamAppPropertyTable? propertyValue = _properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeCommon);
+                //if (propertyValue != null)
+                //{
+                //    string? text = Name;
+                //    if (text != null)
+                //    {
+                //        SteamAppPropertyTable? propertyValue2 = propertyValue.GetPropertyValue<SteamAppPropertyTable>(null, "name_localized");
+                //        if (propertyValue2 != null)
+                //        {
+                //            _properties.SetPropertyValue(SteamAppPropertyType.Table, propertyValue2, NodeAppInfo, "steam_edit", "base_name_localized");
+                //            propertyValue.RemoveProperty("name_localized");
+                //        }
+                //        _properties.SetPropertyValue(SteamAppPropertyType.String, text, NodeAppInfo, "steam_edit", "base_name");
+                //        //if (SteamData.UseCompleted && this.IsCompleted)
+                //        //{
+                //        //    text += SteamData.CompletedSuffix;
+                //        //}
+                //        propertyValue.SetPropertyValue("name", SteamAppPropertyType.String, text);
+                //    }
+                //    else
+                //    {
+                //        Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null name!");
+                //    }
+
+                //    //string? text2 = propertyValue.GetPropertyValue<string>("type", "game");
+                //    //if (text2 != null)
+                //    //{
+                //    //    _properties.SetPropertyValue(SteamAppPropertyType.String, text2, NodeAppInfo, "steam_edit", "base_type");
+                //    //    //if (SteamData.UseHidden && this.IsHidden)
+                //    //    //{
+                //    //    //    text2 = "hidden_" + text2;
+                //    //    //}
+                //    //    propertyValue.SetPropertyValue("type", SteamAppPropertyType.String, text2);
+                //    //}
+                //    //else
+                //    //{
+                //    //    Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null type!");
+                //    //}
+                //}
+                #endregion
+
+                //SortAs = appInfo.SortAs;
+                //Developer = appInfo.Developer;
+                //Publisher = appInfo.Publisher;
+                //LaunchItems = appInfo.LaunchItems;
+
+                if (!string.IsNullOrEmpty(appInfo.Name) && appInfo.Name != appInfo.BaseName)
+                {
+                    Name = appInfo.Name;
+
+                    SteamAppPropertyTable propertyValue2 = _properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeCommon, "name_localized");
+                    if (propertyValue2 != null)
+                    {
+                        _properties.SetPropertyValue(SteamAppPropertyType.Table, propertyValue2, NodeAppInfo, "steam_edit", "base_name_localized");
+                        _properties.RemoveProperty("name_localized");
+                    }
+                    _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.BaseName, NodeAppInfo, "steam_edit", "base_name");
+
+                    _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Name, NodeAppInfo, NodeCommon, NodeName);
+                }
+                else
+                {
+                    Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null name!");
+                }
+
+                //_properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Name, NodeAppInfo,
+                //    NodeCommon,
+                //    NodeName);
 
                 _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.SortAs, NodeAppInfo,
                     NodeCommon,
@@ -205,13 +272,6 @@ namespace System.Application.Models
 
                 if (appInfo.LaunchItems.Any_Nullable())
                 {
-                    //var launchTable = _properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, NodeLaunch);
-
-                    //if (launchTable == null)
-                    //{
-                    //launchTable = new SteamAppPropertyTable();
-                    //}
-
                     var launchTable = new SteamAppPropertyTable();
 
                     foreach (var item in appInfo.LaunchItems)
@@ -439,9 +499,11 @@ namespace System.Application.Models
 
         private uint _changeNumber;
 
-        private byte[]? _originalData;
+        private byte[] _originalData;
+        public byte[] OriginalData { get => _originalData; set => _originalData = value; }
 
         private SteamAppPropertyTable? _properties;
+        public SteamAppPropertyTable? ChangesData => _properties;
 
         //public event EventHandler? Modified;
 
@@ -462,140 +524,252 @@ namespace System.Application.Models
                 $"-clt app -silence -id {AppId}");
         }
 
-        public void DetectDLSS()
+        #region Replace DLSS dll files methods
+
+        //        public void DetectDLSS()
+        //        {
+        //            BaseDLSSVersion = string.Empty;
+        //            CurrentDLSSVersion = "N/A";
+        //            var dlssDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll", SearchOption.AllDirectories);
+        //            if (dlssDlls.Length > 0)
+        //            {
+        //                HasDLSS = true;
+
+        //                // TODO: Handle a single folder with various versions of DLSS detected.
+        //                // Currently we are just using the first.
+
+        //                foreach (var dlssDll in dlssDlls)
+        //                {
+        //                    var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
+        //                    CurrentDLSSVersion = dllVersionInfo.FileVersion?.Replace(",", ".") ?? string.Empty;
+        //                    break;
+        //                }
+
+        //                dlssDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
+        //                if (dlssDlls.Length > 0)
+        //                {
+        //                    foreach (var dlssDll in dlssDlls)
+        //                    {
+        //                        var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
+        //                        BaseDLSSVersion = dllVersionInfo.FileVersion?.Replace(",", ".") ?? string.Empty;
+        //                        break;
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                HasDLSS = false;
+        //            }
+        //        }
+
+        //        internal bool ResetDll()
+        //        {
+        //            var foundDllBackups = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
+        //            if (foundDllBackups.Length == 0)
+        //            {
+        //                return false;
+        //            }
+
+        //            var versionInfo = FileVersionInfo.GetVersionInfo(foundDllBackups.First());
+        //            var resetToVersion = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}.{versionInfo.FilePrivatePart}";
+
+        //            foreach (var dll in foundDllBackups)
+        //            {
+        //                try
+        //                {
+        //                    var dllPath = Path.GetDirectoryName(dll);
+        //                    var targetDllPath = Path.Combine(dllPath!, "nvngx_dlss.dll");
+        //#if NETSTANDARD
+        //                    File.Move(dll, targetDllPath);
+        //#else
+        //                    File.Move(dll, targetDllPath, true);
+        //#endif
+        //                }
+        //                catch (Exception err)
+        //                {
+        //                    Debug.WriteLine($"ResetDll Error: {err.Message}");
+        //                    return false;
+        //                }
+        //            }
+
+        //            CurrentDLSSVersion = resetToVersion;
+        //            BaseDLSSVersion = string.Empty;
+
+        //            return true;
+        //        }
+
+        //        internal bool UpdateDll(LocalDlssDll localDll)
+        //        {
+        //            if (localDll == null)
+        //            {
+        //                return false;
+        //            }
+
+        //            var foundDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll", SearchOption.AllDirectories);
+        //            if (foundDlls.Length == 0)
+        //            {
+        //                return false;
+        //            }
+
+        //            var versionInfo = FileVersionInfo.GetVersionInfo(localDll.Filename);
+        //            var targetDllVersion = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}.{versionInfo.FilePrivatePart}";
+
+        //            var baseDllVersion = string.Empty;
+
+        //            // Backup old dlls.
+        //            foreach (var dll in foundDlls)
+        //            {
+        //                var dllPath = Path.GetDirectoryName(dll);
+        //                var targetDllPath = Path.Combine(dllPath!, "nvngx_dlss.dll.dlsss");
+        //                if (File.Exists(targetDllPath) == false)
+        //                {
+        //                    try
+        //                    {
+        //                        var defaultVersionInfo = FileVersionInfo.GetVersionInfo(dll);
+        //                        baseDllVersion = $"{defaultVersionInfo.FileMajorPart}.{defaultVersionInfo.FileMinorPart}.{defaultVersionInfo.FileBuildPart}.{defaultVersionInfo.FilePrivatePart}";
+
+        //                        File.Copy(dll, targetDllPath, true);
+        //                    }
+        //                    catch (Exception err)
+        //                    {
+        //                        Debug.WriteLine($"UpdateDll Error: {err.Message}");
+        //                        return false;
+        //                    }
+        //                }
+        //            }
+
+        //            foreach (var dll in foundDlls)
+        //            {
+        //                try
+        //                {
+        //                    File.Copy(localDll.Filename, dll, true);
+        //                }
+        //                catch (Exception err)
+        //                {
+        //                    Debug.WriteLine($"UpdateDll Error: {err.Message}");
+        //                    return false;
+        //                }
+        //            }
+
+        //            CurrentDLSSVersion = targetDllVersion;
+        //            if (!string.IsNullOrEmpty(baseDllVersion))
+        //            {
+        //                BaseDLSSVersion = baseDllVersion;
+        //            }
+        //            return true;
+        //        }
+
+        #endregion
+
+        public SteamApp ExtractReaderProperty(SteamAppPropertyTable properties, uint[]? installedAppIds = null)
         {
-            BaseDLSSVersion = string.Empty;
-            CurrentDLSSVersion = "N/A";
-            var dlssDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll", SearchOption.AllDirectories);
-            if (dlssDlls.Length > 0)
+            if (properties != null)
             {
-                HasDLSS = true;
+                //var installpath = properties.GetPropertyValue<string>(null, NodeAppInfo, NodeConfig, "installdir");
 
-                // TODO: Handle a single folder with various versions of DLSS detected.
-                // Currently we are just using the first.
+                //if (!string.IsNullOrEmpty(installpath))
+                //{
+                //    app.InstalledDir = Path.Combine(ISteamService.Instance.SteamDirPath, ISteamService.dirname_steamapps, NodeCommon, installpath);
+                //}
 
-                foreach (var dlssDll in dlssDlls)
+                Name = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeName);
+                SortAs = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeSortAs);
+                if (!SortAs.Any_Nullable())
                 {
-                    var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
-                    CurrentDLSSVersion = dllVersionInfo.FileVersion?.Replace(",", ".") ?? string.Empty;
-                    break;
+                    SortAs = Name;
+                }
+                ParentId = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, NodeParentId);
+                Developer = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, NodeDeveloper);
+                Publisher = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, NodePublisher);
+                //SteamReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "steam_release_date");
+                //OriginReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "original_release_date");
+
+                var type = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeAppType);
+                if (Enum.TryParse(type, true, out SteamAppType apptype))
+                {
+                    Type = apptype;
+                }
+                else
+                {
+                    Type = SteamAppType.Unknown;
+                    Debug.WriteLineIf(!string.IsNullOrEmpty(type), string.Format("AppInfo: New AppType '{0}'", type));
                 }
 
-                dlssDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
-                if (dlssDlls.Length > 0)
+                OSList = properties.GetPropertyValue(string.Empty, NodeAppInfo, NodeCommon, NodePlatforms);
+
+                if (installedAppIds != null)
                 {
-                    foreach (var dlssDll in dlssDlls)
+                    if (installedAppIds.Contains(AppId) &&
+                        (Type == SteamAppType.Application ||
+                        Type == SteamAppType.Game ||
+                        Type == SteamAppType.Tool ||
+                        Type == SteamAppType.Demo))
                     {
-                        var dllVersionInfo = FileVersionInfo.GetVersionInfo(dlssDll);
-                        BaseDLSSVersion = dllVersionInfo.FileVersion?.Replace(",", ".") ?? string.Empty;
-                        break;
+                        // This is an installed app.
+                        State = 4;
                     }
                 }
-            }
-            else
-            {
-                HasDLSS = false;
-            }
-        }
 
-        internal bool ResetDll()
-        {
-            var foundDllBackups = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll.dlsss", SearchOption.AllDirectories);
-            if (foundDllBackups.Length == 0)
-            {
-                return false;
-            }
-
-            var versionInfo = FileVersionInfo.GetVersionInfo(foundDllBackups.First());
-            var resetToVersion = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}.{versionInfo.FilePrivatePart}";
-
-            foreach (var dll in foundDllBackups)
-            {
-                try
+                if (IsInstalled)
                 {
-                    var dllPath = Path.GetDirectoryName(dll);
-                    var targetDllPath = Path.Combine(dllPath!, "nvngx_dlss.dll");
-#if NETSTANDARD
-                    File.Move(dll, targetDllPath);
-#else
-                    File.Move(dll, targetDllPath, true);
-#endif
-                }
-                catch (Exception err)
-                {
-                    Debug.WriteLine($"ResetDll Error: {err.Message}");
-                    return false;
-                }
-            }
+                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable?>(null, NodeAppInfo, NodeConfig, NodeLaunch);
 
-            CurrentDLSSVersion = resetToVersion;
-            BaseDLSSVersion = string.Empty;
-
-            return true;
-        }
-
-        internal bool UpdateDll(LocalDlssDll localDll)
-        {
-            if (localDll == null)
-            {
-                return false;
-            }
-
-            var foundDlls = Directory.GetFiles(InstalledDir!, "nvngx_dlss.dll", SearchOption.AllDirectories);
-            if (foundDlls.Length == 0)
-            {
-                return false;
-            }
-
-            var versionInfo = FileVersionInfo.GetVersionInfo(localDll.Filename);
-            var targetDllVersion = $"{versionInfo.FileMajorPart}.{versionInfo.FileMinorPart}.{versionInfo.FileBuildPart}.{versionInfo.FilePrivatePart}";
-
-            var baseDllVersion = string.Empty;
-
-            // Backup old dlls.
-            foreach (var dll in foundDlls)
-            {
-                var dllPath = Path.GetDirectoryName(dll);
-                var targetDllPath = Path.Combine(dllPath!, "nvngx_dlss.dll.dlsss");
-                if (File.Exists(targetDllPath) == false)
-                {
-                    try
+                    if (launchTable != null)
                     {
-                        var defaultVersionInfo = FileVersionInfo.GetVersionInfo(dll);
-                        baseDllVersion = $"{defaultVersionInfo.FileMajorPart}.{defaultVersionInfo.FileMinorPart}.{defaultVersionInfo.FileBuildPart}.{defaultVersionInfo.FilePrivatePart}";
+                        var launchItems = from table in (from prop in (from prop in launchTable.Properties
+                                                                       where prop.PropertyType == SteamAppPropertyType.Table
+                                                                       select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
+                                                         select prop.GetValue<SteamAppPropertyTable>())
+                                          select new SteamAppLaunchItem
+                                          {
+                                              Label = table.GetPropertyValue<string?>("description"),
+                                              Executable = table.GetPropertyValue<string?>("executable"),
+                                              Arguments = table.GetPropertyValue<string?>("arguments"),
+                                              WorkingDir = table.GetPropertyValue<string?>("workingdir"),
+                                              Platform = table.TryGetPropertyValue<SteamAppPropertyTable>(NodeConfig, out var propertyTable) ?
+                                              propertyTable.TryGetPropertyValue<string>(NodePlatforms, out var os) ? os : null : null,
+                                          };
 
-                        File.Copy(dll, targetDllPath, true);
-                    }
-                    catch (Exception err)
-                    {
-                        Debug.WriteLine($"UpdateDll Error: {err.Message}");
-                        return false;
+                        LaunchItems = new ObservableCollection<SteamAppLaunchItem>(launchItems.ToList());
                     }
                 }
-            }
 
-            foreach (var dll in foundDlls)
-            {
-                try
-                {
-                    File.Copy(localDll.Filename, dll, true);
-                }
-                catch (Exception err)
-                {
-                    Debug.WriteLine($"UpdateDll Error: {err.Message}");
-                    return false;
-                }
-            }
+                CloudQuota = properties.GetPropertyValue<int>(0, NodeAppInfo, "ufs", "quota");
+                CloudMaxnumFiles = properties.GetPropertyValue<int>(0, NodeAppInfo, "ufs", "maxnumfiles");
 
-            CurrentDLSSVersion = targetDllVersion;
-            if (!string.IsNullOrEmpty(baseDllVersion))
-            {
-                BaseDLSSVersion = baseDllVersion;
+                var savefilesTable = properties.GetPropertyValue<SteamAppPropertyTable?>(null, NodeAppInfo, "ufs", "savefiles");
+
+                if (savefilesTable != null)
+                {
+                    var savefiles = from table in (from prop in (from prop in savefilesTable.Properties
+                                                                 where prop.PropertyType == SteamAppPropertyType.Table
+                                                                 select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
+                                                   select prop.GetValue<SteamAppPropertyTable>())
+                                    select new SteamAppSaveFile
+                                    (
+                                        AppId,
+                                        table.GetPropertyValue<string?>("root"),
+                                        table.GetPropertyValue<string?>("path"),
+                                        table.GetPropertyValue<string?>("pattern")
+                                    )
+                                    {
+                                        Recursive = table.GetPropertyValue<bool>(false, "recursive"),
+                                    };
+
+                    SaveFiles = new ObservableCollection<SteamAppSaveFile>(savefiles.ToList());
+                }
+
+                BaseName = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, "steam_edit", "base_name");
+
+                if (string.IsNullOrEmpty(BaseName))
+                {
+                    BaseName = Name;
+                }
             }
-            return true;
+            return this;
         }
 
-        public static SteamApp? FromReader(BinaryReader reader, uint[] installedAppIds, bool isSaveProperties = false)
+        public static SteamApp? FromReader(BinaryReader reader, uint[]? installedAppIds = null, bool isSaveProperties = false)
         {
             uint id = reader.ReadUInt32();
             if (id == 0)
@@ -625,112 +799,7 @@ namespace System.Application.Models
                     app._properties = properties;
                     app._originalData = array;
                 }
-
-                //var installpath = properties.GetPropertyValue<string>(null, NodeAppInfo, NodeConfig, "installdir");
-
-                //if (!string.IsNullOrEmpty(installpath))
-                //{
-                //    app.InstalledDir = Path.Combine(ISteamService.Instance.SteamDirPath, ISteamService.dirname_steamapps, NodeCommon, installpath);
-                //}
-
-                app.Name = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeName);
-                app.SortAs = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeSortAs);
-                if (!app.SortAs.Any_Nullable())
-                {
-                    app.SortAs = app.Name;
-                }
-                app.ParentId = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, NodeParentId);
-                app.Developer = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, NodeDeveloper);
-                app.Publisher = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeExtended, NodePublisher);
-                //app.SteamReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "steam_release_date");
-                //app.OriginReleaseDate = properties.GetPropertyValue<uint>(0, NodeAppInfo, NodeCommon, "original_release_date");
-
-                var type = properties.GetPropertyValue<string>(string.Empty, NodeAppInfo, NodeCommon, NodeAppType);
-                if (Enum.TryParse(type, true, out SteamAppType apptype))
-                {
-                    app.Type = apptype;
-                }
-                else
-                {
-                    app.Type = SteamAppType.Unknown;
-                    Debug.WriteLineIf(!string.IsNullOrEmpty(type), string.Format("AppInfo: New AppType '{0}'", type));
-                }
-
-                app.OSList = properties.GetPropertyValue(string.Empty, NodeAppInfo, NodeCommon, NodePlatforms);
-
-                if (installedAppIds.Contains(app.AppId) &&
-                    (app.Type == SteamAppType.Application ||
-                    app.Type == SteamAppType.Game ||
-                    app.Type == SteamAppType.Tool ||
-                    app.Type == SteamAppType.Demo))
-                {
-                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable?>(null, NodeAppInfo, NodeConfig, NodeLaunch);
-
-                    if (launchTable != null)
-                    {
-                        var launchItems = from table in (from prop in (from prop in launchTable.Properties
-                                                                       where prop.PropertyType == SteamAppPropertyType.Table
-                                                                       select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
-                                                         select prop.GetValue<SteamAppPropertyTable>())
-                                          select new SteamAppLaunchItem
-                                          {
-                                              Label = table.GetPropertyValue<string?>("description"),
-                                              Executable = table.GetPropertyValue<string?>("executable"),
-                                              Arguments = table.GetPropertyValue<string?>("arguments"),
-                                              WorkingDir = table.GetPropertyValue<string?>("workingdir"),
-                                              Platform = table.TryGetPropertyValue<SteamAppPropertyTable>(NodeConfig, out var propertyTable) ?
-                                              propertyTable.TryGetPropertyValue<string>(NodePlatforms, out var os) ? os : null : null,
-                                          };
-
-                        app.LaunchItems = new ObservableCollection<SteamAppLaunchItem>(launchItems.ToList());
-                    }
-                }
-
-                app.CloudQuota = properties.GetPropertyValue<int>(0, NodeAppInfo, "ufs", "quota");
-                app.CloudMaxnumFiles = properties.GetPropertyValue<int>(0, NodeAppInfo, "ufs", "maxnumfiles");
-
-                var savefilesTable = properties.GetPropertyValue<SteamAppPropertyTable?>(null, NodeAppInfo, "ufs", "savefiles");
-
-                if (savefilesTable != null)
-                {
-                    var savefiles = from table in (from prop in (from prop in savefilesTable.Properties
-                                                                 where prop.PropertyType == SteamAppPropertyType.Table
-                                                                 select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
-                                                   select prop.GetValue<SteamAppPropertyTable>())
-                                    select new SteamAppSaveFile
-                                    (
-                                        app.AppId,
-                                        table.GetPropertyValue<string?>("root"),
-                                        table.GetPropertyValue<string?>("path"),
-                                        table.GetPropertyValue<string?>("pattern")
-                                    )
-                                    {
-                                        Recursive = table.GetPropertyValue<bool>(false, "recursive"),
-                                    };
-
-                    app.SaveFiles = new ObservableCollection<SteamAppSaveFile>(savefiles.ToList());
-                }
-
-                //var propertyValue = app._properties.GetPropertyValue<string>("", new string[]
-                //{
-                //        "appinfo",
-                //        "steam_edit",
-                //        "base_name"
-                //});
-                //if (propertyValue != "")
-                //{
-                //    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue, NodeAppInfo, NodeCommon, NodeName);
-                //}
-                //var propertyValue2 = app._properties.GetPropertyValue<string>("", new string[]
-                //{
-                //        "appinfo",
-                //        "steam_edit",
-                //        "base_type"
-                //});
-                //if (propertyValue2 != "")
-                //{
-                //    app._properties.SetPropertyValue(SteamAppPropertyType.String, propertyValue2, NodeAppInfo, NodeCommon, NodeAppType);
-                //}
+                app.ExtractReaderProperty(properties, installedAppIds);
             }
             catch (Exception ex)
             {
@@ -741,45 +810,9 @@ namespace System.Application.Models
 
         public void Write(BinaryWriter writer)
         {
+            if (_properties == null)
+                throw new ArgumentNullException($"SteamApp Write Failed. {nameof(_properties)} is null.");
             SteamAppPropertyTable propertyTable = new SteamAppPropertyTable(this._properties);
-            //SteamAppPropertyTable? propertyValue = propertyTable.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeCommon);
-            //if (propertyValue != null)
-            //{
-            //    string? text = Name;
-            //    if (text != null)
-            //    {
-            //        SteamAppPropertyTable? propertyValue2 = propertyValue.GetPropertyValue<SteamAppPropertyTable>(null, "name_localized");
-            //        if (propertyValue2 != null)
-            //        {
-            //            propertyTable.SetPropertyValue(SteamAppPropertyType.Table, propertyValue2, NodeAppInfo, "steam_edit", "base_name_localized");
-            //            propertyValue.RemoveProperty("name_localized");
-            //        }
-            //        propertyTable.SetPropertyValue(SteamAppPropertyType.String, text, NodeAppInfo, "steam_edit", "base_name");
-            //        //if (SteamData.UseCompleted && this.IsCompleted)
-            //        //{
-            //        //    text += SteamData.CompletedSuffix;
-            //        //}
-            //        propertyValue.SetPropertyValue("name", SteamAppPropertyType.String, text);
-            //    }
-            //    else
-            //    {
-            //        Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null name!");
-            //    }
-            //    string? text2 = propertyValue.GetPropertyValue<string>("type", "game");
-            //    if (text2 != null)
-            //    {
-            //        propertyTable.SetPropertyValue(SteamAppPropertyType.String, text2, NodeAppInfo, "steam_edit", "base_type");
-            //        //if (SteamData.UseHidden && this.IsHidden)
-            //        //{
-            //        //    text2 = "hidden_" + text2;
-            //        //}
-            //        propertyValue.SetPropertyValue("type", SteamAppPropertyType.String, text2);
-            //    }
-            //    else
-            //    {
-            //        Log.Info("SteamApp Write Error", $"AppInfo {AppId:X8} has null type!");
-            //    }
-            //}
             string s = propertyTable.ToString();
             byte[] bytes = Encoding.UTF8.GetBytes(s);
             byte[] buffer = SHA1.Create().ComputeHash(bytes);

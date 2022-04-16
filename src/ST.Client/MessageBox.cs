@@ -90,6 +90,8 @@ namespace System.Application
             Donate = 2,
 
             ResetHostsFile,
+
+            SaveEditAppInfo,
         }
 
         /// <summary>

@@ -28,14 +28,14 @@
         <ui:CommandBar DefaultLabelPosition="Right"
                        IsSticky="False">
           <ui:CommandBar.PrimaryCommands>
-            <ui:CommandBarButton Label="保存全部更改到Steam"
+            <ui:CommandBarButton Label="{ReflectionBinding Path=Res.SaveEditedAppInfo_SaveToSteam,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding SaveSteamEditedApps}">
               <ui:CommandBarButton.Icon>
                 <ui:SymbolIcon Symbol="Save"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
-            <ui:CommandBarButton Label="备份已修改的数据">
+            <!--<ui:CommandBarButton Label="备份已修改的数据">
               <ui:CommandBarButton.Icon>
                 <ui:SymbolIcon Symbol="SaveLocal"/>
               </ui:CommandBarButton.Icon>
@@ -45,7 +45,7 @@
               <ui:CommandBarButton.Icon>
                 <ui:SymbolIcon Symbol="Import"/>
               </ui:CommandBarButton.Icon>
-            </ui:CommandBarButton>
+            </ui:CommandBarButton>-->
 
             <ui:CommandBarSeparator/>
 
@@ -56,10 +56,10 @@
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
-            <ui:CommandBarButton Label="{ReflectionBinding Path=Res.GameList_RemoveBtn,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            <ui:CommandBarButton Label="{ReflectionBinding Path=Res.ResetAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding SaveSteamEditedApps}">
               <ui:CommandBarButton.Icon>
-                <ui:SymbolIcon Symbol="Delete"/>
+                <ui:SymbolIcon Symbol="Redo"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
           </ui:CommandBar.PrimaryCommands>
@@ -67,7 +67,7 @@
       </Border>
 
       <Panel DockPanel.Dock="Bottom">
-        <TextBlock Text="没有获取到已编辑的游戏数据"
+        <TextBlock Text="{ReflectionBinding Path=Res.SaveEditedAppInfo_EmptyAppsTip,Mode=OneWay,Source={x:Static resx:R.Current}}"
                    IsVisible="{Binding IsSteamEditedAppsEmpty}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

@@ -125,7 +125,7 @@ namespace System.Application.UI.ViewModels
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryLogoStream,
                  SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Logo) == false)
                 {
-                    Toast.Show($"保存 {SteamGridItemType.Grid} 自定义图片失败");
+                    Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
                 }
             }
             if (!(App.EditLibraryHeroStream is FileStream fs1 && fs1.Name == await App.LibraryHeroStream))
@@ -133,7 +133,7 @@ namespace System.Application.UI.ViewModels
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryHeroStream,
                  SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Hero) == false)
                 {
-                    Toast.Show($"保存 {SteamGridItemType.Grid} 自定义图片失败");
+                    Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Hero)));
                 }
             }
             if (!(App.EditLibraryGridStream is FileStream fs2 && fs2.Name == await App.LibraryGridStream))
@@ -141,7 +141,7 @@ namespace System.Application.UI.ViewModels
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryGridStream,
                     SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Grid) == false)
                 {
-                    Toast.Show($"保存 {SteamGridItemType.Grid} 自定义图片失败");
+                    Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Grid)));
                 }
             }
             #endregion
@@ -150,7 +150,12 @@ namespace System.Application.UI.ViewModels
 
             SteamConnectService.Current.SteamApps.AddOrUpdate(App);
 
+            await MessageBox.ShowAsync("如需要让信息和启动项更改生效到Steam,请打开 [保存Steam游戏自定义信息窗口] 保存所有更改信息到Steam缓存中。",
+                ThisAssembly.AssemblyTrademark, MessageBox.Button.OK, MessageBox.Image.None, MessageBox.DontPromptType.SaveEditAppInfo);
+
             this.Close();
+
+            Toast.Show($"{App.Name} 已修改");
         }
 
         public void CancelEditAppInfo()
@@ -161,9 +166,17 @@ namespace System.Application.UI.ViewModels
 
         public async void ResetEditAppInfo()
         {
-            if (await MessageBox.ShowAsync("确定要重置当前App所有更改吗？", ThisAssembly.AssemblyTrademark, MessageBox.Button.OK) == MessageBox.Result.OK)
+            if (await MessageBox.ShowAsync("确定要重置当前App所有更改吗？(不会重置自定义图片)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
             {
                 App.RefreshEditImage();
+                if (App.OriginalData != null)
+                {
+                    using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData));
+                    var table = reader.ReadPropertyTable();
+
+                    App.ExtractReaderProperty(table);
+                    App.IsEdited = false;
+                }
             }
         }
 

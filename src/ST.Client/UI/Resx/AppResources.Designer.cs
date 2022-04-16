@@ -4186,6 +4186,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 重置全部 的本地化字符串。
+        /// </summary>
+        public static string ResetAll {
+            get {
+                return ResourceManager.GetString("ResetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 重试 的本地化字符串。
         /// </summary>
         public static string Retry {
@@ -4213,11 +4222,47 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 没有获取到已编辑的游戏数据 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_EmptyAppsTip {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_EmptyAppsTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存AppInfos出现错误 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_SaveFailed {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_SaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存全部更改到Steam 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_SaveToSteam {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_SaveToSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 存档 的本地化字符串。
         /// </summary>
         public static string SaveFile {
             get {
                 return ResourceManager.GetString("SaveFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存 {0} 图片失败 的本地化字符串。
+        /// </summary>
+        public static string SaveImageFileFailed {
+            get {
+                return ResourceManager.GetString("SaveImageFileFailed", resourceCulture);
             }
         }
         

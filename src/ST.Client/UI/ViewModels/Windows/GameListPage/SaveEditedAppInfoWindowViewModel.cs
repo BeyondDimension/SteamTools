@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Properties;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace System.Application.UI.ViewModels
 {
@@ -34,7 +35,7 @@ namespace System.Application.UI.ViewModels
             LoadSteamEditedApps();
         }
 
-        
+
         readonly ReadOnlyObservableCollection<SteamApp> _SteamEditedApps;
         public ReadOnlyObservableCollection<SteamApp> SteamEditedApps => _SteamEditedApps;
 
@@ -47,7 +48,7 @@ namespace System.Application.UI.ViewModels
             SteamConnectService.Current.SteamApps.Refresh();
         }
 
-        public async void SaveSteamEditedApps()
+        public async Task SaveSteamEditedApps()
         {
             if (await ISteamService.Instance.SaveAppInfosToSteam())
             {
@@ -56,16 +57,21 @@ namespace System.Application.UI.ViewModels
                     ISteamService.Instance.TryKillSteamProcess();
                     ISteamService.Instance.StartSteam();
                 }
+                Toast.Show("保存数据到 Steam 成功");
+            }
+            else
+            {
+                Toast.Show("保存数据失败，查看日志已获取详细错误信息。");
             }
         }
 
-        public async void ClearSteamEditedApps()
+        public async Task ClearSteamEditedApps()
         {
-            if (await MessageBox.ShowAsync("确定要清空所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+            if (await MessageBox.ShowAsync("确定要重置所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
             {
-                foreach (var item in SteamEditedApps) 
+                foreach (var item in SteamEditedApps)
                 {
-                    
+
                 }
             }
         }

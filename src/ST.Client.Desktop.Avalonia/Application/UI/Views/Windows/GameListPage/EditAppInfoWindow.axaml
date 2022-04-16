@@ -92,12 +92,12 @@
                   <TextBlock Text="{ReflectionBinding Path=Res.InstalledPath,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                   <Button Classes="plain"
                           HorizontalAlignment="Right"
+                          VerticalContentAlignment="Stretch"
                           ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter={x:Null}}"
                           Command="{ReflectionBinding OpenFolder}"
                           CommandParameter="{Binding App.InstalledDir}">
                     <TextBlock Text="{Binding App.InstalledDir}"
-                               TextAlignment="Right"
-                               TextWrapping="WrapWithOverflow"/>
+                               TextWrapping="Wrap"/>
                   </Button>
                 </DockPanel>
               </Border>
@@ -405,9 +405,8 @@
                                   Command="{ReflectionBinding #u.DataContext.OpenFolder}"
                                   CommandParameter="{Binding FormatDirPath}">
                             <TextBlock Text="{Binding FormatDirPath}"
-                                       TextAlignment="Right"
                                        HorizontalAlignment="Stretch"
-                                       TextWrapping="WrapWithOverflow"/>
+                                       TextWrapping="Wrap"/>
                           </Button>
                         </DockPanel>
                       </StackPanel>
