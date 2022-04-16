@@ -1113,6 +1113,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 最大支持云存档数 的本地化字符串。
+        /// </summary>
+        public static string CloudMaxnumFiles {
+            get {
+                return ResourceManager.GetString("CloudMaxnumFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 云存档空间大小 的本地化字符串。
+        /// </summary>
+        public static string CloudSaveFileSize {
+            get {
+                return ResourceManager.GetString("CloudSaveFileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 云同步 的本地化字符串。
         /// </summary>
         public static string CloudSync {
@@ -1680,6 +1698,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 文件夹路径 的本地化字符串。
+        /// </summary>
+        public static string DirPath {
+            get {
+                return ResourceManager.GetString("DirPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 磁盘占用 的本地化字符串。
         /// </summary>
         public static string DiskUsage {
@@ -1887,6 +1914,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 文件路径 的本地化字符串。
+        /// </summary>
+        public static string FilePath {
+            get {
+                return ResourceManager.GetString("FilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 文件大小过大 的本地化字符串。
         /// </summary>
         public static string FileSizeTooLarge {
@@ -2022,7 +2058,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 保存编辑后的App数据 的本地化字符串。
+        ///   查找类似 保存Steam游戏自定义信息 的本地化字符串。
         /// </summary>
         public static string GameList_EditedAppsSaveManger {
             get {
@@ -4177,6 +4213,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 存档 的本地化字符串。
+        /// </summary>
+        public static string SaveFile {
+            get {
+                return ResourceManager.GetString("SaveFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 扫描二维码 的本地化字符串。
         /// </summary>
         public static string ScanQRCode {
@@ -4601,7 +4646,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 打开 {0} 文件夹 的本地化字符串。
+        ///   查找类似 打开{0}文件夹 的本地化字符串。
         /// </summary>
         public static string Settings_General_BrowseCustomFolder {
             get {

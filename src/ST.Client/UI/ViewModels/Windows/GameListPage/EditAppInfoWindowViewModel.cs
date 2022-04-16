@@ -58,6 +58,12 @@ namespace System.Application.UI.ViewModels
 
             App.RefreshEditImage();
 
+            if (App.SaveFiles.Any_Nullable())
+                foreach (var file in App.SaveFiles)
+                {
+                    file.FormatPathGenerate();
+                }
+
             _SteamGridItemSourceList = new SourceCache<SteamGridItem, long>(t => t.Id);
 
             _SteamGridItemSourceList
@@ -244,6 +250,12 @@ namespace System.Application.UI.ViewModels
         public async void OpenSteamGridDBAuthorUrl(SteamGridItem item)
         {
             await Browser2.OpenAsync(string.Format(SteamGridDBApiUrls.SteamGridDB_Author_URL, item.Author.Steam64));
+        }
+
+        public void OpenFolder(string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+                IPlatformService.Instance.OpenFolder(path);
         }
     }
 }

@@ -1667,7 +1667,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>应用通知</value>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
-    <value>打开 {0} 文件夹</value>
+    <value>打开{0}文件夹</value>
     <comment>Comment={0}文件夹名称英文字母组成;</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
@@ -2203,6 +2203,21 @@ AAAAA-BBBBB-CCCC3</value>
     <value>工作目录</value>
   </data>
   <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
-    <value>保存编辑后的App数据</value>
+    <value>保存Steam游戏自定义信息</value>
+  </data>
+  <data name="SaveFile" xml:space="preserve">
+    <value>存档</value>
+  </data>
+  <data name="CloudSaveFileSize" xml:space="preserve">
+    <value>云存档空间大小</value>
+  </data>
+  <data name="CloudMaxnumFiles" xml:space="preserve">
+    <value>最大支持云存档数</value>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>文件路径</value>
+  </data>
+  <data name="DirPath" xml:space="preserve">
+    <value>文件夹路径</value>
   </data>
 </root>

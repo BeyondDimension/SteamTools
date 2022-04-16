@@ -11,6 +11,8 @@
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ms="using:System.Application.Settings"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:col="using:System.Collections"
+        xmlns:sys="using:System"
         xmlns:gif="using:AvaloniaGif"
         x:Name="u"
         Background="Transparent"
@@ -81,17 +83,22 @@
                 <DockPanel>
                   <TextBlock Text="{ReflectionBinding Path=Res.DiskUsage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                   <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"/>
+                             Text="{Binding App.SizeOnDisk,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"/>
                 </DockPanel>
               </Border>
 
               <Border Classes="Item" IsVisible="{Binding App.IsInstalled}">
                 <DockPanel>
                   <TextBlock Text="{ReflectionBinding Path=Res.InstalledPath,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                  <TextBlock Classes="right"
-                             Text="{ReflectionBinding App.InstalledDir}"/>
-                  <!--<Button Classes="Hyperlink"
-                          Content="{ReflectionBinding App.InstalledDir}"/>-->
+                  <Button Classes="plain"
+                          HorizontalAlignment="Right"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter={x:Null}}"
+                          Command="{ReflectionBinding OpenFolder}"
+                          CommandParameter="{Binding App.InstalledDir}">
+                    <TextBlock Text="{Binding App.InstalledDir}"
+                               TextAlignment="Right"
+                               TextWrapping="WrapWithOverflow"/>
+                  </Button>
                 </DockPanel>
               </Border>
 
@@ -295,9 +302,13 @@
                           <Label Content="{ReflectionBinding Path=Res.SupportSystem,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                           <ui:ComboBox IsEditable="True"
                                        Text="{Binding Platform,Mode=TwoWay}">
-                            <ui:ComboBoxItem Content="windows"/>
-                            <ui:ComboBoxItem Content="linux"/>
-                            <ui:ComboBoxItem Content="macos"/>
+                            <ui:ComboBox.Items>
+                              <col:ArrayList>
+                                <sys:String>windows</sys:String>
+                                <sys:String>linux</sys:String>
+                                <sys:String>macos</sys:String>
+                              </col:ArrayList>
+                            </ui:ComboBox.Items>
                           </ui:ComboBox>
                         </DockPanel>
 
@@ -341,6 +352,69 @@
                                  FontSize="32"/>
                 </ui:Button>
               </Border>
+            </StackPanel>
+          </ScrollViewer>
+
+        </TabItem>
+
+        <TabItem Header="{ReflectionBinding Path=Res.SaveFile,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 IsVisible="{Binding App.IsCloudArchive}">
+          <ScrollViewer>
+            <StackPanel Classes="Settings">
+              <Border Classes="Item">
+                <StackPanel Spacing="5">
+                  <DockPanel>
+                    <Label Content="{ReflectionBinding Path=Res.CloudSaveFileSize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                    <TextBlock Classes="right"
+                               Text="{ReflectionBinding App.CloudQuota,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"/>
+                  </DockPanel>
+                  <DockPanel>
+                    <Label Content="{ReflectionBinding Path=Res.CloudMaxnumFiles,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                    <TextBlock Classes="right"
+                               Text="{Binding App.CloudMaxnumFiles}"/>
+                  </DockPanel>
+                </StackPanel>
+              </Border>
+
+              <ItemsRepeater Items="{Binding App.SaveFiles}">
+                <ItemsRepeater.Layout>
+                  <StackLayout Orientation="Vertical" Spacing="10"/>
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                  <DataTemplate DataType="{x:Type models:SteamAppSaveFile}">
+                    <Border Classes="Item">
+                      <StackPanel Spacing="5">
+                        <DockPanel>
+                          <Label Content="Root"/>
+                          <TextBlock Classes="right" Text="{Binding Root}"/>
+                        </DockPanel>
+                        <DockPanel>
+                          <Label Content="Path"/>
+                          <TextBlock Classes="right" Text="{Binding Path}"/>
+                        </DockPanel>
+                        <DockPanel>
+                          <Label Content="Pattern"/>
+                          <TextBlock Classes="right" Text="{Binding Pattern}"/>
+                        </DockPanel>
+                        <DockPanel>
+                          <Label Content="{ReflectionBinding Path=Res.DirPath,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                          <Button Classes="plain"
+                                  HorizontalContentAlignment="Stretch"
+                                  HorizontalAlignment="Right"
+                                  ToolTip.Tip="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static           resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter={x:Null}}"
+                                  Command="{ReflectionBinding #u.DataContext.OpenFolder}"
+                                  CommandParameter="{Binding FormatDirPath}">
+                            <TextBlock Text="{Binding FormatDirPath}"
+                                       TextAlignment="Right"
+                                       HorizontalAlignment="Stretch"
+                                       TextWrapping="WrapWithOverflow"/>
+                          </Button>
+                        </DockPanel>
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+              </ItemsRepeater>
             </StackPanel>
           </ScrollViewer>
 

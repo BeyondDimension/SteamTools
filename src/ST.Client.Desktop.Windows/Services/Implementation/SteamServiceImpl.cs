@@ -174,14 +174,18 @@ namespace System.Application.Services.Implementation
                                 SteamID = i.PersonaName?.ToString(),
                                 PersonaName = i.PersonaName?.ToString(),
                                 RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword?.ToString())),
-                                Timestamp = Convert.ToInt64(i.Timestamp?.ToString())
                             };
-                            user.LastLoginTime = user.Timestamp.ToDateTimeS();
 
                             // 老版本 Steam 数据 小写 mostrecent 支持
                             user.MostRecent = i.mostrecent != null ?
                                 Convert.ToBoolean(Convert.ToByte(i.mostrecent.ToString())) :
                                 Convert.ToBoolean(Convert.ToByte(i.MostRecent.ToString()));
+
+                            user.Timestamp = i.timestamp != null ?
+                                Convert.ToInt64(i.timestamp?.ToString()) :
+                                Convert.ToInt64(i.Timestamp?.ToString());
+
+                            user.LastLoginTime = user.Timestamp.ToDateTimeS();
 
                             user.WantsOfflineMode = i.WantsOfflineMode != null ?
                                 Convert.ToBoolean(Convert.ToByte(i.WantsOfflineMode.ToString())) : false;
@@ -550,6 +554,9 @@ namespace System.Application.Services.Implementation
                 fileStream.Close();
                 binaryWriter.Close();
 
+                int identificador = GC.GetGeneration(applist);
+                applist = null;
+                GC.Collect(identificador, GCCollectionMode.Forced);
             }
             catch (Exception ex)
             {

@@ -237,29 +237,29 @@
             </ui:CommandBarButton>
 
             <ui:CommandBarSeparator/>
-            
+
             <ui:CommandBarButton
                        Command="{Binding SaveEditedAppInfoCommand}"
-                       ToolTip.Tip="保存游戏编辑后信息到Steam"
-                       Label="保存编辑信息">
+                       ToolTip.Tip="{ReflectionBinding $self.Label}"
+                       Label="{ReflectionBinding Path=Res.GameList_EditedAppsSaveManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
-                <ui:SymbolIcon Symbol="SaveLocal" FontSize="26"/>
+                <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
             <ui:CommandBarButton
                        IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                        Command="{Binding IdleAppCommand}"
-                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
                 <ui:PathIcon Data="{StaticResource TopSpeedDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            
+
             <ui:CommandBarButton
                        Command="{Binding SteamShutdownCommand}"
-                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                       ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_SteamShutdown,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
                 <ui:PathIcon Data="{StaticResource ClockArrowDownloadDrawing}"/>
@@ -269,17 +269,15 @@
           </ui:CommandBar.PrimaryCommands>
           <ui:CommandBar.SecondaryCommands>
 
-            <ui:CommandBarToggleButton
-                                 IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps},Path=Value, Mode=TwoWay}"
-                                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                 Label="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:CommandBarToggleButton IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps},Path=Value, Mode=TwoWay}"
+                                ToolTip.Tip="{ReflectionBinding $self.Label}"
+                                Label="{ReflectionBinding Path=Res.GameList_AutoAFK,Mode=OneWay,Source={x:Static resx:R.Current}}">
             </ui:CommandBarToggleButton>
 
             <ui:CommandBarSeparator/>
 
-            <ui:CommandBarButton
-                       Command="{Binding HideAppCommand}"
-                       ToolTip.Tip="{ReflectionBinding Path=Res.GameList_HideGameManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            <ui:CommandBarButton Command="{Binding HideAppCommand}"
+                       ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_HideGameManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
                 <ui:PathIcon Data="{StaticResource EyeHideDrawing}"/>

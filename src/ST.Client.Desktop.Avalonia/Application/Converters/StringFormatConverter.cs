@@ -49,6 +49,10 @@ namespace System.Application.Converters
                     return str.Format(para);
                 }
             }
+            else
+            {
+                return str.Format(string.Empty);
+            }
             return str;
         }
 

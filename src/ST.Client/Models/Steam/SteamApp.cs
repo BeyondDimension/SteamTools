@@ -146,13 +146,13 @@ namespace System.Application.Models
         //    get
         //    {
         //        return _properties?.GetPropertyValue<string>(null, NodeAppInfo,
-        //             NodeCommon,
+        //             NodeExtended,
         //             NodeDeveloper);
         //    }
         //    set
         //    {
         //        _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
-        //            NodeCommon,
+        //            NodeExtended,
         //            NodeDeveloper);
         //    }
         //}
@@ -162,13 +162,13 @@ namespace System.Application.Models
         //    get
         //    {
         //        return _properties?.GetPropertyValue<string>(null, NodeAppInfo,
-        //             NodeCommon,
+        //             NodeExtended,
         //             NodePublisher);
         //    }
         //    set
         //    {
         //        _properties?.SetPropertyValue(SteamAppPropertyType.String, value, NodeAppInfo,
-        //            NodeCommon,
+        //            NodeExtended,
         //            NodePublisher);
         //    }
         //}
@@ -191,18 +191,28 @@ namespace System.Application.Models
                     NodeExtended,
                     NodeDeveloper);
 
+                _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Developer, NodeAppInfo,
+                    NodeCommon,
+                    "associations", "0", "name");
+
                 _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Publisher, NodeAppInfo,
                     NodeExtended,
                     NodePublisher);
 
+                _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.Publisher, NodeAppInfo,
+                    NodeCommon,
+                    "associations", "1", "name");
+
                 if (appInfo.LaunchItems.Any_Nullable())
                 {
-                    var launchTable = _properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, NodeLaunch);
+                    //var launchTable = _properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, NodeLaunch);
 
-                    if (launchTable == null)
-                    {
-                        launchTable = new SteamAppPropertyTable();
-                    }
+                    //if (launchTable == null)
+                    //{
+                    //launchTable = new SteamAppPropertyTable();
+                    //}
+
+                    var launchTable = new SteamAppPropertyTable();
 
                     foreach (var item in appInfo.LaunchItems)
                     {
@@ -222,7 +232,10 @@ namespace System.Application.Models
                         {
                             propertyTable.SetPropertyValue("workingdir", SteamAppPropertyType.String, item.WorkingDir);
                         }
-
+                        if (!string.IsNullOrEmpty(item.Platform))
+                        {
+                            propertyTable.SetPropertyValue(SteamAppPropertyType.String, item.Platform, NodeConfig, NodePlatforms);
+                        }
                         launchTable.SetPropertyValue(launchTable.Count.ToString(), SteamAppPropertyType.Table, propertyTable);
                     }
 
@@ -281,6 +294,21 @@ namespace System.Application.Models
         public uint ParentId { get; set; }
 
         /// <summary>
+        /// 是否支持Steam云存档
+        /// </summary>
+        public bool IsCloudArchive => CloudQuota > 0;
+
+        /// <summary>
+        /// 云存档字节大小
+        /// </summary>
+        public long CloudQuota { get; set; }
+
+        /// <summary>
+        /// 云存档文件数量上限
+        /// </summary>
+        public int CloudMaxnumFiles { get; set; }
+
+        /// <summary>
         /// 最后运行用户SteamId64
         /// </summary>
         public long LastOwner { get; set; }
@@ -293,7 +321,7 @@ namespace System.Application.Models
         private long _SizeOnDi;
         /// <summary>
         /// 占用硬盘字节大小
-        /// </summary>sk;
+        /// </summary>
         public long SizeOnDisk
         {
             get => _SizeOnDi;
@@ -329,6 +357,13 @@ namespace System.Application.Models
         {
             get => _LaunchItems;
             set => this.RaiseAndSetIfChanged(ref _LaunchItems, value);
+        }
+
+        private ObservableCollection<SteamAppSaveFile>? _SaveFiles;
+        public ObservableCollection<SteamAppSaveFile>? SaveFiles
+        {
+            get => _SaveFiles;
+            set => this.RaiseAndSetIfChanged(ref _SaveFiles, value);
         }
 
         public string? LogoUrl => string.IsNullOrEmpty(Logo) ? null :
@@ -629,7 +664,7 @@ namespace System.Application.Models
                     app.Type == SteamAppType.Tool ||
                     app.Type == SteamAppType.Demo))
                 {
-                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable>(null, NodeAppInfo, NodeConfig, NodeLaunch);
+                    var launchTable = properties.GetPropertyValue<SteamAppPropertyTable?>(null, NodeAppInfo, NodeConfig, NodeLaunch);
 
                     if (launchTable != null)
                     {
@@ -649,6 +684,31 @@ namespace System.Application.Models
 
                         app.LaunchItems = new ObservableCollection<SteamAppLaunchItem>(launchItems.ToList());
                     }
+                }
+
+                app.CloudQuota = properties.GetPropertyValue<int>(0, NodeAppInfo, "ufs", "quota");
+                app.CloudMaxnumFiles = properties.GetPropertyValue<int>(0, NodeAppInfo, "ufs", "maxnumfiles");
+
+                var savefilesTable = properties.GetPropertyValue<SteamAppPropertyTable?>(null, NodeAppInfo, "ufs", "savefiles");
+
+                if (savefilesTable != null)
+                {
+                    var savefiles = from table in (from prop in (from prop in savefilesTable.Properties
+                                                                 where prop.PropertyType == SteamAppPropertyType.Table
+                                                                 select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
+                                                   select prop.GetValue<SteamAppPropertyTable>())
+                                    select new SteamAppSaveFile
+                                    (
+                                        app.AppId,
+                                        table.GetPropertyValue<string?>("root"),
+                                        table.GetPropertyValue<string?>("path"),
+                                        table.GetPropertyValue<string?>("pattern")
+                                    )
+                                    {
+                                        Recursive = table.GetPropertyValue<bool>(false, "recursive"),
+                                    };
+
+                    app.SaveFiles = new ObservableCollection<SteamAppSaveFile>(savefiles.ToList());
                 }
 
                 //var propertyValue = app._properties.GetPropertyValue<string>("", new string[]

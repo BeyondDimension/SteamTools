@@ -119,7 +119,7 @@ namespace System.Application.Services
 
         #region Steam游戏列表
         public SourceCache<SteamApp, uint> SteamApps { get; }
-        
+
         public SourceCache<SteamApp, uint> DownloadApps { get; }
         #endregion
 
@@ -286,6 +286,10 @@ namespace System.Application.Services
                                     if (SteamApps.Items.Any())
                                     {
                                         LoadGames(ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos()));
+                                        if (!SteamApps.Items.Any())
+                                        {
+                                            continue;
+                                        }
                                         InitializeDownloadGameList();
                                     }
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
