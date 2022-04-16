@@ -23,7 +23,9 @@ namespace System.Application.Models
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } 
+
+      
 
         [MPKey(1)]
         [N_JsonProperty("1")]
@@ -66,7 +68,7 @@ namespace System.Application.Models
         public string Author { get; set; } = string.Empty;
 
         /// <summary>
-        /// 标题
+        /// 简介
         /// </summary>
         [MPKey(5)]
         [N_JsonProperty("5")]
@@ -106,12 +108,27 @@ namespace System.Application.Models
         public DateTimeOffset OverdueTime { get; set; }
 #if MVVM_VM
         /// <summary>
-        /// 当前组中所有的加速项目集合
+        /// 是否过期
         /// </summary> 
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
         public bool Overdue => DateTimeOffset.Now > OverdueTime;
 #endif
+        /// <summary>
+        /// 通知渠道
+        /// </summary>
+        [MPKey(10)]
+        [N_JsonProperty("10")]
+        [S_JsonProperty("10")]
+        public NotificationType Type { get; set; } = NotificationType.Announcement;
+
+        /// <summary>
+        /// Url
+        /// </summary>
+        [MPKey(11)]
+        [N_JsonProperty("11")]
+        [S_JsonProperty("11")]
+        public string Url { get; set; } = string.Empty;
     }
 }

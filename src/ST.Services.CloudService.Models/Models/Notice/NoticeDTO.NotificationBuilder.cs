@@ -8,7 +8,7 @@ namespace System.Application.Models
 
         string NotificationBuilder.IInterface.Content => Introduction;
 
-        NotificationType NotificationBuilder.IInterface.Type => throw new NotImplementedException();
+        NotificationType NotificationBuilder.IInterface.Type => Type;
 
         bool NotificationBuilder.IInterface.AutoCancel => NotificationBuilder.DefaultAutoCancel;
 
@@ -22,7 +22,7 @@ namespace System.Application.Models
 
         Entrance NotificationBuilder.ClickAction.IInterface.Entrance => IsOpenBrowser ? Entrance.Browser : Entrance.Main;
 
-        string? NotificationBuilder.ClickAction.IInterface.RequestUri => string.Format(Constants.Urls.OfficialWebsite_Notice, Id);
+        string? NotificationBuilder.ClickAction.IInterface.RequestUri =>Url;
 
         Action? NotificationBuilder.ClickAction.IInterface.Action => null;
     }

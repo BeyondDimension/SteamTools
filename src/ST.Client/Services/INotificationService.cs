@@ -66,14 +66,7 @@ namespace System.Application.Services
             };
             Notify(builder);
         }
-
-        /// <summary>
-        /// 显示从服务端获取到通知纪录
-        /// </summary>
-        /// <param name="notification"></param>
-        [Obsolete("use NoticeDTO")]
-        void Notify(NotificationRecordDTO notification)
-            => Notify(notification.Content, notification.Type, title: notification.Title);
+ 
 
         /// <summary>
         /// 取消通知
@@ -101,45 +94,20 @@ namespace System.Application.Services
 
         /// <summary>
         /// 显示从服务端获取到通知纪录
-        /// </summary>
-        /// <param name="rsp"></param>
-        /// <param name="type"></param>
-        [Obsolete("use NoticeDTO")]
-        static async void Notify(IApiResponse<NotificationRecordDTO?> rsp, ActiveUserType type)
+        /// </summary> 
+        static async void Notify(ActiveUserType type)
         {
-            if (rsp.IsSuccess && rsp.Content != null)
-            {
-                if (type == ActiveUserType.OnStartup)
-                {
-                    await ISecureStorage.Instance.SetAsync(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID, rsp.Content.Id);
-                }
+            if (type == ActiveUserType.OnStartup)
+                await NotificationService.Current.GetNews();
 
-                if (!rsp.Content.Type.IsDefined())
-                {
-                    // 新增通知类型不能兼容旧版本
-                    return;
-                }
-
-                if (rsp.Content.Type == NotificationType.Announcement)
-                {
-                    var announcementService = DI.Get_Nullable<IAnnouncementService>();
-                    if (announcementService != null)
-                    {
-                        var isShow = announcementService.Show(rsp.Content);
-                        if (isShow) return;
-                    }
-                }
-
-                Instance.Notify(rsp.Content);
-            }
         }
 
         /// <summary>
-        /// 获取最后一次收到的通知ID
+        /// 获取最后一次收到的通知启用时间 只提示大于此时间的通知
         /// </summary>
         /// <returns></returns>
-        static Task<Guid?> GetLastNotificationRecordId() => ISecureStorage.Instance.GetAsync<Guid?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
-
+        static Task<DateTimeOffset?> GetLastNotificationTime() => ISecureStorage.Instance.GetAsync<DateTimeOffset?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
+        static Task SetLastNotificationTime(DateTimeOffset time) => ISecureStorage.Instance.SetAsync<DateTimeOffset?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID,time);
         /// <summary>
         /// NotifyIcon / TrayIcon 右下角托盘菜单助手类
         /// </summary>

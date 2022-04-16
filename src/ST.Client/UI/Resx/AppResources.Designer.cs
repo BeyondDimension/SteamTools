@@ -3871,6 +3871,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 当前有 {0} 条{1}通知，详情请在程序内通知公告处查看。 的本地化字符串。
+        /// </summary>
+        public static string Notice_Tray {
+            get {
+                return ResourceManager.GetString("Notice_Tray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 当有新公告时的提示通知。 的本地化字符串。
         /// </summary>
         public static string NotificationChannelType_Description_Announcement {

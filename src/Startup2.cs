@@ -516,16 +516,11 @@ namespace System.Application
                     SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
 #endif
                     IsAuthenticated = isAuthenticated,
-                };
-                Guid? lastNotificationRecordId = default;
-                if (type == ActiveUserType.OnStartup)
-                {
-                    lastNotificationRecordId = await INotificationService.GetLastNotificationRecordId();
-                }
+                }; 
                 req.SetDeviceId();
                 // 匿名统计与通知公告
-                var rsp = await csc.ActiveUser.Post(req, lastNotificationRecordId);
-                INotificationService.Notify(rsp, type);
+                await csc.ActiveUser.Post(req);
+                INotificationService.Notify(type);
             }
             catch (Exception e)
             {

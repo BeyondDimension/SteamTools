@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Threading.Tasks;
 
 namespace System.Application.Services.CloudService.Clients.Abstractions
@@ -14,8 +14,6 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// <param name="request">匿名收集数据</param>
         /// <param name="lastNotificationRecordId">最后一次收到的通知ID</param>
         /// <returns></returns>
-        Task<IApiResponse<NotificationRecordDTO?>> Post(
-             ActiveUserRecordDTO request,
-             Guid? lastNotificationRecordId);
+        Task<IApiResponse> Post(ActiveUserRecordDTO request);
     }
 }

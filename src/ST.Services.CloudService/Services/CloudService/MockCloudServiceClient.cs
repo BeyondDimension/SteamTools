@@ -191,9 +191,9 @@ namespace System.Application.Services.CloudService
             }
         }
 
-        public Task<IApiResponse<NotificationRecordDTO?>> Post(ActiveUserRecordDTO record, Guid? lastNotificationRecordId)
+        public Task<IApiResponse> Post(ActiveUserRecordDTO record)
         {
-            return Task.FromResult(ApiResponse.Ok<NotificationRecordDTO?>(null));
+            return Task.FromResult(ApiResponse.Ok());
         }
 
         public Task<IApiResponse<JWTEntity>> RefreshToken(string refresh_token)

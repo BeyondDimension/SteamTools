@@ -15,6 +15,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Properties;
 using System.Reactive.Linq;
+using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,9 +55,53 @@ namespace System.Application.Services
             get => _SelectGroup;
             set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
         }
-        public async Task InitializeNotice()
+        public async Task GetNews(int trycount = 0)
         {
-            IsLoading = true;
+            if (NoticeTypes.Count > 0)
+            {
+                var lastTime = await INotificationService.GetLastNotificationTime();
+                var basics = NoticeTypes.Items.FirstOrDefault();
+                var client = ICloudServiceClient.Instance.Notice;
+                var result = await client.NewMsg(basics.Id, null);
+                if (result.IsSuccess && result.Content != null)
+                {
+                    var noticeList = result.Content.Where(x => lastTime.HasValue ? x.EnableTime > lastTime : true);
+                    if (noticeList.Count() > 1)
+                    {
+                        await INotificationService.SetLastNotificationTime(noticeList.Max(x => x.EnableTime));
+                        INotificationService.Instance.Notify(new NotificationBuilder()
+                        {
+                            Title = AppResources.NotificationChannelType_Description_Announcement,
+                            Content = AppResources.Notice_Tray.Format(result.Content.Length, basics.Name),
+                            AutoCancel = NotificationBuilder.DefaultAutoCancel,
+                            Type = NotificationType.Announcement,
+                            Click = new NotificationBuilder.ClickAction(() =>
+                            {
+                                IWindowManager.Instance.Show(CustomWindow.Notice);
+                            })
+                        });
+                    }
+                    else
+                    {
+                        var notice = noticeList.FirstOrDefault();
+                        if (notice != null && notice.EnableTime > lastTime)
+                        {
+                            await INotificationService.SetLastNotificationTime(notice.EnableTime);
+                            INotificationService.Instance.Notify(notice);
+                        }
+
+                    }
+
+                }
+            }
+            else if (trycount <= 2)
+            {
+                await GetTypes();
+                await GetNews(trycount++);
+            }
+        }
+        public async Task GetTypes()
+        {
             var client = ICloudServiceClient.Instance.Notice;
             var result = await client.Types();
             if (result.IsSuccess)
@@ -64,7 +109,21 @@ namespace System.Application.Services
                 NoticeTypes.Clear();
                 NoticeTypes.AddRange(result.Content!.OrderBy(x => x.Index));
             }
-        } 
+        }
+        public async Task InitializeNotice()
+        {
+            using (var tk = CancellationTokenSource.CreateLinkedTokenSource(new CancellationToken()))
+            {
+                new Task(() =>
+                {
+                    Thread.Sleep(500);
+                    if (!tk.IsCancellationRequested)
+                        IsLoading = true;
+                }, tk.Token).Start();
+                await GetTypes();
+                tk.Cancel();
+            }
+        }
         public async Task GetTable(NoticeTypeDTO selectGroup)
         {
             if (selectGroup != null)
@@ -94,9 +153,19 @@ namespace System.Application.Services
                {
                    if (x != null)
                    {
-                       IsLoading = true;
-                       await GetTable(x);
-                       IsLoading = false;
+                       //延迟500ms显示加载
+                       using (var tk = CancellationTokenSource.CreateLinkedTokenSource(new CancellationToken()))
+                       {
+                           new Task(() =>
+                           {
+                               Thread.Sleep(500);
+                               if (!tk.IsCancellationRequested)
+                                   IsLoading = true;
+                           }, tk.Token).Start();
+                           await GetTable(x);
+                           tk.Cancel();
+                           IsLoading = false;
+                       }
                    }
                });
             NoticeTypes

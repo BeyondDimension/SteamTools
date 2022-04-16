@@ -2251,4 +2251,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
     <value>请正确选择一张要应用的图片</value>
   </data>
+  <data name="Notice_Tray" xml:space="preserve">
+    <value>当前有 {0} 条{1}通知，详情请在程序内通知公告处查看。</value>
+  </data>
 </root>

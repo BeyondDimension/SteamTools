@@ -1,4 +1,4 @@
-﻿using System.Application.Models;
+using System.Application.Models;
 using System.Application.Services.CloudService.Clients.Abstractions;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,16 +11,13 @@ namespace System.Application.Services.CloudService.Clients
         {
         }
 
-        public Task<IApiResponse<NotificationRecordDTO?>> Post(
-            ActiveUserRecordDTO request,
-            Guid? lastNotificationRecordId)
-            => conn.SendAsync<ActiveUserRecordDTO, NotificationRecordDTO?>(
+        public Task<IApiResponse> Post(ActiveUserRecordDTO request)
+            => conn.SendAsync<ActiveUserRecordDTO?>(
                 isAnonymous: true, // 仅匿名收集
                 isSecurity: true,
                 method: HttpMethod.Post,
-                requestUri: $"api/ActiveUser/{lastNotificationRecordId}",
+                requestUri: $"api/ActiveUser/",
                 request: request,
-                responseContentMaybeNull: true,
                 cancellationToken: default);
     }
 }
