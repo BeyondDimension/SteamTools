@@ -108,7 +108,7 @@ namespace System.Application.Models
         public string? AttributionText { get; set; }
 
         [MPKey(10)]
-        public DateTime CustomTimeStamp { get; set; }
+        public DateTimeOffset CustomTimeStamp { get; set; }
 
         /// <inheritdoc cref="IInterface"/>
         [MPObj]
@@ -204,7 +204,7 @@ namespace System.Application.Models
             /// <para>创建者更新中的新增功能：现在，你可以用自己的准确表示消息/信息/内容生成时间的时间戳替代系统提供的时间戳。 可在操作中心查看此时间戳。</para>
             /// <para>https://docs.microsoft.com/zh-cn/windows/apps/design/shell/tiles-and-notifications/adaptive-interactive-toasts?tabs=builder-syntax#custom-timestamp</para>
             /// </summary>
-            DateTime CustomTimeStamp => default;
+            DateTimeOffset CustomTimeStamp => default;
         }
 
         /// <summary>

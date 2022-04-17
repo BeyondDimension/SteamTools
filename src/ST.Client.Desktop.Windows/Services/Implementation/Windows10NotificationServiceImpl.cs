@@ -50,10 +50,10 @@ namespace System.Application.Services.Implementation
                 switch (b.ImageDisplayType)
                 {
                     case NotificationBuilder.EImageDisplayType.HeroImage:
-                        builder = builder.AddHeroImage(new(b.ImageUri));
+                        builder.AddHeroImage(new(b.ImageUri));
                         break;
                     case NotificationBuilder.EImageDisplayType.InlineImage:
-                        builder = builder.AddInlineImage(new(b.ImageUri));
+                        builder.AddInlineImage(new(b.ImageUri));
                         break;
                 }
             }
@@ -65,7 +65,7 @@ namespace System.Application.Services.Implementation
 
             if (b.CustomTimeStamp != default)
             {
-                builder.AddCustomTimeStamp(b.CustomTimeStamp);
+                builder.Content.DisplayTimestamp = b.CustomTimeStamp;
             }
 
             builder.Show(t =>
@@ -130,8 +130,12 @@ namespace System.Application.Services.Implementation
             static void BindingText(string text, NotificationData data)
             {
                 var array = text.Split(new[] { ':', '：' }, StringSplitOptions.RemoveEmptyEntries);
-                data.Values["progressValueString"] = array.LastOrDefault() ?? string.Empty;
-                data.Values["progressStatus"] = array.FirstOrDefault() ?? "Downloading...";
+                var progressValueString = array.LastOrDefault() ?? string.Empty;
+                var progressStatus = array.FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(progressStatus) || progressStatus == progressValueString)
+                    progressStatus = "Downloading...";
+                data.Values["progressValueString"] = progressValueString;
+                data.Values["progressStatus"] = progressStatus;
             }
 
             // Show the toast notification to the user
