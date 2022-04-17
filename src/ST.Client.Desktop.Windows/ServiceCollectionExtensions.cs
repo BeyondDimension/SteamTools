@@ -68,7 +68,14 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         static IServiceCollection AddPlatformNotificationService(this IServiceCollection services)
         {
-            services.AddSingleton<INotificationService, WindowsNotificationServiceImpl>();
+            if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
+            {
+                services.AddSingleton<INotificationService, Windows10NotificationServiceImpl>();
+            }
+            else
+            {
+                services.AddSingleton<INotificationService, WindowsNotificationServiceImpl>();
+            }
             return services;
         }
     }

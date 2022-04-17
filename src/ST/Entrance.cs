@@ -14,5 +14,10 @@ namespace System.Application
         /// 点击该通知将在浏览器中打开
         /// </summary>
         Browser,
+
+        /// <summary>
+        /// 委托
+        /// </summary>
+        Delegate,
     }
 }

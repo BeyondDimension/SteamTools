@@ -30,6 +30,7 @@ namespace System.Application.Services.Implementation
         protected readonly AppSettings settings;
         protected readonly IToast toast;
         protected readonly IApplication application;
+        protected readonly INotificationService notification;
 
         public ICommand StartUpdateCommand { get; }
 
@@ -47,6 +48,7 @@ namespace System.Application.Services.Implementation
 
         public ApplicationUpdateServiceBaseImpl(
             IApplication application,
+            INotificationService notification,
             IToast toast,
             ICloudServiceClient client,
             IOptions<AppSettings> options)
@@ -54,6 +56,7 @@ namespace System.Application.Services.Implementation
             this.toast = toast;
             this.client = client;
             this.application = application;
+            this.notification = notification;
             settings = options.Value;
             StartUpdateCommand = ReactiveCommand.Create(StartUpdate);
         }
@@ -219,10 +222,31 @@ namespace System.Application.Services.Implementation
         protected void OnReportCalcHashing(float value) => OnReport(value, AppResources.CalcHashing_.Format(MathF.Round(value, 2)));
         protected void OnReportDecompressing(float value) => OnReport(value, AppResources.Decompressing_.Format(MathF.Round(value, 2)));
         protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
+
+        protected IProgress<float>? progress;
         protected virtual void OnReport(float value, string str)
         {
             ProgressValue = value;
             ProgressString = str;
+
+            if (notification.IsSupportNotifyDownload)
+            {
+                if (value == 0)
+                {
+                    progress?.Report(CC.MaxProgress);
+                    progress = notification.NotifyDownload(() => ProgressString,
+                        NotificationType.NewVersion);
+                }
+                else if (value == CC.MaxProgress)
+                {
+                    progress?.Report(CC.MaxProgress);
+                    progress = null;
+                }
+                else
+                {
+                    progress?.Report(value);
+                }
+            }
         }
 
         bool UpdatePackVerification(string filePath, string sha256, int current = 0, int count = 0)

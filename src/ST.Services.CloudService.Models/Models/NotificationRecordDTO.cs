@@ -7,7 +7,7 @@ namespace System.Application.Models
     /// 通知纪录
     /// </summary>
     [MPObj]
-    [Obsolete("use NoticeDTO")]
+    [Obsolete("use NoticeDTO or NotificationBuilder")]
     public class NotificationRecordDTO
     {
         [MPKey(0)]

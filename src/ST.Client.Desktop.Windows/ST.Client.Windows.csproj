@@ -44,6 +44,7 @@
     <!--<PackageReference Include="Avalonia.Direct2D1" />
     <PackageReference Include="System.Diagnostics.Tracing" />-->
     <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">

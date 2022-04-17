@@ -360,29 +360,29 @@ namespace System.Application.Services.Implementation
             return true;
         }
 
-        public void SystemLock(int waitSecond = 30)
+        void IPlatformService.SystemLock(int waitSecond)
         {
-            throw new NotImplementedException();
+            throw new PlatformNotSupportedException();
         }
 
-        public async void SystemShutdown(int waitSecond = 30)
+        async void IPlatformService.SystemShutdown(int waitSecond)
         {
             await Task.Delay(waitSecond);
             RunOsaScript("tell application \"Finder\" to shut down");
         }
 
-        public async void SystemSleep(int waitSecond = 30)
+        async void IPlatformService.SystemSleep(int waitSecond)
         {
             await Task.Delay(waitSecond);
             RunOsaScript("tell application \"Finder\" to sleep");
         }
 
-        public void SystemHibernate(int waitSecond = 30)
+        void IPlatformService.SystemHibernate(int waitSecond)
         {
-            throw new NotImplementedException();
+            throw new PlatformNotSupportedException();
         }
 
-        private string RunOsaScript(string shell)
+        static string RunOsaScript(string shell)
         {
             try
             {

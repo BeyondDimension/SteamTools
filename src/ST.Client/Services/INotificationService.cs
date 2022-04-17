@@ -13,16 +13,20 @@ namespace System.Application.Services
     {
         static INotificationService Instance => DI.Get<INotificationService>();
 
-        /// <summary>
-        /// 默认通知标题
-        /// </summary>
-        protected const string DefaultTitle = ThisAssembly.AssemblyTrademark;
+        /// <inheritdoc cref="NotificationBuilder.DefaultTitle"/>
+        protected const string DefaultTitle = NotificationBuilder.DefaultTitle;
 
         /// <summary>
         /// 获取是否有通知权限
         /// </summary>
         /// <returns></returns>
         bool AreNotificationsEnabled() => true;
+
+        /// <summary>
+        /// 显示本地通知，使用 new <see cref="NotificationBuilder"/>() 构建参数
+        /// </summary>
+        /// <param name="builder"></param>
+        void Notify(NotificationBuilder.IInterface builder);
 
         /// <summary>
         /// 显示本地通知
@@ -39,7 +43,29 @@ namespace System.Application.Services
             bool autoCancel = true,
             string? title = default,
             Entrance entrance = default,
-            string? requestUri = default);
+            string? requestUri = default)
+        {
+            var builder = new NotificationBuilder
+            {
+                Title = string.IsNullOrWhiteSpace(title) ? DefaultTitle : title,
+                Content = text,
+                AutoCancel = autoCancel,
+                Click = entrance switch
+                {
+                    Entrance.Main => new NotificationBuilder.ClickAction
+                    {
+                        Entrance = Entrance.Main
+                    },
+                    Entrance.Browser => new NotificationBuilder.ClickAction
+                    {
+                        Entrance = Entrance.Browser,
+                        RequestUri = requestUri
+                    },
+                    _ => null,
+                },
+            };
+            Notify(builder);
+        }
 
         /// <summary>
         /// 显示从服务端获取到通知纪录

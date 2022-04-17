@@ -159,33 +159,32 @@ namespace System.Application.Services.Implementation
             return true;
         }
 
-        public void SystemLock(int waitSecond = 30)
+        void IPlatformService.SystemLock(int waitSecond)
         {
-            throw new NotImplementedException();
+            throw new PlatformNotSupportedException();
         }
 
-        public async void SystemShutdown(int waitSecond = 30)
+        async void IPlatformService.SystemShutdown(int waitSecond)
         {
             await Task.Delay(waitSecond);
             RunShell($"echo \"{SystemUserPassword}\" | sudo shutdown -h now");
         }
 
-        public async void SystemSleep(int waitSecond = 30)
+        async void IPlatformService.SystemSleep(int waitSecond)
         {
             await Task.Delay(waitSecond);
 
             RunShell($"echo \"{SystemUserPassword}\" | sudo sh -c \" echo mem > /sys/pwoer/state\"");
             //await ((IPlatformService)this).RunShellAsync("sudo sh -c \" echo mem > /sys/pwoer/state\"", false);
-
         }
 
-        public async void SystemHibernate(int waitSecond = 30)
+        async void IPlatformService.SystemHibernate(int waitSecond)
         {
-
             await Task.Delay(waitSecond);
             RunShell($"echo \"{SystemUserPassword}\" | sudo sh -c \" echo disk > /sys/pwoer/state\"");
         }
-        private string RunShell(string shell)
+
+        static string RunShell(string shell)
         {
             try
             {

@@ -1,3 +1,4 @@
+using System.Runtime.Versioning;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace System.Application.Services.Implementation
         /// 锁定
         /// </summary>
         /// <returns></returns>
-        public async void SystemLock(int waitSecond = 30)
+        async void IPlatformService.SystemLock(int waitSecond)
         {
             await Task.Delay(waitSecond * 1000);
             Process2.Start("rundll32.exe", "user32.dll,LockWorkStation", true);
@@ -21,7 +22,7 @@ namespace System.Application.Services.Implementation
         /// 关闭系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        public async void SystemShutdown(int waitSecond = 30)
+        async void IPlatformService.SystemShutdown(int waitSecond)
         {
             await Task.Delay(waitSecond * 1000);
             Process2.Start("shutdown", "/s /t 0", true);
@@ -31,7 +32,7 @@ namespace System.Application.Services.Implementation
         /// 睡眠系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        public async void SystemSleep(int waitSecond = 30)
+        async void IPlatformService.SystemSleep(int waitSecond)
         {
             await Task.Delay(waitSecond * 1000);
             NativeMethods.SetSuspendState(false, true, false);
@@ -41,11 +42,12 @@ namespace System.Application.Services.Implementation
         /// 休眠系统
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
-        public async void SystemHibernate(int waitSecond = 30)
+        async void IPlatformService.SystemHibernate(int waitSecond)
         {
             await Task.Delay(waitSecond * 1000);
             NativeMethods.SetSuspendState(true, true, false);
         }
+
         #endregion
     }
 }

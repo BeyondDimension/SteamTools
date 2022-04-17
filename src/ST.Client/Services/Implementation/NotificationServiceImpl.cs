@@ -1,3 +1,5 @@
+using System.Application.Models;
+
 namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="INotificationService"/>
@@ -9,6 +11,11 @@ namespace System.Application.Services.Implementation
         }
 
         void INotificationService.CancelAll()
+        {
+
+        }
+
+        void INotificationService.Notify(NotificationBuilder.IInterface builder)
         {
 
         }

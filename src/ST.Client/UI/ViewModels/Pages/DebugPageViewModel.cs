@@ -24,6 +24,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using static Newtonsoft.Json.JsonConvert;
+using CC = System.Common.Constants;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -77,10 +78,10 @@ namespace System.Application.UI.ViewModels
         {
             //IHostsFileService.Instance.OccupyHosts();
 
-#if DEBUG
-            TestHttp3Quic();
-#endif
-            return;
+            //#if DEBUG
+            //            TestHttp3Quic();
+            //#endif
+            //            return;
 
             //#if DEBUG
             //            //TestAppUpdate();
@@ -95,6 +96,39 @@ namespace System.Application.UI.ViewModels
             //DebugButton_Click1();
 
             //DebugButton_Click_Test();
+
+            Notification_Test();
+        }
+
+        async void Notification_Test()
+        {
+            //INotificationService.Instance.Notify(new NotificationBuilder
+            //{
+            //    Type = NotificationType.Announcement,
+            //    Content = "测试Test🎆🎇→→ HeroImage",
+            //    ImageDisplayType = NotificationBuilder.EImageDisplayType.HeroImage,
+            //    ImageUri = "https://picsum.photos/364/180?image=1043",
+            //});
+
+            //INotificationService.Instance.Notify(new NotificationBuilder
+            //{
+            //    Type = NotificationType.ArchiSteamFarmForegroundService,
+            //    Content = "Test InlineImage",
+            //    ImageDisplayType = NotificationBuilder.EImageDisplayType.InlineImage,
+            //    ImageUri = "https://picsum.photos/360/202?image=1043",
+            //});
+
+            if (INotificationService.Instance.IsSupportNotifyDownload)
+            {
+                float value = 0;
+                IProgress<float> progress = INotificationService.Instance.NotifyDownload(() => AppResources.Downloading_.Format(MathF.Round(value, 2)), NotificationType.NewVersion);
+                while (value < CC.MaxProgress)
+                {
+                    await Task.Delay(1000);
+                    value += 5;
+                    progress.Report(value);
+                }
+            }
         }
 
         //void DebugButton_Click_Test()
@@ -108,33 +142,33 @@ namespace System.Application.UI.ViewModels
         //    });
         //}
 
-#if DEBUG
-        public async void TestHttp3Quic()
-        {
-            // https://docs.microsoft.com/zh-cn/dotnet/core/extensions/httpclient-http3
-            // https://devblogs.microsoft.com/dotnet/http-3-support-in-dotnet-6
-            using HttpClient httpClient = new()
-            {
-#if NET6_0_OR_GREATER
-                DefaultRequestVersion = HttpVersion.Version30,
-                DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact,
-#endif
-            };
+        //#if DEBUG
+        //        public async void TestHttp3Quic()
+        //        {
+        //            // https://docs.microsoft.com/zh-cn/dotnet/core/extensions/httpclient-http3
+        //            // https://devblogs.microsoft.com/dotnet/http-3-support-in-dotnet-6
+        //            using HttpClient httpClient = new()
+        //            {
+        //#if NET6_0_OR_GREATER
+        //                DefaultRequestVersion = HttpVersion.Version30,
+        //                DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact,
+        //#endif
+        //            };
 
-            using HttpRequestMessage request = new(HttpMethod.Get, "https://cloudflare-quic.com/");
-            using var response = await httpClient.UseDefaultSendAsync(request);
+        //            using HttpRequestMessage request = new(HttpMethod.Get, "https://cloudflare-quic.com/");
+        //            using var response = await httpClient.UseDefaultSendAsync(request);
 
-            var htmlString = await response.Content.ReadAsStringAsync();
+        //            var htmlString = await response.Content.ReadAsStringAsync();
 
-            StringBuilder @string = new();
-            @string.AppendFormatLine("request.Version: {0}", request.Version);
-            @string.AppendFormatLine("response.Version: {0}", response.Version);
-            @string.AppendLine(htmlString);
-            DebugString = @string.ToString();
-            var r = await MessageBox.ShowAsync(DebugString);
-            Toast.Show(r.ToString());
-        }
-#endif
+        //            StringBuilder @string = new();
+        //            @string.AppendFormatLine("request.Version: {0}", request.Version);
+        //            @string.AppendFormatLine("response.Version: {0}", response.Version);
+        //            @string.AppendLine(htmlString);
+        //            DebugString = @string.ToString();
+        //            var r = await MessageBox.ShowAsync(DebugString);
+        //            Toast.Show(r.ToString());
+        //        }
+        //#endif
 
         //static async void TestTextBoxWindow(int state)
         //{

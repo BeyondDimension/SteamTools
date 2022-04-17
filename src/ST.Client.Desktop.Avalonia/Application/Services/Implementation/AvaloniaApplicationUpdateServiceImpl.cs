@@ -11,18 +11,16 @@ namespace System.Application.Services.Implementation
     {
         readonly IAvaloniaApplication app;
         readonly IWindowManager windowManager;
-        readonly INotificationService notificationService;
         public AvaloniaApplicationUpdateServiceImpl(
             IAvaloniaApplication app,
             INotificationService notificationService,
             IWindowManager windowManager,
             IToast toast,
             ICloudServiceClient client,
-            IOptions<AppSettings> options) : base(app, toast, client, options)
+            IOptions<AppSettings> options) : base(app, notificationService, toast, client, options)
         {
             this.app = app;
             this.windowManager = windowManager;
-            this.notificationService = notificationService;
         }
 
         protected override async Task ShowNewVersionWindowAsync()
@@ -49,7 +47,7 @@ namespace System.Application.Services.Implementation
             else
             {
                 ShowNewVersionWindowOnMainOpen = true;
-                notificationService.Notify(AppResources.NewVersionUpdateNotifyText_.Format(NewVersionInfo?.Version), NotificationType.NewVersion);
+                notification.Notify(AppResources.NewVersionUpdateNotifyText_.Format(NewVersionInfo?.Version), NotificationType.NewVersion);
             }
         }
 

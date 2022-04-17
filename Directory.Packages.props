@@ -295,6 +295,9 @@
 
 		<!-- Xamarin.iOS -->
 		<PackageVersion Include="Toast.iOS" Version="1.2.0" />
+		
+		<!-- UWP -->
+		<PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
 
 	</ItemGroup>
 </Project>

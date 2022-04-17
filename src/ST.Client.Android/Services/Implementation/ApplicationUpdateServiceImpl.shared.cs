@@ -4,7 +4,6 @@ using Android.OS;
 using Microsoft.Extensions.Options;
 using System.Application.Models;
 using XEPlatform = Xamarin.Essentials.Platform;
-using CC = System.Common.Constants;
 using System.Application.UI;
 
 namespace System.Application.Services.Implementation
@@ -12,15 +11,14 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="IApplicationUpdateService"/>
     internal sealed partial class ApplicationUpdateServiceImpl : ApplicationUpdateServiceBaseImpl
     {
-        readonly INotificationService notification;
         public ApplicationUpdateServiceImpl(
             IApplication application,
             INotificationService notification,
             IToast toast,
             ICloudServiceClient client,
-            IOptions<AppSettings> options) : base(application, toast, client, options)
+            IOptions<AppSettings> options) : base(application, notification, toast, client, options)
         {
-            this.notification = notification;
+
         }
 
 #if __ANDROID__ && IS_STORE_PACKAGE // 渠道包不支持从服务器分发，仅通过应用商店分发
@@ -48,27 +46,6 @@ namespace System.Application.Services.Implementation
 #else
             throw new NotImplementedException();
 #endif
-        }
-
-        IProgress<float>? progress;
-        protected override void OnReport(float value, string str)
-        {
-            base.OnReport(value, str);
-            if (value == 0)
-            {
-                progress?.Report(CC.MaxProgress);
-                progress = notification.NotifyDownload(() => ProgressString,
-                    NotificationType.NewVersion);
-            }
-            else if (value == CC.MaxProgress)
-            {
-                progress?.Report(CC.MaxProgress);
-                progress = null;
-            }
-            else
-            {
-                progress?.Report(value);
-            }
         }
     }
 }

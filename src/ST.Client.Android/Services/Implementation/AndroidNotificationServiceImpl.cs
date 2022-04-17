@@ -2,6 +2,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
+using System.Application.Models;
 using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -82,10 +83,8 @@ namespace System.Application.Services.Implementation
         NotificationChannel? CreateNotificationChannel(NotificationChannelType notificationChannelType, out string channelId)
         {
             channelId = GetChannelId(notificationChannelType);
-            if (Build.VERSION.SdkInt < BuildVersionCodes.O) return null;
-#pragma warning disable CA1416 // 验证平台兼容性
+            if (!IsSupportedNotificationChannel) return null;
             return CreateNotificationChannel(manager, notificationChannelType, channelId);
-#pragma warning restore CA1416 // 验证平台兼容性
         }
 
         /// <summary>
@@ -202,6 +201,15 @@ namespace System.Application.Services.Implementation
             return builder;
         }
 
+        void INotificationService.Notify(NotificationBuilder.IInterface b)
+        {
+            var notificationEntrance = b.Click == null ? null : GetEntrance(b.Click.Entrance);
+            var builder = BuildNotify(b.Content, b.Type,
+                b.AutoCancel, b.Title, entrance: notificationEntrance);
+            var notifyId = GetNotifyId(b.Type);
+            manager.Notify(notifyId, builder.Build());
+        }
+
         void INotificationService.Notify(string text,
             NotificationType notificationType,
             bool autoCancel,
@@ -257,19 +265,14 @@ namespace System.Application.Services.Implementation
                 {
                     // 这将使100%时直接取消通知，并不会在UI上显示
                     // 报告进度值满的操作应当是幂等的
-                    if (manager != null)
-                    {
-                        manager.Cancel(notifyId);
-                    }
+                    manager.Cancel(notifyId);
                     // 手动释放相关资源
                     builder = null;
                 }
                 else
                 {
                     // 在报告进度值满后不可再更改进度
-#pragma warning disable CA2208 // 正确实例化参数异常
                     if (builder == null) throw new ArgumentNullException(nameof(builder));
-#pragma warning restore CA2208 // 正确实例化参数异常
                     builder.SetProgress(PROGRESS_MAX_INT32, currentInt32, false);
                     builder.SetContentText(text());
                     manager.Notify(notifyId, builder.Build());

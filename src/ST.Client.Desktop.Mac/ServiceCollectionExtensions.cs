@@ -27,16 +27,5 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             return services;
         }
-
-        ///// <summary>
-        ///// 添加适用于 macOS 的 <see cref="INotificationService"/>
-        ///// </summary>
-        ///// <param name="services"></param>
-        ///// <returns></returns>
-        //static IServiceCollection AddPlatformNotificationService(this IServiceCollection services)
-        //{
-        //    services.AddSingleton<INotificationService, MacNotificationServiceImpl>();
-        //    return services;
-        //}
     }
 }

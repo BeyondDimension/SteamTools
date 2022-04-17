@@ -24,8 +24,6 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         [SupportedOSPlatform("Windows7.0")]
-        [SupportedOSPlatform("MacOS")]
-        [SupportedOSPlatform("Linux")]
         void SystemLock(int waitSecond = 30) { }
 
         /// <summary>
@@ -51,7 +49,6 @@ namespace System.Application.Services
         /// </summary>
         /// <param name="waitSecond">等待秒数</param>
         [SupportedOSPlatform("Windows7.0")]
-        [SupportedOSPlatform("MacOS")]
         [SupportedOSPlatform("Linux")]
         void SystemHibernate(int waitSecond = 30) { }
 #endif

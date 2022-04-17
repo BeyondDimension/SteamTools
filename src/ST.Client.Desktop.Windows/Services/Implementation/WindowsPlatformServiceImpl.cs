@@ -22,7 +22,6 @@ using System.Application.Properties;
 
 namespace System.Application.Services.Implementation
 {
-    [SupportedOSPlatform("Windows")]
     internal sealed partial class WindowsPlatformServiceImpl : IPlatformService
     {
         const string TAG = "WindowsPlatformS";
