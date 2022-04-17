@@ -10,6 +10,8 @@ namespace System.Application
         public const string Prefix_HTTP = "http://";
 
         public const string Prefix_MSStore = "ms-windows-store://";
+        
+        public const string Prefix_Email = "mailto:";
 
         /// <summary>
         /// 判断字符串是否为 Http Url
@@ -27,5 +29,12 @@ namespace System.Application
         /// <param name="url"></param>
         /// <returns></returns>
         public static bool IsStoreUrl([NotNullWhen(true)] string? url) => url != null && url.StartsWith(Prefix_MSStore, StringComparison.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// 判断字符串是否为 Email Url
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static bool IsEmailUrl([NotNullWhen(true)] string? url) => url != null && url.StartsWith(Prefix_Email, StringComparison.OrdinalIgnoreCase);
     }
 }

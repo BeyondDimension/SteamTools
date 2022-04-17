@@ -110,7 +110,7 @@ namespace System.Application.UI.ViewModels
         public const string At_Rmbadmin = "@软妹币玩家";
         public const string At_AigioL = "@AigioL";
         public const string At_Mossimos = "@Mossimos";
-        public const string At_Cliencer = "@Cliencer克总";
+        public const string At_RmbadminEmail = "rmb@rmbgame.net";
         public const string BusinessCooperationContact_0 = "Business Cooperation Contact: ";
         public const string OpenSourceLicensed_0 = "This open source software is licensed with ";
         public const string OpenSourceLicensed_1 = "GPLv3 License";

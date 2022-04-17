@@ -6,7 +6,7 @@ namespace System.Application
         public const string GitHub_User_AigioL = "https://github.com/AigioL";
         public const string GitHub_User_Mossimos = "https://github.com/Mossimos";
 
-        public const string BILI_User_Cliencer = "https://space.bilibili.com/30031316";
+        public const string Rmbadmin_Email = "mailto:rmb@rmbgame.net";
 
         public const string OfficialWebsite = "https://steampp.net";
         public const string OfficialWebsite_Privacy = "https://steampp.net/privacy";

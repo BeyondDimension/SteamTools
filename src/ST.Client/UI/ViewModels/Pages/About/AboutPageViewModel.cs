@@ -292,7 +292,7 @@ namespace System.Application.UI.ViewModels
 
         public static string MossimosLink => UrlConstants.GitHub_User_Mossimos;
 
-        public static string CliencerLink => UrlConstants.BILI_User_Cliencer;
+        public static string RmbadminEmailLink => UrlConstants.Rmbadmin_Email;
 
         public static string PrivacyLink => UrlConstants.OfficialWebsite_Privacy;
 

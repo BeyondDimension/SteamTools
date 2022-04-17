@@ -155,9 +155,9 @@
                        Text="Business Cooperation Contact:"
                        VerticalAlignment="Center"/>
             <Button Classes="Hyperlink"
-                    Content="@Cliencer克总"
+                    Content="rmb@rmbgame.net"
                     Command="{Binding OpenBrowserCommand}"
-                    CommandParameter="{x:Static vm:AboutPageViewModel.CliencerLink}"/>
+                    CommandParameter="{x:Static vm:AboutPageViewModel.RmbadminEmailLink}"/>
           </StackPanel>
 
           <!--<WrapPanel>

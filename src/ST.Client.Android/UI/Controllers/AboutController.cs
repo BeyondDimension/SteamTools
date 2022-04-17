@@ -207,10 +207,10 @@ namespace System.Application.UI.Controllers
             int length;
             StringBuilder str = new(BusinessCooperationContact_0);
             length = str.Length;
-            str.Append(At_Cliencer);
+            str.Append(At_RmbadminEmail);
             list.Add((new HyperlinkClickableSpan(async _ =>
             {
-                await Browser2.OpenAsync(UrlConstants.BILI_User_Cliencer);
+                await Browser2.OpenAsync(UrlConstants.Rmbadmin_Email);
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });

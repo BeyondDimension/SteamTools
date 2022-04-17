@@ -70,7 +70,7 @@
         android:textColor="@color/text_primary"
         android:textColorLink="@color/text_link"
         android:textSize="14sp"
-        tools:text="Business Cooperation Contact: @Cliencer克总"
+        tools:text="Business Cooperation Contact: rmb@rmbgame.net"
         xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
       <androidx.appcompat.widget.AppCompatTextView

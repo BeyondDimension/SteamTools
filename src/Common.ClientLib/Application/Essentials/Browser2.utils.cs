@@ -52,7 +52,7 @@ namespace System.Application
 
         static OpenResultCode OpenAnalysis(string? url)
         {
-            if (IsStoreUrl(url))
+            if (IsStoreUrl(url) || IsEmailUrl(url))
             {
                 return OpenCoreByProcess(url);
             }
