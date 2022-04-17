@@ -141,7 +141,7 @@
 		<!-- SkiaSharp & HarfBuzzSharp -->
 		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.232" />
 		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.232" />
-		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.232" />
+		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.254" />
 		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.232" />
 
 		<!-- AutoMapper -->
