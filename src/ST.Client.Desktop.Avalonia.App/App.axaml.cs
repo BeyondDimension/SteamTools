@@ -370,6 +370,7 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.SetIsStartuped");
 #endif
+            INotificationService.ILifeCycle.Instance?.OnStartup();
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
@@ -390,6 +391,8 @@ namespace System.Application.UI
             //WpfApplication.Current.Shutdown();
 #endif
             //AppHelper.TryShutdown();
+
+            INotificationService.ILifeCycle.Instance?.OnShutdown();
         }
 
         internal void NotifyIcon_Click(object? sender, EventArgs e)

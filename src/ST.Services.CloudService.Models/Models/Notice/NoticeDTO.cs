@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace System.Application.Models
 {
     [MPObj]
-    public class NoticeDTO
+    public partial class NoticeDTO
 #if MVVM_VM
         :ReactiveObject
 #endif

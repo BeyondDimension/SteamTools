@@ -102,21 +102,21 @@ namespace System.Application.UI.ViewModels
 
         async void Notification_Test()
         {
-            //INotificationService.Instance.Notify(new NotificationBuilder
-            //{
-            //    Type = NotificationType.Announcement,
-            //    Content = "测试Test🎆🎇→→ HeroImage",
-            //    ImageDisplayType = NotificationBuilder.EImageDisplayType.HeroImage,
-            //    ImageUri = "https://picsum.photos/364/180?image=1043",
-            //});
+            INotificationService.Instance.Notify(new NotificationBuilder
+            {
+                Type = NotificationType.Announcement,
+                Content = "测试Test🎆🎇→→ HeroImage",
+                ImageDisplayType = NotificationBuilder.EImageDisplayType.HeroImage,
+                ImageUri = "https://picsum.photos/364/180?image=1043",
+            });
 
-            //INotificationService.Instance.Notify(new NotificationBuilder
-            //{
-            //    Type = NotificationType.ArchiSteamFarmForegroundService,
-            //    Content = "Test InlineImage",
-            //    ImageDisplayType = NotificationBuilder.EImageDisplayType.InlineImage,
-            //    ImageUri = "https://picsum.photos/360/202?image=1043",
-            //});
+            INotificationService.Instance.Notify(new NotificationBuilder
+            {
+                Type = NotificationType.ArchiSteamFarmForegroundService,
+                Content = "Test InlineImage",
+                ImageDisplayType = NotificationBuilder.EImageDisplayType.InlineImage,
+                ImageUri = "https://picsum.photos/360/202?image=1043",
+            });
 
             if (INotificationService.Instance.IsSupportNotifyDownload)
             {

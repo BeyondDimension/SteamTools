@@ -20,5 +20,10 @@ namespace System.Application
         public const string SCRIPT_DIR = "scripts";
 
         public const string LOGS_DIR = "logs";
+
+        public static class Urls
+        {
+            public const string OfficialWebsite_Notice = "https://steampp.net/notice?id={0}";
+        }
     }
 }

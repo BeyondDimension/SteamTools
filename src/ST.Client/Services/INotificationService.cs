@@ -153,5 +153,14 @@ namespace System.Application.Services
             /// </summary>
             public static bool IsInitialized { get; protected set; }
         }
+
+        public interface ILifeCycle
+        {
+            static ILifeCycle? Instance => INotificationService.Instance is ILifeCycle value ? value : null;
+
+            void OnStartup();
+
+            void OnShutdown();
+        }
     }
 }

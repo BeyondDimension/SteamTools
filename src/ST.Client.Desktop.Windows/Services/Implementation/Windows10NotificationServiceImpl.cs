@@ -12,7 +12,7 @@ namespace System.Application.Services.Implementation
 {
     /// <inheritdoc cref="INotificationService"/>
     [SupportedOSPlatform("Windows10.0.17763.0")]
-    internal sealed class Windows10NotificationServiceImpl : INotificationService
+    internal sealed class Windows10NotificationServiceImpl : INotificationService, INotificationService.ILifeCycle
     {
         bool INotificationService.AreNotificationsEnabled()
         {
@@ -166,6 +166,38 @@ namespace System.Application.Services.Implementation
             }
 
             return new Progress<float>(Handler);
+        }
+
+        void INotificationService.ILifeCycle.OnStartup()
+        {
+            // https://docs.microsoft.com/zh-cn/windows/apps/design/shell/tiles-and-notifications/send-local-toast?tabs=desktop#step-3-handling-activation
+            // Listen to notification activation
+            ToastNotificationManagerCompat.OnActivated += toastArgs =>
+            {
+                // Obtain the arguments from the notification
+                ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
+
+                // Obtain any user input (text boxes, menu selections) from the notification
+                var userInput = toastArgs.UserInput;
+
+                // Need to dispatch to UI thread if performing UI operations
+                //Application.Current.Dispatcher.Invoke(delegate
+                //{
+                //    // TODO: Show the corresponding content
+                //    MessageBox.Show("Toast activated. Args: " + toastArgs.Argument);
+                //});
+            };
+        }
+
+        void INotificationService.ILifeCycle.OnShutdown()
+        {
+            // 如果应用有卸载程序，应在卸载程序中调用 ToastNotificationManagerCompat.Uninstall();。
+            // 如果应用是不带安装程序的“可移植应用”，请考虑在应用退出时调用此方法，除非有通知在应用关闭后保留。
+            // 卸载方法将清理任何计划通知和当前通知，删除任何关联的注册表值，并删除库创建的任何关联的临时文件。
+            if (DesktopBridge.IsRunningAsUwp)
+            {
+                ToastNotificationManagerCompat.Uninstall();
+            }
         }
     }
 }
