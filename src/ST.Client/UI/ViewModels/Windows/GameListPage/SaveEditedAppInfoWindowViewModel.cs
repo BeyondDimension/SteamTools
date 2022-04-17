@@ -52,29 +52,26 @@ namespace System.Application.UI.ViewModels
         {
             if (await ISteamService.Instance.SaveAppInfosToSteam())
             {
-                if (await MessageBox.ShowAsync("修改的数据已保存到 Steam 本地文件中，是否立即重启Steam生效？", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+                if (await MessageBox.ShowAsync(AppResources.SaveEditedAppInfo_RestartSteamTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
                 {
                     ISteamService.Instance.TryKillSteamProcess();
                     ISteamService.Instance.StartSteam();
                 }
-                Toast.Show("保存数据到 Steam 成功");
+                Toast.Show(AppResources.SaveEditedAppInfo_SaveToSteamSuccess);
             }
             else
             {
-                Toast.Show("保存数据失败，查看日志已获取详细错误信息。");
+                Toast.Show(AppResources.SaveEditedAppInfo_SaveToSteamFailed);
             }
         }
 
-        public async Task ClearSteamEditedApps()
-        {
-            if (await MessageBox.ShowAsync("确定要重置所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
-            {
-                foreach (var item in SteamEditedApps)
-                {
+        //public async Task ClearSteamEditedApps()
+        //{
+        //    if (await MessageBox.ShowAsync("确定要重置所有的已修改数据吗？(该操作不可还原)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+        //    {
 
-                }
-            }
-        }
+        //    }
+        //}
 
         public static void EditSteamApp(SteamApp app) => GameListPageViewModel.EditAppInfoClick(app);
 

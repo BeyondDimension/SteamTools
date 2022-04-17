@@ -4231,6 +4231,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 修改的数据已保存到 Steam 本地文件中，是否立即重启Steam生效？ 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_RestartSteamTip {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_RestartSteamTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 保存AppInfos出现错误 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_SaveFailed {
@@ -4245,6 +4254,42 @@ namespace System.Application.UI.Resx {
         public static string SaveEditedAppInfo_SaveToSteam {
             get {
                 return ResourceManager.GetString("SaveEditedAppInfo_SaveToSteam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存数据失败，查看程序日志获取详细错误信息 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_SaveToSteamFailed {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_SaveToSteamFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保存数据到 Steam 成功 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_SaveToSteamSuccess {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_SaveToSteamSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请正确选择一张要应用的图片 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_SelectImageFailed {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_SelectImageFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 因为修改自定义封面是根据账号生效的，所以必须要先运行Steam 的本地化字符串。
+        /// </summary>
+        public static string SaveEditedAppInfo_SteamUserNullTip {
+            get {
+                return ResourceManager.GetString("SaveEditedAppInfo_SteamUserNullTip", resourceCulture);
             }
         }
         

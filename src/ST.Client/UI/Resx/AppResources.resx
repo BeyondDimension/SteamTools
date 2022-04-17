@@ -2236,4 +2236,19 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
     <value>保存AppInfos出现错误</value>
   </data>
+  <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
+    <value>修改的数据已保存到 Steam 本地文件中，是否立即重启Steam生效？</value>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
+    <value>保存数据到 Steam 成功</value>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
+    <value>保存数据失败，查看程序日志获取详细错误信息</value>
+  </data>
+  <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
+    <value>因为修改自定义封面是根据账号生效的，所以必须要先运行Steam</value>
+  </data>
+  <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
+    <value>请正确选择一张要应用的图片</value>
+  </data>
 </root>

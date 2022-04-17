@@ -441,8 +441,9 @@
           </Style>
         </StackPanel.Styles>
         <Button Classes="DialogButton"
-                Command="{ReflectionBinding CancelEditAppInfo}"
+                Command="{ReflectionBinding ResetEditAppInfo}"
                 IsDefault="False"
+                IsVisible="{Binding App.OriginalData,Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
                 Content="{ReflectionBinding Path=Res.Reset,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
         <Button Classes="DialogButton"
                 Command="{ReflectionBinding CancelEditAppInfo}"

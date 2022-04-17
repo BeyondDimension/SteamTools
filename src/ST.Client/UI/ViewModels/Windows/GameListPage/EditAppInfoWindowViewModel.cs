@@ -117,29 +117,48 @@ namespace System.Application.UI.ViewModels
             }
         }
 
+        bool CheckCurrentSteamUserStats()
+        {
+            if (SteamConnectService.Current.CurrentSteamUser == null)
+            {
+                Toast.Show(AppResources.SaveEditedAppInfo_SteamUserNullTip);
+                return false;
+            }
+            return true;
+        }
+
         public async void SaveEditAppInfo()
         {
             #region 自定义图片保存
             if (!(App.EditLibraryLogoStream is FileStream fs && fs.Name == await App.LibraryLogoStream))
             {
+                if (!CheckCurrentSteamUserStats())
+                    return;
+
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryLogoStream,
-                 SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Logo) == false)
+                 SteamConnectService.Current.CurrentSteamUser!, App.AppId, SteamGridItemType.Logo) == false)
                 {
                     Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
                 }
             }
             if (!(App.EditLibraryHeroStream is FileStream fs1 && fs1.Name == await App.LibraryHeroStream))
             {
+                if (!CheckCurrentSteamUserStats())
+                    return;
+
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryHeroStream,
-                 SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Hero) == false)
+                 SteamConnectService.Current.CurrentSteamUser!, App.AppId, SteamGridItemType.Hero) == false)
                 {
                     Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Hero)));
                 }
             }
             if (!(App.EditLibraryGridStream is FileStream fs2 && fs2.Name == await App.LibraryGridStream))
             {
+                if (!CheckCurrentSteamUserStats())
+                    return;
+
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryGridStream,
-                    SteamConnectService.Current.CurrentSteamUser, App.AppId, SteamGridItemType.Grid) == false)
+                    SteamConnectService.Current.CurrentSteamUser!, App.AppId, SteamGridItemType.Grid) == false)
                 {
                     Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Grid)));
                 }
@@ -150,12 +169,10 @@ namespace System.Application.UI.ViewModels
 
             SteamConnectService.Current.SteamApps.AddOrUpdate(App);
 
-            await MessageBox.ShowAsync("如需要让信息和启动项更改生效到Steam,请打开 [保存Steam游戏自定义信息窗口] 保存所有更改信息到Steam缓存中。",
-                ThisAssembly.AssemblyTrademark, MessageBox.Button.OK, MessageBox.Image.None, MessageBox.DontPromptType.SaveEditAppInfo);
+            //await MessageBox.ShowAsync("保存成功但还不会直接写入Steam文件, 请打开[保存Steam游戏自定义信息窗口]保存所有更改信息到Steam文件中。",
+            //    ThisAssembly.AssemblyTrademark, MessageBox.Button.OK, MessageBox.Image.None, MessageBox.DontPromptType.SaveEditAppInfo);
 
             this.Close();
-
-            Toast.Show($"{App.Name} 已修改");
         }
 
         public void CancelEditAppInfo()
@@ -166,18 +183,21 @@ namespace System.Application.UI.ViewModels
 
         public async void ResetEditAppInfo()
         {
-            if (await MessageBox.ShowAsync("确定要重置当前App所有更改吗？(不会重置自定义图片)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+            //if (await MessageBox.ShowAsync("确定要重置当前App所有更改吗？(不会重置自定义图片)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+            //{
+            App.RefreshEditImage();
+            if (App.OriginalData != null)
             {
-                App.RefreshEditImage();
-                if (App.OriginalData != null)
-                {
-                    using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData));
-                    var table = reader.ReadPropertyTable();
+                using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData));
+                reader.BaseStream.Seek(40L, SeekOrigin.Current);
+                var table = reader.ReadPropertyTable();
 
-                    App.ExtractReaderProperty(table);
-                    App.IsEdited = false;
-                }
+                App.ExtractReaderProperty(table);
+
+                App.IsEdited = true;
+                SteamConnectService.Current.SteamApps.AddOrUpdate(App);
             }
+            //}
         }
 
         public async void RefreshSteamGridItemList(SteamGridItemType type = SteamGridItemType.Grid)
@@ -202,15 +222,9 @@ namespace System.Application.UI.ViewModels
 
         public async void ApplyCustomImageToApp(SteamGridItemType type)
         {
-            if (SteamConnectService.Current.CurrentSteamUser == null)
-            {
-                Toast.Show("因为修改自定义封面是根据账号生效的，所以必须要先运行Steam");
-                return;
-            }
-
             if (SelectGrid == null)
             {
-                Toast.Show("请选择一张要应用的图片");
+                Toast.Show(AppResources.SaveEditedAppInfo_SelectImageFailed);
                 return;
             }
 

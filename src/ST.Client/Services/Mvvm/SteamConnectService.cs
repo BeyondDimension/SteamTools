@@ -439,6 +439,7 @@ namespace System.Application.Services
                                              InitializeDownloadGameList();
                                              Toast.Show(AppResources.GameList_RefreshGamesListSucess);
                                              DisposeSteamClient();
+                                             IsLoadingGameList = false;
                                              return;
                                          }
                                      }
@@ -450,11 +451,8 @@ namespace System.Application.Services
                          {
                              Log.Error(nameof(SteamConnectService), ex, "Task RefreshGamesList");
                              ToastService.Current.Notify(ex.Message);
-                         }
-                         finally
-                         {
-                             DisposeSteamClient();
                              IsLoadingGameList = false;
+                             DisposeSteamClient();
                          }
                      }, TaskCreationOptions.DenyChildAttach).Forget().ConfigureAwait(false);
                 }

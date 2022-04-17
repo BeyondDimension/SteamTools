@@ -56,12 +56,12 @@
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
-            <ui:CommandBarButton Label="{ReflectionBinding Path=Res.ResetAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                 Command="{ReflectionBinding SaveSteamEditedApps}">
+            <!--<ui:CommandBarButton Label="{ReflectionBinding Path=Res.ResetAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                 Command="{ReflectionBinding ClearSteamEditedApps}">
               <ui:CommandBarButton.Icon>
                 <ui:SymbolIcon Symbol="Redo"/>
               </ui:CommandBarButton.Icon>
-            </ui:CommandBarButton>
+            </ui:CommandBarButton>-->
           </ui:CommandBar.PrimaryCommands>
         </ui:CommandBar>
       </Border>

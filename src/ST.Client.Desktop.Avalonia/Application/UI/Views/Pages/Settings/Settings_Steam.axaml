@@ -48,7 +48,24 @@
                    TextWrapping="Wrap"/>
         </DockPanel>
       </Border>
+      
+      <!--<Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_StorageSpace,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <Button Content="{ReflectionBinding Path=Res.Settings_General_BrowseCustomFolder,Mode=OneWay,Source={x:Static resx:R.Current},Converter={StaticResource StringFormatConverter},ConverterParameter=Steam}"
+                    Command="{ReflectionBinding OpenFolder}"/>
+          </DockPanel>
+        </Expander.Header>
 
+        <StackPanel Orientation="Vertical" Spacing="10">
+          <StackPanel
+                      Orientation="Horizontal"
+                      Spacing="10">
+          </StackPanel>
+        </StackPanel>
+      </Expander>-->
+    
       <!--<Separator Classes="Separator"/>-->
     </StackPanel>
   </ScrollViewer>
