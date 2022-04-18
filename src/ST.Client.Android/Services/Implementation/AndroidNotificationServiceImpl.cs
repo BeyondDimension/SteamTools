@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Runtime.Versioning;
 using AndroidApplication = Android.App.Application;
 using CC = System.Common.Constants;
-using JClass = Java.Lang.Class;
 using NativeService = System.Application.Services.Native.IServiceBase;
 
 namespace System.Application.Services.Implementation
@@ -30,18 +29,6 @@ namespace System.Application.Services.Implementation
 
         public static bool IsSupportedNotificationChannel
             => Build.VERSION.SdkInt >= BuildVersionCodes.O;
-
-        JClass? GetEntrance(Entrance entrance)
-        {
-            var notificationEntrance = (entrance != default ? GetActivityType(entrance)?.GetJClass() : null) ?? app.NotificationEntrance;
-            return notificationEntrance;
-        }
-
-        Type? GetActivityType(Entrance entrance) => entrance switch
-        {
-            Entrance.Main => app.MainActivityType,
-            _ => null,
-        };
 
         static int GetNotifyId(NotificationType notificationType) => Enum2.ConvertToInt32(notificationType);
 
@@ -167,8 +154,7 @@ namespace System.Application.Services.Implementation
             NotificationType notificationType,
             bool? autoCancel = null,
             string? title = null,
-            JClass? entrance = null,
-            string? entranceAction = null,
+            NotificationBuilder.ClickAction.IInterface? clickAction = null,
             IReadOnlyCollection<NotificationCompat.Action>? actions = null,
             Context? context = null)
         {
@@ -191,21 +177,56 @@ namespace System.Application.Services.Implementation
                     builder.AddAction(item);
                 }
             }
-            if (entrance != null)
+
+            Type GetIntentType(Entrance entrance) => entrance switch
             {
-                var intent = new Intent(context, entrance);
-                if (!string.IsNullOrWhiteSpace(entranceAction)) intent.SetAction(entranceAction);
-                var pendingIntent = PendingIntent.GetActivity(context, 0, intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
-                builder.SetContentIntent(pendingIntent);
+                Entrance.Browser => typeof(NotificationClickReceiver),
+                // 不支持委托传递，使用默认值 Main 行为
+                //Entrance.Main or Entrance.Delegate => app.MainActivityType,
+                _ => app.MainActivityType,
+            };
+
+            var entrance = clickAction == null ? Entrance.Main : clickAction.Entrance;
+            var entranceIntentAction = clickAction?.TabItemId;
+            var intentType = GetIntentType(entrance);
+            var intent = new Intent(context, intentType);
+            if (!string.IsNullOrWhiteSpace(entranceIntentAction))
+                intent.SetAction(entranceIntentAction);
+
+            intent.PutExtra(ExtraEntrance, entrance.ToString());
+            switch (entrance)
+            {
+                case Entrance.Browser:
+                    intent.PutExtra(ExtraRequestUri, clickAction!.RequestUri);
+                    break;
+                default:
+                    break;
             }
+
+            PendingIntent? pendingIntent;
+
+            if (intentType.IsSubclassOf(typeof(Activity)))
+            {
+                pendingIntent = PendingIntent.GetActivity(context, 0, intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
+            }
+            else if (intentType.IsSubclassOf(typeof(BroadcastReceiver)))
+            {
+                pendingIntent = PendingIntent.GetBroadcast(context, 0, intent, PendingIntentFlags.Immutable | PendingIntentFlags.UpdateCurrent);
+            }
+            else
+            {
+                pendingIntent = null;
+            }
+
+            if (pendingIntent != null) builder.SetContentIntent(pendingIntent);
+
             return builder;
         }
 
         void INotificationService.Notify(NotificationBuilder.IInterface b)
         {
-            var notificationEntrance = b.Click == null ? null : GetEntrance(b.Click.Entrance);
             var builder = BuildNotify(b.Content, b.Type,
-                b.AutoCancel, b.Title, entrance: notificationEntrance);
+                b.AutoCancel, b.Title, b.Click);
             var notifyId = GetNotifyId(b.Type);
             manager.Notify(notifyId, builder.Build());
         }
@@ -217,9 +238,12 @@ namespace System.Application.Services.Implementation
             Entrance entrance,
             string? requestUri)
         {
-            var notificationEntrance = GetEntrance(entrance);
             var builder = BuildNotify(text, notificationType,
-                autoCancel, title, entrance: notificationEntrance);
+                autoCancel, title, new NotificationBuilder.ClickAction
+                {
+                    Entrance = entrance,
+                    RequestUri = requestUri,
+                });
             var notifyId = GetNotifyId(notificationType);
             manager.Notify(notifyId, builder.Build());
         }
@@ -317,16 +341,40 @@ namespace System.Application.Services.Implementation
         {
             var stopAction = BuildStopServiceAction(service);
             var builder = BuildNotify(text, notificationType,
-                entrance: GetEntrance(Entrance.Main),
+                clickAction: new NotificationBuilder.ClickAction
+                {
+                    Entrance = Entrance.Main,
+                    TabItemId = entranceAction,
+                },
                 actions: new NotificationCompat.Action[] {
                     stopAction,
                 },
-                entranceAction: entranceAction,
                 context: service);
             var notification = builder.Build();
             var notifyId = GetNotifyId(notificationType);
             service.StartForeground(notifyId, notification);
             return (builder, manager, notifyId);
+        }
+
+        const string ExtraRequestUri = JavaPackageConstants.Root + "extra.RequestUri";
+        const string ExtraEntrance = JavaPackageConstants.Root + "extra.Entrance";
+
+        [BroadcastReceiver(Enabled = true, Exported = true)]
+        sealed class NotificationClickReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context? context, Intent? intent)
+            {
+                if (context == null || intent == null) return;
+                if (!Enum.TryParse<Entrance>(intent.GetStringExtra(ExtraEntrance), out var entrance)) return;
+
+                switch (entrance)
+                {
+                    case Entrance.Browser:
+                        var requestUri = intent.GetStringExtra(ExtraRequestUri);
+                        Browser2.Open(requestUri);
+                        break;
+                }
+            }
         }
     }
 }

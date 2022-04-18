@@ -68,8 +68,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         static IServiceCollection AddPlatformNotificationService(this IServiceCollection services)
         {
-            if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
+            if (!DesktopBridge.IsRunningAsUwp && OperatingSystem.IsWindowsVersionAtLeast(10, 0, 17763))
             {
+                // 桌面 (MSIX) 中 无法处理通知点击事件
                 services.AddSingleton<INotificationService, Windows10NotificationServiceImpl>();
             }
             else

@@ -2,12 +2,16 @@ using NLog;
 using System.Linq;
 using System.Net;
 using System.Runtime.Versioning;
+#if DEBUG
+using WinFormsMessageBox = System.Windows.Forms.MessageBox;
+#endif
 
 #if MAC
 [assembly: SupportedOSPlatform("macOS")]
 #elif LINUX
 [assembly: SupportedOSPlatform("Linux")]
 #elif WINDOWS_DESKTOP_BRIDGE
+//using Microsoft.Toolkit.Uwp.Notifications;
 [assembly: SupportedOSPlatform("Windows10.0.17763.0")]
 #elif WINDOWS
 [assembly: SupportedOSPlatform("Windows7.0")]
@@ -34,9 +38,42 @@ namespace System.Application.UI
 
 #if WINDOWS_DESKTOP_BRIDGE
 #if DEBUG
-            Threading.Thread.Sleep(8000);
+            WinFormsMessageBox.Show(string.Join(' ', args), "Main(string[] args)");
 #endif
             if (!DesktopBridgeHelper.Init()) return 0;
+
+            //if (ToastNotificationManagerCompat.WasCurrentProcessToastActivated())
+            //{
+
+            //    // 通过通知中心点击通知启动的进程
+            //    args = Array.Empty<string>();
+            //    //Handle when activated by click on notification
+            //    ToastNotificationManagerCompat.OnActivated += toastArgs =>
+            //    {
+            //        //Get the activation args, if you need those.
+            //        ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
+            //        //Get user input if there's any and if you need those.
+            //        var userInput = toastArgs.UserInput;
+            //        //if the app instance just started after clicking on a notification 
+            //        if (ToastNotificationManagerCompat.WasCurrentProcessToastActivated())
+            //        {
+            //            System.Windows.Forms.MessageBox.Show("App was not running, " +
+            //                   "but started and activated by click on a notification.");
+            //        }
+            //        else
+            //        {
+            //            System.Windows.Forms.MessageBox.Show("App was running, " +
+            //                "and activated by click on a notification.");
+            //        }
+            //    };
+
+            //    Console.ReadLine();
+            //    while (true)
+            //    {
+
+            //    }
+            //}
+
             DesktopBridgeHelper.OnActivated(ref args);
 #elif !__MOBILE__
 #if MAC

@@ -12,8 +12,6 @@ namespace System.Application.UI
 
         int? NotificationSmallIconResId { get; }
 
-        JClass NotificationEntrance { get; }
-
         Type MainActivityType { get; }
     }
 }

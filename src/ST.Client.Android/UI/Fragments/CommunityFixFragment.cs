@@ -170,6 +170,17 @@ namespace System.Application.UI.Fragments
 
         async void StartProxyButton_Click(bool start/*, bool ignoreVPNCheck = false*/)
         {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
+            {
+                const string KEY = "CommunityFixFragment_IsShowCertificateTrustTip";
+                var isShowTip = Preferences2.Get(KEY, false);
+                if (!isShowTip)
+                {
+                    MessageBox.Show("Android 7+(Nougat API 24) 不信任用户证书，需要自行导入到系统目录，使用 adb 工具或 Magisk 之类的软件操作，未来会使用服务端反代(不需要证书)的功能替换此模块", "已知问题");
+                    Preferences2.Set(KEY, true);
+                }
+            }
+
             var a = RequireActivity();
             if (start)
             {

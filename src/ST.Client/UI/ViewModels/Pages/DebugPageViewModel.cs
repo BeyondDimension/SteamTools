@@ -108,6 +108,11 @@ namespace System.Application.UI.ViewModels
                 Content = "测试Test🎆🎇→→ HeroImage",
                 ImageDisplayType = NotificationBuilder.EImageDisplayType.HeroImage,
                 ImageUri = "https://picsum.photos/364/180?image=1043",
+                AttributionText = "Via SMS",
+                Click = new NotificationBuilder.ClickAction(() =>
+                {
+                    Browser2.Open("https://bing.com");
+                }),
             });
 
             INotificationService.Instance.Notify(new NotificationBuilder
@@ -116,6 +121,17 @@ namespace System.Application.UI.ViewModels
                 Content = "Test InlineImage",
                 ImageDisplayType = NotificationBuilder.EImageDisplayType.InlineImage,
                 ImageUri = "https://picsum.photos/360/202?image=1043",
+                Click = new NotificationBuilder.ClickAction(() =>
+                {
+                    MessageBox.Show("Click Test InlineImage!");
+                }),
+            });
+
+            INotificationService.Instance.Notify(new NotificationBuilder
+            {
+                Type = NotificationType.Message,
+                Content = "Test CustomTimeStamp",
+                CustomTimeStamp = new DateTime(2017, 04, 15, 19, 45, 00, DateTimeKind.Utc),
             });
 
             if (INotificationService.Instance.IsSupportNotifyDownload)

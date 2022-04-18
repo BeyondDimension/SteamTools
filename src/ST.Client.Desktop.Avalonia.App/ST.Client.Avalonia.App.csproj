@@ -49,7 +49,7 @@
     <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
     <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
     <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-    <!--<UseWindowsForms>false</UseWindowsForms>-->
+    <UseWindowsForms Condition="'$(Configuration)'=='Debug'">true</UseWindowsForms>
     <!--<UseWPF>false</UseWPF>-->
   </PropertyGroup>
 

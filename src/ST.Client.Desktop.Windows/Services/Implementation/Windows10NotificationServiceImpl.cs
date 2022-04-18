@@ -73,6 +73,28 @@ namespace System.Application.Services.Implementation
                 (var tag, var group) = GetTagAndGroup(b.Type);
                 t.Tag = tag;
                 t.Group = group;
+                t.Activated += (_, _) =>
+                {
+                    if (b.Click != null)
+                    {
+                        switch (b.Click.Entrance)
+                        {
+                            case Entrance.Main:
+                                break;
+                            case Entrance.Browser:
+                                Browser2.Open(b.Click.RequestUri);
+                                break;
+                            case Entrance.Delegate:
+                                b.Click.Action?.Invoke();
+                                break;
+                        }
+                    }
+
+                    if (b.AutoCancel)
+                    {
+                        ToastNotificationManagerCompat.History.Remove(tag, group);
+                    }
+                };
             });
         }
 
@@ -88,6 +110,13 @@ namespace System.Application.Services.Implementation
                 (var tag, var group) = GetTagAndGroup(notificationType);
                 t.Tag = tag;
                 t.Group = group;
+                t.Activated += (_, _) =>
+                {
+                    if (autoCancel)
+                    {
+                        ToastNotificationManagerCompat.History.Remove(tag, group);
+                    }
+                };
             });
         }
 
@@ -170,23 +199,18 @@ namespace System.Application.Services.Implementation
 
         void INotificationService.ILifeCycle.OnStartup()
         {
+            // 桌面(未打包) 应用当前正在运行，也不会调用此，可能与管理员权限相关
+
             // https://docs.microsoft.com/zh-cn/windows/apps/design/shell/tiles-and-notifications/send-local-toast?tabs=desktop#step-3-handling-activation
             // Listen to notification activation
-            ToastNotificationManagerCompat.OnActivated += toastArgs =>
-            {
-                // Obtain the arguments from the notification
-                ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
+            //ToastNotificationManagerCompat.OnActivated += toastArgs =>
+            //{
+            //    // Obtain the arguments from the notification
+            //    ToastArguments args = ToastArguments.Parse(toastArgs.Argument);
 
-                // Obtain any user input (text boxes, menu selections) from the notification
-                var userInput = toastArgs.UserInput;
-
-                // Need to dispatch to UI thread if performing UI operations
-                //Application.Current.Dispatcher.Invoke(delegate
-                //{
-                //    // TODO: Show the corresponding content
-                //    MessageBox.Show("Toast activated. Args: " + toastArgs.Argument);
-                //});
-            };
+            //    // Obtain any user input (text boxes, menu selections) from the notification
+            //    var userInput = toastArgs.UserInput;
+            //};
         }
 
         void INotificationService.ILifeCycle.OnShutdown()

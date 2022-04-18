@@ -3,12 +3,6 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <item
-    android:id="@+id/navigation_community_fix"
-    android:icon="@drawable/mdi_rocket_black_24"
-    android:title=""
-    tools:title="@string/community_fix" />
-
-  <item
     android:id="@+id/navigation_local_auth"
     android:icon="@drawable/baseline_verified_user_black_24"
     android:title=""
@@ -26,6 +20,12 @@
     android:title=""
     android:visible="false"
     tools:title="@string/game_list" />
+
+  <item
+    android:id="@+id/navigation_community_fix"
+    android:icon="@drawable/mdi_rocket_black_24"
+    android:title=""
+    tools:title="@string/community_fix" />
 
   <item
     android:id="@+id/navigation_my"

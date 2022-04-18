@@ -67,6 +67,9 @@ namespace System.Application.Models
             [MPIgnore]
             public Action? Action { get; set; }
 
+
+            public string? TabItemId { get; set; }
+
             protected const int LAST_MP_INDEX = 1;
 
             /// <summary>
@@ -88,6 +91,11 @@ namespace System.Application.Models
                 /// 入口点为 <see cref="Entrance.Delegate"/> 时的 Delegate
                 /// </summary>
                 Action? Action { get; }
+
+                /// <summary>
+                /// 用于当使用 <see cref="Entrance.Main"/> 时，进入的 Tab 子页面，值为 System.Application.UI.ViewModels.TabItemViewModel.TabItemId
+                /// </summary>
+                string? TabItemId => null;
             }
         }
 
