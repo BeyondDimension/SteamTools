@@ -30,7 +30,7 @@ namespace System.Application.UI.ViewModels
             this.WhenAnyValue(x => x.SteamUsers)
                   .Subscribe(s => this.RaisePropertyChanged(nameof(IsUserEmpty)));
             LoginAccountCommand = ReactiveCommand.Create(LoginNewSteamAccount);
-            RefreshCommand = ReactiveCommand.Create(Initialize);
+            RefreshCommand = ReactiveCommand.Create(SteamConnectService.Current.RefreshSteamUsers);
 
             ShareManageCommand = ReactiveCommand.Create(OpenShareManageWindow);
             OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
@@ -48,14 +48,16 @@ namespace System.Application.UI.ViewModels
             //    //      IconKey ="EditDrawing", Command = ShareManageCommand },
             //};
 
-            _SteamUsersSourceList = new SourceCache<SteamUser, long>(t => t.SteamId64);
 
-            _SteamUsersSourceList
+            SteamConnectService.Current.SteamUsers
               .Connect()
               .ObserveOn(RxApp.MainThreadScheduler)
               .Sort(SortExpressionComparer<SteamUser>.Descending(x => x.LastLoginTime))
               .Bind(out _SteamUsers)
-              .Subscribe();
+              .Subscribe(_ =>
+              {
+                  Initialize();
+              });
         }
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
@@ -70,38 +72,23 @@ namespace System.Application.UI.ViewModels
             IWindowManager.Instance.Show(CustomWindow.ShareManage, new ShareManageViewModel(), string.Empty, ResizeMode.CanResize);
         }
 
-        readonly SourceCache<SteamUser, long> _SteamUsersSourceList;
-        readonly ReadOnlyObservableCollection<SteamUser>? _SteamUsers;
+        readonly ReadOnlyObservableCollection<SteamUser> _SteamUsers;
         /// <summary>
         /// Steam 客户端记住的用户列表
         /// </summary>
-        public ReadOnlyObservableCollection<SteamUser>? SteamUsers => _SteamUsers;
+        public ReadOnlyObservableCollection<SteamUser> SteamUsers => _SteamUsers;
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
 
-        public override async void Initialize()
+        public override void Initialize()
         {
-            var list = steamService.GetRememberUserList();
+            #region 加载windows托盘菜单
 
-            if (!list.Any_Nullable())
+            if (OperatingSystem2.IsWindows)
             {
-                return;
-            }
-            _SteamUsersSourceList.AddOrUpdate(list);
-
-            #region 加载备注信息
-            IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
-
-            MenuItems = new ObservableCollection<MenuItemViewModel>();
-
-            List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
-            foreach (var user in _SteamUsersSourceList.Items)
-            {
-                if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
-                    !string.IsNullOrEmpty(remark))
-                    user.Remark = remark;
-
-                if (OperatingSystem2.IsWindows)
+                var menus = new List<MenuItemViewModel>();
+                
+                foreach (var user in SteamConnectService.Current.SteamUsers.Items)
                 {
                     var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
                     if (!string.IsNullOrEmpty(user.Remark))
@@ -109,7 +96,7 @@ namespace System.Application.UI.ViewModels
                         title = user.SteamNickName + "(" + user.Remark + ")";
                     }
 
-                    MenuItems.Add(new MenuItemCustomName(title, AppResources.UserChange_BtnTootlip)
+                    menus.Add(new MenuItemCustomName(title, AppResources.UserChange_BtnTootlip)
                     {
                         Command = ReactiveCommand.Create(() =>
                         {
@@ -118,77 +105,11 @@ namespace System.Application.UI.ViewModels
                             INotificationService.Instance.Notify(string.Format(AppResources.UserChange_ChangeUserTip, title), NotificationType.Message);
                         }),
                     });
-
-                    if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((
-                        title: title,
-                        applicationPath: IApplication.ProgramPath,
-                        iconResourcePath: IApplication.ProgramPath,
-                        arguments: $"-clt steam -account {user.AccountName}",
-                        description: AppResources.UserChange_BtnTootlip,
-                        customCategory: Name));
                 }
+
+                MenuItems = new ObservableCollection<MenuItemViewModel>(menus);
             }
 
-            if (jumplistData.Any_Nullable())
-            {
-                MainThread2.BeginInvokeOnMainThread(async () =>
-                {
-                    var s = IJumpListService.Instance;
-                    await s.AddJumpItemsAsync(jumplistData);
-                });
-            }
-
-            _SteamUsersSourceList.Refresh();
-            #endregion
-
-            #region 通过webapi加载头像图片用户信息
-            foreach (var user in _SteamUsersSourceList.Items)
-            {
-                var temp = await webApiService.GetUserInfo(user.SteamId64);
-                if (!string.IsNullOrEmpty(temp.SteamID))
-                {
-                    user.SteamID = temp.SteamID;
-                    user.OnlineState = temp.OnlineState;
-                    user.MemberSince = temp.MemberSince;
-                    user.VacBanned = temp.VacBanned;
-                    user.Summary = temp.Summary;
-                    user.PrivacyState = temp.PrivacyState;
-                    user.AvatarIcon = temp.AvatarIcon;
-                    user.AvatarMedium = temp.AvatarMedium;
-                    user.AvatarFull = temp.AvatarFull;
-                    user.MiniProfile = temp.MiniProfile;
-
-                    if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
-                    {
-                        user.AvatarStream = httpService.GetImageAsync(user.MiniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-                    }
-                    else
-                    {
-                        user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
-                    }
-                }
-            }
-
-            _SteamUsersSourceList.Refresh();
-            #endregion
-
-            #region 加载动态头像头像框数据
-            //foreach (var item in _SteamUsersSourceList.Items)
-            //{
-            //    item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
-            //    var miniProfile = item.MiniProfile;
-            //    if (miniProfile != null)
-            //    {
-            //        if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
-            //            item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
-
-            //        if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
-            //            miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
-
-            //        //item.Level = miniProfile.Level;
-            //    }
-            //}
-            //_SteamUsersSourceList.Refresh();
             #endregion
         }
 
@@ -238,7 +159,7 @@ namespace System.Application.UI.ViewModels
                 {
                     steamService.DeleteLocalUserData(user, false);
                 }
-                _SteamUsersSourceList.Remove(user);
+                SteamConnectService.Current.SteamUsers.Remove(user);
             }
         }
 

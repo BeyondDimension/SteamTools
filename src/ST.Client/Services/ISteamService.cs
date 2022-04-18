@@ -92,6 +92,8 @@ namespace System.Application.Services
 
         void UpdateLocalUserData(IEnumerable<SteamUser> users);
 
+        void WatchLocalUserDataChange(Action changedAction);
+
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>

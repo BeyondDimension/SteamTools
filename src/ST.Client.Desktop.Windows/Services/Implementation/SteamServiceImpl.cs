@@ -451,7 +451,28 @@ namespace System.Application.Services.Implementation
             }
         }
 
+        public void WatchLocalUserDataChange(Action changedAction)
+        {
+            if (string.IsNullOrWhiteSpace(SteamDirPath))
+            {
+                throw new Exception("Steam Dir Path is null or empty.");
+            }
+            
+            var fsw = new FileSystemWatcher(Path.Combine(SteamDirPath, "config"), "loginusers.vdf")
+            {
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.CreationTime,
+            };
 
+            fsw.Created += Fsw_Changed;
+            fsw.Renamed += Fsw_Changed;
+            fsw.Changed += Fsw_Changed;
+            fsw.EnableRaisingEvents = true;
+
+            void Fsw_Changed(object sender, FileSystemEventArgs e)
+            {
+                changedAction.Invoke();
+            }
+        }
 
         private uint univeseNumber;
         private const uint MagicNumber = 123094055U;
@@ -644,7 +665,7 @@ namespace System.Application.Services.Implementation
 
         public async Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type)
         {
-            var mostRecentUser = GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
+            var mostRecentUser = SteamConnectService.Current.SteamUsers.Items.Where(s => s.MostRecent).FirstOrDefault();
             if (mostRecentUser != null)
             {
                 var customFilePath = GetAppCustomImageFilePath(app.AppId, mostRecentUser, type);

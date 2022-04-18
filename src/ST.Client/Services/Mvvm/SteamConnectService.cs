@@ -20,21 +20,21 @@ namespace System.Application.Services
 {
     public sealed class SteamConnectService : ReactiveObject, IDisposable
     {
-        static SteamConnectService? mCurrent;
-        public static SteamConnectService Current => mCurrent ?? new();
+        public static SteamConnectService Current { get; } = new();
 
         readonly ISteamworksLocalApiService ApiService = ISteamworksLocalApiService.Instance;
         //readonly ISteamworksWebApiService SteamworksWebApiService = ISteamworksWebApiService.Instance;
         //readonly ISteamDbWebApiService steamDbApiService = ISteamDbWebApiService.Instance;
+        readonly IHttpService httpService = IHttpService.Instance;
+        readonly ISteamworksWebApiService webApiService = ISteamworksWebApiService.Instance;
         readonly ISteamService SteamTool = ISteamService.Instance;
         public const int SteamAFKMaxCount = 32;
 
         private SteamConnectService()
         {
-            mCurrent = this;
-
             SteamApps = new SourceCache<SteamApp, uint>(t => t.AppId);
             DownloadApps = new SourceCache<SteamApp, uint>(t => t.AppId);
+            SteamUsers = new SourceCache<SteamUser, long>(t => t.SteamId64);
 
             DownloadApps
                 .Connect()
@@ -143,6 +143,7 @@ namespace System.Application.Services
             }
         }
 
+        public SourceCache<SteamUser, long> SteamUsers { get; }
         #endregion
 
         #region 连接steamclient是否成功
@@ -321,6 +322,14 @@ namespace System.Application.Services
                     }
                 }
             }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
+
+            
+            RefreshSteamUsers();
+            
+            //SteamTool.WatchLocalUserDataChange(() =>
+            //{
+            //    RefreshSteamUsers();
+            //});
         }
 
         public bool Initialize(int appid)
@@ -345,7 +354,7 @@ namespace System.Application.Services
                     foreach (var modifiedApp in modifiedApps)
                     {
                         modifiedApp.ReadChanges();
-                        
+
                         if (modifiedApp.Changes != null)
                         {
                             var optional = SteamApps.Lookup(modifiedApp.AppId);
@@ -462,6 +471,107 @@ namespace System.Application.Services
                     Toast.Show(AppResources.GameList_RefreshGamesListSucess);
                 }
             }
+        }
+
+        public async void RefreshSteamUsers()
+        {
+            var list = SteamTool.GetRememberUserList();
+
+            if (!list.Any_Nullable())
+            {
+                return;
+            }
+            SteamConnectService.Current.SteamUsers.AddOrUpdate(list);
+
+            #region 加载备注信息和JumpList
+            IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
+
+            List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
+            foreach (var user in SteamConnectService.Current.SteamUsers.Items)
+            {
+                if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
+                    !string.IsNullOrEmpty(remark))
+                    user.Remark = remark;
+
+                if (OperatingSystem2.IsWindows)
+                {
+                    var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
+                    if (!string.IsNullOrEmpty(user.Remark))
+                    {
+                        title = user.SteamNickName + "(" + user.Remark + ")";
+                    }
+
+                    if (!string.IsNullOrEmpty(user.AccountName)) jumplistData!.Add((
+                        title: title,
+                        applicationPath: IApplication.ProgramPath,
+                        iconResourcePath: IApplication.ProgramPath,
+                        arguments: $"-clt steam -account {user.AccountName}",
+                        description: AppResources.UserChange_BtnTootlip,
+                        customCategory: AppResources.UserFastChange));
+                }
+            }
+
+            if (jumplistData.Any_Nullable())
+            {
+                MainThread2.BeginInvokeOnMainThread(async () =>
+                {
+                    var s = IJumpListService.Instance;
+                    await s.AddJumpItemsAsync(jumplistData);
+                });
+            }
+
+            SteamConnectService.Current.SteamUsers.Refresh();
+            #endregion
+
+            #region 通过webapi加载头像图片用户信息
+            foreach (var user in SteamConnectService.Current.SteamUsers.Items)
+            {
+                var temp = await webApiService.GetUserInfo(user.SteamId64);
+                if (!string.IsNullOrEmpty(temp.SteamID))
+                {
+                    user.SteamID = temp.SteamID;
+                    user.OnlineState = temp.OnlineState;
+                    user.MemberSince = temp.MemberSince;
+                    user.VacBanned = temp.VacBanned;
+                    user.Summary = temp.Summary;
+                    user.PrivacyState = temp.PrivacyState;
+                    user.AvatarIcon = temp.AvatarIcon;
+                    user.AvatarMedium = temp.AvatarMedium;
+                    user.AvatarFull = temp.AvatarFull;
+                    user.MiniProfile = temp.MiniProfile;
+
+                    if (user.MiniProfile != null && !string.IsNullOrEmpty(user.MiniProfile.AnimatedAvatar))
+                    {
+                        user.AvatarStream = httpService.GetImageAsync(user.MiniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+                    }
+                    else
+                    {
+                        user.AvatarStream = httpService.GetImageAsync(temp.AvatarFull, ImageChannelType.SteamAvatars);
+                    }
+                }
+            }
+
+            SteamConnectService.Current.SteamUsers.Refresh();
+            #endregion
+
+            #region 加载动态头像头像框数据
+            //foreach (var item in _SteamUsersSourceList.Items)
+            //{
+            //    item.MiniProfile = await webApiService.GetUserMiniProfile(item.SteamId3_Int);
+            //    var miniProfile = item.MiniProfile;
+            //    if (miniProfile != null)
+            //    {
+            //        if (!string.IsNullOrEmpty(miniProfile.AnimatedAvatar))
+            //            item.AvatarStream = httpService.GetImageAsync(miniProfile.AnimatedAvatar, ImageChannelType.SteamAvatars);
+
+            //        if (!string.IsNullOrEmpty(miniProfile.AvatarFrame))
+            //            miniProfile.AvatarFrameStream = httpService.GetImageAsync(miniProfile.AvatarFrame, ImageChannelType.SteamAvatars);
+
+            //        //item.Level = miniProfile.Level;
+            //    }
+            //}
+            //_SteamUsersSourceList.Refresh();
+            #endregion
         }
 
         public void DisposeSteamClient()
