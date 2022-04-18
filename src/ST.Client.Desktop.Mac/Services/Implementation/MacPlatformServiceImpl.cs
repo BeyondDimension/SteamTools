@@ -222,11 +222,10 @@ namespace System.Application.Services.Implementation
                 var registryVdfPath = GetRegistryVdfPath();
                 if (!string.IsNullOrWhiteSpace(registryVdfPath) && File.Exists(registryVdfPath))
                 {
-                    dynamic v = VdfHelper.Read(registryVdfPath);
-                    var autoLoginUser = v.Value.HKCU.Software.Valve.Steam.AutoLoginUser;
-                    if (autoLoginUser != null)
+                    dynamic v = VdfHelper.Read(registryVdfPath); 
+                    if (v.Value.HKCU.Software.Valve.Steam.AutoLoginUser != null)
                     {
-                        autoLoginUser = userName;
+                        v.Value.HKCU.Software.Valve.Steam.AutoLoginUser = userName;
                         VdfHelper.Write(registryVdfPath, v);
                     }
                     else
