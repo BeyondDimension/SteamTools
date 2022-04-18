@@ -139,16 +139,16 @@
 		<PackageVersion Include="ReactiveUI.AndroidX" Version="18.0.7" />
 
 		<!-- SkiaSharp & HarfBuzzSharp -->
-		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.232" />
-		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.232" />
-		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.232" />
-		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.232" />
+		<PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.254" />
+		<PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.254" />
+		<PackageVersion Include="SkiaSharp" Version="2.88.0-preview.254" />
+		<PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.254" />
 
 		<!-- AutoMapper -->
 		<PackageVersion Include="AutoMapper" Version="10.1.1" />
-		<PackageVersion Include="AutoMapper.Collection" Version="7.0.1" />
-		<PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="7.1.3" />
-		<PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.3" />
+		<PackageVersion Include="AutoMapper.Collection" Version="8.0.0" />
+		<PackageVersion Include="AutoMapper.Collection.EntityFrameworkCore" Version="8.0.0" />
+		<PackageVersion Include="AutoMapper.Extensions.ExpressionMapping" Version="5.0.2" />
 		<PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
 
 		<!-- QRCode -->
@@ -203,7 +203,7 @@
 
 		<!-- .NET Compat -->
 		<PackageVersion Include="OperatingSystem2" Version="1.4.3" />
-		<PackageVersion Include="JustArchiNET.Madness" Version="3.3.0" />
+		<PackageVersion Include="JustArchiNET.Madness" Version="3.5.1" />
 
 		<!-- Serialize -->
 		<PackageVersion Include="MessagePack" Version="2.3.85" />
