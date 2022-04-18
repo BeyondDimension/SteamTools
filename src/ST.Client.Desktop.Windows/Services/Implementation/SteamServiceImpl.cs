@@ -383,11 +383,11 @@ namespace System.Application.Services.Implementation
             }
             else
             {
-                dynamic v = VdfHelper.Read(UserVdfPath);
-                dynamic users = v.Value.Children();
-                if (users != null)
+                try
                 {
-                    try
+                    dynamic v = VdfHelper.Read(UserVdfPath);
+                    dynamic users = v.Value.Children();
+                    if (users != null)
                     {
                         for (int i = 0; i < users.Count; i++)
                         {
@@ -409,52 +409,49 @@ namespace System.Application.Services.Implementation
                             }
                         }
 
-
                     }
-                    catch (Exception e)
-                    {
-                        Log.Error(TAG, e, "GetUserVdfPath for Delete catch");
-                    }
+                }
+                catch (Exception e)
+                {
+                    Log.Error(TAG, e, "GetUserVdfPath for Delete catch");
                 }
             }
         }
 
-        public void UpdateLocalUserData(IEnumerable<SteamUser> user)
+        public void UpdateLocalUserData(IEnumerable<SteamUser> users)
         {
-            if (string.IsNullOrWhiteSpace(UserVdfPath))
+            if (string.IsNullOrWhiteSpace(UserVdfPath) || !File.Exists(UserVdfPath))
             {
                 return;
             }
             else
             {
-                if (File.Exists(UserVdfPath))
+                dynamic models = VdfHelper.Read(UserVdfPath);
+                foreach (var item in models.Value.Children())
                 {
-                    dynamic models = VdfHelper.Read(UserVdfPath);
-                    foreach (var item in models.Value.Children())
+                    try
                     {
-                        try
+                        var itemUser = users.FirstOrDefault(x => x.SteamId64.ToString() == item.Key);
+                        if (itemUser == null)
                         {
-                            var itemUser = user.FirstOrDefault(x => x.SteamId64.ToString() == item.Key);
-                            if (itemUser == null)
-                            {
-                                item.Value.MostRecent = item.Value.MostRecent == 1 ? 0 : 1;
-                                break;
-                            }
-                            item.Value.MostRecent = Convert.ToByte(itemUser.MostRecent);
-                            item.Value.Timestamp = itemUser.Timestamp;
-                            item.Value.WantsOfflineMode = Convert.ToByte(itemUser.WantsOfflineMode);
-                            item.Value.SkipOfflineModeWarning = Convert.ToByte(itemUser.SkipOfflineModeWarning);
+                            item.Value.MostRecent = 0;
+                            break;
                         }
-                        catch (Exception e)
-                        {
-                            Log.Error(TAG, e, "GetUserVdfPath for catch");
-                        }
+                        item.Value.MostRecent = Convert.ToByte(itemUser.MostRecent);
+                        item.Value.WantsOfflineMode = Convert.ToByte(itemUser.WantsOfflineMode);
+                        item.Value.SkipOfflineModeWarning = Convert.ToByte(itemUser.SkipOfflineModeWarning);
                     }
-
-                    VdfHelper.Write(UserVdfPath, models);
+                    catch (Exception e)
+                    {
+                        Log.Error(TAG, e, "GetUserVdfPath for catch");
+                    }
                 }
+
+                VdfHelper.Write(UserVdfPath, models);
             }
         }
+
+
 
         private uint univeseNumber;
         private const uint MagicNumber = 123094055U;
@@ -647,9 +644,10 @@ namespace System.Application.Services.Implementation
 
         public async Task<string> GetAppImageAsync(SteamApp app, SteamApp.LibCacheType type)
         {
-            if (SteamConnectService.Current.CurrentSteamUser != null)
+            var mostRecentUser = GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
+            if (mostRecentUser != null)
             {
-                var customFilePath = GetAppCustomImageFilePath(app.AppId, SteamConnectService.Current.CurrentSteamUser, type);
+                var customFilePath = GetAppCustomImageFilePath(app.AppId, mostRecentUser, type);
                 if (File.Exists(customFilePath)) return customFilePath!;
             }
 

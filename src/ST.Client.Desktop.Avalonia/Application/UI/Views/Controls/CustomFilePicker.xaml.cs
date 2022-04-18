@@ -85,7 +85,7 @@ namespace System.Application.UI.Views.Controls
             {
                 fileTypes = new ValueTuple<string, string[]>[] {
                         ("Required Files", FileExtensions.Split(",")),
-                        ("All Files", new[] { "*"}),
+                        ("All Files", new[] { "*" }),
                        };
             }
 

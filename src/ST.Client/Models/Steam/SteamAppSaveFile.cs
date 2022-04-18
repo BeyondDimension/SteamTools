@@ -66,7 +66,10 @@ namespace System.Application.Models
             {
                 path = SteamConnectService.Current.SteamApps.Lookup(ParentAppId).Value?.InstalledDir;
             }
-
+            
+            if (string.IsNullOrEmpty(path))
+                return;
+            
             path = FilePath.Combine(path,
                 Path.Replace("{64BitSteamID}", SteamConnectService.Current.CurrentSteamUser?.SteamId64.ToString())
                     .Replace("{Steam3AccountID}", SteamConnectService.Current.CurrentSteamUser?.SteamId32.ToString()));

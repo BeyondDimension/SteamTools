@@ -151,17 +151,27 @@ namespace System.Application.Models
         [XmlIgnore]
         public DateTime LastLoginTime { get; set; }
 
+        private bool _MostRecent;
         /// <summary>
         /// 最近登录
         /// </summary>
         [XmlIgnore]
-        public bool MostRecent { get; set; }
+        public bool MostRecent
+        {
+            get => _MostRecent;
+            set => this.RaiseAndSetIfChanged(ref _MostRecent, value);
+        }
 
+        private bool _WantsOfflineMode;
         /// <summary>
         /// 离线模式
         /// </summary>
         [XmlIgnore]
-        public bool WantsOfflineMode { get; set; }
+        public bool WantsOfflineMode
+        {
+            get => _WantsOfflineMode;
+            set => this.RaiseAndSetIfChanged(ref _WantsOfflineMode, value);
+        }
 
         /// <summary>
         /// 忽略离线模式警告弹窗

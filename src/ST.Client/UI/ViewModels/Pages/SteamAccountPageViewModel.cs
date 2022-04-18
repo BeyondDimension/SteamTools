@@ -78,10 +78,7 @@ namespace System.Application.UI.ViewModels
         public ReadOnlyObservableCollection<SteamUser>? SteamUsers => _SteamUsers;
 
         public bool IsUserEmpty => !SteamUsers.Any_Nullable();
-        public void RefreshRememberUserList()
-        {
-            _SteamUsersSourceList.AddOrUpdate(_SteamUsers!);
-        }
+
         public override async void Initialize()
         {
             var list = steamService.GetRememberUserList();
@@ -91,8 +88,6 @@ namespace System.Application.UI.ViewModels
                 return;
             }
             _SteamUsersSourceList.AddOrUpdate(list);
-
-            RefreshRememberUserList();
 
             #region 加载备注信息
             IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
@@ -199,56 +194,34 @@ namespace System.Application.UI.ViewModels
 
         public void SteamId_Click(SteamUser user)
         {
-            if (user.WantsOfflineMode)
-            {
-                UserModeChange(user, false);
-            }
+            user.WantsOfflineMode = false;
             ReStartSteamByUser(user);
         }
 
         public void OfflineModeButton_Click(SteamUser user)
         {
-            if (user.WantsOfflineMode == false)
-            {
-                UserModeChange(user, true);
-            }
+            user.WantsOfflineMode = true;
             ReStartSteamByUser(user);
         }
 
-        private void ReStartSteamByUser(SteamUser user)
-        {
-            DisableMostRecentSteamUser();
-
-            steamService.SetCurrentUser(user.AccountName ?? string.Empty);
-            user.MostRecent = true;
-            steamService.UpdateLocalUserData(SteamUsers!);
-            //user.OriginVdfString = user.CurrentVdfString;
-            steamService.TryKillSteamProcess();
-            steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
-            RefreshRememberUserList();
-        }
-        /// <summary>
-        /// All MostRecent true => false
-        /// </summary>
-        private void DisableMostRecentSteamUser()
+        private void ReStartSteamByUser(SteamUser? user = null)
         {
             foreach (var item in SteamUsers.Where(x => x.MostRecent))
-            {
                 item.MostRecent = false;
-                //steamService.UpdateLocalUserData(item);
-                //item.OriginVdfString = item.CurrentVdfString;
+
+            if (user != null)
+            {
+                user.MostRecent = true;
+                steamService.UpdateLocalUserData(SteamUsers!);
+                steamService.SetCurrentUser(user.AccountName ?? string.Empty);
             }
-        }
-        private void UserModeChange(SteamUser user, bool OfflineMode)
-        {
+            else
+            {
+                steamService.SetCurrentUser(string.Empty);
+            }
 
-            DisableMostRecentSteamUser();
-
-            user.WantsOfflineMode = OfflineMode;
-            user.MostRecent = true;
-            steamService.UpdateLocalUserData(SteamUsers!);
-            //user.OriginVdfString = user.CurrentVdfString;
-            RefreshRememberUserList();
+            steamService.TryKillSteamProcess();
+            steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
 
         public async void DeleteUserButton_Click(SteamUser user)
@@ -285,12 +258,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (s.Result == MessageBox.Result.OK)
                 {
-                    DisableMostRecentSteamUser();
-
-                    steamService.SetCurrentUser("");
-                    steamService.TryKillSteamProcess();
-                    steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
-                    RefreshRememberUserList();
+                    ReStartSteamByUser();
                 }
             });
         }

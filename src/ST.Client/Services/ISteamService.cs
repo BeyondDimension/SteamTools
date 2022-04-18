@@ -90,7 +90,7 @@ namespace System.Application.Services
 
         void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false);
 
-        void UpdateLocalUserData(IEnumerable<SteamUser> user);
+        void UpdateLocalUserData(IEnumerable<SteamUser> users);
 
         /// <summary>
         /// 从steam本地客户端缓存文件中读取游戏数据

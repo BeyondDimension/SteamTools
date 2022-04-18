@@ -3,6 +3,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.CommandLine.NamingConventionBinder;
 using System.Threading.Tasks;
+using System.Linq;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace System.Application.UI
@@ -153,8 +154,20 @@ namespace System.Application.UI
                     if (!string.IsNullOrEmpty(account))
                     {
                         Startup.Init(DILevel.Steam);
-                        ISteamService.Instance.TryKillSteamProcess();
+
+                        var users = ISteamService.Instance.GetRememberUserList();
+
+                        var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
+
+                        if (currentuser != null)
+                        {
+                            currentuser.MostRecent = true;
+                            ISteamService.Instance.UpdateLocalUserData(users);
+                        }
+                        
                         ISteamService.Instance.SetCurrentUser(account);
+
+                        ISteamService.Instance.TryKillSteamProcess();
                         ISteamService.Instance.StartSteam();
                     }
                 });
