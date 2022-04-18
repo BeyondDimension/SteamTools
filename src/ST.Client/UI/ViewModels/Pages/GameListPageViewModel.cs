@@ -269,7 +269,7 @@ namespace System.Application.UI.ViewModels
             var url = string.Format(SteamApiUrls.STEAM_NAVGAME_URL, app.AppId);
             Process2.Start(url, useShellExecute: true);
         }
-
+        
         public static void OpenFolder(SteamApp app)
         {
             if (!string.IsNullOrEmpty(app.InstalledDir))
@@ -285,7 +285,7 @@ namespace System.Application.UI.ViewModels
         {
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
         }
-
+        
         public static async void OpenSteamCardUrl(SteamApp app)
         {
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));

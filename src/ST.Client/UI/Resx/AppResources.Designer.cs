@@ -4294,7 +4294,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 因为修改自定义封面是根据账号生效的，所以必须要先运行Steam 的本地化字符串。
+        ///   查找类似 获取最后登录的Steam账号信息失败，无法修改自定义封面是。 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_SteamUserNullTip {
             get {

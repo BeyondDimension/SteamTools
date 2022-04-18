@@ -73,16 +73,16 @@ namespace System.Application.UI.ViewModels
         //    }
         //}
 
-        public static void EditSteamApp(SteamApp app) => GameListPageViewModel.EditAppInfoClick(app);
+        public static void EditSteamApp(in SteamApp app) => GameListPageViewModel.EditAppInfoClick(app);
 
-        public static void NavAppToSteamView(SteamApp app) => GameListPageViewModel.NavAppToSteamView(app);
+        public static void NavAppToSteamView(in SteamApp app) => GameListPageViewModel.NavAppToSteamView(app);
 
-        public static void OpenFolder(SteamApp app) => GameListPageViewModel.OpenFolder(app);
+        public static void OpenFolder(in SteamApp app) => GameListPageViewModel.OpenFolder(app);
 
-        public static void OpenAppStoreUrl(SteamApp app) => GameListPageViewModel.OpenAppStoreUrl(app);
+        public static void OpenAppStoreUrl(in SteamApp app) => GameListPageViewModel.OpenAppStoreUrl(app);
 
-        public static void OpenSteamDBUrl(SteamApp app) => GameListPageViewModel.OpenSteamDBUrl(app);
+        public static void OpenSteamDBUrl(in SteamApp app) => GameListPageViewModel.OpenSteamDBUrl(app);
 
-        public static void OpenSteamCardUrl(SteamApp app) => GameListPageViewModel.OpenSteamCardUrl(app);
+        public static void OpenSteamCardUrl(in SteamApp app) => GameListPageViewModel.OpenSteamCardUrl(app);
     }
 }

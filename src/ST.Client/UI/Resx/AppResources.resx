@@ -2247,7 +2247,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>保存数据失败，查看程序日志获取详细错误信息</value>
   </data>
   <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
-    <value>因为修改自定义封面是根据账号生效的，所以必须要先运行Steam</value>
+    <value>获取最后登录的Steam账号信息失败，无法修改自定义封面是。</value>
   </data>
   <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
     <value>请正确选择一张要应用的图片</value>

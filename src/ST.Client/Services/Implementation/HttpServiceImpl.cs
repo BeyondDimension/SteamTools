@@ -402,9 +402,8 @@ namespace System.Application.Services.Implementation
                     .ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
-                    using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
-                    var ms = new MemoryStream();
-                    await stream.CopyToAsync(ms, cancellationToken);
+                    var imageStream = await response.Content.ReadAsByteArrayAsync(cancellationToken);
+                    var ms = new MemoryStream(imageStream);
                     return ms;
                 }
             }

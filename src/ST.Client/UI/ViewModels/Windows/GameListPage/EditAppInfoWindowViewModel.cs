@@ -11,6 +11,7 @@ using DynamicData.Binding;
 using System.Application.Services;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace System.Application.UI.ViewModels
 {
@@ -96,7 +97,7 @@ namespace System.Application.UI.ViewModels
             MoveLaunchItem(item, false);
         }
 
-        private void MoveLaunchItem(SteamAppLaunchItem item, bool isUp)
+        private void MoveLaunchItem(in SteamAppLaunchItem item, bool isUp)
         {
             if (App.LaunchItems != null)
             {
@@ -117,9 +118,9 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        bool CheckCurrentSteamUserStats()
+        bool CheckCurrentSteamUserStats(in SteamUser user)
         {
-            if (SteamConnectService.Current.CurrentSteamUser == null)
+            if (user == null)
             {
                 Toast.Show(AppResources.SaveEditedAppInfo_SteamUserNullTip);
                 return false;
@@ -130,35 +131,37 @@ namespace System.Application.UI.ViewModels
         public async void SaveEditAppInfo()
         {
             #region 自定义图片保存
+            var mostRecentUser = ISteamService.Instance.GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
+
             if (!(App.EditLibraryLogoStream is FileStream fs && fs.Name == await App.LibraryLogoStream))
             {
-                if (!CheckCurrentSteamUserStats())
+                if (!CheckCurrentSteamUserStats(mostRecentUser))
                     return;
 
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryLogoStream,
-                 SteamConnectService.Current.CurrentSteamUser!, App.AppId, SteamGridItemType.Logo) == false)
+                 mostRecentUser, App.AppId, SteamGridItemType.Logo) == false)
                 {
                     Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
                 }
             }
             if (!(App.EditLibraryHeroStream is FileStream fs1 && fs1.Name == await App.LibraryHeroStream))
             {
-                if (!CheckCurrentSteamUserStats())
+                if (!CheckCurrentSteamUserStats(mostRecentUser))
                     return;
 
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryHeroStream,
-                 SteamConnectService.Current.CurrentSteamUser!, App.AppId, SteamGridItemType.Hero) == false)
+                 mostRecentUser, App.AppId, SteamGridItemType.Hero) == false)
                 {
                     Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Hero)));
                 }
             }
             if (!(App.EditLibraryGridStream is FileStream fs2 && fs2.Name == await App.LibraryGridStream))
             {
-                if (!CheckCurrentSteamUserStats())
+                if (!CheckCurrentSteamUserStats(mostRecentUser))
                     return;
 
                 if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryGridStream,
-                    SteamConnectService.Current.CurrentSteamUser!, App.AppId, SteamGridItemType.Grid) == false)
+                    mostRecentUser, App.AppId, SteamGridItemType.Grid) == false)
                 {
                     Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Grid)));
                 }
