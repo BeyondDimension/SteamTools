@@ -61,16 +61,16 @@ namespace System.Application.Models
             [MPKey(0)]
             public Entrance Entrance { get; set; } = DefaultEntrance;
 
-            [MPKey(LAST_MP_INDEX)]
+            [MPKey(1)]
             public string? RequestUri { get; set; }
 
             [MPIgnore]
             public Action? Action { get; set; }
 
-
+            [MPKey(LAST_MP_INDEX)]
             public string? TabItemId { get; set; }
 
-            protected const int LAST_MP_INDEX = 1;
+            protected const int LAST_MP_INDEX = 2;
 
             /// <summary>
             /// 点击该通知的事件或跳转页面或打开浏览器等
