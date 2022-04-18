@@ -1,5 +1,6 @@
 package net.steampp.app.ui.viewmodels
 
+import android.os.Build
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.LiveData
@@ -14,15 +15,17 @@ class CommunityFixViewModel : ViewModel() {
 
     init {
         mText = MutableLiveData()
-        mText.setValue(
-            """
-    ${
-                Arrays.stream(this.javaClass.name.split("\\.").toTypedArray())
-                    .reduce { first: String?, second: String -> second }.orElse("")
-                    .replace("ViewModel", "")
-            }
-    ${MainApplication.context?.getString(R.string.under_construction)}
-    """.trimIndent()
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mText.setValue(
+                """
+        ${
+                    Arrays.stream(this.javaClass.name.split("\\.").toTypedArray())
+                        .reduce { first: String?, second: String -> second }.orElse("")
+                        .replace("ViewModel", "")
+                }
+        ${MainApplication.context?.getString(R.string.under_construction)}
+        """.trimIndent()
+            )
+        }
     }
 }

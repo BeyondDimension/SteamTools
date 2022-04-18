@@ -9,7 +9,6 @@ using System.Application.UI.Adapters;
 using System.Application.UI.ViewModels;
 using static System.Application.UI.Resx.AppResources;
 using Fragment = AndroidX.Fragment.App.Fragment;
-using ASF_FS = System.Application.Services.Native.ArchiSteamFarmForegroundService;
 using static System.Application.UI.ViewModels.ArchiSteamFarmPlusPageViewModel;
 using System.Application.Services.Implementation;
 

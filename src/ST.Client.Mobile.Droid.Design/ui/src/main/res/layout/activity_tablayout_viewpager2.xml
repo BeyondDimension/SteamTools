@@ -14,12 +14,19 @@
     app:tabTextAppearance="@style/MainTheme2.TabLayoutTextStyle"
     xamarin:managedType="Google.Android.Material.Tabs.TabLayout" />
 
-  <androidx.viewpager2.widget.ViewPager2
-    android:id="@+id/pager"
+  <!-- 修复嵌套 ViewPager2 导致滑动冲突 -->
+  <androidx.viewpager2.integration.testapp.NestedScrollableHost
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@color/grey_window_background"
-    xamarin:managedType="AndroidX.ViewPager2.Widget.ViewPager2" />
+    android:layout_weight="1">
+
+    <androidx.viewpager2.widget.ViewPager2
+      android:id="@+id/pager"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/grey_window_background"
+      xamarin:managedType="AndroidX.ViewPager2.Widget.ViewPager2" />
+
+  </androidx.viewpager2.integration.testapp.NestedScrollableHost>
 
 </LinearLayout>

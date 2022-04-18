@@ -359,7 +359,7 @@ namespace System.Application.Services.Implementation
         const string ExtraRequestUri = JavaPackageConstants.Root + "extra.RequestUri";
         const string ExtraEntrance = JavaPackageConstants.Root + "extra.Entrance";
 
-        [BroadcastReceiver(Enabled = true, Exported = true)]
+        [BroadcastReceiver(Enabled = true, Exported = false)]
         sealed class NotificationClickReceiver : BroadcastReceiver
         {
             public override void OnReceive(Context? context, Intent? intent)

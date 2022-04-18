@@ -10,6 +10,7 @@
   <remove-node path="/api/package[@name='net.steampp.app.shadowsocks.bg']/class[@name='GuardedProcessPool']" />
   <remove-node path="/api/package[@name='net.steampp.app.shadowsocks.utils']" />
   <remove-node path="/api/package[@name='net.steampp.app.shadowsocks']/class[@name='BuildConfig']" />
+  <remove-node path="/api/package[@name='androidx.viewpager2.integration.testapp']/class[@name='NestedScrollableHost']" />
   <attr path="/api/package[@name='net.steampp.app.shadowsocks.bg']"
     name="managedName">Shadowsocks</attr>
   <attr path="/api/package[@name='net.steampp.app.shadowsocks']"

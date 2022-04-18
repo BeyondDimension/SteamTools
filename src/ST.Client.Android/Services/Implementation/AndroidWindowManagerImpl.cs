@@ -21,8 +21,17 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="IWindowManager"/>
     public class AndroidWindowManagerImpl : IWindowManagerImpl
     {
+        /* AlertDialog
+         * =======================================
+         * = Title                               =
+         * = Message(Content)                    =
+         * = Neutral          Negative  Positive =
+         * =======================================
+         */
+
         protected static string PositiveButtonText => AppResources.Confirm;
         protected static string NegativeButtonText => AppResources.Cancel;
+        protected static string NeutralButtonText => AppResources.RememberChooseNotToAskAgain;
 
         protected async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")
         {
@@ -94,6 +103,14 @@ namespace System.Application.Services.Implementation
                         tcs.TrySetResult(false);
                     });
                 }
+                void SetNeutralButton(MaterialAlertDialogBuilder b, MessageBoxWindowViewModel vm)
+                {
+                    b.SetNeutralButton(NeutralButtonText, (_, e) =>
+                    {
+                        vm.RememberChoose = true;
+                        tcs.TrySetResult(true);
+                    });
+                }
 
                 Action<AlertDialog>? CreateMessageBoxDialogWindow(MaterialAlertDialogBuilder b)
                 {
@@ -103,6 +120,7 @@ namespace System.Application.Services.Implementation
                     {
                         b.SetMessage(viewModel_mb.Content);
                         isCancelcBtn = viewModel_mb.IsCancelcBtn;
+                        if (viewModel_mb.IsShowRememberChoose) SetNeutralButton(b, viewModel_mb);
                     }
                     if (isCancelcBtn) SetCancelButton(b);
                     return null;

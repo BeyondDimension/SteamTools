@@ -92,6 +92,8 @@ namespace System.Application
             ResetHostsFile,
 
             SaveEditAppInfo,
+
+            AndroidCertificateTrustTip,
         }
 
         /// <summary>
@@ -145,8 +147,17 @@ namespace System.Application
 
             if (r && viewModel.RememberChoose && isDoNotShow)
             {
-                if (UISettings.DoNotShowMessageBoxs.Value?.Contains(rememberChooseKey) == false)
-                    UISettings.DoNotShowMessageBoxs.Value?.Add(rememberChooseKey);
+                if (UISettings.DoNotShowMessageBoxs.Value == null)
+                {
+                    UISettings.DoNotShowMessageBoxs.Value = new() { rememberChooseKey };
+                }
+                else
+                {
+                    if (UISettings.DoNotShowMessageBoxs.Value.Contains(rememberChooseKey) == false)
+                    {
+                        UISettings.DoNotShowMessageBoxs.Value.Add(rememberChooseKey);
+                    }
+                }
                 UISettings.DoNotShowMessageBoxs.RaiseValueChanged();
             }
 
@@ -154,9 +165,9 @@ namespace System.Application
         }
 
         /// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
-        public static async void Show(string messageBoxText, string caption = default_caption, Button button = default_button, Image icon = default)
+        public static async void Show(string messageBoxText, string caption = default_caption, Button button = default_button, Image icon = default, DontPromptType rememberChooseKey = default)
         {
-            await ShowAsync(messageBoxText, caption, button, icon);
+            await ShowAsync(messageBoxText, caption, button, icon, rememberChooseKey);
         }
 
         ///// <inheritdoc cref="IMessageBoxService.ShowAsync(string, string, Button, Image)"/>
