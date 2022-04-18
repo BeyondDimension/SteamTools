@@ -2,9 +2,6 @@ using NLog;
 using System.Linq;
 using System.Net;
 using System.Runtime.Versioning;
-#if DEBUG
-using WinFormsMessageBox = System.Windows.Forms.MessageBox;
-#endif
 
 #if MAC
 [assembly: SupportedOSPlatform("macOS")]
@@ -12,6 +9,9 @@ using WinFormsMessageBox = System.Windows.Forms.MessageBox;
 [assembly: SupportedOSPlatform("Linux")]
 #elif WINDOWS_DESKTOP_BRIDGE
 //using Microsoft.Toolkit.Uwp.Notifications;
+#if DEBUG
+using WinFormsMessageBox = System.Windows.Forms.MessageBox;
+#endif
 [assembly: SupportedOSPlatform("Windows10.0.17763.0")]
 #elif WINDOWS
 [assembly: SupportedOSPlatform("Windows7.0")]
