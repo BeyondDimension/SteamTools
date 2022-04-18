@@ -117,6 +117,16 @@ namespace System
 
         public const string maFile = ".maFile";
 
+        public static readonly string[] ImageFileExtensions = new string[]
+        {
+            FileEx.BMP,
+            FileEx.JPG,
+            FileEx.JPEG,
+            FileEx.PNG,
+            FileEx.GIF,
+            FileEx.WEBP,
+        }; 
+
         public static bool IsSupportedTextReader(string extension) =>
             string.Equals(extension, JSON, StringComparison.OrdinalIgnoreCase) ||
             string.Equals(extension, TXT, StringComparison.OrdinalIgnoreCase) ||

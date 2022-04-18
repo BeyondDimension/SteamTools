@@ -35,14 +35,7 @@ namespace System.Application.UI.ViewModels
                 SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
                 {
                     FilePickerFileType fileTypes = new ValueTuple<string, string[]>[] {
-                        ("Image Files", new[] {
-                            FileEx.BMP,
-                            FileEx.JPG,
-                            FileEx.JPEG,
-                            FileEx.PNG,
-                            FileEx.GIF,
-                            FileEx.WEBP,
-                        }),
+                        ("Image Files", FileEx.ImageFileExtensions),
                         //("All Files", new[] { "*", }),
                        };
                     await PickAsync(SetBackgroundImagePath, fileTypes);

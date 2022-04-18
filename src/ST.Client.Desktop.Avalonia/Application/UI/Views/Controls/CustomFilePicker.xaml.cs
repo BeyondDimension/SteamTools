@@ -75,19 +75,19 @@ namespace System.Application.UI.Views.Controls
 
         private async void CustomFilePicker_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            FilePickerFileType fileTypes;
+            FilePickerFileType fileTypes = new ValueTuple<string, string[]>[] { ("Image Files", FileEx.ImageFileExtensions) };
 
-            if (string.IsNullOrEmpty(FileExtensions) || FileExtensions == "*")
-            {
-                fileTypes = new ValueTuple<string, string[]>[] { ("All Files", new[] { "*" }) };
-            }
-            else
-            {
-                fileTypes = new ValueTuple<string, string[]>[] {
-                        ("Required Files", FileExtensions.Split(",")),
-                        ("All Files", new[] { "*" }),
-                       };
-            }
+            //if (string.IsNullOrEmpty(FileExtensions) || FileExtensions == "*")
+            //{
+            //    fileTypes = new ValueTuple<string, string[]>[] { ("All Files", new[] { "*" }) };
+            //}
+            //else
+            //{
+            //    fileTypes = new ValueTuple<string, string[]>[] {
+            //            ("Required Files", FileExtensions.Split(",")),
+            //            ("All Files", new[] { "*" }),
+            //           };
+            //}
 
             await PickAsync((file) =>
             {

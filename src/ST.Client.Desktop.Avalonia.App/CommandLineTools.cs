@@ -163,10 +163,9 @@ namespace System.Application.UI
                         {
                             currentuser.MostRecent = true;
                             ISteamService.Instance.UpdateLocalUserData(users);
+                            ISteamService.Instance.SetCurrentUser(account);
                         }
                         
-                        ISteamService.Instance.SetCurrentUser(account);
-
                         ISteamService.Instance.TryKillSteamProcess();
                         ISteamService.Instance.StartSteam();
                     }
