@@ -253,7 +253,7 @@
 		<!--Avalonia End-->
 
 		<!-- Xamarin.Android -->
-		<PackageVersion Include="Xamarin.Build.Download" Version="0.11.0" />
+		<PackageVersion Include="Xamarin.Build.Download" Version="0.11.1" />
 		<PackageVersion Include="Xamarin.Google.Dagger" Version="2.39.1" />
 		<PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
 		<PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
