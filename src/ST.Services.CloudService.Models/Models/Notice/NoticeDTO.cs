@@ -130,5 +130,12 @@ namespace System.Application.Models
         [N_JsonProperty("11")]
         [S_JsonProperty("11")]
         public string Url { get; set; } = string.Empty;
+        /// <summary>
+        /// Url
+        /// </summary>
+        [MPKey(12)]
+        [N_JsonProperty("12")]
+        [S_JsonProperty("12")]
+        public string? Context { get; set; } = string.Empty;
     }
 }
