@@ -43,40 +43,40 @@ namespace System.Application.UI.Views
 #endif
         }
 
-        //        protected override void OnClosing(CancelEventArgs e)
-        //        {
-        //#if !UI_DEMO
-        //            if (StartupOptions.Value.HasNotifyIcon)
-        //            {
-        //                //IsHideWindow = true;
-        //                //e.Cancel = true;
-        //                //Hide();
-
-        //                //if (ViewModel is not null)
-        //                //    foreach (var tab in ViewModel.TabItems)
-        //                //        tab.Deactivation();
-        //            }
-        //#endif
-        //            base.OnClosing(e);
-        //        }
-
-        protected override void OnClosed(EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
 #if !UI_DEMO
             if (StartupOptions.Value.HasNotifyIcon)
             {
-                if (App.Current!.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
-                {
-                    desktop.MainWindow = App.Instance.MainWindow = null;
-                }
+                IsHideWindow = true;
+                e.Cancel = true;
+                Hide();
 
                 if (ViewModel is not null)
                     foreach (var tab in ViewModel.TabItems)
                         tab.Deactivation();
             }
 #endif
-            //base.OnClosed(e);
+            base.OnClosing(e);
         }
+
+        //        protected override void OnClosed(EventArgs e)
+        //        {
+        //#if !UI_DEMO
+        //            if (StartupOptions.Value.HasNotifyIcon)
+        //            {
+        //                if (App.Current!.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+        //                {
+        //                    desktop.MainWindow = App.Instance.MainWindow = null;
+        //                }
+
+        //                if (ViewModel is not null)
+        //                    foreach (var tab in ViewModel.TabItems)
+        //                        tab.Deactivation();
+        //            }
+        //#endif
+        //            base.OnClosed(e);
+        //        }
 
         protected override void OnOpened(EventArgs e)
         {

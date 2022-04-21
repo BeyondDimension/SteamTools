@@ -217,7 +217,11 @@ namespace Avalonia.Controls
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
             if (DataContext is IDisposable disposable) disposable.Dispose();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         #region CoreWindow
