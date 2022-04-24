@@ -27,7 +27,7 @@ namespace System.Application.Services.CloudService.Clients
                      isAnonymous: true,
                      isSecurity: true,
                      method: HttpMethod.Post,
-                     requestUri: $"api/Notice/List/{typeId}?index={index}&platform={DeviceInfo2.Platform}&deviceIdiom={DeviceInfo2.Idiom}{(size.HasValue ? $"&size={size}" : "")}",
+                     requestUri: $"api/Notice/List/{typeId}/{DeviceInfo2.Platform}/{DeviceInfo2.Idiom}/?index={index}{(size.HasValue ? $"&size={size}" : "")}",
                      cancellationToken: default);
 
         public Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid typeId,DateTimeOffset? time)
@@ -36,7 +36,7 @@ namespace System.Application.Services.CloudService.Clients
                      isAnonymous: true,
                      isSecurity: true,
                      method: HttpMethod.Get,
-                     requestUri: $"api/Notice/NewMsg/{typeId}?platform={DeviceInfo2.Platform}&deviceIdiom={DeviceInfo2.Idiom}{(time.HasValue?$"&time={time}":"")}",
+                     requestUri: $"api/Notice/NewMsg/{typeId}/{DeviceInfo2.Platform}/{DeviceInfo2.Idiom}{(time.HasValue?$"?time={time}":"")}",
                      cancellationToken: default);
 
     }
