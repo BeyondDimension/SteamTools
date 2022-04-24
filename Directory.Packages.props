@@ -128,6 +128,7 @@
 		<PackageVersion Include="NLog" Version="4.7.15" />
 		<PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
 		<PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
+		<PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="4.14.0" />
 
 		<!-- ReactiveUI -->
 		<PackageVersion Include="System.Reactive" Version="5.0.0" />
@@ -184,6 +185,11 @@
 
 		<!-- Swagger -->
 		<PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+		<PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.0" />
+		<PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.0" />
+		<PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore" Version="6.3.0" />
+		<PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore.Annotations" Version="6.3.0" />
+		<PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.0" />
 
 		<!-- Pay -->
 		<!--<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.109" />-->

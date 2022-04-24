@@ -100,19 +100,16 @@ namespace System.Application.UI.ViewModels
             Notification_Test();
         }
 
-        async void Notification_Test()
+        public async void Notification_Test()
         {
             INotificationService.Instance.Notify(new NotificationBuilder
             {
                 Type = NotificationType.Announcement,
-                Content = "测试Test🎆🎇→→ HeroImage",
+                Content = "测试Test&Click-URL🎆🎇→→ HeroImage",
                 ImageDisplayType = NotificationBuilder.EImageDisplayType.HeroImage,
                 ImageUri = "https://picsum.photos/364/180?image=1043",
                 AttributionText = "Via SMS",
-                Click = new NotificationBuilder.ClickAction(() =>
-                {
-                    Browser2.Open("https://bing.com");
-                }),
+                Click = new NotificationBuilder.ClickAction("https://bing.com"),
             });
 
             INotificationService.Instance.Notify(new NotificationBuilder
@@ -121,10 +118,12 @@ namespace System.Application.UI.ViewModels
                 Content = "Test InlineImage",
                 ImageDisplayType = NotificationBuilder.EImageDisplayType.InlineImage,
                 ImageUri = "https://picsum.photos/360/202?image=1043",
+#pragma warning disable CS0618 // 类型或成员已过时
                 Click = new NotificationBuilder.ClickAction(() =>
                 {
                     MessageBox.Show("Click Test InlineImage!");
                 }),
+#pragma warning restore CS0618 // 类型或成员已过时
             });
 
             INotificationService.Instance.Notify(new NotificationBuilder

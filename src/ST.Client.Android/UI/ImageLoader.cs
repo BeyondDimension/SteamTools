@@ -8,9 +8,13 @@ using Square.Picasso;
 using System.Application.Services;
 using System.IO;
 using JFile = Java.IO.File;
+using JObject = Java.Lang.Object;
+using JException = Java.Lang.Exception;
 using AndroidApplication = Android.App.Application;
+using Size = System.Drawing.Size;
 using _ThisAssembly = System.Properties.ThisAssembly;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace System.Application.UI
 {
@@ -131,55 +135,87 @@ namespace System.Application.UI
 
         #endregion
 
+        static Drawable ErrorDrawable => new ColorDrawable(Color.DarkRed);
+
+        static Drawable Placeholder => new ColorDrawable(new(AndroidApplication.Context.GetColorCompat(Resource.Color.grey_background)));
+
+        static RequestCreator? GetRequestCreator(string? requestUri,
+            Size targetSize = default,
+            Size targetSizeResId = default,
+            ScaleType scaleType = default,
+            bool useErrorDrawable = true,
+            bool usePlaceholder = true)
+        {
+            try
+            {
+                if (Browser2.IsHttpUrl(requestUri))
+                {
+                    var requestCreator = Picasso.Load(requestUri);
+                    if (usePlaceholder) requestCreator = requestCreator.Placeholder(Placeholder);
+                    if (useErrorDrawable) requestCreator = requestCreator.Error(ErrorDrawable);
+                    var useCenterCropDefault = false;
+                    if (targetSize != default)
+                    {
+                        if (targetSize.Width > 0)
+                        {
+                            if (targetSize.Height <= 0) targetSize.Height = targetSize.Width;
+                            requestCreator = requestCreator.Resize(targetSize.Width, targetSize.Height);
+                            useCenterCropDefault = true;
+                        }
+                    }
+                    else if (targetSizeResId != default)
+                    {
+                        if (targetSizeResId.Width > 0)
+                        {
+                            if (targetSizeResId.Height <= 0) targetSizeResId.Height = targetSizeResId.Width;
+                            requestCreator = requestCreator.ResizeDimen(targetSizeResId.Width, targetSizeResId.Height);
+                            useCenterCropDefault = true;
+                        }
+                    }
+                    if (scaleType == ScaleType.CenterCrop || (useCenterCropDefault && scaleType == default))
+                    {
+                        requestCreator = requestCreator.CenterCrop();
+                    }
+                    else if (scaleType == ScaleType.CenterInside)
+                    {
+                        requestCreator = requestCreator.CenterInside();
+                    }
+                    return requestCreator;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "GetRequestCreator catch, requestUri: {0}", requestUri);
+            }
+
+            return null;
+        }
+
         public static void SetImageSource(this ImageView imageView,
             string? requestUri,
-            //int targetSize = 0,
             int targetResIdW,
             int targetResIdH = 0,
             ScaleType scaleType = default)
         {
-            if (string.IsNullOrWhiteSpace(requestUri))
-            {
-                imageView.SetImageDrawable(null);
-                return;
-            }
             try
             {
-                var ctx = imageView.Context ?? AndroidApplication.Context;
-                var placeholder = new ColorDrawable(new(ctx.GetColorCompat(Resource.Color.grey_background)));
-                var errorDrawable = new ColorDrawable(Color.DarkRed);
-                var requestCreator = Picasso.Load(requestUri)
-                    .Placeholder(placeholder)
-                    .Error(errorDrawable);
-                var useCenterCropDefault = false;
-                //if (targetSize > 0)
-                //{
-                //    requestCreator = requestCreator.Resize(targetSize, targetSize);
-                //    useCenterCropDefault = true;
-                //}
-                //else
-                if (targetResIdW > 0)
+                var requestCreator = GetRequestCreator(requestUri, default, new(targetResIdW, targetResIdH), scaleType);
+
+                if (requestCreator == null)
                 {
-                    if (targetResIdH <= 0) targetResIdH = targetResIdW;
-                    requestCreator = requestCreator.ResizeDimen(targetResIdW, targetResIdH);
-                    useCenterCropDefault = true;
+                    imageView.SetImageDrawable(null);
                 }
-                if (scaleType == ScaleType.CenterCrop || (useCenterCropDefault && scaleType == default))
+                else
                 {
-                    requestCreator = requestCreator.CenterCrop();
+                    requestCreator.Into(imageView, null, e =>
+                    {
+                        Log.Error(TAG, e, "SetImageSource.Callback catch, requestUri: {0}", requestUri);
+                    });
                 }
-                else if (scaleType == ScaleType.CenterInside)
-                {
-                    requestCreator = requestCreator.CenterInside();
-                }
-                requestCreator.Into(imageView, null, e =>
-                {
-                    Log.Error(TAG, e, "SetImageSource(string)|Callback catch, requestUri: {0}", requestUri);
-                });
             }
             catch (Exception e)
             {
-                Log.Error(TAG, e, "SetImageSource(string) catch, requestUri: {0}", requestUri);
+                Log.Error(TAG, e, "SetImageSource catch, requestUri: {0}", requestUri);
             }
         }
 
@@ -243,6 +279,79 @@ namespace System.Application.UI
                 })
                 .Build();
             return client;
+        }
+
+        static Task<Bitmap?> GetBitmapCoreAsync(string? requestUri,
+            Size targetSize = default,
+            Size targetSizeResId = default,
+            ScaleType scaleType = default)
+        {
+            try
+            {
+                var requestCreator = GetRequestCreator(requestUri, targetSize, targetSizeResId, scaleType, useErrorDrawable: false, usePlaceholder: false);
+
+                if (requestCreator != null)
+                {
+                    var tcs = new TaskCompletionSource<Bitmap?>();
+
+                    requestCreator.Into(new TaskCompletionSourceTarget(tcs));
+
+                    return tcs.Task;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "GetBitmapCoreAsync catch, requestUri: {0}", requestUri);
+            }
+
+            return Task.FromResult<Bitmap?>(null);
+        }
+
+        /// <summary>
+        /// 从 HttpUrl 中加载图片并返回 <see cref="Bitmap"/> 实例，如果 Url 不合法或出现 <see cref="Exception"/> 将返回 <see langword="null"/>
+        /// </summary>
+        /// <param name="requestUri"></param>
+        /// <param name="targetSize">目标图片大小宽高</param>
+        /// <param name="targetSizeResId">目标图片大小宽高(R.dimen)</param>
+        /// <param name="scaleType">图片缩放类型</param>
+        /// <returns></returns>
+        public static async Task<Bitmap?> GetBitmapAsync(string? requestUri,
+            Size targetSize = default,
+            Size targetSizeResId = default,
+            ScaleType scaleType = default)
+        {
+            try
+            {
+                var bitmap = await GetBitmapCoreAsync(requestUri, targetSize, targetSizeResId, scaleType);
+                return bitmap;
+            }
+            catch (Exception e)
+            {
+                Log.Error(TAG, e, "GetBitmapAsync catch, requestUri: {0}", requestUri);
+            }
+
+            return null;
+        }
+
+        sealed class TaskCompletionSourceTarget : JObject, ITarget
+        {
+            readonly TaskCompletionSource<Bitmap?> tcs;
+
+            public TaskCompletionSourceTarget(TaskCompletionSource<Bitmap?> tcs) => this.tcs = tcs;
+
+            void ITarget.OnBitmapFailed(JException exception, Drawable _)
+            {
+                tcs.TrySetException(exception);
+            }
+
+            void ITarget.OnBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom _)
+            {
+                tcs.TrySetResult(bitmap);
+            }
+
+            void ITarget.OnPrepareLoad(Drawable _)
+            {
+            }
         }
     }
 }

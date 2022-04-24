@@ -267,7 +267,7 @@ namespace System.Application.UI
                         const string f = "yy-MM-dd HH:mm:ss";
                         const string f2 = "HH:mm:ss";
                         const string f3 = "dd HH:mm:ss";
-                        var starttime = Process.GetCurrentProcess().StartTime;
+                        var starttime = ArchiSteamFarm.Core.OS.ProcessStartTime;
                         starttime = starttime.ToLocalTime();
                         var utc_time = starttime.ToUniversalTime();
                         var local = TimeZoneInfo.Local;
@@ -277,9 +277,9 @@ namespace System.Application.UI
                             ? $"{utc_time.ToString(f)}({starttime.ToString(f2)} {local.StandardName})"
                             : $"{utc_time.ToString(f)}({starttime.ToString(f3)} {local.StandardName})";
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        startTimeStr = e.ToString();
+                        startTimeStr = string.Empty;
                     }
                     b.Append(startTimeStr);
                 }

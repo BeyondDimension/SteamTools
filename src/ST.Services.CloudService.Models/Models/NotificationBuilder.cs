@@ -52,6 +52,7 @@ namespace System.Application.Models
                 Entrance = Entrance.Browser;
             }
 
+            [Obsolete("delegate implementation difficulties")]
             public ClickAction(Action action)
             {
                 Action = action;
@@ -133,6 +134,7 @@ namespace System.Application.Models
                 Text = text;
             }
 
+            [Obsolete("delegate implementation difficulties")]
             public ButtonAction(string text, Action action) : base(action)
             {
                 Text = text;

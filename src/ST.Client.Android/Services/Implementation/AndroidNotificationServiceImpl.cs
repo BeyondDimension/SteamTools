@@ -7,6 +7,7 @@ using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 using AndroidApplication = Android.App.Application;
 using CC = System.Common.Constants;
 using NativeService = System.Application.Services.Native.IServiceBase;
@@ -223,10 +224,25 @@ namespace System.Application.Services.Implementation
             return builder;
         }
 
-        void INotificationService.Notify(NotificationBuilder.IInterface b)
+        async Task<NotificationCompat.Builder> BuildNotifyAsync(
+            NotificationCompat.Builder builder,
+            string? bigPicture = null)
+        {
+            var bitmap = await ImageLoader.GetBitmapAsync(bigPicture);
+            if (bitmap != null)
+            {
+                // https://developer.android.google.cn/training/notify-user/expanded?hl=zh-cn#image-style
+                builder.SetStyle(new NotificationCompat.BigPictureStyle().BigPicture(bitmap));
+            }
+
+            return builder;
+        }
+
+        async void INotificationService.Notify(NotificationBuilder.IInterface b)
         {
             var builder = BuildNotify(b.Content, b.Type,
                 b.AutoCancel, b.Title, b.Click);
+            builder = await BuildNotifyAsync(builder, b.ImageUri);
             var notifyId = GetNotifyId(b.Type);
             manager.Notify(notifyId, builder.Build());
         }
@@ -258,7 +274,8 @@ namespace System.Application.Services.Implementation
             var builder = BuildNotify(
                 text: text(),
                 notificationType,
-                title: title);
+                title: title,
+                autoCancel: false);
             // 进度单位说明
             // 通用层采用 float 浮点数作为进度值，范围从0~100，保留两位小数
             // 平台层采用 int 整型作为进度值，范围从0~10000，转换需要 乘 100
