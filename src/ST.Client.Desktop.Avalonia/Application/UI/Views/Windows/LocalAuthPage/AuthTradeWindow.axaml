@@ -182,7 +182,7 @@
                                  Height="128"
                                  Stretch="None"
                                  Margin="10 0"
-                                 Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter}}"/>
+                                 Source="{Binding Image}"/>
                         </Panel>
                         <Panel Grid.Column="1" Margin="10,5">
                           <StackPanel>

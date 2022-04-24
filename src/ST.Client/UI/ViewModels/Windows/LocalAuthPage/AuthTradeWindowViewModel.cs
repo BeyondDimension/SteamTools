@@ -69,19 +69,6 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        /// <summary>
-        /// 是否使用 <see cref="IHttpService"/> 加载确认物品图片 <see cref="Stream"/>
-        /// </summary>
-        static bool IsLoadImage
-        {
-            get
-            {
-                // 此页面当前使用 Square.Picasso 库加载图片
-                if (OperatingSystem2.IsAndroid) return false;
-                return true;
-            }
-        }
-
         private string? AuthPassword;
         private bool AuthIsLocal;
 
@@ -394,13 +381,6 @@ namespace System.Application.UI.ViewModels
                     });
                     var list = steam.GetConfirmations();
 
-                    if (IsLoadImage)
-                    {
-                        Parallel.ForEach(list, confirmation =>
-                        {
-                            confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
-                        });
-                    }
                     MainThread2.BeginInvokeOnMainThread(() =>
                     {
                         _ConfirmationsSourceList.Clear();
@@ -431,14 +411,6 @@ namespace System.Application.UI.ViewModels
                         {
                             steam.Refresh();
                             var list = steam.GetConfirmations();
-
-                            if (IsLoadImage)
-                            {
-                                Parallel.ForEach(list, confirmation =>
-                                {
-                                    confirmation.ImageStream = IHttpService.Instance.GetImageAsync(confirmation.Image, ImageChannelType.SteamEconomys);
-                                });
-                            }
 
                             MainThread2.BeginInvokeOnMainThread(() =>
                             {
