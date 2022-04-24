@@ -37,6 +37,7 @@ namespace System.Application.UI.Views.Windows
             }
         }
 
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

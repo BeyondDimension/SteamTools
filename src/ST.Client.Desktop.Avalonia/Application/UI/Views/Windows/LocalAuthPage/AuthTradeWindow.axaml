@@ -187,11 +187,10 @@
                         <Panel Grid.Column="1" Margin="10,5">
                           <StackPanel>
                             <DockPanel LastChildFill="True">
-                              <controls:ScrollingTextBlock Text="{Binding Details}" 
-                                                           Classes="h4" 
-                                                           Foreground="{DynamicResource HighlightForegroundBrushKey}" 
-                                                           TextWrapping="WrapWithOverflow">
-                              </controls:ScrollingTextBlock>
+                              <TextBlock Text="{Binding Details}" 
+                                         Classes="h4" 
+                                         Foreground="{DynamicResource HighlightForegroundBrushKey}" 
+                                         TextWrapping="Wrap" />
                             </DockPanel>
 
                             <TextBlock Text="{Binding Traded}" Classes="h6" Foreground="{DynamicResource InactiveForegroundBrushKey}"/>
@@ -200,9 +199,12 @@
                         </Panel>
                         <Grid Grid.Column="3" RowDefinitions="*,Auto">
                           <Panel>
-                            <TextBlock x:Name="OperateText" IsVisible="{Binding IsOperate}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       FontSize="16" Margin="0 0 10 0">
+                            <TextBlock x:Name="OperateText" 
+                                       IsVisible="{Binding IsOperate}"
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center"
+                                       FontSize="16" 
+                                       Margin="0 0 10 0">
                               <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsOperate}" ComparisonCondition="Equal" Value="1">
                                   <ia:ChangePropertyAction TargetObject="{ReflectionBinding #OperateText}" PropertyName="Text" Value="{ReflectionBinding Path=Res.Confirmed,Mode=OneWay,Source={x:Static resx:R.Current}}"/>

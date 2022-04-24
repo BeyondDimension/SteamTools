@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
+using Avalonia.Rendering;
 using System.Application.Settings;
 using System.Reflection;
 
@@ -54,8 +55,9 @@ namespace System.Application.UI
 #else
             throw new PlatformNotSupportedException();
 #endif
-
             RenderingSubsystemName = builder.RenderingSubsystemName;
+
+            //AvaloniaLocator.CurrentMutable.Bind<IRenderTimer>().ToConstant(new DefaultRenderTimer(60));
             return builder;
         }
 
