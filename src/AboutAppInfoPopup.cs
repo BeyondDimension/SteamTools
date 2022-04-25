@@ -154,11 +154,19 @@ namespace System.Application.UI
 #if WINDOWS10_0_17763_0_OR_GREATER
                 if (OperatingSystem2.IsWindows10AtLeast)
                 {
-                    b.Append("[app.pkg] ");
+                    try
+                    {
 #pragma warning disable CA1416 // 验证平台兼容性
-                    b.Append(global::Windows.ApplicationModel.Package.Current.Id.FamilyName);
+                        var currentPackage = global::Windows.ApplicationModel.Package.Current;
+                        var familyName = currentPackage.Id.FamilyName;
+                        b.Append("[app.pkg] ");
+                        b.Append(familyName);
+                        b.AppendLine();
 #pragma warning restore CA1416 // 验证平台兼容性
-                    b.AppendLine();
+                    }
+                    catch
+                    {
+                    }
                 }
 #endif
 

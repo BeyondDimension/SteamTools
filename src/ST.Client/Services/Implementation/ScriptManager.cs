@@ -85,17 +85,20 @@ namespace System.Application.Services.Implementation
                         var savePath = Path.Combine(IOPath.AppDataDirectory, IScriptManager.DirName, fileName);
                         var saveInfo = new FileInfo(savePath);
                         var isNoRepeat = saveInfo.FullName != fileInfo.FullName;
-                        if (!saveInfo.Directory.Exists)
+                        if (saveInfo.Directory != null && !saveInfo.Directory.Exists)
                         {
                             saveInfo.Directory.Create();
                         }
+                        saveInfo.Refresh();
                         if (saveInfo.Exists)
                         {
                             if (isNoRepeat)
                                 saveInfo.Delete();
                         }
                         else
+                        {
                             fileInfo.CopyTo(savePath);
+                        }
                         if (oldInfo != null && oldInfo.LocalId > 0)
                         {
                             info.LocalId = oldInfo.LocalId;

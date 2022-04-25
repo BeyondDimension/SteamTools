@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 //using static System.Application.ForwardHelper;
 using static System.Application.Services.IHttpService;
+using AsyncLock = Nito.AsyncEx.AsyncLock;
 
 namespace System.Application.Services.Implementation
 {
@@ -55,7 +56,7 @@ namespace System.Application.Services.Implementation
             try
             {
                 request = requestFactory();
-                requestUri ??= request.RequestUri.ToString();
+                requestUri ??= request.RequestUri?.ToString();
 
                 if (!isCheckHttpUrl && !Browser2.IsHttpUrl(requestUri)) return default;
 
@@ -129,7 +130,7 @@ namespace System.Application.Services.Implementation
                                         case MediaTypeNames.XML_APP:
                                             {
                                                 var xmlSerializer = new XmlSerializer(typeof(T));
-                                                return (T)xmlSerializer.Deserialize(reader);
+                                                return (T?)xmlSerializer.Deserialize(reader);
                                             }
                                     }
                                 }
@@ -264,7 +265,7 @@ namespace System.Application.Services.Implementation
                     .ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
-                    var stream = await response.Content.ReadAsStreamAsync();
+                    var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
                     var localCacheFilePath2 = localCacheFilePath + ".download-cache";
                     var fileStream = File.Create(localCacheFilePath2);
                     cancellationToken.Register(() =>
@@ -273,7 +274,7 @@ namespace System.Application.Services.Implementation
                         IOPath.FileTryDelete(localCacheFilePath2);
                     });
                     await stream.CopyToAsync(fileStream, cancellationToken);
-                    await fileStream.FlushAsync();
+                    await fileStream.FlushAsync(cancellationToken);
                     bool isSupportedImageFormat;
                     if (FileFormat.IsImage(fileStream, out var format))
                     {
@@ -356,33 +357,42 @@ namespace System.Application.Services.Implementation
             return r;
         }
 
+        readonly AsyncLock lockGetImageLocalFilePathAsync = new();
+
         public async Task<string?> GetImageLocalFilePathAsync(string requestUri, string channelType, CancellationToken cancellationToken)
         {
             if (!Browser2.IsHttpUrl(requestUri)) return null;
 
-            if (get_image_pipeline.ContainsKey(channelType))
+            Task<string?> task;
+            ConcurrentDictionary<string, Task<string?>>? pairs = null;
+
+            using (await lockGetImageLocalFilePathAsync.LockAsync(cancellationToken))
             {
-                var pairs = get_image_pipeline[channelType];
-                if (pairs.ContainsKey(requestUri))
+                if (get_image_pipeline.ContainsKey(channelType))
                 {
-                    var findResult = await pairs[requestUri];
-                    return findResult;
+                    pairs = get_image_pipeline[channelType];
+                    if (pairs.ContainsKey(requestUri))
+                    {
+                        var findResult = await pairs[requestUri];
+                        return findResult;
+                    }
                 }
-            }
-            else
-            {
-                get_image_pipeline.TryAdd(channelType, new ConcurrentDictionary<string, Task<string?>>());
+                else
+                {
+                    get_image_pipeline.TryAdd(channelType, new ConcurrentDictionary<string, Task<string?>>());
+                }
+
+                var dirPath = GetImagesCacheDirectory(channelType);
+                var fileName = Hashs.String.SHA256(requestUri) + FileEx.ImageSource;
+                var localCacheFilePath = Path.Combine(dirPath, fileName);
+
+                pairs ??= get_image_pipeline[channelType];
+                task = GetImageAsync_(requestUri, localCacheFilePath, cancellationToken);
+                pairs.TryAdd(requestUri, task);
             }
 
-            var dirPath = GetImagesCacheDirectory(channelType);
-            var fileName = Hashs.String.SHA256(requestUri) + FileEx.ImageSource;
-            var localCacheFilePath = Path.Combine(dirPath, fileName);
-
-            var pairs2 = get_image_pipeline[channelType];
-            var value = GetImageAsync_(requestUri, localCacheFilePath, cancellationToken);
-            pairs2.TryAdd(requestUri, value);
-            var result = await value;
-            pairs2.TryRemove(requestUri, out var _);
+            var result = await task;
+            pairs.TryRemove(requestUri, out var _);
             return result;
         }
 
