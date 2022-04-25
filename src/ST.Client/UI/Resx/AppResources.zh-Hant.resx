@@ -310,7 +310,7 @@
     <comment>Comment=末尾带空格;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>程序啟動時自動啟動加速</value>
+    <value>啟動時自動啟動加速</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
@@ -390,7 +390,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>啟動加速服務失敗，證書安裝失敗。</value>
+    <value>啟動加速服務失敗，遇到未知錯誤，具體原因請在 [設置] - [通用設置] - [存儲空間] - [打開 Logs 資料夾] 查看當天日誌。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
@@ -514,7 +514,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>程序啟動時自動掛時長</value>
+    <value>自動運行掛時長遊戲</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
@@ -1144,7 +1144,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
-    <value>請輸入系統密碼繼續或者複製命令手動執行</value>
+    <value>請在彈出的主控台視窗中輸入密碼或者手動執行</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Modify" xml:space="preserve">
@@ -1344,7 +1344,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>程序啟動時自動運行 Steam</value>
+    <value>啟動時自動運行 Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
@@ -1876,7 +1876,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
-    <value>打開 {0}資料夾</value>
+    <value>打開{0}資料夾</value>
     <comment>Comment={0}文件夹名称英文字母组成;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
@@ -2213,7 +2213,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>程序啟動時自動運行 ASF</value>
+    <value>啟動時自動運行 ASF</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
@@ -2575,7 +2575,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
     <value>Steam遊戲已下載完成
 系統將在 {0} 秒後{1}。</value>
-    <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
+    <comment>Comment={0}倒计时时间 {1}执行操作;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
     <value>Linux 需要提供系統 root 密碼才能正常使用該功能</value>
@@ -2727,6 +2727,222 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_ConsoleSettings" xml:space="preserve">
     <value>主控台設置</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UnixSudoPasswordTips" xml:space="preserve">
+    <value>請輸入系統密碼繼續或者複製命令手動執行</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
+    <value>打開 Userdata 資料夾</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+    <value>開啟 Http 協定轉發到 Https （需監聽 80 連接埠）</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
+    <value>檢測到新版本 v{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Balance" xml:space="preserve">
+    <value>餘額</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_EngineOil" xml:space="preserve">
+    <value>積分</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Sponsor" xml:space="preserve">
+    <value>捐助使用者</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Account_SignIn_Ok" xml:space="preserve">
+    <value>簽到成功</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_DNSIntercept" xml:space="preserve">
+    <value>DNS 驅動攔截模式</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_ProxyOnly" xml:space="preserve">
+    <value>僅代理模式</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_VPN" xml:space="preserve">
+    <value>VPN 代理模式</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CustomFilePicker_Tip" xml:space="preserve">
+    <value>選擇檔案</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>資訊</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名稱</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SortAs" xml:space="preserve">
+    <value>排序標題</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>開發商</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>發行商</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SupportSystem" xml:space="preserve">
+    <value>支援的系統</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LastUpdatedDateTime" xml:space="preserve">
+    <value>最後更新時間</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DiskUsage" xml:space="preserve">
+    <value>磁碟佔用</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="InstalledPath" xml:space="preserve">
+    <value>安裝路徑</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>媒體</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamGridDBTitle" xml:space="preserve">
+    <value>SteamGridDB Image</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
+    <value>未能從 SteamGridDB 獲取到圖片</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenImageInBrowser" xml:space="preserve">
+    <value>在瀏覽器中打開原圖</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
+    <value>打開 SteamGridDB 網頁流覽</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
+    <value>查看該作者更多作品</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GetImageFromSteamGridDB" xml:space="preserve">
+    <value>從 SteamGridDB 獲取</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>封面</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Background" xml:space="preserve">
+    <value>背景</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>圖示</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="RecommendedResolution" xml:space="preserve">
+    <value>建議的解析度</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LaunchItem" xml:space="preserve">
+    <value>啟動項</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExecutableFile" xml:space="preserve">
+    <value>可執行檔</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>啟動參數</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="WorkingDir" xml:space="preserve">
+    <value>工作目錄</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
+    <value>保存 Steam 遊戲自訂資訊</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveFile" xml:space="preserve">
+    <value>存檔</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudSaveFileSize" xml:space="preserve">
+    <value>雲存檔空間大小</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudMaxnumFiles" xml:space="preserve">
+    <value>最大支援雲存檔數</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>檔路徑</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DirPath" xml:space="preserve">
+    <value>資料夾路徑</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveImageFileFailed" xml:space="preserve">
+    <value>保存 {0} 圖片失敗</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ResetAll" xml:space="preserve">
+    <value>重置全部</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
+    <value>保存全部更改到 Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
+    <value>沒有獲取到已編輯的遊戲數據</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
+    <value>保存 AppInfos 出現錯誤</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
+    <value>修改的數據已保存到 Steam 本地檔中，是否立即重啟 Steam 生效？</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
+    <value>保存數據到 Steam 成功</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
+    <value>保存資料失敗，查看程式日誌獲取詳細錯誤資訊</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
+    <value>獲取最後登錄的 Steam 帳號資訊失敗，無法修改自定義封面是。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
+    <value>請正確選擇一張要應用的圖片</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray" xml:space="preserve">
+    <value>當前有 {0} 條{1}通知，詳情請在程式內通知公告處查看。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

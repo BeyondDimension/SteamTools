@@ -310,7 +310,7 @@
     <comment>Comment=末尾带空格;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>アクセラレーションは、プログラムの起動時に自動的に開始されます</value>
+    <value>起動時に加速が自動的に開始されます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
@@ -390,7 +390,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxyFaild" xml:space="preserve">
-    <value>アクセラレーション サービスの開始に失敗し、証明書のインストールに失敗しました。</value>
+    <value>アクセラレーション サービスの開始に失敗し、不明なエラーが発生しました。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CommunityFix_StartProxySuccess" xml:space="preserve">
@@ -514,7 +514,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>プログラムの起動時に自動的にハングアップする時間</value>
+    <value>ハングアップ時間ゲームを自動的に実行します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
@@ -1144,7 +1144,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
-    <value>続行するには、システム パスワードを入力するか、コマンドを手動でコピーしてください</value>
+    <value>ポップアップ コンソール ウィンドウでパスワードを入力するか、手動で入力してください</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Modify" xml:space="preserve">
@@ -1344,7 +1344,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_AutoRunSteam" xml:space="preserve">
-    <value>Steam は、プログラムの起動時に自動的に実行されます</value>
+    <value>起動時に Steam が自動的に実行されます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_Steam_NotCheckUpdate" xml:space="preserve">
@@ -1876,7 +1876,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_BrowseCustomFolder" xml:space="preserve">
-    <value>{0} フォルダを開きます</value>
+    <value>{0}フォルダを開きます</value>
     <comment>Comment={0}文件夹名称英文字母组成;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Settings_General_CacheSize" xml:space="preserve">
@@ -2213,7 +2213,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>プログラムの起動時に ASF が自動的に実行されます</value>
+    <value>起動時に ASF が自動的に実行されます</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
@@ -2575,7 +2575,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
     <value>Steam ゲームのダウンロードが完了しました
 システムは {0} 秒後に{1}されます。</value>
-    <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
+    <comment>Comment={0}倒计时时间 {1}执行操作;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
     <value>Linux では、この機能を正しく使用するには、システム root パスワードが必要です</value>
@@ -2727,6 +2727,222 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="ASF_ConsoleSettings" xml:space="preserve">
     <value>コンソールの設定</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UnixSudoPasswordTips" xml:space="preserve">
+    <value>続行するには、システム パスワードを入力するか、コマンドを手動でコピーしてください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
+    <value>Userdata フォルダを開きます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+    <value>Http プロトコルを Https に転送する (80 ポートをリッスンする必要があります)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
+    <value>新しいバージョンの v が検出されました{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Balance" xml:space="preserve">
+    <value>残高</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_EngineOil" xml:space="preserve">
+    <value>ポイント</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Sponsor" xml:space="preserve">
+    <value>ユーザーを寄付します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Account_SignIn_Ok" xml:space="preserve">
+    <value>チェックインは成功しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_DNSIntercept" xml:space="preserve">
+    <value>DNS 駆動型インターセプト モード</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_ProxyOnly" xml:space="preserve">
+    <value>プロキシ モードのみ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_VPN" xml:space="preserve">
+    <value>VPN プロキシ モード</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CustomFilePicker_Tip" xml:space="preserve">
+    <value>ファイルを選択します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>情報</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名前</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SortAs" xml:space="preserve">
+    <value>タイトルを並べ替えます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>開発者</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>発行元</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SupportSystem" xml:space="preserve">
+    <value>サポートされているシステム</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LastUpdatedDateTime" xml:space="preserve">
+    <value>最終更新時刻</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DiskUsage" xml:space="preserve">
+    <value>ディスクが占有しています</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="InstalledPath" xml:space="preserve">
+    <value>インストール パス</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>メディア</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamGridDBTitle" xml:space="preserve">
+    <value>SteamGridDB Image</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
+    <value>SteamGridDB から画像を取得できませんでした</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenImageInBrowser" xml:space="preserve">
+    <value>ブラウザで元の画像を開きます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
+    <value>SteamGridDB Web ブラウジングを開きます</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
+    <value>著者のより多くの仕事を見てみてごら</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GetImageFromSteamGridDB" xml:space="preserve">
+    <value>SteamGridDB から取得します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>カバー</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Background" xml:space="preserve">
+    <value>背景</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>アイコン</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="RecommendedResolution" xml:space="preserve">
+    <value>推奨される解像度</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LaunchItem" xml:space="preserve">
+    <value>スタートアップ項目</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExecutableFile" xml:space="preserve">
+    <value>実行可能ファイル</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>起動パラメータ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="WorkingDir" xml:space="preserve">
+    <value>作業ディレクトリ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
+    <value>Steam ゲームのカスタマイズ情報を保存します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveFile" xml:space="preserve">
+    <value>アーカイブ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudSaveFileSize" xml:space="preserve">
+    <value>クラウド アーカイブ領域のサイズ</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudMaxnumFiles" xml:space="preserve">
+    <value>サポートされているクラウド アーカイブの最大数</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>ファイル パス</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DirPath" xml:space="preserve">
+    <value>フォルダ パス</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveImageFileFailed" xml:space="preserve">
+    <value>{0} 画像の保存に失敗しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ResetAll" xml:space="preserve">
+    <value>すべてをリセットします</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
+    <value>Steam にすべての変更を保存します</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
+    <value>編集されたゲーム データは取得されていません</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
+    <value>AppInfos の保存中にエラーが発生しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
+    <value>変更されたデータは Steam ローカルファイルに保存されていますが、今すぐ Steam を再起動して有効にしますか?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
+    <value>Steam にデータを保存することに成功しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
+    <value>データの保存に失敗し、プログラム ログを表示して詳細なエラー情報を取得しました</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
+    <value>最後にログインした Steam アカウント情報の取得に失敗し、カスタム送付状を変更できませんでした。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
+    <value>適用する画像を正しく選択してください</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray" xml:space="preserve">
+    <value>現在、{0}件の{1}通知があり、詳細はプログラム内のお知らせでお知らせください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

@@ -1,13 +1,16 @@
 ### 版本亮点
-1. macOS 支持 Arm64(Apple Silicon)
-2. Android 支持 VPN 模式(推荐) 进行本地加速
-3. 新增 Steam 游戏信息编辑功能，可修改游戏名称、图片、启动项等数据并同步至Steam客户端生效
-4. ASF 升级至 V5.x.x.x
-5. 优化了显示图片时GPU占用
-6. 优化库存游戏和脚本内存占用
-7. 库存游戏编辑功能支持从 SteamGridDB 匹配预览和下载图片
-8. 网络加速新增 MEGA网盘 反代服务 
-9. ~~Windows 支持 DNS 驱动拦截模式(推荐) 进行本地加速~~
+1. Android 支持 VPN 模式(推荐) 进行本地加速
+2. 新增 Steam 游戏信息编辑功能，可修改游戏名称、图片、启动项等数据并同步至 Steam 客户端生效
+3. ASF 升级至 V5.2.5.4
+4. 优化了显示图片时 GPU 占用
+5. 优化库存游戏和脚本内存占用
+6. 库存游戏编辑功能支持从 SteamGridDB 匹配预览和下载图片
+7. 网络加速新增 MEGA 网盘反代服务
+8. macOS 支持 Arm64(Apple Silicon)
+
+<!--
+. ~~Windows 支持 DNS 驱动拦截模式(推荐) 进行本地加速~~
+-->
 
 ### 修复问题
 1. 修复 本地令牌 无令牌刷新时提示密码错误
@@ -19,10 +22,13 @@
 7. 改进 Linux 端 可监听 443 端口配置
 8. 修复 Windows 端，动态桌面背景窗口显示时一些可能导致闪退的潜在问题
 9. 修复 Android 端，因 CheckBox 导致在低于 6.0 Marshmallow 系统上引发的闪退
-10. 修复 Desktop 高DPI分辨率下菜单图标会显示模糊的问题
-11. 修复 Windows 端，切换至网络加速菜单时可能会出现UI错乱的问题
+10. 修复 Desktop 高 DPI 分辨率下菜单图标会显示模糊的问题
+11. 修复 Windows 端，切换至网络加速菜单时可能会出现 UI 错乱的问题
 12. 修复 Desktop 端，某些情况库存游戏会卡住无限加载的问题
-13. 修复 网络加速 Onedrive加速失效问题
+13. 修复 网络加速 Onedrive 加速失效问题
+14. 修复 消息框不再提醒复选框勾上可能不生效的问题
+15. 修复 Windows 端, JumpList 切换 Steam Beta 账号失效的问题
+16. 修复 ASF，当使用 IPC.config 时，程序内打开网页端口号值不正确
 
 ### 已知问题
 - 除 Windows 之外的平台此软件自动更新尚不可用
@@ -42,16 +48,17 @@
 				- 需要安装 Extended Security Update
 			- 在不符合先决条件的情况下运行可能导致
 				- 程序无法正常运行
+					- **解决方案**
+						- 使用 Windows Update 更新系统补丁
 				- 运行程序时提示 计算机中丢失 api-ms-win-core-winrt-l1-1-0.dll
-			- **解决方案**
-				- 因 [Windows 7 延长结束日期](https://support.microsoft.com/zh-cn/windows/windows-7-%E6%94%AF%E6%8C%81%E4%BA%8E-2020-%E5%B9%B4-1-%E6%9C%88-14-%E6%97%A5%E7%BB%88%E6%AD%A2-b75d4580-2cc7-895a-2c9c-1466d9a53962)以于 2020 年 1 月 14 日结束支持
-					- 所以必须安装 [Extended Security Update](https://docs.microsoft.com/zh-cn/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) 支持，在安装第三年的补丁后[结束支持日期](https://docs.microsoft.com/zh-cn/lifecycle/products/windows-7)可延长至 2023 年 1 月 10 日
-					- 可安装 *第三方* 补丁整合包例如 **[UpdatePack7R2](https://cn.bing.com/search?q=UpdatePack7R2)** *或* 购买官方 ESU 产品密钥 解决
-				- 下载 api-ms-win-core-winrt-l1-1-0.dll 文件放入程序根目录(Steam++.exe 所在文件夹)
-					- [从 Github 上直接下载](https://github.com/BeyondDimension/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
-					- [从 Gitee 上直接下载](https://gitee.com/rmbgame/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
-					- [从 NuGet 上下载后提取](https://www.nuget.org/api/v2/package/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/1.0.1)
-						- .nupkg 文件可使用解压工具打开或解压，找到此文件复制即可
+					- **解决方案**
+						- 下载 api-ms-win-core-winrt-l1-1-0.dll 文件放入程序根目录(Steam++.exe 所在文件夹)
+							- [从 Github 上直接下载](https://github.com/BeyondDimension/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
+							- [从 Gitee 上直接下载](https://gitee.com/rmbgame/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
+	- Android
+		- 本地加速
+			- 因 Android 7(Nougat API 24) 之后的版本不在信任用户证书，所以此功能已放弃继续开发，如仍想使用需要自行导入证书到系统目录，使用 adb 工具或 Magisk 之类的软件操作，未来会使用不需要证书的加速功能替换此功能
+
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
 [![Steam++ v2.7.0](https://img.shields.io/badge/Steam++-v2.7.0-brightgreen.svg?style=flat-square&color=512bd4)]()

@@ -39,7 +39,7 @@
 //        public const string STClient = ProjectDir_STClient + @"\Properties\SR";
 //        public const string STClientDesktop = ProjectDir_ClientDesktop + @"\Properties\SR";
 //        public const string AppRes = ProjectDir_ClientDesktop + @"\UI\Resx\AppResources";
-        
+
 //        static async Task Main(string[] args)
 //        {
 //            ReadAzureTranslationKey();

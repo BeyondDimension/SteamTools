@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Age_" xml:space="preserve">
-    <value>{0}</value>
+    <value>{0}세</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="DayOfWeek_L0" xml:space="preserve">
@@ -178,27 +178,27 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>여성</value>
+    <value>여자</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="He" xml:space="preserve">
-    <value>그는</value>
+    <value>그</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Male" xml:space="preserve">
-    <value>남성</value>
+    <value>남자</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotSupported_FixedSizeCollection" xml:space="preserve">
-    <value>Collection was of a fixed size.</value>
+    <value>컬렉션은 고정 된 크기였습니다.</value>
     <comment>Comment=https://github.com/dotnet/runtime/blob/v5.0.0-rc.1.20451.14/src/libraries/System.Private.CoreLib/src/Resources/Strings.resx#L2893;Author=MicrosoftTranslator</comment>
   </data>
   <data name="She" xml:space="preserve">
-    <value>그녀는</value>
+    <value>그녀</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>알 수 없습니다</value>
+    <value>알려지지 않은</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UnsupportedPhoneNumberSegment_" xml:space="preserve">
@@ -206,7 +206,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="OpenCoreByProcess_Win32Exception_" xml:space="preserve">
-    <value>웹 링크를 열지 못한 경우 0x{0} 시스템 기본 브라우저를 설정한 다음 다시 시도하십시오</value>
+    <value>웹 링크 열기 실패 0x{0}, 시도하기 전에 시스템 기본 브라우저를 설정하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

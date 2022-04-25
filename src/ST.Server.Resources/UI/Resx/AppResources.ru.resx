@@ -210,7 +210,7 @@
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>Соединение с программой разорвано, нажмите кнопку «Повторить» или снова щёлкните «Быстрый вход в программу».</value>
+    <value>Соединение с программой потеряно, нажмите кнопку Повторить или Снова щелкните Быстрый вход в программу.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">

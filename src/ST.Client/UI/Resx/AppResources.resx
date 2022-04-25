@@ -2171,7 +2171,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>在浏览器中打开原图</value>
   </data>
   <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
-    <value>打开SteamGridDB网页浏览</value>
+    <value>打开 SteamGridDB 网页浏览</value>
   </data>
   <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
     <value>查看该作者更多作品</value>
@@ -2204,7 +2204,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>工作目录</value>
   </data>
   <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
-    <value>保存Steam游戏自定义信息</value>
+    <value>保存 Steam 游戏自定义信息</value>
   </data>
   <data name="SaveFile" xml:space="preserve">
     <value>存档</value>
@@ -2229,16 +2229,16 @@ AAAAA-BBBBB-CCCC3</value>
     <value>重置全部</value>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>保存全部更改到Steam</value>
+    <value>保存全部更改到 Steam</value>
   </data>
   <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
     <value>没有获取到已编辑的游戏数据</value>
   </data>
   <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
-    <value>保存AppInfos出现错误</value>
+    <value>保存 AppInfos 出现错误</value>
   </data>
   <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
-    <value>修改的数据已保存到 Steam 本地文件中，是否立即重启Steam生效？</value>
+    <value>修改的数据已保存到 Steam 本地文件中，是否立即重启 Steam 生效？</value>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
     <value>保存数据到 Steam 成功</value>
@@ -2247,7 +2247,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>保存数据失败，查看程序日志获取详细错误信息</value>
   </data>
   <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
-    <value>获取最后登录的Steam账号信息失败，无法修改自定义封面是。</value>
+    <value>获取最后登录的 Steam 账号信息失败，无法修改自定义封面是。</value>
   </data>
   <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
     <value>请正确选择一张要应用的图片</value>

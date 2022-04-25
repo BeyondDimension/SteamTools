@@ -185,9 +185,9 @@
     <PackageVersion Include="TaskScheduler" Version="2.10.1" />
 
     <!-- Swagger -->
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.0" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.0" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.0" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.1" />
     <PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore.Annotations" Version="6.3.0" />
     <PackageVersion Include="AspNetCore2.NETStandard.Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.0" />
@@ -210,7 +210,7 @@
 
     <!-- .NET Compat -->
     <PackageVersion Include="OperatingSystem2" Version="1.4.3" />
-    <PackageVersion Include="JustArchiNET.Madness" Version="3.5.1" />
+    <PackageVersion Include="JustArchiNET.Madness" Version="3.5.2" />
 
     <!-- Serialize -->
     <PackageVersion Include="MessagePack" Version="2.3.85" />

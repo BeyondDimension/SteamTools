@@ -1150,7 +1150,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="MacSudoPasswordTips" xml:space="preserve">
-    <value>Introduzca la contraseña del sistema para continuar o copie el comando manualmente</value>
+    <value>Introduzca la contraseña en la ventana de la consola que aparece o hágalo manualmente</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Modify" xml:space="preserve">
@@ -2219,7 +2219,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_AutoRunASF" xml:space="preserve">
-    <value>El ASF se ejecuta automáticamente cuando se inicia el programa</value>
+    <value>El ASF se ejecuta automáticamente al inicio</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ASF_OpenWebUIGlobalConfig" xml:space="preserve">
@@ -2574,7 +2574,7 @@ Recuerda tener el UID de tu cuenta de Steam++ en el mensaje de notas al hacer un
   <data name="GameList_SteamShutdown_DownloadCompleteTip" xml:space="preserve">
     <value>El juego de Steam ha sido descargado
 El sistema se {1} después de {0} segundos.</value>
-    <comment>Comment={0}倒计时时间;Author=MicrosoftTranslator</comment>
+    <comment>Comment={0}倒计时时间 {1}执行操作;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LinuxSudoTips" xml:space="preserve">
     <value>Linux requiere una contraseña de root del sistema para usar la función correctamente</value>
@@ -2722,6 +2722,222 @@ El sistema se {1} después de {0} segundos.</value>
   </data>
   <data name="ASF_ConsoleSettings" xml:space="preserve">
     <value>Configuración de la consola</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UnixSudoPasswordTips" xml:space="preserve">
+    <value>Introduzca la contraseña del sistema para continuar o copie el comando manualmente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
+    <value>Abra la carpeta Userdata</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+    <value>Habilitar el reenvío del protocolo Http a Https (requiere escuchar en el puerto 80)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
+    <value>Una nueva versión de v{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Balance" xml:space="preserve">
+    <value>equilibrar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_EngineOil" xml:space="preserve">
+    <value>Integral</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Sponsor" xml:space="preserve">
+    <value>Donar a los usuarios</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Account_SignIn_Ok" xml:space="preserve">
+    <value>Check-in exitoso</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_DNSIntercept" xml:space="preserve">
+    <value>Modo de bloqueo controlado por DNS</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_ProxyOnly" xml:space="preserve">
+    <value>Sólo modo proxy</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_VPN" xml:space="preserve">
+    <value>Modo de proxy VPN</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CustomFilePicker_Tip" xml:space="preserve">
+    <value>Seleccione el archivo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Información</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>nombre</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SortAs" xml:space="preserve">
+    <value>Ordenar los encabezados</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>Desarrolladores</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>Editor</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SupportSystem" xml:space="preserve">
+    <value>Sistemas soportados</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LastUpdatedDateTime" xml:space="preserve">
+    <value>Última actualización</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DiskUsage" xml:space="preserve">
+    <value>Ocupación del disco</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="InstalledPath" xml:space="preserve">
+    <value>Ruta de instalación</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>Medio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamGridDBTitle" xml:space="preserve">
+    <value>Imagen de SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
+    <value>Las imágenes no estaban disponibles en SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenImageInBrowser" xml:space="preserve">
+    <value>Abrir la imagen original en un navegador</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
+    <value>Abrir la navegación web de SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
+    <value>Echa un vistazo a más de la obra de este autor</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GetImageFromSteamGridDB" xml:space="preserve">
+    <value>Consíguelo de SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>cubrir</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Background" xml:space="preserve">
+    <value>fondo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>icono</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="RecommendedResolution" xml:space="preserve">
+    <value>Resolución recomendada</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LaunchItem" xml:space="preserve">
+    <value>Elementos de inicio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExecutableFile" xml:space="preserve">
+    <value>archivo ejecutable</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>Parámetros de inicio</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="WorkingDir" xml:space="preserve">
+    <value>Directorio de trabajo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
+    <value>Guardar información de personalización del juego de Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveFile" xml:space="preserve">
+    <value>archivo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudSaveFileSize" xml:space="preserve">
+    <value>El tamaño del espacio de archivo en la nube</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudMaxnumFiles" xml:space="preserve">
+    <value>El número máximo de archivos en la nube admitidos</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>La ruta del archivo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DirPath" xml:space="preserve">
+    <value>Ruta de la carpeta</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveImageFileFailed" xml:space="preserve">
+    <value>Error al guardar {0} imagen</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ResetAll" xml:space="preserve">
+    <value>Restablecer todo</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
+    <value>Guardar todos los cambios en Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
+    <value>No se obtuvieron datos de juego editados</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
+    <value>Se ha producido un error al guardar AppInfos</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
+    <value>Los datos modificados se han guardado en un archivo local de Steam, ¿se reiniciará steam inmediatamente?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
+    <value>Guardar datos en Steam se realiza correctamente</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
+    <value>Error al guardar datos, consulte el registro del programa para obtener información detallada sobre errores</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
+    <value>No se pudo obtener la última información de la cuenta de Steam que se inició sesión, no se pudo modificar la portada personalizada sí.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
+    <value>Por favor, elija la imagen correcta para aplicar</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray" xml:space="preserve">
+    <value>Actualmente hay {0} {1} notificaciones, consulte la oficina de notificaciones y anuncios en el programa para obtener más detalles.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

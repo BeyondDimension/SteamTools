@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
@@ -7,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Application.Models;
 using static System.Application.Utils;
 using static System.ProjectPathUtil;
-using System.Application.Models;
 
 namespace System.Application.Steps
 {

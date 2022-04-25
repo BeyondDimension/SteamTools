@@ -2729,4 +2729,220 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Файл журнала занят {0}</value>
     <comment>Comment={0}占用体积大小;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="UnixSudoPasswordTips" xml:space="preserve">
+    <value>Пожалуйста, введите системный пароль, чтобы продолжить или скопировать команду вручную</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="UserChange_ShowUserDataFolder" xml:space="preserve">
+    <value>Открытие папки Userdata</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CommunityFix_EnableHttpProxyToHttps" xml:space="preserve">
+    <value>Включить переадресацию протокола HTTP на https (требуется прослушивание порта 80)</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="NewVersionUpdateNotifyText_" xml:space="preserve">
+    <value>Новая версия v{0}</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Balance" xml:space="preserve">
+    <value>равновесие</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_EngineOil" xml:space="preserve">
+    <value>Интеграл</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="User_Sponsor" xml:space="preserve">
+    <value>Пожертвовать пользователям</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Account_SignIn_Ok" xml:space="preserve">
+    <value>Регистрация прошла успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Спасать</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_DNSIntercept" xml:space="preserve">
+    <value>Режим блокировки на основе DNS</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_ProxyOnly" xml:space="preserve">
+    <value>Только режим прокси</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ProxyMode_VPN" xml:space="preserve">
+    <value>Режим прокси VPN</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CustomFilePicker_Tip" xml:space="preserve">
+    <value>Выберите файл</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Информация</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>имя</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SortAs" xml:space="preserve">
+    <value>Сортировка заголовков</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>Разработчики</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>Издатель</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SupportSystem" xml:space="preserve">
+    <value>Поддерживаемые системы</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LastUpdatedDateTime" xml:space="preserve">
+    <value>Последнее обновление</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DiskUsage" xml:space="preserve">
+    <value>Заполняемость дисков</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="InstalledPath" xml:space="preserve">
+    <value>Путь установки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>медиа</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SteamGridDBTitle" xml:space="preserve">
+    <value>Изображение SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FailedGetImageFromSteamGridDB" xml:space="preserve">
+    <value>Изображения не были доступны из SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenImageInBrowser" xml:space="preserve">
+    <value>Открытие исходного изображения в браузере</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenSteamGridDBInBrowser" xml:space="preserve">
+    <value>Открыть просмотр веб-страниц SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="OpenTheAuthorPageInBrowser" xml:space="preserve">
+    <value>Ознакомьтесь с другими работами этого автора</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GetImageFromSteamGridDB" xml:space="preserve">
+    <value>Получите его из SteamGridDB</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>крышка</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Background" xml:space="preserve">
+    <value>фон</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>икона</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="RecommendedResolution" xml:space="preserve">
+    <value>Рекомендуемое решение</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="LaunchItem" xml:space="preserve">
+    <value>Элементы автозагрузки</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ExecutableFile" xml:space="preserve">
+    <value>исполняемый файл</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>Параметры запуска</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="WorkingDir" xml:space="preserve">
+    <value>Рабочий справочник</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="GameList_EditedAppsSaveManger" xml:space="preserve">
+    <value>Сохранение информации о настройке игры Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveFile" xml:space="preserve">
+    <value>архив</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudSaveFileSize" xml:space="preserve">
+    <value>Размер пространства облачного архива</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="CloudMaxnumFiles" xml:space="preserve">
+    <value>Максимальное количество поддерживаемых облачных архивов</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>Путь к файлу</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="DirPath" xml:space="preserve">
+    <value>Путь к папке</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveImageFileFailed" xml:space="preserve">
+    <value>Не удалось сохранить {0} изображение</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="ResetAll" xml:space="preserve">
+    <value>Сброс всех</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
+    <value>Сохраните все изменения в Steam</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
+    <value>Отредактированные игровые данные не были получены</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveFailed" xml:space="preserve">
+    <value>Произошла ошибка сохранения AppInfos</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_RestartSteamTip" xml:space="preserve">
+    <value>Измененные данные были сохранены в локальном файле Steam, будет ли Steam немедленно перезапущен?</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
+    <value>Сохранение данных в Steam успешно</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
+    <value>Не удалось сохранить данные, просмотрите журнал программы для получения подробной информации об ошибках</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SteamUserNullTip" xml:space="preserve">
+    <value>Не удалось получить последнюю информацию об учетной записи Steam, не удалось изменить пользовательскую титульную страницу да.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="SaveEditedAppInfo_SelectImageFailed" xml:space="preserve">
+    <value>Пожалуйста, выберите правильное изображение для применения</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="Notice_Tray" xml:space="preserve">
+    <value>В настоящее время есть {0} {1} уведомлений, пожалуйста, проверьте офис уведомлений и объявлений в программе для деталей.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
 </root>

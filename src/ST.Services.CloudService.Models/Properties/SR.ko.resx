@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApiResponseCode_AppObsolete" xml:space="preserve">
-    <value>클라이언트가 더 이상 사용되지 않습니다</value>
+    <value>클라이언트가 더 이상 사용되지 않으므로 새 버전으로 업그레이드하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_Unauthorized" xml:space="preserve">
-    <value>로그인 자격 증명이 만료되었습니다</value>
+    <value>로그인 자격 증명이 잘못되었습니다. 다시 로그인하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClientError_" xml:space="preserve">
@@ -134,23 +134,23 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsNotOfficialChannelPackageWarning" xml:space="preserve">
-    <value>현재 실행 중인 프로그램은 공식 채널에서 가져온 것이 아닙니다</value>
+    <value>현재 실행중인 프로그램이 공식 채널에서 가져온 것이 아닙니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NetworkConnectionInterruption" xml:space="preserve">
-    <value>네트워크 연결이 끊어졌습니다</value>
+    <value>네트워크 연결이 중단되었습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError_" xml:space="preserve">
-    <value>서버 측 오류 {0}</value>
+    <value>서버 쪽 오류 {0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ServerError__" xml:space="preserve">
-    <value>서버 측 오류 {0} - {1}</value>
+    <value>서버 쪽 오류 {0} - {1}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ApiResponseCode_CertificateNotYetValid" xml:space="preserve">
-    <value>현재 시스템 시간이 올바르지 않거나 서버 측 SSL 인증서가 만료되었습니다</value>
+    <value>현재 시스템 시간이 잘못되었거나 서버 측 SSL 인증서가 잘못되었습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

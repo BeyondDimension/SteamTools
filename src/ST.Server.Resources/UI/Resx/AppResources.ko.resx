@@ -118,47 +118,47 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bind" xml:space="preserve">
-    <value>바인딩입니다</value>
+    <value>매다</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported1" xml:space="preserve">
-    <value>죄송합니다, 당신은 오래된 브라우저를 사용하고 있습니다. 브라우저를 업그레이드하거나 사용하는 것이 좋습니다</value>
+    <value>죄송합니다. 오래된 브라우저를 사용하고 있습니다. 브라우저를 업그레이드하거나 사용하는 것이 좋습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="BrowserIsSupported2" xml:space="preserve">
-    <value>사용자 경험을 향상시키기 위해 다른 현대적인 브라우저.</value>
+    <value>그리고 당신의 경험을 향상시키기 위해 다른 현대적인 브라우저.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClickHereTryAgain" xml:space="preserve">
-    <value>다시 시도하려면 여기를 클릭하십시오</value>
+    <value>여기를 클릭하여 다시 시도하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromExternalProvider_" xml:space="preserve">
-    <value>타사 로그인 공급자의 오류, {0} 웹마스터에게 문의하십시오.</value>
+    <value>{0} 타사 로그인 공급자의 오류는 사이트 관리자에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownAuthType_" xml:space="preserve">
-    <value>알 수 없는 타사 로그인 공급자, {0} 웹마스터에게 문의하십시오.</value>
+    <value>알 수 없는 타사 로그인 공급자({0})는 사이트 관리자에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorFromUnknownChannel_" xml:space="preserve">
-    <value>알 수 없는 타사 로그인 채널, {0} 웹마스터에게 문의하십시오.</value>
+    <value>알 수없는 타사 로그인 채널 {0}는 웹 마스터에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ErrorLoadingExternalLoginInfo" xml:space="preserve">
-    <value>타사 로그인 정보를 로드하는 동안 오류가 발생하면 웹마스터에게 문의하십시오.</value>
+    <value>타사 로그인 정보를로드하는 동안 오류가 발생하여 웹 마스터에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindFalseUserIsNotNull" xml:space="preserve">
-    <value>빠른 로그인은 권한이 없는 경우에만 사용할 수 있으며 웹마스터에게 문의하십시오.</value>
+    <value>익스프레스 로그인은 승인되지 않은 경우에만 사용할 수 있으므로 웹 마스터에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="IsBindTrueUserIsNull" xml:space="preserve">
-    <value>계정 바인딩이 현재 로그인한 사용자를 가져오지 못했습니다.</value>
+    <value>현재 로그인한 사용자를 얻기 위해 계정을 바인딩하지 못한 경우 웹마스터에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>로그인합니다</value>
+    <value>로그인</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginAndRegister" xml:space="preserve">
@@ -166,19 +166,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1} 완료되면 창을 닫고 Steam++로 돌아갈 수 있습니다.</value>
+    <value>{0} {1} 완료되면 이 창을 닫고 Steam++로 돌아갈 수 있습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
-    <value>이 브라우저 창/탭은 10초 이내에 자동으로 닫히거나 수동으로 닫으려고 시도합니다.</value>
+    <value>이 브라우저 창/탭은 10초 이내에 자동으로 닫히려고 시도하거나 수동으로 닫을 수 있습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LongTimeNoJump" xml:space="preserve">
-    <value>점프하지 않고 오랜 시간 동안?</value>
+    <value>오랫동안 뛰어 오르지 않았습니까?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>&quot;Steam++&quot;는 다양한 Steam 도구 기능을 포함하는 도구 상자입니다.</value>
+    <value>Steam++은 다양한 스팀 도구 기능을 갖춘 도구 상자입니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="noscript" xml:space="preserve">
@@ -186,19 +186,19 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseCheckSteamCommunity" xml:space="preserve">
-    <value>Steam 커뮤니티에 제대로 액세스할 수 있는지 확인합니다.</value>
+    <value>Steam 커뮤니티에 제대로 접속할 수 있는지 확인하시기 바랍니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="PleaseWait" xml:space="preserve">
-    <value>나중에...</value>
+    <value>기다리세요...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailBySteamAccountId64_" xml:space="preserve">
-    <value>SteamAccountId64를 읽지 못했습니다. 값: {0} 웹마스터에게 문의하십시오.</value>
+    <value>SteamAccountId64, 값을 읽지 못했습니다 : {0}, 웹 마스터에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ReadFailByUnionId_" xml:space="preserve">
-    <value>UnionId를 읽지 못했습니다. 값: {0} 웹마스터에게 문의하십시오.</value>
+    <value>UnionId, 값을 읽지 못했습니다: {0} 사이트 관리자에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Title_Error" xml:space="preserve">
@@ -210,31 +210,31 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketLostTip" xml:space="preserve">
-    <value>프로그램에 대한 연결이 끊어지면 다시 시도 또는 프로그램 내에서 빠른 로그인을 클릭합니다.</value>
+    <value>프로그램에 대한 연결이 끊어지면 다시 시도를 클릭하거나 프로그램 내에서 빠른 로그인을 다시 클릭하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="WebSocketPortIsNotUInt16" xml:space="preserve">
-    <value>포트 번호는 UInt16 유형이어야 하며 웹마스터에게 문의하십시오.</value>
+    <value>포트 번호는 UInt16 형식이어야 하며 사이트 관리자에게 문의하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyButton" xml:space="preserve">
-    <value>복사를 클릭합니다</value>
+    <value>복사하려면 여기를 클릭하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopyNoSupport" xml:space="preserve">
-    <value>브라우저는 클립보드에 복사를 클릭하는 것을 지원하지 않습니다</value>
+    <value>이 브라우저는 클립보드로의 간편 복사를 지원하지 않습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="CopySuccess" xml:space="preserve">
-    <value>클립보드에 성공적으로 복사되었습니다</value>
+    <value>클립보드에 성공적으로 복사되었습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ManualCopyTip" xml:space="preserve">
-    <value>연결 프로그램에 오류가 있는 경우 수동 로그인을 클릭하여 프로그램에 다음을 수동으로 복사합니다.</value>
+    <value>커넥터에 오류가 있으므로 수동으로 다음을 프로그램에 복사하고 수동 로그인을 클릭하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ClaimTypes_NameIdentifier_IsNull__" xml:space="preserve">
-    <value>NameIdentifier 읽기 실패, 값: {0}, 채널: {1} 웹마스터에게 문의하십시오.</value>
+    <value>NameIdentifier, 값: {0}, 채널: {1}, 사이트 관리자에게 문의를 읽지 못했습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewUserNickName_" xml:space="preserve">
@@ -242,7 +242,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamLoginException" xml:space="preserve">
-    <value>현재 Steam 로그인 요청이 너무 많으시면 페이지를 새로 고치고 다시 시도하거나 나중에 다시 시도하십시오.</value>
+    <value>현재 스팀 로그인 요청이 너무 많으므로 페이지를 새로 고치고 다시 시도하거나 나중에 다시 시도하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

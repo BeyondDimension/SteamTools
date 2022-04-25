@@ -176,10 +176,9 @@ namespace System.Application.UI.Fragments
                 if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
                 {
                     const string textCertificateTrustTip =
-                        "Android 7+(Nougat API 24) 不信任用户证书，" +
-                        "需要自行导入到系统目录，" +
-                        "使用 adb 工具或 Magisk 之类的软件操作，" +
-                        "未来会使用服务端反代(不需要证书)的功能替换此模块";
+                        "因 Android 7(Nougat API 24) 之后的版本不在信任用户证书，所以此功能已放弃继续开发，" +
+                        "如仍想使用需要自行导入证书到系统目录，使用 adb 工具或 Magisk 之类的软件操作，" +
+                        "未来会使用不需要证书的加速功能替换此功能";
                     MessageBox.Show(textCertificateTrustTip, "已知问题",
                         rememberChooseKey: MessageBox.DontPromptType.AndroidCertificateTrustTip);
                 }
