@@ -48,7 +48,7 @@ namespace System.Application.Services
                         break;
                     }
             }
-            await windowManager.ShowDialog(windowName, isDialog: isDialog);
+            await windowManager.ShowDialog(windowName, isDialog: isDialog, resizeMode: ResizeMode.CanResize);
         }
 
         public async Task SignOutAsync(Func<Task<IApiResponse>>? apiCall = null, string? message = null)
