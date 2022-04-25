@@ -550,7 +550,7 @@ namespace System.Application.Services
                         }
                     }
                     else
-                        Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
+                        Toast.Show(build.Message);
                 }
                 else
                     Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
