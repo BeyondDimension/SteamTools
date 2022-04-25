@@ -459,7 +459,6 @@ namespace System.Application.Services
             //}
 
             ProxyScripts.AddRange(scriptList);
-            await BasicsInfoAsync();
             httpProxyService.IsEnableScript = IsEnableScript;
 
             this.WhenAnyValue(v => v.ProxyScripts)
@@ -708,12 +707,12 @@ namespace System.Application.Services
 
         public async void CheckUpdate()
         {
-            var items = Current.ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();
+            var items = ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();
             var client = ICloudServiceClient.Instance.Script;
             var response = await client.ScriptUpdateInfo(items, AppResources.Script_UpdateError);
             if (response.Code == ApiResponseCode.OK && response.Content != null)
             {
-                foreach (var item in Current.ProxyScripts.Items)//response.Content)
+                foreach (var item in ProxyScripts.Items)//response.Content)
                 {
                     var newItem = response.Content.FirstOrDefault(x => x.Id == item.Id);
                     if (newItem != null && item.Version != newItem.Version)
@@ -721,7 +720,7 @@ namespace System.Application.Services
                         item.NewVersion = newItem.Version;
                         item.UpdateLink = newItem.UpdateLink;
                         item.IsUpdate = true;
-                        Current.ProxyScripts.Replace(item, item);
+                        ProxyScripts.Replace(item, item);
                     }
                 }
             }
