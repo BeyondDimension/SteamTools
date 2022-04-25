@@ -37,7 +37,7 @@ emit_plist() {
 	<key>CFBundleVersion</key>
 	<string>${{ Steam++_Version }}</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>11.0</string>
+	<string>10.15</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>zh_CN</string>
 	<key>CFBundleInfoDictionaryVersion</key>
