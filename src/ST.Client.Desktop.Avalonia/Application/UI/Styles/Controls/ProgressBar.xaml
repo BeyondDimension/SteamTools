@@ -5,12 +5,17 @@
     xmlns:converters="clr-namespace:System.Application.Converters">
     <Design.PreviewWith>
         <Border Padding="20">
-            <StackPanel>
+            <StackPanel Spacing="20">
                 <ProgressBar
                     Width="50"
                     Height="50"
                     Classes="Circle"
                     IsIndeterminate="True" />
+                <ProgressBar Width="150" IsIndeterminate="True" />
+                <ProgressBar
+                    Width="150"
+                    Classes="notransitions"
+                    Value="50" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>

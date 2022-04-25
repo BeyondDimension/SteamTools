@@ -132,14 +132,16 @@
               <TextBlock Text="{ReflectionBinding Path=Res.User_UnLogin,Mode=OneWay,Source={x:Static resx:R.Current}}"
                         IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter}}"
                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                        FontSize="14"
+                        Classes="h7"
                         VerticalAlignment="Center"/>
               <StackPanel IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
                 <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                       FontSize="14"
+                       Classes="h7"
                        VerticalAlignment="Center"/>
-                <Label Content="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="12"/>
+                <!--<TextBlock Text="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                       Foreground="{DynamicResource InactiveForegroundBrushKey}"
+                       Classes="h8"/>-->
               </StackPanel>
               <!--<TextBlock Text="{ReflectionBinding Path=PhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                         IsVisible="{ReflectionBinding Path=User.HasPhoneNumber,Mode=OneWay,Source={x:Static service:UserService.Current}}"
@@ -157,8 +159,8 @@
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                                  CommandParameter="UserProfile"/>
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
-                                CommandParameter="Notice"/>
+                                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                                 CommandParameter="Notice"/>
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
