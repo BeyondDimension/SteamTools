@@ -8,6 +8,7 @@ static class DWMApi
         DWM_TNP_RECTDESTINATION = 0x1;
 
     const string DllName = "dwmapi";
+
     [DllImport(DllName, CharSet = CharSet.Auto)]
     public static extern int DwmRegisterThumbnail(IntPtr dest, IntPtr src, out IntPtr thumb);
 

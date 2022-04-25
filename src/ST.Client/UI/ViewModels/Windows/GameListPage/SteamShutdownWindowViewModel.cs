@@ -18,10 +18,11 @@ namespace System.Application.UI.ViewModels
         public static string DisplayName => AppResources.GameList_SteamShutdown;
 
         private readonly ReadOnlyObservableCollection<SteamApp>? _DownloadingApps;
+
         public ReadOnlyObservableCollection<SteamApp>? DownloadingApps => _DownloadingApps;
 
-
         private bool? _IsAllCheck = false;
+
         public bool? IsAllCheck
         {
             get => _IsAllCheck;

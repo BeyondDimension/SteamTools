@@ -22,7 +22,7 @@ namespace System.Application.UI.ViewModels
 
         public NativeWindowModel? SelectWindow
         {
-            get { return _SelectWindow; }
+            get => _SelectWindow;
             set
             {
                 if (_SelectWindow != value)
@@ -36,9 +36,10 @@ namespace System.Application.UI.ViewModels
         #endregion
 
         ObservableCollection<NativeWindowModel> _WindowList = new();
+
         public ObservableCollection<NativeWindowModel> WindowList
         {
-            get { return _WindowList; }
+            get => _WindowList;
             set
             {
                 if (_WindowList != value)

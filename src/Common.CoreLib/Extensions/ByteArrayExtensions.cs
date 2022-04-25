@@ -10,8 +10,8 @@ namespace System
     {
         public static sbyte[] ToSByteArray(this byte[] buffer)
         {
-            ReadOnlySpan<byte> _buffer = buffer;
-            return _buffer.ToSByteArray();
+            ReadOnlySpan<byte> buffer_ = buffer;
+            return buffer_.ToSByteArray();
         }
 
         public static sbyte[] ToSByteArray(this ReadOnlySpan<byte> buffer)
@@ -19,8 +19,8 @@ namespace System
 
         public static byte[] ToByteArray(this sbyte[] buffer)
         {
-            ReadOnlySpan<sbyte> _buffer = buffer;
-            return _buffer.ToByteArray();
+            ReadOnlySpan<sbyte> buffer_ = buffer;
+            return buffer_.ToByteArray();
         }
 
         public static byte[] ToByteArray(this ReadOnlySpan<sbyte> buffer)

@@ -74,7 +74,7 @@ internal static class WinInet
 
     [DllImport("wininet.dll",
         SetLastError = true,
-CharSet = CharSet.Unicode,
+        CharSet = CharSet.Unicode,
         EntryPoint = "InternetGetCookieEx",
         CallingConvention = CallingConvention.StdCall)]
     public static extern bool InternetGetCookieEx(

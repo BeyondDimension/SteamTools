@@ -288,7 +288,6 @@ namespace System.Application.Steps
             return dirNames;
         }
 
-
         static void GenerateCompressedPackage(bool dev, PublishDirInfo item)
         {
             var type = GetCompressedTypeByRID(item.Name);
@@ -565,8 +564,8 @@ namespace System.Application.Steps
                 return;
             }
 
-            var CFBundleVersion = GetFullVersion(dev);
-            var CFBundleShortVersionString = CFBundleVersion.TrimEnd(".0");
+            var mCFBundleVersion = GetFullVersion(dev);
+            var mCFBundleShortVersionString = mCFBundleVersion.TrimEnd(".0");
 
             var shFileContent = File.ReadAllText(shFilePath);
             foreach (var item in osx_val)
@@ -581,8 +580,8 @@ namespace System.Application.Steps
                 var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)
-                        .Replace("${{ Steam++_Version }}", CFBundleVersion)
-                        .Replace("${{ Steam++_ShortVersion }}", CFBundleShortVersionString)
+                        .Replace("${{ Steam++_Version }}", mCFBundleVersion)
+                        .Replace("${{ Steam++_ShortVersion }}", mCFBundleShortVersionString)
                         .Replace("${{ Steam++_IcnsFile }}", icnsFilePath)
                         .Replace("${{ Steam++_OutPutFilePath }}", projPath)
                         .Replace("${{ Steam++_APPDIR }}", destPath)
@@ -600,12 +599,14 @@ namespace System.Application.Steps
                 process!.WaitForExit();
             }
         }
+
         [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("libc", EntryPoint = "chmod", SetLastError = true)]
         [SupportedOSPlatform("FreeBSD")]
         [SupportedOSPlatform("Linux")]
         [SupportedOSPlatform("MacOS")]
         internal static extern int Chmod(string path, int mode);
+
         [Flags]
         [SupportedOSPlatform("FreeBSD")]
         [SupportedOSPlatform("Linux")]

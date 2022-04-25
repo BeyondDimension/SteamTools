@@ -34,6 +34,7 @@ namespace System.Application.UI.Fragments
         }
 
         MenuBuilder? menuBuilder;
+
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             inflater.Inflate(Resource.Menu.local_auth_toolbar_menu, menu);

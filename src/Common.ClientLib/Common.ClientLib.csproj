@@ -31,4 +31,8 @@
     <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
 </Project>

@@ -1,4 +1,3 @@
-using System;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
@@ -19,6 +18,7 @@ namespace System.Application.Repositories
         Task<Script> ExistsScriptName(string name);
 
         Task<IList<Script>> GetAllAsync();
+
         Task SaveScriptEnable(ScriptDTO item);
     }
 }

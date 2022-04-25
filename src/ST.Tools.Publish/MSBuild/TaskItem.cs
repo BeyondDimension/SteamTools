@@ -52,7 +52,7 @@ namespace Microsoft.Build.Utilities
                     DefiningProjectDirectory,
                     DefiningProjectName,
                     DefiningProjectExtension
-                };
+            };
 
         public ICollection<string> MetadataNames
         {

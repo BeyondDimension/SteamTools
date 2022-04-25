@@ -261,6 +261,7 @@ namespace System.Application.UI.Fragments
         }
 
         MenuBuilder? menuBuilder;
+
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             inflater.Inflate(Resource.Menu.community_fix_toolbar_menu, menu);

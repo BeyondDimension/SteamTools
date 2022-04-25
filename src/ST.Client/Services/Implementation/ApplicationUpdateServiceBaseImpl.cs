@@ -88,6 +88,7 @@ namespace System.Application.Services.Implementation
         public bool IsExistUpdate { get; protected set; }
 
         AppVersionDTO? _NewVersionInfo;
+
         public AppVersionDTO? NewVersionInfo
         {
             get => _NewVersionInfo;
@@ -196,6 +197,7 @@ namespace System.Application.Services.Implementation
         const bool isSupportedResume = false;
 
         bool _IsNotStartUpdateing = true;
+
         public bool IsNotStartUpdateing
         {
             get => _IsNotStartUpdateing;
@@ -203,6 +205,7 @@ namespace System.Application.Services.Implementation
         }
 
         float _ProgressValue;
+
         public float ProgressValue
         {
             get => _ProgressValue;
@@ -210,6 +213,7 @@ namespace System.Application.Services.Implementation
         }
 
         string _ProgressString = string.Empty;
+
         public string ProgressString
         {
             get => _ProgressString;
@@ -217,13 +221,19 @@ namespace System.Application.Services.Implementation
         }
 
         protected void OnReportDownloading3(float value, int current, int count) => OnReport(value, AppResources.Downloading3_.Format(MathF.Round(value, 2), current, count));
+
         protected void OnReportCalcHashing3(float value, int current, int count) => OnReport(value, AppResources.CalcHashing3_.Format(MathF.Round(value, 2), current, count));
+
         protected void OnReportDownloading(float value) => OnReport(value, AppResources.Downloading_.Format(MathF.Round(value, 2)));
+
         protected void OnReportCalcHashing(float value) => OnReport(value, AppResources.CalcHashing_.Format(MathF.Round(value, 2)));
+
         protected void OnReportDecompressing(float value) => OnReport(value, AppResources.Decompressing_.Format(MathF.Round(value, 2)));
+
         protected void OnReport(float value = 0f) => OnReport(value, string.Empty);
 
         protected IProgress<float>? progress;
+
         protected virtual void OnReport(float value, string str)
         {
             ProgressValue = value;

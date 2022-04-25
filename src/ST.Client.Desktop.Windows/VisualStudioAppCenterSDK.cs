@@ -37,8 +37,8 @@ namespace System.Application
             if (TryGetAppSecret(out var appSecret))
             {
 #if WINDOWS
-                var _applicationSettingsFactory = typeof(AppCenter).GetField("_applicationSettingsFactory", BindingFlags.NonPublic | BindingFlags.Static);
-                _applicationSettingsFactory.ThrowIsNull(nameof(_applicationSettingsFactory)).SetValue(null, DI.Get<IApplicationSettingsFactory>());
+                var applicationSettingsFactory_ = typeof(AppCenter).GetField("_applicationSettingsFactory", BindingFlags.NonPublic | BindingFlags.Static);
+                applicationSettingsFactory_.ThrowIsNull(nameof(applicationSettingsFactory_)).SetValue(null, DI.Get<IApplicationSettingsFactory>());
 #endif
                 AppCenter.Start(appSecret, typeof(Analytics), typeof(Crashes));
             }
@@ -147,6 +147,7 @@ namespace Microsoft.AppCenter.Utils
     internal sealed class TestAppCenter : ITestAppCenter
     {
         readonly IApplicationSettings settings;
+
         public TestAppCenter(IApplicationSettings settings)
         {
             this.settings = settings;

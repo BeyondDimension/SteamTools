@@ -41,6 +41,7 @@ namespace System.Application.Settings
 
                 return _cached ? _value : Default;
             }
+
             set
             {
                 if (_cached && Equals(_value, value)) return;
@@ -181,6 +182,7 @@ namespace System.Application.Settings
                 if (value == null) return;
                 ValueChanged += _handlers[value] = (sender, args) => value(sender, new PropertyChangedEventArgs(nameof(Value)));
             }
+
             remove
             {
                 if (value == null) return;

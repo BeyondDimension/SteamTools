@@ -19,6 +19,7 @@ namespace System.Application.Entities
         public const string TableName = "1B2D820C";
         public const string ColumnName_Id = "E386BC36";
         public const string ColumnName_Enable = "6DB11594";
+
         string DebuggerDisplay() => $"{Name}, {Id}";
 
         [Column(ColumnName_Id)]
@@ -28,6 +29,7 @@ namespace System.Application.Entities
 
         [Column("8061969F")]
         public int Order { get; set; } = 10;
+
         /// <summary>
         /// 显示名称
         /// </summary>
@@ -53,7 +55,6 @@ namespace System.Application.Entities
         /// </summary>
         [Column("F1DDBF5B")]
         public Guid? Pid { get; set; }
-
 
         /// <summary>
         /// 文件地址
@@ -129,7 +130,6 @@ namespace System.Application.Entities
         [Column("5C02E4AA")]
         public string? RequiredJs { get; set; }
 
-
         /// <summary>
         /// 哈希值（MD5）
         /// </summary> 
@@ -142,7 +142,6 @@ namespace System.Application.Entities
         [Column("C5645EF3")]
         public string SHA512 { get; set; }
 
-
         [Column("58FF2FF5")]
         public DateTime CreationTime { get; set; } = DateTime.Now;
 
@@ -151,9 +150,6 @@ namespace System.Application.Entities
         /// </summary> 
         [Column("8B9C94E5")]
         public bool IsBuild { get; set; } = true;
-
-
-
     }
 }
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。

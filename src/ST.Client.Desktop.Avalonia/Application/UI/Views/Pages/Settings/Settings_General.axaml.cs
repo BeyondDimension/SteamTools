@@ -10,6 +10,7 @@ namespace System.Application.UI.Views.Pages
     {
         readonly TextBlock? cacheSize;
         readonly TextBlock? logSize;
+
         public Settings_General()
         {
             InitializeComponent();

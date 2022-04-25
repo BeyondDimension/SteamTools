@@ -20,6 +20,7 @@ namespace System.Application.UI.ViewModels
         public static string DisplayName => AppResources.GameList_EditAppInfo;
 
         private SteamApp _App;
+
         public SteamApp App
         {
             get => _App;
@@ -28,9 +29,11 @@ namespace System.Application.UI.ViewModels
 
         readonly SourceCache<SteamGridItem, long> _SteamGridItemSourceList;
         readonly ReadOnlyObservableCollection<SteamGridItem>? _SteamGridItems;
+
         public ReadOnlyObservableCollection<SteamGridItem>? SteamGridItems => _SteamGridItems;
 
         private SteamGridItem? _SelectGrid;
+
         public SteamGridItem? SelectGrid
         {
             get => _SelectGrid;
@@ -38,6 +41,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsLoadingSteamGrid;
+
         public bool IsLoadingSteamGrid
         {
             get => _IsLoadingSteamGrid;
@@ -184,7 +188,7 @@ namespace System.Application.UI.ViewModels
             this.Close();
         }
 
-        public async void ResetEditAppInfo()
+        public void ResetEditAppInfo()
         {
             //if (await MessageBox.ShowAsync("确定要重置当前App所有更改吗？(不会重置自定义图片)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
             //{

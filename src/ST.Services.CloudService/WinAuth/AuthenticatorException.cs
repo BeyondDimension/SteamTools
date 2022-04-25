@@ -161,8 +161,11 @@ namespace WinAuth
         }
 
         public string Plain { get; set; }
+
         public string? Password { get; set; }
+
         public string Encrypted { get; set; }
+
         public string Decrypted { get; set; }
     }
 
@@ -180,7 +183,9 @@ namespace WinAuth
         }
 
         public string Password { get; set; }
+
         public string EncType { get; set; }
+
         public List<string> Decrypted { get; set; }
     }
 

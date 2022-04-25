@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Common.PinyinLib\Common.PinyinLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
 </Project>

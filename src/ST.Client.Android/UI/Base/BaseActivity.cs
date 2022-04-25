@@ -79,6 +79,7 @@ namespace System.Application.UI.Activities
         where TViewBinding : class
     {
         readonly CompositeDisposable disposables = new();
+
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 
         protected override void OnCreate2(Bundle? savedInstanceState)
@@ -111,6 +112,7 @@ namespace System.Application.UI.Activities
         where TViewModel : ViewModelBase
     {
         readonly CompositeDisposable disposables = new();
+
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 
         protected sealed override void OnCreate(Bundle? savedInstanceState)

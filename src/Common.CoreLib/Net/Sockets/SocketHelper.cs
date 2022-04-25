@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -134,12 +133,16 @@ namespace System.Net.Sockets
                     tcpTableRecords.Add(new TcpProcessRecord(
                                           new IPAddress(tcpRow.localAddr),
                                           new IPAddress(tcpRow.remoteAddr),
-                                          BitConverter.ToUInt16(new byte[2] {
+                                          BitConverter.ToUInt16(new byte[2]
+                                          {
                                               tcpRow.localPort[1],
-                                              tcpRow.localPort[0] }, 0),
-                                          BitConverter.ToUInt16(new byte[2] {
+                                              tcpRow.localPort[0]
+                                          }, 0),
+                                          BitConverter.ToUInt16(new byte[2]
+                                          {
                                               tcpRow.remotePort[1],
-                                              tcpRow.remotePort[0] }, 0),
+                                              tcpRow.remotePort[0]
+                                          }, 0),
                                           tcpRow.owningPid, tcpRow.state));
                     tableRowPtr = (IntPtr)((long)tableRowPtr + Marshal.SizeOf(tcpRow));
                 }
@@ -235,6 +238,7 @@ namespace System.Net.Sockets
         public MibTcpState State { get; set; }
 
         int _ProcessId;
+
         [DisplayName("Process ID")]
         public int ProcessId
         {
@@ -258,6 +262,7 @@ namespace System.Net.Sockets
         }
 
         Lazy<Process?>? _Process;
+
         [DisplayName("Process")]
         public Process? Process => _Process?.Value;
 

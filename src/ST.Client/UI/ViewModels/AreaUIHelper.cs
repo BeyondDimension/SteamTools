@@ -12,23 +12,36 @@ namespace System.Application.UI.ViewModels
         public interface IViewModel : IViewModelBase
         {
             IReadOnlyList<IArea>? AreaItems2 { get; set; }
+
             IArea? AreaSelectItem2 { get; set; }
+
             IReadOnlyList<IArea>? AreaItems3 { get; set; }
+
             IArea? AreaSelectItem3 { get; set; }
+
             IReadOnlyList<IArea>? AreaItems4 { get; set; }
+
             IArea? AreaSelectItem4 { get; set; }
+
             bool AreaNotVisible3 { get; set; }
+
             bool AreaNotVisible4 { get; set; }
         }
 
         public interface IViewModelField : IViewModel
         {
             IReadOnlyList<IArea>? MAreaItems3 { set; }
+
             IReadOnlyList<IArea>? MAreaItems4 { set; }
+
             IArea? MAreaSelectItem2 { set; }
+
             IArea? MAreaSelectItem3 { set; }
+
             IArea? MAreaSelectItem4 { set; }
+
             bool MAreaNotVisible3 { set; }
+
             bool MAreaNotVisible4 { set; }
         }
 
@@ -250,6 +263,7 @@ namespace System.Application.UI.ViewModels
     partial class UserProfileWindowViewModel : AreaUIHelper.IViewModelField
     {
         IReadOnlyList<IArea>? _AreaItems2;
+
         public IReadOnlyList<IArea>? AreaItems2
         {
             get => _AreaItems2;
@@ -257,6 +271,7 @@ namespace System.Application.UI.ViewModels
         }
 
         IReadOnlyList<IArea>? _AreaItems3;
+
         public IReadOnlyList<IArea>? AreaItems3
         {
             get => _AreaItems3;
@@ -264,6 +279,7 @@ namespace System.Application.UI.ViewModels
         }
 
         IReadOnlyList<IArea>? _AreaItems4;
+
         public IReadOnlyList<IArea>? AreaItems4
         {
             get => _AreaItems4;
@@ -271,6 +287,7 @@ namespace System.Application.UI.ViewModels
         }
 
         IArea? _AreaSelectItem2;
+
         public IArea? AreaSelectItem2
         {
             get => _AreaSelectItem2;
@@ -278,6 +295,7 @@ namespace System.Application.UI.ViewModels
         }
 
         IArea? _AreaSelectItem3;
+
         public IArea? AreaSelectItem3
         {
             get => _AreaSelectItem3;
@@ -285,6 +303,7 @@ namespace System.Application.UI.ViewModels
         }
 
         IArea? _AreaSelectItem4;
+
         public IArea? AreaSelectItem4
         {
             get => _AreaSelectItem4;
@@ -292,6 +311,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _AreaNotVisible3;
+
         public bool AreaNotVisible3
         {
             get => _AreaNotVisible3;
@@ -299,6 +319,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _AreaNotVisible4;
+
         public bool AreaNotVisible4
         {
             get => _AreaNotVisible4;
@@ -309,26 +330,32 @@ namespace System.Application.UI.ViewModels
         {
             set => _AreaItems3 = value;
         }
+
         IReadOnlyList<IArea>? AreaUIHelper.IViewModelField.MAreaItems4
         {
             set => _AreaItems4 = value;
         }
+
         IArea? AreaUIHelper.IViewModelField.MAreaSelectItem2
         {
             set => _AreaSelectItem2 = value;
         }
+
         IArea? AreaUIHelper.IViewModelField.MAreaSelectItem3
         {
             set => _AreaSelectItem3 = value;
         }
+
         IArea? AreaUIHelper.IViewModelField.MAreaSelectItem4
         {
             set => _AreaSelectItem4 = value;
         }
+
         bool AreaUIHelper.IViewModelField.MAreaNotVisible3
         {
             set => _AreaNotVisible3 = value;
         }
+
         bool AreaUIHelper.IViewModelField.MAreaNotVisible4
         {
             set => _AreaNotVisible4 = value;

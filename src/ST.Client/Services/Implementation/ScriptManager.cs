@@ -137,7 +137,10 @@ namespace System.Application.Services.Implementation
                                 if (deleteFile)
                                     fileInfo.Delete();
                             }
-                            catch (Exception e) { logger.LogError(e.ToString()); }
+                            catch (Exception e)
+                            {
+                                logger.LogError(e.ToString());
+                            }
                             var isSuccess = (await scriptRepository.InsertOrUpdateAsync(db)).rowCount > 0;
                             info.LocalId = db.Id;
                             if (isSuccess)
@@ -338,10 +341,12 @@ namespace System.Application.Services.Implementation
             }
             return item;
         }
+
         public async Task SaveEnableScript(ScriptDTO item)
         {
             await scriptRepository.SaveScriptEnable(item);
         }
+
         public async Task<IEnumerable<ScriptDTO>?> LoadingScriptContent(IEnumerable<ScriptDTO>? all)
         {
             if (all.Any_Nullable())
@@ -366,6 +371,7 @@ namespace System.Application.Services.Implementation
             }
             return null;
         }
+
         public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync()
         {
             var scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());

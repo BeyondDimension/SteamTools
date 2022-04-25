@@ -28,10 +28,8 @@ namespace System.Application.Models
                 if (mDataSource == null) mDataSource = new List<T>();
                 return mDataSource;
             }
-            set
-            {
-                mDataSource = value;
-            }
+
+            set => mDataSource = value;
         }
 
         [MPKey(1)]

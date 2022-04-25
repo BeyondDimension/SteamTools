@@ -1,4 +1,3 @@
-using System;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
@@ -13,14 +12,17 @@ namespace System.Application.Services
     /// </summary>
     public interface IScriptManager
     {
-        public const string DirName = "Scripts"; 
+        public const string DirName = "Scripts";
+
         static IScriptManager Instance => DI.Get<IScriptManager>();
+
         /// <summary>
         /// 加载列表js内容
         /// </summary>
         /// <param name="all">加载的列表</param>
         /// <returns></returns>
         Task<IEnumerable<ScriptDTO>?> LoadingScriptContent(IEnumerable<ScriptDTO>? all);
+
         /// <summary>
         /// 绑定JS
         /// </summary>
@@ -61,10 +63,11 @@ namespace System.Application.Services
         /// <param name="url"></param>
         /// <returns></returns>
         Task<IApiResponse<string>> DownloadScriptAsync(string url);
+
         /// <summary>
         /// 保存脚本启用状态
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
         Task SaveEnableScript(ScriptDTO item);
     }

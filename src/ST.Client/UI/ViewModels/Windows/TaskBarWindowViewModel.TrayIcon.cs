@@ -7,7 +7,6 @@ namespace System.Application.UI.ViewModels
     {
         public static string TitleString => ThisAssembly.DisplayTrademark;
 
-
         public const string CommandExit = "Exit";
     }
 }

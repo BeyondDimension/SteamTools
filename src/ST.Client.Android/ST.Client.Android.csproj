@@ -795,4 +795,8 @@
       <Link>Resources\xml\local_auth_appwidget_info.xml</Link>
     </AndroidResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
 </Project>

@@ -55,9 +55,9 @@ namespace System.Application.Services.Implementation
                 Log.Error(TAG, e, "ShowDroidToast Error, text: {0}, IsMainThread: {1}", text, IsMainThread);
                 // 解决在子线程中调用Toast的异常情况处理
                 Looper.Prepare();
-                var _toast = AndroidToast.MakeText(context, text, duration2)
+                var toast_ = AndroidToast.MakeText(context, text, duration2)
                     ?? throw new NullReferenceException("toast markeText Fail(2)");
-                SetTextAndShow(_toast, text);
+                SetTextAndShow(toast_, text);
                 Looper.Loop();
             }
 

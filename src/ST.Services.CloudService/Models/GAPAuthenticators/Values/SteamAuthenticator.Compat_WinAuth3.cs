@@ -73,10 +73,12 @@ namespace System.Application.Models
             /// <summary>
             /// Character set for authenticator code
             /// </summary>
-            static readonly char[] STEAMCHARS = new char[] {
+            static readonly char[] STEAMCHARS = new char[]
+            {
                 '2', '3', '4', '5', '6', '7', '8', '9', 'B', 'C',
                 'D', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q',
-                'R', 'T', 'V', 'W', 'X', 'Y'};
+                'R', 'T', 'V', 'W', 'X', 'Y'
+            };
 
             /// <summary>
             /// Enrolling state
@@ -86,26 +88,41 @@ namespace System.Application.Models
                 public string? Language { get; set; }
 
                 public string? Username { get; set; }
+
                 public string? Password { get; set; }
+
                 public string? CaptchaId { get; set; }
+
                 public string? CaptchaUrl { get; set; }
+
                 public string? CaptchaText { get; set; }
+
                 public string? EmailDomain { get; set; }
+
                 public string? EmailAuthText { get; set; }
+
                 public string? ActivationCode { get; set; }
+
                 public CookieContainer? Cookies { get; set; }
 
                 public string? SteamId { get; set; }
+
                 public string? OAuthToken { get; set; }
 
                 public bool RequiresLogin { get; set; }
+
                 public bool RequiresCaptcha { get; set; }
+
                 public bool Requires2FA { get; set; }
+
                 public bool RequiresEmailAuth { get; set; }
+
                 public bool RequiresActivation { get; set; }
 
                 public string? RevocationCode { get; set; }
+
                 public string? SecretKey { get; set; }
+
                 public bool Success { get; set; }
 
                 public string? Error { get; set; }
@@ -156,6 +173,7 @@ namespace System.Application.Models
                         + "|" + ByteArrayToString(Encoding.UTF8.GetBytes(SteamData))
                         + "|" + (string.IsNullOrEmpty(SessionData) == false ? ByteArrayToString(Encoding.UTF8.GetBytes(SessionData)) : string.Empty);
                 }
+
                 set
                 {
                     // extract key + serial + deviceid

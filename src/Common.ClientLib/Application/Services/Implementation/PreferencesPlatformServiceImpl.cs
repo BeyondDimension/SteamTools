@@ -24,6 +24,7 @@ namespace System.Application.Services.Implementation
             if (sharedName == null) return GetId(key);
             return $"{key}_{sharedName}_S";
         }
+
         public void PlatformClear(string? sharedName)
         {
             conn.Execute(Sql_Delete_Where_SharedName_Equals, sharedName ?? string.Empty);

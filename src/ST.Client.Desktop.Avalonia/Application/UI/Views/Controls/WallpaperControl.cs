@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
-using System;
 using System.Application.Services;
 using System.Application.Settings;
 
@@ -16,6 +15,7 @@ namespace System.Application.UI.Views.Controls
         Window? ParentWindow;
         IntPtr _Handle;
         IntPtr _DwmHandle;
+
         public WallpaperControl()
         {
             //this.InitializeComponent();

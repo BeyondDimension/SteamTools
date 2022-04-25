@@ -5,6 +5,7 @@ using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
+
 namespace System.Application.Models
 {
     [MPObj]

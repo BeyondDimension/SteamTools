@@ -37,6 +37,7 @@ namespace System.Application.Models
         public string UserdataPath => Path.Combine("userdata", SteamId32.ToString());
 
         private string? _OnlineState;
+
         /// <summary>
         /// 在线状态
         /// </summary>
@@ -48,6 +49,7 @@ namespace System.Application.Models
         }
 
         private int? _Level;
+
         /// <summary>
         /// Steam等级
         /// </summary>
@@ -76,6 +78,7 @@ namespace System.Application.Models
         public string? AvatarMedium { get; set; }
 
         private Task<string?>? _AvatarStream;
+
         [XmlIgnore]
         public Task<string?>? AvatarStream
         {
@@ -152,6 +155,7 @@ namespace System.Application.Models
         public DateTime LastLoginTime { get; set; }
 
         private bool _MostRecent;
+
         /// <summary>
         /// 最近登录
         /// </summary>
@@ -163,6 +167,7 @@ namespace System.Application.Models
         }
 
         private bool _WantsOfflineMode;
+
         /// <summary>
         /// 离线模式
         /// </summary>
@@ -179,8 +184,8 @@ namespace System.Application.Models
         [XmlIgnore]
         public bool SkipOfflineModeWarning { get; set; }
 
-
         private string? _Remark;
+
         /// <summary>
         /// 备注
         /// </summary>
@@ -191,8 +196,8 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _Remark, value);
         }
 
-
         private SteamMiniProfile? _MiniProfile;
+
         public SteamMiniProfile? MiniProfile
         {
             get => _MiniProfile;

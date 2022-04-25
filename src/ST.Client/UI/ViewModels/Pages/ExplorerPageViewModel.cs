@@ -67,6 +67,7 @@ namespace System.Application.UI.ViewModels
         public void Refresh() => RefreshCore(isChangePath: false);
 
         string _CurrentAbsolutePath = string.Empty;
+
         public string CurrentAbsolutePath
         {
             get => _CurrentAbsolutePath;
@@ -91,6 +92,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _IsSupportFileCreate;
+
         /// <summary>
         /// 当前目录是否支持创建或导入文件
         /// </summary>
@@ -101,6 +103,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _IsSupportFileDelete;
+
         /// <summary>
         /// 当前目录是否支持删除文件
         /// </summary>
@@ -111,6 +114,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _IsEditMode;
+
         /// <summary>
         /// 是否为编辑模式
         /// </summary>
@@ -160,6 +164,7 @@ namespace System.Application.UI.ViewModels
             public string Desc { get; }
 
             bool _Checked;
+
             public bool Checked
             {
                 get => _Checked;
@@ -260,6 +265,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _InOperation;
+
         /// <summary>
         /// 是否正在操作中
         /// </summary>

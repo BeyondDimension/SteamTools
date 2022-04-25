@@ -38,6 +38,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _Password;
+
         public string? Password
         {
             get => _Password;
@@ -45,6 +46,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _VerifyPassword;
+
         public string? VerifyPassword
         {
             get => _VerifyPassword;
@@ -52,6 +54,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsPasswordEncrypt;
+
         public bool IsPasswordEncrypt
         {
             get => _IsPasswordEncrypt;
@@ -59,6 +62,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsOnlyCurrentComputerEncrypt;
+
         public bool IsOnlyCurrentComputerEncrypt
         {
             get => _IsOnlyCurrentComputerEncrypt;

@@ -1,5 +1,4 @@
 using ReactiveUI;
-using System;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +29,7 @@ namespace System.Application.Models
         }
 
         private string? _Name;
+
         public string? Name
         {
             get => _Name;
@@ -49,6 +49,7 @@ namespace System.Application.Models
         }
 
         T _Value;
+
         public T Value
         {
             get => _Value;
@@ -56,6 +57,7 @@ namespace System.Application.Models
         }
 
         bool _Enable;
+
         public bool Enable
         {
             get => _Enable;
@@ -63,6 +65,7 @@ namespace System.Application.Models
         }
 
         int _Count;
+
         /// <summary>
         /// 枚举作为 type 时统计集合数量
         /// </summary>

@@ -856,5 +856,9 @@
     <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
   <Import Condition=" Exists('$(MSBuildProjectDirectory)\..\..\Xamarin.Android.KeyStore.props') " Project="..\..\Xamarin.Android.KeyStore.props" />
 </Project>

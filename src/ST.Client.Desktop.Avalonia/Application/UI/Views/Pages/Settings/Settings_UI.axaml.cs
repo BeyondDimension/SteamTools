@@ -17,6 +17,5 @@ namespace System.Application.UI.Views.Pages
             AvaloniaXamlLoader.Load(this);
         }
 
-
     }
 }

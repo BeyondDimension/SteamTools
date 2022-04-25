@@ -2,6 +2,7 @@
 using ReactiveUI;
 #endif
 using System.Application.Columns;
+using System.Collections.Generic;
 using System.Diagnostics;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
@@ -9,7 +10,6 @@ using MPObject = MessagePack.MessagePackObjectAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
-using System.Collections.Generic;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models
@@ -39,7 +39,9 @@ namespace System.Application.Models
             get => _NickName;
             set => this.RaiseAndSetIfChanged(ref _NickName, value);
         }
+
         string _NickName = string.Empty;
+
 #else
         { get; set; } = string.Empty;
 #endif
@@ -88,6 +90,7 @@ namespace System.Application.Models
         [N_JsonProperty("7")]
         [S_JsonProperty("7")]
         public byte Level { get; set; }
+
 #if MVVM_VM
         [MPIgnore]
         [N_JsonIgnore]
@@ -100,6 +103,7 @@ namespace System.Application.Models
             }
         }
 #endif
+
         [MPKey(8)]
         [N_JsonProperty("8")]
         [S_JsonProperty("8")]
@@ -109,6 +113,7 @@ namespace System.Application.Models
             get => _SteamAccountId;
             set => this.RaiseAndSetIfChanged(ref _SteamAccountId, value);
         }
+
         long? _SteamAccountId;
 #else
         { get; set; }
@@ -169,6 +174,7 @@ namespace System.Application.Models
             get => _MicrosoftAccountEmail;
             set => this.RaiseAndSetIfChanged(ref _MicrosoftAccountEmail, value);
         }
+
         string? _MicrosoftAccountEmail;
 #else
         { get; set; }
@@ -184,6 +190,7 @@ namespace System.Application.Models
             get => _QQAccountNumber;
             set => this.RaiseAndSetIfChanged(ref _QQAccountNumber, value);
         }
+
         long? _QQAccountNumber;
 #else
         { get; set; }
@@ -198,6 +205,7 @@ namespace System.Application.Models
             get => _AppleAccountEmail;
             set => this.RaiseAndSetIfChanged(ref _AppleAccountEmail, value);
         }
+
         string? _AppleAccountEmail;
 #else
         { get; set; }
@@ -212,6 +220,7 @@ namespace System.Application.Models
             get => _QQNickName;
             set => this.RaiseAndSetIfChanged(ref _QQNickName, value);
         }
+
         string? _QQNickName;
 #else
         { get; set; }
@@ -229,10 +238,12 @@ namespace System.Application.Models
             get => _AvatarUrl;
             set => this.RaiseAndSetIfChanged(ref _AvatarUrl, value);
         }
+
         Dictionary<FastLoginChannel, string>? _AvatarUrl;
 #else
         { get; set; }
 #endif
+
         /// <summary>
         /// 用户类型
         /// </summary>

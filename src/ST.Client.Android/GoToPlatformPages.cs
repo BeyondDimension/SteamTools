@@ -55,6 +55,7 @@ namespace System.Application
             => StartActivity(fragment, typeof(TActivity));
 
         const string KEY_ViewModel = "ByteArrayViewModel";
+
         static void StartActivity(this Activity activity, Type activityType, byte[] viewModel)
         {
             var intent = new Intent(activity, activityType);

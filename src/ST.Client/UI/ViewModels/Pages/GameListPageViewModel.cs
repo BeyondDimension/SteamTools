@@ -19,6 +19,7 @@ namespace System.Application.UI.ViewModels
         const string TAG = "GameListPageVM";
 
         readonly Dictionary<string, string[]> dictPinYinArray = new();
+
         Func<SteamApp, bool> PredicateName(string? text)
         {
             return s =>
@@ -150,8 +151,11 @@ namespace System.Application.UI.ViewModels
         //public MenuItemViewModel? AFKAutoUpdate { get; }
 
         public ReactiveCommand<Unit, Unit>? HideAppCommand { get; }
+
         public ReactiveCommand<Unit, Unit>? IdleAppCommand { get; }
+
         public ReactiveCommand<Unit, Unit>? SteamShutdownCommand { get; }
+
         public ReactiveCommand<Unit, Unit>? SaveEditedAppInfoCommand { get; }
 
         public override void Activation()
@@ -176,6 +180,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsOpenFilter;
+
         public bool IsOpenFilter
         {
             get => _IsOpenFilter;
@@ -183,6 +188,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsInstalledFilter;
+
         public bool IsInstalledFilter
         {
             get => _IsInstalledFilter;
@@ -190,6 +196,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsAppInfoOpen;
+
         public bool IsAppInfoOpen
         {
             get => _IsAppInfoOpen;
@@ -197,6 +204,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private SteamApp? _SelectApp;
+
         public SteamApp? SelectApp
         {
             get => _SelectApp;
@@ -204,9 +212,11 @@ namespace System.Application.UI.ViewModels
         }
 
         private readonly ReadOnlyObservableCollection<SteamApp>? _SteamApps;
+
         public ReadOnlyObservableCollection<SteamApp>? SteamApps => _SteamApps;
 
         private string? _SearchText;
+
         public string? SearchText
         {
             get => _SearchText;
@@ -216,6 +226,7 @@ namespace System.Application.UI.ViewModels
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
 
         private ObservableCollection<EnumModel<SteamAppType>>? _AppTypeFiltres;
+
         public ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres
         {
             get => _AppTypeFiltres;
@@ -223,6 +234,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private IReadOnlyCollection<EnumModel<SteamAppType>>? _EnableAppTypeFiltres;
+
         public IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres
         {
             get => _EnableAppTypeFiltres;
@@ -236,7 +248,7 @@ namespace System.Application.UI.ViewModels
 
         public void CalcTypeCount()
         {
-            if (SteamConnectService.Current.SteamApps.Items.Any())
+            if (SteamConnectService.Current.SteamApps.Items.Any() && AppTypeFiltres != null)
                 foreach (var item in AppTypeFiltres)
                 {
                     item.Count = SteamConnectService.Current.SteamApps.Items.Count(s => s.Type == item.Value);
@@ -269,7 +281,7 @@ namespace System.Application.UI.ViewModels
             var url = string.Format(SteamApiUrls.STEAM_NAVGAME_URL, app.AppId);
             Process2.Start(url, useShellExecute: true);
         }
-        
+
         public static void OpenFolder(SteamApp app)
         {
             if (!string.IsNullOrEmpty(app.InstalledDir))
@@ -285,7 +297,7 @@ namespace System.Application.UI.ViewModels
         {
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMDBINFO_APP_URL, app.AppId));
         }
-        
+
         public static async void OpenSteamCardUrl(SteamApp app)
         {
             await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAMCARDEXCHANGE_APP_URL, app.AppId));

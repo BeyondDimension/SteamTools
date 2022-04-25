@@ -14,4 +14,8 @@
     <PackageReference Include="Avalonia.Skia" Aliases="AvaloniaSkia" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
 </Project>

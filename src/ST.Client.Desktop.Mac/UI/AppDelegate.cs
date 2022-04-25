@@ -74,6 +74,7 @@ namespace System.Application.UI
         }
 
         static bool isInitialized;
+
         internal static AppDelegate? Instance { get; private set; }
 
         public static void Init(/*string[] args*/)

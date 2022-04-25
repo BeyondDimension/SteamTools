@@ -84,6 +84,7 @@ namespace System.Application.Models
                 // this is the secretkey
                 return ByteArrayToString(SecretKey.ThrowIsNull(nameof(SecretKey))) + "\t" + CodeDigits.ToString() + "\t" + HMACType.ToString() + "\t" + Period.ToString();
             }
+
             set
             {
                 if (string.IsNullOrEmpty(value) == false)
@@ -770,7 +771,8 @@ namespace System.Application.Models
                 }
                 Array.Copy(key, 0, randomblock, i, key.Length);
                 i += key.Length;
-            } while (true);
+            }
+            while (true);
 
             return randomblock;
         }

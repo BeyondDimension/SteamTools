@@ -8,7 +8,8 @@ namespace System
         /// 支持的语言区域名
         /// <para>https://docs.microsoft.com/zh-cn/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c</para>
         /// </summary>
-        public static readonly string[] langs = new[] {
+        public static readonly string[] langs = new[]
+        {
             "zh-Hant", // 繁体中文(Traditional Chinese)
             "en", // 英语(English)
             "ko", // 韩语(Koreana)

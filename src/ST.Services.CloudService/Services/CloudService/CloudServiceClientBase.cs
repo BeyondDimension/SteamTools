@@ -20,13 +20,21 @@ namespace System.Application.Services.CloudService
         #region Clients
 
         public IScriptClient Script { get; }
+
         public IAccountClient Account { get; }
+
         public IManageClient Manage { get; }
+
         public IAuthMessageClient AuthMessage { get; }
+
         public IVersionClient Version { get; }
+
         public IActiveUserClient ActiveUser { get; }
+
         public INoticeClient Notice { get; }
+
         public IAccelerateClient Accelerate { get; }
+
         public IDonateRankingClient DonateRanking { get; }
 
         #endregion
@@ -93,7 +101,6 @@ namespace System.Application.Services.CloudService
 
         IAuthHelper IApiConnectionPlatformHelper.Auth => authHelper;
 
-
         public abstract Task SaveAuthTokenAsync(JWTEntity authToken);
 
         public abstract Task OnLoginedAsync(IReadOnlyPhoneNumber? phoneNumber, ILoginResponse response);
@@ -124,7 +131,7 @@ namespace System.Application.Services.CloudService
 
         Task<IApiResponse<ClockInResponse>> ICloudServiceClient.AccountClockIn()
         {
-         return  Account.ClockIn(new ClockInRequest { CreationTime=DateTimeOffset.Now});
+            return Account.ClockIn(new ClockInRequest { CreationTime = DateTimeOffset.Now });
         }
 
         async Task<string> ICloudServiceClient.Info()

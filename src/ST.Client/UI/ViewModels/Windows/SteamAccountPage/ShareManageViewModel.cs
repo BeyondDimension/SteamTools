@@ -44,6 +44,7 @@ namespace System.Application.UI.ViewModels
         public bool IsAuthorizedListEmpty => !AuthorizedList.Any_Nullable();
 
         readonly ReadOnlyObservableCollection<AuthorizedDevice> _AuthorizedList;
+
         public ReadOnlyObservableCollection<AuthorizedDevice> AuthorizedList => _AuthorizedList;
 
         readonly SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;

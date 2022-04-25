@@ -1,4 +1,5 @@
-﻿using System;
+#pragma warning disable SA1516 // Elements should be separated by blank line
+using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -49,3 +50,4 @@ else
 }
 
 Console.WriteLine("Complete.");
+#pragma warning restore SA1516 // Elements should be separated by blank line

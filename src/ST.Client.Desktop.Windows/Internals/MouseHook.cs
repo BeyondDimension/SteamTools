@@ -21,6 +21,7 @@ static class MouseHook
             Subscribe();
             MouseUp += value;
         }
+
         remove
         {
             MouseUp -= value;
@@ -147,6 +148,7 @@ static class MouseHook
         SPI_GETFONTSMOOTHINGORIENTATION = 8210,
         SPI_SETFONTSMOOTHINGORIENTATION = 8211
     }
+
     [Flags]
     public enum SystemParamtersInfoFlags : uint
     {

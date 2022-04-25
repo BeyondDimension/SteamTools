@@ -25,6 +25,7 @@ namespace System.Net.Http
 #endif
                 return UseWebProxy(proxy) ? proxy : null;
             }
+
             set
             {
 #if NETSTANDARD
@@ -62,9 +63,13 @@ namespace System.Net.Http
         sealed class HttpNoProxy : IWebProxy
         {
             public static readonly HttpNoProxy Instance = new();
+
             private HttpNoProxy() { }
+
             public ICredentials? Credentials { get; set; }
+
             public Uri? GetProxy(Uri destination) => null;
+
             public bool IsBypassed(Uri host) => true;
         }
 
@@ -75,14 +80,13 @@ namespace System.Net.Http
         {
             try
             {
-
-#if !NETSTANDARD
-                    if (handler is SocketsHttpHandler s)
-                    {
-                        s.Proxy = proxy;
-                        if (useProxy && s.UseProxy != useProxy) s.UseProxy = useProxy; // 仅启用代理时修改开关
-                    }
-                    else
+#if NETCOREAPP2_1_OR_GREATER
+                if (handler is SocketsHttpHandler s)
+                {
+                    s.Proxy = proxy;
+                    if (useProxy && s.UseProxy != useProxy) s.UseProxy = useProxy; // 仅启用代理时修改开关
+                    return;
+                }
 #endif
                 if (handler is HttpClientHandler h)
                 {

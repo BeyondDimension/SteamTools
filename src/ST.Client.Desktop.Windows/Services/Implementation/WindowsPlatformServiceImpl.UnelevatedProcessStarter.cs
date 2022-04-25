@@ -67,19 +67,24 @@ namespace System.Application.Services.Implementation
             {
                 [DllImport("user32.dll")]
                 public static extern IntPtr GetShellWindow();
+
                 [DllImport("user32.dll", SetLastError = true)]
                 public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
                 [DllImport("kernel32.dll", SetLastError = true)]
                 public static extern IntPtr OpenProcess(int processAccess, bool bInheritHandle, int processId);
+
                 [DllImport("advapi32.dll", SetLastError = true)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool OpenProcessToken(IntPtr processHandle, uint desiredAccess, out IntPtr tokenHandle);
+
                 [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
                 public static extern bool DuplicateTokenEx(IntPtr hExistingToken, uint dwDesiredAccess,
                     ref SecurityAttributes lpTokenAttributes,
                     int impersonationLevel,
                     int tokenType,
                     out IntPtr phNewToken);
+
                 [DllImport("advapi32", SetLastError = true, CharSet = CharSet.Unicode)]
                 public static extern bool CreateProcessWithTokenW(
                     IntPtr hToken, int dwLogonFlags,

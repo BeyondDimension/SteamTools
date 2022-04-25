@@ -23,8 +23,8 @@ static partial class NativeMethods
     public static extern IntPtr OpenProcess(
          uint processAccess,
          bool bInheritHandle,
-         int processId
-    );
+         int processId);
+
     public static IntPtr OpenProcess(Process proc, ProcessAccessFlags flags)
     {
         return OpenProcess((uint)flags, false, proc.Id);
@@ -61,7 +61,6 @@ static partial class NativeMethods
     [DllImport("kernel32.dll")]
     [ResourceExposure(ResourceScope.None)]
     public static extern int GetACP();
-
 
     [DllImport("Powrprof.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
     public static extern bool SetSuspendState(bool hiberate, bool forceCritical, bool disableWakeEvent);

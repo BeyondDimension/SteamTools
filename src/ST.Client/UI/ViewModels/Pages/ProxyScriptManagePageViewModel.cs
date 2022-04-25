@@ -49,7 +49,8 @@ namespace System.Application.UI.ViewModels
                 FilePicker2.FilePickerFileType? fileTypes;
                 if (IApplication.IsDesktopPlatform)
                 {
-                    fileTypes = new ValueTuple<string, string[]>[] {
+                    fileTypes = new ValueTuple<string, string[]>[]
+                    {
                         ("JavaScript Files", new[] { FileEx.JS, }),
                         ("Text Files", new[] { FileEx.TXT, }),
                         //("All Files", new[] { "*", }),
@@ -109,9 +110,11 @@ namespace System.Application.UI.ViewModels
         }
 
         protected readonly ReadOnlyObservableCollection<ScriptDTO>? _ProxyScripts;
+
         public ReadOnlyObservableCollection<ScriptDTO>? ProxyScripts => _ProxyScripts;
 
         protected readonly Dictionary<string, string[]> dictPinYinArray = new();
+
         Func<ScriptDTO, bool> ScriptFilter(string? serachText)
         {
             return s =>
@@ -149,6 +152,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit>? AllEnableScriptCommand { get; }
 
         string? _SearchText;
+
         public string? SearchText
         {
             get => _SearchText;

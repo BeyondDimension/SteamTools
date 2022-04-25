@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-
 namespace System.Application.Services.CloudService.Clients
 {
     internal sealed class DonateRankingClient : ApiClient, IDonateRankingClient

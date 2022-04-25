@@ -99,6 +99,7 @@ namespace System.Application.UI.Activities
     {
 
         TController? mController;
+
         public TController Controller => mController.ThrowIsNull(nameof(mController));
 
         void ControllerBase<TViewModel>.IHost.SetOnClickListener(params View[] views) => SetOnClickListener(views);
@@ -155,7 +156,6 @@ namespace System.Application.UI.Fragments
         TController? mController;
 
         public TController Controller => mController.ThrowIsNull(nameof(mController));
-
 
         void ControllerBase<TViewModel>.IHost.SetOnClickListener(params View[] views) => SetOnClickListener(views);
 

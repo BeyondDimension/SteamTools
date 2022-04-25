@@ -870,7 +870,8 @@ namespace System.Application.Services.CloudService
                                     }
                                 }
                             }
-                        } while (isMoreToRead);
+                        }
+                        while (isMoreToRead);
                     }
                     else
                     {

@@ -30,9 +30,9 @@ namespace System.Application.Repositories.Implementation
 
         public async Task<TAuthMessageRecord?> GetMostRecentVerificationCodeWithoutChecksumAndMoDiscard(TAuthMessageType type, string phoneNumberOrEmail, TSendSmsRequestType useType)
         {
-            var _30_minutes_before = DateTimeOffset.Now.AddSeconds(-SMS.SmsSendPeriodValidity); // 30分钟之前
+            var m30_minutes_before = DateTimeOffset.Now.AddSeconds(-SMS.SmsSendPeriodValidity); // 30分钟之前
             var query = Entity.OrderByDescending(x => x.CreationTime) // 时间倒排序
-                .Where(x => x.RequestType.Equals(useType) && x.CreationTime >= _30_minutes_before && !x.Abandoned && !x.CheckSuccess && x.Type.Equals(type));
+                .Where(x => x.RequestType.Equals(useType) && x.CreationTime >= m30_minutes_before && !x.Abandoned && !x.CheckSuccess && x.Type.Equals(type));
             // 过滤条件 30分钟之前创建的短信 没有废弃的(!Abandoned) 并且是 没有成功的(!CheckSuccess)
 
             TAuthMessageRecord? item = default;

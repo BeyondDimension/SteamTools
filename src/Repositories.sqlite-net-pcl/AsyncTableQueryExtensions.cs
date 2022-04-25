@@ -25,8 +25,8 @@ namespace System
         /// <inheritdoc cref="QueryableExtensions.WhereOr{T}(IReadOnlyList{Expression{Func{T, bool}}})"/>
         public static AsyncTableQuery<T> WhereOr<T>(this AsyncTableQuery<T> source, params Expression<Func<T, bool>>[] predicates) where T : new()
         {
-            IReadOnlyList<Expression<Func<T, bool>>> _predicates = predicates;
-            return source.WhereOr(_predicates);
+            IReadOnlyList<Expression<Func<T, bool>>> predicates_ = predicates;
+            return source.WhereOr(predicates_);
         }
 
         #endregion

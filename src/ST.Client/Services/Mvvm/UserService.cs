@@ -13,6 +13,7 @@ namespace System.Application.Services
     public sealed class UserService : ReactiveObject
     {
         static UserService? mCurrent;
+
         public static UserService Current => mCurrent ?? new();
 
         readonly IUserManager userManager = IUserManager.Instance;
@@ -79,10 +80,12 @@ namespace System.Application.Services
                 await SignOutAsync(csc.Manage.SignOut);
             }
         }
+
         public async Task<IApiResponse<ClockInResponse>> SignIn()
         {
             return await csc.AccountClockIn();
         }
+
         public async Task DelAccountAsync()
         {
             if (!IsAuthenticated) return;
@@ -96,6 +99,7 @@ namespace System.Application.Services
         }
 
         UserInfoDTO? _User;
+
         public UserInfoDTO? User
         {
             get => _User;
@@ -108,6 +112,7 @@ namespace System.Application.Services
         public bool IsAuthenticated => User != null;
 
         SteamUser? _SteamUser;
+
         public SteamUser? CurrentSteamUser
         {
             get => _SteamUser;
@@ -115,6 +120,7 @@ namespace System.Application.Services
         }
 
         object? _AvatarPath;
+
         public object? AvatarPath
         {
             get => _AvatarPath;
@@ -144,6 +150,7 @@ namespace System.Application.Services
         }
 
         bool _HasPhoneNumber;
+
         /// <summary>
         /// 当前登录用户是否有手机号码
         /// </summary>
@@ -154,6 +161,7 @@ namespace System.Application.Services
         }
 
         string _PhoneNumber = string.Empty;
+
         /// <summary>
         /// 用于 UI 显示的当前登录用户的手机号码(隐藏中间四位)
         /// </summary>
@@ -210,7 +218,8 @@ namespace System.Application.Services
                 if (User.AvatarUrl.Any_Nullable())
                 {
                     var settingPriority = FastLoginChannel.Steam; // 设置中优先选取头像渠道配置项
-                    var order = new[] { settingPriority }.Concat(new[] {
+                    var order = new[] { settingPriority }.Concat(new[]
+                    {
                         FastLoginChannel.Steam,
                         FastLoginChannel.QQ,
                         FastLoginChannel.Apple,

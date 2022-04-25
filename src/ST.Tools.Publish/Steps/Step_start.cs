@@ -190,7 +190,8 @@ namespace System.Application.Steps
             {
                 if (!val.Any()) val = Step_cd.all_val;
 
-                var dirNames = new[] {
+                var dirNames = new[]
+                {
                     Handler(DeploymentMode.SCD, val, dev),
                     Handler(DeploymentMode.FDE, val, dev),
                 }.Where(x => x != null).SelectMany(x => x!).ToArray();

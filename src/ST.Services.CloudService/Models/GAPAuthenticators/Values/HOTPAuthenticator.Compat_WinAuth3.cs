@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2015 Colin Mackie.
  * This software is distributed under the terms of the GNU General Public License.
  *
@@ -49,6 +49,7 @@ namespace System.Application.Models
                     return base.SecretData
                         + "|" + Counter.ToString();
                 }
+
                 set
                 {
                     // extract key + counter
@@ -56,7 +57,7 @@ namespace System.Application.Models
                     {
                         string[] parts = value.Split('|');
                         base.SecretData = value;
-                        Counter = (parts.Length > 1 ? long.Parse(parts[1]) : 0);
+                        Counter = parts.Length > 1 ? long.Parse(parts[1]) : 0;
                     }
                     else
                     {

@@ -11,6 +11,7 @@ namespace System.Application.UI.ViewModels
     public class ASF_AddBotWindowViewModel : WindowViewModel
     {
         public static string DisplayName_AddBot => "新增Bot";
+
         public static string DisplayName_EditBott => "编辑Bot";
 
         protected ASF_AddBotWindowViewModel(string title)
@@ -29,6 +30,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private Bot? _Bot;
+
         public Bot? Bot
         {
             get => _Bot;

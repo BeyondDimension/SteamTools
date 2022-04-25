@@ -7,9 +7,11 @@ namespace System.Application.UI.ViewModels
     partial class MainWindowViewModel
     {
         readonly Dictionary<Type, Lazy<TabItemViewModel>> mTabItems = new();
+
         public IEnumerable<TabItemViewModel> TabItems => mTabItems.Values.Select(x => x.Value);
 
         IReadOnlyList<TabItemViewModel>? _FooterTabItems;
+
         public IReadOnlyList<TabItemViewModel>? FooterTabItems
         {
             get

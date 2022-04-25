@@ -87,7 +87,6 @@ namespace System.Application.UI.Views.Pages
         {
             ASFService.Current.RefreshBots();
 
-
             base.OnAttachedToVisualTree(e);
         }
     }

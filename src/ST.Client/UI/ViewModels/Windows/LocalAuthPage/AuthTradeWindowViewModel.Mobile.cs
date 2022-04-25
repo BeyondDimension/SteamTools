@@ -51,6 +51,7 @@ namespace System.Application.UI.ViewModels
 
         private bool isUnselectAllChangeing;
         private bool _UnselectAll;
+
         /// <summary>
         /// 全不选
         /// </summary>
@@ -72,6 +73,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _SelectAllText;
+
         /// <summary>
         /// 全选文字，当值为 <see langword="null"/> 时应隐藏底部操作区域
         /// </summary>

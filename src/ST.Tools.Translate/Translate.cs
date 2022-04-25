@@ -14,28 +14,36 @@ namespace System
     public class TranslationResult
     {
         public DetectedLanguage DetectedLanguage { get; set; }
+
         public TextResult SourceText { get; set; }
+
         public Translation[] Translations { get; set; }
     }
 
     public class DetectedLanguage
     {
         public string Language { get; set; }
+
         public float Score { get; set; }
     }
 
     public class TextResult
     {
         public string Text { get; set; }
+
         public string Script { get; set; }
     }
 
     public class Translation
     {
         public string Text { get; set; }
+
         public TextResult Transliteration { get; set; }
+
         public string To { get; set; }
+
         public Alignment Alignment { get; set; }
+
         public SentenceLength SentLen { get; set; }
     }
 
@@ -47,6 +55,7 @@ namespace System
     public class SentenceLength
     {
         public int[] SrcSentLen { get; set; }
+
         public int[] TransSentLen { get; set; }
     }
 
@@ -64,15 +73,15 @@ namespace System
         public static TranslatecsSettings Settings { internal get; set; }
 
         //const string region_var = "TRANSLATOR_SERVICE_REGION";
-        static /*readonly*/ string region => Settings.Region;
+        static /*readonly*/ string Region => Settings.Region;
         //= Environment.GetEnvironmentVariable(region_var);
 
         //const string key_var = "TRANSLATOR_TEXT_SUBSCRIPTION_KEY";
-        static /*readonly*/ string subscriptionKey => Settings.Key;
+        static /*readonly*/ string SubscriptionKey => Settings.Key;
         //= Environment.GetEnvironmentVariable(key_var);
 
         //const string endpoint_var = "TRANSLATOR_TEXT_ENDPOINT";
-        static /*readonly*/ string endpoint => Settings.Endpoint;
+        static /*readonly*/ string Endpoint => Settings.Endpoint;
 
         static readonly JsonSerializer jsonSerializer = new();
 
@@ -110,8 +119,8 @@ namespace System
                 RequestUri = new Uri(/*endpoint +*/ route),
                 Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
             };
-            request.Headers.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-            request.Headers.Add("Ocp-Apim-Subscription-Region", region);
+            request.Headers.Add("Ocp-Apim-Subscription-Key", SubscriptionKey);
+            request.Headers.Add("Ocp-Apim-Subscription-Region", Region);
 
             // Send the request and get response.
             var response = await client.SendAsync(request).ConfigureAwait(false);

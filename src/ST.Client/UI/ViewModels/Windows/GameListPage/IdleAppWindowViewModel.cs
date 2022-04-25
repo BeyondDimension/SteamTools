@@ -16,6 +16,7 @@ namespace System.Application.UI.ViewModels
 
         bool init = false;
         readonly ISteamService SteamTool = ISteamService.Instance;
+
         public IdleAppWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
@@ -26,6 +27,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _RunStateTxt;
+
         public string? RunStateTxt
         {
             get => _RunStateTxt;
@@ -33,6 +35,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _RunLoaingState;
+
         public bool RunLoaingState
         {
             get => _RunLoaingState;
@@ -40,6 +43,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _RunState;
+
         public bool RunState
         {
             get => _RunState;
@@ -51,6 +55,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsIdleAppEmpty;
+
         public bool IsIdleAppEmpty
         {
             get => _IsIdleAppEmpty;
@@ -58,6 +63,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string _RuningCountTxt = string.Empty;
+
         public string RuningCountTxt
         {
             get => _RuningCountTxt;
@@ -68,6 +74,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private ObservableCollection<SteamApp> _IdleGameList = new();
+
         public ObservableCollection<SteamApp> IdleGameList
         {
             get => _IdleGameList;

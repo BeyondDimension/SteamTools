@@ -1,4 +1,4 @@
-﻿namespace System.Application.Models
+namespace System.Application.Models
 {
     public class IntStatInfo : StatInfo
     {
@@ -18,7 +18,7 @@
 
         public override object Value
         {
-            get { return IntValue; }
+            get => IntValue;
             set
             {
                 var b = int.TryParse((string)value, out int i);
@@ -36,9 +36,6 @@
             }
         }
 
-        public override bool IsModified
-        {
-            get { return IntValue != OriginalValue; }
-        }
+        public override bool IsModified => IntValue != OriginalValue;
     }
 }

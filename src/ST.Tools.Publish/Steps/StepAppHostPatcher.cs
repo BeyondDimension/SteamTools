@@ -4,9 +4,9 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
-using static System.ProjectPathUtil;
-using static System.Application.Utils;
 using System.CommandLine.NamingConventionBinder;
+using static System.Application.Utils;
+using static System.ProjectPathUtil;
 
 namespace System.Application.Steps
 {
@@ -25,10 +25,11 @@ namespace System.Application.Steps
                 _ => throw new ArgumentOutOfRangeException(nameof(d), d, null),
             };
 
-            var exePaths = new[] {
-                    pubPath + Path.DirectorySeparatorChar + "Steam++.exe",
-                    //pubPath + Path.DirectorySeparatorChar + "Steam++.Console.exe"
-                };
+            var exePaths = new[]
+            {
+                pubPath + Path.DirectorySeparatorChar + "Steam++.exe",
+                //pubPath + Path.DirectorySeparatorChar + "Steam++.Console.exe"
+            };
 
             foreach (var exePath in exePaths)
             {

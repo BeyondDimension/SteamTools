@@ -135,6 +135,7 @@ namespace System.Application.Models
             get => mEnable;
             set => this.RaiseAndSetIfChanged(ref mEnable, value);
         }
+
         bool mEnable;
 #else
         { get; set; }

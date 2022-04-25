@@ -125,6 +125,7 @@ internal static class UnmanagedMethods
         public string? szTip;
         public int dwState = 0;
         public int dwStateMask = 0;
+
         /// <summary>
         /// String with the text for a balloon ToolTip. It can have a maximum of 255 characters.
         /// To remove the ToolTip, set the NIF_INFO flag in uFlags and set szInfo to an empty string.
@@ -132,6 +133,7 @@ internal static class UnmanagedMethods
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
         public string? szInfo;
         public int uTimeoutOrVersion;
+
         /// <summary>
         /// String containing a title for a balloon ToolTip. This title appears in boldface
         /// above the text. It can have a maximum of 63 characters.
@@ -178,6 +180,7 @@ internal static class UnmanagedMethods
         public MENUITEMINFO()
         {
         }
+
         public MENUITEMINFO(MIIM pfMask)
         {
             fMask = pfMask;
@@ -1587,18 +1590,22 @@ internal static class UnmanagedMethods
         /// Text format. Each line ends with a carriage return/linefeed (CR-LF) combination. A null character signals the end of the data. Use this format for ANSI text.
         /// </summary>
         CF_TEXT = 1,
+
         /// <summary>
         /// A handle to a bitmap
         /// </summary>
         CF_BITMAP = 2,
+
         /// <summary>
         /// A memory object containing a BITMAPINFO structure followed by the bitmap bits.
         /// </summary>
         CF_DIB = 3,
+
         /// <summary>
         /// Unicode text format. Each line ends with a carriage return/linefeed (CR-LF) combination. A null character signals the end of the data.
         /// </summary>
         CF_UNICODETEXT = 13,
+
         /// <summary>
         /// A handle to type HDROP that identifies a list of files.
         /// </summary>
@@ -2136,10 +2143,13 @@ internal interface IDropTarget
 {
     [PreserveSig]
     UnmanagedMethods.HRESULT DragEnter([MarshalAs(UnmanagedType.Interface)][In] IOleDataObject pDataObj, [MarshalAs(UnmanagedType.U4)][In] int grfKeyState, [MarshalAs(UnmanagedType.U8)][In] long pt, [In][Out] ref DropEffect pdwEffect);
+
     [PreserveSig]
     UnmanagedMethods.HRESULT DragOver([MarshalAs(UnmanagedType.U4)][In] int grfKeyState, [MarshalAs(UnmanagedType.U8)][In] long pt, [In][Out] ref DropEffect pdwEffect);
+
     [PreserveSig]
     UnmanagedMethods.HRESULT DragLeave();
+
     [PreserveSig]
     UnmanagedMethods.HRESULT Drop([MarshalAs(UnmanagedType.Interface)][In] IOleDataObject pDataObj, [MarshalAs(UnmanagedType.U4)][In] int grfKeyState, [MarshalAs(UnmanagedType.U8)][In] long pt, [In][Out] ref DropEffect pdwEffect);
 }
@@ -2151,6 +2161,7 @@ internal interface IDropSource
 {
     [PreserveSig]
     int QueryContinueDrag(int fEscapePressed, [MarshalAs(UnmanagedType.U4)][In] int grfKeyState);
+
     [PreserveSig]
     int GiveFeedback([MarshalAs(UnmanagedType.U4)][In] int dwEffect);
 }
@@ -2161,16 +2172,24 @@ internal interface IDropSource
 internal interface IOleDataObject
 {
     void GetData([In] ref FORMATETC format, out STGMEDIUM medium);
+
     void GetDataHere([In] ref FORMATETC format, ref STGMEDIUM medium);
+
     [PreserveSig]
     int QueryGetData([In] ref FORMATETC format);
+
     [PreserveSig]
     int GetCanonicalFormatEtc([In] ref FORMATETC formatIn, out FORMATETC formatOut);
+
     void SetData([In] ref FORMATETC formatIn, [In] ref STGMEDIUM medium, [MarshalAs(UnmanagedType.Bool)] bool release);
+
     IEnumFORMATETC EnumFormatEtc(DATADIR direction);
+
     [PreserveSig]
     int DAdvise([In] ref FORMATETC pFormatetc, ADVF advf, IAdviseSink adviseSink, out int connection);
+
     void DUnadvise(int connection);
+
     [PreserveSig]
     int EnumDAdvise(out IEnumSTATDATA enumAdvise);
 }

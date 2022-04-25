@@ -54,8 +54,9 @@ namespace System.Application.Services.Implementation
         readonly string? mRegistryVdfPath;
         readonly string[] steamProcess = new[] { "steam", "steam_osx", "steamservice", "steamwebhelper" };
         readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
-        IHttpService Http => _http.Value;
         List<FileSystemWatcher>? steamDownloadingWatchers;
+
+        IHttpService Http => _http.Value;
 
         public SteamServiceImpl(IPlatformService platformService)
         {
@@ -76,6 +77,7 @@ namespace System.Application.Services.Implementation
         }
 
         public string? SteamDirPath => mSteamDirPath;
+
         public string? RegistryVdfPath => mRegistryVdfPath;
 
         public string? SteamProgramPath => mSteamProgramPath;
@@ -457,7 +459,7 @@ namespace System.Application.Services.Implementation
             {
                 throw new Exception("Steam Dir Path is null or empty.");
             }
-            
+
             var fsw = new FileSystemWatcher(Path.Combine(SteamDirPath, "config"), "loginusers.vdf")
             {
                 NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.CreationTime,

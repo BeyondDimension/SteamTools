@@ -1,5 +1,4 @@
 using ReactiveUI;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +8,7 @@ namespace System.Application.UI.ViewModels
     public class MessageBoxWindowViewModel : DialogWindowViewModel
     {
         private string? _Content;
+
         public string? Content
         {
             get => _Content;
@@ -16,6 +16,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsCancelcBtn;
+
         public bool IsCancelcBtn
         {
             get => _IsCancelcBtn;
@@ -23,6 +24,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsShowRememberChoose;
+
         public bool IsShowRememberChoose
         {
             get => _IsShowRememberChoose;
@@ -30,6 +32,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _RememberChoose;
+
         public bool RememberChoose
         {
             get => _RememberChoose;

@@ -66,7 +66,6 @@ namespace System.Application.Services
             };
             Notify(builder);
         }
- 
 
         /// <summary>
         /// 取消通知
@@ -107,7 +106,9 @@ namespace System.Application.Services
         /// </summary>
         /// <returns></returns>
         static Task<DateTimeOffset?> GetLastNotificationTime() => ISecureStorage.Instance.GetAsync<DateTimeOffset?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID);
-        static Task SetLastNotificationTime(DateTimeOffset time) => ISecureStorage.Instance.SetAsync<DateTimeOffset?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID,time);
+
+        static Task SetLastNotificationTime(DateTimeOffset time) => ISecureStorage.Instance.SetAsync<DateTimeOffset?>(ON_LAST_STARTUP_NOTIFICATION_RECORD_ID, time);
+
         /// <summary>
         /// NotifyIcon / TrayIcon 右下角托盘菜单助手类
         /// </summary>

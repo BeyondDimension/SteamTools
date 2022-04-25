@@ -58,9 +58,11 @@ namespace System.Application
         public const string PublishJsonFileName = "Publish.json";
 
         static readonly Lazy<string> mPublishJsonFilePath = new(() => Path.Combine(IOPath.AppDataDirectory, PublishJsonFileName));
+
         public static string PublishJsonFilePath => mPublishJsonFilePath.Value;
 
-        public static readonly string[] ignoreDirNames = new[] {
+        public static readonly string[] ignoreDirNames = new[]
+        {
             IOPath.DirName_AppData,
             IOPath.DirName_Cache,
             "CEF"
@@ -91,6 +93,7 @@ namespace System.Application
             return Hashs.String.Crc32(Environment.MachineName, false) == "88DF9AB0" ||
             Hashs.String.Crc32(Environment.UserName, false) == "8AA383BC";
         });
+
         public static bool IsAigioPC => mIsAigioPC.Value;
 
         public static string GetInfoVersion(string assemblyFile)
@@ -257,7 +260,9 @@ namespace System.Application
         }
 
         static string? mVersion;
+
         public static bool IsUseCustomVersion => mVersion != null;
+
         public static string Version
         {
             [Obsolete("use GetVersion(bool)")]
@@ -282,6 +287,7 @@ namespace System.Application
                 }
                 return version;
             }
+
             set
             {
                 mVersion = value;

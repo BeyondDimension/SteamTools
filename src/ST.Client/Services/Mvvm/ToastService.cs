@@ -16,9 +16,11 @@ namespace System.Application.Services
     public sealed class ToastService : ReactiveObject
     {
         static ToastService? mCurrent;
+
         public static ToastService Current => mCurrent ?? new();
 
         static readonly Lazy<bool> mIsSupported = new(() => DI.Get<IToast>() is ToastImpl);
+
         public static bool IsSupported => mIsSupported.Value;
 
         private readonly Subject<string> notifier;
@@ -32,7 +34,7 @@ namespace System.Application.Services
         /// </summary>
         public string Message
         {
-            get { return notificationMessage ?? persisitentMessage; }
+            get => notificationMessage ?? persisitentMessage;
             set
             {
                 notificationMessage = value;
@@ -47,6 +49,7 @@ namespace System.Application.Services
         /// 显示状态
         /// </summary>
         private bool _IsVisible;
+
         public bool IsVisible
         {
             get => _IsVisible;

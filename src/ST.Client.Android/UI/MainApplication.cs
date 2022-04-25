@@ -210,6 +210,7 @@ namespace System.Application.UI
         }
 
         static readonly HashSet<Android.App.Activity> activities = new();
+
         public static IReadOnlyCollection<Android.App.Activity> Activities => activities;
 
         void OnActivityStateChanged(object? sender, ActivityStateChangedEventArgs e)
@@ -249,6 +250,7 @@ namespace System.Application.UI
         public static bool IsMainProcess { get; private set; }
 
         const AppTheme _DefaultActualTheme = AppTheme.Light;
+
         AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
         //public bool IsRuntimeSwitchXFAppTheme { get; set; } = true;
@@ -337,10 +339,13 @@ namespace System.Application.UI
         object IApplication.CurrentPlatformUIHost => XEPlatform.CurrentActivity;
 
         readonly Dictionary<string, ICommand> _NotifyIconMenus = new();
+
         IReadOnlyDictionary<string, ICommand> IApplication.NotifyIconMenus => _NotifyIconMenus;
 
         readonly CompositeDisposable compositeDisposable = new();
+
         CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
+
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         #endregion

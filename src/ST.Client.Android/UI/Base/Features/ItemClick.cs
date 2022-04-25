@@ -33,6 +33,7 @@ namespace System.Application.UI.Adapters
 
         protected virtual ItemClickEventArgs<TViewModel>? GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs = null)
             => IItemClickViewAdapter<TViewHolder, TViewModel>.GetItemClickEventArgs(view, holder, longClickEventArgs, TryGetViewModelByPosition);
+
         ItemClickEventArgs<TViewModel>? IItemClickViewAdapter<TViewHolder, TViewModel>.GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs)
             => GetItemClickEventArgs(view, holder, longClickEventArgs);
 
@@ -55,6 +56,7 @@ namespace System.Application.UI.Adapters
 
         protected virtual ItemClickEventArgs<TViewModel>? GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs = null)
             => IItemClickViewAdapter<TViewHolder, TViewModel>.GetItemClickEventArgs(view, holder, longClickEventArgs);
+
         ItemClickEventArgs<TViewModel>? IItemClickViewAdapter<TViewHolder, TViewModel>.GetItemClickEventArgs(View view, TViewHolder holder, View.LongClickEventArgs? longClickEventArgs)
             => GetItemClickEventArgs(view, holder, longClickEventArgs);
 
@@ -243,10 +245,7 @@ namespace System.Application.UI.Adapters.Internals
 
         public bool Handled
         {
-            get
-            {
-                return longClickEventArgs?.Handled ?? default;
-            }
+            get => longClickEventArgs?.Handled ?? default;
             set
             {
                 if (longClickEventArgs != null) longClickEventArgs.Handled = value;

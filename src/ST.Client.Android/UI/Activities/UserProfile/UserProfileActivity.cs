@@ -73,6 +73,7 @@ namespace System.Application.UI.Activities
         }
 
         const int pageCount = 3;
+
         public static void StartActivity(Activity activity, SubPageType position = 0)
         {
             if (position.IsDefined())

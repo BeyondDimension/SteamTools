@@ -13,16 +13,18 @@ namespace System.Application
 {
     partial class Startup
     {
-        static readonly Lazy<Logger> _logger = new(LogManager.GetCurrentClassLogger);
-        static Logger? Logger => _logger.Value;
         static readonly HashSet<Exception> exceptions = new();
         static readonly object lock_global_ex_log = new();
+        static readonly Lazy<Logger> _logger = new(LogManager.GetCurrentClassLogger);
+
+        static Logger? Logger => _logger.Value;
 
 #if __ANDROID__
         sealed class UncaughtExceptionHandler : Java.Lang.Object, Java.Lang.Thread.IUncaughtExceptionHandler
         {
             readonly Action<Java.Lang.Thread, Java.Lang.Throwable> action;
             readonly Java.Lang.Thread.IUncaughtExceptionHandler? @interface;
+
             public UncaughtExceptionHandler(Action<Java.Lang.Thread, Java.Lang.Throwable> action, Java.Lang.Thread.IUncaughtExceptionHandler? @interface = null)
             {
                 this.action = action;

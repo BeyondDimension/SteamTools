@@ -92,6 +92,7 @@ namespace System.Application.UI
             static string GetPipeName() => BuildConfig.APPLICATION_ID + "_" + Hashs.String.Crc32(ProgramPath);
 
             CancellationTokenSource? cts;
+
             void RunPipeServer()
             {
                 cts = new CancellationTokenSource();

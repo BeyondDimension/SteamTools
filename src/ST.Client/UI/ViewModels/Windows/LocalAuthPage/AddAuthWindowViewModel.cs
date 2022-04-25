@@ -125,6 +125,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string? _AuthName;
+
         public string? AuthName
         {
             get => _AuthName;
@@ -139,6 +140,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string? _UUID;
+
         public string? UUID
         {
             get => _UUID;
@@ -156,10 +158,7 @@ namespace System.Application.UI.ViewModels
 
         public bool RequiresLogin
         {
-            get
-            {
-                return _Enroll.RequiresLogin;
-            }
+            get => _Enroll.RequiresLogin;
             set
             {
                 _Enroll.RequiresLogin = value;
@@ -169,10 +168,7 @@ namespace System.Application.UI.ViewModels
 
         public bool RequiresActivation
         {
-            get
-            {
-                return _Enroll.RequiresActivation;
-            }
+            get => _Enroll.RequiresActivation;
             set
             {
                 this.RaisePropertyChanged();
@@ -181,10 +177,7 @@ namespace System.Application.UI.ViewModels
 
         public string? UserName
         {
-            get
-            {
-                return _Enroll.Username;
-            }
+            get => _Enroll.Username;
             set
             {
                 _Enroll.Username = value;
@@ -193,10 +186,7 @@ namespace System.Application.UI.ViewModels
 
         public string? Password
         {
-            get
-            {
-                return _Enroll.Password;
-            }
+            get => _Enroll.Password;
             set
             {
                 _Enroll.Password = value;
@@ -205,10 +195,7 @@ namespace System.Application.UI.ViewModels
 
         public string? EmailAuthText
         {
-            get
-            {
-                return _Enroll.EmailAuthText;
-            }
+            get => _Enroll.EmailAuthText;
             set
             {
                 _Enroll.EmailAuthText = value;
@@ -217,10 +204,7 @@ namespace System.Application.UI.ViewModels
 
         public string? ActivationCode
         {
-            get
-            {
-                return _Enroll.ActivationCode;
-            }
+            get => _Enroll.ActivationCode;
             set
             {
                 _Enroll.ActivationCode = value;
@@ -229,10 +213,7 @@ namespace System.Application.UI.ViewModels
 
         public string? RevocationCode
         {
-            get
-            {
-                return _Enroll.RevocationCode;
-            }
+            get => _Enroll.RevocationCode;
             set
             {
                 this.RaisePropertyChanged();
@@ -241,10 +222,7 @@ namespace System.Application.UI.ViewModels
 
         public string? CaptchaText
         {
-            get
-            {
-                return _Enroll.CaptchaText;
-            }
+            get => _Enroll.CaptchaText;
             set
             {
                 _Enroll.CaptchaText = value;
@@ -253,6 +231,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _CaptchaImage;
+
         public string? CaptchaImage
         {
             get => _CaptchaImage;
@@ -265,6 +244,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _EmailDomain;
+
         public string? EmailDomain
         {
             get => _EmailDomain;
@@ -272,6 +252,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _RequiresAdd;
+
         public bool RequiresAdd
         {
             get => _RequiresAdd;
@@ -294,7 +275,8 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        private bool _IsLogining = false;
+        private bool _IsLogining;
+
         public void LoginSteamImport()
         {
             if (string.IsNullOrWhiteSpace(UserName))

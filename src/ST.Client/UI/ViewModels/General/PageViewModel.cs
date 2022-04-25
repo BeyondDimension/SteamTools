@@ -1,5 +1,4 @@
 using ReactiveUI;
-using System;
 using System.Application.Services;
 using System.Collections.Generic;
 using System.Properties;
@@ -12,6 +11,7 @@ namespace System.Application.UI.ViewModels
     public class PageViewModel : ViewModelBase, IPageViewModel
     {
         protected string title = string.Empty;
+
         [IgnoreDataMember]
         public virtual string Title
         {

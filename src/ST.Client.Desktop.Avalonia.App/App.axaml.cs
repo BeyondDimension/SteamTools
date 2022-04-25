@@ -32,6 +32,7 @@ using WindowState = Avalonia.Controls.WindowState;
 #endif
 
 [assembly: Guid("82cda250-48a2-48ad-ab03-5cda873ef80c")]
+
 namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IApplication, IAvaloniaApplication, IClipboardPlatformService
@@ -41,15 +42,14 @@ namespace System.Application.UI
         //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
 
         const AppTheme _DefaultActualTheme = AppTheme.Dark;
+
         AppTheme IApplication.DefaultActualTheme => _DefaultActualTheme;
 
         AppTheme mTheme = _DefaultActualTheme;
+
         public AppTheme Theme
         {
-            get
-            {
-                return mTheme;
-            }
+            get => mTheme;
             set
             {
                 if (value == mTheme) return;
@@ -551,7 +551,9 @@ namespace System.Application.UI
         #region IDisposable members
 
         readonly CompositeDisposable compositeDisposable = new();
+
         CompositeDisposable IApplication.CompositeDisposable => compositeDisposable;
+
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         void IDisposable.Dispose()

@@ -76,6 +76,7 @@ namespace System.Application.UI.ViewModels
         public ICommand ManualLogin { get; }
 
         private string? _CurrentSelectChannel;
+
         public string? CurrentSelectChannel
         {
             get => _CurrentSelectChannel;
@@ -83,6 +84,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _PhoneNumber;
+
         public string? PhoneNumber
         {
             get => _PhoneNumber;
@@ -90,6 +92,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _SmsCode;
+
         public string? SmsCode
         {
             get => _SmsCode;
@@ -97,6 +100,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private int _TimeLimit = SMSInterval;
+
         public int TimeLimit
         {
             get => _TimeLimit;
@@ -110,6 +114,7 @@ namespace System.Application.UI.ViewModels
         public static string DefaultBtnSendSmsCodeText => AppResources.User_GetSMSCode;
 
         string _BtnSendSmsCodeText = DefaultBtnSendSmsCodeText;
+
         public string BtnSendSmsCodeText
         {
             get => _BtnSendSmsCodeText;
@@ -121,12 +126,15 @@ namespace System.Application.UI.ViewModels
         public bool SendSmsCodeSuccess { get; set; }
 
         bool _IsLoading;
+
         public bool IsLoading
         {
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
+
         bool _IsFastLogin;
+
         public bool IsFastLogin
         {
             get => _IsFastLogin;
@@ -135,6 +143,7 @@ namespace System.Application.UI.ViewModels
 
         const short _LoginStateDefault = 2;
         short _LoginState = _LoginStateDefault;
+
         public short LoginState
         {
             get => _LoginState;
@@ -196,6 +205,7 @@ namespace System.Application.UI.ViewModels
         public Action? TbSmsCodeFocus { get; set; }
 
         public CancellationTokenSource? CTS { get; set; }
+
         public ICommand SendSms { get; }
 
         async Task SendSmsAsync() => await this.SendSmsAsync(() => new()
@@ -239,6 +249,7 @@ namespace System.Application.UI.ViewModels
         }
 
         ObservableCollection<FastLoginChannelViewModel> fastLoginChannels;
+
         /// <summary>
         /// 快速登录渠道组
         /// </summary>
@@ -255,6 +266,7 @@ namespace System.Application.UI.ViewModels
             }
 
             Color iconBgColor;
+
             public Color IconBgColor
             {
                 get => iconBgColor;

@@ -218,7 +218,6 @@ namespace System.Application.Services.Implementation
             bool isDialog = true) => Show(GetWindowViewModelType(customWindow), isDialog, customWindow,
                 title, viewModel, resizeMode);
 
-
         public void CloseWindow(WindowViewModel vm)
         {
             try

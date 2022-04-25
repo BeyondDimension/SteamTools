@@ -72,8 +72,8 @@ namespace System.Application.Models
                         RequiredJs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Require}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true)),
                     };
                     var matchs = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{nameof(Match)}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
-                    var Includes = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
-                    script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? Includes : matchs;
+                    var includes = string.Join(GeneralSeparator, Regex.Matches(userScript, string.Format(DescRegex, $"@{Include}"), RegexOptions.IgnoreCase).GetValues(s => s.Success == true));
+                    script.MatchDomainNames = string.IsNullOrEmpty(matchs) ? includes : matchs;
                     // 忽略脚本 Enable 启动标签默认启动
                     //var enable = Regex.Match(userScript, string.Format(DescRegex, $"@{nameof(Enable)}"), RegexOptions.IgnoreCase).GetValue(s => s.Success == true);
                     script.Enable = true;
@@ -122,6 +122,7 @@ namespace System.Application.Models
         public string? JsPathUrl { get; set; }
 
         private bool _IsUpdate;
+
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
@@ -132,6 +133,7 @@ namespace System.Application.Models
         }
 
         private bool _IsExist;
+
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
@@ -152,6 +154,7 @@ namespace System.Application.Models
         public bool DownloadButtonLoading => !IsExist && !DownloadLoading;
 
         private bool _IsLoading;
+
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
@@ -172,6 +175,7 @@ namespace System.Application.Models
         public DateTimeOffset? UpdateTime { get; set; }
 
 #endif
+
         /// <summary>
         /// 显示名称
         /// </summary>
@@ -184,6 +188,7 @@ namespace System.Application.Models
             get => _Name;
             set => this.RaiseAndSetIfChanged(ref _Name, value);
         }
+
         string _Name
 #else
         { get; set; }
@@ -210,6 +215,7 @@ namespace System.Application.Models
             get => _Version;
             set => this.RaiseAndSetIfChanged(ref _Version, value);
         }
+
         string _Version
 #else
         { get; set; }
@@ -244,6 +250,7 @@ namespace System.Application.Models
             get => _UpdateLink;
             set => this.RaiseAndSetIfChanged(ref _UpdateLink, value);
         }
+
         string _UpdateLink
 #else
         { get; set; }
@@ -278,10 +285,12 @@ namespace System.Application.Models
             get => mEnable;
             set => this.RaiseAndSetIfChanged(ref mEnable, value);
         }
+
         bool mEnable;
 #else
         { get; set; }
 #endif
+
         string? mMatchDomainNames;
         string[]? mMatchDomainNamesArray;
         readonly object mMatchDomainNamesArrayLock = new();

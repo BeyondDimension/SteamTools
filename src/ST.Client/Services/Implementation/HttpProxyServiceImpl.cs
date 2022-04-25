@@ -118,10 +118,12 @@ namespace System.Application.Services.Implementation
             var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
             var cookie = e.HttpClient.Request.Headers.GetFirstHeader("cookie-steamTool")?.Value ??
                 e.HttpClient.Request.Headers.GetFirstHeader("Cookie")?.Value;
-            var headrs = new List<HttpHeader>() {
-                new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
-                new HttpHeader("Access-Control-Allow-Headers", "*"), new HttpHeader("Access-Control-Allow-Methods", "*"),
-                new HttpHeader("Access-Control-Allow-Credentials", "true")
+            var headrs = new List<HttpHeader>()
+            {
+                new("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
+                new("Access-Control-Allow-Headers", "*"),
+                new("Access-Control-Allow-Methods", "*"),
+                new("Access-Control-Allow-Credentials", "true")
             };
             //if (cookie != null)
             //    headrs.Add(new HttpHeader("Cookie", cookie));
@@ -204,11 +206,13 @@ namespace System.Application.Services.Implementation
             {
                 if (e.HttpClient.Request.Method.ToUpperInvariant() == "OPTIONS")
                 {
-                    e.Ok("", new List<HttpHeader>() {
+                    e.Ok("", new List<HttpHeader>()
+                    {
                         new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
                         new HttpHeader("Access-Control-Allow-Headers", "*"),
                         new HttpHeader("Access-Control-Allow-Methods", "*"),
-                        new HttpHeader("Access-Control-Allow-Credentials", "true") });
+                        new HttpHeader("Access-Control-Allow-Credentials", "true")
+                    });
                     return;
                 }
                 var type = e.HttpClient.Request.Headers.GetFirstHeader("requestType")?.Value;
@@ -225,7 +229,6 @@ namespace System.Application.Services.Implementation
 
             //host模式下不启用加速会出现无限循环问题
             if (ProxyDomains is null || TwoLevelAgentEnable || (OnlyEnableProxyScript && IsSystemProxy)) return;
-
 
             //var item = ProxyDomains.FirstOrDefault(f => f.DomainNamesArray.Any(h => e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(h, StringComparison.OrdinalIgnoreCase)));
 
@@ -496,6 +499,7 @@ namespace System.Application.Services.Implementation
             }
             return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
         }
+
         /// <summary>
         /// 删除全部Steam++证书 如失败尝试 命令删除
         /// </summary>
@@ -516,14 +520,15 @@ namespace System.Application.Services.Implementation
                         }
                         catch
                         {
-                          await IPlatformService.Instance.RunShellAsync($"security delete-certificate -Z \\\"{item.GetCertHashString()}\\\"", true);
+                            await IPlatformService.Instance.RunShellAsync($"security delete-certificate -Z \\\"{item.GetCertHashString()}\\\"", true);
                         }
                     }
                 }
             }
 
         }
-        public  bool DeleteCertificate()
+
+        public bool DeleteCertificate()
         {
             if (ProxyRunning)
                 return false;

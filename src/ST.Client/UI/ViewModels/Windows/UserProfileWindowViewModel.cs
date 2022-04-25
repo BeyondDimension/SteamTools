@@ -86,6 +86,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string? _CurrentSelectChannel;
+
         public string? CurrentSelectChannel
         {
             get => _CurrentSelectChannel;
@@ -98,6 +99,7 @@ namespace System.Application.UI.ViewModels
         void HideFastLoginLoading() => CurrentSelectChannel = null;
 
         bool _IsModify;
+
         public bool IsModify
         {
             get => _IsModify;
@@ -105,6 +107,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string? _NickName;
+
         public string? NickName
         {
             get => _NickName;
@@ -112,6 +115,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string? _UID;
+
         public string? UID
         {
             get => _UID;
@@ -119,6 +123,7 @@ namespace System.Application.UI.ViewModels
         }
 
         Gender _Gender;
+
         public Gender Gender
         {
             get => _Gender;
@@ -126,6 +131,7 @@ namespace System.Application.UI.ViewModels
         }
 
         DateTimeOffset? _BirthDate;
+
         public DateTimeOffset? BirthDate
         {
             get => _BirthDate;
@@ -170,6 +176,7 @@ namespace System.Application.UI.ViewModels
         public new Action? Close { get; set; }
 
         bool _IsLoading;
+
         public bool IsLoading
         {
             get => _IsLoading;

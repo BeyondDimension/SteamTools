@@ -230,6 +230,7 @@ namespace System.Application.UI
         //        }
         static NativeMenuItem? exitMenuItem;
         static Dictionary<TabItemViewModel, NativeMenuItem>? tabItems;
+
         static IDisposable? InitMenuItems(NativeMenu menu)
         {
 #if !TRAY_INDEPENDENT_PROGRAM

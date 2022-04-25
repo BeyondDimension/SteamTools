@@ -47,6 +47,7 @@ namespace System.Application.UI.Activities
         }
 
         static MainActivity? mainActivity;
+
         public static MainActivity Instance => mainActivity ?? throw new ArgumentNullException(nameof(mainActivity));
 
         (Type fragmentType, Func<string> getTitle, int menuId, TabItemViewModel.TabItemId tabItemId)[]? fragments;

@@ -9,6 +9,7 @@ namespace System.Application
     public static class DeviceInfo2
     {
         static readonly Lazy<IDeviceInfoPlatformService?> @interface = new(DI.Get_Nullable<IDeviceInfoPlatformService>);
+
         static IDeviceInfoPlatformService? Interface => @interface.Value;
 
         /// <inheritdoc cref="DeviceInfo.Model"/>
@@ -205,6 +206,7 @@ namespace System.Application
             }
             return default;
         });
+
         public static OSNames.Value OSNameValue => _OSNameValue.Value;
 
         /// <inheritdoc cref="DeviceInfo.DeviceType"/>

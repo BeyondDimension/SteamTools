@@ -15,12 +15,14 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
             var refresh_token = jWT.RefreshToken;
             return RefreshToken(refresh_token.ThrowIsNull(nameof(refresh_token)));
         }
+
         /// <summary>
         /// 签到
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         Task<IApiResponse<ClockInResponse>> ClockIn(ClockInRequest request);
+
         /// <summary>
         /// 获取签到历史记录
         /// </summary>

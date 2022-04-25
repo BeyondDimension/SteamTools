@@ -62,7 +62,6 @@ namespace System.Application.UI.Views.Controls
         {
             InitializeComponent();
 
-
             var items = this.FindControl<ItemsRepeater>("SelectItems");
 
             this.GetObservable(SelectItemsProperty)

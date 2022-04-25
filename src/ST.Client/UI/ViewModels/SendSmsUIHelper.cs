@@ -87,7 +87,8 @@ namespace System.Application.UI.ViewModels
                 {
                     break;
                 }
-            } while (b);
+            }
+            while (b);
         }
 
         static async ValueTask<IApiResponse> SendSms(this IViewModel i, SendSmsRequest request, bool isStartSendSmsTimer)

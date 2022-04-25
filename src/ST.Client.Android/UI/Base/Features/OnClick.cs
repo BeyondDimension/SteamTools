@@ -49,8 +49,11 @@ namespace System.Application.UI.Activities
         }
 
         List<View>? clickViews;
+
         protected void SetOnClickListener(IEnumerable<View> views) => SetOnClickListener(this, clickViews, views);
+
         protected void SetOnClickListener(params View[] views) => SetOnClickListener(views.AsEnumerable());
+
         void ClearOnClickListener() => ClearOnClickListener(ref clickViews);
     }
 
@@ -71,8 +74,11 @@ namespace System.Application.UI.Activities
         }
 
         List<View>? clickViews;
+
         protected void SetOnClickListener(IEnumerable<View> views) => BaseActivity.SetOnClickListener(this, clickViews, views);
+
         protected void SetOnClickListener(params View[] views) => SetOnClickListener(views.AsEnumerable());
+
         void ClearOnClickListener() => BaseActivity.ClearOnClickListener(ref clickViews);
     }
 }
@@ -107,8 +113,11 @@ namespace System.Application.UI.Fragments
         }
 
         List<View>? clickViews;
+
         protected void SetOnClickListener(IEnumerable<View> views) => BaseActivity.SetOnClickListener(this, clickViews, views);
+
         protected void SetOnClickListener(params View[] views) => SetOnClickListener(views.AsEnumerable());
+
         void ClearOnClickListener() => BaseActivity.ClearOnClickListener(ref clickViews);
     }
 
@@ -130,8 +139,11 @@ namespace System.Application.UI.Fragments
         }
 
         List<View>? clickViews;
+
         protected void SetOnClickListener(IEnumerable<View> views) => BaseActivity.SetOnClickListener(this, clickViews, views);
+
         protected void SetOnClickListener(params View[] views) => SetOnClickListener(views.AsEnumerable());
+
         void ClearOnClickListener() => BaseActivity.ClearOnClickListener(ref clickViews);
     }
 }

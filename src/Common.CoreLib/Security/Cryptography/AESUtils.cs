@@ -560,9 +560,9 @@ namespace System.Security.Cryptography
             {
                 var uint16 = BitConverter.ToUInt16(data, 0);
                 var flags = (Flags)uint16;
-                var IVByteArray = data.Skip(2).Take(16).ToArray();
-                var KeyByteArray = data.Skip(18).Reverse().ToArray();
-                return new Parameters(KeyByteArray, IVByteArray, flags);
+                var mIVByteArray = data.Skip(2).Take(16).ToArray();
+                var mKeyByteArray = data.Skip(18).Reverse().ToArray();
+                return new Parameters(mKeyByteArray, mIVByteArray, flags);
             }
 
             public static Parameters Create(string data)

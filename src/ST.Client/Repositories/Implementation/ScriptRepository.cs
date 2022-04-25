@@ -1,5 +1,4 @@
 using AutoMapper;
-using System;
 using System.Application.Entities;
 using System.Application.Models;
 using System.Collections.Generic;
@@ -18,7 +17,9 @@ namespace System.Application.Repositories.Implementation
                 return (await dbConnection.Table<Script>().CountAsync(x => x.MD5 == md5 && x.SHA512 == sha512)) > 0;
             });
         }
-        public async Task SaveScriptEnable(ScriptDTO item) {
+
+        public async Task SaveScriptEnable(ScriptDTO item)
+        {
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             await AttemptAndRetry(async () =>
             {
@@ -35,6 +36,7 @@ namespace System.Application.Repositories.Implementation
                 return r;
             }).ConfigureAwait(false);
         }
+
         public async Task<IList<Script>> GetAllAsync()
         {
             var dbConnection = await GetDbConnection().ConfigureAwait(false);

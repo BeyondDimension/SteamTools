@@ -27,7 +27,6 @@ namespace System.Application.Services.Implementation
         const string TAG = "WindowsPlatformS";
         const string SteamRegistryPath = @"SOFTWARE\Valve\Steam";
 
-
         public string? GetRegistryVdfPath() { return null; }
 
         public string GetCommandLineArgs(Process process)
@@ -78,6 +77,7 @@ namespace System.Application.Services.Implementation
         }
 
         const string explorer = "explorer.exe";
+
         static string Explorer => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), explorer);
 
         public void OpenFolderByDirectoryPath(DirectoryInfo info)
@@ -261,6 +261,7 @@ namespace System.Application.Services.Implementation
         //}
 
         const string explorer_exe = "explorer.exe";
+
         static Process? StartAsInvokerByExplorer(string fileName, string? arguments = null)
         {
             if (string.IsNullOrEmpty(arguments))
@@ -385,8 +386,10 @@ namespace System.Application.Services.Implementation
             var value = reg32.Read(@"SOFTWARE\Steam++", "InstPath").TrimEnd(Path.DirectorySeparatorChar);
             return string.Equals(IOPath.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar), value, StringComparison.OrdinalIgnoreCase);
         });
+
         /// <inheritdoc cref="IPlatformService.IsInstall"/>
         public static bool IsInstall => _IsInstall.Value;
+
         bool IPlatformService.IsInstall => IsInstall;
 
         #endregion

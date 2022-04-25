@@ -9,10 +9,16 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="ILocalDataProtectionProvider"/>
     public abstract class LocalDataProtectionProviderBase : ILocalDataProtectionProvider
     {
-        readonly Lazy<Aes> _aes;
 #pragma warning disable IDE1006 // 命名样式
+#pragma warning disable SA1309 // Field names should not begin with underscore
+        readonly Lazy<Aes> _aes;
+
+#pragma warning disable SA1300 // Element should begin with upper-case letter
         protected Aes aes => _aes.Value;
+#pragma warning restore SA1300 // Element should begin with upper-case letter
+#pragma warning restore SA1309 // Field names should not begin with underscore
 #pragma warning restore IDE1006 // 命名样式
+
         protected readonly LocalDataProtectionType defaultELocalDataProtectionType;
         protected readonly IProtectedData protectedData;
         protected readonly IDataProtectionProvider dataProtectionProvider;

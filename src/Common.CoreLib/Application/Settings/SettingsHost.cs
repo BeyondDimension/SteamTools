@@ -22,6 +22,7 @@ namespace System.Application.Settings
         protected static string GetLocalFilePath(string configName) => Path.Combine(IOPath.AppDataDirectory, configName);
 
         static readonly Lazy<string> _LocalFilePath = new(() => GetLocalFilePath(ConfigName));
+
         public static string LocalFilePath => _LocalFilePath.Value;
 
         public static ISerializationProvider Local { get; } = new FileSettingsProvider(LocalFilePath);
@@ -81,6 +82,7 @@ namespace System.Application.Settings
         }
 
         static readonly Lazy<string> _CategoryName = new(() => typeof(TSettings).Name);
+
         public static new string CategoryName => _CategoryName.Value;
 
         static string GetKey(string propertyName) => $"{CategoryName}.{propertyName}";

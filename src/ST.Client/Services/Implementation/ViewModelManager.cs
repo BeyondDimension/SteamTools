@@ -17,6 +17,7 @@ namespace System.Application.Services.Implementation
         readonly CompositeDisposable compositeDisposable = new();
 
         WindowViewModel? mMainWindow;
+
         public WindowViewModel MainWindow
         {
             get => mMainWindow ?? throw new NullReferenceException("MainWindowViewModel is null.");
@@ -114,6 +115,7 @@ namespace System.Application.Services.Implementation
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositeDisposable;
 
         bool disposedValue;
+
         void Dispose(bool disposing)
         {
             if (!disposedValue)

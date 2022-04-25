@@ -47,7 +47,6 @@ namespace System.Application.Models
 
         private const string NodeLaunch = "launch";
 
-
         public SteamApp() { }
 
         public SteamApp(uint appid)
@@ -76,9 +75,10 @@ namespace System.Application.Models
         public string? BaseName { get; set; }
 
         string? _Name;
+
         public string? Name
         {
-            get { return _Name; }
+            get => _Name;
             set
             {
                 if (_Name != value)
@@ -91,9 +91,10 @@ namespace System.Application.Models
         }
 
         string? _SortAs;
+
         public string? SortAs
         {
-            get { return _SortAs; }
+            get => _SortAs;
             set
             {
                 if (_SortAs != value)
@@ -308,6 +309,7 @@ namespace System.Application.Models
         }
 
         private bool _IsEdited;
+
         public bool IsEdited
         {
             get => _IsEdited;
@@ -317,9 +319,10 @@ namespace System.Application.Models
         public string DisplayName => string.IsNullOrEmpty(Name) ? AppId.ToString() : Name;
 
         string? _baseDLSSVersion;
+
         public string? BaseDLSSVersion
         {
-            get { return _baseDLSSVersion; }
+            get => _baseDLSSVersion;
             set
             {
                 if (_baseDLSSVersion != value)
@@ -331,9 +334,10 @@ namespace System.Application.Models
         }
 
         string? _currentDLSSVersion;
+
         public string? CurrentDLSSVersion
         {
-            get { return _currentDLSSVersion; }
+            get => _currentDLSSVersion;
             set
             {
                 if (_currentDLSSVersion != value)
@@ -343,6 +347,7 @@ namespace System.Application.Models
                 }
             }
         }
+
         public bool HasDLSS { get; set; }
 
         public string? Logo { get; set; }
@@ -379,6 +384,7 @@ namespace System.Application.Models
         public DateTime LastUpdated { get; set; }
 
         private long _SizeOnDi;
+
         /// <summary>
         /// 占用硬盘字节大小
         /// </summary>
@@ -413,6 +419,7 @@ namespace System.Application.Models
         public IList<uint> ChildApp { get; set; } = new List<uint>();
 
         private ObservableCollection<SteamAppLaunchItem>? _LaunchItems;
+
         public ObservableCollection<SteamAppLaunchItem>? LaunchItems
         {
             get => _LaunchItems;
@@ -420,6 +427,7 @@ namespace System.Application.Models
         }
 
         private ObservableCollection<SteamAppSaveFile>? _SaveFiles;
+
         public ObservableCollection<SteamAppSaveFile>? SaveFiles
         {
             get => _SaveFiles;
@@ -430,9 +438,11 @@ namespace System.Application.Models
             string.Format(STEAMAPP_LOGO_URL, AppId, Logo);
 
         public string LibraryGridUrl => string.Format(STEAMAPP_LIBRARY_URL, AppId);
+
         public Task<string> LibraryGridStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Grid);
 
         private Stream? _EditLibraryGridStream;
+
         public Stream? EditLibraryGridStream
         {
             get => _EditLibraryGridStream;
@@ -440,9 +450,11 @@ namespace System.Application.Models
         }
 
         public string LibraryHeroUrl => string.Format(STEAMAPP_LIBRARYHERO_URL, AppId);
+
         public Task<string> LibraryHeroStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero);
 
         private Stream? _EditLibraryHeroStream;
+
         public Stream? EditLibraryHeroStream
         {
             get => _EditLibraryHeroStream;
@@ -450,13 +462,15 @@ namespace System.Application.Models
         }
 
         public string LibraryHeroBlurUrl => string.Format(STEAMAPP_LIBRARYHEROBLUR_URL, AppId);
+
         public Task<string> LibraryHeroBlurStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Library_Hero_Blur);
 
-
         public string LibraryLogoUrl => string.Format(STEAMAPP_LIBRARYLOGO_URL, AppId);
+
         public Task<string> LibraryLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Logo);
 
         private Stream? _EditLibraryLogoStream;
+
         public Stream? EditLibraryLogoStream
         {
             get => _EditLibraryLogoStream;
@@ -464,13 +478,14 @@ namespace System.Application.Models
         }
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_HEADIMAGE_URL, AppId);
-        public string CAPSULELogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 
+        public string CAPSULELogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 
         public string? IconUrl => string.IsNullOrEmpty(Icon) ? null :
             string.Format(STEAMAPP_LOGO_URL, AppId, Icon);
 
         private Process? _Process;
+
         public Process? Process
         {
             get => _Process;
@@ -478,6 +493,7 @@ namespace System.Application.Models
         }
 
         private bool _IsWatchDownloading;
+
         public bool IsWatchDownloading
         {
             get => _IsWatchDownloading;
@@ -500,9 +516,11 @@ namespace System.Application.Models
         private uint _changeNumber;
 
         private byte[] _originalData;
+
         public byte[] OriginalData { get => _originalData; set => _originalData = value; }
 
         private SteamAppPropertyTable? _properties;
+
         public SteamAppPropertyTable? ChangesData => _properties;
 
         //public event EventHandler? Modified;

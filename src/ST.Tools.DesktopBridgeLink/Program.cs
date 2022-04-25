@@ -1,3 +1,4 @@
+#pragma warning disable SA1516 // Elements should be separated by blank line
 using System;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ const bool isDebugOrRelease = false;
 const string platform = "x64";
 const string configuration = isDebugOrRelease ? "Debug" : "Release";
 
-string Mark = $"<!--ST.Tools.DesktopBridgeLink({configuration}-{platform})-->";
+string mark = $"<!--ST.Tools.DesktopBridgeLink({configuration}-{platform})-->";
 //const string Mark_CEF_x64 = "<!--CEF(x64)-->";
 
 var src_path = Path.Combine(ProjectPathUtil.projPath, "src");
@@ -25,7 +26,7 @@ if (Directory.Exists(bridge_app_path) && Directory.Exists(bridge_console_path))
     var csprojContentLines = csprojContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
     StringBuilder s = new();
-    var index = Array.FindIndex(csprojContentLines, x => x.Trim() == Mark);
+    var index = Array.FindIndex(csprojContentLines, x => x.Trim() == mark);
     if (index < 0)
     {
         Console.WriteLine("Cannot find mark.");
@@ -38,7 +39,7 @@ if (Directory.Exists(bridge_app_path) && Directory.Exists(bridge_console_path))
     bottom = bottom.Skip(index + 1).ToArray();
 
     Array.ForEach(top, x => s.AppendLine(x));
-    s.Append("  ").AppendLine(Mark);
+    s.Append("  ").AppendLine(mark);
     var bridge_app_path2 = bridge_app_path + pub_path;
     //var bridge_console_path2 = bridge_console_path + pub_path;
     if (Directory.Exists(bridge_app_path2)/* && Directory.Exists(bridge_console_path2)*/)
@@ -91,3 +92,4 @@ if (Directory.Exists(bridge_app_path) && Directory.Exists(bridge_console_path))
 
     Console.WriteLine("OK");
 }
+#pragma warning restore SA1516 // Elements should be separated by blank line

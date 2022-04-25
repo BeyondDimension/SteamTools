@@ -1,5 +1,4 @@
 using ReactiveUI;
-using System;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
@@ -14,9 +13,13 @@ namespace System.Application.UI.ViewModels
     public partial class AccountPageViewModel
     {
         public ReactiveCommand<Unit, Unit>? OpenUserProfile { get; }
+
         public ReactiveCommand<Unit, Unit>? OpenEngineOilLogs { get; }
+
         public ReactiveCommand<Unit, Unit>? OpenBalanceLogs { get; }
+
         public ReactiveCommand<Unit, Unit>? SignIn { get; }
+
         public AccountPageViewModel()
         {
             OpenUserProfile = ReactiveCommand.Create(() =>
@@ -43,6 +46,7 @@ namespace System.Application.UI.ViewModels
                 }
             });
         }
+
         public override async void Activation()
         {
             if (IsFirstActivation && NotificationService.Current.NoticeTypes.Count == 0)

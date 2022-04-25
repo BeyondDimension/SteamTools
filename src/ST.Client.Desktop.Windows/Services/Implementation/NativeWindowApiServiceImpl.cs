@@ -130,7 +130,7 @@ namespace System.Application.Services.Implementation
                 IntPtr result = User32Window.SendMessage(progman, 0x052C, new IntPtr(0), IntPtr.Zero);
                 IntPtr workerw = IntPtr.Zero;
 
-                User32Window.EnumWindows(((tophandle, topparamhandle) =>
+                User32Window.EnumWindows((tophandle, topparamhandle) =>
                 {
                     IntPtr p = User32Window.FindWindowEx(tophandle,
                         IntPtr.Zero,
@@ -145,9 +145,8 @@ namespace System.Application.Services.Implementation
                             null);
                     }
                     return true;
-                }), IntPtr.Zero);
+                }, IntPtr.Zero);
                 SetParentWindow(window.Handle, workerw);
-
 
                 int p1 = User32Window.GetWindowLongA(window.Handle, (int)WindowLongFlags.GWL_STYLE);
                 p1 &= ~13500416;

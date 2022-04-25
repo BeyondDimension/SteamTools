@@ -56,6 +56,7 @@ namespace System.Application.UI.Fragments
         }
 
         MenuBuilder? menuBuilder;
+
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             inflater.Inflate(Resource.Menu.asf_plus_toolbar_menu, menu);

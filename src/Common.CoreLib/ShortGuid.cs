@@ -350,8 +350,8 @@ namespace System
         /// </summary>
         public static bool operator ==(ShortGuid x, ShortGuid y)
         {
-            if (ReferenceEquals(x, null))
-                return ReferenceEquals(y, null);
+            //if (ReferenceEquals(x, null))
+            //    return ReferenceEquals(y, null);
 
             return x.underlyingGuid == y.underlyingGuid;
         }
@@ -361,8 +361,8 @@ namespace System
         /// </summary>
         public static bool operator ==(ShortGuid x, Guid y)
         {
-            if (ReferenceEquals(x, null))
-                return ReferenceEquals(y, null);
+            //if (ReferenceEquals(x, null))
+            //    return ReferenceEquals(y, null);
 
             return x.underlyingGuid == y;
         }

@@ -16,10 +16,12 @@ namespace System.Application.Services.Implementation
         public const string xdg = "xdg-open";
         public const string vi = "vi";
         public const string VSC = "code";
+
         /// <summary>
         /// 临时 保存用户系统密码
         /// </summary> 
         public string SystemUserPassword { get; set; } = string.Empty;
+
         public LinuxPlatformServiceImpl()
         {
             // 平台服务依赖关系过于复杂，在构造函数中不得注入任何服务，由函数中延时加载调用服务
@@ -80,7 +82,7 @@ namespace System.Application.Services.Implementation
             var value = string.Format(
                     "{1}{0}.steam{0}registry.vdf",
                     Path.DirectorySeparatorChar,
-                   Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
             return value;
         }
 
@@ -91,7 +93,7 @@ namespace System.Application.Services.Implementation
                 var registryVdfPath = GetRegistryVdfPath();
                 if (!string.IsNullOrWhiteSpace(registryVdfPath) && File.Exists(registryVdfPath))
                 {
-                    dynamic v = VdfHelper.Read(registryVdfPath); 
+                    dynamic v = VdfHelper.Read(registryVdfPath);
                     if (v.Value.HKCU.Software.Valve.Steam.AutoLoginUser != null)
                     {
                         v.Value.HKCU.Software.Valve.Steam.AutoLoginUser = userName;

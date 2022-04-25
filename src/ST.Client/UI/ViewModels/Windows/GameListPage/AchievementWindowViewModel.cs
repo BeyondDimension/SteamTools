@@ -27,6 +27,7 @@ namespace System.Application.UI.ViewModels
         private readonly ReadOnlyObservableCollection<AchievementInfo>? _Achievements;
         private readonly SourceList<AchievementInfo> _AchievementsSourceList;
         //private IReadOnlyCollection<AchievementInfo>? _BackAchievements;
+
         public ReadOnlyObservableCollection<AchievementInfo>? Achievements => _Achievements;
         #endregion
 
@@ -34,10 +35,13 @@ namespace System.Application.UI.ViewModels
 
         private readonly ReadOnlyObservableCollection<StatInfo>? _Statistics;
         private readonly SourceList<StatInfo> _StatisticsSourceList;
+
         public ReadOnlyObservableCollection<StatInfo>? Statistics => _Statistics;
+
         #endregion
 
-        private bool? _IsCheckAll = false;
+        private bool? _IsCheckAll;
+
         public bool? IsCheckAll
         {
             get => _IsCheckAll;
@@ -45,6 +49,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _SearchText;
+
         public string? SearchText
         {
             get => _SearchText;
@@ -115,7 +120,6 @@ namespace System.Application.UI.ViewModels
                 .Sort(SortExpressionComparer<AchievementInfo>.Descending(x => x.IsAchieved).ThenByAscending(x => x.Name))
                 .Bind(out _Achievements)
                 .Subscribe();
-
 
             _StatisticsSourceList
                 .Connect()

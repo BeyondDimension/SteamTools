@@ -20,6 +20,7 @@ namespace System.Application
             var text = File.ReadAllText(filePath, Encoding.UTF8);
             return VdfConvert.Deserialize(text);
         }
+
         public static void Write(string filePath, VProperty content)
         {
             try
@@ -31,7 +32,7 @@ namespace System.Application
                 Log.Error(nameof(VdfHelper), e, "Write Vdf Error");
             }
         }
-      
+
     }
 
 #if DEBUG

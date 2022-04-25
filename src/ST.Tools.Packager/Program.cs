@@ -1,4 +1,5 @@
-// Ñ¹Ëõ°ü²âÊÔ£¬Ñ¹ËõÓë½âÑ¹£¬½ø¶ÈÌõUI
+// åŽ‹ç¼©åŒ…æµ‹è¯•ï¼ŒåŽ‹ç¼©ä¸Žè§£åŽ‹ï¼Œè¿›åº¦æ¡UI
+#pragma warning disable SA1516 // Elements should be separated by blank line
 using System.Application.UI.Views;
 using System.Threading;
 using System.Windows.Forms;
@@ -13,3 +14,4 @@ var t = new Thread(() =>
 });
 t.SetApartmentState(ApartmentState.STA);
 t.Start();
+#pragma warning restore SA1516 // Elements should be separated by blank line

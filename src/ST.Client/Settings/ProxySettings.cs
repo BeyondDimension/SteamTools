@@ -80,6 +80,7 @@ namespace System.Application.Settings
         /// </summary>
         public static SerializableProperty<bool> Socks5ProxyEnable { get; }
             = GetProperty(defaultValue: false, autoSave: false);
+
         /// <summary>
         /// Socks5 监听端口
         /// </summary>
@@ -178,10 +179,7 @@ namespace System.Application.Settings
                 if (ProxyModes.Contains(value)) return value;
                 return DefaultProxyMode;
             }
-            set
-            {
-                ProxyMode.Value = value;
-            }
+            set => ProxyMode.Value = value;
         }
 
         public static string ToStringByProxyMode(EProxyMode mode) => mode switch

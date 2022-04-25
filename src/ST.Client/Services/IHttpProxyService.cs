@@ -67,7 +67,6 @@ namespace System.Application.Services
 
         ExternalProxyType TwoLevelAgentProxyType { get; set; }
 
-
         const ExternalProxyType DefaultTwoLevelAgentProxyType = ExternalProxyType.Socks5;
 
         string? TwoLevelAgentIp { get; set; }

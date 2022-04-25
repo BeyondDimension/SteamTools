@@ -17,6 +17,7 @@ namespace System.Application.UI.ViewModels
         #region 更改通知
 
         bool mTopmost;
+
         public bool Topmost
         {
             get => mTopmost;
@@ -24,6 +25,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private ItemViewModel _SelectedItem;
+
         public ItemViewModel SelectedItem
         {
             get => _SelectedItem;
@@ -31,6 +33,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _IsOpenUserMenu;
+
         public bool IsOpenUserMenu
         {
             get => _IsOpenUserMenu;
@@ -60,9 +63,11 @@ namespace System.Application.UI.ViewModels
         public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
 
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
+
         public AccountPageViewModel AccountPage => GetTabItemVM<AccountPageViewModel>();
 
         protected static readonly IPlatformService platformService = IPlatformService.Instance;
+
         public MainWindowViewModel()
         {
             if (IApplication.IsDesktopPlatform)
@@ -83,14 +88,13 @@ namespace System.Application.UI.ViewModels
                 {
                     IsOpenUserMenu = UserService.Current.IsAuthenticated;
                     if (!IsOpenUserMenu)
-                    { 
+                    {
                         UserService.Current.ShowWindow(CustomWindow.LoginOrRegister);
                     }
                 });
             }
 
             #region InitTabItems
-
 
             //AddTabItem<StartPageViewModel>();
             AddTabItem<CommunityProxyPageViewModel>();
@@ -110,18 +114,18 @@ namespace System.Application.UI.ViewModels
 #endif
             //AddTabItem<OtherPlatformPageViewModel>();
 
-//#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
-//            if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
-//            {
-//                AddTabItem<DebugPageViewModel>();
-//                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
+            //#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
+            //            if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
+            //            {
+            //                AddTabItem<DebugPageViewModel>();
+            //                //FooterTabItems.Add(new DebugPageViewModel().AddTo(this));
 
-//                //if (AppHelper.IsSystemWebViewAvailable)
-//                //{
-//                //    AddTabItem<DebugWebViewPageViewModel>();
-//                //}
-//            }
-//#endif
+            //                //if (AppHelper.IsSystemWebViewAvailable)
+            //                //{
+            //                //    AddTabItem<DebugWebViewPageViewModel>();
+            //                //}
+            //            }
+            //#endif
 
             #endregion
 

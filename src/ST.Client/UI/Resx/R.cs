@@ -12,6 +12,7 @@ namespace System.Application.UI.Resx
     public sealed class R : ReactiveObject
     {
         static R? mCurrent;
+
         public static R Current => mCurrent ?? new();
 
         public R()
@@ -22,6 +23,7 @@ namespace System.Application.UI.Resx
         public static readonly IReadOnlyDictionary<string, string> Languages;
         public static readonly IReadOnlyDictionary<string, string> SteamLanguages;
         static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
+
         public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 
         //static readonly Lazy<string> mDefaultConsoleFont = new(() =>
@@ -221,6 +223,7 @@ namespace System.Application.UI.Resx
         sealed class ChangedEventListener : IDisposable
         {
             readonly Action _listener;
+
             public ChangedEventListener(Action listener)
             {
                 _listener = listener;

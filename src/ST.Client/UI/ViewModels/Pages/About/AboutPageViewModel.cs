@@ -26,6 +26,7 @@ namespace System.Application.UI.ViewModels
         public ICommand UIDCommand { get; }
 
         private ObservableCollection<RankingResponse>? _DonateList;
+
         public ObservableCollection<RankingResponse>? DonateList
         {
             get => _DonateList;
@@ -33,6 +34,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private DateTimeOffset _DonateFliterDate;
+
         public DateTimeOffset DonateFliterDate
         {
             get => _DonateFliterDate;
@@ -173,14 +175,14 @@ namespace System.Application.UI.ViewModels
             if (nextPage)
                 pageIndex = DonateList.Count;
 
-
             var result = await ICloudServiceClient.Instance.DonateRanking.RangeQuery(new PageQueryRequest<RankingRequest>
             {
                 Current = pageIndex,
                 PageSize = DonateListPageSize,
                 Params = new RankingRequest()
                 {
-                    TimeRange = new[] {
+                    TimeRange = new[]
+                    {
                         DonateFliterDate, DonateFliterDate.GetCurrentMonthLastDay(),
                     },
                 }

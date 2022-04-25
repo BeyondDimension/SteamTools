@@ -48,6 +48,7 @@ namespace System.Application.UI.Adapters
         }
 
         bool mIsOpen;
+
         /// <summary>
         /// 设置或获取折叠块展开状态，设置展开会使用动画
         /// </summary>

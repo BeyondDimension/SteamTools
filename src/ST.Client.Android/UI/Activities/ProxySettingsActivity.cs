@@ -185,9 +185,13 @@ namespace System.Application.UI.Activities
         }
 
         void SetProgramStartupRunProxy() => binding!.swProgramStartupRunProxy.Checked = ProgramStartupRunProxy.Value;
+
         void SetOnlyEnableProxyScript() => binding!.swOnlyEnableProxyScript.Checked = OnlyEnableProxyScript.Value;
+
         void SetProxySettingsSocks5() => binding!.swProxySettingsSocks5.Checked = Socks5ProxyEnable.Value;
+
         void SetProxySettingsTwoLevelAgent() => binding!.swProxySettingsTwoLevelAgent.Checked = TwoLevelAgentEnable.Value;
+
         void SetIsVpnMode() => binding!.swIsVpnMode.Checked = ProxyModeValue == ProxyMode.VPN;
     }
 }

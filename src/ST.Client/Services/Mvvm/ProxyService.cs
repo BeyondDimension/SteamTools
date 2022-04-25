@@ -29,6 +29,7 @@ namespace System.Application.Services
     public sealed class ProxyService : ReactiveObject, IDisposable
     {
         static ProxyService? mCurrent;
+
         public static ProxyService Current => mCurrent ?? new();
 
         readonly IHttpProxyService httpProxyService = IHttpProxyService.Instance;
@@ -49,7 +50,6 @@ namespace System.Application.Services
                 .Sort(SortExpressionComparer<AccelerateProjectGroupDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
                 .Bind(out _ProxyDomainsList)
                 .Subscribe(_ => SelectGroup = ProxyDomains.Items.FirstOrDefault());
-
 
             this.WhenValueChanged(x => x.ProxyStatus, false)
                 .Subscribe(async x =>
@@ -222,9 +222,11 @@ namespace System.Application.Services
         public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
 
         private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomainsList;
+
         public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList ?? throw new ArgumentNullException(nameof(_ProxyDomainsList));
 
         bool _IsLoading;
+
         public bool IsLoading
         {
             get => _IsLoading;
@@ -232,6 +234,7 @@ namespace System.Application.Services
         }
 
         private AccelerateProjectGroupDTO? _SelectGroup;
+
         public AccelerateProjectGroupDTO? SelectGroup
         {
             get => _SelectGroup;
@@ -251,7 +254,6 @@ namespace System.Application.Services
 
         public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToArray();
 
-
         public IEnumerable<ScriptDTO>? GetEnableProxyScripts()
         {
             //if (!IsEnableScript)
@@ -266,6 +268,7 @@ namespace System.Application.Services
         private DateTimeOffset _StartAccelerateTime;
 
         private TimeSpan _AccelerateTime;
+
         public TimeSpan AccelerateTime
         {
             get => _AccelerateTime;
@@ -291,6 +294,7 @@ namespace System.Application.Services
                 if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return false;
                 return ProxySettings.IsOnlyWorkSteamBrowser.Value;
             }
+
             set
             {
                 if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return;
@@ -321,6 +325,7 @@ namespace System.Application.Services
 
         #region 代理状态启动退出
         private bool _ProxyStatus;
+
         public bool ProxyStatus
         {
             get { return _ProxyStatus; }

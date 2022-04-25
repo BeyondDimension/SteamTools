@@ -19,42 +19,51 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Titanium.Web.Proxy.Models;
 
 namespace System.Application.Services
 {
     public sealed class NotificationService : ReactiveObject
     {
         static NotificationService? mCurrent;
+
         public static NotificationService Current => mCurrent ?? new();
 
         readonly IHttpService httpService = DI.Get<IHttpService>();
+
         public SourceList<NoticeTypeDTO> NoticeTypes { get; }
 
         private ReadOnlyObservableCollection<NoticeTypeDTO>? _ObservableItems;
+
         public ReadOnlyObservableCollection<NoticeTypeDTO>? ObservableItems
         {
             get => _ObservableItems;
             set => this.RaiseAndSetIfChanged(ref _ObservableItems, value);
         }
+
         bool _IsLoading;
+
         public bool IsLoading
         {
             get => _IsLoading;
             set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
         }
+
         bool _IsEmpty;
+
         public bool IsEmpty
         {
             get => _IsEmpty;
             set => this.RaiseAndSetIfChanged(ref _IsEmpty, value);
         }
+
         private NoticeTypeDTO? _SelectGroup;
+
         public NoticeTypeDTO? SelectGroup
         {
             get => _SelectGroup;
             set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
         }
+
         public async Task GetNews(int trycount = 0)
         {
             if (NoticeTypes.Count > 0)
@@ -100,6 +109,7 @@ namespace System.Application.Services
                 await GetNews(trycount++);
             }
         }
+
         public async Task GetTypes()
         {
             var client = ICloudServiceClient.Instance.Notice;
@@ -110,6 +120,7 @@ namespace System.Application.Services
                 NoticeTypes.AddRange(result.Content!.OrderBy(x => x.Index));
             }
         }
+
         public async Task InitializeNotice()
         {
             using (var tk = CancellationTokenSource.CreateLinkedTokenSource(new CancellationToken()))
@@ -124,6 +135,7 @@ namespace System.Application.Services
                 tk.Cancel();
             }
         }
+
         public async Task GetTable(NoticeTypeDTO selectGroup)
         {
             if (selectGroup != null)

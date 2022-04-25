@@ -94,6 +94,7 @@ namespace System.Application
         }
 
         static bool mIsFirstLaunchEver;
+
         /// <summary>
         /// 获取一个值，该值指示此应用是否首次在此设备上启动。
         /// </summary>
@@ -110,6 +111,7 @@ namespace System.Application
                     return mIsFirstLaunchEver;
                 }
             }
+
             private set
             {
                 mIsFirstLaunchEver = value;
@@ -117,6 +119,7 @@ namespace System.Application
         }
 
         static bool mIsFirstLaunchForCurrentVersion;
+
         /// <summary>
         /// 获取一个值，该值指示这是否是当前版本号的应用程序的首次启动。
         /// </summary>
@@ -133,6 +136,7 @@ namespace System.Application
                     return mIsFirstLaunchForCurrentVersion;
                 }
             }
+
             private set
             {
                 mIsFirstLaunchForCurrentVersion = value;

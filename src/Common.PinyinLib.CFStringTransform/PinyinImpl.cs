@@ -43,7 +43,6 @@ namespace System.Application.Services.Implementation
             return Array.Empty<string>();
         }
 
-
         bool IPinyin.IsChinese(char c) => TransformMandarinLatin(c.ToString(), out var _);
     }
 }

@@ -27,6 +27,7 @@ namespace System.Application.Services.Implementation
         public TaskCompletionSource<string>? ReadLineTask { get; set; }
 
         bool _IsReadPasswordLine;
+
         public bool IsReadPasswordLine
         {
             get => _IsReadPasswordLine;
@@ -38,6 +39,7 @@ namespace System.Application.Services.Implementation
         public Version CurrentVersion => SharedInfo.Version;
 
         private bool isFirstStart = true;
+
         public async Task<bool> Start(string[]? args = null)
         {
             try

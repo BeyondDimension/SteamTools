@@ -11,6 +11,7 @@ namespace System.Application.Services.CloudService.Clients
         public NoticeClient(IApiConnection conn) : base(conn)
         {
         }
+
         public Task<IApiResponse<NoticeTypeDTO[]>> Types()
          => conn.SendAsync<NoticeTypeDTO[]>(
              isPolly: true,
@@ -19,7 +20,6 @@ namespace System.Application.Services.CloudService.Clients
              method: HttpMethod.Get,
              requestUri: "api/Notice/Types",
              cancellationToken: default);
-
 
         public Task<IApiResponse<PagedModel<NoticeDTO>>> Table(Guid typeId, int index, int? size = null)
                  => conn.SendAsync<PagedModel<NoticeDTO>>(

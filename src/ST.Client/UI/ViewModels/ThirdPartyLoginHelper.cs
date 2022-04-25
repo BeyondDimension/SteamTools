@@ -29,6 +29,7 @@ namespace System.Application.UI.ViewModels
 #if DEBUG
         static readonly bool UseLoopbackTest = false;
 #endif
+
         public interface IBindWindowViewModel
         {
             void OnBindSuccessed();
@@ -175,14 +176,17 @@ namespace System.Application.UI.ViewModels
         static Aes? tempAes;
         static bool isBind;
         static WindowViewModel? vm;
+
         /// <summary>
         /// 当前 WebSocket 服务，由应用程序托管生命周期，使用时检查是否创建，接收到回调后关闭，页面销毁时不释放此服务，仅程序退出时释放，因在 Android 上跳转网页，之前的活动可能被销毁
         /// </summary>
         static WebSocketServer? ws;
+
         /// <summary>
         /// 当前 WebSocket 服务监听端口号
         /// </summary>
         static int port;
+
         /// <summary>
         /// 开始第三方快速登录、注册、绑定
         /// </summary>
@@ -250,7 +254,7 @@ namespace System.Application.UI.ViewModels
             FastLoginChannel.Steam,
             FastLoginChannel.Microsoft,
             FastLoginChannel.Apple,
-       };
+        };
     }
 
     partial class UserProfileWindowViewModel : IBindWindowViewModel

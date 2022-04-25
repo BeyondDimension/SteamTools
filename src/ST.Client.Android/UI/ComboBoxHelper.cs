@@ -58,7 +58,6 @@ namespace System.Application.UI
             return wrapper;
         }
 
-
         public sealed class ListPopupWindowWrapper<T> : Java.Lang.Object, AdapterView.IOnItemClickListener
         {
             public ListPopupWindow Window { get; }
@@ -66,6 +65,7 @@ namespace System.Application.UI
             public ArrayAdapter Adapter { get; }
 
             IEnumerable<T> items;
+
             public IEnumerable<T> Items
             {
                 get => items;

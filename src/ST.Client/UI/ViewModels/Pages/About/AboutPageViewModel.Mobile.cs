@@ -15,6 +15,7 @@ namespace System.Application.UI.ViewModels
     partial class AboutPageViewModel
     {
         ObservableCollection<PreferenceButtonViewModel>? preferenceButtons;
+
         public ObservableCollection<PreferenceButtonViewModel> PreferenceButtons
         {
             get => preferenceButtons ?? throw new ArgumentNullException(nameof(preferenceButtons));
@@ -144,6 +145,7 @@ namespace System.Application.UI.ViewModels
             }
             return str.ToString();
         });
+
         public static string TextTranslators => _TextTranslators.Value;
     }
 }

@@ -34,10 +34,7 @@ namespace System.Application.Models
 
         public ushort Id
         {
-            get
-            {
-                return AuthenticatorData.Id;
-            }
+            get => AuthenticatorData.Id;
             set
             {
                 AuthenticatorData.Id = value;
@@ -46,12 +43,10 @@ namespace System.Application.Models
         }
 
         public string OriginName;
+
         public string Name
         {
-            get
-            {
-                return AuthenticatorData.Name;
-            }
+            get => AuthenticatorData.Name;
             set
             {
                 AuthenticatorData.Name = value;
@@ -61,10 +56,7 @@ namespace System.Application.Models
 
         public int Index
         {
-            get
-            {
-                return AuthenticatorData.Index;
-            }
+            get => AuthenticatorData.Index;
             set
             {
                 AuthenticatorData.Index = value;
@@ -74,10 +66,7 @@ namespace System.Application.Models
 
         public DateTimeOffset Create
         {
-            get
-            {
-                return AuthenticatorData.Created;
-            }
+            get => AuthenticatorData.Created;
             set
             {
                 AuthenticatorData.Created = value;
@@ -87,10 +76,7 @@ namespace System.Application.Models
 
         public int Period
         {
-            get
-            {
-                return AuthenticatorData.Value.Period;
-            }
+            get => AuthenticatorData.Value.Period;
             set
             {
                 AuthenticatorData.Value.Period = value;
@@ -100,12 +86,10 @@ namespace System.Application.Models
 
         public const int CodeCountdownMax = 100;
         private int _CodeCountdown = CodeCountdownMax;
+
         public int CodeCountdown
         {
-            get
-            {
-                return _CodeCountdown;
-            }
+            get => _CodeCountdown;
             set
             {
                 _CodeCountdown = value;
@@ -146,10 +130,7 @@ namespace System.Application.Models
                     return r;
                 }
             }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _CurrentCode, value);
-            }
+            set => this.RaiseAndSetIfChanged(ref _CurrentCode, value);
         }
 
         public string CurrentCodeCache
@@ -317,12 +298,10 @@ namespace System.Application.Models
         }
 
         private bool _IsShowCode;
+
         public bool IsShowCode
         {
-            get
-            {
-                return _IsShowCode;
-            }
+            get => _IsShowCode;
             set
             {
                 _IsShowCode = value;

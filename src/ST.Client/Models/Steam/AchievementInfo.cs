@@ -27,6 +27,7 @@ namespace System.Application.Models
         public bool IsAchieved { get; set; }
 
         private bool _IsChecked;
+
         public bool IsChecked
         {
             get => _IsChecked;

@@ -100,7 +100,6 @@ namespace System.Commands
                 }
             }
 
-
             if (args.only_machine)
             {
                 var query = from m in resxFileDictLang.dict

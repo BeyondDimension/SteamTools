@@ -31,6 +31,7 @@ namespace System.Application.Models
         }
 
         int _AutoRefreshCodeTimingCurrent = -1;
+
         /// <summary>
         /// 当前自动刷新倒计时值
         /// </summary>

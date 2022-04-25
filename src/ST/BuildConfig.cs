@@ -31,14 +31,16 @@ namespace System.Application
 #if DEBUG
         static readonly Lazy<bool> mIsAigioPC = new(() =>
         {
-            var MachineCr32 = Hashs.String.Crc32(Environment.MachineName, false);
-            var UserNameCr32 = Hashs.String.Crc32(Environment.UserName, false);
-            return MachineCr32 == "88DF9AB0" ||
-            UserNameCr32 == "8AA383BC" ||
-            MachineCr32 == "0EAAEAA5" ||
-            UserNameCr32 == "CCB27AA9";
+            var mMachineCr32 = Hashs.String.Crc32(Environment.MachineName, false);
+            var mUserNameCr32 = Hashs.String.Crc32(Environment.UserName, false);
+            return mMachineCr32 == "88DF9AB0" ||
+            mUserNameCr32 == "8AA383BC" ||
+            mMachineCr32 == "0EAAEAA5" ||
+            mUserNameCr32 == "CCB27AA9";
         });
+
         public static bool IsAigioPC => mIsAigioPC.Value;
+
         public static bool IsDebuggerAttached => Debugger.IsAttached;
 #endif
     }

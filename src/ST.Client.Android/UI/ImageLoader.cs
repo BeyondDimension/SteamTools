@@ -23,6 +23,7 @@ namespace System.Application.UI
         const string TAG = nameof(ImageLoader);
 
         static readonly Lazy<Picasso> _Picasso = new(GetPicasso);
+
         static Picasso GetPicasso()
         {
             Picasso.Builder picassoBuilder = new(AndroidApplication.Context);

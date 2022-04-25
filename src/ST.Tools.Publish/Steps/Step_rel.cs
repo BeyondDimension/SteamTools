@@ -39,7 +39,6 @@ namespace System.Application.Steps
 
         //    dirNames = dirNames.ThrowIsNull(nameof(dirNames));
 
-
         //    var release_template_md_path = projPath + release_template_md;
         //    var lines = File.ReadAllLines(release_template_md_path);
         //    for (int i = 0; i < lines.Length; i++)

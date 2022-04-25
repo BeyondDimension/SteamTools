@@ -7,7 +7,7 @@ namespace System.Application.Models
 {
     public class SteamAppProperty
     {
-        private static readonly Type[] _types = new Type[9]
+        private static readonly Type?[] _types = new Type?[9]
         {
             typeof(SteamAppPropertyTable),
             typeof(string),
@@ -24,7 +24,7 @@ namespace System.Application.Models
 
         private SteamAppPropertyType _propType;
 
-        private object _value;
+        private object? _value;
 
         public SteamAppPropertyType PropertyType
         {
@@ -32,6 +32,7 @@ namespace System.Application.Models
             {
                 return _propType;
             }
+
             internal set
             {
                 if (_propType != value)
@@ -42,14 +43,15 @@ namespace System.Application.Models
             }
         }
 
-        public Type ValueType => _types[(int)_propType];
+        public Type? ValueType => _types[(int)_propType];
 
-        internal object Value
+        internal object? Value
         {
             get
             {
                 return _value;
             }
+
             set
             {
                 _value = null;
@@ -84,23 +86,23 @@ namespace System.Application.Models
             }
         }
 
-        public T GetValue<T>()
+        public T? GetValue<T>()
         {
             TryGetValue<T>(out var result);
             return result;
         }
 
-        public bool TryGetValue<T>(out T result)
+        public bool TryGetValue<T>(out T? result)
         {
-            result = default(T);
+            result = default;
             bool result2 = false;
             int propType = (int)_propType;
             if (propType >= 0 && propType < _types.Length)
             {
-                Type type = _types[propType];
+                var type = _types[propType];
                 if (type != null && typeof(T).IsAssignableFrom(type))
                 {
-                    result = (T)_value;
+                    result = _value == null ? default : (T)_value;
                     result2 = true;
                 }
             }

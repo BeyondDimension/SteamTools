@@ -12,6 +12,7 @@ static partial class UnixHelper
     const string TAG = nameof(UnixHelper);
 
     static readonly Lazy<string> _bin_bash = new(() => string.Format("{0}bin{0}bash", Path.DirectorySeparatorChar));
+
     /// <summary>
     /// /bin/bash
     /// </summary>
@@ -42,7 +43,7 @@ static partial class UnixHelper
         scriptContent.AppendLine(script);
         var msg = RunShell(scriptContent.ToString());
         if (!string.IsNullOrWhiteSpace(msg))
-            Toast.Show(msg); 
+            Toast.Show(msg);
     }
 
     /// <summary>

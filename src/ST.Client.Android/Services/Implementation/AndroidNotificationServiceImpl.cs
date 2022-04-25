@@ -21,6 +21,7 @@ namespace System.Application.Services.Implementation
 
         readonly IAndroidApplication app;
         readonly NotificationManagerCompat manager;
+
         public AndroidNotificationServiceImpl(IAndroidApplication app)
         {
             this.app = app;
@@ -281,7 +282,9 @@ namespace System.Application.Services.Implementation
             // 平台层采用 int 整型作为进度值，范围从0~10000，转换需要 乘 100
             const int unit_convert_multiple = 100; // 从float到int转换单位倍数
             const float PROGRESS_MAX = CC.MaxProgress * unit_convert_multiple; // 进度条满值
+#pragma warning disable SA1312 // Variable names should begin with lower-case letter
             int PROGRESS_MAX_INT32 = PROGRESS_MAX.ToInt32();
+#pragma warning restore SA1312 // Variable names should begin with lower-case letter
             // 发出零进度的初始通知
             // Issue the initial notification with zero progress
             builder.SetProgress(PROGRESS_MAX_INT32, 0, false);

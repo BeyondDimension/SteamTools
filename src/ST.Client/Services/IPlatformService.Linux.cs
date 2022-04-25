@@ -19,11 +19,13 @@ namespace System.Application.Services
             }
             return string.Empty;
         });
+
         /// <summary>
         /// 临时 保存用户系统密码
         /// </summary>
         [SupportedOSPlatform("Linux")]
-        void TryGetSystemUserPassword(sbyte retry_count = 3) => throw new NotImplementedException();
+        void TryGetSystemUserPassword(sbyte retry_count = 3) => throw new PlatformNotSupportedException();
+
         /// <summary>
         /// 获取当前 Linux 系统发行版名称
         /// </summary>

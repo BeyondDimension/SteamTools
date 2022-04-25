@@ -1,3 +1,4 @@
+#pragma warning disable SA1516 // Elements should be separated by blank line
 using NLog;
 using System.Linq;
 using System.Net;
@@ -16,6 +17,7 @@ using WinFormsMessageBox = System.Windows.Forms.MessageBox;
 #elif WINDOWS
 [assembly: SupportedOSPlatform("Windows7.0")]
 #endif
+#pragma warning restore SA1516 // Elements should be separated by blank line
 
 namespace System.Application.UI
 {

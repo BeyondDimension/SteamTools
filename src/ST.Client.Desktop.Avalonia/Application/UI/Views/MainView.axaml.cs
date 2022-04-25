@@ -94,7 +94,6 @@ namespace System.Application.UI.Views
                           avatar.Margin = new Thickness(10, 0);
                       }
 
-
                       if (avatar.Clip is EllipseGeometry ellipse)
                       {
                           ellipse.Rect = new Rect(0, 0, avatar.Width, avatar.Height);

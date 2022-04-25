@@ -27,6 +27,7 @@ namespace System.Application.Models
         public string? Pattern { get; set; }
 
         private string? _FormatDirPath;
+
         public string? FormatDirPath
         {
             get => _FormatDirPath;
@@ -34,6 +35,7 @@ namespace System.Application.Models
         }
 
         private string? _FormatFilePath;
+
         public string? FormatFilePath
         {
             get => _FormatFilePath;
@@ -43,7 +45,6 @@ namespace System.Application.Models
         public bool Recursive { get; set; }
 
         public string? Platforms { get; set; }
-
 
         public void FormatPathGenerate()
         {
@@ -66,14 +67,13 @@ namespace System.Application.Models
             {
                 path = SteamConnectService.Current.SteamApps.Lookup(ParentAppId).Value?.InstalledDir;
             }
-            
+
             if (string.IsNullOrEmpty(path))
                 return;
-            
+
             path = FilePath.Combine(path,
                 Path.Replace("{64BitSteamID}", SteamConnectService.Current.CurrentSteamUser?.SteamId64.ToString())
                     .Replace("{Steam3AccountID}", SteamConnectService.Current.CurrentSteamUser?.SteamId32.ToString()));
-
 
             FormatDirPath = @FilePath.GetFullPath(path);
 

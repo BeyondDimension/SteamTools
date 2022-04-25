@@ -16,6 +16,7 @@ namespace System.Application.UI.ViewModels
         public static string DisplayName => AppResources.User_ChangePhoneNum;
 
         protected readonly IReadOnlyDictionary<Step, SendSmsUIHelper.IViewModel> sendSmsUIViewModels;
+
         public ChangeBindPhoneNumberWindowViewModel() : base()
         {
             Title = GetTitleByDisplayName(DisplayName);
@@ -27,6 +28,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _IsLoading;
+
         public bool IsLoading
         {
             get => _IsLoading;
@@ -34,6 +36,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string? _SmsCodeValidation;
+
         public string? SmsCodeValidation
         {
             get => _SmsCodeValidation;
@@ -41,6 +44,7 @@ namespace System.Application.UI.ViewModels
         }
 
         int _TimeLimitValidation = SMSInterval;
+
         public int TimeLimitValidation
         {
             get => _TimeLimitValidation;
@@ -57,6 +61,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string _BtnSendSmsCodeTextValidation = AppResources.User_GetSMSCode;
+
         public string BtnSendSmsCodeTextValidation
         {
             get => _BtnSendSmsCodeTextValidation;
@@ -66,6 +71,7 @@ namespace System.Application.UI.ViewModels
         public bool SendSmsCodeSuccessValidation { get; set; }
 
         string? _SmsCodeNew;
+
         public string? SmsCodeNew
         {
             get => _SmsCodeNew;
@@ -73,6 +79,7 @@ namespace System.Application.UI.ViewModels
         }
 
         int _TimeLimitNew = SMSInterval;
+
         public int TimeLimitNew
         {
             get => _TimeLimitNew;
@@ -89,6 +96,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string _BtnSendSmsCodeTextNew = AppResources.User_GetSMSCode;
+
         public string BtnSendSmsCodeTextNew
         {
             get => _BtnSendSmsCodeTextNew;
@@ -98,6 +106,7 @@ namespace System.Application.UI.ViewModels
         public bool SendSmsCodeSuccessNew { get; set; }
 
         string? _PhoneNumber;
+
         public string? PhoneNumber
         {
             get => _PhoneNumber;
@@ -105,6 +114,7 @@ namespace System.Application.UI.ViewModels
         }
 
         Step _CurrentStep;
+
         Step CurrentStep
         {
             set
@@ -127,6 +137,7 @@ namespace System.Application.UI.ViewModels
         {
             /// <inheritdoc cref="ChangePhoneNumberRequest.Validation"/>
             Validation,
+
             /// <inheritdoc cref="ChangePhoneNumberRequest.New"/>
             New,
         }
@@ -164,6 +175,7 @@ namespace System.Application.UI.ViewModels
         public bool IsComplete { get; set; }
 
         string? code;
+
         public async void Submit()
         {
             if (IsLoading) return;
@@ -363,6 +375,7 @@ namespace System.Application.UI.ViewModels
     partial class UserProfileWindowViewModel
     {
         readonly Lazy<ChangeBindPhoneNumberWindowViewModel> mChangeBindPhoneNumberVM = new(() => new ChangeBindPhoneNumberWindowViewModel());
+
         public ChangeBindPhoneNumberWindowViewModel ChangeBindPhoneNumberVM => mChangeBindPhoneNumberVM.Value;
     }
 }

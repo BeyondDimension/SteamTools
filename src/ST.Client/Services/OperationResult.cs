@@ -108,6 +108,7 @@ namespace System.Application.Services
         public string LogMessage { get; set; } = string.Empty;
 
         protected T? _AppendData;
+
         public virtual T AppendData
         {
             get
@@ -118,10 +119,7 @@ namespace System.Application.Services
                 }
                 return _AppendData;
             }
-            set
-            {
-                _AppendData = value;
-            }
+            set => _AppendData = value;
         }
 
         #endregion
@@ -162,14 +160,8 @@ namespace System.Application.Services
 
         public override object AppendData
         {
-            get
-            {
-                return null!;
-            }
-            set
-            {
-
-            }
+            get => null!;
+            set { }
         }
     }
 

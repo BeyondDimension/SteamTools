@@ -308,7 +308,8 @@ namespace System
                     continue;
                 }
             while_end: sb?.AppendLine(line);
-            } while (true);
+            }
+            while (true);
             return (start!, end!, dict);
         }
 
@@ -378,8 +379,8 @@ namespace System
                 cell = row.GetCell(0);
                 keyIsFirst = cell.StringCellValue.Contains("标识符") ||
                     cell.StringCellValue.Contains(ColumnHeaderKey);
-            } while (!(keyIsFirst ||
-                    cell.StringCellValue.Contains("中文文本")));
+            }
+            while (!(keyIsFirst || cell.StringCellValue.Contains("中文文本")));
 
             int index_cell_value = -1;
             var index_cell_original = -1;

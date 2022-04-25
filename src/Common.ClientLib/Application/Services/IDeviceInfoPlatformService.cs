@@ -18,7 +18,6 @@ namespace System.Application.Services
     }
 }
 
-
 namespace System.Application.Services.Implementation
 {
     public abstract class DeviceInfoPlatformServiceImpl : IDeviceInfoPlatformService

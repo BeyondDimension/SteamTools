@@ -53,6 +53,7 @@ namespace System.Application.Services.Implementation
             p.Kill();
             return ret.Split("\n");
         }
+
         internal static bool IsCertificateInstalled(X509Certificate2 certificate2)
         {
 
@@ -85,9 +86,11 @@ namespace System.Application.Services.Implementation
 #endif
 
         }
+
         bool IPlatformService.IsCertificateInstalled(X509Certificate2 certificate2) => IsCertificateInstalled(certificate2);
 
         ValueTask IPlatformService.RunShellAsync(string script, bool admin) => RunShellAsync(script, admin);
+
         /// <summary>
         /// 尝试删除证书
         /// </summary>
@@ -207,6 +210,7 @@ namespace System.Application.Services.Implementation
         }
 
         public string GetLastSteamLoginUserName() => string.Empty;
+
         public string? GetRegistryVdfPath()
         {
             var value = string.Format(
@@ -215,6 +219,7 @@ namespace System.Application.Services.Implementation
                     Environment.UserName);
             return value;
         }
+
         public void SetCurrentUser(string userName)
         {
             try
@@ -222,7 +227,7 @@ namespace System.Application.Services.Implementation
                 var registryVdfPath = GetRegistryVdfPath();
                 if (!string.IsNullOrWhiteSpace(registryVdfPath) && File.Exists(registryVdfPath))
                 {
-                    dynamic v = VdfHelper.Read(registryVdfPath); 
+                    dynamic v = VdfHelper.Read(registryVdfPath);
                     if (v.Value.HKCU.Software.Valve.Steam.AutoLoginUser != null)
                     {
                         v.Value.HKCU.Software.Valve.Steam.AutoLoginUser = userName;
@@ -355,7 +360,7 @@ namespace System.Application.Services.Implementation
                     }
                 }
             }
-           ((IPlatformService)this).RunShell(shellContent.ToString(), false);
+            ((IPlatformService)this).RunShell(shellContent.ToString(), false);
             return true;
         }
 

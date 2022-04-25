@@ -57,7 +57,6 @@ namespace System.Application.Services.Implementation
     }
 }
 
-
 namespace System.Application.Services
 {
     partial interface IArchiSteamFarmService

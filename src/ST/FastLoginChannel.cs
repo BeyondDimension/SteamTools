@@ -51,7 +51,6 @@ namespace System.Application
         /// </summary>
         Apple,
 
-
         Xbox = Microsoft,
     }
 }

@@ -36,10 +36,12 @@ namespace System.Application.Models
         public uint AppId { get; set; }
 
         private byte[]? originalData;
+
         [MPKey(1)]
         public byte[]? OriginalData { get => originalData; set => originalData = value; }
 
         private byte[]? changesData;
+
         [MPKey(2)]
         public byte[]? ChangesData { get => changesData; set => changesData = value; }
 

@@ -194,12 +194,17 @@ namespace WinAuth
         public class Confirmation : ReactiveObject
         {
             public string Id { get; set; } = string.Empty;
+
             public string Key { get; set; } = string.Empty;
+
             public bool Offline { get; set; }
+
             public bool IsNew { get; set; }
+
             public string Image { get; set; } = string.Empty;
 
             private Task<string?>? _ImageStream;
+
             public Task<string?>? ImageStream
             {
                 get => _ImageStream;
@@ -207,6 +212,7 @@ namespace WinAuth
             }
 
             private bool _ButtonEnable = true;
+
             public bool ButtonEnable
             {
                 get => _ButtonEnable;
@@ -214,6 +220,7 @@ namespace WinAuth
             }
 
             private int _IsOperate;
+
             public int IsOperate
             {
                 get => _IsOperate;
@@ -221,6 +228,7 @@ namespace WinAuth
             }
 
             private bool _NotChecked;
+
             /// <summary>
             /// 未勾选
             /// </summary>
@@ -231,7 +239,9 @@ namespace WinAuth
             }
 
             public string Details { get; set; } = string.Empty;
+
             public string Traded { get; set; } = string.Empty;
+
             public string When { get; set; } = string.Empty;
         }
 
@@ -923,7 +933,9 @@ namespace WinAuth
                             {
                                 Refresh();
                             }
-                            catch (Exception) { }
+                            catch (Exception)
+                            {
+                            }
                         }
                     }
 
@@ -1340,8 +1352,6 @@ namespace WinAuth
                             throw new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription), ex);
                         }
                     }
-
-
 
                     if (ex is WinAuthInvalidSteamRequestException) throw;
                     else throw new WinAuthInvalidSteamRequestException(ex.Message, ex);

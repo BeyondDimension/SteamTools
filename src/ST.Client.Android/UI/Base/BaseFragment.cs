@@ -82,6 +82,7 @@ namespace System.Application.UI.Fragments
         where TViewModel : ViewModelBase
     {
         readonly CompositeDisposable disposables = new();
+
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables;
 
         protected virtual TViewModel? OnCreateViewModel()

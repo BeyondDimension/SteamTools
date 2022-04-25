@@ -37,9 +37,11 @@ namespace System.Application.UI.ViewModels
         #region Resource Key 图标
 
         const string DefaultIconPath = "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/Icon/{0}.png";
+
         public virtual string? IconSource => string.Format(DefaultIconPath, IconKey);
 
         protected string? _IconKey;
+
         public virtual string? IconKey
         {
             get => _IconKey;

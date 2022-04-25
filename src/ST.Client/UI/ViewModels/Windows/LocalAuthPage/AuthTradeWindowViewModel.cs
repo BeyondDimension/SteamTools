@@ -87,6 +87,7 @@ namespace System.Application.UI.ViewModels
             var auths = await repository.GetAllSourceAsync();
             AuthIsLocal = repository.HasLocal(auths);
         }
+
         public override void Deactivation()
         {
             var steam = _Authenticator!.GetClient();
@@ -100,6 +101,7 @@ namespace System.Application.UI.ViewModels
         #region LoginData
 
         private string? _UserName;
+
         public string? UserName
         {
             get => _UserName;
@@ -114,6 +116,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _Password;
+
         public string? Password
         {
             get => _Password;
@@ -128,6 +131,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _RememberMe;
+
         public bool RememberMe
         {
             get => _RememberMe;
@@ -142,6 +146,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _CaptchaImage;
+
         public string? CaptchaImage
         {
             get => _CaptchaImage;
@@ -161,6 +166,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _CaptchaText;
+
         public string? CaptchaText
         {
             get => _CaptchaText;
@@ -205,13 +211,16 @@ namespace System.Application.UI.ViewModels
         private CancellationTokenSource? CancelCancelAll;
 
         private ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation>? _Confirmations;
+
         public ReadOnlyObservableCollection<WinAuthSteamClient.Confirmation> Confirmations => _Confirmations ?? throw new ArgumentNullException(nameof(_Confirmations));
 
         private readonly SourceList<WinAuthSteamClient.Confirmation> _ConfirmationsSourceList = new();
+
         public SourceList<WinAuthSteamClient.Confirmation> ConfirmationsSourceList =>
             _ConfirmationsSourceList;
 
         private bool _IsLoading;
+
         public bool IsLoading
         {
             get => _IsLoading;
@@ -296,7 +305,6 @@ namespace System.Application.UI.ViewModels
                 }
             }
         }
-
 
         private string? captchaId;
 
@@ -575,6 +583,7 @@ namespace System.Application.UI.ViewModels
         {
             OperationTrades(true);
         }
+
         public void CancelAllButton_Click()
         {
             OperationTrades(false);
@@ -729,6 +738,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _LoadingText;
+
         public string? LoadingText
         {
             get => _LoadingText;

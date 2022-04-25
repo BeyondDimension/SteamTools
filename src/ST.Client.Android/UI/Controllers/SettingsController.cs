@@ -30,7 +30,9 @@ namespace System.Application.UI.Controllers
         readonly Dictionary<View, ComboBoxHelper.ListPopupWindowWrapper<string>> comboBoxs = new();
 
         void SetIsAutoCheckUpdateChecked() => binding.swGeneralSettingsIsAutoCheckUpdate.Checked = GeneralSettings.IsAutoCheckUpdate.Value;
+
         void SetUpdateChannelText() => binding.tvGeneralSettingsUpdateChannelValue.Text = GeneralSettings.UpdateChannel.Value.ToString();
+
         void SetThemeText() => binding.tvUISettingsThemeValue.Text = ((AppTheme)UISettings.Theme.Value).ToString3();
 
         void SetCaptureScreenChecked() => binding.swGeneralSettingsCaptureScreen.Checked = GeneralSettings.CaptureScreen.Value;

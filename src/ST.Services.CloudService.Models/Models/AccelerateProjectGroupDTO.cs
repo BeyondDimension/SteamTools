@@ -74,6 +74,7 @@ namespace System.Application.Models
         }
 
         private ObservableCollection<AccelerateProjectDTO>? _ObservableItems;
+
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
@@ -87,6 +88,7 @@ namespace System.Application.Models
         /// 显示图片，使用 System.Application.ImageUrlHelper.GetImageApiUrlById(Guid) 转换为Url
         /// </summary>
         private Task<string?>? _ImageStream;
+
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
@@ -96,11 +98,11 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _ImageStream, value);
         }
 
-
         /// <summary>
         /// 是否有子项目选中的第三状态（仅客户端）
         /// </summary>
         bool? mThreeStateEnable = false;
+
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
@@ -140,6 +142,7 @@ namespace System.Application.Models
             get => mItems;
             set => this.RaiseAndSetIfChanged(ref mItems, value);
         }
+
         List<AccelerateProjectDTO>? mItems;
 #else
         { get; set; } = new();
@@ -165,6 +168,7 @@ namespace System.Application.Models
             get => mEnable;
             set => this.RaiseAndSetIfChanged(ref mEnable, value);
         }
+
         bool mEnable;
 #else
         { get; set; }

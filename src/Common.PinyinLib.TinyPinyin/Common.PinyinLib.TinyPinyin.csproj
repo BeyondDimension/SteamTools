@@ -52,4 +52,8 @@
     <Compile Remove="obj\Release\net6.0-android\**" />
   </ItemGroup>-->
 
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
 </Project>

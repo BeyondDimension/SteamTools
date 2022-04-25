@@ -18,7 +18,7 @@
 
         public override object Value
         {
-            get { return FloatValue; }
+            get => FloatValue;
             set
             {
                 var b = float.TryParse((string)value, out float f);
@@ -36,9 +36,6 @@
             }
         }
 
-        public override bool IsModified
-        {
-            get { return FloatValue.Equals(OriginalValue) == false; }
-        }
+        public override bool IsModified => !FloatValue.Equals(OriginalValue);
     }
 }

@@ -60,6 +60,7 @@ namespace System.Application.UI.Activities
             }
 
             bool canInstalledCACert;
+
             public override void OnCreateView(View view)
             {
                 base.OnCreateView(view);

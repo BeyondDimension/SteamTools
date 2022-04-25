@@ -11,6 +11,7 @@ namespace System.Application.Services.Implementation
     {
         readonly IAvaloniaApplication app;
         readonly IWindowManager windowManager;
+
         public AvaloniaApplicationUpdateServiceImpl(
             IAvaloniaApplication app,
             INotificationService notificationService,

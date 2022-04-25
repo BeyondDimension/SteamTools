@@ -94,8 +94,11 @@ namespace System.Application.UI.ViewModels
         }
 
         IDisposable? nickNameNullValLangChangeSubscribe;
+
         static string NickNameNullVal => AppResources.LoginAndRegister;
+
         string nickName = NickNameNullVal;
+
         public string NickName
         {
             get => nickName;
@@ -103,6 +106,7 @@ namespace System.Application.UI.ViewModels
         }
 
         ObservableCollection<PreferenceButtonViewModel> preferenceButtons;
+
         /// <summary>
         /// 我的选项按钮组
         /// </summary>

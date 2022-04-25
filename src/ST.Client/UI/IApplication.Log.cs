@@ -63,6 +63,7 @@ namespace System.Application.UI
         }
 
         static LoggerFilterOptions? _LoggerFilterOptions;
+
         /// <summary>
         /// 日志过滤选项
         /// </summary>
@@ -73,10 +74,7 @@ namespace System.Application.UI
                 if (_LoggerFilterOptions != null) return _LoggerFilterOptions;
                 return DI.Get_Nullable<IOptions<LoggerFilterOptions>>()?.Value;
             }
-            set
-            {
-                _LoggerFilterOptions = value;
-            }
+            set => _LoggerFilterOptions = value;
         }
 
         /// <summary>
@@ -117,6 +115,7 @@ namespace System.Application.UI
                 }
                 return o.MinLevel;
             }
+
             set
             {
                 var o = LoggerFilterOptions;

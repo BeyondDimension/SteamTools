@@ -32,6 +32,7 @@ namespace System.Application
         }
 
         static StartupOptions? mValue;
+
         public static StartupOptions Value => mValue ?? throw new NullReferenceException("StartupOptions init fail.");
     }
 }

@@ -1,3 +1,4 @@
+#pragma warning disable SA1516 // Elements should be separated by blank line
 using System;
 using System.IO;
 using System.Linq;
@@ -58,3 +59,4 @@ csprojContent = sb.ToString().Trim();
 File.WriteAllText(androidProjFilePath, csprojContent);
 
 Console.WriteLine("OK");
+#pragma warning restore SA1516 // Elements should be separated by blank line

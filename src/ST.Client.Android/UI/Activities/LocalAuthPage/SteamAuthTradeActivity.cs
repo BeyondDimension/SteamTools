@@ -297,6 +297,7 @@ namespace System.Application.UI.Activities
         }
 
         MenuBuilder? menuBuilder;
+
         public override bool OnCreateOptionsMenu(IMenu? menu)
         {
             MenuInflater.Inflate(Resource.Menu.auth_trade_toolbar_menu, menu);

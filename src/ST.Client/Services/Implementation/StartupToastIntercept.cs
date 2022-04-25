@@ -5,6 +5,7 @@ namespace System.Application.Services.Implementation
     public sealed class StartupToastIntercept : IToastIntercept
     {
         readonly ILogger logger;
+
         public StartupToastIntercept(ILogger<StartupToastIntercept> logger)
         {
             this.logger = logger;

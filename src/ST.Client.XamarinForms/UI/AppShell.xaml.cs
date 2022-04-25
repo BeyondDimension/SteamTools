@@ -21,6 +21,7 @@ namespace System.Application.UI
         public static bool IsUseBottomNav { get; private set; }
 
         readonly IPlatformPageRouteService? pageRouteService = IPlatformPageRouteService.Instance;
+
         public AppShell()
         {
             InitializeComponent();
@@ -32,7 +33,6 @@ namespace System.Application.UI
             #region Flyout
 
             //            InitTabItems(mainWindow, TabItemId.LocalAuth, TabItemId.ArchiSteamFarmPlus);
-
 
             //            AddPage(MyPageViewModel.Instance, isVisible: false);
             //#if DEBUG

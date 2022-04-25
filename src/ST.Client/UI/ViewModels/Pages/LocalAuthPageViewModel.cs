@@ -20,6 +20,7 @@ namespace System.Application.UI.ViewModels
     public partial class LocalAuthPageViewModel
     {
         readonly Dictionary<string, string[]> dictPinYinArray = new();
+
         Func<MyAuthenticator, bool> PredicateName(string? serachText)
         {
             return s =>
@@ -123,6 +124,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private readonly ReadOnlyObservableCollection<MyAuthenticator> _Authenticators;
+
         public ReadOnlyObservableCollection<MyAuthenticator> Authenticators => _Authenticators;
 
         public bool IsAuthenticatorsEmpty => !AuthService.Current.Authenticators.Items.Any_Nullable();
@@ -147,6 +149,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
         private string _SearchText = "";
+
         /// <summary>
         /// 搜索文本
         /// </summary>
@@ -157,6 +160,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsFirstLoadedAuthenticatorsEmpty;
+
         /// <summary>
         /// 是否第一次加载完成时令牌集合数据为空
         /// </summary>
@@ -167,6 +171,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsRefreshing;
+
         /// <summary>
         /// 是否正在刷新中
         /// </summary>

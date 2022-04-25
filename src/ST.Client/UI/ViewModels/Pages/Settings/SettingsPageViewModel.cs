@@ -34,10 +34,11 @@ namespace System.Application.UI.ViewModels
 
                 SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
                 {
-                    FilePickerFileType fileTypes = new ValueTuple<string, string[]>[] {
+                    FilePickerFileType fileTypes = new ValueTuple<string, string[]>[]
+                    {
                         ("Image Files", FileEx.ImageFileExtensions),
                         //("All Files", new[] { "*", }),
-                       };
+                    };
                     await PickAsync(SetBackgroundImagePath, fileTypes);
                 });
 
@@ -48,6 +49,7 @@ namespace System.Application.UI.ViewModels
         public static SettingsPageViewModel Instance { get; } = new();
 
         KeyValuePair<string, string> _SelectLanguage;
+
         public KeyValuePair<string, string> SelectLanguage
         {
             get => _SelectLanguage;
@@ -55,6 +57,7 @@ namespace System.Application.UI.ViewModels
         }
 
         KeyValuePair<string, string> _SelectFont;
+
         public KeyValuePair<string, string> SelectFont
         {
             get => _SelectFont;
@@ -69,6 +72,7 @@ namespace System.Application.UI.ViewModels
 
         const double clickInterval = 3d;
         readonly Dictionary<string, DateTime> clickTimeRecord = new();
+
         public void OpenFolder(string tag)
         {
             var path = tag switch
@@ -166,6 +170,7 @@ namespace System.Application.UI.ViewModels
         }
 
         static readonly Dictionary<string, string> cacheSizeCalcCache = new();
+
         static void StartCacheSizeCalc2(string dirPath, Func<string> getResString, Action<string> action)
         {
             if (cacheSizeCalcCache.ContainsKey(dirPath))

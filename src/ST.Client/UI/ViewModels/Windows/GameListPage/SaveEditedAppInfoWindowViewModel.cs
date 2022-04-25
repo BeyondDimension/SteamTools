@@ -23,7 +23,6 @@ namespace System.Application.UI.ViewModels
         {
             Title = GetTitleByDisplayName(DisplayName);
 
-
             SteamConnectService.Current.SteamApps
               .Connect()
               .Filter(x => x.IsEdited)
@@ -35,13 +34,11 @@ namespace System.Application.UI.ViewModels
             LoadSteamEditedApps();
         }
 
-
         readonly ReadOnlyObservableCollection<SteamApp> _SteamEditedApps;
+
         public ReadOnlyObservableCollection<SteamApp> SteamEditedApps => _SteamEditedApps;
 
-
         public bool IsSteamEditedAppsEmpty => !SteamEditedApps.Any_Nullable();
-
 
         public void LoadSteamEditedApps()
         {
@@ -82,7 +79,7 @@ namespace System.Application.UI.ViewModels
         public static void OpenAppStoreUrl(SteamApp app) => GameListPageViewModel.OpenAppStoreUrl(app);
 
         public static void OpenSteamDBUrl(SteamApp app) => GameListPageViewModel.OpenSteamDBUrl(app);
-        
+
         public static void OpenSteamCardUrl(SteamApp app) => GameListPageViewModel.OpenSteamCardUrl(app);
     }
 }

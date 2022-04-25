@@ -24,13 +24,21 @@ namespace System.Application.Services.CloudService
         }
 
         public string ApiBaseUrl => real.ApiBaseUrl;
+
         public IAccountClient Account => this;
+
         public IScriptClient Script => this;
+
         public IManageClient Manage => this;
+
         public IAuthMessageClient AuthMessage => this;
+
         public IVersionClient Version => this;
+
         public IActiveUserClient ActiveUser => this;
+
         public IAccelerateClient Accelerate => this;
+
         public IDonateRankingClient DonateRanking => this;
 
         public INoticeClient Notice => this;
@@ -256,7 +264,7 @@ namespace System.Application.Services.CloudService
         {
             await Task.Delay(1500);
             return ApiResponse.Ok(new NoticeTypeDTO[] { });
-        } 
+        }
 
         public async Task<IApiResponse<NoticeDTO[]>> NewMsg(Guid typeId, DateTimeOffset? time)
         {

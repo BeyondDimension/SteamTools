@@ -9,12 +9,14 @@ namespace System.Application.UI.ViewModels
     public class MenuItemViewModel : ReactiveObject
     {
         protected readonly string? name;
+
         public MenuItemViewModel(string? ResourceName = null)
         {
             name = ResourceName;
         }
 
         private bool _IsVisible = true;
+
         public virtual bool IsVisible
         {
             get => _IsVisible;
@@ -22,6 +24,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsEnabled = true;
+
         public virtual bool IsEnabled
         {
             get => _IsEnabled;
@@ -29,6 +32,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _IconKey;
+
         public virtual string? IconKey
         {
             get => _IconKey;
@@ -40,9 +44,11 @@ namespace System.Application.UI.ViewModels
         public virtual string? ToolTip => string.IsNullOrEmpty(name) ? null : AppResources.ResourceManager.GetString(name + "Tip", AppResources.Culture);
 
         public ICommand? Command { get; set; }
+
         public object? CommandParameter { get; set; }
 
         protected IList<MenuItemViewModel>? _Items;
+
         public IList<MenuItemViewModel>? Items
         {
             get => _Items;
@@ -61,6 +67,7 @@ namespace System.Application.UI.ViewModels
     public class MenuItemCustomName : MenuItemViewModel
     {
         protected readonly string? toolTipName;
+
         public MenuItemCustomName(string? name = null, string? tipName = null)
         {
             Header = name;
@@ -75,7 +82,9 @@ namespace System.Application.UI.ViewModels
     public class MenuItemSeparator : MenuItemViewModel
     {
         public override string? IconKey => null;
+
         public override string? Header => "-";
+
         public override string? ToolTip => null;
     }
 

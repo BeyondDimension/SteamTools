@@ -70,9 +70,11 @@ namespace System.Application.Services
                 }
             }
 
-            var providers = new List<TextReaderProvider>() {
+            var providers = new List<TextReaderProvider>()
+            {
                 TextReaderProvider.VSCode,
-                TextReaderProvider.Notepad };
+                TextReaderProvider.Notepad,
+            };
 
             if (userProvider.HasValue)
             {
@@ -300,6 +302,7 @@ namespace System.Application.Services
         }
 
         protected static readonly Lazy<(byte[] key, byte[] iv)> mMachineSecretKeyBySecureStorage = new(GetMachineSecretKeyBySecureStorage);
+
         (byte[] key, byte[] iv) MachineSecretKey => mMachineSecretKeyBySecureStorage.Value;
 
         #endregion

@@ -190,6 +190,7 @@ namespace System.Application.UI.Fragments
         }
 
         Gender gender;
+
         /// <summary>
         /// 设置或获取当前 UI 上的性别 Radio
         /// </summary>
@@ -212,6 +213,7 @@ namespace System.Application.UI.Fragments
                 //}
                 //return Gender.Unknown;
             }
+
             set
             {
                 if (gender == value) return;

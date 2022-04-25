@@ -27,6 +27,7 @@ namespace System.Application.Services
         const string TAG = "AuthS";
 
         static AuthService? mCurrent;
+
         public static AuthService Current => mCurrent ?? new();
 
         static Stream? GetQrCodeStream(IEnumerable<IGAPAuthenticatorDTO> datas)

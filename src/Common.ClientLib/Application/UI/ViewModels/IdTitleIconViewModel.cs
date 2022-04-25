@@ -7,6 +7,7 @@ namespace System.Application.UI.ViewModels
         protected virtual bool IgnoreIcon { get; }
 
         protected TId? id;
+
         /// <summary>
         /// 唯一键
         /// </summary>
@@ -28,6 +29,7 @@ namespace System.Application.UI.ViewModels
         }
 
         protected string title = string.Empty;
+
         /// <summary>
         /// 标题文本
         /// </summary>
@@ -38,6 +40,7 @@ namespace System.Application.UI.ViewModels
         }
 
         protected TIcon? icon;
+
         /// <summary>
         /// 图标
         /// </summary>

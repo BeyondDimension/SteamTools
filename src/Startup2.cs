@@ -87,6 +87,7 @@ namespace System.Application
 #endif
             }
         }
+
         static void InitDI(StartupOptions options)
         {
 #if UI_DEMO
@@ -95,7 +96,6 @@ namespace System.Application
             DI.Init(s => ConfigureServices(s, options));
 #endif
         }
-
 
         static void ConfigureServices(IServiceCollection services, StartupOptions options)
         {
@@ -381,6 +381,7 @@ namespace System.Application
 
 #if !CONSOLEAPP
         static AppSettings? mAppSettings;
+
         public static AppSettings AppSettings
         {
             get
@@ -516,7 +517,7 @@ namespace System.Application
                     SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
 #endif
                     IsAuthenticated = isAuthenticated,
-                }; 
+                };
                 req.SetDeviceId();
                 // 匿名统计与通知公告
                 await csc.ActiveUser.Post(req);

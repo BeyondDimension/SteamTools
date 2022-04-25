@@ -34,6 +34,7 @@ namespace System.Application.UI.ViewModels
         public static DebugPageViewModel Instance { get; } = new();
 
         string _DebugString = string.Empty;
+
         public string DebugString
         {
             get => _DebugString;
@@ -553,8 +554,6 @@ namespace System.Application.UI.ViewModels
 
             //await IWindowManager .Instance.Show(typeof(object), CustomWindow.NewVersion);
 
-
-
             //    DebugString += r + Environment.NewLine;
 
             //.ContinueWith(s => DebugString += s.Result + Environment.NewLine);
@@ -591,7 +590,8 @@ namespace System.Application.UI.ViewModels
                 throw new Exception("bb");
             }
 
-            var dict = new Dictionary<string, string> {
+            var dict = new Dictionary<string, string>
+            {
                 { "🎈✨", "🎆🎇" },
                 { "✨🎊", "🎃🎑" },
             };
@@ -678,16 +678,16 @@ namespace System.Application.UI.ViewModels
             //    s.AppendLine(item.GetName(R.Culture.LCID));
             //}
             var testdomain = "steampp.net";
-            var DnsAnalysis = IDnsAnalysisService.Instance;
+            var dnsAnalysis = IDnsAnalysisService.Instance;
 
-            s.AppendLine($"<Support IPV6>: {await DnsAnalysis.GetIsIpv6Support()}");
-            s.AppendLine($"<IPV6> ipv6.rmbgame.net: {(await DnsAnalysis.AnalysisDomainIp("ipv6.rmbgame.net"))?.First()}");
-            s.AppendLine($"<SystemDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIp(testdomain))?.First()}");
-            s.AppendLine($"<AliDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByAliDns(testdomain))?.First()}");
-            s.AppendLine($"<DNSPod>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByDnspod(testdomain))?.First()}");
-            s.AppendLine($"<114DNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpBy114Dns(testdomain))?.First()}");
-            s.AppendLine($"<GoogleDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByGoogleDns(testdomain))?.First()}");
-            s.AppendLine($"<CloudflareDNS>{testdomain}: {(await DnsAnalysis.AnalysisDomainIpByCloudflare(testdomain))?.First()}");
+            s.AppendLine($"<Support IPV6>: {await dnsAnalysis.GetIsIpv6Support()}");
+            s.AppendLine($"<IPV6> ipv6.rmbgame.net: {(await dnsAnalysis.AnalysisDomainIp("ipv6.rmbgame.net"))?.First()}");
+            s.AppendLine($"<SystemDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIp(testdomain))?.First()}");
+            s.AppendLine($"<AliDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByAliDns(testdomain))?.First()}");
+            s.AppendLine($"<DNSPod>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByDnspod(testdomain))?.First()}");
+            s.AppendLine($"<114DNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpBy114Dns(testdomain))?.First()}");
+            s.AppendLine($"<GoogleDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByGoogleDns(testdomain))?.First()}");
+            s.AppendLine($"<CloudflareDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByCloudflare(testdomain))?.First()}");
 
             DebugString += s.ToString();
         }

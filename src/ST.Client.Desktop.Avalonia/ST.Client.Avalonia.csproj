@@ -117,4 +117,8 @@
     <PackageReference Include="Avalonia.Diagnostics" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
 </Project>

@@ -715,6 +715,7 @@ namespace System.Application.Services.Implementation
 
         bool mOnExitRestoreHosts;
         readonly object mOnExitRestoreHostsLock = new();
+
         public void OnExitRestoreHosts()
         {
             lock (mOnExitRestoreHostsLock)
@@ -727,6 +728,7 @@ namespace System.Application.Services.Implementation
 
 #if DEBUG
         static FileStream? mOccupyHostsFileStream;
+
         public void OccupyHosts()
         {
             mOccupyHostsFileStream = new FileStream(s.HostsFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);

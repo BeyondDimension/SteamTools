@@ -1,5 +1,4 @@
 using ReactiveUI;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using MPKey = MessagePack.KeyAttribute;
@@ -11,6 +10,7 @@ namespace System.Application.Models
     public sealed class SizePosition : ReactiveObject
     {
         int _X;
+
         [MPKey(0)]
         public int X
         {
@@ -19,6 +19,7 @@ namespace System.Application.Models
         }
 
         int _Y;
+
         [MPKey(1)]
         public int Y
         {
@@ -27,6 +28,7 @@ namespace System.Application.Models
         }
 
         double _Height;
+
         [MPKey(2)]
         public double Height
         {
@@ -35,6 +37,7 @@ namespace System.Application.Models
         }
 
         double _Width;
+
         [MPKey(3)]
         public double Width
         {

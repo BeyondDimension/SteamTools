@@ -28,6 +28,7 @@ namespace System.Application.UI.ViewModels
         }
 
         public bool _IsHideGameListEmpty;
+
         public bool IsHideGameListEmpty
         {
             get => _IsHideGameListEmpty;
@@ -35,6 +36,7 @@ namespace System.Application.UI.ViewModels
         }
 
         public ObservableCollection<KeyValuePair<uint, string>> _HideGameList = new();
+
         public ObservableCollection<KeyValuePair<uint, string>> HideGameList
         {
             get => _HideGameList;

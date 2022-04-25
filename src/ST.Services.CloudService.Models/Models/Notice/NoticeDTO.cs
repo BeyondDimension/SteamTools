@@ -1,31 +1,28 @@
 #if MVVM_VM
 using ReactiveUI;
 using System.Collections.Generic;
-
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
 #endif
+using System.Threading.Tasks;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
-using System.Threading.Tasks;
 
 namespace System.Application.Models
 {
     [MPObj]
     public partial class NoticeDTO
 #if MVVM_VM
-        :ReactiveObject
+        : ReactiveObject
 #endif
     {
         [MPKey(0)]
         [N_JsonProperty("0")]
         [S_JsonProperty("0")]
-        public Guid Id { get; set; } 
-
-      
+        public Guid Id { get; set; }
 
         [MPKey(1)]
         [N_JsonProperty("1")]
@@ -39,9 +36,10 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public string Picture { get; set; } = string.Empty;
+
 #if MVVM_VM
         Task<string?>? _PictureStream;
-        
+
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
@@ -51,6 +49,7 @@ namespace System.Application.Models
             set => this.RaiseAndSetIfChanged(ref _PictureStream, value);
         }
 #endif
+
         /// <summary>
         /// 标题
         /// </summary>
@@ -106,6 +105,7 @@ namespace System.Application.Models
         [N_JsonProperty("9")]
         [S_JsonProperty("9")]
         public DateTimeOffset OverdueTime { get; set; }
+
 #if MVVM_VM
         /// <summary>
         /// 是否过期
@@ -115,6 +115,7 @@ namespace System.Application.Models
         [S_JsonIgnore]
         public bool Overdue => DateTimeOffset.Now > OverdueTime;
 #endif
+
         /// <summary>
         /// 通知渠道
         /// </summary>
@@ -123,16 +124,11 @@ namespace System.Application.Models
         [S_JsonProperty("10")]
         public NotificationType Type { get; set; } = NotificationType.Announcement;
 
-        /// <summary>
-        /// Url
-        /// </summary>
         [MPKey(11)]
         [N_JsonProperty("11")]
         [S_JsonProperty("11")]
         public string Url { get; set; } = string.Empty;
-        /// <summary>
-        /// Url
-        /// </summary>
+
         [MPKey(12)]
         [N_JsonProperty("12")]
         [S_JsonProperty("12")]

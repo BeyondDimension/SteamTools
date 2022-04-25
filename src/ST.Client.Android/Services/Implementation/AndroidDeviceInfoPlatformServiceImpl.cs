@@ -15,6 +15,8 @@ namespace System.Application.Services.Implementation
         {
             // 参考 https://github.com/gingo/android-emulator-detector/blob/master/EmulatorDetectorProject/EmulatorDetector/src/main/java/net/skoumal/emulatordetector/EmulatorDetector.java
             return DeviceInfo.DeviceType == DeviceType.Virtual || _();
+#pragma warning disable SA1312 // Variable names should begin with lower-case letter
+#pragma warning disable SA1300 // Element should begin with upper-case letter
             static bool contains(string l, string r)
             {
                 return l.Contains(r, StringComparison.OrdinalIgnoreCase);
@@ -158,6 +160,8 @@ namespace System.Application.Services.Implementation
                 }
                 return rating > 3;
             }
+#pragma warning restore SA1300 // Element should begin with upper-case letter
+#pragma warning restore SA1312 // Variable names should begin with lower-case letter
         }
 
         /// <summary>
@@ -194,6 +198,7 @@ namespace System.Application.Services.Implementation
                 return false;
             }
         }
+
         static readonly Lazy<bool> mIsChromeOS = new(GetIsChromeOS);
     }
 }

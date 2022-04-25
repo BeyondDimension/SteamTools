@@ -56,6 +56,7 @@ namespace System.Application.Services.Implementation
         }
 
         static readonly Lazy<Win32Platform> _Win32Platform = new(GetWin32Platform);
+
         public static Win32Platform Win32Platform => _Win32Platform.Value;
 
         [SupportedOSPlatform("Windows10.0.10240.0")]
@@ -256,7 +257,7 @@ namespace System.Application.Services.Implementation
                 Win32Interop.AdjustWindowRectExForDpi(ref frame,
                     (int)style, false, 0, (int)(RenderScaling * 96));
 
-                marg.topHeight = -frame.top + (_isWindows11 ? 0 : -1);
+                marg.topHeight = -frame.top + (OperatingSystem2.IsWindows11AtLeast ? 0 : -1);
                 Win32Interop.DwmExtendFrameIntoClientArea(Handle.Handle, ref marg);
             }
 
@@ -300,7 +301,7 @@ namespace System.Application.Services.Implementation
 
                 if (_owner!.HitTestCaptionButtons(point))
                 {
-                    if (_isWindows11)
+                    if (OperatingSystem2.IsWindows11AtLeast)
                     {
                         var result = _owner.HitTestMaximizeButton(point);
 
@@ -354,7 +355,6 @@ namespace System.Application.Services.Implementation
             private bool _wasFakeMaximizeDown;
             private bool _fakingMaximizeButton;
             //private bool _isWindows11 = false;
-            private bool _isWindows11 => OperatingSystem2.IsWindows11AtLeast;
             private ICoreWindow? _owner;
             //private Win32Interop.OSVERSIONINFOEX _version;
         }

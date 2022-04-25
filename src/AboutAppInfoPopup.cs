@@ -162,7 +162,6 @@ namespace System.Application.UI
                 }
 #endif
 
-
                 b.Append("[memory.usage] ");
 #if __ANDROID__
                 var activityManager = activity.GetActivityManager();

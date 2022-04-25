@@ -57,6 +57,7 @@ namespace System.Application.UI.Adapters
         where TViewModel : class, IReactiveObject
     {
         CompositeDisposable? disposables;
+
         ICollection<IDisposable> IDisposableHolder.CompositeDisposable => disposables!;
 
         public BaseReactiveViewHolder(View itemView) : base(itemView)

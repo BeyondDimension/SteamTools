@@ -40,7 +40,6 @@ namespace System.Application.UI.Activities
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
-
             R.Subscribe(() =>
             {
                 Title = ViewModel!.Title;

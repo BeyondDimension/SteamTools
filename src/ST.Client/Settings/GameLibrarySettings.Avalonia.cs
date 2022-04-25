@@ -1,4 +1,3 @@
-using System;
 using System.Application.UI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +11,7 @@ namespace System.Application.Settings
     partial class GameLibrarySettings
     {
         static readonly SerializableProperty<bool> _GameIsInstalledFilter = GetProperty(defaultValue: false, autoSave: true);
+
         /// <summary>
         /// 游戏类型筛选状态列表
         /// </summary>
@@ -21,6 +21,7 @@ namespace System.Application.Settings
         public static SerializableProperty<bool> GameIsInstalledFilter => _GameIsInstalledFilter;
 
         static readonly SerializableProperty<List<SteamAppType>>? _GameTypeFiltres = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: new List<SteamAppType> { SteamAppType.Game, SteamAppType.Application, SteamAppType.Demo, SteamAppType.Beta }, autoSave: true) : null;
+
         /// <summary>
         /// 游戏类型筛选状态列表
         /// </summary>
@@ -30,6 +31,7 @@ namespace System.Application.Settings
         public static SerializableProperty<List<SteamAppType>> GameTypeFiltres => _GameTypeFiltres ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<Dictionary<uint, string?>>? _HideGameList = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: new Dictionary<uint, string?>(), autoSave: true) : null;
+
         /// <summary>
         /// 隐藏的游戏列表
         /// </summary>
@@ -40,6 +42,7 @@ namespace System.Application.Settings
 
         static readonly SerializableProperty<Dictionary<uint, string?>?>? _AFKAppList = IApplication.IsDesktopPlatform ?
             GetProperty<Dictionary<uint, string?>?>(defaultValue: null, autoSave: true) : null;
+
         /// <summary>
         /// 挂时长游戏列表
         /// </summary>
@@ -50,6 +53,7 @@ namespace System.Application.Settings
 
         static readonly SerializableProperty<bool>? _IsAutoAFKApps
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
+
         /// <summary>
         /// 启用自动挂机
         /// </summary>

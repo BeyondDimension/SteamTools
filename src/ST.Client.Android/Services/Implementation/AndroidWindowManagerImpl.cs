@@ -30,7 +30,9 @@ namespace System.Application.Services.Implementation
          */
 
         protected static string PositiveButtonText => AppResources.Confirm;
+
         protected static string NegativeButtonText => AppResources.Cancel;
+
         protected static string NeutralButtonText => AppResources.RememberChooseNotToAskAgain;
 
         protected async Task<bool> PlatformShowWindow(CustomWindow customWindow, PageViewModel? viewModel = null, string title = "")

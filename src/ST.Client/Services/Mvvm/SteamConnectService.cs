@@ -130,6 +130,7 @@ namespace System.Application.Services
 
         #region 当前steam登录用户
         private SteamUser? _CurrentSteamUser;
+
         public SteamUser? CurrentSteamUser
         {
             get => _CurrentSteamUser;
@@ -148,6 +149,7 @@ namespace System.Application.Services
 
         #region 连接steamclient是否成功
         private bool _IsConnectToSteam;
+
         public bool IsConnectToSteam
         {
             get => _IsConnectToSteam;
@@ -162,6 +164,7 @@ namespace System.Application.Services
         }
 
         private bool _IsSteamChinaLauncher;
+
         public bool IsSteamChinaLauncher
         {
             get => _IsSteamChinaLauncher;
@@ -176,6 +179,7 @@ namespace System.Application.Services
         }
 
         private bool _IsDisposedClient = true;
+
         /// <summary>
         /// 是否已经释放SteamClient
         /// </summary>
@@ -194,6 +198,7 @@ namespace System.Application.Services
         #endregion
 
         private bool _IsLoadingGameList;
+
         public bool IsLoadingGameList
         {
             get => _IsLoadingGameList;
@@ -203,6 +208,7 @@ namespace System.Application.Services
         #region 启用监听Steam下载
 
         private bool _IsWatchSteamDownloading;
+
         public bool IsWatchSteamDownloading
         {
             get => _IsWatchSteamDownloading;
@@ -323,9 +329,8 @@ namespace System.Application.Services
                 }
             }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
 
-            
             RefreshSteamUsers();
-            
+
             //SteamTool.WatchLocalUserDataChange(() =>
             //{
             //    RefreshSteamUsers();

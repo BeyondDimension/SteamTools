@@ -126,8 +126,9 @@ namespace System
                     var formatting = writeIndented ? Formatting.Indented : Formatting.None;
                     var settings = ignoreNullValues ? new JsonSerializerSettings
                     {
-                        NullValueHandling = NullValueHandling.Ignore
-                    } : null;
+                        NullValueHandling = NullValueHandling.Ignore,
+                    }
+                    : null;
                     return SerializeObject(value, inputType, formatting, settings);
 #endif
             }

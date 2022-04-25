@@ -8,6 +8,7 @@ namespace System.Application.Settings
     {
         static readonly SerializableProperty<bool>? _IsProxyGOG
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
+
         /// <summary>
         /// 启用GOG插件代理
         /// </summary>
@@ -18,6 +19,7 @@ namespace System.Application.Settings
 
         static readonly SerializableProperty<bool>? _EnableWindowsProxy
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
+
         /// <summary>
         /// 启用系统代理模式
         /// </summary>
@@ -28,6 +30,7 @@ namespace System.Application.Settings
 
         static readonly SerializableProperty<bool>? _IsOnlyWorkSteamBrowser
              = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
+
         /// <summary>
         /// 是否只针对Steam内置浏览器启用脚本
         /// </summary>

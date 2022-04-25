@@ -1,4 +1,4 @@
-﻿using System.Application.Columns;
+using System.Application.Columns;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;

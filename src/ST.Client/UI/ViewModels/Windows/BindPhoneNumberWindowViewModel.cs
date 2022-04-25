@@ -21,6 +21,7 @@ namespace System.Application.UI.ViewModels
         }
 
         bool _IsLoading;
+
         public bool IsLoading
         {
             get => _IsLoading;
@@ -28,6 +29,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _PhoneNumber;
+
         public string? PhoneNumber
         {
             get => _PhoneNumber;
@@ -35,6 +37,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _SmsCode;
+
         public string? SmsCode
         {
             get => _SmsCode;
@@ -42,6 +45,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private int _TimeLimit = SMSInterval;
+
         public int TimeLimit
         {
             get => _TimeLimit;
@@ -53,6 +57,7 @@ namespace System.Application.UI.ViewModels
         }
 
         string _BtnSendSmsCodeText = AppResources.User_GetSMSCode;
+
         public string BtnSendSmsCodeText
         {
             get => _BtnSendSmsCodeText;
@@ -127,6 +132,7 @@ namespace System.Application.UI.ViewModels
     partial class UserProfileWindowViewModel
     {
         readonly Lazy<BindPhoneNumberWindowViewModel> mBindPhoneNumberVM = new(() => new BindPhoneNumberWindowViewModel());
+
         public BindPhoneNumberWindowViewModel BindPhoneNumberVM => mBindPhoneNumberVM.Value;
     }
 }

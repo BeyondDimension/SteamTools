@@ -33,7 +33,8 @@ namespace System.Application.UI.ViewModels
                 FilePickerFileType? fileTypes;
                 if (IApplication.IsDesktopPlatform)
                 {
-                    fileTypes = new ValueTuple<string, string[]>[] {
+                    fileTypes = new ValueTuple<string, string[]>[]
+                    {
                         ("Json Files", new[] { FileEx.JSON, }),
                         //("All Files", new[] { "*", }),
                     };
@@ -54,7 +55,8 @@ namespace System.Application.UI.ViewModels
                 FilePickerFileType? fileTypes;
                 if (IApplication.IsDesktopPlatform)
                 {
-                    fileTypes = new ValueTuple<string, string[]>[] {
+                    fileTypes = new ValueTuple<string, string[]>[]
+                    {
                         ("Json Files", new[] { FileEx.JSON, }),
                         //("All Files", new[] { "*", }),
                     };
@@ -97,7 +99,6 @@ namespace System.Application.UI.ViewModels
                     MenuItems[1].IsEnabled = x;
                 });
 
-
             ASFService.Current.SteamBotsSourceList
                       .Connect()
                       .ObserveOn(RxApp.MainThreadScheduler)
@@ -119,6 +120,7 @@ namespace System.Application.UI.ViewModels
         /// ASF bots
         /// </summary>
         private readonly ReadOnlyObservableCollection<Bot> _SteamBots;
+
         public ReadOnlyObservableCollection<Bot> SteamBots => _SteamBots;
 
         public ICommand SelectBotFiles { get; }
@@ -126,6 +128,7 @@ namespace System.Application.UI.ViewModels
         public ICommand SelectGlobalFiles { get; }
 
         private bool _IsRedeemKeyDialogOpen;
+
         public bool IsRedeemKeyDialogOpen
         {
             get => _IsRedeemKeyDialogOpen;

@@ -30,9 +30,11 @@ namespace System.Application.UI.ViewModels
             get => _Placeholder;
             set => this.RaiseAndSetIfChanged(ref _Placeholder, value);
         }
+
         private string? _Placeholder;
 
         private string? _Description;
+
         /// <summary>
         /// 描述文本
         /// </summary>
@@ -50,6 +52,7 @@ namespace System.Application.UI.ViewModels
             get => _MaxLength;
             set => this.RaiseAndSetIfChanged(ref _MaxLength, value);
         }
+
         private int _MaxLength;
 
         /// <inheritdoc cref="TextBoxInputType"/>

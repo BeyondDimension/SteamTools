@@ -12,6 +12,7 @@ namespace System.Application.Services
         static ISteamGridDBWebApiServiceImpl Instance => DI.Get<ISteamGridDBWebApiServiceImpl>();
 
         Task<SteamGridApp?> GetSteamGridAppBySteamAppId(long appId);
+
         Task<List<SteamGridItem>?> GetSteamGridItemsByGameId(long gameId, SteamGridItemType type = SteamGridItemType.Grid);
     }
 }

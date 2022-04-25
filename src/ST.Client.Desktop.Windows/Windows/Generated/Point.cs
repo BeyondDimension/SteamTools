@@ -7,7 +7,6 @@
 // This file was generated, please do not edit it directly.
 //
 // Please see MilCodeGen.html for more information.
-//
 
 namespace System.Windows
 {
@@ -21,9 +20,6 @@ namespace System.Windows
         //------------------------------------------------------
 
         #region Public Methods
-
-
-
 
         /// <summary>
         /// Compares two Point instances for exact equality.
@@ -57,6 +53,7 @@ namespace System.Windows
         {
             return !(point1 == point2);
         }
+
         /// <summary>
         /// Compares two Point instances for object equality.  In this equality
         /// Double.NaN is equal to itself, unlike in numeric equality.
@@ -88,7 +85,7 @@ namespace System.Windows
         /// <param name='o'>The object to compare to "this"</param>
         public override bool Equals(object? o)
         {
-            if ((null == o) || o is not Point)
+            if (o is null or not Point)
             {
                 return false;
             }
@@ -112,6 +109,7 @@ namespace System.Windows
         {
             return Point.Equals(this, value);
         }
+
         /// <summary>
         /// Returns the HashCode for this Point
         /// </summary>
@@ -132,9 +130,6 @@ namespace System.Windows
         //  Public Properties
         //
         //------------------------------------------------------
-
-
-
 
         #region Public Properties
 
@@ -180,10 +175,6 @@ namespace System.Windows
 
         #region Protected Methods
 
-
-
-
-
         #endregion ProtectedMethods
 
         //------------------------------------------------------
@@ -194,14 +185,6 @@ namespace System.Windows
 
         #region Internal Methods
 
-
-
-
-
-
-
-
-
         #endregion Internal Methods
 
         //------------------------------------------------------
@@ -211,7 +194,6 @@ namespace System.Windows
         //------------------------------------------------------
 
         #region Internal Properties
-
 
         /// <summary>
         /// Creates a string representation of this object based on the current culture.
@@ -273,8 +255,6 @@ namespace System.Windows
                                  _y);
         }
 
-
-
         #endregion Internal Properties
 
         //------------------------------------------------------
@@ -284,8 +264,6 @@ namespace System.Windows
         //------------------------------------------------------
 
         #region Dependency Properties
-
-
 
         #endregion Dependency Properties
 
@@ -297,13 +275,10 @@ namespace System.Windows
 
         #region Internal Fields
 
-
         internal double _x;
         internal double _y;
 
         #endregion Internal Fields
-
-
 
         #region Constructors
 
@@ -312,9 +287,6 @@ namespace System.Windows
         //  Constructors
         //
         //------------------------------------------------------
-
-
-
 
         #endregion Constructors
     }

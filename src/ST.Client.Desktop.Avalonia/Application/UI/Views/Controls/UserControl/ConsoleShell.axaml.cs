@@ -61,6 +61,7 @@ namespace System.Application.UI.Views.Controls
         }
 
         private CommandEventArgs? _commandSubmitArgs;
+
         /// <summary>
         /// 输入命令后按下回车触发
         /// </summary>

@@ -104,7 +104,8 @@ namespace System.Application.Services.Implementation.NetEaseCloud
             var request_args = new
             {
                 body = args,
-                headers = new Dictionary<string, string> {
+                headers = new Dictionary<string, string>
+                {
                     { nameof(options.AppKey), options.AppKey.ThrowIsNull(nameof(options.AppKey)) },
                     { nameof(Nonce), nonce },
                     { nameof(CurTime), curTime },

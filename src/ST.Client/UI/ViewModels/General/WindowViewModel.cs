@@ -16,6 +16,7 @@ namespace System.Application.UI.ViewModels
         public static bool IsSupportedSizePosition => IWindowViewModel.IsSupportedSizePosition;
 
         protected SizePosition? _SizePosition;
+
         public SizePosition SizePosition
         {
             get

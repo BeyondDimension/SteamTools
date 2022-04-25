@@ -37,7 +37,7 @@ namespace System
                             yield break;
                         }
                     }
-                    if (isDian || item >= '0' && item <= '9')
+                    if (isDian || (item >= '0' && item <= '9'))
                     {
                         findChar = true;
                         yield return item;
@@ -52,12 +52,14 @@ namespace System
         }
 
         #region TryParse
+
         /// <summary>
         /// 尝试将数字的字符串表示形式转换为 双精度浮点型
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static decimal? TryParseDecimal(this string value) => decimal.TryParse(value, out var temp) ? temp : null;
+
         /// <summary>
         /// 尝试将数字的字符串表示形式转换为 双精度浮点型
         /// </summary>

@@ -19,11 +19,13 @@ namespace System.Application.Services
     public sealed class ASFService : ReactiveObject
     {
         static ASFService? mCurrent;
+
         public static ASFService Current => mCurrent ?? new();
 
         readonly IArchiSteamFarmService archiSteamFarmService = IArchiSteamFarmService.Instance;
 
         string? _IPCUrl;
+
         public string? IPCUrl
         {
             get => _IPCUrl;
@@ -31,6 +33,7 @@ namespace System.Application.Services
         }
 
         string? _ConsoleLogText;
+
         public string? ConsoleLogText
         {
             get => _ConsoleLogText;
@@ -44,6 +47,7 @@ namespace System.Application.Services
         public bool IsASFRuning => archiSteamFarmService.StartTime != null;
 
         GlobalConfig? _GlobalConfig;
+
         public GlobalConfig? GlobalConfig
         {
             get => _GlobalConfig;

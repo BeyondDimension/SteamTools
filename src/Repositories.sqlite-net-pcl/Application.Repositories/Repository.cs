@@ -29,6 +29,7 @@ namespace System.Application.Repositories
                 if (string.IsNullOrWhiteSpace(mDataBaseDirectory)) mDataBaseDirectory = IOPath.AppDataDirectory;
                 return mDataBaseDirectory;
             }
+
             set
             {
                 mDataBaseDirectory = value;
@@ -36,6 +37,7 @@ namespace System.Application.Repositories
         }
 
         static SQLiteConnection? connectionSync;
+
         static SQLiteConnection ConnectionSync
         {
             get

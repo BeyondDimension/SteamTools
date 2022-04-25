@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -16,6 +15,7 @@ namespace System.Application.Models
         Achievements = 4,
         GroupAchievements = 5,
     }
+
     public class KeyValue
     {
         private static readonly KeyValue _Invalid = new();

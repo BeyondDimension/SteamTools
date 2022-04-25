@@ -9,6 +9,7 @@ namespace Avalonia.Skia
     public sealed class SKTypefaceCollection
     {
         readonly @this @this;
+
         internal SKTypefaceCollection(@this @this)
         {
             this.@this = @this;

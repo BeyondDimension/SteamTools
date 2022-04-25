@@ -47,8 +47,8 @@ namespace System.Application.Services.Implementation
                 void Show_()
                 {
                     if (intercept.OnShowExecuting(text)) return;
-                    var _duration = duration ?? CalcDurationByStringLength(text.Length);
-                    PlatformShow(text, _duration);
+                    var duration_ = duration ?? CalcDurationByStringLength(text.Length);
+                    PlatformShow(text, duration_);
                 }
             }
             catch (Exception e)

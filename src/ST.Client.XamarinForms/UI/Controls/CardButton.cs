@@ -21,6 +21,7 @@ namespace System.Application.UI.Views.Controls
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
+
         public object CommandParameter
         {
             get { return GetValue(CommandParameterProperty); }
@@ -33,6 +34,7 @@ namespace System.Application.UI.Views.Controls
         public bool IsPressed => (bool)GetValue(IsPressedProperty);
 
         public event EventHandler? Clicked;
+
         public event EventHandler? Pressed;
 
         public event EventHandler? Released;

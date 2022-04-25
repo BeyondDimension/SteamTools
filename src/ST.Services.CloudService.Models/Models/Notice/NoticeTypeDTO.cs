@@ -1,7 +1,6 @@
+using System.Collections.Generic;
 #if MVVM_VM
 using ReactiveUI;
-using System.Collections.Generic;
-
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
@@ -52,7 +51,9 @@ namespace System.Application.Models
             get => _Index;
             set => this.RaiseAndSetIfChanged(ref _Index, value);
         }
+
         int _Index = 1;
+
         /// <summary>
         /// 当前组中所有的加速项目集合
         /// </summary> 
@@ -64,6 +65,7 @@ namespace System.Application.Models
             get => mItems;
             set => this.RaiseAndSetIfChanged(ref mItems, value);
         }
+
         PagedModel<NoticeDTO>? mItems;
 
 #endif

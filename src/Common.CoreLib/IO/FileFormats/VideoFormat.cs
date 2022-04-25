@@ -19,7 +19,7 @@ namespace System
     /// </summary>
     public static partial class VideoFormatEnumExtensions
     {
-        static readonly Lazy<IReadOnlyDictionary<VideoFormat, string>> _enum_mime = new(() =>
+        static readonly Lazy<IReadOnlyDictionary<VideoFormat, string>> mEnumMime = new(() =>
         {
             var value = new Dictionary<VideoFormat, string>()
             {
@@ -28,31 +28,33 @@ namespace System
             };
             return value;
         });
-        static readonly Lazy<IReadOnlyDictionary<string, VideoFormat>> _mime_enum = new(() =>
+
+        static readonly Lazy<IReadOnlyDictionary<string, VideoFormat>> mMimeEnum = new(() =>
         {
-            var value = enum_mime.ToDictionary(x => x.Value, x => x.Key, StringComparer.OrdinalIgnoreCase);
+            var value = EnumMime.ToDictionary(x => x.Value, x => x.Key, StringComparer.OrdinalIgnoreCase);
             return value;
         });
 
-        static IReadOnlyDictionary<VideoFormat, string> enum_mime => _enum_mime.Value;
-        static IReadOnlyDictionary<string, VideoFormat> mime_enum => _mime_enum.Value;
+        static IReadOnlyDictionary<VideoFormat, string> EnumMime => mEnumMime.Value;
+
+        static IReadOnlyDictionary<string, VideoFormat> MimeEnum => mMimeEnum.Value;
 
         /// <summary>
         /// 获取MIME
         /// </summary>
-        /// <param name="imageFormat"></param>
+        /// <param name="videoFormat"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static string GetMIME(this VideoFormat videoFormat)
         {
-            if (enum_mime.ContainsKey(videoFormat)) return enum_mime[videoFormat];
+            if (EnumMime.ContainsKey(videoFormat)) return EnumMime[videoFormat];
             throw new ArgumentOutOfRangeException(nameof(videoFormat), videoFormat, null);
         }
 
         public static VideoFormat? GetFormat(string? mime)
         {
             if (mime == null) return null;
-            if (mime_enum.ContainsKey(mime)) return mime_enum[mime];
+            if (MimeEnum.ContainsKey(mime)) return MimeEnum[mime];
             return null;
         }
     }

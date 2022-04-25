@@ -21,6 +21,7 @@ namespace System.Application.UI
         }
 
         OSAppTheme _AppTheme = OSAppTheme.Light;
+
         public OSAppTheme AppTheme
         {
             get => _AppTheme;

@@ -52,7 +52,8 @@ namespace System.Commands
                 row = sheet.GetRow(index_row++);
                 if (row == null) return messages;
                 cell = row.GetCell(0);
-            } while (!cell.StringCellValue.Contains(ColumnHeaderKey));
+            }
+            while (!cell.StringCellValue.Contains(ColumnHeaderKey));
 
             int index_cell_value = -1, index_cell_proofread = -1;
             while (true) // 定位 Value Cell Index

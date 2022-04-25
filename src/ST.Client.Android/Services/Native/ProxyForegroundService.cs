@@ -245,8 +245,10 @@ namespace System.Application.Services.Native
 
         const NotificationType notificationType
             = NotificationType.ProxyForegroundService;
+
         static string NotificationText
             => AppResources.ProxyForegroundService_NotificationText;
+
         static string? NotificationEntranceAction
             => nameof(TabItemViewModel.TabItemId.CommunityProxy);
 

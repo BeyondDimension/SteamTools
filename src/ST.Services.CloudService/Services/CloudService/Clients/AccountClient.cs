@@ -11,6 +11,7 @@ namespace System.Application.Services.CloudService.Clients
         public AccountClient(IApiConnection conn) : base(conn)
         {
         }
+
         public Task<IApiResponse<LoginOrRegisterResponse>> LoginOrRegister(LoginOrRegisterRequest request)
          => conn.SendAsync<LoginOrRegisterRequest, LoginOrRegisterResponse>(
              isAnonymous: true,
@@ -20,6 +21,7 @@ namespace System.Application.Services.CloudService.Clients
              request: request,
              cancellationToken: default,
              responseContentMaybeNull: false);
+
         /// <summary>
         /// 签到
         /// </summary>
@@ -34,6 +36,7 @@ namespace System.Application.Services.CloudService.Clients
                 request: request,
                 cancellationToken: default,
                 responseContentMaybeNull: false);
+
         /// <summary>
         /// 获取签到历史记录
         /// </summary>
@@ -47,6 +50,7 @@ namespace System.Application.Services.CloudService.Clients
               requestUri: $"api/Manage/ClockInLogs?time={(time.HasValue ? time : DateTimeOffset.Now)}",
               cancellationToken: default,
               responseContentMaybeNull: false);
+
         public Task<IApiResponse<JWTEntity>> RefreshToken(string refresh_token)
             => conn.SendAsync<JWTEntity>(
                 isAnonymous: true, // 刷新Token必须匿名身份，否则将递归死循环

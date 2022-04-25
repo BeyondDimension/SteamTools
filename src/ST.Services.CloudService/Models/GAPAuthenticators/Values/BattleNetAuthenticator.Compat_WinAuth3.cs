@@ -98,10 +98,10 @@ namespace System.Application.Models
             /// <summary>
             /// URLs for all mobile services
             /// </summary>
-            static readonly string REGION_US = "US";
-            static readonly string REGION_EU = "EU";
-            static readonly string REGION_KR = "KR";
-            static readonly string REGION_CN = "CN";
+            const string REGION_US = "US";
+            const string REGION_EU = "EU";
+            const string REGION_KR = "KR";
+            const string REGION_CN = "CN";
             public static Dictionary<string, string> MOBILE_URLS = new()
             {
                 { REGION_US, "http://mobile-service.blizzard.com" },
@@ -109,10 +109,11 @@ namespace System.Application.Models
                 { REGION_KR, "http://mobile-service.blizzard.com" },
                 { REGION_CN, "http://mobile-service.battlenet.com.cn" }
             };
-            static readonly string ENROLL_PATH = "/enrollment/enroll2.htm";
-            static readonly string SYNC_PATH = "/enrollment/time.htm";
-            static readonly string RESTORE_PATH = "/enrollment/initiatePaperRestore.htm";
-            static readonly string RESTOREVALIDATE_PATH = "/enrollment/validatePaperRestore.htm";
+
+            const string ENROLL_PATH = "/enrollment/enroll2.htm";
+            const string SYNC_PATH = "/enrollment/time.htm";
+            const string RESTORE_PATH = "/enrollment/initiatePaperRestore.htm";
+            const string RESTOREVALIDATE_PATH = "/enrollment/validatePaperRestore.htm";
 
             /// <summary>
             /// Set of ISO3166 EU countries
@@ -229,7 +230,9 @@ namespace System.Application.Models
                         responseString = Encoding.UTF8.GetString(ms.ToArray());
                     }
                 }
-                catch (Exception) { }
+                catch (Exception)
+                {
+                }
                 if (string.IsNullOrEmpty(responseString) == false)
                 {
                     // not worth a full json parser, just regex it
@@ -852,6 +855,7 @@ namespace System.Application.Models
                     // for Battle.net, this is the key + serial
                     return base.SecretData + "|" + ByteArrayToString(Encoding.UTF8.GetBytes(Serial.ThrowIsNull(nameof(Serial))));
                 }
+
                 set
                 {
                     // for Battle.net, extract key + serial

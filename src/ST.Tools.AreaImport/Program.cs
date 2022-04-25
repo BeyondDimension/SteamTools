@@ -1,4 +1,5 @@
-﻿using MessagePack;
+#pragma warning disable SA1516 // Elements should be separated by blank line
+using MessagePack;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
@@ -187,7 +188,9 @@ do
         Level = level,
         Up = up,
     });
-} while (true);
+}
+while (true);
 var bytes = Serializable.SMP(areas);
 File.WriteAllBytes(outFilePath, bytes);
 Console.WriteLine($"文件写入成功，路径：{outFilePath}");
+#pragma warning restore SA1516 // Elements should be separated by blank line

@@ -27,4 +27,8 @@
     <PackageReference Include="Polly" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
 </Project>

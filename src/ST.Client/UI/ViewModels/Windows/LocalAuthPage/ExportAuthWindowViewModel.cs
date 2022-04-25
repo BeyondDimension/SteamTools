@@ -75,6 +75,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsPasswordEncrypt;
+
         public bool IsPasswordEncrypt
         {
             get => _IsPasswordEncrypt;
@@ -82,6 +83,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _Password;
+
         public string? Password
         {
             get => _Password;
@@ -89,6 +91,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private string? _VerifyPassword;
+
         public string? VerifyPassword
         {
             get => _VerifyPassword;
@@ -96,6 +99,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsOnlyCurrentComputerEncrypt;
+
         public bool IsOnlyCurrentComputerEncrypt
         {
             get => _IsOnlyCurrentComputerEncrypt;
@@ -103,6 +107,7 @@ namespace System.Application.UI.ViewModels
         }
 
         SaveFileResult? _ExportFile;
+
         public SaveFileResult? ExportFile
         {
             get => _ExportFile;
@@ -117,6 +122,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private Stream? _QRCode;
+
         /// <summary>
         /// 当前导出的二维码图像数据流
         /// </summary>
@@ -132,6 +138,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsExportQRCode;
+
         /// <summary>
         /// 是否启用导出为二维码
         /// </summary>
@@ -142,6 +149,7 @@ namespace System.Application.UI.ViewModels
         }
 
         private bool _IsExporting;
+
         /// <summary>
         /// 是否正在导出中
         /// </summary>
@@ -167,7 +175,8 @@ namespace System.Application.UI.ViewModels
                     FilePickerFileType? fileTypes;
                     if (IApplication.IsDesktopPlatform)
                     {
-                        fileTypes = new ValueTuple<string, string[]>[] {
+                        fileTypes = new ValueTuple<string, string[]>[]
+                        {
                             ("MsgPack Files", new[] { FileEx.MPO, }),
                             ("Data Files", new[] { FileEx.DAT, }),
                             //("All Files", new[] { "*", }),

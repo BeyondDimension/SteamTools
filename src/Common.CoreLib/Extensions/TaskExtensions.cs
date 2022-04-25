@@ -106,7 +106,6 @@ namespace System
                 Exception = exception;
             }
 
-
             public static readonly EventHandler<TaskLog> Occured = (sender, e) =>
             {
                 const string format = @"Unhandled Exception occured from Task.Forget()

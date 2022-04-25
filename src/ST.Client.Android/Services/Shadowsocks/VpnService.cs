@@ -18,6 +18,7 @@ namespace System.Application.Services.Native
             int notifyId;
             NotificationCompat.Builder? builder;
             NotificationManagerCompat? mNotificationManager;
+
             NotificationManagerCompat NotificationManager
             {
                 get

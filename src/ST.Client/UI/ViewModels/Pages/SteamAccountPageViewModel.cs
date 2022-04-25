@@ -22,8 +22,8 @@ namespace System.Application.UI.ViewModels
     public partial class SteamAccountPageViewModel
     {
         readonly ISteamService steamService = ISteamService.Instance;
-        readonly IHttpService httpService = IHttpService.Instance;
-        readonly ISteamworksWebApiService webApiService = ISteamworksWebApiService.Instance;
+        //readonly IHttpService httpService = IHttpService.Instance;
+        //readonly ISteamworksWebApiService webApiService = ISteamworksWebApiService.Instance;
 
         public SteamAccountPageViewModel()
         {
@@ -48,16 +48,15 @@ namespace System.Application.UI.ViewModels
             //    //      IconKey ="EditDrawing", Command = ShareManageCommand },
             //};
 
-
             SteamConnectService.Current.SteamUsers
-              .Connect()
-              .ObserveOn(RxApp.MainThreadScheduler)
-              .Sort(SortExpressionComparer<SteamUser>.Descending(x => x.LastLoginTime))
-              .Bind(out _SteamUsers)
-              .Subscribe(_ =>
-              {
-                  Initialize();
-              });
+                .Connect()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Sort(SortExpressionComparer<SteamUser>.Descending(x => x.LastLoginTime))
+                .Bind(out _SteamUsers)
+                .Subscribe(_ =>
+                {
+                    Initialize();
+                });
         }
 
         public ReactiveCommand<Unit, Unit> LoginAccountCommand { get; }
@@ -65,6 +64,7 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
 
         public ReactiveCommand<Unit, Unit> ShareManageCommand { get; }
+
         public ReactiveCommand<string, Unit> OpenBrowserCommand { get; }
 
         public void OpenShareManageWindow()
@@ -73,6 +73,7 @@ namespace System.Application.UI.ViewModels
         }
 
         readonly ReadOnlyObservableCollection<SteamUser> _SteamUsers;
+
         /// <summary>
         /// Steam 客户端记住的用户列表
         /// </summary>
@@ -87,7 +88,7 @@ namespace System.Application.UI.ViewModels
             if (OperatingSystem2.IsWindows)
             {
                 var menus = new List<MenuItemViewModel>();
-                
+
                 foreach (var user in SteamConnectService.Current.SteamUsers.Items)
                 {
                     var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);

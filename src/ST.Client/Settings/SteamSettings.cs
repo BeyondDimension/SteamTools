@@ -31,8 +31,9 @@ namespace System.Application.Settings
                 SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
         }
 
-        static readonly SerializableProperty<string?>? _SteamStratParameter = OperatingSystem2.Application.UseAvalonia ? 
+        static readonly SerializableProperty<string?>? _SteamStratParameter = OperatingSystem2.Application.UseAvalonia ?
             GetProperty<string?>(defaultValue: null, autoSave: true) : null;
+
         /// <summary>
         /// Steam启动参数
         /// </summary>
@@ -51,6 +52,7 @@ namespace System.Application.Settings
         //public static SerializableProperty<string> SteamSkin => _SteamSkin ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<bool>? _IsAutoRunSteam = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+
         /// <summary>
         /// 自动运行Steam
         /// </summary>
@@ -60,6 +62,7 @@ namespace System.Application.Settings
         public static SerializableProperty<bool> IsAutoRunSteam => _IsAutoRunSteam ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<bool>? _IsRunSteamMinimized = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+
         /// <summary>
         /// Steam启动时最小化到托盘
         /// </summary>
@@ -69,6 +72,7 @@ namespace System.Application.Settings
         public static SerializableProperty<bool> IsRunSteamMinimized => _IsRunSteamMinimized ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<bool>? _IsRunSteamNoCheckUpdate = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: false, autoSave: true) : null;
+
         /// <summary>
         /// Steam启动时不检查更新
         /// </summary>
@@ -78,6 +82,7 @@ namespace System.Application.Settings
         public static SerializableProperty<bool> IsRunSteamNoCheckUpdate => _IsRunSteamNoCheckUpdate ?? throw new PlatformNotSupportedException();
 
         static readonly SerializableProperty<bool>? _IsEnableSteamLaunchNotification = OperatingSystem2.Application.UseAvalonia ? GetProperty(defaultValue: true, autoSave: true) : null;
+
         /// <summary>
         /// 检测到Steam登录时弹出消息通知
         /// </summary>

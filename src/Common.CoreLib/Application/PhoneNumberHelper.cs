@@ -120,7 +120,8 @@ namespace System.Application
             /// <summary>
             /// 黑名单
             /// </summary>
-            public static readonly byte[] Blacklist = new byte[] {
+            public static readonly byte[] Blacklist = new byte[]
+            {
                 148, 149, 146, // 物联网号段
             };
         }

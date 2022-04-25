@@ -45,6 +45,7 @@ namespace System.Application.Services.Implementation.AlibabaCloud
         /// 短信API产品名称（短信产品名固定，无需修改）
         /// </summary>
         const string product = "Dysmsapi";
+
         /// <summary>
         /// 短信API产品域名（接口地址固定，无需修改）
         /// </summary>
@@ -96,7 +97,6 @@ namespace System.Application.Services.Implementation.AlibabaCloud
             var args = new SortedDictionary<string, string>(StringComparer.Ordinal)  // https://help.aliyun.com/document_detail/56189.html
             {
 #region (系统参数)为POP协议的基本参数，有
-
                { "AccessKeyId", options.AccessKeyId.ThrowIsNull(nameof(options.AccessKeyId)) },
                { "Timestamp", FormatIso8601Date(now) }, // 格式为：yyyy-MM-dd’T’HH:mm:ss’Z’；时区为：GMT
                { "Format", "JSON" }, // 没传默认为JSON，可选填值：XML
@@ -109,17 +109,15 @@ namespace System.Application.Services.Implementation.AlibabaCloud
             #endregion
 
 #region 业务参数
-
-               { "Action", "SendSms"}, // API的命名，固定值，如发送短信API的值为：SendSms
-               { "Version", "2017-05-25"}, // API的版本，固定值，如短信API的值为：2017-05-25
-               { "RegionId", "cn-hangzhou"}, // API支持的RegionID，如短信API的值为：cn-hangzhou
+               { "Action", "SendSms" }, // API的命名，固定值，如发送短信API的值为：SendSms
+               { "Version", "2017-05-25" }, // API的版本，固定值，如短信API的值为：2017-05-25
+               { "RegionId", "cn-hangzhou" }, // API支持的RegionID，如短信API的值为：cn-hangzhou
 
                // https://help.aliyun.com/document_detail/55284.html
-
-               { "PhoneNumbers", number}, // 短信接收号码,支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式；发送国际/港澳台消息时，接收号码格式为00+国际区号+号码，如“0085200000000”
-               { "SignName", options.SignName.ThrowIsNull(nameof(options.SignName))}, // 短信签名 正式环境要写入APP的名称。
-               { "TemplateCode", template_code.ThrowIsNull(nameof(template_code))}, // 短信模板ID，发送国际/港澳台消息时，请使用国际/港澳台短信模版
-               { "TemplateParam", templateParam}, // 短信模板变量替换JSON串,友情提示:如果JSON中需要带换行符,请参照标准的JSON协议。
+               { "PhoneNumbers", number }, // 短信接收号码,支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式；发送国际/港澳台消息时，接收号码格式为00+国际区号+号码，如“0085200000000”
+               { "SignName", options.SignName.ThrowIsNull(nameof(options.SignName)) }, // 短信签名 正式环境要写入APP的名称。
+               { "TemplateCode", template_code.ThrowIsNull(nameof(template_code)) }, // 短信模板ID，发送国际/港澳台消息时，请使用国际/港澳台短信模版
+               { "TemplateParam", templateParam }, // 短信模板变量替换JSON串,友情提示:如果JSON中需要带换行符,请参照标准的JSON协议。
 
 #endregion
             };
@@ -127,7 +125,8 @@ namespace System.Application.Services.Implementation.AlibabaCloud
             var queryArray = args.Select(x => $"{AcsUrlEncode(x.Key)}={AcsUrlEncode(x.Value)}");
             var queryString = string.Join("&", queryArray);
 
-            var signArray = new[] {
+            var signArray = new[]
+            {
                 "GET",
                 "&",
                 AcsUrlEncode("/"),

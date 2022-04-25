@@ -56,7 +56,6 @@ namespace System.Application.Converters
             return str;
         }
 
-
         public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             return Format(value, parameter, culture);

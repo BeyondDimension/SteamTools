@@ -48,7 +48,6 @@ namespace System.Application
         public const string STEAM_MINIPROFILE_URL = "https://steam-chat.com/miniprofile/{0}/json";
         public const string STEAM_USERINFO_XML_URL = "https://steamcommunity.com/profiles/{0}?xml=1";
 
-
         public const string STEAMCN_USERINFO_XML_URL = "https://my.steamchina.com/profiles/76561198289531723?xml=1";
     }
 }

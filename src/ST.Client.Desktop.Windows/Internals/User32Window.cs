@@ -155,7 +155,7 @@ internal static class User32Window
     public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
     [DllImport(LibraryName, CharSet = CharSet.Unicode)]
-    public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+    public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string? lpszWindow);
 
     [DllImport(LibraryName, CharSet = CharSet.Auto)]
     public static extern IntPtr SendMessage(IntPtr hwnd, uint msg, IntPtr wParam, IntPtr lParam);

@@ -11,13 +11,12 @@ namespace System.Application.UI.Views.Windows
         public DebugWindow()
         {
             InitializeComponent();
-            
+
             ExtendClientAreaToDecorationsHint = false;
             ExtendClientAreaTitleBarHeightHint = -1;
             TransparencyLevelHint = WindowTransparencyLevel.Mica;
             SystemDecorations = SystemDecorations.Full;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.Default;
-
 
             //if (OperatingSystem2.IsWindows11AtLeast)
             //{

@@ -7,6 +7,7 @@ using System.Application.UI.Resx;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+
 namespace System.Application.UI.ViewModels
 {
     public class ScriptStoreWindowViewModel : WindowViewModel
@@ -35,6 +36,7 @@ namespace System.Application.UI.ViewModels
         }
 
         readonly ReadOnlyObservableCollection<ScriptDTO> _Scripts;
+
         public ReadOnlyObservableCollection<ScriptDTO> Scripts => _Scripts;
 
         readonly SourceList<ScriptDTO> _ScriptsSourceList;
@@ -42,6 +44,7 @@ namespace System.Application.UI.ViewModels
         public bool IsScriptsEmpty => !Scripts.Any_Nullable();
 
         string? _SearchText;
+
         public string? SearchText
         {
             get => _SearchText;

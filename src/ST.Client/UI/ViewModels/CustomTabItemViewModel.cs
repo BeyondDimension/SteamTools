@@ -156,6 +156,7 @@ namespace System.Application.UI.ViewModels
             get => DisplayName;
         }
     }
+
 #if DEBUG
     partial class DebugPageViewModel : TabItemViewModel
     {
@@ -166,8 +167,8 @@ namespace System.Application.UI.ViewModels
             get => DisplayName;
         }
     }
-#endif
 
+#endif
     partial class GameRelatedPageViewModel : TabItemViewModel
     {
         public static string DisplayName => AppResources.GameRelated;

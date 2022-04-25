@@ -114,4 +114,8 @@
     <Compile Remove="DesktopBridgeHelper2.cs" />
     <Compile Remove="FileSystemDesktopBridge.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
 </Project>

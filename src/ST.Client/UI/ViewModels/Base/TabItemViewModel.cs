@@ -16,6 +16,7 @@ namespace System.Application.UI.ViewModels
     {
         #region TaskBarSubMenu 托盘菜单
         bool _IsTaskBarSubMenu = true;
+
         public bool IsTaskBarSubMenu
         {
             get => _IsTaskBarSubMenu && MenuItems.Any_Nullable();
@@ -23,6 +24,7 @@ namespace System.Application.UI.ViewModels
         }
 
         IList<MenuItemViewModel>? _MenuItems;
+
         public virtual IList<MenuItemViewModel>? MenuItems
         {
             get => _MenuItems;
@@ -40,6 +42,7 @@ namespace System.Application.UI.ViewModels
         }
 
         IEnumerable<ItemViewModel>? _Items;
+
         public IEnumerable<ItemViewModel>? Items
         {
             get => _Items;
