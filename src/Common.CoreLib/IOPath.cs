@@ -41,14 +41,16 @@ namespace System
         /// </summary>
         /// <param name="dirPath"></param>
         /// <param name="noRecursive"></param>
-        public static void DirTryDelete(string dirPath, bool noRecursive = false)
+        public static bool DirTryDelete(string dirPath, bool noRecursive = false)
         {
             try
             {
                 Directory.Delete(dirPath, !noRecursive);
+                return true;
             }
             catch
             {
+                return false;
             }
         }
 
@@ -100,14 +102,16 @@ namespace System
         /// <para>通常用于删除缓存</para>
         /// </summary>
         /// <param name="filePath"></param>
-        public static void FileTryDelete(string filePath)
+        public static bool FileTryDelete(string filePath)
         {
             try
             {
                 File.Delete(filePath);
+                return true;
             }
             catch
             {
+                return false;
             }
         }
 

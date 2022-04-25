@@ -52,12 +52,12 @@ namespace System.Application.Services.Implementation
             var fileInfo = new FileInfo(filePath);
             if (fileInfo.Exists)
             {
-                ScriptDTO.TryParse(filePath, out ScriptDTO? info);
+                _ = ScriptDTO.TryParse(filePath, out ScriptDTO? info);
                 return await AddScriptAsync(fileInfo, info, oldInfo, build, order, deleteFile, pid, ignoreCache);
             }
             else
             {
-                var msg = AppResources.Script_NoFile.Format(filePath);// $"文件不存在:{filePath}";
+                var msg = AppResources.Script_NoFile.Format(filePath); // $"文件不存在:{filePath}";
                 logger.LogError(msg);
                 return ApiResponse.Fail<ScriptDTO?>(msg);
             }
@@ -89,7 +89,6 @@ namespace System.Application.Services.Implementation
                         {
                             saveInfo.Directory.Create();
                         }
-                        saveInfo.Refresh();
                         if (saveInfo.Exists)
                         {
                             if (isNoRepeat)
@@ -120,7 +119,6 @@ namespace System.Application.Services.Implementation
                         info.IsBuild = build;
                         info.CachePath = path;
                         saveInfo = new FileInfo(cachePath);
-                        saveInfo.Refresh();
                         if (await BuildScriptAsync(info, saveInfo, build))
                         {
                             var db = mapper.Map<Script>(info);
@@ -219,7 +217,7 @@ namespace System.Application.Services.Implementation
                         scriptContent.Append(model.Content);
                     }
                     fileInfo.Refresh();
-                    if (!fileInfo.Directory.Exists)
+                    if (fileInfo.Directory != null && !fileInfo.Directory.Exists)
                     {
                         fileInfo.Directory.Create();
                     }
@@ -366,7 +364,7 @@ namespace System.Application.Services.Implementation
                 }
                 catch (Exception e)
                 {
-                    var errorMsg = AppResources.Script_ReadFileError.Format(e.GetAllMessage());//$"文件读取出错:[{e}]";
+                    var errorMsg = AppResources.Script_ReadFileError.Format(e.GetAllMessage()); //$"文件读取出错:[{e}]";
                     logger.LogError(e, errorMsg);
                     toast.Show(errorMsg);
                 }
@@ -382,7 +380,7 @@ namespace System.Application.Services.Implementation
             int count = scripts.Count(x => x.Id == basicsId);
             if (count == 0)
             {
-                ProxyService.Current.BasicsInfo();
+                await ProxyService.Current.BasicsInfoAsync();
                 scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
             }
             else if (count > 1)
@@ -429,18 +427,24 @@ namespace System.Application.Services.Implementation
                     var md5 = Hashs.String.MD5(scriptStr);
                     cachePath = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName, md5 + FileEx.DownloadCache);
                     var fileInfo = new FileInfo(cachePath);
-                    if (!fileInfo.Directory.Exists) fileInfo.Directory.Create();
-                    else if (fileInfo.Exists) fileInfo.Delete();
+                    if (fileInfo.Directory != null && !fileInfo.Directory.Exists) fileInfo.Directory.Create();
+                    else if (File.Exists(fileInfo.FullName))
+                    {
+                        if (!IOPath.FileTryDelete(fileInfo.FullName))
+                        {
+                            goto returnCachePath;
+                        }
+                    }
                     using (var stream = fileInfo.CreateText())
                     {
                         stream.Write(scriptStr);
                         await stream.FlushAsync();
                     }
-                    return ApiResponse.Ok(cachePath);
+                returnCachePath: return ApiResponse.Ok(cachePath);
                 }
                 catch (Exception e)
                 {
-                    logger.LogError(e, "DownloadScript FileWrite catch, url:{0}, cachePath:{1}", url, cachePath);
+                    logger.LogError(e, "DownloadScript catch, url:{0}, cachePath:{1}", url, cachePath);
                     return ApiResponse.Exception<string>(e);
                 }
             }

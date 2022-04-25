@@ -112,7 +112,6 @@ namespace System.Application.Services
         /// <summary>
         /// 清理存放升级包缓存文件夹的目录
         /// </summary>
-        /// <returns></returns>
         static void ClearAllPackCacheDir()
         {
             var dirPath = GetPackCacheDirPath(true, out var exists);

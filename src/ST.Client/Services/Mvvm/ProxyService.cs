@@ -23,6 +23,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Titanium.Web.Proxy.Models;
 
+#pragma warning disable SA1306 // Field names should begin with lower-case letter
+#pragma warning disable SA1309 // Field names should not begin with underscore
+
 // ReSharper disable once CheckNamespace
 namespace System.Application.Services
 {
@@ -64,15 +67,17 @@ namespace System.Application.Services
                         {
                             await EnableProxyScripts.ContinueWith(e =>
                             {
-                                httpProxyService.Scripts = e.Result.ToImmutableArray();
+                                httpProxyService.Scripts = e.Result?.ToImmutableArray();
                             });
                         }
 
                         if (IApplication.IsDesktopPlatform)
                         {
+#pragma warning disable CA1416 // 验证平台兼容性
                             httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
                             httpProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
                             httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+#pragma warning restore CA1416 // 验证平台兼容性
                         }
                         else
                         {
@@ -114,7 +119,9 @@ namespace System.Application.Services
                                 string? error_CommunityFix_StartProxyFaild443 = null;
                                 if (OperatingSystem2.IsWindows)
                                 {
+#pragma warning disable CA1416 // 验证平台兼容性
                                     var p = SocketHelper.GetProcessByTcpPort(httpsPort);
+#pragma warning restore CA1416 // 验证平台兼容性
                                     if (p != null)
                                     {
                                         error_CommunityFix_StartProxyFaild443 = AppResources.CommunityFix_StartProxyFaild443___.Format(httpsPort, p.ProcessName, p.Id);
@@ -292,18 +299,22 @@ namespace System.Application.Services
             get
             {
                 if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return false;
+#pragma warning disable CA1416 // 验证平台兼容性
                 return ProxySettings.IsOnlyWorkSteamBrowser.Value;
+#pragma warning restore CA1416 // 验证平台兼容性
             }
 
             set
             {
                 if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return;
+#pragma warning disable CA1416 // 验证平台兼容性
                 if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
                 {
                     ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
                     httpProxyService.IsOnlyWorkSteamBrowser = value;
                     this.RaisePropertyChanged();
                 }
+#pragma warning restore CA1416 // 验证平台兼容性
             }
         }
 
@@ -448,7 +459,7 @@ namespace System.Application.Services
             //}
 
             ProxyScripts.AddRange(scriptList);
-            BasicsInfo();
+            await BasicsInfoAsync();
             httpProxyService.IsEnableScript = IsEnableScript;
 
             this.WhenAnyValue(v => v.ProxyScripts)
@@ -467,7 +478,7 @@ namespace System.Application.Services
 
                           await EnableProxyScripts.ContinueWith(e =>
                           {
-                              httpProxyService.Scripts = e.Result.ToImmutableArray();
+                              httpProxyService.Scripts = e.Result?.ToImmutableArray();
                           });
                           this.RaisePropertyChanged(nameof(EnableProxyScripts));
                       }
@@ -507,7 +518,7 @@ namespace System.Application.Services
             }
         }
 
-        public async void BasicsInfo()
+        public async Task BasicsInfoAsync()
         {
             var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
             if (basicsItem == null)
@@ -599,7 +610,7 @@ namespace System.Application.Services
             }
             else
             {
-                var msg = AppResources.Script_FileError.Format(filename);// $"文件不存在:{filePath}";
+                var msg = AppResources.Script_FileError.Format(filename); // $"文件不存在:{filePath}";
                 Toast.Show(msg);
             }
         }
@@ -743,3 +754,5 @@ namespace System.Application.Services
         public int Socks5ProxyPortId => httpProxyService.Socks5ProxyPortId;
     }
 }
+#pragma warning restore SA1309 // Field names should not begin with underscore
+#pragma warning restore SA1306 // Field names should begin with lower-case letter
