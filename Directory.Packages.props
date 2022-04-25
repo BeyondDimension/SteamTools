@@ -59,6 +59,7 @@
 		<PackageVersion Include="Z.EntityFramework.Plus.EFCore" Version="6.13.17" />
 
 		<!-- AspNetCore 6 OpenId/OAuth -->
+		<PackageVersion Include="Microsoft.IdentityModel.Protocols" Version="6.17.0" />
 		<PackageVersion Include="AspNet.Security.OpenId.Steam" Version="6.0.0" />
 		<PackageVersion Include="AspNet.Security.OAuth.QQ" Version="6.0.6" />
 		<PackageVersion Include="AspNet.Security.OAuth.Apple" Version="6.0.6" />
@@ -269,14 +270,14 @@
 		<!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
 		<!--<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />-->
 		<PackageVersion Include="XAB.FlexboxLayout" Version="3.0.0.2" />
-		
+
 		<!-- V2Ray -->
 		<PackageVersion Include="XAB.AndroidLibV2rayLite" Version="1.0.0.1" />
 		<!--<PackageVersion Include="Karamunting.KotlinX.Coroutines.Core" Version="1.4.2" />-->
 		<PackageVersion Include="Xamarin.KotlinX.Coroutines.Core" Version="1.6.0.1" />
 		<PackageVersion Include="Xamarin.KotlinX.Coroutines.Android" Version="1.6.0.1" />
 		<PackageVersion Include="Xamarin.Android.ReactiveX.RxJava3.RxJava" Version="3.1.4.1" />
-		
+
 		<!-- Xamarin.AndroidX -->
 		<PackageVersion Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
 		<PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.4.1.1" />
@@ -301,7 +302,7 @@
 
 		<!-- Xamarin.iOS -->
 		<PackageVersion Include="Toast.iOS" Version="1.2.0" />
-		
+
 		<!-- UWP -->
 		<PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
 
