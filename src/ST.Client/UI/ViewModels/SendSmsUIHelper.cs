@@ -36,10 +36,8 @@ namespace System.Application.UI.ViewModels
             var validator = DI.Get<IModelValidator>();
             var isStartSendSmsTimer = validator.Validate(request_);
             if (isStartSendSmsTimer) i.StartSendSmsTimer();
-#if DEBUG
-            var response =
-#endif
-                await i.SendSms(request_, isStartSendSmsTimer);
+
+            await i.SendSms(request_, isStartSendSmsTimer);
         }
 
         static async void StartSendSmsTimer(this IViewModel i)
