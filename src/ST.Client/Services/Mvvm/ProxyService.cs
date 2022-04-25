@@ -517,28 +517,43 @@ namespace System.Application.Services
             }
         }
 
+        /// <summary>
+        /// 找不到 GM.js 下载，有多个删除全部重新下载。
+        /// </summary>
         public async Task BasicsInfoAsync()
         {
-            var basicsItem = ProxyScripts.Items.FirstOrDefault(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001"));
-            if (basicsItem == null)
+            var basicsItems = ProxyScripts.Items.Where(x => x.Id == Guid.Parse("00000000-0000-0000-0000-000000000001")).ToArray();
+            var count = basicsItems.Length;
+            if (count == 1)
+                return;
+            else if (count > 1)
             {
-                var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
-                if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
+                foreach (var item in basicsItems)
                 {
-                    var jspath = await scriptManager.DownloadScriptAsync(basicsInfo.Content.UpdateLink);
-                    if (jspath.IsSuccess)
+                    await scriptManager.DeleteScriptAsync(item);
+                    ProxyScripts.Remove(item);
+                }
+            }
+            var basicsInfo = await ICloudServiceClient.Instance.Script.Basics(AppResources.Script_UpdateError);
+            if (basicsInfo.Code == ApiResponseCode.OK && basicsInfo.Content != null)
+            {
+                var jspath = await scriptManager.DownloadScriptAsync(basicsInfo.Content.UpdateLink);
+                if (jspath.IsSuccess)
+                {
+                    var build = await scriptManager.AddScriptAsync(jspath.Content!, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
+                    if (build.IsSuccess)
                     {
-                        var build = await scriptManager.AddScriptAsync(jspath.Content!, build: false, order: 1, deleteFile: true, pid: basicsInfo.Content.Id, ignoreCache: true);
-                        if (build.IsSuccess)
+                        if (build.Content != null)
                         {
-                            if (build.Content != null)
-                            {
-                                build.Content.IsBasics = true;
-                                ProxyScripts.Insert(0, build.Content);
-                            }
+                            build.Content.IsBasics = true;
+                            ProxyScripts.Insert(0, build.Content);
                         }
                     }
+                    else
+                        Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
                 }
+                else
+                    Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
             }
         }
 

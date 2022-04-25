@@ -373,43 +373,8 @@ namespace System.Application.Services.Implementation
             return null;
         }
 
-        public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync()
-        {
-            var scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-            var basicsId = Guid.Parse("00000000-0000-0000-0000-000000000001");
-            int count = scripts.Count(x => x.Id == basicsId);
-            if (count == 0)
-            {
-                await ProxyService.Current.BasicsInfoAsync();
-                scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-            }
-            else if (count > 1)
-            {
-                var allpath = scripts.Where(x => x.Id == basicsId);
-                string? savePath = null;
-                foreach (var item in allpath)
-                {
-                    var path = new FileInfo(Path.Combine(IOPath.AppDataDirectory, item.FilePath));
-                    if (path.Exists)
-                    {
-                        if (savePath == null)
-                        {
-                            savePath = item.FilePath;
-                        }
-                        else
-                        {
-                            var state = (await scriptRepository.DeleteAsync(item.LocalId)) > 0;
-                        }
-                    }
-                    else
-                    {
-                        await DeleteScriptAsync(item);
-                    }
-                }
-                scripts = mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
-            }
-            return scripts;
-        }
+        public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync() =>
+            mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
 
         public async Task<IApiResponse<string>> DownloadScriptAsync(string url)
         {
@@ -432,7 +397,8 @@ namespace System.Application.Services.Implementation
                     {
                         if (!IOPath.FileTryDelete(fileInfo.FullName))
                         {
-                            goto returnCachePath;
+                            logger.LogError("DownloadScriptDeleteCatch Error, url:{0}, cachePath:{1}", url, cachePath);
+                            return ApiResponse.Fail<string>(AppResources.Script_CacheDeleteError.Format(cachePath));
                         }
                     }
                     using (var stream = fileInfo.CreateText())
@@ -440,7 +406,7 @@ namespace System.Application.Services.Implementation
                         stream.Write(scriptStr);
                         await stream.FlushAsync();
                     }
-                returnCachePath: return ApiResponse.Ok(cachePath);
+                    return ApiResponse.Ok(cachePath);
                 }
                 catch (Exception e)
                 {
