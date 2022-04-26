@@ -146,25 +146,25 @@
                     <ListBox.ItemTemplate>
                       <DataTemplate DataType="{x:Type models:SteamGridItem}">
                         <StackPanel Margin="0 0 0 15" Spacing="6">
+                          <StackPanel.ContextFlyout>
+                            <MenuFlyout>
+                              <MenuItem Header="{ReflectionBinding Path=Res.OpenImageInBrowser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                        Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBImageUrl}"
+                                        CommandParameter="{Binding}"/>
+                              <MenuItem Header="{ReflectionBinding Path=Res.OpenSteamGridDBInBrowser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                        Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAppUrl}"
+                                        CommandParameter="{Binding}"/>
+                              <MenuItem Header="{ReflectionBinding Path=Res.OpenTheAuthorPageInBrowser,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                        Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAuthorUrl}"
+                                        CommandParameter="{Binding}"/>
+                            </MenuFlyout>
+                          </StackPanel.ContextFlyout>
                           <Panel Width="150"
                                  MinHeight="150">
                             <gif:Image2 Width="150"
                                         DecodeWidth="150"
                                         Stretch="Uniform"
                                         Source="{Binding Thumb}" />
-                            <Panel.ContextFlyout>
-                              <MenuFlyout>
-                                <MenuItem Header="{ReflectionBinding Path=Res.OpenImageInBrowser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                          Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBImageUrl}"
-                                          CommandParameter="{Binding}"/>
-                                <MenuItem Header="{ReflectionBinding Path=Res.OpenSteamGridDBInBrowser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                          Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAppUrl}"
-                                          CommandParameter="{Binding}"/>
-                                <MenuItem Header="{ReflectionBinding Path=Res.OpenTheAuthorPageInBrowser,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                          Command="{ReflectionBinding #u.DataContext.OpenSteamGridDBAuthorUrl}"
-                                          CommandParameter="{Binding}"/>
-                              </MenuFlyout>
-                            </Panel.ContextFlyout>
                           </Panel>
                           <!--<TextBlock MaxWidth="150" 
                                    TextWrapping="Wrap" 
@@ -190,7 +190,33 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <TextBlock Text="{ReflectionBinding Path=Res.TitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                      <TextBlock Text="{ReflectionBinding Path=Res.HorizontalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                      <Button Classes="Hyperlink"
+                              FontSize="12"
+                              Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                              Tag="{x:Static models:SteamGridItemType.Header}"
+                              Click="ShowGridDialog_Click"/>
+
+                      <TextBlock Classes="prompt h8"
+                                 Text="{ReflectionBinding Path=Res.RecommendedResolution,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                      <TextBlock Classes="prompt h8"
+                                 Text="460 x 215 px"/>
+                    </StackPanel>
+
+                    <controls:CustomFilePicker Margin="50 0 0 0"
+                                               MaxHeight="260"
+                                               FileStream="{Binding App.EditHeaderLogoStream,Mode=TwoWay}"
+                                               HorizontalAlignment="Right">
+                      <gif:Image2 DecodeHeight="260"
+                                  Stretch="Uniform"
+                                  Source="{Binding App.EditHeaderLogoStream}"/>
+                    </controls:CustomFilePicker>
+                  </DockPanel>
+                </Border>
+                <Border Classes="Item">
+                  <DockPanel>
+                    <StackPanel Margin="0">
+                      <TextBlock Text="{ReflectionBinding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                       <Button Classes="Hyperlink"
                               FontSize="12"
                               Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}"
@@ -200,7 +226,7 @@
                       <TextBlock Classes="prompt h8"
                                  Text="{ReflectionBinding Path=Res.RecommendedResolution,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                       <TextBlock Classes="prompt h8"
-                                 Text="300 x 450 px"/>
+                                 Text="600 x 900 px"/>
                     </StackPanel>
 
                     <controls:CustomFilePicker Margin="50 0 0 0"
@@ -230,10 +256,10 @@
                     </StackPanel>
 
                     <controls:CustomFilePicker Margin="50 0 0 0"
-                                               MaxHeight="160"
+                                               MaxHeight="260"
                                                FileStream="{Binding App.EditLibraryHeroStream,Mode=TwoWay}"
                                                HorizontalAlignment="Right">
-                      <gif:Image2 DecodeHeight="160"
+                      <gif:Image2 DecodeHeight="260"
                                   Stretch="Uniform"
                                   Source="{Binding App.EditLibraryHeroStream}"/>
                     </controls:CustomFilePicker>

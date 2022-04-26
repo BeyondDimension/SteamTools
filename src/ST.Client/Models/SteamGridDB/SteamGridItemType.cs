@@ -9,6 +9,7 @@ namespace System.Application.Models
         Grid,
         Hero,
         Logo,
-        Icon
+        Icon,
+        Header,
     }
 }

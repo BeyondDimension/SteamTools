@@ -2644,6 +2644,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 横版封面 的本地化字符串。
+        /// </summary>
+        public static string HorizontalTitlePage {
+            get {
+                return ResourceManager.GetString("HorizontalTitlePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 写入的 Hosts 已经存在 的本地化字符串。
         /// </summary>
         public static string Hosts_Exists {
@@ -5620,15 +5629,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 封面 的本地化字符串。
-        /// </summary>
-        public static string TitlePage {
-            get {
-                return ResourceManager.GetString("TitlePage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 工具箱 的本地化字符串。
         /// </summary>
         public static string Toolbox {
@@ -6364,6 +6364,15 @@ namespace System.Application.UI.Resx {
         public static string UserProfile_Location {
             get {
                 return ResourceManager.GetString("UserProfile_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 竖版封面 的本地化字符串。
+        /// </summary>
+        public static string VerticalTitlePage {
+            get {
+                return ResourceManager.GetString("VerticalTitlePage", resourceCulture);
             }
         }
         

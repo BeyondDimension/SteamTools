@@ -639,6 +639,7 @@ namespace System.Application.Services.Implementation
 
             var fileName = type switch
             {
+                SteamApp.LibCacheType.Header => $"{appId}.png",
                 SteamApp.LibCacheType.Library_Grid => $"{appId}p.png",
                 SteamApp.LibCacheType.Library_Hero => $"{appId}_hero.png",
                 SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
@@ -714,8 +715,8 @@ namespace System.Application.Services.Implementation
                 {
                     SteamGridItemType.Hero => Path.Combine(path, $"{appId}_hero.png"),
                     SteamGridItemType.Logo => Path.Combine(path, $"{appId}_logo.png"),
-                    //SteamGridItemType.Icon => Path.Combine(path, $"{appId}.ico"),
-                    _ => Path.Combine(path, $"{appId}p.png"),
+                    SteamGridItemType.Grid => Path.Combine(path, $"{appId}p.png"),
+                    _ => Path.Combine(path, $"{appId}.png"),
                 };
                 try
                 {

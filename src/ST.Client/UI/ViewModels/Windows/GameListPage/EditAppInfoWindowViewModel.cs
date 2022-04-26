@@ -136,7 +136,17 @@ namespace System.Application.UI.ViewModels
         {
             #region 自定义图片保存
             var mostRecentUser = ISteamService.Instance.GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
+            if (!(App.EditHeaderLogoStream is FileStream fs3 && fs3.Name == await App.HeaderLogoStream))
+            {
+                if (!CheckCurrentSteamUserStats(mostRecentUser))
+                    return;
 
+                if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditHeaderLogoStream,
+                 mostRecentUser, App.AppId, SteamGridItemType.Header) == false)
+                {
+                    Toast.Show(string.Format(AppResources.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
+                }
+            }
             if (!(App.EditLibraryLogoStream is FileStream fs && fs.Name == await App.LibraryLogoStream))
             {
                 if (!CheckCurrentSteamUserStats(mostRecentUser))
@@ -238,6 +248,9 @@ namespace System.Application.UI.ViewModels
             var stream = await IHttpService.Instance.GetImageStreamAsync(SelectGrid.Url, default);
             switch (type)
             {
+                case SteamGridItemType.Header:
+                    App.EditHeaderLogoStream = stream;
+                    break;
                 case SteamGridItemType.Grid:
                     App.EditLibraryGridStream = stream;
                     break;
@@ -257,6 +270,7 @@ namespace System.Application.UI.ViewModels
                 App.EditLibraryGridStream = null;
                 App.EditLibraryHeroStream = null;
                 App.EditLibraryLogoStream = null;
+                App.EditHeaderLogoStream = null;
             }
 
             _SteamGridItemSourceList.Dispose();
@@ -272,6 +286,7 @@ namespace System.Application.UI.ViewModels
             var url = item.GridType switch
             {
                 SteamGridItemType.Grid => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Grid, item.Id),
+                SteamGridItemType.Header => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Grid, item.Id),
                 SteamGridItemType.Hero => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Hero, item.Id),
                 SteamGridItemType.Icon => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Icon, item.Id),
                 SteamGridItemType.Logo => string.Format(SteamGridDBApiUrls.SteamGridDBUrl_Logo, item.Id),

@@ -49,9 +49,23 @@ namespace System.Application.Services.Implementation
                 SteamGridItemType.Hero => string.Format(SteamGridDBApiUrls.RetrieveHeros_Url, gameId),
                 SteamGridItemType.Logo => string.Format(SteamGridDBApiUrls.RetrieveLogos_Url, gameId),
                 SteamGridItemType.Icon => string.Format(SteamGridDBApiUrls.RetrieveIcons_Url, gameId),
+                SteamGridItemType.Header => string.Format(SteamGridDBApiUrls.RetrieveGrids_Url, gameId),
                 _ => string.Format(SteamGridDBApiUrls.RetrieveGrids_Url, gameId),
             };
-            url += $"nsfw=any&humor=any";
+
+            //url += "?nsfw=any&humor=any";
+
+            url += "?types=static,animated";
+
+            if (type == SteamGridItemType.Header)
+            {
+                url += "&dimensions=460x215,920x430";
+            }
+            else if (type == SteamGridItemType.Grid)
+            {
+                url += "&dimensions=600x900";
+            }
+
             var rsp = await s.SendAsync<SteamGridItemData>
                             (url, () =>
                             {

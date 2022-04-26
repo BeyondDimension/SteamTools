@@ -2179,8 +2179,11 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GetImageFromSteamGridDB" xml:space="preserve">
     <value>从 SteamGridDB 获取</value>
   </data>
-  <data name="TitlePage" xml:space="preserve">
-    <value>封面</value>
+  <data name="HorizontalTitlePage" xml:space="preserve">
+    <value>横版封面</value>
+  </data>
+  <data name="VerticalTitlePage" xml:space="preserve">
+    <value>竖版封面</value>
   </data>
   <data name="Background" xml:space="preserve">
     <value>背景</value>

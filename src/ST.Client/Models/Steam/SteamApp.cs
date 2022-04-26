@@ -479,6 +479,16 @@ namespace System.Application.Models
 
         public string HeaderLogoUrl => string.Format(STEAMAPP_HEADIMAGE_URL, AppId);
 
+        public Task<string> HeaderLogoStream => ISteamService.Instance.GetAppImageAsync(this, LibCacheType.Header);
+
+        private Stream? _EditHeaderLogoStream;
+
+        public Stream? EditHeaderLogoStream
+        {
+            get => _EditHeaderLogoStream;
+            set => this.RaiseAndSetIfChanged(ref _EditHeaderLogoStream, value);
+        }
+
         public string CAPSULELogoUrl => string.Format(STEAMAPP_CAPSULE_URL, AppId);
 
         public string? IconUrl => string.IsNullOrEmpty(Icon) ? null :
@@ -881,6 +891,7 @@ namespace System.Application.Models
             this.EditLibraryGridStream = IOPath.OpenRead(await this.LibraryGridStream);
             this.EditLibraryHeroStream = IOPath.OpenRead(await this.LibraryHeroStream);
             this.EditLibraryLogoStream = IOPath.OpenRead(await this.LibraryLogoStream);
+            this.EditHeaderLogoStream = IOPath.OpenRead(await this.HeaderLogoStream);
         }
 
         public enum LibCacheType : byte

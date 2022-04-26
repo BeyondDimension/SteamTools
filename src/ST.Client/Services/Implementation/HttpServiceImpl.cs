@@ -17,7 +17,7 @@ using AsyncLock = Nito.AsyncEx.AsyncLock;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class HttpServiceImpl : GeneralHttpClientFactory, IHttpService
+    public sealed class HttpServiceImpl : GeneralHttpClientFactory, IHttpService
     {
         readonly JsonSerializer jsonSerializer = new();
         //readonly Lazy<ICloudServiceClient> _csc = new(() => DI.Get<ICloudServiceClient>());
