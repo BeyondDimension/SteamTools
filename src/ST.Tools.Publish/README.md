@@ -68,8 +68,7 @@
 ### 11. (云端)读取上一步上传的数据写入数据库中
 - 读取 **Publish.json** 写入数据库
 - 命令示例
-    <pre>./p wdb -v 2.0.0 -dev -dev_custom "url1;url2;url3" // 在测试环境中创建 2.0.0 版本发布数据并附加下载链接</pre>
-    <pre>./p wdb -v 2.0.0 -gitee "url1;url2;url3" // 在正式环境中创建 2.0.0 版本发布数据并附加码云下载链接</pre>
+    <pre>./p wdbw -v 2.0.0 // 在码云中发布完成后启用 Windows 版本，将从 Gitee Release 中读取更新日志与下载地址</pre>
 
 ### 12. (本地)读取 **Publish.json** 中的 SHA256 值写入 release-template.md
 - 命令示例
