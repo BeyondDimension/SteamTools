@@ -2845,10 +2845,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>從 SteamGridDB 獲取</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="TitlePage" xml:space="preserve">
-    <value>封面</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Background" xml:space="preserve">
     <value>背景</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2943,6 +2939,14 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Notice_Tray" xml:space="preserve">
     <value>當前有 {0} 條{1}通知，詳情請在程式內通知公告處查看。</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="HorizontalTitlePage" xml:space="preserve">
+    <value>橫版封面</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="VerticalTitlePage" xml:space="preserve">
+    <value>豎版封面</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>

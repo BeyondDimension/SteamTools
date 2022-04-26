@@ -2840,10 +2840,6 @@ The system will {1} after {0} seconds.</value>
     <value>Get it from SteamGridDB</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="TitlePage" xml:space="preserve">
-    <value>cover</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="Background" xml:space="preserve">
     <value>background</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2938,6 +2934,14 @@ The system will {1} after {0} seconds.</value>
   </data>
   <data name="Notice_Tray" xml:space="preserve">
     <value>There are currently {0} {1} notifications, please check the notification and announcement office in the program for details.</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="HorizontalTitlePage" xml:space="preserve">
+    <value>Horizontal cover</value>
+    <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="VerticalTitlePage" xml:space="preserve">
+    <value>Vertical cover</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
 </root>
