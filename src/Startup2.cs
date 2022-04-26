@@ -521,7 +521,9 @@ namespace System.Application
                 req.SetDeviceId();
                 // 匿名统计与通知公告
                 await csc.ActiveUser.Post(req);
+#if DEBUG
                 INotificationService.Notify(type);
+#endif
             }
             catch (Exception e)
             {
