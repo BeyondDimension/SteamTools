@@ -21,13 +21,9 @@ namespace Avalonia.Skia
     {
         private readonly SKImage _image;
 
-        /// <summary>
-        /// Create immutable bitmap from given stream.
-        /// </summary>
-        /// <param name="stream">Stream containing encoded data.</param>
-        public ImmutableBitmap(Stream stream)
+        public ImmutableBitmap(SKImage image)
         {
-            _image = SkiaSharpHelpers.FromEncodedData(stream);
+            _image = image;
 
             if (_image == null)
             {
@@ -38,6 +34,15 @@ namespace Avalonia.Skia
 
             // TODO: Skia doesn't have an API for DPI.
             Dpi = new Vector(96, 96);
+        }
+
+        /// <summary>
+        /// Create immutable bitmap from given stream.
+        /// </summary>
+        /// <param name="stream">Stream containing encoded data.</param>
+        public ImmutableBitmap(Stream stream) : this(SkiaSharpHelpers.FromEncodedData(stream))
+        {
+
         }
 
         public ImmutableBitmap(ImmutableBitmap src, PixelSize destinationSize, BitmapInterpolationMode interpolationMode)
@@ -54,9 +59,53 @@ namespace Avalonia.Skia
             Dpi = new Vector(96, 96);
         }
 
-        public ImmutableBitmap(Stream stream, int decodeSize, bool horizontal, BitmapInterpolationMode interpolationMode)
+        public ImmutableBitmap(Stream stream, int decodeSize, bool horizontal, BitmapInterpolationMode interpolationMode) : this(SkiaSharpHelpers.Create(stream), decodeSize, horizontal, interpolationMode)
         {
-            using (var codec = SkiaSharpHelpers.Create(stream))
+
+        }
+
+        public ImmutableBitmap(SKBitmap bmp, int decodeSize, bool horizontal, BitmapInterpolationMode interpolationMode)
+        {
+            var info = bmp.Info;
+
+            // now scale that to the size that we want
+            var realScale = horizontal ? ((double)info.Height / info.Width) : ((double)info.Width / info.Height);
+
+            SKImageInfo desired;
+
+            if (horizontal)
+            {
+                desired = new SKImageInfo(decodeSize, (int)(realScale * decodeSize));
+            }
+            else
+            {
+                desired = new SKImageInfo((int)(realScale * decodeSize), decodeSize);
+            }
+
+            if (bmp.Width != desired.Width || bmp.Height != desired.Height)
+            {
+                var scaledBmp = bmp.Resize(desired, interpolationMode.ToSKFilterQuality());
+                bmp.Dispose();
+                bmp = scaledBmp;
+            }
+
+            _image = SKImage.FromBitmap(bmp);
+            bmp.Dispose();
+
+            if (_image == null)
+            {
+                throw new ArgumentException("Unable to load bitmap from provided data");
+            }
+
+            PixelSize = new PixelSize(_image.Width, _image.Height);
+
+            // TODO: Skia doesn't have an API for DPI.
+            Dpi = new Vector(96, 96);
+        }
+
+        static SKBitmap Decode(SKCodec codec, int decodeSize, bool horizontal, bool leaveOpen)
+        {
+            try
             {
                 var info = codec.Info;
 
@@ -67,40 +116,18 @@ namespace Avalonia.Skia
                 var nearest = new SKImageInfo(supportedScale.Width, supportedScale.Height);
                 var bmp = SKBitmap.Decode(codec, nearest);
 
-                // now scale that to the size that we want
-                var realScale = horizontal ? ((double)info.Height / info.Width) : ((double)info.Width / info.Height);
-
-                SKImageInfo desired;
-
-                if (horizontal)
-                {
-                    desired = new SKImageInfo(decodeSize, (int)(realScale * decodeSize));
-                }
-                else
-                {
-                    desired = new SKImageInfo((int)(realScale * decodeSize), decodeSize);
-                }
-
-                if (bmp.Width != desired.Width || bmp.Height != desired.Height)
-                {
-                    var scaledBmp = bmp.Resize(desired, interpolationMode.ToSKFilterQuality());
-                    bmp.Dispose();
-                    bmp = scaledBmp;
-                }
-
-                _image = SKImage.FromBitmap(bmp);
-                bmp.Dispose();
-
-                if (_image == null)
-                {
-                    throw new ArgumentException("Unable to load bitmap from provided data");
-                }
-
-                PixelSize = new PixelSize(_image.Width, _image.Height);
-
-                // TODO: Skia doesn't have an API for DPI.
-                Dpi = new Vector(96, 96);
+                return bmp;
             }
+            finally
+            {
+                if (!leaveOpen) codec.Dispose();
+            }
+        }
+
+        public ImmutableBitmap(SKCodec codec, int decodeSize, bool horizontal, BitmapInterpolationMode interpolationMode, bool leaveOpen = false)
+            : this(Decode(codec, decodeSize, horizontal, leaveOpen), decodeSize, horizontal, interpolationMode)
+        {
+
         }
 
         /// <summary>

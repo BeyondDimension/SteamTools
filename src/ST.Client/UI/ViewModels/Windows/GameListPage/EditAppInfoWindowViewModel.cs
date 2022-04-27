@@ -52,13 +52,7 @@ namespace System.Application.UI.ViewModels
 
         public EditAppInfoWindowViewModel(SteamApp app)
         {
-            if (app == null)
-            {
-                this.Close();
-                return;
-            }
-
-            App = app;
+            _App = app;
             Title = App.DisplayName;
 
             App.RefreshEditImage();

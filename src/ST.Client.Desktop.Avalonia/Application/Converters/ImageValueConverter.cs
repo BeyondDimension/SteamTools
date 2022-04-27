@@ -3,23 +3,26 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Avalonia.Skia;
 using SkiaSharp;
 using System.Application.Models;
 using System.Application.Services;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using BitmapInterpolationMode = Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode;
 
 namespace System.Application.Converters
 {
     public abstract class ImageValueConverter : IValueConverter
     {
-        public abstract object? Convert(object value, Type targetType, object parameter, CultureInfo culture);
+        public abstract object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture);
 
-        public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public virtual object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return BindingOperations.DoNothing;
         }
@@ -47,15 +50,47 @@ namespace System.Application.Converters
             }
         }
 
-        protected static Bitmap? GetBitmap(ImageSouce.ClipStream clipStream, int width = 0)
+        /// <summary>
+        /// 将 图片源(流) 转换为 <see cref="SKBitmap"/>(Skia)
+        /// </summary>
+        /// <param name="clipStream"></param>
+        /// <param name="bitmap"></param>
+        /// <returns></returns>
+        static bool TryGetBitmap([NotNullWhen(true)] ImageSouce.ClipStream? clipStream, [NotNullWhen(true)] out SKBitmap? bitmap)
         {
-            if (clipStream.Stream == null)
-                return null;
-            TryReset(clipStream.Stream);
-            using var ms = new MemoryStream();
-            clipStream.Stream.CopyTo(ms);
-            TryReset(ms);
-            using var bitmapSource = SKBitmap.Decode(ms);
+            if (clipStream?.Stream == null)
+            {
+                bitmap = null;
+                return false;
+            }
+
+            var filename = clipStream.Name;
+            if (filename != null)
+            {
+                bitmap = SKBitmap.Decode(filename);
+            }
+            else
+            {
+                TryReset(clipStream.Stream);
+                using var ms = new MemoryStream();
+                clipStream.Stream.CopyTo(ms);
+                TryReset(ms);
+                bitmap = SKBitmap.Decode(ms);
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 将 图片源(流) 根据预设参数处理并转换为 <see cref="Bitmap"/>(Avalonia)
+        /// </summary>
+        /// <param name="clipStream"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        protected static Bitmap? GetBitmap(ImageSouce.ClipStream? clipStream, int width = 0)
+        {
+            if (!TryGetBitmap(clipStream, out var bitmap)) return null;
+
+            using var bitmapSource = bitmap;
             using var bitmapDest = new SKBitmap(bitmapSource.Width, bitmapSource.Height, SKColorType.Bgra8888, SKAlphaType.Unpremul);
 
             using var canvas = new SKCanvas(bitmapDest);
@@ -70,20 +105,57 @@ namespace System.Application.Converters
 
             canvas.DrawBitmap(bitmapSource, 0, 0);
 
-            var stream = bitmapDest.Encode(SKEncodedImageFormat.Png, 100).AsStream();
-            TryReset(stream);
+            #region Obsolete
 
-            //var tempFilePath = Path.Combine(IOPath.CacheDirectory, Path.GetFileName(Path.GetTempFileName() + ".png"));
-            //using (var fs = File.Create(tempFilePath))
-            //{
-            //    stream.CopyTo(fs);
-            //    TryReset(stream);
-            //}
+            //var stream = bitmapDest.Encode(SKEncodedImageFormat.Png, 100).AsStream();
+            //TryReset(stream);
 
-            return GetDecodeBitmap(stream, width);
+            ////var tempFilePath = Path.Combine(IOPath.CacheDirectory, Path.GetFileName(Path.GetTempFileName() + ".png"));
+            ////using (var fs = File.Create(tempFilePath))
+            ////{
+            ////    stream.CopyTo(fs);
+            ////    TryReset(stream);
+            ////}
+
+            //return GetDecodeBitmap(stream, width);
+
+            #endregion
+
+            #region New Code
+
+            return GetDecodeBitmap(bitmapDest, width);
+
+            #endregion
         }
 
-        protected static Bitmap? GetDecodeBitmap(Stream s, int width)
+        /// <summary>
+        /// 将 <see cref="SKBitmap"/>(Skia) 转换为 <see cref="Bitmap"/>(Avalonia)
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        [return: NotNullIfNotNull("s")]
+        protected static Bitmap? GetDecodeBitmap(SKBitmap? s, int width)
+        {
+            if (s == null)
+            {
+                return null;
+            }
+            if (width < 1)
+            {
+                return SkiaSharpHelpers.GetBitmap(s);
+            }
+            return SkiaSharpHelpers.DecodeToWidth(s, width, BitmapInterpolationMode.MediumQuality);
+        }
+
+        /// <summary>
+        /// 将 <see cref="Stream"/> 转换为 <see cref="Bitmap"/>(Avalonia)
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        [return: NotNullIfNotNull("s")]
+        protected static Bitmap? GetDecodeBitmap(Stream? s, int width)
         {
             if (s == null)
             {
@@ -93,24 +165,50 @@ namespace System.Application.Converters
             {
                 return new Bitmap(s);
             }
-            return Bitmap.DecodeToWidth(s, width, Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode.MediumQuality);
+            return Bitmap.DecodeToWidth(s, width, BitmapInterpolationMode.MediumQuality);
         }
 
-        protected static Bitmap? GetDecodeBitmap(string s, int width)
+        /// <summary>
+        /// 将 <see cref="string"/>(filePath) 转换为 <see cref="Bitmap"/>(Avalonia)
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        [return: NotNullIfNotNull("s")]
+        protected static Bitmap? GetDecodeBitmap(string? s, int width)
         {
-            if (IOPath.TryOpenRead(s, out var stream, out var ex))
-                return GetDecodeBitmap(stream, width);
-            else
+            #region Obsolete
+
+            //if (IOPath.TryOpenRead(s, out var stream, out var _))
+            //    return GetDecodeBitmap(stream, width);
+            //else
+            //    return null;
+
+            #endregion
+
+            #region New Code
+
+            if (s == null)
+            {
                 return null;
+            }
+            if (width < 1)
+            {
+                var image = SKImage.FromEncodedData(s);
+                return SkiaSharpHelpers.GetBitmap(image);
+            }
+            var bitmap = SKBitmap.Decode(s);
+            return SkiaSharpHelpers.DecodeToWidth(bitmap, width, BitmapInterpolationMode.MediumQuality);
+
+            #endregion
         }
 
         protected static Stream? OpenAssets(Uri uri)
         {
             var assets = AvaloniaLocator.Current.GetService<IAssetLoader>();
-            Stream? stream = null;
-            if (assets.Exists(uri))
-                stream = assets.Open(uri);
-            return stream;
+            if (assets == null) return null;
+            if (assets.Exists(uri)) return assets.Open(uri);
+            return null;
         }
 
         protected static Uri GetResUri(string relativeUri, string? assemblyName = null)

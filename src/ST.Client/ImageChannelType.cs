@@ -45,6 +45,7 @@ namespace System.Application
         /// 验证码图片
         /// </summary>
         CodeImage,
+
         /// <summary>
         /// 通知公告封面图
         /// </summary>

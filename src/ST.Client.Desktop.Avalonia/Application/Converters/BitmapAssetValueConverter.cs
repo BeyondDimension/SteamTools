@@ -28,8 +28,8 @@ namespace System.Application.Converters
                 {
                     return GetDecodeBitmap(rawUri, width);
                 }
-                //在列表中使用此方法性能极差
-                else if (rawUri.StartsWith("http://") || rawUri.StartsWith("https://"))
+                // 在列表中使用此方法性能极差
+                else if (Browser2.IsHttpUrl(rawUri))
                 {
                     return DownloadImage(rawUri, width);
                 }
@@ -55,7 +55,7 @@ namespace System.Application.Converters
             }
             else if (value is Guid imageid)
             {
-                if (Guid.Empty == imageid)
+                if (imageid == default)
                 {
                     return null;
                 }

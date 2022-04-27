@@ -1,23 +1,44 @@
-using System.Application.UI;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Text;
 
 namespace System.Application
 {
     public static class ImageSouce
     {
-        public sealed class ClipStream : IDisposable
+        public sealed class ClipStream : IDisposable, IFileStreamWrapper
         {
             bool disposedValue;
+            Stream? stream;
 
             ClipStream(Stream stream)
             {
-                Stream = stream;
+                OriginStream = this.stream = stream;
             }
 
-            public Stream Stream { get; }
+            public Stream? Stream
+            {
+                get
+                {
+                    if (stream is IFileStreamWrapper wrapper)
+                    {
+                        stream = wrapper.FileStream;
+                    }
+                    return stream;
+                }
+            }
+
+            public Stream OriginStream { get; }
+
+            /// <inheritdoc cref="FileStream.Name"/>
+            public string? Name
+            {
+                get
+                {
+                    if (OriginStream is IFileStreamWrapper wrapper) return wrapper.Name;
+                    else if (OriginStream is FileStream file) return file.Name;
+                    return null;
+                }
+            }
 
             public float Top { get; set; }
 
@@ -67,7 +88,8 @@ namespace System.Application
                     if (disposing)
                     {
                         // TODO: 释放托管状态(托管对象)
-                        Stream.Dispose();
+                        stream?.Dispose();
+                        OriginStream.Dispose();
                     }
 
                     // TODO: 释放未托管的资源(未托管的对象)并重写终结器
@@ -88,16 +110,9 @@ namespace System.Application
 
             public static implicit operator ClipStream?(string? filePath)
             {
-                if (filePath == null) return null;
-                try
-                {
-                    ClipStream? clipStream = IOPath.OpenRead(filePath);
-                    return clipStream;
-                }
-                catch
-                {
-                    return null;
-                }
+                FileStreamWrapper? wrapper = filePath;
+                ClipStream? clipStream = wrapper;
+                return clipStream;
             }
         }
 

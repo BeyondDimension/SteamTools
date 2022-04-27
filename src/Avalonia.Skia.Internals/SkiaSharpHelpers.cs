@@ -2,12 +2,15 @@ extern alias AvaloniaSkia;
 
 using System.IO;
 using SkiaSharp;
+using Avalonia.Media.Imaging;
+using Avalonia.Utilities;
+using Avalonia.Visuals.Media.Imaging;
 
 namespace Avalonia.Skia
 {
     public static class SkiaSharpHelpers
     {
-        public static SKCodec Create(this Stream stream)
+        public static SKCodec Create(Stream stream)
         {
             if (stream is IFileStreamWrapper fileStreamWrapper)
             {
@@ -16,7 +19,6 @@ namespace Avalonia.Skia
             else if (stream is FileStream fileStream)
             {
                 var filename = fileStream.Name;
-                fileStream.Dispose();
                 return SKCodec.Create(filename);
             }
             else
@@ -26,7 +28,7 @@ namespace Avalonia.Skia
             }
         }
 
-        public static SKImage FromEncodedData(this Stream stream)
+        public static SKImage FromEncodedData(Stream stream)
         {
             if (stream is IFileStreamWrapper fileStreamWrapper)
             {
@@ -35,7 +37,6 @@ namespace Avalonia.Skia
             else if (stream is FileStream fileStream)
             {
                 var filename = fileStream.Name;
-                fileStream.Dispose();
                 return SKImage.FromEncodedData(filename);
             }
             else
@@ -45,5 +46,17 @@ namespace Avalonia.Skia
                 return SKImage.FromEncodedData(data);
             }
         }
+
+        static Bitmap GetBitmap(this ImmutableBitmap bitmap) => new(RefCountable.Create(bitmap));
+
+        public static Bitmap GetBitmap(SKImage image) => new ImmutableBitmap(image).GetBitmap();
+
+        public static Bitmap GetBitmap(SKBitmap bitmap)
+        {
+            var image = SKImage.FromBitmap(bitmap);
+            return GetBitmap(image);
+        }
+
+        public static Bitmap DecodeToWidth(SKBitmap bitmap, int width, BitmapInterpolationMode interpolationMode = BitmapInterpolationMode.HighQuality) => new ImmutableBitmap(bitmap, width, true, interpolationMode).GetBitmap();
     }
 }

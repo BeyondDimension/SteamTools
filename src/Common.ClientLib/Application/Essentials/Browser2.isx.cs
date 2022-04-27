@@ -10,7 +10,7 @@ namespace System.Application
         public const string Prefix_HTTP = "http://";
 
         public const string Prefix_MSStore = "ms-windows-store://";
-        
+
         public const string Prefix_Email = "mailto:";
 
         /// <summary>

@@ -263,6 +263,7 @@ namespace System.Application.UI.ViewModels
 
         public static void EditAppInfoClick(SteamApp app)
         {
+            if (app == null) return;
             IWindowManager.Instance.Show(CustomWindow.EditAppInfo, new EditAppInfoWindowViewModel(app), string.Empty, ResizeMode.CanResize);
         }
 
