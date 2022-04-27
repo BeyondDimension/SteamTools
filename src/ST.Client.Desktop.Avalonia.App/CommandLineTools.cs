@@ -165,7 +165,7 @@ namespace System.Application.UI
                             ISteamService.Instance.UpdateLocalUserData(users);
                             ISteamService.Instance.SetCurrentUser(account);
                         }
-                        
+
                         ISteamService.Instance.TryKillSteamProcess();
                         ISteamService.Instance.StartSteam();
                     }

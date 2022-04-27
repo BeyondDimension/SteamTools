@@ -1,4 +1,6 @@
 ### 版本亮点
+
+<!--
 1. Android 支持 VPN 模式(推荐) 进行本地加速
 2. 新增 Steam 游戏信息编辑功能，可修改游戏名称、图片、启动项等数据并同步至 Steam 客户端生效
 3. ASF 升级至 V5.2.5.4
@@ -8,11 +10,13 @@
 7. 网络加速新增 MEGA 网盘反代服务
 8. macOS 支持 Arm64(Apple Silicon)
 
-<!--
 . ~~Windows 支持 DNS 驱动拦截模式(推荐) 进行本地加速~~
 -->
 
 ### 修复问题
+1. 修复 库存游戏中挂时长失效
+
+<!--
 1. 修复 本地令牌 无令牌刷新时提示密码错误
 2. 改进 Android 端 本地令牌 列表样式第一条与最后一条的上下外边距
 3. 改进 俄语翻译，由 vanja-san 提供
@@ -29,6 +33,7 @@
 14. 修复 消息框不再提醒复选框勾上可能不生效的问题
 15. 修复 Windows 端, JumpList 切换 Steam Beta 账号失效的问题
 16. 修复 ASF，当使用 IPC.config 时，程序内打开网页端口号值不正确
+-->
 
 ### 已知问题
 - 除 Windows 之外的平台此软件自动更新尚不可用
@@ -61,7 +66,7 @@
 
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.7.0](https://img.shields.io/badge/Steam++-v2.7.0-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.7.1](https://img.shields.io/badge/Steam++-v2.7.1-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -70,22 +75,22 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.7.0.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.7.0.7z  | SHA256 |
+| Steam++_win_x64_v2.7.1.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.7.1.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.7.0.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.7.0.exe  | SHA256 |
+| Steam++_win_x64_v2.7.1.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.7.1.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.0.7z  | SHA256 |
-| Steam++_linux_arm64_v2.7.0.7z  | SHA256 |
+| Steam++_linux_x64_v2.7.1.7z  | SHA256 |
+| Steam++_linux_arm64_v2.7.1.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.0.deb  | SHA256 |
-| Steam++_linux_arm64_v2.7.0.deb  | SHA256 |
+| Steam++_linux_x64_v2.7.1.deb  | SHA256 |
+| Steam++_linux_arm64_v2.7.1.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.0.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.7.0.rpm  | SHA256 |
+| Steam++_linux_x64_v2.7.1.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.7.1.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.7.0.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.7.0.dmg  | SHA256 |
+| Steam++_macos_x64_v2.7.1.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.7.1.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.7.0.apk  | SHA256 |
+| Steam++_android_v2.7.1.apk  | SHA256 |

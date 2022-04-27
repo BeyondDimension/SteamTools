@@ -88,7 +88,7 @@ namespace System.Application.Services
 
         bool UpdateAppListJson(string appsJsonStr, string filePath);
 
-        void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false);
+        void DeleteLocalUserData(SteamUser user, bool isDeleteUserData = false);
 
         void UpdateLocalUserData(IEnumerable<SteamUser> users);
 
@@ -98,7 +98,7 @@ namespace System.Application.Services
         /// 从steam本地客户端缓存文件中读取游戏数据
         /// </summary>
         Task<List<SteamApp>> GetAppInfos(bool isSaveProperties = false);
-        
+
         List<ModifiedApp>? GetModifiedApps();
 
         /// <summary>
