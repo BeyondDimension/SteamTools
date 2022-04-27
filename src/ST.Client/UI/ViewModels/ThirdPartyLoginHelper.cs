@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.UI.ViewModels.ThirdPartyLoginHelper;
 using _ThisAssembly = System.Properties.ThisAssembly;
+using BrowserLaunchMode = Xamarin.Essentials.BrowserLaunchMode;
 
 namespace System.Application.UI.ViewModels
 {
@@ -251,7 +252,7 @@ namespace System.Application.UI.ViewModels
             //var version = csc.Settings.AppVersionStr;
             var ver = _ThisAssembly.Version.Base64UrlEncode();
             var url = $"{apiBaseUrl}/ExternalLoginDetection/{(int)channel}?port={port}&sKey={skey_str}&sKeyPadding={padding.OaepHashAlgorithm}&ver={ver}&isBind={isBind}&access_token_expires={access_token_expires}&access_token={access_token}";
-            await Browser2.OpenAsync(url);
+            await Browser2.OpenAsync(url, BrowserLaunchMode.External);
         }
 
         /// <summary>

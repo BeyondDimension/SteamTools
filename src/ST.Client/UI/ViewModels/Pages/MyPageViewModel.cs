@@ -71,7 +71,7 @@ namespace System.Application.UI.ViewModels
                     //}
 
                     var signOutItem = signOutItems.FirstOrDefault() ?? GetSignOutItem(this);
-                    preferenceButtons.Add(signOutItem);
+                    if (!preferenceButtons.Contains(signOutItem)) preferenceButtons.Add(signOutItem);
                 }
             }).AddTo(this);
 

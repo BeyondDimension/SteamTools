@@ -138,8 +138,9 @@ namespace System.Application.UI.Fragments
 
         async void OnCreateViewAsync()
         {
-            var value = await ITelephonyService.GetAutoFillPhoneNumberAsync(binding!.tbPhoneNumber.Text);
-            if (value != IUserManager.Instance.GetCurrentUser()?.PhoneNumber)
+            var value = await ITelephonyService.GetAutoFillPhoneNumberAsync(null);
+            var currentValue = IUserManager.Instance.GetCurrentUser()?.PhoneNumber;
+            if (value != currentValue)
             {
                 binding!.tbNewPhoneNumber.Text = value;
             }

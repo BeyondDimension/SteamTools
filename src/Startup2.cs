@@ -434,7 +434,10 @@ namespace System.Application
                         //#endif
                         var value =
                             (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
-                            Prefix_HTTPS + "pan.mossimo.net:8862" :
+                            Prefix_HTTPS +
+                            "pan.mossimo.net:8862"
+                            /*"localhost:5001"*/
+                            :
                             Prefix_HTTPS + "api.steampp.net";
                         s.ApiBaseUrl = value;
                     }
