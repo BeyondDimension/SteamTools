@@ -163,7 +163,7 @@ namespace System.Application.UI.ViewModels
                         }
                     });
 
-                    if (IApplication.IsDesktopPlatform)
+                    if (IApplication.IsDesktopPlatform && OperatingSystem2.IsWindows)
                     {
                         SteamConnectService.Current.Initialize();
                     }

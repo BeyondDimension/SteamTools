@@ -439,7 +439,7 @@ namespace System.Application.Services
             if (IsLoadingGameList == false)
             {
                 IsLoadingGameList = true;
-                if (stmService.IsRunningSteamProcess)
+                if (stmService.IsRunningSteamProcess && OperatingSystem2.IsWindows)
                 {
                     await Task.Factory.StartNew(async () =>
                      {
