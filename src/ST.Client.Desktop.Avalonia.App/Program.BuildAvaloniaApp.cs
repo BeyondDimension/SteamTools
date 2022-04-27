@@ -1,6 +1,6 @@
 using Avalonia;
+using Avalonia.Skia;
 using Avalonia.ReactiveUI;
-using Avalonia.Rendering;
 using System.Application.Settings;
 using System.Reflection;
 
@@ -48,16 +48,21 @@ namespace System.Application.UI
             };
             builder.With(options);
 
-            builder.With(new SkiaOptions
+            var skiaOptions = new SkiaOptions
             {
                 MaxGpuResourceSizeBytes = 1024000000,
-            });
+            };
+
+            builder.With(skiaOptions);
 #else
             throw new PlatformNotSupportedException();
 #endif
             RenderingSubsystemName = builder.RenderingSubsystemName;
 
             //AvaloniaLocator.CurrentMutable.Bind<IRenderTimer>().ToConstant(new DefaultRenderTimer(60));
+
+            SkiaPlatform2.Initialize(skiaOptions);
+
             return builder;
         }
 
