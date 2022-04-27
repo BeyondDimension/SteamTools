@@ -182,11 +182,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Android.ResSecret
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.ResSecrets", "src\ST.Client.ResSecrets\ST.Client.ResSecrets.csproj", "{089D4418-975B-455D-9AE1-B9DEC20FF4B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.iOS.ResSecrets", "src\ST.Client.iOS.ResSecrets\ST.Client.iOS.ResSecrets.csproj", "{872B65EB-E9DF-4357-B541-DD4A39B281A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.iOS.ResSecrets", "src\ST.Client.iOS.ResSecrets\ST.Client.iOS.ResSecrets.csproj", "{872B65EB-E9DF-4357-B541-DD4A39B281A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.Mac.ResSecrets", "src\ST.Client.Mac.ResSecrets\ST.Client.Mac.ResSecrets.csproj", "{3950554F-7219-4AB9-9BE8-9B5EBDBCA88C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Mac.ResSecrets", "src\ST.Client.Mac.ResSecrets\ST.Client.Mac.ResSecrets.csproj", "{3950554F-7219-4AB9-9BE8-9B5EBDBCA88C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.Windows.ResSecrets", "src\ST.Client.Windows.ResSecrets\ST.Client.Windows.ResSecrets.csproj", "{058F9955-8EFE-4BF3-A8F9-44C57B1F812E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Windows.ResSecrets", "src\ST.Client.Windows.ResSecrets\ST.Client.Windows.ResSecrets.csproj", "{058F9955-8EFE-4BF3-A8F9-44C57B1F812E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Desktop", "src\Avalonia.Desktop\Avalonia.Desktop.csproj", "{FA9F0E89-E410-400A-86F3-C603E51E62A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2068,6 +2070,34 @@ Global
 		{058F9955-8EFE-4BF3-A8F9-44C57B1F812E}.Release|x64.Build.0 = Release|Any CPU
 		{058F9955-8EFE-4BF3-A8F9-44C57B1F812E}.Release|x86.ActiveCfg = Release|Any CPU
 		{058F9955-8EFE-4BF3-A8F9-44C57B1F812E}.Release|x86.Build.0 = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|x64.Build.0 = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|ARM.Build.0 = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|ARM64.Build.0 = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|iPhone.Build.0 = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|x64.ActiveCfg = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|x64.Build.0 = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2141,9 +2171,10 @@ Global
 		{872B65EB-E9DF-4357-B541-DD4A39B281A0} = {17667B53-1A09-45A6-855A-0F07F9AE044F}
 		{3950554F-7219-4AB9-9BE8-9B5EBDBCA88C} = {17667B53-1A09-45A6-855A-0F07F9AE044F}
 		{058F9955-8EFE-4BF3-A8F9-44C57B1F812E} = {17667B53-1A09-45A6-855A-0F07F9AE044F}
+		{FA9F0E89-E410-400A-86F3-C603E51E62A8} = {910D6A0F-42AB-4B65-B532-852E864EC006}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = zh-Hans
 		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal

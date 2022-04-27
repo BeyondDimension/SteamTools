@@ -91,6 +91,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\references\AvaloniaGif\AvaloniaGif\AvaloniaGif.csproj" />
     <ProjectReference Include="..\..\references\FluentAvalonia\FluentAvalonia\FluentAvalonia.csproj" />
+    <ProjectReference Include="..\Avalonia.Desktop\Avalonia.Desktop.csproj" />
     <ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />

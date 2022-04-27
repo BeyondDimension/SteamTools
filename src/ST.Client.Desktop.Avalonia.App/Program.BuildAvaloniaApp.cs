@@ -61,8 +61,6 @@ namespace System.Application.UI
 
             //AvaloniaLocator.CurrentMutable.Bind<IRenderTimer>().ToConstant(new DefaultRenderTimer(60));
 
-            SkiaPlatform2.Initialize(skiaOptions);
-
             return builder;
         }
 

@@ -27,21 +27,17 @@ namespace Avalonia.Skia
         /// <param name="stream">Stream containing encoded data.</param>
         public ImmutableBitmap(Stream stream)
         {
-            using (var skiaStream = new SKManagedStream(stream))
+            _image = SkiaSharpHelpers.FromEncodedData(stream);
+
+            if (_image == null)
             {
-                using (var data = SKData.Create(skiaStream))
-                    _image = SKImage.FromEncodedData(data);
-
-                if (_image == null)
-                {
-                    throw new ArgumentException("Unable to load bitmap from provided data");
-                }
-
-                PixelSize = new PixelSize(_image.Width, _image.Height);
-
-                // TODO: Skia doesn't have an API for DPI.
-                Dpi = new Vector(96, 96);
+                throw new ArgumentException("Unable to load bitmap from provided data");
             }
+
+            PixelSize = new PixelSize(_image.Width, _image.Height);
+
+            // TODO: Skia doesn't have an API for DPI.
+            Dpi = new Vector(96, 96);
         }
 
         public ImmutableBitmap(ImmutableBitmap src, PixelSize destinationSize, BitmapInterpolationMode interpolationMode)
@@ -58,24 +54,9 @@ namespace Avalonia.Skia
             Dpi = new Vector(96, 96);
         }
 
-        static SKCodec Create(Stream stream)
-        {
-            if (stream is FileStream fileStream)
-            {
-                var filename = fileStream.Name;
-                fileStream.Dispose();
-                return SKCodec.Create(filename);
-            }
-            else
-            {
-                using var skStream = new SKManagedStream(stream);
-                return SKCodec.Create(skStream);
-            }
-        }
-
         public ImmutableBitmap(Stream stream, int decodeSize, bool horizontal, BitmapInterpolationMode interpolationMode)
         {
-            using (var codec = Create(stream))
+            using (var codec = SkiaSharpHelpers.Create(stream))
             {
                 var info = codec.Info;
 
@@ -90,7 +71,6 @@ namespace Avalonia.Skia
                 var realScale = horizontal ? ((double)info.Height / info.Width) : ((double)info.Width / info.Height);
 
                 SKImageInfo desired;
-
 
                 if (horizontal)
                 {

@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Platform;
+using Avalonia.Skia;
 using FluentAvalonia.Styling;
 using System.Application.Models;
 using System.Application.Mvvm;
@@ -294,11 +295,11 @@ namespace System.Application.UI
 #if WINDOWS
             if (!ViewModelBase.IsInDesignMode && OperatingSystem2.IsWindows10AtLeast)
             {
-#pragma warning disable CA1416 // 验证平台兼容性
                 AvaloniaLocator.CurrentMutable.Bind<IWindowingPlatform>().ToConstant(new AvaloniaWin32WindowingPlatformImpl());
-#pragma warning restore CA1416 // 验证平台兼容性
             }
 #endif
+
+            AvaloniaLocator.CurrentMutable.Bind<IPlatformRenderInterface>().ToConstant(SkiaPlatform2.PlatformRenderInterface);
 
             base.RegisterServices();
         }
