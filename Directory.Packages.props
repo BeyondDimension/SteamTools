@@ -196,7 +196,7 @@
     <!--<PackageVersion Include="AlipaySDKNet.Standard" Version="4.6.109" />-->
 
     <!-- Excel -->
-    <PackageVersion Include="NPOI" Version="2.5.5" />
+    <PackageVersion Include="NPOI" Version="2.5.6" />
 
     <!-- Github API -->
     <PackageVersion Include="Octokit" Version="0.50.0" />
