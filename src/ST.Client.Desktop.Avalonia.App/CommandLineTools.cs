@@ -155,19 +155,21 @@ namespace System.Application.UI
                     {
                         Startup.Init(DILevel.Steam);
 
-                        var users = ISteamService.Instance.GetRememberUserList();
+                        var steamService = ISteamService.Instance;
+
+                        var users = steamService.GetRememberUserList();
 
                         var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
 
                         if (currentuser != null)
                         {
                             currentuser.MostRecent = true;
-                            ISteamService.Instance.UpdateLocalUserData(users);
-                            ISteamService.Instance.SetCurrentUser(account);
+                            steamService.UpdateLocalUserData(users);
+                            steamService.SetCurrentUser(account);
                         }
 
-                        ISteamService.Instance.TryKillSteamProcess();
-                        ISteamService.Instance.StartSteam();
+                        steamService.TryKillSteamProcess();
+                        steamService.StartSteam();
                     }
                 });
                 rootCommand.AddCommand(steamuser);
