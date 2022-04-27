@@ -151,22 +151,38 @@ namespace System.Application.UI.ViewModels
             }
         }
 
+        static IDisposable? serverDisposable;
+
+        /// <summary>
+        /// 释放 WebSocket Server 占用资源
+        /// </summary>
+        public static void DisposeServer()
+        {
+            serverDisposable?.Dispose();
+            serverDisposable = null;
+        }
+
         static void StartServer(IApplication app)
         {
             if (ws != null) return;
             var ip = IPAddress.Loopback;
             port = SocketHelper.GetRandomUnusedPort(ip);
             ws = new($"ws://{ip}:{port}");
+
+            serverDisposable?.Dispose();
+            serverDisposable = Disposable.Create(() =>
+            {
+                ws?.Dispose();
+                ws = null;
+                tempAes?.Dispose();
+                tempAes = null;
+            });
+
             if (app is IDisposableHolder dh)
             {
-                Disposable.Create(() =>
-                {
-                    ws?.Dispose();
-                    ws = null;
-                    tempAes?.Dispose();
-                    tempAes = null;
-                }).AddTo(dh);
+                serverDisposable.AddTo(dh);
             }
+
             ws.Start(socket =>
             {
                 socket.OnMessage = async message => await OnMessage(message, socket);

@@ -93,5 +93,12 @@ namespace System.Application.UI.Activities
                 binding!.pager.SetCurrentItem((int)position, false);
             }
         }
+
+        protected override void OnDestroy()
+        {
+            ThirdPartyLoginHelper.DisposeServer();
+
+            base.OnDestroy();
+        }
     }
 }

@@ -83,5 +83,12 @@ namespace System.Application.UI.Activities
             }), length, str.Length, SpanTypes.ExclusiveExclusive));
             return str;
         });
+
+        protected override void OnDestroy()
+        {
+            ThirdPartyLoginHelper.DisposeServer();
+
+            base.OnDestroy();
+        }
     }
 }

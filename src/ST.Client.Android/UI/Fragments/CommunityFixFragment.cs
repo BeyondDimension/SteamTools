@@ -17,13 +17,13 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using static System.Application.UI.ViewModels.CommunityProxyPageViewModel;
 using System.Application.Services.Implementation;
 using Android.Net;
-using static AndroidX.Activity.Result.ActivityResultTask;
 using Android.Content;
 using System.Application.UI.Activities;
 using Android.App;
+using static AndroidX.Activity.Result.ActivityResultTask;
+using static System.Application.UI.ViewModels.CommunityProxyPageViewModel;
 
 namespace System.Application.UI.Fragments
 {
@@ -179,7 +179,7 @@ namespace System.Application.UI.Fragments
                         "因 Android 7(Nougat API 24) 之后的版本不在信任用户证书，所以此功能已放弃继续开发，" +
                         "如仍想使用需要自行导入证书到系统目录，使用 adb 工具或 Magisk 之类的软件操作，" +
                         "未来会使用不需要证书的加速功能替换此功能";
-                    MessageBox.Show(textCertificateTrustTip, "已知问题",
+                    await MessageBox.ShowAsync(textCertificateTrustTip, "已知问题",
                         rememberChooseKey: MessageBox.DontPromptType.AndroidCertificateTrustTip);
                 }
 
