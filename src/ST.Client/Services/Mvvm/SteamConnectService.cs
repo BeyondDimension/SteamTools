@@ -20,15 +20,14 @@ namespace System.Application.Services
 {
     public sealed class SteamConnectService : ReactiveObject, IDisposable
     {
+        public const int SteamAFKMaxCount = 32;
+
         public static SteamConnectService Current { get; } = new();
 
-        readonly ISteamworksLocalApiService ApiService = ISteamworksLocalApiService.Instance;
-        //readonly ISteamworksWebApiService SteamworksWebApiService = ISteamworksWebApiService.Instance;
-        //readonly ISteamDbWebApiService steamDbApiService = ISteamDbWebApiService.Instance;
+        readonly ISteamworksLocalApiService swLocalService = ISteamworksLocalApiService.Instance;
+        readonly ISteamService stmService = ISteamService.Instance;
         readonly IHttpService httpService = IHttpService.Instance;
-        readonly ISteamworksWebApiService webApiService = ISteamworksWebApiService.Instance;
-        readonly ISteamService SteamTool = ISteamService.Instance;
-        public const int SteamAFKMaxCount = 32;
+        readonly ISteamworksWebApiService swWebService = ISteamworksWebApiService.Instance;
 
         private SteamConnectService()
         {
@@ -69,7 +68,7 @@ namespace System.Application.Services
                         InitializeDownloadGameList();
                         if (OperatingSystem2.IsLinux)
                             IPlatformService.Instance.TryGetSystemUserPassword();
-                        SteamTool.StartWatchSteamDownloading(app =>
+                        stmService.StartWatchSteamDownloading(app =>
                         {
                             var optional = DownloadApps.Lookup(app.AppId);
                             if (!optional.HasValue)
@@ -112,7 +111,7 @@ namespace System.Application.Services
                     }
                     else
                     {
-                        SteamTool.StopWatchSteamDownloading();
+                        stmService.StopWatchSteamDownloading();
                     }
                 });
         }
@@ -246,8 +245,8 @@ namespace System.Application.Services
 
         public void Initialize()
         {
-            if (!SteamTool.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
-                SteamTool.StartSteam(SteamSettings.SteamStratParameter.Value);
+            if (!stmService.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
+                stmService.StartSteam(SteamSettings.SteamStratParameter.Value);
 
             Task.Factory.StartNew(async () =>
             {
@@ -256,14 +255,14 @@ namespace System.Application.Services
                 {
                     try
                     {
-                        if (SteamTool.IsRunningSteamProcess)
+                        if (stmService.IsRunningSteamProcess)
                         {
                             if (!IsConnectToSteam && IsDisposedClient)
                             {
-                                if (ApiService.Initialize())
+                                if (swLocalService.Initialize())
                                 {
                                     IsDisposedClient = false;
-                                    var id = ApiService.GetSteamId64();
+                                    var id = swLocalService.GetSteamId64();
                                     if (id == SteamUser.UndefinedId)
                                     {
                                         //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取
@@ -271,12 +270,14 @@ namespace System.Application.Services
                                         continue;
                                     }
                                     IsConnectToSteam = true;
-                                    CurrentSteamUser = await DI.Get<ISteamworksWebApiService>().GetUserInfo(id);
-                                    CurrentSteamUser.AvatarStream = IHttpService.Instance.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
+
+                                    CurrentSteamUser = await swWebService.GetUserInfo(id);
+                                    CurrentSteamUser.AvatarStream = httpService.GetImageAsync(CurrentSteamUser.AvatarFull, ImageChannelType.SteamAvatars);
                                     //AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
 
-                                    CurrentSteamUser.IPCountry = ApiService.GetIPCountry();
-                                    IsSteamChinaLauncher = ApiService.IsSteamChinaLauncher();
+                                    CurrentSteamUser.IPCountry = swLocalService.GetIPCountry();
+
+                                    IsSteamChinaLauncher = swLocalService.IsSteamChinaLauncher();
 
                                     #region 初始化需要steam启动才能使用的功能
                                     if (SteamSettings.IsEnableSteamLaunchNotification.Value)
@@ -292,7 +293,7 @@ namespace System.Application.Services
                                     //仅在有游戏数据情况下加载登录用户的游戏
                                     if (SteamApps.Items.Any())
                                     {
-                                        var applist = ApiService.OwnsApps(await ISteamService.Instance.GetAppInfos());
+                                        var applist = swLocalService.OwnsApps(await ISteamService.Instance.GetAppInfos());
                                         if (!applist.Any_Nullable())
                                         {
                                             continue;
@@ -339,9 +340,9 @@ namespace System.Application.Services
 
         public bool Initialize(int appid)
         {
-            if (SteamTool.IsRunningSteamProcess)
+            if (stmService.IsRunningSteamProcess)
             {
-                return IsConnectToSteam = ApiService.Initialize(appid);
+                return IsConnectToSteam = swLocalService.Initialize(appid);
             }
             return false;
         }
@@ -431,7 +432,7 @@ namespace System.Application.Services
             if (IsLoadingGameList == false)
             {
                 IsLoadingGameList = true;
-                if (SteamTool.IsRunningSteamProcess)
+                if (stmService.IsRunningSteamProcess)
                 {
                     await Task.Factory.StartNew(async () =>
                      {
@@ -439,16 +440,16 @@ namespace System.Application.Services
                          {
                              while (true)
                              {
-                                 if (SteamTool.IsRunningSteamProcess && IsDisposedClient)
+                                 if (stmService.IsRunningSteamProcess && IsDisposedClient)
                                  {
-                                     if (ApiService.Initialize())
+                                     if (swLocalService.Initialize())
                                      {
                                          IsDisposedClient = false;
                                          SteamApps.Clear();
                                          var apps = await ISteamService.Instance.GetAppInfos();
                                          if (apps.Any())
                                          {
-                                             var temps = ApiService.OwnsApps(apps);
+                                             var temps = swLocalService.OwnsApps(apps);
                                              LoadGames(temps);
                                              InitializeDownloadGameList();
                                              Toast.Show(AppResources.GameList_RefreshGamesListSucess);
@@ -480,13 +481,13 @@ namespace System.Application.Services
 
         public async void RefreshSteamUsers()
         {
-            var list = SteamTool.GetRememberUserList();
+            var list = stmService.GetRememberUserList();
 
             if (!list.Any_Nullable())
             {
                 return;
             }
-            SteamConnectService.Current.SteamUsers.AddOrUpdate(list);
+            SteamUsers.AddOrUpdate(list);
 
             #region 加载备注信息和JumpList
             IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
@@ -529,9 +530,9 @@ namespace System.Application.Services
             #endregion
 
             #region 通过webapi加载头像图片用户信息
-            foreach (var user in SteamConnectService.Current.SteamUsers.Items)
+            foreach (var user in SteamUsers.Items)
             {
-                var temp = await webApiService.GetUserInfo(user.SteamId64);
+                var temp = await swWebService.GetUserInfo(user.SteamId64);
                 if (!string.IsNullOrEmpty(temp.SteamID))
                 {
                     user.SteamID = temp.SteamID;
@@ -556,7 +557,7 @@ namespace System.Application.Services
                 }
             }
 
-            SteamConnectService.Current.SteamUsers.Refresh();
+            SteamUsers.Refresh();
             #endregion
 
             #region 加载动态头像头像框数据
@@ -581,7 +582,7 @@ namespace System.Application.Services
 
         public void DisposeSteamClient()
         {
-            ApiService.DisposeSteamClient();
+            swLocalService.DisposeSteamClient();
             IsDisposedClient = true;
         }
 

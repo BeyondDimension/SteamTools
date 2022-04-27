@@ -25,10 +25,10 @@ namespace System.Application
             HasNotifyIcon = HasMainProcessRequired;
             HasGUI = level.HasFlag(DILevel.GUI);
             HasServerApiClient = level.HasFlag(DILevel.ServerApiClient);
-            HasHttpClientFactory = level.HasFlag(DILevel.HttpClientFactory);
+            HasSteam = level.HasFlag(DILevel.Steam);
+            HasHttpClientFactory = HasSteam || level.HasFlag(DILevel.HttpClientFactory);
             HasHttpProxy = level.HasFlag(DILevel.HttpProxy);
             HasHosts = level.HasFlag(DILevel.Hosts);
-            HasSteam = level.HasFlag(DILevel.Steam);
         }
 
         static StartupOptions? mValue;
