@@ -377,7 +377,7 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public void DeleteLocalUserData(SteamUser user, bool IsDeleteUserData = false)
+        public void DeleteLocalUserData(SteamUser user, bool isDeleteUserData = false)
         {
             if (string.IsNullOrWhiteSpace(UserVdfPath) || string.IsNullOrWhiteSpace(SteamDirPath))
             {
@@ -399,7 +399,7 @@ namespace System.Application.Services.Implementation
                                 users.Remove(users[i]);
                                 VdfHelper.Write(UserVdfPath, v);
                                 //VdfHelper.DeleteValueByKey(UserVdfPath, user.SteamId64.ToString());
-                                if (IsDeleteUserData)
+                                if (isDeleteUserData)
                                 {
                                     var temp = Path.Combine(SteamDirPath, UserDataDirectory, user.SteamId32.ToString());
                                     if (Directory.Exists(temp))
