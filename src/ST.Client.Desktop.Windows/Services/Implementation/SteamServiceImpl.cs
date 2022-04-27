@@ -643,8 +643,14 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Library_Grid => $"{appId}p.png",
                 SteamApp.LibCacheType.Library_Hero => $"{appId}_hero.png",
                 SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+                _ => null,
             };
+
+            if (fileName == null)
+            {
+                return null;
+            }
+
             var filePath = Path.Combine(path, fileName);
             return filePath;
         }
@@ -660,8 +666,14 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Library_Hero => $"{appId}_library_hero.jpg",
                 SteamApp.LibCacheType.Library_Hero_Blur => $"{appId}_library_hero_blur.jpg",
                 SteamApp.LibCacheType.Logo => $"{appId}_logo.png",
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+                _ => null,
             };
+
+            if (fileName == null)
+            {
+                return null;
+            }
+
             var filePath = Path.Combine(LibrarycacheDirPath, fileName);
             return filePath;
         }
@@ -686,7 +698,7 @@ namespace System.Application.Services.Implementation
                 SteamApp.LibCacheType.Library_Hero => app.LibraryHeroUrl,
                 SteamApp.LibCacheType.Library_Hero_Blur => app.LibraryHeroBlurUrl,
                 SteamApp.LibCacheType.Logo => app.LibraryLogoUrl,
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+                _ => null,
             };
 
             if (url == null) return string.Empty;
