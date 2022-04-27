@@ -847,6 +847,7 @@ namespace System.Application.Services.Implementation
 
         static uint GetUInt32(dynamic value)
         {
+            if (value is null) return 0;
             if (value is VValue vvalue) return GetUInt32(vvalue.Value!);
             if (value is uint value2) return value2;
             if (value is IConvertible convertible)

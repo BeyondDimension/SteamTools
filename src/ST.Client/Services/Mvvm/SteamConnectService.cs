@@ -263,7 +263,7 @@ namespace System.Application.Services
                                 {
                                     IsDisposedClient = false;
                                     var id = swLocalService.GetSteamId64();
-                                    if (id == SteamUser.UndefinedId)
+                                    if (id <= 0 || id == SteamUser.UndefinedId)
                                     {
                                         //该64位id的steamID3等于0，是steam未获取到当前登录用户的默认返回值，所以直接重新获取
                                         DisposeSteamClient();
@@ -296,19 +296,26 @@ namespace System.Application.Services
                                         var applist = swLocalService.OwnsApps(await ISteamService.Instance.GetAppInfos());
                                         if (!applist.Any_Nullable())
                                         {
+                                            if (!IsDisposedClient)
+                                                DisposeSteamClient();
                                             continue;
                                         }
                                         LoadGames(applist);
                                         InitializeDownloadGameList();
                                     }
+
+                                    if (!SteamUsers.Lookup(id).HasValue)
+                                    {
+                                        RefreshSteamUsers();
+                                    }
+
                                     //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
                                     //await mainViewModel.SteamAppPage.Initialize();
                                     //await mainViewModel.AccountPage.Initialize(id);
+
                                     #endregion
                                     if (!IsDisposedClient)
-                                    {
                                         DisposeSteamClient();
-                                    }
                                 }
                             }
                         }
@@ -469,7 +476,7 @@ namespace System.Application.Services
                              IsLoadingGameList = false;
                              DisposeSteamClient();
                          }
-                     }, TaskCreationOptions.DenyChildAttach).Forget().ConfigureAwait(false);
+                     }, TaskCreationOptions.DenyChildAttach).ConfigureAwait(false);
                 }
                 else
                 {
@@ -582,8 +589,8 @@ namespace System.Application.Services
 
         public void DisposeSteamClient()
         {
-            swLocalService.DisposeSteamClient();
             IsDisposedClient = true;
+            swLocalService.DisposeSteamClient();
         }
 
         public void Dispose()

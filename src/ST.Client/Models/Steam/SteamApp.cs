@@ -236,7 +236,9 @@ namespace System.Application.Models
                     if (propertyValue2 != null)
                     {
                         _properties.SetPropertyValue(SteamAppPropertyType.Table, propertyValue2, NodeAppInfo, "steam_edit", "base_name_localized");
-                        _properties.RemoveProperty("name_localized");
+
+                        //_properties.RemoveProperty(NodeAppInfo, NodeCommon, "name_localized"); 
+                        _properties.SetPropertyValue(SteamAppPropertyType.Table, new SteamAppPropertyTable(), NodeAppInfo, NodeCommon, "name_localized");
                     }
                     _properties.SetPropertyValue(SteamAppPropertyType.String, appInfo.BaseName, NodeAppInfo, "steam_edit", "base_name");
 
