@@ -10,6 +10,9 @@ namespace Avalonia
         public static TAppBuilder UsePlatformDetect<TAppBuilder>(this TAppBuilder builder)
             where TAppBuilder : AppBuilderBase<TAppBuilder>, new()
         {
+#if WINDOWS
+            builder.UseWin32();
+#else
             var os = builder.RuntimePlatform.GetRuntimeInfo().OperatingSystem;
 
             // We don't have the ability to load every assembly right now, so we are
@@ -22,33 +25,18 @@ namespace Avalonia
             switch (os)
             {
                 case OperatingSystemType.WinNT:
-                    LoadWin32(builder);
+                    builder.UseWin32();
                     break;
                 case OperatingSystemType.OSX:
-                    LoadAvaloniaNative(builder);
+                    builder.UseAvaloniaNative();
                     break;
                 default:
-                    LoadX11(builder);
+                    builder.UseX11();
                     break;
             }
-            LoadSkia(builder);
+#endif
+            builder.UseSkia();
             return builder;
         }
-
-        static void LoadAvaloniaNative<TAppBuilder>(TAppBuilder builder)
-            where TAppBuilder : AppBuilderBase<TAppBuilder>, new()
-             => builder.UseAvaloniaNative();
-
-        static void LoadWin32<TAppBuilder>(TAppBuilder builder)
-            where TAppBuilder : AppBuilderBase<TAppBuilder>, new()
-             => builder.UseWin32();
-
-        static void LoadX11<TAppBuilder>(TAppBuilder builder)
-            where TAppBuilder : AppBuilderBase<TAppBuilder>, new()
-             => builder.UseX11();
-
-        static void LoadSkia<TAppBuilder>(TAppBuilder builder)
-            where TAppBuilder : AppBuilderBase<TAppBuilder>, new()
-             => builder.UseSkia();
     }
 }

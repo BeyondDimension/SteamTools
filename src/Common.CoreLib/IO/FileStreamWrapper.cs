@@ -43,6 +43,8 @@ namespace System.IO
             throw new NotImplementedException();
         }
 
-        public static implicit operator FileStreamWrapper?(string? filePath) => filePath == null ? null : new(filePath);
+        public static FileStreamWrapper? Parse(string? filePath) => filePath == null ? null : new(filePath);
+
+        public static implicit operator FileStreamWrapper?(string? filePath) => Parse(filePath);
     }
 }
