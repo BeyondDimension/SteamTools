@@ -336,13 +336,6 @@ namespace System.Application.Services
                     }
                 }
             }, TaskCreationOptions.LongRunning).ConfigureAwait(false);
-
-            RefreshSteamUsers();
-
-            //SteamTool.WatchLocalUserDataChange(() =>
-            //{
-            //    RefreshSteamUsers();
-            //});
         }
 
         public bool Initialize(int appid)

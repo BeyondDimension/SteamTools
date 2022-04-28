@@ -168,6 +168,11 @@ namespace System.Application.UI.ViewModels
                         SteamConnectService.Current.Initialize();
                     }
 
+                    if (IApplication.IsDesktopPlatform)
+                    {
+                        SteamConnectService.Current.RefreshSteamUsers();
+                    }
+
                     Parallel.ForEach(TabItems, item =>
                     {
                         item.Initialize();
