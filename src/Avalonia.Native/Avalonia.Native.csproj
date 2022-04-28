@@ -14,4 +14,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
 </Project>
