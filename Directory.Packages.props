@@ -133,11 +133,11 @@
     <!-- ReactiveUI -->
     <PackageVersion Include="System.Reactive" Version="5.0.0" />
     <PackageVersion Include="Splat" Version="14.2.8" />
-    <PackageVersion Include="DynamicData" Version="7.6.7" />
-    <PackageVersion Include="ReactiveUI" Version="18.0.7" />
+    <PackageVersion Include="DynamicData" Version="7.7.1" />
+    <PackageVersion Include="ReactiveUI" Version="18.0.10" />
     <!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.50" /> -->
     <PackageVersion Include="ReactiveUI.XamForms" Version="18.0.10" />
-    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.0.7" />
+    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.0.10" />
 
     <!-- SkiaSharp & HarfBuzzSharp -->
     <PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.178" />
@@ -198,11 +198,11 @@
     <PackageVersion Include="NPOI" Version="2.5.6" />
 
     <!-- Github API -->
-    <PackageVersion Include="Octokit" Version="0.50.0" />
+    <PackageVersion Include="Octokit" Version="0.51.0" />
 
     <!-- ORM -->
     <PackageVersion Include="sqlite-net-pcl" Version="1.8.116" />
-    <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.0-pre20220318192836" />
+    <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.0-pre20220427180151" />
 
     <!-- MonoMac(NETSTANDARD) -->
     <PackageVersion Include="MonoMac.NetStandard" Version="0.0.4" />
