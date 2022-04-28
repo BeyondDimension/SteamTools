@@ -144,7 +144,7 @@
     <PackageVersion Include="HarfBuzzSharp" Version="2.8.2-preview.254" />
     <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2-preview.254" />
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/SkiaSharp.props -->
-    <PackageVersion Include="SkiaSharp" Version="2.88.0-preview.254" />
+    <PackageVersion Include="SkiaSharp" Version="2.88.0-preview.256" />
     <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.254" />
 
     <!-- AutoMapper -->
