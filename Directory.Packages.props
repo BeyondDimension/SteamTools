@@ -98,7 +98,7 @@
 
     <!-- AppCenter.* -->
     <PackageVersion Include="Microsoft.AppCenter" Version="4.5.0" />
-    <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.0" />
+    <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.1" />
     <PackageVersion Include="Microsoft.AppCenter.Crashes" Version="4.5.0" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter" Version="4.5.0" />
     <PackageVersion Include="Aigio.Avalonia.AppCenter.Analytics" Version="4.5.0" />
