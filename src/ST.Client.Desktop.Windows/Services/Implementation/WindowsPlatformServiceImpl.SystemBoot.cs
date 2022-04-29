@@ -11,7 +11,6 @@ namespace System.Application.Services.Implementation
         /// <summary>
         /// 锁定
         /// </summary>
-        /// <returns></returns>
         async void IPlatformService.SystemLock(int waitSecond)
         {
             await Task.Delay(waitSecond * 1000);

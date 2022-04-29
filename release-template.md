@@ -14,6 +14,9 @@
 -->
 
 ### 修复问题
+1. 修复 判断 Administrator 或 Root 权限函数错误，例如导致 Windows 上开机自启失效等其他问题
+
+<!--
 1. 修复 库存游戏中挂时长失效
 2. 修复 Steam 库存游戏在 Steam 账号切换后自动刷新失败的问题
 3. 修复 Steam 库存游戏编辑带有本地化名称的游戏无效的问题
@@ -21,24 +24,6 @@
 5. 改进 Android 上第三方快速登录使用系统默认浏览器
 6. 修复 一些图片加载失败不显示的问题
 7. 改进 从本地加载图片减少不必要的内存分配
-
-<!--
-1. 修复 本地令牌 无令牌刷新时提示密码错误
-2. 改进 Android 端 本地令牌 列表样式第一条与最后一条的上下外边距
-3. 改进 俄语翻译，由 vanja-san 提供
-4. 改进 .NET 运行时升级至 6.0.4(仅 Desktop 端)
-5. 改进 脚本配置 未启动时的内存占用，以及减少总体内存占用率
-6. 修复 Hosts 加速模式下使用仅启用脚本功能导致死循环
-7. 改进 Linux 端 可监听 443 端口配置
-8. 修复 Windows 端，动态桌面背景窗口显示时一些可能导致闪退的潜在问题
-9. 修复 Android 端，因 CheckBox 导致在低于 6.0 Marshmallow 系统上引发的闪退
-10. 修复 Desktop 高 DPI 分辨率下菜单图标会显示模糊的问题
-11. 修复 Windows 端，切换至网络加速菜单时可能会出现 UI 错乱的问题
-12. 修复 Desktop 端，某些情况库存游戏会卡住无限加载的问题
-13. 修复 网络加速 Onedrive 加速失效问题
-14. 修复 消息框不再提醒复选框勾上可能不生效的问题
-15. 修复 Windows 端, JumpList 切换 Steam Beta 账号失效的问题
-16. 修复 ASF，当使用 IPC.config 时，程序内打开网页端口号值不正确
 -->
 
 ### 已知问题
@@ -72,7 +57,7 @@
 
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.7.1](https://img.shields.io/badge/Steam++-v2.7.1-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Steam++ v2.7.2](https://img.shields.io/badge/Steam++-v2.7.2-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -81,22 +66,22 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.7.1.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.7.1.7z  | SHA256 |
+| Steam++_win_x64_v2.7.2.7z  | SHA256 |
+| Steam++_win_x64_fde_v2.7.2.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.7.1.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.7.1.exe  | SHA256 |
+| Steam++_win_x64_v2.7.2.exe  | SHA256 |
+| Steam++_win_x64_fde_v2.7.2.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.1.7z  | SHA256 |
-| Steam++_linux_arm64_v2.7.1.7z  | SHA256 |
+| Steam++_linux_x64_v2.7.2.7z  | SHA256 |
+| Steam++_linux_arm64_v2.7.2.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.1.deb  | SHA256 |
-| Steam++_linux_arm64_v2.7.1.deb  | SHA256 |
+| Steam++_linux_x64_v2.7.2.deb  | SHA256 |
+| Steam++_linux_arm64_v2.7.2.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.1.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.7.1.rpm  | SHA256 |
+| Steam++_linux_x64_v2.7.2.rpm  | SHA256 |
+| Steam++_linux_arm64_v2.7.2.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.7.1.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.7.1.dmg  | SHA256 |
+| Steam++_macos_x64_v2.7.2.dmg  | SHA256 |
+| Steam++_macos_arm64_v2.7.2.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.7.1.apk  | SHA256 |
+| Steam++_android_v2.7.2.apk  | SHA256 |

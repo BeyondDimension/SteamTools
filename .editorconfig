@@ -429,3 +429,6 @@ dotnet_diagnostic.SA1500.severity = silent
 
 # SA1518: Use line endings correctly at end of file
 dotnet_diagnostic.SA1518.severity = silent
+
+# SA1118: Parameter should not span multiple lines
+dotnet_diagnostic.SA1118.severity = silent
