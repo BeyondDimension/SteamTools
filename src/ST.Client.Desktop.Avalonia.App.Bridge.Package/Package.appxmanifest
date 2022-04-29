@@ -10,10 +10,10 @@
   <Identity
     Name="4651ED44255E.47979655102CE"
     Publisher="CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66"
-    Version="2.7.1.0" />
+    Version="2.7.2.0" />
 
   <Properties>
-    <DisplayName>Steam++</DisplayName>
+    <DisplayName>Steam Toolbox</DisplayName>
     <PublisherDisplayName>软妹币玩家</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Steam++"
+        DisplayName="Steam Toolbox"
         Description="「Steam++」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
