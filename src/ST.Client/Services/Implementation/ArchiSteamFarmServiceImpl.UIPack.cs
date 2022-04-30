@@ -10,15 +10,8 @@ namespace System.Application.Services.Implementation
 {
     partial class ArchiSteamFarmServiceImpl
     {
-        const string _Version_ASFUI = "5.2.5.4";
+        const string Version_ASFUI = "5.2.5.5";
         const string Version_FileName = "VERSION.txt";
-
-        static string Version_ASFUI =>
-            //_Version_ASFUI == "5.1.5.3" ?
-            //(Path.DirectorySeparatorChar != WinDirectorySeparatorChar ?
-            //    _Version_ASFUI + "-unix_unpack_fix" :
-            //    _Version_ASFUI) :
-            _Version_ASFUI;
 
         /// <summary>
         /// 尝试解压 ASF-UI 资源包
