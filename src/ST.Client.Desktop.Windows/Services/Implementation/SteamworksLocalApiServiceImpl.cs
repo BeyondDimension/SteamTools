@@ -17,7 +17,7 @@ namespace System.Application.Services.Implementation
 
         public SteamworksLocalApiServiceImpl(IPlatformService platformService)
         {
-            Steam.GetInstallPathDelegate = platformService.GetSteamDirPath;
+            Steam.GetInstallPathDelegate = platformService.GetSteamDynamicLinkLibraryPath;
             SteamClient = new Client();
         }
 

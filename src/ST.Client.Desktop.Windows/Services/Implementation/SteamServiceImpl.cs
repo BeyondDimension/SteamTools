@@ -61,7 +61,7 @@ namespace System.Application.Services.Implementation
         public SteamServiceImpl(IPlatformService platformService)
         {
             this.platformService = platformService;
-            mSteamDirPath = platformService.GetSteamDynamicLinkLibraryPath();
+            mSteamDirPath = platformService.GetSteamDirPath();
             mSteamProgramPath = platformService.GetSteamProgramPath();
             UserVdfPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "config", "loginusers.vdf");
             AppInfoPath = SteamDirPath == null ? null : Path.Combine(SteamDirPath, "appcache", "appinfo.vdf");
