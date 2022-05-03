@@ -201,6 +201,15 @@ namespace System.Application.Services.Implementation
             return value;
         }
 
+        string? IPlatformService.GetSteamDynamicLinkLibraryPath()
+        {
+            var value = string.Format(
+                "{0}Users{0}{1}{0}Library{0}Application Support{0}Steam{0}Steam.AppBundle{0}Steam{0}Contents{0}MacOS",
+                Path.DirectorySeparatorChar,
+                Environment.UserName);
+            return value;
+        }
+
         public string? GetSteamProgramPath()
         {
             var value = string.Format(

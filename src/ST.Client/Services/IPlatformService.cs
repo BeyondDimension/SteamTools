@@ -238,6 +238,12 @@ namespace System.Application.Services
         /// <inheritdoc cref="ISteamService.SteamDirPath"/>
         string? GetSteamDirPath() => null;
 
+        /// <summary>
+        /// 获取 Steam 动态链接库 (DLL) 文件夹目录
+        /// </summary>
+        /// <returns></returns>
+        string? GetSteamDynamicLinkLibraryPath() => GetSteamDirPath();
+
         /// <inheritdoc cref="ISteamService.SteamProgramPath"/>
         string? GetSteamProgramPath() => null;
 
