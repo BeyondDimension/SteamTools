@@ -198,11 +198,11 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(ExtraDefineConstants)' == 'osx-arm64' Or '$(ExtraDefineConstants)' == 'dev-osx-arm64'">
+  <!--<ItemGroup Condition=" '$(ExtraDefineConstants)' == 'osx-arm64' Or '$(ExtraDefineConstants)' == 'dev-osx-arm64'">
     <None Include="..\..\references\ARM64\libe_sqlite3.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
