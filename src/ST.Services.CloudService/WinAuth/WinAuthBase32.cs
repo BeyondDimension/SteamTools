@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2011 Colin Mackie.
  * This software is distributed under the terms of the GNU General Public License.
  *
@@ -25,7 +25,6 @@ namespace WinAuth
     /// <summary>
     /// Class that implements conversion to Base32 RFC3548
     /// </summary>
-
     public class WinAuthBase32
     {
         /// <summary>
@@ -186,7 +185,7 @@ namespace WinAuth
                     if (next < data.Length)
                     {
                         buffer <<= 8;
-                        buffer |= (data[next++] & 0xff);
+                        buffer |= data[next++] & 0xff;
                         bitsLeft += 8;
                     }
                     else

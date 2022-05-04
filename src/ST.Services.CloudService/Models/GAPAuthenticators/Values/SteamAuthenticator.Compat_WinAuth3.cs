@@ -23,6 +23,7 @@ using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -36,6 +37,8 @@ using WinAuth;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using N_JsonIgnore = Newtonsoft.Json.JsonIgnoreAttribute;
 using S_JsonIgnore = System.Text.Json.Serialization.JsonIgnoreAttribute;
+using Strings = System.Application.WinAuth.Strings;
+using static WinAuth.WinAuthSteamClient.Utils;
 
 namespace System.Application.Models
 {
@@ -181,16 +184,16 @@ namespace System.Application.Models
                     {
                         string[] parts = value.Split('|');
                         base.SecretData = value;
-                        Serial = (parts.Length > 1 ? Encoding.UTF8.GetString(StringToByteArray(parts[1])) : null);
-                        DeviceId = (parts.Length > 2 ? Encoding.UTF8.GetString(StringToByteArray(parts[2])) : null);
-                        SteamData = (parts.Length > 3 ? Encoding.UTF8.GetString(StringToByteArray(parts[3])) : string.Empty);
+                        Serial = parts.Length > 1 ? Encoding.UTF8.GetString(StringToByteArray(parts[1])) : null;
+                        DeviceId = parts.Length > 2 ? Encoding.UTF8.GetString(StringToByteArray(parts[2])) : null;
+                        SteamData = parts.Length > 3 ? Encoding.UTF8.GetString(StringToByteArray(parts[3])) : string.Empty;
 
                         if (string.IsNullOrEmpty(SteamData) == false && SteamData[0] != '{')
                         {
                             // convert old recovation code into SteamData json
                             SteamData = "{\"revocation_code\":\"" + SteamData + "\"}";
                         }
-                        string session = (parts.Length > 4 ? Encoding.UTF8.GetString(StringToByteArray(parts[4])) : null);
+                        var session = parts.Length > 4 ? Encoding.UTF8.GetString(StringToByteArray(parts[4])) : null;
 
                         //if (Logger != null)
                         //{
@@ -241,7 +244,7 @@ namespace System.Application.Models
             static string Request(string url, string method, NameValueCollection? data = null, CookieContainer? cookies = null, NameValueCollection? headers = null, int timeout = 0)
             {
                 // create form-encoded data for query or body
-                string query = (data == null ? string.Empty : string.Join("&", Array.ConvertAll(data.AllKeys, key => String.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key])))));
+                string query = data == null ? string.Empty : string.Join("&", Array.ConvertAll(data.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key]))));
                 if (string.Compare(method, "GET", true) == 0)
                 {
                     url += (url.IndexOf("?") == -1 ? "?" : "&") + query;
@@ -317,6 +320,12 @@ namespace System.Application.Models
                 }
             }
 
+            static JObject JObjectParse(JToken token)
+            {
+                if (token is JObject obj) return obj;
+                return JObject.FromObject(token);
+            }
+
             /// <summary>
             /// Enroll the authenticator with the server
             /// </summary>
@@ -343,8 +352,10 @@ namespace System.Application.Models
                             cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("Steam_Language", state.Language));
                             cookies.Add(new Uri(COMMUNITY_BASE + "/"), new Cookie("dob", ""));
 
-                            NameValueCollection headers = new NameValueCollection();
-                            headers.Add("X-Requested-With", "com.valvesoftware.android.steam.community");
+                            NameValueCollection headers = new NameValueCollection
+                            {
+                                { "X-Requested-With", "com.valvesoftware.android.steam.community" },
+                            };
 
                             response = Request("https://steamcommunity.com/login?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", "GET", null, cookies, headers);
                         }
@@ -354,13 +365,14 @@ namespace System.Application.Models
                         state.Password = Regex.Replace(state.Password, @"[^\u0000-\u007F]", string.Empty);
 
                         // get the user's RSA key
-                        data.Add("donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString());
+                        data.Add("donotache", donotache_value);
                         data.Add("username", state.Username);
                         response = Request(COMMUNITY_BASE + "/login/getrsakey", "POST", data, cookies);
                         var rsaresponse = JObject.Parse(response);
-                        if (rsaresponse.SelectToken("success").Value<bool>() != true)
+                        if (rsaresponse.SelectToken("success")?.Value<bool>() != true)
                         {
-                            throw new WinAuthInvalidEnrollResponseException("Cannot get steam information for user: " + state.Username);
+                            throw new WinAuthInvalidEnrollResponseException(
+                                $"Cannot get steam information for user: {state.Username}, response: {response}");
                         }
 
                         // encrypt password with RSA key
@@ -370,8 +382,8 @@ namespace System.Application.Models
                         {
                             var passwordBytes = Encoding.ASCII.GetBytes(state.Password);
                             var p = rsa.ExportParameters(false);
-                            p.Exponent = StringToByteArray(rsaresponse.SelectToken("publickey_exp").Value<string>());
-                            p.Modulus = StringToByteArray(rsaresponse.SelectToken("publickey_mod").Value<string>());
+                            p.Exponent = StringToByteArray(SelectTokenValueNotNull<string>(response, rsaresponse, "publickey_exp"));
+                            p.Modulus = StringToByteArray(SelectTokenValueNotNull<string>(response, rsaresponse, "publickey_mod"));
                             rsa.ImportParameters(p);
                             encryptedPassword = rsa.Encrypt(passwordBytes, false);
                         }
@@ -382,19 +394,24 @@ namespace System.Application.Models
                             { "password", Convert.ToBase64String(encryptedPassword) },
                             { "username", state.Username },
                             { "twofactorcode", "" },
-                            { "emailauth", (state.EmailAuthText != null ? state.EmailAuthText : string.Empty) },
+                            { "emailauth", state.EmailAuthText ?? string.Empty },
                             { "loginfriendlyname", "" },
-                            { "captchagid", (state.CaptchaId != null ? state.CaptchaId : "-1") },
-                            { "captcha_text", (state.CaptchaText != null ? state.CaptchaText : "") },
-                            { "emailsteamid", (state.EmailAuthText != null ? state.SteamId ?? string.Empty : string.Empty) },
-                            { "rsatimestamp", rsaresponse.SelectToken("timestamp").Value<string>() },
+                            { "captchagid", state.CaptchaId ?? "-1" },
+                            { "captcha_text", state.CaptchaText ?? "" },
+                            { "emailsteamid", state.EmailAuthText != null ? state.SteamId ?? string.Empty : string.Empty },
+                            { "rsatimestamp", SelectTokenValueNotNull<string>(response, rsaresponse, "timestamp") },
                             { "remember_login", "false" },
                             { "oauth_client_id", "DE45CD61" },
                             { "oauth_scope", "read_profile write_profile read_client write_client" },
-                            { "donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString() }
+                            { "donotache", donotache_value },
                         };
-                        response = Request(COMMUNITY_BASE + "/login/dologin/", "POST", data, cookies);
-                        Dictionary<string, object> loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
+                        const string url_login_dologin = "/login/dologin/";
+                        response = Request(COMMUNITY_BASE + url_login_dologin, "POST", data, cookies);
+                        var loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
+                        if (loginresponse == null)
+                        {
+                            throw GetWinAuthInvalidEnrollResponseException(response, url_login_dologin, new ArgumentNullException(nameof(loginresponse)));
+                        }
 
                         if (loginresponse.ContainsKey("emailsteamid") == true)
                         {
@@ -462,10 +479,10 @@ namespace System.Application.Models
                         // get the OAuth token - is stringified json
                         string oauth = (string)loginresponse["oauth"];
                         var oauthjson = JObject.Parse(oauth);
-                        state.OAuthToken = oauthjson.SelectToken("oauth_token").Value<string>();
+                        state.OAuthToken = SelectTokenValueNotNull<string>(oauth, oauthjson, "oauth_token");
                         if (oauthjson.SelectToken("steamid") != null)
                         {
-                            state.SteamId = oauthjson.SelectToken("steamid").Value<string>();
+                            state.SteamId = SelectTokenValueNotNull<string>(oauth, oauthjson, "steamid");
                         }
                     }
 
@@ -485,13 +502,13 @@ namespace System.Application.Models
 
                         response = Request(COMMUNITY_BASE + "/steamguard/phoneajax", "POST", data, cookies);
                         var jsonresponse = JObject.Parse(response);
-                        bool hasPhone = jsonresponse.SelectToken("has_phone").Value<Boolean>();
+                        var hasPhone = SelectTokenValueNotNull<bool>(response, jsonresponse, "has_phone");
                         if (hasPhone == false)
                         {
                             state.OAuthToken = null; // force new login
                             state.RequiresLogin = true;
                             state.Cookies = null;
-                            state.Error = "您的Steam帐户必须附有支持短信的手机号码, " + Environment.NewLine + "请到Steam客户端或Steam网站的帐户详细信息添加电话号码。";
+                            state.Error = Strings.error_steamguard_phoneajax_.Format(Environment.NewLine);
                             return false;
                         }
 
@@ -505,15 +522,16 @@ namespace System.Application.Models
                         data.Add("authenticator_type", "1");
                         data.Add("device_identifier", deviceId);
                         data.Add("sms_phone_id", "1");
-                        response = Request(WEBAPI_BASE + "/ITwoFactorService/AddAuthenticator/v0001", "POST", data);
+                        const string url_ITwoFactorService_AddAuthenticator_v0001 = "/ITwoFactorService/AddAuthenticator/v0001";
+                        response = Request(WEBAPI_BASE + url_ITwoFactorService_AddAuthenticator_v0001, "POST", data);
                         var tfaresponse = JObject.Parse(response);
-                        if (response.IndexOf("status") == -1 && tfaresponse.SelectToken("response.status").Value<int>() == 84)
+                        if (response.IndexOf("status") == -1 && SelectTokenValueNotNull<int>(response, tfaresponse, "response.status") == 84)
                         {
                             // invalid response
                             state.OAuthToken = null; // force new login
                             state.RequiresLogin = true;
                             state.Cookies = null;
-                            state.Error = "无法发送短信,检查您的手机号已在您的Steam帐户中注册。";
+                            state.Error = Strings.error_ITwoFactorService_AddAuthenticator_v0001;
                             return false;
                         }
                         if (response.IndexOf("shared_secret") == -1)
@@ -522,19 +540,19 @@ namespace System.Application.Models
                             state.OAuthToken = null; // force new login
                             state.RequiresLogin = true;
                             state.Cookies = null;
-                            state.Error = "Invalid response from Steam: " + response;
+                            state.Error = Strings.error_invalid_response_from_steam_.Format(response);
                             return false;
                         }
 
                         // save data into this authenticator
-                        var secret = tfaresponse.SelectToken("response.shared_secret").Value<string>();
+                        var secret = SelectTokenValueNotNull<string>(response, tfaresponse, "response.shared_secret");
                         SecretKey = Convert.FromBase64String(secret);
-                        Serial = tfaresponse.SelectToken("response.serial_number").Value<string>();
+                        Serial = SelectTokenValueNotNull<string>(response, tfaresponse, "response.serial_number");
                         DeviceId = deviceId;
-                        state.RevocationCode = tfaresponse.SelectToken("response.revocation_code").Value<string>();
+                        state.RevocationCode = SelectTokenValueNotNull<string>(response, tfaresponse, "response.revocation_code");
 
                         // add the steamid into the data
-                        var steamdata = JObject.Parse(tfaresponse.SelectToken("response").ToString());
+                        var steamdata = JObjectParse(SelectTokenNotNull(response, tfaresponse, "response", url_ITwoFactorService_AddAuthenticator_v0001));
                         if (steamdata.SelectToken("steamid") == null)
                         {
                             steamdata.Add("steamid", state.SteamId);
@@ -543,10 +561,10 @@ namespace System.Application.Models
                         {
                             steamdata.Add("steamguard_scheme", "2");
                         }
-                        SteamData = steamdata.ToString(Newtonsoft.Json.Formatting.None);
+                        SteamData = steamdata.ToString(Formatting.None);
 
                         // calculate server drift
-                        long servertime = tfaresponse.SelectToken("response.server_time").Value<long>() * 1000;
+                        long servertime = SelectTokenValueNotNull<long>(response, tfaresponse, "response.server_time") * 1000;
                         ServerTimeDiff = servertime - CurrentTime;
                         LastServerTime = DateTime.Now.Ticks;
 
@@ -569,26 +587,26 @@ namespace System.Application.Models
                         data.Add("authenticator_time", ServerTime.ToString());
                         response = Request(WEBAPI_BASE + "/ITwoFactorService/FinalizeAddAuthenticator/v0001", "POST", data);
                         var finalizeresponse = JObject.Parse(response);
-                        if (response.IndexOf("status") != -1 && finalizeresponse.SelectToken("response.status").Value<int>() == INVALID_ACTIVATION_CODE)
+                        if (response.IndexOf("status") != -1 && SelectTokenValueNotNull<int>(response, finalizeresponse, "response.status") == INVALID_ACTIVATION_CODE)
                         {
-                            state.Error = "Invalid activation code";
+                            state.Error = Strings.error_invalid_activation_code;
                             return false;
                         }
 
                         // reset our time
                         if (response.IndexOf("server_time") != -1)
                         {
-                            long servertime = finalizeresponse.SelectToken("response.server_time").Value<long>() * 1000;
+                            var servertime = SelectTokenValueNotNull<long>(response, finalizeresponse, "response.server_time") * 1000;
                             ServerTimeDiff = servertime - CurrentTime;
                             LastServerTime = DateTime.Now.Ticks;
                         }
 
                         // check success
-                        if (finalizeresponse.SelectToken("response.success").Value<bool>() == true)
+                        if (SelectTokenValueNotNull<bool>(response, finalizeresponse, "response.success") == true)
                         {
-                            if (response.IndexOf("want_more") != -1 && finalizeresponse.SelectToken("response.want_more").Value<bool>() == true)
+                            if (response.IndexOf("want_more") != -1 && SelectTokenValueNotNull<bool>(response, finalizeresponse, "response.want_more") == true)
                             {
-                                ServerTimeDiff += ((long)Period * 1000L);
+                                ServerTimeDiff += Period * 1000L;
                                 retries++;
                                 continue;
                             }
@@ -596,18 +614,18 @@ namespace System.Application.Models
                             break;
                         }
 
-                        ServerTimeDiff += ((long)Period * 1000L);
+                        ServerTimeDiff += Period * 1000L;
                         retries++;
                     }
                     if (state.RequiresActivation == true)
                     {
-                        state.Error = "注册时出现问题！Steam服务器可能存在问题，请稍后再试。";
+                        state.Error = Strings.error_on_activating;
                         return false;
                     }
 
                     // mark and successful and return key
                     state.Success = true;
-                    state.SecretKey = ByteArrayToString(SecretKey);
+                    state.SecretKey = ByteArrayToString(SecretKey ?? throw new ArgumentNullException(nameof(SecretKey)));
 
                     // send confirmation email
                     data.Clear();
@@ -626,6 +644,14 @@ namespace System.Application.Models
                 {
                     throw new WinAuthInvalidEnrollResponseException("Error enrolling new authenticator", ex);
                 }
+
+                static JToken SelectTokenNotNull(string response, JToken token, string path, string? msg = null) =>
+                    WinAuthSteamClient.Utils.SelectTokenNotNull(response, token, path, msg,
+                        GetWinAuthInvalidEnrollResponseException);
+
+                static T SelectTokenValueNotNull<T>(string response, JToken token, string path, string? msg = null) =>
+                    WinAuthSteamClient.Utils.SelectTokenValueNotNull<T>(response, token, path, msg,
+                        GetWinAuthInvalidEnrollResponseException);
             }
 
             /// <summary>
@@ -651,7 +677,7 @@ namespace System.Application.Models
                     var json = JObject.Parse(response);
 
                     // get servertime in ms
-                    long servertime = json.SelectToken("response.server_time").Value<long>() * 1000;
+                    long servertime = SelectTokenValueNotNull<long>(response, json, "response.server_time") * 1000;
 
                     // get the difference between the server time and our current time
                     ServerTimeDiff = servertime - CurrentTime;
@@ -660,11 +686,11 @@ namespace System.Application.Models
                     // clear any sync error
                     _lastSyncError = DateTime.MinValue;
                 }
-                catch (Exception ex)
+                catch
                 {
                     // don't retry for a while after error
                     _lastSyncError = DateTime.Now;
-                    throw ex;
+                    throw;
                     // set to zero to force reset
                     //ServerTimeDiff = 0;
                 }
@@ -730,10 +756,7 @@ namespace System.Application.Models
             /// Create a random Device ID string for Enrolling
             /// </summary>
             /// <returns>Random string</returns>
-            static string BuildRandomId()
-            {
-                return "android:" + Guid.NewGuid().ToString();
-            }
+            static string BuildRandomId() => "android:" + Guid.NewGuid().ToString();
 
             /// <summary>
             /// Log an exception from a Request
@@ -743,7 +766,8 @@ namespace System.Application.Models
             /// <param name="cookies">cookie container</param>
             /// <param name="request">Request data</param>
             /// <param name="ex">Thrown exception</param>
-            static void LogException(string method, string url, CookieContainer cookies, NameValueCollection request, Exception ex)
+            [Conditional("DEBUG")]
+            static void LogException(string? method, string url, CookieContainer? cookies, NameValueCollection? request, Exception ex)
             {
                 StringBuilder data = new StringBuilder();
                 if (cookies != null)
@@ -779,6 +803,8 @@ namespace System.Application.Models
                     }
                     data.Append(" ");
                 }
+
+                Log.Error(nameof(WinAuth), ex, data.ToString());
             }
 
             /// <summary>
@@ -789,7 +815,8 @@ namespace System.Application.Models
             /// <param name="cookies">cookie container</param>
             /// <param name="request">Request data</param>
             /// <param name="response">response body</param>
-            static void LogRequest(string method, string url, CookieContainer cookies, NameValueCollection request, string response)
+            [Conditional("DEBUG")]
+            static void LogRequest(string? method, string url, CookieContainer? cookies, NameValueCollection? request, string? response)
             {
                 StringBuilder data = new StringBuilder();
                 if (cookies != null)
@@ -825,6 +852,14 @@ namespace System.Application.Models
                     }
                     data.Append(" ");
                 }
+
+                if (response != null)
+                {
+                    data.AppendLine();
+                    data.Append(response);
+                }
+
+                Log.Info(nameof(WinAuth), data.ToString());
             }
         }
     }
