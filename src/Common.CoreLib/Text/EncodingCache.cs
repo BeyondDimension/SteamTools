@@ -3,9 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // https://github.com/dotnet/corefx/blob/master/src/Common/src/CoreLib/System/IO/EncodingCache.cs
 
-using System.Text;
-
-namespace System.IO
+namespace System.Text
 {
     public static class EncodingCache
     {
