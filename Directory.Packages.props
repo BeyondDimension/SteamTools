@@ -311,7 +311,7 @@
     <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
 
     <!-- Code Style -->
-    <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.406" />
+    <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
 
   </ItemGroup>
 </Project>
