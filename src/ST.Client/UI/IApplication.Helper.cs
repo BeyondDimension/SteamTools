@@ -21,17 +21,20 @@ namespace System.Application.UI
 
         static IApplication()
         {
+#if NET6_0_OR_GREATER
+            ProgramPath = Environment.ProcessPath!;
+#else
             var mainModule = Process.GetCurrentProcess().MainModule;
             if (mainModule == null)
                 throw new ArgumentNullException(nameof(mainModule));
             ProgramPath = mainModule.FileName!;
+#endif
             if (ProgramPath == null)
                 throw new ArgumentNullException(nameof(ProgramPath));
             var programName = Path.GetFileName(ProgramPath);
             if (programName == null)
                 throw new ArgumentNullException(nameof(programName));
             ProgramName = programName;
-            
         }
 
         /// <summary>
