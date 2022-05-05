@@ -361,7 +361,6 @@
                         </MenuItem.Icon>
                       </MenuItem>
                       <MenuItem
-                                IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                                 Header="{ReflectionBinding Path=Res.Achievement_Manage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.UnlockAchievement_Click}"
                                 CommandParameter="{Binding}" >

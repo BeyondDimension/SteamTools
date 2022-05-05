@@ -204,26 +204,26 @@ dotnet_naming_rule.非字段成员_should_be_帕斯卡拼写法.style = 帕斯�
 
 dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.interface.required_modifiers = 
+dotnet_naming_symbols.interface.required_modifiers =
 
 dotnet_naming_symbols.类型.applicable_kinds = class, struct, interface, enum
 dotnet_naming_symbols.类型.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.类型.required_modifiers = 
+dotnet_naming_symbols.类型.required_modifiers =
 
 dotnet_naming_symbols.非字段成员.applicable_kinds = property, event, method
 dotnet_naming_symbols.非字段成员.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.非字段成员.required_modifiers = 
+dotnet_naming_symbols.非字段成员.required_modifiers =
 
 # 命名样式
 
-dotnet_naming_style.帕斯卡拼写法.required_prefix = 
-dotnet_naming_style.帕斯卡拼写法.required_suffix = 
-dotnet_naming_style.帕斯卡拼写法.word_separator = 
+dotnet_naming_style.帕斯卡拼写法.required_prefix =
+dotnet_naming_style.帕斯卡拼写法.required_suffix =
+dotnet_naming_style.帕斯卡拼写法.word_separator =
 dotnet_naming_style.帕斯卡拼写法.capitalization = pascal_case
 
 dotnet_naming_style.以_i_开始.required_prefix = I
-dotnet_naming_style.以_i_开始.required_suffix = 
-dotnet_naming_style.以_i_开始.word_separator = 
+dotnet_naming_style.以_i_开始.required_suffix =
+dotnet_naming_style.以_i_开始.word_separator =
 dotnet_naming_style.以_i_开始.capitalization = pascal_case
 
 # IDE0010: 添加缺失的事例
@@ -432,3 +432,21 @@ dotnet_diagnostic.SA1518.severity = silent
 
 # SA1118: Parameter should not span multiple lines
 dotnet_diagnostic.SA1118.severity = silent
+
+# SA1214: Readonly fields should appear before non-readonly fields
+dotnet_diagnostic.SA1214.severity = silent
+
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = silent
+
+# SA1027: Use tabs correctly
+dotnet_diagnostic.SA1027.severity = silent
+
+# SA1306: Field names should begin with lower-case letter
+dotnet_diagnostic.SA1306.severity = silent
+
+# SA1643: Destructor summary documentation should begin with standard text
+dotnet_diagnostic.SA1643.severity = silent
+
+# SA1303: Const field names should begin with upper-case letter
+dotnet_diagnostic.SA1303.severity = silent

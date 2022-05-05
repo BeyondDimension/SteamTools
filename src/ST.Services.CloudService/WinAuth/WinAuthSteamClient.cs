@@ -22,6 +22,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -33,6 +34,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using static System.Application.Models.GAPAuthenticatorValueDTO;
+using static WinAuth.WinAuthSteamClient.Utils;
 
 namespace WinAuth
 {
@@ -41,6 +43,49 @@ namespace WinAuth
     /// </summary>
     public partial class WinAuthSteamClient : IDisposable
     {
+        internal static class Utils
+        {
+            public static T SelectTokenValueNotNull<T>(string response, JToken token, string path, string? msg = null, Func<string, string, Exception?, Exception>? getWinAuthException = null)
+            {
+                var valueToken = token.SelectToken(path);
+                if (valueToken != null)
+                {
+                    var value = valueToken.Value<T>();
+                    if (value != null)
+                    {
+                        return value;
+                    }
+                }
+                getWinAuthException ??= GetWinAuthException;
+                throw getWinAuthException(response, msg ?? "SelectTokenValueNotNull", new ArgumentNullException(path));
+            }
+
+            public static JToken SelectTokenNotNull(string response, JToken token, string path, string? msg = null, Func<string, string, Exception?, Exception>? getWinAuthException = null)
+            {
+                var valueToken = token.SelectToken(path);
+                if (valueToken != null)
+                {
+                    return valueToken;
+                }
+                getWinAuthException ??= GetWinAuthException;
+                throw getWinAuthException(response, msg ?? "SelectTokenNotNull", new ArgumentNullException(path));
+            }
+
+            public static WinAuthException GetWinAuthException(string response, string msg, Exception? innerException = null)
+            {
+                return new WinAuthException(
+                    $"{msg}, response: {response}", innerException);
+            }
+
+            public static WinAuthException GetWinAuthInvalidEnrollResponseException(string response, string msg, Exception? innerException = null)
+            {
+                return new WinAuthInvalidEnrollResponseException(
+                    $"{msg}, response: {response}", innerException);
+            }
+
+            public const string donotache_value = "-62135596800000"; // default(DateTime).ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString();
+        }
+
         /// <summary>
         /// URLs for all mobile services
         /// </summary>
@@ -49,12 +94,12 @@ namespace WinAuth
         const string WEBAPI_BASE = "https://api.steampowered.com";
         const string API_GETWGTOKEN = WEBAPI_BASE + "/IMobileAuthService/GetWGToken/v0001";
         const string API_LOGOFF = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logoff/v0001";
-        const string API_LOGON = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logon/v0001";
+        //const string API_LOGON = WEBAPI_BASE + "/ISteamWebUserPresenceOAuth/Logon/v0001";
 
         /// <summary>
         /// Default mobile user agent
         /// </summary>
-        const string USERAGENT = "Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; Google Nexus 4 - 4.1.1 - API 16 - 768x1280 Build/JRO03S) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
+        const string USERAGENT = "Mozilla/5.0 (Linux; Android 8.1.0; Nexus 5X Build/OPM7.181205.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36";
 
         /// <summary>
         /// Regular expressions for trade confirmations
@@ -83,7 +128,7 @@ namespace WinAuth
             None = 0,
             Notify = 1,
             AutoConfirm = 2,
-            SilentAutoConfirm = 3
+            SilentAutoConfirm = 3,
         }
 
         /// <summary>
@@ -128,7 +173,7 @@ namespace WinAuth
                     List<string> props = new List<string>
                     {
                         "\"duration\":" + Duration,
-                        "\"action\":" + (int)Action
+                        "\"action\":" + (int)Action,
                     };
                     if (Ids != null)
                     {
@@ -151,7 +196,7 @@ namespace WinAuth
                     return null;
                 }
                 var poller = FromJSON(JObject.Parse(json));
-                return (poller.Duration != 0 ? poller : null);
+                return poller?.Duration != 0 ? poller : null;
             }
 
             /// <summary>
@@ -159,7 +204,7 @@ namespace WinAuth
             /// </summary>
             /// <param name="tokens">existing JKToken</param>
             /// <returns></returns>
-            public static ConfirmationPoller? FromJSON(JToken tokens)
+            public static ConfirmationPoller? FromJSON(JToken? tokens)
             {
                 if (tokens == null)
                 {
@@ -184,7 +229,7 @@ namespace WinAuth
                     poller.Ids = token.ToObject<List<string>>();
                 }
 
-                return (poller.Duration != 0 ? poller : null);
+                return poller.Duration != 0 ? poller : null;
             }
         }
 
@@ -503,7 +548,7 @@ namespace WinAuth
         /// <returns></returns>
         public bool IsLoggedIn()
         {
-            return (Session != null && string.IsNullOrEmpty(Session.OAuthToken) == false);
+            return Session != null && string.IsNullOrEmpty(Session.OAuthToken) == false;
         }
 
         /// <summary>
@@ -537,8 +582,10 @@ namespace WinAuth
                     Session.Cookies.Add(cookieuri, new Cookie("Steam_Language", string.IsNullOrEmpty(language) ? "english" : language));
                     Session.Cookies.Add(cookieuri, new Cookie("dob", ""));
 
-                    NameValueCollection headers = new NameValueCollection();
-                    headers.Add("X-Requested-With", "com.valvesoftware.android.steam.community");
+                    NameValueCollection headers = new NameValueCollection
+                    {
+                        { "X-Requested-With", "com.valvesoftware.android.steam.community" },
+                    };
 
                     response = GetString(COMMUNITY_BASE + "/mobilelogin?oauth_client_id=DE45CD61&oauth_scope=read_profile%20write_profile%20read_client%20write_client", "GET", null, headers);
                 }
@@ -551,7 +598,7 @@ namespace WinAuth
                 data.Add("username", username);
                 response = GetString(COMMUNITY_BASE + "/mobilelogin/getrsakey", "POST", data);
                 var rsaresponse = JObject.Parse(response);
-                if (rsaresponse.SelectToken("success").Value<bool>() != true)
+                if (rsaresponse.SelectToken("success")?.Value<bool>() != true)
                 {
                     InvalidLogin = true;
                     Error = "Unknown username";
@@ -565,30 +612,37 @@ namespace WinAuth
                 {
                     var passwordBytes = Encoding.ASCII.GetBytes(password);
                     var p = rsa.ExportParameters(false);
-                    p.Exponent = StringToByteArray(rsaresponse.SelectToken("publickey_exp").Value<string>());
-                    p.Modulus = StringToByteArray(rsaresponse.SelectToken("publickey_mod").Value<string>());
+                    p.Exponent = StringToByteArray(SelectTokenValueNotNull<string>(response, rsaresponse, "publickey_exp"));
+                    p.Modulus = StringToByteArray(SelectTokenValueNotNull<string>(response, rsaresponse, "publickey_mod"));
                     rsa.ImportParameters(p);
                     byte[] encryptedPassword = rsa.Encrypt(passwordBytes, false);
                     encryptedPassword64 = Convert.ToBase64String(encryptedPassword);
                 }
 
                 // login request
-                data = new NameValueCollection();
-                data.Add("password", encryptedPassword64);
-                data.Add("username", username);
-                data.Add("twofactorcode", this.Authenticator.CurrentCode);
-                //data.Add("emailauth", string.Empty);
-                data.Add("loginfriendlyname", "#login_emailauth_friendlyname_mobile");
-                data.Add("captchagid", (string.IsNullOrEmpty(captchaId) == false ? captchaId : "-1"));
-                data.Add("captcha_text", (string.IsNullOrEmpty(captchaText) == false ? captchaText : "enter above characters"));
-                //data.Add("emailsteamid", (string.IsNullOrEmpty(emailcode) == false ? this.SteamId ?? string.Empty : string.Empty));
-                data.Add("rsatimestamp", rsaresponse.SelectToken("timestamp").Value<string>());
-                data.Add("remember_login", "false");
-                data.Add("oauth_client_id", "DE45CD61");
-                data.Add("oauth_scope", "read_profile write_profile read_client write_client");
-                data.Add("donotache", new DateTime().ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds.ToString());
-                response = GetString(COMMUNITY_BASE + "/mobilelogin/dologin/", "POST", data);
-                Dictionary<string, object> loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
+                data = new NameValueCollection
+                {
+                    { "password", encryptedPassword64 },
+                    { "username", username },
+                    { "twofactorcode", this.Authenticator.CurrentCode },
+                    //data.Add("emailauth", string.Empty);
+                    { "loginfriendlyname", "#login_emailauth_friendlyname_mobile" },
+                    { "captchagid", string.IsNullOrEmpty(captchaId) == false ? captchaId : "-1" },
+                    { "captcha_text", string.IsNullOrEmpty(captchaText) == false ? captchaText : "enter above characters" },
+                    //data.Add("emailsteamid", (string.IsNullOrEmpty(emailcode) == false ? this.SteamId ?? string.Empty : string.Empty));
+                    { "rsatimestamp", SelectTokenValueNotNull<string>(response, rsaresponse, "timestamp") },
+                    { "remember_login", "false" },
+                    { "oauth_client_id", "DE45CD61" },
+                    { "oauth_scope", "read_profile write_profile read_client write_client" },
+                    { "donotache", donotache_value }
+                };
+                const string url_mobilelogin_dologin = "/mobilelogin/dologin";
+                response = GetString(COMMUNITY_BASE + url_mobilelogin_dologin, "POST", data);
+                var loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
+                if (loginresponse == null)
+                {
+                    throw GetWinAuthException(response, url_mobilelogin_dologin, new ArgumentNullException(nameof(loginresponse)));
+                }
 
                 if (loginresponse.ContainsKey("emailsteamid") == true)
                 {
@@ -646,10 +700,11 @@ namespace WinAuth
                 // get the OAuth token
                 string oauth = (string)loginresponse["oauth"];
                 var oauthjson = JObject.Parse(oauth);
-                Session.OAuthToken = oauthjson.SelectToken("oauth_token").Value<string>();
-                if (oauthjson.SelectToken("steamid") != null)
+                Session.OAuthToken = SelectTokenValueNotNull<string>(oauth, oauthjson, "oauth_token");
+                var steamid = oauthjson.SelectToken("steamid");
+                if (steamid != null)
                 {
-                    Session.SteamId = oauthjson.SelectToken("steamid").Value<string>();
+                    Session.SteamId = steamid.Value<string>();
                 }
 
                 //// perform UMQ login
@@ -682,9 +737,11 @@ namespace WinAuth
 
                 if (string.IsNullOrEmpty(Session.UmqId) == false)
                 {
-                    var data = new NameValueCollection();
-                    data.Add("access_token", this.Session.OAuthToken);
-                    data.Add("umqid", this.Session.UmqId);
+                    var data = new NameValueCollection
+                    {
+                        { "access_token", this.Session.OAuthToken },
+                        { "umqid", this.Session.UmqId }
+                    };
                     GetString(API_LOGOFF, "POST", data);
                 }
             }
@@ -701,8 +758,10 @@ namespace WinAuth
         {
             try
             {
-                var data = new NameValueCollection();
-                data.Add("access_token", this.Session.OAuthToken);
+                var data = new NameValueCollection
+                {
+                    { "access_token", this.Session.OAuthToken }
+                };
                 string response = GetString(API_GETWGTOKEN, "POST", data);
                 if (string.IsNullOrEmpty(response) == true)
                 {
@@ -746,35 +805,36 @@ namespace WinAuth
             }
         }
 
-        /// <summary>
-        /// Perform a UMQ login
-        /// </summary>
-        /// <returns></returns>
-        //[Obsolete("use UmqLoginAsync")]
-        bool UmqLogin()
-        {
-            if (IsLoggedIn() == false)
-            {
-                return false;
-            }
+        ///// <summary>
+        ///// Perform a UMQ login
+        ///// </summary>
+        ///// <returns></returns>
+        ////[Obsolete("use UmqLoginAsync")]
+        //[Obsolete("0 references", true)]
+        //bool UmqLogin()
+        //{
+        //    if (IsLoggedIn() == false)
+        //    {
+        //        return false;
+        //    }
 
-            var data = new NameValueCollection();
-            data.Add("access_token", this.Session.OAuthToken);
-            var response = GetString(API_LOGON, "POST", data);
-            var loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
-            if (loginresponse.ContainsKey("umqid") == true)
-            {
-                Session.UmqId = (string)loginresponse["umqid"];
-                if (loginresponse.ContainsKey("message") == true)
-                {
-                    Session.MessageId = Convert.ToInt32(loginresponse["message"]);
-                }
+        //    var data = new NameValueCollection();
+        //    data.Add("access_token", this.Session.OAuthToken);
+        //    var response = GetString(API_LOGON, "POST", data);
+        //    var loginresponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(response);
+        //    if (loginresponse.ContainsKey("umqid") == true)
+        //    {
+        //        Session.UmqId = (string)loginresponse["umqid"];
+        //        if (loginresponse.ContainsKey("message") == true)
+        //        {
+        //            Session.MessageId = Convert.ToInt32(loginresponse["message"]);
+        //        }
 
-                return true;
-            }
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         /// <summary>
         /// Delegate for Confirmation event
@@ -789,6 +849,7 @@ namespace WinAuth
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="message">error message</param>
+        /// <param name="action"></param>
         /// <param name="ex">optional exception</param>
         public delegate void ConfirmationErrorDelegate(object sender, string message, PollerAction action, Exception ex);
 
@@ -924,7 +985,7 @@ namespace WinAuth
                         retryCount++;
                         if (retryCount >= ConfirmationPollerRetries)
                         {
-                            ConfirmationErrorEvent(this, "Failed to read confirmations", Session.Confirmations.Action, ex);
+                            ConfirmationErrorEvent?.Invoke(this, "Failed to read confirmations", Session.Confirmations.Action, ex);
                         }
                         else
                         {
@@ -959,8 +1020,8 @@ namespace WinAuth
         {
             long servertime = (CurrentTime + Authenticator.ServerTimeDiff) / 1000L;
 
-            var jids = JObject.Parse(Authenticator.SteamData).SelectToken("identity_secret");
-            string ids = (jids != null ? jids.Value<string>() : string.Empty);
+            var jids = JObject.Parse(Authenticator.SteamData.ThrowIsNull(nameof(Authenticator.SteamData))).SelectToken("identity_secret");
+            var ids = jids?.Value<string>() ?? string.Empty;
 
             var timehash = CreateTimeHash(servertime, "conf", ids);
 
@@ -978,7 +1039,7 @@ namespace WinAuth
 
             // save last html for confirmations details
             ConfirmationsHtml = html;
-            ConfirmationsQuery = string.Join("&", Array.ConvertAll(data.AllKeys, key => String.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key]))));
+            ConfirmationsQuery = string.Join("&", Array.ConvertAll(data.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key]))));
 
             List<Confirmation> trades = new();
 
@@ -1036,7 +1097,7 @@ namespace WinAuth
                     }
                     foreach (var conf in trades)
                     {
-                        conf.IsNew = (Session.Confirmations.Ids.Contains(conf.Id) == false);
+                        conf.IsNew = Session.Confirmations.Ids.Contains(conf.Id) == false;
                         if (conf.IsNew == true)
                         {
                             Session.Confirmations.Ids.Add(conf.Id);
@@ -1056,36 +1117,37 @@ namespace WinAuth
             return trades;
         }
 
-        /// <summary>
-        /// Get details for an individual Confirmation
-        /// </summary>
-        /// <param name="trade">trade Confirmation</param>
-        /// <returns>html string of details</returns>
-        //[Obsolete("use GetConfirmationDetailsAsync")]
-        public string GetConfirmationDetails(Confirmation trade)
-        {
-            // build details URL
-            string url = COMMUNITY_BASE + "/mobileconf/details/" + trade.Id + "?" + ConfirmationsQuery;
+        ///// <summary>
+        ///// Get details for an individual Confirmation
+        ///// </summary>
+        ///// <param name="trade">trade Confirmation</param>
+        ///// <returns>html string of details</returns>
+        ////[Obsolete("use GetConfirmationDetailsAsync")]
+        //[Obsolete("0 references", true)]
+        //public string GetConfirmationDetails(Confirmation trade)
+        //{
+        //    // build details URL
+        //    string url = COMMUNITY_BASE + "/mobileconf/details/" + trade.Id + "?" + ConfirmationsQuery;
 
-            string response = GetString(url);
-            if (response.IndexOf("success") == -1)
-            {
-                throw new WinAuthInvalidSteamRequestException("Invalid request from steam: " + response);
-            }
-            if (JObject.Parse(response).SelectToken("success").Value<bool>() == true)
-            {
-                string html = JObject.Parse(response).SelectToken("html").Value<string>();
+        //    string response = GetString(url);
+        //    if (response.IndexOf("success") == -1)
+        //    {
+        //        throw new WinAuthInvalidSteamRequestException("Invalid request from steam: " + response);
+        //    }
+        //    if (JObject.Parse(response).SelectToken("success").Value<bool>() == true)
+        //    {
+        //        string html = JObject.Parse(response).SelectToken("html").Value<string>();
 
-                Regex detailsRegex = new Regex(@"(.*<body[^>]*>\s*<div\s+class=""[^""]+"">).*(</div>.*?</body>\s*</html>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-                var match = detailsRegex.Match(ConfirmationsHtml);
-                if (match.Success == true)
-                {
-                    return match.Groups[1].Value + html + match.Groups[2].Value;
-                }
-            }
+        //        Regex detailsRegex = new Regex(@"(.*<body[^>]*>\s*<div\s+class=""[^""]+"">).*(</div>.*?</body>\s*</html>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        //        var match = detailsRegex.Match(ConfirmationsHtml);
+        //        if (match.Success == true)
+        //        {
+        //            return match.Groups[1].Value + html + match.Groups[2].Value;
+        //        }
+        //    }
 
-            return "<html><head></head><body><p>Cannot load trade confirmation details</p></body></html>";
-        }
+        //    return "<html><head></head><body><p>Cannot load trade confirmation details</p></body></html>";
+        //}
 
         /// <summary>
         /// Confirm or reject a specific trade confirmation
@@ -1102,10 +1164,11 @@ namespace WinAuth
                 return false;
             }
 
-            long servertime = (SteamAuthenticator.CurrentTime + Authenticator.ServerTimeDiff) / 1000L;
+            long servertime = (CurrentTime + Authenticator.ServerTimeDiff) / 1000L;
 
-            var jids = JObject.Parse(Authenticator.SteamData).SelectToken("identity_secret");
-            string ids = (jids != null ? jids.Value<string>() : string.Empty);
+            var jids = JObject.Parse(Authenticator.SteamData.ThrowIsNull(nameof(Authenticator.SteamData))).SelectToken("identity_secret");
+            var ids = jids?.Value<string>() ?? string.Empty;
+
             var timehash = CreateTimeHash(servertime, "conf", ids);
 
             var data = new NameValueCollection()
@@ -1117,7 +1180,6 @@ namespace WinAuth
                 { "t", servertime.ToString() },
                 { "m", "android" },
                 { "tag", "conf" },
-                //
                 { "cid", id },
                 { "ck", key }
             };
@@ -1138,7 +1200,7 @@ namespace WinAuth
                     return false;
                 }
 
-                if (Session.Confirmations != null)
+                if (Session.Confirmations?.Ids != null)
                 {
                     lock (Session.Confirmations)
                     {
@@ -1199,19 +1261,20 @@ namespace WinAuth
 
         #region Web Request
 
-        /// <summary>
-        /// Get binary data web request
-        /// </summary>
-        /// <param name="url">url</param>
-        /// <param name="method">GET or POST</param>
-        /// <param name="formdata">optional form data</param>
-        /// <param name="headers">optional headers</param>
-        /// <returns>array of returned data</returns>
-        //[Obsolete("use SendAsync")]
-        public byte[] GetData(string url, string? method = null, NameValueCollection? formdata = null, NameValueCollection? headers = null)
-        {
-            return Request(url, method ?? "GET", formdata, headers);
-        }
+        ///// <summary>
+        ///// Get binary data web request
+        ///// </summary>
+        ///// <param name="url">url</param>
+        ///// <param name="method">GET or POST</param>
+        ///// <param name="formdata">optional form data</param>
+        ///// <param name="headers">optional headers</param>
+        ///// <returns>array of returned data</returns>
+        ////[Obsolete("use SendAsync")]
+        //[Obsolete("0 references", true)]
+        //public byte[]? GetData(string url, string? method = null, NameValueCollection? formdata = null, NameValueCollection? headers = null)
+        //{
+        //    return Request(url, method ?? "GET", formdata, headers);
+        //}
 
         /// <summary>
         /// Get string from web request
@@ -1222,9 +1285,9 @@ namespace WinAuth
         /// <param name="headers">optional headers</param>
         /// <returns>string of returned data</returns>
         //[Obsolete("use SendAsync")]
-        public string GetString(string url, string method = null, NameValueCollection formdata = null, NameValueCollection headers = null)
+        public string GetString(string url, string? method = null, NameValueCollection? formdata = null, NameValueCollection? headers = null)
         {
-            byte[] data = Request(url, method ?? "GET", formdata, headers);
+            var data = Request(url, method ?? "GET", formdata, headers);
             if (data == null || data.Length == 0)
             {
                 return string.Empty;
@@ -1240,11 +1303,11 @@ namespace WinAuth
         /// </summary>
         /// <param name="url">url</param>
         /// <param name="method">GET or POST</param>
-        /// <param name="formdata">optional form data</param>
+        /// <param name="data">optional form data</param>
         /// <param name="headers">optional headers</param>
         /// <returns>returned data</returns>
         //[Obsolete("use SendAsync")]
-        protected byte[]? Request(string url, string method, NameValueCollection? data, NameValueCollection? headers)
+        protected byte[]? Request(string url, string? method, NameValueCollection? data, NameValueCollection? headers)
         //{
         //    byte[]? responsedata;
         //    //try
@@ -1268,7 +1331,7 @@ namespace WinAuth
             lock (this)
             {
                 // create form-encoded data for query or body
-                string query = (data == null ? string.Empty : string.Join("&", Array.ConvertAll(data.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key])))));
+                string query = data == null ? string.Empty : string.Join("&", Array.ConvertAll(data.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(data[key]))));
                 if (string.Compare(method, "GET", true) == 0)
                 {
                     url += (!url.Contains("?", StringComparison.CurrentCulture) ? "?" : "&") + query;
@@ -1345,8 +1408,8 @@ namespace WinAuth
                         if (response.StatusCode == HttpStatusCode.Forbidden)
                             throw new WinAuthUnauthorisedSteamRequestException(ex);
 
-                        //https://github.com/Jessecar96/SteamDesktopAuthenticator/blob/8a408f13ee24f70fffbc409cb0e050e924f4fe94/Steam%20Desktop%20Authenticator/BrowserRequestHandler.cs#L60
-                        //302错误为跳转到steammobile://协议时产生，出现这种情况直接强制登出重新登录。
+                        // https://github.com/Jessecar96/SteamDesktopAuthenticator/blob/8a408f13ee24f70fffbc409cb0e050e924f4fe94/Steam%20Desktop%20Authenticator/BrowserRequestHandler.cs#L60
+                        // 302 错误为跳转到 steammobile:// 协议时产生，出现这种情况直接强制登出重新登录
                         if (response.StatusCode == HttpStatusCode.Found)
                         {
                             throw new WinAuthInvalidSteamRequestException(string.Format("{0}: {1}", (int)response.StatusCode, response.StatusDescription), ex);
@@ -1367,8 +1430,9 @@ namespace WinAuth
         /// <param name="cookies">cookie container</param>
         /// <param name="request">Request data</param>
         /// <param name="ex">Thrown exception</param>
-        [Obsolete("use LogException(string, string, CookieContainer?, IReadOnlyDictionary{string, string}?, Exception)")]
-        static void LogException(string method, string url, CookieContainer? cookies, NameValueCollection? request, Exception ex)
+        [Conditional("DEBUG")]
+        //[Obsolete("use LogException(string, string, CookieContainer?, IReadOnlyDictionary{string, string}?, Exception)")]
+        static void LogException(string? method, string url, CookieContainer? cookies, NameValueCollection? request, Exception ex)
         {
             return;
 
@@ -1416,8 +1480,9 @@ namespace WinAuth
         /// <param name="cookies">cookie container</param>
         /// <param name="request">Request data</param>
         /// <param name="response">response body</param>
-        [Obsolete("use LogRequest(string, string, CookieContainer?, IReadOnlyDictionary{string, string}?, string)")]
-        static void LogRequest(string method, string url, CookieContainer? cookies, NameValueCollection? request, string response)
+        [Conditional("DEBUG")]
+        //[Obsolete("use LogRequest(string, string, CookieContainer?, IReadOnlyDictionary{string, string}?, string)")]
+        static void LogRequest(string? method, string url, CookieContainer? cookies, NameValueCollection? request, string? response)
         {
             return;
 
@@ -1475,15 +1540,17 @@ namespace WinAuth
             return bytes;
         }
 
-        static string SelectTokenValueStr(JObject obj, string path)
-        {
-            var value = obj.SelectToken(path)?.Value<string>();
-            return value.ThrowIsNull(path);
-        }
+        //[Obsolete("0 references", true)]
+        //static string SelectTokenValueStr(JObject obj, string path)
+        //{
+        //    var value = obj.SelectToken(path)?.Value<string>();
+        //    return value.ThrowIsNull(path);
+        //}
 
-        static byte[] StringToByteArray(JObject obj, string path)
-        {
-            return StringToByteArray(SelectTokenValueStr(obj, path));
-        }
+        //[Obsolete("0 references", true)]
+        //static byte[] StringToByteArray(JObject obj, string path)
+        //{
+        //    return StringToByteArray(SelectTokenValueStr(obj, path));
+        //}
     }
 }

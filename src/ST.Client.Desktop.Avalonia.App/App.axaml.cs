@@ -371,7 +371,10 @@ namespace System.Application.UI
 #if StartupTrace
             StartupTrace.Restart("Desktop_Startup.SetIsStartuped");
 #endif
-            INotificationService.ILifeCycle.Instance?.OnStartup();
+            if (Program.IsMainProcess)
+            {
+                INotificationService.ILifeCycle.Instance?.OnStartup();
+            }
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)

@@ -15,8 +15,9 @@ namespace System.Application.Services.Implementation
 
         UserStatsReceivedCallback? UserStatsReceivedCallback;
 
-        public SteamworksLocalApiServiceImpl()
+        public SteamworksLocalApiServiceImpl(IPlatformService platformService)
         {
+            Steam.GetInstallPathDelegate = platformService.GetSteamDynamicLinkLibraryPath;
             SteamClient = new Client();
         }
 

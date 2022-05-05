@@ -16,6 +16,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<IHttpPlatformHelperService, LinuxClientHttpPlatformHelperServiceImpl>();
                 services.AddSingleton<LinuxPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<LinuxPlatformServiceImpl>());
+                if (options.HasSteam)
+                {
+                    services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
+                }
             }
             else
             {

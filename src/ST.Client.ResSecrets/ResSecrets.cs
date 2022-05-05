@@ -1,6 +1,7 @@
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Text;
 using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.Security

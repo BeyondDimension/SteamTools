@@ -52,7 +52,7 @@ namespace System.Application.Services.Implementation
         readonly string? mSteamDirPath;
         readonly string? mSteamProgramPath;
         readonly string? mRegistryVdfPath;
-        readonly string[] steamProcess = new[] { "steam", "steam_osx", "steamservice", "steamwebhelper" };
+        readonly string[] steamProcess = new[] { OperatingSystem.IsMacOS() ? "steam_osx" : "steam", "steamservice", "steamwebhelper" };
         readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
         List<FileSystemWatcher>? steamDownloadingWatchers;
 

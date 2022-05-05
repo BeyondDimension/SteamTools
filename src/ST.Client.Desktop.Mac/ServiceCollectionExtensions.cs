@@ -20,6 +20,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());
                 services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<MacPlatformServiceImpl>());
                 //services.AddPlatformNotificationService();
+                if (options.HasSteam)
+                {
+                    services.AddSingleton<ISteamworksLocalApiService, SteamworksLocalApiServiceImpl>();
+                }
             }
             else
             {
