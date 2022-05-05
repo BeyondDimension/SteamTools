@@ -555,9 +555,13 @@ namespace System.Application.Models
                     IApplication.ProgramPath,
                     $"-clt app -silence -id {AppId}");
             }
-            else
+            else if (OperatingSystem2.IsLinux)
             {
                 return Process = Process2.Start($" SteamAppId={AppId} | {IApplication.ProgramPath} -clt app -silence -id {AppId}");
+            }
+            else
+            {
+                return Process = Process2.StartThis(AppId, $"{IApplication.ProgramPath} -clt app -silence -id {AppId}");
             }
         }
 

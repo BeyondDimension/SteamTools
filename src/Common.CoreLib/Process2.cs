@@ -9,6 +9,27 @@ namespace System
     {
         const string TAG = "Process2";
 
+        static readonly Lazy<string> _bin_bash = new(() => string.Format("{0}bin{0}bash", Path.DirectorySeparatorChar));
+
+        /// <summary>
+        /// /bin/bash
+        /// </summary>
+        public static string BinBash => _bin_bash.Value;
+
+        public static Process? StartThis(uint appId, string fileName)
+        {
+            using var p = new Process();
+            p.StartInfo.FileName = BinBash;
+            p.StartInfo.Arguments = "";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.UseShellExecute = false;
+            p.Start();
+            p.StandardInput.WriteLine($"SteamAppId={appId}");
+            p.StandardInput.WriteLine(fileName);
+            return p;
+        }
+
         /// <summary>
         /// 通过指定应用程序的名称和路径参数来启动一个进程资源，并将该资源与新的 Process 组件相关联
         /// </summary>
