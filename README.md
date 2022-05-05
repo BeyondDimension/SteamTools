@@ -37,20 +37,19 @@
 
 ## ✨ 功能
 1. 网络加速 (Support Windows / Linux / macOS / Android)
-	- 使 Steam 社区、Github、谷歌验证码、Pixiv、Discord、Twitch 等国内难以访问的网页正常访问。
-	- 功能类似 [Steamcommunity 302](https://www.dogfight360.com/blog/686/) ，使用 [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) 开源项目进行本地反代。
+	- 使用 [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) 开源项目进行本地反代来支持更快的访问游戏网站。
 2. 脚本配置 (Windows / Linux / macOS Only)
 	- 通过加速服务拦截网络请求将一些 JS 脚本注入在网页中，提供类似网页插件的功能。
 3. 账号切换 (Windows / Linux / macOS Only)
 	- 一键切换已在当前 PC 上登录过的 Steam 账号，与管理家庭共享库排序等功能。
 4. 库存管理 (Windows / Linux / macOS Only)
-	- 让您直接管理到 Steam 游戏库存，不仅能够下载老版本的 Steam 游戏，也能够对 Steam 游戏成就进行直接管理，支持解锁成就以及反解锁成就。
+	- 让您直接管理 Steam 游戏库存，可以编辑游戏名称和[自定义封面](https://www.steamgriddb.com/)，也能解锁以及反解锁 Steam 游戏成就。
 5. 本地令牌 (Support Windows / Linux / macOS / Android)
 	- 让您的手机令牌统一保存在电脑中，目前仅支持 Steam 令牌，后续会开发支持更多的令牌种类与云同步令牌。
 6. 自动挂卡 (Support Windows / Linux / macOS / Android)
 	- 集成 [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) 在应用内提供 挂机掉落 Steam 集换式卡牌 等功能。
 7. 游戏工具 (Windows Only)
-	- 强制游戏窗口使用无边框窗口化
+	- 强制游戏窗口使用无边框窗口化、更多攻待开发。
 
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
