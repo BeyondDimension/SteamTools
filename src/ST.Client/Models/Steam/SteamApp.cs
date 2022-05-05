@@ -549,9 +549,16 @@ namespace System.Application.Models
 
         public Process? StartSteamAppProcess()
         {
-            return Process = Process2.Start(
-                IApplication.ProgramPath,
-                $"-clt app -silence -id {AppId}");
+            if (OperatingSystem2.IsWindows)
+            {
+                return Process = Process2.Start(
+                    IApplication.ProgramPath,
+                    $"-clt app -silence -id {AppId}");
+            }
+            else
+            {
+                return Process = Process2.Start($" SteamAppId={AppId} | {IApplication.ProgramPath} -clt app -silence -id {AppId}");
+            }
         }
 
         #region Replace DLSS dll files methods
