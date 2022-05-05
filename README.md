@@ -187,6 +187,7 @@ OS                            | Version                 | Architectures     |
 [Xcode 13 或更高版本](https://developer.apple.com/xcode/)
 
 ## 🏗️ [项目结构](./src/README.md)
+详见 [./src/README.md](./src/README.md)  
 
 <!--
 * [LibVLCSharp](https://github.com/videolan/libvlcsharp)
