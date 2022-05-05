@@ -549,7 +549,7 @@ namespace System.Application.Models
 
         public Process? StartSteamAppProcess(bool show = false)
         {
-            string arguments = $"-clt app {(show ? "-silence" : "")} -id {AppId}";
+            string arguments = $"-clt app {(show ? "" : "-silence")} -id {AppId}";
             if (OperatingSystem2.IsWindows)
             {
                 return Process = Process2.Start(IApplication.ProgramPath, arguments);
