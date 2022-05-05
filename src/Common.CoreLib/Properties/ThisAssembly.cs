@@ -5,7 +5,7 @@ namespace System.Properties
         /// <summary>
         /// 定义程序集清单的产品名自定义属性
         /// </summary>
-        public const string AssemblyProduct = "SteamTools";
+        public const string AssemblyProduct = "StmToolkit";
 
         /// <summary>
         /// 定义程序集清单的商标自定义属性

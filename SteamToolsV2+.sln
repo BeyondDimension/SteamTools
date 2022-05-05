@@ -2124,8 +2124,8 @@ Global
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|iPhone.Build.0 = Release|Any CPU
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x64.ActiveCfg = Release|Any CPU
-		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x64.Build.0 = Release|Any CPU
+		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x64.ActiveCfg = Release|x64
+		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x64.Build.0 = Release|x64
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x86.ActiveCfg = Release|Any CPU
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
@@ -2205,7 +2205,7 @@ Global
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB} = {1B889C56-157A-4493-85F2-76366282B002}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 		RESX_NeutralResourcesLanguage = zh-Hans
+		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 	EndGlobalSection
 EndGlobal

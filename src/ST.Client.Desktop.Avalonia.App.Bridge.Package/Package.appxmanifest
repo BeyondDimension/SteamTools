@@ -13,7 +13,7 @@
     Version="2.7.2.0" />
 
   <Properties>
-    <DisplayName>Steam++</DisplayName>
+    <DisplayName>StmToolkit</DisplayName>
     <PublisherDisplayName>软妹币玩家</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -32,8 +32,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Steam++"
-        Description="「Steam++」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。"
+        DisplayName="StmToolkit"
+        Description="「StmToolkit」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">

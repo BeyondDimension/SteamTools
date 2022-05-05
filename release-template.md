@@ -49,7 +49,7 @@
 						- 使用 Windows Update 更新系统补丁
 				- 运行程序时提示 计算机中丢失 api-ms-win-core-winrt-l1-1-0.dll
 					- **解决方案**
-						- 下载 api-ms-win-core-winrt-l1-1-0.dll 文件放入程序根目录(StmToolkit.exe 所在文件夹)
+						- 下载 api-ms-win-core-winrt-l1-1-0.dll 文件放入程序根目录(Steam++.exe 所在文件夹)
 							- [从 Github 上直接下载](https://github.com/BeyondDimension/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
 							- [从 Gitee 上直接下载](https://gitee.com/rmbgame/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
 	- Android
