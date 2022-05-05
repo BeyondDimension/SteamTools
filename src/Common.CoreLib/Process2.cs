@@ -66,7 +66,7 @@ namespace System
         /// <para>或 参数的长度与该进程的完整路径的长度的总和超过了 2080。 与此异常关联的错误消息可能为以下消息之一：“传递到系统调用的数据区域太小。” 或“拒绝访问。”</para>
         /// </exception>
         /// <exception cref="PlatformNotSupportedException">不支持 shell 的操作系统（如，仅适用于.NET Core 的 Nano Server）不支持此方法</exception>
-        public static Process? Start(string fileName, string? arguments = null, bool useShellExecute = false, string? workingDirectory = null, IDictionary<string, string>? environment = null)
+        public static Process? Start(string fileName, string? arguments = null, bool useShellExecute = false, string? workingDirectory = null, IReadOnlyDictionary<string, string>? environment = null)
         {
             if (string.IsNullOrEmpty(fileName)) return null;
             var p = new ProcessStartInfo(fileName);

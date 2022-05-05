@@ -99,7 +99,7 @@ namespace System.Application.UI.ViewModels
                                 SteamConnectService.Current.RuningSteamApps.TryGetValue(item.Key, out var runState);
                                 if (runState != null)
                                 {
-                                    runState.Process?.Kill();
+                                    runState.Process?.KillEntireProcessTree();
                                     SteamConnectService.Current.RuningSteamApps.TryRemove(item.Key, out runState);
                                 }
                             }
@@ -135,7 +135,7 @@ namespace System.Application.UI.ViewModels
                             SteamConnectService.Current.RuningSteamApps.TryGetValue(app.AppId, out var runState);
                             if (runState != null)
                             {
-                                runState.Process?.Kill();
+                                runState.Process?.KillEntireProcessTree();
                                 SteamConnectService.Current.RuningSteamApps.TryRemove(app.AppId, out runState);
                             }
                             MainThread2.BeginInvokeOnMainThread(() =>
@@ -203,7 +203,7 @@ namespace System.Application.UI.ViewModels
                             SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
                             if (runState != null)
                             {
-                                runState.Process?.Kill();
+                                runState.Process?.KillEntireProcessTree();
                                 SteamConnectService.Current.RuningSteamApps.TryRemove(item.AppId, out var remove);
                                 item.Process = null;
                             }
@@ -261,7 +261,7 @@ namespace System.Application.UI.ViewModels
             }
             else
             {
-                app.Process.Kill();
+                app.Process.KillEntireProcessTree();
                 app.Process = null;
             }
         }
@@ -301,7 +301,7 @@ namespace System.Application.UI.ViewModels
                     else
                     {
                         SteamConnectService.Current.RuningSteamApps.TryGetValue(item.Key, out var runState);
-                        runState?.Process?.Kill();
+                        runState?.Process?.KillEntireProcessTree();
                         list.Add(new SteamApp
                         {
                             AppId = item.Key,

@@ -760,10 +760,10 @@ namespace System.Application.Models
 
                     if (launchTable != null)
                     {
-                        var launchItems = from table in (from prop in (from prop in launchTable.Properties
-                                                                       where prop.PropertyType == SteamAppPropertyType.Table
-                                                                       select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
-                                                         select prop.GetValue<SteamAppPropertyTable>())
+                        var launchItems = from table in from prop in (from prop in launchTable.Properties
+                                                                      where prop.PropertyType == SteamAppPropertyType.Table
+                                                                      select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
+                                                        select prop.GetValue<SteamAppPropertyTable>()
                                           select new SteamAppLaunchItem
                                           {
                                               Label = table.GetPropertyValue<string?>("description"),
@@ -785,10 +785,10 @@ namespace System.Application.Models
 
                 if (savefilesTable != null)
                 {
-                    var savefiles = from table in (from prop in (from prop in savefilesTable.Properties
-                                                                 where prop.PropertyType == SteamAppPropertyType.Table
-                                                                 select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
-                                                   select prop.GetValue<SteamAppPropertyTable>())
+                    var savefiles = from table in from prop in (from prop in savefilesTable.Properties
+                                                                where prop.PropertyType == SteamAppPropertyType.Table
+                                                                select prop).OrderBy((SteamAppProperty prop) => prop.Name, StringComparer.OrdinalIgnoreCase)
+                                                  select prop.GetValue<SteamAppPropertyTable>()
                                     select new SteamAppSaveFile
                                     (
                                         AppId,

@@ -592,7 +592,7 @@ namespace System.Application.Services
             {
                 if (app.Process != null)
                     if (!app.Process.HasExited)
-                        app.Process.Kill();
+                        app.Process.KillEntireProcessTree();
             }
             DisposeSteamClient();
         }
