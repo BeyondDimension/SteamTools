@@ -62,6 +62,8 @@ namespace System.Application.Services.Implementation
             if (string.IsNullOrWhiteSpace(name)) return true;
             if (string.Equals(name, IFontManager.KEY_Default, StringComparison.OrdinalIgnoreCase))
                 return true;
+            if (string.Equals(name, IFontManager.KEY_WinUI, StringComparison.OrdinalIgnoreCase))
+                return true;
             if (_defaultTypeface.FontFamily.FamilyNames.Contains(name))
                 return true;
             return name switch

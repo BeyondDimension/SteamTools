@@ -21,6 +21,11 @@ namespace System.Application.Services
         //public const string ConsoleFont_Consolas = "Consolas";
         //public const string ConsoleFont_SourceCodePro = "Source Code Pro";
         //public const string ConsoleFont_JetBrainsMono = "JetBrains Mono";
+
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.media.fontfamily.xamlautofontfamily?view=winrt-22000
+        /// </summary>
+        public const string KEY_WinUI = "XamlAutoFontFamily";
     }
 
     partial interface IPlatformService

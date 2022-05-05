@@ -450,3 +450,6 @@ dotnet_diagnostic.SA1643.severity = silent
 
 # SA1303: Const field names should begin with upper-case letter
 dotnet_diagnostic.SA1303.severity = silent
+
+# SA1300: Element should begin with upper-case letter
+dotnet_diagnostic.SA1300.severity = silent
