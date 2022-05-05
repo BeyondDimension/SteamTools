@@ -49,7 +49,7 @@
 						- 使用 Windows Update 更新系统补丁
 				- 运行程序时提示 计算机中丢失 api-ms-win-core-winrt-l1-1-0.dll
 					- **解决方案**
-						- 下载 api-ms-win-core-winrt-l1-1-0.dll 文件放入程序根目录(Steam++.exe 所在文件夹)
+						- 下载 api-ms-win-core-winrt-l1-1-0.dll 文件放入程序根目录(StmToolkit.exe 所在文件夹)
 							- [从 Github 上直接下载](https://github.com/BeyondDimension/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
 							- [从 Gitee 上直接下载](https://gitee.com/rmbgame/SteamTools/raw/develop/references/runtime.win7-x64.Microsoft.NETCore.Windows.ApiSets/api-ms-win-core-winrt-l1-1-0.dll)
 	- Android
@@ -58,7 +58,7 @@
 
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.7.2](https://img.shields.io/badge/Steam++-v2.7.2-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![StmToolkit v2.7.2](https://img.shields.io/badge/StmToolkit-v2.7.2-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -67,22 +67,22 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.7.2.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.7.2.7z  | SHA256 |
+| StmToolkit_win_x64_v2.7.2.7z  | SHA256 |
+| StmToolkit_win_x64_fde_v2.7.2.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.7.2.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.7.2.exe  | SHA256 |
+| StmToolkit_win_x64_v2.7.2.exe  | SHA256 |
+| StmToolkit_win_x64_fde_v2.7.2.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.7z  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.7z  | SHA256 |
+| StmToolkit_linux_x64_v2.7.2.7z  | SHA256 |
+| StmToolkit_linux_arm64_v2.7.2.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.deb  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.deb  | SHA256 |
+| StmToolkit_linux_x64_v2.7.2.deb  | SHA256 |
+| StmToolkit_linux_arm64_v2.7.2.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.rpm  | SHA256 |
+| StmToolkit_linux_x64_v2.7.2.rpm  | SHA256 |
+| StmToolkit_linux_arm64_v2.7.2.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.7.2.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.7.2.dmg  | SHA256 |
+| StmToolkit_macos_x64_v2.7.2.dmg  | SHA256 |
+| StmToolkit_macos_arm64_v2.7.2.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.7.2.apk  | SHA256 |
+| StmToolkit_android_v2.7.2.apk  | SHA256 |

@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Application.Utils;
 using static System.ProjectPathUtil;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 namespace System.Application.Steps
 {
@@ -577,7 +578,8 @@ namespace System.Application.Steps
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
                     continue;
                 }
-                var appName = $"Steam++{(item == "osx-x64" ? "" : " Arm64")}";
+                //var appName = $"StmToolkit{(item == "osx-x64" ? "" : " Arm64")}";
+                const string appName = _ThisAssembly.AssemblyTrademark;
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)
                         .Replace("${{ Steam++_Version }}", mCFBundleVersion)

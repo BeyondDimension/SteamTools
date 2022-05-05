@@ -1,7 +1,7 @@
 name: Build
 
 env:
-  ProjectName: Steam++
+  ProjectName: StmToolkit
 
 on:
   push:

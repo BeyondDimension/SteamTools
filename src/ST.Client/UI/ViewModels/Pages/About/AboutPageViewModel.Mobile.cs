@@ -102,7 +102,7 @@ namespace System.Application.UI.ViewModels
         public const string GitHub = "GitHub";
         public const string Gitee = "Gitee";
         public static readonly string[] SourceRepositories = new[] { GitHub, Gitee };
-        public const string Title_0 = "Steam++ Tools ";
+        public const string Title_0 = "StmToolkit ";
         public const string Title_1 = "2.0";
         public const string Developers_0 = "Developers: ";
         public const string Contributors_0 = "Contributors: ";

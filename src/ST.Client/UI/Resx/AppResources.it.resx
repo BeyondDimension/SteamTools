@@ -1082,15 +1082,15 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Importazione di Steam++</value>
+    <value>Importazione di StmToolkit</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Importare i dati dei token esportati da Steam++ versione V1</value>
+    <value>Importare i dati dei token esportati da StmToolkit versione V1</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>Importare i dati dei token esportati da Steam++ versione V2</value>
+    <value>Importare i dati dei token esportati da StmToolkit versione V2</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
@@ -1210,7 +1210,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>Il tuo autenticatore è stato aggiunto al tuo account Steam ed è stato importato con successo in Steam++. Questo è il tuo codice di recupero che puoi usare per rimuovere l&apos;autenticatore dal tuo account se lo perdi. Per favore, scrivetelo ora e tenetelo in un posto sicuro.</value>
+    <value>Il tuo autenticatore è stato aggiunto al tuo account Steam ed è stato importato con successo in StmToolkit. Questo è il tuo codice di recupero che puoi usare per rimuovere l&apos;autenticatore dal tuo account se lo perdi. Per favore, scrivetelo ora e tenetelo in un posto sicuro.</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1646,7 +1646,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>Scegli come accedere al tuo account Steam++</value>
+    <value>Scegli come accedere al tuo account StmToolkit</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
@@ -1730,7 +1730,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>Sei sicuro di voler uscire da Steam++?</value>
+    <value>Sei sicuro di voler uscire da StmToolkit?</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -2070,7 +2070,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Aggiornamento della versione v{0} di Steam++</value>
+    <value>Aggiornamento della versione v{0} di StmToolkit</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2151,7 +2151,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Aggiornamento sostitutivo di Steam++ in corso...</value>
+    <value>Aggiornamento sostitutivo di StmToolkit in corso...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
@@ -2463,12 +2463,12 @@ Questa azione termina con un salto di Steam in esecuzione alla finestra di acces
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Supporta lo sviluppo di Steam++</value>
+    <value>Supporta lo sviluppo di StmToolkit</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Il rilascio dell&apos;attuale versione di Steam++ non può essere separato dal supporto di tutti, e se Steam++ ti è utile e vuoi che manteniamo le nuove funzionalità sviluppate e mantenute per lungo tempo, potresti considerare di darci un piccolo contributo per rendere il nostro vapore di manutenzione degli aggiornamenti più dinamico.
-Ricorda di avere l&apos;UID del tuo account Steam++ nel messaggio delle note quando effettui una donazione, in modo che possiamo restituire la ricompensa della donazione al tuo account in un secondo momento.</value>
+    <value>Il rilascio dell&apos;attuale versione di StmToolkit non può essere separato dal supporto di tutti, e se StmToolkit ti è utile e vuoi che manteniamo le nuove funzionalità sviluppate e mantenute per lungo tempo, potresti considerare di darci un piccolo contributo per rendere il nostro vapore di manutenzione degli aggiornamenti più dinamico.
+Ricorda di avere l&apos;UID del tuo account StmToolkit nel messaggio delle note quando effettui una donazione, in modo che possiamo restituire la ricompensa della donazione al tuo account in un secondo momento.</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
@@ -2480,7 +2480,7 @@ Ricorda di avere l&apos;UID del tuo account Steam++ nel messaggio delle note qua
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>Dovrai accedere al tuo account Steam++ per ottenere il tuo UID</value>
+    <value>Dovrai accedere al tuo account StmToolkit per ottenere il tuo UID</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="Sleep" xml:space="preserve">

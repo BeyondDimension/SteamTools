@@ -2070,7 +2070,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Actualización de la versión de Steam++ v{0}</value>
+    <value>Actualización de la versión de StmToolkit v{0}</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2151,7 +2151,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Actualización de reemplazo de Steam++ en curso...</value>
+    <value>Actualización de reemplazo de StmToolkit en curso...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
@@ -2463,12 +2463,12 @@ Esta acción termina con un salto de Steam en ejecución a la ventana de inicio 
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Apoya el desarrollo de Steam++</value>
+    <value>Apoya el desarrollo de StmToolkit</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>El lanzamiento de la versión actual de Steam++ no se puede separar del soporte de todos, y si Steam++ es útil para usted, y desea que mantengamos las nuevas funciones desarrolladas y mantenidas durante mucho tiempo, puede considerar darnos una pequeña contribución para hacer nuestro vapor de mantenimiento de actualizaciones más dinámico.
-Recuerda tener el UID de tu cuenta de Steam++ en el mensaje de notas al hacer una donación, para que podamos devolver la recompensa de la donación a tu cuenta más tarde.</value>
+    <value>El lanzamiento de la versión actual de StmToolkit no se puede separar del soporte de todos, y si StmToolkit es útil para usted, y desea que mantengamos las nuevas funciones desarrolladas y mantenidas durante mucho tiempo, puede considerar darnos una pequeña contribución para hacer nuestro vapor de mantenimiento de actualizaciones más dinámico.
+Recuerda tener el UID de tu cuenta de StmToolkit en el mensaje de notas al hacer una donación, para que podamos devolver la recompensa de la donación a tu cuenta más tarde.</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
@@ -2480,7 +2480,7 @@ Recuerda tener el UID de tu cuenta de Steam++ en el mensaje de notas al hacer un
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>Deberá iniciar sesión en su cuenta de Steam++ para obtener su UID</value>
+    <value>Deberá iniciar sesión en su cuenta de StmToolkit para obtener su UID</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="Sleep" xml:space="preserve">

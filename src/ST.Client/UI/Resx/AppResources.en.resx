@@ -310,7 +310,7 @@
     <comment>Comment=末尾带空格;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_AutoRunProxy" xml:space="preserve">
-    <value>Start routing your connections upon launching Steam++</value>
+    <value>Start routing your connections upon launching StmToolkit</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="CommunityFix_CertificateSettings" xml:space="preserve">
@@ -514,7 +514,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_AutoAFK" xml:space="preserve">
-    <value>Enable Idle Play Mode for waitlisted games upon launching Steam++</value>
+    <value>Enable Idle Play Mode for waitlisted games upon launching StmToolkit</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="GameList_DeleteAll" xml:space="preserve">
@@ -1082,19 +1082,19 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Import from Steam++</value>
+    <value>Import from StmToolkit</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Import from Steam++ Version 1.0</value>
+    <value>Import from StmToolkit Version 1.0</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>Import from Steam++ Version 2.0</value>
+    <value>Import from StmToolkit Version 2.0</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
-    <value>Confirming transactions requires a logged in Steam status. Steam++ will not record your password, but rather save a local logged-in status.</value>
+    <value>Confirming transactions requires a logged in Steam status. StmToolkit will not record your password, but rather save a local logged-in status.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_SteamUserImport" xml:space="preserve">
@@ -1210,7 +1210,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>Your Steam Authenticator has been added to your Steam account and imported into Steam++. This is your recovery code which you can use to remove this Authenticator from your Steam account if you lose it. Please write it down now and store it in a safe place.</value>
+    <value>Your Steam Authenticator has been added to your Steam account and imported into StmToolkit. This is your recovery code which you can use to remove this Authenticator from your Steam account if you lose it. Please write it down now and store it in a safe place.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1246,7 +1246,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptShop_NoLogin" xml:space="preserve">
-    <value>Log in Steam++ before accessing the userscript workshop.</value>
+    <value>Log in StmToolkit before accessing the userscript workshop.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="ScriptStore" xml:space="preserve">
@@ -1330,15 +1330,15 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
-    <value>Check update on launching Steam++</value>
+    <value>Check update on launching StmToolkit</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
-    <value>Minimize to system tray on launching Steam++</value>
+    <value>Minimize to system tray on launching StmToolkit</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_General_StartAutoRun" xml:space="preserve">
-    <value>Launch Steam++ on start-up</value>
+    <value>Launch StmToolkit on start-up</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Settings_Language" xml:space="preserve">
@@ -1562,7 +1562,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_DeleteUserTip" xml:space="preserve">
-    <value>Ready to remove this account from Steam++ on this computer?</value>
+    <value>Ready to remove this account from StmToolkit on this computer?</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="UserChange_EditRemark" xml:space="preserve">
@@ -1614,7 +1614,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_AccountBindTip" xml:space="preserve">
-    <value>You must have a mobile number linked to your Steam++ account before unlinking a third-party account from Steam++. If you want to relink this third-party account to another Steam++ account, you need to go to About-This software-Deactivate account before doing that.</value>
+    <value>You must have a mobile number linked to your StmToolkit account before unlinking a third-party account from StmToolkit. If you want to relink this third-party account to another StmToolkit account, you need to go to About-This software-Deactivate account before doing that.</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_Agreement" xml:space="preserve">
@@ -1646,7 +1646,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>Choose how you would like to log in to your Steam++ account</value>
+    <value>Choose how you would like to log in to your StmToolkit account</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
@@ -1730,7 +1730,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>Log out Steam++ account?</value>
+    <value>Log out StmToolkit account?</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -2070,7 +2070,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Steam++ v{0} version update</value>
+    <value>StmToolkit v{0} version update</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2151,7 +2151,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ replacement upgrade in progress...</value>
+    <value>StmToolkit replacement upgrade in progress...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
@@ -2463,12 +2463,12 @@ This action ends with a running Steam jump to the new account login window.</val
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Supports the development of Steam++</value>
+    <value>Supports the development of StmToolkit</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>The release of the current version of Steam++ can&apos;t be separated from everyone&apos;s support, and if Steam++ is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance Steam++.
-*Please remember to have the UID of your Steam++ account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
+    <value>The release of the current version of StmToolkit can&apos;t be separated from everyone&apos;s support, and if StmToolkit is helpful to you, and you want us to keep new features developed and maintained for a long time, you may consider giving us a little contribution to make our more dynamic update maintenance StmToolkit.
+*Please remember to have the UID of your StmToolkit account in the notes message when making a donation, so that we can feed the donation reward back to your account later.</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
@@ -2480,7 +2480,7 @@ This action ends with a running Steam jump to the new account login window.</val
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>You will need to log in to your Steam++ account to get your UID</value>
+    <value>You will need to log in to your StmToolkit account to get your UID</value>
     <comment>Comment=;Author=AigioL</comment>
   </data>
   <data name="Sleep" xml:space="preserve">
