@@ -248,7 +248,6 @@
             </ui:CommandBarButton>
 
             <ui:CommandBarButton
-                       IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                        Command="{Binding IdleAppCommand}"
                        ToolTip.Tip="{ReflectionBinding $self.Label}"
                        Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -369,7 +368,6 @@
                         </MenuItem.Icon>
                       </MenuItem>
                       <MenuItem
-                                IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
                                 Header="{ReflectionBinding Path=Res.GameList_AddAfkGameList,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                 Command="{ReflectionBinding #u.DataContext.AddAFKAppList}"
                                 CommandParameter="{Binding}">
