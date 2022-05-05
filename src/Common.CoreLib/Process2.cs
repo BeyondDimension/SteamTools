@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -15,20 +16,6 @@ namespace System
         /// /bin/bash
         /// </summary>
         public static string BinBash => _bin_bash.Value;
-
-        public static Process? StartThis(uint appId, string fileName)
-        {
-            using var p = new Process();
-            p.StartInfo.FileName = BinBash;
-            p.StartInfo.Arguments = "";
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.UseShellExecute = false;
-            p.Start();
-            p.StandardInput.WriteLine($"SteamAppId={appId}");
-            p.StandardInput.WriteLine(fileName);
-            return p;
-        }
 
         /// <summary>
         /// 通过指定应用程序的名称和路径参数来启动一个进程资源，并将该资源与新的 Process 组件相关联
@@ -79,13 +66,20 @@ namespace System
         /// <para>或 参数的长度与该进程的完整路径的长度的总和超过了 2080。 与此异常关联的错误消息可能为以下消息之一：“传递到系统调用的数据区域太小。” 或“拒绝访问。”</para>
         /// </exception>
         /// <exception cref="PlatformNotSupportedException">不支持 shell 的操作系统（如，仅适用于.NET Core 的 Nano Server）不支持此方法</exception>
-        public static Process? Start(string fileName, string? arguments = null, bool useShellExecute = false, string? workingDirectory = null)
+        public static Process? Start(string fileName, string? arguments = null, bool useShellExecute = false, string? workingDirectory = null, IDictionary<string, string>? environment = null)
         {
             if (string.IsNullOrEmpty(fileName)) return null;
             var p = new ProcessStartInfo(fileName);
             if (!string.IsNullOrEmpty(arguments))
             {
                 p.Arguments = arguments;
+            }
+            if (environment != null)
+            {
+                foreach (var item in environment)
+                {
+                    p.Environment.Add(item.Key, item.Value);
+                }
             }
             if (!string.IsNullOrEmpty(workingDirectory))
             {

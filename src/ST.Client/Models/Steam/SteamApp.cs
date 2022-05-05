@@ -545,23 +545,26 @@ namespace System.Application.Models
         //        return;
         //    }
         //    modified(this, new EventArgs());
-        //}
+        //} 
 
-        public Process? StartSteamAppProcess()
+        public Process? StartSteamAppProcess(bool show = false)
         {
+            string arguments = $"-clt app {(show ? "-silence" : "")} -id {AppId}";
             if (OperatingSystem2.IsWindows)
             {
-                return Process = Process2.Start(
-                    IApplication.ProgramPath,
-                    $"-clt app -silence -id {AppId}");
-            }
-            else if (OperatingSystem2.IsLinux)
-            {
-                return Process = Process2.Start($" SteamAppId={AppId} | {IApplication.ProgramPath} -clt app -silence -id {AppId}");
+                return Process = Process2.Start(IApplication.ProgramPath, arguments);
             }
             else
             {
-                return Process = Process2.StartThis(AppId, $"{IApplication.ProgramPath} -clt app -silence -id {AppId}");
+                return Process = Process2.Start(
+                    IApplication.ProgramPath,
+                    arguments,
+                    environment: new Dictionary<string, string>() {
+                        {
+                            "SteamAppId",
+                            AppId.ToString()
+                        }
+                    });
             }
         }
 
