@@ -190,7 +190,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Windows.ResSecret
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Desktop", "src\Avalonia.Desktop\Avalonia.Desktop.csproj", "{FA9F0E89-E410-400A-86F3-C603E51E62A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeyondDimension.Steam++", "src\ST.Client.Desktop.Avalonia.App.Bridge2\BeyondDimension.Steam++.csproj", "{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Avalonia.App.MsixPackage", "src\ST.Client.Desktop.Avalonia.App.Bridge2\ST.Client.Avalonia.App.MsixPackage.csproj", "{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2112,6 +2112,7 @@ Global
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Debug|x64.ActiveCfg = Debug|x64
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Debug|x64.Build.0 = Debug|x64
+		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Debug|x64.Deploy.0 = Debug|x64
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Debug|x86.ActiveCfg = Debug|x86
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Debug|x86.Build.0 = Debug|x86
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|Any CPU.ActiveCfg = Release|x64
@@ -2126,6 +2127,7 @@ Global
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x64.ActiveCfg = Release|x64
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x64.Build.0 = Release|x64
+		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x64.Deploy.0 = Release|x64
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x86.ActiveCfg = Release|x86
 		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
@@ -2202,7 +2204,6 @@ Global
 		{3950554F-7219-4AB9-9BE8-9B5EBDBCA88C} = {17667B53-1A09-45A6-855A-0F07F9AE044F}
 		{058F9955-8EFE-4BF3-A8F9-44C57B1F812E} = {17667B53-1A09-45A6-855A-0F07F9AE044F}
 		{FA9F0E89-E410-400A-86F3-C603E51E62A8} = {910D6A0F-42AB-4B65-B532-852E864EC006}
-		{7E7C34F0-1391-473C-8A1C-CE3EAF5D66DB} = {1B889C56-157A-4493-85F2-76366282B002}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		RESX_NeutralResourcesLanguage = zh-Hans

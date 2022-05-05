@@ -1,9 +1,9 @@
 using ReactiveUI;
 using System.Application.Services;
 using System.Collections.Generic;
-using System.Properties;
 using System.Runtime.Serialization;
 using System.Text;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -23,7 +23,8 @@ namespace System.Application.UI.ViewModels
         {
             if (OperatingSystem2.Application.UseAvalonia)
             {
-                return Constants.HARDCODED_APP_NAME + " | " + displayName;
+                const string s = $"{_ThisAssembly.AssemblyTrademark} | {{0}}";
+                return string.Format(s, displayName);
             }
             else
             {
