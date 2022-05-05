@@ -50,7 +50,7 @@
 6. 自动挂卡 (Support Windows / Linux / macOS / Android)
 	- 集成 [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) 在应用内提供 挂机掉落 Steam 集换式卡牌 等功能。
 7. 游戏工具 (Windows Only)
-	- 强制游戏窗口使用无边框窗口化、更多攻待开发。
+	- 强制游戏窗口使用无边框窗口化、更多功能待开发。
 
 <!--发布配置SelfContained=true时会自动打包VC++相关程序集-->
 <!--先决条件 Microsoft Visual C++ 2015-2019 Redistributable [64 位](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 位](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
