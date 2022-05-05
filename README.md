@@ -41,9 +41,10 @@
 2. 脚本配置 (Windows / Linux / macOS Only)
 	- 通过加速服务拦截网络请求将一些 JS 脚本注入在网页中，提供类似网页插件的功能。
 3. 账号切换 (Windows / Linux / macOS Only)
-	- 一键切换已在当前 PC 上登录过的 Steam 账号，与管理家庭共享库排序等功能。
+	- 一键切换已在当前 PC 上登录过的 Steam 账号，与管理家庭共享库排序及禁用等功能。
 4. 库存管理 (Windows / Linux / macOS Only)
 	- 让您直接管理 Steam 游戏库存，可以编辑游戏名称和[自定义封面](https://www.steamgriddb.com/)，也能解锁以及反解锁 Steam 游戏成就。
+	- 支持监控 Steam 游戏下载进度实现 Steam 游戏下载完成定时关机功能。
 5. 本地令牌 (Support Windows / Linux / macOS / Android)
 	- 让您的手机令牌统一保存在电脑中，目前仅支持 Steam 令牌，后续会开发支持更多的令牌种类与云同步令牌。
 6. 自动挂卡 (Support Windows / Linux / macOS / Android)
