@@ -126,6 +126,19 @@
     <Content Include="Images\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AvaloniaResource Remove="Packages\**" />
+    <AvaloniaXaml Remove="Packages\**" />
+    <Compile Remove="Packages\**" />
+    <EmbeddedResource Remove="Packages\**" />
+    <None Remove="Packages\**" />
+    <Page Remove="Packages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PRIResource Remove="Packages\**" />
+  </ItemGroup>
+
   <!-- Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
        Tools extension to be activated for this project even if the Windows App SDK Nuget
        package has not yet been restored -->
