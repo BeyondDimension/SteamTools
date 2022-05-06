@@ -1079,11 +1079,11 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>StmToolkit V1 버전에 대해 내보낸 토큰 데이터 가져오기</value>
+    <value>Watt Toolkit V1 버전에 대해 내보낸 토큰 데이터 가져오기</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>StmToolkit V2 버전에 대해 내보낸 토큰 데이터 가져오기</value>
+    <value>Watt Toolkit V2 버전에 대해 내보낸 토큰 데이터 가져오기</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
@@ -1204,7 +1204,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>토큰이 Steam 계정에 추가되었으며 StmToolkit로 성공적으로 임포트되었습니다. 이 코드는 인증 자를 분실한 경우 계정에서 제거하는 데 사용할 수 있는 복구 코드입니다. 지금 적어두고 안전한 장소에 보관하십시오.</value>
+    <value>토큰이 Steam 계정에 추가되었으며 Watt Toolkit로 성공적으로 임포트되었습니다. 이 코드는 인증 자를 분실한 경우 계정에서 제거하는 데 사용할 수 있는 복구 코드입니다. 지금 적어두고 안전한 장소에 보관하십시오.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1640,7 +1640,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>StmToolkit 계정에 로그인하는 방법 선택</value>
+    <value>Watt Toolkit 계정에 로그인하는 방법 선택</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
@@ -1724,7 +1724,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>StmToolkit 계정에서 로그아웃하시겠습니까?</value>
+    <value>Watt Toolkit 계정에서 로그아웃하시겠습니까?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -2466,7 +2466,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>&quot;StmToolkit&quot;의 현재 버전의 릴리스는 StmToolkit이 도움이 되고 새로운 기능 개발 및 유지 관리를 오랫동안 유지할 수 있기를 희망하는 경우 모든 사람의 지원과 분리 할 수 없으며 StmToolkit을 업데이트하고 유지 관리하려는 동기를 높이기 위해 약간의 기부를 고려할 수 있습니다.
+    <value>&quot;Watt Toolkit&quot;의 현재 버전의 릴리스는 Watt Toolkit이 도움이 되고 새로운 기능 개발 및 유지 관리를 오랫동안 유지할 수 있기를 희망하는 경우 모든 사람의 지원과 분리 할 수 없으며 Watt Toolkit을 업데이트하고 유지 관리하려는 동기를 높이기 위해 약간의 기부를 고려할 수 있습니다.
 * 기부 할 때 Steam ++ 계정의 UID가 댓글 메시지에 있으므로 향후 귀하의 계정에 기부 보상을 피드백 할 수 있습니다.
 
 기부의 1.x 버전 후, 우리는 계정 데이터를 기록하기 위해 웹 페이지에 대한 링크를 개발할 것이며, 정보를 업데이트하고 기부 한 지불의 주문 번호를 저장하도록주의하십시오.</value>
@@ -2481,7 +2481,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>UID를 얻으려면 StmToolkit 계정에 로그인해야 합니다.</value>
+    <value>UID를 얻으려면 Watt Toolkit 계정에 로그인해야 합니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Sleep" xml:space="preserve">

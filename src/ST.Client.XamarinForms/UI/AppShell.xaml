@@ -6,7 +6,7 @@
        xmlns:local="clr-namespace:System.Application.UI.Views"
        xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client"
        xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
-       Title="StmToolkit"
+       Title="Watt Toolkit"
        x:DataType="vm:MainWindowViewModel"
        FlyoutBehavior="Disabled"
        Visual="Material">

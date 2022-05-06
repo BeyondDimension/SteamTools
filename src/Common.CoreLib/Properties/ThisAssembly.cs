@@ -5,17 +5,17 @@ namespace System.Properties
         /// <summary>
         /// 定义程序集清单的产品名自定义属性
         /// </summary>
-        public const string AssemblyProduct = "StmToolkit";
+        public const string AssemblyProduct = "Watt Toolkit";
 
         /// <summary>
         /// 定义程序集清单的商标自定义属性
         /// </summary>
-        public const string AssemblyTrademark = "StmToolkit";
+        public const string AssemblyTrademark = "Watt Toolkit";
 
         /// <summary>
         /// 提供程序集的文本说明
         /// </summary>
-        public const string AssemblyDescription = "「StmToolkit」是一个开源跨平台的多功能游戏工具箱。";
+        public const string AssemblyDescription = "「Watt Toolkit」是一个开源跨平台的多功能游戏工具箱。";
 
         /// <summary>
         /// 定义程序集清单的版权自定义属性

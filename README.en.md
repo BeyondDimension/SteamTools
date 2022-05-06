@@ -1,10 +1,10 @@
-<h1 align="center">StmToolkit 🧰</h1>
+<h1 align="center">Watt Toolkit 🧰</h1>
 
 <div align="center">
 
 English | [简体中文](./README.md)
 
-"StmToolkit" is an open source cross-platform multi-purpose game toolkit, most of its features require you to download and install Steam to use it.
+"Watt Toolkit" is an open source cross-platform multi-purpose game toolkit, most of its features require you to download and install Steam to use it.
 
 ![Release Download](https://img.shields.io/github/downloads/rmbadmin/SteamTools/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/rmbadmin/SteamTools?style=flat-square)](https://github.com/rmbadmin/SteamTools/releases/latest)

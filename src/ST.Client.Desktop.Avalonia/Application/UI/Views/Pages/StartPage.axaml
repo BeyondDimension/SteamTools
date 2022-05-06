@@ -21,7 +21,7 @@
         <TextBlock Classes="TitleTextBlockStyle"
                    VerticalAlignment="Top">
           <TextBlock.Text>
-            <MultiBinding StringFormat="{}{0}，欢迎使用 StmToolkit">
+            <MultiBinding StringFormat="{}{0}，欢迎使用 Watt Toolkit">
               <Binding Source="{x:Static service:UserService.Current}"
                        Path="User.NickName"
                        Mode="OneWay"/>

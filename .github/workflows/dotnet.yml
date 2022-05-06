@@ -1,7 +1,7 @@
 name: Build
 
 env:
-  ProjectName: StmToolkit
+  ProjectName: Watt Toolkit
 
 on:
   push:

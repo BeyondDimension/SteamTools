@@ -1,7 +1,7 @@
 name: Publish
 
 env:
-  ProjectName: StmToolkit
+  ProjectName: Watt Toolkit
   Configuration: Release
   PublishFilePath: C:\PublishFiles
 

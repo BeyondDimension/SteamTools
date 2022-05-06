@@ -533,7 +533,7 @@ namespace System.Application.UI.ViewModels
             };
             await TextBoxWindowViewModel.ShowDialogAsync(vm);
 
-            var r = await MessageBox.ShowAsync(@"StmToolkit v1.1.2   2021-01-29
+            var r = await MessageBox.ShowAsync(@"Watt Toolkit v1.1.2   2021-01-29
             更新内容
             1、新增账号切换的状态栏右下角登录新账号功能
             2、新增实时刷新获取Steam新登录的账号数据功能
@@ -542,7 +542,7 @@ namespace System.Application.UI.ViewModels
             5、优化错误日志记录，现在它更详细了
             6、修复谷歌验证码代理方式为全局跳转recatpcha
             7、修复配置文件加载时提示根元素错误
-            8、修复某些情况下开机自启失效问题", "StmToolkit", MessageBox.Button.OKCancel);
+            8、修复某些情况下开机自启失效问题", "Watt Toolkit", MessageBox.Button.OKCancel);
             //await LoginOrRegisterWindowViewModel.FastLoginOrRegisterAsync();
 #endif
 

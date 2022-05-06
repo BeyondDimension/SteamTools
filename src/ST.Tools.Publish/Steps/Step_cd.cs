@@ -578,7 +578,7 @@ namespace System.Application.Steps
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
                     continue;
                 }
-                //var appName = $"StmToolkit{(item == "osx-x64" ? "" : " Arm64")}";
+                //var appName = $"Watt Toolkit{(item == "osx-x64" ? "" : " Arm64")}";
                 const string appName = _ThisAssembly.AssemblyTrademark;
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)

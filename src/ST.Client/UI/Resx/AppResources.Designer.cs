@@ -97,8 +97,8 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 「Steam++」当前版本的发布离不开大家的支持，如果 Steam++ 有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护 Steam++。
-        ///*捐助时请记得备注上您 Steam++ 账号的 UID 在备注消息内，这样能方便我们后续将捐助奖励反馈到您的账号上。
+        ///   查找类似 「Watt Toolkit」当前版本的发布离不开大家的支持，如果 Watt Toolkit 有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护 Watt Toolkit。
+        ///*捐助时请记得备注上您 Watt Toolkit 账号的 UID 在备注消息内，这样能方便我们后续将捐助奖励反馈到您的账号上。
         ///
         ///在1.x版本捐助过的人我们之后会开发补录账号数据的网页链接，请留意更新信息，和保存好您曾经捐助支付的订单号。 的本地化字符串。
         /// </summary>
@@ -109,7 +109,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 支持 Steam++ 的开发 的本地化字符串。
+        ///   查找类似 支持 Watt Toolkit 的开发 的本地化字符串。
         /// </summary>
         public static string About_Donate_Title {
             get {
@@ -2058,7 +2058,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 保存Steam游戏自定义信息 的本地化字符串。
+        ///   查找类似 保存 Steam 游戏自定义信息 的本地化字符串。
         /// </summary>
         public static string GameList_EditedAppsSaveManger {
             get {
@@ -3564,7 +3564,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam++ 导入 的本地化字符串。
+        ///   查找类似 Watt Toolkit 导入 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsImport {
             get {
@@ -3573,7 +3573,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导入 Steam++ V1版本的导出的令牌数据 的本地化字符串。
+        ///   查找类似 导入 Watt Toolkit V1版本的导出的令牌数据 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsV1Import {
             get {
@@ -3582,7 +3582,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 导入 Steam++ V2版本的导出的令牌数据 的本地化字符串。
+        ///   查找类似 导入 Watt Toolkit V2版本的导出的令牌数据 的本地化字符串。
         /// </summary>
         public static string LocalAuth_SteamToolsV2Import {
             get {
@@ -3853,7 +3853,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam++ v{0} 版本更新 的本地化字符串。
+        ///   查找类似 Watt Toolkit v{0} 版本更新 的本地化字符串。
         /// </summary>
         public static string NewVersionUpdateTitle_ {
             get {
@@ -3970,7 +3970,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 打开SteamGridDB网页浏览 的本地化字符串。
+        ///   查找类似 打开 SteamGridDB 网页浏览 的本地化字符串。
         /// </summary>
         public static string OpenSteamGridDBInBrowser {
             get {
@@ -4042,7 +4042,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 Steam++ 替换升级中... 的本地化字符串。
+        ///   查找类似 Watt Toolkit 替换升级中... 的本地化字符串。
         /// </summary>
         public static string ProgramUpdateEcho {
             get {
@@ -4141,7 +4141,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 您的令牌已被添加到您的 Steam 账户上并已经成功导入 Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
+        ///   查找类似 您的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。 的本地化字符串。
         /// </summary>
         public static string RecoveryCode_RememberTip {
             get {
@@ -4249,7 +4249,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 修改的数据已保存到 Steam 本地文件中，是否立即重启Steam生效？ 的本地化字符串。
+        ///   查找类似 修改的数据已保存到 Steam 本地文件中，是否立即重启 Steam 生效？ 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_RestartSteamTip {
             get {
@@ -4258,7 +4258,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 保存AppInfos出现错误 的本地化字符串。
+        ///   查找类似 保存 AppInfos 出现错误 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_SaveFailed {
             get {
@@ -4267,7 +4267,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 保存全部更改到Steam 的本地化字符串。
+        ///   查找类似 保存全部更改到 Steam 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_SaveToSteam {
             get {
@@ -4303,7 +4303,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 获取最后登录的Steam账号信息失败，无法修改自定义封面是。 的本地化字符串。
+        ///   查找类似 获取最后登录的 Steam 账号信息失败，无法修改自定义封面是。 的本地化字符串。
         /// </summary>
         public static string SaveEditedAppInfo_SteamUserNullTip {
             get {
@@ -5863,7 +5863,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 选择如何登录您的 Steam++ 帐户 的本地化字符串。
+        ///   查找类似 选择如何登录您的 Watt Toolkit 帐户 的本地化字符串。
         /// </summary>
         public static string User_FastLoginTip {
             get {
@@ -6043,7 +6043,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 确定要登出Steam++账号吗? 的本地化字符串。
+        ///   查找类似 确定要登出Watt Toolkit账号吗? 的本地化字符串。
         /// </summary>
         public static string User_SignOutTip {
             get {
@@ -6404,7 +6404,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 需要登录 Steam++ 账号才能获取 UID 的本地化字符串。
+        ///   查找类似 需要登录 Watt Toolkit 账号才能获取 UID 的本地化字符串。
         /// </summary>
         public static string YouNeedSignInToGetUID {
             get {

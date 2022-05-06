@@ -606,7 +606,7 @@ namespace System.Application.Services
         }
 
         /// <summary>
-        /// 导入 StmToolkit 导出的令牌数据文件 V2
+        /// 导入 Watt Toolkit 导出的令牌数据文件 V2
         /// </summary>
         public async Task<bool> ImportAuthenticatorFile(string file, bool isLocal, string? password, string? exportPassword = null)
         {
