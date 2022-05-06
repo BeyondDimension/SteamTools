@@ -1,4 +1,3 @@
-#pragma warning disable SA1516 // Elements should be separated by blank line
 using NLog;
 using System.Linq;
 using System.Net;
@@ -10,14 +9,15 @@ using System.Runtime.Versioning;
 [assembly: SupportedOSPlatform("Linux")]
 #elif WINDOWS_DESKTOP_BRIDGE
 //using Microsoft.Toolkit.Uwp.Notifications;
-#if DEBUG
+#pragma warning disable SA1516 // Elements should be separated by blank line
+#if DEBUG && !MSIX_SINGLE_PROJECT
 using WinFormsMessageBox = System.Windows.Forms.MessageBox;
 #endif
 [assembly: SupportedOSPlatform("Windows10.0.17763.0")]
+#pragma warning restore SA1516 // Elements should be separated by blank line
 #elif WINDOWS
 [assembly: SupportedOSPlatform("Windows7.0")]
 #endif
-#pragma warning restore SA1516 // Elements should be separated by blank line
 
 namespace System.Application.UI
 {
@@ -39,7 +39,7 @@ namespace System.Application.UI
             }
 
 #if WINDOWS_DESKTOP_BRIDGE
-#if DEBUG
+#if DEBUG && !MSIX_SINGLE_PROJECT
             WinFormsMessageBox.Show(string.Join(' ', args), "Main(string[] args)");
 #endif
             if (!DesktopBridgeHelper.Init()) return 0;

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
@@ -51,8 +51,8 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension Category="windows.fullTrustProcess" Executable="Steam++\Steam++.exe" />
-        <desktop:Extension Category="windows.startupTask" Executable="Steam++\Steam++.exe" EntryPoint="Windows.FullTrustApplication">
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="Steam++.exe" />
+        <desktop:Extension Category="windows.startupTask" Executable="Steam++.exe" EntryPoint="Windows.FullTrustApplication">
           <desktop:StartupTask TaskId="BootAutoStartTask" Enabled="true" DisplayName="Steam++ System Boot Run" />
         </desktop:Extension>
       </Extensions>

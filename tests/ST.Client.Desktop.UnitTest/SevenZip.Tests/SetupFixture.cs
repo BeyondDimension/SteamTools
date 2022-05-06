@@ -1,3 +1,4 @@
+#if WINDOWS_NT
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -39,3 +40,4 @@ namespace SevenZip.Tests
         }
     }
 }
+#endif
