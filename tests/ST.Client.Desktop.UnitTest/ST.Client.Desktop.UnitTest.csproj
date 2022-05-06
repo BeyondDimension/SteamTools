@@ -86,10 +86,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <LinkBase>TestData_LongerDirectoryName</LinkBase>
     </None>
-    <None Include="..\..\references\7z.dll">
+    <!--<None Include="..\..\references\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>7z64.dll</Link>
-    </None>
+    </None>-->
   </ItemGroup>
 
   <ItemGroup>
@@ -102,7 +102,11 @@
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="Squid-Box.SevenZipSharp.Lite" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+    <PackageReference Include="7-Zip.NativeAssets.Win32" />
   </ItemGroup>
 
 </Project>

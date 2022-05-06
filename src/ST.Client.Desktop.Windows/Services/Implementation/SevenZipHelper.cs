@@ -1,5 +1,6 @@
 using SevenZip;
 using System.IO;
+using System.Runtime.InteropServices;
 using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
@@ -12,7 +13,19 @@ namespace System.Application.Services.Implementation
         {
             if (IsInitialized) return;
             // ✅ AppContext.BaseDirectory
+            if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException();
             var sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "7z.dll");
+            if (!File.Exists(sevenZipLibraryPath))
+            {
+                sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "runtimes", RuntimeInformation.ProcessArchitecture switch
+                {
+                    Architecture.X86 => "win-x86",
+                    Architecture.X64 => "win-x64",
+                    Architecture.Arm => "win-arm",
+                    Architecture.Arm64 => "win-arm64",
+                    _ => throw new PlatformNotSupportedException(),
+                }, "native", "7z.dll");
+            }
             SevenZipBase.SetLibraryPath(sevenZipLibraryPath);
             IsInitialized = true;
         }

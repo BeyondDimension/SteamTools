@@ -45,6 +45,7 @@
     <PackageReference Include="System.Diagnostics.Tracing" />-->
     <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" />
+    <PackageReference Include="7-Zip.NativeAssets.Win32" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">

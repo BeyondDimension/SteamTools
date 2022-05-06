@@ -96,6 +96,7 @@
     <PackageReference Include="SharpZipLib" />
     <PackageReference Include="Portable.BouncyCastle" />
     <PackageReference Include="ZstdNet" />
+    <PackageReference Include="7-Zip.NativeAssets.Win32" />
   </ItemGroup>
 
   <ItemGroup>
@@ -107,9 +108,9 @@
     <None Update="Steam++.desktop">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\..\references\7z.dll">
+    <!--<None Include="..\..\references\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </None>-->
     <None Include="..\..\references\libzstd.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

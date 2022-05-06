@@ -120,7 +120,7 @@
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
-    <None Include="..\..\references\7z.dll" Condition=" '$(Platform)' != 'x86' And '$(Platform)' != 'ARM64' ">
+    <!--<None Include="..\..\references\7z.dll" Condition=" '$(Platform)' != 'x86' And '$(Platform)' != 'ARM64' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\..\references\x86\7z.dll" Condition=" '$(Platform)' == 'x86' ">
@@ -128,7 +128,7 @@
     </None>
     <None Include="..\..\references\ARM64\7z.dll" Condition=" '$(Platform)' == 'ARM64' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </None>-->
   </ItemGroup>
 
   <!--<ItemGroup Condition=" ($(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`)))) And $(DefineConstants.Contains(`PUBLISH_WIN7`)) ">

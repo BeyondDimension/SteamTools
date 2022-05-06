@@ -12,6 +12,7 @@ using System.Properties;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using System.Runtime.InteropServices;
 #if !SERVER
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
@@ -31,6 +32,17 @@ namespace System.Application
             {
                 //var sevenZipLibraryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
                 var sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "7z.dll");
+                if (!File.Exists(sevenZipLibraryPath))
+                {
+                    sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "runtimes", RuntimeInformation.ProcessArchitecture switch
+                    {
+                        Architecture.X86 => "win-x86",
+                        Architecture.X64 => "win-x64",
+                        Architecture.Arm => "win-arm",
+                        Architecture.Arm64 => "win-arm64",
+                        _ => throw new PlatformNotSupportedException(),
+                    }, "native", "7z.dll");
+                }
                 SevenZipBase.SetLibraryPath(sevenZipLibraryPath);
                 SevenZipCompressor.LzmaDictionarySize = 805306368; // 768MB
 

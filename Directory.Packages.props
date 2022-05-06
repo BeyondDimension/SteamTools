@@ -313,6 +313,8 @@
 
     <!-- Code Style -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />
+    
+    <PackageVersion Include="7-Zip.NativeAssets.Win32" Version="21.7.0-preview.1" />
 
   </ItemGroup>
 </Project>
