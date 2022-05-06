@@ -40,6 +40,6 @@ namespace System.Application
         }
 
         const string SOURCE_PACKAGE_ID = "4651ED44255E.47979655102CE_k6txddmbb6c52";
-        const string DEST_PACKAGE_ID = "31F8A90E.SteamforWindows_0pj7be8rz1f1e";
+        const string DEST_PACKAGE_ID = "31F8A90E.Watt Toolkit_0pj7be8rz1f1e";
     }
 }

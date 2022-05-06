@@ -1075,15 +1075,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Steam++ インポート</value>
+    <value>Watt Toolkit インポート</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Steam++ V1 バージョンのエクスポートされたトークン データをインポートします</value>
+    <value>Watt Toolkit V1 バージョンのエクスポートされたトークン データをインポートします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>Steam++ V2 バージョンのエクスポートされたトークン データをインポートします</value>
+    <value>Watt Toolkit V2 バージョンのエクスポートされたトークン データをインポートします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
@@ -1204,7 +1204,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>トークンが Steam アカウントに追加され、Steam++ に正常にインポートされました。 これは回復コードであり、認証システムを紛失した場合は、アカウントから削除できます。 今すぐ書き留めて、安全な場所に保管してください。</value>
+    <value>トークンが Steam アカウントに追加され、Watt Toolkit に正常にインポートされました。 これは回復コードであり、認証システムを紛失した場合は、アカウントから削除できます。 今すぐ書き留めて、安全な場所に保管してください。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1640,7 +1640,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>Steam++ アカウントにログインする方法を選択します</value>
+    <value>Watt Toolkit アカウントにログインする方法を選択します</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
@@ -1724,7 +1724,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>Steam++ アカウントを登録しますか?</value>
+    <value>Watt Toolkit アカウントを登録しますか?</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -2064,7 +2064,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Steam++ v{0} バージョンアップ</value>
+    <value>Watt Toolkit v{0} バージョンアップ</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2145,7 +2145,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ 交換アップグレード...</value>
+    <value>Watt Toolkit 交換アップグレード...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
@@ -2425,7 +2425,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Steam++ の開発をサポートします</value>
+    <value>Watt Toolkit の開発をサポートします</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_3" xml:space="preserve">
@@ -2466,8 +2466,8 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Steam++の現在のリリースは、Steam++ がお客様を助け、新機能の開発とメンテナンスを長期的に維持したい場合は、Steam++ の保守によりやる気のある更新を行うために、少しの貢献を検討してください。
-*寄付は、Steam++ アカウントの UID がメモ メッセージに含まれることを忘れないでください。
+    <value>Watt Toolkitの現在のリリースは、Watt Toolkit がお客様を助け、新機能の開発とメンテナンスを長期的に維持したい場合は、Watt Toolkit の保守によりやる気のある更新を行うために、少しの貢献を検討してください。
+*寄付は、Watt Toolkit アカウントの UID がメモ メッセージに含まれることを忘れないでください。
 
 バージョン 1.x で寄付した人は、その後、アカウント データを再入力する Web ページへのリンクを開発し、更新情報に注意を払い、支払いに寄付した注文番号を保存します。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2481,7 +2481,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>UID を取得するには、Steam++ アカウントにログインする必要があります</value>
+    <value>UID を取得するには、Watt Toolkit アカウントにログインする必要があります</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Sleep" xml:space="preserve">

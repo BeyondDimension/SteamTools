@@ -337,9 +337,9 @@ namespace System.Application
             var fileName = item.DeploymentMode switch
             {
                 DeploymentMode.SCD =>
-                    $"Steam++_{name}_{(IsUseCustomVersion ? "" : "v")}{version}{fileEx}",
+                    $"Watt Toolkit_{name}_{(IsUseCustomVersion ? "" : "v")}{version}{fileEx}",
                 DeploymentMode.FDE =>
-                    $"Steam++_{name}_fde_{(IsUseCustomVersion ? "" : "v")}{version}{fileEx}",
+                    $"Watt Toolkit_{name}_fde_{(IsUseCustomVersion ? "" : "v")}{version}{fileEx}",
                 _ => throw new ArgumentOutOfRangeException(nameof(item.DeploymentMode), item.DeploymentMode, null),
             };
             return fileName;

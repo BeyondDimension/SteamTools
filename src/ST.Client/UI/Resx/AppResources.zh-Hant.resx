@@ -1075,15 +1075,15 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Steam++ 導入</value>
+    <value>Watt Toolkit 導入</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>導入 Steam++ V1 版本的導出的令牌數據</value>
+    <value>導入 Watt Toolkit V1 版本的導出的令牌數據</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>導入 Steam++ V2 版本的導出的令牌數據</value>
+    <value>導入 Watt Toolkit V2 版本的導出的令牌數據</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
@@ -1204,7 +1204,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>您的令牌已被添加到您的 Steam 帳戶上並已經成功導入 Steam++。 這是您的恢復代碼，如果您丟失了身份驗證器，可以用它從您的賬戶中刪除。 請您現在就寫下它，並將其放在安全的地方。</value>
+    <value>您的令牌已被添加到您的 Steam 帳戶上並已經成功導入 Watt Toolkit。 這是您的恢復代碼，如果您丟失了身份驗證器，可以用它從您的賬戶中刪除。 請您現在就寫下它，並將其放在安全的地方。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1640,7 +1640,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>選擇如何登錄您的 Steam++ 帳戶</value>
+    <value>選擇如何登錄您的 Watt Toolkit 帳戶</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
@@ -1724,7 +1724,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>確定要登出Steam++帳號嗎？</value>
+    <value>確定要登出Watt Toolkit帳號嗎？</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -2064,7 +2064,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Steam++ v{0} 版本更新</value>
+    <value>Watt Toolkit v{0} 版本更新</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2145,7 +2145,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ 替換升級中...</value>
+    <value>Watt Toolkit 替換升級中...</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SteamInstallPathNotFound" xml:space="preserve">
@@ -2425,7 +2425,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>支援 Steam++ 的開發</value>
+    <value>支援 Watt Toolkit 的開發</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_ResetWaring_3" xml:space="preserve">
@@ -2466,8 +2466,8 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>「Steam++」當前版本的發佈離不開大家的支援，如果 Steam++ 有説明到您，並且您希望我們能長久的保持新功能開發和維護，您可以考慮給我們一點捐助，以使我們更有動力的更新維護 Steam++。
-*捐助時請記得備註上您 Steam++ 帳號的 UID 在備註消息內，這樣能方便我們後續將捐助獎勵反饋到您的帳號上。
+    <value>「Watt Toolkit」當前版本的發佈離不開大家的支援，如果 Watt Toolkit 有説明到您，並且您希望我們能長久的保持新功能開發和維護，您可以考慮給我們一點捐助，以使我們更有動力的更新維護 Watt Toolkit。
+*捐助時請記得備註上您 Watt Toolkit 帳號的 UID 在備註消息內，這樣能方便我們後續將捐助獎勵反饋到您的帳號上。
 
 在1.x版本捐助過的人我們之後會開發補錄賬號數據的網頁連結，請留意更新資訊，和保存好您曾經捐助支付的訂單號。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
@@ -2481,7 +2481,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>需要登錄 Steam++ 帳號才能獲取 UID</value>
+    <value>需要登錄 Watt Toolkit 帳號才能獲取 UID</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Sleep" xml:space="preserve">

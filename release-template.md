@@ -58,7 +58,7 @@
 
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Steam++ v2.7.2](https://img.shields.io/badge/Steam++-v2.7.2-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Watt Toolkit v2.7.2](https://img.shields.io/badge/Watt Toolkit-v2.7.2-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
@@ -67,22 +67,22 @@
 ### 文件校验
 |  File  | Checksum (SHA256)  |
 |  ----  |  ----  |
-| Steam++_win_x64_v2.7.2.7z  | SHA256 |
-| Steam++_win_x64_fde_v2.7.2.7z  | SHA256 |
+| Watt Toolkit_win_x64_v2.7.2.7z  | SHA256 |
+| Watt Toolkit_win_x64_fde_v2.7.2.7z  | SHA256 |
 | | |
-| Steam++_win_x64_v2.7.2.exe  | SHA256 |
-| Steam++_win_x64_fde_v2.7.2.exe  | SHA256 |
+| Watt Toolkit_win_x64_v2.7.2.exe  | SHA256 |
+| Watt Toolkit_win_x64_fde_v2.7.2.exe  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.7z  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.7z  | SHA256 |
+| Watt Toolkit_linux_x64_v2.7.2.7z  | SHA256 |
+| Watt Toolkit_linux_arm64_v2.7.2.7z  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.deb  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.deb  | SHA256 |
+| Watt Toolkit_linux_x64_v2.7.2.deb  | SHA256 |
+| Watt Toolkit_linux_arm64_v2.7.2.deb  | SHA256 |
 | | |
-| Steam++_linux_x64_v2.7.2.rpm  | SHA256 |
-| Steam++_linux_arm64_v2.7.2.rpm  | SHA256 |
+| Watt Toolkit_linux_x64_v2.7.2.rpm  | SHA256 |
+| Watt Toolkit_linux_arm64_v2.7.2.rpm  | SHA256 |
 | | |
-| Steam++_macos_x64_v2.7.2.dmg  | SHA256 |
-| Steam++_macos_arm64_v2.7.2.dmg  | SHA256 |
+| Watt Toolkit_macos_x64_v2.7.2.dmg  | SHA256 |
+| Watt Toolkit_macos_arm64_v2.7.2.dmg  | SHA256 |
 | | |
-| Steam++_android_v2.7.2.apk  | SHA256 |
+| Watt Toolkit_android_v2.7.2.apk  | SHA256 |

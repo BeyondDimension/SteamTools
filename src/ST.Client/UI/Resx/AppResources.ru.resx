@@ -1259,15 +1259,15 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Импорт Steam++</value>
+    <value>Импорт Watt Toolkit</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>Импорт экспортированных данных токенов из Steam++ V1</value>
+    <value>Импорт экспортированных данных токенов из Watt Toolkit V1</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>Импорт экспортированных данных токенов из Steam++ V2</value>
+    <value>Импорт экспортированных данных токенов из Watt Toolkit V2</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
@@ -1400,7 +1400,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>Ваш токен был добавлен в вашу учётную запись Steam и успешно импортирован в Steam++. Это ваш код восстановления, который вы можете использовать для удаления аутентификатора из вашей учётной записи, если вы его потеряете. Запишите его сейчас и храните в надёжном месте.</value>
+    <value>Ваш токен был добавлен в вашу учётную запись Steam и успешно импортирован в Watt Toolkit. Это ваш код восстановления, который вы можете использовать для удаления аутентификатора из вашей учётной записи, если вы его потеряете. Запишите его сейчас и храните в надёжном месте.</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -1895,7 +1895,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>Выберите способ входа в учётную запись Steam++</value>
+    <value>Выберите способ входа в учётную запись Watt Toolkit</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
@@ -1983,7 +1983,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>Вы уверены, что хотите выйти из своей учётной записи Steam++?</value>
+    <value>Вы уверены, что хотите выйти из своей учётной записи Watt Toolkit?</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
@@ -2380,7 +2380,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Обновление версии Steam++ v{0}</value>
+    <value>Обновление версии Watt Toolkit v{0}</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
@@ -2404,7 +2404,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Идёт обновление с заменой Steam++...</value>
+    <value>Идёт обновление с заменой Watt Toolkit...</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
@@ -2529,7 +2529,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>Поддержка разработки Steam++</value>
+    <value>Поддержка разработки Watt Toolkit</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="Achievement_ResetWaring_3" xml:space="preserve">
@@ -2543,8 +2543,8 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=同意 or 取消;Author=vanja-san</comment>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>Если Steam++ помог вам, и вы хотите, чтобы мы продолжали разрабатывать и поддерживать новые функции в течение длительного времени, вы можете рассмотреть возможность сделать небольшое пожертвование, чтобы поддерживать нашу мотивацию обновлять и поддерживать Steam++.
-*Не забудьте указать UID вашей учётной записи Steam++ в сообщении комментария при пожертвовании, чтобы мы могли отправить вам вознаграждение за пожертвование.
+    <value>Если Watt Toolkit помог вам, и вы хотите, чтобы мы продолжали разрабатывать и поддерживать новые функции в течение длительного времени, вы можете рассмотреть возможность сделать небольшое пожертвование, чтобы поддерживать нашу мотивацию обновлять и поддерживать Watt Toolkit.
+*Не забудьте указать UID вашей учётной записи Watt Toolkit в сообщении комментария при пожертвовании, чтобы мы могли отправить вам вознаграждение за пожертвование.
 
 Для тех, кто делал пожертвования в версии 1.x, мы будем разрабатывать ссылку на веб-страницу с обновлёнными данными учётной записи, поэтому, следите за обновлениями и сохраните номер заказа вашего предыдущего пожертвования.</value>
     <comment>Comment=;Author=vanja-san</comment>
@@ -2558,7 +2558,7 @@ AAAAA-BBBBB-CCCC3</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>Вам нужно войти в свою учётную запись Steam++, чтобы получить UID</value>
+    <value>Вам нужно войти в свою учётную запись Watt Toolkit, чтобы получить UID</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">

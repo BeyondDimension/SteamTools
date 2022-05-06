@@ -235,7 +235,7 @@ namespace System.Application.Services.Implementation
             //if (item != null)
             //{
 
-            //e.HttpClient.Request.Headers.AddHeader("User-Agent", "Steam++ Proxy/" + ThisAssembly.Version);
+            //e.HttpClient.Request.Headers.AddHeader("User-Agent", "Watt Toolkit Proxy/" + ThisAssembly.Version);
 
             foreach (var item in ProxyDomains)
             {
@@ -501,7 +501,7 @@ namespace System.Application.Services.Implementation
         }
 
         /// <summary>
-        /// 删除全部Steam++证书 如失败尝试 命令删除
+        /// 删除全部 Watt Toolkit 证书 如失败尝试 命令删除
         /// </summary>
         public async void DeleteCer()
         {

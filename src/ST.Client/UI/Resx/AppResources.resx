@@ -983,13 +983,13 @@ AAAAA-BBBBB-CCCC3</value>
     <value>在 files 文件夹中，打开 'SteamGuard-NNNNNNNN' 文件，粘贴文件的全部内容</value>
   </data>
   <data name="LocalAuth_SteamToolsImport" xml:space="preserve">
-    <value>Steam++ 导入</value>
+    <value>Watt Toolkit 导入</value>
   </data>
   <data name="LocalAuth_SteamToolsV1Import" xml:space="preserve">
-    <value>导入 Steam++ V1版本的导出的令牌数据</value>
+    <value>导入 Watt Toolkit V1版本的导出的令牌数据</value>
   </data>
   <data name="LocalAuth_SteamToolsV2Import" xml:space="preserve">
-    <value>导入 Steam++ V2版本的导出的令牌数据</value>
+    <value>导入 Watt Toolkit V2版本的导出的令牌数据</value>
   </data>
   <data name="LocalAuth_SteamTradeLoginTip" xml:space="preserve">
     <value>确认交易需要登录 Steam，程序不会记录你的密码，只会在本地保存登录的状态。
@@ -1092,7 +1092,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>我已经写下了我的恢复代码</value>
   </data>
   <data name="RecoveryCode_RememberTip" xml:space="preserve">
-    <value>您的令牌已被添加到您的 Steam 账户上并已经成功导入 Steam++。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
+    <value>您的令牌已被添加到您的 Steam 账户上并已经成功导入 Watt Toolkit。这是您的恢复代码，如果您丢失了身份验证器，可以用它从您的账户中删除。请您现在就写下它，并将其放在安全的地方。</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
@@ -1469,7 +1469,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>快速登录</value>
   </data>
   <data name="User_FastLoginTip" xml:space="preserve">
-    <value>选择如何登录您的 Steam++ 帐户</value>
+    <value>选择如何登录您的 Watt Toolkit 帐户</value>
   </data>
   <data name="User_FastLogin_" xml:space="preserve">
     <value>{0} 快速登录</value>
@@ -1536,7 +1536,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>记住登录状态</value>
   </data>
   <data name="User_SignOutTip" xml:space="preserve">
-    <value>确定要登出Steam++账号吗?</value>
+    <value>确定要登出Watt Toolkit账号吗?</value>
   </data>
   <data name="User_SMSCode" xml:space="preserve">
     <value>短信验证码</value>
@@ -1851,7 +1851,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>新版本更新</value>
   </data>
   <data name="NewVersionUpdateTitle_" xml:space="preserve">
-    <value>Steam++ v{0} 版本更新</value>
+    <value>Watt Toolkit v{0} 版本更新</value>
   </data>
   <data name="NotificationChannelType_Description_Announcement" xml:space="preserve">
     <value>当有新公告时的提示通知。</value>
@@ -1869,7 +1869,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>操作 Hosts 错误 {0}</value>
   </data>
   <data name="ProgramUpdateEcho" xml:space="preserve">
-    <value>Steam++ 替换升级中...</value>
+    <value>Watt Toolkit 替换升级中...</value>
   </data>
   <data name="Script_BuildDownloadError" xml:space="preserve">
     <value>脚本依赖下载出错：{0}
@@ -1936,11 +1936,11 @@ AAAAA-BBBBB-CCCC3</value>
     <value>捐助</value>
   </data>
   <data name="About_Donate_Title" xml:space="preserve">
-    <value>支持 Steam++ 的开发</value>
+    <value>支持 Watt Toolkit 的开发</value>
   </data>
   <data name="About_Donate_Desc" xml:space="preserve">
-    <value>「Steam++」当前版本的发布离不开大家的支持，如果 Steam++ 有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护 Steam++。
-*捐助时请记得备注上您 Steam++ 账号的 UID 在备注消息内，这样能方便我们后续将捐助奖励反馈到您的账号上。
+    <value>「Watt Toolkit」当前版本的发布离不开大家的支持，如果 Watt Toolkit 有帮助到您，并且您希望我们能长久的保持新功能开发和维护，您可以考虑给我们一点捐助，以使我们更有动力的更新维护 Watt Toolkit。
+*捐助时请记得备注上您 Watt Toolkit 账号的 UID 在备注消息内，这样能方便我们后续将捐助奖励反馈到您的账号上。
 
 在1.x版本捐助过的人我们之后会开发补录账号数据的网页链接，请留意更新信息，和保存好您曾经捐助支付的订单号。</value>
   </data>
@@ -1966,7 +1966,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>点击此处复制 UID 到剪贴板</value>
   </data>
   <data name="YouNeedSignInToGetUID" xml:space="preserve">
-    <value>需要登录 Steam++ 账号才能获取 UID</value>
+    <value>需要登录 Watt Toolkit 账号才能获取 UID</value>
   </data>
   <data name="UpdatePackCacheHashInvalidDeleteFileTrue" xml:space="preserve">
     <value>下载更新包缓存文件验证失败，已删除缓存尝试重新下载，请等待</value>

@@ -1,10 +1,10 @@
-<h1 align="center">Steam++ 工具箱 🧰</h1>
+<h1 align="center">Watt Toolkit 🧰</h1>
 
 <div align="center">
 
 [English](./README.en.md) | 简体中文
 
-「Steam++」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。
+「Watt Toolkit」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。
 
 ![Release Download](https://img.shields.io/github/downloads/BeyondDimension/SteamTools/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/releases/latest)
