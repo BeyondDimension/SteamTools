@@ -32,23 +32,24 @@ English | [简体中文](./README.md)
 - [GitHub Releases](https://github.com/BeyondDimension/SteamTools/releases)
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
+- [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
 - [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
 
 ## ✨ Functions
-1. Network Acceleration (Support Windows / Linux / macOS / Android)
+1. Network Acceleration <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
 	- Make the Steam community, Github, Google reCAPTCHA, Pixiv, Discord, Twitch and other domestic hard-to-access pages accessible properly.
 	- Functions similar to [Steamcommunity 302](https://www.dogfight360.com/blog/686/), using [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) open source project for local anti-generation.
-2. Script Configuration (Windows / Linux / macOS Only)
+2. Script Configuration <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- Some JS scripts are injected into web pages through an acceleration service that intercepts web requests, providing functionality similar to that of a web plugin.
-3. Account Switch (Windows / Linux / macOS Only)
+3. Account Switch <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- Switch between Steam accounts that are already logged in on the current PC with one click, and manage features such as sorting your home shared library.
-4. Inventory Management (Windows / Linux / macOS Only)
+4. Inventory Management <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- Lets you manage your Steam game inventory directly, not only by downloading older Steam games, but also by managing Steam game achievements directly, supporting unlocked achievements and unlocked achievements.
-5. Local Authentication (Support Windows / Linux / macOS / Android)
+5. Local Authentication <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
 	- Let your cell phone token unified save in the computer, currently only support Steam token, later will develop support more token types with cloud synchronization token.
-6. ArchiSteamFarm (Support Windows / Linux / macOS / Android)
+6. ArchiSteamFarm <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
 	- Integration with [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) provides functions such as hanging and dropping Steam Collectible Cards within the app.
-7. Game Tools (Windows Only)
+7. Game Tools <img src="./resources/windows-brands.svg" width="16" height="16" />
 	- Force game windows to use borderless windowing
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
