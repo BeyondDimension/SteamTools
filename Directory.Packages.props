@@ -259,7 +259,7 @@
     <!--<PackageVersion Include="FluentAvaloniaUI" Version="1.3.0" />-->
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
     <PackageVersion Include="Avalonia.Native" Version="0.10.13" />
-    <PackageVersion Include="Avalonia.Win32" Version="0.10.13" />
+    <PackageVersion Include="Avalonia.Win32" Version="0.10.14" />
     <PackageVersion Include="Avalonia.X11" Version="0.10.13" />
     <!--Avalonia End-->
 
