@@ -249,7 +249,7 @@
     <PackageVersion Include="Avalonia.Desktop" Version="0.10.13" />
     <PackageVersion Include="Avalonia.Skia" Version="0.10.13" />
     <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.13" />
-    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.13" />
+    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.14" />
     <!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.13" />-->
     <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.13" />
     <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.13.3" />
