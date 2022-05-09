@@ -13,7 +13,7 @@
   <string name="guide_vpn_desc">您需要授权我们的应用创建 VPN 连接。Steam++ 不会通过远程服务器路由您的流量，所以加速是在您的设备上完成的。如果您轻触 确定，您会看到要求您批准的系统对话框。</string>
   <string name="guide_vpn_btn">创建本地 VPN</string>
   <!-- Guide Export CA Cert ↓ -->
-  <string name="guide_export_ca_cert_title">Steam++ CA 证书</string>
+  <string name="ca_cert_title">{0} CA 证书</string>
   <string name="guide_export_ca_cert_desc1">为了使 网络加速 正常工作，需要安装此证书。</string>
   <string name="guide_export_ca_cert_desc2">该证书是唯一的，由您的设备生成，并存储在本地设备上。</string>
   <string name="guide_export_ca_cert_desc3">请保存证书。下一步介绍如何手动安装它。</string>
@@ -27,4 +27,8 @@
   <string name="guide_how_install_ca_cert_desc4">4. 选择之前保存的【CA 证书】</string>
   <string name="guide_how_install_ca_cert_desc5">5. 忽略警告信息并点击【安装】</string>
   <string name="guide_how_install_ca_cert_btn">打开安全设置</string>
+  <!-- CA Cert State ↓ -->
+  <string name="ca_cert_status_installed_system">已安装到系统证书存储区</string>
+  <string name="ca_cert_status_installed_user">已安装到用户证书存储区</string>
+  <string name="ca_cert_status_installed_user_tip">由于 Android 系统的限制，无法加速 Android 7.0 Nougat+ 构建的应用，即 targetSdkVersion >= 24。</string>
 </resources>

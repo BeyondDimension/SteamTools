@@ -4,7 +4,7 @@
   <string name="guide_vpn_desc">응용 프로그램에서 VPN 연결을 만들 수 있는 권한을 부여해야 합니다. Steam++ 는 원격 서버를 통해 데이터를 전송하지 않기 때문에 가속은 장치에서 이루어집니다.확인을 터치하면 승인이 필요한 시스템 대화 상자가 표시됩니다.</string>
   <string name="guide_vpn_btn">로컬 VPN 생성</string>
   <!-- Guide Export CA Cert ↓ -->
-  <string name="guide_export_ca_cert_title">Steam++ CA 증서</string>
+  <string name="ca_cert_title">{0} CA 증서</string>
   <string name="guide_export_ca_cert_desc1">네트워크가 정상적으로 작동하도록 하기 위해서 이 인증서를 설치해야 합니다.</string>
   <string name="guide_export_ca_cert_desc2">인증서는 고유하며 디바이스에서 생성되어 로컬 디바이스에 저장됩니다.</string>
   <string name="guide_export_ca_cert_desc3">인증서를 저장하십시오.다음 단계에서는 수동으로 설치하는 방법을 소개합니다.</string>

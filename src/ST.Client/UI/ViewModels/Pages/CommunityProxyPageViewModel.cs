@@ -12,6 +12,9 @@ using System.Linq;
 using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
@@ -168,5 +171,51 @@ namespace System.Application.UI.ViewModels
             httpProxyService.DeleteCertificate();
         }
 
+        static string FormatHexString(string? hexString)
+        {
+            if (hexString == null) return string.Empty;
+            StringBuilder builder = new();
+            for (int i = 0; i < hexString.Length; i++)
+            {
+                builder.Append(hexString[i]);
+                if (i % 2 != 0)
+                {
+                    builder.Append(':');
+                }
+            }
+            return builder.ToString();
+        }
+
+        public string? GetCertHashString(HashAlgorithmName name, bool noHeader = false)
+        {
+            var cert = RootCertificate;
+            var value = cert?.GetCertHashStringCompat(name);
+            if (OperatingSystem2.IsAndroid) value = FormatHexString(value);
+            return noHeader ? value : $"{name}：{Environment.NewLine}{value}";
+        }
+
+        public string? GetSerialNumber(bool noHeader = false)
+        {
+            var cert = RootCertificate;
+            var value = cert?.SerialNumber;
+            if (OperatingSystem2.IsAndroid) value = FormatHexString(value);
+            return noHeader ? value : $"SerialNumber：{Environment.NewLine}{value}";
+        }
+
+        public string? GetPeriodValidity(bool noHeader = false)
+        {
+            var cert = RootCertificate;
+            var header = noHeader ? null : $"PeriodValidity：{Environment.NewLine}";
+            return cert == null ? header : $"{header}{cert?.GetEffectiveDateString()} ~ {cert?.GetExpirationDateString()}";
+        }
+
+        public string? GetSubject(bool noHeader = false)
+        {
+            var cert = RootCertificate;
+            var value = cert?.Subject;
+            return noHeader ? value : $"Subject：{Environment.NewLine}{value}";
+        }
+
+        public X509Certificate2? RootCertificate => httpProxyService.RootCertificate;
     }
 }

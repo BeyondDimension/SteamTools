@@ -15,6 +15,7 @@ namespace System.Application.UI.ViewModels
             GoToSystemSecuritySettings,
             CertificateInstall,
             CertificateUninstall,
+            CertificateStatus,
         }
 
         string IActionItem<ActionItem>.ToString2(ActionItem action) => ToString2(action);
@@ -26,6 +27,7 @@ namespace System.Application.UI.ViewModels
             ActionItem.GoToSystemSecuritySettings => AppResources.CommunityFix_GoToSystemSecuritySettings,
             ActionItem.CertificateInstall => AppResources.CommunityFix_SetupCertificate,
             ActionItem.CertificateUninstall => AppResources.CommunityFix_DeleteCertificate,
+            ActionItem.CertificateStatus => AppResources.CommunityFix_CertificateStatus,
             _ => throw new ArgumentOutOfRangeException(nameof(action), action, null),
         };
 
@@ -37,6 +39,7 @@ namespace System.Application.UI.ViewModels
             ActionItem.CertificateExport => "menu_export_certificate_file",
             ActionItem.CertificateInstall => "ic_baseline_add_circle_outline_24",
             ActionItem.CertificateUninstall => "ic_baseline_remove_circle_outline_24",
+            ActionItem.CertificateStatus => "ic_fluent_certificate_24_regular",
             _ => "baseline_settings_black_24",
         };
 
@@ -102,15 +105,5 @@ namespace System.Application.UI.ViewModels
         });
 
         public Task<bool> ExportCertificateFileAsync() => ExportCertificateFileAsync(ExportCertificateFileAsync);
-
-        /// <summary>
-        /// 移除证书弹窗提示，在一些平台上不能自动操作，弹窗提示操作步骤文本
-        /// </summary>
-        public void UninstallCertificateShowTips()
-        {
-            string title = AppResources.CommunityFix_DeleteCertificateTipTitle;
-            string text = AppResources.CommunityFix_DeleteCertificateTipText_.Format(IHttpProxyService.RootCertificateName); ;
-            MessageBox.Show(text, title);
-        }
     }
 }

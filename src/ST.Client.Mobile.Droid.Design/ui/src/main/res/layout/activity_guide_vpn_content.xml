@@ -118,6 +118,8 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:text="@string/guide_vpn_btn"
     android:textAllCaps="false"
     app:layout_constraintBottom_toBottomOf="parent"

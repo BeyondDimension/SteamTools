@@ -120,5 +120,10 @@ namespace System.Application.Services
         string? GetCerFilePathGeneratedWhenNoFileExists();
 
         bool IsCurrentCertificateInstalled { get; }
+
+        /// <summary>
+        /// 获取当前 Root 证书
+        /// </summary>
+        X509Certificate2? RootCertificate { get; }
     }
 }

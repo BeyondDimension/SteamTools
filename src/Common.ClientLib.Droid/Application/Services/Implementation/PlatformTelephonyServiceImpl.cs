@@ -13,9 +13,16 @@ namespace System.Application.Services.Implementation
 
         protected override string? PlatformGetPhoneNumber()
         {
-            var telephony = XEPlatform.AppContext.GetSystemService<TelephonyManager>(Context.TelephonyService);
-            var value = telephony.Line1Number;
-            return PhoneNumberHelper.GetChineseMainlandPhoneNumber(value);
+            try
+            {
+                var telephony = XEPlatform.AppContext.GetSystemService<TelephonyManager>(Context.TelephonyService);
+                var value = telephony.Line1Number;
+                return PhoneNumberHelper.GetChineseMainlandPhoneNumber(value);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

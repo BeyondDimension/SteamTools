@@ -1203,6 +1203,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 证书状态 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_CertificateStatus {
+            get {
+                return ResourceManager.GetString("CommunityFix_CertificateStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 信任证书 的本地化字符串。
         /// </summary>
         public static string CommunityFix_CertificateTrust {

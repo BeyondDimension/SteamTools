@@ -44,13 +44,13 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:text="@string/guide_export_ca_cert_title"
     android:textColor="@color/text_primary"
     android:textSize="24sp"
     android:textStyle="bold"
     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
     app:layout_constraintStart_toStartOf="@+id/guideline_left"
     app:layout_constraintTop_toBottomOf="@+id/ivLogo"
+    tools:text="Watt Toolkit CA 证书"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
   <androidx.appcompat.widget.AppCompatTextView
@@ -95,6 +95,13 @@
     app:layout_constraintTop_toBottomOf="@+id/tvDesc2"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
+  <Space
+    android:layout_width="0dp"
+    android:layout_height="82dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tvDesc3" />
+
   <com.google.android.material.button.MaterialButton
     android:id="@+id/btnDone"
     style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -103,6 +110,8 @@
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:gravity="start|center_vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:text="@string/guide_export_ca_cert_btn_save"
     android:textAllCaps="false"
     app:layout_constraintBottom_toBottomOf="parent"

@@ -23,116 +23,142 @@
     app:layout_constraintGuide_end="@dimen/activity_horizontal_margin"
     xamarin:managedType="AndroidX.ConstraintLayout.Widget.Guideline" />
 
-  <androidx.appcompat.widget.AppCompatImageView
-    android:id="@+id/ivLogo"
-    android:layout_width="@dimen/guide_img_size_w"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:adjustViewBounds="true"
-    android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:tint="?colorPrimary"
-    app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-    app:layout_constraintStart_toStartOf="@+id/guideline_left"
-    app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/baseline_settings_applications_black_24"
-    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatImageView" />
-
   <androidx.appcompat.widget.AppCompatTextView
     android:id="@+id/tvTitle"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:text="@string/guide_how_install_ca_cert_title"
     android:textColor="@color/text_primary"
-    android:textSize="24sp"
+    android:textSize="22sp"
     android:textStyle="bold"
     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
     app:layout_constraintStart_toStartOf="@+id/guideline_left"
-    app:layout_constraintTop_toBottomOf="@+id/ivLogo"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Watt Toolkit CA 证书"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
   <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/tvDesc1"
+    android:id="@+id/tvCaState"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:lineSpacingExtra="4sp"
-    android:text="@string/guide_how_install_ca_cert_desc1"
     android:textColor="@color/text_primary"
-    android:textSize="16sp"
+    android:textSize="14sp"
     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
     app:layout_constraintStart_toStartOf="@+id/guideline_left"
     app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+    tools:text="@string/ca_cert_status_installed_user"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
   <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/tvDesc2"
+    android:id="@+id/tvTip"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4sp"
+    android:lineSpacingExtra="4sp"
+    android:textColor="@color/text_primary"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+    app:layout_constraintStart_toStartOf="@+id/guideline_left"
+    app:layout_constraintTop_toBottomOf="@+id/tvCaState"
+    tools:text="@string/ca_cert_status_installed_user_tip"
+    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+    android:id="@+id/tvSubject"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:lineSpacingExtra="4sp"
-    android:text="@string/guide_how_install_ca_cert_desc2"
     android:textColor="@color/text_primary"
-    android:textSize="16sp"
+    android:textIsSelectable="true"
+    android:textSize="14sp"
     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
     app:layout_constraintStart_toStartOf="@+id/guideline_left"
-    app:layout_constraintTop_toBottomOf="@+id/tvDesc1"
+    app:layout_constraintTop_toBottomOf="@+id/tvTip"
+    tools:text="Subject：\nQW:ER:TY:UI:OP:AS:DF"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
   <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/tvDesc3"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
-    android:lineSpacingExtra="4sp"
-    android:text="@string/guide_how_install_ca_cert_desc3"
-    android:textColor="@color/text_primary"
-    android:textSize="16sp"
-    app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-    app:layout_constraintStart_toStartOf="@+id/guideline_left"
-    app:layout_constraintTop_toBottomOf="@+id/tvDesc2"
-    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
-
-  <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/tvDesc4"
+    android:id="@+id/tvSerialNumber"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:lineSpacingExtra="4sp"
-    android:text="@string/guide_how_install_ca_cert_desc4"
     android:textColor="@color/text_primary"
-    android:textSize="16sp"
+    android:textIsSelectable="true"
+    android:textSize="14sp"
     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
     app:layout_constraintStart_toStartOf="@+id/guideline_left"
-    app:layout_constraintTop_toBottomOf="@+id/tvDesc3"
+    app:layout_constraintTop_toBottomOf="@+id/tvSubject"
+    tools:text="SerialNumber：\nQW:ER:TY:UI:OP:AS:DF"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
   <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/tvDesc5"
+    android:id="@+id/tvPeriodValidity"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/activity_vertical_margin"
     android:lineSpacingExtra="4sp"
-    android:text="@string/guide_how_install_ca_cert_desc5"
     android:textColor="@color/text_primary"
-    android:textSize="16sp"
+    android:textIsSelectable="true"
+    android:textSize="14sp"
     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
     app:layout_constraintStart_toStartOf="@+id/guideline_left"
-    app:layout_constraintTop_toBottomOf="@+id/tvDesc4"
+    app:layout_constraintTop_toBottomOf="@+id/tvSerialNumber"
+    tools:text="PeriodValidity：\n20xx/xx/xx ~ 20xx/xx/xx"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
-  <Space
+  <androidx.appcompat.widget.AppCompatTextView
+    android:id="@+id/tvSHA256"
     android:layout_width="0dp"
-    android:layout_height="82dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tvDesc5" />
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:lineSpacingExtra="4sp"
+    android:textColor="@color/text_primary"
+    android:textIsSelectable="true"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+    app:layout_constraintStart_toStartOf="@+id/guideline_left"
+    app:layout_constraintTop_toBottomOf="@+id/tvPeriodValidity"
+    tools:text="SHA256：\nQW:ER:TY:UI:OP:AS:DF"
+    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
+
+  <androidx.appcompat.widget.AppCompatTextView
+    android:id="@+id/tvSHA1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:lineSpacingExtra="4sp"
+    android:textColor="@color/text_primary"
+    android:textIsSelectable="true"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+    app:layout_constraintStart_toStartOf="@+id/guideline_left"
+    app:layout_constraintTop_toBottomOf="@+id/tvSHA256"
+    tools:text="SHA256：\nQW:ER:TY:UI:OP:AS:DF"
+    xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
   <com.google.android.material.button.MaterialButton
-    android:id="@+id/btnDone"
+    android:id="@+id/btnExport"
+    style="@style/Widget.MaterialComponents.Button.TextButton"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:gravity="start|center_vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:textAllCaps="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tvSHA1"
+    tools:text="导出证书文件"
+    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/btnOpenSettingsSecurity"
     style="@style/Widget.MaterialComponents.Button.TextButton"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
@@ -141,12 +167,37 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:text="@string/guide_how_install_ca_cert_btn"
     android:textAllCaps="false"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/btnExport"
+    tools:text="打开安全设置"
+    xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
+
+  <Space
+    android:layout_width="0dp"
+    android:layout_height="82dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/btnOpenSettingsSecurity" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/btnDelete"
+    style="@style/Widget.MaterialComponents.Button.TextButton"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:gravity="start|center_vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:textAllCaps="false"
+    android:textColor="@color/red_warn"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintVertical_bias="1.0"
+    tools:text="删除"
     xamarin:managedType="Google.Android.Material.Button.MaterialButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

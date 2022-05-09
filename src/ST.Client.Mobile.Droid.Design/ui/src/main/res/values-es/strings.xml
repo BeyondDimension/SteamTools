@@ -4,7 +4,7 @@
   <string name="guide_vpn_desc">Tendrás que autorizar nuestra aplicación para crear una conexión VPN. Steam++ no dirige tu tráfico a través de un servidor remoto, por lo que la aceleración se realiza en tu dispositivo. Si pulsa OK, aparecerá un diálogo del sistema solicitando su aprobación.</string>
   <string name="guide_vpn_btn">Crear una VPN local</string>
   <!-- Guide Export CA Cert ↓ -->
-  <string name="guide_export_ca_cert_title">Steam++ CA Certificados</string>
+  <string name="ca_cert_title">{0} CA Certificados</string>
   <string name="guide_export_ca_cert_desc1">Este certificado es necesario para que la Aceleración de Red funcione correctamente.</string>
   <string name="guide_export_ca_cert_desc2">El certificado es único, generado por su dispositivo y almacenado localmente en el mismo.</string>
   <string name="guide_export_ca_cert_desc3">Por favor, guarde el certificado. El siguiente paso describe cómo instalarlo manualmente.</string>

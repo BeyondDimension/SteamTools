@@ -5,20 +5,21 @@ using Android.OS;
 using Android.Runtime;
 using Android.Text;
 using Android.Text.Style;
+using Android.Views;
 using AndroidX.Navigation.Fragment;
 using AndroidX.Navigation.UI;
 using Binding;
 using ReactiveUI;
+using System.Application.Services;
+using System.Application.UI.Fragments;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
-using System.Application.UI.Fragments;
 using System.Text;
-using Android.Views;
-using System.Application.Services;
-using ASettings = Android.Provider.Settings;
-using static AndroidX.Activity.Result.ActivityResultTask;
 using System.Threading.Tasks;
+using static AndroidX.Activity.Result.ActivityResultTask;
+using _ThisAssembly = System.Properties.ThisAssembly;
+using ASettings = Android.Provider.Settings;
 using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.UI.Activities
@@ -64,6 +65,8 @@ namespace System.Application.UI.Activities
             public override void OnCreateView(View view)
             {
                 base.OnCreateView(view);
+
+                binding!.tvTitle.Text = GetString(Resource.String.ca_cert_title).Format(_ThisAssembly.AssemblyTrademark);
 
                 var sdkInt = (int)Build.VERSION.SdkInt;
                 canInstalledCACert = !(sdkInt > 29 || (sdkInt == 29 && Build.VERSION.PreviewSdkInt > 0));

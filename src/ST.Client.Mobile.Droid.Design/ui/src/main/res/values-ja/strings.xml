@@ -4,7 +4,7 @@
   <string name="guide_vpn_desc">VPN 接続を作成するには、当社のアプリケーションを承認する必要があります。Steam++ は、リモートサーバーを介してトラフィックをルーティングしないため、加速はお客様のデバイスで行われます。 OKをタップすると、システムダイアログが表示され、承認を求めることができます。</string>
   <string name="guide_vpn_btn">ローカル VPN を作成する</string>
   <!-- Guide Export CA Cert ↓ -->
-  <string name="guide_export_ca_cert_title">Steam++ CA 証明書</string>
+  <string name="ca_cert_title">{0} CA 証明書</string>
   <string name="guide_export_ca_cert_desc1">この証明書は、ネットワークアクセラレーションが正常に動作するために必要です。</string>
   <string name="guide_export_ca_cert_desc2">証明書はユニークで、デバイスによって生成され、デバイスにローカルに保存されます。</string>
   <string name="guide_export_ca_cert_desc3">証明書を保存してください。 次のステップでは、手動でインストールする方法を説明します。</string>

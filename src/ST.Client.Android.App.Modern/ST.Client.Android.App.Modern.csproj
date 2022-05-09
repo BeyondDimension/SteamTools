@@ -498,6 +498,12 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_barcode_scanner.xml">
       <Link>Resources\layout\activity_barcode_scanner.xml</Link>
     </AndroidBoundLayout>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_ca_cert_status.xml">
+      <Link>Resources\layout\activity_ca_cert_status.xml</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_ca_cert_status_content.xml">
+      <Link>Resources\layout\activity_ca_cert_status_content.xml</Link>
+    </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_detail_auth.xml">
       <Link>Resources\layout\activity_detail_auth.xml</Link>
     </AndroidBoundLayout>

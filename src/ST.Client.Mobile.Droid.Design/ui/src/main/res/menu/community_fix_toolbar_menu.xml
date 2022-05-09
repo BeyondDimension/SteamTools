@@ -39,4 +39,11 @@
     app:iconTint="@color/icon_background"
     tools:title="打开安全设置" />
 
+  <item
+    android:id="@+id/menu_certificate_status"
+    android:icon="@drawable/ic_fluent_certificate_24_regular"
+    android:title=""
+    app:iconTint="@color/icon_background"
+    tools:title="证书状态" />
+
 </menu>

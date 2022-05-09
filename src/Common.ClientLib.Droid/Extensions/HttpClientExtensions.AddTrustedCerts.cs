@@ -2,62 +2,35 @@ using Android.Runtime;
 using Java.Security.Cert;
 using System.IO;
 using Xamarin.Android.Net;
-using X509Certificate2 = System.Security.Cryptography.X509Certificates.X509Certificate2;
+using static Java.Security.Cert.X509CertificateHelpers;
 
 // ReSharper disable once CheckNamespace
 namespace System
 {
     public static partial class HttpClientExtensions
     {
-        const string certificateFileType = "X.509";
-
-        static readonly Lazy<CertificateFactory?> certificateFactory = new(() =>
-        {
-            var certificateFactory = CertificateFactory.GetInstance(certificateFileType);
-            return certificateFactory;
-        });
-
-        internal static CertificateFactory CertificateFactory
-        {
-            get
-            {
-                var certificateFactory = HttpClientExtensions.certificateFactory.Value;
-                if (certificateFactory == null)
-                    throw new NullReferenceException(
-                        $"CertificateFactory.GetInstance Fail, Type: {certificateFileType}");
-                return certificateFactory;
-            }
-        }
-
         /// <summary>
         /// 添加可信任证书，可用于调试时 HTTPS 抓包
         /// </summary>
         /// <param name="handler"></param>
-        /// <param name="certificateFileData">证书文件数据(文件流，内嵌资源流)</param>
-        public static void AddTrustedCert(
-            this AndroidClientHandler handler,
-            Stream certificateFileData)
+        /// <param name="x509CertificateStream">证书(文件流，内嵌资源流)</param>
+        /// <param name="leaveOpen">是否不释放流</param>
+        public static void AddTrustedCert(this AndroidClientHandler handler, Stream x509CertificateStream, bool leaveOpen = false)
         {
-            var certificate = CertificateFactory.GenerateCertificate(certificateFileData);
-            if (certificate == null)
-                throw new NullReferenceException("GenerateCertificate Fail");
-            if (handler.TrustedCerts == null)
-                handler.TrustedCerts = new JavaList<Certificate>();
-            handler.TrustedCerts.Add(certificate);
-        }
-
-        /// <summary>
-        /// 将 .NET 中的 X509 证书对象 转换为 JVM 中的 X509 证书对象
-        /// <para>Java.Security.Cert.X509Certificate</para>
-        /// <para>=></para>
-        /// <para>System.Security.Cryptography.X509Certificates.X509Certificate2</para>
-        /// </summary>
-        /// <param name="certificate2"></param>
-        /// <returns></returns>
-        public static X509Certificate Convert(this X509Certificate2 certificate2)
-        {
-            using var stream = new MemoryStream(certificate2.RawData);
-            return CertificateFactory.GenerateCertificate(stream)!.JavaCast<X509Certificate>();
+            try
+            {
+                using var factory = GetX509CertificateFactory();
+                var x509Certificate = factory.GenerateCertificate(x509CertificateStream);
+                if (x509Certificate == null)
+                    throw new ArgumentNullException(nameof(x509Certificate));
+                if (handler.TrustedCerts == null)
+                    handler.TrustedCerts = new JavaList<Certificate>();
+                handler.TrustedCerts.Add(x509Certificate);
+            }
+            finally
+            {
+                if (!leaveOpen) x509CertificateStream.Dispose();
+            }
         }
     }
 }

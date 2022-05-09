@@ -123,7 +123,7 @@ namespace System.Application.Services.Implementation
                 new("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
                 new("Access-Control-Allow-Headers", "*"),
                 new("Access-Control-Allow-Methods", "*"),
-                new("Access-Control-Allow-Credentials", "true")
+                new("Access-Control-Allow-Credentials", "true"),
             };
             //if (cookie != null)
             //    headrs.Add(new HttpHeader("Cookie", cookie));
@@ -211,7 +211,7 @@ namespace System.Application.Services.Implementation
                         new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*"),
                         new HttpHeader("Access-Control-Allow-Headers", "*"),
                         new HttpHeader("Access-Control-Allow-Methods", "*"),
-                        new HttpHeader("Access-Control-Allow-Credentials", "true")
+                        new HttpHeader("Access-Control-Allow-Credentials", "true"),
                     });
                     return;
                 }
@@ -417,18 +417,23 @@ namespace System.Application.Services.Implementation
 
         string? IHttpProxyService.GetCerFilePathGeneratedWhenNoFileExists() => GetCerFilePathGeneratedWhenNoFileExists();
 
+        static readonly object lockGenerateCertificate = new();
+
         /// <inheritdoc cref="IHttpProxyService.GetCerFilePathGeneratedWhenNoFileExists"/>
         public string? GetCerFilePathGeneratedWhenNoFileExists(string? filePath = null)
         {
             filePath ??= ((IHttpProxyService)this).CerFilePath;
-            if (!File.Exists(filePath))
+            lock (lockGenerateCertificate)
             {
-                if (!GenerateCertificate(filePath)) return null;
+                if (!File.Exists(filePath))
+                {
+                    if (!GenerateCertificateUnlock(filePath)) return null;
+                }
+                return filePath;
             }
-            return filePath;
         }
 
-        public bool GenerateCertificate(string? filePath = null)
+        bool GenerateCertificateUnlock(string filePath)
         {
             var result = proxyServer.CertificateManager.CreateRootCertificate(true);
             if (!result || proxyServer.CertificateManager.RootCertificate == null)
@@ -438,11 +443,18 @@ namespace System.Application.Services.Implementation
                 return false;
             }
 
-            filePath ??= ((IHttpProxyService)this).CerFilePath;
-
             proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
 
             return true;
+        }
+
+        public bool GenerateCertificate(string? filePath = null)
+        {
+            filePath ??= ((IHttpProxyService)this).CerFilePath;
+            lock (lockGenerateCertificate)
+            {
+                return GenerateCertificateUnlock(filePath);
+            }
         }
 
         public void TrustCer()
@@ -882,6 +894,8 @@ namespace System.Application.Services.Implementation
             }
             return result;
         }
+
+        X509Certificate2? IHttpProxyService.RootCertificate => proxyServer.CertificateManager.RootCertificate;
 
         void Dispose(bool disposing)
         {

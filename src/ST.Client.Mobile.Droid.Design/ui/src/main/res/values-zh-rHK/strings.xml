@@ -4,7 +4,7 @@
   <string name="guide_vpn_desc">您需要授權我們的應用創建 VPN 連接。 Steam++ 不會通過遠程服務器路由您的流量，所以加速是在您的設備上完成的。 如果您輕觸確定，您會看到要求您準予的系統對話方塊。</string>
   <string name="guide_vpn_btn">創建本地 VPN</string>
   <!-- Guide Export CA Cert ↓ -->
-  <string name="guide_export_ca_cert_title">Steam++ CA 證書</string>
+  <string name="ca_cert_title">{0} CA 證書</string>
   <string name="guide_export_ca_cert_desc1">為了使 網絡加速 正常工作，需要安裝此證書。</string>
   <string name="guide_export_ca_cert_desc2">該證書是唯一的，由您的設備生成，並存儲在本地設備上。</string>
   <string name="guide_export_ca_cert_desc3">請保存證書。 下一步介紹如何手動安裝它。</string>

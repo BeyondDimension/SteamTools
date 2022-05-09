@@ -273,6 +273,21 @@ namespace System.Application.UI.Fragments
 
         void SetMenuTitle() => menuBuilder.SetMenuTitle(ToString2, MenuIdResToEnum);
 
+        /// <summary>
+        /// 移除证书弹窗提示
+        /// </summary>
+        /// <param name="context"></param>
+        internal static async void UninstallCertificateShowTips(Context context)
+        {
+            string title = AppResources.CommunityFix_DeleteCertificateTipTitle;
+            string text = AppResources.CommunityFix_DeleteCertificateTipText_.Format(IHttpProxyService.RootCertificateName); ;
+            var r = await MessageBox.ShowAsync(text, title, MessageBox.Button.OKCancel);
+            if (r.IsOK())
+            {
+                GoToPlatformPages.SystemSettingsSecurity(context);
+            }
+        }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             var actionItem = MenuIdResToEnum(item.ItemId);
@@ -290,8 +305,10 @@ namespace System.Application.UI.Fragments
                         InstallCertificate();
                         return true;
                     case ActionItem.CertificateUninstall:
-                        //Test();
-                        ViewModel!.UninstallCertificateShowTips();
+                        UninstallCertificateShowTips(RequireContext());
+                        return true;
+                    case ActionItem.CertificateStatus:
+                        GoToPlatformPages.StartActivity<CACertStatusActivity>(RequireActivity());
                         return true;
                 }
                 ViewModel!.MenuItemClick(actionItem);
@@ -321,6 +338,10 @@ namespace System.Application.UI.Fragments
             else if (resId == Resource.Id.menu_uninstall_certificate_file)
             {
                 return ActionItem.CertificateUninstall;
+            }
+            else if (resId == Resource.Id.menu_certificate_status)
+            {
+                return ActionItem.CertificateStatus;
             }
             return default;
         }
