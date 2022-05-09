@@ -1,7 +1,7 @@
 <resources>
   <!-- Guide VPN ↓ -->
   <string name="guide_vpn_title">Network acceleration requires a local VPN</string>
-  <string name="guide_vpn_desc">You need to authorize our application to create a VPN connection. steam++ does not route your traffic through a remote server, so the acceleration is done on your device. If you tap OK, you will see a system dialog asking for your approval.</string>
+  <string name="guide_vpn_desc">You need to authorize our application to create a VPN connection. Watt Toolkit does not route your traffic through a remote server, so the acceleration is done on your device. If you tap OK, you will see a system dialog asking for your approval.</string>
   <string name="guide_vpn_btn">Create Local VPN</string>
   <!-- Guide Export CA Cert ↓ -->
   <string name="ca_cert_title">{0} CA Certificate</string>
@@ -18,4 +18,8 @@
   <string name="guide_how_install_ca_cert_desc4">4. Select the previously saved [CA Certificate]</string>
   <string name="guide_how_install_ca_cert_desc5">5. Ignore the warning message and click [Install]</string>
   <string name="guide_how_install_ca_cert_btn">Open security settings</string>
+  <!-- CA Cert Status ↓ -->
+  <string name="ca_cert_status_installed_system">Installed to the system certificate store</string>
+  <string name="ca_cert_status_installed_user">Installed to the user certificate store</string>
+  <string name="ca_cert_status_installed_user_tip">Applications built with Android 7.0 Nougat+ cannot be accelerated due to Android system limitations, i.e. targetSdkVersion >= 24.</string>
 </resources>

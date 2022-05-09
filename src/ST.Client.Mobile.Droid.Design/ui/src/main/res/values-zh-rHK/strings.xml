@@ -1,7 +1,7 @@
 <resources>
   <!-- Guide VPN ↓ -->
   <string name="guide_vpn_title">網絡加速需要本地 VPN</string>
-  <string name="guide_vpn_desc">您需要授權我們的應用創建 VPN 連接。 Steam++ 不會通過遠程服務器路由您的流量，所以加速是在您的設備上完成的。 如果您輕觸確定，您會看到要求您準予的系統對話方塊。</string>
+  <string name="guide_vpn_desc">您需要授權我們的應用創建 VPN 連接。 Watt Toolkit 不會通過遠程服務器路由您的流量，所以加速是在您的設備上完成的。 如果您輕觸確定，您會看到要求您準予的系統對話方塊。</string>
   <string name="guide_vpn_btn">創建本地 VPN</string>
   <!-- Guide Export CA Cert ↓ -->
   <string name="ca_cert_title">{0} CA 證書</string>
@@ -18,4 +18,8 @@
   <string name="guide_how_install_ca_cert_desc4">4. 選擇之前保存的【CA 證書】</string>
   <string name="guide_how_install_ca_cert_desc5">5. 忽略警告資訊並點擊【安裝】</string>
   <string name="guide_how_install_ca_cert_btn">打開安全設置</string>
+  <!-- CA Cert Status ↓ -->
+  <string name="ca_cert_status_installed_system">已安裝到系統證書存儲區</string>
+  <string name="ca_cert_status_installed_user">已安裝到用戶證書存儲區</string>
+  <string name="ca_cert_status_installed_user_tip">由於 Android 系統的限制，無法加速 Android 7.0 Nougat+ 構建的應用，即 targetSdkVersion >= 24。</string>
 </resources>

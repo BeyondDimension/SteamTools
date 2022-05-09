@@ -178,7 +178,7 @@ namespace System.Application.UI.ViewModels
             for (int i = 0; i < hexString.Length; i++)
             {
                 builder.Append(hexString[i]);
-                if (i % 2 != 0)
+                if (i != hexString.Length - 1 && i % 2 != 0)
                 {
                     builder.Append(':');
                 }
