@@ -11,18 +11,22 @@ namespace System.Application.Services.Implementation
         {
         }
 
+        TelephonyManager? telephonyManager;
+
+        public TelephonyManager TelephonyManager
+        {
+            get
+            {
+                if (telephonyManager == null)
+                    telephonyManager = XEPlatform.AppContext.GetSystemService<TelephonyManager>(Context.TelephonyService);
+                return telephonyManager;
+            }
+        }
+
         protected override string? PlatformGetPhoneNumber()
         {
-            try
-            {
-                var telephony = XEPlatform.AppContext.GetSystemService<TelephonyManager>(Context.TelephonyService);
-                var value = telephony.Line1Number;
-                return PhoneNumberHelper.GetChineseMainlandPhoneNumber(value);
-            }
-            catch
-            {
-                return null;
-            }
+            var value = TelephonyManager.Line1Number;
+            return PhoneNumberHelper.GetChineseMainlandPhoneNumber(value);
         }
     }
 }

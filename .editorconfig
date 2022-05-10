@@ -453,3 +453,6 @@ dotnet_diagnostic.SA1303.severity = silent
 
 # SA1300: Element should begin with upper-case letter
 dotnet_diagnostic.SA1300.severity = silent
+
+# SA1316: Tuple element names should use correct casing
+dotnet_diagnostic.SA1316.severity = silent
