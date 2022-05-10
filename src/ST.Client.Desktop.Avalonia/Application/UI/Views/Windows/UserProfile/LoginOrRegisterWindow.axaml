@@ -18,6 +18,7 @@
         xmlns:i="using:Avalonia.Xaml.Interactivity"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         WindowStartupLocation="CenterOwner"
+        Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="{StaticResource TitleBarHeight}"
         CanResize="False"
         x:DataType="vm:LoginOrRegisterWindowViewModel"

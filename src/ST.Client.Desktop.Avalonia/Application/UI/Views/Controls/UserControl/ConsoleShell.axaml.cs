@@ -25,13 +25,13 @@ namespace System.Application.UI.Views.Controls
         /// Defines the <see cref="LogText"/> property.
         /// </summary>
         public static readonly StyledProperty<string> LogTextProperty =
-            AvaloniaProperty.Register<ConsoleShell, string>(nameof(IsMask), string.Empty);
+            AvaloniaProperty.Register<ConsoleShell, string>(nameof(LogText), string.Empty);
 
         /// <summary>
         /// Defines the <see cref="MaxLine"/> property.
         /// </summary>
         public static readonly StyledProperty<int> MaxLineProperty =
-            AvaloniaProperty.Register<ConsoleShell, int>(nameof(IsMask), 300);
+            AvaloniaProperty.Register<ConsoleShell, int>(nameof(MaxLine), 300);
 
         /// <summary>
         /// 隐藏指令内容（用于密码输入）

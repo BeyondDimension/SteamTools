@@ -111,9 +111,23 @@ namespace System.Application.UI.ViewModels
                 },
             };
 
+            AdBanners = new()
+            {
+                new()
+                {
+                    Header = "今日免费游戏领取信息",
+                    Description = "2022-03-24",
+                },
+                new()
+                {
+                    Header = "修复通知",
+                    Description = "近期xx功能失效问题已经修复",
+                },
+            };
         }
 
         public List<FeatureGroup> FeatureGroups { get; }
 
+        public List<FeatureItem> AdBanners { get; }
     }
 }

@@ -122,4 +122,10 @@
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Controls\UserControl\CarouselBanner.axaml.cs">
+      <DependentUpon>CarouselBanner.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

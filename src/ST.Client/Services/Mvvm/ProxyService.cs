@@ -563,11 +563,7 @@ namespace System.Application.Services
         {
             if (timer == null)
             {
-                timer = new Timer((state) =>
-                {
-                    Thread.CurrentThread.IsBackground = true;
-                    AccelerateTime = DateTimeOffset.Now - _StartAccelerateTime;
-                }, nameof(AccelerateTime), 1000, 1000);
+                timer = new Timer(_ => AccelerateTime = DateTimeOffset.Now - _StartAccelerateTime, nameof(AccelerateTime), 0, 1000);
             }
         }
 
