@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.4" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.4" />
@@ -29,7 +29,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.16" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.16" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.16" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.16" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.16" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.16" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.16" />
@@ -47,7 +47,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.24" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.24" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.24" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.24" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.24" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="3.1.24" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.24" />
