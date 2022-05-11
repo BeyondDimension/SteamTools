@@ -14,4 +14,4 @@ using static System.Properties.ThisAssembly;
 [assembly: AssemblyProduct(AssemblyProduct)]
 [assembly: AssemblyCopyright(AssemblyCopyright)]
 [assembly: AssemblyCompany(AssemblyCompany)]
-[assembly: NeutralResourcesLanguage("zh-Hans")] 
+[assembly: NeutralResourcesLanguage("zh-Hans")]
