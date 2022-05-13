@@ -101,8 +101,9 @@
             <ComboBoxItem Content="None"/>
             <ComboBoxItem Content="Transparent"/>
             <ComboBoxItem Content="Blur"/>
-            <ComboBoxItem Content="Win10 AcrylicBlur"/>
-            <ComboBoxItem Content="Win11 Mica" IsVisible="{x:Static sys:OperatingSystem2.IsWindows11AtLeast}"/>
+            <ComboBoxItem Content="AcrylicBlur"/>
+            <ComboBoxItem Content="ForceAcrylicBlur"/>
+            <ComboBoxItem Content="Mica" IsVisible="{x:Static sys:OperatingSystem2.IsWindows11AtLeast}"/>
           </ComboBox>
         </DockPanel>
       </Border>
