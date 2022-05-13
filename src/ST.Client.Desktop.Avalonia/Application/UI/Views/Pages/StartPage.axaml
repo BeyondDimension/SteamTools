@@ -117,7 +117,9 @@
       </StackPanel>
     </ScrollViewer>
 
-    <Border DockPanel.Dock="Bottom">
+    <Border DockPanel.Dock="Bottom"
+            VerticalAlignment="Bottom"
+            Height="150">
       <controls:CarouselBanner/>
     </Border>
   </DockPanel>
