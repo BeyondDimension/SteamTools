@@ -94,7 +94,11 @@ internal static class Program
                     error = R.NotSupportedWin8PlatformError;
                     return false;
                 }
-                else if (osVersion.Minor == 3) // NT 6.3 / Win8.1 / WinServer 2012 R2
+                //else if (osVersion.Minor == 3) // NT 6.3 / Win8.1 / WinServer 2012 R2
+                //{
+                //    return true;
+                //}
+                else if (osVersion.Minor >= 3)
                 {
                     return true;
                 }

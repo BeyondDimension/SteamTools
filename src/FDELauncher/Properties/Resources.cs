@@ -105,7 +105,7 @@ static class Resources
         Language.Japanese => "Windows 8 はマイクロソフトの公式サポートが終了しているため、このプログラムは動作しませんので、Windows 8.1 または Windows 10/11 へのアップグレードをお勧めします。",
         Language.Korean => "Windows 8 에 대한 Microsoft 의 공식 지원이 종료되었으므로이 프로그램은이 운영 체제에서 실행할 수 없습니다. Windows 8.1 또는 Windows 10/11 으로 업그레이드하는 것이 좋습니다.",
         Language.Russian => "Эта программа не будет работать на Windows 8, так как официальная поддержка этой операционной системы компанией Microsoft закончилась, поэтому рекомендуется перейти на Windows 8.1 или Windows 10/11",
-        _ => "Because Microsoft&apos;s official support for Windows 8 has ended, this program cannot run on this operating system. It is recommended to upgrade to Windows 8.1 or Windows 10/11",
+        _ => "Since Microsoft's official support for Windows 8 has ended, this program will not work on this operating system, so it is recommended to upgrade to Windows 8.1 or Windows 10/11",
     });
 
     public static string NotSupportedPlatformError => GetString(l => l switch
