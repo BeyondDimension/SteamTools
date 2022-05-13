@@ -2,15 +2,16 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
-using System.Globalization;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using NuGet.Versioning;
 using Microsoft.DotNet.Tools.Uninstall.Windows;
 using Microsoft.DotNet.Tools.Uninstall.Shared.BundleInfo;
+using FDELauncher.Properties;
 using _ThisAssembly = System.Properties.ThisAssembly;
 using R = FDELauncher.Properties.Resources;
-using FDELauncher.Properties;
 
 namespace FDELauncher;
 
@@ -25,48 +26,85 @@ internal static class Program
     /// 应用程序的主入口点。
     /// </summary>
     [STAThread]
-    static void Main(string[] args)
+    static int Main(string[] args)
     {
         try
         {
+            if (!IsSupportedPlatform(out var error)) return ShowError(error);
             var executivePath = GetExecutivePath();
-            if (File.Exists(executivePath))
+            if (!File.Exists(executivePath)) return ShowError(R.ExecutiveNotExistsFailure);
+            if (!VerificationExecutiveInfo(executivePath)) return ShowError(R.VerificationExecutiveInfoFailure);
+            if (IsFrameworkDependentExecutable())
             {
-                if (VerificationExecutiveInfo(executivePath))
+                matchArch = GetArchByPeHeader(executivePath);
+                switch (matchArch)
                 {
-                    if (IsFrameworkDependentExecutable())
-                    {
-                        matchArch = GetArchByPeHeader(executivePath);
-                        if (IsRuntimeInstalled(matchArch, runtimeVersion, sdkVersion))
-                        {
-                            Run();
-                        }
-                        else
-                        {
-                            ShowRuntimeMissingFailure();
-                        }
-                    }
-                    else
-                    {
-                        Run();
-                    }
-
-                    void Run() => StartProcess(executivePath, args);
+                    case BundleArch.X64:
+                        if (!Environment2.Is64BitOperatingSystem) return ShowError(R.ThisAppOnlySupport64BitOS);
+                        break;
+                    case BundleArch.Arm64:
+                        if (RuntimeInformation2.OSArchitecture != Architecture.Arm64) throw new PlatformNotSupportedException();
+                        break;
+                }
+                if (IsRuntimeInstalled(matchArch, runtimeVersion, sdkVersion))
+                {
+                    Run();
                 }
                 else
                 {
-                    MessageBox.Show(R.VerificationExecutiveInfoFailure, _ThisAssembly.AssemblyTrademark, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowRuntimeMissingFailure();
                 }
             }
             else
             {
-                MessageBox.Show(R.ExecutiveNotExistsFailure, _ThisAssembly.AssemblyTrademark, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Run();
             }
+            return 0;
+
+            void Run() => StartProcess(executivePath, args);
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.ToString(), _ThisAssembly.AssemblyTrademark, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return ShowError(ex.ToString());
         }
+    }
+
+    static int ShowError(string errMsg, int errCode = 0)
+    {
+        MessageBox.Show(errMsg, _ThisAssembly.AssemblyTrademark, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        return errCode;
+    }
+
+    static bool IsSupportedPlatform([NotNullWhen(false)] out string? error)
+    {
+        error = null;
+        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+        {
+            var osVersion = Environment.OSVersion.Version;
+            if (osVersion.Major > 6) return true;
+            if (osVersion.Major == 6)
+            {
+                if (osVersion.Minor == 1) // NT 6.1 / Win7 / WinServer 2008 R2
+                {
+                    if (Environment.OSVersion.ServicePack == "Service Pack 1") return true;
+                }
+                else if (osVersion.Minor == 2) // NT 6.2 / Win8 / WinServer 2012
+                {
+                    error = R.NotSupportedWin8PlatformError;
+                    return false;
+                }
+                //else if (osVersion.Minor == 3) // NT 6.3 / Win8.1 / WinServer 2012 R2
+                //{
+
+                //}
+                //else
+                //{
+
+                //}
+            }
+        }
+        error = R.NotSupportedPlatformError;
+        return false;
     }
 
     static string ToString(BundleArch value) => value switch
