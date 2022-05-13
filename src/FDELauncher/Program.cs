@@ -86,21 +86,18 @@ internal static class Program
             {
                 if (osVersion.Minor == 1) // NT 6.1 / Win7 / WinServer 2008 R2
                 {
-                    if (Environment.OSVersion.ServicePack == "Service Pack 1") return true;
+                    if (Environment.OSVersion.ServicePack == "Service Pack 1")
+                        return true;
                 }
                 else if (osVersion.Minor == 2) // NT 6.2 / Win8 / WinServer 2012
                 {
                     error = R.NotSupportedWin8PlatformError;
                     return false;
                 }
-                //else if (osVersion.Minor == 3) // NT 6.3 / Win8.1 / WinServer 2012 R2
-                //{
-
-                //}
-                //else
-                //{
-
-                //}
+                else if (osVersion.Minor == 3) // NT 6.3 / Win8.1 / WinServer 2012 R2
+                {
+                    return true;
+                }
             }
         }
         error = R.NotSupportedPlatformError;
