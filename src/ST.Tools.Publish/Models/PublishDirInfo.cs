@@ -26,6 +26,7 @@ namespace System.Application.Models
         }
 
         string _Name = string.Empty;
+
         /// <summary>
         /// 发布文件夹名
         /// </summary>

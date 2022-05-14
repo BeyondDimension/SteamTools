@@ -11,6 +11,7 @@ using System.CommandLine.Invocation;
 using System.CommandLine.NamingConventionBinder;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using static System.Application.Utils;
 
 namespace System.Application.Steps
