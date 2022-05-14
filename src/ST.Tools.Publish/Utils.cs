@@ -117,7 +117,33 @@ namespace System.Application
             //return attr?.InformationalVersion ?? string.Empty;
         }
 
-        public static void ScanPath(string dirPath, List<PublishFileInfo>? list = null, string? relativeTo = null, string[]? ignoreRootDirNames = null)
+        public static void OnScanPathBefore(PublishDirInfo publish)
+        {
+            if (publish.DeploymentMode == DeploymentMode.FDE && publish.Platform == OSPlatform.Windows)
+            {
+                const string fileName = "Steam++.Launcher.exe";
+                const string config_ex = ".config";
+                var sourceFileName = Path.Combine(ProjectPathUtil.projPath, "references", fileName);
+                if (File.Exists(sourceFileName))
+                {
+                    var destFileName = Path.Combine(publish.Path, fileName);
+                    File.Copy(sourceFileName, destFileName);
+                    sourceFileName += config_ex;
+                    if (File.Exists(sourceFileName))
+                    {
+                        destFileName += config_ex;
+                        File.Copy(sourceFileName, destFileName);
+                    }
+                }
+            }
+        }
+
+        public static void ScanPath(string dirPath, List<PublishFileInfo>? list = null, string[]? ignoreRootDirNames = null)
+        {
+            ScanPathCore(dirPath, list, ignoreRootDirNames: ignoreRootDirNames);
+        }
+
+        static void ScanPathCore(string dirPath, List<PublishFileInfo>? list = null, string? relativeTo = null, string[]? ignoreRootDirNames = null)
         {
             list ??= new List<PublishFileInfo>();
             relativeTo ??= dirPath;
@@ -138,7 +164,7 @@ namespace System.Application
                     // 忽略顶级文件夹
                     continue;
                 }
-                ScanPath(dir, list, relativeTo);
+                ScanPathCore(dir, list, relativeTo);
             }
         }
 

@@ -9,12 +9,18 @@ using System.Text.RegularExpressions;
 using Microsoft.DotNet.Tools.Uninstall.Shared.BundleInfo;
 using Microsoft.DotNet.Tools.Uninstall.Shared.BundleInfo.Versioning;
 using Microsoft.DotNet.Tools.Uninstall.Shared.Utils;
+using Microsoft.DotNet.Tools.Uninstall.Shared.VSVersioning;
 using Microsoft.Win32;
 
 namespace Microsoft.DotNet.Tools.Uninstall.Windows
 {
     internal static class RegistryQuery
     {
+        public static IEnumerable<Bundle> GetInstalledBundles()
+        {
+            return VisualStudioSafeVersionsExtractor.GetUninstallableBundles(GetAllInstalledBundles());
+        }
+
         public static IEnumerable<Bundle> GetAllInstalledBundles()
         {
             var bundles = GetNetCoreBundleKeys(RegistryKey2.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64));
@@ -22,7 +28,8 @@ namespace Microsoft.DotNet.Tools.Uninstall.Windows
 
             var wrappedBundles = bundles
               .Select(WrapRegistryKey)
-              .Where(bundle => bundle != null);
+              .Where(bundle => bundle != null)
+              .ToArray();
 
             return wrappedBundles!;
         }
@@ -129,6 +136,10 @@ namespace Microsoft.DotNet.Tools.Uninstall.Windows
                     displayName.IndexOf(".NET Runtime", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     return new RuntimeVersion(versionString);
+                }
+                else if (displayName.IndexOf("Windows Desktop Runtime", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return new WindowsDesktopRuntimeVersion(versionString);
                 }
                 else
                 {

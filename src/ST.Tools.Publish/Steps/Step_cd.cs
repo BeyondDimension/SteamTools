@@ -186,7 +186,7 @@ namespace System.Application.Steps
 
             if (hasWindows)
             {
-                var win_publishDirs = publishDirs.Where(x => x.Name.StartsWith("win-"));
+                var win_publishDirs = publishDirs.Where(x => x.Platform == OSPlatform.Windows);
 
                 Console.WriteLine("nsis Step 正在打包 EXE installer...");
 
@@ -195,7 +195,7 @@ namespace System.Application.Steps
 
             if (hasLinux)
             {
-                var linux_publishDirs = publishDirs.Where(x => x.Name.StartsWith("linux-"));
+                var linux_publishDirs = publishDirs.Where(x => x.Platform == OSPlatform.Linux);
 
                 Console.WriteLine("rpm Step 正在打包 CentOS/RedHat Linux installer...");
 
@@ -225,7 +225,7 @@ namespace System.Application.Steps
 
             #endregion
 
-            var winX64 = publishDirs.Where(x => x.Name.StartsWith("win-x64")).ToArray();
+            var winX64 = publishDirs.Where(x => x.Platform == OSPlatform.Windows && x.Architecture == Architecture.X64).ToArray();
             if (winX64.Any())
             {
                 Console.WriteLine("wdb Step 正在上传新版本数据中...");
@@ -281,6 +281,8 @@ namespace System.Application.Steps
                     continue;
                 }
 
+                OnScanPathBefore(item);
+
                 ScanPath(item.Path, item.Files, ignoreRootDirNames: ignoreDirNames);
 
                 Console.WriteLine($"{item.Name}, count: {item.Files.Count}");
@@ -303,7 +305,7 @@ namespace System.Application.Steps
         /// <param name="type"></param>
         public static void GenerateCompressedPackage(bool dev, PublishDirInfo item, AppDownloadType type)
         {
-            var isLinux = item.Name.StartsWith("linux-");
+            var isLinux = item.Platform == OSPlatform.Linux;
             if (isLinux)
             {
                 type = AppDownloadType.Compressed_Zstd;

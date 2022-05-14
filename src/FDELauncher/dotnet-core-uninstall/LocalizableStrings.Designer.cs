@@ -77,5 +77,41 @@ namespace Microsoft.DotNet.Tools.Uninstall {
                 return ResourceManager.GetString("InvalidInputVersionExceptionMessageFormat", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 Used by Visual Studio for Mac or SDKs. Specify individually or use —-force to remove 的本地化字符串。
+        /// </summary>
+        internal static string MacRuntimeRequirementExplainationString {
+            get {
+                return ResourceManager.GetString("MacRuntimeRequirementExplainationString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Used by Visual Studio for Mac. Specify individually or use —-force to remove 的本地化字符串。
+        /// </summary>
+        internal static string MacSDKRequirementExplainationString {
+            get {
+                return ResourceManager.GetString("MacSDKRequirementExplainationString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cannot uninstall version {0} and above 的本地化字符串。
+        /// </summary>
+        internal static string UpperLimitRequirement {
+            get {
+                return ResourceManager.GetString("UpperLimitRequirement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Used by Visual Studio{0}. Specify individually or use —-force to remove 的本地化字符串。
+        /// </summary>
+        internal static string WindowsRequirementExplainationString {
+            get {
+                return ResourceManager.GetString("WindowsRequirementExplainationString", resourceCulture);
+            }
+        }
     }
 }

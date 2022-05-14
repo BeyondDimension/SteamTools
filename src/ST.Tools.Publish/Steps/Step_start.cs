@@ -5,6 +5,7 @@ using System.CommandLine.Invocation;
 using System.CommandLine.NamingConventionBinder;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using static System.Application.Utils;
 using static System.ProjectPathUtil;
@@ -41,7 +42,7 @@ namespace System.Application.Steps
 
             foreach (var item in dirNames)
             {
-                var isMacOS = item.Name.StartsWith("osx");
+                var isMacOS = item.Platform == OSPlatform.OSX;
                 // ASP.NET Core Runtime 6.0.0 缺少 macOS Installers
                 if (isMacOS && d == DeploymentMode.FDE) continue;
 
@@ -55,6 +56,8 @@ namespace System.Application.Steps
 
                 lazyActions.Add(() =>
                 {
+                    OnScanPathBefore(item);
+
                     ScanPath(item.Path, item.Files, ignoreRootDirNames: ignoreDirNames);
                 });
 

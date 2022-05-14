@@ -48,7 +48,7 @@ namespace System.Application.Steps
 
             foreach (var item in dirNames)
             {
-                var isLinux = item.Name.StartsWith("linux-");
+                var isLinux = item.Platform == OSPlatform.Linux;
                 if (!isLinux) continue;
 
                 HandlerItem(dev, item);

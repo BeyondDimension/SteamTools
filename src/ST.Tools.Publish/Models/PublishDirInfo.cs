@@ -1,5 +1,7 @@
 using MessagePack;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
 using MPObject = MessagePack.MessagePackObjectAttribute;
 
@@ -23,11 +25,59 @@ namespace System.Application.Models
             DeploymentMode = deploymentMode;
         }
 
+        string _Name = string.Empty;
         /// <summary>
         /// 发布文件夹名
         /// </summary>
         [MPKey(0)]
-        public string Name { get; set; } = string.Empty;
+        public string Name
+        {
+            get => _Name;
+            set
+            {
+                var array = value.Split('-', StringSplitOptions.RemoveEmptyEntries);
+                if (array.Length >= 1)
+                {
+                    switch (array[0]?.ToLower())
+                    {
+                        case "win":
+                            Platform = OSPlatform.Windows;
+                            break;
+                        case "linux":
+                            Platform = OSPlatform.Linux;
+                            break;
+                        case "osx":
+                            Platform = OSPlatform.OSX;
+                            break;
+                    }
+                }
+                if (array.Length >= 2)
+                {
+                    switch (array[1]?.ToLower())
+                    {
+                        case "x86":
+                            Architecture = Architecture.X86;
+                            break;
+                        case "x64":
+                            Architecture = Architecture.X64;
+                            break;
+                        case "arm":
+                            Architecture = Architecture.Arm;
+                            break;
+                        case "arm64":
+                            Architecture = Architecture.Arm64;
+                            break;
+                    }
+                }
+                _Name = value;
+            }
+        }
+
+        [MPIgnore]
+        public OSPlatform Platform { get; private set; }
+
+        [MPIgnore]
+        public Architecture Architecture { get; private set; } = (Architecture)int.MinValue;
 
         /// <summary>
         /// 发布文件夹路径

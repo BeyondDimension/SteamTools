@@ -30,6 +30,13 @@ internal static class Program
     {
         try
         {
+            if (args.Length == 1 && args[0] == "--query")
+            {
+                var installed = RegistryQuery.GetAllInstalledBundles().ToArray();
+                var text = string.Join(Environment.NewLine, installed.Select(x => $"{x.DisplayName} [{x.Version.Type} {x.Version} {ToString(x.Arch)}]").ToArray());
+                MessageBox.Show(text, _ThisAssembly.AssemblyTrademark);
+                return 0;
+            }
             if (!IsSupportedPlatform(out var error)) return ShowError(error);
             var executivePath = GetExecutivePath();
             if (!File.Exists(executivePath)) return ShowError(R.ExecutiveNotExistsFailure);
@@ -134,11 +141,21 @@ internal static class Program
     /// </summary>
     static void ShowRuntimeMissingFailure()
     {
-        var text = String2.TryFormat(R.RuntimeMissingFailureFormat2,
+        var archStr = ToString(matchArch);
+        var runtimeVersionStr = runtimeVersion.ToString();
+        var _AspNetCoreRuntime = String2.TryFormat(
+                R.AspNetCoreRuntimeFormat2,
+                runtimeVersionStr,
+                archStr);
+        var _NetRuntime = String2.TryFormat(
+                R.NetRuntimeFormat2,
+                runtimeVersionStr,
+                archStr);
+        var _Runtime = $"{_AspNetCoreRuntime} {R.And} {_NetRuntime}";
+        var text = String2.TryFormat(
+            R.RuntimeMissingFailureFormat2,
             _ThisAssembly.AssemblyTrademark,
-            String2.TryFormat(R.AspNetCoreRuntimeFormat2,
-                runtimeVersion.ToString(),
-                ToString(matchArch)));
+            _Runtime);
         var result = MessageBox.Show(text, _ThisAssembly.AssemblyTrademark, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
         if (result == DialogResult.Yes)
         {
@@ -179,13 +196,23 @@ internal static class Program
     /// <returns></returns>
     static bool IsRuntimeInstalled(BundleArch matchArch, SemanticVersion runtimeVersion, SemanticVersion sdkVersion)
     {
-        var installed = RegistryQuery.GetAllInstalledBundles();
-        var query = from m in installed
-                    where m.Arch.HasFlags(matchArch) &&
-                    ((m.Version.Type == BundleType.AspNetRuntime && m.Version.SemVer >= runtimeVersion) ||
-                    (m.Version.Type == BundleType.Sdk && m.Version.SemVer >= sdkVersion))
-                    select m;
-        return query.Any();
+        // ArchiSteamFarm 依赖 ASP.NET Core
+        // ASP.NET Core 运行时安装程序除 Hosting Bundle 不包含 .NET 运行时 缺少文件 C:\Program Files\dotnet\host\fxr\{version}\hostfxr.dll
+        // 缺少 hostfxr.dll 会提示 To run this application, you must install .NET Desktop Runtime
+        // https://github.com/dotnet/runtime/blob/v6.0.5/src/native/corehost/apphost/apphost.windows.cpp#L62-L64
+        // https://github.com/dotnet/runtime/blob/v6.0.5/src/native/corehost/apphost/apphost.windows.cpp#L106-L113
+        var installed = RegistryQuery.GetAllInstalledBundles().Where(m => m.Arch.HasFlags(matchArch)).ToArray();
+
+        var query_sdk = installed.Where(m => m.Version.Type == BundleType.Sdk && m.Version.SemVer >= sdkVersion);
+        if (query_sdk.Any()) return true;
+
+        var query_runtime = installed.Where(m => (m.Version.Type == BundleType.Runtime || m.Version.Type == BundleType.WindowsDesktopRuntime) && m.Version.SemVer >= runtimeVersion);
+        if (!query_runtime.Any()) return false;
+
+        var query_aspnetruntime = installed.Where(m => m.Version.Type == BundleType.AspNetRuntime && m.Version.SemVer >= runtimeVersion);
+        if (!query_aspnetruntime.Any()) return false;
+
+        return true;
     }
 
     /// <summary>

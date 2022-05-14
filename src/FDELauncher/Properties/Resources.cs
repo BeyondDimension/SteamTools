@@ -48,6 +48,25 @@ static class Resources
         _ => "ASP.NET Core Runtime {0} ({1})",
     });
 
+    public static string NetRuntimeFormat2 => GetString(l => l switch
+    {
+        Language.ChineseSimplified => ".NET 运行时 {0} ({1})",
+        Language.ChineseTraditional => ".NET 運行時 {0} ({1})",
+        Language.Japanese => ".NET ランタイム {0} ({1})",
+        _ => ".NET Runtime {0} ({1})",
+    });
+
+    public static string And => GetString(l => l switch
+    {
+        Language.ChineseSimplified or Language.ChineseTraditional => "和",
+        Language.Spanish => "y",
+        Language.Italian => "e",
+        Language.Japanese => "と",
+        Language.Korean => "및",
+        Language.Russian => "и",
+        _ => "and",
+    });
+
     public static string ExecutiveNotExistsFailure => GetString(l => l switch
     {
         Language.ChineseSimplified => "主程序文件不存在，请重新下载或安装此应用。",

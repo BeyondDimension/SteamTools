@@ -123,4 +123,16 @@
   <data name="InvalidInputVersionExceptionMessageFormat" xml:space="preserve">
     <value>The specified version is not valid: "{0}".</value>
   </data>
+  <data name="MacRuntimeRequirementExplainationString" xml:space="preserve">
+    <value>Used by Visual Studio for Mac or SDKs. Specify individually or use —-force to remove</value>
+  </data>
+  <data name="MacSDKRequirementExplainationString" xml:space="preserve">
+    <value>Used by Visual Studio for Mac. Specify individually or use —-force to remove</value>
+  </data>
+  <data name="UpperLimitRequirement" xml:space="preserve">
+    <value>Cannot uninstall version {0} and above</value>
+  </data>
+  <data name="WindowsRequirementExplainationString" xml:space="preserve">
+    <value>Used by Visual Studio{0}. Specify individually or use —-force to remove</value>
+  </data>
 </root>

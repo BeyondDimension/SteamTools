@@ -49,8 +49,8 @@
     <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
     <!-- 注意：RuntimeIdentifier win-x86 会导致亚克力效果会丢失 -->
     <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-    <UseWindowsForms Condition="'$(Configuration)'=='Debug'">true</UseWindowsForms>
-    <!--<UseWPF>false</UseWPF>-->
+    <UseWindowsForms>false</UseWindowsForms>
+    <UseWPF>false</UseWPF>
   </PropertyGroup>
 
   <PropertyGroup Condition=" $(RuntimeIdentifier.Contains(`osx`)) Or $(ExtraDefineConstants.Contains(`osx`)) Or ('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' And !$(DefineConstants.Contains(`PUBLISH`))) ">

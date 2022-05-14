@@ -17,6 +17,7 @@
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
     <UseWindowsForms Condition="'$(Configuration)'=='Debug'">true</UseWindowsForms>
+    <UseWPF>false</UseWPF>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
