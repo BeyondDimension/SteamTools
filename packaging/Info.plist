@@ -7,9 +7,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>net.steampp.app</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.7.3</string>
+	<string>2.7.4</string>
 	<key>CFBundleVersion</key>
-	<string>2.7.3.0</string>
+	<string>2.7.4.0</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.15</string>
 	<key>CFBundleDevelopmentRegion</key>

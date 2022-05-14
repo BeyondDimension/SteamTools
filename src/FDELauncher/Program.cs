@@ -248,12 +248,13 @@ internal static class Program
 
     static bool IsFrameworkDependentExecutable()
     {
-        var dllPath = new[] {
-            Application.StartupPath,
-            "Bin",
-            "coreclr.dll",
-        }.Aggregate(Path.Combine);
-        return !File.Exists(dllPath);
+        return true;
+        //var dllPath = new[] {
+        //    Application.StartupPath,
+        //    "Bin",
+        //    "coreclr.dll",
+        //}.Aggregate(Path.Combine);
+        //return !File.Exists(dllPath);
     }
 
     static void StartProcess(string executivePath, string[] args)

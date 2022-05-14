@@ -26,18 +26,32 @@ namespace System.Application
                 {
                     if (PreviousVersion < new Version(2, 6, 2))
                     {
-                        var cacheScript = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName);
-
-                        if (Directory.Exists(cacheScript))
+                        try
                         {
-                            try
-                            {
+                            var cacheScript = Path.Combine(IOPath.CacheDirectory, IScriptManager.DirName);
+                            if (Directory.Exists(cacheScript))
                                 Directory.Delete(cacheScript, true);
-                            }
-                            catch (Exception e)
-                            {
-                                Log.Error("RemoveJSCache", e, "RemoveFileError");
-                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error(nameof(Migrations), e, "RemoveJSCache");
+                        }
+                    }
+
+                    if (OperatingSystem2.IsWindows &&
+                        !DesktopBridge.IsRunningAsUwp &&
+                        PreviousVersion < new Version(2, 6, 3))
+                    {
+
+                        try
+                        {
+                            var binPath = Path.Combine(AppContext.BaseDirectory, "Bin");
+                            if (Directory.Exists(binPath))
+                                Directory.Delete(binPath, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error(nameof(Migrations), e, "RemovebinPath");
                         }
                     }
                 }

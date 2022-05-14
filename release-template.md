@@ -58,7 +58,7 @@
 
 
 [![steampp.net](https://img.shields.io/badge/WebSite-steampp.net-brightgreen.svg?style=flat-square&color=61dafb)](https://steampp.net)
-[![Watt Toolkit v2.7.3](https://img.shields.io/badge/Watt%20Toolkit-v2.7.3-brightgreen.svg?style=flat-square&color=512bd4)]()
+[![Watt Toolkit v2.7.4](https://img.shields.io/badge/Watt%20Toolkit-v2.7.4-brightgreen.svg?style=flat-square&color=512bd4)]()
   
   
 ##### [不知道该下载哪个文件?](./download-guide.md)
