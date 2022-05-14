@@ -530,8 +530,22 @@ namespace System.Application.Steps
                 var install7zFileName = Path.GetFileName(install7zFilePath);
                 var outputFileName = Path.GetFileNameWithoutExtension(install7zFilePath) + FileEx.EXE;
                 var outputFilePath = Path.Combine(new FileInfo(install7zFilePath).DirectoryName!, outputFileName);
+                var exeName = "Steam++.exe";
+                const string launcherExeName = "Steam++.Launcher.exe";
+
+                if (item.DeploymentMode == DeploymentMode.FDE)
+                {
+                    if (File.Exists(Path.Combine(item.Path, launcherExeName)))
+                    {
+                        exeName = launcherExeName;
+                    }
+                }
 
                 var nsiFileContent2 = nsiFileContent
+                     .Replace("${{ Steam++_Company }}", _ThisAssembly.AssemblyCompany)
+                     .Replace("${{ Steam++_Copyright }}", _ThisAssembly.AssemblyCopyright)
+                     .Replace("${{ Steam++_ProductName }}", _ThisAssembly.AssemblyTrademark)
+                     .Replace("${{ Steam++_ExeName }}", exeName)
                      .Replace("${{ Steam++_Version }}", version)
                      .Replace("${{ Steam++_OutPutFileName }}", outputFileName)
                      .Replace("${{ Steam++_AppFileDir }}", appFileDirPath)
@@ -552,6 +566,7 @@ namespace System.Application.Steps
             }
         }
 
+        [SupportedOSPlatform("MacOS")]
         static void OSXBuild(bool dev, string[] osx_val)
         {
             var shFilePath = Path.Combine(projPath, "packaging", "build-osx-app.sh");
@@ -580,7 +595,7 @@ namespace System.Application.Steps
                     Console.WriteLine($"找不到 destPath 文件夹，值：{destPath}");
                     continue;
                 }
-                //var appName = $"Watt Toolkit{(item == "osx-x64" ? "" : " Arm64")}";
+                //var appName = $"{_ThisAssembly.AssemblyTrademark}{(item == "osx-x64" ? "" : " Arm64")}";
                 const string appName = _ThisAssembly.AssemblyTrademark;
                 var shFileContent2 = shFileContent
                         .Replace("${{ Steam++_AppName }}", appName)
@@ -592,7 +607,7 @@ namespace System.Application.Steps
                         .Replace("${{ Steam++_RunName }}", "Steam++")
                         ;
                 File.WriteAllText(shFilePath, shFileContent2);
-                Chmod(shFilePath, (int)EUnixPermission.Combined777);
+                _ = Chmod(shFilePath, (int)EUnixPermission.Combined777);
                 var process = Process.Start(new ProcessStartInfo()
                 {
                     FileName = "bash",
