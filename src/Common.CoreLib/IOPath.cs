@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Threading;
+using System.Runtime.Versioning;
 #if !NET35 && !NOT_XE
 using System.Threading.Tasks;
 #endif
+using CC = System.Common.Constants;
 
 namespace System
 {
@@ -244,39 +246,7 @@ namespace System
                                     }
                                     isNotFirst = true;
                                 }
-                                try
-                                {
-                                    Directory.Move(old_path, path);
-                                }
-                                catch
-                                {
-                                    try
-                                    {
-                                        CopyDirectory(old_path, path);
-                                    }
-                                    catch
-                                    {
-                                        if (OperatingSystem2.IsWindows)
-                                        {
-                                            var psi = new ProcessStartInfo
-                                            {
-                                                FileName = "cmd.exe",
-                                                UseShellExecute = false,
-                                                CreateNoWindow = true,
-                                                RedirectStandardInput = true,
-                                            };
-                                            var p = Process.Start(psi);
-                                            p.Start();
-                                            p.StandardInput.WriteLine($"xcopy \"{old_path}\" \"{path}\" /y &exit");
-                                            p.WaitForExit(10000);
-                                            p.Kill();
-                                        }
-                                        else
-                                        {
-                                            throw;
-                                        }
-                                    }
-                                }
+                                MoveDirectory(old_path, path);
                                 dict_paths[path] = true;
                             }
                             catch
@@ -432,14 +402,25 @@ namespace System
             return null;
         }
 
-        static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+        /// <summary>
+        /// 允许文件共享 <see cref="FileShare.Read"/> OR <see cref="FileShare.Write"/> OR <see cref="FileShare.Delete"/>
+        /// </summary>
+        public const FileShare FileShareReadWriteDelete = FileShare.ReadWrite | FileShare.Delete;
 
-        public static FileStream? OpenRead(string? filePath)
+        static FileStream OpenReadCore(string filePath) => new(filePath, FileMode.Open, FileAccess.Read, FileShareReadWriteDelete);
+
+        /// <summary>
+        /// 尝试打开文件流，使用 <see cref="FileShareReadWriteDelete"/>，打开失败时将返回 <see langword="null"/>
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="writeLog">是否在失败时纪录日志</param>
+        /// <returns></returns>
+        public static FileStream? OpenRead(string? filePath, bool writeLog = true)
         {
             if (filePath == null) return null;
             TryOpenRead(filePath, out var stream, out var ex);
-            if (ex != null)
-                Log.Error(nameof(OpenRead), ex, "OpenRead Error");
+            if (writeLog && ex != null)
+                Log.Error(nameof(OpenRead), ex, $"OpenRead Error, filePath: {filePath}");
             return stream;
         }
 
@@ -463,8 +444,25 @@ namespace System
             return false;
         }
 
+        /// <summary>
+        /// 尝试打开文件流，使用 <see cref="FileShareReadWriteDelete"/>
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="fileStream"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public static bool TryOpenRead(string? filePath, [NotNullWhen(true)] out FileStream? fileStream, out Exception? ex) => TryCall(filePath, out fileStream, out ex, OpenReadCore);
 
+        /// <summary>
+        /// 尝试打开文件流
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="mode"></param>
+        /// <param name="access"></param>
+        /// <param name="share"></param>
+        /// <param name="fileStream"></param>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public static bool TryOpen(string? filePath, FileMode mode, FileAccess access, FileShare share, [NotNullWhen(true)] out FileStream? fileStream, out Exception? ex) => TryCall(filePath, out fileStream, out ex, p => new(p, mode, access, share));
 
         public static bool TryReadAllBytes(string? filePath, [NotNullWhen(true)] out byte[]? byteArray, out Exception? ex) => TryCall(filePath, out byteArray, out ex, File.ReadAllBytes);
@@ -481,14 +479,17 @@ namespace System
 
         public static bool TryReadAllLines(string? filePath, Encoding encoding, [NotNullWhen(true)] out IEnumerable<string>? lines, out Exception? ex) => TryCall(filePath, out lines, out ex, p => File.ReadLines(p, encoding));
 
-        static async Task<(bool success, T? byteArray, Exception? ex)> TryCallAsync<T>(string? filePath, CancellationToken cancellationToken, Func<string, CancellationToken, Task<T>> func) where T : class
+        static async Task<(bool success, T? data, Exception? ex)> TryCallAsync<T>(string? filePath, Func<string, CancellationToken, Task<T>> func, CancellationToken cancellationToken) where T : class
         {
             if (!string.IsNullOrWhiteSpace(filePath))
             {
                 try
                 {
-                    var t = await func(filePath, cancellationToken);
-                    return (true, t, null);
+                    T data;
+#pragma warning disable CA2208 // 正确实例化参数异常
+                    data = await func(filePath, cancellationToken) ?? throw new ArgumentNullException(nameof(data));
+#pragma warning restore CA2208 // 正确实例化参数异常
+                    return (true, data, null);
                 }
                 catch (Exception e)
                 {
@@ -498,21 +499,21 @@ namespace System
             return (false, null, null);
         }
 
-        public static Task<(bool success, byte[]? byteArray, Exception? ex)> TryReadAllBytesAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, File.ReadAllBytesAsync);
+        public static Task<(bool success, byte[]? byteArray, Exception? ex)> TryReadAllBytesAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, File.ReadAllBytesAsync, cancellationToken);
 
-        public static Task<(bool success, string[]? lines, Exception? ex)> TryReadAllLinesAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, File.ReadAllLinesAsync);
+        public static Task<(bool success, string[]? lines, Exception? ex)> TryReadAllLinesAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, File.ReadAllLinesAsync, cancellationToken);
 
-        public static Task<(bool success, string[]? lines, Exception? ex)> TryReadAllLinesAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, (p, tk) => File.ReadAllLinesAsync(p, encoding, tk));
+        public static Task<(bool success, string[]? lines, Exception? ex)> TryReadAllLinesAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, (p, tk) => File.ReadAllLinesAsync(p, encoding, tk), cancellationToken);
 
-        public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, File.ReadAllTextAsync);
+        public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, CancellationToken cancellationToken = default) => TryCallAsync(filePath, File.ReadAllTextAsync, cancellationToken);
 
-        public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, cancellationToken, (p, tk) => File.ReadAllTextAsync(p, encoding, tk));
+        public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, (p, tk) => File.ReadAllTextAsync(p, encoding, tk), cancellationToken);
 #endif
 
         /// <summary>
         /// 获取文件的大小
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="fileInfo"></param>
         /// <returns>单位 字节</returns>
         public static decimal GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0M;
 
@@ -581,6 +582,13 @@ namespace System
         public const char UnixDirectorySeparatorChar = '/';
         public const char WinDirectorySeparatorChar = '\\';
 
+        /// <summary>
+        /// 将现有文件夹复制到新文件夹
+        /// </summary>
+        /// <param name="sourceDir"></param>
+        /// <param name="destinationDir"></param>
+        /// <param name="recursive"></param>
+        /// <exception cref="DirectoryNotFoundException"></exception>
         public static void CopyDirectory(string sourceDir, string destinationDir, bool recursive = true)
         {
             // Get information about the source directory
@@ -594,7 +602,8 @@ namespace System
             DirectoryInfo[] dirs = dir.GetDirectories();
 
             // Create the destination directory
-            Directory.CreateDirectory(destinationDir);
+            if (!Directory.Exists(destinationDir))
+                Directory.CreateDirectory(destinationDir);
 
             // Get the files in the source directory and copy to the destination directory
             foreach (FileInfo file in dir.GetFiles())
@@ -612,6 +621,197 @@ namespace System
                     CopyDirectory(subDir.FullName, newDestinationDir, true);
                 }
             }
+        }
+
+        /// <summary>
+        /// 将现有文件夹复制到新文件夹(xcopy)
+        /// <para>https://docs.microsoft.com/zh-cn/windows-server/administration/windows-commands/xcopy</para>
+        /// </summary>
+        /// <param name="sourceDirName"></param>
+        /// <param name="destDirName"></param>
+        /// <param name="timeoutMilliseconds"></param>
+        [SupportedOSPlatform("Windows")]
+        public static void XCopyDirectory(string sourceDirName, string destDirName, int timeoutMilliseconds = 60000)
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardInput = true,
+            };
+            using var p = Process.Start(psi);
+            p.Start();
+            p.StandardInput.WriteLine($"xcopy \"{sourceDirName}\" \"{destDirName}\" /y &exit");
+            p.WaitForExit(timeoutMilliseconds);
+            p.Kill();
+        }
+
+        static void DirMove(string sourceDirName, string destDirName, bool overwrite = true)
+        {
+#if NETCOREAPP3_0_OR_GREATER
+            Directory.Move(sourceDirName, destDirName, overwrite);
+#else
+            Directory.Move(sourceDirName, destDirName);
+#endif
+        }
+
+        /// <summary>
+        /// 将文件或目录及其内容移动或复制到新位置
+        /// </summary>
+        /// <param name="sourceDirName"></param>
+        /// <param name="destDirName"></param>
+        public static void MoveDirectory(string sourceDirName, string destDirName)
+        {
+            try
+            {
+                DirMove(sourceDirName, destDirName, true);
+            }
+            catch
+            {
+                try
+                {
+                    CopyDirectory(sourceDirName, destDirName);
+                }
+                catch
+                {
+                    if (OperatingSystem2.IsWindows)
+                    {
+                        XCopyDirectory(sourceDirName, destDirName);
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                try
+                {
+                    Directory.Delete(sourceDirName, true);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// 将文件或目录及其内容移动或复制到新位置(异步与带进度)
+        /// </summary>
+        /// <param name="sourceDirName"></param>
+        /// <param name="destDirName"></param>
+        /// <param name="progress"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="DirectoryNotFoundException"></exception>
+        public static async Task MoveDirectoryAsync(string sourceDirName, string destDirName, IProgress<float>? progress = null, CancellationToken cancellationToken = default)
+        {
+            const float maxProgress = CC.MaxProgress;
+            try
+            {
+                DirMove(sourceDirName, destDirName);
+            }
+            catch
+            {
+                float totalSize = 0f;
+                float currentSize = 0f;
+                var streams = new List<FileStream>();
+                try
+                {
+                    var tasks = new List<Task>();
+                    CopyDirectoryTaskList(sourceDirName, destDirName);
+                    if (progress != null) StartObserver();
+                    await Task.WhenAll(tasks);
+                    currentSize = totalSize;
+
+                    async void StartObserver(int millisecondsDelay = 1500)
+                    {
+                        do
+                        {
+                            try
+                            {
+                                await Task.Delay(millisecondsDelay, cancellationToken);
+                                progress.Report(currentSize / totalSize);
+                            }
+                            catch (OperationCanceledException)
+                            {
+                                return;
+                            }
+                        } while (currentSize < totalSize);
+                    }
+
+                    void CopyDirectoryTaskList(string sourceDir, string destinationDir)
+                    {
+                        // Get information about the source directory
+                        var dir = new DirectoryInfo(sourceDir);
+
+                        // Check if the source directory exists
+                        if (!dir.Exists)
+                            throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
+
+                        // Cache directories before we start copying
+                        DirectoryInfo[] dirs = dir.GetDirectories();
+
+                        // Create the destination directory
+                        if (!Directory.Exists(destinationDir))
+                            Directory.CreateDirectory(destinationDir);
+
+                        async Task CopyFileAsync(FileInfo file)
+                        {
+                            float fileSize = 0;
+                            FileStream? sourceStream = null, destStream = null;
+                            try
+                            {
+                                sourceStream = file.Open(FileMode.Open, FileAccess.Read, FileShareReadWriteDelete);
+                                fileSize = sourceStream.Length;
+                                streams.Add(sourceStream);
+
+                                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                                destStream = File.Create(targetFilePath);
+
+                                await sourceStream.CopyToAsync(destStream, cancellationToken);
+                            }
+                            finally
+                            {
+                                if (sourceStream != null)
+                                {
+                                    sourceStream.Dispose();
+                                    streams.Remove(sourceStream);
+                                }
+                                if (destStream != null)
+                                {
+                                    destStream.Dispose();
+                                    streams.Remove(destStream);
+                                }
+                                currentSize += fileSize;
+                            }
+                        }
+
+                        // Get the files in the source directory and copy to the destination directory
+                        foreach (FileInfo file in dir.GetFiles())
+                        {
+                            totalSize += file.Length;
+                            var task = CopyFileAsync(file);
+                            tasks.Add(task);
+                        }
+
+                        // If recursive and copying subdirectories, recursively call this method
+                        foreach (DirectoryInfo subDir in dirs)
+                        {
+                            string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                            CopyDirectoryTaskList(subDir.FullName, newDestinationDir);
+                        }
+                    }
+                }
+                finally
+                {
+                    foreach (var stream in streams)
+                    {
+                        stream.Dispose();
+                    }
+                }
+            }
+            progress?.Report(maxProgress);
         }
     }
 }
