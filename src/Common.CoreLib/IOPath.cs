@@ -609,7 +609,7 @@ namespace System
             foreach (FileInfo file in dir.GetFiles())
             {
                 string targetFilePath = Path.Combine(destinationDir, file.Name);
-                file.CopyTo(targetFilePath);
+                file.CopyTo(targetFilePath, true);
             }
 
             // If recursive and copying subdirectories, recursively call this method
@@ -647,15 +647,6 @@ namespace System
             p.Kill();
         }
 
-        static void DirMove(string sourceDirName, string destDirName, bool overwrite = true)
-        {
-#if NETCOREAPP3_0_OR_GREATER
-            Directory.Move(sourceDirName, destDirName, overwrite);
-#else
-            Directory.Move(sourceDirName, destDirName);
-#endif
-        }
-
         /// <summary>
         /// 将文件或目录及其内容移动或复制到新位置
         /// </summary>
@@ -665,7 +656,7 @@ namespace System
         {
             try
             {
-                DirMove(sourceDirName, destDirName, true);
+                Directory.Move(sourceDirName, destDirName);
             }
             catch
             {
@@ -709,7 +700,7 @@ namespace System
             const float maxProgress = CC.MaxProgress;
             try
             {
-                DirMove(sourceDirName, destDirName);
+                Directory.Move(sourceDirName, destDirName);
             }
             catch
             {
@@ -767,9 +758,11 @@ namespace System
                                 streams.Add(sourceStream);
 
                                 string targetFilePath = Path.Combine(destinationDir, file.Name);
-                                destStream = File.Create(targetFilePath);
+                                destStream = new FileStream(targetFilePath, FileMode.OpenOrCreate, FileAccess.Write, FileShareReadWriteDelete);
 
                                 await sourceStream.CopyToAsync(destStream, cancellationToken);
+                                await destStream.FlushAsync(cancellationToken);
+                                destStream.SetLength(destStream.Position);
                             }
                             finally
                             {
