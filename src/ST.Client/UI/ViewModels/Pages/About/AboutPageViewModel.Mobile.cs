@@ -104,6 +104,7 @@ namespace System.Application.UI.ViewModels
         public static readonly string[] SourceRepositories = new[] { GitHub, Gitee };
         public const string Title_0 = "Watt Toolkit ";
         public const string Title_1 = "2.0";
+        public const string Title_2_ = " ({0} Steam++)";
         public const string Developers_0 = "Developers: ";
         public const string Contributors_0 = "Contributors: ";
         public const string Separator = " - ";

@@ -43,7 +43,7 @@ namespace System.Application.UI.Resx
 
         public static CultureInfo DefaultCurrentUICulture { get; private set; }
 
-        public static bool IsChineseSimplified => IsMatch(Culture, zh_Hans);
+        public static bool IsChineseSimplified => Culture.IsMatch(zh_Hans);
 
         const string zh_Hans = "zh-Hans";
 
@@ -76,22 +76,6 @@ namespace System.Application.UI.Resx
                 { "it", "italian" },
             };
             AppResources.Culture = DefaultCurrentUICulture;
-        }
-
-        static bool IsMatch(CultureInfo cultureInfo, string cultureName)
-        {
-            if (string.IsNullOrWhiteSpace(cultureInfo.Name))
-            {
-                return false;
-            }
-            if (cultureInfo.Name == cultureName)
-            {
-                return true;
-            }
-            else
-            {
-                return IsMatch(cultureInfo.Parent, cultureName);
-            }
         }
 
         public static void ChangeAutoLanguage(CultureInfo? cultureInfo = null) => MainThread2.BeginInvokeOnMainThread(() => ChangeAutoLanguageCore(cultureInfo));
@@ -128,7 +112,7 @@ namespace System.Application.UI.Resx
 
         static void ChangeLanguageCore(string? cultureName)
         {
-            if (cultureName == null || IsMatch(AppResources.Culture, cultureName)) return;
+            if (cultureName == null || AppResources.Culture.IsMatch(cultureName)) return;
             AppResources.Culture = TryGetCultureInfo(cultureName, DefaultCurrentUICulture);
             Thread.CurrentThread.CurrentUICulture = AppResources.Culture;
             Thread.CurrentThread.CurrentCulture = AppResources.Culture;
@@ -150,7 +134,7 @@ namespace System.Application.UI.Resx
                 var culture = Culture;
                 foreach (var item in SteamLanguages)
                 {
-                    if (IsMatch(culture, item.Key))
+                    if (culture.IsMatch(item.Key))
                     {
                         return item.Value;
                     }
@@ -195,7 +179,7 @@ namespace System.Application.UI.Resx
             {
                 if (!string.IsNullOrWhiteSpace(item.Key))
                 {
-                    if (IsMatch(culture, item.Key))
+                    if (culture.IsMatch(item.Key))
                     {
                         return item.Key;
                     }

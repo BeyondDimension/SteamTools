@@ -5,41 +5,41 @@ namespace System
 {
     public static class CultureInfoExtensions
     {
-        public static bool IsMatch(CultureInfo cultureInfo, string cultureName)
+        public static bool IsMatch(this CultureInfo cultureInfo, string cultureName)
         {
             if (string.IsNullOrWhiteSpace(cultureInfo.Name))
             {
                 return false;
             }
-            if (cultureInfo.Name == cultureName)
+            if (string.Equals(cultureInfo.Name, cultureName, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
             else
             {
-                return IsMatch(cultureInfo.Parent, cultureName);
+                return cultureInfo.Parent.IsMatch(cultureName);
             }
         }
 
         public static string GetAcceptLanguage(this CultureInfo culture)
         {
-            if (IsMatch(culture, "zh-Hans"))
+            if (culture.IsMatch("zh-Hans"))
             {
                 return "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7";
             }
-            else if (IsMatch(culture, "zh-Hant"))
+            else if (culture.IsMatch("zh-Hant"))
             {
                 return "zh-HK,zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7";
             }
-            else if (IsMatch(culture, "ko"))
+            else if (culture.IsMatch("ko"))
             {
                 return "ko;q=0.9,en-US;q=0.8,en;q=0.7";
             }
-            else if (IsMatch(culture, "ja"))
+            else if (culture.IsMatch("ja"))
             {
                 return "ja;q=0.9,en-US;q=0.8,en;q=0.7";
             }
-            else if (IsMatch(culture, "ru"))
+            else if (culture.IsMatch("ru"))
             {
                 return "ru;q=0.9,en-US;q=0.8,en;q=0.7";
             }

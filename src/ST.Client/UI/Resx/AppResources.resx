@@ -2260,4 +2260,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_CertificateStatus" xml:space="preserve">
     <value>证书状态</value>
   </data>
+  <data name="About_FormerName" xml:space="preserve">
+    <value>原名</value>
+  </data>
 </root>

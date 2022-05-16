@@ -172,6 +172,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 原名 的本地化字符串。
+        /// </summary>
+        public static string About_FormerName {
+            get {
+                return ResourceManager.GetString("About_FormerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加入我们 的本地化字符串。
         /// </summary>
         public static string About_Joinus {

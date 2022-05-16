@@ -1,4 +1,4 @@
-<h1 align="center">Watt Toolkit 🧰</h1>
+<h1 align="center">Watt Toolkit 🧰 (Former name Steam++)</h1>
 
 <div align="center">
 

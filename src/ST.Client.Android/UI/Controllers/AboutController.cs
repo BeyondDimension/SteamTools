@@ -147,7 +147,7 @@ namespace System.Application.UI.Controllers
                 {
                     lang = "zh-cn";
                 }
-                else if (R.Culture.Name.StartsWith("ja", StringComparison.OrdinalIgnoreCase))
+                else if (R.Culture.IsMatch("ja"))
                 {
                     lang = "ja-jp";
                 }
@@ -166,12 +166,18 @@ namespace System.Application.UI.Controllers
 
         static SpannableString CreateTitle()
         {
-            SpannableString spannable = new(Title_0 + Title_1);
+            const string title_const = Title_0 + Title_1 + Title_2_;
+            var title = string.Format(title_const, AppResources.About_FormerName);
+            SpannableString spannable = new(title);
             ForegroundColorSpan fcs = new(ThemeAccentBrushKey.ToPlatformColor());
             int start = Title_0.Length, end = Title_0.Length + Title_1.Length;
             spannable.SetSpan(fcs, start, end, SpanTypes.ExclusiveExclusive);
             StyleSpan ss = new(TypefaceStyle.Bold);
             spannable.SetSpan(ss, start, end, SpanTypes.ExclusiveExclusive);
+            start = end;
+            end = title.Length;
+            AbsoluteSizeSpan ass = new(14, true);
+            spannable.SetSpan(ass, start, end, SpanTypes.ExclusiveExclusive);
             return spannable;
         }
 

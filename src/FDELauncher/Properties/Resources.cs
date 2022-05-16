@@ -22,19 +22,19 @@ static class Resources
     public static string GetString(Func<Language, string> getString, CultureInfo? resourceCulture = null)
     {
         resourceCulture ??= Culture;
-        if (CultureInfo2.IsMatch(resourceCulture, "zh-Hans"))
+        if (resourceCulture.IsMatch("zh-Hans"))
             return getString(Language.ChineseSimplified);
-        else if (CultureInfo2.IsMatch(resourceCulture, "zh-Hant"))
+        else if (resourceCulture.IsMatch("zh-Hant"))
             return getString(Language.ChineseTraditional);
-        else if (CultureInfo2.IsMatch(resourceCulture, "es"))
+        else if (resourceCulture.IsMatch("es"))
             return getString(Language.Spanish);
-        else if (CultureInfo2.IsMatch(resourceCulture, "it"))
+        else if (resourceCulture.IsMatch("it"))
             return getString(Language.Italian);
-        else if (CultureInfo2.IsMatch(resourceCulture, "ja"))
+        else if (resourceCulture.IsMatch("ja"))
             return getString(Language.Japanese);
-        else if (CultureInfo2.IsMatch(resourceCulture, "ko"))
+        else if (resourceCulture.IsMatch("ko"))
             return getString(Language.Korean);
-        else if (CultureInfo2.IsMatch(resourceCulture, "ru"))
+        else if (resourceCulture.IsMatch("ru"))
             return getString(Language.Russian);
         else
             return getString(Language.English);

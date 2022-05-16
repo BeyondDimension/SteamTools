@@ -7,4 +7,4 @@ using static System.Properties.ThisAssembly;
 [assembly: InternalsVisibleTo("System.Application.SteamTools.Client.UnitTest" + PublicKey)]
 [assembly: InternalsVisibleTo("System.Application.SteamTools.Client.Desktop.UnitTest" + PublicKey)]
 [assembly: InternalsVisibleTo("System.Application.SteamTools.Client.Droid.UnitTest" + PublicKey)]
-[assembly: InternalsVisibleTo("System.Application.SteamTools.Client.Droid.UnitTest.App" + PublicKey)] 
+[assembly: InternalsVisibleTo("System.Application.SteamTools.Client.Droid.UnitTest.App" + PublicKey)]
