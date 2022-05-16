@@ -67,9 +67,17 @@ namespace System.Application.Models
             {
                 path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "Low";
             }
+            else if (string.Equals(Root, "WinMyDocuments", StringComparison.OrdinalIgnoreCase))
+            {
+                path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            }
             else if (string.Equals(Root, "gameinstall", StringComparison.OrdinalIgnoreCase))
             {
                 path = SteamConnectService.Current.SteamApps.Lookup(ParentAppId).Value?.InstalledDir;
+            }
+            else
+            {
+                path = "unknown";
             }
 
             if (string.IsNullOrEmpty(path))

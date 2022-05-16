@@ -2128,7 +2128,8 @@ AAAAA-BBBBB-CCCC3</value>
     <value>请在弹出的控制台窗口中输入密码或者手动执行</value>
   </data>
   <data name="CustomFilePicker_Tip" xml:space="preserve">
-    <value>&lt;value&gt;选择文件或拖拽到这里&lt;/value&gt;</value>
+    <!--<value>选择文件或拖拽到这里</value>-->
+    <value>选择文件</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>信息</value>

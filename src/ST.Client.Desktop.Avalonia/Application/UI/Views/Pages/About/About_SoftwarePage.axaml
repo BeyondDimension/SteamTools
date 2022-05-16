@@ -28,9 +28,14 @@
              Height="78"/>
 
           <StackPanel Spacing="0" Margin="12 0">
-            <TextBlock Text="{Binding AppName}"
-                       Classes="TitleTextBlockStyle"/>
-
+            <WrapPanel>
+              <TextBlock Text="{Binding AppName}"
+                         VerticalAlignment="Center"
+                         Classes="TitleTextBlockStyle"/>
+              <TextBlock Text="{Binding FormerAppName}"
+                         VerticalAlignment="Center"
+                         Classes="CaptionTextBlockStyle"/>
+            </WrapPanel>
             <TextBlock Text="{Binding VersionDisplay}"
                        Classes="BodyTextBlockStyle"/>
 

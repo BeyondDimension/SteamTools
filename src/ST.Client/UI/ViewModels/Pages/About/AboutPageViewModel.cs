@@ -319,5 +319,7 @@ namespace System.Application.UI.ViewModels
         #endregion
 
         public string AppName => ThisAssembly.DisplayTrademark;
+
+        public string FormerAppName => string.Format(Title_2_, AppResources.About_FormerName);
     }
 }

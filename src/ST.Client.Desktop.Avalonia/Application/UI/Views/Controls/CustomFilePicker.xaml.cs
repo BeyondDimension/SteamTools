@@ -29,7 +29,7 @@ namespace System.Application.UI.Views.Controls
             get => GetValue(FileNameProperty);
             set
             {
-                FileStream = IOPath.OpenRead(FileName);
+                FileStream = IOPath.OpenRead(value);
                 SetValue(FileNameProperty, value);
             }
         }
