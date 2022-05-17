@@ -1,27 +1,21 @@
-using Avalonia.Data;
-using System.Application.Models;
 using System.Globalization;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace System.Application.Converters
 {
     public class BitmapAssetValueConverter : ImageValueConverter
     {
-        public override object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value == null)
-                return null;
+            if (value == null) return null;
             int width = 0;
             if (parameter is int w)
             {
                 width = w;
             }
-
             if (value is string rawUri)
             {
                 if (rawUri == string.Empty) return null;
-
                 Uri uri;
                 // Allow for assembly overrides
                 if (File.Exists(rawUri))
@@ -61,7 +55,7 @@ namespace System.Application.Converters
                 }
                 return DownloadImage(ImageUrlHelper.GetImageApiUrlById(imageid), width);
             }
-            return BindingOperations.DoNothing;
+            return ((IBinding)this).DoNothing;
         }
     }
 }

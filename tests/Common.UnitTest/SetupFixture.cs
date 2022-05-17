@@ -12,9 +12,9 @@ namespace System
             // TODO: Add code here that is run before
             //  all tests in the assembly are run
             FileSystem2.InitFileSystem();
-            if (!DI.IsInit)
+            if (!DI.IsConfigured)
             {
-                DI.Init(ConfigureServices);
+                DI.ConfigureServices(ConfigureServices);
             }
         }
 

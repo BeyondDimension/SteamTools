@@ -1,5 +1,4 @@
 using System.Globalization;
-using Xamarin.Forms;
 using static System.Application.Converters.PathGeometryConverter;
 using static System.Application.Converters.ResourceKeyConverter;
 using XFSPathGeometryConverter = Xamarin.Forms.Shapes.PathGeometryConverter;
@@ -16,13 +15,11 @@ namespace System.Application.Converters
                 var pathStr = GetResourceByKey(valueStr)?.ToString();
                 if (!string.IsNullOrWhiteSpace(pathStr))
                 {
-                    var r = GetGeometryByPathString(this, pathStr);
+                    var r = GetGeometryByPathString(this, this, pathStr);
                     return r;
                 }
             }
-            return Binding.DoNothing;
+            return ((IBinding)this).DoNothing;
         }
-
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

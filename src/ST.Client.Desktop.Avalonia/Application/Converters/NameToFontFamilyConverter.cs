@@ -1,11 +1,6 @@
-using Avalonia.Data;
-using Avalonia.Data.Converters;
 using Avalonia.Media;
-using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Globalization;
-using System.IO;
-using System.Runtime.InteropServices;
 
 namespace System.Application.Converters
 {
@@ -22,11 +17,6 @@ namespace System.Application.Converters
                 return FontFamily.Parse(s);
             }
             return null;
-        }
-
-        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            return BindingOperations.DoNothing;
         }
     }
 }

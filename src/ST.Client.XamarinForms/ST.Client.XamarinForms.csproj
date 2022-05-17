@@ -21,6 +21,9 @@
     <Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\StringFormatConverter.cs">
       <LinkBase>Converters</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\Base\*.cs">
+      <LinkBase>Converters\Base</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +48,10 @@
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\Base\" />
   </ItemGroup>
 
 </Project>

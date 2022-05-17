@@ -1,14 +1,11 @@
-using Avalonia.Data.Converters;
 using System.Application.UI.Resx;
-using System.ComponentModel;
 using System.Globalization;
-using System.Reflection;
 
 namespace System.Application.Converters
 {
     public class EnumDescriptionToNameConverter : IValueConverter
     {
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value == null)
                 return null;
@@ -17,8 +14,7 @@ namespace System.Application.Converters
                 var desc = Enum2.GetDescription(e);
                 if (!string.IsNullOrEmpty(desc))
                 {
-                    if (parameter is not null && 
-                        string.Equals(parameter.ToString(), "Localiza", StringComparison.OrdinalIgnoreCase))
+                    if (parameter is not null && string.Equals(parameter.ToString(), "Localiza", StringComparison.OrdinalIgnoreCase))
                     {
                         return AppResources.ResourceManager.GetString(desc, AppResources.Culture);
                     }
@@ -28,7 +24,7 @@ namespace System.Application.Converters
             return value.ToString();
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return value;
         }

@@ -1,19 +1,13 @@
 using Avalonia;
-using Avalonia.Data;
-using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Skia;
 using SkiaSharp;
-using System.Application.Models;
 using System.Application.Services;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
-using System.Threading.Tasks;
 using BitmapInterpolationMode = Avalonia.Visuals.Media.Imaging.BitmapInterpolationMode;
 
 namespace System.Application.Converters
@@ -24,7 +18,7 @@ namespace System.Application.Converters
 
         public virtual object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            return BindingOperations.DoNothing;
+            return ((IBinding)this).DoNothing;
         }
 
         protected static Bitmap? DownloadImage(string? url, int width = 0)

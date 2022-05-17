@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 #endif
 using System.Runtime.InteropServices;
+using System.Threading;
+
+// https://github.com/CommunityToolkit/dotnet/blob/v8.0.0-preview3/CommunityToolkit.Mvvm/DependencyInjection/Ioc.cs
 
 namespace System
 {
@@ -13,28 +16,28 @@ namespace System
     {
 #if !NOT_DI
 
-        static IServiceProvider? value;
+        static volatile IServiceProvider? value;
 
-        internal static bool IsInit => value != null;
+        internal static bool IsConfigured => value != null;
 
         /// <summary>
         /// 初始化依赖注入服务组(通过配置服务项的方式)
         /// </summary>
         /// <param name="configureServices"></param>
-        public static void Init(Action<IServiceCollection> configureServices)
+        public static void ConfigureServices(Action<IServiceCollection> configureServices)
         {
             var services = new ServiceCollection();
             configureServices(services);
-            Init(services.BuildServiceProvider());
+            ConfigureServices(services.BuildServiceProvider());
         }
 
         /// <summary>
         /// 初始化依赖注入服务组(直接赋值)
         /// </summary>
         /// <param name="serviceProvider"></param>
-        public static void Init(IServiceProvider serviceProvider)
+        public static void ConfigureServices(IServiceProvider serviceProvider)
         {
-            value = serviceProvider;
+            Interlocked.CompareExchange(ref value, serviceProvider, null);
         }
 
 #endif

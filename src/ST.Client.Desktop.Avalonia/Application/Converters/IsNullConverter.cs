@@ -1,15 +1,12 @@
-using Avalonia.Data.Converters;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace System.Application.Converters
 {
     public class IsNullConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            var result = false;
-
+            bool result;
             if (value is string v)
             {
                 result = string.IsNullOrEmpty(v);
@@ -26,20 +23,18 @@ namespace System.Application.Converters
             {
                 result = value is null;
             }
-
             if (parameter is string p && p.Equals("invert", StringComparison.OrdinalIgnoreCase))
             {
                 result = !result;
             }
             return result;
-
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (targetType == typeof(string))
             {
-                return value.ToString();
+                return value?.ToString();
             }
             return value;
         }

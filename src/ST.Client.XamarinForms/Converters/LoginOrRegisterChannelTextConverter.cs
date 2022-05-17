@@ -1,17 +1,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-#if !__MOBILE__
-using Avalonia.Data.Converters;
-#else
-using Xamarin.Forms;
-#endif
 
 namespace System.Application.Converters
 {
     public class LoginOrRegisterChannelTextConverter : IMultiValueConverter
     {
-        public object? Convert(IList<object?>? values, Type? targetType, object? parameter, CultureInfo? culture)
+        public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo? culture)
         {
             if (values != null && values.Count >= 3)
             {
@@ -28,17 +23,7 @@ namespace System.Application.Converters
                 var format = stringValues.FirstOrDefault() ?? string.Empty;
                 return format.Format(args);
             }
-            return Binding.DoNothing;
+            return ((IBinding)this).DoNothing;
         }
-
-        public object? Convert(object?[]? values, Type? targetType, object? parameter, CultureInfo? culture)
-        {
-            IList<object?>? values_ = values;
-            return Convert(values_, targetType, parameter, culture);
-        }
-
-        public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) => throw new NotImplementedException();
-
-        public object[]? ConvertBack(object? value, Type[]? targetTypes, object? parameter, CultureInfo? culture) => throw new NotImplementedException();
     }
 }

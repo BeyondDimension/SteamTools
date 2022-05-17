@@ -4,6 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using iOSToast = NUGET_PACKAGE_TOAST_IOS::GlobalToast.Toast;
 
+// TODO Use CommunityToolkit.Maui.Core.Views.PlatformToast
+// https://github.com/CommunityToolkit/Maui/blob/main/src/CommunityToolkit.Maui/Alerts/Toast/Toast.macios.cs
+// https://github.com/CommunityToolkit/Maui/blob/main/src/CommunityToolkit.Maui.Core/Views/Toast/PlatformToast.macios.cs
+
 namespace System.Application.Services.Implementation
 {
     /// <summary>

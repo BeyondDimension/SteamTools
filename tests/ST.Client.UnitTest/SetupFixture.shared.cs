@@ -39,7 +39,7 @@ namespace System.Application
             if (!DIInit)
             {
                 ModelValidatorProvider.Init();
-                DI.Init(configureServices);
+                DI.ConfigureServices(configureServices);
 
                 if (!OperatingSystem2.IsAndroid)
                 {

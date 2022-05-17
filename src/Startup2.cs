@@ -93,7 +93,7 @@ namespace System.Application
 #if UI_DEMO
             DI.Init(new MockServiceProvider(ConfigureDemoServices));
 #else
-            DI.Init(s => ConfigureServices(s, options));
+            DI.ConfigureServices(s => ConfigureServices(s, options));
 #endif
         }
 

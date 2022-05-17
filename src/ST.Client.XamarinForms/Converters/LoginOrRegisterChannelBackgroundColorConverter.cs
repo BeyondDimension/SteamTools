@@ -1,9 +1,5 @@
 using System.Globalization;
-#if !__MOBILE__
-using Avalonia.Data.Converters;
-#else
-using Xamarin.Forms;
-#endif
+using Color = Xamarin.Forms.Color;
 
 namespace System.Application.Converters
 {
@@ -24,10 +20,8 @@ namespace System.Application.Converters
                 nameof(FastLoginChannel.Apple) => ColorFromHex("#000000"),
                 nameof(FastLoginChannel.QQ) => ColorFromHex("#12B7F5"),
                 "Phone" or "PhoneNumber" => ColorFromHex("#2196F3"),
-                _ => Binding.DoNothing,
+                _ => ((IBinding)this).DoNothing,
             };
         }
-
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

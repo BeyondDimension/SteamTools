@@ -1,14 +1,8 @@
 using System.Application.UI.Resx;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using ArchiSteamFarm.Steam;
-#if !__MOBILE__
-using Avalonia.Data.Converters;
 using static ArchiSteamFarm.Core.ASF;
-#else
-using Xamarin.Forms;
-#endif
 
 namespace System.Application.Converters
 {
@@ -19,7 +13,7 @@ namespace System.Application.Converters
             if (value is Bot bot && bot != null)
             {
                 if (!bot.KeepRunning &&
-                    bot.RequiredInput != EUserInputType.None) 
+                    bot.RequiredInput != EUserInputType.None)
                 {
                     var msg = bot.RequiredInput switch
                     {
@@ -45,8 +39,5 @@ namespace System.Application.Converters
             }
             return value;
         }
-
-        public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) => throw new NotImplementedException();
-
     }
 }

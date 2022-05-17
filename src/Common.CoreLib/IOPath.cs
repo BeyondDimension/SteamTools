@@ -567,6 +567,7 @@ namespace System
 
         public static string GetSizeString(decimal length)
         {
+            // https://github.com/CommunityToolkit/dotnet/blob/v8.0.0-preview3/CommunityToolkit.Common/Converters.cs#L17
             (length, string unit) = GetSize(length);
             return $"{length:0.00} {unit}";
         }

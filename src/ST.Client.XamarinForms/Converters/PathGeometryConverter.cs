@@ -1,12 +1,11 @@
 using System.Globalization;
-using Xamarin.Forms;
 using XFSPathGeometryConverter = Xamarin.Forms.Shapes.PathGeometryConverter;
 
 namespace System.Application.Converters
 {
     public class PathGeometryConverter : XFSPathGeometryConverter, IValueConverter
     {
-        internal static object? GetGeometryByPathString(XFSPathGeometryConverter converter, string pathStr)
+        internal static object? GetGeometryByPathString(IBinding @this, XFSPathGeometryConverter converter, string pathStr)
         {
             try
             {
@@ -17,7 +16,7 @@ namespace System.Application.Converters
             catch
             {
             }
-            return Binding.DoNothing;
+            return @this.DoNothing;
         }
 
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -25,12 +24,10 @@ namespace System.Application.Converters
             var valueStr = value?.ToString();
             if (!string.IsNullOrWhiteSpace(valueStr))
             {
-                var r = GetGeometryByPathString(this, valueStr);
+                var r = GetGeometryByPathString(this, this, valueStr);
                 return r;
             }
-            return Binding.DoNothing;
+            return ((IBinding)this).DoNothing;
         }
-
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

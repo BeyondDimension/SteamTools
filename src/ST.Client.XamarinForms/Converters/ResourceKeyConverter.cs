@@ -42,9 +42,7 @@ namespace System.Application.Converters
                 var r = GetResourceByKey(valueStr);
                 return r;
             }
-            return Binding.DoNothing;
+            return ((IBinding)this).DoNothing;
         }
-
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

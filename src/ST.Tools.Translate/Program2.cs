@@ -12,7 +12,7 @@ using static System.Constants;
 
 try
 {
-    DI.Init(s =>
+    DI.ConfigureServices(s =>
     {
         s.AddHttpClient();
     });
