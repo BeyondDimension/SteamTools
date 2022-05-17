@@ -108,7 +108,7 @@
 
     <!-- NLog -->
     <PackageVersion Include="NLog" Version="4.7.15" />
-    <PackageVersion Include="NLog.Extensions.Logging" Version="1.7.4" />
+    <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.0" />
     <PackageVersion Include="NLog.Web.AspNetCore" Version="4.14.0" />
     <PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="4.14.0" />
 
