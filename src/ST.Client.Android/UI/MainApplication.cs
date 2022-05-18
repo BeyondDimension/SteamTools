@@ -50,6 +50,9 @@ namespace System.Application.UI
             // 替换 RootLayout.axml 中的 Toolbar 修复一些样式问题，更换 ShellSectionRenderer 类会导致子页面无法加载，或许需要继承自，但只能通过反射修改 layout
             Xamarin.Forms.Platform.Android.Resource.Layout.RootLayout = Resource.Layout.xf_root_layout;
 #endif
+            //#if NET6_0_OR_GREATER
+            //            Microsoft.Net.Http.Headers.DateTimeFormatterPatch.Init();
+            //#endif
         }
 
         //#if DEBUG
