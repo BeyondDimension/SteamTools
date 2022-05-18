@@ -18,6 +18,7 @@ using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.FilePicker2;
+using BrowserLaunchMode = Xamarin.Essentials.BrowserLaunchMode;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -227,9 +228,9 @@ namespace System.Application.UI.ViewModels
             return bot.DeleteRedeemedKeysFiles();
         }
 
-        public void GoToBotSettings(Bot bot)
+        public async void GoToBotSettings(Bot bot)
         {
-            Browser2.Open(IPCUrl + "/bot/" + bot.BotName + "/config");
+            await Browser2.OpenAsync(IPCUrl + "/bot/" + bot.BotName + "/config", BrowserLaunchMode.External);
         }
 
         public void EditBotFile(Bot bot)
@@ -259,7 +260,7 @@ namespace System.Application.UI.ViewModels
             IPlatformService.Instance.OpenFolder(folderASFPathValue);
         }
 
-        void OpenBrowserCore(ActionItem tag)
+        async void OpenBrowserCore(ActionItem tag)
         {
             var url = tag switch
             {
@@ -290,7 +291,7 @@ namespace System.Application.UI.ViewModels
                 }
             }
 
-            Browser2.Open(url);
+            await Browser2.OpenAsync(url, BrowserLaunchMode.External);
         }
 
         public void OpenBrowser(string? tag)
