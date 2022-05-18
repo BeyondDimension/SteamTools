@@ -13,8 +13,8 @@
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <!--<AndroidSupportedAbis>armeabi-v7a;x86_64;arm64-v8a</AndroidSupportedAbis>-->
     <RuntimeIdentifiers>android-arm;android-arm64;android-x64</RuntimeIdentifiers>
-    <DefineConstants>SHADOWSOCKS;__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
-    <!--<DefineConstants>SHADOWSOCKS;V2RAY;__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>-->
+    <DefineConstants>SHADOWSOCKS;$(DefineConstants)</DefineConstants>
+    <!--<DefineConstants>SHADOWSOCKS;V2RAY;$(DefineConstants)</DefineConstants>-->
     <AndroidEnableProguard>false</AndroidEnableProguard>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>

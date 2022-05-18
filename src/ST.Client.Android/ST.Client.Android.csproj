@@ -4,8 +4,8 @@
     <TargetFrameworks>MonoAndroid12.0</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>Xamarin.Forms.Platform.Android.UnitTests</AssemblyName>
-    <DefineConstants>SHADOWSOCKS;__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>
-    <!--<DefineConstants>SHADOWSOCKS;V2RAY;__HAVE_ANDROIDX__;$(DefineConstants)</DefineConstants>-->
+    <DefineConstants>SHADOWSOCKS;$(DefineConstants)</DefineConstants>
+    <!--<DefineConstants>SHADOWSOCKS;V2RAY;$(DefineConstants)</DefineConstants>-->
     <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
