@@ -21,6 +21,7 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <AndroidLinkMode>None</AndroidLinkMode>
     <PublishTrimmed>false</PublishTrimmed>
+    <AndroidFragmentType>AndroidX.Fragment.App.Fragment</AndroidFragmentType>
   </PropertyGroup>
 
   <!--当前包是否为应用商店渠道包(IS_STORE_PACKAGE)-->
@@ -520,9 +521,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_export_auth.xml">
       <Link>Resources\layout\activity_export_auth.xml</Link>
     </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_ca_cert.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_ca_cert.xml">
       <Link>Resources\layout\activity_guide_ca_cert.xml</Link>
-    </AndroidBoundLayout>
+    </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn.xml">
       <Link>Resources\layout\activity_guide_vpn.xml</Link>
     </AndroidBoundLayout>

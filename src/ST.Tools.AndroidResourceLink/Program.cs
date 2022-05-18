@@ -8,6 +8,7 @@ var ignoreArray = new[]
 {
     @"layout\activity_main.xml",
     @"navigation\mobile_navigation.xml",
+    @"layout\activity_guide_ca_cert.xml",
 };
 
 const string Mark = "<!--ST.Tools.AndroidResourceLink-->";

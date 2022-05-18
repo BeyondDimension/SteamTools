@@ -31,7 +31,7 @@ namespace System.Application.UI.Activities
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
       LaunchMode = LaunchMode.SingleTask,
       ConfigurationChanges = ManifestConstants.ConfigurationChangesWithOutOrientationLocale)]
-    internal sealed class GuideCACertActivity : BaseActivity<activity_guide_ca_cert>
+    internal sealed class GuideCACertActivity : BaseActivity<activity_material_toolbar_base>
     {
         protected override int? LayoutResource => Resource.Layout.activity_guide_ca_cert;
 

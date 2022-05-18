@@ -479,9 +479,9 @@
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_export_auth.xml">
       <Link>Resources\layout\activity_export_auth.xml</Link>
     </AndroidBoundLayout>
-    <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_ca_cert.xml">
+    <AndroidResource Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_ca_cert.xml">
       <Link>Resources\layout\activity_guide_ca_cert.xml</Link>
-    </AndroidBoundLayout>
+    </AndroidResource>
     <AndroidBoundLayout Include="..\ST.Client.Mobile.Droid.Design\ui\src\main\res\layout\activity_guide_vpn.xml">
       <Link>Resources\layout\activity_guide_vpn.xml</Link>
     </AndroidBoundLayout>

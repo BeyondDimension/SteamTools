@@ -194,7 +194,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Avalonia.App.Msix
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FDELauncher", "src\FDELauncher\FDELauncher.csproj", "{7AAA8A01-A4FE-49AD-9664-AC53C4C8EAC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Net.Http.Headers", "src\Microsoft.Net.Http.Headers\Microsoft.Net.Http.Headers.csproj", "{C7F109B9-EA88-4B7E-ADB5-D6407686ADE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Net.Http.Headers", "src\Microsoft.Net.Http.Headers\Microsoft.Net.Http.Headers.csproj", "{C7F109B9-EA88-4B7E-ADB5-D6407686ADE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1925,6 +1925,7 @@ Global
 		{5E2ABB4A-FDD6-47B0-946D-FAAD31301B82}.Debug|x86.Build.0 = Debug|Any CPU
 		{5E2ABB4A-FDD6-47B0-946D-FAAD31301B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E2ABB4A-FDD6-47B0-946D-FAAD31301B82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E2ABB4A-FDD6-47B0-946D-FAAD31301B82}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{5E2ABB4A-FDD6-47B0-946D-FAAD31301B82}.Release|ARM.ActiveCfg = Release|Any CPU
 		{5E2ABB4A-FDD6-47B0-946D-FAAD31301B82}.Release|ARM.Build.0 = Release|Any CPU
 		{5E2ABB4A-FDD6-47B0-946D-FAAD31301B82}.Release|ARM64.ActiveCfg = Release|Any CPU
@@ -2268,7 +2269,7 @@ Global
 		{C7F109B9-EA88-4B7E-ADB5-D6407686ADE0} = {673FF8CD-9E85-4FA1-ABFC-D1149675E138}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = zh-Hans
 		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal
