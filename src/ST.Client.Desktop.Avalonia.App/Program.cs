@@ -163,11 +163,13 @@ namespace System.Application.UI
 
             public void InitVisualStudioAppCenterSDK()
             {
+#if WINDOWS || XAMARIN_MAC || __MOBILE__ || __ANDROID__ || __IOS__
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable CA1416 // 验证平台兼容性
                 VisualStudioAppCenterSDK.Init();
 #pragma warning restore CA1416 // 验证平台兼容性
 #pragma warning restore IDE0079 // 请删除不必要的忽略
+#endif
             }
 
             public void OnStartup() => Program.OnStartup(this);
