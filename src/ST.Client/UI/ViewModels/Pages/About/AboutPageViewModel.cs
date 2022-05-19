@@ -48,7 +48,7 @@ namespace System.Application.UI.ViewModels
 
         public AboutPageViewModel()
         {
-            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
+            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
 
             CheckUpdateCommand = ReactiveCommand.CreateFromTask(async () =>
             {

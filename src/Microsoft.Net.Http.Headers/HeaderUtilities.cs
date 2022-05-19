@@ -589,7 +589,17 @@ namespace Microsoft.Net.Http.Headers
 
         public static string FormatDate(DateTimeOffset dateTime, bool quoted)
         {
-            return dateTime.ToRfc1123String(quoted);
+            // https://github.com/dotnet/aspnetcore/blob/v6.0.5/src/Http/Headers/src/HeaderUtilities.cs#L548
+            if (quoted)
+            {
+                return string.Create(31, dateTime, (span, dt) =>
+                {
+                    span[0] = span[30] = '"';
+                    dt.TryFormat(span.Slice(1), out _, "r");
+                });
+            }
+
+            return dateTime.ToString("r", CultureInfo.InvariantCulture);
         }
 
         public static StringSegment RemoveQuotes(StringSegment input)

@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -76,7 +75,7 @@ namespace System.Application
             }
         }
 
-        static async Task<bool> OpenCoreAsync(Uri uri, BrowserLaunchMode launchMode)
+        static async Task<bool> OpenCoreAsync(Uri uri, BrowserLaunchMode launchMode = DefaultBrowserLaunchMode)
         {
             try
             {
@@ -90,7 +89,7 @@ namespace System.Application
             }
         }
 
-        static async Task<bool> OpenCoreAsync(string? uri, BrowserLaunchMode launchMode)
+        static async Task<bool> OpenCoreAsync(string? uri, BrowserLaunchMode launchMode = DefaultBrowserLaunchMode)
         {
             try
             {
@@ -131,40 +130,12 @@ namespace System.Application
             }
         }
 
-        static async Task<bool> OpenCoreAsync(Uri uri)
+        static bool OpenCore(string? uri, BrowserLaunchMode launchMode = DefaultBrowserLaunchMode)
         {
-            try
-            {
-                await Browser.OpenAsync(uri);
-                return true;
-            }
-            catch (Exception e)
-            {
-                HandlerException(e);
-                return false;
-            }
-        }
-
-        static async Task<bool> OpenCoreAsync(string? uri)
-        {
-            try
-            {
-                await Browser.OpenAsync(uri);
-                return true;
-            }
-            catch (Exception e)
-            {
-                HandlerException(e);
-                return false;
-            }
-        }
-
-        static bool OpenCore(string? uri)
-        {
-            OpenCoreSync(uri);
+            OpenCoreSync(uri, launchMode);
             return true;
 
-            static async void OpenCoreSync(string? uri) => await OpenCoreAsync(uri);
+            static async void OpenCoreSync(string? uri, BrowserLaunchMode launchMode) => await OpenCoreAsync(uri, launchMode);
         }
     }
 }

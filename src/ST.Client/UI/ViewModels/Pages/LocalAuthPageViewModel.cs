@@ -13,6 +13,7 @@ using System.Properties;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using BrowserLaunchMode = Xamarin.Essentials.BrowserLaunchMode;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -45,7 +46,7 @@ namespace System.Application.UI.ViewModels
 
         public LocalAuthPageViewModel()
         {
-            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
+            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x, BrowserLaunchMode.External));
             AddAuthCommand = ReactiveCommand.Create(AddAuthMenu_Click);
             RefreshAuthCommand = ReactiveCommand.CreateFromTask(async () =>
             {

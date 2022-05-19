@@ -10,7 +10,7 @@ namespace System.Application.Services.Implementation
 {
     partial class ArchiSteamFarmServiceImpl
     {
-        const string Version_ASFUI = "5.2.5.5";
+        const string Version_ASFUI = "5.2.6.1";
         const string Version_FileName = "VERSION.txt";
 
         /// <summary>

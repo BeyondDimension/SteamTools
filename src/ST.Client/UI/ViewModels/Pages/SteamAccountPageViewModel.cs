@@ -33,7 +33,7 @@ namespace System.Application.UI.ViewModels
             RefreshCommand = ReactiveCommand.Create(SteamConnectService.Current.RefreshSteamUsers);
 
             ShareManageCommand = ReactiveCommand.Create(OpenShareManageWindow);
-            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
+            OpenBrowserCommand = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
 
             //MenuItems = new ObservableCollection<MenuItemViewModel>()
             //{

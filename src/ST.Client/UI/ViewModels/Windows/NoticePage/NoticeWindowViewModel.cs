@@ -20,7 +20,7 @@ namespace System.Application.UI.ViewModels
         public NoticeWindowViewModel()
         {
             Title = GetTitleByDisplayName(DisplayName);
-            OpenNotice = ReactiveCommand.CreateFromTask<string>(Browser2.OpenAsync);
+            OpenNotice = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
         }
 
         public void OpenNoticeWeb(NoticeDTO item)
