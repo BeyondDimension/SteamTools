@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <!--<DefineConstants>StartupTrace;$(DefineConstants)</DefineConstants>-->
+    <!--<DefineConstants>StartWatchTrace;$(DefineConstants)</DefineConstants>-->
     <TargetFramework>net6.0</TargetFramework>
     <SignAssembly>false</SignAssembly>
     <!--(SignAssembly)对此程序集进行签名会导致编译失败(CompileAvaloniaXamlTask)-->
@@ -20,7 +20,7 @@
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
 
-  <!--<PropertyGroup Condition=" $(DefineConstants.Contains(`StartupTrace`)) OR '$(Configuration)'=='Debug' ">
+  <!--<PropertyGroup Condition=" $(DefineConstants.Contains(`StartWatchTrace`)) OR '$(Configuration)'=='Debug' ">
     <OutputType>Exe</OutputType>
   </PropertyGroup>-->
 
@@ -86,14 +86,8 @@
     <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
   </ItemGroup>
 
-  <!--<ItemGroup>
-    <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
-    <TrimmerRootAssembly Include="System.Text.Json" />
-  </ItemGroup>-->
-
   <ItemGroup>
-    <Compile Include="..\Startup2.cs" />
-    <Compile Include="..\Startup2.HandleGlobalException.cs" />
+    <Compile Include="..\Startup.cs" Link="Program.Startup.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

@@ -38,8 +38,8 @@ namespace System.Application.UI.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
-#if StartupTrace
-            StartupTrace.Restart("MainWindow.ctor");
+#if StartWatchTrace
+            StartWatchTrace.Record("MainWindow.ctor");
 #endif
         }
 

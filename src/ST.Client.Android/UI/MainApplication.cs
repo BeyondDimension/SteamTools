@@ -6,10 +6,6 @@ using System.Application.Mvvm;
 using System.Diagnostics;
 using System.Text;
 using Xamarin.Essentials;
-using AppTheme = System.Application.Models.AppTheme;
-using XEFileProvider = Xamarin.Essentials.FileProvider;
-using XEPlatform = Xamarin.Essentials.Platform;
-using XEVersionTracking = Xamarin.Essentials.VersionTracking;
 using System.Application.Settings;
 using AndroidX.AppCompat.App;
 using System.Application.Services;
@@ -27,7 +23,11 @@ using Xamarin.Forms;
 using ImageCircle.Forms.Plugin.Droid;
 using XFApplication = Xamarin.Forms.Application;
 #endif
+using AppTheme = System.Application.Models.AppTheme;
 using XEAppTheme = Xamarin.Essentials.AppTheme;
+using XEFileProvider = Xamarin.Essentials.FileProvider;
+using XEPlatform = Xamarin.Essentials.Platform;
+using XEVersionTracking = Xamarin.Essentials.VersionTracking;
 
 namespace System.Application.UI
 {
@@ -39,8 +39,7 @@ namespace System.Application.UI
         RoundIcon = "@mipmap/ic_launcher_round")]
     public sealed partial class MainApplication
     {
-        public static MainApplication Instance => Context is MainApplication app ? app :
-            throw new NullReferenceException("Mainapplication cannot be null.");
+        public static MainApplication Instance => Context is MainApplication app ? app : throw new ArgumentNullException(nameof(app));
 
         public MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
         {
@@ -80,41 +79,8 @@ namespace System.Application.UI
             //#if DEBUG
             //            //SetupLeakCanary();
             //#endif
-            var stopwatch = Stopwatch.StartNew();
-            var startTrace = new StringBuilder();
 
-            FileSystem2.InitFileSystem();
-
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init FileSystem {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
-
-            IApplication.InitLogDir();
-
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init NLog {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
-
-            Startup.InitGlobalExceptionHandler();
-
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init ExceptionHandler {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
-
-            VisualStudioAppCenterSDK.Init();
-
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init AppCenter {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
-
-            XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
-            XEPlatform.Init(this); // 初始化 Xamarin.Essentials.Platform.Init
-
-            XEPlatform.ActivityStateChanged += OnActivityStateChanged;
-
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init Essentials {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
+            const bool isTrace = true;
 
             bool GetIsMainProcess()
             {
@@ -123,69 +89,49 @@ namespace System.Application.UI
                 return name == PackageName;
             }
             IsMainProcess = GetIsMainProcess();
+            if (isTrace) StartWatchTrace.Record("IsMainProcess");
 
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init IsMainProcess {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
+            OnCreateAppExecuting(isTrace);
 
-            SettingsHost.Load();
+            IApplication.IProgramHost host = this;
 
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init SettingsHost {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
+            host.InitVisualStudioAppCenterSDK();
+            if (isTrace) StartWatchTrace.Record("AppCenter");
 
-            InitSettingSubscribe();
+            XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
+            XEPlatform.Init(this); // 初始化 Xamarin.Essentials.Platform.Init
 
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init SettingSubscribe {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
+            XEPlatform.ActivityStateChanged += OnActivityStateChanged;
+            if (isTrace) StartWatchTrace.Record("Essentials");
+
+            OnCreateAppExecuted(this, isTrace: isTrace);
 
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
-            Startup.Init(level);
-
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init Startup {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
+            host.ConfigureServices(level);
+            if (isTrace) StartWatchTrace.Record("Startup");
 
             if (IsMainProcess)
             {
                 XEVersionTracking.Track();
-
-                stopwatch.Stop();
-                startTrace.AppendFormatLine("init VersionTracking {0}ms", stopwatch.ElapsedMilliseconds);
-                stopwatch.Restart();
+                if (isTrace) StartWatchTrace.Record("VersionTracking");
 
                 if (XEVersionTracking.IsFirstLaunchForCurrentVersion)
                 {
                     // 当前版本第一次启动时，清除存放升级包缓存文件夹的目录
                     IApplicationUpdateService.ClearAllPackCacheDir();
-
-                    stopwatch.Stop();
-                    startTrace.AppendFormatLine("init ClearAllPackCacheDir {0}ms", stopwatch.ElapsedMilliseconds);
-                    stopwatch.Restart();
+                    if (isTrace) StartWatchTrace.Record("ClearAllPackCacheDir");
                 }
             }
-            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init Language.Subscribe {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
-
-            Startup.OnStartup(IsMainProcess);
-
-            stopwatch.Stop();
-            startTrace.AppendFormatLine("init OnStartup {0}ms", stopwatch.ElapsedMilliseconds);
-            stopwatch.Restart();
+            host.OnStartup();
+            if (isTrace) StartWatchTrace.Record("OnStartup");
 
             if (IsMainProcess)
             {
                 var vmService = IViewModelManager.Instance;
                 vmService.InitViewModels();
-
-                stopwatch.Stop();
-                startTrace.AppendFormatLine("init ViewModels {0}ms", stopwatch.ElapsedMilliseconds);
-                stopwatch.Restart();
+                if (isTrace) StartWatchTrace.Record("ViewModels");
 
 #if __XAMARIN_FORMS__
                 Forms.Init(this, null);
@@ -205,10 +151,9 @@ namespace System.Application.UI
                 vmService.MainWindow.Initialize();
             }
 
-            stopwatch.Stop();
-            StartupTrack = startTrace.ToString();
+            StartupTrack = StartWatchTrace.ToString();
 #if DEBUG
-            Log.Warn("Application", $"OnCreate Complete({stopwatch.ElapsedMilliseconds}ms");
+            Log.Warn("Application", $"OnCreate Complete({StartWatchTrace.ElapsedMilliseconds}ms");
 #endif
         }
 
@@ -246,11 +191,6 @@ namespace System.Application.UI
 #endif
 
         public static string? StartupTrack { get; private set; }
-
-        /// <summary>
-        /// 当前是否是主进程
-        /// </summary>
-        public static bool IsMainProcess { get; private set; }
 
         const AppTheme _DefaultActualTheme = AppTheme.Light;
 
@@ -354,9 +294,11 @@ namespace System.Application.UI
         #endregion
 
         /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
-        void InitSettingSubscribe()
+        void PlatformInitSettingSubscribe()
         {
             ((IApplication)this).InitSettingSubscribe();
         }
+
+        void IApplication.PlatformInitSettingSubscribe() => PlatformInitSettingSubscribe();
     }
 }

@@ -38,9 +38,22 @@ namespace System.Application.UI
 {
     public partial class App : AvaloniaApplication, IDisposableHolder, IApplication, IAvaloniaApplication, IClipboardPlatformService
     {
-        public static App Instance => Current is App app ? app : throw new Exception("Impossible");
+        public static App Instance => Current is App app ? app : throw new ArgumentNullException(nameof(app));
 
-        //public static DirectoryInfo RootDirectory => new(IOPath.BaseDirectory);
+        #region IApplication.IDesktopProgramHost
+
+        public IApplication.IDesktopProgramHost ProgramHost { get; }
+
+        IApplication.IProgramHost IApplication.ProgramHost => ProgramHost;
+
+        #endregion
+
+        public App() : this(null!) { }
+
+        public App(IApplication.IDesktopProgramHost host)
+        {
+            ProgramHost = host;
+        }
 
         const AppTheme _DefaultActualTheme = AppTheme.Dark;
 
@@ -130,7 +143,7 @@ namespace System.Application.UI
             AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()!.RequestedTheme = the;
         }
 
-        public void SetThemeAccent(string? colorHex)
+        public static void SetThemeAccent(string? colorHex)
         {
             if (colorHex == null)
             {
@@ -169,66 +182,54 @@ namespace System.Application.UI
 
         public override void Initialize()
         {
-#if StartupTrace
-            StartupTrace.Restart("App.Initialize");
+            const bool isTrace =
+#if StartWatchTrace
+                true;
+#else
+                false;
+#endif
+#if StartWatchTrace
+            /*if (isTrace) */StartWatchTrace.Record("App.Initialize");
 #endif
             AvaloniaXamlLoader.Load(this);
-#if StartupTrace
-            StartupTrace.Restart("App.LoadXAML");
+#if StartWatchTrace
+            /*if (isTrace) */StartWatchTrace.Record("App.LoadXaml");
 #endif
             Name = ThisAssembly.AssemblyTrademark;
-#if StartupTrace
-            StartupTrace.Restart("App.SetP");
-#endif
-            //SettingsHost.Load();
-            IPlatformService.Instance.SetSystemSessionEnding(() => Shutdown());
-            var vmService = IViewModelManager.Instance;
-            vmService.InitViewModels();
-#if StartupTrace
-            StartupTrace.Restart("WindowService.Init");
-#endif
-
-#if StartupTrace
-            StartupTrace.Restart("SettingsHost.Init");
-#endif
-            InitSettingSubscribe();
-#if StartupTrace
-            StartupTrace.Restart("InitSettingSubscribe");
-#endif
-            switch (vmService.MainWindow)
+            ProgramHost.OnCreateAppExecuted(handlerViewModelManager: vmService =>
             {
-                case AchievementWindowViewModel:
-                    Program.IsMinimize = false;
-                    MainWindow = new AchievementWindow();
-                    break;
+                switch (vmService.MainWindow)
+                {
+                    case AchievementWindowViewModel:
+                        ProgramHost.IsMinimize = false;
+                        MainWindow = new AchievementWindow();
+                        break;
 
-                default:
-                    #region 主窗口启动时加载的资源
+                    default:
+                        #region 主窗口启动时加载的资源
 #if !UI_DEMO
-                    compositeDisposable.Add(SettingsHost.Save);
-                    compositeDisposable.Add(ProxyService.Current.Dispose);
-                    compositeDisposable.Add(SteamConnectService.Current.Dispose);
-                    compositeDisposable.Add(ASFService.Current.StopASF);
-                    if (GeneralSettings.IsStartupAppMinimized.Value)
-                        Program.IsMinimize = true;
+                        compositeDisposable.Add(SettingsHost.Save);
+                        compositeDisposable.Add(ProxyService.Current.Dispose);
+                        compositeDisposable.Add(SteamConnectService.Current.Dispose);
+                        compositeDisposable.Add(ASFService.Current.StopASF);
+#pragma warning disable CA1416 // 验证平台兼容性
+                        if (GeneralSettings.IsStartupAppMinimized.Value)
+                            ProgramHost.IsMinimize = true;
+#pragma warning restore CA1416 // 验证平台兼容性
 #endif
-                    #endregion
-                    MainWindow = new MainWindow();
-                    break;
-            }
-
-            MainWindow.DataContext = vmService.MainWindow;
-            vmService.MainWindow.Initialize();
-#if StartupTrace
-            StartupTrace.Restart("Set MainWindow");
-#endif
+                        #endregion
+                        MainWindow = new MainWindow();
+                        break;
+                }
+                MainWindow.DataContext = vmService.MainWindow;
+            }, isTrace: isTrace);
         }
 
         //public ContextMenu? NotifyIconContextMenu { get; private set; }
 
         public override void OnFrameworkInitializationCompleted()
         {
-            if (Program.IsTrayProcess)
+            if (ProgramHost.IsTrayProcess)
             {
                 base.OnFrameworkInitializationCompleted();
                 return;
@@ -240,7 +241,7 @@ namespace System.Application.UI
                 //#if MAC
                 //                AppDelegate.Init();
                 //#endif
-                if (Program.IsMainProcess)
+                if (ProgramHost.IsMainProcess)
                 {
                     if (StartupOptions.Value.HasNotifyIcon)
                     {
@@ -264,7 +265,7 @@ namespace System.Application.UI
 
                 desktop.MainWindow =
 #if !UI_DEMO
-                    Program.IsMinimize ? null :
+                    ProgramHost.IsMinimize ? null :
 #endif
                     MainWindow;
 
@@ -288,7 +289,7 @@ namespace System.Application.UI
         {
             IViewModelBase.IsInDesignMode = Design.IsDesignMode;
             if (ViewModelBase.IsInDesignMode)
-                Startup.Init(DILevel.MainProcess | DILevel.GUI);
+                ProgramHost.ConfigureServices(DILevel.MainProcess | DILevel.GUI);
 
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
 
@@ -305,16 +306,16 @@ namespace System.Application.UI
         }
 
         /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
-        void InitSettingSubscribe()
+        void PlatformInitSettingSubscribe()
         {
             ((IApplication)this).InitSettingSubscribe();
-            UISettings.ThemeAccent.Subscribe(x => SetThemeAccent(x));
+#pragma warning disable CA1416 // 验证平台兼容性
+            UISettings.ThemeAccent.Subscribe(SetThemeAccent);
             UISettings.GetUserThemeAccent.Subscribe(x => SetThemeAccent(x ? bool.TrueString : UISettings.ThemeAccent.Value));
-            UISettings.Language.Subscribe(x => R.ChangeLanguage(x));
 
-            GeneralSettings.WindowsStartupAutoRun.Subscribe(x => IApplication.SetBootAutoStart(x));
+            GeneralSettings.WindowsStartupAutoRun.Subscribe(IApplication.SetBootAutoStart);
 
-            UISettings.WindowBackgroundMateria.Subscribe(x => SetAllWindowransparencyMateria(x), false);
+            UISettings.WindowBackgroundMateria.Subscribe(SetAllWindowransparencyMateria, false);
 
             if (OperatingSystem2.IsWindows)
             {
@@ -334,44 +335,47 @@ namespace System.Application.UI
                     }
                 }, false);
             }
+#pragma warning restore CA1416 // 验证平台兼容性
         }
+
+        void IApplication.PlatformInitSettingSubscribe() => PlatformInitSettingSubscribe();
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
-            var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(Program.IsMainProcess);
+            var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(ProgramHost.IsMainProcess);
 
-#if StartupTrace
-            StartupTrace.Restart("Desktop_Startup.Start");
+#if StartWatchTrace
+            StartWatchTrace.Record("Desktop_Startup.Start");
 #endif
             IsNotOfficialChannelPackageDetectionHelper.Check();
 #if WINDOWS || XAMARIN_MAC
             if (isOfficialChannelPackage)
             {
 #pragma warning disable CA1416 // 验证平台兼容性
-                VisualStudioAppCenterSDK.Init();
+                ProgramHost.InitVisualStudioAppCenterSDK();
 #pragma warning restore CA1416 // 验证平台兼容性
             }
 #endif
-#if StartupTrace
-            StartupTrace.Restart("AppCenterSDK.Init");
+#if StartWatchTrace
+            StartWatchTrace.Record("AppCenterSDK.Init");
 #endif
             //            AppHelper.Initialized?.Invoke();
-            //#if StartupTrace
-            //            StartupTrace.Restart("Desktop_Startup.AppHelper.Initialized?");
+            //#if StartWatchTrace
+            //            StartWatchTrace.Record("Desktop_Startup.AppHelper.Initialized?");
             //#endif
-            Startup.OnStartup(Program.IsMainProcess);
-#if StartupTrace
+            ProgramHost.OnStartup();
+#if StartWatchTrace
             if (Program.IsMainProcess)
             {
-                StartupTrace.Restart("Desktop_Startup.MainProcess");
+                StartWatchTrace.Record("Desktop_Startup.MainProcess");
             }
 #endif
 
             StartupToastIntercept.OnStartuped();
-#if StartupTrace
-            StartupTrace.Restart("Desktop_Startup.SetIsStartuped");
+#if StartWatchTrace
+            StartWatchTrace.Record("Desktop_Startup.SetIsStartuped");
 #endif
-            if (Program.IsMainProcess)
+            if (ProgramHost.IsMainProcess)
             {
                 INotificationService.ILifeCycle.Instance?.OnStartup();
             }
@@ -404,15 +408,15 @@ namespace System.Application.UI
             RestoreMainWindow();
         }
 
-        Task IClipboardPlatformService.PlatformSetTextAsync(string text) => Current!.Clipboard!.SetTextAsync(text);
+        Task IClipboardPlatformService.PlatformSetTextAsync(string text) => Clipboard?.SetTextAsync(text) ?? Task.CompletedTask;
 
-        Task<string> IClipboardPlatformService.PlatformGetTextAsync() => Current!.Clipboard!.GetTextAsync();
+        Task<string> IClipboardPlatformService.PlatformGetTextAsync() => Clipboard?.GetTextAsync() ?? Task.FromResult(string.Empty);
 
         bool IClipboardPlatformService.PlatformHasText
         {
             get
             {
-                Func<Task<string>> func = () => Current!.Clipboard!.GetTextAsync();
+                Func<Task<string>> func = () => Clipboard?.GetTextAsync() ?? Task.FromResult(string.Empty);
                 var value = func.RunSync();
                 return !string.IsNullOrEmpty(value);
             }
@@ -430,14 +434,14 @@ namespace System.Application.UI
         {
             Window? mainWindow = null;
 
-            if (Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 mainWindow = desktop.MainWindow;
                 if (mainWindow == null)
                 {
                     //mainWindow = MainWindow;
                     //desktop.MainWindow = MainWindow;
-                    mainWindow = Instance.MainWindow = desktop.MainWindow = new MainWindow();
+                    mainWindow = MainWindow = desktop.MainWindow = new MainWindow();
                     mainWindow.DataContext = IViewModelManager.Instance.MainWindow;
                 }
 
@@ -472,7 +476,7 @@ namespace System.Application.UI
 
         public bool HasActiveWindow()
         {
-            if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 if (desktop.Windows.Any_Nullable(x => x.IsActive))
                 {
@@ -484,7 +488,7 @@ namespace System.Application.UI
 
         public Window GetActiveWindow()
         {
-            if (Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var activeWindow = desktop.Windows.FirstOrDefault(x => x.IsActive);
                 if (activeWindow != null)
@@ -497,7 +501,7 @@ namespace System.Application.UI
 
         public void SetDesktopBackgroundWindow()
         {
-            if (OperatingSystem2.IsWindows && Instance.MainWindow is MainWindow window)
+            if (OperatingSystem2.IsWindows && MainWindow is MainWindow window)
             {
 #pragma warning disable CA1416 // 验证平台兼容性
                 INativeWindowApiService.Instance!.SetDesktopBackgroundToWindow(window.BackHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));
@@ -506,12 +510,12 @@ namespace System.Application.UI
         }
 
         /// <summary>
-        /// 设置当前打开窗口的AvaloniaWinodw背景透明材质
+        /// 设置当前打开窗口的 AvaloniaWindow 背景透明材质
         /// </summary>
         /// <param name="level"></param>
         public void SetAllWindowransparencyMateria(int level)
         {
-            if (Current!.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 foreach (var window in desktop.Windows)
                 {
@@ -534,9 +538,9 @@ namespace System.Application.UI
         /// <summary>
         /// Exits the app by calling <c>Shutdown()</c> on the <c>IClassicDesktopStyleApplicationLifetime</c>.
         /// </summary>
-        public static bool Shutdown(int exitCode = 0)
+        public bool Shutdown(int exitCode = 0)
         {
-            if (Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 MainThread2.BeginInvokeOnMainThread(() =>
                 {
@@ -568,7 +572,7 @@ namespace System.Application.UI
 
         #endregion
 
-        string IAvaloniaApplication.RenderingSubsystemName => Program.RenderingSubsystemName;
+        string IAvaloniaApplication.RenderingSubsystemName => "Skia";
 
         object IApplication.CurrentPlatformUIHost => MainWindow!;
 

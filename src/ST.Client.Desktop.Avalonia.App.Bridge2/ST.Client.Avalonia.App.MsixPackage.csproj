@@ -53,13 +53,12 @@
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\Startup2.cs" />
-    <Compile Include="..\Startup2.HandleGlobalException.cs" />
+    <Compile Include="..\Startup.cs" Link="Program.Startup.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

@@ -172,13 +172,14 @@ namespace System.Application.UI
             //    _ => throw new ArgumentOutOfRangeException(nameof(devicePlatform), devicePlatform, null),
             //};
 
-            var logDirPath = Path.Combine(/*LogUnderCache ?*/
-                IOPath.CacheDirectory /*:*/
-                /*IOPath.BaseDirectory*/,
-                LogDirName);
+            //var logDirPath = Path.Combine(/*LogUnderCache ?*/
+            //    IOPath.CacheDirectory /*:*/
+            //    /*IOPath.BaseDirectory*/,
+            //    LogDirName);
+            var logDirPath = Path.Combine(IOPath.CacheDirectory, LogDirName);
             IOPath.DirCreateByNotExists(logDirPath);
-#if StartupTrace
-            StartupTrace.Restart("InitLogDir.IO");
+#if StartWatchTrace
+            StartWatchTrace.Record("InitLogDir.IO");
 #endif
             var logDirPath_ = logDirPath + Path.DirectorySeparatorChar;
 
@@ -217,8 +218,8 @@ namespace System.Application.UI
             objConfig.LoggingRules.Add(new LoggingRule("ArchiSteamFarm*", NLogLevel.Off, logfile) { Final = true, });
             objConfig.AddRule(defMinLevel, NLogLevel.Fatal, logfile, "*");
             objConfig.LoggingRules.Add(new LoggingRule("ArchiSteamFarm*", defMinLevel, logfile_asf));
-#if StartupTrace
-            StartupTrace.Restart("InitLogDir.CreateLoggingConfiguration");
+#if StartWatchTrace
+            StartWatchTrace.Record("InitLogDir.CreateLoggingConfiguration");
 #endif
             NLogManager.Configuration = objConfig;
 

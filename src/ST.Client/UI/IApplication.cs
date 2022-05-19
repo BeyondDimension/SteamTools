@@ -59,7 +59,11 @@ namespace System.Application.UI
         void InitSettingSubscribe()
         {
             UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+            UISettings.Language.Subscribe(R.ChangeLanguage);
         }
+
+        /// <inheritdoc cref="IApplication.InitSettingSubscribe"/>
+        void PlatformInitSettingSubscribe() => InitSettingSubscribe();
 
         DeploymentMode DeploymentMode => DeploymentMode.SCD;
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace System.Application.UI
 {
-    partial class MainApplication : IAndroidApplication
+    partial class MainApplication : IAndroidApplication, IApplication.IProgramHost
     {
         int? IAndroidApplication.NotificationSmallIconResId => Resource.Drawable.ic_stat_notify_msg;
 
@@ -15,5 +15,20 @@ namespace System.Application.UI
 #else
             typeof(MainActivity);
 #endif
+
+        IApplication.IProgramHost IApplication.ProgramHost => this;
+
+        public bool IsMainProcess { get; private set; }
+
+        void IApplication.IProgramHost.InitVisualStudioAppCenterSDK()
+        {
+            VisualStudioAppCenterSDK.Init();
+        }
+
+        void IApplication.IProgramHost.ConfigureServices(DILevel level) => ConfigureServices(this, level);
+
+        void IApplication.IProgramHost.OnStartup() => OnStartup(this);
+
+        IApplication IApplication.IProgramHost.Application => this;
     }
 }

@@ -44,19 +44,13 @@
       .allowedextension
     </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
-
-  <ItemGroup>
+  
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
     <RuntimeHostConfigurationOption Include="System.Net.SocketsHttpHandler.Http3Support" Value="true" />
   </ItemGroup>
 
-  <!--<ItemGroup>
-    <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
-    <TrimmerRootAssembly Include="System.Text.Json" />
-  </ItemGroup>-->
-
   <ItemGroup>
-    <Compile Include="..\Startup2.cs" />
-    <Compile Include="..\Startup2.HandleGlobalException.cs" />
+    <Compile Include="..\Startup.cs" Link="Program.Startup.cs" />
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

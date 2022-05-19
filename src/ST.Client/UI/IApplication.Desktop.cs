@@ -14,7 +14,7 @@ namespace System.Application.UI
         /// <summary>
         /// 切换当前桌面应用的主题而不改变设置值
         /// </summary>
-        /// <param name="switch_value"></param>
+        /// <param name="value"></param>
         void SetThemeNotChangeValue(AppTheme value);
 
         /// <summary>
