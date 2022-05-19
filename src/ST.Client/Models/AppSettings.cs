@@ -117,6 +117,7 @@ namespace System.Application.Models
         /// <summary>
         /// 当前运行程序是否为官方渠道包
         /// </summary>
+        [Obsolete]
         public static bool IsOfficialChannelPackage => mIsOfficialChannelPackage.Value;
     }
 }

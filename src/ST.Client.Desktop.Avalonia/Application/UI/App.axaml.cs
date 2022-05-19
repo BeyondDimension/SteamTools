@@ -342,43 +342,43 @@ namespace System.Application.UI
 
         void Desktop_Startup(object? sender, ControlledApplicationLifetimeStartupEventArgs e)
         {
-            var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(ProgramHost.IsMainProcess);
+            //            var isOfficialChannelPackage = IsNotOfficialChannelPackageDetectionHelper.Check(ProgramHost.IsMainProcess);
 
-#if StartWatchTrace
-            StartWatchTrace.Record("Desktop_Startup.Start");
-#endif
-            IsNotOfficialChannelPackageDetectionHelper.Check();
-#if WINDOWS || XAMARIN_MAC
-            if (isOfficialChannelPackage)
-            {
-#pragma warning disable CA1416 // 验证平台兼容性
-                ProgramHost.InitVisualStudioAppCenterSDK();
-#pragma warning restore CA1416 // 验证平台兼容性
-            }
-#endif
-#if StartWatchTrace
-            StartWatchTrace.Record("AppCenterSDK.Init");
-#endif
+            //#if StartWatchTrace
+            //            StartWatchTrace.Record("Desktop_Startup.Start");
+            //#endif
+            //            IsNotOfficialChannelPackageDetectionHelper.Check();
+            //#if WINDOWS || XAMARIN_MAC
+            //            if (isOfficialChannelPackage)
+            //            {
+            //#pragma warning disable CA1416 // 验证平台兼容性
+            //                ProgramHost.InitVisualStudioAppCenterSDK();
+            //#pragma warning restore CA1416 // 验证平台兼容性
+            //            }
+            //#endif
+            //#if StartWatchTrace
+            //            StartWatchTrace.Record("AppCenterSDK.Init");
+            //#endif
             //            AppHelper.Initialized?.Invoke();
             //#if StartWatchTrace
             //            StartWatchTrace.Record("Desktop_Startup.AppHelper.Initialized?");
             //#endif
             ProgramHost.OnStartup();
-#if StartWatchTrace
-            if (Program.IsMainProcess)
-            {
-                StartWatchTrace.Record("Desktop_Startup.MainProcess");
-            }
-#endif
+            //#if StartWatchTrace
+            //            if (Program.IsMainProcess)
+            //            {
+            //                StartWatchTrace.Record("Desktop_Startup.MainProcess");
+            //            }
+            //#endif
 
-            StartupToastIntercept.OnStartuped();
-#if StartWatchTrace
-            StartWatchTrace.Record("Desktop_Startup.SetIsStartuped");
-#endif
-            if (ProgramHost.IsMainProcess)
-            {
-                INotificationService.ILifeCycle.Instance?.OnStartup();
-            }
+            //            StartupToastIntercept.OnStartuped();
+            //#if StartWatchTrace
+            //            StartWatchTrace.Record("Desktop_Startup.SetIsStartuped");
+            //#endif
+            //            if (ProgramHost.IsMainProcess)
+            //            {
+            //                INotificationService.ILifeCycle.Instance?.OnStartup();
+            //            }
         }
 
         void ApplicationLifetime_Exit(object? sender, ControlledApplicationLifetimeExitEventArgs e)

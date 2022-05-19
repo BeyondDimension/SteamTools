@@ -509,84 +509,7 @@ namespace System.Application.UI
 
         #endregion
 
-        #region OnStartup
-
-        static async void OnStartup(IApplication.IStartupArgs args)
-        {
-            if (args.IsMainProcess)
-            {
-                await Task.Run(() =>
-                {
-                    ActiveUserPost(args, ActiveUserType.OnStartup);
-                    if (GeneralSettings.IsAutoCheckUpdate.Value)
-                    {
-                        IApplicationUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
-                    }
-                });
-            }
-        }
-
-#if !CONSOLEAPP
-        /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
-        static async void ActiveUserPost(IApplication.IStartupArgs args, ActiveUserType type)
-        {
-            if (!args.IsMainProcess) return;
-            try
-            {
-                var userService = _UserService.Current;
-                var isAuthenticated = userService.IsAuthenticated;
-                var csc = ICloudServiceClient.Instance;
-                if (isAuthenticated)
-                {
-                    // 刷新用户信息
-                    var rspRUserInfo = await csc.Manage.RefreshUserInfo();
-                    if (rspRUserInfo.IsSuccess && rspRUserInfo.Content != null)
-                    {
-                        await userService.SaveUserAsync(rspRUserInfo.Content);
-                    }
-                }
-#if !__MOBILE__
-                var screens = PlatformApplication.Instance.MainWindow!.Screens;
-#else
-                var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-                var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
-                var mainDisplayInfoW = mainDisplayInfo.Width.ToInt32(NumberToInt32Format.Ceiling);
-#endif
-                var req = new ActiveUserRecordDTO
-                {
-                    Type = type,
-#if __MOBILE__
-                    ScreenCount = 1,
-                    PrimaryScreenPixelDensity = mainDisplayInfo.Density,
-                    PrimaryScreenWidth = mainDisplayInfoW,
-                    PrimaryScreenHeight = mainDisplayInfoH,
-                    SumScreenWidth = mainDisplayInfoW,
-                    SumScreenHeight = mainDisplayInfoH,
-#else
-                    ScreenCount = screens.ScreenCount,
-                    PrimaryScreenPixelDensity = screens.Primary.PixelDensity,
-                    PrimaryScreenWidth = screens.Primary.Bounds.Width,
-                    PrimaryScreenHeight = screens.Primary.Bounds.Height,
-                    SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
-                    SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
-#endif
-                    IsAuthenticated = isAuthenticated,
-                };
-                req.SetDeviceId();
-                // 匿名统计与通知公告
-                await csc.ActiveUser.Post(req);
-#if DEBUG
-                INotificationService.Notify(type);
-#endif
-            }
-            catch (Exception e)
-            {
-                Log.Error("Startup", e, "ActiveUserPost");
-            }
-        }
-#endif
-
-        #endregion
+        // OnCreateAppExecuting -> OnCreateAppExecuted -> DI.ConfigureServices(Init) -> OnStartup
 
         #region OnCreateApplication
 
@@ -652,7 +575,7 @@ namespace System.Application.UI
             if (isTrace) StartWatchTrace.Record();
             try
             {
-                host.Application.InitSettingSubscribe();
+                host.Application.PlatformInitSettingSubscribe();
                 if (isTrace) StartWatchTrace.Record("SettingSubscribe");
 
                 var vmService = IViewModelManager.Instance;
@@ -666,6 +589,98 @@ namespace System.Application.UI
                 if (isTrace) StartWatchTrace.Record(dispose: true);
             }
         }
+
+        #endregion
+
+        #region OnStartup
+
+        static void OnStartup(IApplication.IProgramHost host, bool isTrace = false)
+        {
+            if (isTrace) StartWatchTrace.Record();
+
+            host.InitVisualStudioAppCenterSDK();
+            if (isTrace) StartWatchTrace.Record("AppCenter");
+
+            StartupToastIntercept.OnStartuped();
+
+            if (host.IsMainProcess)
+            {
+                OnStartupInMainProcessAsyncVoid();
+                async void OnStartupInMainProcessAsyncVoid()
+                {
+                    await Task.Run(() =>
+                    {
+                        ActiveUserPost(host, ActiveUserType.OnStartup);
+                        if (GeneralSettings.IsAutoCheckUpdate.Value)
+                        {
+                            IApplicationUpdateService.Instance.CheckUpdate(showIsExistUpdateFalse: false);
+                        }
+                    });
+                }
+
+                INotificationService.ILifeCycle.Instance?.OnStartup();
+            }
+        }
+
+#if !CONSOLEAPP
+        /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
+        static async void ActiveUserPost(IApplication.IStartupArgs args, ActiveUserType type)
+        {
+            if (!args.IsMainProcess) return;
+            try
+            {
+                var userService = _UserService.Current;
+                var isAuthenticated = userService.IsAuthenticated;
+                var csc = ICloudServiceClient.Instance;
+                if (isAuthenticated)
+                {
+                    // 刷新用户信息
+                    var rspRUserInfo = await csc.Manage.RefreshUserInfo();
+                    if (rspRUserInfo.IsSuccess && rspRUserInfo.Content != null)
+                    {
+                        await userService.SaveUserAsync(rspRUserInfo.Content);
+                    }
+                }
+#if !__MOBILE__
+                var screens = PlatformApplication.Instance.MainWindow!.Screens;
+#else
+                var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+                var mainDisplayInfoH = mainDisplayInfo.Height.ToInt32(NumberToInt32Format.Ceiling);
+                var mainDisplayInfoW = mainDisplayInfo.Width.ToInt32(NumberToInt32Format.Ceiling);
+#endif
+                var req = new ActiveUserRecordDTO
+                {
+                    Type = type,
+#if __MOBILE__
+                    ScreenCount = 1,
+                    PrimaryScreenPixelDensity = mainDisplayInfo.Density,
+                    PrimaryScreenWidth = mainDisplayInfoW,
+                    PrimaryScreenHeight = mainDisplayInfoH,
+                    SumScreenWidth = mainDisplayInfoW,
+                    SumScreenHeight = mainDisplayInfoH,
+#else
+                    ScreenCount = screens.ScreenCount,
+                    PrimaryScreenPixelDensity = screens.Primary.PixelDensity,
+                    PrimaryScreenWidth = screens.Primary.Bounds.Width,
+                    PrimaryScreenHeight = screens.Primary.Bounds.Height,
+                    SumScreenWidth = screens.All.Sum(x => x.Bounds.Width),
+                    SumScreenHeight = screens.All.Sum(x => x.Bounds.Height),
+#endif
+                    IsAuthenticated = isAuthenticated,
+                };
+                req.SetDeviceId();
+                // 匿名统计与通知公告
+                await csc.ActiveUser.Post(req);
+#if DEBUG
+                INotificationService.Notify(type);
+#endif
+            }
+            catch (Exception e)
+            {
+                Log.Error("Startup", e, "ActiveUserPost");
+            }
+        }
+#endif
 
         #endregion
 

@@ -58,22 +58,6 @@
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
     <Compile Include="..\ST.Client.Desktop.Avalonia.App\*.cs" />
-    <Compile Update="..\ST.Client.Desktop.Avalonia.App\App.axaml.cs">
-      <Link>App.axaml.cs</Link>
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <AvaloniaResource Include="..\ST.Client.Desktop.Avalonia.App\App.axaml">
-      <Link>App.axaml</Link>
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
-    <Compile Include="..\ST.Client.Desktop.Avalonia.App\Views\MainWindow.axaml.cs">
-      <Link>Views\MainWindow.axaml.cs</Link>
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <AvaloniaResource Include="..\ST.Client.Desktop.Avalonia.App\Views\MainWindow.axaml">
-      <Link>Views\MainWindow.axaml</Link>
-      <SubType>Designer</SubType>
-    </AvaloniaResource>
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">

@@ -93,11 +93,6 @@ namespace System.Application.UI
 
             OnCreateAppExecuting(isTrace);
 
-            IApplication.IProgramHost host = this;
-
-            host.InitVisualStudioAppCenterSDK();
-            if (isTrace) StartWatchTrace.Record("AppCenter");
-
             XEFileProvider.TemporaryLocation = FileProviderLocation.Internal;
             XEPlatform.Init(this); // 初始化 Xamarin.Essentials.Platform.Init
 
@@ -108,6 +103,7 @@ namespace System.Application.UI
 
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
+            IApplication.IProgramHost host = this;
             host.ConfigureServices(level);
             if (isTrace) StartWatchTrace.Record("Startup");
 
@@ -137,16 +133,10 @@ namespace System.Application.UI
                 Forms.Init(this, null);
                 FormsMaterial.Init(this, null);
                 ImageCircleRenderer.Init();
-
-                stopwatch.Stop();
-                startTrace.AppendFormatLine("init XF {0}ms", stopwatch.ElapsedMilliseconds);
-                stopwatch.Restart();
+                if (isTrace) StartWatchTrace.Record("XF");
 
                 _Current = new(RealTheme);
-
-                stopwatch.Stop();
-                startTrace.AppendFormatLine("init XFApp {0}ms", stopwatch.ElapsedMilliseconds);
-                stopwatch.Restart();
+                if (isTrace) StartWatchTrace.Record("XFApp");
 #endif
                 vmService.MainWindow.Initialize();
             }
