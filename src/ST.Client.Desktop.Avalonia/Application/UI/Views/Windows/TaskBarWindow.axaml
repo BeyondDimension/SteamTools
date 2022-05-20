@@ -53,7 +53,7 @@
       </StackPanel.Styles>
 
       <DockPanel Margin="0 8 0 0">
-        <Image Source="/Application/UI/Assets/Icon.ico" Height="64" Width="64" VerticalAlignment="Center" Margin="10 0" DockPanel.Dock="Left"/>
+        <Image Source="/Application/UI/Assets/Icon.ico" Height="48" Width="48" VerticalAlignment="Center" Margin="10" DockPanel.Dock="Left"/>
         <!--<Image Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=100}"
                          Stretch="Uniform"
                          Height="100" Width="100"
@@ -62,7 +62,7 @@
         <StackPanel DockPanel.Dock="Right" Spacing="8" VerticalAlignment="Center">
           <controls:ScrollingTextBlock Text="{x:Static vm:TaskBarWindowViewModel.TitleString}"
                                 Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                                FontSize="16"/>
+                                FontSize="14"/>
           <TextBlock Text="{Binding Path=Version, StringFormat=v{0}, Mode=OneWay}"
                    Foreground="{DynamicResource HighlightForegroundBrushKey}" FontSize="12"/>
         </StackPanel>

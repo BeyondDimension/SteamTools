@@ -96,7 +96,7 @@ namespace System.Application.UI.ViewModels
 
             #region InitTabItems
 
-            AddTabItem<StartPageViewModel>();
+            //AddTabItem<StartPageViewModel>();
             AddTabItem<CommunityProxyPageViewModel>();
             if (IApplication.IsDesktopPlatform)
             {
