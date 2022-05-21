@@ -10,41 +10,113 @@ namespace Avalonia.Skia
 {
     public static class SkiaSharpHelpers
     {
-        public static SKCodec Create(Stream stream)
+        static SKCodec CreateCore(IFileStreamWrapper fileStreamWrapper)
         {
-            if (stream is IFileStreamWrapper fileStreamWrapper)
-            {
-                return SKCodec.Create(fileStreamWrapper.Name);
-            }
-            else if (stream is FileStream fileStream)
+            return SKCodec.Create(fileStreamWrapper.Name);
+        }
+
+        static SKCodec CreateCore(FileStream fileStream, bool disposeManagedStream = true)
+        {
+            try
             {
                 var filename = fileStream.Name;
                 return SKCodec.Create(filename);
             }
+            finally
+            {
+                if (disposeManagedStream) fileStream.Dispose();
+            }
+        }
+
+        static SKCodec CreateCore(Stream stream, bool disposeManagedStream = true)
+        {
+            using var skStream = new SKManagedStream(stream, disposeManagedStream);
+            return SKCodec.Create(skStream);
+        }
+
+        public static SKCodec Create(Stream stream)
+        {
+            if (stream is IFileStreamWrapper fileStreamWrapper)
+            {
+                return CreateCore(fileStreamWrapper);
+            }
+            else if (stream is FileStream fileStream)
+            {
+                return CreateCore(fileStream);
+            }
             else
             {
-                using var skStream = new SKManagedStream(stream);
-                return SKCodec.Create(skStream);
+                return CreateCore(stream);
             }
+        }
+
+        public static SKImage FromEncodedDataCore(IFileStreamWrapper fileStreamWrapper)
+        {
+            return SKImage.FromEncodedData(fileStreamWrapper.Name);
+        }
+
+        public static SKImage FromEncodedDataCore(FileStream fileStream, bool disposeManagedStream = true)
+        {
+            try
+            {
+                var filename = fileStream.Name;
+                return SKImage.FromEncodedData(filename);
+            }
+            finally
+            {
+                if (disposeManagedStream) fileStream.Dispose();
+            }
+        }
+
+        public static SKImage FromEncodedDataCore(MemoryStream memoryStream, bool disposeManagedStream = true)
+        {
+            try
+            {
+                using var data = SKData.CreateCopy(memoryStream.ToArray());
+                return SKImage.FromEncodedData(data);
+            }
+            finally
+            {
+                if (disposeManagedStream) memoryStream.Dispose();
+            }
+        }
+
+        public static SKImage FromEncodedDataCore(Stream stream, bool disposeManagedStream = true)
+        {
+            using var skStream = new SKManagedStream(stream, disposeManagedStream);
+            using var data = SKData.Create(skStream);
+            if (data != null) return SKImage.FromEncodedData(data);
+
+            if (stream.CanSeek) stream.Position = 0;
+            using var ms = new MemoryStream();
+            stream.CopyTo(ms);
+            ms.Seek(0, SeekOrigin.Begin);
+            // https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/graphics/skiasharp/basics/bitmaps#loading-a-bitmap-from-the-web
+            return FromEncodedData(ms);
         }
 
         public static SKImage FromEncodedData(Stream stream)
         {
             if (stream is IFileStreamWrapper fileStreamWrapper)
             {
-                return SKImage.FromEncodedData(fileStreamWrapper.Name);
+                return FromEncodedDataCore(fileStreamWrapper);
             }
             else if (stream is FileStream fileStream)
             {
-                var filename = fileStream.Name;
-                return SKImage.FromEncodedData(filename);
+                return FromEncodedDataCore(fileStream);
             }
-            else
+            else if (stream is MemoryStream memoryStream)
             {
-                using var skStream = new SKManagedStream(stream);
-                using var data = SKData.Create(skStream);
-                return SKImage.FromEncodedData(data);
+                try
+                {
+                    return FromEncodedDataCore(memoryStream);
+                }
+                catch
+                {
+
+                }
             }
+            return FromEncodedDataCore(stream);
         }
 
         static Bitmap GetBitmap(this ImmutableBitmap bitmap) => new(RefCountable.Create(bitmap));
