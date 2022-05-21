@@ -111,6 +111,7 @@ jobs:
       run: .\packaging\build.ps1 -version ${{ steps.tag.outputs.tag }} -configuration ${{ env.Configuration }} -isPublish $true
       env: 
         Token: ${{ secrets.PUBLISH_TOKEN }}
+        WIN_SIGN_PFX_PWD: ${{ secrets.WIN_SIGN_PFX_PWD }}
 
     - name: Package fd-win-x64 7z
       if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}

@@ -51,17 +51,17 @@ namespace System
             }
         }
 
-        const string TAG_BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
-        const string TAG_END_CERTIFICATE = "-----END CERTIFICATE-----";
+        const string BEGIN_CERTIFICATE_SIGIL = "-----BEGIN CERTIFICATE-----";
+        const string END_CERTIFICATE_SIGIL = "-----END CERTIFICATE-----";
 
         public static string GetPublicPemCertificateString(this X509Certificate2 certificate)
         {
             var value = certificate.Export(X509ContentType.Cert);
             var valueStr = Convert.ToBase64String(value, Base64FormattingOptions.InsertLineBreaks);
             StringBuilder builder = new();
-            builder.AppendLine(TAG_BEGIN_CERTIFICATE);
+            builder.AppendLine(BEGIN_CERTIFICATE_SIGIL);
             builder.AppendLine(valueStr);
-            builder.AppendLine(TAG_END_CERTIFICATE);
+            builder.AppendLine(END_CERTIFICATE_SIGIL);
             return builder.ToString();
         }
 

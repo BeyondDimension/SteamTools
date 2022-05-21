@@ -37,7 +37,7 @@ function Build-PublishTool
         Build-App $pubxml
     }
 
-    & $publishtool_exe full -token $('"')$env:Token$('"') $dev
+    & $publishtool_exe full -token $('"')$env:Token$('"') $dev -win_sign_pfx_pwd $('"')$env:WIN_SIGN_PFX_PWD('"')
     if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 

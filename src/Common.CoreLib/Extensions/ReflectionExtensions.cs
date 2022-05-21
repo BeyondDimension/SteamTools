@@ -1,6 +1,7 @@
-﻿using System.IO;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -39,6 +40,7 @@ namespace System
             return requiredCustomAttribute;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static bool IsNullableType(this Type t)
         {
             return t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>);
@@ -49,6 +51,7 @@ namespace System
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullable(this Type t)
         {
             if (t.IsValueType) // 值类型(struct)进行可空判断
@@ -58,6 +61,13 @@ namespace System
             return true; // 引用类型(class)都可空
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStatic(this Type t) => t.IsAbstract && t.IsSealed;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TypeCode GetTypeCode(this Type type)
+        {
+            return Type.GetTypeCode(type);
+        }
     }
 }

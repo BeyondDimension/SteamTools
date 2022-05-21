@@ -4,7 +4,6 @@ using APIConst = System.Application.Services.CloudService.Constants;
 
 namespace System.Application.Security
 {
-    [Obsolete]
     public static class IsNotOfficialChannelPackageDetectionHelper
     {
         /// <summary>

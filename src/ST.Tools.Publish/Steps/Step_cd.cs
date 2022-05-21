@@ -34,7 +34,7 @@ namespace System.Application.Steps
             // 3. (本地)读取剪切板公钥值写入txt的pfx文件中
             var ver = new Command("ver", "初始化版本")
             {
-                Handler = CommandHandler.Create(VerHandlerAsync)
+                Handler = CommandHandler.Create(VerHandlerAsync),
             };
             ver.AddOption(new Option<string>("-token", "jwt"));
             ver.AddOption(new Option<bool>("-use_last_skey", "是否使用上一个版本的密钥"));
@@ -46,11 +46,12 @@ namespace System.Application.Steps
             // full 中间步骤多合一
             var full = new Command("full", "自动化打包与上传哈希")
             {
-                Handler = CommandHandler.Create(FullHandlerAsync)
+                Handler = CommandHandler.Create(FullHandlerAsync),
             };
             full.AddOption(new Option<string>("-token", "jwt"));
             full.AddOption(new Option<string[]>("-val", InputPubDirNameDesc));
             full.AddOption(new Option<bool>("-dev", DevDesc));
+            full.AddOption(new Option<string>("-win_sign_pfx_pwd", "Windows 数字签名证书密码"));
             command.AddCommand(full);
 
 #if DEBUG
@@ -135,7 +136,7 @@ namespace System.Application.Steps
 
         static readonly bool EnableStepAppHostPatcher = false; // 因 https://github.com/dotnet/runtime/pull/63533 使用单文件不在需要 Bin 文件夹
 
-        static async Task FullHandlerAsync(string token, string[] val, bool dev)
+        static async Task FullHandlerAsync(string token, string[] val, bool dev, string win_sign_pfx_pwd)
         {
             if (!val.Any()) val = all_val;
 
@@ -156,8 +157,18 @@ namespace System.Application.Steps
                 if (EnableStepAppHostPatcher)
                 {
                     // X. (本地)将发布 Host 入口点重定向到 Bin 目录中
-                    var hpTasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
-                    await Task.WhenAll(hpTasks);
+                    var tasks = publishDict.Keys.Select(x => Task.Run(() => StepAppHostPatcher.Handler(dev, x, endWriteOK: false))).ToArray();
+                    await Task.WhenAll(tasks);
+                }
+
+                if (OperatingSystem2.IsWindows)
+                {
+                    // 程序集数字签名
+                    if (!string.IsNullOrWhiteSpace(win_sign_pfx_pwd))
+                    {
+                        var tasks = publishDict.Keys.Select(x => Task.Run(() => DigitalSignUtil.Handler(win_sign_pfx_pwd, dev, x, endWriteOK: false))).ToArray();
+                        await Task.WhenAll(tasks);
+                    }
                 }
             }
 

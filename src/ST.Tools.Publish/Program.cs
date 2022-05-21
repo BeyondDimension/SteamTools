@@ -12,7 +12,4 @@ return _(args, "客户端发布命令行工具(Command Line Tools/CLT)", init: (
 
     FileSystem2.InitFileSystemByBaseDirectory();
     return null;
-}, action: rootCommand =>
-{
-    ToolConfig.AddInitCommand(rootCommand);
-});
+}, action: ToolConfig.AddInitCommand);

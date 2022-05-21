@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
@@ -13,6 +14,7 @@ namespace System
         /// </summary>
         /// <param name="permissionStatus"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOk(this PermissionStatus permissionStatus)
             => permissionStatus == PermissionStatus.Granted;
     }
