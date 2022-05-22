@@ -1215,6 +1215,7 @@ namespace WinAuth
             }
             catch (WinAuthInvalidSteamRequestException ex)
             {
+                Log.Error(nameof(WinAuthSteamClient), ex, nameof(ConfirmTrade));
 #if DEBUG
                 Error = ex.Message + Environment.NewLine + ex.StackTrace;
 #else
