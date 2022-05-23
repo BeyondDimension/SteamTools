@@ -16,7 +16,7 @@ namespace System.Application.UI
         /// <summary>
         /// IsWindows or IsMacOS or (IsLinux and !IsAndroid)
         /// </summary>
-        public static readonly bool IsDesktopPlatform = OperatingSystem2.IsWindows || OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !OperatingSystem2.IsAndroid);
+        public static readonly bool IsDesktopPlatform = OperatingSystem2.IsWindows() || OperatingSystem2.IsMacOS() || (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid());
 
         static IApplication Instance => DI.Get<IApplication>();
 

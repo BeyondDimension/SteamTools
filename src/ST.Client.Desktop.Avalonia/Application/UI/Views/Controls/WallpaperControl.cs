@@ -20,7 +20,7 @@ namespace System.Application.UI.Views.Controls
         {
             //this.InitializeComponent();
 
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 this.GetObservable(IsVisibleProperty)
                     .Subscribe(x =>

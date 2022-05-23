@@ -17,7 +17,9 @@ namespace System.Application
     public class HostsFileTest
     {
         static string? _hosts_8F473F98;
+#pragma warning disable IDE1006 // 命名样式
         static string hosts_8F473F98
+#pragma warning restore IDE1006 // 命名样式
         {
             get
             {
@@ -73,7 +75,7 @@ namespace System.Application
         {
             get
             {
-                if (OperatingSystem2.IsWindows)
+                if (OperatingSystem2.IsWindows())
                 {
                     if (defaultEncoding == null)
                     {

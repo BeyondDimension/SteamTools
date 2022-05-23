@@ -12,6 +12,7 @@
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              xmlns:gif="using:AvaloniaGif"
              xmlns:sys="using:System"
+             xmlns:markup="using:System.Application.Markup"
              x:Name="u"
              x:DataType="vm:GameListPageViewModel"
              x:CompileBindings="True"
@@ -284,7 +285,7 @@
             </ui:CommandBarButton>
 
             <!--<ui:CommandBarButton
-                       IsVisible="{x:Static sys:OperatingSystem2.IsWindows}"
+                       IsVisible="{markup:OnPlatform Windows}"
                        Command="{Binding IdleAppCommand}"
                        ToolTip.Tip="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        Label="{ReflectionBinding Path=Res.GameList_IdleGamesManger,Mode=OneWay,Source={x:Static resx:R.Current}}">

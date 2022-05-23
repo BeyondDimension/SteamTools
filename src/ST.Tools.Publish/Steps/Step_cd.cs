@@ -161,7 +161,7 @@ namespace System.Application.Steps
                     await Task.WhenAll(tasks);
                 }
 
-                if (OperatingSystem2.IsWindows)
+                if (OperatingSystem2.IsWindows())
                 {
                     // 程序集数字签名
                     if (!string.IsNullOrWhiteSpace(win_sign_pfx_pwd))
@@ -174,7 +174,7 @@ namespace System.Application.Steps
 
             if (hasOsx)
             {
-                if (OperatingSystem2.IsMacOS)
+                if (OperatingSystem2.IsMacOS())
                 {
                     var osx_val = val.Where(x => x.StartsWith("osx-")).ToArray();
                     if (osx_val.Any()) OSXBuild(dev, osx_val);

@@ -49,7 +49,7 @@ namespace System.Application.Services.Implementation
             {
                 try
                 {
-                    if (OperatingSystem2.IsWindows && StartupOptions.Value.HasNotifyIcon)
+                    if (OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon)
                     {
                         taskbarWindow = new TaskBarWindowViewModel(mainWindow);
                     }

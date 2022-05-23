@@ -4,6 +4,7 @@
              xmlns:resx="using:System.Application.UI.Resx"
              xmlns:ms="using:System.Application.Settings"
              xmlns:sys="using:System"
+             xmlns:markup="using:System.Application.Markup"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -59,7 +60,7 @@
       </Border>
 
       <!--<Border Classes="Item"
-              IsVisible="{x:Static sys:OperatingSystem2.IsWindows}">
+              IsVisible="{markup:OnPlatform Windows}">
         <DockPanel>
           <StackPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseOpenGL,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
@@ -71,7 +72,7 @@
         </DockPanel>
       </Border>-->
 
-      <Separator Classes="Separator" IsVisible="{ReflectionBinding Source={x:Static sys:OperatingSystem2.IsLinux}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}" />
+      <Separator Classes="Separator" IsVisible="{ReflectionBinding Source={markup:OnPlatform Linux}, Mode=OneTime, Converter={x:Static BoolConverters.Not}}" />
 
       <Expander>
         <Expander.Header>

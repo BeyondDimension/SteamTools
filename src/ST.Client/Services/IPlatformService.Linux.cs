@@ -9,7 +9,7 @@ namespace System.Application.Services
     {
         static readonly Lazy<string> _LinuxIssue = new(() =>
         {
-            if (OperatingSystem2.IsLinux)
+            if (OperatingSystem2.IsLinux())
             {
                 var filePath = string.Format("{0}etc{0}issue", Path.DirectorySeparatorChar);
                 if (File.Exists(filePath))

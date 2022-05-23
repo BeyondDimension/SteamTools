@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
-            if (OperatingSystem2.IsLinux)
+            if (OperatingSystem2.IsLinux())
             {
                 services.AddSingleton<IHttpPlatformHelperService, LinuxClientHttpPlatformHelperServiceImpl>();
                 services.AddSingleton<LinuxPlatformServiceImpl>();

@@ -51,11 +51,11 @@ namespace System.Application.UI.Views.Windows
             //    //localbtn.PointerLeave += MenuButton_PointerLeave;
             //}
 
-            //if (OperatingSystem2.IsWindows11AtLeast)
+            //if (OperatingSystem2.IsWindows11AtLeast())
             //{
             //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
             //}
-            
+
             InitializeComponent();
 
 #if DEBUG
@@ -129,7 +129,7 @@ namespace System.Application.UI.Views.Windows
                     });
             }
 
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 //INativeWindowApiService.Instance!.SetActiveWindow(new() { Handle = PlatformImpl.Handle.Handle });
                 Topmost = false;

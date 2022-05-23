@@ -85,7 +85,7 @@ namespace System.Application.UI.ViewModels
         {
             #region 加载windows托盘菜单
 
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 var menus = new List<MenuItemViewModel>();
 

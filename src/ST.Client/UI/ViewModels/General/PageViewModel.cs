@@ -21,7 +21,7 @@ namespace System.Application.UI.ViewModels
 
         public static string GetTitleByDisplayName(string displayName)
         {
-            if (OperatingSystem2.Application.UseAvalonia)
+            if (OperatingSystem2.Application.UseAvalonia())
             {
                 const string s = $"{_ThisAssembly.AssemblyTrademark} | {{0}}";
                 return string.Format(s, displayName);

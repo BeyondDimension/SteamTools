@@ -127,7 +127,7 @@ namespace System.Application
         {
             if (filePathOrResUri == null)
                 return null;
-            if (OperatingSystem2.Application.UseAvalonia)
+            if (OperatingSystem2.Application.UseAvalonia())
             {
                 if (filePathOrResUri.StartsWith("avares:"))
                     return filePathOrResUri;

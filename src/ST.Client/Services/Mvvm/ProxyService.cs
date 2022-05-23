@@ -85,10 +85,10 @@ namespace System.Application.Services
                         }
 
                         // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
-                        httpProxyService.ProxyIp = (!OperatingSystem2.IsMacOS && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
+                        httpProxyService.ProxyIp = (!OperatingSystem2.IsMacOS() && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
 
                         // Android VPN 模式使用 tun2socks
-                        httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem2.IsAndroid && ProxySettings.ProxyModeValue == ProxyMode.VPN);
+                        httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem2.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
                         httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
                         if (!ModelValidatorProvider.IsPortId(httpProxyService.Socks5ProxyPortId)) httpProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
 
@@ -117,7 +117,7 @@ namespace System.Application.Services
                             if (inUse)
                             {
                                 string? error_CommunityFix_StartProxyFaild443 = null;
-                                if (OperatingSystem2.IsWindows)
+                                if (OperatingSystem2.IsWindows())
                                 {
 #pragma warning disable CA1416 // 验证平台兼容性
                                     var p = SocketHelper.GetProcessByTcpPort(httpsPort);
@@ -128,7 +128,7 @@ namespace System.Application.Services
                                     }
                                 }
                                 error_CommunityFix_StartProxyFaild443 ??= AppResources.CommunityFix_StartProxyFaild443_.Format(httpsPort);
-                                if (OperatingSystem2.IsLinux)
+                                if (OperatingSystem2.IsLinux())
                                 {
                                     Browser2.Open(string.Format(UrlConstants.OfficialWebsite_UnixHostAccess_, WebUtility.UrlEncode(IApplication.ProgramPath)));
                                 }
@@ -171,7 +171,7 @@ namespace System.Application.Services
 
                                     if (r.ResultType != OperationResultType.Success)
                                     {
-                                        if (OperatingSystem2.IsMacOS)
+                                        if (OperatingSystem2.IsMacOS())
                                         {
                                             Browser2.Open(UrlConstants.OfficialWebsite_UnixHostAccess);
                                             //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
@@ -208,12 +208,12 @@ namespace System.Application.Services
                                 {
                                     Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
 
-                                    if (OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !platformService.IsAdministrator))
+                                    if (OperatingSystem2.IsMacOS() || (OperatingSystem2.IsLinux() && !platformService.IsAdministrator))
                                     {
                                         Browser2.Open(UrlConstants.OfficialWebsite_UnixHostAccess);
                                     }
                                     //return;
-                                    //if (OperatingSystem2.IsMacOS && !ProxySettings.EnableWindowsProxy.Value)
+                                    //if (OperatingSystem2.IsMacOS() && !ProxySettings.EnableWindowsProxy.Value)
                                     //{
                                     //    //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"", true);
                                     //}
@@ -298,7 +298,7 @@ namespace System.Application.Services
         {
             get
             {
-                if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return false;
+                if (OperatingSystem2.IsAndroid() || OperatingSystem2.IsIOS()) return false;
 #pragma warning disable CA1416 // 验证平台兼容性
                 return ProxySettings.IsOnlyWorkSteamBrowser.Value;
 #pragma warning restore CA1416 // 验证平台兼容性
@@ -306,7 +306,7 @@ namespace System.Application.Services
 
             set
             {
-                if (OperatingSystem2.IsAndroid || OperatingSystem2.IsIOS) return;
+                if (OperatingSystem2.IsAndroid() || OperatingSystem2.IsIOS()) return;
 #pragma warning disable CA1416 // 验证平台兼容性
                 if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
                 {
@@ -371,7 +371,7 @@ namespace System.Application.Services
             get
             {
                 // 此页面当前使用 Square.Picasso 库加载图片
-                if (OperatingSystem2.IsAndroid) return false;
+                if (OperatingSystem2.IsAndroid()) return false;
                 return true;
             }
         }
@@ -741,7 +741,7 @@ namespace System.Application.Services
         {
             OnExitRestoreHosts();
 
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 httpProxyService.StopProxy();
                 Process.Start("cmd.exe", "netsh winsock reset");

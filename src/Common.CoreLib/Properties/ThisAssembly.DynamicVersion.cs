@@ -9,11 +9,11 @@ namespace System.Properties
         {
             get
             {
-                if (OperatingSystem2.IsLinux || OperatingSystem2.IsAndroid)
+                if (OperatingSystem2.IsLinux() || OperatingSystem2.IsAndroid())
                 {
                     return Version + alpha;
                 }
-                else if (OperatingSystem2.IsMacOS)
+                else if (OperatingSystem2.IsMacOS())
                 {
                     return Version + beta;
                 }

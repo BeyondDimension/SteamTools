@@ -43,7 +43,7 @@ namespace System.Application
                 }
                 else
                 {
-                    if (OperatingSystem2.IsMacOS || OperatingSystem2.IsIOS || OperatingSystem2.IsTvOS || OperatingSystem2.IsWatchOS)
+                    if (OperatingSystem2.IsMacOS() || OperatingSystem2.IsIOS() || OperatingSystem2.IsTvOS() || OperatingSystem2.IsWatchOS())
                     {
                         return "Apple";
                     }
@@ -89,7 +89,7 @@ namespace System.Application
         {
             get
             {
-                if (OperatingSystem2.IsWindows)
+                if (OperatingSystem2.IsWindows())
                 {
                     if (DeviceInfo.Platform == DevicePlatform.UWP)
                     {
@@ -100,19 +100,19 @@ namespace System.Application
                         return Platform.Windows;
                     }
                 }
-                else if (OperatingSystem2.IsAndroid)
+                else if (OperatingSystem2.IsAndroid())
                 {
                     return Platform.Android;
                 }
                 else if (
-                    OperatingSystem2.IsIOS ||
-                    OperatingSystem2.IsMacOS ||
-                    OperatingSystem2.IsTvOS ||
-                    OperatingSystem2.IsWatchOS)
+                    OperatingSystem2.IsIOS() ||
+                    OperatingSystem2.IsMacOS() ||
+                    OperatingSystem2.IsTvOS() ||
+                    OperatingSystem2.IsWatchOS())
                 {
                     return Platform.Apple;
                 }
-                else if (OperatingSystem2.IsLinux)
+                else if (OperatingSystem2.IsLinux())
                 {
                     return Platform.Linux;
                 }
@@ -125,7 +125,7 @@ namespace System.Application
         {
             get
             {
-                if (OperatingSystem2.IsDesktop)
+                if (OperatingSystem2.IsDesktop())
                 {
                     return DeviceIdiom.Desktop;
                 }
@@ -140,7 +140,7 @@ namespace System.Application
 
         static readonly Lazy<OSNames.Value> _OSNameValue = new(() =>
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 if (DeviceInfo.Platform == DevicePlatform.UWP)
                 {
@@ -155,9 +155,9 @@ namespace System.Application
                     return OSNames.Value.Windows;
                 }
             }
-            else if (OperatingSystem2.IsAndroid)
+            else if (OperatingSystem2.IsAndroid())
             {
-                if (OperatingSystem2.IsRunningOnWSA)
+                if (OperatingSystem2.IsRunningOnWSA())
                 {
                     return OSNames.Value.WSA;
                 }
@@ -182,25 +182,25 @@ namespace System.Application
                     };
                 }
             }
-            else if (OperatingSystem2.IsIOS)
+            else if (OperatingSystem2.IsIOS())
             {
                 if (DeviceInfo.Idiom == XEDeviceIdiom.Tablet)
                     return OSNames.Value.iPadOS;
                 return OSNames.Value.iOS;
             }
-            else if (OperatingSystem2.IsMacOS)
+            else if (OperatingSystem2.IsMacOS())
             {
                 return OSNames.Value.macOS;
             }
-            else if (OperatingSystem2.IsTvOS)
+            else if (OperatingSystem2.IsTvOS())
             {
                 return OSNames.Value.tvOS;
             }
-            else if (OperatingSystem2.IsWatchOS)
+            else if (OperatingSystem2.IsWatchOS())
             {
                 return OSNames.Value.watchOS;
             }
-            else if (OperatingSystem2.IsLinux)
+            else if (OperatingSystem2.IsLinux())
             {
                 return OSNames.Value.Linux;
             }

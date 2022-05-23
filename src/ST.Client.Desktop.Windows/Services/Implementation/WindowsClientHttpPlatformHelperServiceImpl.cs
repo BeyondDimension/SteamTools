@@ -18,7 +18,7 @@ namespace System.Application.Services.Implementation
         //        {
         //            get
         //            {
-        //                if (OperatingSystem2.IsWindows10AtLeast)
+        //                if (OperatingSystem2.IsWindows10AtLeast())
         //                {
         //#pragma warning disable CA1416 // 验证平台兼容性
         //                    var networkAccess = PlatformNetworkAccess;

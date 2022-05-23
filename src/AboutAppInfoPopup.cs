@@ -61,7 +61,7 @@ namespace System.Application.UI
                 var sdkInt = Build.VERSION.SdkInt;
                 b.AppendFormat("{0}(API {1})", sdkInt, (int)sdkInt);
 #else
-                if (OperatingSystem2.IsWindows)
+                if (OperatingSystem2.IsWindows())
                 {
 #pragma warning disable CA1416 // 验证平台兼容性
                     var productName = platformService.WindowsProductName;
@@ -85,7 +85,7 @@ namespace System.Application.UI
                         b.Append(')');
                     }
                 }
-                else if (OperatingSystem2.IsLinux)
+                else if (OperatingSystem2.IsLinux())
                 {
 #pragma warning disable CA1416 // 验证平台兼容性
                     var linuxIssue = platformService.LinuxIssue;
@@ -152,7 +152,7 @@ namespace System.Application.UI
                 b.AppendLine();
 
 #if WINDOWS10_0_17763_0_OR_GREATER
-                if (OperatingSystem2.IsWindows10AtLeast)
+                if (OperatingSystem2.IsWindows10AtLeast())
                 {
                     try
                     {
@@ -519,14 +519,14 @@ namespace System.Application.UI
 #endif
 
 #if AVALONIA
-                if (OperatingSystem2.Application.UseAvalonia)
+                if (OperatingSystem2.Application.UseAvalonia())
                 {
                     b.Append("[avalonia.ver] ");
                     b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.Avalonia!.Assembly));
                     b.AppendLine();
                 }
 #endif
-                if (OperatingSystem2.Application.UseXamarinForms)
+                if (OperatingSystem2.Application.UseXamarinForms())
                 {
                     b.Append("[forms.ver] ");
                     b.Append(GetAssemblyVersion(OperatingSystem2.Application.Types.XamarinForms!.Assembly));

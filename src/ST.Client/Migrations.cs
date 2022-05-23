@@ -38,7 +38,7 @@ namespace System.Application
                         }
                     }
 
-                    if (OperatingSystem2.IsWindows &&
+                    if (OperatingSystem2.IsWindows() &&
                         !DesktopBridge.IsRunningAsUwp &&
                         PreviousVersion < new Version(2, 6, 3))
                     {

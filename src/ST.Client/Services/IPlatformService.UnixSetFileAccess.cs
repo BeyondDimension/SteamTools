@@ -30,9 +30,9 @@ namespace System.Application.Services
         [SupportedOSPlatform("MacOS")]
         UnixSetFileAccessResult UnixSetFileAccess(string? path, UnixPermission permission)
         {
-            if (!OperatingSystem2.IsFreeBSD &&
-                !OperatingSystem2.IsLinux &&
-                !OperatingSystem2.IsMacOS)
+            if (!OperatingSystem2.IsFreeBSD() &&
+                !OperatingSystem2.IsLinux() &&
+                !OperatingSystem2.IsMacOS())
                 throw new PlatformNotSupportedException();
 
             if (string.IsNullOrEmpty(path))
@@ -58,6 +58,7 @@ namespace System.Application.Services
 #if !NETSTANDARD
 #pragma warning disable CA2101 // False positive, we can't use unicode charset on Unix, and it uses UTF-8 by default anyway
 #endif
+
         /// <summary>
         /// 
         /// </summary>

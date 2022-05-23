@@ -30,7 +30,7 @@ namespace System.Application.UI
         static Stream GetIcon(IAssetLoader assets)
         {
             string iconPath;
-            if (OperatingSystem2.IsMacOS)
+            if (OperatingSystem2.IsMacOS())
             {
                 iconPath = "avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon_16.png";
             }
@@ -55,7 +55,7 @@ namespace System.Application.UI
             var icon = GetIconByCurrentAvaloniaLocator();
             var text = TaskBarWindowViewModel.TitleString;
 #if WINDOWS
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 notifyIcon = DI.Get<NotifyIcon>();
                 notifyIcon.Text = text;
@@ -75,7 +75,7 @@ namespace System.Application.UI
             else
 #endif
             {
-                //                if (OperatingSystem2.IsLinux)
+                //                if (OperatingSystem2.IsLinux())
                 //                {
                 ////#pragma warning disable CA1416 // 验证平台兼容性
                 ////                    if (IPlatformService.Instance.IsDeepin)
@@ -111,7 +111,7 @@ namespace System.Application.UI
                 {
                     trayIcon,
                 });
-                if (OperatingSystem2.IsMacOS)
+                if (OperatingSystem2.IsMacOS())
                 {
                     NativeMenu.SetMenu(app, menu);
                 }
@@ -524,7 +524,7 @@ namespace System.Application.UI
         //#endif
 
         //#if !TRAY_INDEPENDENT_PROGRAM
-        //                        if (OperatingSystem2.IsWindows)
+        //                        if (OperatingSystem2.IsWindows())
         //                        {
         //                            if (AvaloniaApplication.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         //                            {

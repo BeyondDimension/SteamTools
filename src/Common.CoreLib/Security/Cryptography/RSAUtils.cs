@@ -162,7 +162,7 @@ namespace System.Security.Cryptography
         }
 
         public static RSAEncryptionPadding DefaultPadding
-            => OperatingSystem2.IsAndroid ?
+            => OperatingSystem2.IsAndroid() ?
                 RSAEncryptionPadding.OaepSHA1 :
                 RSAEncryptionPadding.OaepSHA256;
 

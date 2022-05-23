@@ -66,7 +66,7 @@ namespace System.Application.Services
                     if (x)
                     {
                         InitializeDownloadGameList();
-                        if (OperatingSystem2.IsLinux)
+                        if (OperatingSystem2.IsLinux())
                             IPlatformService.Instance.TryGetSystemUserPassword();
                         stmService.StartWatchSteamDownloading(app =>
                         {
@@ -432,7 +432,7 @@ namespace System.Application.Services
             if (IsLoadingGameList == false)
             {
                 IsLoadingGameList = true;
-                if (stmService.IsRunningSteamProcess && OperatingSystem2.IsWindows)
+                if (stmService.IsRunningSteamProcess && OperatingSystem2.IsWindows())
                 {
                     await Task.Factory.StartNew(async () =>
                      {
@@ -492,14 +492,14 @@ namespace System.Application.Services
             #region 加载备注信息和JumpList
             IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
 
-            List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows ? new() : null;
+            List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows() ? new() : null;
             foreach (var user in SteamConnectService.Current.SteamUsers.Items)
             {
                 if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
                     !string.IsNullOrEmpty(remark))
                     user.Remark = remark;
 
-                if (OperatingSystem2.IsWindows)
+                if (OperatingSystem2.IsWindows())
                 {
                     var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
                     if (!string.IsNullOrEmpty(user.Remark))

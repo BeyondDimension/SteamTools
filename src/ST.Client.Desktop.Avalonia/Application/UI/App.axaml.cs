@@ -163,7 +163,7 @@ namespace System.Application.UI
                 }
             }
 
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 if (OperatingSystem2.IsWindowsVersionAtLeast(6, 2))
                     thm.UseUserAccentColorOnWindows = true;
@@ -246,7 +246,7 @@ namespace System.Application.UI
                     if (StartupOptions.Value.HasNotifyIcon)
                     {
                         NotifyIconHelper.Init(this, NotifyIcon_Click);
-                        //                        if (!OperatingSystem2.IsLinux)
+                        //                        if (!OperatingSystem2.IsLinux())
                         //                        {
                         //                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
                         //                            notifyIcon.Click += NotifyIcon_Click;
@@ -294,7 +294,7 @@ namespace System.Application.UI
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
 
 #if WINDOWS
-            if (!ViewModelBase.IsInDesignMode && OperatingSystem2.IsWindows10AtLeast)
+            if (!ViewModelBase.IsInDesignMode && OperatingSystem2.IsWindows10AtLeast())
             {
                 AvaloniaLocator.CurrentMutable.Bind<IWindowingPlatform>().ToConstant(new AvaloniaWin32WindowingPlatformImpl());
             }
@@ -317,7 +317,7 @@ namespace System.Application.UI
 
             UISettings.WindowBackgroundMateria.Subscribe(SetAllWindowransparencyMateria, false);
 
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 UISettings.EnableDesktopBackground.Subscribe(x =>
                 {
@@ -501,7 +501,7 @@ namespace System.Application.UI
 
         public void SetDesktopBackgroundWindow()
         {
-            if (OperatingSystem2.IsWindows && MainWindow is MainWindow window)
+            if (OperatingSystem2.IsWindows() && MainWindow is MainWindow window)
             {
 #pragma warning disable CA1416 // 验证平台兼容性
                 INativeWindowApiService.Instance!.SetDesktopBackgroundToWindow(window.BackHandle, Convert.ToInt32(window.Width), Convert.ToInt32(window.Height));

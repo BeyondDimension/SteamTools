@@ -26,9 +26,9 @@ namespace System.Application.UI.Views.Controls
         public static bool GetIsVisible()
         {
 #pragma warning disable CA1416 // 验证平台兼容性
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
-                if (OperatingSystem2.IsWindows7)
+                if (OperatingSystem2.IsWindows7())
                 {
                     if (!IPlatformService.Instance.DwmIsCompositionEnabled)
                     {
@@ -51,7 +51,7 @@ namespace System.Application.UI.Views.Controls
             }
 
 #pragma warning disable CA1416 // 验证平台兼容性
-            if (OperatingSystem2.IsMacOS)
+            if (OperatingSystem2.IsMacOS())
             {
                 var title = this.FindControl<StackPanel>("title");
                 title.HorizontalAlignment = HorizontalAlignment.Center;

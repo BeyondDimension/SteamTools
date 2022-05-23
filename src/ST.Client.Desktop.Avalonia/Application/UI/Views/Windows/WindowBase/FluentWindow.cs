@@ -34,7 +34,7 @@ namespace Avalonia.Controls
             PseudoClasses.Set(":windows", true);
 
 #pragma warning disable CA1416 // 验证平台兼容性
-            if (OperatingSystem2.IsWindows10AtLeast)
+            if (OperatingSystem2.IsWindows10AtLeast())
             {
                 if (PlatformImpl is AvaloniaWin32WindowingPlatformImpl.Window10Impl cwi)
                 {
@@ -83,13 +83,13 @@ namespace Avalonia.Controls
             }
 
 #pragma warning disable CA1416 // 验证平台兼容性
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
                 PseudoClasses.Add(":windows");
             }
-            else if (OperatingSystem2.IsMacOS)
+            else if (OperatingSystem2.IsMacOS())
             {
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
@@ -103,15 +103,15 @@ namespace Avalonia.Controls
 
             //if (!ViewModelBase.IsInDesignMode)
             //{
-            //    //if (OperatingSystem2.IsWindows)
+            //    //if (OperatingSystem2.IsWindows())
             //    //{
-            //    //    //                    if (OperatingSystem2.IsWindows7)
+            //    //    //                    if (OperatingSystem2.IsWindows7())
             //    //    //                    {
             //    //    //#pragma warning disable CA1416 // 验证平台兼容性
             //    //    //                        IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
             //    //    //#pragma warning restore CA1416 // 验证平台兼容性
             //    //    //                    }
-            //    //    //else if (OperatingSystem2.IsWindows10AtLeast)
+            //    //    //else if (OperatingSystem2.IsWindows10AtLeast())
             //    //    //{
             //    //    //    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceNativeTitleBarToTheme(this);
             //    //    //}
@@ -204,9 +204,9 @@ namespace Avalonia.Controls
             }
 
             //#pragma warning disable CA1416 // 验证平台兼容性
-            //            if (OperatingSystem2.IsWindows)
+            //            if (OperatingSystem2.IsWindows())
             //            {
-            //                if (OperatingSystem2.IsWindows7)
+            //                if (OperatingSystem2.IsWindows7())
             //                {
             //                    IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
             //                }

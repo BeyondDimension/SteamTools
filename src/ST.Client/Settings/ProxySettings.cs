@@ -142,18 +142,18 @@ namespace System.Application.Settings
 
         static IEnumerable<EProxyMode> GetProxyModes()
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 //yield return EProxyMode.DNSIntercept; // TODO... https://github.com/BeyondDimension/WinDivertSharp
                 yield return EProxyMode.Hosts;
                 yield return EProxyMode.System;
             }
-            else if (OperatingSystem2.IsAndroid)
+            else if (OperatingSystem2.IsAndroid())
             {
                 yield return EProxyMode.VPN;
                 yield return EProxyMode.ProxyOnly;
             }
-            else if (OperatingSystem2.IsLinux || OperatingSystem2.IsMacOS)
+            else if (OperatingSystem2.IsLinux() || OperatingSystem2.IsMacOS())
             {
                 yield return EProxyMode.Hosts;
                 yield return EProxyMode.System;

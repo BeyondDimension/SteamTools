@@ -13,7 +13,7 @@ namespace System.Application.Services.Implementation
 
         static string? GetDefaultFontFamily(FontWeight fontWeight)
         {
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 // (版权、许可)不能在非 Windows 上使用 微软雅黑字体，不可将字体嵌入程序
                 var fontsPath = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
@@ -46,7 +46,7 @@ namespace System.Application.Services.Implementation
                     });
                     if (File.Exists(msyh_ttf))
                     {
-                        if (OperatingSystem2.IsWindows7)
+                        if (OperatingSystem2.IsWindows7())
                         {
                             // Microsoft YaHei: A Simplified Chinese font developed by taking advantage of ClearType technology, and it provides excellent reading experience particularly onscreen. The font is very legible at small sizes.
                             return fontWeight switch

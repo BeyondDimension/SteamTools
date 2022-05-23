@@ -23,7 +23,7 @@ namespace System.Application
                     return;
                 }
                 sw.Stop();
-                var isMobile = OperatingSystem2.IsAndroid;
+                var isMobile = OperatingSystem2.IsAndroid();
                 if (isMobile)
                 {
                     sb ??= new();

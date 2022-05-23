@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
-            if (OperatingSystem2.IsMacOS)
+            if (OperatingSystem2.IsMacOS())
             {
                 services.AddSingleton<IHttpPlatformHelperService, MacClientHttpPlatformHelperServiceImpl>();
                 services.AddSingleton(AppDelegate.Instance!);

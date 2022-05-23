@@ -118,7 +118,7 @@ namespace System.Application.UI.ViewModels
             //    //},
             //};
 
-            //if (OperatingSystem2.IsMacOS)
+            //if (OperatingSystem2.IsMacOS())
             //{
             //    MenuItems.Add(new MenuItemViewModel(nameof(AppResources.CommunityFix_CertificateTrust)) { IconKey = "RefreshDrawing", Command = TrustCerCommand });
             //}
@@ -190,7 +190,7 @@ namespace System.Application.UI.ViewModels
         {
             var cert = RootCertificate;
             var value = cert?.GetCertHashStringCompat(name);
-            if (OperatingSystem2.IsAndroid) value = FormatHexString(value);
+            if (OperatingSystem2.IsAndroid()) value = FormatHexString(value);
             return noHeader ? value : $"{name}：{Environment.NewLine}{value}";
         }
 
@@ -198,7 +198,7 @@ namespace System.Application.UI.ViewModels
         {
             var cert = RootCertificate;
             var value = cert?.SerialNumber;
-            if (OperatingSystem2.IsAndroid) value = FormatHexString(value);
+            if (OperatingSystem2.IsAndroid()) value = FormatHexString(value);
             return noHeader ? value : $"SerialNumber：{Environment.NewLine}{value}";
         }
 

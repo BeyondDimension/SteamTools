@@ -56,7 +56,7 @@ namespace System.Application.UI.ViewModels
                         //("All Files", new[] { "*", }),
                     };
                 }
-                else if (OperatingSystem2.IsAndroid)
+                else if (OperatingSystem2.IsAndroid())
                 {
                     fileTypes = new[] { MediaTypeNames.TXT, MediaTypeNames.JS };
                 }

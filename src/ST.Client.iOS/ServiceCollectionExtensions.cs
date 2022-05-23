@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
-            if (OperatingSystem2.IsIOS /*|| OperatingSystem2.IsWatchOS || OperatingSystem2.IsTvOS*/)
+            if (OperatingSystem2.IsIOS() /*|| OperatingSystem2.IsWatchOS() || OperatingSystem2.IsTvOS()*/)
             {
                 services.AddSingleton<ApplePlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<ApplePlatformServiceImpl>());

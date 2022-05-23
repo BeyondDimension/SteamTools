@@ -6,6 +6,7 @@
              xmlns:converters="using:System.Application.Converters"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:sys="using:System"
+             xmlns:markup="using:System.Application.Markup"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -103,12 +104,12 @@
             <ComboBoxItem Content="Blur"/>
             <ComboBoxItem Content="AcrylicBlur"/>
             <ComboBoxItem Content="ForceAcrylicBlur"/>
-            <ComboBoxItem Content="Mica" IsVisible="{x:Static sys:OperatingSystem2.IsWindows11AtLeast}"/>
+            <ComboBoxItem Content="Mica" IsVisible="{markup:OnPlatform Windows11AtLeast}"/>
           </ComboBox>
         </DockPanel>
       </Border>
 
-      <Border Classes="Item" IsVisible="{x:Static sys:OperatingSystem2.IsWindows}">
+      <Border Classes="Item" IsVisible="{markup:OnPlatform Windows}">
         <DockPanel>
           <StackPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_UI_EnableDesktopBackground,Source={x:Static resx:R.Current},Mode=OneWay}"/>

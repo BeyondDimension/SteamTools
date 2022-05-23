@@ -179,7 +179,7 @@ namespace System.Application.Services.Implementation
                 }
                 else
                 {
-                    if (!OperatingSystem2.IsWindows && !IsSystemProxy)
+                    if (!OperatingSystem2.IsWindows() && !IsSystemProxy)
                     {
                         //非windows环境hosts加速下不能使用系统默认DNS解析代理，会解析到hosts上无限循环
                         ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(url, IsIpv6Support))?.First();
@@ -499,11 +499,11 @@ namespace System.Application.Services.Implementation
 #else
             catch { }
 #endif
-            if (OperatingSystem2.IsMacOS)
+            if (OperatingSystem2.IsMacOS())
             {
                 TrustCer();
             }
-            if (OperatingSystem2.IsLinux && !OperatingSystem2.IsAndroid)
+            if (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid())
             {
                 //IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
                 Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
@@ -559,7 +559,7 @@ namespace System.Application.Services.Implementation
                 //}
                 //proxyServer.CertificateManager.ClearRootCertificate();
 
-                if (OperatingSystem2.IsMacOS)
+                if (OperatingSystem2.IsMacOS())
                 {
                     DeleteCer();
                 }
@@ -676,7 +676,7 @@ namespace System.Application.Services.Implementation
 
                 if (IsSystemProxy)
                 {
-                    if (!DesktopBridge.IsRunningAsUwp && OperatingSystem2.IsWindows)
+                    if (!DesktopBridge.IsRunningAsUwp && OperatingSystem2.IsWindows())
                     {
                         proxyServer.SetAsSystemProxy(explicitProxyEndPoint, ProxyProtocolType.AllHttp);
                     }
@@ -806,7 +806,7 @@ namespace System.Application.Services.Implementation
 
                 if (IsSystemProxy)
                 {
-                    if (DesktopBridge.IsRunningAsUwp || !OperatingSystem2.IsWindows)
+                    if (DesktopBridge.IsRunningAsUwp || !OperatingSystem2.IsWindows())
                     {
                         IPlatformService.Instance.SetAsSystemProxy(false);
                     }
@@ -875,20 +875,20 @@ namespace System.Application.Services.Implementation
             if (certificate2.NotAfter <= DateTime.Now)
                 return false;
 
-            if (!OperatingSystem2.IsAndroid && OperatingSystem2.IsLinux)
+            if (!OperatingSystem2.IsAndroid() && OperatingSystem2.IsLinux())
             {
                 return true;
             }
 
             bool result;
-            //|| OperatingSystem2.IsMacOS 
-            if ((usePlatformCheck && OperatingSystem2.IsAndroid) || OperatingSystem2.IsMacOS)
+            //|| OperatingSystem2.IsMacOS() 
+            if ((usePlatformCheck && OperatingSystem2.IsAndroid()) || OperatingSystem2.IsMacOS())
             {
                 result = platformService.IsCertificateInstalled(certificate2);
             }
             else
             {
-                using var store = new X509Store(OperatingSystem2.IsMacOS ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
+                using var store = new X509Store(OperatingSystem2.IsMacOS() ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
                 store.Open(OpenFlags.ReadOnly);
                 result = store.Certificates.Contains(certificate2);
             }

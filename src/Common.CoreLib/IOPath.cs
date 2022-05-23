@@ -323,7 +323,7 @@ namespace System
         //static readonly Lazy<string> _BaseDirectory = new(() =>
         //{
         //    var value = AppContext.BaseDirectory;
-        //    if (OperatingSystem2.IsWindows && !DesktopBridge.IsRunningAsUwp) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
+        //    if (OperatingSystem2.IsWindows() && !DesktopBridge.IsRunningAsUwp()) // 启用将发布 Host 入口点重定向到 Bin 目录中时重定向基目录
         //    {
         //        var value2 = new DirectoryInfo(value);
         //        if (value2.Parent != null && string.Equals(value2.Name, "Bin", StringComparison.OrdinalIgnoreCase))
@@ -667,7 +667,7 @@ namespace System
                 }
                 catch
                 {
-                    if (OperatingSystem2.IsWindows)
+                    if (OperatingSystem2.IsWindows())
                     {
                         XCopyDirectory(sourceDirName, destDirName);
                     }

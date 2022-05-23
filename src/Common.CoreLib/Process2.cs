@@ -32,7 +32,7 @@ namespace System
         /// <exception cref="PlatformNotSupportedException">不支持 shell 的操作系统（如，仅适用于.NET Core 的 Nano Server）不支持此方法</exception>
         public static Process? StartPath(string fileName, string path)
         {
-            if (OperatingSystem2.IsMacOS)
+            if (OperatingSystem2.IsMacOS())
             {
                 var arguments = $"-a \"{fileName}\" \"{path}\"";
                 using var process = Start("open", arguments, true);

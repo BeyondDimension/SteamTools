@@ -116,7 +116,7 @@ namespace System.Application.Services.Implementation
                         return false;
                     }
                 }
-                //if (fileInfo.IsReadOnly&&(OperatingSystem2.IsMacOS || (OperatingSystem2.IsLinux && !s.IsAdministrator)))
+                //if (fileInfo.IsReadOnly&&(OperatingSystem2.IsMacOS() || (OperatingSystem2.IsLinux() && !s.IsAdministrator)))
                 //{
                 //    var editPath = Path.Combine(IOPath.CacheDirectory, "hosts");
                 //    var editInfo = new FileInfo(editPath);
@@ -144,7 +144,7 @@ namespace System.Application.Services.Implementation
                         }
                         catch
                         {
-                            message = (OperatingSystem2.IsMacOS || OperatingSystem2.IsLinux) ?
+                            message = (OperatingSystem2.IsMacOS() || OperatingSystem2.IsLinux()) ?
                                 AppResources.FileAttributeIsReadOnlyModifyFailSeeWebPage_.Format(UrlConstants.OfficialWebsite_UnixHostAccess) :
                                 AppResources.FileAttributeIsReadOnlyModifyFailTryBakDelAgain;
                             return false;
@@ -527,7 +527,7 @@ namespace System.Application.Services.Implementation
             EncodingType.ANSICodePage => s.Default,
             EncodingType.UTF8 => Encoding.Default,
             EncodingType.UTF8WithBOM => Encoding.UTF8,
-            _ => OperatingSystem2.IsWindows ? Encoding.UTF8 : Encoding.Default,
+            _ => OperatingSystem2.IsWindows() ? Encoding.UTF8 : Encoding.Default,
         };
 
         static Dictionary<string, string> ReadHostsAllLines(StreamReader fileReader)

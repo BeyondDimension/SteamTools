@@ -72,7 +72,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> UseGPURendering => _UseGPURendering ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<bool>? _UseWgl = OperatingSystem2.IsWindows ? GetProperty(defaultValue: false, autoSave: true) : null;
+        static readonly SerializableProperty<bool>? _UseWgl = OperatingSystem2.IsWindows() ? GetProperty(defaultValue: false, autoSave: true) : null;
 
         /// <summary>
         /// (仅 Windows)Avalonia would try to use native Widows OpenGL when set to true. The default value is false.

@@ -9,7 +9,7 @@ namespace System.Application.Services.Implementation
         public StartupToastIntercept(ILogger<StartupToastIntercept> logger)
         {
             this.logger = logger;
-            if (!OperatingSystem2.IsDesktop)
+            if (!OperatingSystem2.IsDesktop())
             {
                 IsStartuped = true;
             }

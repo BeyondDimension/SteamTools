@@ -21,7 +21,7 @@ namespace System.Application.Services.Implementation
     {
         public IWindowImpl CreateWindow()
         {
-            if (!Design.IsDesignMode && OperatingSystem2.IsWindows10AtLeast)
+            if (!Design.IsDesignMode && OperatingSystem2.IsWindows10AtLeast())
             {
                 return CreateWin10Window();
             }
@@ -75,7 +75,7 @@ namespace System.Application.Services.Implementation
                 //Win32Interop.RtlGetVersion(ref version);
 
                 //if (version.MajorVersion < 10)
-                if (!OperatingSystem2.IsWindows10AtLeast)
+                if (!OperatingSystem2.IsWindows10AtLeast())
                 {
                     throw new NotSupportedException("Windows versions earlier than 10 are not supported");
                 }
@@ -215,7 +215,7 @@ namespace System.Application.Services.Implementation
                         });
                 };
 
-                if (OperatingSystem2.IsWindows11AtLeast)
+                if (OperatingSystem2.IsWindows11AtLeast())
                 {
                     ((IPseudoClasses)_owner.Classes).Set(":windows11", true);
                 }
@@ -257,7 +257,7 @@ namespace System.Application.Services.Implementation
                 Win32Interop.AdjustWindowRectExForDpi(ref frame,
                     (int)style, false, 0, (int)(RenderScaling * 96));
 
-                marg.topHeight = -frame.top + (OperatingSystem2.IsWindows11AtLeast ? 0 : -1);
+                marg.topHeight = -frame.top + (OperatingSystem2.IsWindows11AtLeast() ? 0 : -1);
                 Win32Interop.DwmExtendFrameIntoClientArea(Handle.Handle, ref marg);
             }
 
@@ -301,7 +301,7 @@ namespace System.Application.Services.Implementation
 
                 if (_owner!.HitTestCaptionButtons(point))
                 {
-                    if (OperatingSystem2.IsWindows11AtLeast)
+                    if (OperatingSystem2.IsWindows11AtLeast())
                     {
                         var result = _owner.HitTestMaximizeButton(point);
 

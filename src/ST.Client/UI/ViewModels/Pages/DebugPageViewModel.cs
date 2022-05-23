@@ -239,7 +239,7 @@ namespace System.Application.UI.ViewModels
 
             @string.AppendFormatLine("UserName: {0}", Environment.UserName);
             @string.AppendFormatLine("MachineName: {0}", Environment.MachineName);
-            if (OperatingSystem2.IsLinux)
+            if (OperatingSystem2.IsLinux())
             {
                 @string.AppendFormatLine("$HOME: {0}", Environment.GetEnvironmentVariable("HOME"));
             }
@@ -411,7 +411,7 @@ namespace System.Application.UI.ViewModels
         public void ShowDialogButton_Click()
         {
             //#if DEBUG
-            //            if (OperatingSystem2.IsWindows)
+            //            if (OperatingSystem2.IsWindows())
             //            {
             //                //IPCTest();
             //                FileShareTest();

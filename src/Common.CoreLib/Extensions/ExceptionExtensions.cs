@@ -9,7 +9,7 @@ namespace System
 {
     public static class ExceptionExtensions
     {
-        static bool JavaInterop => OperatingSystem2.IsAndroid;
+        static bool JavaInterop => OperatingSystem2.IsAndroid();
 
         /// <summary>
         /// 获取异常是否为已知类型，通常不为 <see cref="ExceptionKnownType.Unknown"/> 的异常不需要纪录日志

@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
 #pragma warning disable CA1416 // 验证平台兼容性
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 services.AddSingleton<IHttpPlatformHelperService, WindowsClientHttpPlatformHelperServiceImpl>();
                 services.AddSingleton<WindowsPlatformServiceImpl>();
@@ -30,7 +30,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.AddSingleton<WindowsProtectedData>();
                 services.AddSingleton<IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
                 services.AddSingleton<ILocalDataProtectionProvider.IProtectedData>(s => s.GetRequiredService<WindowsProtectedData>());
-                if (OperatingSystem2.IsWindows10AtLeast)
+                if (OperatingSystem2.IsWindows10AtLeast())
                 {
                     services.AddSingleton<IEmailPlatformService>(s => s.GetRequiredService<WindowsPlatformServiceImpl>());
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();

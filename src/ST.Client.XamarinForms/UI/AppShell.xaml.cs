@@ -218,7 +218,7 @@ namespace System.Application.UI
 
         static Type GetPageType(ViewModelBase vm)
         {
-            if (OperatingSystem2.IsAndroid)
+            if (OperatingSystem2.IsAndroid())
             {
                 if (vm is TabItemViewModel tabItem)
                 {

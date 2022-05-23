@@ -55,13 +55,13 @@ namespace System
 
         public static void ActivateWorkaround(this Window window)
         {
-            if (window is null) throw new ArgumentNullException(nameof(window));
+            ArgumentNullException.ThrowIfNull(window);
 
             // Call default Activate() anyway.
             window.Activate();
 
             // Skip workaround for non-windows platforms.
-            if (!OperatingSystem2.IsWindows) return;
+            if (!OperatingSystem2.IsWindows()) return;
 
             var platformImpl = window.PlatformImpl;
             if (ReferenceEquals(platformImpl, null)) return;
@@ -70,7 +70,7 @@ namespace System
             if (ReferenceEquals(platformHandle, null)) return;
 
             var handle = platformHandle.Handle;
-            if (IntPtr.Zero == handle) return;
+            if (handle == IntPtr.Zero) return;
 
             try
             {

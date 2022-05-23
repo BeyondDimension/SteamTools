@@ -41,7 +41,7 @@ namespace System.Application
                 ModelValidatorProvider.Init();
                 DI.ConfigureServices(configureServices);
 
-                if (!OperatingSystem2.IsAndroid)
+                if (!OperatingSystem2.IsAndroid())
                 {
                     FileSystemTest.InitFileSystem();
                 }

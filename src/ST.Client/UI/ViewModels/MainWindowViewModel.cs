@@ -72,7 +72,7 @@ namespace System.Application.UI.ViewModels
         {
             if (IApplication.IsDesktopPlatform)
             {
-                var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows ? " (Administrator)" : " (Root)") : string.Empty;
+                var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
                 var title = $"{ThisAssembly.DisplayTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
 #if DEBUG
                 title = $"[Debug] {title}";
@@ -109,7 +109,7 @@ namespace System.Application.UI.ViewModels
 
             //AddTabItem<SteamIdlePageViewModel>();
 #if !TRAY_INDEPENDENT_PROGRAM
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
                 AddTabItem<GameRelatedPageViewModel>();
 #endif
             //AddTabItem<OtherPlatformPageViewModel>();
@@ -163,7 +163,7 @@ namespace System.Application.UI.ViewModels
                         }
                     });
 
-                    if (IApplication.IsDesktopPlatform && OperatingSystem2.IsWindows)
+                    if (IApplication.IsDesktopPlatform && OperatingSystem2.IsWindows())
                     {
                         SteamConnectService.Current.Initialize();
                     }

@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddPlatformService(this IServiceCollection services, StartupOptions options)
         {
-            if (OperatingSystem2.IsAndroid)
+            if (OperatingSystem2.IsAndroid())
             {
                 services.AddSingleton<AndroidPlatformServiceImpl>();
                 services.AddSingleton<IPlatformService>(s => s.GetRequiredService<AndroidPlatformServiceImpl>());

@@ -10,6 +10,7 @@
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:controls="using:System.Application.UI.Views.Controls"
              xmlns:sys="using:System"
+             xmlns:markup="using:System.Application.Markup"
              x:Name="u"
              x:DataType="vm:CommunityProxyPageViewModel"
              x:CompileBindings="True"
@@ -117,7 +118,7 @@
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
-            <ui:CommandBarButton IsVisible="{x:Static sys:OperatingSystem2.IsMacOS}"
+            <ui:CommandBarButton IsVisible="{markup:OnPlatform macOS}"
                      Command="{Binding TrustCerCommand}"
                      Label="{ReflectionBinding Path=Res.CommunityFix_CertificateTrust,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>

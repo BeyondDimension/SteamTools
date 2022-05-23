@@ -75,9 +75,9 @@ namespace System.Application.Services.Implementation
             get
             {
                 if (DesktopBridge.IsRunningAsUwp ||
-                    OperatingSystem2.IsOnlySupportedStore ||
-                    OperatingSystem2.IsLinux ||
-                    OperatingSystem2.IsMacOS)
+                    OperatingSystem2.IsOnlySupportedStore() ||
+                    OperatingSystem2.IsLinux() ||
+                    OperatingSystem2.IsMacOS())
                 {
                     return false;
                 }
@@ -158,7 +158,7 @@ namespace System.Application.Services.Implementation
                 deviceIdiom = DeviceIdiom.Phone;
             }
             var osVersion = OSVersion;
-            var architecture = OperatingSystem2.IsWindows ?
+            var architecture = OperatingSystem2.IsWindows() ?
                 RuntimeInformation.ProcessArchitecture :
                 RuntimeInformation.OSArchitecture;
             var deploymentMode = application.DeploymentMode;
@@ -309,8 +309,8 @@ namespace System.Application.Services.Implementation
                     goto end;
                 }
 
-                var isAndroid = OperatingSystem2.IsAndroid;
-                var isDesktop = OperatingSystem2.IsDesktop;
+                var isAndroid = OperatingSystem2.IsAndroid();
+                var isDesktop = OperatingSystem2.IsDesktop();
                 if (!isAndroid && !isDesktop)
                 {
                     OpenInAppStore();
