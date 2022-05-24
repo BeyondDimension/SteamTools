@@ -90,7 +90,7 @@ namespace Avalonia.Controls
                     }
                 }
 
-                if (OperatingSystem2.IsWindows)
+                if (OperatingSystem2.IsWindows())
                 {
                     AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()?.ForceWin32WindowToTheme(this);
                 }

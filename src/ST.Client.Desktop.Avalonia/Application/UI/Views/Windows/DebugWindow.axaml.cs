@@ -19,7 +19,7 @@ namespace System.Application.UI.Views.Windows
             SystemDecorations = SystemDecorations.BorderOnly;
             ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.SystemChrome;
 
-            if (OperatingSystem2.IsWindows)
+            if (OperatingSystem2.IsWindows())
             {
                 AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>().ForceWin32WindowToTheme(this);
             }
