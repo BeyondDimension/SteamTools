@@ -206,7 +206,7 @@ namespace System.Application.Steps
 
                 Console.WriteLine("nsis Step 正在打包 EXE installer...");
 
-                NSISBuild(dev, win_publishDirs);
+                NSISBuild(dev, win_publishDirs, win_sign_pfx_pwd);
             }
 
             if (hasLinux)
@@ -515,7 +515,7 @@ namespace System.Application.Steps
         const string AigioPC = "ee6c36c1bbf6076e5f915b12cd3c7d034f0d6f45b71c934529ba9f9faba72735084399e6039375501c8fbabc245ac3a3";
         static readonly string MachineName = Hashs.String.SHA384(Environment.MachineName);
 
-        static void NSISBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs)
+        static void NSISBuild(bool dev, IEnumerable<PublishDirInfo> publishDirs, string? win_sign_pfx_pwd = null)
         {
             string rootDirPath;
             if (MachineName == AigioPC)
@@ -540,6 +540,7 @@ namespace System.Application.Steps
             var appFileDirPath = Path.Combine(rootDirPath, "AppCode", "Steampp");
             //var batFilePath = Path.Combine(rootDirPath, "steam++.bat");
             var nsisExeFilePath = Path.Combine(rootDirPath, "NSIS", "makensis.exe");
+            var exeFilePaths = new List<string>();
             foreach (var item in publishDirs)
             {
                 var install7zFilePath = item.BuildDownloads[AppDownloadType.Compressed_7z].Path;
@@ -577,8 +578,14 @@ namespace System.Application.Steps
                     Arguments = $" /DINSTALL_WITH_NO_NSIS7Z=1 \"{nsiFilePath}\"",
                     UseShellExecute = false,
                 });
-
                 process!.WaitForExit();
+
+                exeFilePaths.Add(outputFilePath);
+            }
+
+            if (!string.IsNullOrWhiteSpace(win_sign_pfx_pwd))
+            {
+                DigitalSignUtil.Signature(win_sign_pfx_pwd, exeFilePaths);
             }
         }
 

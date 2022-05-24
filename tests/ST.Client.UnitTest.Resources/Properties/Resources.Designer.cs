@@ -61,6 +61,26 @@ namespace System.Application.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        public static byte[] _1245620_hero {
+            get {
+                object obj = ResourceManager.GetObject("_1245620_hero", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        public static byte[] _490390_header {
+            get {
+                object obj = ResourceManager.GetObject("_490390_header", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 锘?
         ///# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
         ///#
@@ -77,6 +97,16 @@ namespace System.Application.Properties {
         public static string hosts_8F473F98 {
             get {
                 return ResourceManager.GetString("hosts@8F473F98", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        public static byte[] Jacky_Fideles6 {
+            get {
+                object obj = ResourceManager.GetObject("Jacky_Fideles6", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

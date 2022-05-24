@@ -115,11 +115,16 @@ public static class DigitalSignUtil
     /// <exception cref="FileNotFoundException"></exception>
     public static void Signature(string pwd, string path, params string[] extensions)
     {
+        var allFiles = GetAllFiles(path, extensions.Any_Nullable() ? extensions : bin_extensions);
+        Signature(pwd, allFiles);
+    }
+
+    public static void Signature(string pwd, IEnumerable<string> allFiles)
+    {
         var pfxFileName = Path.Combine(projPath, pfx_filename);
         if (!File.Exists(pfxFileName)) throw new FileNotFoundException(pfxFileName);
 
-        const string value = $"sign /v /f \"{{0}}\" /p {{1}} /tr {timestamp_url} ";
-        var allFiles = GetAllFiles(path, extensions.Any_Nullable() ? extensions : bin_extensions);
+        const string value = $"sign /v /f \"{{0}}\" /p \"{{1}}\" /tr {timestamp_url} ";
 
         var s = new StringBuilder();
 

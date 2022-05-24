@@ -121,4 +121,13 @@
   <data name="hosts@8F473F98" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hosts@8F473F98.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="Jacky_Fideles6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Jacky-Fideles6.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_1245620_hero" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1245620_hero.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_490390_header" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\490390_header.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

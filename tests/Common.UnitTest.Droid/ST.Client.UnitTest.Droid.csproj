@@ -5,7 +5,7 @@
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Droid.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
-    <DefineConstants>UnitTest;$(DefineConstants)</DefineConstants>
+    <DefineConstants>UnitTest;UnitTest_Android;$(DefineConstants)</DefineConstants>
     <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
   </PropertyGroup>
 

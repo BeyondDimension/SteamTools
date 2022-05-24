@@ -15,7 +15,7 @@ namespace Avalonia.Skia
             return SKCodec.Create(fileStreamWrapper.Name);
         }
 
-        static SKCodec CreateCore(FileStream fileStream, bool disposeManagedStream = true)
+        static SKCodec CreateCore(FileStream fileStream, bool disposeManagedStream = false)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Avalonia.Skia
             }
         }
 
-        static SKCodec CreateCore(Stream stream, bool disposeManagedStream = true)
+        static SKCodec CreateCore(Stream stream, bool disposeManagedStream = false)
         {
             using var skStream = new SKManagedStream(stream, disposeManagedStream);
             return SKCodec.Create(skStream);
@@ -55,7 +55,7 @@ namespace Avalonia.Skia
             return SKImage.FromEncodedData(fileStreamWrapper.Name);
         }
 
-        public static SKImage FromEncodedDataCore(FileStream fileStream, bool disposeManagedStream = true)
+        public static SKImage FromEncodedDataCore(FileStream fileStream, bool disposeManagedStream = false)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace Avalonia.Skia
             }
         }
 
-        public static SKImage FromEncodedDataCore(MemoryStream memoryStream, bool disposeManagedStream = true)
+        public static SKImage FromEncodedDataCore(MemoryStream memoryStream, bool disposeManagedStream = false)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Avalonia.Skia
             }
         }
 
-        public static SKImage FromEncodedDataCore(Stream stream, bool disposeManagedStream = true)
+        public static SKImage FromEncodedDataCore(Stream stream, bool disposeManagedStream = false)
         {
             using var skStream = new SKManagedStream(stream, disposeManagedStream);
             using var data = SKData.Create(skStream);
@@ -92,7 +92,7 @@ namespace Avalonia.Skia
             stream.CopyTo(ms);
             ms.Seek(0, SeekOrigin.Begin);
             // https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/graphics/skiasharp/basics/bitmaps#loading-a-bitmap-from-the-web
-            return FromEncodedData(ms);
+            return FromEncodedDataCore(ms, disposeManagedStream: true);
         }
 
         public static SKImage FromEncodedData(Stream stream)
