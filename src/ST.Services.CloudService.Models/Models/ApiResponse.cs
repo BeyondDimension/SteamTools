@@ -15,8 +15,8 @@ namespace System.Application.Models
 
         static Type GetDeserializeType<T>()
         {
-            if (typeof(T) == typeof(object)) return typeof(ApiResponseImpl);
-            return typeof(ApiResponseImpl<T>);
+            if (typeof(T) == typeof(object)) return typeof(ApiRsp);
+            return typeof(ApiRsp<T>);
         }
 
         public static IApiResponse<T> Deserialize<T>(
@@ -114,7 +114,7 @@ namespace System.Application.Models
             var message = response.InternalMessage;
             if (string.IsNullOrWhiteSpace(message))
             {
-                if (response.Code == ApiResponseCode.ClientException && response is ApiResponseImpl impl && impl.ClientException != null)
+                if (response.Code == ApiResponseCode.ClientException && response is ApiRsp impl && impl.ClientException != null)
                 {
                     var exMsg = impl.ClientException.GetAllMessage();
                     if (string.IsNullOrWhiteSpace(errorAppendText)) errorAppendText = exMsg;
@@ -125,22 +125,22 @@ namespace System.Application.Models
             return message;
         }
 
-        public static IApiResponse Code(ApiResponseCode code, string? message = null, Exception? exception = null) => new ApiResponseImpl
+        public static ApiRsp Code(ApiResponseCode code, string? message = null, Exception? exception = null) => new()
         {
             Code = code,
             InternalMessage = message,
             ClientException = exception,
         };
 
-        static readonly Lazy<IApiResponse> okRsp = new(() => Code(ApiResponseCode.OK));
+        static readonly Lazy<ApiRsp> okRsp = new(() => Code(ApiResponseCode.OK));
 
-        public static IApiResponse Ok() => okRsp.Value;
+        public static ApiRsp Ok() => okRsp.Value;
 
-        public static IApiResponse<T> Code<T>(
+        public static ApiRsp<T> Code<T>(
             ApiResponseCode code,
             string? message,
             T? content,
-            Exception? exception = null) => new ApiResponseImpl<T>
+            Exception? exception = null) => new()
             {
                 Code = code,
                 InternalMessage = message,
@@ -148,23 +148,23 @@ namespace System.Application.Models
                 ClientException = exception,
             };
 
-        public static IApiResponse<T> Code<T>(
+        public static ApiRsp<T> Code<T>(
             ApiResponseCode code,
             string? message = null) => Code<T>(code, message, default);
 
-        public static IApiResponse<T> Ok<T>(T? content = default)
+        public static ApiRsp<T> Ok<T>(T? content = default)
             => Code(ApiResponseCode.OK, null, content);
 
-        public static IApiResponse<T> Fail<T>(string? message = null)
+        public static ApiRsp<T> Fail<T>(string? message = null)
             => Code<T>(ApiResponseCode.Fail, message);
 
-        public static IApiResponse Fail(string? message = null)
+        public static ApiRsp Fail(string? message = null)
             => Code(ApiResponseCode.Fail, message);
 
-        public static IApiResponse Exception(Exception exception)
+        public static ApiRsp Exception(Exception exception)
             => Code(ApiResponseCode.ClientException, null, exception);
 
-        public static IApiResponse<T> Exception<T>(Exception exception)
+        public static ApiRsp<T> Exception<T>(Exception exception)
             => Code<T>(ApiResponseCode.ClientException, null, default, exception);
     }
 }

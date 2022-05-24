@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,5 +22,7 @@ namespace System.Application.Repositories
     public interface IEFRepository<TEntity> : IEFRepository where TEntity : class
     {
         DbSet<TEntity> Entity { get; }
+
+        protected CancellationToken RequestAborted { get; }
     }
 }

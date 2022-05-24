@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,6 +8,7 @@
     <ApplicationIcon>..\..\..\SteamTools\src\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
     <DefineConstants>NOT_XE;NOT_MP;NOT_NJSON;NOT_DI;$(DefineConstants)</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

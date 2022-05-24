@@ -488,7 +488,7 @@ namespace System.Application.Steps
             //return await ApiResponse.DeserializeAsync<T>(stream, default);
 
             var json = await responseMessage.Content.ReadAsStringAsync();
-            return Serializable.DJSON_Original<ApiResponseImpl<T>>(json)!;
+            return Serializable.DJSON_Original<ApiRsp<T>>(json)!;
         }
 
         static async Task<IApiResponse> GetResponseAsync(HttpResponseMessage responseMessage)

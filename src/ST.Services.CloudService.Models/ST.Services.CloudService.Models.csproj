@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Services.CloudService.Models</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

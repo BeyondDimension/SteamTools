@@ -1,6 +1,6 @@
 using System.Reflection;
-using static System.Properties.ThisAssembly;
+using _ThisAssembly = System.Properties.ThisAssembly;
 
-[assembly: AssemblyFileVersion(Version)]
-//[assembly: AssemblyInformationalVersion(InfoVersion)]
-[assembly: AssemblyVersion(Version)]
+[assembly: AssemblyFileVersion(_ThisAssembly.Version)]
+//[assembly: AssemblyInformationalVersion(_ThisAssembly.InfoVersion)]
+[assembly: AssemblyVersion(_ThisAssembly.Version)]

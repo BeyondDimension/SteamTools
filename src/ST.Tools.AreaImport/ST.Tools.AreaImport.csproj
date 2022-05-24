@@ -6,6 +6,7 @@
     <RootNamespace>System</RootNamespace>
     <AssemblyName>Steam++.AreaImport</AssemblyName>
     <ApplicationIcon>..\ST.Client.Desktop.Avalonia\Application\UI\Assets\Icon.ico</ApplicationIcon>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

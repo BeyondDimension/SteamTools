@@ -43,7 +43,7 @@ namespace System.Application.Services.CloudService
 
         public INoticeClient Notice => this;
 
-#region ModelValidator
+        #region ModelValidator
 
         IApiResponse? ModelValidator<TRequestModel>(TRequestModel requestModel) => ModelValidator<TRequestModel, object>(requestModel);
 
@@ -60,7 +60,7 @@ namespace System.Application.Services.CloudService
             return null;
         }
 
-#endregion
+        #endregion
 
         void ShowResponseErrorMessage(IApiResponse response)
         {
@@ -121,7 +121,7 @@ namespace System.Application.Services.CloudService
 
         public Task<IApiResponse<AppVersionDTO?>> CheckUpdate(Guid id, Platform platform, DeviceIdiom deviceIdiom, ArchitectureFlags supportedAbis, Version osVersion, ArchitectureFlags abi)
         {
-            return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
+            return Task.FromResult<IApiResponse<AppVersionDTO?>>(ApiResponse.Ok<AppVersionDTO?>(default));
         }
 
         public Task<IApiResponse<AppVersionDTO?>> CheckUpdate2(Guid id,
@@ -131,17 +131,17 @@ namespace System.Application.Services.CloudService
             Architecture architecture,
             DeploymentMode deploymentMode)
         {
-            return Task.FromResult(ApiResponse.Ok<AppVersionDTO?>(default));
+            return Task.FromResult<IApiResponse<AppVersionDTO?>>(ApiResponse.Ok<AppVersionDTO?>(default));
         }
 
         public Task<IApiResponse> UnbundleAccount(FastLoginChannel channel)
         {
-            return Task.FromResult(ApiResponse.Ok());
+            return Task.FromResult<IApiResponse>(ApiResponse.Ok());
         }
 
         public Task<IApiResponse<UserInfoDTO>> RefreshUserInfo()
         {
-            return Task.FromResult(ApiResponse.Ok(new UserInfoDTO
+            return Task.FromResult<IApiResponse<UserInfoDTO>>(ApiResponse.Ok(new UserInfoDTO
             {
 
             }));
@@ -149,7 +149,7 @@ namespace System.Application.Services.CloudService
 
         public Task<IApiResponse<ClockInResponse>> ClockIn()
         {
-            return Task.FromResult(ApiResponse.Ok(new ClockInResponse
+            return Task.FromResult<IApiResponse<ClockInResponse>>(ApiResponse.Ok(new ClockInResponse
             {
                 Level = 99,
             }));
@@ -157,12 +157,12 @@ namespace System.Application.Services.CloudService
 
         public Task<IApiResponse> DeleteAccount()
         {
-            return Task.FromResult(ApiResponse.Ok());
+            return Task.FromResult<IApiResponse>(ApiResponse.Ok());
         }
 
         public Task<IApiResponse> Download(bool isAnonymous, string requestUri, string cacheFilePath, IProgress<float>? progress, CancellationToken cancellationToken = default)
         {
-            return Task.FromResult(ApiResponse.Ok());
+            return Task.FromResult<IApiResponse>(ApiResponse.Ok());
         }
 
         public Task<HttpResponseMessage> Forward(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken = default)
@@ -201,7 +201,7 @@ namespace System.Application.Services.CloudService
 
         public Task<IApiResponse> Post(ActiveUserRecordDTO record)
         {
-            return Task.FromResult(ApiResponse.Ok());
+            return Task.FromResult<IApiResponse>(ApiResponse.Ok());
         }
 
         public Task<IApiResponse<JWTEntity>> RefreshToken(string refresh_token)

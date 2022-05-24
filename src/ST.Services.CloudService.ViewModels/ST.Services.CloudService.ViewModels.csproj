@@ -5,6 +5,7 @@
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Services.CloudService.Models</AssemblyName>
     <DefineConstants>MVVM_VM;$(DefineConstants)</DefineConstants>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

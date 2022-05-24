@@ -1,3 +1,5 @@
+using System.Application.Models.Internals;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using MPIgnore = MessagePack.IgnoreMemberAttribute;
 using MPKey = MessagePack.KeyAttribute;
@@ -9,7 +11,7 @@ using SJsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
 namespace System.Application.Models.Internals
 {
-    public abstract class ApiResponseImplBase : IApiResponse
+    public abstract class ApiResponseImpl : IApiResponse
     {
         ApiResponseCode mCode;
         bool mIsSuccess;
@@ -63,33 +65,27 @@ namespace System.Application.Models.Internals
         [NJSONIgnore]
         public string? Url { get; set; }
     }
+}
 
+namespace System.Application.Models
+{
     [MPObject]
-    public sealed class ApiResponseImpl<T> : ApiResponseImplBase, IApiResponse<T>
+    public sealed class ApiRsp<T> : ApiResponseImpl, IApiResponse<T>
     {
         [MPKey(LastMKeyIndex + 1)]
         [NJsonProperty("🦓")]
         [SJsonProperty("🦓")]
         public T? Content { get; set; }
 
-        public static implicit operator ApiResponseImpl<T>(T content)
-        {
-            return (ApiResponseImpl<T>)ApiResponse.Ok(content);
-        }
+        public static implicit operator ApiRsp<T>(T content) => ApiResponse.Ok(content);
 
-        public static implicit operator ApiResponseImpl<T>(ApiResponseCode code)
-        {
-            return (ApiResponseImpl<T>)ApiResponse.Code<T>(code);
-        }
+        public static implicit operator ApiRsp<T>(ApiResponseCode code) => ApiResponse.Code<T>(code);
 
-        public static implicit operator ApiResponseImpl<T>((ApiResponseCode code, string? message) args)
-        {
-            return (ApiResponseImpl<T>)ApiResponse.Code<T>(args.code, args.message);
-        }
+        public static implicit operator ApiRsp<T>((ApiResponseCode code, string? message) args) => ApiResponse.Code<T>(args.code, args.message);
     }
 
     [MPObject]
-    public sealed class ApiResponseImpl : ApiResponseImplBase, IApiResponse<object>
+    public sealed class ApiRsp : ApiResponseImpl, IApiResponse<object>
     {
         [IgnoreDataMember]
         [MPIgnore]
@@ -97,14 +93,8 @@ namespace System.Application.Models.Internals
         [NJSONIgnore]
         public object? Content => null;
 
-        public static implicit operator ApiResponseImpl(ApiResponseCode code)
-        {
-            return (ApiResponseImpl)ApiResponse.Code(code);
-        }
+        public static implicit operator ApiRsp(ApiResponseCode code) => ApiResponse.Code(code);
 
-        public static implicit operator ApiResponseImpl((ApiResponseCode code, string? message) args)
-        {
-            return (ApiResponseImpl)ApiResponse.Code(args.code, args.message);
-        }
+        public static implicit operator ApiRsp((ApiResponseCode code, string? message) args) => ApiResponse.Code(args.code, args.message);
     }
 }

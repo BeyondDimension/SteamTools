@@ -52,12 +52,16 @@ namespace System.Application.Repositories
         /// <returns>受影响的行数</returns>
         Task<int> InsertAsync(TEntity entity);
 
+        Task<int> InsertAsync(TEntity entity, CancellationToken cancellationToken) => InsertAsync(entity);
+
         /// <summary>
         /// 将多个实体插入到数据库中
         /// </summary>
         /// <param name="entities">要添加的多个实体</param>
         /// <returns>受影响的行数</returns>
         public Task<int> InsertRangeAsync(IEnumerable<TEntity> entities) => OperateRangeAsync(entities, InsertAsync);
+
+        public Task<int> InsertRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken) => InsertRangeAsync(entities);
 
         /// <inheritdoc cref="InsertRangeAsync(IEnumerable{TEntity})"/>
         public Task<int> InsertRangeAsync(params TEntity[] entities) => InsertRangeAsync(entities.AsEnumerable());
@@ -73,12 +77,16 @@ namespace System.Application.Repositories
         /// <returns>受影响的行数</returns>
         Task<int> DeleteAsync(TEntity entity);
 
+        Task<int> DeleteAsync(TEntity entity, CancellationToken cancellationToken) => DeleteAsync(entity);
+
         /// <summary>
         /// 将多个实体从数据库中删除
         /// </summary>
         /// <param name="entities">要删除的多个实体</param>
         /// <returns>受影响的行数</returns>
         public Task<int> DeleteRangeAsync(IEnumerable<TEntity> entities) => OperateRangeAsync(entities, DeleteAsync);
+
+        public Task<int> DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken) => DeleteRangeAsync(entities);
 
         /// <inheritdoc cref="DeleteRangeAsync(IEnumerable{TEntity})"/>
         public Task<int> DeleteRangeAsync(params TEntity[] entities) => DeleteRangeAsync(entities.AsEnumerable());
@@ -94,12 +102,16 @@ namespace System.Application.Repositories
         /// <returns>受影响的行数</returns>
         Task<int> UpdateAsync(TEntity entity);
 
+        Task<int> UpdateAsync(TEntity entity, CancellationToken cancellationToken) => UpdateAsync(entity);
+
         /// <summary>
         /// 将多个实体更新到数据库中
         /// </summary>
         /// <param name="entities">要更新的多个实体</param>
         /// <returns>受影响的行数</returns>
         public Task<int> UpdateRangeAsync(IEnumerable<TEntity> entities) => OperateRangeAsync(entities, UpdateAsync);
+
+        public Task<int> UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken) => UpdateRangeAsync(entities);
 
         /// <inheritdoc cref="UpdateRangeAsync(IEnumerable{TEntity})"/>
         public Task<int> UpdateRangeAsync(params TEntity[] entities) => UpdateRangeAsync(entities.AsEnumerable());

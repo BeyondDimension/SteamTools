@@ -300,7 +300,7 @@ namespace System.Application.Services.CloudService
                 }
             }
 
-            if (response is ApiResponseImplBase rspImpl)
+            if (response is ApiResponseImpl rspImpl)
             {
                 rspImpl.Url = requestUri;
             }

@@ -1,24 +1,21 @@
-using System.Application.Columns;
+namespace System.Application.Models;
 
-namespace System.Application.Models
+/// <summary>
+/// 游戏平台令牌可传输模型
+/// </summary>
+public interface IGAPAuthenticatorDTO : IOrderGAPAuthenticator
 {
-    /// <summary>
-    /// 游戏平台令牌可传输模型
-    /// </summary>
-    public interface IGAPAuthenticatorDTO : IOrderGAPAuthenticator
-    {
-        const int MaxLength_Name = 32;
+    const int MaxLength_Name = 32;
 
-        string Name { get; set; }
+    string Name { get; set; }
 
-        GamePlatform Platform { get; }
+    GamePlatform Platform { get; }
 
-        Guid? ServerId { get; set; }
+    Guid? ServerId { get; set; }
 
-        public DateTimeOffset Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 
-        public DateTimeOffset LastUpdate { get; set; }
+    public DateTimeOffset LastUpdate { get; set; }
 
-        IGAPAuthenticatorValueDTO Value { get; set; }
-    }
+    IGAPAuthenticatorValueDTO? Value { get; set; }
 }
