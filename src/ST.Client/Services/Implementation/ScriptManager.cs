@@ -208,7 +208,7 @@ namespace System.Application.Services.Implementation
                                 toast.Show(errorMsg);
                             }
                         }
-                        scriptContent.AppendLine("var jq = jQuery.noConflict();(($, jQuery) => {");
+                        scriptContent.AppendLine("var jq = jQuery.noConflict(true);(($, jQuery) => {");
                         scriptContent.AppendLine(model.Content);
                         scriptContent.AppendLine("})(jq, jq)})()");
                     }
