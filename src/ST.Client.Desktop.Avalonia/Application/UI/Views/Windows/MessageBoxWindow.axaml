@@ -31,11 +31,11 @@
     </Style>
   </Design.DesignStyle>
   <Panel>
-    <controls:TitleBar />
+    <controls:TitleBar/>
     <DockPanel Margin="{StaticResource TitleBarAfterMargin}">
       <TextBox Classes="Content readonlybox h7"
                DockPanel.Dock="Top"
-               Padding="15 8"
+               Padding="15"
                IsReadOnly="True"
                Text="{Binding Content}"
                AcceptsReturn="True"

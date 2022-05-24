@@ -12,6 +12,7 @@
         x:Class="System.Application.UI.Views.MainWindow"
         x:Name="MainWindow"
         WindowStartupLocation="CenterScreen"
+        Icon="/Application/UI/Assets/Icon.ico"
         Background="{x:Null}"
         Title="{Binding Title,Mode=OneWay}"
         Topmost="{Binding Topmost}"

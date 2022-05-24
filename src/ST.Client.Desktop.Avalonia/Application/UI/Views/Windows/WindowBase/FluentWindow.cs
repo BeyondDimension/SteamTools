@@ -16,11 +16,8 @@ using FluentAvalonia.UI.Controls.Primitives;
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls
 {
-    public abstract class FluentWindow<TViewModel> : ReactiveWindow<TViewModel>, IStyleable, ICoreWindow where TViewModel : class
+    public abstract class FluentWindow<TViewModel> : ReactiveCoreWindow<TViewModel>, IStyleable where TViewModel : class
     {
-        Control? _defaultTitleBar;
-        MinMaxCloseControl? _systemCaptionButtons;
-
         Type IStyleable.StyleKey => typeof(Window);
 
         public FluentWindow() : this(true)
@@ -30,24 +27,23 @@ namespace Avalonia.Controls
 
         public FluentWindow(bool isSaveStatus)
         {
-#if WINDOWS
-            PseudoClasses.Set(":windows", true);
+            //#if WINDOWS
+            //            PseudoClasses.Set(":windows", true);
 
-#pragma warning disable CA1416 // 验证平台兼容性
-            if (OperatingSystem2.IsWindows10AtLeast())
-            {
-                if (PlatformImpl is AvaloniaWin32WindowingPlatformImpl.Window10Impl cwi)
-                {
-                    cwi.SetOwner(this);
-                }
-            }
-#pragma warning restore CA1416 // 验证平台兼容性
-#endif
+            //#pragma warning disable CA1416 // 验证平台兼容性
+            //            if (OperatingSystem2.IsWindows10AtLeast)
+            //            {
+            //                if (PlatformImpl is AvaloniaWin32WindowingPlatformImpl.Window10Impl cwi)
+            //                {
+            //                    cwi.SetOwner(this);
+            //                }
+            //            }
+            //#pragma warning restore CA1416 // 验证平台兼容性
+            //#endif
 
             TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
 
             if (TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
-                TransparencyLevelHint == WindowTransparencyLevel.None ||
                 TransparencyLevelHint == WindowTransparencyLevel.Blur)
             {
                 PseudoClasses.Set(":transparent", true);
@@ -57,8 +53,6 @@ namespace Avalonia.Controls
                 PseudoClasses.Set(":transparent", false);
             }
 
-            ExtendClientAreaToDecorationsHint = true;
-            ExtendClientAreaTitleBarHeightHint = -1;
             SystemDecorations = SystemDecorations.Full;
 
             this.GetObservable(WindowStateProperty)
@@ -82,15 +76,39 @@ namespace Avalonia.Controls
                 //PositionChanged += FluentWindow_PositionChanged;
             }
 
+            Opened += (s, e) =>
+            {
+                if (TitleBar != null)
+                {
+                    TitleBar.ExtendViewIntoTitleBar = true;
+
+                    //titleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
+
+                    if (this.FindControl<Control>("TitleBarHost") is IControl t)
+                    {
+                        SetTitleBar(t);
+                    }
+                }
+
+                if (OperatingSystem2.IsWindows)
+                {
+                    AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()?.ForceWin32WindowToTheme(this);
+                }
+            };
+
 #pragma warning disable CA1416 // 验证平台兼容性
             if (OperatingSystem2.IsWindows())
             {
+                //ExtendClientAreaToDecorationsHint = true;
+                //ExtendClientAreaTitleBarHeightHint = -1;
                 ExtendClientAreaChromeHints =
-                    ExtendClientAreaChromeHints.PreferSystemChrome;
+                    ExtendClientAreaChromeHints.Default;
                 PseudoClasses.Add(":windows");
             }
             else if (OperatingSystem2.IsMacOS())
             {
+                ExtendClientAreaToDecorationsHint = true;
+                ExtendClientAreaTitleBarHeightHint = -1;
                 ExtendClientAreaChromeHints =
                     ExtendClientAreaChromeHints.PreferSystemChrome;
             }
@@ -158,7 +176,7 @@ namespace Avalonia.Controls
                         }
                     }
 
-                    if (CanResize && !IsHideWindow)
+                    if (CanResize && IsHideWindow == false)
                     {
                         if (vm.SizePosition.Width > 0 &&
                             primaryScreenBounds.Width >= vm.SizePosition.Width)
@@ -170,7 +188,7 @@ namespace Avalonia.Controls
 
                         if (ClientSize.Width != Width || ClientSize.Height != Height)
                         {
-                            HandleResized(new Size(Width += 16, Height += 8), PlatformResizeReason.Application);
+                            HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
                         }
 
                         this.WhenAnyValue(x => x.ClientSize)
@@ -184,34 +202,6 @@ namespace Avalonia.Controls
             }
 
             IsHideWindow = false;
-        }
-
-        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-        {
-            base.OnApplyTemplate(e);
-
-            _systemCaptionButtons = e.NameScope.Find<MinMaxCloseControl>("SystemCaptionButtons");
-            if (_systemCaptionButtons != null)
-            {
-                _systemCaptionButtons.Height = TitleBar.DefaultHeight;
-            }
-
-            _defaultTitleBar = e.NameScope.Find<Control>("DefaultTitleBar");
-            if (_defaultTitleBar != null)
-            {
-                _defaultTitleBar.Margin = new Thickness(0, 0, 138 /* 46x3 */, 0);
-                _defaultTitleBar.Height = TitleBar.DefaultHeight;
-            }
-
-            //#pragma warning disable CA1416 // 验证平台兼容性
-            //            if (OperatingSystem2.IsWindows())
-            //            {
-            //                if (OperatingSystem2.IsWindows7())
-            //                {
-            //                    IPlatformService.Instance.FixAvaloniaFluentWindowStyleOnWin7(PlatformImpl.Handle.Handle);
-            //                }
-            //            }
-            //#pragma warning restore CA1416 // 验证平台兼容性
         }
 
         protected override void OnClosed(EventArgs e)
@@ -230,12 +220,6 @@ namespace Avalonia.Controls
         {
             HandleResized(clientSize, reason);
         }
-
-        Window ICoreWindow.Window => this;
-
-        MinMaxCloseControl? ICoreWindow.SystemCaptionButtons => _systemCaptionButtons;
-
-        public bool IsNewSizeWindow { get; set; }
 
         public bool IsHideWindow { get; set; }
         #endregion

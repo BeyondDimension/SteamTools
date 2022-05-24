@@ -21,6 +21,10 @@
   <Panel>
     <controls:TitleBar></controls:TitleBar>
     <!--Header-->
+    <Panel x:Name="TitleBarHost"
+           VerticalAlignment="Top"
+           Background="Transparent"
+           Height="{StaticResource TitleBarHeight}"/>
     <Menu Classes="BarMenu">
       <MenuItem  Command="{ReflectionBinding Refresh_Click}"
                  ToolTip.Tip="{ReflectionBinding Path=Res.RefreshList,Mode=OneWay,Source={x:Static resx:R.Current}}">

@@ -2049,7 +2049,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 是否将该游戏挂时长? 的本地化字符串。
+        ///   查找类似 是否将此游戏移除挂时长列表? 的本地化字符串。
         /// </summary>
         public static string GameList_DeleteItem {
             get {

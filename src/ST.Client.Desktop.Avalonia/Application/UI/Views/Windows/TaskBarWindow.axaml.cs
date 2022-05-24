@@ -22,8 +22,8 @@ namespace System.Application.UI.Views.Windows
             TransparencyLevelHint = (WindowTransparencyLevel)UISettings.WindowBackgroundMateria.Value;
 
             if (TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
-                TransparencyLevelHint == WindowTransparencyLevel.None ||
-                TransparencyLevelHint == WindowTransparencyLevel.Blur)
+                TransparencyLevelHint == WindowTransparencyLevel.ForceAcrylicBlur ||
+                TransparencyLevelHint == WindowTransparencyLevel.None)
             {
                 TransparencyLevelHint = WindowTransparencyLevel.AcrylicBlur;
             }

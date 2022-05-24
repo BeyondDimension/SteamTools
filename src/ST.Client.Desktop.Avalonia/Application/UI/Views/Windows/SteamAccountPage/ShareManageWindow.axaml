@@ -21,8 +21,12 @@
         x:DataType="vm:ShareManageViewModel"
         x:CompileBindings="True">
   <Panel>
-    <controls:TitleBar></controls:TitleBar>
-    <Menu Classes="BarMenu">
+    <controls:TitleBar/>
+    <Panel x:Name="TitleBarHost" 
+           VerticalAlignment="Top"
+           Background="Transparent"
+           Height="{StaticResource TitleBarHeight}"/>
+    <Menu Classes="BarMenu" >
       <MenuItem Command="{ReflectionBinding About_Click}"
                 ToolTip.Tip="{ReflectionBinding Path=Res.Helper,Mode=OneWay,Source={x:Static resx:R.Current}}">
         <MenuItem.Header>

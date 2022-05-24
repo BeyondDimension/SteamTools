@@ -850,6 +850,7 @@ namespace System.Application.Services.Implementation
 
         static int GetInt32(dynamic value)
         {
+            if (value is null) return 0;
             if (value is VValue vvalue) return GetInt32(vvalue.Value!);
             if (value is int value2) return value2;
             if (value is IConvertible convertible)
@@ -869,6 +870,7 @@ namespace System.Application.Services.Implementation
 
         static long GetInt64(dynamic value)
         {
+            if (value is null) return 0;
             if (value is VValue vvalue) return GetInt64(vvalue.Value!);
             if (value is long value2) return value2;
             if (value is IConvertible convertible)

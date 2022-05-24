@@ -170,7 +170,7 @@
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; TextBox">
-        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />
@@ -178,28 +178,28 @@
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; ComboBox">
-        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="(DockPanel.Dock)" Value="Right" />
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; ui|ComboBox">
-        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="(DockPanel.Dock)" Value="Right" />
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; NumericUpDown">
-        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="(DockPanel.Dock)" Value="Right" />
     </Style>
 
     <Style Selector="StackPanel.Settings DockPanel &gt; Slider">
-        <Setter Property="Width" Value="{StaticResource SettingsRightContentWidth}" />
+        <Setter Property="MinWidth" Value="{StaticResource SettingsRightContentWidth}" />
         <!--<Setter Property="Margin" Value="0 -15 0 0" />-->
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Right" />

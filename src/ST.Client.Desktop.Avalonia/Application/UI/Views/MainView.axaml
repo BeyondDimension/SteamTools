@@ -17,7 +17,7 @@
         x:CompileBindings="True">
   <Panel>
     <!--Title-->
-    <controls:TitleBar x:Name="title" IsVisibleBackground="False"/>
+    <controls:TitleBar x:Name="TitleBarHost" IsVisibleBackground="False"/>
 
     <!--Background-->
     <DockPanel x:Name="Background" Margin="{StaticResource TitleBarAfterMargin}">

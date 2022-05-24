@@ -34,8 +34,8 @@
     </Styles>
   </Design.DesignStyle>
   <Grid RowDefinitions="1,30,*,Auto,1">
-    <controls:TitleBar Grid.RowSpan="5"></controls:TitleBar>
-    <Border Padding="10" Grid.Row="2">
+    <controls:TitleBar Grid.RowSpan="5" />
+    <Border Padding="15" Grid.Row="2">
       <StackPanel Spacing="10">
         <!--<TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_PasswordRequired,Source={x:Static resx:R.Current},Mode=OneWay}" Classes="h4"></TextBlock>-->
         <TextBox x:Name="DescriptionBox"

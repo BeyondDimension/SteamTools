@@ -293,12 +293,12 @@ namespace System.Application.UI
 
             AvaloniaLocator.CurrentMutable.Bind<IFontManagerImpl>().ToConstant(DI.Get<IFontManagerImpl>());
 
-#if WINDOWS
-            if (!ViewModelBase.IsInDesignMode && OperatingSystem2.IsWindows10AtLeast())
-            {
-                AvaloniaLocator.CurrentMutable.Bind<IWindowingPlatform>().ToConstant(new AvaloniaWin32WindowingPlatformImpl());
-            }
-#endif
+            //#if WINDOWS
+            //            if (!ViewModelBase.IsInDesignMode && OperatingSystem2.IsWindows10AtLeast)
+            //            {
+            //                AvaloniaLocator.CurrentMutable.Bind<IWindowingPlatform>().ToConstant(new AvaloniaWin32WindowingPlatformImpl());
+            //            }
+            //#endif
 
             AvaloniaLocator.CurrentMutable.Bind<IPlatformRenderInterface>().ToConstant(SkiaPlatform2.PlatformRenderInterface);
 
@@ -522,7 +522,6 @@ namespace System.Application.UI
                     window.TransparencyLevelHint = (WindowTransparencyLevel)level;
 
                     if (window.TransparencyLevelHint == WindowTransparencyLevel.Transparent ||
-                        window.TransparencyLevelHint == WindowTransparencyLevel.None ||
                         window.TransparencyLevelHint == WindowTransparencyLevel.Blur)
                     {
                         ((IPseudoClasses)window.Classes).Set(":transparent", true);

@@ -550,7 +550,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>是否移除全部挂时长的游戏？</value>
   </data>
   <data name="GameList_DeleteItem" xml:space="preserve">
-    <value>是否将该游戏挂时长?</value>
+    <value>是否将此游戏移除挂时长列表?</value>
   </data>
   <data name="GameList_DeleteSuccess" xml:space="preserve">
     <value>移除成功</value>
