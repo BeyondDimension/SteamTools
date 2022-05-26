@@ -66,10 +66,11 @@ namespace System.Application.UI.Adapters
             ViewGroup parent)
             where TViewHolder : RecyclerView.ViewHolder
         {
-            int layoutResource = getLayoutResource(viewType).ThrowIsNull(nameof(layoutResource));
+            var layoutResource = getLayoutResource(viewType);
+            if (!layoutResource.HasValue) throw new ArgumentNullException(nameof(layoutResource));
             var layoutInflater = LayoutInflater.From(parent.Context);
             if (layoutInflater == null) throw new ArgumentNullException(nameof(layoutInflater));
-            var view = layoutInflater.Inflate(layoutResource, parent, false);
+            var view = layoutInflater.Inflate(layoutResource.Value, parent, false);
             if (view == null) throw new ArgumentNullException(nameof(view));
             var holder = onCreateViewHolder(view, viewType);
             return holder;

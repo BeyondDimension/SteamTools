@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using _SR = System.Application.Properties.SR;
 
 namespace System.Application.Services.Implementation
 {
@@ -246,6 +247,6 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public string DefaultHostsContent => SR.hosts.Replace("${USERNAME}", Environment.UserName);
+        public string DefaultHostsContent => _SR.hosts.Replace("${USERNAME}", Environment.UserName);
     }
 }
