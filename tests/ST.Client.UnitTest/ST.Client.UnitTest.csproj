@@ -6,6 +6,7 @@
     <DefineConstants>UnitTest;$(DefineConstants)</DefineConstants>
     <AssemblyName>System.Application.SteamTools.Client.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,7 +1,5 @@
 // https://github.com/NuGetArchive/NuGet.Versioning/blob/release/src/Versioning/SimpleVersion.cs
 
-using System;
-
 namespace NuGet.Versioning
 {
     /// <summary>

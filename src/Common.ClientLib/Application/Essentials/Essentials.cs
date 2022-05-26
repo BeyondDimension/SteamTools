@@ -3,18 +3,17 @@
 using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
-namespace System.Application
-{
-    public static class Essentials
-    {
-        static readonly Lazy<bool> _IsSupported = new(() =>
-        {
-            //// TargetFrameworkAttribute It may be deleted by link(mono) or trimmable or PublishSingleFile
-            //var attr = Assembly.GetAssembly(typeof(DevicePlatform)).GetCustomAttribute<TargetFrameworkAttribute>();
-            //return attr != null && !attr.FrameworkName.StartsWith(".NETStandard,Version=");
-            return DeviceInfo.Platform != DevicePlatform.Unknown;
-        });
+namespace System.Application;
 
-        public static bool IsSupported => _IsSupported.Value;
-    }
+public static class Essentials
+{
+    static readonly Lazy<bool> _IsSupported = new(() =>
+    {
+        //// TargetFrameworkAttribute It may be deleted by link(mono) or trimmable or PublishSingleFile
+        //var attr = Assembly.GetAssembly(typeof(DevicePlatform)).GetCustomAttribute<TargetFrameworkAttribute>();
+        //return attr != null && !attr.FrameworkName.StartsWith(".NETStandard,Version=");
+        return DeviceInfo.Platform != DevicePlatform.Unknown;
+    });
+
+    public static bool IsSupported => _IsSupported.Value;
 }

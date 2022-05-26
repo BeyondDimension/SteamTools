@@ -1,41 +1,39 @@
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace System.Security
+namespace System.Security;
+
+/// <summary>
+/// 由 Xamarin.Essentials 实现的 <see cref="ISecureStorage"/>
+/// <para>https://docs.microsoft.com/zh-cn/xamarin/essentials/secure-storage</para>
+/// </summary>
+internal sealed class XESecureStorage : ISecureStorage
 {
-    /// <summary>
-    /// 由 Xamarin.Essentials 实现的 <see cref="ISecureStorage"/>
-    /// <para>https://docs.microsoft.com/zh-cn/xamarin/essentials/secure-storage</para>
-    /// </summary>
-    internal sealed class XESecureStorage : ISecureStorage
+    bool ISecureStorage.IsNativeSupportedBytes => false;
+
+    Task<string?> ISecureStorage.GetAsync(string key)
     {
-        bool ISecureStorage.IsNativeSupportedBytes => false;
+        return SecureStorage.GetAsync(key);
+    }
 
-        Task<string?> ISecureStorage.GetAsync(string key)
+    Task ISecureStorage.SetAsync(string key, string? value)
+    {
+        if (string.IsNullOrEmpty(value))
         {
-            return SecureStorage.GetAsync(key);
+            SecureStorage.Remove(key);
+            return Task.CompletedTask;
         }
+        return SecureStorage.SetAsync(key, value);
+    }
 
-        Task ISecureStorage.SetAsync(string key, string? value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                SecureStorage.Remove(key);
-                return Task.CompletedTask;
-            }
-            return SecureStorage.SetAsync(key, value);
-        }
+    Task<bool> ISecureStorage.RemoveAsync(string key)
+    {
+        var result = SecureStorage.Remove(key);
+        return Task.FromResult(result);
+    }
 
-        Task<bool> ISecureStorage.RemoveAsync(string key)
-        {
-            var result = SecureStorage.Remove(key);
-            return Task.FromResult(result);
-        }
-
-        async Task<bool> ISecureStorage.ContainsKeyAsync(string key)
-        {
-            var result = await SecureStorage.GetAsync(key);
-            return result != null;
-        }
+    async Task<bool> ISecureStorage.ContainsKeyAsync(string key)
+    {
+        var result = await SecureStorage.GetAsync(key);
+        return result != null;
     }
 }

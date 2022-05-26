@@ -1,9 +1,8 @@
-﻿namespace System.IO.FileFormats.Internals
+namespace System.IO.FileFormats.Internals;
+
+/// <summary>
+/// 数据库文件格式
+/// </summary>
+internal static partial class DataBaseFileFormat
 {
-    /// <summary>
-    /// 数据库文件格式
-    /// </summary>
-    internal static partial class DataBaseFileFormat
-    {
-    }
 }

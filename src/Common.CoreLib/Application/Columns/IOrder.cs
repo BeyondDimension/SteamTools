@@ -1,11 +1,10 @@
-﻿namespace System.Application.Columns
+namespace System.Application.Columns;
+
+/// <summary>
+/// 排序
+/// </summary>
+public interface IOrder
 {
-    /// <summary>
-    /// 排序
-    /// </summary>
-    public interface IOrder
-    {
-        /// <inheritdoc cref="IOrder"/>
-        int Order { get; set; }
-    }
+    /// <inheritdoc cref="IOrder"/>
+    int Order { get; set; }
 }

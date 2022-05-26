@@ -1,6 +1,5 @@
 // https://github.com/NuGetArchive/NuGet.Versioning/blob/release/src/Versioning/VersionFormatter.cs
 
-using System;
 using System.Globalization;
 using System.Text;
 

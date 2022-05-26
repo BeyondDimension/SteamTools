@@ -1,5 +1,3 @@
-using System;
-
 namespace Microsoft.DotNet.Tools.Uninstall.Shared.BundleInfo.Versioning
 {
     internal class WindowsDesktopRuntimeVersion : BundleVersion, IComparable, IComparable<WindowsDesktopRuntimeVersion>, IEquatable<WindowsDesktopRuntimeVersion>

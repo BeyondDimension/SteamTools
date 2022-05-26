@@ -1,14 +1,13 @@
-namespace System.Application.UI.ViewModels
+namespace System.Application.UI.ViewModels;
+
+public interface IReadOnlyItemViewType
 {
-    public interface IReadOnlyItemViewType
-    {
-        int ItemViewType { get; }
-    }
+    int ItemViewType { get; }
+}
 
-    public interface IReadOnlyItemViewType<TItemViewType> : IReadOnlyItemViewType where TItemViewType : Enum
-    {
-        new TItemViewType ItemViewType { get; }
+public interface IReadOnlyItemViewType<TItemViewType> : IReadOnlyItemViewType where TItemViewType : Enum
+{
+    new TItemViewType ItemViewType { get; }
 
-        int IReadOnlyItemViewType.ItemViewType => ItemViewType.ConvertToInt32();
-    }
+    int IReadOnlyItemViewType.ItemViewType => ItemViewType.ConvertToInt32();
 }

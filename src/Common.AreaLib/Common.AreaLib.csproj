@@ -5,6 +5,7 @@
     <AssemblyName>System.Common.AreaLib</AssemblyName>
     <RootNamespace>System</RootNamespace>
     <DefineConstants>AREA_LIB;$(DefineConstants)</DefineConstants>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

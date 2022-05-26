@@ -1,66 +1,63 @@
-﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
 
-namespace System.Application.Models
+namespace System.Application.Models;
+
+/// <inheritdoc cref="IPagedModel"/>
+[MPObj]
+[Serializable]
+[DebuggerDisplay("{DebuggerDisplay(),nq}")]
+public sealed class PagedModel<T> : IPagedModel<T>, IReadOnlyPagedModel<T>
 {
-    /// <inheritdoc cref="IPagedModel"/>
-    [MPObj]
-    [Serializable]
-    [DebuggerDisplay("{DebuggerDisplay(),nq}")]
-    public sealed class PagedModel<T> : IPagedModel<T>, IReadOnlyPagedModel<T>
+    string DebuggerDisplay() => $"Current: {Current}, Total: {Total}, Count: {mDataSource?.Count ?? 0}, PageSize: {PageSize}";
+
+    List<T>? mDataSource;
+
+    [MPKey(0)]
+    [N_JsonProperty("0")]
+    [S_JsonProperty("0")]
+    public List<T> DataSource
     {
-        string DebuggerDisplay() => $"Current: {Current}, Total: {Total}, Count: {mDataSource?.Count ?? 0}, PageSize: {PageSize}";
-
-        List<T>? mDataSource;
-
-        [MPKey(0)]
-        [N_JsonProperty("0")]
-        [S_JsonProperty("0")]
-        public List<T> DataSource
+        get
         {
-            get
-            {
-                if (mDataSource == null) mDataSource = new List<T>();
-                return mDataSource;
-            }
-
-            set => mDataSource = value;
+            if (mDataSource == null) mDataSource = new List<T>();
+            return mDataSource;
         }
 
-        [MPKey(1)]
-        [N_JsonProperty("1")]
-        [S_JsonProperty("1")]
-        public int Current { get; set; } = IPagedModel.DefaultCurrent;
+        set => mDataSource = value;
+    }
 
-        [MPKey(2)]
-        [N_JsonProperty("2")]
-        [S_JsonProperty("2")]
-        public int PageSize { get; set; } = IPagedModel.DefaultPageSize;
+    [MPKey(1)]
+    [N_JsonProperty("1")]
+    [S_JsonProperty("1")]
+    public int Current { get; set; } = IPagedModel.DefaultCurrent;
 
-        [MPKey(3)]
-        [N_JsonProperty("3")]
-        [S_JsonProperty("3")]
-        public int Total { get; set; }
+    [MPKey(2)]
+    [N_JsonProperty("2")]
+    [S_JsonProperty("2")]
+    public int PageSize { get; set; } = IPagedModel.DefaultPageSize;
 
-        bool IExplicitHasValue.ExplicitHasValue()
-        {
-            return Total >= 0 && PageSize > 0 && Current > 0;
-            //&&
-            //Current <= ((IPagedModel)this).PageCount &&
-            //mDataSource.Any_Nullable();
-        }
+    [MPKey(3)]
+    [N_JsonProperty("3")]
+    [S_JsonProperty("3")]
+    public int Total { get; set; }
 
-        IReadOnlyList<T> IReadOnlyPagedModel<T>.DataSource => DataSource;
+    bool IExplicitHasValue.ExplicitHasValue()
+    {
+        return Total >= 0 && PageSize > 0 && Current > 0;
+        //&&
+        //Current <= ((IPagedModel)this).PageCount &&
+        //mDataSource.Any_Nullable();
+    }
 
-        IList<T> IPagedModel<T>.DataSource
-        {
-            get => DataSource;
-            set => DataSource = value is List<T> list ? list : value.ToList();
-        }
+    IReadOnlyList<T> IReadOnlyPagedModel<T>.DataSource => DataSource;
+
+    IList<T> IPagedModel<T>.DataSource
+    {
+        get => DataSource;
+        set => DataSource = value is List<T> list ? list : value.ToList();
     }
 }

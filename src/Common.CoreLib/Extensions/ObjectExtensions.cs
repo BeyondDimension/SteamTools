@@ -1,24 +1,21 @@
-﻿// ReSharper disable once CheckNamespace
-namespace System
-{
-    public static class ObjectExtensions
-    {
-        public static T ThrowIsNull<T>(this T? t, string parameterName) where T : class
-        {
-            if (t == null)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            return t;
-        }
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
-        public static T ThrowIsNull<T>(this T? t, string parameterName) where T : struct
+// ReSharper disable once CheckNamespace
+namespace System;
+
+public static class ObjectExtensions
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T ThrowIsNull<T>([NotNull] this T? argument, [CallerArgumentExpression("argument")] string? paramName = null) where T : class
+    {
+        if (argument is null)
         {
-            if (!t.HasValue)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            return t.Value;
+            Throw(paramName);
         }
+        return argument;
     }
+
+    [DoesNotReturn]
+    static void Throw(string? paramName) => throw new ArgumentNullException(paramName);
 }

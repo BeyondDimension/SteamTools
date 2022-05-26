@@ -2,19 +2,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Logging;
 
-namespace System
+namespace System;
+
+partial class SetupFixture
 {
-    partial class SetupFixture
+    public static void ConfigureServices(IServiceCollection services)
     {
-        public static void ConfigureServices(IServiceCollection services)
+        services.AddLogging(l => l.AddProvider(NUnitLoggerProvider.Instance));
+        services.Configure<LoggerFilterOptions>(o =>
         {
-            services.AddLogging(l => l.AddProvider(NUnitLoggerProvider.Instance));
-            services.Configure<LoggerFilterOptions>(o =>
-            {
-                o.MinLevel = LogLevel.Trace;
-            });
-            services.AddPinyin();
-            services.AddPreferences();
-        }
+            o.MinLevel = LogLevel.Trace;
+        });
+        services.AddPinyin();
+        services.AddPreferences();
     }
 }

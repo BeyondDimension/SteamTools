@@ -1,11 +1,10 @@
-﻿namespace System.Application.Columns
+namespace System.Application.Columns;
+
+/// <summary>
+/// 密码
+/// </summary>
+public interface IPassword
 {
-    /// <summary>
-    /// 密码
-    /// </summary>
-    public interface IPassword
-    {
-        /// <inheritdoc cref="IPassword"/>
-        string Password { get; set; }
-    }
+    /// <inheritdoc cref="IPassword"/>
+    string Password { get; set; }
 }

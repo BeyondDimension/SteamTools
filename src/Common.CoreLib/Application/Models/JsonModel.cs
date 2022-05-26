@@ -1,32 +1,31 @@
-﻿namespace System.Application.Models
+namespace System.Application.Models;
+
+public abstract class JsonModel
 {
-    public abstract class JsonModel
+    public override string ToString()
     {
-        public override string ToString()
-        {
-            return Serializable.SJSON(this);
-        }
+        return Serializable.SJSON(this);
+    }
+}
+
+public abstract class JsonModel<T> : JsonModel where T : JsonModel<T>
+{
+    public static T? Parse(string value)
+    {
+        return Serializable.DJSON<T>(value);
     }
 
-    public abstract class JsonModel<T> : JsonModel where T : JsonModel<T>
+    public static bool TryParse(string value, out T? result)
     {
-        public static T? Parse(string value)
+        try
         {
-            return Serializable.DJSON<T>(value);
+            result = Parse(value);
+            return true;
         }
-
-        public static bool TryParse(string value, out T? result)
+        catch
         {
-            try
-            {
-                result = Parse(value);
-                return true;
-            }
-            catch
-            {
-                result = default;
-                return false;
-            }
+            result = default;
+            return false;
         }
     }
 }

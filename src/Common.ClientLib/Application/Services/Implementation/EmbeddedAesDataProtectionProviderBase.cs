@@ -1,111 +1,109 @@
-﻿using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace System.Application.Services.Implementation
+namespace System.Application.Services.Implementation;
+
+/// <inheritdoc cref="IEmbeddedAesDataProtectionProvider"/>
+public abstract class EmbeddedAesDataProtectionProviderBase : IEmbeddedAesDataProtectionProvider
 {
-    /// <inheritdoc cref="IEmbeddedAesDataProtectionProvider"/>
-    public abstract class EmbeddedAesDataProtectionProviderBase : IEmbeddedAesDataProtectionProvider
+    public abstract Aes[]? Aes { get; }
+
+    static byte[] E___(Aes[] aes, byte[] value)
     {
-        public abstract Aes[]? Aes { get; }
+        if (value.Length == 0) return value;
+        var len = aes.Length - 1;
+        var data_e = AESUtils.Encrypt(aes[len], value);
+        var data_r = BitConverter.GetBytes(len).Concat(data_e).ToArray();
+        return data_r;
+    }
 
-        static byte[] E___(Aes[] aes, byte[] value)
+    public byte[]? E(string? value)
+    {
+        var aes = Aes;
+        if (aes != null && aes.Any())
         {
-            if (value.Length == 0) return value;
-            var len = aes.Length - 1;
-            var data_e = AESUtils.Encrypt(aes[len], value);
-            var data_r = BitConverter.GetBytes(len).Concat(data_e).ToArray();
-            return data_r;
+            var value2 = Encoding.UTF8.GetBytes(value);
+            return E___(aes, value2);
         }
-
-        public byte[]? E(string? value)
-        {
-            var aes = Aes;
-            if (aes != null && aes.Any())
-            {
-                var value2 = Encoding.UTF8.GetBytes(value);
-                return E___(aes, value2);
-            }
-            else
-            {
-                if (value == null) return null;
-                return Encoding.UTF8.GetBytes(value);
-            }
-        }
-
-        public byte[]? EB(byte[]? value)
-        {
-            var aes = Aes;
-            if (aes != null && aes.Any())
-            {
-                if (value == null) return null;
-                return E___(aes, value);
-            }
-            else
-            {
-                return value;
-            }
-        }
-
-        static byte[]? D___(Aes[] aes, byte[]? value)
+        else
         {
             if (value == null) return null;
-            if (value.Length == 0) return value;
-            if (value.Length <= sizeof(int)) return null;
-            var len = BitConverter.ToInt32(value, 0);
-            using var transform = aes[len].CreateDecryptor();
-            var data_r = transform.TransformFinalBlock(value, sizeof(int), value.Length - sizeof(int));
-            return data_r;
+            return Encoding.UTF8.GetBytes(value);
         }
+    }
 
-        public string? D(byte[]? value)
+    public byte[]? EB(byte[]? value)
+    {
+        var aes = Aes;
+        if (aes != null && aes.Any())
         {
-            var aes = Aes;
-            if (aes != null && aes.Any())
+            if (value == null) return null;
+            return E___(aes, value);
+        }
+        else
+        {
+            return value;
+        }
+    }
+
+    static byte[]? D___(Aes[] aes, byte[]? value)
+    {
+        if (value == null) return null;
+        if (value.Length == 0) return value;
+        if (value.Length <= sizeof(int)) return null;
+        var len = BitConverter.ToInt32(value, 0);
+        using var transform = aes[len].CreateDecryptor();
+        var data_r = transform.TransformFinalBlock(value, sizeof(int), value.Length - sizeof(int));
+        return data_r;
+    }
+
+    public string? D(byte[]? value)
+    {
+        var aes = Aes;
+        if (aes != null && aes.Any())
+        {
+            try
             {
-                try
+                var data_r = D___(aes, value);
+                if (data_r != null)
                 {
-                    var data_r = D___(aes, value);
-                    if (data_r != null)
-                    {
-                        return Encoding.UTF8.GetString(data_r);
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return Encoding.UTF8.GetString(data_r);
                 }
-                catch
+                else
                 {
                     return null;
                 }
             }
-            else
+            catch
             {
-                if (value == null) return null;
-                return Encoding.UTF8.GetString(value);
+                return null;
             }
         }
-
-        public byte[]? DB(byte[]? value)
+        else
         {
-            var aes = Aes;
-            if (aes != null && aes.Any())
+            if (value == null) return null;
+            return Encoding.UTF8.GetString(value);
+        }
+    }
+
+    public byte[]? DB(byte[]? value)
+    {
+        var aes = Aes;
+        if (aes != null && aes.Any())
+        {
+            try
             {
-                try
-                {
-                    var data_r = D___(aes, value);
-                    return data_r;
-                }
-                catch
-                {
-                    return null;
-                }
+                var data_r = D___(aes, value);
+                return data_r;
             }
-            else
+            catch
             {
-                return value;
+                return null;
             }
+        }
+        else
+        {
+            return value;
         }
     }
 }

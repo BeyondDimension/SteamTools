@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace System
 {
     public static class String2

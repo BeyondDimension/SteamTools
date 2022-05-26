@@ -1,45 +1,44 @@
-﻿namespace System.Application.Repositories
+namespace System.Application.Repositories;
+
+/// <summary>
+/// 数据库单行执行结果
+/// </summary>
+public enum DbRowExecResult : byte
 {
     /// <summary>
-    /// 数据库单行执行结果
+    /// 无操作
     /// </summary>
-    public enum DbRowExecResult : byte
-    {
-        /// <summary>
-        /// 无操作
-        /// </summary>
-        None = 0,
+    None = 0,
 
-        /// <summary>
-        /// 更新
-        /// </summary>
-        Update,
+    /// <summary>
+    /// 更新
+    /// </summary>
+    Update,
 
-        /// <summary>
-        /// 插入
-        /// </summary>
-        Insert,
+    /// <summary>
+    /// 插入
+    /// </summary>
+    Insert,
 
-        /// <summary>
-        /// 参数不正确
-        /// </summary>
-        IncorrectArgument,
+    /// <summary>
+    /// 参数不正确
+    /// </summary>
+    IncorrectArgument,
 
-        /// <summary>
-        /// 删除
-        /// </summary>
-        Delete,
+    /// <summary>
+    /// 删除
+    /// </summary>
+    Delete,
 
-        /// <summary>
-        /// 插入或更新
-        /// </summary>
-        InsertOrUpdate,
-    }
+    /// <summary>
+    /// 插入或更新
+    /// </summary>
+    InsertOrUpdate,
+}
 
 #if DEBUG
 
-    [Obsolete("use DbRowExecResult", true)]
-    public enum DatabaseLogic { }
+[Obsolete("use DbRowExecResult", true)]
+public enum DatabaseLogic { }
 
 #endif
-}

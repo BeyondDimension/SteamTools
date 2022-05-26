@@ -3,10 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // https://github.com/dotnet/corefx/blob/master/src/Common/src/CoreLib/System/IO/EncodingCache.cs
 
-namespace System.Text
+namespace System.Text;
+
+public static class EncodingCache
 {
-    public static class EncodingCache
-    {
-        public static readonly Encoding UTF8NoBOM = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
-    }
+    public static readonly Encoding UTF8NoBOM = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
 }

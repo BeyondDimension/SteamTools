@@ -1,15 +1,12 @@
-using System.Threading.Tasks;
+namespace System.Application.Services;
 
-namespace System.Application.Services
+public interface IClipboardPlatformService
 {
-    public interface IClipboardPlatformService
-    {
-        static IClipboardPlatformService Instance => DI.Get<IClipboardPlatformService>();
+    static IClipboardPlatformService Instance => DI.Get<IClipboardPlatformService>();
 
-        Task PlatformSetTextAsync(string text);
+    Task PlatformSetTextAsync(string text);
 
-        Task<string> PlatformGetTextAsync();
+    Task<string> PlatformGetTextAsync();
 
-        bool PlatformHasText { get; }
-    }
+    bool PlatformHasText { get; }
 }

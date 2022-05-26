@@ -43,10 +43,8 @@ https://raw.githubusercontent.com/Cyan4973/xxHash/5c174cfa4e45a42f94082dc0d4539b
 */
 
 #if NET35
-using System;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;

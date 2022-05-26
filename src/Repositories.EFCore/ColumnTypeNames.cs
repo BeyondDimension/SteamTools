@@ -1,7 +1,6 @@
-namespace System
+namespace System;
+
+public static class ColumnTypeNames
 {
-    public static class ColumnTypeNames
-    {
-        public const string Decimal_18_4 = "decimal(18,4)";
-    }
+    public const string Decimal_18_4 = "decimal(18,4)";
 }

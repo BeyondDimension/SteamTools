@@ -1,8 +1,5 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+using NUnit.Framework;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;

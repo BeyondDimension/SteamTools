@@ -1,24 +1,23 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace System.Application.Settings
+namespace System.Application.Settings;
+
+public interface ISerializationProvider
 {
-    public interface ISerializationProvider
-    {
-        bool IsLoaded { get; }
+    bool IsLoaded { get; }
 
-        void Save();
+    void Save();
 
-        void Load();
+    void Load();
 
-        /// <summary>
-        /// 在 provider 已重新加载到期时发生
-        /// </summary>
-        event EventHandler Reloaded;
+    /// <summary>
+    /// 在 provider 已重新加载到期时发生
+    /// </summary>
+    event EventHandler Reloaded;
 
-        void SetValue<T>(string key, T value);
+    void SetValue<T>(string key, T value);
 
-        bool TryGetValue<T>(string key, [NotNullWhen(true)] out T? value) where T : notnull;
+    bool TryGetValue<T>(string key, [NotNullWhen(true)] out T? value) where T : notnull;
 
-        bool RemoveValue(string key);
-    }
+    bool RemoveValue(string key);
 }

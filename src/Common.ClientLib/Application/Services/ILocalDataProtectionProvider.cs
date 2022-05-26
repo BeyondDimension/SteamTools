@@ -1,30 +1,27 @@
-using System.Threading.Tasks;
+namespace System.Application.Services;
 
-namespace System.Application.Services
+/// <summary>
+/// 本机加密模式数据保护提供者
+/// </summary>
+public interface ILocalDataProtectionProvider
 {
-    /// <summary>
-    /// 本机加密模式数据保护提供者
-    /// </summary>
-    public interface ILocalDataProtectionProvider
+    /// <inheritdoc cref="IEmbeddedAesDataProtectionProvider.E(string?)"/>
+    ValueTask<byte[]?> EB(byte[]? value);
+
+    /// <inheritdoc cref="IEmbeddedAesDataProtectionProvider.D(byte[]?)"/>
+    ValueTask<byte[]?> DB(byte[]? value);
+
+    public interface IProtectedData
     {
-        /// <inheritdoc cref="IEmbeddedAesDataProtectionProvider.E(string?)"/>
-        ValueTask<byte[]?> EB(byte[]? value);
+        byte[] Protect(byte[] userData);
 
-        /// <inheritdoc cref="IEmbeddedAesDataProtectionProvider.D(byte[]?)"/>
-        ValueTask<byte[]?> DB(byte[]? value);
+        byte[] Unprotect(byte[] encryptedData);
+    }
 
-        public interface IProtectedData
-        {
-            byte[] Protect(byte[] userData);
+    public interface IDataProtectionProvider
+    {
+        Task<byte[]> ProtectAsync(byte[] data);
 
-            byte[] Unprotect(byte[] encryptedData);
-        }
-
-        public interface IDataProtectionProvider
-        {
-            Task<byte[]> ProtectAsync(byte[] data);
-
-            Task<byte[]> UnprotectAsync(byte[] data);
-        }
+        Task<byte[]> UnprotectAsync(byte[] data);
     }
 }

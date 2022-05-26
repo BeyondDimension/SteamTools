@@ -1,9 +1,6 @@
-using System.Collections.Generic;
+namespace System.Application.Mvvm;
 
-namespace System.Application.Mvvm
+public interface IDisposableHolder : IDisposable
 {
-    public interface IDisposableHolder : IDisposable
-    {
-        ICollection<IDisposable> CompositeDisposable { get; }
-    }
+    ICollection<IDisposable> CompositeDisposable { get; }
 }

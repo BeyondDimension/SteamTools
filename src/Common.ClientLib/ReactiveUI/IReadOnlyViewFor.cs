@@ -1,8 +1,7 @@
 // ReSharper disable once CheckNamespace
-namespace ReactiveUI
+namespace ReactiveUI;
+
+public interface IReadOnlyViewFor<out T> where T : class
 {
-    public interface IReadOnlyViewFor<out T> where T : class
-    {
-        T? ViewModel { get; }
-    }
+    T? ViewModel { get; }
 }

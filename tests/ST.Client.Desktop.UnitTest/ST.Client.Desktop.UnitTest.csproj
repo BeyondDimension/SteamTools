@@ -7,6 +7,7 @@
     <AssemblyName>System.Application.SteamTools.Client.Desktop.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
     <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">

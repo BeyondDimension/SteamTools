@@ -6,6 +6,7 @@
     <AssemblyName>System.Common.UnitTest</AssemblyName>
     <IsPackable>false</IsPackable>
     <DefineConstants>UnitTest;$(DefineConstants)</DefineConstants>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

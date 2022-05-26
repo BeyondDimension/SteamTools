@@ -1,7 +1,6 @@
-﻿namespace System.Application.Models
+namespace System.Application.Models;
+
+public interface ISmsSubResult
 {
-    public interface ISmsSubResult
-    {
-        string? GetRecord();
-    }
+    string? GetRecord();
 }

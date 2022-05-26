@@ -1,54 +1,53 @@
 // ReSharper disable once CheckNamespace
-namespace System
+namespace System;
+
+public static partial class StringExtensions
 {
-    public static partial class StringExtensions
+    public static string TrimStart(this string s, string trimString)
     {
-        public static string TrimStart(this string s, string trimString)
+        if (trimString.StartsWith(trimString))
         {
-            if (trimString.StartsWith(trimString))
-            {
-                return s[trimString.Length..];
-            }
-            else
-            {
-                return s;
-            }
+            return s[trimString.Length..];
         }
-
-        public static string TrimEnd(this string s, string trimString)
+        else
         {
-            if (trimString.EndsWith(trimString))
-            {
-                return s.Substring(0, s.Length - trimString.Length);
-            }
-            else
-            {
-                return s;
-            }
+            return s;
         }
+    }
 
-        public static string TrimStart(this string s, string trimString, StringComparison comparisonType)
+    public static string TrimEnd(this string s, string trimString)
+    {
+        if (trimString.EndsWith(trimString))
         {
-            if (trimString.StartsWith(trimString, comparisonType))
-            {
-                return s[trimString.Length..];
-            }
-            else
-            {
-                return s;
-            }
+            return s[..^trimString.Length];
         }
-
-        public static string TrimEnd(this string s, string trimString, StringComparison comparisonType)
+        else
         {
-            if (trimString.EndsWith(trimString, comparisonType))
-            {
-                return s.Substring(0, s.Length - trimString.Length);
-            }
-            else
-            {
-                return s;
-            }
+            return s;
+        }
+    }
+
+    public static string TrimStart(this string s, string trimString, StringComparison comparisonType)
+    {
+        if (trimString.StartsWith(trimString, comparisonType))
+        {
+            return s[trimString.Length..];
+        }
+        else
+        {
+            return s;
+        }
+    }
+
+    public static string TrimEnd(this string s, string trimString, StringComparison comparisonType)
+    {
+        if (trimString.EndsWith(trimString, comparisonType))
+        {
+            return s[..^trimString.Length];
+        }
+        else
+        {
+            return s;
         }
     }
 }

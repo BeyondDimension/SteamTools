@@ -1,14 +1,13 @@
-﻿//namespace System.Application.Models
+//namespace System.Application.Models;
+
+///// <summary>
+///// 应用设置
+///// </summary>
+//public interface IAppSettings
 //{
 //    /// <summary>
-//    /// 应用设置
+//    /// https://appcenter.ms
+//    /// Unfortunately, this only works on [Windows / iOS / Android]
 //    /// </summary>
-//    public interface IAppSettings
-//    {
-//        /// <summary>
-//        /// https://appcenter.ms
-//        /// Unfortunately, this only works on [Windows / iOS / Android]
-//        /// </summary>
-//        string? AppSecretVisualStudioAppCenter { get; set; }
-//    }
+//    string? AppSecretVisualStudioAppCenter { get; set; }
 //}

@@ -1,8 +1,5 @@
 // https://github.com/NuGetArchive/NuGet.Versioning/blob/release/src/Versioning/SemanticVersionFactory.cs
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Diagnostics.CodeAnalysis;
 

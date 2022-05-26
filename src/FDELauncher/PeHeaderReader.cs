@@ -1,8 +1,6 @@
 // https://gist.github.com/augustoproiete/b51f29f74f5f5b2c59c39e47a8afc3a3
 
-using System;
 using System.Runtime.InteropServices;
-using System.IO;
 
 /// <summary>
 /// Reads in the header information of the Portable Executable format.

@@ -1,9 +1,5 @@
 // https://github.com/NuGetArchive/NuGet.Versioning/blob/release/src/Versioning/NuGetVersion.cs
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace NuGet.Versioning
 {
     /// <summary>

@@ -1,7 +1,6 @@
-﻿namespace System.Application.Services
+namespace System.Application.Services;
+
+/// <inheritdoc cref="INavigationService"/>
+public interface IPlatformNavigationService : INavigationService
 {
-    /// <inheritdoc cref="INavigationService"/>
-    public interface IPlatformNavigationService : INavigationService
-    {
-    }
 }

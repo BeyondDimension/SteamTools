@@ -8,55 +8,54 @@ using Xamarin.Forms.Platform.Android;
 using NUnitApp = NUnit.Runner.App;
 using XEPlatform = Xamarin.Essentials.Platform;
 
-namespace System.UnitTest
+namespace System.UnitTest;
+
+[Activity(MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+public class MainActivity : FormsApplicationActivity
 {
-    [Activity(MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : FormsApplicationActivity
+    protected override void OnCreate(Bundle savedInstanceState)
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        base.OnCreate(savedInstanceState);
+
+        XEPlatform.Init(this, savedInstanceState);
+        Forms.Init(this, savedInstanceState);
+
+        // This will load all tests within the current project
+        var nunit = new NUnitApp
         {
-            base.OnCreate(savedInstanceState);
+            // If you want to add tests in another assembly
+            //nunit.AddTestAssembly(typeof(MyTests).Assembly);
 
-            XEPlatform.Init(this, savedInstanceState);
-            Forms.Init(this, savedInstanceState);
-
-            // This will load all tests within the current project
-            var nunit = new NUnitApp
+            // Available options for testing
+            Options = new TestOptions
             {
-                // If you want to add tests in another assembly
-                //nunit.AddTestAssembly(typeof(MyTests).Assembly);
+                // If True, the tests will run automatically when the app starts
+                // otherwise you must run them manually.
+                AutoRun = true,
 
-                // Available options for testing
-                Options = new TestOptions
-                {
-                    // If True, the tests will run automatically when the app starts
-                    // otherwise you must run them manually.
-                    AutoRun = true,
+                // If True, the application will terminate automatically after running the tests.
+                //TerminateAfterExecution = true,
 
-                    // If True, the application will terminate automatically after running the tests.
-                    //TerminateAfterExecution = true,
+                // Information about the tcp listener host and port.
+                // For now, send result as XML to the listening server.
+                //TcpWriterParameters = new TcpWriterInfo("192.168.0.108", 13000),
 
-                    // Information about the tcp listener host and port.
-                    // For now, send result as XML to the listening server.
-                    //TcpWriterParameters = new TcpWriterInfo("192.168.0.108", 13000),
+                // Creates a NUnit Xml result file on the host file system using PCLStorage library.
+                // CreateXmlResultFile = true,
 
-                    // Creates a NUnit Xml result file on the host file system using PCLStorage library.
-                    // CreateXmlResultFile = true,
+                // Choose a different path for the xml result file
+                // ResultFilePath = Path.Combine(Environment.ExternalStorageDirectory.Path, Environment.DirectoryDownloads, "Nunit", "Results.xml")
+            }
+        };
 
-                    // Choose a different path for the xml result file
-                    // ResultFilePath = Path.Combine(Environment.ExternalStorageDirectory.Path, Environment.DirectoryDownloads, "Nunit", "Results.xml")
-                }
-            };
+        nunit.AddTestAssembly(typeof(ByteArrayTest).Assembly);
 
-            nunit.AddTestAssembly(typeof(ByteArrayTest).Assembly);
+        LoadApplication(nunit);
+    }
 
-            LoadApplication(nunit);
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            XEPlatform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+    public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+    {
+        XEPlatform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

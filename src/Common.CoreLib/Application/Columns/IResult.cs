@@ -1,7 +1,6 @@
-﻿namespace System.Application.Columns
+namespace System.Application.Columns;
+
+public interface IResult<T>
 {
-    public interface IResult<T>
-    {
-        T Result { get; set; }
-    }
+    T Result { get; set; }
 }

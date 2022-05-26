@@ -1,8 +1,6 @@
 // https://newbedev.com/what-are-some-alternatives-to-registrykey-openbasekey-in-net-3-5
 #if NET35
 using Microsoft.Win32.SafeHandles;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;

@@ -1,11 +1,6 @@
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
+//namespace System.Application.Services;
 
-//namespace System.Application.Services
+//public interface IService<T> where T : notnull, IService<T>
 //{
-//    public interface IService<T> where T : notnull, IService<T>
-//    {
-//        static T Instance => DI.Get<T>();
-//    }
+//    static T Instance => DI.Get<T>();
 //}

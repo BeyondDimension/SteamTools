@@ -1,15 +1,14 @@
 using NUnit.Framework;
 using System.Application;
 
-namespace System.UnitTest
+namespace System.UnitTest;
+
+[TestFixture]
+public class DroidTest
 {
-    [TestFixture]
-    public class DroidTest
+    [Test]
+    public void EssentialsSupported()
     {
-        [Test]
-        public void EssentialsSupported()
-        {
-            Assert.IsTrue(Essentials.IsSupported);
-        }
+        Assert.IsTrue(Essentials.IsSupported);
     }
 }

@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Application.Entities;
 using System.Application.Services;
-using System.Linq;
-using System.Threading.Tasks;
 using SMS = System.Application.SMSConstants;
 
 namespace System.Application.Repositories.Implementation;

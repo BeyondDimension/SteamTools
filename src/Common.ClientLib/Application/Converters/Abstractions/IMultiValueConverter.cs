@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Globalization;
 
 // https://docs.microsoft.com/zh-cn/dotnet/api/system.windows.data.imultivalueconverter?view=windowsdesktop-6.0

@@ -1,7 +1,5 @@
 // https://github.com/NuGetArchive/NuGet.Versioning/blob/release/src/Versioning/VersionComparer.cs
 
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace NuGet.Versioning

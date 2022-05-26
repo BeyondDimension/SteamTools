@@ -1,10 +1,9 @@
-﻿namespace System.Application.Services.Implementation
+namespace System.Application.Services.Implementation;
+
+public sealed class NoneToastIntercept : IToastIntercept
 {
-    public sealed class NoneToastIntercept : IToastIntercept
+    bool IToastIntercept.OnShowExecuting(string text)
     {
-        bool IToastIntercept.OnShowExecuting(string text)
-        {
-            return false;
-        }
+        return false;
     }
 }

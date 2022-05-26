@@ -1,6 +1,5 @@
 using System.Application.Entities;
 using System.Application.Services;
-using System.Threading.Tasks;
 
 namespace System.Application.Repositories;
 

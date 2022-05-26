@@ -1,7 +1,6 @@
-namespace System.Application.UI.ViewModels
+namespace System.Application.UI.ViewModels;
+
+public interface IReadOnlyItemViewGroup
 {
-    public interface IReadOnlyItemViewGroup
-    {
-        int ItemViewGroup { get; }
-    }
+    int ItemViewGroup { get; }
 }
