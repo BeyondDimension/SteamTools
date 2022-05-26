@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.Browser2;
 using static System.Application.Services.IApplicationUpdateService;
+using _SR = System.Application.Properties.SR;
 using CC = System.Common.Constants;
 using FailCode = System.Application.Services.ApplicationUpdateFailCode;
 
@@ -686,7 +687,7 @@ namespace System.Application.Services.Implementation
                 IOPath.FileIfExistsItDelete(updateCommandPath);
 
                 var updateCommand = string.Format(
-                   SR.ProgramUpdateCmd_,
+                   _SR.ProgramUpdateCmd_,
                    IApplication.ProgramName,
                    dirPath.TrimEnd(Path.DirectorySeparatorChar),
                    IOPath.BaseDirectory,
