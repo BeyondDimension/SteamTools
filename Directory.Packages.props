@@ -66,7 +66,7 @@
     <PackageVersion Include="System.Drawing.Common" Version="6.0.0" />
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
     <PackageVersion Include="System.Buffers" Version="4.5.1" />
-    <PackageVersion Include="System.Memory" Version="4.5.4" />
+    <PackageVersion Include="System.Memory" Version="4.5.5" />
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageVersion Include="System.Diagnostics.Tracing" Version="4.3.0" />
   </ItemGroup>
