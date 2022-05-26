@@ -10,10 +10,10 @@ namespace System.Application
         /// </summary>
         Register = 200,
 
-        /// <summary>
-        /// [通过手机号码重设密码]找回密码
-        /// </summary>
-        ForgotPassword = 201,
+        ///// <summary>
+        ///// [通过手机号码重设密码]找回密码
+        ///// </summary>
+        //ForgotPassword = 201,
 
         /// <summary>
         /// [换新手机号要旧手机号短信验证]绑定新手机号

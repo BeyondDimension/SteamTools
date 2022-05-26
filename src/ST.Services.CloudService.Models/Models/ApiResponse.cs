@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using _ModelValidatorErrorDescriber = System.Application.UI.Resx.SR;
 
 namespace System.Application.Models
 {
@@ -79,7 +80,7 @@ namespace System.Application.Models
             }
             else if (code == ApiResponseCode.UserIsBan)
             {
-                return ModelValidatorErrorDescriber.UserIsBanErrorMessage;
+                return _ModelValidatorErrorDescriber.UserIsBanErrorMessage;
             }
             else if (code == ApiResponseCode.CertificateNotYetValid)
             {

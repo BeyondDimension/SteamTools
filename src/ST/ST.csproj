@@ -35,8 +35,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Properties\SR.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SR.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>System.Application.UI.Resx</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 

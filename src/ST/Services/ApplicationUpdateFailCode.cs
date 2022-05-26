@@ -1,4 +1,4 @@
-using System.Application.Properties;
+using System.Application.UI.Resx;
 
 namespace System.Application.Services
 {

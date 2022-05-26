@@ -25,7 +25,7 @@
 
 using System.Application.Columns;
 using System.Application.Models;
-using System.Application.Properties;
+using System.Application.UI.Resx;
 using static System.Application.Services.Implementation.ModelValidator;
 
 namespace System.Application
@@ -148,59 +148,64 @@ namespace System.Application
         #endregion
     }
 
-    /// <summary>
-    /// 模型验证错误语句
-    /// </summary>
-    public static class ModelValidatorErrorDescriber
-    {
-        public static string 内容值不能为空或不正确 => SR.内容值不能为空或不正确;
+    ///// <summary>
+    ///// 模型验证错误语句
+    ///// </summary>
+    //[Obsolete("use System.Application.UI.Resx.SR", true)]
+    //public static class ModelValidatorErrorDescriber
+    //{
+    //    public static string 内容值不能为空或不正确 => SR.内容值不能为空或不正确;
 
-        public static string 请输入手机号码哦 => SR.请输入手机号码哦;
+    //    public static string 请输入手机号码哦 => SR.请输入手机号码哦;
 
-        public static string 请输入正确的手机号码哦 => SR.请输入正确的手机号码哦;
+    //    public static string 请输入正确的手机号码哦 => SR.请输入正确的手机号码哦;
 
-        public static string 请输入短信验证码哦 => SR.请输入短信验证码哦;
+    //    public static string 请输入短信验证码哦 => SR.请输入短信验证码哦;
 
-        public static string 短信验证码不正确 => SR.短信验证码不正确;
+    //    public static string 短信验证码不正确 => SR.短信验证码不正确;
 
-        public static string 请选择头像 => SR.请选择头像;
+    //    public static string 请选择头像 => SR.请选择头像;
 
-        public static string 请输入昵称 => SR.请输入昵称;
+    //    public static string 请输入昵称 => SR.请输入昵称;
 
-        public static string 昵称最大长度不能超过_ => SR.昵称最大长度不能超过_;
+    //    public static string 昵称最大长度不能超过_ => SR.昵称最大长度不能超过_;
 
-        public static string 请输入邀请码哦 => SR.请输入邀请码哦;
+    //    public static string 请输入邀请码哦 => SR.请输入邀请码哦;
 
-        public static string 请输入正确的邀请码哦 => SR.请输入正确的邀请码哦;
+    //    public static string 请输入正确的邀请码哦 => SR.请输入正确的邀请码哦;
 
-        public static string 手机号码已存在_注册 => SR.手机号码已存在_注册;
+    //    public static string 手机号码已存在_注册 => SR.手机号码已存在_注册;
 
-        public static string 手机号码已存在_换绑手机 => SR.手机号码已存在_换绑手机;
+    //    public static string 手机号码已存在_换绑手机 => SR.手机号码已存在_换绑手机;
 
-        public static string 手机号码已存在 => SR.手机号码已存在;
+    //    public static string 手机号码已存在 => SR.手机号码已存在;
 
-        public static string 用户不存在 => SR.用户不存在;
+    //    public static string 用户不存在 => SR.用户不存在;
 
-        public static string 当前手机号发送短信过于频繁 => SR.当前手机号发送短信过于频繁;
+    //    public static string 当前手机号发送短信过于频繁 => SR.当前手机号发送短信过于频繁;
 
-        public static string 当前手机号今日发送短信数量超过最大上限 => SR.当前手机号今日发送短信数量超过最大上限;
+    //    public static string 当前手机号今日发送短信数量超过最大上限 => SR.当前手机号今日发送短信数量超过最大上限;
 
-        public static string 短信服务故障 => SR.短信服务故障;
+    //    public static string 短信服务故障 => SR.短信服务故障;
 
-        public static string 验证码已过期或不存在 => SR.验证码已过期或不存在;
+    //    public static string 短信服务已停用 => SR.短信服务已停用;
 
-        public static string 验证码不正确 => SR.验证码不正确;
+    //    public static string 短信服务已停用_登录或注册 => SR.短信服务已停用_登录或注册;
 
-        public static string 新手机号不能与旧手机号一样 => SR.新手机号不能与旧手机号一样;
+    //    public static string 验证码已过期或不存在 => SR.验证码已过期或不存在;
 
-        public static string 当前手机号码不存在 => SR.当前手机号码不存在;
+    //    public static string 验证码不正确 => SR.验证码不正确;
 
-        public static string AuthorizationFailErrorMessage_ => SR.AuthorizationFailErrorMessage_;
+    //    public static string 新手机号不能与旧手机号一样 => SR.新手机号不能与旧手机号一样;
 
-        public static string UserIsBanErrorMessage => SR.UserIsBanErrorMessage;
+    //    public static string 当前手机号码不存在 => SR.当前手机号码不存在;
 
-        public static string BindFail_UserIsNotNull => SR.BindFail_UserIsNotNull;
-    }
+    //    public static string AuthorizationFailErrorMessage_ => SR.AuthorizationFailErrorMessage_;
+
+    //    public static string UserIsBanErrorMessage => SR.UserIsBanErrorMessage;
+
+    //    public static string BindFail_UserIsNotNull => SR.BindFail_UserIsNotNull;
+    //}
 
     /// <summary>
     /// 模型验证长度限定值

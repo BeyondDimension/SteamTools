@@ -171,6 +171,12 @@
   <data name="用户不存在" xml:space="preserve">
     <value>用户不存在</value>
   </data>
+  <data name="短信服务已停用" xml:space="preserve">
+    <value>短信服务已停用</value>
+  </data>
+  <data name="短信服务已停用_登录或注册" xml:space="preserve">
+    <value>短信服务已停用，请使用快速登录进行登录或注册</value>
+  </data>
   <data name="短信服务故障" xml:space="preserve">
     <value>服务端错误 5001 - 短信服务</value>
   </data>
