@@ -15,7 +15,6 @@
         xmlns:sys="using:System"
         xmlns:gif="using:AvaloniaGif"
         x:Name="u"
-        Background="Transparent"
         x:DataType="vm:EditAppInfoWindowViewModel"
         x:CompileBindings="True">
   <Panel>

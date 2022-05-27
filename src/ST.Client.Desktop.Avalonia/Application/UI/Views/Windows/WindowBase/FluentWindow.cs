@@ -165,16 +165,6 @@ namespace Avalonia.Controls
                 if (primaryScreen != null)
                 {
                     var primaryScreenBounds = primaryScreen.Bounds;
-                    if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
-                    {
-                        var leftTopPoint = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
-                        var rightBottomPoint = new PixelPoint(vm.SizePosition.X + (int)Width, vm.SizePosition.Y + (int)Height);
-                        if (primaryScreenBounds.Contains(leftTopPoint) &&
-                            primaryScreenBounds.Contains(rightBottomPoint))
-                        {
-                            Position = leftTopPoint;
-                        }
-                    }
 
                     if (CanResize && IsHideWindow == false)
                     {
@@ -189,6 +179,17 @@ namespace Avalonia.Controls
                         if (ClientSize.Width != Width || ClientSize.Height != Height)
                         {
                             HandleResized(new Size(Width, Height), PlatformResizeReason.Application);
+                        }
+
+                        if (vm.SizePosition.X > 0 && vm.SizePosition.Y > 0)
+                        {
+                            var leftTopPoint = new PixelPoint(vm.SizePosition.X, vm.SizePosition.Y);
+                            var rightBottomPoint = new PixelPoint(vm.SizePosition.X + (int)Width, vm.SizePosition.Y + (int)Height);
+                            if (primaryScreenBounds.Contains(leftTopPoint) &&
+                               primaryScreenBounds.Contains(rightBottomPoint))
+                            {
+                                Position = leftTopPoint;
+                            }
                         }
 
                         this.WhenAnyValue(x => x.ClientSize)
