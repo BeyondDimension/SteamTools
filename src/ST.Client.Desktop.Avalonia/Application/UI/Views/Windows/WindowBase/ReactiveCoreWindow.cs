@@ -1,17 +1,7 @@
 using Avalonia.Controls.Primitives;
 using Avalonia.Platform;
-using Avalonia.ReactiveUI;
-using Avalonia.Styling;
-using FluentAvalonia.Styling;
 using ReactiveUI;
 using System;
-using System.Application.Services;
-using System.Application.Services.Implementation;
-using System.Application.Settings;
-using System.Application.UI.ViewModels;
-using System.Application.UI.Views.Controls;
-using System.ComponentModel;
-using FluentAvalonia.UI.Controls.Primitives;
 using FluentAvalonia.UI.Controls;
 
 // ReSharper disable once CheckNamespace
@@ -32,7 +22,7 @@ namespace Avalonia.Controls
         /// <summary>
         /// Initializes a new instance of the <see cref="ReactiveCoreWindow{TViewModel}"/> class.
         /// </summary>
-        public ReactiveCoreWindow()
+        public ReactiveCoreWindow() : base()
         {
             // This WhenActivated block calls ViewModel's WhenActivated
             // block if the ViewModel implements IActivatableViewModel.

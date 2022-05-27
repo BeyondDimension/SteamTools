@@ -66,7 +66,7 @@ namespace System.Application.Services.Implementation
             CustomWindow customWindow,
             string title,
             WindowViewModel? viewModel,
-            ResizeMode resizeMode,
+            ResizeMode resizeMode = default,
             bool isParent = true,
             Action<DialogWindowViewModel>? actionDialogWindowViewModel = null)
             => MainThread2.InvokeOnMainThreadAsync(async () =>
@@ -78,7 +78,10 @@ namespace System.Application.Services.Implementation
                 }
                 var window = (Window?)Activator.CreateInstance(windowType);
                 if (window == null) return;
-                window.SetResizeMode(resizeMode);
+
+                if (resizeMode != default)
+                    window.SetResizeMode(resizeMode);
+
                 if (viewModel == null && typeWindowViewModel != typeof(object))
                 {
                     viewModel = (WindowViewModel?)Activator.CreateInstance(typeWindowViewModel);

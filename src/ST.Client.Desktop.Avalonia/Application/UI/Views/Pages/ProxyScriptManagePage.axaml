@@ -25,7 +25,26 @@
              Padding="10"
              Margin="{StaticResource ScrollMargin}">
       <DockPanel>
-        <ui:CommandBar DefaultLabelPosition="Right" IsSticky="False">
+        <StackPanel Orientation="Horizontal"
+            Spacing="15"
+            DockPanel.Dock="Right"
+            VerticalAlignment="Center">
+          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                   Classes="clearButton"
+                   Text="{CompiledBinding SearchText,Mode=TwoWay}"
+                   Background="Transparent"
+                   VerticalAlignment="Center"
+                   Width="250"
+                   MinWidth="200">
+            <TextBox.InnerLeftContent>
+              <PathIcon Data="{StaticResource SearchDrawing}"
+                        Classes="TextBoxIcon"/>
+            </TextBox.InnerLeftContent>
+          </TextBox>
+        </StackPanel>
+        <ui:CommandBar DefaultLabelPosition="Right"
+                       DockPanel.Dock="Left"
+                       IsSticky="False">
           <ui:CommandBar.PrimaryCommands>
             <ui:CommandBarElementContainer>
               <ToggleSwitch Classes="onlyToggleSwitch"
@@ -83,24 +102,6 @@
             </ui:CommandBarToggleButton>
           </ui:CommandBar.SecondaryCommands>
         </ui:CommandBar>
-
-        <StackPanel Orientation="Horizontal"
-                    Spacing="15"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center">
-          <TextBox Watermark="{ReflectionBinding Path=Res.Search,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                   Classes="clearButton"
-                   Text="{CompiledBinding SearchText,Mode=TwoWay}"
-                   Background="Transparent"
-                   VerticalAlignment="Center"
-                   Width="250"
-                   MinWidth="200">
-            <TextBox.InnerLeftContent>
-              <PathIcon Data="{StaticResource SearchDrawing}"
-                        Classes="TextBoxIcon"/>
-            </TextBox.InnerLeftContent>
-          </TextBox>
-        </StackPanel>
       </DockPanel>
     </Border>
     <Panel>

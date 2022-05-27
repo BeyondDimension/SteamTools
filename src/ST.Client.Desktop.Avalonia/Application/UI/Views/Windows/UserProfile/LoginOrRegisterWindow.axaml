@@ -5,7 +5,9 @@
         mc:Ignorable="d"
         d:DesignWidth="400" d:DesignHeight="470"
         Width="400" Height="470"
-        MaxWidth="400" MaxHeight="470"
+        MinWidth="400" MinHeight="470"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen"
         x:Class="System.Application.UI.Views.Windows.LoginOrRegisterWindow"
         xmlns:converters="using:System.Application.Converters"
         xmlns:controls="using:System.Application.UI.Views.Controls"
@@ -17,10 +19,7 @@
         xmlns:ms="using:System.Application.Settings"
         xmlns:i="using:Avalonia.Xaml.Interactivity"
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-        WindowStartupLocation="CenterOwner"
-        Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="{StaticResource TitleBarHeight}"
-        CanResize="False"
         x:DataType="vm:LoginOrRegisterWindowViewModel"
         x:CompileBindings="True"
         x:Name="u"
@@ -31,11 +30,11 @@
   <Panel>
     <controls:TitleBar />
     <Panel>
-      <ProgressBar IsIndeterminate="True" 
+      <ProgressBar IsIndeterminate="True"
                    Classes="Circle"
-                   HorizontalAlignment="Center" 
-                   Height="100" 
-                   Width="100" 
+                   HorizontalAlignment="Center"
+                   Height="100"
+                   Width="100"
                    IsVisible="{Binding IsLoading}" />
       <Grid RowDefinitions="*,Auto" IsVisible="{Binding !IsLoading}">
         <i:Interaction.Behaviors>
