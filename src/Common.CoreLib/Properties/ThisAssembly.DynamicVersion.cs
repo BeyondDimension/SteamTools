@@ -9,11 +9,12 @@ static partial class ThisAssembly
     {
         get
         {
-            if (OperatingSystem2.IsLinux() || OperatingSystem2.IsAndroid())
-            {
-                return Version + alpha;
-            }
-            else if (OperatingSystem2.IsMacOS())
+            //if (OperatingSystem2.IsLinux() || OperatingSystem2.IsAndroid())
+            //{
+            //    return Version + alpha;
+            //}
+            //else
+            if (OperatingSystem2.IsLinux() || OperatingSystem2.IsAndroid() || OperatingSystem2.IsMacOS())
             {
                 return Version + beta;
             }
