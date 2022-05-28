@@ -49,9 +49,13 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: dotnet workload install android
 
-#    - name: Install Maui(Windows)
-#      if: matrix.os == 'windows-latest'
-#      run: dotnet workload install maui
+    - name: Install Maui(Windows)
+      if: matrix.os == 'windows-latest'
+      run: dotnet workload install maui
+
+    - name: Install Maui(Unix)
+      if: ${{ matrix.os == 'macOS-latest' || matrix.os == 'ubuntu-latest' }}
+      run: sudo dotnet workload install maui
 
     - name: Verify dotnet info
       run: dotnet --info
