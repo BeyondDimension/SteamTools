@@ -22,36 +22,50 @@
 - Lib **类库**
     - ST **业务通用类库**
     - ST.Client **客户端通用类库**
-        - ST.Client.Desktop **桌面客户端通用类库**
-            - ST.Client.Desktop.Avalonia **使用 Avalonia 实现的 View 层**
-            - ~~ST.Client.Desktop.WPF **使用 WPF 实现的 View 层**~~
-            - ~~ST.Client.Desktop.WinUI **使用 WinUI 实现的 View 层**~~
-            - ST.Client.Desktop.Windows **用于 Windows 的实现**
-            - ST.Client.Desktop.Mac **用于 macOS 的实现**
-            - ST.Client.Desktop.Linux **用于 GNU/Linux 的实现**
-        - ST.Client.Mobile **移动客户端通用类库**
-            - ST.Client.Mobile.Droid **用于 Android 的实现**
-            - ST.Client.Mobile.iOS **用于 iOS 的实现**
-    - ST.Services.CloudService **客户端调用服务端 API 定义**
+    - Bindings **平台原生绑定库**
+    - Platforms
+        - ST.Client.Windows **用于 Windows 的实现**
+        - ST.Client.Mac **用于 macOS 的实现**
+        - ST.Client.Linux **用于 GNU/Linux 的实现**
+        - ST.Client.Android **用于 Android 的实现**
+        - ST.Client.iOS **用于 iOS 的实现**
+    - ResSecrets **使用资源存储的密钥**
+    - UI Framework
+        - ST.Client.Avalonia **使用 Avalonia 实现的 View 层**            
+            - Avalonia.Ref **通过友元程序集调用内部函数或空程序集实现手动裁剪**
+        - ~~ST.Client.WPF~~ **使用 Avalonia 实现的 WPF 层**
+        - ~~ST.Client.WinUI~~ **使用 Avalonia 实现的 WinUI 层**
+        - ST.Client.XamarinForms **使用 Xamarin.Forms/MAUI 实现的 View 层**
+    - Web API
+        - ST.Services.CloudService **客户端调用服务端 API 定义**
         - ST.Services.CloudService.Models **服务端 API 数据传输对象(DTO)定义**
         - ST.Services.CloudService.ViewModels **客户端视图模型**
 - Tool **工具**
+    - ST.Tools.AndroidResourceLink **将 Android Studio Project 中的 res 资源 Link 到 csproj 中(生成 XML)**
     - ST.Tools.AreaImport **从高德城市编码表 Excel 文件中导入地区数据**
-    - ST.Tools.MinifyStaticSites **用于将静态 html 删除空行缩小体积的命令行工具**
+    - ~~ST.Tools.DesktopBridgeLink~~ **Link DesktopBridge 打包中的内容，例如 CEF**
+    - ~~ST.Tools.MinifyStaticSites~~ **用于将静态 html 删除空行缩小体积的命令行工具**
     - ST.Tools.OpenSourceLibraryList **开源许可协议清单生成工具**
         - 需要 [GitHub API Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
     - ST.Tools.Packager **带进度的压缩与解压演示**
-    - ST.Tools.Packager.InstallerSetup **安装程序**
+    - ~~ST.Tools.Packager.InstallerSetup~~ **安装程序**
+    - ST.Tools.Publish **用于发布的控制台工具**
     - ST.Tools.Translate **Resx自动翻译工具**
         - 需要 [Azure Translation Key](https://azure.microsoft.com/zh-cn/services/cognitive-services/translator)
-    - ST.Tools.Win7Troubleshoot **适用于 Windwos 7 OS 的 疑难解答助手**
+    - ~~ST.Tools.Win7Troubleshoot~~ **适用于 Windwos 7 OS 的 疑难解答助手**
         - 目标框架使用 .NET Framework 3.5 并通过 App.config 配置允许在 4.X 中运行 实现在 Windows 上兼容所有的运行库环境
 - Launch **启动项**
+    - FDELauncher FDE(框架依赖) 启动器，判断运行时是否安装与提示，使用 .NET Framework 3.5
+
+    - ST.Client.Android.App **Android 客户端(Xamarin.Android)**
+    - ST.Client.Android.App.Modern **Android 客户端(.Net6+ Android)**
+
     - ST.Client.Desktop.Avalonia.App **桌面客户端**
-    - ST.Client.Desktop.Avalonia.App.Bridge* **[Desktop Bridge](https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-packaging-dot-net)**
-    - ST.Client.Desktop.Avalonia.Demo.App **桌面客户端(UI演示)**
-    - ST.Client.Mobile.Droid.App **Android 客户端**
-    - ST.Client.Mobile.iOS.App **iOS 客户端**
+    - 5_DesktopBridge\ST.Client.Avalonia.App.Bridge.Package **[Desktop Bridge](https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-packaging-dot-net)**
+    - ST.Client.Avalonia.App.MsixPackage **桌面客户端单项目 MSIX 打包**
+    - ~~ST.Client.Desktop.Avalonia.Demo.App~~ **桌面客户端(UI演示)**
+
+    - ST.Client.Maui.App **MAUI 客户端**
 
 ## 🗂️ 命名空间/文件夹
 - ~~中划线~~ 表示此文件夹下的命名空间使用上一级的值
