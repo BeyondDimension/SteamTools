@@ -53,18 +53,15 @@
     - ST.Tools.Translate **Resx自动翻译工具**
         - 需要 [Azure Translation Key](https://azure.microsoft.com/zh-cn/services/cognitive-services/translator)
     - ~~ST.Tools.Win7Troubleshoot~~ **适用于 Windwos 7 OS 的 疑难解答助手**
-        - 目标框架使用 .NET Framework 3.5 并通过 App.config 配置允许在 4.X 中运行 实现在 Windows 上兼容所有的运行库环境
+        - 目标框架使用 .NET FX 3.5 并通过 App.config 配置 [supportedRuntime](https://docs.microsoft.com/zh-cn/dotnet/framework/configure-apps/file-schema/startup/supportedruntime-element) 允许在 4.X 中运行 实现在 Windows 上兼容所有的运行库环境
 - Launch **启动项**
-    - FDELauncher FDE(框架依赖) 启动器，判断运行时是否安装与提示，使用 .NET Framework 3.5
-
+    - FDELauncher FDE(框架依赖) 启动器，判断运行时是否安装与提示，使用 .NET FX 3.5
     - ST.Client.Android.App **Android 客户端(Xamarin.Android)**
-    - ST.Client.Android.App.Modern **Android 客户端(.Net6+ Android)**
-
+    - ST.Client.Android.App.Modern **Android 客户端(.NET 6+)**
     - ST.Client.Desktop.Avalonia.App **桌面客户端**
     - 5_DesktopBridge\ST.Client.Avalonia.App.Bridge.Package **[Desktop Bridge](https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-packaging-dot-net)**
-    - ST.Client.Avalonia.App.MsixPackage **桌面客户端单项目 MSIX 打包**
+    - ST.Client.Avalonia.App.MsixPackage **桌面客户端[单项目 MSIX 打包](https://docs.microsoft.com/zh-cn/windows/apps/windows-app-sdk/single-project-msix?tabs=csharp)**
     - ~~ST.Client.Desktop.Avalonia.Demo.App~~ **桌面客户端(UI演示)**
-
     - ST.Client.Maui.App **MAUI 客户端**
 
 ## 🗂️ 命名空间/文件夹
