@@ -34,7 +34,8 @@
 - [Gitee Releases](https://gitee.com/rmbgame/SteamTools/releases)
 - [Official WebSite](https://steampp.net)
 - [![Microsoft Store](./resources/MSStore_English.png)](https://www.microsoft.com/store/apps/9MTCFHS560NG)
-- [Arch Linux Package](https://aur.archlinux.org/packages/steam%2B%2B-bin)(By [zhanghua000](https://github.com/zhanghua000))
+- [AUR](https://aur.archlinux.org/packages/watt-toolkit-bin)(官方 Release 构建)
+- [AUR dev](https://aur.archlinux.org/packages/watt-toolkit-git)(拉取最新源代码从本地构建，不保证可用性，构建也许会出现失败问题)
 
 ## ✨ 功能
 1. 网络加速 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
@@ -87,7 +88,7 @@ OS                                    | Version               | Architectures   
 [SUSE Enterprise Linux (SLES)][SLES]  | 12 SP2+               | x64               | [SUSE][SLES-lifecycle]
 [Ubuntu][Ubuntu]                      | 16.04, 18.04, 20.04+  | x64, Arm64        | [Ubuntu][Ubuntu-lifecycle]
 [Deepin / UOS][Deepin]                | 20+                   | x64               | [Deepin][Deepin-lifecycle]
-[Arch Linux][Arch]                    |                       | x64               | 
+[Arch Linux][Arch]                    |                       | x64，Arm64        | 
 
 [Alpine]: https://alpinelinux.org/
 [Alpine-lifecycle]: https://wiki.alpinelinux.org/wiki/Alpine_Linux:Releases
