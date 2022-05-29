@@ -1,4 +1,4 @@
-﻿namespace ST.Client.Maui.App
+﻿namespace System.Application.UI
 {
     public partial class MainPage : ContentPage
     {

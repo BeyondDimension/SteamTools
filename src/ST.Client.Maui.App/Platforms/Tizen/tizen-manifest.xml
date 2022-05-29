@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.companyname.ST.Client.Maui.App" version="1.0.0" api-version="7" xmlns="http://tizen.org/ns/packages">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="net.steampp.app" version="1.0.0" api-version="7" xmlns="http://tizen.org/ns/packages">
   <profile name="common" />
-  <ui-application appid="com.companyname.ST.Client.Maui.App" exec="ST.Client.Maui.App.dll" multiple="false" nodisplay="false" taskmanage="true" type="dotnet" launch_mode="single">
-    <label>ST.Client.Maui.App</label>
+  <ui-application appid="net.steampp.app" exec="Watt Toolkit.dll" multiple="false" nodisplay="false" taskmanage="true" type="dotnet" launch_mode="single">
+    <label>Watt Toolkit</label>
     <icon>appicon.xhigh.png</icon>
     <metadata key="http://tizen.org/metadata/prefer_dotnet_aot" value="true" />
   </ui-application>

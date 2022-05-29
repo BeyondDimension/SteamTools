@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace ST.Client.Maui.App
+namespace System.Application.UI
 {
     class Program : MauiApplication
     {

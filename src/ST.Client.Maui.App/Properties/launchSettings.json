@@ -1,12 +1,10 @@
 {
   "profiles": {
     "Watt Toolkit (Package)": {
-      "commandName": "MsixPackage",
-      "nativeDebugging": false
+      "commandName": "MsixPackage"
     },
     "Watt Toolkit (Unpackaged)": {
-      "commandName": "Project",
-      "nativeDebugging": false
+      "commandName": "Project"
     }
   }
 }

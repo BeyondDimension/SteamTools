@@ -1,6 +1,6 @@
-﻿namespace ST.Client.Maui.App
+namespace System.Application.UI
 {
-    public static class MauiProgram
+    public static partial class MauiProgram
     {
         public static MauiApp CreateMauiApp()
         {
