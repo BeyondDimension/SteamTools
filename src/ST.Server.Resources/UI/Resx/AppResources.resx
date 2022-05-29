@@ -166,7 +166,7 @@
     <value>登录 / 注册</value>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}已完成，您可以关闭此窗口并返回至 Steam++。</value>
+    <value>{0} {1}已完成，您可以关闭此窗口并返回至 Watt Toolkit。</value>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
     <value>此浏览器窗口/标签页将会在 10 秒内尝试自动关闭，您也可以手动关闭。</value>
@@ -178,7 +178,7 @@
     <value>连接程序出错,请手动复制以下内容到程序点击手动登录。</value>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」是一个包含多种Steam工具功能的工具箱。</value>
+    <value>「Watt Toolkit」是一个开源跨平台的多功能 Steam 工具箱。</value>
   </data>
   <data name="NewUserNickName_" xml:space="preserve">
     <value>新用户{0}</value>

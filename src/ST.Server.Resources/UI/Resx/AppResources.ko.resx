@@ -166,7 +166,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1} 완료되면 이 창을 닫고 Steam++로 돌아갈 수 있습니다.</value>
+    <value>{0} {1} 완료되면 이 창을 닫고 Watt Toolkit로 돌아갈 수 있습니다.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
@@ -178,8 +178,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>Steam++은 다양한 스팀 도구 기능을 갖춘 도구 상자입니다.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>"Watt Toolkit"은 다양한 플랫폼의 소스를 제공하는 다기능 Steam 도구 상자입니다.</value>
+    <comment>Comment=;Author=baidu</comment>
   </data>
   <data name="noscript" xml:space="preserve">
     <value>이 사이트를 탐색하려면 JavaScript를 켜야 합니다.</value>

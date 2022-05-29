@@ -166,7 +166,7 @@
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1} завершено, вы можете закрыть это окно и вернуться в Steam++.</value>
+    <value>{0} {1} завершено, вы можете закрыть это окно и вернуться в Watt Toolkit.</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
@@ -178,8 +178,8 @@
     <comment>Comment=;Author=vanja-san</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>«Steam++» - это набор инструментов, содержащий широкий спектр инструментов Steam.</value>
-    <comment>Comment=;Author=vanja-san</comment>
+    <value>"Watt Toolkit" - это кроссплатформенный, многофункциональный набор инструментов Steam с открытым исходным кодом.</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="noscript" xml:space="preserve">
     <value>Для просмотра этого сайта, должен быть включён JavaScript.</value>

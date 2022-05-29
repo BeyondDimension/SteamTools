@@ -275,48 +275,55 @@ public static class ProgramHelper
 
     static readonly Lazy<string> mCentralProcessorName = new(() =>
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        try
         {
-            RegistryKey? registryKey = null;
-            try
+            if (OperatingSystem.IsWindows())
             {
-                registryKey = Registry.LocalMachine.OpenSubKey(@"HARDWARE\DESCRIPTION\System\CentralProcessor\0\");
-                return registryKey?.GetValue("ProcessorNameString")?.ToString()?.Trim() ?? string.Empty;
-            }
-            catch
-            {
-            }
-            finally
-            {
-                registryKey?.Dispose();
-            }
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            var filePath = string.Format("{0}proc{0}cpuinfo", Path.DirectorySeparatorChar);
-            if (File.Exists(filePath))
-            {
-                using var fs = File.OpenRead(filePath);
-                using var sr = new StreamReader(fs);
-                while (sr.Peek() >= 0)
+                RegistryKey? registryKey = null;
+                try
                 {
-                    var line = sr.ReadLine();
-                    if (line == null) break;
-                    var array = line.Split(':', StringSplitOptions.RemoveEmptyEntries);
-                    if (array.Length == 2)
+                    registryKey = Registry.LocalMachine.OpenSubKey(@"HARDWARE\DESCRIPTION\System\CentralProcessor\0\");
+                    return registryKey?.GetValue("ProcessorNameString")?.ToString()?.Trim() ?? string.Empty;
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    registryKey?.Dispose();
+                }
+            }
+            else if (OperatingSystem.IsLinux())
+            {
+                var filePath = string.Format("{0}proc{0}cpuinfo", Path.DirectorySeparatorChar);
+                if (File.Exists(filePath))
+                {
+                    using var fs = File.OpenRead(filePath);
+                    using var sr = new StreamReader(fs);
+                    while (sr.Peek() >= 0)
                     {
-                        if (array[0].Trim() == "model name")
+                        var line = sr.ReadLine();
+                        if (line == null) break;
+                        var array = line.Split(':', StringSplitOptions.RemoveEmptyEntries);
+                        if (array.Length == 2)
                         {
-                            return array[1].Trim();
+                            if (array[0].Trim() == "model name")
+                            {
+                                return array[1].Trim();
+                            }
                         }
                     }
                 }
             }
+            //else if (OperatingSystem.IsMacOS())
+            //{
+            // sysctl -n machdep.cpu.brand_string
+            //}
         }
-        //else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        //{
-        //    //sysctl -n machdep.cpu.brand_string
-        //}
+        catch
+        {
+
+        }
         return string.Empty;
     });
 

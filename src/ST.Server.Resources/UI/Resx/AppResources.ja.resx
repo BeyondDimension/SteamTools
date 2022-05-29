@@ -166,7 +166,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}完了したら、このウィンドウを閉じて Steam++ に戻ることができます。</value>
+    <value>{0} {1}完了したら、このウィンドウを閉じて Watt Toolkit に戻ることができます。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
@@ -178,8 +178,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」は、複数のSteamツール機能を含むツールボックスです。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>"Watt Toolkit "は、オープンソース、クロスプラットフォーム、多機能なSteamツールキットです。</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="noscript" xml:space="preserve">
     <value>このサイトを閲覧するには、JavaScript を有効にする必要があります。</value>

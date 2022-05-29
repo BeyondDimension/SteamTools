@@ -166,7 +166,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1} está completo, puedes cerrar esta ventana y volver a Steam++.</value>
+    <value>{0} {1} está completo, puedes cerrar esta ventana y volver a Watt Toolkit.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
@@ -178,8 +178,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>Steam ++ es una caja de herramientas con una variedad de características de la herramienta Steam.</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>"Watt Toolkit" es un kit de herramientas de Steam de código abierto, multiplataforma y multifuncional.</value>
+    <comment>Comment=;Author=deepl</comment>
   </data>
   <data name="noscript" xml:space="preserve">
     <value>JavaScript debe estar activado para navegar por este sitio.</value>

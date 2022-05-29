@@ -166,7 +166,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip1" xml:space="preserve">
-    <value>{0} {1}已完成，您可以關閉此視窗並返回至 Steam++。</value>
+    <value>{0} {1}已完成，您可以關閉此視窗並返回至 Watt Toolkit。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LoginSuccessTip2" xml:space="preserve">
@@ -178,8 +178,8 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="meta_description" xml:space="preserve">
-    <value>「Steam++」是一個包含多種Steam工具功能的工具箱。</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
+    <value>「Watt Toolkit」是一個開源跨平臺的多功能 Steam 工具箱。</value>
+    <comment>Comment=;Author=baidu</comment>
   </data>
   <data name="noscript" xml:space="preserve">
     <value>需要開啟 JavaScript 才能瀏覽本網站。</value>

@@ -205,7 +205,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 {0} {1}已完成，您可以关闭此窗口并返回至 Steam++。 的本地化字符串。
+        ///   查找类似 {0} {1}已完成，您可以关闭此窗口并返回至 Watt Toolkit。 的本地化字符串。
         /// </summary>
         public static string LoginSuccessTip1 {
             get {
@@ -241,7 +241,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 「Steam++」是一个包含多种Steam工具功能的工具箱。 的本地化字符串。
+        ///   查找类似 「Watt Toolkit」是一个开源跨平台的多功能 Steam 工具箱。 的本地化字符串。
         /// </summary>
         public static string meta_description {
             get {
