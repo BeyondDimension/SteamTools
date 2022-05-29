@@ -17,8 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         configuration: [ Debug, Release ]
-#        os: [ windows-latest, macOS-latest, ubuntu-latest ]
-        os: [ windows-latest, macOS-latest ]
+        os: [ windows-latest, macOS-latest, ubuntu-latest ]
+#        os: [ windows-latest, macOS-latest ]
       # rid: [ fd-win-x64, win-x64, osx-x64, linux-x64,linux-arm64 ]
 
     steps:
