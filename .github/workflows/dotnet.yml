@@ -54,7 +54,8 @@ jobs:
       run: dotnet workload install maui
 
     - name: Install Maui(Unix)
-      if: ${{ matrix.os == 'macOS-latest' || matrix.os == 'ubuntu-latest' }}
+#      if: ${{ matrix.os == 'macOS-latest' || matrix.os == 'ubuntu-latest' }}
+      if: matrix.os == 'macOS-latest'
       run: sudo dotnet workload install maui
 
     - name: Verify dotnet info
