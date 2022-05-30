@@ -68,8 +68,10 @@ namespace System.Application.Services.Implementation
 
         public string? GetSteamDirPath()
         {
-            var rootPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            return Path.Combine(rootPath, "Steam");
+            return string.Format(
+                    "{1}{0}.steam{0}Steam",
+                    Path.DirectorySeparatorChar,
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
         }
 
         static readonly Lazy<string> _SteamProgramPath = new(() => string.Format("{0}usr{0}bin{0}steam", Path.DirectorySeparatorChar));
