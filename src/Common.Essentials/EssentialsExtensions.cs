@@ -1,5 +1,5 @@
+using System.Application;
 using System.Runtime.CompilerServices;
-using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
 namespace System;

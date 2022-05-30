@@ -50,8 +50,4 @@
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Converters\Base\" />
-  </ItemGroup>
-
 </Project>

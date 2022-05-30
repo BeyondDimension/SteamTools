@@ -1,13 +1,12 @@
 using System.Application.Services;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application;
 
 /// <summary>
-/// 电子邮件，参考 Xamarin.Essentials.Email。
+/// 电子邮件，参考 Essentials.Email。
 /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/email"/></para>
 /// <para><see cref="https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/Email/Email.shared.cs"/></para>
 /// </summary>
@@ -39,40 +38,35 @@ public static class Email2
     /// <returns></returns>
     public static async Task ComposeAsync(EmailMessage? message)
     {
-        if (Essentials.IsSupported)
+        var s = IEmailPlatformService.Instance;
+        if (s != null)
         {
-            await Email.ComposeAsync(message);
-        }
-        else
-        {
-            var s = IEmailPlatformService.Instance;
-            if (s != null)
+            try
             {
-                try
-                {
-                    await s.PlatformComposeAsync(message);
-                }
-                catch
-                {
-                }
+                await s.PlatformComposeAsync(message);
             }
-            await PlatformComposeAsync(message);
+            catch (Exception e)
+            {
+                HandlerException(e);
+            }
         }
+        await PlatformComposeAsync(message);
     }
 
     static Task PlatformComposeAsync(EmailMessage? message)
     {
-        var uri = GetMailToUri(message);
         try
         {
+            var uri = GetMailToUri(message);
             Process.Start(new ProcessStartInfo
             {
                 FileName = uri,
                 UseShellExecute = true,
             });
         }
-        catch
+        catch (Exception e)
         {
+            HandlerException(e);
         }
         return Task.CompletedTask;
     }
@@ -80,7 +74,7 @@ public static class Email2
     public static string GetMailToUri(EmailMessage? message)
     {
         if (message != null && message.BodyFormat != EmailBodyFormat.PlainText)
-            throw new FeatureNotSupportedException("Only EmailBodyFormat.PlainText is supported if no email account is set up.");
+            throw new ApplicationException("Only EmailBodyFormat.PlainText is supported if no email account is set up.");
 
         var parts = new List<string>();
         if (!string.IsNullOrEmpty(message?.Body))
@@ -101,5 +95,27 @@ public static class Email2
             uri += "?" + string.Join("&", parts);
 
         return uri;
+    }
+
+    public static event Action<Exception>? OnError;
+
+    const string TAG = nameof(Email2);
+
+    static void HandlerException(Exception e)
+    {
+        if (OnError == null)
+        {
+            try
+            {
+                e.LogAndShowT(TAG);
+            }
+            catch
+            {
+            }
+        }
+        else
+        {
+            OnError(e);
+        }
     }
 }

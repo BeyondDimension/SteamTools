@@ -8,7 +8,7 @@ using SQLiteTable = SQLite.TableAttribute;
 
 namespace System.Application.Services.Implementation;
 
-internal sealed class PreferencesPlatformServiceImpl : IPreferencesPlatformService
+internal sealed class PreferencesPlatformServiceImpl : IPreferencesGenericPlatformService
 {
     readonly SQLiteConnection conn;
 

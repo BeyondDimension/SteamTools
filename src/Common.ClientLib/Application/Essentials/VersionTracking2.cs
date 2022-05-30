@@ -1,6 +1,8 @@
-using Xamarin.Essentials;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 using _ThisAssembly = System.Properties.ThisAssembly;
+// https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/VersionTracking/VersionTracking.shared.cs
+// https://github.com/dotnet/maui/blob/main/src/Essentials/src/VersionTracking/VersionTracking.shared.cs
 
 // ReSharper disable once CheckNamespace
 namespace System.Application;
@@ -10,87 +12,55 @@ namespace System.Application;
 /// </summary>
 public static class VersionTracking2
 {
-    // https://github.com/xamarin/Essentials/blob/1.7.0/Xamarin.Essentials/VersionTracking/VersionTracking.shared.cs
-    // https://github.com/xamarin/Essentials/blob/1.7.0/Xamarin.Essentials/AppInfo/AppInfo.uwp.cs
-
     const string versionsKey = "VersionTracking.Versions";
     const string sharedName = "steam++.xamarinessentials.versiontracking";
 
-    static readonly List<string>? versionTrail;
+    static List<string>? versionTrail;
 
     static VersionTracking2()
     {
-        if (!Essentials.IsSupported)
-        {
-            IsFirstLaunchEver = !Preferences2.ContainsKey(versionsKey, sharedName);
-            if (IsFirstLaunchEver)
-            {
-                versionTrail = new();
-            }
-            else
-            {
-                versionTrail = ReadHistory(versionsKey).ToList();
-            }
-
-            IsFirstLaunchForCurrentVersion = !versionTrail.Contains(CurrentVersion);
-            if (IsFirstLaunchForCurrentVersion)
-            {
-                versionTrail.Add(CurrentVersion);
-            }
-
-            if (IsFirstLaunchForCurrentVersion)
-            {
-                WriteHistory(versionsKey, versionTrail);
-            }
-        }
+        InitVersionTracking();
     }
 
-    public static Func<string>? PlatformGetVersionString { private get; set; }
-
-    static string VersionString
+    /// <summary>
+    /// Initialize VersionTracking module, load data and track current version
+    /// </summary>
+    /// <remarks>
+    /// For internal use. Usually only called once in production code, but multiple times in unit tests
+    /// </remarks>
+    internal static void InitVersionTracking()
     {
-        get
+        IsFirstLaunchEver = !Preferences2.ContainsKey(versionsKey, sharedName);
+        if (IsFirstLaunchEver)
         {
-            if (PlatformGetVersionString != null) return PlatformGetVersionString();
-            return _ThisAssembly.Version;
+            versionTrail = new();
+        }
+        else
+        {
+            versionTrail = ReadHistory(versionsKey).ToList();
+        }
+
+        IsFirstLaunchForCurrentVersion = !versionTrail.Contains(CurrentVersion) || LastInstalledVersion() != CurrentVersion;
+        if (IsFirstLaunchForCurrentVersion)
+        {
+            versionTrail.Add(CurrentVersion);
+        }
+
+        if (IsFirstLaunchForCurrentVersion)
+        {
+            WriteHistory(versionsKey, versionTrail);
         }
     }
 
     /// <summary>
     /// 获取应用程序的当前版本号。
     /// </summary>
-    public static string CurrentVersion
-    {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return VersionTracking.CurrentVersion;
-            }
-            else
-            {
-                return VersionString;
-            }
-        }
-    }
+    public const string CurrentVersion = _ThisAssembly.Version;
 
     /// <summary>
     /// 获取此设备上安装的应用程序的第一个版本的版本号。
     /// </summary>
-    public static string FirstInstalledVersion
-    {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return VersionTracking.FirstInstalledVersion;
-            }
-            else
-            {
-                return versionTrail!.FirstOrDefault();
-            }
-        }
-    }
+    public static string FirstInstalledVersion => versionTrail!.FirstOrDefault();
 
     static bool mIsFirstLaunchEver;
 
@@ -99,22 +69,9 @@ public static class VersionTracking2
     /// </summary>
     public static bool IsFirstLaunchEver
     {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return VersionTracking.IsFirstLaunchEver;
-            }
-            else
-            {
-                return mIsFirstLaunchEver;
-            }
-        }
+        get => mIsFirstLaunchEver;
 
-        private set
-        {
-            mIsFirstLaunchEver = value;
-        }
+        private set => mIsFirstLaunchEver = value;
     }
 
     static bool mIsFirstLaunchForCurrentVersion;
@@ -124,59 +81,20 @@ public static class VersionTracking2
     /// </summary>
     public static bool IsFirstLaunchForCurrentVersion
     {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return VersionTracking.IsFirstLaunchForCurrentVersion;
-            }
-            else
-            {
-                return mIsFirstLaunchForCurrentVersion;
-            }
-        }
+        get => mIsFirstLaunchForCurrentVersion;
 
-        private set
-        {
-            mIsFirstLaunchForCurrentVersion = value;
-        }
+        private set => mIsFirstLaunchForCurrentVersion = value;
     }
 
     /// <summary>
     /// 获取以前运行的版本的版本号。
     /// </summary>
-    public static string? PreviousVersion
-    {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return VersionTracking.PreviousVersion;
-            }
-            else
-            {
-                return GetPrevious(versionTrail!);
-            }
-        }
-    }
+    public static string? PreviousVersion => GetPrevious(versionTrail!);
 
     /// <summary>
     /// 获取在此设备上运行的应用的版本号集合。
     /// </summary>
-    public static IEnumerable<string> VersionHistory
-    {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return VersionTracking.VersionHistory;
-            }
-            else
-            {
-                return versionTrail!.ToArray();
-            }
-        }
-    }
+    public static IEnumerable<string> VersionHistory => versionTrail!.ToArray();
 
     /// <summary>
     /// 确定这是否是指定版本号的应用程序的首次启动。
@@ -185,31 +103,17 @@ public static class VersionTracking2
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     public static bool IsFirstLaunchForVersion(string version)
-    {
-        if (Essentials.IsSupported)
-        {
-            return VersionTracking.IsFirstLaunchForVersion(version);
-        }
-        else
-        {
-            return CurrentVersion == version && IsFirstLaunchForCurrentVersion;
-        }
-    }
+        => version == CurrentVersion && IsFirstLaunchForCurrentVersion;
 
     /// <summary>
     /// 开始跟踪版本信息。
     /// </summary>
+#if NETSTANDARD
     [Preserve]
+#endif
     public static void Track()
     {
-        if (Essentials.IsSupported)
-        {
-            VersionTracking.Track();
-        }
-        //else
-        //{
-        //    // 调用空函数触发当前类静态构造函数
-        //}
+        // 调用空函数触发当前类静态构造函数
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -225,4 +129,6 @@ public static class VersionTracking2
     {
         return (trail.Count >= 2) ? trail[^2] : null;
     }
+
+    static string LastInstalledVersion() => versionTrail.LastOrDefault();
 }

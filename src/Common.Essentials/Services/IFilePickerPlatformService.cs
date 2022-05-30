@@ -1,13 +1,22 @@
-using Xamarin.Essentials;
-using static System.Application.FilePicker2;
-
 namespace System.Application.Services;
 
 public interface IFilePickerPlatformService
 {
-    public IOpenFileDialogService OpenFileDialogService { get; }
+    static IFilePickerPlatformService? Instance => DI.Get_Nullable<IFilePickerPlatformService>();
 
-    public ISaveFileDialogService SaveFileDialogService { get; }
+    IOpenFileDialogService OpenFileDialogService { get; }
+
+    ISaveFileDialogService SaveFileDialogService { get; }
+
+    IFilePickerFileType Images { get; }
+
+    IFilePickerFileType Png { get; }
+
+    IFilePickerFileType Jpeg { get; }
+
+    IFilePickerFileType Videos { get; }
+
+    IFilePickerFileType Pdf { get; }
 
     public interface IServiceBase
     {
@@ -53,9 +62,7 @@ public interface IFilePickerPlatformService
     {
         static IOpenFileDialogService? Instance => DI.Get_Nullable<IOpenFileDialogService>();
 
-        Task<IEnumerable<FileResult>> PlatformPickAsync(PickOptions? options, bool allowMultiple = false);
-
-        bool IsSupportedFileExtensionFilter { get; }
+        Task<IEnumerable<IFileResult>> PlatformPickAsync(PickOptions? options, bool allowMultiple = false);
     }
 
     public interface ISaveFileDialogService : IServiceBase

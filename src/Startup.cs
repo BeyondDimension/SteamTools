@@ -6,7 +6,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
-#else
+#elif !MAUI
 using Xamarin.Essentials;
 #endif
 #if UI_DEMO
@@ -49,6 +49,13 @@ using PlatformApplication = System.Application.UI.App;
 #endif
 #if StartWatchTrace
 using System.Diagnostics;
+#endif
+#if ANDROID || IOS || __ANDROID__
+#if MAUI
+using EssentialsFileSystem = Microsoft.Maui.Storage.FileSystem;
+#else
+using EssentialsFileSystem = Xamarin.Essentials.FileSystem;
+#endif
 #endif
 using static System.Application.Browser2;
 using _ThisAssembly = System.Properties.ThisAssembly;
@@ -173,15 +180,10 @@ namespace System.Application.UI
 #if StartWatchTrace
                 StartWatchTrace.Record($"InitDI: {level}");
 #endif
-                if (!Essentials.IsSupported)
-                {
-                    // 在 Xamarin.Essentials 支持的平台上由平台 Application 初始化时调用
-                    // 通常在 DI 之前，例如 Android 上的 MainApplication.OnCreate
-                    VersionTracking2.Track();
+                VersionTracking2.Track();
 #if StartWatchTrace
-                    StartWatchTrace.Record($"VersionTracking2.Track");
+                StartWatchTrace.Record($"VersionTracking2.Track");
 #endif
-                }
 
                 Migrations.Up();
 #if StartWatchTrace
@@ -217,22 +219,35 @@ namespace System.Application.UI
         /// <param name="services"></param>
         static void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
         {
+#if !UI_DEMO 
+            // 平台服务 此项放在其他通用业务实现服务之前
+            services.AddPlatformService(options);
+#endif
+
             // 添加日志实现
             services.AddGeneralLogging();
+#if MAUI || __MOBILE__
+            services.TryAddEssentials();
+#endif
 #if __MOBILE__
             // 添加运行时权限
-            services.TryAddPermissions();
             services.AddPlatformPermissions();
 #endif
 #if !CONSOLEAPP
             // 添加 app 配置项
             services.TryAddOptions(AppSettings);
-            // 键值对存储
-            services.TryAddSecureStorage();
-
-            if (!Essentials.IsSupported)
+            if (Essentials.IsSupported)
             {
-                services.AddPreferences();
+#if ANDROID || IOS || __ANDROID__ || MAUI
+                // 键值对存储(由Essentials提供)
+                services.TryAddEssentialsSecureStorage();
+#endif
+            }
+            else
+            {
+                // 键值对存储(由Repository提供)
+                services.TryAddRepositorySecureStorage();
+                services.AddRepositoryPreferences();
             }
 
             // 添加安全服务
@@ -246,10 +261,6 @@ namespace System.Application.UI
         /// <param name="services"></param>
         static void ConfigureDemandServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
         {
-#if !UI_DEMO 
-            // 平台服务 此项放在其他通用业务实现服务之前
-            services.AddPlatformService(options);
-#endif
 #if StartWatchTrace
             StartWatchTrace.Record("DI.ConfigureDemandServices.Calc");
 #endif
@@ -539,6 +550,8 @@ namespace System.Application.UI
                 FileSystemDesktopXDG.InitFileSystem();
 #elif WINDOWS
                 FileSystemDesktopWindows.InitFileSystem();
+#elif ANDROID || IOS || __ANDROID__
+                FileSystemEssentials.InitFileSystem();
 #else
                 FileSystem2.InitFileSystem();
 #endif
@@ -627,7 +640,7 @@ namespace System.Application.UI
         }
 
 #if !CONSOLEAPP
-        /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO, Guid?)"/>
+        /// <inheritdoc cref="IActiveUserClient.Post(ActiveUserRecordDTO)"/>
         static async void ActiveUserPost(IApplication.IStartupArgs args, ActiveUserType type)
         {
             if (!args.IsMainProcess) return;
@@ -815,6 +828,22 @@ namespace System.Application.UI
 #endif
             }
         }
+
+        #endregion
+
+        #region FileSystemEssentials
+
+#if ANDROID || IOS || __ANDROID__
+        sealed class FileSystemEssentials : IOPath.FileSystemBase
+        {
+            public static void InitFileSystem()
+            {
+                InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+                string GetAppDataDirectory() => EssentialsFileSystem.AppDataDirectory;
+                string GetCacheDirectory() => EssentialsFileSystem.CacheDirectory;
+            }
+        }
+#endif
 
         #endregion
     }

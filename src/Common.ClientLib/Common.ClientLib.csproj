@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <RootNamespace>System</RootNamespace>
     <AssemblyName>ReactiveUI.Tests</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -23,7 +23,6 @@
     <PackageReference Include="ReactiveUI" />
     <PackageReference Include="Splat" />
     <PackageReference Include="DynamicData" />
-    <PackageReference Include="Xamarin.Essentials" />
     <PackageReference Include="System.Reactive" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' " />
     <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' != 'true' " />
   </ItemGroup>
@@ -31,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\Common.Essentials\Common.Essentials.csproj" />
   </ItemGroup>
 
   <ItemGroup>

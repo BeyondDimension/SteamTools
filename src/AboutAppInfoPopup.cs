@@ -18,7 +18,6 @@ using System.Linq;
 using System.Properties;
 using System.Reflection;
 using System.Text;
-using Xamarin.Essentials;
 using System.Runtime.InteropServices;
 
 // ReSharper disable once CheckNamespace
@@ -103,12 +102,12 @@ namespace System.Application.UI
                 {
                     AppendOSName();
                 }
-                void AppendOSName() => b.AppendFormat("{0} {1}", DeviceInfo2.OSName, Environment.OSVersion.Version);
+                void AppendOSName() => b.AppendFormat("{0} {1}", DeviceInfo2.OSName(), Environment.OSVersion.Version);
 #endif
                 b.AppendLine();
 
                 b.Append("[os.name] ");
-                b.Append(DeviceInfo2.OSNameValue);
+                b.Append(DeviceInfo2.OSNameValue());
                 b.AppendLine();
 
                 b.Append("[app.ver] ");
@@ -414,25 +413,25 @@ namespace System.Application.UI
                 b.AppendLine();
 #endif
                 b.Append("[device.name] ");
-                b.Append(DeviceInfo2.Name);
+                b.Append(DeviceInfo2.Name());
                 b.AppendLine();
                 b.Append("[device.model] ");
                 b.Append(
 #if __ANDROID__
                     Build.Model ?? ""
 #else
-                    DeviceInfo2.Model
+                    DeviceInfo2.Model()
 #endif
                     );
                 b.AppendLine();
                 b.Append("[device.ver] ");
-                b.Append(DeviceInfo2.VersionString);
+                b.Append(DeviceInfo2.VersionString());
                 b.AppendLine();
                 b.Append("[device.idiom] ");
-                b.Append(DeviceInfo2.Idiom);
+                b.Append(DeviceInfo2.Idiom());
                 b.AppendLine();
                 b.Append("[device.type] ");
-                b.Append(DeviceInfo2.DeviceType);
+                b.Append(DeviceInfo2.DeviceType());
                 b.AppendLine();
 #if __ANDROID__
                 b.Append("[device.product] ");
@@ -447,7 +446,7 @@ namespace System.Application.UI
 #if __ANDROID__
                     Build.Manufacturer ?? ""
 #else
-                    DeviceInfo2.Manufacturer
+                    DeviceInfo2.Manufacturer()
 #endif
                     );
                 b.AppendLine();

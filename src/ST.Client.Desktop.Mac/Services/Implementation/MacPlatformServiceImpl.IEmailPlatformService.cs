@@ -6,7 +6,6 @@ using AppKit;
 using Foundation;
 #endif
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace System.Application.Services.Implementation
 {
@@ -26,7 +25,7 @@ namespace System.Application.Services.Implementation
             var isComposeSupported = InvokeOnMainThread(() => NSWorkspace.SharedWorkspace.UrlForApplication(NSUrl.FromString("mailto:")) != null);
             if (!isComposeSupported)
             {
-                throw new FeatureNotSupportedException();
+                throw new NotSupportedException();
             }
 
             var url = Email2.GetMailToUri(message);

@@ -7,10 +7,6 @@ namespace System.Application.Services.Implementation
     /// <inheritdoc cref="ITelephonyService"/>
     internal sealed class PlatformTelephonyServiceImpl : TelephonyServiceImpl
     {
-        public PlatformTelephonyServiceImpl(IPermissions p) : base(p)
-        {
-        }
-
         TelephonyManager? telephonyManager;
 
         public TelephonyManager TelephonyManager

@@ -7,24 +7,26 @@ namespace System.Application.Services.Implementation
         public bool PlatformIsMainThread => Dispatcher.UIThread.CheckAccess();
 
         public void PlatformBeginInvokeOnMainThread(Action action,
-            MainThread2.DispatcherPriority priority = MainThread2.DispatcherPriority.Normal)
+            ThreadingDispatcherPriority priority = ThreadingDispatcherPriority.Normal)
         {
             var priority_ = GetPriority(priority);
             Dispatcher.UIThread.Post(action, priority_);
         }
 
-        static DispatcherPriority GetPriority(MainThread2.DispatcherPriority priority) => priority switch
+        static DispatcherPriority GetPriority(ThreadingDispatcherPriority priority) => priority switch
         {
-            MainThread2.DispatcherPriority.SystemIdle => DispatcherPriority.SystemIdle,
-            MainThread2.DispatcherPriority.ApplicationIdle => DispatcherPriority.ApplicationIdle,
-            MainThread2.DispatcherPriority.ContextIdle => DispatcherPriority.ContextIdle,
-            MainThread2.DispatcherPriority.Background => DispatcherPriority.Background,
-            MainThread2.DispatcherPriority.Input => DispatcherPriority.Input,
-            MainThread2.DispatcherPriority.Loaded => DispatcherPriority.Loaded,
-            MainThread2.DispatcherPriority.Render => DispatcherPriority.Render,
-            MainThread2.DispatcherPriority.Normal => DispatcherPriority.Normal,
-            MainThread2.DispatcherPriority.Send => DispatcherPriority.Send,
-            _ => throw new ArgumentOutOfRangeException(nameof(priority), priority, null),
+            ThreadingDispatcherPriority.Invalid or ThreadingDispatcherPriority.Inactive => DispatcherPriority.MinValue,
+            ThreadingDispatcherPriority.SystemIdle => DispatcherPriority.SystemIdle,
+            ThreadingDispatcherPriority.ApplicationIdle => DispatcherPriority.ApplicationIdle,
+            ThreadingDispatcherPriority.ContextIdle => DispatcherPriority.ContextIdle,
+            ThreadingDispatcherPriority.Background => DispatcherPriority.Background,
+            ThreadingDispatcherPriority.Input => DispatcherPriority.Input,
+            ThreadingDispatcherPriority.Loaded => DispatcherPriority.Loaded,
+            ThreadingDispatcherPriority.Render => DispatcherPriority.Render,
+            ThreadingDispatcherPriority.DataBind => DispatcherPriority.DataBind,
+            ThreadingDispatcherPriority.Normal => DispatcherPriority.Normal,
+            ThreadingDispatcherPriority.Send => DispatcherPriority.Send,
+            _ => priority > ThreadingDispatcherPriority.Send ? DispatcherPriority.MaxValue : DispatcherPriority.MinValue,
         };
     }
 }

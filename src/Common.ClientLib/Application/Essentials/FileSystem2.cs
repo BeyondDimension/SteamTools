@@ -1,5 +1,3 @@
-using Xamarin.Essentials;
-
 // ReSharper disable once CheckNamespace
 namespace System.Application;
 
@@ -10,16 +8,13 @@ partial class FileSystem2
     /// </summary>
     public static void InitFileSystem()
     {
-        if (Essentials.IsSupported)
-        {
-            InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
-            string GetAppDataDirectory() => FileSystem.AppDataDirectory;
-            string GetCacheDirectory() => FileSystem.CacheDirectory;
-        }
-        else
-        {
-            InitFileSystemByBaseDirectory();
-        }
+        var appDataPath = BaseDirectory.AppDataDirectory;
+        var cachePath = BaseDirectory.CacheDirectory;
+        IOPath.DirCreateByNotExists(appDataPath);
+        IOPath.DirCreateByNotExists(cachePath);
+        InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+        string GetAppDataDirectory() => appDataPath;
+        string GetCacheDirectory() => cachePath;
     }
 
 #if DEBUG

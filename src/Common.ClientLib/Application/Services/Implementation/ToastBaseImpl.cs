@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Xamarin.Essentials;
 
 namespace System.Application.Services.Implementation;
 
@@ -24,10 +23,10 @@ public abstract class ToastBaseImpl : IToast
         => len > 7 ? ToDuration(ToastLength.Long) : ToDuration(ToastLength.Short);
 
     protected virtual bool IsMainThread
-        => MainThread.IsMainThread;
+        => MainThread2.IsMainThread();
 
     protected virtual void BeginInvokeOnMainThread(Action action)
-        => MainThread.BeginInvokeOnMainThread(action);
+        => MainThread2.BeginInvokeOnMainThread(action);
 
     public void Show(string text, int? duration)
     {

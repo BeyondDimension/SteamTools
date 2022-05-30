@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using Xamarin.Essentials;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels

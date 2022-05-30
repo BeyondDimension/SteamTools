@@ -11,7 +11,7 @@ namespace System.Application.Services.Implementation
         {
         }
 
-        protected override bool IsMainThread => MainThread2.IsMainThread;
+        protected override bool IsMainThread => MainThread2.IsMainThread();
 
         protected override void BeginInvokeOnMainThread(Action action) => MainThread2.BeginInvokeOnMainThread(action);
 

@@ -1,6 +1,7 @@
 using Android.OS;
 using System.IO;
 using Xamarin.Essentials;
+using XEDeviceType = Xamarin.Essentials.DeviceType;
 
 namespace System.Application.Services.Implementation
 {
@@ -14,7 +15,7 @@ namespace System.Application.Services.Implementation
         static bool GetIsEmulator()
         {
             // 参考 https://github.com/gingo/android-emulator-detector/blob/master/EmulatorDetectorProject/EmulatorDetector/src/main/java/net/skoumal/emulatordetector/EmulatorDetector.java
-            return DeviceInfo.DeviceType == DeviceType.Virtual || _();
+            return DeviceInfo.DeviceType == XEDeviceType.Virtual || _();
 #pragma warning disable SA1312 // Variable names should begin with lower-case letter
 #pragma warning disable SA1300 // Element should begin with upper-case letter
             static bool contains(string l, string r)

@@ -1,6 +1,5 @@
 using System.Runtime.Versioning;
 using Windows.Networking.Connectivity;
-using Xamarin.Essentials;
 
 namespace System.Application.Services.Implementation
 {

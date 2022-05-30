@@ -1,5 +1,3 @@
-using static System.Application.MainThread2;
-
 namespace System.Application.Services;
 
 /// <summary>
@@ -11,5 +9,5 @@ public interface IMainThreadPlatformService
 
     bool PlatformIsMainThread { get; }
 
-    void PlatformBeginInvokeOnMainThread(Action action, DispatcherPriority priority = DispatcherPriority.Normal);
+    void PlatformBeginInvokeOnMainThread(Action action, ThreadingDispatcherPriority priority = ThreadingDispatcherPriority.Normal);
 }

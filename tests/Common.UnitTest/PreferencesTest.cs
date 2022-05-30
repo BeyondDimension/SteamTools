@@ -20,8 +20,8 @@ public class PreferencesTest
         Assert.IsTrue(s.PlatformContainsKey(key1, null));
         Assert.IsTrue(s.PlatformContainsKey(key1, key1));
 
-        Assert.IsTrue(s.PlatformGet<string>(key1, default, null) == key1);
-        Assert.IsTrue(s.PlatformGet<string>(key1, default, key1) == key1 + key2);
+        Assert.IsTrue(s.PlatformGet(key1, default(string), null) == key1);
+        Assert.IsTrue(s.PlatformGet(key1, default(string), key1) == key1 + key2);
 
         s.PlatformRemove(key1, null);
         Assert.IsTrue(!s.PlatformContainsKey(key1, null));
@@ -35,8 +35,8 @@ public class PreferencesTest
         Assert.IsTrue(s.PlatformContainsKey(key2, null));
         Assert.IsTrue(s.PlatformContainsKey(key2, key2));
 
-        Assert.IsTrue(s.PlatformGet<int>(key2, default, null) == value1);
-        Assert.IsTrue(s.PlatformGet<int>(key2, default, key2) == value1 + value2);
+        Assert.IsTrue(s.PlatformGet(key2, default(int), null) == value1);
+        Assert.IsTrue(s.PlatformGet(key2, default(int), key2) == value1 + value2);
 
         s.PlatformRemove(key2, null);
         Assert.IsTrue(!s.PlatformContainsKey(key2, null));

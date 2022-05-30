@@ -14,6 +14,6 @@ partial class SetupFixture
             o.MinLevel = LogLevel.Trace;
         });
         services.AddPinyin();
-        services.AddPreferences();
+        services.AddRepositoryPreferences();
     }
 }

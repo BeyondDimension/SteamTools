@@ -3,22 +3,32 @@ using System.Application.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using static System.Application.FilePicker2.FilePickerFileType;
-using static System.Application.Services.IFilePickerPlatformService;
-using static System.Application.Services.IFilePickerPlatformService.IServiceBase;
+using BaseService = System.Application.Services.IFilePickerPlatformService;
+using IOpenFileDialogService = System.Application.Services.IFilePickerPlatformService.IOpenFileDialogService;
+using ISaveFileDialogService = System.Application.Services.IFilePickerPlatformService.ISaveFileDialogService;
+using IServiceBase = System.Application.Services.IFilePickerPlatformService.IServiceBase;
 
 namespace System.Application.Services.Implementation
 {
-    internal sealed class AvaloniaFilePickerPlatformService : IFilePickerPlatformService, IOpenFileDialogService, ISaveFileDialogService
+    internal sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpenFileDialogService, ISaveFileDialogService
     {
-        IOpenFileDialogService IFilePickerPlatformService.OpenFileDialogService => this;
+        IOpenFileDialogService BaseService.OpenFileDialogService => this;
 
-        ISaveFileDialogService IFilePickerPlatformService.SaveFileDialogService => this;
+        ISaveFileDialogService BaseService.SaveFileDialogService => this;
 
-        static List<FileDialogFilter>? Convert(FilePickerFileType fileTypes)
+        IFilePickerFileType BaseService.Images => throw new NotImplementedException();
+
+        IFilePickerFileType BaseService.Png => throw new NotImplementedException();
+
+        IFilePickerFileType BaseService.Jpeg => throw new NotImplementedException();
+
+        IFilePickerFileType BaseService.Videos => throw new NotImplementedException();
+
+        IFilePickerFileType BaseService.Pdf => throw new NotImplementedException();
+
+        static List<FileDialogFilter>? Convert(IFilePickerFileType? fileTypes)
         {
-            if (fileTypes is IFilePickerFileTypeWithName @interface)
+            if (fileTypes is FilePickerFileType.IFilePickerFileTypeWithName @interface)
             {
                 var values = @interface.GetFileTypes();
                 if (values.Any())
@@ -26,20 +36,20 @@ namespace System.Application.Services.Implementation
                     return values.Select(x => new FileDialogFilter
                     {
                         Name = x.Item1,
-                        Extensions = FormatExtensions(x.Item2, trimLeadingPeriod: true).ToList(),
+                        Extensions = IServiceBase.FormatExtensions(x.Item2, trimLeadingPeriod: true).ToList(),
                     }).ToList();
                 }
             }
             else
             {
-                var extensions = fileTypes.Value;
-                if (extensions.Any())
+                var extensions = fileTypes?.GetPlatformFileType(DeviceInfo2.Platform());
+                if (extensions.Any_Nullable())
                 {
                     return new()
                     {
                         new FileDialogFilter
                         {
-                            Extensions = FormatExtensions(extensions, trimLeadingPeriod: true).ToList(),
+                            Extensions = IServiceBase.FormatExtensions(extensions, trimLeadingPeriod: true).ToList(),
                         },
                     };
                 }
@@ -47,7 +57,7 @@ namespace System.Application.Services.Implementation
             return null;
         }
 
-        async Task<IEnumerable<FileResult>> IOpenFileDialogService.PlatformPickAsync(PickOptions? options, bool allowMultiple)
+        async Task<IEnumerable<IFileResult>> IOpenFileDialogService.PlatformPickAsync(PickOptions? options, bool allowMultiple)
         {
             OpenFileDialog fileDialog = new()
             {
@@ -74,7 +84,7 @@ namespace System.Application.Services.Implementation
             return fileResults.Any_Nullable() ? fileResults.Select(x => new FileResult(x)) : Array.Empty<FileResult>();
         }
 
-        async Task<FilePicker2.SaveFileResult?> ISaveFileDialogService.PlatformSaveAsync(FilePicker2.SaveOptions? options)
+        async Task<SaveFileResult?> ISaveFileDialogService.PlatformSaveAsync(SaveOptions? options)
         {
             SaveFileDialog fileDialog = new();
             if (options != default)
@@ -101,7 +111,5 @@ namespace System.Application.Services.Implementation
 
             return string.IsNullOrEmpty(fileResult) ? null : new(fileResult);
         }
-
-        bool IOpenFileDialogService.IsSupportedFileExtensionFilter => true;
     }
 }

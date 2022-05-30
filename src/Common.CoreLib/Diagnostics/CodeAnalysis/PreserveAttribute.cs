@@ -1,13 +1,12 @@
+// https://github.com/xamarin/Essentials/blob/1.7.3/Xamarin.Essentials/Types/Shared/PreserveAttribute.shared.cs
 using System.ComponentModel;
 
-// https://github.com/xamarin/Essentials/blob/1.7.0/Xamarin.Essentials/Types/Shared/PreserveAttribute.shared.cs
-
-// ReSharper disable once CheckNamespace
-namespace Xamarin.Essentials;
+#if NETSTANDARD
+namespace System.Diagnostics.CodeAnalysis;
 
 [AttributeUsage(AttributeTargets.All)]
 [EditorBrowsable(EditorBrowsableState.Never)]
-sealed class PreserveAttribute : Attribute
+public sealed class PreserveAttribute : Attribute
 {
 #pragma warning disable SA1401 // Fields should be private
     public bool AllMembers;
@@ -24,3 +23,4 @@ sealed class PreserveAttribute : Attribute
     {
     }
 }
+#endif

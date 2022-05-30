@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 #if MONO_MAC
 using MonoMac.CoreFoundation;
 #elif XAMARIN_MAC

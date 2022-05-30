@@ -54,7 +54,7 @@ namespace System.Application.UI.Activities
             binding.previewView.ViewTreeObserver!.AddOnGlobalLayoutListener(this);
             cameraProviderFuture = ProcessCameraProvider.GetInstance(this);
 
-            var status = await IPermissions.Instance.CheckAndRequestAsync<Permissions.Camera>();
+            var status = await Permissions2.CheckAndRequestAsync<Permissions.Camera>();
             if (!status.IsOk())
             {
                 Finish();

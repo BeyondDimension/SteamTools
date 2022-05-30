@@ -1,148 +1,52 @@
-using Xamarin.Essentials;
 using System.Application.Services;
-using XEDeviceIdiom = Xamarin.Essentials.DeviceIdiom;
+using System.Runtime.CompilerServices;
+using EDeviceType = System.DeviceType;
+using EPlatform = System.Platform;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application;
 
-/// <inheritdoc cref="DeviceInfo"/>
 public static class DeviceInfo2
 {
-    static readonly Lazy<IDeviceInfoPlatformService?> @interface = new(DI.Get_Nullable<IDeviceInfoPlatformService>);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string Model() => IDeviceInfoPlatformService.Interface?.Model ?? string.Empty;
 
-    static IDeviceInfoPlatformService? Interface => @interface.Value;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string Manufacturer() => IDeviceInfoPlatformService.Interface?.Manufacturer ?? string.Empty;
 
-    /// <inheritdoc cref="DeviceInfo.Model"/>
-    public static string Model
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string Name() => IDeviceInfoPlatformService.Interface?.Name ?? string.Empty;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string VersionString() => IDeviceInfoPlatformService.Interface?.VersionString ?? string.Empty;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static EPlatform Platform() => IDeviceInfoPlatformService.Platform;
+
+    public static DeviceIdiom Idiom()
     {
-        get
+        var i = IDeviceInfoPlatformService.Interface;
+        if (i != null)
         {
-            if (Essentials.IsSupported)
-            {
-                return DeviceInfo.Model;
-            }
-            else
-            {
-                return Interface?.Model ?? string.Empty;
-            }
+            var value = i.Idiom;
+            if (value != DeviceIdiom.Unknown) return value;
         }
+        if (OperatingSystem2.IsDesktop())
+        {
+            return DeviceIdiom.Desktop;
+        }
+        return DeviceIdiom.Unknown;
     }
 
-    /// <inheritdoc cref="DeviceInfo.Manufacturer"/>
-    public static string Manufacturer
-    {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return DeviceInfo.Manufacturer;
-            }
-            else if (Interface != null)
-            {
-                return Interface.Manufacturer;
-            }
-            else
-            {
-                if (OperatingSystem2.IsMacOS() || OperatingSystem2.IsIOS() || OperatingSystem2.IsTvOS() || OperatingSystem2.IsWatchOS())
-                {
-                    return "Apple";
-                }
-                return string.Empty;
-            }
-        }
-    }
-
-    /// <inheritdoc cref="DeviceInfo.Name"/>
-    public static string Name
-    {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return DeviceInfo.Name;
-            }
-            else
-            {
-                return Interface?.Name ?? string.Empty;
-            }
-        }
-    }
-
-    /// <inheritdoc cref="DeviceInfo.VersionString"/>
-    public static string VersionString
-    {
-        get
-        {
-            if (Essentials.IsSupported)
-            {
-                return DeviceInfo.VersionString;
-            }
-            else
-            {
-                return Interface?.VersionString ?? string.Empty;
-            }
-        }
-    }
-
-    /// <inheritdoc cref="DeviceInfo.Platform"/>
-    public static Platform Platform
-    {
-        get
-        {
-            if (OperatingSystem2.IsWindows())
-            {
-                if (DeviceInfo.Platform == DevicePlatform.UWP)
-                {
-                    return Platform.UWP;
-                }
-                else
-                {
-                    return Platform.Windows;
-                }
-            }
-            else if (OperatingSystem2.IsAndroid())
-            {
-                return Platform.Android;
-            }
-            else if (
-                OperatingSystem2.IsIOS() ||
-                OperatingSystem2.IsMacOS() ||
-                OperatingSystem2.IsTvOS() ||
-                OperatingSystem2.IsWatchOS())
-            {
-                return Platform.Apple;
-            }
-            else if (OperatingSystem2.IsLinux())
-            {
-                return Platform.Linux;
-            }
-            return Platform.Unknown;
-        }
-    }
-
-    /// <inheritdoc cref="DeviceInfo.Idiom"/>
-    public static DeviceIdiom Idiom
-    {
-        get
-        {
-            if (OperatingSystem2.IsDesktop())
-            {
-                return DeviceIdiom.Desktop;
-            }
-            else
-            {
-                return DeviceInfo.Idiom.Convert();
-            }
-        }
-    }
-
-    public static string OSName => OSNameValue.ToDisplayName();
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string OSName() => OSNameValue().ToDisplayName();
 
     static readonly Lazy<OSNames.Value> _OSNameValue = new(() =>
     {
         if (OperatingSystem2.IsWindows())
         {
-            if (DeviceInfo.Platform == DevicePlatform.UWP)
+            var i = IDeviceInfoPlatformService.Interface;
+            if (i != null && i.IsUWP)
             {
                 return OSNames.Value.UWP;
             }
@@ -161,17 +65,18 @@ public static class DeviceInfo2
             {
                 return OSNames.Value.WSA;
             }
-            else if (Interface != null && Interface.IsChromeOS)
+            var i = IDeviceInfoPlatformService.Interface;
+            if (i != null && i.IsChromeOS)
             {
                 return OSNames.Value.ChromeOS;
             }
             else
             {
-                if (DeviceType == DeviceType.Virtual)
+                if (DeviceType() == EDeviceType.Virtual)
                 {
                     return OSNames.Value.AndroidVirtual;
                 }
-                return DeviceInfo.Idiom.Convert() switch
+                return Idiom() switch
                 {
                     DeviceIdiom.Phone => OSNames.Value.AndroidPhone,
                     DeviceIdiom.Tablet => OSNames.Value.AndroidTablet,
@@ -184,7 +89,7 @@ public static class DeviceInfo2
         }
         else if (OperatingSystem2.IsIOS())
         {
-            if (DeviceInfo.Idiom == XEDeviceIdiom.Tablet)
+            if (Idiom() == DeviceIdiom.Tablet)
                 return OSNames.Value.iPadOS;
             return OSNames.Value.iOS;
         }
@@ -207,18 +112,14 @@ public static class DeviceInfo2
         return default;
     });
 
-    public static OSNames.Value OSNameValue => _OSNameValue.Value;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static OSNames.Value OSNameValue() => _OSNameValue.Value;
 
-    /// <inheritdoc cref="DeviceInfo.DeviceType"/>
-    public static DeviceType DeviceType
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static DeviceType DeviceType()
     {
-        get
-        {
-            if (Interface != null)
-            {
-                return Interface.DeviceType;
-            }
-            return DeviceInfo.DeviceType;
-        }
+        var i = IDeviceInfoPlatformService.Interface;
+        if (i != null) return i.DeviceType;
+        return default;
     }
 }

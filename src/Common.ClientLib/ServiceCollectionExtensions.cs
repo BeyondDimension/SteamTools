@@ -2,7 +2,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Security;
-using Xamarin.Essentials;
 using static System.Application.Services.ILocalDataProtectionProvider;
 using static System.Application.Services.Implementation.LocalDataProtectionProviderBase;
 using MSEXOptions = Microsoft.Extensions.Options.Options;
@@ -26,31 +25,13 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// 添加由 Xamarin.Essentials.SecureStorage 或 Repository 实现的 <see cref="ISecureStorage"/>
+    /// 添加由 Repository 实现的 <see cref="ISecureStorage"/>
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection TryAddSecureStorage(this IServiceCollection services)
+    public static IServiceCollection TryAddRepositorySecureStorage(this IServiceCollection services)
     {
-        if (DeviceInfo.Platform == DevicePlatform.Unknown)
-        {
-            services.TryAddSingleton<ISecureStorage, RepositorySecureStorage>();
-        }
-        else
-        {
-            services.TryAddSingleton<ISecureStorage, XESecureStorage>();
-        }
-        return services;
-    }
-
-    /// <summary>
-    /// 添加运行时权限
-    /// </summary>
-    /// <param name="services"></param>
-    /// <returns></returns>
-    public static IServiceCollection TryAddPermissions(this IServiceCollection services)
-    {
-        services.TryAddSingleton<IPermissions, PermissionsImpl>();
+        services.TryAddSingleton<ISecureStorage, RepositorySecureStorage>();
         return services;
     }
 
@@ -79,7 +60,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddPreferences(this IServiceCollection services)
+    public static IServiceCollection AddRepositoryPreferences(this IServiceCollection services)
     {
         services.AddSingleton<IPreferencesPlatformService, PreferencesPlatformServiceImpl>();
         return services;

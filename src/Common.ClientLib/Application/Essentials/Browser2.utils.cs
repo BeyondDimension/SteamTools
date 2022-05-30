@@ -1,4 +1,4 @@
-using Xamarin.Essentials;
+using System.Application.Services;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application;
@@ -56,7 +56,7 @@ partial class Browser2
         }
         else if (IsHttpUrl(url, HttpsOnly))
         {
-            if (DeviceInfo.Platform == DevicePlatform.Unknown)
+            if (!Essentials.IsSupported)
             {
                 return OpenCoreByProcess(url);
             }
@@ -78,7 +78,7 @@ partial class Browser2
     {
         try
         {
-            await Browser.OpenAsync(uri, launchMode);
+            await IBrowserPlatformService.Instance.OpenAsync(uri, launchMode);
             return true;
         }
         catch (Exception e)
@@ -88,11 +88,11 @@ partial class Browser2
         }
     }
 
-    static async Task<bool> OpenCoreAsync(string? uri, BrowserLaunchMode launchMode = DefaultBrowserLaunchMode)
+    static async Task<bool> OpenCoreAsync(string uri, BrowserLaunchMode launchMode = DefaultBrowserLaunchMode)
     {
         try
         {
-            await Browser.OpenAsync(uri, launchMode);
+            await IBrowserPlatformService.Instance.OpenAsync(uri, launchMode);
             return true;
         }
         catch (Exception e)
@@ -106,7 +106,7 @@ partial class Browser2
     {
         try
         {
-            return await Browser.OpenAsync(uri, options);
+            return await IBrowserPlatformService.Instance.OpenAsync(uri, options);
         }
         catch (Exception e)
         {
@@ -115,11 +115,11 @@ partial class Browser2
         }
     }
 
-    static async Task<bool> OpenCoreAsync(string? uri, BrowserLaunchOptions options)
+    static async Task<bool> OpenCoreAsync(string uri, BrowserLaunchOptions options)
     {
         try
         {
-            await Browser.OpenAsync(uri, options);
+            await IBrowserPlatformService.Instance.OpenAsync(uri, options);
             return true;
         }
         catch (Exception e)
@@ -129,11 +129,11 @@ partial class Browser2
         }
     }
 
-    static bool OpenCore(string? uri, BrowserLaunchMode launchMode = DefaultBrowserLaunchMode)
+    static bool OpenCore(string uri, BrowserLaunchMode launchMode = DefaultBrowserLaunchMode)
     {
         OpenCoreSync(uri, launchMode);
         return true;
 
-        static async void OpenCoreSync(string? uri, BrowserLaunchMode launchMode) => await OpenCoreAsync(uri, launchMode);
+        static async void OpenCoreSync(string uri, BrowserLaunchMode launchMode) => await OpenCoreAsync(uri, launchMode);
     }
 }

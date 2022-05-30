@@ -75,7 +75,7 @@ namespace System.Application.Converters
                 }
             }
 
-            var stringValues = values.Select(x => (x is not string str) ? x?.ToString() ?? string.Empty : str);
+            var stringValues = values.Select(x => x is not string str ? x?.ToString() ?? string.Empty : str);
             var args = stringValues.Skip(1).ToArray();
             return format.Format(args);
         }

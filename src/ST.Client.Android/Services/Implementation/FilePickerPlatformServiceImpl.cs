@@ -1,15 +1,15 @@
 using Android.Content;
 using System.Linq;
-using System.Threading.Tasks;
-using XEPlatform = Xamarin.Essentials.Platform;
-using static AndroidX.Activity.Result.ActivityResultTask;
 using System.IO;
+using System.Threading.Tasks;
+using static AndroidX.Activity.Result.ActivityResultTask;
+using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.Services.Implementation
 {
     sealed class FilePickerPlatformServiceImpl : IFilePickerPlatformService.ISaveFileDialogService
     {
-        public async Task<FilePicker2.SaveFileResult?> PlatformSaveAsync(FilePicker2.SaveOptions? options)
+        public async Task<SaveFileResult?> PlatformSaveAsync(SaveOptions? options)
         {
             // https://developer.android.google.cn/training/data-storage/shared/documents-files?hl=zh-cn#create-file
             // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/MediaPicker/MediaPicker.android.cs
@@ -22,7 +22,7 @@ namespace System.Application.Services.Implementation
                 {
                     intent.PutExtra(Intent.ExtraTitle, options.InitialFileName);
                 }
-                var mimetypes = options.FileTypes?.Value;
+                var mimetypes = options.FileTypes?.GetPlatformFileType(DeviceInfo2.Platform());
                 if (mimetypes.Any_Nullable())
                 {
                     intent.PutExtra(Intent.ExtraMimeTypes, mimetypes.ToArray());
@@ -30,7 +30,7 @@ namespace System.Application.Services.Implementation
             }
             try
             {
-                FilePicker2.SaveFileResult? result = null;
+                SaveFileResult? result = null;
                 void OnResult(Intent intent)
                 {
                     // The uri returned is only temporary and only lives as long as the Activity that requested it,
@@ -42,7 +42,7 @@ namespace System.Application.Services.Implementation
                     {
                         var uriString = uri.ToString();
                         var outputStream = XEPlatform.AppContext.ContentResolver!.OpenOutputStream(uri);
-                        result = new FilePicker2.SaveFileResult(outputStream ?? throw new ArgumentNullException(nameof(outputStream)), uriString);
+                        result = new SaveFileResult(outputStream ?? throw new ArgumentNullException(nameof(outputStream)), uriString);
                     }
                 }
 

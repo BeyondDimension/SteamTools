@@ -18,7 +18,6 @@ using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.FilePicker2;
-using BrowserLaunchMode = Xamarin.Essentials.BrowserLaunchMode;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels

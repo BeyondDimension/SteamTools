@@ -25,7 +25,7 @@ namespace System.Application.Models
         [S_JsonProperty("1")]
         public Platform Platform { get; set; } =
 #if MVVM_VM
-            DeviceInfo2.Platform;
+            DeviceInfo2.Platform();
 #else
             Platform.Unknown;
 #endif
@@ -38,7 +38,7 @@ namespace System.Application.Models
         [S_JsonProperty("2")]
         public DeviceIdiom DeviceIdiom { get; set; } =
 #if MVVM_VM
-            DeviceInfo2.Idiom;
+            DeviceInfo2.Idiom();
 #else
             DeviceIdiom.Unknown;
 #endif

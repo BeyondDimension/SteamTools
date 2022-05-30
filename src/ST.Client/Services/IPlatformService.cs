@@ -7,8 +7,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Application.Models;
 using System.Application.Settings;
-using Xamarin.Essentials;
 using System.Runtime.Versioning;
+using System.Security;
 
 namespace System.Application.Services
 {
@@ -44,7 +44,7 @@ namespace System.Application.Services
             var p = GeneralSettings.TextReaderProvider.Value;
             if (p != null)
             {
-                var platform = DeviceInfo2.Platform;
+                var platform = DeviceInfo2.Platform();
                 if (p.ContainsKey(platform))
                 {
                     var value = p[platform];
@@ -294,12 +294,13 @@ namespace System.Application.Services
             var guid = GetMachineSecretKeyGuid();
             static Guid GetMachineSecretKeyGuid()
             {
-                Func<Task<string>> getAsync = () => SecureStorage.GetAsync(KEY_MACHINE_SECRET);
+                var secureStorage = ISecureStorage.Instance;
+                Func<Task<string?>> getAsync = () => secureStorage.GetAsync(KEY_MACHINE_SECRET);
                 var guidStr = getAsync.RunSync();
                 if (Guid.TryParse(guidStr, out var guid)) return guid;
                 guid = Guid.NewGuid();
                 guidStr = guid.ToString();
-                Func<Task> setAsync = () => SecureStorage.SetAsync(KEY_MACHINE_SECRET, guidStr);
+                Func<Task> setAsync = () => secureStorage.SetAsync(KEY_MACHINE_SECRET, guidStr);
                 setAsync.RunSync();
                 return guid;
             }

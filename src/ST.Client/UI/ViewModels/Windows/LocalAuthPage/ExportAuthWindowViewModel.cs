@@ -170,7 +170,7 @@ namespace System.Application.UI.ViewModels
 
             if (!ignorePath)
             {
-                if (IsSupportedSaveFileDialog)
+                if (Essentials.IsSupportedSaveFileDialog)
                 {
                     FilePickerFileType? fileTypes;
                     if (IApplication.IsDesktopPlatform)

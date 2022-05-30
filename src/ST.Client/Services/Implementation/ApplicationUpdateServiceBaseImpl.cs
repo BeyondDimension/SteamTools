@@ -152,8 +152,8 @@ namespace System.Application.Services.Implementation
 
             //var id = settings.AppVersion;
             Guid id = default;
-            var platform = DeviceInfo2.Platform;
-            var deviceIdiom = DeviceInfo2.Idiom;
+            var platform = DeviceInfo2.Platform();
+            var deviceIdiom = DeviceInfo2.Idiom();
             if (deviceIdiom == DeviceIdiom.Tablet && platform == Platform.Apple)
             {
                 deviceIdiom = DeviceIdiom.Phone;

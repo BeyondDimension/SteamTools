@@ -46,7 +46,7 @@ namespace System.Application.UI.ViewModels
             AllEnableScriptCommand = ReactiveCommand.Create(AllEnableScript);
             AddNewScriptButton_Click = ReactiveCommand.CreateFromTask(async () =>
             {
-                FilePicker2.FilePickerFileType? fileTypes;
+                FilePickerFileType? fileTypes;
                 if (IApplication.IsDesktopPlatform)
                 {
                     fileTypes = new ValueTuple<string, string[]>[]

@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using static System.Application.UI.ViewModels.ThirdPartyLoginHelper;
 using _ThisAssembly = System.Properties.ThisAssembly;
-using BrowserLaunchMode = Xamarin.Essentials.BrowserLaunchMode;
 
 namespace System.Application.UI.ViewModels
 {

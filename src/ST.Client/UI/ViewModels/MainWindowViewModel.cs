@@ -7,6 +7,7 @@ using System.Linq;
 using System.Properties;
 using System.Reactive;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
@@ -73,7 +74,7 @@ namespace System.Application.UI.ViewModels
             if (IApplication.IsDesktopPlatform)
             {
                 var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
-                var title = $"{ThisAssembly.DisplayTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName}{adminTag}";
+                var title = $"{ThisAssembly.DisplayTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName()}{adminTag}";
 #if DEBUG
                 title = $"[Debug] {title}";
 #endif
@@ -144,7 +145,7 @@ namespace System.Application.UI.ViewModels
         {
             Task.Run(() =>
             {
-                Threading.Thread.CurrentThread.IsBackground = true;
+                Thread.CurrentThread.IsBackground = true;
                 if (!IsInitialized)
                 {
                     Task.Run(async () =>

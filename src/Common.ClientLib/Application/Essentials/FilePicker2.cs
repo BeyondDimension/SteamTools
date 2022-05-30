@@ -1,4 +1,3 @@
-using Xamarin.Essentials;
 using static System.Application.Services.IFilePickerPlatformService;
 using _ThisAssembly = System.Properties.ThisAssembly;
 
@@ -6,56 +5,45 @@ using _ThisAssembly = System.Properties.ThisAssembly;
 namespace System.Application;
 
 /// <summary>
-/// 文件选取器，参考 Xamarin.Essentials.FilePicker。
+/// 文件选取器，参考 Essentials.FilePicker。
 /// <para><see cref="https://docs.microsoft.com/zh-cn/xamarin/essentials/file-picker"/></para>
 /// <para><see cref="https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FilePicker/FilePicker.shared.cs"/></para>
 /// </summary>
 public static partial class FilePicker2
 {
-    static readonly Lazy<bool> mIsSupportedSaveFileDialog = new(() =>
-    {
-        var s = ISaveFileDialogService.Instance;
-        return s != null;
-    });
-
-    /// <summary>
-    /// 是否支持保存文件对话框。
-    /// </summary>
-    public static bool IsSupportedSaveFileDialog => mIsSupportedSaveFileDialog.Value;
-
     /// <summary>
     /// 启动文件选择器以选择单个文件。
     /// </summary>
     /// <param name="options">要使用的文件选择器选项，可能为空。</param>
     /// <returns>文件拾取结果对象，或当用户取消拾取时为空。</returns>
     /// <exception cref="PlatformNotSupportedException"></exception>
-    public static async Task<FileResult?> PickAsync(PickOptions? options = null)
+    public static async Task<IFileResult?> PickAsync(PickOptions? options = null)
     {
         try
         {
-            if (Essentials.IsSupported)
+            var s = IOpenFileDialogService.Instance;
+            if (s != null)
             {
-                return await FilePicker.PickAsync(options);
+                return (await s.PlatformPickAsync(options))?.FirstOrDefault();
+            }
+            throw new PlatformNotSupportedException();
+        }
+        catch (Exception e)
+        {
+            if (e is OperationCanceledException)
+            {
+                // The user canceled or something went wrong
+                return null;
+            }
+            else if (e.GetType().Name == "PermissionException")
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return null;
             }
             else
             {
-                var s = IOpenFileDialogService.Instance;
-                if (s != null)
-                {
-                    return (await s.PlatformPickAsync(options))?.FirstOrDefault();
-                }
-                throw new PlatformNotSupportedException();
+                throw;
             }
-        }
-        catch (PermissionException e)
-        {
-            Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
-            return null;
-        }
-        catch (OperationCanceledException)
-        {
-            // The user canceled or something went wrong
-            return null;
         }
     }
 
@@ -94,13 +82,22 @@ public static partial class FilePicker2
                 }
             }
         }
-        catch (PermissionException e)
+        catch (Exception e)
         {
-            Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
-        }
-        catch (OperationCanceledException)
-        {
-            // The user canceled or something went wrong
+            if (e is OperationCanceledException)
+            {
+                // The user canceled or something went wrong
+                return;
+            }
+            else if (e.GetType().Name == "PermissionException")
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return;
+            }
+            else
+            {
+                throw;
+            }
         }
     }
 
@@ -137,13 +134,22 @@ public static partial class FilePicker2
                 }
             }
         }
-        catch (PermissionException e)
+        catch (Exception e)
         {
-            Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
-        }
-        catch (OperationCanceledException)
-        {
-            // The user canceled or something went wrong
+            if (e is OperationCanceledException)
+            {
+                // The user canceled or something went wrong
+                return;
+            }
+            else if (e.GetType().Name == "PermissionException")
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return;
+            }
+            else
+            {
+                throw;
+            }
         }
     }
 
@@ -153,33 +159,33 @@ public static partial class FilePicker2
     /// <param name="options">要使用的文件选择器选项，可能为空。</param>
     /// <returns>文件拾取结果对象，或当用户取消拾取时为空。</returns>
     /// <exception cref="PlatformNotSupportedException"></exception>
-    public static async Task<IEnumerable<FileResult>?> PickMultipleAsync(PickOptions? options = null)
+    public static async Task<IEnumerable<IFileResult>?> PickMultipleAsync(PickOptions? options = null)
     {
         try
         {
-            if (Essentials.IsSupported)
+            var s = IOpenFileDialogService.Instance;
+            if (s != null)
             {
-                return await FilePicker.PickMultipleAsync(options);
+                return await s.PlatformPickAsync(options ?? PickOptions.Default, true);
+            }
+            throw new PlatformNotSupportedException();
+        }
+        catch (Exception e)
+        {
+            if (e is OperationCanceledException)
+            {
+                // The user canceled or something went wrong
+                return null;
+            }
+            else if (e.GetType().Name == "PermissionException")
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return null;
             }
             else
             {
-                var s = IOpenFileDialogService.Instance;
-                if (s != null)
-                {
-                    return await s.PlatformPickAsync(options ?? PickOptions.Default, true);
-                }
-                throw new PlatformNotSupportedException();
+                throw;
             }
-        }
-        catch (PermissionException e)
-        {
-            Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
-            return null;
-        }
-        catch (OperationCanceledException)
-        {
-            // The user canceled or something went wrong
-            return null;
         }
     }
 
@@ -216,13 +222,22 @@ public static partial class FilePicker2
                 }
             }
         }
-        catch (PermissionException e)
+        catch (Exception e)
         {
-            Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
-        }
-        catch (OperationCanceledException)
-        {
-            // The user canceled or something went wrong
+            if (e is OperationCanceledException)
+            {
+                // The user canceled or something went wrong
+                return;
+            }
+            else if (e.GetType().Name == "PermissionException")
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return;
+            }
+            else
+            {
+                throw;
+            }
         }
     }
 
@@ -259,13 +274,22 @@ public static partial class FilePicker2
                 }
             }
         }
-        catch (PermissionException e)
+        catch (Exception e)
         {
-            Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
-        }
-        catch (OperationCanceledException)
-        {
-            // The user canceled or something went wrong
+            if (e is OperationCanceledException)
+            {
+                // The user canceled or something went wrong
+                return;
+            }
+            else if (e.GetType().Name == "PermissionException")
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return;
+            }
+            else
+            {
+                throw;
+            }
         }
     }
 
@@ -286,80 +310,22 @@ public static partial class FilePicker2
             }
             throw new PlatformNotSupportedException();
         }
-        catch (PermissionException e)
+        catch (Exception e)
         {
-            Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
-            return null;
-        }
-        catch (OperationCanceledException)
-        {
-            // The user canceled or something went wrong
-            return null;
-        }
-    }
-
-    public sealed class SaveFileResult : IDisposable
-    {
-        readonly string? fullPath;
-        readonly Stream? stream;
-        readonly string? @string;
-        bool disposedValue;
-
-        public SaveFileResult(string fullPath)
-        {
-            this.fullPath = fullPath;
-        }
-
-        public SaveFileResult(Stream stream, string? @string = null)
-        {
-            this.stream = stream;
-            this.@string = @string;
-        }
-
-        /// <summary>
-        /// 打开写入流，在桌面平台上为 <see cref="FileStream"/>，在 Android 上为 Java.IO.OutputStream
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotSupportedException"></exception>
-        public Stream OpenWrite()
-        {
-            if (fullPath != null)
-                return new FileStream(fullPath, FileMode.OpenOrCreate, FileAccess.Write);
-            if (stream != null)
-                return stream;
-            throw new NotSupportedException();
-        }
-
-        public override string ToString()
-        {
-            if (fullPath != null)
-                return fullPath;
-            if (@string != null)
-                return @string;
-            return base.ToString();
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!disposedValue)
+            if (e is OperationCanceledException)
             {
-                if (disposing)
-                {
-                    // TODO: 释放托管状态(托管对象)
-                    stream?.Dispose();
-                }
-
-                // TODO: 释放未托管的资源(未托管的对象)并重写终结器
-                // TODO: 将大型字段设置为 null
-                disposedValue = true;
+                // The user canceled or something went wrong
+                return null;
             }
-        }
-
-        public void Dispose()
-        {
-            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            else if (e.GetType().Name == "PermissionException")
+            {
+                Toast.Show(e.Message); // Xamarin.Essentials.PermissionException
+                return null;
+            }
+            else
+            {
+                throw;
+            }
         }
     }
 }

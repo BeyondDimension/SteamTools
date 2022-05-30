@@ -1,6 +1,5 @@
 using System.Application;
 using System.Application.Models;
-using System.Linq;
 
 return _(args, "客户端发布命令行工具(Command Line Tools/CLT)", init: () =>
 {
@@ -10,6 +9,6 @@ return _(args, "客户端发布命令行工具(Command Line Tools/CLT)", init: (
         return AppHostPatcher.Program.M(args_);
     }
 
-    FileSystem2.InitFileSystemByBaseDirectory();
+    FileSystem2.InitFileSystem();
     return null;
 }, action: ToolConfig.AddInitCommand);

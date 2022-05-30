@@ -3,13 +3,6 @@ namespace System.Application.Services.Implementation;
 /// <inheritdoc cref="ITelephonyService"/>
 public abstract class TelephonyServiceImpl : ITelephonyService
 {
-    readonly IPermissions p;
-
-    public TelephonyServiceImpl(IPermissions p)
-    {
-        this.p = p;
-    }
-
     /// <summary>
     /// 由特定平台实现的获取手机号码
     /// </summary>
@@ -22,7 +15,7 @@ public abstract class TelephonyServiceImpl : ITelephonyService
     /// <returns></returns>
     protected virtual async Task<string?> PlatformGetPhoneNumberAsync()
     {
-        var status = await p.CheckAndRequestAsync(IPermissions.IGetPhoneNumber.Instance);
+        var status = await Permissions2.CheckAndRequestAsync<Permissions2.IGetPhoneNumber>();
         if (status.IsOk())
         {
             try

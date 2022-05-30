@@ -1,5 +1,4 @@
 using System.Application;
-using Xamarin.Essentials;
 
 namespace System.Net.Http;
 
@@ -12,7 +11,7 @@ public abstract class ClientHttpPlatformHelperService : HttpPlatformHelperServic
         {
             if (Essentials.IsSupported)
             {
-                var networkAccess = Connectivity.NetworkAccess;
+                var networkAccess = Connectivity2.NetworkAccess();
                 return networkAccess == NetworkAccess.Internet;
             }
             return true;

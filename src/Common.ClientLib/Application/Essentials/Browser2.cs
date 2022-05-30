@@ -1,9 +1,9 @@
-using Xamarin.Essentials;
-
 // ReSharper disable once CheckNamespace
 namespace System.Application;
 
-/// <inheritdoc cref="Browser"/>
+/// <summary>
+/// 提供了一种在应用程序中显示网页的方法。
+/// </summary>
 public static partial class Browser2
 {
     public static event Action<Exception>? OnError;

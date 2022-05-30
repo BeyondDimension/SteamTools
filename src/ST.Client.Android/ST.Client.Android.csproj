@@ -162,6 +162,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\Common.Essentials.Xamarin\Common.Essentials.Xamarin.csproj" />
     <ProjectReference Condition=" $(DefineConstants.Contains(`V2RAY`)) " Include="..\ST.Client.Android.V2Ray\ST.Client.Android.V2Ray.csproj" />
     <ProjectReference Condition=" $(DefineConstants.Contains(`SHADOWSOCKS`)) " Include="..\ST.Client.Android.Shadowsocks\ST.Client.Android.Shadowsocks.csproj" />
     <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" Condition=" $(DefineConstants.Contains(`__XAMARIN_FORMS__`)) " />

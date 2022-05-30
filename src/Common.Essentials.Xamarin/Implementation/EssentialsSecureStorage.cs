@@ -1,18 +1,17 @@
-using Xamarin.Essentials;
-
+// ReSharper disable once CheckNamespace
 namespace System.Security;
 
 /// <summary>
 /// 由 Xamarin.Essentials 实现的 <see cref="ISecureStorage"/>
 /// <para>https://docs.microsoft.com/zh-cn/xamarin/essentials/secure-storage</para>
 /// </summary>
-internal sealed class XESecureStorage : ISecureStorage
+internal sealed class EssentialsSecureStorage : ISecureStorage
 {
     bool ISecureStorage.IsNativeSupportedBytes => false;
 
-    Task<string?> ISecureStorage.GetAsync(string key)
+    async Task<string?> ISecureStorage.GetAsync(string key)
     {
-        return SecureStorage.GetAsync(key);
+        return await SecureStorage.GetAsync(key);
     }
 
     Task ISecureStorage.SetAsync(string key, string? value)

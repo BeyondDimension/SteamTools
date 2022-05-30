@@ -5,6 +5,13 @@ using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Logging;
 using System.Net;
+#if MONOANDROID || __ANDROID__
+#if MAUI
+using EssentialsFileSystem = Microsoft.Maui.Storage.FileSystem;
+#else
+using EssentialsFileSystem = Xamarin.Essentials.FileSystem;
+#endif
+#endif
 
 namespace System.Application;
 
@@ -21,6 +28,11 @@ partial class SetupFixture
         /// </summary>
         public static void InitFileSystem()
         {
+#if MONOANDROID || __ANDROID__
+            InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+            string GetAppDataDirectory() => EssentialsFileSystem.AppDataDirectory;
+            string GetCacheDirectory() => EssentialsFileSystem.CacheDirectory;
+#else
             var path = AppContext.BaseDirectory;
             var path1 = Path.Combine(path, "AppData");
             IOPath.DirCreateByNotExists(path1);
@@ -29,6 +41,7 @@ partial class SetupFixture
             string GetAppDataDirectory() => path1;
             string GetCacheDirectory() => path2;
             InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
+#endif
         }
     }
 
@@ -38,15 +51,7 @@ partial class SetupFixture
         {
             ModelValidatorProvider.Init();
             DI.ConfigureServices(configureServices);
-
-            if (!OperatingSystem2.IsAndroid())
-            {
-                FileSystemTest.InitFileSystem();
-            }
-            else
-            {
-                FileSystem2.InitFileSystem();
-            }
+            FileSystemTest.InitFileSystem();
         }
     }
 
@@ -86,7 +91,16 @@ partial class SetupFixture
         services.AddRepositories();
 
         // 键值对存储
-        services.TryAddSecureStorage();
+        if (Essentials.IsSupported)
+        {
+#if ANDROID || IOS || __ANDROID__ || MAUI
+            services.TryAddEssentialsSecureStorage();
+#endif
+        }
+        else
+        {
+            services.TryAddRepositorySecureStorage();
+        }
 
         // 业务平台用户管理
         services.TryAddUserManager();

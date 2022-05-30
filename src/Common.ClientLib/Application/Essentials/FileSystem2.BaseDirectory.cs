@@ -46,15 +46,4 @@ public sealed partial class FileSystem2 : IOPath.FileSystemBase
             }
         }
     }
-
-    public static void InitFileSystemByBaseDirectory()
-    {
-        var appDataPath = BaseDirectory.AppDataDirectory;
-        var cachePath = BaseDirectory.CacheDirectory;
-        IOPath.DirCreateByNotExists(appDataPath);
-        IOPath.DirCreateByNotExists(cachePath);
-        InitFileSystem(GetAppDataDirectory, GetCacheDirectory);
-        string GetAppDataDirectory() => appDataPath;
-        string GetCacheDirectory() => cachePath;
-    }
 }

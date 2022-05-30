@@ -93,7 +93,7 @@ namespace System.Application.UI.ViewModels
                                     item.Id == tabItemId, hideTaskBarWindow);
                         else
                             OnMenuClick(s => s.Name == tag, hideTaskBarWindow);
-                    }, DispatcherPriority.MaxValue);
+                    }, ThreadingDispatcherPriority.MaxValue);
                     break;
             }
             return false;

@@ -1,10 +1,9 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
+using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.Services.Implementation.Permissions;
 using System.Diagnostics;
-using System.Logging;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection
@@ -40,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddPlatformPermissions(this IServiceCollection services)
         {
-            services.AddTransient<IPermissions.IGetPhoneNumber, GetPhoneNumberPermission>();
+            services.AddTransient<Permissions2.IGetPhoneNumber, GetPhoneNumberPermission>();
             return services;
         }
     }

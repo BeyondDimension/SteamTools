@@ -6,8 +6,6 @@ using Windows.ApplicationModel.Email;
 using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Xamarin.Essentials;
-using EmailMessage = Xamarin.Essentials.EmailMessage;
 using NativeEmailAttachment = Windows.ApplicationModel.Email.EmailAttachment;
 using NativeEmailMessage = Windows.ApplicationModel.Email.EmailMessage;
 
@@ -25,11 +23,11 @@ namespace System.Application.Services.Implementation
             var isComposeSupported = ApiInformation.IsTypePresent("Windows.ApplicationModel.Email.EmailManager");
             if (!isComposeSupported)
             {
-                throw new FeatureNotSupportedException();
+                throw new NotSupportedException();
             }
 
             if (message != null && message.BodyFormat != EmailBodyFormat.PlainText)
-                throw new FeatureNotSupportedException("UWP can only compose plain text email messages.");
+                throw new NotSupportedException("UWP can only compose plain text email messages.");
 
             var nativeMessage = new NativeEmailMessage();
             if (!string.IsNullOrEmpty(message?.Body))
@@ -63,7 +61,7 @@ namespace System.Application.Services.Implementation
         }
 
         [SupportedOSPlatform("Windows10.0.10240.0")]
-        static void Sync(List<string> recipients, IList<EmailRecipient> nativeRecipients)
+        static void Sync(List<string>? recipients, IList<EmailRecipient> nativeRecipients)
         {
             if (recipients == null)
                 return;

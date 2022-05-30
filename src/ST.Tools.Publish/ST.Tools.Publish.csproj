@@ -27,6 +27,9 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="..\Common.ClientLib\Application\Essentials\FileSystem2.cs">
+      <Link>FileSystem2.cs</Link>
+    </Compile>
     <Compile Include="..\Common.ClientLib\Application\Essentials\FileSystem2.BaseDirectory.cs">
       <Link>FileSystem2.BaseDirectory.cs</Link>
     </Compile>
