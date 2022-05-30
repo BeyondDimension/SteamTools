@@ -69,7 +69,7 @@ namespace System.Application.Services.Implementation
         public string? GetSteamDirPath()
         {
             return string.Format(
-                    "{1}{0}.steam{0}Steam",
+                    "{1}{0}.steam{0}steam",
                     Path.DirectorySeparatorChar,
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
         }
