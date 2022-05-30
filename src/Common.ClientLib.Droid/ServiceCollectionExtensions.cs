@@ -33,7 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加平台权限
+        /// 添加平台运行时权限
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>

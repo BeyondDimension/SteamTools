@@ -75,6 +75,9 @@
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.Version.cs">
       <Link>Properties\AssemblyInfo.Version.cs</Link>
     </Compile>
+    <Compile Include="..\Common.Essentials.Maui\Properties\AssemblyInfo.OS.cs">
+      <Link>Properties\AssemblyInfo.OS.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

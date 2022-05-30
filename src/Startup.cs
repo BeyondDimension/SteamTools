@@ -226,29 +226,25 @@ namespace System.Application.UI
 
             // 添加日志实现
             services.AddGeneralLogging();
-#if MAUI || __MOBILE__
+#if MAUI || __MOBILE__ ||　ANDROID || IOS || __ANDROID__
             services.TryAddEssentials();
 #endif
-#if __MOBILE__
+#if __MOBILE__ ||　ANDROID || IOS || __ANDROID__
             // 添加运行时权限
             services.AddPlatformPermissions();
 #endif
 #if !CONSOLEAPP
             // 添加 app 配置项
             services.TryAddOptions(AppSettings);
-            if (Essentials.IsSupported)
-            {
-#if ANDROID || IOS || __ANDROID__ || MAUI
-                // 键值对存储(由Essentials提供)
-                services.TryAddEssentialsSecureStorage();
+#if MAUI || __MOBILE__ || ANDROID || IOS || __ANDROID__
+            // 键值对存储 - 由 Essentials 提供
+            services.TryAddEssentialsSecureStorage();
+#else
+            // 键值对存储 - 由 Repository 提供
+            services.TryAddRepositorySecureStorage();
+            // 首选项(Preferences) - 由 Repository 提供
+            services.AddRepositoryPreferences();
 #endif
-            }
-            else
-            {
-                // 键值对存储(由Repository提供)
-                services.TryAddRepositorySecureStorage();
-                services.AddRepositoryPreferences();
-            }
 
             // 添加安全服务
             services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();

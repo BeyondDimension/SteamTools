@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Security;
@@ -16,6 +17,7 @@ public static class ServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection TryAddEssentials(this IServiceCollection services)
     {
+        Essentials.IsSupported = true;
         services.TryAddSingleton<IBrowserPlatformService, BrowserPlatformServiceImpl>();
         services.TryAddSingleton<IClipboardPlatformService, ClipboardPlatformServiceImpl>();
         services.TryAddSingleton<IConnectivityPlatformService, ConnectivityPlatformServiceImpl>();
