@@ -43,15 +43,15 @@ public static partial class EssentialsExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static XEBrowserLaunchMode Convert(this BrowserLaunchMode value)
-        => (XEBrowserLaunchMode)(int)value;
+        => (XEBrowserLaunchMode)value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static XEBrowserTitleMode Convert(this BrowserTitleMode value)
-        => (XEBrowserTitleMode)(int)value;
+        => (XEBrowserTitleMode)value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static XEBrowserLaunchFlags Convert(this BrowserLaunchFlags value)
-        => (XEBrowserLaunchFlags)(int)value;
+        => (XEBrowserLaunchFlags)value;
 
 #if MAUI
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -79,7 +79,7 @@ public static partial class EssentialsExtensions
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DeviceType Convert(this XEDeviceType value)
-        => (DeviceType)(int)value;
+        => (DeviceType)value;
 
     /// <summary>
     /// 将 <see cref="XEDeviceIdiom"/> 转换为 <see cref="DeviceIdiom"/>
@@ -99,7 +99,7 @@ public static partial class EssentialsExtensions
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static XEEmailBodyFormat Convert(this EmailBodyFormat value)
-        => (XEEmailBodyFormat)(int)value;
+        => (XEEmailBodyFormat)value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static XEEmailAttachment Convert(this IEmailAttachment value)
@@ -151,11 +151,11 @@ public static partial class EssentialsExtensions
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static PermissionStatus Convert(this XEPermissionStatus value)
-        => (PermissionStatus)(int)value;
+        => (PermissionStatus)value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static NetworkAccess Convert(this XENetworkAccess value)
-        => (NetworkAccess)(int)value;
+        => (NetworkAccess)value;
 
     [return: NotNullIfNotNull("value")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
