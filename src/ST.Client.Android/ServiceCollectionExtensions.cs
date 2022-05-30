@@ -4,7 +4,6 @@ using System;
 using System.Application;
 using System.Application.Services;
 using System.Application.Services.Implementation;
-using System.Application.UI;
 using System.Net.Http;
 
 // ReSharper disable once CheckNamespace
@@ -22,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.TryAddAndroidClientHttpPlatformHelperService();
                 PlatformToastImpl.TryAddToast(services);
                 services.AddSingleton<IBiometricService, PlatformBiometricServiceImpl>();
-                services.AddSingleton<IFilePickerPlatformService.ISaveFileDialogService, FilePickerPlatformServiceImpl>();
+                services.AddSaveFileDialogService<FilePickerPlatformServiceImpl>();
 #if __XAMARIN_FORMS__
                 services.AddSingleton<IPlatformPageRouteService, AndroidPageRouteServiceImpl>();
 #endif

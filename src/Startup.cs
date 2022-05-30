@@ -292,7 +292,7 @@ namespace System.Application.UI
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
 
-                services.TryAddFilePickerPlatformService();
+                services.TryAddAvaloniaFilePickerPlatformService();
 #endif
                 #region MessageBox
 
