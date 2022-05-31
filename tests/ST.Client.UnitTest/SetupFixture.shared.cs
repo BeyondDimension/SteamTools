@@ -62,7 +62,7 @@ partial class SetupFixture
 #endif
     }
 
-    const string DevAppVersion = "00000000000000000000000000000001";
+    //const string DevAppVersion = "00000000000000000000000000000001";
     const string DevRSAPublicKey = "{\"v\":\"AQAB\",\"n\":\"u4iAALIX2NLyh9-GeWbBdNK2gpa1qFx1S2fFoRKuzxspTP4oyJ2uMF7xZ1yWogup-M7x3BPYrXMTzmyYTmJFDDsWt3nEl-mk6ABJ5RKeCUO1GfHXo8jvHod_pfs8gmFmyzSoYdxUp6BayXT7LkxZz9pO2ZEK2JU1dkSQKRyy_U9ceDsy9D-xsmkX2MrtYTdG51CxdFD_SrStI1YOEhbBv_A97JYJv_F5UyP2CGJ_zWG-MVWO-2Ir2AiVQMBR9PUfNweAGEAsm-AAnRHqIGHjOIMm8PqmkY4Lft2zwDE2TMcw-yUBOwYUvWanIKbO-T3KdBIc7ZbNe9Vut8aVWJa8UQ\"}";
 
     public static void ConfigureServices(IServiceCollection services)
@@ -72,6 +72,10 @@ partial class SetupFixture
         {
             o.MinLevel = LogLevel.Trace;
         });
+
+#if ANDROID || IOS || __ANDROID__ || MAUI
+        services.TryAddEssentials();
+#endif
 
         var options = new AppSettings
         {
@@ -91,16 +95,11 @@ partial class SetupFixture
         services.AddRepositories();
 
         // 键值对存储
-        if (Essentials.IsSupported)
-        {
 #if ANDROID || IOS || __ANDROID__ || MAUI
-            services.TryAddEssentialsSecureStorage();
+        services.TryAddEssentialsSecureStorage();
+#else
+        services.TryAddRepositorySecureStorage();
 #endif
-        }
-        else
-        {
-            services.TryAddRepositorySecureStorage();
-        }
 
         // 业务平台用户管理
         services.TryAddUserManager();

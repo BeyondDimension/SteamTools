@@ -24,8 +24,8 @@
     <AvaloniaResource Include="**\*.xaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
-    <AvaloniaResource Include="Assets\**" />
     <AvaloniaResource Include="Application\UI\Assets\**" />
+    <None Remove="Application\UI\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,22 +56,6 @@
     <Compile Remove="Application\UI\Views\Windows\WebView3Window.axaml.cs" />
     <Compile Remove="Extensions\CookieExtensions.cs" />
     <Compile Remove="Extensions\WebViewExtensions.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Application\UI\Assets\afdian.png" />
-    <None Remove="Application\UI\Assets\AppResources\Icon\ArchiSteamFarmPlusPageViewModel.png" />
-    <None Remove="Application\UI\Assets\AppResources\Xbox.png" />
-    <None Remove="Application\UI\Assets\avalonia-logo.ico" />
-    <None Remove="Application\UI\Assets\Fonts\WenQuanYiMicroHei-01.ttf" />
-    <None Remove="Application\UI\Assets\ko-fi.png" />
-    <None Remove="Application\UI\Assets\movecross.png" />
-    <None Remove="Application\UI\Assets\pateron.png" />
-    <None Remove="Application\UI\Styles\Controls\NavigationView.xaml" />
-    <None Remove="Application\UI\Styles\Controls\ProgressBar.xaml" />
-    <None Remove="Application\UI\Views\Controls\CustomFilePicker.xaml" />
-    <None Remove="Application\UI\Views\Controls\OptionsDisplayItem.xaml" />
-    <None Remove="Application\UI\Views\Controls\UserControl\Badge.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -121,12 +105,6 @@
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Application\UI\Views\Controls\UserControl\CarouselBanner.axaml.cs">
-      <DependentUpon>CarouselBanner.axaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>

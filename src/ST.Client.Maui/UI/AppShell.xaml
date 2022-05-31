@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:System.Application.UI"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
+  <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />

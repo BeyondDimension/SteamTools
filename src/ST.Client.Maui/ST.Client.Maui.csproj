@@ -53,14 +53,43 @@
     <Compile Include="..\ST.Client.Desktop.Avalonia\Application\Converters\Base\*.cs">
       <LinkBase>Converters\Base</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.XamarinForms\Converters\*.cs">
+      <LinkBase>Converters</LinkBase>
+    </Compile>
+    <Compile Include="..\ST.Client.XamarinForms\Extensions\*.cs">
+      <LinkBase>Extensions</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.Essentials.Maui\Common.Essentials.Maui.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiXaml Update="UI\*.xaml" />
+    <MauiXaml Update="UI\**\*.xaml" />
+    
+    <!-- App Icon -->
+    <MauiIcon Include="UI\Assets\AppResources\Icon\appicon.svg" ForegroundFile="UI\Assets\AppResources\Icon\appiconfg.svg" Color="#512BD4" />
+
+    <!-- Splash Screen -->
+    <MauiSplashScreen Include="UI\Assets\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+    <!-- Images -->
+    <MauiImage Include="UI\Assets\Images\*" />
+    <MauiImage Update="UI\Assets\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+    <!-- Custom Fonts -->
+    <MauiFont Include="UI\Assets\Fonts\*" />
+
+    <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+    <MauiAsset Include="UI\Assets\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    <MauiAsset Remove="UI\Assets\Raw\AboutAssets.txt" />
   </ItemGroup>
 
 </Project>
