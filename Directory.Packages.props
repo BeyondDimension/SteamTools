@@ -159,7 +159,7 @@
     <PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
 
     <!--Command Line Tools-->
-    <PackageVersion Include="System.CommandLine" Version="2.0.0-beta3.22114.1" />
+    <PackageVersion Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     <PackageVersion Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta3.22114.1" />
 
     <!-- Pinyin -->
