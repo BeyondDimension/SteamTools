@@ -3,7 +3,7 @@ namespace System.Application
     /// <summary>
     /// 代理类型
     /// </summary>
-    public enum ProxyType:byte
+    public enum ProxyType : byte
     {
         /// <summary>
         /// 本地代理

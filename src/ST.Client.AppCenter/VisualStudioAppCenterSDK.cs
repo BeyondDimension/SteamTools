@@ -1,19 +1,15 @@
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using System;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Security;
-using System.Threading.Tasks;
 using System.Application.Security;
-//using static System.Application.AppClientAttribute;
 #if WINDOWS
 using System.Reflection;
-using static System.Application.VisualStudioAppCenterSDK;
 using System.Text;
 using Microsoft.AppCenter.Utils;
+using System.Security;
+using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel;
+using static System.Application.VisualStudioAppCenterSDK;
 #if DEBUG
 using static System.Application.UI.ViewModels.DebugPageViewModel;
 #endif
@@ -48,6 +44,8 @@ namespace System.Application
 
         static readonly Lazy<string?> _AppSecret = new(() =>
         {
+#pragma warning disable SA1114 // Parameter list should follow declaration
+#pragma warning disable SA1111 // Closing parenthesis should be on line of last parameter
             var r = GetResValue(
 #if XAMARIN_MAC || MONO_MAC || MAC
                     "appcenter-secret-mac"
@@ -59,6 +57,8 @@ namespace System.Application
                     "appcenter-secret"
 #endif
                     );
+#pragma warning restore SA1111 // Closing parenthesis should be on line of last parameter
+#pragma warning restore SA1114 // Parameter list should follow declaration
             return r;
         });
 
@@ -170,7 +170,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static partial class ServiceCollectionExtensions
     {
-        static IServiceCollection AddMSAppCenterApplicationSettings(this IServiceCollection services)
+        public static IServiceCollection AddMSAppCenterApplicationSettings(this IServiceCollection services)
         {
             if (TryGetAppSecret(out var _))
             {

@@ -16,4 +16,11 @@ public static class AppThemeEnumExtensions
         AppTheme.Light => OSAppTheme.Light,
         _ => OSAppTheme.Unspecified,
     };
+
+    public static AppTheme Convert(this OSAppTheme theme) => theme switch
+    {
+        OSAppTheme.Dark => AppTheme.Dark,
+        OSAppTheme.Light => AppTheme.Light,
+        _ => AppTheme.FollowingSystem,
+    };
 }

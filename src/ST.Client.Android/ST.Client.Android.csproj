@@ -35,9 +35,6 @@
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
-      <Link>VisualStudioAppCenterSDK.cs</Link>
-    </Compile>
     <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\Permissions\GetPhoneNumberPermission.cs">
       <LinkBase>Services\Implementation\Permissions</LinkBase>
     </Compile>
@@ -134,9 +131,6 @@
     <PackageReference Include="Xamarin.AndroidX.RecyclerView" />
     <PackageReference Include="Xamarin.AndroidX.ViewPager2" />
     <!--dependencies implementation-->
-    <PackageReference Include="Microsoft.AppCenter" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" />
     <PackageReference Include="ReactiveUI.AndroidX" />
     <PackageReference Include="Square.OkHttp3" />
     <PackageReference Include="Square.Picasso" />
@@ -165,6 +159,7 @@
     <ProjectReference Include="..\Common.Essentials.Xamarin\Common.Essentials.Xamarin.csproj" />
     <ProjectReference Condition=" $(DefineConstants.Contains(`V2RAY`)) " Include="..\ST.Client.Android.V2Ray\ST.Client.Android.V2Ray.csproj" />
     <ProjectReference Condition=" $(DefineConstants.Contains(`SHADOWSOCKS`)) " Include="..\ST.Client.Android.Shadowsocks\ST.Client.Android.Shadowsocks.csproj" />
+    <ProjectReference Include="..\ST.Client.AppCenter\ST.Client.AppCenter.csproj" />
     <ProjectReference Include="..\ST.Client.XamarinForms\ST.Client.XamarinForms.csproj" Condition=" $(DefineConstants.Contains(`__XAMARIN_FORMS__`)) " />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
     <ProjectReference Include="..\ST.Client.ResSecrets\ST.Client.ResSecrets.csproj" />

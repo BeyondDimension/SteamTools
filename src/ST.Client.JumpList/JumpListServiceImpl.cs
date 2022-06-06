@@ -1,14 +1,14 @@
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Runtime.Versioning;
+#if AVALONIA
 using Avalonia.Win32.JumpLists;
-using WinUI = Windows.UI.StartScreen;
 using AvaloniaApplication = Avalonia.Application;
+#endif
+using System.Runtime.Versioning;
 using static System.Application.Services.IJumpListService;
+using WinUI = Windows.UI.StartScreen;
 
 namespace System.Application.Services.Implementation
 {
+#if AVALONIA
     /// <inheritdoc cref="IJumpListService"/>
     internal sealed class JumpListServiceImpl : IJumpListService
     {
@@ -69,6 +69,7 @@ namespace System.Application.Services.Implementation
             return Task.CompletedTask;
         }
     }
+#endif
 
     /// <inheritdoc cref="IJumpListService"/>
     [SupportedOSPlatform("Windows10.0.10586.0")]

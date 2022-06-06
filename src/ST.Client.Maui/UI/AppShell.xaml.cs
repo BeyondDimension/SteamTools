@@ -6,4 +6,9 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
     }
+
+    void OnFlyoutHeaderTapped(object? sender, EventArgs e)
+    {
+
+    }
 }

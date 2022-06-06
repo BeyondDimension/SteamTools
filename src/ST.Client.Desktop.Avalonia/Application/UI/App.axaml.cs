@@ -75,7 +75,7 @@ namespace System.Application.UI
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
-                        switch_value = GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+                        switch_value = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
                         dps.SetLightOrDarkThemeFollowingSystem(true);
                         if (switch_value == mTheme) goto setValue;
                     }
@@ -87,7 +87,7 @@ namespace System.Application.UI
                     var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
                     if (isLightOrDarkTheme.HasValue)
                     {
-                        var mThemeFS = GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+                        var mThemeFS = IApplication.GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
                         if (mThemeFS == switch_value) goto setValue;
                     }
                 }
@@ -96,19 +96,6 @@ namespace System.Application.UI
 
             setValue: mTheme = value;
             }
-        }
-
-        static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
-
-        AppTheme IApplication.GetActualThemeByFollowingSystem()
-        {
-            var dps = IPlatformService.Instance;
-            var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
-            if (isLightOrDarkTheme.HasValue)
-            {
-                return GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
-            }
-            return _DefaultActualTheme;
         }
 
         public void SetThemeNotChangeValue(AppTheme value)

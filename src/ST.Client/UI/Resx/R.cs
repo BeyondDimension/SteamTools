@@ -22,7 +22,7 @@ namespace System.Application.UI.Resx
 
         public static readonly IReadOnlyDictionary<string, string> Languages;
         public static readonly IReadOnlyDictionary<string, string> SteamLanguages;
-        static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(() => IFontManager.Instance.GetFonts());
+        static readonly Lazy<IReadOnlyCollection<KeyValuePair<string, string>>> mFonts = new(IFontManager.Instance.GetFonts);
 
         public static IReadOnlyCollection<KeyValuePair<string, string>> Fonts => mFonts.Value;
 

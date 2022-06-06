@@ -1,13 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>System.Application.Services</RootNamespace>
-    <AssemblyName>Microsoft.Maui.Controls.Pages.UnitTests</AssemblyName>
-    <UseMaui>true</UseMaui>
-    <SingleProject>true</SingleProject>
+    <TargetFrameworks>net6.0-windows10.0.19041.0</TargetFrameworks>
+    <RootNamespace>System.Application.Services.Implementation</RootNamespace>
+    <AssemblyName>System.Application.SteamTools.Client.JumpList</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
-    <DefineConstants>MAUI;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,19 +17,17 @@
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <Compile Include="..\Common.Essentials.Xamarin\*.cs" />
-    <Compile Include="..\Common.Essentials.Xamarin\Implementation\*.cs">
-      <LinkBase>Implementation</LinkBase>
+    <Compile Include="..\Common.Essentials.Maui\Properties\AssemblyInfo.OS.cs">
+      <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
-    <ProjectReference Include="..\Common.Essentials\Common.Essentials.csproj" />
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
-  
+
 </Project>

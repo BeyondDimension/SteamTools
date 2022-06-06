@@ -92,6 +92,7 @@
 
     <!-- .NET Platform Extensions 6 -->
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
+    <PackageVersion Include="System.Management" Version="6.0.0" />
 
     <!-- Xamarin -->
     <PackageVersion Include="Xamarin.Essentials" Version="1.7.3" />
@@ -121,6 +122,7 @@
     <!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.50" /> -->
     <PackageVersion Include="ReactiveUI.XamForms" Version="18.0.10" />
     <PackageVersion Include="ReactiveUI.AndroidX" Version="18.0.10" />
+    <PackageVersion Include="ReactiveUI.Maui" Version="18.0.10" />
 
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
@@ -159,8 +161,8 @@
     <PackageVersion Include="gfoidl.Base64" Version="1.1.1" />
 
     <!--Command Line Tools-->
-    <PackageVersion Include="System.CommandLine" Version="2.0.0-beta3.22114.1" />
-    <PackageVersion Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta3.22114.1" />
+    <PackageVersion Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+    <PackageVersion Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
 
     <!-- Pinyin -->
     <PackageVersion Include="TinyPinyin.Net" Version="1.0.2" />

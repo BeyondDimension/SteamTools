@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+#if !MAUI
 using Xamarin.Forms;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.Views

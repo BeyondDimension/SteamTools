@@ -36,6 +36,7 @@ public enum Platform
     /// <summary>
     /// Universal Windows Platform
     /// </summary>
+    [Obsolete]
     UWP = 64,
 }
 

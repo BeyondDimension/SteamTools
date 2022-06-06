@@ -164,7 +164,7 @@ namespace System.Application.UI
         {
             if (!string.IsNullOrEmpty(LogDirPath)) return;
 
-            var devicePlatform = DeviceInfo2.Platform();
+            //var devicePlatform = DeviceInfo2.Platform();
             //LogUnderCache = devicePlatform switch
             //{
             //    Platform.Windows => DesktopBridge.IsRunningAsUwp,

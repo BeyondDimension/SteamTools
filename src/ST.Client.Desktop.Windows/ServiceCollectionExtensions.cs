@@ -36,21 +36,12 @@ namespace Microsoft.Extensions.DependencyInjection
                     services.AddSingleton<ILocalDataProtectionProvider.IDataProtectionProvider, Windows10DataProtectionProvider>();
                 }
                 services.AddSingleton<INativeWindowApiService, NativeWindowApiServiceImpl>();
-                if (Windows10JumpListServiceImpl.IsSupported)
-                {
-                    services.AddSingleton<IJumpListService, Windows10JumpListServiceImpl>();
-                }
-                else
-                {
-                    services.AddSingleton<IJumpListService, JumpListServiceImpl>();
-                }
                 if (options.HasMainProcessRequired)
                 {
                     services.AddSingleton(typeof(NotifyIcon), NotifyIcon.ImplType);
                 }
                 //services.AddSingleton<AvaloniaFontManagerImpl, WindowsAvaloniaFontManagerImpl>();
                 services.AddSingleton<ISevenZipHelper, SevenZipHelper>();
-                services.AddMSAppCenterApplicationSettings();
                 services.AddPlatformNotificationService();
             }
             else

@@ -18,9 +18,6 @@
     <Compile Include="..\ST\Properties\InternalsVisibleTo.cs">
       <Link>Properties\InternalsVisibleTo.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Client.Desktop.Windows\VisualStudioAppCenterSDK.cs">
-      <Link>VisualStudioAppCenterSDK.cs</Link>
-    </Compile>
     <Compile Include="..\ST.Client.Android\Services\Implementation\PlatformHttpMessageHandlerBuilder.shared.cs">
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
@@ -32,15 +29,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common.Essentials.Xamarin\Common.Essentials.Xamarin.csproj" />
+    <ProjectReference Include="..\ST.Client.AppCenter\ST.Client.AppCenter.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
     <ProjectReference Include="..\ST.Client.iOS.ResSecrets\ST.Client.iOS.ResSecrets.csproj" />
     <ProjectReference Include="..\ST.Client.ResSecrets\ST.Client.ResSecrets.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AppCenter" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" />
     <PackageReference Include="Toast.iOS" Aliases="NUGET_PACKAGE_TOAST_IOS" />
   </ItemGroup>
 

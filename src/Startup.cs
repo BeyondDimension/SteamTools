@@ -2,12 +2,14 @@
 #pragma warning disable SA1211 // Using alias directives should be ordered alphabetically by alias name
 #pragma warning disable SA1216 // Using static directives should be placed at the correct location
 #pragma warning disable SA1209 // Using alias directives should be placed after other using directives
+#if !MAUI
 #if !__MOBILE__ && !CONSOLEAPP
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
-#elif !MAUI
+#else
 using Xamarin.Essentials;
+#endif
 #endif
 #if UI_DEMO
 using Moq;
@@ -44,7 +46,9 @@ using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
 using ReactiveUI;
 using System.Reactive;
+#if !MAUI
 using AvaloniaApplication = Avalonia.Application;
+#endif
 using PlatformApplication = System.Application.UI.App;
 #endif
 #if StartWatchTrace
@@ -69,7 +73,9 @@ using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 namespace System.Application.UI
 {
     partial class
-#if __ANDROID__
+#if MAUI
+        MauiProgram
+#elif __ANDROID__
         MainApplication
 #elif __IOS__
         Program
@@ -223,6 +229,12 @@ namespace System.Application.UI
             // 平台服务 此项放在其他通用业务实现服务之前
             services.AddPlatformService(options);
 #endif
+#if WINDOWS
+#if !MAUI
+            services.AddMSAppCenterApplicationSettings();
+#endif
+            services.AddJumpListService();
+#endif
 
             // 添加日志实现
             services.AddGeneralLogging();
@@ -265,7 +277,7 @@ namespace System.Application.UI
             if (options.HasGUI)
             {
                 services.AddPinyin();
-#if __MOBILE__
+#if __MOBILE__ || MAUI
                 services.TryAddFontManager();
 #else
                 services.TryAddAvaloniaFontManager(useGdiPlusFirst: true);
@@ -285,6 +297,8 @@ namespace System.Application.UI
                 services.AddTelephonyService();
 
                 //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
+#elif MAUI
+                services.AddSingleton(_ => PlatformApplication.Instance);
 #else
                 services.AddSingleton<IAvaloniaApplication>(_ => PlatformApplication.Instance);
                 services.TryAddSingleton<IClipboardPlatformService>(_ => PlatformApplication.Instance);
@@ -313,7 +327,11 @@ namespace System.Application.UI
                  *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
                  *  - 某些图标图片与枚举值不太匹配，例如 Information
                  */
+#if !MAUI
                 services.TryAddWindowManager();
+#else
+                Console.WriteLine("TODO: TryAddWindowManager");
+#endif
 
 #if WINDOWS
                 // 可选项，在 Win 平台使用 WPF 实现的 MessageBox
@@ -473,7 +491,11 @@ namespace System.Application.UI
             if (options.HasMainProcessRequired)
             {
                 // 应用程序更新服务
+#if !MAUI
                 services.AddApplicationUpdateService();
+#else
+                Console.WriteLine("TODO: AddApplicationUpdateService");
+#endif
 #if StartWatchTrace
                 StartWatchTrace.Record("DI.ConfigureDemandServices.AppUpdateService");
 #endif
@@ -531,7 +553,7 @@ namespace System.Application.UI
         static void OnCreateAppExecuting(bool isTrace = false)
         {
             bool isDesignMode =
-#if !__MOBILE__
+#if !(__MOBILE__ || MAUI)
                 Design.IsDesignMode;
 #else
                 false;
@@ -654,7 +676,7 @@ namespace System.Application.UI
                         await userService.SaveUserAsync(rspRUserInfo.Content);
                     }
                 }
-#if !__MOBILE__
+#if !__MOBILE__ && !MAUI
                 var screens = PlatformApplication.Instance.MainWindow!.Screens;
 #else
                 var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
@@ -664,7 +686,7 @@ namespace System.Application.UI
                 var req = new ActiveUserRecordDTO
                 {
                     Type = type,
-#if __MOBILE__
+#if __MOBILE__ || MAUI
                     ScreenCount = 1,
                     PrimaryScreenPixelDensity = mainDisplayInfo.Density,
                     PrimaryScreenWidth = mainDisplayInfoW,
@@ -813,7 +835,7 @@ namespace System.Application.UI
 
                 try
                 {
-                    if (AvaloniaApplication.Current is IApplication app)
+                    if (PlatformApplication.Instance is IApplication app)
                     {
                         app.CompositeDisposable.Dispose();
                     }

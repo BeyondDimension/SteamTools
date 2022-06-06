@@ -72,6 +72,9 @@
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Avalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
+    <ProjectReference Include="..\ST.Client.CommandLine\ST.Client.CommandLine.csproj" />
+    <ProjectReference Include="..\ST.Client.AppCenter.Avalonia\ST.Client.AppCenter.Avalonia.csproj" />
+    <ProjectReference Include="..\ST.Client.JumpList.Avalonia\ST.Client.JumpList.Avalonia.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,11 +85,6 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
     <AvaloniaResource Include="Assets\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.CommandLine" />
-    <PackageReference Include="System.CommandLine.NamingConventionBinder" />
   </ItemGroup>
 
   <ItemGroup>

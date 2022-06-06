@@ -102,6 +102,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ST.Client.CommandLine\ST.Client.CommandLine.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Avalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
   </ItemGroup>
@@ -114,6 +115,8 @@
     <ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
     <ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
+    <ProjectReference Include="..\ST.Client.AppCenter.Avalonia\ST.Client.AppCenter.Avalonia.csproj" />
+    <ProjectReference Include="..\ST.Client.JumpList.Avalonia\ST.Client.JumpList.Avalonia.csproj" />
     <!--<None Include="..\..\references\7z.dll" Condition=" '$(Platform)' != 'x86' And '$(Platform)' != 'ARM64' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -169,11 +172,6 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
     <AvaloniaResource Include="Assets\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.CommandLine" />
-    <PackageReference Include="System.CommandLine.NamingConventionBinder" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(RuntimeIdentifier.Contains(`win`)) Or ('$(OS)' == 'Windows_NT' And !$(DefineConstants.Contains(`PUBLISH`))) ">

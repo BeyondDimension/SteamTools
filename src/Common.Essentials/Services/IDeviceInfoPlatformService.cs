@@ -28,15 +28,7 @@ public interface IDeviceInfoPlatformService
         {
             if (OperatingSystem2.IsWindows())
             {
-                var i = Interface;
-                if (i != null && i.IsUWP)
-                {
-                    return EPlatform.UWP;
-                }
-                else
-                {
-                    return EPlatform.Windows;
-                }
+                return EPlatform.Windows;
             }
             else if (OperatingSystem2.IsAndroid())
             {

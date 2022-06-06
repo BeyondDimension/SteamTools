@@ -1,8 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows10.0.19041.0</TargetFrameworks>
+    <!--<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>-->
+    <!--<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>-->
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
     <!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
     <OutputType>Exe</OutputType>
@@ -11,6 +12,7 @@
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DefineConstants>MAUI;$(DefineConstants)</DefineConstants>
 
     <!-- Display name -->
     <ApplicationTitle>Watt Toolkit</ApplicationTitle>
@@ -60,11 +62,21 @@
     <Compile Include="..\Common.Essentials.Maui\Properties\AssemblyInfo.OS.cs">
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
+    <Compile Include="..\Startup.cs" Link="MauiProgram.Startup.cs" />
+    <Compile Include="..\ST.Client.Desktop.Avalonia.App\Program.shared.cs">
+      <Link>MauiProgram.shared.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
+    <ProjectReference Include="..\ST.Client.CommandLine\ST.Client.CommandLine.csproj" />
     <ProjectReference Include="..\ST.Client.Maui\ST.Client.Maui.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
+    <ProjectReference Include="..\ST.Client.JumpList\ST.Client.JumpList.csproj" />
   </ItemGroup>
 
   <ItemGroup>

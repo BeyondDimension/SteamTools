@@ -41,11 +41,22 @@ namespace System.Application.UI
         /// </summary>
         protected AppTheme DefaultActualTheme { get; }
 
+        static AppTheme GetAppThemeByIsLightOrDarkTheme(bool isLightOrDarkTheme) => isLightOrDarkTheme ? AppTheme.Light : AppTheme.Dark;
+
         /// <summary>
         /// 获取当前应用主题跟随系统时的实际主题
         /// </summary>
         /// <returns></returns>
-        protected AppTheme GetActualThemeByFollowingSystem();
+        protected AppTheme GetActualThemeByFollowingSystem()
+        {
+            var dps = IPlatformService.Instance;
+            var isLightOrDarkTheme = dps.IsLightOrDarkTheme;
+            if (isLightOrDarkTheme.HasValue)
+            {
+                return GetAppThemeByIsLightOrDarkTheme(isLightOrDarkTheme.Value);
+            }
+            return DefaultActualTheme;
+        }
 
         /// <summary>
         /// 获取当前平台 UI Host
