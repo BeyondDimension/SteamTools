@@ -9,13 +9,14 @@ namespace System.Application.CommandLine;
 /// <summary>
 /// 命令行工具(Command Line Tools/CLT)
 /// </summary>
-public abstract class CommandLineHost
+public abstract class CommandLineHost : IDisposable
 {
     public const string command_main = "main";
+    bool disposedValue;
 
     protected abstract IApplication.IDesktopProgramHost Host { get; }
 
-    protected abstract void ConfigureServices(IApplication.IStartupArgs args, DILevel level);
+    protected abstract void ConfigureServices(DILevel level);
 
 #if StartWatchTrace
     protected abstract void StartWatchTraceRecord(string? mark = null, bool dispose = false);
@@ -44,7 +45,7 @@ public abstract class CommandLineHost
 #if StartWatchTrace
             StartWatchTraceRecord("ProcessCheck");
 #endif
-            ConfigureServices(Host, Host.IsMainProcess ? DILevel.MainProcess : DILevel.Min);
+            ConfigureServices(Host.IsMainProcess ? DILevel.MainProcess : DILevel.Min);
 #if StartWatchTrace
             StartWatchTraceRecord("Startup.Init");
 #endif
@@ -166,7 +167,7 @@ public abstract class CommandLineHost
         {
             if (!string.IsNullOrEmpty(account))
             {
-                ConfigureServices(Host, DILevel.Steam);
+                ConfigureServices(DILevel.Steam);
 
                 var steamService = ISteamService.Instance;
 
@@ -198,13 +199,13 @@ public abstract class CommandLineHost
                 if (id <= 0) return;
                 if (!silence)
                 {
-                    ConfigureServices(Host, DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
+                    ConfigureServices(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
                     IViewModelManager.Instance.InitUnlockAchievement(id);
                     StartApplication(args);
                 }
                 else
                 {
-                    ConfigureServices(Host, DILevel.Steam);
+                    ConfigureServices(DILevel.Steam);
                     SteamConnectService.Current.Initialize(id);
                     TaskCompletionSource tcs = new();
                     await tcs.Task;
@@ -219,5 +220,36 @@ public abstract class CommandLineHost
 
         var r = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
         return r;
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // TODO: 释放托管状态(托管对象)
+                AppInstance?.Dispose();
+                Application?.Dispose();
+            }
+
+            // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+            // TODO: 将大型字段设置为 null
+            disposedValue = true;
+        }
+    }
+
+    // // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+    // ~CommandLineHost()
+    // {
+    //     // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

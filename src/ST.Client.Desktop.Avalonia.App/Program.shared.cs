@@ -33,7 +33,7 @@ static partial class
 
         public bool IsTrayProcess { get; set; }
 
-        public void ConfigureServices(DILevel level) => Program.ConfigureServices(this, level);
+        void IApplication.IProgramHost.ConfigureServices(DILevel level) => ConfigureServices(level);
 
         public void InitVisualStudioAppCenterSDK()
         {
@@ -57,8 +57,19 @@ static partial class
     {
         protected override IApplication.IDesktopProgramHost Host => this;
 
-        protected override void ConfigureServices(IApplication.IStartupArgs args, DILevel level)
-            => Program.ConfigureServices(args, level);
+        public Action<DILevel>? ConfigureServicesDelegate { get; set; }
+
+        protected override void ConfigureServices(DILevel level)
+        {
+            if (ConfigureServicesDelegate != null)
+            {
+                ConfigureServicesDelegate.Invoke(level);
+            }
+            else
+            {
+                Program.ConfigureServices(this, level);
+            }
+        }
 
 #if StartWatchTrace
         protected override void StartWatchTraceRecord(string? mark = null, bool dispose = false)
@@ -67,7 +78,7 @@ static partial class
 
         protected override void StartApplication(string[] args) =>
 #if MAUI
-            StartMauiApp();
+            StartMauiApp(args);
 #else
             StartAvaloniaApp(args);
 #endif

@@ -18,6 +18,17 @@ public static partial class DI
 
     internal static bool IsConfigured => value != null;
 
+    public static void Dispose()
+    {
+        if (value is IDisposable disposable) disposable.Dispose();
+    }
+
+    public static async ValueTask DisposeAsync()
+    {
+        if (value is IAsyncDisposable disposable) await disposable.DisposeAsync();
+        else Dispose();
+    }
+
     /// <summary>
     /// 初始化依赖注入服务组(通过配置服务项的方式)
     /// </summary>

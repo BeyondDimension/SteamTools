@@ -166,7 +166,7 @@ namespace System.Application.UI
         /// <summary>
         /// 初始化启动
         /// </summary>
-        static void ConfigureServices(IApplication.IStartupArgs args, DILevel level)
+        static void ConfigureServices(IApplication.IStartupArgs args, DILevel level, IServiceCollection? services = null)
         {
             if (!isInitialized)
             {
@@ -182,20 +182,34 @@ namespace System.Application.UI
                     StartWatchTrace.Record("ModelValidatorProvider.Init");
 #endif
                 }
-                ConfigureServices(args, options);
 #if StartWatchTrace
                 StartWatchTrace.Record($"InitDI: {level}");
 #endif
-                VersionTracking2.Track();
-#if StartWatchTrace
-                StartWatchTrace.Record($"VersionTracking2.Track");
-#endif
-
-                Migrations.Up();
-#if StartWatchTrace
-                StartWatchTrace.Record($"Migrations.Up");
-#endif
+                if (services == null)
+                {
+                    // new ServiceCollection 创建服务集合
+                    ConfigureServices(args, options);
+                    OnBuild();
+                }
+                else
+                {
+                    // 使用传入的 ServiceCollection
+                    // 但需要在完成时调用 DI.ConfigureServices(IServiceProvider) 与 OnBuild
+                    ConfigureServices(services, args, options);
+                }
             }
+        }
+
+        static void OnBuild()
+        {
+            VersionTracking2.Track();
+#if StartWatchTrace
+            StartWatchTrace.Record($"VersionTracking2.Track");
+#endif
+            Migrations.Up();
+#if StartWatchTrace
+            StartWatchTrace.Record($"Migrations.Up");
+#endif
         }
 
         static void ConfigureServices(IApplication.IStartupArgs args, StartupOptions options)
@@ -225,7 +239,10 @@ namespace System.Application.UI
         /// <param name="services"></param>
         static void ConfigureRequiredServices(IServiceCollection services, IApplication.IStartupArgs args, StartupOptions options)
         {
-#if !UI_DEMO 
+#if !__ANDROID__ || MAUI
+            services.AddSingleton(ProgramHost.Instance);
+#endif
+#if !UI_DEMO
             // 平台服务 此项放在其他通用业务实现服务之前
             services.AddPlatformService(options);
 #endif
@@ -238,10 +255,10 @@ namespace System.Application.UI
 
             // 添加日志实现
             services.AddGeneralLogging();
-#if MAUI || __MOBILE__ ||　ANDROID || IOS || __ANDROID__
+#if MAUI || __MOBILE__ || ANDROID || IOS || __ANDROID__
             services.TryAddEssentials();
 #endif
-#if __MOBILE__ ||　ANDROID || IOS || __ANDROID__
+#if __MOBILE__ || ANDROID || IOS || __ANDROID__
             // 添加运行时权限
             services.AddPlatformPermissions();
 #endif

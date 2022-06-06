@@ -71,25 +71,8 @@ namespace System.Application.UI
             }
             finally
             {
-                try
-                {
-                    host.Application?.Dispose();
-                }
-                catch
-                {
-
-                }
-                try
-                {
-                    host.AppInstance?.Dispose();
-                }
-                catch
-                {
-
-                }
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                LogManager.Shutdown();
-                ArchiSteamFarm.LogManager.Shutdown();
+                DI.Dispose();
             }
         }
 
