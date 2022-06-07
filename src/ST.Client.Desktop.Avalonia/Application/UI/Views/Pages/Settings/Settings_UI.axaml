@@ -49,6 +49,7 @@
             <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_SystemDefault,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Light,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_Dark,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <!--<ComboBoxItem Content="{ReflectionBinding Path=Res.Settings_UI_HighContrast,Mode=OneWay,Source={x:Static resx:R.Current}}"/>-->
           </ComboBox>
         </DockPanel>
       </Border>

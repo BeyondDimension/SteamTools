@@ -100,24 +100,28 @@ namespace System.Application.UI
 
         public void SetThemeNotChangeValue(AppTheme value)
         {
-            string? the;
+            string? themeName = null;
             //FluentThemeMode mode;
 
             switch (value)
             {
+                case AppTheme.HighContrast:
+                    themeName = FluentAvaloniaTheme.HighContrastModeString;
+                    //mode = FluentThemeMode.Light;
+                    break;
                 case AppTheme.Light:
-                    the = "Light";
+                    themeName = FluentAvaloniaTheme.LightModeString;
                     //mode = FluentThemeMode.Light;
                     break;
                 case AppTheme.Dark:
                 default:
-                    the = "Dark";
+                    themeName = FluentAvaloniaTheme.DarkModeString;
                     //mode = FluentThemeMode.Dark;
                     break;
             }
 
-            //var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{the}.xaml");
-            var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Theme{the}.xaml");
+            //var uri_0 = new Uri($"avares://Avalonia.Themes.Fluent/Fluent{themeName}.xaml");
+            var uri_1 = new Uri($"avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Styles/Theme{themeName}.xaml");
 
             //Styles[0] = new FluentTheme(uri_0)
             //{
@@ -127,7 +131,10 @@ namespace System.Application.UI
             {
                 Source = uri_1,
             };
-            AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>()!.RequestedTheme = the;
+
+            var faTheme = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+            if (faTheme != null)
+                faTheme.RequestedTheme = themeName;
         }
 
         public static void SetThemeAccent(string? colorHex)

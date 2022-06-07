@@ -25,6 +25,11 @@ namespace System.Application.Models
         Dark,
 
         /// <summary>
+        /// 高对比度主题
+        /// </summary>
+        HighContrast,
+
+        /// <summary>
         /// 自定义主题
         /// </summary>
         [Obsolete]
@@ -45,6 +50,7 @@ namespace System
         {
             AppTheme.FollowingSystem => "auto",
             AppTheme.Light => "light",
+            AppTheme.HighContrast => "highContrast",
             _ => "dark",
         };
 
@@ -57,6 +63,7 @@ namespace System
         {
             AppTheme.FollowingSystem => AppResources.Settings_UI_SystemDefault,
             AppTheme.Light => AppResources.Settings_UI_Light,
+            AppTheme.HighContrast => AppResources.Settings_UI_HighContrast,
             _ => AppResources.Settings_UI_Dark,
         };
     }

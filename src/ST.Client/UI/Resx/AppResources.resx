@@ -1252,6 +1252,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_UI_Light" xml:space="preserve">
     <value>浅色</value>
   </data>
+  <data name="Settings_UI_HighContrast" xml:space="preserve">
+    <value>高对比度</value>
+  </data>
   <data name="Settings_UI_SystemDefault" xml:space="preserve">
     <value>跟随系统</value>
   </data>

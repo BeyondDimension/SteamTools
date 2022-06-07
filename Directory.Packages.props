@@ -126,11 +126,11 @@
 
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
-    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2" />
-    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2" />
+    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.1" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.1" />
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/SkiaSharp.props -->
-    <PackageVersion Include="SkiaSharp" Version="2.88.0" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0" />
+    <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.1" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.1" />
 
     <!-- AutoMapper -->
     <PackageVersion Include="AutoMapper" Version="10.1.1" />
@@ -231,22 +231,22 @@
     <PackageVersion Include="Polly" Version="7.2.3" />
 
     <!--Avalonia Start-->
-    <PackageVersion Include="Avalonia" Version="0.10.14" />
-    <PackageVersion Include="Avalonia.Desktop" Version="0.10.14" />
-    <PackageVersion Include="Avalonia.Skia" Version="0.10.14" />
-    <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.14" />
-    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.14" />
-    <!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.14" />-->
-    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.14" />
-    <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.13.3" />
+    <PackageVersion Include="Avalonia" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.Desktop" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.Skia" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.15" />
+    <!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.15" />-->
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.14" />
     <!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.12.2" />-->
     <!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
     <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-    <!--<PackageVersion Include="FluentAvaloniaUI" Version="1.3.0" />-->
+    <PackageVersion Include="FluentAvaloniaUI" Version="1.4.0" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
-    <PackageVersion Include="Avalonia.Native" Version="0.10.14" />
-    <PackageVersion Include="Avalonia.Win32" Version="0.10.14" />
-    <PackageVersion Include="Avalonia.X11" Version="0.10.14" />
+    <PackageVersion Include="Avalonia.Native" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.Win32" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.X11" Version="0.10.15" />
     <!--Avalonia End-->
 
     <!-- Xamarin.Android -->

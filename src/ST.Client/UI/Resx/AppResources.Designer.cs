@@ -5169,6 +5169,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 高对比度 的本地化字符串。
+        /// </summary>
+        public static string Settings_UI_HighContrast {
+            get {
+                return ResourceManager.GetString("Settings_UI_HighContrast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 浅色 的本地化字符串。
         /// </summary>
         public static string Settings_UI_Light {

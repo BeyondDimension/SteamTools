@@ -6,7 +6,6 @@
     xmlns:wnd="using:Avalonia.Controls">
     <Design.PreviewWith />
     <Styles.Resources>
-        <!--<FontFamily x:Key="ContentControlThemeFontFamily">Null</FontFamily>-->
         <ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
             <Panel>
                 <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />

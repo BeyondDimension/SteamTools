@@ -40,25 +40,25 @@ namespace Avalonia.Controls
             return result;
         }
 
-        bool HitTestMaximizeButton(APoint pos)
-        {
-            return SystemCaptionButtons?.HitTestMaxButton(pos) ?? default;
-        }
+        //bool HitTestMaximizeButton(APoint pos)
+        //{
+        //    return SystemCaptionButtons?.HitTestMaxButton(pos) ?? default;
+        //}
 
-        void FakeMaximizeHover(bool hover)
-        {
-            SystemCaptionButtons?.FakeMaximizeHover(hover);
-        }
+        //void FakeMaximizeHover(bool hover)
+        //{
+        //    SystemCaptionButtons?.FakeMaximizeHover(hover);
+        //}
 
-        void FakeMaximizePressed(bool pressed)
-        {
-            SystemCaptionButtons?.FakeMaximizePressed(pressed);
-        }
+        //void FakeMaximizePressed(bool pressed)
+        //{
+        //    SystemCaptionButtons?.FakeMaximizePressed(pressed);
+        //}
 
-        void FakeMaximizeClick()
-        {
-            SystemCaptionButtons?.FakeMaximizeClick();
-        }
+        //void FakeMaximizeClick()
+        //{
+        //    SystemCaptionButtons?.FakeMaximizeClick();
+        //}
     }
 
     partial interface ICoreWindow : IStyleable, IAvaloniaObject, INamed, IFocusScope, ILayoutRoot, ILayoutable, IVisual

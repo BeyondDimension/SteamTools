@@ -15,7 +15,7 @@
   <DockPanel>
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                   DockPanel.Dock="Top"
-              VerticalScrollBarVisibility="Auto">
+                  VerticalScrollBarVisibility="Auto">
       <StackPanel Margin="10 0"
                   Spacing="8">
         <StackPanel Margin="0 15 0 0"
@@ -120,7 +120,7 @@
     <Border DockPanel.Dock="Bottom"
             VerticalAlignment="Bottom"
             Height="150">
-      <controls:CarouselBanner/>
+      <controls:CarouselBanner />
     </Border>
   </DockPanel>
 </UserControl>
