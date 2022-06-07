@@ -102,6 +102,7 @@ public static partial class MauiProgram
         }
         finally
         {
+            PlatformApp?.Dispose();
             DI.Dispose();
         }
     }

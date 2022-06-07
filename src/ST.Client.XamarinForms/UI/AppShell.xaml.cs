@@ -7,9 +7,9 @@ using System.Application.UI.Views;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
-using n = System.Application.UI.Views.Native;
-using static System.Application.UI.ViewModels.TabItemViewModel;
 using System.Threading.Tasks;
+using static System.Application.UI.ViewModels.TabItemViewModel;
+using n = System.Application.UI.Views.Native;
 
 namespace System.Application.UI
 {

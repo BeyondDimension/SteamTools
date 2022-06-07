@@ -7,8 +7,7 @@
     xmlns:resx="clr-namespace:System.Application.UI.Resx;assembly=System.Application.SteamTools.Client"
     xmlns:vm="clr-namespace:System.Application.UI.ViewModels;assembly=System.Application.SteamTools.Client"
     Title="{Binding Title}"
-    x:DataType="vm:MainWindowViewModel"
-    Shell.FlyoutBehavior="Disabled">
+    x:DataType="vm:MainWindowViewModel">
   <Shell.FlyoutHeaderTemplate>
     <DataTemplate>
       <StackLayout Padding="16" Orientation="Horizontal">
@@ -30,45 +29,5 @@
       </StackLayout>
     </DataTemplate>
   </Shell.FlyoutHeaderTemplate>
-  <FlyoutItem Title="{x:Static resx:AppResources.CommunityFix}"
-              Icon="CommunityProxyPageViewModel"
-              BindingContext="{x:Binding Path=CommunityProxyPage,Mode=OneWay}">
-    <ShellContent Route="CommunityProxyPage"
-                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
-  </FlyoutItem>
-  <FlyoutItem Title="{x:Static resx:AppResources.ScriptConfig}"
-              Icon="ProxyScriptManagePageViewModel"
-              BindingContext="{x:Binding Path=ProxyScriptPage,Mode=OneWay}">
-    <ShellContent Route="ProxyScriptManagePage"
-                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
-  </FlyoutItem>
-  <FlyoutItem Title="{x:Static resx:AppResources.GameList}"
-              Icon="GameListPageViewModel"
-              BindingContext="{x:Binding Path=GameListPage,Mode=OneWay}">
-    <ShellContent Route="GameListPage"
-                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
-  </FlyoutItem>
-  <FlyoutItem Title="{x:Static resx:AppResources.LocalAuth}"
-              Icon="LocalAuthPageViewModel"
-              BindingContext="{x:Binding Path=LocalAuthPage,Mode=OneWay}">
-    <ShellContent Route="LocalAuthPage"
-                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
-  </FlyoutItem>
-  <FlyoutItem Title="{x:Static resx:AppResources.ArchiSteamFarmPlus}"
-              Icon="ArchiSteamFarmPlusPageViewModel"
-              BindingContext="{x:Binding Path=ASFPage,Mode=OneWay}">
-    <ShellContent Route="ArchiSteamFarmPlusPage"
-                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
-  </FlyoutItem>
-
-  <MenuItem
-          Text="{x:Static resx:AppResources.Settings}"
-          IconImageSource="SettingsPageViewModel" />
-  <FlyoutItem Title="{x:Static resx:AppResources.Settings}"
-              Icon="SettingsPageViewModel"
-              BindingContext="{Binding Mode=OneWay,Source={x:Static vm:SettingsPageViewModel.Instance}}">
-    <ShellContent Route="SettingsPage"
-                  ContentTemplate="{DataTemplate local:UnderConstructionPage}" />
-  </FlyoutItem>
 </Shell>
 

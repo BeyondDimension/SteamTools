@@ -32,7 +32,6 @@ public partial class App : MauiApplication, IDisposableHolder, IApplication, IMa
         AppTheme = PlatformAppTheme;
         RequestedThemeChanged += (_, e) => AppTheme = e.RequestedTheme;
 
-        MainPage = new AppShell();
         Initialize();
     }
 
@@ -73,7 +72,7 @@ public partial class App : MauiApplication, IDisposableHolder, IApplication, IMa
                     //MainWindow = new MainWindow();
                     break;
             }
-            MainPage!.BindingContext = vmService.MainWindow;
+            MainPage = new AppShell((MainWindowViewModel)vmService.MainWindow);
         }, isTrace: isTrace);
     }
 

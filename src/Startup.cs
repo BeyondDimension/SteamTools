@@ -46,9 +46,12 @@ using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
 using ReactiveUI;
 using System.Reactive;
+#endif
 #if !MAUI
 using AvaloniaApplication = Avalonia.Application;
 #endif
+#if __ANDROID__ && !MAUI
+#else
 using PlatformApplication = System.Application.UI.App;
 #endif
 #if StartWatchTrace
@@ -278,6 +281,21 @@ namespace System.Application.UI
             // 添加安全服务
             services.AddSecurityService<EmbeddedAesDataProtectionProvider, LocalDataProtectionProvider>();
 #endif
+        }
+
+        static IDisposable? PlatformApp
+        {
+            get
+            {
+                try
+                {
+                    return PlatformApplication.Instance;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
         }
 
         /// <summary>
