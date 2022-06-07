@@ -1,13 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+    <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+    <!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Maui</AssemblyName>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
     <ImplicitUsings>enable</ImplicitUsings>
     <DefineConstants>MAUI;$(DefineConstants)</DefineConstants>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,17 +54,29 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="ReactiveUI.Maui" />
-  </ItemGroup>
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+    <SupportedOSPlatformVersion>14.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">
+    <SupportedOSPlatformVersion>6.5</SupportedOSPlatformVersion>
+  </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common.Essentials.Maui\Common.Essentials.Maui.csproj" />
     <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

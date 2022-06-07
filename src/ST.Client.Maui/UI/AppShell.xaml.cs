@@ -42,6 +42,13 @@ public partial class AppShell : Shell, IViewFor<MainWindowViewModel>
 
         InitializeComponent();
 
+        //#if WINDOWS
+        //        Microsoft.Maui.Controls.Handlers.ShellHandler.Mapper.AppendToMapping(nameof(AppShell), (handler, view) =>
+        //        {
+        //            handler.PlatformView.PaneDisplayMode = Microsoft.UI.Xaml.Controls.NavigationViewPaneDisplayMode.LeftCompact;
+        //        });
+        //#endif
+
         if (!IsUseBottomNav)
         {
             #region Flyout

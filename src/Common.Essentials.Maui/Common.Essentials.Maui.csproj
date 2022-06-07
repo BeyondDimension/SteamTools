@@ -27,12 +27,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ReactiveUI.Maui" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <ProjectReference Include="..\Common.Essentials\Common.Essentials.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" />
   </ItemGroup>
   
 </Project>

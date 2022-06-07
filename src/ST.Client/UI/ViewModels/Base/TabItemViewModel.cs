@@ -34,7 +34,8 @@ namespace System.Application.UI.ViewModels
 
         protected TabItemViewModelBase() : base()
         {
-            IconKey = this.GetType().Name;
+            var typeName = GetType().Name;
+            IconKey = OperatingSystem2.Application.UseMaui() ? $"{typeName.ToLowerInvariant()}.png" : typeName;
         }
 
         public virtual void Initialize()

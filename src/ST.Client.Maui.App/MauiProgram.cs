@@ -59,15 +59,14 @@ public static partial class MauiProgram
 
         host.ConfigureServicesDelegate = level =>
         {
-            builder = MauiApp.CreateBuilder();
-
-            builder
+            builder = MauiApp.CreateBuilder()
                 .UseMauiApp(_ => new App(host))
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                ;
 
             ConfigureServices(host, level, builder.Services);
         };

@@ -40,7 +40,9 @@ using System.Windows;
 using Microsoft.Extensions.Http;
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
+#if !NET6_0_OR_GREATER
 using PlatformApplication = System.Application.UI.MainApplication;
+#endif
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
