@@ -20,6 +20,8 @@ public interface IDeviceInfoPlatformService
 
     bool IsUWP { get; }
 
+    bool IsWinUI { get; }
+
     DeviceIdiom Idiom { get; }
 
     static EPlatform Platform

@@ -44,6 +44,7 @@
     <Compile Include="..\ST.Client.XamarinForms\UI\Views\Base\BaseContentPage.cs">
       <Link>UI\Views\Base\BaseContentPage.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop.Avalonia\ServiceCollectionExtensions.AddWindowManager.cs" />
   </ItemGroup>
 
   <ItemGroup>

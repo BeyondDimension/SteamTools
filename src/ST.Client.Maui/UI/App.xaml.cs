@@ -1,5 +1,8 @@
 using System.Application.Mvvm;
+using System.Application.Services;
+using System.Application.Settings;
 using System.Application.UI.Styles;
+using System.Application.UI.ViewModels;
 using System.Reactive.Disposables;
 using System.Windows.Input;
 using EAppTheme = System.Application.Models.AppTheme;
@@ -8,7 +11,7 @@ using OSAppTheme = Microsoft.Maui.ApplicationModel.AppTheme;
 
 namespace System.Application.UI;
 
-public partial class App : MauiApplication, IDisposableHolder, IApplication
+public partial class App : MauiApplication, IDisposableHolder, IApplication, IMauiApplication
 {
     public static App Instance => Current is App app ? app : throw new ArgumentNullException(nameof(app));
 
@@ -25,9 +28,63 @@ public partial class App : MauiApplication, IDisposableHolder, IApplication
         ProgramHost = host;
 
         InitializeComponent();
+
         AppTheme = PlatformAppTheme;
         RequestedThemeChanged += (_, e) => AppTheme = e.RequestedTheme;
+
         MainPage = new AppShell();
+        Initialize();
+    }
+
+    public Window? MainWindow => Windows.Count >= 1 ? Windows[0] : null;
+
+    MauiApplication IMauiApplication.Current => this;
+
+    void Initialize()
+    {
+        const bool isTrace =
+#if StartWatchTrace
+                true;
+#else
+    false;
+#endif
+        ProgramHost.OnCreateAppExecuted(handlerViewModelManager: vmService =>
+        {
+            switch (vmService.MainWindow)
+            {
+                case AchievementWindowViewModel:
+                    ProgramHost.IsMinimize = false;
+                    //MainWindow = new AchievementWindow();
+                    break;
+
+                default:
+                    #region 主窗口启动时加载的资源
+#if !UI_DEMO
+                    compositeDisposable.Add(SettingsHost.Save);
+                    compositeDisposable.Add(ProxyService.Current.Dispose);
+                    compositeDisposable.Add(SteamConnectService.Current.Dispose);
+                    compositeDisposable.Add(ASFService.Current.StopASF);
+#pragma warning disable CA1416 // 验证平台兼容性
+                    if (GeneralSettings.IsStartupAppMinimized.Value)
+                        ProgramHost.IsMinimize = true;
+#pragma warning restore CA1416 // 验证平台兼容性
+#endif
+                    #endregion
+                    //MainWindow = new MainWindow();
+                    break;
+            }
+            MainPage!.BindingContext = vmService.MainWindow;
+        }, isTrace: isTrace);
+    }
+
+    public Window GetActiveWindow()
+    {
+        var activeWindow = Windows.FirstOrDefault(x => x.IsActivated());
+        if (activeWindow != null)
+        {
+            return activeWindow;
+        }
+        return MainWindow!;
     }
 
     #region IDisposable members

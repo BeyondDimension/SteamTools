@@ -135,7 +135,9 @@ public static partial class EssentialsExtensions
         nameof(DevicePlatform.Android) => Platform.Android,
 #pragma warning disable IDE0079 // 请删除不必要的忽略
 #pragma warning disable CS0618 // 类型或成员已过时
+#pragma warning disable CS0612 // 类型或成员已过时
         nameof(DevicePlatform.UWP) => Platform.UWP,
+#pragma warning restore CS0612 // 类型或成员已过时
 #pragma warning restore CS0618 // 类型或成员已过时
 #pragma warning restore IDE0079 // 请删除不必要的忽略
         nameof(DevicePlatform.iOS) or
@@ -143,7 +145,7 @@ public static partial class EssentialsExtensions
         nameof(DevicePlatform.watchOS) => Platform.Apple,
         nameof(DevicePlatform.Tizen) => Platform.Linux,
 #if MAUI
-        nameof(DevicePlatform.WinUI) => Platform.UWP,
+        nameof(DevicePlatform.WinUI) => Platform.WinUI,
         nameof(DevicePlatform.MacCatalyst) => Platform.Apple,
 #endif
         _ => Platform.Unknown,

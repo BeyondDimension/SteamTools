@@ -3,6 +3,7 @@ using System.Application.Services;
 using System.Application.Settings;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,10 @@ namespace System.Application.UI
         /// <summary>
         /// IsWindows or IsMacOS or (IsLinux and !IsAndroid)
         /// </summary>
-        public static readonly bool IsDesktopPlatform = OperatingSystem2.IsWindows() || OperatingSystem2.IsMacOS() || (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid());
+        [SupportedOSPlatformGuard("Windows7.0")]
+        [SupportedOSPlatformGuard("macOS")]
+        [SupportedOSPlatformGuard("Linux")]
+        static readonly bool IsDesktopPlatform = OperatingSystem2.IsWindows() || OperatingSystem2.IsMacOS() || (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid());
 
         static IApplication Instance => DI.Get<IApplication>();
 

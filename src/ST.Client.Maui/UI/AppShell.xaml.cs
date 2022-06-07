@@ -1,3 +1,5 @@
+using System.Application.Services;
+
 namespace System.Application.UI;
 
 public partial class AppShell : Shell

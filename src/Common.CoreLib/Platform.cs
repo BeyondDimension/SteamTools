@@ -38,6 +38,11 @@ public enum Platform
     /// </summary>
     [Obsolete]
     UWP = 64,
+
+    /// <summary>
+    /// Windows UI 库 (WinUI) 3
+    /// </summary>
+    WinUI = 128,
 }
 
 /// <summary>

@@ -20,5 +20,12 @@ public class DeviceInfoPlatformServiceImpl : IDeviceInfoPlatformService
 #pragma warning restore CS0618 // 类型或成员已过时
 #pragma warning restore IDE0079 // 请删除不必要的忽略
 
+    public virtual bool IsWinUI =>
+#if MAUI
+        DeviceInfo.Platform == DevicePlatform.WinUI;
+#else
+        false;
+#endif
+
     public virtual DeviceIdiom Idiom => DeviceInfo.Idiom.Convert();
 }

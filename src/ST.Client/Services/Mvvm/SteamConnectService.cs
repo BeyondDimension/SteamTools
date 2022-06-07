@@ -493,7 +493,7 @@ namespace System.Application.Services
             IReadOnlyDictionary<long, string?>? accountRemarks = SteamAccountSettings.AccountRemarks.Value;
 
             List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = OperatingSystem2.IsWindows() ? new() : null;
-            foreach (var user in SteamConnectService.Current.SteamUsers.Items)
+            foreach (var user in SteamUsers.Items)
             {
                 if (accountRemarks?.TryGetValue(user.SteamId64, out var remark) == true &&
                     !string.IsNullOrEmpty(remark))
@@ -526,7 +526,7 @@ namespace System.Application.Services
                 });
             }
 
-            SteamConnectService.Current.SteamUsers.Refresh();
+            SteamUsers.Refresh();
             #endregion
 
             #region 通过webapi加载头像图片用户信息

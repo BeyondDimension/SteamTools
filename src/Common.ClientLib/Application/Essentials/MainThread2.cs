@@ -31,7 +31,15 @@ public static class MainThread2
         }
         else
         {
-            IMainThreadPlatformService.Instance.PlatformBeginInvokeOnMainThread(action, priority);
+            try
+            {
+                IMainThreadPlatformService.Instance.PlatformBeginInvokeOnMainThread(action, priority);
+            }
+            catch (InvalidOperationException)
+            {
+                // https://github.com/dotnet/maui/blob/48840b8dd4f63e298ac63af7f9696f7e0581589c/src/Essentials/src/MainThread/MainThread.uwp.cs#L16-L20
+                action();
+            }
         }
     }
 

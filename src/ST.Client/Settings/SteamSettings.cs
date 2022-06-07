@@ -1,4 +1,5 @@
 using System.Application.Models;
+using System.Application.UI;
 using System.Runtime.Versioning;
 
 namespace System.Application.Settings
@@ -10,7 +11,7 @@ namespace System.Application.Settings
     {
         static SteamSettings()
         {
-            if (!OperatingSystem2.Application.UseAvalonia()) return;
+            if (!IApplication.IsDesktopPlatform) return;
             IsRunSteamMinimized.ValueChanged += IsRunSteamMinimized_ValueChanged;
             IsRunSteamNoCheckUpdate.ValueChanged += IsRunSteamNoCheckUpdate_ValueChanged;
         }
@@ -31,7 +32,7 @@ namespace System.Application.Settings
                 SteamStratParameter.Value = SteamStratParameter.Value.Replace("-silent", "").Trim();
         }
 
-        static readonly SerializableProperty<string?>? _SteamStratParameter = OperatingSystem2.Application.UseAvalonia() ?
+        static readonly SerializableProperty<string?>? _SteamStratParameter = IApplication.IsDesktopPlatform ?
             GetProperty<string?>(defaultValue: null, autoSave: true) : null;
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<string?> SteamStratParameter => _SteamStratParameter ?? throw new PlatformNotSupportedException();
 
-        //static readonly SerializableProperty<string>? _SteamSkin = OperatingSystem2.Application.UseAvalonia() ? GetProperty(defaultValue: string.Empty, autoSave: true) : null;
+        //static readonly SerializableProperty<string>? _SteamSkin = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: string.Empty, autoSave: true) : null;
         ///// <summary>
         ///// Steam皮肤
         ///// </summary>
@@ -51,7 +52,7 @@ namespace System.Application.Settings
         //[SupportedOSPlatform("Linux")]
         //public static SerializableProperty<string> SteamSkin => _SteamSkin ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<bool>? _IsAutoRunSteam = OperatingSystem2.Application.UseAvalonia() ? GetProperty(defaultValue: false, autoSave: true) : null;
+        static readonly SerializableProperty<bool>? _IsAutoRunSteam = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
 
         /// <summary>
         /// 自动运行Steam
@@ -61,7 +62,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsAutoRunSteam => _IsAutoRunSteam ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<bool>? _IsRunSteamMinimized = OperatingSystem2.Application.UseAvalonia() ? GetProperty(defaultValue: false, autoSave: true) : null;
+        static readonly SerializableProperty<bool>? _IsRunSteamMinimized = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
 
         /// <summary>
         /// Steam启动时最小化到托盘
@@ -71,7 +72,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsRunSteamMinimized => _IsRunSteamMinimized ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<bool>? _IsRunSteamNoCheckUpdate = OperatingSystem2.Application.UseAvalonia() ? GetProperty(defaultValue: false, autoSave: true) : null;
+        static readonly SerializableProperty<bool>? _IsRunSteamNoCheckUpdate = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
 
         /// <summary>
         /// Steam启动时不检查更新
@@ -81,7 +82,7 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsRunSteamNoCheckUpdate => _IsRunSteamNoCheckUpdate ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<bool>? _IsEnableSteamLaunchNotification = OperatingSystem2.Application.UseAvalonia() ? GetProperty(defaultValue: true, autoSave: true) : null;
+        static readonly SerializableProperty<bool>? _IsEnableSteamLaunchNotification = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
 
         /// <summary>
         /// 检测到Steam登录时弹出消息通知
@@ -97,6 +98,6 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<SystemEndMode>? DownloadCompleteSystemEndMode = OperatingSystem2.Application.UseAvalonia() ? GetProperty(defaultValue: SystemEndMode.Sleep, autoSave: true) : null;
+        public static SerializableProperty<SystemEndMode>? DownloadCompleteSystemEndMode = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: SystemEndMode.Sleep, autoSave: true) : null;
     }
 }

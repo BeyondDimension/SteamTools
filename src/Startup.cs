@@ -305,9 +305,11 @@ namespace System.Application.UI
 #endif
                 services.TryAddToast();
 
-                services.AddSingleton<IApplication>(_ => PlatformApplication.Instance);
+                services.AddSingleton(_ => PlatformApplication.Instance);
+
+                services.AddSingleton<IApplication>(s => s.GetRequiredService<PlatformApplication>());
 #if __ANDROID__
-                services.AddSingleton<IAndroidApplication>(_ => PlatformApplication.Instance);
+                services.AddSingleton<IAndroidApplication>(s => s.GetRequiredService<PlatformApplication>());
 #endif
 #if __MOBILE__
                 // 添加电话服务
@@ -315,10 +317,10 @@ namespace System.Application.UI
 
                 //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #elif MAUI
-                services.AddSingleton(_ => PlatformApplication.Instance);
+                services.AddSingleton<IMauiApplication>(s => s.GetRequiredService<PlatformApplication>());
 #else
-                services.AddSingleton<IAvaloniaApplication>(_ => PlatformApplication.Instance);
-                services.TryAddSingleton<IClipboardPlatformService>(_ => PlatformApplication.Instance);
+                services.AddSingleton<IAvaloniaApplication>(s => s.GetRequiredService<PlatformApplication>());
+                services.TryAddSingleton<IClipboardPlatformService>(s => s.GetRequiredService<PlatformApplication>());
 
                 // 添加主线程助手(MainThreadDesktop)
                 services.AddMainThreadPlatformService();
@@ -344,11 +346,7 @@ namespace System.Application.UI
                  *  - 按钮文本(ButtonText)缺少本地化翻译(Translate)
                  *  - 某些图标图片与枚举值不太匹配，例如 Information
                  */
-#if !MAUI
                 services.TryAddWindowManager();
-#else
-                Console.WriteLine("TODO: TryAddWindowManager");
-#endif
 
 #if WINDOWS
                 // 可选项，在 Win 平台使用 WPF 实现的 MessageBox

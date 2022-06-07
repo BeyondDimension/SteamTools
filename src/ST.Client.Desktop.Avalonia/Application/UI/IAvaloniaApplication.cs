@@ -1,9 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using System.Application.Mvvm;
-using System.Application.Services;
-using System.Application.UI.ViewModels;
-using System.Linq;
 using System.Threading.Tasks;
 using AvaloniaApplication = Avalonia.Application;
 

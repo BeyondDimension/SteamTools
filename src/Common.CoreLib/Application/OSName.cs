@@ -97,6 +97,11 @@ public static class OSNames
         /// https://github.com/chromeos
         /// </summary>
         ChromeOS,
+
+        /// <summary>
+        /// Windows UI 库 (WinUI) 3
+        /// </summary>
+        WinUI,
     }
 
     public static string ToDisplayName(this Value value) => value == default ? string.Empty :

@@ -48,9 +48,10 @@ public static class DeviceInfo2
             var i = IDeviceInfoPlatformService.Interface;
             if (i != null && i.IsUWP)
             {
-                return OSNames.Value.UWP;
+                if (i.IsWinUI) return OSNames.Value.WinUI;
+                if (i.IsUWP) return OSNames.Value.UWP;
             }
-            else if (DesktopBridge.IsRunningAsUwp)
+            if (DesktopBridge.IsRunningAsUwp)
             {
                 return OSNames.Value.WindowsDesktopBridge;
             }

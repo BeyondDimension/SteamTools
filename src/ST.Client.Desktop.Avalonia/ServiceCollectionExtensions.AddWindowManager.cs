@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Services;
-#if __ANDROID__
+#if MAUI
+using WindowManagerImpl_ = System.Application.Services.Implementation.MauiWindowManagerImpl;
+#elif __ANDROID__
 using WindowManagerImpl_ = System.Application.Services.Implementation.AndroidWindowManagerImpl;
 #elif AVALONIA
 using WindowManagerImpl_ = System.Application.Services.Implementation.AvaloniaWindowManagerImpl;
