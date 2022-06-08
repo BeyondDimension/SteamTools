@@ -22,7 +22,7 @@ namespace System.Application.Steps
             pau.Handler = CommandHandler.Create((/*string ver*/) =>
             {
                 var packDiaPath = Path.Combine(projPath, "..", "ASF-UI");
-                var packFilePath = Path.Combine(projPath, "src", "ST.Client", "Resources", "asf-ui" + FileEx.TAR_BR);
+                var packFilePath = Path.Combine(projPath, "references", "ArchiSteamFarm", "ArchiSteamFarm.Library", "Resources", "asf-ui" + FileEx.TAR_BR);
                 if (File.Exists(packFilePath)) File.Delete(packFilePath);
                 var files = new List<PublishFileInfo>();
                 ScanPath(packDiaPath, files);

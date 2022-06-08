@@ -1,5 +1,6 @@
 using ArchiSteamFarm;
 using ArchiSteamFarm.Core;
+using ArchiSteamFarm.Library;
 using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.NLog.Targets;
 using ArchiSteamFarm.Steam;
@@ -7,6 +8,7 @@ using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.Storage;
 using Microsoft.Extensions.Configuration;
 using ReactiveUI;
+using System.Application.UI;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.IO;
@@ -40,6 +42,17 @@ namespace System.Application.Services.Implementation
 
         private bool isFirstStart = true;
 
+        sealed class Ioc : IIoc
+        {
+            private Ioc() { }
+
+            public static Ioc Instance { get; } = new();
+
+            public T GetRequiredService<T>() where T : class => DI.Get<T>();
+
+            public T? GetService<T>() where T : class => DI.Get_Nullable<T>();
+        }
+
         public async Task<bool> Start(string[]? args = null)
         {
             try
@@ -48,13 +61,9 @@ namespace System.Application.Services.Implementation
 
                 if (isFirstStart)
                 {
-                    IArchiSteamFarmService.InitCoreLoggers?.Invoke();
+                    //IArchiSteamFarmService.InitCoreLoggers?.Invoke();
 
-                    TryUnPackASFUI();
-
-                    // 初始化文件夹
-                    var folders = Enum2.GetAll<ASFPathFolder>();
-                    Array.ForEach(folders, f => IArchiSteamFarmService.GetFolderPath(f));
+                    ArchiSteamFarmLibrary.Init(Ioc.Instance, IOPath.AppDataDirectory, IApplication.LogDirPathASF);
 
                     InitHistoryLogger();
 

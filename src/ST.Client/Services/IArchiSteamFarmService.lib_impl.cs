@@ -4,29 +4,29 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using ArchiSteamFarm.Library;
 
-namespace System.Application.Services
+namespace System.Application.Services;
+
+partial interface IArchiSteamFarmService : IArchiSteamFarmHelperService
 {
-    partial interface IArchiSteamFarmService : IArchiSteamFarmHelperService
-    {
-        int CurrentIPCPortValue { get; protected set; }
+    int CurrentIPCPortValue { get; protected set; }
 
-        int IArchiSteamFarmHelperService.IPCPortValue
+    int IArchiSteamFarmHelperService.IPCPortValue
+    {
+        get
         {
-            get
+            CurrentIPCPortValue = ASFSettings.IPCPortId.Value;
+            if (CurrentIPCPortValue == default) CurrentIPCPortValue = ASFSettings.DefaultIPCPortIdValue;
+            if (ASFSettings.IPCPortOccupiedRandom.Value)
             {
-                CurrentIPCPortValue = ASFSettings.IPCPortId.Value;
-                if (CurrentIPCPortValue == default) CurrentIPCPortValue = ASFSettings.DefaultIPCPortIdValue;
-                if (ASFSettings.IPCPortOccupiedRandom.Value)
+                if (SocketHelper.IsUsePort(CurrentIPCPortValue))
                 {
-                    if (SocketHelper.IsUsePort(CurrentIPCPortValue))
-                    {
-                        CurrentIPCPortValue = SocketHelper.GetRandomUnusedPort(IPAddress.Loopback);
-                        return CurrentIPCPortValue;
-                    }
+                    CurrentIPCPortValue = SocketHelper.GetRandomUnusedPort(IPAddress.Loopback);
+                    return CurrentIPCPortValue;
                 }
-                return CurrentIPCPortValue;
             }
+            return CurrentIPCPortValue;
         }
     }
 }

@@ -1,5 +1,6 @@
 using ArchiSteamFarm;
 using ArchiSteamFarm.Core;
+using ArchiSteamFarm.Library;
 using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.Steam;
 using DynamicData;
@@ -254,8 +255,8 @@ namespace System.Application.UI.ViewModels
 
         public void OpenFolder(string tag)
         {
-            if (!Enum.TryParse<ASFPathFolder>(tag, true, out var folderASFPath)) return;
-            var folderASFPathValue = IArchiSteamFarmService.GetFolderPath(folderASFPath);
+            if (!Enum.TryParse<EPathFolder>(tag, true, out var folderASFPath)) return;
+            var folderASFPathValue = folderASFPath.GetFolderPath();
             IPlatformService.Instance.OpenFolder(folderASFPathValue);
         }
 

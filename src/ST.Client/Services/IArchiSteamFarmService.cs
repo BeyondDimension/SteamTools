@@ -20,7 +20,7 @@ namespace System.Application.Services
     {
         static new IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
 
-        static Action? InitCoreLoggers { protected get; set; }
+        //static Action? InitCoreLoggers { protected get; set; }
 
         event Action<string>? OnConsoleWirteLine;
 
@@ -77,19 +77,6 @@ namespace System.Application.Services
             {
                 ReadLineTask.TrySetResult(command);
             }
-        }
-
-        static string GetFolderPath(ASFPathFolder folderASFPath)
-        {
-            var folderASFPathValue = folderASFPath switch
-            {
-                ASFPathFolder.Config => IOPath.DirCreateByNotExists(SharedInfo.ConfigDirectory),
-                ASFPathFolder.Plugin => IOPath.DirCreateByNotExists(SharedInfo.PluginsDirectory),
-                ASFPathFolder.WWW => ASFPathHelper.WebsiteDirectory,
-                ASFPathFolder.Logs => IApplication.LogDirPathASF,
-                ASFPathFolder.ASF or _ => ASFPathHelper.AppDataDirectory,
-            };
-            return folderASFPathValue;
         }
     }
 }

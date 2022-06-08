@@ -52,7 +52,6 @@ namespace Microsoft.Extensions.DependencyInjection
                     {
                         // TODO: 释放托管状态(托管对象)
                         NLog.LogManager.Shutdown();
-                        ArchiSteamFarm.LogManager.Shutdown();
                     }
 
                     // TODO: 释放未托管的资源(未托管的对象)并重写终结器

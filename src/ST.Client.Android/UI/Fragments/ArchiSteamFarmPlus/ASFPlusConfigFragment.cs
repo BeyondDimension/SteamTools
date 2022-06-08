@@ -7,6 +7,7 @@ using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Activities;
 using ArchiSteamFarm;
+using ArchiSteamFarm.Library;
 using static System.Application.UI.Resx.AppResources;
 
 // ReSharper disable once CheckNamespace
@@ -102,22 +103,22 @@ namespace System.Application.UI.Fragments
             }
             else if (view.Id == Resource.Id.layoutRootOpenDirASFConfig)
             {
-                OpenFolder(ASFPathFolder.Config);
+                OpenFolder(EPathFolder.Config);
                 return true;
             }
             else if (view.Id == Resource.Id.layoutRootOpenDirASFPlugin)
             {
-                OpenFolder(ASFPathFolder.Plugin);
+                OpenFolder(EPathFolder.Plugin);
                 return true;
             }
             else if (view.Id == Resource.Id.layoutRootOpenDirASFLog)
             {
-                OpenFolder(ASFPathFolder.Logs);
+                OpenFolder(EPathFolder.Logs);
                 return true;
             }
             else if (view.Id == Resource.Id.layoutRootOpenDirASFWebUI)
             {
-                OpenFolder(ASFPathFolder.WWW);
+                OpenFolder(EPathFolder.WWW);
                 return true;
             }
             return base.OnClick(view);
@@ -125,9 +126,9 @@ namespace System.Application.UI.Fragments
 
         void SetAutoRunArchiSteamFarm() => binding!.swASFSettingsAutoRunArchiSteamFarm.Checked = ASFSettings.AutoRunArchiSteamFarm.Value;
 
-        void OpenFolder(ASFPathFolder folderASFPath)
+        void OpenFolder(EPathFolder folderASFPath)
         {
-            var folderASFPathValue = IArchiSteamFarmService.GetFolderPath(folderASFPath);
+            var folderASFPathValue = folderASFPath.GetFolderPath();
             GoToPlatformPages.StartActivity<ExplorerActivity, string>(Activity, folderASFPathValue);
         }
     }
