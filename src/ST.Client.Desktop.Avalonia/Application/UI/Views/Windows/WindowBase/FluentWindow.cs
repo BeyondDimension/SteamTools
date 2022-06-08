@@ -195,8 +195,11 @@ namespace Avalonia.Controls
                         this.WhenAnyValue(x => x.ClientSize)
                             .Subscribe(x =>
                             {
-                                vm.SizePosition.Width = x.Width;
-                                vm.SizePosition.Height = x.Height;
+                                if (this.WindowState == WindowState.Normal)
+                                {
+                                    vm.SizePosition.Width = x.Width;
+                                    vm.SizePosition.Height = x.Height;
+                                }
                             });
                     }
                 }
