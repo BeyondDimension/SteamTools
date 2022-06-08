@@ -7,6 +7,7 @@ using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Steam.Storage;
 using ArchiSteamFarm.Storage;
 using Microsoft.Extensions.Configuration;
+using NLog;
 using ReactiveUI;
 using System.Application.UI;
 using System.Application.UI.Resx;
@@ -17,12 +18,18 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MSEXLog = Microsoft.Extensions.Logging;
 
 namespace System.Application.Services.Implementation
 {
-    public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService
+    public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarmService, IIoc
     {
         const string TAG = "ArchiSteamFarmS";
+
+        public ArchiSteamFarmServiceImpl()
+        {
+            ArchiSteamFarmLibrary.Init(this, IOPath.AppDataDirectory, IApplication.LogDirPathASF);
+        }
 
         public event Action<string>? OnConsoleWirteLine;
 
@@ -42,16 +49,9 @@ namespace System.Application.Services.Implementation
 
         private bool isFirstStart = true;
 
-        sealed class Ioc : IIoc
-        {
-            private Ioc() { }
+        T IIoc.GetRequiredService<T>() where T : class => DI.Get<T>();
 
-            public static Ioc Instance { get; } = new();
-
-            public T GetRequiredService<T>() where T : class => DI.Get<T>();
-
-            public T? GetService<T>() where T : class => DI.Get_Nullable<T>();
-        }
+        T? IIoc.GetService<T>() where T : class => DI.Get_Nullable<T>();
 
         public async Task<bool> Start(string[]? args = null)
         {
@@ -62,8 +62,6 @@ namespace System.Application.Services.Implementation
                 if (isFirstStart)
                 {
                     //IArchiSteamFarmService.InitCoreLoggers?.Invoke();
-
-                    ArchiSteamFarmLibrary.Init(Ioc.Instance, IOPath.AppDataDirectory, IApplication.LogDirPathASF);
 
                     InitHistoryLogger();
 
@@ -125,6 +123,8 @@ namespace System.Application.Services.Implementation
 
             Toast.Show(AppResources.ASF_Restarted, ToastLength.Short);
         }
+
+        MSEXLog.LogLevel IArchiSteamFarmHelperService.MinimumLevel => IApplication.LoggerMinLevel;
 
         private void InitHistoryLogger()
         {

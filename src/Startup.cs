@@ -49,7 +49,7 @@ using Program = System.Application.UI.AppDelegate;
 using ReactiveUI;
 using System.Reactive;
 #endif
-#if !MAUI
+#if !MAUI && !__MOBILE__
 using AvaloniaApplication = Avalonia.Application;
 #endif
 #if __ANDROID__ && !MAUI

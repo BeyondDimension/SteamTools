@@ -1,4 +1,5 @@
 using ArchiSteamFarm;
+using ArchiSteamFarm.Library;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application;
 using System.Application.Entities;
