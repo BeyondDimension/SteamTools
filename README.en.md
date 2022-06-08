@@ -26,8 +26,8 @@ English | [简体中文](./README.md)
 [![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
 
 [![Kofi](https://img.shields.io/badge/Kofi-RMBGAME-orange.svg?style=flat-square&logo=kofi)](https://ko-fi.com/rmbgame)
-[![Patreon](https://img.shields.io/badge/Patreon-RMBGAME-red.svg?style=flat-square&&logo=patreon)](https://www.patreon.com/rmbgame)
-[![Bilibili](https://img.shields.io/badge/bilibili-软妹币玩家-blue.svg?logo=bilibili)](https://space.bilibili.com/797215)
+[![Patreon](https://img.shields.io/badge/Patreon-RMBGAME-red.svg?style=flat-square&logo=patreon)](https://www.patreon.com/rmbgame)
+[![Bilibili](https://img.shields.io/badge/bilibili-软妹币玩家-blue.svg?style=flat-square&logo=bilibili)](https://space.bilibili.com/797215)
 </div>
 
 <div align="center"><img src="./resources/screenshots.en.jpg" /></div>

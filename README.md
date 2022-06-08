@@ -27,8 +27,8 @@
 
 [![爱发电](https://img.shields.io/badge/爱发电-软妹币玩家-blue.svg?style=flat-square&color=ea4aaa&logo=github-sponsors)](https://afdian.net/@rmbgame)
 [![Kofi](https://img.shields.io/badge/Kofi-RMBGAME-orange.svg?style=flat-square&logo=kofi)](https://ko-fi.com/rmbgame)
-[![Patreon](https://img.shields.io/badge/Patreon-RMBGAME-red.svg?style=flat-square&&logo=patreon)](https://www.patreon.com/rmbgame)
-[![Bilibili](https://img.shields.io/badge/bilibili-软妹币玩家-blue.svg?logo=bilibili)](https://space.bilibili.com/797215)
+[![Patreon](https://img.shields.io/badge/Patreon-RMBGAME-red.svg?style=flat-square&logo=patreon)](https://www.patreon.com/rmbgame)
+[![Bilibili](https://img.shields.io/badge/bilibili-软妹币玩家-blue.svg?style=flat-square&logo=bilibili)](https://space.bilibili.com/797215)
 [![QQ群](https://img.shields.io/badge/QQ群-960746023-blue.svg?style=flat-square&color=12b7f5&logo=qq)](https://jq.qq.com/?_wv=1027&k=3JKPt4xC)
 </div>
 
