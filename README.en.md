@@ -24,6 +24,10 @@ English | [简体中文](./README.md)
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSteamTools-Team%2FSteamTools%2Fbadge%3Fref%3Ddevelop&style=flat-square)](https://actions-badge.atrox.dev/BeyondDimension/SteamTools/goto?ref=develop)
 [![GitHub Star](https://img.shields.io/github/stars/rmbadmin/SteamTools.svg?style=social)](https://github.com/BeyondDimension/SteamTools)
 [![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
+
+[![Kofi](https://img.shields.io/badge/Kofi-RMBGAME-orange.svg?style=flat-square&logo=kofi)](https://ko-fi.com/rmbgame)
+[![Patreon](https://img.shields.io/badge/Patreon-RMBGAME-red.svg?style=flat-square&&logo=patreon)](https://www.patreon.com/rmbgame)
+[![Bilibili](https://img.shields.io/badge/bilibili-软妹币玩家-blue.svg?logo=bilibili)](https://space.bilibili.com/797215)
 </div>
 
 <div align="center"><img src="./resources/screenshots.en.jpg" /></div>
