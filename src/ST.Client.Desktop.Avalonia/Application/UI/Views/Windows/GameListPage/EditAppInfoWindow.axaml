@@ -189,12 +189,25 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <TextBlock Text="{ReflectionBinding Path=Res.HorizontalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                      <WrapPanel>
+                        <TextBlock Text="{ReflectionBinding Path=Res.HorizontalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center"/>
+                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
+                                Margin="5 0"
+                                Cursor="Hand"
+                                Tag="{x:Static models:SteamGridItemType.Header}"
+                                Click="ShowGridDialog_Click"
+                                ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <ui:SymbolIcon Symbol="CloudDownload" FontSize="18"/>
+                        </Button>
+                      </WrapPanel>
+                      
+                      <!--<TextBlock Text="{ReflectionBinding Path=Res.HorizontalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                       <Button Classes="Hyperlink"
                               FontSize="12"
                               Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Tag="{x:Static models:SteamGridItemType.Header}"
-                              Click="ShowGridDialog_Click"/>
+                              Click="ShowGridDialog_Click"/>-->
 
                       <TextBlock Classes="prompt h8"
                                  Text="{ReflectionBinding Path=Res.RecommendedResolution,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
@@ -215,12 +228,24 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <TextBlock Text="{ReflectionBinding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                      <WrapPanel>
+                        <TextBlock Text="{ReflectionBinding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center"/>
+                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
+                                Margin="5 0"
+                                Cursor="Hand"
+                                Tag="{x:Static models:SteamGridItemType.Grid}"
+                                Click="ShowGridDialog_Click"
+                                ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <ui:SymbolIcon Symbol="CloudDownload" FontSize="18"/>
+                        </Button>
+                      </WrapPanel>
+                      <!--<TextBlock Text="{ReflectionBinding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                       <Button Classes="Hyperlink"
                               FontSize="12"
                               Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Tag="{x:Static models:SteamGridItemType.Grid}"
-                              Click="ShowGridDialog_Click"/>
+                              Click="ShowGridDialog_Click"/>-->
 
                       <TextBlock Classes="prompt h8"
                                  Text="{ReflectionBinding Path=Res.RecommendedResolution,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
@@ -241,12 +266,24 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <TextBlock Text="{ReflectionBinding Path=Res.Background,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                      <WrapPanel>
+                        <TextBlock Text="{ReflectionBinding Path=Res.Background,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center"/>
+                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
+                                Margin="5 0"
+                                Cursor="Hand"
+                                Tag="{x:Static models:SteamGridItemType.Hero}"
+                                Click="ShowGridDialog_Click"
+                                ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <ui:SymbolIcon Symbol="CloudDownload" FontSize="18"/>
+                        </Button>
+                      </WrapPanel>
+                      <!--<TextBlock Text="{ReflectionBinding Path=Res.Background,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                       <Button Classes="Hyperlink"
                               FontSize="12"
                               Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Tag="{x:Static models:SteamGridItemType.Hero}"
-                              Click="ShowGridDialog_Click"/>
+                              Click="ShowGridDialog_Click"/>-->
 
                       <TextBlock Classes="prompt h8"
                                  Text="{ReflectionBinding Path=Res.RecommendedResolution,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
@@ -267,13 +304,23 @@
                 <Border Classes="Item">
                   <DockPanel>
                     <StackPanel Margin="0">
-                      <TextBlock Text="{ReflectionBinding Path=Res.Icon,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
-                      <Button Classes="Hyperlink"
+                      <WrapPanel>
+                        <TextBlock Text="{ReflectionBinding Path=Res.Icon,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                   VerticalAlignment="Center"/>
+                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
+                                Margin="5 0"
+                                Cursor="Hand"
+                                Tag="{x:Static models:SteamGridItemType.Logo}"
+                                Click="ShowGridDialog_Click"
+                                ToolTip.Tip="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                          <ui:SymbolIcon Symbol="CloudDownload" FontSize="18"/>
+                        </Button>
+                      </WrapPanel>
+                      <!--<Button Classes="Hyperlink"
                               FontSize="12"
                               Content="{ReflectionBinding Path=Res.GetImageFromSteamGridDB,Mode=OneWay,Source={x:Static resx:R.Current}}"
                               Tag="{x:Static models:SteamGridItemType.Logo}"
-                              Click="ShowGridDialog_Click"/>
-
+                              Click="ShowGridDialog_Click"/>-->
                       <TextBlock Classes="prompt h8"
                                  Text="{ReflectionBinding Path=Res.RecommendedResolution,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
                       <TextBlock Classes="prompt h8"
@@ -389,7 +436,14 @@
               <Border Classes="Item">
                 <StackPanel Spacing="5">
                   <DockPanel>
-                    <Label Content="{ReflectionBinding Path=Res.CloudSaveFileSize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                      <Label Content="{ReflectionBinding Path=Res.CloudSaveFileSize,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+                      <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
+                              Cursor="Hand"
+                              ToolTip.Tip="{ReflectionBinding Path=Res.GameList_CloudArchiveManager,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                        <ui:SymbolIcon Symbol="CloudBackup" FontSize="18"/>
+                      </Button>
+                    </StackPanel>
                     <TextBlock Classes="right"
                                Text="{ReflectionBinding App.CloudQuota,Converter={StaticResource StringFormatConverter},ConverterParameter=size}"/>
                   </DockPanel>

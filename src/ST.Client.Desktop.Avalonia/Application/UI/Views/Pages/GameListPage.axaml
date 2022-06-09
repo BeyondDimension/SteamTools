@@ -370,7 +370,8 @@
                       <MenuItem
                              Header="{ReflectionBinding Path=Res.GameList_CloudArchiveManager,Mode=OneWay,Source={x:Static resx:R.Current}}"
                              Command="{ReflectionBinding #u.DataContext.ManageCloudArchive_Click}"
-                             CommandParameter="{Binding}">
+                             CommandParameter="{Binding}"
+                             IsVisible="{Binding IsCloudArchive}">
                         <MenuItem.Icon>
                           <ui:SymbolIcon Symbol="CloudSyncComplete" Width="14"/>
                         </MenuItem.Icon>

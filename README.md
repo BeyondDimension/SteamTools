@@ -51,7 +51,9 @@
 	- 一键切换已在当前 PC 上登录过的 Steam 账号，与管理家庭共享库排序及禁用等功能。
 4. 库存管理 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- 让您直接管理 Steam 游戏库存，可以编辑游戏名称和[自定义封面](https://www.steamgriddb.com/)，也能解锁以及反解锁 Steam 游戏成就。
-	- 支持监控 Steam 游戏下载进度实现 Steam 游戏下载完成定时关机功能。
+	- 监控 Steam 游戏下载进度实现 Steam 游戏下载完成定时关机功能。
+	- 模拟运行 Steam 游戏，让您不用安装和下载对应的游戏也能挂游玩时间和 Steam 卡片
+	- 自助管理 Steam 游戏云存档，随时删除和上传自定义的存档文件至 Steam 云
 5. 本地令牌 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
 	- 让您的手机令牌统一保存在电脑中，目前仅支持 Steam 令牌，后续会开发支持更多的令牌种类与云同步令牌。
 6. 自动挂卡 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 

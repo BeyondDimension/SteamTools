@@ -300,5 +300,10 @@ namespace System.Application.UI.ViewModels
             if (!string.IsNullOrEmpty(path))
                 IPlatformService.Instance.OpenFolder(path);
         }
+
+        public void ManageCloudArchive_Click()
+        {
+            GameListPageViewModel.ManageCloudArchive_Click(App);
+        }
     }
 }
