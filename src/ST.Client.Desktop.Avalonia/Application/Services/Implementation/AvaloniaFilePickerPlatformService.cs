@@ -65,7 +65,6 @@ namespace System.Application.Services.Implementation
             };
             if (options != default)
             {
-                fileDialog.AllowMultiple = options.Multiselect;
                 if (options.PickerTitle != default)
                 {
                     fileDialog.Title = options.PickerTitle;

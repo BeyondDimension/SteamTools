@@ -138,28 +138,30 @@ namespace System.Application.UI.ViewModels
 
         public async void UploadFile()
         {
-            var result = await FilePicker2.PickAsync(new PickOptions
+            var result = await FilePicker2.PickMultipleAsync(new PickOptions
             {
                 PickerTitle = "",
-                Multiselect = true,
             });
 
             if (result != null)
             {
-                var file = new SteamRemoteFile(result.FileName.ToLowerInvariant());
+                foreach (var f in result)
+                {
+                    var file = new SteamRemoteFile(f.FileName.ToLowerInvariant());
 
-                try
-                {
-                    byte[] data = File.ReadAllBytes(result.FullPath);
-                    if (!file.WriteAllBytes(data))
+                    try
                     {
-                        throw new IOException("Upload File Write Failed");
+                        byte[] data = File.ReadAllBytes(f.FullPath);
+                        if (!file.WriteAllBytes(data))
+                        {
+                            throw new IOException("Upload File Write Failed");
+                        }
+                        Toast.Show(AppResources.UploadSuccess);
                     }
-                    Toast.Show(AppResources.UploadSuccess);
-                }
-                catch (IOException)
-                {
-                    Toast.Show(AppResources.UploadFailed);
+                    catch (IOException)
+                    {
+                        Toast.Show(AppResources.UploadFailed);
+                    }
                 }
             }
 

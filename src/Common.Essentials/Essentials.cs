@@ -334,8 +334,6 @@ public class PickOptions
 
     public string? PickerTitle { get; set; }
 
-    public bool Multiselect { get; set; }
-
     public IFilePickerFileType? FileTypes { get; set; }
 }
 
