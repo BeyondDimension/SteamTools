@@ -535,21 +535,15 @@ namespace System.Application.Models
 
         public SteamAppPropertyTable? ChangesData => _properties;
 
-        //public event EventHandler? Modified;
-
-        //private void OnEntryModified(object sender, EventArgs e)
-        //{
-        //    var modified = Modified;
-        //    if (modified == null)
-        //    {
-        //        return;
-        //    }
-        //    modified(this, new EventArgs());
-        //} 
-
-        public Process? StartSteamAppProcess(bool show = false)
+        public Process? StartSteamAppProcess(SteamAppRunType runType = SteamAppRunType.Idle)
         {
-            string arguments = $"-clt app {(show ? "" : "-silence")} -id {AppId}";
+            var arg = runType switch
+            {
+                SteamAppRunType.UnlockAchievement => "-achievement",
+                SteamAppRunType.CloudManager => "-cloudmanager",
+                _ => "-silence",
+            };
+            string arguments = $"-clt app {arg} -id {AppId}";
             if (OperatingSystem2.IsWindows())
             {
                 return Process = Process2.Start(IApplication.ProgramPath, arguments);

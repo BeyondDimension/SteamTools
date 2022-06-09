@@ -13,12 +13,22 @@ namespace System.Application.Settings
         static readonly SerializableProperty<bool> _GameIsInstalledFilter = GetProperty(defaultValue: false, autoSave: true);
 
         /// <summary>
-        /// 游戏类型筛选状态列表
+        /// 已安装游戏筛选
         /// </summary>
         [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> GameIsInstalledFilter => _GameIsInstalledFilter;
+
+        static readonly SerializableProperty<bool> _GameIsCloudArchiveFilter = GetProperty(defaultValue: false, autoSave: true);
+
+        /// <summary>
+        /// 支持云存档游戏筛选状态
+        /// </summary>
+        [SupportedOSPlatform("Windows7.0")]
+        [SupportedOSPlatform("macOS")]
+        [SupportedOSPlatform("Linux")]
+        public static SerializableProperty<bool> GameIsCloudArchiveFilter => _GameIsCloudArchiveFilter;
 
         static readonly SerializableProperty<List<SteamAppType>>? _GameTypeFiltres = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: new List<SteamAppType> { SteamAppType.Game, SteamAppType.Application, SteamAppType.Demo, SteamAppType.Beta }, autoSave: true) : null;
 

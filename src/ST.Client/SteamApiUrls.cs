@@ -29,12 +29,13 @@ namespace System.Application
         public const string STEAM_VIDEO_URL = "https://store.steampowered.com/video/watch/{0}/";
         public const string STEAM_REGISTERKEY_URL = "https://store.steampowered.com/account/registerkey?key={0}";
         public const string STEAM_FRIENDMESSAGESLOG_URL = "https://help.steampowered.com/zh-cn/accountdata/GetFriendMessagesLog";
+        public const string STEAM_REMOTESTORAGE_URL = "https://store.steampowered.com/account/remotestorage";
+        public const string STEAM_KEY_URL = "https://store.steampowered.com/account/registerkey?key={0}";
 
         public const string STEAM_INSTALL_URL = "steam://install/{0}";
         public const string STEAM_RUNGAME_URL = "steam://rungameid/{0}";
         public const string STEAM_NAVGAME_URL = "steam://nav/games/details/{0}";
         public const string STEAM_OPENURL = "steam://openurl/{0}";
-        public const string STEAM_RUN_KEYURL = "steam://openurl/https://store.steampowered.com/account/registerkey?key={0}";
 
         public const string STEAMDB_USERINFO_URL = "https://api.steamdb.ml/v1/users/{0}";
         public const string STEAMDB_APPINFO_URL = "https://api.steamdb.ml/v1/apps/{0}";

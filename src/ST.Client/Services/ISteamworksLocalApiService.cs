@@ -77,5 +77,17 @@ namespace System.Application.Services
 
             int Result { get; }
         }
+
+        bool GetCloudArchiveQuota(out ulong totalBytes, out ulong availableBytes);
+
+        List<SteamRemoteFile>? GetCloudArchiveFiles();
+
+        int FileRead(string name, byte[] buffer);
+
+        bool FileWrite(string name, byte[] buffer);
+
+        bool FileForget(string name);
+
+        bool FileDelete(string name);
     }
 }

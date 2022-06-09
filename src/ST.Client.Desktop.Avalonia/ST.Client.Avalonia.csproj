@@ -107,4 +107,10 @@
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Application\UI\Views\Windows\GameListPage\CloudArchiveWindow.axaml.cs">
+      <DependentUpon>CloudArchiveWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.Metadata;
+using System.Application.UI.Resx;
 using System.Collections;
 using System.IO;
 using static System.Application.FilePicker2;
@@ -75,8 +76,6 @@ namespace System.Application.UI.Views.Controls
 
         private async void CustomFilePicker_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            FilePickerFileType fileTypes = new ValueTuple<string, string[]>[] { ("Image Files", FileEx.ImageFileExtensions) };
-
             //if (string.IsNullOrEmpty(FileExtensions) || FileExtensions == "*")
             //{
             //    fileTypes = new ValueTuple<string, string[]>[] { ("All Files", new[] { "*" }) };
@@ -89,10 +88,15 @@ namespace System.Application.UI.Views.Controls
             //           };
             //}
 
-            await PickAsync((file) =>
+            var result = await PickAsync(PickOptions.Images);
+            if (result != null)
             {
-                FileName = file;
-            }, fileTypes);
+                FileName = result.FullPath;
+            }
+            else
+            {
+                Toast.Show(AppResources.PleaseSelect);
+            }
         }
     }
 }

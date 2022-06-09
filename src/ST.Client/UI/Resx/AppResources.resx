@@ -591,6 +591,9 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_OnlyInstalled" xml:space="preserve">
     <value>仅显示已安装的游戏</value>
   </data>
+  <data name="GameList_OnlyCloudArchive" xml:space="preserve">
+    <value>仅显示支持Steam云存档的游戏</value>
+  </data>
   <data name="GameList_OpenFolder" xml:space="preserve">
     <value>浏览安装文件夹</value>
   </data>
@@ -2266,5 +2269,35 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="About_FormerName" xml:space="preserve">
     <value>原名</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>文件大小</value>
+  </data>
+  <data name="CreateTime" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
+  <data name="GameList_CloudArchiveManager" xml:space="preserve">
+    <value>Steam云存档管理</value>
+  </data>
+  <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
+    <value>确定要删除当前选中的存档数据吗？</value>
+  </data>
+  <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
+    <value>手动上传存档文件</value>
+  </data>
+  <data name="RefreshList" xml:space="preserve">
+    <value>刷新列表</value>
+  </data>
+  <data name="FileNumber" xml:space="preserve">
+    <value>{0}个文件</value>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>上传成功</value>
+  </data>
+  <data name="UploadFailed" xml:space="preserve">
+    <value>上传失败</value>
+  </data>
+  <data name="Download_Success_FileNameTip" xml:space="preserve">
+    <value>下载 {0} 成功</value>
   </data>
 </root>

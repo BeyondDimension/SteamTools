@@ -43,7 +43,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        TaskBarWindowViewModel(WindowViewModel? mainwindow) : this(mainwindow is MainWindowViewModel mainwindow2 ? mainwindow2 : null)
+        public TaskBarWindowViewModel(WindowViewModel? mainwindow) : this(mainwindow is MainWindowViewModel mainwindow2 ? mainwindow2 : null)
         {
 
         }

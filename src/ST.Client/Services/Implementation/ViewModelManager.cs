@@ -11,8 +11,7 @@ namespace System.Application.Services.Implementation
 {
     internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
     {
-        MainWindowViewModel? mainWindow;
-        AchievementWindowViewModel? achievementWindow;
+        //MainWindowViewModel? mainWindow;
         TaskBarWindowViewModel? taskbarWindow;
         readonly CompositeDisposable compositeDisposable = new();
 
@@ -29,15 +28,19 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                if (appidUnlockAchievementHasValue)
+                if (isCloudManageMain)
                 {
-                    achievementWindow = new AchievementWindowViewModel(appidUnlockAchievement);
-                    mMainWindow = achievementWindow;
+                    mMainWindow = new CloudArchiveWindowViewModel(steamaAppid);
+                }
+                else if (isUnlockAchievementMain)
+                {
+                    mMainWindow = new AchievementWindowViewModel(steamaAppid);
                 }
                 else
                 {
-                    mainWindow = new MainWindowViewModel();
-                    mMainWindow = mainWindow;
+                    //mainWindow = new MainWindowViewModel();
+                    //mMainWindow = mainWindow;
+                    mMainWindow = new MainWindowViewModel();
                 }
             }
             catch (Exception ex)
@@ -51,7 +54,7 @@ namespace System.Application.Services.Implementation
                 {
                     if (OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon)
                     {
-                        taskbarWindow = new TaskBarWindowViewModel(mainWindow);
+                        taskbarWindow = new TaskBarWindowViewModel(mMainWindow);
                     }
                 }
                 catch (Exception ex)
@@ -62,13 +65,20 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        int appidUnlockAchievement;
-        bool appidUnlockAchievementHasValue;
+        int steamaAppid;
+        bool isUnlockAchievementMain;
+        bool isCloudManageMain;
 
         public void InitUnlockAchievement(int appid)
         {
-            appidUnlockAchievement = appid;
-            appidUnlockAchievementHasValue = true;
+            steamaAppid = appid;
+            isUnlockAchievementMain = true;
+        }
+
+        public void InitCloudManageMain(int appid)
+        {
+            steamaAppid = appid;
+            isCloudManageMain = true;
         }
 
         //public Window GetMainWindow()

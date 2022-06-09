@@ -194,6 +194,11 @@ namespace System.Application.UI
             {
                 switch (vmService.MainWindow)
                 {
+                    case CloudArchiveWindowViewModel:
+                        ProgramHost.IsMinimize = false;
+                        MainWindow = new CloudArchiveWindow();
+                        break;
+
                     case AchievementWindowViewModel:
                         ProgramHost.IsMinimize = false;
                         MainWindow = new AchievementWindow();

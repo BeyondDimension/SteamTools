@@ -189,15 +189,23 @@ public abstract class CommandLineHost : IDisposable
         rootCommand.AddCommand(steamuser);
 
         // -clt app -id 632360
-        var unlock_achievement = new Command("app", "打开成就解锁窗口");
-        unlock_achievement.AddOption(new Option<int>("-id", "指定一个 Steam 游戏 Id"));
-        unlock_achievement.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
-        unlock_achievement.Handler = CommandHandler.Create(async (int id, bool silence) =>
+        var run_SteamApp = new Command("app", "运行 Steam 应用");
+        run_SteamApp.AddOption(new Option<int>("-id", "指定一个 Steam 游戏 Id"));
+        run_SteamApp.AddOption(new Option<bool>("-achievement", "打开成就解锁窗口"));
+        run_SteamApp.AddOption(new Option<bool>("-cloudmanager", "打开云存档管理窗口"));
+        //run_SteamApp.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
+        run_SteamApp.Handler = CommandHandler.Create(async (int id, bool achievement, bool cloudmanager) =>
         {
             try
             {
                 if (id <= 0) return;
-                if (!silence)
+                if (cloudmanager)
+                {
+                    ConfigureServices(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
+                    IViewModelManager.Instance.InitCloudManageMain(id);
+                    StartApplication(args);
+                }
+                else if (achievement)
                 {
                     ConfigureServices(DILevel.GUI | DILevel.Steam | DILevel.HttpClientFactory);
                     IViewModelManager.Instance.InitUnlockAchievement(id);
@@ -213,10 +221,10 @@ public abstract class CommandLineHost : IDisposable
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(unlock_achievement), ex, "Start");
+                Log.Error(nameof(run_SteamApp), ex, "Start");
             }
         });
-        rootCommand.AddCommand(unlock_achievement);
+        rootCommand.AddCommand(run_SteamApp);
 
         var r = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
         return r;

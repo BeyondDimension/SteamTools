@@ -16,6 +16,18 @@
                     Width="150"
                     Classes="notransitions"
                     Value="50" />
+
+                <TextBlock Text="Material Progress" />
+                <ProgressBar
+                    Width="150"
+                    Height="30"
+                    Classes="Material"
+                    IsIndeterminate="True" />
+                <ProgressBar
+                    Width="150"
+                    Height="30"
+                    Classes="Material notransitions"
+                    Value="50" />
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -172,5 +184,213 @@
                 </KeyFrame>
             </Animation>
         </Style.Animations>
+    </Style>
+
+    <Style Selector="ProgressBar.Material">
+        <Setter Property="Foreground" Value="{DynamicResource ProgressBarForeground}" />
+        <Setter Property="Background" Value="{DynamicResource ProgressBarBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ProgressBarBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border
+                        Name="PART_RootBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="True"
+                        CornerRadius="{DynamicResource ControlCornerRadius}">
+                        <Panel Name="PART_RootPanel" ClipToBounds="True">
+                            <Panel.RenderTransform>
+                                <ScaleTransform />
+                            </Panel.RenderTransform>
+
+                            <Viewbox Name="PART_IndeterminateView" Stretch="Fill">
+                                <Canvas Name="PART_Container" HorizontalAlignment="Stretch">
+                                    <Rectangle Name="PART_First" Fill="{TemplateBinding Foreground}" />
+                                    <Rectangle Name="PART_Second" Fill="{TemplateBinding Foreground}" />
+                                </Canvas>
+                            </Viewbox>
+
+                            <Border
+                                Name="PART_Indicator"
+                                Background="{TemplateBinding Foreground}"
+                                ClipToBounds="False" />
+                        </Panel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="ProgressBar /template/ Panel#PART_RootPanel">
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="ScaleTransform.ScaleX" Value="1" />
+        <Setter Property="ScaleTransform.ScaleY" Value="1" />
+    </Style>
+
+    <Style Selector="ProgressBar:not(.Circle):horizontal">
+        <Setter Property="Height" Value="4" />
+    </Style>
+
+    <Style Selector="ProgressBar:not(.Circle):horizontal /template/ Panel#PART_RootPanel">
+        <Setter Property="RenderTransformOrigin" Value="0.0, 0.5" />
+    </Style>
+
+    <Style Selector="ProgressBar:not(.Circle):vertical">
+        <Setter Property="Width" Value="4" />
+    </Style>
+
+    <Style Selector="ProgressBar:not(.Circle):vertical /template/ Panel#PART_RootPanel">
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.0" />
+    </Style>
+
+    <Style Selector="ProgressBar:not(.Circle) /template/ Rectangle#PART_First,                      ProgressBar:not(.Circle) /template/ Rectangle#PART_Second">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <!--  Horizontal animations indeterminate progress  -->
+
+    <Style Selector="ProgressBar:indeterminate:horizontal /template/ Canvas#PART_Container">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="20" />
+    </Style>
+
+    <Style Selector="ProgressBar:indeterminate:horizontal /template/ Rectangle#PART_First">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Height" Value="20" />
+        <Style.Animations>
+            <Animation IterationCount="INFINITE" Duration="0:0:2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Canvas.Left" Value="-10" />
+                    <Setter Property="Width" Value="10" />
+                </KeyFrame>
+                <KeyFrame Cue="35%">
+                    <Setter Property="Canvas.Left" Value="45" />
+                    <Setter Property="Width" Value="60" />
+                </KeyFrame>
+                <KeyFrame Cue="60%">
+                    <Setter Property="Canvas.Left" Value="100" />
+                    <Setter Property="Width" Value="100" />
+                </KeyFrame>
+                <KeyFrame Cue="90%">
+                    <Setter Property="Canvas.Left" Value="100" />
+                    <Setter Property="Width" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Canvas.Left" Value="100" />
+                    <Setter Property="Width" Value="0" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+    <Style Selector="ProgressBar:indeterminate:horizontal /template/ Rectangle#PART_Second">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Height" Value="20" />
+        <Style.Animations>
+            <Animation IterationCount="INFINITE" Duration="0:0:2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Canvas.Left" Value="0" />
+                    <Setter Property="Width" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="Canvas.Left" Value="0" />
+                    <Setter Property="Width" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="70%">
+                    <Setter Property="Canvas.Left" Value="0" />
+                    <Setter Property="Width" Value="70" />
+                </KeyFrame>
+                <KeyFrame Cue="90%">
+                    <Setter Property="Canvas.Left" Value="95" />
+                    <Setter Property="Width" Value="20" />
+                </KeyFrame>
+                <KeyFrame Cue="95%">
+                    <Setter Property="Canvas.Left" Value="100" />
+                    <Setter Property="Width" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Canvas.Left" Value="100" />
+                    <Setter Property="Width" Value="0" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <!--  Vertical animations indeterminate progress  -->
+
+    <Style Selector="ProgressBar:indeterminate:vertical /template/ Canvas#PART_Container">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="100" />
+    </Style>
+
+    <Style Selector="ProgressBar:indeterminate:vertical /template/ Rectangle#PART_First">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Width" Value="20" />
+        <Style.Animations>
+            <Animation IterationCount="INFINITE" Duration="0:0:2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Canvas.Bottom" Value="-10" />
+                    <Setter Property="Height" Value="10" />
+                </KeyFrame>
+                <KeyFrame Cue="35%">
+                    <Setter Property="Canvas.Bottom" Value="45" />
+                    <Setter Property="Height" Value="60" />
+                </KeyFrame>
+                <KeyFrame Cue="60%">
+                    <Setter Property="Canvas.Bottom" Value="100" />
+                    <Setter Property="Height" Value="100" />
+                </KeyFrame>
+                <KeyFrame Cue="90%">
+                    <Setter Property="Canvas.Bottom" Value="100" />
+                    <Setter Property="Height" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Canvas.Bottom" Value="100" />
+                    <Setter Property="Height" Value="0" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+    <Style Selector="ProgressBar:indeterminate:vertical /template/ Rectangle#PART_Second">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Width" Value="20" />
+        <Style.Animations>
+            <Animation IterationCount="INFINITE" Duration="0:0:2">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Canvas.Bottom" Value="0" />
+                    <Setter Property="Height" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="Canvas.Bottom" Value="0" />
+                    <Setter Property="Height" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="70%">
+                    <Setter Property="Canvas.Bottom" Value="0" />
+                    <Setter Property="Height" Value="70" />
+                </KeyFrame>
+                <KeyFrame Cue="90%">
+                    <Setter Property="Canvas.Bottom" Value="95" />
+                    <Setter Property="Height" Value="20" />
+                </KeyFrame>
+                <KeyFrame Cue="95%">
+                    <Setter Property="Canvas.Bottom" Value="100" />
+                    <Setter Property="Height" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Canvas.Bottom" Value="100" />
+                    <Setter Property="Height" Value="0" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="ProgressBar:horizontal /template/ Border#PART_Indicator">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="ProgressBar:vertical /template/ Border#PART_Indicator">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
     </Style>
 </Styles>

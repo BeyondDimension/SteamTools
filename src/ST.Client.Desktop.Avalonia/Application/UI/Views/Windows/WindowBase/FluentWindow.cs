@@ -27,6 +27,11 @@ namespace Avalonia.Controls
 
         public FluentWindow(bool isSaveStatus)
         {
+#if DEBUG
+            if (Design.IsDesignMode)
+                return;
+#endif
+
             //#if WINDOWS
             //            PseudoClasses.Set(":windows", true);
 

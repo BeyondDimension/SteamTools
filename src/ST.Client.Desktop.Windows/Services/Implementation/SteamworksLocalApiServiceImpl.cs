@@ -131,6 +131,7 @@ namespace System.Application.Services.Implementation
             return SteamClient.SteamApps008.GetAvailableGameLanguages();
         }
 
+        #region SteamUserStats
         public bool GetStatValue(string name, out int value)
         {
             return SteamClient.SteamUserStats.GetStatValue(name, out value);
@@ -214,10 +215,59 @@ namespace System.Application.Services.Implementation
         {
             SteamClient.SteamUserStats.RequestGlobalAchievementPercentages();
         }
+        #endregion
 
         public void RunCallbacks(bool server)
         {
             SteamClient.RunCallbacks(server);
         }
+
+        #region SteamRemoteStorage
+
+        public bool GetCloudArchiveQuota(out ulong totalBytes, out ulong availableBytes)
+        {
+            return SteamClient.SteamRemoteStorage.GetQuota(out totalBytes, out availableBytes);
+        }
+
+        public List<SteamRemoteFile>? GetCloudArchiveFiles()
+        {
+            List<SteamRemoteFile> files = new List<SteamRemoteFile>();
+
+            int fileCount = SteamClient.SteamRemoteStorage.GetFileCount();
+            for (int i = 0; i < fileCount; ++i)
+            {
+                string name = SteamClient.SteamRemoteStorage.GetFileNameAndSize(i, out int length);
+                var file = new SteamRemoteFile(name, length, SteamClient.SteamRemoteStorage.FileExists(name)
+                    , SteamClient.SteamRemoteStorage.FilePersisted(name), SteamClient.SteamRemoteStorage.GetFileTimestamp(name))
+                {
+                    SyncPlatforms = (SteamKit2.ERemoteStoragePlatform)SteamClient.SteamRemoteStorage.GetSyncPlatforms(name),
+                };
+                files.Add(file);
+            }
+
+            return files;
+        }
+
+        public int FileRead(string name, byte[] buffer)
+        {
+            return SteamClient.SteamRemoteStorage.FileRead(name, buffer);
+        }
+
+        public bool FileWrite(string name, byte[] buffer)
+        {
+            return SteamClient.SteamRemoteStorage.FileWrite(name, buffer);
+        }
+
+        public bool FileForget(string name)
+        {
+            return SteamClient.SteamRemoteStorage.FileForget(name);
+        }
+
+        public bool FileDelete(string name)
+        {
+            return SteamClient.SteamRemoteStorage.FileDelete(name);
+        }
+
+        #endregion
     }
 }

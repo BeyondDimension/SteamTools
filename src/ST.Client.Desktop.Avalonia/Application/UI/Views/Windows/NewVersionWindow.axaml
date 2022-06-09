@@ -44,6 +44,7 @@
                 Margin="10,0">
       <Panel Margin="0,0,0,10">
         <ProgressBar
+          Classes="Material"
           Height="28"
           Value="{ReflectionBinding Path=ProgressValue,Mode=OneWay,Source={x:Static service:IApplicationUpdateService.Instance}}"/>
         <TextBlock

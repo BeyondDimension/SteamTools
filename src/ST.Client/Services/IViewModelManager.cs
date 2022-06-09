@@ -25,6 +25,8 @@ namespace System.Application.Services
 
         void InitUnlockAchievement(int appid);
 
+        void InitCloudManageMain(int appid);
+
         /// <summary>
         /// 打开托盘菜单窗口
         /// </summary>

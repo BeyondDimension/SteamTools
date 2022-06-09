@@ -169,21 +169,28 @@
             </ui:CommandBarButton.Icon>
           </ui:CommandBarButton>-->
 
-            <ui:CommandBarButton
-                                 Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
-                                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            <ui:CommandBarButton Command="{ReflectionBinding RefreshGamesList,Source={x:Static service:SteamConnectService.Current},Mode=OneWay}"
+                                 ToolTip.Tip="{ReflectionBinding $self.Label}"
                                  Label="{ReflectionBinding Path=Res.GameList_RefreshGamesList,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarButton.Icon>
                 <ui:PathIcon Data="{StaticResource RefreshDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
 
-            <ui:CommandBarToggleButton
-                                 IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
-                                 ToolTip.Tip="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}"
+            <ui:CommandBarToggleButton IsChecked="{Binding IsInstalledFilter,Mode=TwoWay}"
+                                 ToolTip.Tip="{ReflectionBinding $self.Label}"
                                  Label="{ReflectionBinding Path=Res.GameList_OnlyInstalled,Mode=OneWay,Source={x:Static resx:R.Current}}">
               <ui:CommandBarToggleButton.Icon>
                 <ui:PathIcon Data="{StaticResource PlayCircleDrawing}"/>
+              </ui:CommandBarToggleButton.Icon>
+            </ui:CommandBarToggleButton>
+
+            <ui:CommandBarToggleButton
+                     IsChecked="{Binding IsCloudArchiveFilter,Mode=TwoWay}"
+                     ToolTip.Tip="{ReflectionBinding $self.Label}"
+                     Label="{ReflectionBinding Path=Res.GameList_OnlyCloudArchive,Mode=OneWay,Source={x:Static resx:R.Current}}">
+              <ui:CommandBarToggleButton.Icon>
+                <ui:SymbolIcon Symbol="CloudBackup"/>
               </ui:CommandBarToggleButton.Icon>
             </ui:CommandBarToggleButton>
 
@@ -358,6 +365,14 @@
                              CommandParameter="{Binding}">
                         <MenuItem.Icon>
                           <ui:SymbolIcon Symbol="EditFilled" Width="14"/>
+                        </MenuItem.Icon>
+                      </MenuItem>
+                      <MenuItem
+                             Header="{ReflectionBinding Path=Res.GameList_CloudArchiveManager,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                             Command="{ReflectionBinding #u.DataContext.ManageCloudArchive_Click}"
+                             CommandParameter="{Binding}">
+                        <MenuItem.Icon>
+                          <ui:SymbolIcon Symbol="CloudSyncComplete" Width="14"/>
                         </MenuItem.Icon>
                       </MenuItem>
                       <MenuItem

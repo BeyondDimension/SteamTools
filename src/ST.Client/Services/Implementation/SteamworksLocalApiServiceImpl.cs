@@ -88,5 +88,41 @@ namespace System.Application.Services.Implementation
         public void RunCallbacks(bool server)
         {
         }
+
+        #region SteamRemoteStorage
+
+        public bool GetCloudArchiveQuota(out ulong totalBytes, out ulong availableBytes)
+        {
+            totalBytes = 0;
+            availableBytes = 0;
+            return false;
+        }
+
+        public List<SteamRemoteFile>? GetCloudArchiveFiles()
+        {
+            return null;
+        }
+
+        public int FileRead(string name, byte[] buffer)
+        {
+            return 0;
+        }
+
+        public bool FileWrite(string name, byte[] buffer)
+        {
+            return false;
+        }
+
+        public bool FileForget(string name)
+        {
+            return false;
+        }
+
+        public bool FileDelete(string name)
+        {
+            return false;
+        }
+
+        #endregion
     }
 }

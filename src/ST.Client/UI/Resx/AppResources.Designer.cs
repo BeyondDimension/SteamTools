@@ -1608,6 +1608,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 创建时间 的本地化字符串。
+        /// </summary>
+        public static string CreateTime {
+            get {
+                return ResourceManager.GetString("CreateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 选择文件 的本地化字符串。
         /// </summary>
         public static string CustomFilePicker_Tip {
@@ -1788,6 +1797,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下载 {0} 成功 的本地化字符串。
+        /// </summary>
+        public static string Download_Success_FileNameTip {
+            get {
+                return ResourceManager.GetString("Download_Success_FileNameTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已下载 的本地化字符串。
         /// </summary>
         public static string Downloaded {
@@ -1932,11 +1950,29 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 {0}个文件 的本地化字符串。
+        /// </summary>
+        public static string FileNumber {
+            get {
+                return ResourceManager.GetString("FileNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 文件路径 的本地化字符串。
         /// </summary>
         public static string FilePath {
             get {
                 return ResourceManager.GetString("FilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 文件大小 的本地化字符串。
+        /// </summary>
+        public static string FileSize {
+            get {
+                return ResourceManager.GetString("FileSize", resourceCulture);
             }
         }
         
@@ -2036,6 +2072,24 @@ namespace System.Application.UI.Resx {
         public static string GameList_AutoAFK {
             get {
                 return ResourceManager.GetString("GameList_AutoAFK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要删除当前选中的存档数据吗？ 的本地化字符串。
+        /// </summary>
+        public static string GameList_CloudArchiveDeleteTip {
+            get {
+                return ResourceManager.GetString("GameList_CloudArchiveDeleteTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Steam云存档管理 的本地化字符串。
+        /// </summary>
+        public static string GameList_CloudArchiveManager {
+            get {
+                return ResourceManager.GetString("GameList_CloudArchiveManager", resourceCulture);
             }
         }
         
@@ -2180,6 +2234,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_NavToSteamView {
             get {
                 return ResourceManager.GetString("GameList_NavToSteamView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 仅显示支持Steam云存档的游戏 的本地化字符串。
+        /// </summary>
+        public static string GameList_OnlyCloudArchive {
+            get {
+                return ResourceManager.GetString("GameList_OnlyCloudArchive", resourceCulture);
             }
         }
         
@@ -2433,6 +2496,15 @@ namespace System.Application.UI.Resx {
         public static string GameList_Unsupport {
             get {
                 return ResourceManager.GetString("GameList_Unsupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 手动上传存档文件 的本地化字符串。
+        /// </summary>
+        public static string GameList_UploadCloudArchiveFile {
+            get {
+                return ResourceManager.GetString("GameList_UploadCloudArchiveFile", resourceCulture);
             }
         }
         
@@ -5760,6 +5832,24 @@ namespace System.Application.UI.Resx {
         public static string UpdateUnpackFail {
             get {
                 return ResourceManager.GetString("UpdateUnpackFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上传失败 的本地化字符串。
+        /// </summary>
+        public static string UploadFailed {
+            get {
+                return ResourceManager.GetString("UploadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上传成功 的本地化字符串。
+        /// </summary>
+        public static string UploadSuccess {
+            get {
+                return ResourceManager.GetString("UploadSuccess", resourceCulture);
             }
         }
         

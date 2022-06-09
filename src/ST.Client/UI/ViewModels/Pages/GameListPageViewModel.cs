@@ -70,6 +70,16 @@ namespace System.Application.UI.ViewModels
             };
         }
 
+        Func<SteamApp, bool> PredicateCloudArchive(bool isCloudArchiveFilter)
+        {
+            return s =>
+            {
+                if (isCloudArchiveFilter)
+                    return s.IsCloudArchive;
+                return true;
+            };
+        }
+
         public GameListPageViewModel()
         {
             _IconKey = nameof(GameListPageViewModel);
@@ -91,12 +101,16 @@ namespace System.Application.UI.ViewModels
 
             IsInstalledFilter = GameLibrarySettings.GameIsInstalledFilter.Value;
 
+            //IsCloudArchiveFilter = GameLibrarySettings.GameIsInstalledFilter.Value;
+
             this.WhenValueChanged(x => x.IsInstalledFilter, false)
                 .Subscribe(s => GameLibrarySettings.GameIsInstalledFilter.Value = s);
 
             var nameFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
 
             var installFilter = this.WhenAnyValue(x => x.IsInstalledFilter).Select(PredicateInstalled);
+
+            var isCloudArchiveFilter = this.WhenAnyValue(x => x.IsCloudArchiveFilter).Select(PredicateCloudArchive);
 
             var typeFilter = this.WhenAnyValue(x => x.EnableAppTypeFiltres).Select(PredicateType);
 
@@ -119,6 +133,7 @@ namespace System.Application.UI.ViewModels
                 .Filter(nameFilter)
                 .Filter(typeFilter)
                 .Filter(installFilter)
+                .Filter(isCloudArchiveFilter)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName).ThenByDescending(s => s.SizeOnDisk))
                 .Bind(out _SteamApps)
@@ -193,6 +208,14 @@ namespace System.Application.UI.ViewModels
         {
             get => _IsInstalledFilter;
             set => this.RaiseAndSetIfChanged(ref _IsInstalledFilter, value);
+        }
+
+        private bool _IsCloudArchiveFilter;
+
+        public bool IsCloudArchiveFilter
+        {
+            get => _IsCloudArchiveFilter;
+            set => this.RaiseAndSetIfChanged(ref _IsCloudArchiveFilter, value);
         }
 
         private bool _IsAppInfoOpen;
@@ -388,13 +411,28 @@ namespace System.Application.UI.ViewModels
                     if (result.IsOK())
                     {
                         Toast.Show(AppResources.GameList_RuningWait);
-                        app.StartSteamAppProcess(true);
+                        app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
                         SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
                     }
                     break;
                 default:
                     Toast.Show(AppResources.GameList_Unsupport);
                     break;
+            }
+        }
+
+        public static async void ManageCloudArchive_Click(SteamApp app)
+        {
+            if (!ISteamService.Instance.IsRunningSteamProcess)
+            {
+                Toast.Show(AppResources.GameList_SteamNotRuning);
+                return;
+            }
+            if (app.IsCloudArchive)
+            {
+                Toast.Show(AppResources.GameList_RuningWait);
+                app.StartSteamAppProcess(SteamAppRunType.CloudManager);
+                SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
             }
         }
 
