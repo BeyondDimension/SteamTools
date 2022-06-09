@@ -428,12 +428,10 @@ namespace System.Application.UI.ViewModels
                 Toast.Show(AppResources.GameList_SteamNotRuning);
                 return;
             }
-            if (app.IsCloudArchive)
-            {
-                Toast.Show(AppResources.GameList_RuningWait);
-                app.StartSteamAppProcess(SteamAppRunType.CloudManager);
-                SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
-            }
+
+            Toast.Show(AppResources.GameList_RuningWait);
+            app.StartSteamAppProcess(SteamAppRunType.CloudManager);
+            SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
         }
 
         public static void AppGridReSize()

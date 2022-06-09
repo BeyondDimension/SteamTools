@@ -76,6 +76,18 @@
       </DockPanel>
     </StackPanel>
 
+    <StackPanel Spacing="15"
+                Margin="0 60 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                IsVisible="{Binding IsLoading}">
+      <ProgressBar Classes="Circle"
+                   Width="50"
+                   Height="50"
+                   IsIndeterminate="True"/>
+      <TextBlock Text="{ReflectionBinding Path=Res.GameList_IsLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+    </StackPanel>
+    
     <TabControl Classes="flat"
                 Margin="0 20 0 0"
                 ZIndex="1">

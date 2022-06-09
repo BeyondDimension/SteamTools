@@ -30,6 +30,14 @@ namespace System.Application.UI.ViewModels
         public ReadOnlyObservableCollection<SteamRemoteFile>? CloudArchivews => _CloudArchivews;
 
         public string CloudArchivewCountStr => string.Format(AppResources.FileNumber, CloudArchivews?.Count ?? 0);
+
+        private bool _IsLoading;
+
+        public bool IsLoading
+        {
+            get => _IsLoading;
+            set => this.RaiseAndSetIfChanged(ref _IsLoading, value);
+        }
         #endregion
 
         //private bool? _IsCheckAll;
@@ -40,15 +48,15 @@ namespace System.Application.UI.ViewModels
         //    set => this.RaiseAndSetIfChanged(ref _IsCheckAll, value);
         //}
 
-        public bool IsCloudEnabledForAccount { get; }
+        //public bool IsCloudEnabledForAccount { get; }
 
-        private bool _IsCloudEnabledForApp;
+        //private bool _IsCloudEnabledForApp;
 
-        public bool IsCloudEnabledForApp
-        {
-            get => _IsCloudEnabledForApp;
-            set => this.RaiseAndSetIfChanged(ref _IsCloudEnabledForApp, value);
-        }
+        //public bool IsCloudEnabledForApp
+        //{
+        //    get => _IsCloudEnabledForApp;
+        //    set => this.RaiseAndSetIfChanged(ref _IsCloudEnabledForApp, value);
+        //}
 
         private int _UsedQutoa;
 
@@ -100,21 +108,30 @@ namespace System.Application.UI.ViewModels
 
         public void RefreshList()
         {
-            var results = ISteamworksLocalApiService.Instance.GetCloudArchiveFiles();
-            _CloudArchivewSourceList.Clear();
-            if (results.Any_Nullable())
-                _CloudArchivewSourceList.AddRange(results);
-
+            if (!IsLoading)
+            {
+                IsLoading = true;
+                var results = ISteamworksLocalApiService.Instance.GetCloudArchiveFiles();
+                _CloudArchivewSourceList.Clear();
+                if (results.Any_Nullable())
+                    _CloudArchivewSourceList.AddRange(results);
+                IsLoading = false;
+            }
+            _CloudArchivewSourceList.Items.Sum(x => x.Size);
             ISteamworksLocalApiService.Instance.GetCloudArchiveQuota(out var totalBytes, out var availBytes);
             TotalQutoa = (int)(totalBytes / 1024 / 1024);
-            UsedQutoa = (int)((totalBytes - availBytes) / 1024 / 1024);
+            UsedQutoa = (int)(_CloudArchivewSourceList.Items.Sum(x => x.Size) / 1024 / 1024);
         }
 
         public async void ClearAllFiles()
         {
-            var result = await MessageBox.ShowAsync(AppResources.Achievement_ResetWaring_1, Title, MessageBox.Button.OKCancel);
+            var result = await MessageBox.ShowAsync(AppResources.GameList_CloudArchiveDeleteAllTip, Title, MessageBox.Button.OKCancel);
             if (result.IsOK())
             {
+                foreach (var file in _CloudArchivewSourceList.Items)
+                {
+                    DeleteFile(file);
+                }
                 RefreshList();
             }
         }

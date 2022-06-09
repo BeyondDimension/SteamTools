@@ -2076,6 +2076,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 确定要删除全部存档数据吗，请一定要明白你在做什么，该操作会清除当前游戏的全部云存档数据！！！ 的本地化字符串。
+        /// </summary>
+        public static string GameList_CloudArchiveDeleteAllTip {
+            get {
+                return ResourceManager.GetString("GameList_CloudArchiveDeleteAllTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 确定要删除当前选中的存档数据吗？ 的本地化字符串。
         /// </summary>
         public static string GameList_CloudArchiveDeleteTip {
@@ -2202,7 +2211,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 正在加载游戏列表... 的本地化字符串。
+        ///   查找类似 正在加载... 的本地化字符串。
         /// </summary>
         public static string GameList_IsLoading {
             get {

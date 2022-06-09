@@ -580,7 +580,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>没有获取到任何游戏数据</value>
   </data>
   <data name="GameList_IsLoading" xml:space="preserve">
-    <value>正在加载游戏列表...</value>
+    <value>正在加载...</value>
   </data>
   <data name="GameList_ListCount" xml:space="preserve">
     <value>已添加 ({0}/{1})</value>
@@ -2281,6 +2281,9 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="GameList_CloudArchiveDeleteTip" xml:space="preserve">
     <value>确定要删除当前选中的存档数据吗？</value>
+  </data>
+  <data name="GameList_CloudArchiveDeleteAllTip" xml:space="preserve">
+    <value>确定要删除全部存档数据吗，请一定要明白你在做什么，该操作会清除当前游戏的全部云存档数据！！！</value>
   </data>
   <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
     <value>手动上传存档文件</value>
