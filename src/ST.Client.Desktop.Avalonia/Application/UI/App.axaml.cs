@@ -433,6 +433,7 @@ namespace System.Application.UI
         {
             Window? mainWindow = null;
 
+        ReTry:
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 mainWindow = desktop.MainWindow;
@@ -451,7 +452,16 @@ namespace System.Application.UI
                 throw new ArgumentNullException(nameof(mainWindow));
             }
 
-            mainWindow.Show();
+            try
+            {
+                mainWindow.Show();
+            }
+            catch (InvalidOperationException)
+            {
+                mainWindow = null;
+                goto ReTry;
+            }
+
             mainWindow.WindowState = WindowState.Normal;
             mainWindow.Topmost = true;
             mainWindow.Topmost = false;
