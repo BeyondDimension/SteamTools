@@ -126,7 +126,7 @@ namespace System.Application.UI.ViewModels
             ReStartSteamByUser(user);
         }
 
-        private void ReStartSteamByUser(SteamUser? user = null)
+        private async void ReStartSteamByUser(SteamUser? user = null)
         {
             foreach (var item in SteamUsers.Where(x => x.MostRecent))
                 item.MostRecent = false;
@@ -142,7 +142,7 @@ namespace System.Application.UI.ViewModels
                 steamService.SetCurrentUser(string.Empty);
             }
 
-            steamService.TryKillSteamProcess();
+            await steamService.ShutdownSteam();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
 

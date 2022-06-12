@@ -198,7 +198,7 @@ namespace System.Application.UI.ViewModels
             var result = await MessageBox.ShowAsync(AppResources.AccountChange_RestartSteam, button: MessageBox.Button.OKCancel);
             if (result.IsOK())
             {
-                steamService.TryKillSteamProcess();
+                await steamService.ShutdownSteam();
                 steamService.StartSteam();
             }
         }

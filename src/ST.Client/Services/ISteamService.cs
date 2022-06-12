@@ -46,13 +46,18 @@ namespace System.Application.Services
         /// Steam 进程是否正在运行，如果正在运行，返回进程PID提示用户去任务管理器中结束进程
         /// </summary>
         /// <returns></returns>
-        int? GetSteamProcessPid();
+        int GetSteamProcessPid();
 
         /// <summary>
         /// 启动 Steam
         /// </summary>
         /// <param name="arguments"></param>
         void StartSteam(string? arguments = null);
+
+        /// <summary>
+        /// 退出 Steam
+        /// </summary>
+        Task ShutdownSteam();
 
         /// <summary>
         /// 获取最后一次自动登录 Steam 用户名称

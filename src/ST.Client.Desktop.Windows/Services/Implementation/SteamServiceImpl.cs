@@ -131,12 +131,20 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public int? GetSteamProcessPid()
+        public int GetSteamProcessPid()
         {
             var processes = Process.GetProcessesByName(steamProcess[0]);
             if (processes.Any_Nullable())
                 return processes.First().Id;
             return default;
+        }
+
+        private Process? GetSteamProcess()
+        {
+            var processes = Process.GetProcessesByName(steamProcess[0]);
+            if (processes.Any_Nullable())
+                return processes.First();
+            return null;
         }
 
         public void StartSteam(string? arguments = null)
@@ -152,6 +160,19 @@ namespace System.Application.Services.Implementation
                 else
                 {
                     Process2.Start(SteamProgramPath, arguments, useShellExecute: true);
+                }
+            }
+        }
+
+        public async Task ShutdownSteam()
+        {
+            if (!string.IsNullOrWhiteSpace(SteamProgramPath) && File.Exists(SteamProgramPath))
+            {
+                var steamP = GetSteamProcess();
+                if (steamP != null)
+                {
+                    Process2.Start(SteamProgramPath, "-shutdown", useShellExecute: true);
+                    await steamP.WaitForExitAsync();
                 }
             }
         }

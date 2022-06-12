@@ -163,7 +163,7 @@ public abstract class CommandLineHost : IDisposable
         // -clt steam -account
         var steamuser = new Command("steam", "Steam 相关操作");
         steamuser.AddOption(new Option<string>("-account", "指定对应 Steam 用户名"));
-        steamuser.Handler = CommandHandler.Create((string account) =>
+        steamuser.Handler = CommandHandler.Create(async (string account) =>
         {
             if (!string.IsNullOrEmpty(account))
             {
@@ -182,7 +182,7 @@ public abstract class CommandLineHost : IDisposable
                     steamService.SetCurrentUser(account);
                 }
 
-                steamService.TryKillSteamProcess();
+                await steamService.ShutdownSteam();
                 steamService.StartSteam();
             }
         });
