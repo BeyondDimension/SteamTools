@@ -709,11 +709,11 @@ namespace System.Application.Services.Implementation
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
         {
             e.DecryptSsl = false;
-            if (ProxyDomains is null || TwoLevelAgentEnable)
+            if (ProxyDomains is null)
             {
                 return Task.CompletedTask;
             }
-            if (e.SniHostName.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.SniHostName.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase) || TwoLevelAgentEnable)
             {
                 e.DecryptSsl = true;
                 return Task.CompletedTask;
@@ -752,11 +752,11 @@ namespace System.Application.Services.Implementation
         private async Task ExplicitProxyEndPoint_BeforeTunnelConnectRequest(object sender, TunnelConnectSessionEventArgs e)
         {
             e.DecryptSsl = false;
-            if (ProxyDomains is null || e.HttpClient?.Request?.Host == null || TwoLevelAgentEnable || OnlyEnableProxyScript)
+            if (ProxyDomains is null || e.HttpClient?.Request?.Host == null)
             {
                 return;
             }
-            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase))
+            if (e.HttpClient.Request.Host.Contains(LocalDomain, StringComparison.OrdinalIgnoreCase) || TwoLevelAgentEnable || OnlyEnableProxyScript)
             {
                 e.DecryptSsl = true;
                 return;
