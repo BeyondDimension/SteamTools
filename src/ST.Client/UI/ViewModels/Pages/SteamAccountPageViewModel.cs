@@ -131,6 +131,8 @@ namespace System.Application.UI.ViewModels
             foreach (var item in SteamUsers.Where(x => x.MostRecent))
                 item.MostRecent = false;
 
+            await steamService.ShutdownSteam();
+
             if (user != null)
             {
                 user.MostRecent = true;
@@ -142,7 +144,6 @@ namespace System.Application.UI.ViewModels
                 steamService.SetCurrentUser(string.Empty);
             }
 
-            await steamService.ShutdownSteam();
             steamService.StartSteam(SteamSettings.SteamStratParameter.Value);
         }
 

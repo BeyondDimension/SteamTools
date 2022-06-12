@@ -55,7 +55,7 @@ namespace System.Application.Services
         void StartSteam(string? arguments = null);
 
         /// <summary>
-        /// 退出 Steam
+        /// 安全退出 Steam（如果有修改Steam数据的操作请退出后在执行不然Steam安全退出会还原修改）
         /// </summary>
         Task ShutdownSteam();
 

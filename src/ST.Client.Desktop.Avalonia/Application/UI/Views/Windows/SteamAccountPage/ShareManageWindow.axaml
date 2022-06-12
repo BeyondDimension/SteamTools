@@ -22,7 +22,7 @@
         x:CompileBindings="True">
   <Panel>
     <controls:TitleBar/>
-    <Panel x:Name="TitleBarHost" 
+    <Panel x:Name="TitleBarHost"
            VerticalAlignment="Top"
            Background="Transparent"
            Height="{StaticResource TitleBarHeight}"/>
@@ -180,6 +180,7 @@
                               HorizontalAlignment="Stretch"
                               MaxWidth="200"
                               Command="{ReflectionBinding #u.DataContext.SetFirstButton_Click}"
+                              IsEnabled="{Binding !Disable}"
                               CommandParameter="{Binding}">
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Top,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
@@ -189,6 +190,7 @@
                               HorizontalAlignment="Stretch"
                               MaxWidth="200"
                               Command="{ReflectionBinding #u.DataContext.UpButton_Click}"
+                              IsEnabled="{Binding !Disable}"
                               CommandParameter="{Binding}">
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Up,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>
@@ -198,6 +200,7 @@
                               MaxWidth="200"
                               HorizontalAlignment="Stretch"
                               Command="{ReflectionBinding #u.DataContext.DownButton_Click}"
+                              IsEnabled="{Binding !Disable}"
                               CommandParameter="{Binding}">
                         <controls:ScrollingTextBlock Text="{ReflectionBinding Path=Res.Dow,Mode=OneWay,Source={x:Static resx:R.Current}}"></controls:ScrollingTextBlock>
                       </Button>

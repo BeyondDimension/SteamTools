@@ -61,9 +61,8 @@ namespace System.Application.UI.ViewModels
                 Timeused = x.Timeused,
                 Description = x.Description,
                 Disable = true,
-                Tokenid = x.Tokenid
+                Tokenid = x.Tokenid,
             }));
-            int count = allList.Count - 1;
             foreach (var item in allList)
             {
                 var temp = userlist.FirstOrDefault(x => x.SteamId32 == item.SteamId3_Int);
@@ -198,7 +197,7 @@ namespace System.Application.UI.ViewModels
             var result = await MessageBox.ShowAsync(AppResources.AccountChange_RestartSteam, button: MessageBox.Button.OKCancel);
             if (result.IsOK())
             {
-                await steamService.ShutdownSteam();
+                steamService.TryKillSteamProcess();
                 steamService.StartSteam();
             }
         }

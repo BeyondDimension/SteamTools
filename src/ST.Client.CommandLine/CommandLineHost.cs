@@ -175,6 +175,8 @@ public abstract class CommandLineHost : IDisposable
 
                 var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
 
+                await steamService.ShutdownSteam();
+
                 if (currentuser != null)
                 {
                     currentuser.MostRecent = true;
@@ -182,7 +184,6 @@ public abstract class CommandLineHost : IDisposable
                     steamService.SetCurrentUser(account);
                 }
 
-                await steamService.ShutdownSteam();
                 steamService.StartSteam();
             }
         });
