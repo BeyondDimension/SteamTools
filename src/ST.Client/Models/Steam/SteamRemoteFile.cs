@@ -48,7 +48,8 @@ namespace System.Application.Models
         {
             byte[] buffer = new byte[Size];
             int read = Read(buffer);
-            if (read != buffer.Length) throw new IOException("Could not read entire file.");
+            if (read != buffer.Length)
+                throw new IOException("Could not read entire file.");
             return buffer;
         }
 

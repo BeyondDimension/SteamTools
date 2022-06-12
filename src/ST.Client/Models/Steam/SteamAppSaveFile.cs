@@ -83,9 +83,15 @@ namespace System.Application.Models
             if (string.IsNullOrEmpty(path))
                 return;
 
-            path = FilePath.Combine(path,
-                Path.Replace("{64BitSteamID}", SteamConnectService.Current.CurrentSteamUser?.SteamId64.ToString())
-                    .Replace("{Steam3AccountID}", SteamConnectService.Current.CurrentSteamUser?.SteamId32.ToString()));
+            var p = Path.Replace("{64BitSteamID}", SteamConnectService.Current.CurrentSteamUser?.SteamId64.ToString())
+                    .Replace("{Steam3AccountID}", SteamConnectService.Current.CurrentSteamUser?.SteamId32.ToString());
+
+            if (FilePath.IsPathRooted(p))
+            {
+                p = p.Remove(0, FilePath.GetPathRoot(p).Length);
+            }
+
+            path = FilePath.Combine(path, p);
 
             FormatDirPath = @FilePath.GetFullPath(path);
 

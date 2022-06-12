@@ -1770,6 +1770,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下载 {0} 失败 的本地化字符串。
+        /// </summary>
+        public static string Download_Failed_FileNameTip {
+            get {
+                return ResourceManager.GetString("Download_Failed_FileNameTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 脚本下载错误请重试。 的本地化字符串。
         /// </summary>
         public static string Download_ScriptError {

@@ -178,12 +178,19 @@ namespace System.Application.UI.ViewModels
 
             if (result != null)
             {
-                using var dest = result.OpenWrite();
-                var b = remoteFile.ReadAllBytes();
-                await dest.WriteAsync(b, 0, b.Length);
-                dest.Close();
+                try
+                {
+                    using var dest = result.OpenWrite();
+                    var b = remoteFile.ReadAllBytes();
+                    await dest.WriteAsync(b, 0, b.Length);
+                    dest.Close();
 
-                Toast.Show(string.Format(AppResources.Download_Success_FileNameTip, remoteFile.Name));
+                    Toast.Show(string.Format(AppResources.Download_Success_FileNameTip, remoteFile.Name));
+                }
+                catch
+                {
+                    Toast.Show(string.Format(AppResources.Download_Failed_FileNameTip, remoteFile.Name));
+                }
             }
         }
 

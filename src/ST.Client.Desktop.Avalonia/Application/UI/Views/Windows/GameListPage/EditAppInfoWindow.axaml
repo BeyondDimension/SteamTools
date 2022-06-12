@@ -192,8 +192,7 @@
                       <WrapPanel>
                         <TextBlock Text="{ReflectionBinding Path=Res.HorizontalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                    VerticalAlignment="Center"/>
-                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
-                                Margin="5 0"
+                        <Button Margin="5 0"
                                 Cursor="Hand"
                                 Tag="{x:Static models:SteamGridItemType.Header}"
                                 Click="ShowGridDialog_Click"
@@ -231,8 +230,7 @@
                       <WrapPanel>
                         <TextBlock Text="{ReflectionBinding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                    VerticalAlignment="Center"/>
-                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
-                                Margin="5 0"
+                        <Button Margin="5 0"
                                 Cursor="Hand"
                                 Tag="{x:Static models:SteamGridItemType.Grid}"
                                 Click="ShowGridDialog_Click"
@@ -269,8 +267,7 @@
                       <WrapPanel>
                         <TextBlock Text="{ReflectionBinding Path=Res.Background,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                    VerticalAlignment="Center"/>
-                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
-                                Margin="5 0"
+                        <Button Margin="5 0"
                                 Cursor="Hand"
                                 Tag="{x:Static models:SteamGridItemType.Hero}"
                                 Click="ShowGridDialog_Click"
@@ -307,8 +304,7 @@
                       <WrapPanel>
                         <TextBlock Text="{ReflectionBinding Path=Res.Icon,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                    VerticalAlignment="Center"/>
-                        <Button Command="{ReflectionBinding ManageCloudArchive_Click}"
-                                Margin="5 0"
+                        <Button Margin="5 0"
                                 Cursor="Hand"
                                 Tag="{x:Static models:SteamGridItemType.Logo}"
                                 Click="ShowGridDialog_Click"
