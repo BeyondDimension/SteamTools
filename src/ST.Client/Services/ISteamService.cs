@@ -2,6 +2,7 @@ using System.Application.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using static System.Application.Browser2;
 
@@ -57,7 +58,7 @@ namespace System.Application.Services
         /// <summary>
         /// 安全退出 Steam（如果有修改Steam数据的操作请退出后在执行不然Steam安全退出会还原修改）
         /// </summary>
-        Task ShutdownSteam();
+        Task ShutdownSteamAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 获取最后一次自动登录 Steam 用户名称

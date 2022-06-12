@@ -175,7 +175,7 @@ public abstract class CommandLineHost : IDisposable
 
                 var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
 
-                await steamService.ShutdownSteam();
+                await steamService.ShutdownSteamAsync();
 
                 if (currentuser != null)
                 {

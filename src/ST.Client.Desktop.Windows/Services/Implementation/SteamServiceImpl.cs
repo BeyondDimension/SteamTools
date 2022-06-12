@@ -53,7 +53,7 @@ namespace System.Application.Services.Implementation
         readonly string? mSteamProgramPath;
         readonly string? mRegistryVdfPath;
         readonly string[] steamProcess = new[] { OperatingSystem.IsMacOS() ? "steam_osx" : "steam", "steamservice", "steamwebhelper" };
-        readonly Lazy<IHttpService> _http = new(() => DI.Get<IHttpService>());
+        readonly Lazy<IHttpService> _http = new(DI.Get<IHttpService>);
         List<FileSystemWatcher>? steamDownloadingWatchers;
 
         IHttpService Http => _http.Value;
@@ -82,13 +82,7 @@ namespace System.Application.Services.Implementation
 
         public string? SteamProgramPath => mSteamProgramPath;
 
-        public bool IsRunningSteamProcess
-        {
-            get
-            {
-                return Process.GetProcessesByName(steamProcess[0]).Any_Nullable();
-            }
-        }
+        public bool IsRunningSteamProcess => GetSteamProcesses().Any();
 
         public void KillSteamProcess()
         {
@@ -97,7 +91,7 @@ namespace System.Application.Services.Implementation
                 var process = Process.GetProcessesByName(p);
                 foreach (var item in process)
                 {
-                    if (item.HasExited == false)
+                    if (!item.HasExited)
                     {
                         item.Kill();
                         item.WaitForExit();
@@ -133,19 +127,21 @@ namespace System.Application.Services.Implementation
 
         public int GetSteamProcessPid()
         {
-            var processes = Process.GetProcessesByName(steamProcess[0]);
-            if (processes.Any_Nullable())
-                return processes.First().Id;
-            return default;
+            var steamProces = GetSteamProces();
+            return steamProces != null ? steamProces.Id : default;
         }
 
-        private Process? GetSteamProcess()
-        {
-            var processes = Process.GetProcessesByName(steamProcess[0]);
-            if (processes.Any_Nullable())
-                return processes.First();
-            return null;
-        }
+        /// <summary>
+        /// 获取所有的 Steam 主进程
+        /// </summary>
+        /// <returns></returns>
+        private Process[] GetSteamProcesses() => Process.GetProcessesByName(steamProcess[0]);
+
+        /// <summary>
+        /// 获取首个 Steam 主进程
+        /// </summary>
+        /// <returns></returns>
+        private Process? GetSteamProces() => GetSteamProcesses().FirstOrDefault();
 
         public void StartSteam(string? arguments = null)
         {
@@ -153,9 +149,7 @@ namespace System.Application.Services.Implementation
             {
                 if (OperatingSystem2.IsWindows())
                 {
-#pragma warning disable CA1416 // 验证平台兼容性
                     platformService.StartAsInvoker(SteamProgramPath, arguments);
-#pragma warning restore CA1416 // 验证平台兼容性
                 }
                 else
                 {
@@ -164,15 +158,15 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        public async Task ShutdownSteam()
+        public async Task ShutdownSteamAsync(CancellationToken cancellationToken = default)
         {
             if (!string.IsNullOrWhiteSpace(SteamProgramPath) && File.Exists(SteamProgramPath))
             {
-                var steamP = GetSteamProcess();
-                if (steamP != null)
+                var steamProces = GetSteamProces();
+                if (steamProces != null)
                 {
                     Process2.Start(SteamProgramPath, "-shutdown", useShellExecute: true);
-                    await steamP.WaitForExitAsync();
+                    await steamProces.WaitForExitAsync(cancellationToken);
                 }
             }
         }
@@ -193,33 +187,34 @@ namespace System.Application.Services.Implementation
                         try
                         {
                             var i = item.Value;
-                            var user = new SteamUser()
+                            var timestamp = i.timestamp != null ?
+                                    Convert.ToInt64(i.timestamp?.ToString()) :
+                                    Convert.ToInt64(i.Timestamp?.ToString());
+                            var user = new SteamUser
                             {
                                 SteamId64 = Convert.ToInt64(item.Key.ToString()),
                                 AccountName = i.AccountName?.ToString(),
                                 SteamID = i.PersonaName?.ToString(),
                                 PersonaName = i.PersonaName?.ToString(),
                                 RememberPassword = Convert.ToBoolean(Convert.ToInt64(i.RememberPassword?.ToString())),
+
+                                // 老版本 Steam 数据 小写 mostrecent 支持
+                                MostRecent = i.mostrecent != null ?
+                                    Convert.ToBoolean(Convert.ToByte(i.mostrecent.ToString())) :
+                                    Convert.ToBoolean(Convert.ToByte(i.MostRecent.ToString())),
+
+                                Timestamp = timestamp,
+
+                                LastLoginTime = timestamp.ToDateTimeS(),
+
+                                WantsOfflineMode = i.WantsOfflineMode != null ?
+                                    Convert.ToBoolean(Convert.ToByte(i.WantsOfflineMode.ToString())) : false,
+
+                                // 因为警告这个东西应该都不需要所以直接默认跳过好了
+                                // SkipOfflineModeWarning = i.SkipOfflineModeWarning != null ?
+                                //    Convert.ToBoolean(Convert.ToByte(i.SkipOfflineModeWarning.ToString())) : false,
+                                SkipOfflineModeWarning = true,
                             };
-
-                            // 老版本 Steam 数据 小写 mostrecent 支持
-                            user.MostRecent = i.mostrecent != null ?
-                                Convert.ToBoolean(Convert.ToByte(i.mostrecent.ToString())) :
-                                Convert.ToBoolean(Convert.ToByte(i.MostRecent.ToString()));
-
-                            user.Timestamp = i.timestamp != null ?
-                                Convert.ToInt64(i.timestamp?.ToString()) :
-                                Convert.ToInt64(i.Timestamp?.ToString());
-
-                            user.LastLoginTime = user.Timestamp.ToDateTimeS();
-
-                            user.WantsOfflineMode = i.WantsOfflineMode != null ?
-                                Convert.ToBoolean(Convert.ToByte(i.WantsOfflineMode.ToString())) : false;
-
-                            // 因为警告这个东西应该都不需要所以直接默认跳过好了
-                            user.SkipOfflineModeWarning = true;
-                            //user.SkipOfflineModeWarning = i.SkipOfflineModeWarning != null ?
-                            //    Convert.ToBoolean(Convert.ToByte(i.SkipOfflineModeWarning.ToString())) : false;
 
                             users.Add(user);
                         }
@@ -251,10 +246,12 @@ namespace System.Application.Services.Implementation
                         var lists = new VObject();
                         foreach (var item in model.OrderBy(x => x.Index))
                         {
-                            VObject itemTemp = new VObject();
-                            itemTemp.Add("timeused", new VValue(item.Timeused));
-                            itemTemp.Add("description", new VValue(item.Description));
-                            itemTemp.Add("tokenid", new VValue(item.Tokenid));
+                            VObject itemTemp = new VObject
+                            {
+                                { "timeused", new VValue(item.Timeused) },
+                                { "description", new VValue(item.Description) },
+                                { "tokenid", new VValue(item.Tokenid) },
+                            };
 
                             lists.Add(item.SteamId3_Int.ToString(), itemTemp);
                         }

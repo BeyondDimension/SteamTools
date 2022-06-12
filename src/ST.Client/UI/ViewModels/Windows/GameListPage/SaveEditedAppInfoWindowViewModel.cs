@@ -51,7 +51,7 @@ namespace System.Application.UI.ViewModels
             {
                 if (await MessageBox.ShowAsync(AppResources.SaveEditedAppInfo_RestartSteamTip, ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
                 {
-                    await ISteamService.Instance.ShutdownSteam();
+                    await ISteamService.Instance.ShutdownSteamAsync();
                     ISteamService.Instance.StartSteam();
                 }
                 Toast.Show(AppResources.SaveEditedAppInfo_SaveToSteamSuccess);
