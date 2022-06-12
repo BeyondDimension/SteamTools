@@ -122,7 +122,7 @@
     <!--<PackageVersion Include="ReactiveUI.Fody" Version="17.1.50" /> -->
     <PackageVersion Include="ReactiveUI.XamForms" Version="18.0.10" />
     <PackageVersion Include="ReactiveUI.AndroidX" Version="18.0.10" />
-    <PackageVersion Include="ReactiveUI.Maui" Version="18.0.10" />
+    <PackageVersion Include="ReactiveUI.Maui" Version="18.1.8" />
 
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
