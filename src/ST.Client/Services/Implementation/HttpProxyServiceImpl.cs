@@ -709,7 +709,7 @@ namespace System.Application.Services.Implementation
         private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
         {
             e.DecryptSsl = false;
-            if (ProxyDomains is null)
+            if (ProxyDomains is null || TwoLevelAgentEnable)
             {
                 return Task.CompletedTask;
             }
@@ -752,7 +752,7 @@ namespace System.Application.Services.Implementation
         private async Task ExplicitProxyEndPoint_BeforeTunnelConnectRequest(object sender, TunnelConnectSessionEventArgs e)
         {
             e.DecryptSsl = false;
-            if (ProxyDomains is null || e.HttpClient?.Request?.Host == null)
+            if (ProxyDomains is null || e.HttpClient?.Request?.Host == null || TwoLevelAgentEnable || OnlyEnableProxyScript)
             {
                 return;
             }
