@@ -194,7 +194,7 @@ public abstract class CommandLineHost : IDisposable
         run_SteamApp.AddOption(new Option<int>("-id", "指定一个 Steam 游戏 Id"));
         run_SteamApp.AddOption(new Option<bool>("-achievement", "打开成就解锁窗口"));
         run_SteamApp.AddOption(new Option<bool>("-cloudmanager", "打开云存档管理窗口"));
-        //run_SteamApp.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
+        run_SteamApp.AddOption(new Option<bool>("-silence", "挂运行服务，不加载窗口，内存占用更小"));
         run_SteamApp.Handler = CommandHandler.Create(async (int id, bool achievement, bool cloudmanager) =>
         {
             try
