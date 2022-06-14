@@ -302,5 +302,8 @@
 
     <!-- Quartz -->
     <PackageVersion Include="Quartz.AspNetCore" Version="3.4.0" />
+
+    <!-- Yet Another Reverse Proxy -->
+    <PackageVersion Include="Yarp.ReverseProxy" Version="1.1.0" />
   </ItemGroup>
 </Project>

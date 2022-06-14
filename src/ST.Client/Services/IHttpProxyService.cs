@@ -20,6 +20,7 @@ namespace System.Application.Services
     /// <summary>
     /// Http 代理服务
     /// </summary>
+    [Obsolete("use IReverseProxyService")]
     public interface IHttpProxyService : IDisposable
     {
         /// <summary>
