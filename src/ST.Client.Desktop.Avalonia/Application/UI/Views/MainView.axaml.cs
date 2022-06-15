@@ -49,7 +49,7 @@ namespace System.Application.UI.Views
         {
             InitializeComponent();
 
-            var avatar = this.FindControl<Image2>("avatar");
+            var avatar = this.FindControl<Control>("avatar");
             var nav = this.FindControl<NavigationView>("NavigationView");
             var back = this.FindControl<ExperimentalAcrylicBorder>("NavBarBackground");
             //var bg = this.FindControl<Control>("Background");

@@ -108,6 +108,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Application\UI\Views\Controls\UserControl\FloatBanner.axaml.cs">
+      <DependentUpon>FloatBanner.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Application\UI\Views\Windows\GameListPage\CloudArchiveWindow.axaml.cs">
       <DependentUpon>CloudArchiveWindow.axaml</DependentUpon>
     </Compile>

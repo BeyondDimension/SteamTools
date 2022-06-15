@@ -130,7 +130,7 @@ namespace System.Application.UI.ViewModels
             {
                 foreach (var file in _CloudArchivewSourceList.Items)
                 {
-                    DeleteFile(file);
+                    file.Delete();
                 }
                 RefreshList();
             }
