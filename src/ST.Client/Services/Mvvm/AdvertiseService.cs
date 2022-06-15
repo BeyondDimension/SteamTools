@@ -10,8 +10,7 @@ namespace System.Application.Services.Mvvm
         static AdvertiseService? mCurrent;
 
         public static AdvertiseService Current => mCurrent ?? new();
-        
-        readonly I archiSteamFarmService = IArchiSteamFarmService.Instance;
+
 
         private AdvertiseService()
         {

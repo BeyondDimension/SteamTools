@@ -98,10 +98,16 @@ namespace System.Application.UI.ViewModels
             #region InitTabItems
 
             //AddTabItem<StartPageViewModel>();
-            AddTabItem<CommunityProxyPageViewModel>();
+            if (R.IsChineseSimplified)
+            {
+                AddTabItem<CommunityProxyPageViewModel>();
+            }
             if (IApplication.IsDesktopPlatform)
             {
-                AddTabItem<ProxyScriptManagePageViewModel>();
+                if (R.IsChineseSimplified)
+                {
+                    AddTabItem<ProxyScriptManagePageViewModel>();
+                }
                 AddTabItem<SteamAccountPageViewModel>();
                 AddTabItem<GameListPageViewModel>();
             }
@@ -150,7 +156,10 @@ namespace System.Application.UI.ViewModels
                 {
                     Task.Run(async () =>
                     {
-                        await ProxyService.Current.Initialize();
+                        if (R.IsChineseSimplified)
+                        {
+                            await ProxyService.Current.Initialize();
+                        }
                         if (ASFSettings.AutoRunArchiSteamFarm.Value)
                         {
                             if (platformService.UsePlatformForegroundService)
@@ -164,13 +173,9 @@ namespace System.Application.UI.ViewModels
                         }
                     });
 
-                    if (IApplication.IsDesktopPlatform && OperatingSystem2.IsWindows())
-                    {
-                        SteamConnectService.Current.Initialize();
-                    }
-
                     if (IApplication.IsDesktopPlatform)
                     {
+                        SteamConnectService.Current.Initialize();
                         SteamConnectService.Current.RefreshSteamUsers();
                     }
 

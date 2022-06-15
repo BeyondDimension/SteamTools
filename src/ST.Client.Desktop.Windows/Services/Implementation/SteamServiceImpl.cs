@@ -187,7 +187,7 @@ namespace System.Application.Services.Implementation
                         try
                         {
                             var i = item.Value;
-                            var timestamp = i.timestamp != null ?
+                            long timestamp = i.timestamp != null ?
                                     Convert.ToInt64(i.timestamp?.ToString()) :
                                     Convert.ToInt64(i.Timestamp?.ToString());
                             var user = new SteamUser
@@ -204,7 +204,6 @@ namespace System.Application.Services.Implementation
                                     Convert.ToBoolean(Convert.ToByte(i.MostRecent.ToString())),
 
                                 Timestamp = timestamp,
-
                                 LastLoginTime = timestamp.ToDateTimeS(),
 
                                 WantsOfflineMode = i.WantsOfflineMode != null ?
