@@ -11,7 +11,6 @@ namespace System.Application.Services.Mvvm
 
         public static AdvertiseService Current => mCurrent ?? new();
 
-
         private AdvertiseService()
         {
 
