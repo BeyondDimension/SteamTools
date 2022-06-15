@@ -44,4 +44,8 @@
     <PackageReference Include="NLog" />
     <PackageReference Include="NLog.Web.AspNetCore" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Services\Implementation\" />
+  </ItemGroup>
 </Project>

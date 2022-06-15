@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Models;
+using System.Application.Services;
+using System.Application.Services.Implementation;
 using System.Security;
 
 // ReSharper disable once CheckNamespace
