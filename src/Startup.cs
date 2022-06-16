@@ -66,7 +66,7 @@ using EssentialsFileSystem = Microsoft.Maui.Storage.FileSystem;
 using EssentialsFileSystem = Xamarin.Essentials.FileSystem;
 #endif
 #endif
-using static System.Application.Browser2;
+using static System.Common.Constants;
 using _ThisAssembly = System.Properties.ThisAssembly;
 using _UserService = System.Application.Services.UserService;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;

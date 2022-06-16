@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Application.Browser2;
+using static System.Common.Constants;
 
 namespace System.Application.Services
 {

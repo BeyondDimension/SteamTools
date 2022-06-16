@@ -29,6 +29,9 @@ public static class Constants
         public const string BaseUrl_API = Prefix_HTTPS + "api.steampp.net";
 
         public const string OfficialWebsite_Notice = BaseUrl_OfficialWebsite + "/notice?id={0}";
+        public const string OfficialWebsite_UploadsPublishFiles = BaseUrl_OfficialWebsite + $"/uploads/publish/files/{{0}}{FileEx.BIN}";
+        public const string OfficialWebsite_UploadsPublish = BaseUrl_OfficialWebsite + "/uploads/publish/{0}";
+
         public const string API_Advertisement_Jump = BaseUrl_API + "/api/Advertisement/Jump/{0}";
         public const string API_Advertisement_Image = BaseUrl_API + "/api/Advertisement/Images/{0}";
     }

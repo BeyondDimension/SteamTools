@@ -281,9 +281,11 @@ namespace System.Application.Services.Implementation
             }
         }
 
-        static string GetSingleFileUrl(string fileId) => $"{Prefix_HTTPS}steampp.net/uploads/publish/files/{fileId}{FileEx.BIN}";
+        static string GetSingleFileUrl(string fileId) =>
+            string.Format(Constants.Urls.OfficialWebsite_UploadsPublishFiles, fileId);
 
-        static string GetPackFileUrl(string fileName) => $"{Prefix_HTTPS}steampp.net/uploads/publish/{fileName}";
+        static string GetPackFileUrl(string fileName) =>
+            string.Format(Constants.Urls.OfficialWebsite_UploadsPublish, fileName);
 
         /// <summary>
         /// 下载更新包文件到本地缓存
