@@ -1,5 +1,6 @@
 #if MVVM_VM
 using ReactiveUI;
+using System.Application;
 #endif
 using System.Application.Columns;
 using System.Collections.Generic;

@@ -55,4 +55,12 @@ public static class Constants
     public const string N = "N";
 
     public const float MaxProgress = 100f;
+
+    public const string Prefix_HTTPS = "https://";
+
+    public const string Prefix_HTTP = "http://";
+
+    public const string Prefix_MSStore = "ms-windows-store://";
+
+    public const string Prefix_Email = "mailto:";
 }

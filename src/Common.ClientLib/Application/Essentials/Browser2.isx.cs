@@ -1,18 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
+using static System.Common.Constants;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application;
 
 partial class Browser2
 {
-    public const string Prefix_HTTPS = "https://";
-
-    public const string Prefix_HTTP = "http://";
-
-    public const string Prefix_MSStore = "ms-windows-store://";
-
-    public const string Prefix_Email = "mailto:";
-
     /// <summary>
     /// 判断字符串是否为 Http Url
     /// </summary>
