@@ -8,12 +8,10 @@ public static class Process2
 {
     const string TAG = "Process2";
 
-    static readonly Lazy<string> _bin_bash = new(() => string.Format("{0}bin{0}bash", Path.DirectorySeparatorChar));
-
     /// <summary>
     /// /bin/bash
     /// </summary>
-    public static string BinBash => _bin_bash.Value;
+    public const string BinBash = $"{IOPath.UnixDirectorySeparatorCharAsString}bin{IOPath.UnixDirectorySeparatorCharAsString}bash";
 
     /// <summary>
     /// 通过指定应用程序的名称和路径参数来启动一个进程资源，并将该资源与新的 Process 组件相关联
@@ -109,5 +107,32 @@ public static class Process2
             onError?.Invoke(SR.OpenCoreByProcess_Win32Exception_.Format(Convert.ToString(e.NativeErrorCode, 16)));
             return false;
         }
+    }
+
+    public static string RunShell(string fileName, string value, Action<Exception>? onError = null)
+    {
+        try
+        {
+            using var p = new Process();
+            p.StartInfo.FileName = fileName;
+            p.StartInfo.Arguments = "";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.UseShellExecute = false;
+            p.Start();
+            p.StandardInput.WriteLine(value);
+            p.StandardInput.Close();
+            string result = p.StandardOutput.ReadToEnd();
+            p.StandardOutput.Close();
+            p.WaitForExit();
+            p.Close();
+            p.Dispose();
+            return result;
+        }
+        catch (Exception e)
+        {
+            onError?.Invoke(e);
+        }
+        return string.Empty;
     }
 }

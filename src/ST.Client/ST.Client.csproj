@@ -41,9 +41,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\references\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />
-    <ProjectReference Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Titanium.Web.Proxy.csproj" />
     <ProjectReference Include="..\Common.PinyinLib\Common.PinyinLib.csproj" />
     <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
+    <ProjectReference Include="..\ST.Client.ReverseProxy\ST.Client.ReverseProxy.csproj" />
     <ProjectReference Include="..\ST.Services.CloudService\ST.Services.CloudService.csproj" />
     <ProjectReference Include="..\Common.ClientLib\Common.ClientLib.csproj" />
     <ProjectReference Include="..\ST\ST.csproj" />

@@ -75,6 +75,7 @@
     <ProjectReference Include="..\ST.Client.CommandLine\ST.Client.CommandLine.csproj" />
     <ProjectReference Include="..\ST.Client.AppCenter.Avalonia\ST.Client.AppCenter.Avalonia.csproj" />
     <ProjectReference Include="..\ST.Client.JumpList.Avalonia\ST.Client.JumpList.Avalonia.csproj" />
+    <ProjectReference Include="..\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj" />
   </ItemGroup>
 
   <ItemGroup>

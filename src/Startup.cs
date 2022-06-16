@@ -418,7 +418,7 @@ namespace System.Application.UI
             if (options.HasHttpProxy)
             {
                 // 通用 Http 代理服务
-                services.AddHttpProxyService();
+                services.AddReverseProxyService();
 #if StartWatchTrace
                 StartWatchTrace.Record("DI.ConfigureDemandServices.HttpProxy");
 #endif
@@ -833,7 +833,7 @@ namespace System.Application.UI
 #if !__MOBILE__
                 try
                 {
-                    DI.Get_Nullable<IHttpProxyService>()?.StopProxy();
+                    DI.Get_Nullable<IReverseProxyService>()?.StopProxy();
                     ProxyService.OnExitRestoreHosts();
                 }
                 catch (Exception ex_restore_hosts)

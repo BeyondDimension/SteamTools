@@ -130,9 +130,9 @@ namespace System.Application.Services.Native
 
             //    localTunnel = builder.Establish()!;
 
-            //    var httpProxyService = IHttpProxyService.Instance;
-            //    var address = httpProxyService.ProxyIp;
-            //    var port = httpProxyService.ProxyPort;
+            //    var reverseProxyService = IReverseProxyService.Instance;
+            //    var address = reverseProxyService.ProxyIp;
+            //    var port = reverseProxyService.ProxyPort;
             //    jni_start(localTunnel.Fd, false, 3, address!.ToString(), port);
             //}
 

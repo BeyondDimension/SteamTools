@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ST.Client.ReverseProxy\ST.Client.ReverseProxy.csproj" />
+    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>

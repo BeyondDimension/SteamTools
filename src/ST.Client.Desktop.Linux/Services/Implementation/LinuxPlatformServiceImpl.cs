@@ -74,9 +74,9 @@ namespace System.Application.Services.Implementation
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
         }
 
-        static readonly Lazy<string> _SteamProgramPath = new(() => string.Format("{0}usr{0}bin{0}steam", Path.DirectorySeparatorChar));
+        const string LinuxSteamProgramPath = $"{IOPath.UnixDirectorySeparatorCharAsString}usr{IOPath.UnixDirectorySeparatorCharAsString}bin{IOPath.UnixDirectorySeparatorCharAsString}steam";
 
-        public string? GetSteamProgramPath() => _SteamProgramPath.Value;
+        public string? GetSteamProgramPath() => LinuxSteamProgramPath;
 
         public string GetLastSteamLoginUserName() => string.Empty;
 
@@ -116,7 +116,7 @@ namespace System.Application.Services.Implementation
 
         static string GetMachineSecretKey()
         {
-            var filePath = string.Format("{0}etc{0}machine-id", Path.DirectorySeparatorChar);
+            const string filePath = $"{IOPath.UnixDirectorySeparatorCharAsString}etc{IOPath.UnixDirectorySeparatorCharAsString}machine-id";
             return File.ReadAllText(filePath);
         }
 
@@ -193,7 +193,7 @@ namespace System.Application.Services.Implementation
             try
             {
                 using var p = new Process();
-                p.StartInfo.FileName = UnixHelper.BinBash;
+                p.StartInfo.FileName = Process2.BinBash;
                 p.StartInfo.Arguments = "";
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardInput = true;

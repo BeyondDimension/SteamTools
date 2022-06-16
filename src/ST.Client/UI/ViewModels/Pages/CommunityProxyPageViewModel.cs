@@ -53,7 +53,7 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit>? TrustCerCommand { get; }
 
-        protected readonly IHttpProxyService httpProxyService = IHttpProxyService.Instance;
+        protected readonly IReverseProxyService reverseProxyService = IReverseProxyService.Instance;
 
         public CommunityProxyPageViewModel()
         {
@@ -69,8 +69,8 @@ namespace System.Application.UI.ViewModels
                 TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
                 OpenCertificateDirCommand = ReactiveCommand.Create(() =>
                 {
-                    httpProxyService.GetCerFilePathGeneratedWhenNoFileExists();
-                    platformService.OpenFolder(httpProxyService.PfxFilePath);
+                    reverseProxyService.GetCerFilePathGeneratedWhenNoFileExists();
+                    platformService.OpenFolder(reverseProxyService.PfxFilePath);
                 });
                 RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);
             }
@@ -127,7 +127,7 @@ namespace System.Application.UI.ViewModels
 
         public void TrustCer_OnClick()
         {
-            httpProxyService.TrustCer();
+            reverseProxyService.TrustCer();
         }
 
         public override void Activation()
@@ -163,12 +163,12 @@ namespace System.Application.UI.ViewModels
 
         public void SetupCertificate_OnClick()
         {
-            httpProxyService.SetupCertificate();
+            reverseProxyService.SetupCertificate();
         }
 
         public void DeleteCertificate_OnClick()
         {
-            httpProxyService.DeleteCertificate();
+            reverseProxyService.DeleteCertificate();
         }
 
         static string FormatHexString(string? hexString)
@@ -216,6 +216,6 @@ namespace System.Application.UI.ViewModels
             return noHeader ? value : $"Subject：{Environment.NewLine}{value}";
         }
 
-        public X509Certificate2? RootCertificate => httpProxyService.RootCertificate;
+        public X509Certificate2? RootCertificate => reverseProxyService.RootCertificate;
     }
 }

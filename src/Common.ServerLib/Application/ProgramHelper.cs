@@ -295,7 +295,7 @@ public static class ProgramHelper
             }
             else if (OperatingSystem.IsLinux())
             {
-                var filePath = string.Format("{0}proc{0}cpuinfo", Path.DirectorySeparatorChar);
+                const string filePath = $"{IOPath.UnixDirectorySeparatorCharAsString}proc{IOPath.UnixDirectorySeparatorCharAsString}cpuinfo";
                 if (File.Exists(filePath))
                 {
                     using var fs = File.OpenRead(filePath);
@@ -315,10 +315,10 @@ public static class ProgramHelper
                     }
                 }
             }
-            //else if (OperatingSystem.IsMacOS())
-            //{
-            // sysctl -n machdep.cpu.brand_string
-            //}
+            else if (OperatingSystem.IsMacOS())
+            {
+                return Process2.RunShell(Process2.BinBash, "sysctl -n machdep.cpu.brand_string");
+            }
         }
         catch
         {

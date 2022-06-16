@@ -53,7 +53,7 @@ namespace System.Application.UI.ViewModels
             }
         }
 
-        public string? CerFilePath => httpProxyService.GetCerFilePathGeneratedWhenNoFileExists();
+        public string? CerFilePath => reverseProxyService.GetCerFilePathGeneratedWhenNoFileExists();
 
         /// <summary>
         /// 导出证书公钥，通过委托自定义导出逻辑
@@ -80,7 +80,7 @@ namespace System.Application.UI.ViewModels
 
         async Task<bool> ExportCertificateFileAsync(string cefFilePath)
         {
-            var fileName = IHttpProxyService.CerExportFileName;
+            var fileName = IReverseProxyService.CerExportFileName;
             using var result = await FilePicker2.SaveAsync(new()
             {
                 InitialFileName = fileName,

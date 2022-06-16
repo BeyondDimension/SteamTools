@@ -133,10 +133,12 @@ namespace System.Application.Services
 
         void SetResizeMode(IntPtr hWnd, ResizeMode value) { }
 
+        const string UnixHostsFilePath = $"{IOPath.UnixDirectorySeparatorCharAsString}etc{IOPath.UnixDirectorySeparatorCharAsString}hosts";
+
         /// <summary>
         /// hosts 文件所在目录
         /// </summary>
-        string HostsFilePath => string.Format("{0}etc{0}hosts", Path.DirectorySeparatorChar);
+        string HostsFilePath => UnixHostsFilePath;
 
         /// <summary>
         /// 默认 hosts 文件内容

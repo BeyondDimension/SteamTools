@@ -35,7 +35,7 @@ namespace System.Application.Services
 
         public static ProxyService Current => mCurrent ?? new();
 
-        readonly IHttpProxyService httpProxyService = IHttpProxyService.Instance;
+        readonly IReverseProxyService reverseProxyService = IReverseProxyService.Instance;
         readonly IScriptManager scriptManager = IScriptManager.Instance;
         readonly IHostsFileService hostsFileService = IHostsFileService.Instance;
         readonly IPlatformService platformService = IPlatformService.Instance;
@@ -59,61 +59,61 @@ namespace System.Application.Services
                 {
                     if (x)
                     {
-                        httpProxyService.ProxyDomains = EnableProxyDomains;
-                        httpProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
-                        httpProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
+                        reverseProxyService.ProxyDomains = EnableProxyDomains;
+                        reverseProxyService.IsEnableScript = ProxySettings.IsEnableScript.Value;
+                        reverseProxyService.OnlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
 
-                        if (httpProxyService.IsEnableScript)
+                        if (reverseProxyService.IsEnableScript)
                         {
                             await EnableProxyScripts.ContinueWith(e =>
                             {
-                                httpProxyService.Scripts = e.Result?.ToImmutableArray();
+                                reverseProxyService.Scripts = e.Result?.ToImmutableArray();
                             });
                         }
 
                         if (IApplication.IsDesktopPlatform)
                         {
 #pragma warning disable CA1416 // 验证平台兼容性
-                            httpProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                            httpProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
-                            httpProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
+                            reverseProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
+                            reverseProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
+                            reverseProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
 #pragma warning restore CA1416 // 验证平台兼容性
                         }
                         else
                         {
-                            httpProxyService.IsSystemProxy = true;
+                            reverseProxyService.IsSystemProxy = true;
                         }
 
                         // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
-                        httpProxyService.ProxyIp = (!OperatingSystem2.IsMacOS() && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
+                        reverseProxyService.ProxyIp = (!OperatingSystem2.IsMacOS() && IPAddress2.TryParse(ProxySettings.SystemProxyIp.Value, out var ip)) ? ip : IPAddress.Any;
 
                         // Android VPN 模式使用 tun2socks
-                        httpProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem2.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
-                        httpProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
-                        if (!ModelValidatorProvider.IsPortId(httpProxyService.Socks5ProxyPortId)) httpProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
+                        reverseProxyService.Socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value || (OperatingSystem2.IsAndroid() && ProxySettings.ProxyModeValue == ProxyMode.VPN);
+                        reverseProxyService.Socks5ProxyPortId = ProxySettings.Socks5ProxyPortId.Value;
+                        if (!ModelValidatorProvider.IsPortId(reverseProxyService.Socks5ProxyPortId)) reverseProxyService.Socks5ProxyPortId = ProxySettings.DefaultSocks5ProxyPortId;
 
-                        //httpProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
-                        httpProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
+                        //reverseProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
+                        reverseProxyService.TwoLevelAgentEnable = ProxySettings.TwoLevelAgentEnable.Value;
 
-                        httpProxyService.TwoLevelAgentProxyType = (ExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
-                        if (!httpProxyService.TwoLevelAgentProxyType.IsDefined()) httpProxyService.TwoLevelAgentProxyType = IHttpProxyService.DefaultTwoLevelAgentProxyType;
+                        reverseProxyService.TwoLevelAgentProxyType = (EExternalProxyType)ProxySettings.TwoLevelAgentProxyType.Value;
+                        if (!reverseProxyService.TwoLevelAgentProxyType.IsDefined()) reverseProxyService.TwoLevelAgentProxyType = IReverseProxyService.DefaultTwoLevelAgentProxyType;
 
-                        httpProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
-                        httpProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
-                        if (!ModelValidatorProvider.IsPortId(httpProxyService.TwoLevelAgentPortId)) httpProxyService.TwoLevelAgentPortId = ProxySettings.DefaultTwoLevelAgentPortId;
-                        httpProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
-                        httpProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
+                        reverseProxyService.TwoLevelAgentIp = IPAddress2.TryParse(ProxySettings.TwoLevelAgentIp.Value, out var ip_t) ? ip_t.ToString() : IPAddress.Loopback.ToString();
+                        reverseProxyService.TwoLevelAgentPortId = ProxySettings.TwoLevelAgentPortId.Value;
+                        if (!ModelValidatorProvider.IsPortId(reverseProxyService.TwoLevelAgentPortId)) reverseProxyService.TwoLevelAgentPortId = ProxySettings.DefaultTwoLevelAgentPortId;
+                        reverseProxyService.TwoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
+                        reverseProxyService.TwoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
 
-                        httpProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
-                        httpProxyService.EnableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
+                        reverseProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
+                        reverseProxyService.EnableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
 
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
-                        if (!httpProxyService.IsSystemProxy)
+                        if (!reverseProxyService.IsSystemProxy)
                         {
                             const ushort httpsPort = 443;
-                            var inUse = httpProxyService.PortInUse(httpsPort);
+                            var inUse = reverseProxyService.PortInUse(httpsPort);
                             if (inUse)
                             {
                                 string? error_CommunityFix_StartProxyFaild443 = null;
@@ -137,17 +137,17 @@ namespace System.Application.Services
                             }
                         }
 
-                        var isRun = await httpProxyService.StartProxy();
+                        var isRun = await reverseProxyService.StartProxy();
 
                         if (isRun)
                         {
-                            if (!httpProxyService.IsSystemProxy)
+                            if (!reverseProxyService.IsSystemProxy)
                             {
-                                if (httpProxyService.ProxyDomains.Any_Nullable())
+                                if (reverseProxyService.ProxyDomains.Any_Nullable())
                                 {
-                                    var localhost = IPAddress.Any.Equals(httpProxyService.ProxyIp) ? IPAddress.Loopback.ToString() : httpProxyService.ProxyIp.ToString();
+                                    var localhost = IPAddress.Any.Equals(reverseProxyService.ProxyIp) ? IPAddress.Loopback.ToString() : reverseProxyService.ProxyIp.ToString();
 
-                                    var hosts = httpProxyService.ProxyDomains!.SelectMany(s =>
+                                    var hosts = reverseProxyService.ProxyDomains!.SelectMany(s =>
                                     {
                                         if (s == null) return default!;
 
@@ -162,9 +162,9 @@ namespace System.Application.Services
                                         });
                                     }).ToDictionaryIgnoreRepeat(x => x.Key, y => y.Value);
 
-                                    if (httpProxyService.IsEnableScript)
+                                    if (reverseProxyService.IsEnableScript)
                                     {
-                                        hosts.TryAdd(IHttpProxyService.LocalDomain, localhost);
+                                        hosts.TryAdd(IReverseProxyService.LocalDomain, localhost);
                                     }
 
                                     var r = hostsFileService.UpdateHosts(hosts);
@@ -177,7 +177,7 @@ namespace System.Application.Services
                                             //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
                                         }
                                         Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
-                                        httpProxyService.StopProxy();
+                                        reverseProxyService.StopProxy();
                                         return;
                                     }
                                 }
@@ -193,9 +193,9 @@ namespace System.Application.Services
                     }
                     else
                     {
-                        httpProxyService.StopProxy();
+                        reverseProxyService.StopProxy();
                         StopTimer();
-                        httpProxyService.Scripts = null;
+                        reverseProxyService.Scripts = null;
                         void OnStopRemoveHostsByTag()
                         {
                             if (!IApplication.IsDesktopPlatform) return;
@@ -288,7 +288,7 @@ namespace System.Application.Services
             set
             {
                 ProxySettings.IsEnableScript.Value = value;
-                httpProxyService.IsEnableScript = value;
+                reverseProxyService.IsEnableScript = value;
                 this.RaisePropertyChanged();
                 this.RaisePropertyChanged(nameof(EnableProxyScripts));
             }
@@ -311,7 +311,7 @@ namespace System.Application.Services
                 if (ProxySettings.IsOnlyWorkSteamBrowser.Value != value)
                 {
                     ProxySettings.IsOnlyWorkSteamBrowser.Value = value;
-                    httpProxyService.IsOnlyWorkSteamBrowser = value;
+                    reverseProxyService.IsOnlyWorkSteamBrowser = value;
                     this.RaisePropertyChanged();
                 }
 #pragma warning restore CA1416 // 验证平台兼容性
@@ -346,7 +346,7 @@ namespace System.Application.Services
 
         public async Task Initialize()
         {
-            //httpProxyService.StopProxy();
+            //reverseProxyService.StopProxy();
             await InitializeAccelerate();
             await InitializeScript();
 
@@ -459,7 +459,7 @@ namespace System.Application.Services
             //}
 
             ProxyScripts.AddRange(scriptList);
-            httpProxyService.IsEnableScript = IsEnableScript;
+            reverseProxyService.IsEnableScript = IsEnableScript;
 
             this.WhenAnyValue(v => v.ProxyScripts)
                   .Subscribe(script => script?
@@ -470,14 +470,14 @@ namespace System.Application.Services
                   {
                       //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                       //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                      if (httpProxyService.ProxyRunning)
+                      if (reverseProxyService.ProxyRunning)
                       {
                           item.Sender.Enable = item.Value;
                           await scriptManager.SaveEnableScript(item.Sender);
 
                           await EnableProxyScripts.ContinueWith(e =>
                           {
-                              httpProxyService.Scripts = e.Result?.ToImmutableArray();
+                              reverseProxyService.Scripts = e.Result?.ToImmutableArray();
                           });
                           this.RaisePropertyChanged(nameof(EnableProxyScripts));
                       }
@@ -743,7 +743,7 @@ namespace System.Application.Services
 
             if (OperatingSystem2.IsWindows())
             {
-                httpProxyService.StopProxy();
+                reverseProxyService.StopProxy();
                 Process.Start("cmd.exe", "netsh winsock reset");
             }
 
@@ -752,16 +752,16 @@ namespace System.Application.Services
 
         public void Dispose()
         {
-            httpProxyService.StopProxy();
+            reverseProxyService.StopProxy();
             OnExitRestoreHosts();
-            httpProxyService.Dispose();
+            reverseProxyService.Dispose();
         }
 
-        public IPAddress ProxyIp => httpProxyService.ProxyIp;
+        public IPAddress ProxyIp => reverseProxyService.ProxyIp;
 
-        public int ProxyPort => httpProxyService.ProxyPort;
+        public int ProxyPort => reverseProxyService.ProxyPort;
 
-        public int Socks5ProxyPortId => httpProxyService.Socks5ProxyPortId;
+        public int Socks5ProxyPortId => reverseProxyService.Socks5ProxyPortId;
     }
 }
 #pragma warning restore SA1309 // Field names should not begin with underscore

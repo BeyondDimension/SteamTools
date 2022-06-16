@@ -88,7 +88,7 @@ namespace System.Application.UI.Activities
             {
                 base.OnResume();
 
-                if (IHttpProxyService.Instance.IsCurrentCertificateInstalled)
+                if (IReverseProxyService.Instance.IsCurrentCertificateInstalled)
                 {
                     var intent = IntermediateActivity.SetResult(new(), Result.Ok);
                     var a = RequireActivity();
@@ -152,7 +152,7 @@ namespace System.Application.UI.Activities
             {
                 base.OnResume();
 
-                if (IHttpProxyService.Instance.IsCurrentCertificateInstalled)
+                if (IReverseProxyService.Instance.IsCurrentCertificateInstalled)
                 {
                     var intent = IntermediateActivity.SetResult(new(), Result.Ok);
                     var a = RequireActivity();

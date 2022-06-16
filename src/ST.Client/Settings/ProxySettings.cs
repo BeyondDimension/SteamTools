@@ -106,7 +106,7 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: DefaultTwoLevelAgentProxyType, autoSave: false);
 
         public const short DefaultTwoLevelAgentProxyType =
-            (short)IHttpProxyService.DefaultTwoLevelAgentProxyType;
+            (short)IReverseProxyService.DefaultTwoLevelAgentProxyType;
 
         /// <summary>
         /// 二级代理 IP

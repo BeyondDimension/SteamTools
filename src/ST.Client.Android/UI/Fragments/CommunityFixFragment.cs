@@ -202,7 +202,7 @@ namespace System.Application.UI.Fragments
                     }
                 }
 
-                if (!IHttpProxyService.Instance.IsCurrentCertificateInstalled) // 检查 CA 证书是否已安装
+                if (!IReverseProxyService.Instance.IsCurrentCertificateInstalled) // 检查 CA 证书是否已安装
                 {
                     // 当未安装证书时
                     intent = new Intent(a, typeof(GuideCACertActivity));
@@ -280,7 +280,7 @@ namespace System.Application.UI.Fragments
         internal static async void UninstallCertificateShowTips(Context context)
         {
             string title = AppResources.CommunityFix_DeleteCertificateTipTitle;
-            string text = AppResources.CommunityFix_DeleteCertificateTipText_.Format(IHttpProxyService.RootCertificateName); ;
+            string text = AppResources.CommunityFix_DeleteCertificateTipText_.Format(IReverseProxyService.RootCertificateName); ;
             var r = await MessageBox.ShowAsync(text, title, MessageBox.Button.OKCancel);
             if (r.IsOK())
             {
@@ -348,7 +348,7 @@ namespace System.Application.UI.Fragments
 
         internal static void InstallCertificate(Context context, CommunityProxyPageViewModel vm) => vm.ExportCertificateFile(cefFilePath =>
         {
-            GoToPlatformPages.InstallCertificate(context, cefFilePath, IHttpProxyService.RootCertificateName);
+            GoToPlatformPages.InstallCertificate(context, cefFilePath, IReverseProxyService.RootCertificateName);
         });
 
         void InstallCertificate() => InstallCertificate(RequireContext(), ViewModel!);

@@ -11,7 +11,7 @@ namespace System.Application.Services
         {
             if (OperatingSystem2.IsLinux())
             {
-                var filePath = string.Format("{0}etc{0}issue", Path.DirectorySeparatorChar);
+                const string filePath = $"{IOPath.UnixDirectorySeparatorCharAsString}etc{IOPath.UnixDirectorySeparatorCharAsString}issue";
                 if (File.Exists(filePath))
                 {
                     return File.ReadAllText(filePath).TrimEnd(" \\n \\l\n\n");

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>System.Application.Services</RootNamespace>
+    <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ST.Client\ST.Client.csproj" />
+    <ProjectReference Include="..\ST.Services.CloudService\ST.Services.CloudService.csproj" />
+    <ProjectReference Include="..\Common.ClientLib\Common.ClientLib.csproj" />
+    <ProjectReference Include="..\ST\ST.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -60,7 +60,7 @@ namespace System.Application.Services.Implementation
 #if MONO_MAC
             using var p = new Process();
             p.StartInfo.FileName = "security";
-            p.StartInfo.Arguments = $" verify-cert -c \"{IHttpProxyService.Instance.GetCerFilePathGeneratedWhenNoFileExists()}\"";
+            p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Instance.GetCerFilePathGeneratedWhenNoFileExists()}\"";
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
             p.Start();
@@ -194,38 +194,25 @@ namespace System.Application.Services.Implementation
 
         public string? GetSteamDirPath()
         {
-            var value = string.Format(
-                "{0}Users{0}{1}{0}Library{0}Application Support{0}Steam",
-                Path.DirectorySeparatorChar,
-                Environment.UserName);
+            var value = $"{IOPath.UnixDirectorySeparatorCharAsString}Users{IOPath.UnixDirectorySeparatorCharAsString}{Environment.UserName}{IOPath.UnixDirectorySeparatorCharAsString}Library{IOPath.UnixDirectorySeparatorCharAsString}Application Support{IOPath.UnixDirectorySeparatorCharAsString}Steam";
             return value;
         }
 
         string? IPlatformService.GetSteamDynamicLinkLibraryPath()
         {
-            var value = string.Format(
-                "{0}Users{0}{1}{0}Library{0}Application Support{0}Steam{0}Steam.AppBundle{0}Steam{0}Contents{0}MacOS",
-                Path.DirectorySeparatorChar,
-                Environment.UserName);
+            var value = $"{IOPath.UnixDirectorySeparatorCharAsString}Users{IOPath.UnixDirectorySeparatorCharAsString}{Environment.UserName}{IOPath.UnixDirectorySeparatorCharAsString}Library{IOPath.UnixDirectorySeparatorCharAsString}Application Support{IOPath.UnixDirectorySeparatorCharAsString}Steam{IOPath.UnixDirectorySeparatorCharAsString}Steam.AppBundle{IOPath.UnixDirectorySeparatorCharAsString}Steam{IOPath.UnixDirectorySeparatorCharAsString}Contents{IOPath.UnixDirectorySeparatorCharAsString}MacOS";
             return value;
         }
 
-        public string? GetSteamProgramPath()
-        {
-            var value = string.Format(
-                 "{0}Applications{0}Steam.app{0}Contents{0}MacOS{0}steam_osx",
-                 Path.DirectorySeparatorChar);
-            return value;
-        }
+        const string OSXSteamProgramPath = $"{IOPath.UnixDirectorySeparatorCharAsString}Applications{IOPath.UnixDirectorySeparatorCharAsString}Steam.app{IOPath.UnixDirectorySeparatorCharAsString}Contents{IOPath.UnixDirectorySeparatorCharAsString}MacOS{IOPath.UnixDirectorySeparatorCharAsString}steam_osx";
+
+        public string? GetSteamProgramPath() => OSXSteamProgramPath;
 
         public string GetLastSteamLoginUserName() => string.Empty;
 
         public string? GetRegistryVdfPath()
         {
-            var value = string.Format(
-                    "{0}Users{0}{1}{0}Library{0}Application Support{0}Steam{0}registry.vdf",
-                    Path.DirectorySeparatorChar,
-                    Environment.UserName);
+            var value = $"{IOPath.UnixDirectorySeparatorCharAsString}Users{IOPath.UnixDirectorySeparatorCharAsString}{Environment.UserName}{IOPath.UnixDirectorySeparatorCharAsString}Library{IOPath.UnixDirectorySeparatorCharAsString}Application Support{IOPath.UnixDirectorySeparatorCharAsString}Steam{IOPath.UnixDirectorySeparatorCharAsString}registry.vdf";
             return value;
         }
 
