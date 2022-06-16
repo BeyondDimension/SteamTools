@@ -1,7 +1,6 @@
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
-using Titanium.Web.Proxy.Models;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -15,8 +14,8 @@ namespace System.Application.UI.ViewModels
             Title = GetTitleByDisplayName(DisplayName);
         }
 
-        public IEnumerable<ExternalProxyType> ProxyTypes { get; }
-            = Enum2.GetAll<ExternalProxyType>();
+        public IEnumerable<EExternalProxyType> ProxyTypes { get; }
+            = Enum2.GetAll<EExternalProxyType>();
 
         public IEnumerable<string> ProxyDNSs { get; } = new[]
         {

@@ -21,7 +21,6 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Titanium.Web.Proxy.Models;
 
 #pragma warning disable SA1306 // Field names should begin with lower-case letter
 #pragma warning disable SA1309 // Field names should not begin with underscore
