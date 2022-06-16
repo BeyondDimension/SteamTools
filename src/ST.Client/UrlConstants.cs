@@ -41,5 +41,7 @@ namespace System.Application
         public const string DonateUrl_afdian = "https://afdian.net/@rmbgame";
         public const string DonateUrl_ko_fi = "https://ko-fi.com/rmbgame";
         public const string DonateUrl_patreon = "https://www.patreon.com/rmbgame";
+
+
     }
 }

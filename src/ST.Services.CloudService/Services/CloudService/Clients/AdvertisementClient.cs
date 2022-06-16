@@ -1,0 +1,29 @@
+using System.Application.Models;
+using System.Application.Services.CloudService.Clients.Abstractions;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace System.Application.Services.CloudService.Clients
+{
+    internal sealed class AdvertisementClient : ApiClient, IAdvertisementClient
+    {
+        public AdvertisementClient(IApiConnection conn) : base(conn)
+        {
+        }
+
+        /// <summary>
+        /// 获取广告列表
+        /// </summary>
+        /// <param name="type">广告类型</param>
+        /// <returns></returns>
+        public Task<IApiResponse<List<AdvertisementDTO>>> Scripts(EAdvertisementType? type)
+            => conn.SendAsync<List<AdvertisementDTO>>(
+                isPolly: true,
+                isAnonymous: true,
+                isSecurity: false,
+                method: HttpMethod.Get,
+                requestUri: $"api/Advertisement/Advertisements?type={type}",
+                cancellationToken: default);
+    }
+}

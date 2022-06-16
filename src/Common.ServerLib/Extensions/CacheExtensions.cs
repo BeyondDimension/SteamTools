@@ -5,6 +5,7 @@ namespace System;
 
 public static class CacheExtensions
 {
+
     public static bool Get<T>(this IMemoryCache _cache, string key, out T? value) where T : class
     {
         return _cache.TryGetValue(key, out value);
