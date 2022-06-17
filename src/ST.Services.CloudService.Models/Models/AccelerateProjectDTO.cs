@@ -1,7 +1,6 @@
 #if MVVM_VM
 using ReactiveUI;
 using System.Application;
-using System.Application.Enums;
 #endif
 using System.Diagnostics.CodeAnalysis;
 using static System.Application.Services.CloudService.Constants;
