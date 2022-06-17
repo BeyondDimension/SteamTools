@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MSEXLog = Microsoft.Extensions.Logging;
+using CC = System.Common.Constants;
 
 namespace System.Application.Services.Implementation
 {
@@ -217,7 +218,7 @@ namespace System.Application.Services.Implementation
                 var loopback = IPAddress.Loopback.ToString();
                 if (a != null)
                 {
-                    value = a.FirstOrDefault(x => x.Contains(loopback) && x.StartsWith(Browser2.Prefix_HTTP))
+                    value = a.FirstOrDefault(x => x.Contains(loopback) && x.StartsWith(CC.Prefix_HTTP))
                         ?? a.FirstOrDefault(x => x.Contains(loopback))
                         ?? a.FirstOrDefault();
                 }
