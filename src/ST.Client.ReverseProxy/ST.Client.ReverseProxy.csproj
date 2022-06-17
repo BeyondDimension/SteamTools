@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Implementation\**" />
+    <EmbeddedResource Remove="Services\Implementation\**" />
+    <None Remove="Services\Implementation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Common.CoreLib\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

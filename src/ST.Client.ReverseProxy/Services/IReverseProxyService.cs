@@ -18,7 +18,7 @@ public interface IReverseProxyService : IDisposable
     const string RootCertificateName = $"{CertificateName} Certificate";
     const string RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
     const string LocalDomain = "local.steampp.net";
-    protected const string TAG = "ReverseProxyS";
+    const string TAG = "ReverseProxyS";
 
     static IReverseProxyService Instance => DI.Get<IReverseProxyService>();
 
@@ -98,9 +98,13 @@ public interface IReverseProxyService : IDisposable
         }
     }
 
-    string PfxFilePath => Path.Combine(IOPath.AppDataDirectory, PfxFileName);
+    static string DefaultPfxFilePath => Path.Combine(IOPath.AppDataDirectory, PfxFileName);
 
-    string CerFilePath => Path.Combine(IOPath.AppDataDirectory, CerFileName);
+    static string DefaultCerFilePath => Path.Combine(IOPath.AppDataDirectory, CerFileName);
+
+    string PfxFilePath => DefaultPfxFilePath;
+
+    string CerFilePath => DefaultCerFilePath;
 
     /// <summary>
     /// 获取 Cer 证书路径，当不存在时生成文件后返回路径

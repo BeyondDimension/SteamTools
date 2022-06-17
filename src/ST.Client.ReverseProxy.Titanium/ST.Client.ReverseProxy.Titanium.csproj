@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <RootNamespace>System.Application.Services.Implementation</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy.Titanium</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -20,6 +20,7 @@
     <Compile Include="..\Common.Essentials.Maui\Properties\AssemblyInfo.OS.cs">
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" />
   </ItemGroup>
 
   <ItemGroup>

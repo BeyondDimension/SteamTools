@@ -1,44 +1,24 @@
-using System.Security.Cryptography.X509Certificates;
-using static System.Application.Services.IReverseProxyService;
+using Titanium.Web.Proxy.Network;
 
 namespace System.Application.Services.Implementation;
 
 sealed class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService
 {
-    readonly IPlatformService platformService;
-
-    public YarpReverseProxyServiceImpl(IPlatformService platformService)
+    public YarpReverseProxyServiceImpl(
+        IPlatformService platformService,
+        IDnsAnalysisService dnsAnalysis) : base(platformService, dnsAnalysis)
     {
-        this.platformService = platformService;
+        const bool userTrustRootCertificate = true;
+        const bool machineTrustRootCertificate = false;
+        const bool trustRootCertificateAsAdmin = false;
+        CertificateManager = new(null, null, userTrustRootCertificate, machineTrustRootCertificate, trustRootCertificateAsAdmin, OnException);
+
+        InitCertificateManager();
     }
 
-    public bool IsCertificate => throw new NotImplementedException();
+    public override CertificateManager CertificateManager { get; }
 
-    public bool ProxyRunning => throw new NotImplementedException();
-
-    public bool IsCurrentCertificateInstalled => throw new NotImplementedException();
-
-    public X509Certificate2? RootCertificate => throw new NotImplementedException();
-
-    public bool DeleteCertificate()
-    {
-        throw new NotImplementedException();
-    }
-
-    public string? GetCerFilePathGeneratedWhenNoFileExists()
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool IsCertificateInstalled(X509Certificate2? certificate2)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool SetupCertificate()
-    {
-        throw new NotImplementedException();
-    }
+    public override bool ProxyRunning => throw new NotImplementedException();
 
     public Task<bool> StartProxy()
     {
@@ -50,18 +30,8 @@ sealed class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProx
         throw new NotImplementedException();
     }
 
-    public void TrustCer()
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool WirtePemCertificateToGoGSteamPlugins()
-    {
-        throw new NotImplementedException();
-    }
-
     protected override void DisposeCore()
     {
-
+        CertificateManager.Dispose();
     }
 }

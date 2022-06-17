@@ -1,8 +1,6 @@
-using System.Application.UI.Resx;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,47 +14,30 @@ namespace System.Application.Services.Implementation;
 
 sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService
 {
-    readonly IPlatformService platformService;
     readonly ProxyServer proxyServer = new();
 
     private static bool IsIpv6Support = false;
 
     public TitaniumReverseProxyServiceImpl(
         IPlatformService platformService,
-        IDnsAnalysisService dnsAnalysis)
+        IDnsAnalysisService dnsAnalysis) : base(platformService, dnsAnalysis)
     {
-        this.platformService = platformService;
-        DnsAnalysis = dnsAnalysis;
         //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         //    proxyServer.CertificateManager.CertificateEngine = CertificateEngine.DefaultWindows;
         //else
-        proxyServer.ExceptionFunc = exception =>
-        {
-            Log.Error(TAG, exception, "ProxyServer ExceptionFunc");
-        };
+        proxyServer.ExceptionFunc = OnException;
 
         proxyServer.EnableHttp2 = true;
         proxyServer.EnableConnectionPool = true;
         proxyServer.CheckCertificateRevocation = X509RevocationMode.NoCheck;
-        // 可选地设置证书引擎
-        proxyServer.CertificateManager.CertificateEngine = (CertificateEngine)CertificateEngine;
-        //proxyServer.CertificateManager.PfxPassword = $"{CertificateName}";
-        //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
-        proxyServer.CertificateManager.PfxFilePath = ((IReverseProxyService)this).PfxFilePath;
-        proxyServer.CertificateManager.RootCertificateIssuerName = RootCertificateIssuerName;
-        proxyServer.CertificateManager.RootCertificateName = RootCertificateName;
-        //mac和ios的证书信任时间不能超过300天
-        proxyServer.CertificateManager.CertificateValidDays = 300;
-        //proxyServer.CertificateManager.SaveFakeCertificates = true;
 
-        proxyServer.CertificateManager.RootCertificate = proxyServer.CertificateManager.LoadRootCertificate();
+        InitCertificateManager();
+        //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
     }
 
-    IDnsAnalysisService DnsAnalysis { get; }
+    public override CertificateManager CertificateManager => proxyServer.CertificateManager;
 
-    public bool IsCertificate => proxyServer.CertificateManager == null || proxyServer.CertificateManager.RootCertificate == null;
-
-    public bool ProxyRunning => proxyServer.ProxyRunning;
+    public override bool ProxyRunning => proxyServer.ProxyRunning;
 
     public static IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
@@ -363,176 +344,6 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         return Task.CompletedTask;
     }
 
-    string? IReverseProxyService.GetCerFilePathGeneratedWhenNoFileExists() => GetCerFilePathGeneratedWhenNoFileExists();
-
-    static readonly object lockGenerateCertificate = new();
-
-    /// <inheritdoc cref="IReverseProxyService.GetCerFilePathGeneratedWhenNoFileExists"/>
-    public string? GetCerFilePathGeneratedWhenNoFileExists(string? filePath = null)
-    {
-        filePath ??= ((IReverseProxyService)this).CerFilePath;
-        lock (lockGenerateCertificate)
-        {
-            if (!File.Exists(filePath))
-            {
-                if (!GenerateCertificateUnlock(filePath)) return null;
-            }
-            return filePath;
-        }
-    }
-
-    bool GenerateCertificateUnlock(string filePath)
-    {
-        var result = proxyServer.CertificateManager.CreateRootCertificate(true);
-        if (!result || proxyServer.CertificateManager.RootCertificate == null)
-        {
-            Log.Error(TAG, AppResources.CreateCertificateFaild);
-            Toast.Show(AppResources.CreateCertificateFaild);
-            return false;
-        }
-
-        proxyServer.CertificateManager.RootCertificate.SaveCerCertificateFile(filePath);
-
-        return true;
-    }
-
-    public bool GenerateCertificate(string? filePath = null)
-    {
-        filePath ??= ((IReverseProxyService)this).CerFilePath;
-        lock (lockGenerateCertificate)
-        {
-            return GenerateCertificateUnlock(filePath);
-        }
-    }
-
-    public void TrustCer()
-    {
-        var filePath = GetCerFilePathGeneratedWhenNoFileExists();
-        if (filePath != null)
-            IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
-    }
-
-    public bool SetupCertificate()
-    {
-        // 此代理使用的本地信任根证书
-        //proxyServer.CertificateManager.TrustRootCertificate(true);
-        //proxyServer.CertificateManager
-        //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
-        //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
-
-        if (!GenerateCertificate()) return false;
-
-        try
-        {
-            proxyServer.CertificateManager.TrustRootCertificate();
-        }
-#if DEBUG
-        catch (Exception e)
-        {
-            e.LogAndShowT(TAG, msg: "TrustRootCertificate Error");
-        }
-#else
-            catch { }
-#endif
-        try
-        {
-            proxyServer.CertificateManager.EnsureRootCertificate();
-        }
-
-#if DEBUG
-        catch (Exception e)
-        {
-            e.LogAndShowT(TAG, msg: "EnsureRootCertificate Error");
-        }
-#else
-            catch { }
-#endif
-        if (OperatingSystem2.IsMacOS())
-        {
-            TrustCer();
-        }
-        if (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid())
-        {
-            //IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
-            Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
-            return true;
-        }
-        return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
-    }
-
-    /// <summary>
-    /// 删除全部 Watt Toolkit 证书 如失败尝试 命令删除
-    /// </summary>
-    public async void DeleteCer()
-    {
-        using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-        store.Open(OpenFlags.ReadOnly);
-        X509Certificate2Collection collection = store.Certificates.Find(X509FindType.FindByIssuerName, RootCertificateName, false);
-        foreach (var item in collection)
-        {
-            if (item != null)
-            {
-                try
-                {
-                    store.Open(OpenFlags.ReadWrite);
-                    store.Remove(item);
-                }
-                catch
-                {
-                    await IPlatformService.Instance.RunShellAsync($"security delete-certificate -Z \\\"{item.GetCertHashString()}\\\"", true);
-                }
-            }
-        }
-
-    }
-
-    public bool DeleteCertificate()
-    {
-        if (ProxyRunning)
-            return false;
-        if (proxyServer.CertificateManager.RootCertificate == null)
-            return true;
-        try
-        {
-            //using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
-            //{
-            //    store.Open(OpenFlags.MaxAllowed);
-            //    var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
-            //    foreach (var item in test)
-            //    {
-            //        store.Remove(item);
-            //    }
-            //}
-            //proxyServer.CertificateManager.ClearRootCertificate();
-
-            if (OperatingSystem2.IsMacOS())
-            {
-                DeleteCer();
-            }
-            else
-            {
-                proxyServer.CertificateManager.RemoveTrustedRootCertificate();
-            }
-            if (IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate) == false)
-            {
-                proxyServer.CertificateManager.RootCertificate = null;
-                if (File.Exists(proxyServer.CertificateManager.PfxFilePath))
-                    File.Delete(proxyServer.CertificateManager.PfxFilePath);
-            }
-            //proxyServer.CertificateManager.RemoveTrustedRootCertificateAsAdmin();
-            //proxyServer.CertificateManager.CertificateStorage.Clear();
-        }
-        catch (CryptographicException)
-        {
-            //取消删除证书
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-        return true;
-    }
-
     public async Task<bool> StartProxy()
     {
         var isCertificateInstalled = IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
@@ -763,50 +574,6 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
             ex.LogAndShowT(TAG);
         }
     }
-
-    public bool WirtePemCertificateToGoGSteamPlugins()
-        => WirtePemCertificateToGoGSteamPlugins(() => proxyServer.CertificateManager.RootCertificate!.GetPublicPemCertificateString());
-
-    public bool IsCurrentCertificateInstalled
-    {
-        get
-        {
-            if (proxyServer.CertificateManager.RootCertificate == null)
-                if (GetCerFilePathGeneratedWhenNoFileExists() == null) return false;
-            return IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate, usePlatformCheck: true);
-        }
-    }
-
-    public bool IsCertificateInstalled(X509Certificate2? certificate2) => IsCertificateInstalled(certificate2, false);
-
-    public bool IsCertificateInstalled(X509Certificate2? certificate2, bool usePlatformCheck)
-    {
-        if (certificate2 == null)
-            return false;
-        if (certificate2.NotAfter <= DateTime.Now)
-            return false;
-
-        if (!OperatingSystem2.IsAndroid() && OperatingSystem2.IsLinux())
-        {
-            return true;
-        }
-
-        bool result;
-        //|| OperatingSystem2.IsMacOS() 
-        if ((usePlatformCheck && OperatingSystem2.IsAndroid()) || OperatingSystem2.IsMacOS())
-        {
-            result = platformService.IsCertificateInstalled(certificate2);
-        }
-        else
-        {
-            using var store = new X509Store(OperatingSystem2.IsMacOS() ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.ReadOnly);
-            result = store.Certificates.Contains(certificate2);
-        }
-        return result;
-    }
-
-    X509Certificate2? IReverseProxyService.RootCertificate => proxyServer.CertificateManager.RootCertificate;
 
     protected override void DisposeCore()
     {

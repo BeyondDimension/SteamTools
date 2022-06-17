@@ -20,6 +20,40 @@
     <Compile Include="..\Common.Essentials.Maui\Properties\AssemblyInfo.OS.cs">
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
+    <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" />
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\ICertificateCache.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates\Cache</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\DefaultCertificateDiskCache.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates\Cache</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\CachedCertificate.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates\Cache</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Helpers\RunTime.cs">
+      <LinkBase>Titanium.Web.Proxy\Helpers</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\CertificateManager.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Makers\ICertificateMaker.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates\Makers</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Makers\BCCertificateMaker.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates\Makers</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Makers\BCCertificateMakerFast.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates\Makers</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Makers\WinCertificateMaker.cs">
+      <LinkBase>Titanium.Web.Proxy\Certificates\Makers</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Handlers\ExceptionHandler.cs">
+      <LinkBase>Titanium.Web.Proxy\Handlers</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Shared\ProxyConstants.cs">
+      <LinkBase>Titanium.Web.Proxy\Shared</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
