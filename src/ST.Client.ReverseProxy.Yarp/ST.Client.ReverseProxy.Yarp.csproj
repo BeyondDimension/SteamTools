@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>System.Application.Services.Implementation</RootNamespace>
+    <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy.Yarp</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <Compile Include="..\Common.Essentials.Maui\Properties\AssemblyInfo.OS.cs">
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
-    <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" />
+    <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" LinkBase="Services.Implementation" />
     <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\ICertificateCache.cs">
       <LinkBase>Titanium.Web.Proxy\Certificates\Cache</LinkBase>
     </Compile>

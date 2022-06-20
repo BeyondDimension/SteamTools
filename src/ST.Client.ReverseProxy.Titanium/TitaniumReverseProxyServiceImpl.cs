@@ -8,6 +8,7 @@ using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Models;
 using Titanium.Web.Proxy.Network;
+using Titanium.Web.Proxy.StreamExtended.Models;
 using static System.Application.Services.IReverseProxyService;
 
 namespace System.Application.Services.Implementation;
@@ -218,15 +219,18 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
                         //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
                         Debug.WriteLine("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
 #endif
-                        if (!string.IsNullOrEmpty(item.ServerName))
+                        if (!item.IgnoreServerName)
                         {
-                            var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
-                            e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"] =
-                                new Titanium.Web.Proxy.StreamExtended.Models.SslExtension(sni.Value, sni.Name, item.ServerName, sni.Position);
-                        }
-                        else
-                        {
-                            e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
+                            if (!string.IsNullOrEmpty(item.ServerName))
+                            {
+                                var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
+                                e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"] =
+                                    new SslExtension(sni.Value, sni.Name, item.ServerName, sni.Position);
+                            }
+                            else
+                            {
+                                e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
+                            }
                         }
                     }
                     return;

@@ -21,7 +21,7 @@ abstract class ReverseProxyServiceImpl
         DnsAnalysis = dnsAnalysis;
     }
 
-    protected IDnsAnalysisService DnsAnalysis { get; }
+    public IDnsAnalysisService DnsAnalysis { get; }
 
     public abstract CertificateManager CertificateManager { get; }
 
