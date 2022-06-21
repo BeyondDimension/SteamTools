@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="200"
+             MinWidth="600"
+             MinHeight="200"
+             xmlns:gif="using:AvaloniaGif"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:services="using:System.Application.Services"
+             xmlns:models="using:System.Application.Models"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:resx="using:System.Application.UI.Resx"
+             x:Class="System.Application.UI.Views.Controls.AdDialog">
+  <Border CornerRadius="{DynamicResource ControlCornerRadius}"
+          Classes="dialog"
+          ClipToBounds="True">
+    <Panel>
+      <controls:CarouselBanner Items="{ReflectionBinding Advertisements,Mode=OneWay,Source={x:Static services:AdvertiseService.Current}}">
+        <controls:CarouselBanner.ItemTemplate>
+          <DataTemplate x:DataType="models:AdvertisementDTO">
+            <Button Cursor="Hand"
+                    Classes="plain"
+                    Command="{ReflectionBinding ClickAdvertisement,Mode=OneWay,Source={x:Static services:AdvertiseService.Current}}"
+                    CommandParameter="{Binding}">
+              <gif:Image2 FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/applogo.jpg"
+                          Source="{Binding ImageUrl}"
+                          Stretch="UniformToFill"/>
+            </Button>
+          </DataTemplate>
+        </controls:CarouselBanner.ItemTemplate>
+      </controls:CarouselBanner>
+      <Button Name="CloseAdBtn"
+              Background="Transparent"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              Cursor="Hand"
+              Content="{ReflectionBinding Path=Res.Advertisement_Close,Mode=OneWay,Source={x:Static resx:R.Current}}">
+      </Button>
+    </Panel>
+  </Border>
+</UserControl>

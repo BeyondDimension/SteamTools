@@ -211,6 +211,11 @@
       </ui:NavigationView.MenuItemTemplate>
     </ui:NavigationView>
 
+    <controls:AdDialog HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       MaxWidth="600"
+                       MaxHeight="200"/>
+
     <!--Toast-->
     <controls:ToastMessage />
   </Panel>

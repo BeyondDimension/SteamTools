@@ -480,6 +480,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 关闭广告 的本地化字符串。
+        /// </summary>
+        public static string Advertisement_Close {
+            get {
+                return ResourceManager.GetString("Advertisement_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 同意 的本地化字符串。
         /// </summary>
         public static string Agree {

@@ -227,9 +227,9 @@ namespace System.Application.Services
 
         public SourceList<AccelerateProjectGroupDTO> ProxyDomains { get; }
 
-        private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO>? _ProxyDomainsList;
+        private readonly ReadOnlyObservableCollection<AccelerateProjectGroupDTO> _ProxyDomainsList;
 
-        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList ?? throw new ArgumentNullException(nameof(_ProxyDomainsList));
+        public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList;
 
         bool _IsLoading;
 

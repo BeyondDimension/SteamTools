@@ -131,11 +131,8 @@ namespace System.Application.UI.Views.Controls
                     }
                 });
 
-            this.GetObservable(ItemsProperty)
-                .Subscribe(x => _carousel.Items = x);
-
-            this.GetObservable(ItemTemplateProperty)
-                .Subscribe(x => _carousel.ItemTemplate = x);
+            ItemsProperty.Changed.AddClassHandler<CarouselBanner>((x, e) => _carousel.Items = e.NewValue as IEnumerable);
+            ItemTemplateProperty.Changed.AddClassHandler<CarouselBanner>((x, e) => _carousel.ItemTemplate = (IDataTemplate?)e.NewValue);
         }
 
         private void InitializeComponent()

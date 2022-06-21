@@ -17,7 +17,7 @@ namespace System.Application.Services.CloudService.Clients
         /// </summary>
         /// <param name="type">广告类型</param>
         /// <returns></returns>
-        public Task<IApiResponse<List<AdvertisementDTO>>> Scripts(EAdvertisementType? type)
+        public Task<IApiResponse<List<AdvertisementDTO>>> All(EAdvertisementType? type)
             => conn.SendAsync<List<AdvertisementDTO>>(
                 isPolly: true,
                 isAnonymous: true,

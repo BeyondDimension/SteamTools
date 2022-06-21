@@ -74,7 +74,7 @@
           Padding="0,0,0,10"
           HorizontalScrollBarVisibility="Disabled"
           VerticalScrollBarVisibility="Auto">
-        <ItemsRepeater Items="{CompiledBinding SteamUsers}">
+        <ItemsRepeater Items="{Binding SteamUsers}">
           <ItemsRepeater.Layout>
             <!--<UniformGridLayout ItemsJustification="SpaceEvenly" MinRowSpacing="20" Orientation="Horizontal"
                                        MaximumRowsOrColumns="6" />-->
