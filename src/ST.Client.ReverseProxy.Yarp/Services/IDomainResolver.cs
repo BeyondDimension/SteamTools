@@ -10,7 +10,7 @@ namespace System.Application.Services;
 public interface IDomainResolver
 {
     /// <summary>
-    /// 解析所有IP
+    /// 解析域名
     /// </summary>
     /// <param name="endPoint"></param>
     /// <param name="cancellationToken"></param>

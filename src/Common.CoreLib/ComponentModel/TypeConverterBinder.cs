@@ -1,14 +1,14 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/TypeConverterBinder.cs
 
-using System.ComponentModel;
 using System.Globalization;
 
-namespace System.Application.Configuration;
+// ReSharper disable once CheckNamespace
+namespace System.ComponentModel;
 
 /// <summary>
 /// TypeConverter(类型转换) 绑定
 /// </summary>
-static class TypeConverterBinder
+public static class TypeConverterBinder
 {
     static readonly Dictionary<Type, Binder> binders = new();
 

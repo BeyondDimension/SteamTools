@@ -9,15 +9,16 @@ namespace System.Application.Models;
 
 sealed class ReverseProxyConfig : IReverseProxyConfig
 {
-    readonly SortedDictionary<DomainPattern, AccelerateProjectDTO> domainConfigs;
-    readonly ConcurrentDictionary<string, AccelerateProjectDTO?> domainConfigCache;
+    readonly SortedDictionary<DomainPattern, IDomainConfig> domainConfigs;
+    readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
 
     public ReverseProxyConfig(YarpReverseProxyServiceImpl reverseProxyService)
     {
         this.reverseProxyService = reverseProxyService;
-        domainConfigs = ConvertDomainConfigs(reverseProxyService.ProxyDomains);
-        domainConfigCache = new ConcurrentDictionary<string, AccelerateProjectDTO?>();
+        domainConfigs = new();
+        AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains);
+        domainConfigCache = new();
     }
 
     YarpReverseProxyServiceImpl IReverseProxyConfig.Service => reverseProxyService;
@@ -34,14 +35,39 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         set => reverseProxyService.ProxyDomains = value;
     }
 
+    static void AddDomainConfigs(IDictionary<DomainPattern, IDomainConfig> dict, IEnumerable<AccelerateProjectDTO>? domainConfigs)
+    {
+        if (domainConfigs != null)
+        {
+            foreach (var item in domainConfigs)
+            {
+                foreach (var domainName in item.DomainNamesArray)
+                {
+                    dict.Add(new DomainPattern(domainName), item);
+                }
+            }
+        }
+    }
+
+    //static void AddDomainConfigs(IDictionary<DomainPattern, IDomainConfig> dict, IReadOnlyDictionary<string, DomainConfig>? domainConfigs)
+    //{
+    //    if (domainConfigs != null)
+    //    {
+    //        foreach (var kv in domainConfigs)
+    //        {
+    //            dict.Add(new DomainPattern(kv.Key), kv.Value);
+    //        }
+    //    }
+    //}
+
     /// <summary>
     /// 配置转换
     /// </summary>
     /// <param name="domainConfigs"></param>
     /// <returns></returns>
-    static SortedDictionary<DomainPattern, AccelerateProjectDTO> ConvertDomainConfigs(IEnumerable<AccelerateProjectDTO>? domainConfigs)
+    static SortedDictionary<DomainPattern, IDomainConfig> ConvertDomainConfigs(IEnumerable<AccelerateProjectDTO>? domainConfigs)
     {
-        var result = new SortedDictionary<DomainPattern, AccelerateProjectDTO>();
+        var result = new SortedDictionary<DomainPattern, IDomainConfig>();
         if (domainConfigs != null)
         {
             foreach (var item in domainConfigs)
@@ -55,12 +81,12 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         return result;
     }
 
-    public bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out AccelerateProjectDTO value)
+    public bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out IDomainConfig value)
     {
         value = domainConfigCache.GetOrAdd(domain, GetDomainConfig);
         return value != null;
 
-        AccelerateProjectDTO? GetDomainConfig(string domain)
+        IDomainConfig? GetDomainConfig(string domain)
         {
             var key = domainConfigs.Keys.FirstOrDefault(item => item.IsMatch(domain));
             return key == null ? null : domainConfigs[key];

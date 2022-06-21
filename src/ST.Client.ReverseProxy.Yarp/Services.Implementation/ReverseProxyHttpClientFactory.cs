@@ -6,7 +6,7 @@ namespace System.Application.Services.Implementation;
 
 sealed class ReverseProxyHttpClientFactory : IReverseProxyHttpClientFactory
 {
-    public HttpClient CreateHttpClient(string domain, AccelerateProjectDTO domainConfig)
+    public HttpClient CreateHttpClient(string domain, IDomainConfig domainConfig)
     {
         throw new NotImplementedException();
     }

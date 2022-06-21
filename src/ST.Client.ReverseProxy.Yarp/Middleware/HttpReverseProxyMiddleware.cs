@@ -15,7 +15,7 @@ namespace System.Application.Middleware;
 /// </summary>
 sealed class HttpReverseProxyMiddleware
 {
-    static readonly AccelerateProjectDTO defaultDomainConfig = new() { IgnoreServerName = true, };
+    static readonly IDomainConfig defaultDomainConfig = new DomainConfig() { TlsSni = true, };
 
     readonly IHttpForwarder httpForwarder;
     readonly IReverseProxyHttpClientFactory httpClientFactory;
@@ -57,7 +57,7 @@ sealed class HttpReverseProxyMiddleware
         }
         else
         {
-            context.Response.StatusCode = domainConfig.Response.StatusCode;
+            context.Response.StatusCode = (int)domainConfig.Response.StatusCode;
             context.Response.ContentType = domainConfig.Response.ContentType;
             if (domainConfig.Response.ContentValue != null)
             {
@@ -66,7 +66,7 @@ sealed class HttpReverseProxyMiddleware
         }
     }
 
-    bool TryGetDomainConfig(HostString host, [MaybeNullWhen(false)] out AccelerateProjectDTO domainConfig)
+    bool TryGetDomainConfig(HostString host, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
     {
         if (reverseProxyConfig.TryGetDomainConfig(host.Host, out domainConfig) == true)
         {

@@ -54,6 +54,24 @@
     <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Shared\ProxyConstants.cs">
       <LinkBase>Titanium.Web.Proxy\Shared</LinkBase>
     </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Http\KnownHeader.cs">
+      <LinkBase>Titanium.Web.Proxy\Http</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Http\KnownHeaders.cs">
+      <LinkBase>Titanium.Web.Proxy\Http</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Models\ByteString.cs">
+      <LinkBase>Titanium.Web.Proxy\Models</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Models\HttpHeader.cs">
+      <LinkBase>Titanium.Web.Proxy\Models</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Extensions\StringExtensions.cs">
+      <LinkBase>Titanium.Web.Proxy\Extensions</LinkBase>
+    </Compile>
+    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Extensions\HttpHeaderExtensions.cs">
+      <LinkBase>Titanium.Web.Proxy\Extensions</LinkBase>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,11 +1,11 @@
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Application.Configuration;
+using System.ComponentModel;
+using System.Net;
+using System.Runtime.Versioning;
 using System.Application.Middleware;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.Services.Implementation;
-using System.Net;
-using System.Runtime.Versioning;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -23,9 +23,7 @@ public static partial class ServiceCollectionExtensions
         return services;
     }
 
-    internal static IServiceCollection AddConfiguration(
-        this IServiceCollection services,
-        YarpReverseProxyServiceImpl reverseProxyService)
+    internal static IServiceCollection AddConfiguration(this IServiceCollection services, YarpReverseProxyServiceImpl reverseProxyService)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/ServiceCollectionExtensions.cs#L18
         TypeConverterBinder.Bind(IPAddress.Parse, val => val?.ToString());
@@ -44,12 +42,12 @@ public static partial class ServiceCollectionExtensions
     internal static IServiceCollection AddDomainResolve(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.DomainResolve/ServiceCollectionExtensions.cs#L17
-        services.TryAddSingleton<DnsClient>();
-        services.TryAddSingleton<DnscryptProxy>();
-        services.TryAddSingleton<PersistenceService>();
-        services.TryAddSingleton<IPAddressService>();
+        //services.TryAddSingleton<DnsClient>();
+        //services.TryAddSingleton<DnscryptProxy>();
+        //services.TryAddSingleton<PersistenceService>();
+        //services.TryAddSingleton<IPAddressService>();
         services.TryAddSingleton<IDomainResolver, DomainResolver>();
-        services.AddHostedService<DomainResolveHostedService>();
+        //services.AddHostedService<DomainResolveHostedService>();
         return services;
     }
 
@@ -106,16 +104,16 @@ public static partial class ServiceCollectionExtensions
     internal static IServiceCollection AddPacketIntercept(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/ServiceCollectionExtensions.cs#L21
-        services.AddSingleton<IDnsConflictSolver, HostsConflictSolver>();
-        services.AddSingleton<IDnsConflictSolver, ProxyConflictSolver>();
-        services.TryAddSingleton<IDnsInterceptor, DnsInterceptor>();
-        services.AddHostedService<DnsInterceptHostedService>();
+        //services.AddSingleton<IDnsConflictSolver, HostsConflictSolver>();
+        //services.AddSingleton<IDnsConflictSolver, ProxyConflictSolver>();
+        //services.TryAddSingleton<IDnsInterceptor, DnsInterceptor>();
+        //services.AddHostedService<DnsInterceptHostedService>();
 
-        services.AddSingleton<ITcpInterceptor, SshInterceptor>();
-        services.AddSingleton<ITcpInterceptor, GitInterceptor>();
-        services.AddSingleton<ITcpInterceptor, HttpInterceptor>();
-        services.AddSingleton<ITcpInterceptor, HttpsInterceptor>();
-        services.AddHostedService<TcpInterceptHostedService>();
+        //services.AddSingleton<ITcpInterceptor, SshInterceptor>();
+        //services.AddSingleton<ITcpInterceptor, GitInterceptor>();
+        //services.AddSingleton<ITcpInterceptor, HttpInterceptor>();
+        //services.AddSingleton<ITcpInterceptor, HttpsInterceptor>();
+        //services.AddHostedService<TcpInterceptHostedService>();
 
         return services;
     }

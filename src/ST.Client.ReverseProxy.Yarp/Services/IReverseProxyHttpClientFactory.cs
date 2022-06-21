@@ -15,5 +15,5 @@ public interface IReverseProxyHttpClientFactory
     /// <param name="domain"></param>
     /// <param name="domainConfig"></param>
     /// <returns></returns>
-    HttpClient CreateHttpClient(string domain, AccelerateProjectDTO domainConfig);
+    HttpClient CreateHttpClient(string domain, IDomainConfig domainConfig);
 }

@@ -24,6 +24,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using static Newtonsoft.Json.JsonConvert;
+using static System.Application.Services.IDnsAnalysisService;
 using CC = System.Common.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -681,13 +682,13 @@ namespace System.Application.UI.ViewModels
             var dnsAnalysis = IDnsAnalysisService.Instance;
 
             s.AppendLine($"<Support IPV6>: {await dnsAnalysis.GetIsIpv6Support()}");
-            s.AppendLine($"<IPV6> ipv6.rmbgame.net: {(await dnsAnalysis.AnalysisDomainIp("ipv6.rmbgame.net"))?.First()}");
-            s.AppendLine($"<SystemDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIp(testdomain))?.First()}");
-            s.AppendLine($"<AliDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByAliDns(testdomain))?.First()}");
-            s.AppendLine($"<DNSPod>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByDnspod(testdomain))?.First()}");
-            s.AppendLine($"<114DNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpBy114Dns(testdomain))?.First()}");
-            s.AppendLine($"<GoogleDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByGoogleDns(testdomain))?.First()}");
-            s.AppendLine($"<CloudflareDNS>{testdomain}: {(await dnsAnalysis.AnalysisDomainIpByCloudflare(testdomain))?.First()}");
+            s.AppendLine($"<IPV6> ipv6.rmbgame.net: {await dnsAnalysis.AnalysisDomainIpAsync("ipv6.rmbgame.net").FirstOrDefaultAsync()}");
+            s.AppendLine($"<SystemDNS>{testdomain}: {await dnsAnalysis.AnalysisDomainIpAsync(testdomain).FirstOrDefaultAsync()}");
+            s.AppendLine($"<AliDNS>{testdomain}: {await dnsAnalysis.AnalysisDomainIpAsync(testdomain, DNS_Alis).FirstOrDefaultAsync()}");
+            s.AppendLine($"<DNSPod>{testdomain}: {await dnsAnalysis.AnalysisDomainIpAsync(testdomain, DNS_Dnspods).FirstOrDefaultAsync()}");
+            s.AppendLine($"<114DNS>{testdomain}: {await dnsAnalysis.AnalysisDomainIpAsync(testdomain, DNS_114s).FirstOrDefaultAsync()}");
+            s.AppendLine($"<GoogleDNS>{testdomain}: {await dnsAnalysis.AnalysisDomainIpAsync(testdomain, DNS_Googles).FirstOrDefaultAsync()}");
+            s.AppendLine($"<CloudflareDNS>{testdomain}: {await dnsAnalysis.AnalysisDomainIpAsync(testdomain, DNS_Cloudflares).FirstOrDefaultAsync()}");
 
             DebugString += s.ToString();
         }

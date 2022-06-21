@@ -5,7 +5,8 @@ using System.Application.Services.Implementation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using static System.Application.Services.IDnsAnalysisService;
 
@@ -44,9 +45,9 @@ namespace System.Application.Services.Implementation
             return null;
         }
 
-        public async Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
+        public async IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, IPAddress[]? dnsServers, bool isIPv6, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            if (!string.IsNullOrEmpty(url))
+            if (!string.IsNullOrEmpty(hostNameOrAddress))
             {
                 var client = lookupClient;
                 DnsQuestion question;
@@ -58,34 +59,39 @@ namespace System.Application.Services.Implementation
 
                 if (isIPv6)
                 {
-                    question = new DnsQuestion(url, QueryType.AAAA);
+                    question = new DnsQuestion(hostNameOrAddress, QueryType.AAAA);
 
                     if (options != null)
-                        response = await client.QueryAsync(question, options);
+                        response = await client.QueryAsync(question, options, cancellationToken);
                     else
-                        response = await client.QueryAsync(question);
+                        response = await client.QueryAsync(question, cancellationToken);
 
-                    if (!response.HasError && response.Answers.AaaaRecords().Any())
+                    if (!response.HasError)
                     {
-                        var aaaaRecord = response.Answers.AaaaRecords().Select(s => s.Address).ToArray();
-                        if (aaaaRecord.Any_Nullable()) return aaaaRecord;
+                        var aaaaRecord = response.Answers.AaaaRecords();
+                        foreach (var item in aaaaRecord)
+                        {
+                            yield return item.Address;
+                        }
                     }
                 }
 
-                question = new DnsQuestion(url, QueryType.A);
+                question = new DnsQuestion(hostNameOrAddress, QueryType.A);
 
                 if (options != null)
-                    response = await client.QueryAsync(question, options);
+                    response = await client.QueryAsync(question, options, cancellationToken);
                 else
-                    response = await client.QueryAsync(question);
+                    response = await client.QueryAsync(question, cancellationToken);
 
-                if (!response.HasError && response.Answers.ARecords().Any())
+                if (!response.HasError)
                 {
-                    var aRecord = response.Answers.ARecords().Select(s => s.Address).ToArray();
-                    if (aRecord.Any_Nullable()) return aRecord;
+                    var aRecord = response.Answers.ARecords();
+                    foreach (var item in aRecord)
+                    {
+                        yield return item.Address;
+                    }
                 }
             }
-            return null;
         }
 
         public async Task<string?> GetHostByIPAddress(IPAddress ip)

@@ -18,7 +18,7 @@ namespace System.Application.Models
     /// 加速项目
     /// </summary>
     [MPObj]
-    public class AccelerateProjectDTO
+    public partial class AccelerateProjectDTO
 #if MVVM_VM
         : ReactiveObject
 #endif
@@ -167,13 +167,5 @@ namespace System.Application.Models
         [N_JsonProperty("11")]
         [S_JsonProperty("11")]
         public string? UserAgent { get; set; }
-
-        /// <summary>
-        /// 忽略服务器名
-        /// </summary>
-        [MPKey(12)]
-        [N_JsonProperty("12")]
-        [S_JsonProperty("12")]
-        public bool IgnoreServerName { get; set; }
     }
 }

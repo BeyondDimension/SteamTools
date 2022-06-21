@@ -36,6 +36,8 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
     }
 
+    public IPAddress[] DefaultDnsServers => IDnsAnalysisService.DNS_Alis;
+
     public override CertificateManager CertificateManager => proxyServer.CertificateManager;
 
     public override bool ProxyRunning => proxyServer.ProxyRunning;
@@ -105,18 +107,18 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         {
             if (proxyDns != null)
             {
-                ip = (await DnsAnalysis.AnalysisDomainIpByCustomDns(url, new[] { proxyDns }, IsIpv6Support))?.First();
+                ip = await DnsAnalysis.AnalysisDomainIpAsync(url, new[] { proxyDns }, IsIpv6Support).FirstOrDefaultAsync();
             }
             else
             {
                 if (!OperatingSystem2.IsWindows() && !IsSystemProxy)
                 {
-                    //非windows环境hosts加速下不能使用系统默认DNS解析代理，会解析到hosts上无限循环
-                    ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(url, IsIpv6Support))?.First();
+                    // 非 windows 环境 hosts 加速下不能使用系统默认 DNS 解析代理，会解析到 hosts 上无限循环
+                    ip = await DnsAnalysis.AnalysisDomainIpAsync(url, DefaultDnsServers, IsIpv6Support).FirstOrDefaultAsync();
                 }
                 else
                 {
-                    ip = (await DnsAnalysis.AnalysisDomainIp(url, IsIpv6Support))?.First();
+                    ip = await DnsAnalysis.AnalysisDomainIpAsync(url, IsIpv6Support).FirstOrDefaultAsync();
                 }
             }
         }
@@ -219,18 +221,15 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
                         //Logger.Info("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
                         Debug.WriteLine("ClientHelloInfo Info: " + e.HttpClient.ConnectRequest.ClientHelloInfo);
 #endif
-                        if (!item.IgnoreServerName)
+                        if (!string.IsNullOrEmpty(item.ServerName))
                         {
-                            if (!string.IsNullOrEmpty(item.ServerName))
-                            {
-                                var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
-                                e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"] =
-                                    new SslExtension(sni.Value, sni.Name, item.ServerName, sni.Position);
-                            }
-                            else
-                            {
-                                e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
-                            }
+                            var sni = e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"];
+                            e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions["server_name"] =
+                                new SslExtension(sni.Value, sni.Name, item.ServerName, sni.Position);
+                        }
+                        else
+                        {
+                            e.HttpClient.ConnectRequest.ClientHelloInfo.Extensions.Remove("server_name");
                         }
                     }
                     return;
@@ -243,7 +242,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         //部分运营商将奇怪的域名解析到127.0.0.1 再此排除这些不支持的代理域名
         if (IPAddress.IsLoopback(e.ClientRemoteEndPoint.Address))
         {
-            var ip = (await DnsAnalysis.AnalysisDomainIpByAliDns(e.HttpClient.Request.Host))?.First();
+            var ip = await DnsAnalysis.AnalysisDomainIpAsync(e.HttpClient.Request.Host, DefaultDnsServers).FirstOrDefaultAsync();
             if (ip == null || IPAddress.IsLoopback(ip))
             {
                 e.TerminateSession();

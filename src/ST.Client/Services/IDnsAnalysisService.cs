@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Text;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application.Services
@@ -33,11 +34,11 @@ namespace System.Application.Services
 
         const string PrimaryDNS_Baidu = "180.76.76.76";
 
-        protected static readonly IPAddress[] DNS_Alis = new[] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) };
-        protected static readonly IPAddress[] DNS_Dnspods = new[] { IPAddress.Parse(PrimaryDNS_Dnspod), IPAddress.Parse(SecondaryDNS_Dnspod) };
-        protected static readonly IPAddress[] DNS_114s = new[] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) };
-        protected static readonly IPAddress[] DNS_Googles = new[] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address };
-        protected static readonly IPAddress[] DNS_Cloudflares = new[] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address };
+        static readonly IPAddress[] DNS_Alis = new[] { IPAddress.Parse(PrimaryDNS_Ali), IPAddress.Parse(SecondaryDNS_Ali) };
+        static readonly IPAddress[] DNS_Dnspods = new[] { IPAddress.Parse(PrimaryDNS_Dnspod), IPAddress.Parse(SecondaryDNS_Dnspod) };
+        static readonly IPAddress[] DNS_114s = new[] { IPAddress.Parse(PrimaryDNS_114), IPAddress.Parse(SecondaryDNS_114) };
+        static readonly IPAddress[] DNS_Googles = new[] { NameServer.GooglePublicDns.Address, NameServer.GooglePublicDns2.Address };
+        static readonly IPAddress[] DNS_Cloudflares = new[] { NameServer.Cloudflare.Address, NameServer.Cloudflare2.Address };
 
         private static class NameServer
         {
@@ -67,39 +68,55 @@ namespace System.Application.Services
 
         int AnalysisHostnameTime(string url);
 
-        Task<IPAddress[]?> AnalysisDomainIp(string url, bool isIPv6 = false)
-        {
-            return AnalysisDomainIpByCustomDns(url, null, isIPv6);
-        }
+        /// <summary>
+        /// 解析域名 IP 地址
+        /// </summary>
+        /// <param name="hostNameOrAddress">要解析的主机名或 IP 地址</param>
+        /// <param name="isIPv6"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, bool isIPv6, CancellationToken cancellationToken = default)
+            => AnalysisDomainIpAsync(hostNameOrAddress, default, isIPv6, cancellationToken);
 
-        Task<IPAddress[]?> AnalysisDomainIpByGoogleDns(string url, bool isIPv6 = false)
-        {
-            return AnalysisDomainIpByCustomDns(url, DNS_Googles, isIPv6);
-        }
+        /// <summary>
+        /// 解析域名 IP 地址
+        /// </summary>
+        /// <param name="hostNameOrAddress">要解析的主机名或 IP 地址</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
+            => AnalysisDomainIpAsync(hostNameOrAddress, default, default, cancellationToken);
 
-        Task<IPAddress[]?> AnalysisDomainIpByCloudflare(string url, bool isIPv6 = false)
-        {
-            return AnalysisDomainIpByCustomDns(url, DNS_Cloudflares, isIPv6);
-        }
+        /// <summary>
+        /// 解析域名 IP 地址
+        /// </summary>
+        /// <param name="hostNameOrAddress">要解析的主机名或 IP 地址</param>
+        /// <param name="dnsServers">自定义 DNS 服务器，可选的值有 <see cref="DNS_Alis"/>, <see cref="DNS_114s"/>, <see cref="DNS_Cloudflares"/>, <see cref="DNS_Dnspods"/>, <see cref="DNS_Googles"/></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, IPAddress[]? dnsServers, CancellationToken cancellationToken = default)
+            => AnalysisDomainIpAsync(hostNameOrAddress, dnsServers, default, cancellationToken);
 
-        Task<IPAddress[]?> AnalysisDomainIpByDnspod(string url, bool isIPv6 = false)
+        /// <summary>
+        /// 解析域名 IP 地址
+        /// </summary>
+        /// <param name="hostNameOrAddress">要解析的主机名或 IP 地址</param>
+        /// <param name="dnsServers">自定义 DNS 服务器，可选的值有 <see cref="DNS_Alis"/>, <see cref="DNS_114s"/>, <see cref="DNS_Cloudflares"/>, <see cref="DNS_Dnspods"/>, <see cref="DNS_Googles"/></param>
+        /// <param name="isIPv6"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        async IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, IPAddress[]? dnsServers, bool isIPv6, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
-            return AnalysisDomainIpByCustomDns(url, DNS_Dnspods, isIPv6);
-        }
-
-        Task<IPAddress[]?> AnalysisDomainIpByAliDns(string url, bool isIPv6 = false)
-        {
-            return AnalysisDomainIpByCustomDns(url, DNS_Alis, isIPv6);
-        }
-
-        Task<IPAddress[]?> AnalysisDomainIpBy114Dns(string url, bool isIPv6 = false)
-        {
-            return AnalysisDomainIpByCustomDns(url, DNS_114s, isIPv6);
-        }
-
-        Task<IPAddress[]?> AnalysisDomainIpByCustomDns(string url, IPAddress[]? dnsServers = null, bool isIPv6 = false)
-        {
-            return Dns.GetHostAddressesAsync(url);
+            var items = await
+#if NET6_0_OR_GREATER
+                Dns.GetHostAddressesAsync(hostNameOrAddress, cancellationToken);
+#else
+                Dns.GetHostAddressesAsync(hostNameOrAddress);
+#endif
+            foreach (var item in items)
+            {
+                yield return item;
+            }
         }
 
         async Task<string?> GetHostByIPAddress(IPAddress ip)

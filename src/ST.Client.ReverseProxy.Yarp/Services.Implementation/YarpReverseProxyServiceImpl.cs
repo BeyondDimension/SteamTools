@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using NLog.Web;
 using Titanium.Web.Proxy.Network;
 
 namespace System.Application.Services.Implementation;
 
-sealed class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService
+sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService
 {
     WebApplication? app;
 
@@ -31,6 +29,7 @@ sealed class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProx
 
     bool StartProxyCore()
     {
+        // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub/Program.cs#L29
         try
         {
             var builder = WebApplication.CreateBuilder();
@@ -82,45 +81,5 @@ sealed class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProx
     {
         StopProxy();
         CertificateManager.Dispose();
-    }
-
-    void StartupConfigureServices(IServiceCollection services)
-    {
-        services.AddConfiguration(this);
-        services.AddDomainResolve();
-        services.AddReverseProxyHttpClient();
-        services.AddReverseProxyServer();
-        services.AddFlowAnalyze();
-        services.AddHostedService<AppHostedService>();
-
-        if (OperatingSystem.IsWindows())
-        {
-            services.AddPacketIntercept();
-        }
-    }
-
-    void StartupConfigure(IApplicationBuilder app)
-    {
-        app.MapWhen(context => context.Connection.LocalPort == ProxyPort, appBuilder =>
-        {
-            appBuilder.UseHttpProxy();
-        });
-
-        app.MapWhen(context => context.Connection.LocalPort != ProxyPort, appBuilder =>
-        {
-            appBuilder.UseRequestLogging();
-            appBuilder.UseHttpReverseProxy();
-
-            appBuilder.UseRouting();
-            appBuilder.DisableRequestLogging();
-            appBuilder.UseEndpoints(endpoint =>
-            {
-                endpoint.MapGet("/flowStatistics", context =>
-                {
-                    var flowStatistics = context.RequestServices.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
-                    return context.Response.WriteAsJsonAsync(flowStatistics);
-                });
-            });
-        });
     }
 }

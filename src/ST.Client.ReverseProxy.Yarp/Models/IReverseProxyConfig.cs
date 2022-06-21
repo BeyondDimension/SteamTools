@@ -30,7 +30,7 @@ public partial interface IReverseProxyConfig
     /// <param name="domain"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out AccelerateProjectDTO value);
+    bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out IDomainConfig value);
 
     /// <summary>
     /// 获取所有域名表达式
