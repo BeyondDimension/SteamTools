@@ -7,6 +7,8 @@ namespace System.Application.Services.Implementation;
 
 sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService
 {
+    public override EReverseProxyEngine ReverseProxyEngine => EReverseProxyEngine.Yarp;
+
     WebApplication? app;
 
     public YarpReverseProxyServiceImpl(

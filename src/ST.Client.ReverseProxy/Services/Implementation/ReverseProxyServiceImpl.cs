@@ -342,6 +342,8 @@ abstract class ReverseProxyServiceImpl
         return result;
     }
 
+    public abstract EReverseProxyEngine ReverseProxyEngine { get; }
+
     #region IDisposable
 
     protected abstract void DisposeCore();

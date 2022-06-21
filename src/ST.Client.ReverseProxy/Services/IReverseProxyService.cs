@@ -118,4 +118,6 @@ public interface IReverseProxyService : IDisposable
     /// 获取当前 Root 证书
     /// </summary>
     X509Certificate2? RootCertificate { get; }
+
+    EReverseProxyEngine ReverseProxyEngine { get; }
 }

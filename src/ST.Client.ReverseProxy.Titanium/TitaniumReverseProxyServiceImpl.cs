@@ -15,6 +15,8 @@ namespace System.Application.Services.Implementation;
 
 sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService
 {
+    public override EReverseProxyEngine ReverseProxyEngine => EReverseProxyEngine.Titanium;
+
     readonly ProxyServer proxyServer = new();
 
     private static bool IsIpv6Support = false;

@@ -24,10 +24,19 @@ namespace System.Application.Services.CloudService.Clients
         public Task<IApiResponse<List<AccelerateProjectGroupDTO>>> All()
             => conn.SendAsync<List<AccelerateProjectGroupDTO>>(
                 isPolly: true,
-                isAnonymous: true,
+                isAnonymous: false,
                 isSecurity: false,
                 method: HttpMethod.Get,
                 requestUri: "api/Accelerate/All",
+                cancellationToken: default);
+
+        public Task<IApiResponse<List<AccelerateProjectGroupDTO>>> All(EReverseProxyEngine reverseProxyEngine)
+            => conn.SendAsync<List<AccelerateProjectGroupDTO>>(
+                isPolly: true,
+                isAnonymous: false,
+                isSecurity: false,
+                method: HttpMethod.Get,
+                requestUri: $"api/Accelerate/All/{(int)reverseProxyEngine}",
                 cancellationToken: default);
     }
 }
