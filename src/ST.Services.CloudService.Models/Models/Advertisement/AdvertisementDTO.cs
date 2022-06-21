@@ -33,24 +33,34 @@ namespace System.Application.Models
         public int Order { get; set; }
 
         /// <summary>
-        /// 备注
+        /// 描述
         /// </summary>
         [MPKey(2)]
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
-        public string Remark { get; set; } = string.Empty;
-
+        public string? Remark { get; set; }
 #if MVVM_VM
 
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public string ImageUrl => string.Format(API_Advertisement_Image, Id);
+        public string ImageUrl =>
+#if DEBUG
+            ApiBaseUrl_Development + string.Format("/api/Advertisement/Images/{0}", Id);
+#else
+            string.Format(API_Advertisement_Image, Id);
+#endif
 
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public string Url => string.Format(API_Advertisement_Jump, Id);
+        public string Url =>
+#if DEBUG
+        ApiBaseUrl_Development + string.Format("/api/Advertisement/Jump/{0}", Id);
+#else
+        string.Format(API_Advertisement_Jump, Id);
+#endif
+
 #endif
     }
 }

@@ -143,17 +143,10 @@ namespace System.Application.UI
                         //                            }
                         //                        }
                         //#endif
-                        const string ApiBaseUrl_Development =
-#if USE_DEBUG_SERVER
-                            $"{Prefix_HTTPS}localhost:5001";
-#else
-                            $"{Prefix_HTTPS}pan.mossimo.net:8862";
-#endif
-                        const string ApiBaseUrl_Production = $"{Prefix_HTTPS}api.steampp.net";
                         var value =
                             (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
-                                ApiBaseUrl_Development :
-                                ApiBaseUrl_Production;
+                                Constants.Urls.ApiBaseUrl_Development :
+                                Constants.Urls.BaseUrl_API;
                         s.ApiBaseUrl = value;
                     }
                 }

@@ -38,7 +38,7 @@ public interface IResponseConfig
 
 partial class AccelerateProjectDTO : IResponseConfig
 {
-    HttpStatusCode IResponseConfig.StatusCode => throw new NotImplementedException();
+    HttpStatusCode IResponseConfig.StatusCode => ProxyType switch { ProxyType.DirectFailure => HttpStatusCode.NotFound, ProxyType.DirectSuccess => HttpStatusCode.OK, _ => default };
 
     string IResponseConfig.ContentType => throw new NotImplementedException();
 

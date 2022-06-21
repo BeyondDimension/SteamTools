@@ -149,7 +149,7 @@
                 <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            
+
             <ui:CommandBarButton
          Command="{Binding ResetHostsFileCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_ResetHostsFile,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -157,7 +157,7 @@
                 <ui:PathIcon Data="{StaticResource DocumentEditDrawing}"/>
               </ui:CommandBarButton.Icon>
             </ui:CommandBarButton>
-            
+
             <ui:CommandBarButton
          Command="{Binding OpenHostsDirCommand}"
          Label="{ReflectionBinding Path=Res.CommunityFix_OpenHostsDir,Mode=OneWay,Source={x:Static resx:R.Current}}">
@@ -193,7 +193,7 @@
                           IsChecked="{Binding ThreeStateEnable,Mode=TwoWay}"
                           Margin="0 0 20 0">
                 </CheckBox>
-                <Image Width="30" 
+                <Image Width="30"
                        Source="{Binding ImageStream^,Converter={StaticResource BitmapAssetValueConverter},ConverterParameter=30}">
                 </Image>
                 <!--<Image Width="40" Source="/Application/UI/Assets/AppResources/Steam.png">
@@ -211,7 +211,7 @@
       </Border>
 
       <Border Grid.Column="1" Grid.Row="1" Classes="paper" Margin="0 0 10 10" Background="{DynamicResource ThemeBrushKey}">
-        <Panel Margin="20 0">
+        <Panel Margin="10 0">
           <DockPanel>
             <DockPanel Margin="0 10" DockPanel.Dock="Top">
               <CheckBox MinWidth="20"
@@ -225,26 +225,33 @@
                          Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
             </DockPanel>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" DockPanel.Dock="Bottom">
-              <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate DataType="{x:Type models:AccelerateProjectDTO}">
-                    <StackPanel>
-                      <DockPanel>
-                        <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Enable}">
-                          <TextBlock Text="{Binding Name}"></TextBlock>
-                        </CheckBox>
-                        <TextBlock Text="{Binding DomainNamesArray[0]}"
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-                      </DockPanel>
-                      <Separator Classes="Separator"  />
-                    </StackPanel>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </ScrollViewer>
+            <DockPanel>
+              <controls:AdDialog DockPanel.Dock="Bottom"
+                                 Margin="0 10"
+                                 Height="140"/>
+              <ScrollViewer DockPanel.Dock="Top"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Auto">
+                <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:AccelerateProjectDTO}">
+                      <StackPanel>
+                        <DockPanel>
+                          <CheckBox HorizontalAlignment="Left" IsChecked="{Binding Enable}">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                          </CheckBox>
+                          <TextBlock Text="{Binding DomainNamesArray[0]}"
+                                     HorizontalAlignment="Right"
+                                     VerticalAlignment="Center"
+                                     Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+                        </DockPanel>
+                        <Separator Classes="Separator"  />
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </ScrollViewer>
+            </DockPanel>
           </DockPanel>
         </Panel>
       </Border>
@@ -324,19 +331,20 @@
             </ScrollViewer>
           </DockPanel>
         </Border>
+        
       </StackPanel>
 
       <StackPanel Grid.Row="2" Margin="20 0 20 50">
-        <Button Classes="action" 
-                Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                HorizontalAlignment="Stretch" 
-                HorizontalContentAlignment="Center" 
-                MinHeight="40" 
-                Width="250" 
-                VerticalContentAlignment="Center" 
-                FontSize="16" 
-                Command="{ReflectionBinding StartProxyButton_Click}" 
-                CommandParameter="False"></Button>
+        <Button Classes="action"
+                Content="{ReflectionBinding Path=Res.CommunityFix_StopProxy,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                MinHeight="40"
+                Width="250"
+                VerticalContentAlignment="Center"
+                FontSize="16"
+                Command="{ReflectionBinding StartProxyButton_Click}"
+                CommandParameter="False"/>
       </StackPanel>
     </Grid>
   </Panel>

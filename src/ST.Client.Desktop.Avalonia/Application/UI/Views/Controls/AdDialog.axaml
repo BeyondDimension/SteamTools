@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="200"
-             MinWidth="600"
-             MinHeight="200"
+             MinWidth="200"
+             MinHeight="100"
              xmlns:gif="using:AvaloniaGif"
              xmlns:vm="using:System.Application.UI.ViewModels"
              xmlns:services="using:System.Application.Services"
@@ -21,6 +21,7 @@
           <DataTemplate x:DataType="models:AdvertisementDTO">
             <Button Cursor="Hand"
                     Classes="plain"
+                    ToolTip.Tip="{Binding Remark}"
                     Command="{ReflectionBinding ClickAdvertisement,Mode=OneWay,Source={x:Static services:AdvertiseService.Current}}"
                     CommandParameter="{Binding}">
               <gif:Image2 FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/applogo.jpg"

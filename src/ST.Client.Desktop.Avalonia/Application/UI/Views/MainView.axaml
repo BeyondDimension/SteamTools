@@ -213,8 +213,9 @@
 
     <controls:AdDialog HorizontalAlignment="Right"
                        VerticalAlignment="Bottom"
-                       MaxWidth="600"
-                       MaxHeight="200"/>
+                       SupportClose="True"
+                       Width="600"
+                       Height="200"/>
 
     <!--Toast-->
     <controls:ToastMessage />

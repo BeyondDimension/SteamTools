@@ -68,17 +68,17 @@ public interface IDomainConfig
 
 partial class AccelerateProjectDTO : IDomainConfig
 {
-    bool IDomainConfig.TlsSni => throw new NotImplementedException();
+    bool IDomainConfig.TlsSni => ServerName != null;
 
-    string? IDomainConfig.TlsSniPattern => throw new NotImplementedException();
+    string? IDomainConfig.TlsSniPattern => ServerName;
 
-    bool IDomainConfig.TlsIgnoreNameMismatch => throw new NotImplementedException();
+    bool IDomainConfig.TlsIgnoreNameMismatch => false;
 
-    IPAddress? IDomainConfig.IPAddress => throw new NotImplementedException();
+    IPAddress? IDomainConfig.IPAddress => IPAddress.Parse(ForwardDomainIP);
 
-    TimeSpan? IDomainConfig.Timeout => throw new NotImplementedException();
+    TimeSpan? IDomainConfig.Timeout => null;
 
-    Uri? IDomainConfig.Destination => throw new NotImplementedException();
+    Uri? IDomainConfig.Destination => new(ForwardDomainName);
 
-    IResponseConfig? IDomainConfig.Response => this; // or null
+    IResponseConfig? IDomainConfig.Response => null; // or null
 }

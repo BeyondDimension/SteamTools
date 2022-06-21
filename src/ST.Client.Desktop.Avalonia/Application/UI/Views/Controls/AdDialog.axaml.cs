@@ -8,6 +8,21 @@ namespace System.Application.UI.Views.Controls
     {
         private Button? closeButton;
 
+        /// <summary>
+        /// Defines the <see cref="AutoScroll"/> property.
+        /// </summary>
+        public static readonly StyledProperty<bool> SupportCloseProperty =
+            AvaloniaProperty.Register<CarouselBanner, bool>(nameof(SupportClose), false);
+
+        /// <summary>
+        /// SupportClose
+        /// </summary>
+        public bool SupportClose
+        {
+            get => GetValue(SupportCloseProperty);
+            set => SetValue(SupportCloseProperty, value);
+        }
+
         public AdDialog()
         {
             InitializeComponent();
@@ -16,6 +31,9 @@ namespace System.Application.UI.Views.Controls
 
             if (closeButton != null)
             {
+                this.GetObservable(SupportCloseProperty)
+                    .Subscribe(x => closeButton.IsVisible = x);
+
                 closeButton.Click += (s, e) =>
                 {
                     this.IsVisible = false;
