@@ -1,26 +1,38 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/DomainConfig.cs
 
 using System.Net;
+using MPKey = MessagePack.KeyAttribute;
+using MPObj = MessagePack.MessagePackObjectAttribute;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.Models;
 
 /// <inheritdoc cref="IDomainConfig"/>
+[MPObj]
 public sealed class DomainConfig : IDomainConfig
 {
+    [MPKey(0)]
     public bool TlsSni { get; init; }
 
+    [MPKey(1)]
     public string? TlsSniPattern { get; init; }
 
+    [MPKey(2)]
     public bool TlsIgnoreNameMismatch { get; init; }
 
+    [MPKey(3)]
     public IPAddress? IPAddress { get; init; }
 
+    [MPKey(4)]
     public TimeSpan? Timeout { get; init; }
 
+    [MPKey(5)]
     public Uri? Destination { get; init; }
 
-    public IResponseConfig? Response { get; init; }
+    [MPKey(6)]
+    public ResponseConfig? Response { get; init; }
+
+    IResponseConfig? IDomainConfig.Response => Response;
 }
 
 /// <summary>

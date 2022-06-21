@@ -1,17 +1,23 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/ResponseConfig.cs
 
 using System.Net;
+using MPKey = MessagePack.KeyAttribute;
+using MPObj = MessagePack.MessagePackObjectAttribute;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.Models;
 
 /// <inheritdoc cref="IResponseConfig"/>
-public class ResponseConfig
+[MPObj]
+public class ResponseConfig : IResponseConfig
 {
+    [MPKey(0)]
     public HttpStatusCode StatusCode { get; init; } = HttpStatusCode.OK;
 
+    [MPKey(1)]
     public string ContentType { get; init; } = "text/plain;charset=utf-8";
 
+    [MPKey(2)]
     public string? ContentValue { get; init; }
 }
 
