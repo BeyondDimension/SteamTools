@@ -16,5 +16,5 @@ public enum EFlowType : byte
     /// <summary>
     /// 写入
     /// </summary>
-    Wirte
+    Wirte,
 }

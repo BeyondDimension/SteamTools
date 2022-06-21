@@ -15,7 +15,6 @@ partial class YarpReverseProxyServiceImpl
         services.AddReverseProxyHttpClient();
         services.AddReverseProxyServer();
         services.AddFlowAnalyze();
-        services.AddHostedService<AppHostedService>();
 
         if (OperatingSystem.IsWindows())
         {

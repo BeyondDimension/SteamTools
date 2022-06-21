@@ -60,26 +60,27 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     //    }
     //}
 
-    /// <summary>
-    /// 配置转换
-    /// </summary>
-    /// <param name="domainConfigs"></param>
-    /// <returns></returns>
-    static SortedDictionary<DomainPattern, IDomainConfig> ConvertDomainConfigs(IEnumerable<AccelerateProjectDTO>? domainConfigs)
-    {
-        var result = new SortedDictionary<DomainPattern, IDomainConfig>();
-        if (domainConfigs != null)
-        {
-            foreach (var item in domainConfigs)
-            {
-                foreach (var domainName in item.DomainNamesArray)
-                {
-                    result.Add(new DomainPattern(domainName), item);
-                }
-            }
-        }
-        return result;
-    }
+    ///// <summary>
+    ///// 配置转换
+    ///// </summary>
+    ///// <param name="domainConfigs"></param>
+    ///// <returns></returns>
+    //[Obsolete("use AddDomainConfigs")]
+    //static SortedDictionary<DomainPattern, IDomainConfig> ConvertDomainConfigs(IEnumerable<AccelerateProjectDTO>? domainConfigs)
+    //{
+    //    var result = new SortedDictionary<DomainPattern, IDomainConfig>();
+    //    if (domainConfigs != null)
+    //    {
+    //        foreach (var item in domainConfigs)
+    //        {
+    //            foreach (var domainName in item.DomainNamesArray)
+    //            {
+    //                result.Add(new DomainPattern(domainName), item);
+    //            }
+    //        }
+    //    }
+    //    return result;
+    //}
 
     public bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out IDomainConfig value)
     {
