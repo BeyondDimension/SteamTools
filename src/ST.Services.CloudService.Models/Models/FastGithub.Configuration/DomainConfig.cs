@@ -1,6 +1,8 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/DomainConfig.cs
 
+using MessagePack;
 using System.Net;
+using System.Runtime.Serialization.Formatters;
 using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 
@@ -21,6 +23,7 @@ public sealed class DomainConfig : IDomainConfig
     public bool TlsIgnoreNameMismatch { get; init; }
 
     [MPKey(3)]
+    [MessagePackFormatter(typeof(IPAddressFormatter))]
     public IPAddress? IPAddress { get; init; }
 
     [MPKey(4)]
@@ -86,7 +89,7 @@ partial class AccelerateProjectDTO : IDomainConfig
 
     bool IDomainConfig.TlsIgnoreNameMismatch => false;
 
-    IPAddress? IDomainConfig.IPAddress => IPAddress2.Parse(ForwardDomainIP);
+    IPAddress? IDomainConfig.IPAddress => IPAddress2.ParseNullable(ForwardDomainIP);
 
     TimeSpan? IDomainConfig.Timeout => null;
 

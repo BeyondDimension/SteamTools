@@ -26,7 +26,7 @@ public static partial class ServiceCollectionExtensions
     internal static IServiceCollection AddConfiguration(this IServiceCollection services, YarpReverseProxyServiceImpl reverseProxyService)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/ServiceCollectionExtensions.cs#L18
-        TypeConverterBinder.Bind(IPAddress.Parse, val => val?.ToString());
+        TypeConverterBinder.Bind(IPAddress2.ParseNullable, val => val?.ToString());
         TypeConverterBinder.Bind(IPEndPoint.Parse, val => val?.ToString());
 
         // reverseProxyService 不能直接添加进服务集合，因 host 会释放 service
