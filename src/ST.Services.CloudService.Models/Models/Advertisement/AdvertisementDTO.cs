@@ -32,6 +32,14 @@ namespace System.Application.Models
         [S_JsonProperty("1")]
         public int Order { get; set; }
 
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [MPKey(2)]
+        [N_JsonProperty("2")]
+        [S_JsonProperty("2")]
+        public string Remark { get; set; } = string.Empty;
+
 #if MVVM_VM
 
         [MPIgnore]
