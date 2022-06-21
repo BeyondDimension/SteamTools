@@ -105,7 +105,8 @@
     <ProjectReference Include="..\ST.Client.CommandLine\ST.Client.CommandLine.csproj" />
     <ProjectReference Include="..\ST.Client.Desktop.Avalonia\ST.Client.Avalonia.csproj" />
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
-    <ProjectReference Include="..\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj" />
+    <!--<ProjectReference Include="..\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj" />-->
+    <ProjectReference Include="..\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
