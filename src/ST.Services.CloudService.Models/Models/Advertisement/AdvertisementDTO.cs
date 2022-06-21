@@ -44,22 +44,12 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public string ImageUrl =>
-#if DEBUG
-            ApiBaseUrl_Development + string.Format("/api/Advertisement/Images/{0}", Id);
-#else
-            string.Format(API_Advertisement_Image, Id);
-#endif
+        public string ImageUrl => API_Advertisement_ImageUrl(Id);
 
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public string Url =>
-#if DEBUG
-        ApiBaseUrl_Development + string.Format("/api/Advertisement/Jump/{0}", Id);
-#else
-        string.Format(API_Advertisement_Jump, Id);
-#endif
+        public string Url => API_Advertisement_JumpUrl(Id);
 
 #endif
     }

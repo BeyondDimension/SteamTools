@@ -86,7 +86,7 @@ partial class AccelerateProjectDTO : IDomainConfig
 
     bool IDomainConfig.TlsIgnoreNameMismatch => false;
 
-    IPAddress? IDomainConfig.IPAddress => IPAddress.Parse(ForwardDomainIP);
+    IPAddress? IDomainConfig.IPAddress => IPAddress2.Parse(ForwardDomainIP);
 
     TimeSpan? IDomainConfig.Timeout => null;
 

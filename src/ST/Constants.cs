@@ -25,21 +25,42 @@ public static class Constants
 
     public static class Urls
     {
+        #region OfficialWebsite
+
         public const string BaseUrl_OfficialWebsite = Prefix_HTTPS + "steampp.net";
-        public const string BaseUrl_API = Prefix_HTTPS + "api.steampp.net";
 
-        public const string ApiBaseUrl_Development =
-#if USE_DEBUG_SERVER
-                            $"{Prefix_HTTPS}localhost:5001";
-#else
-            $"{Prefix_HTTPS}pan.mossimo.net:8862";
-#endif
+        public const string OfficialWebsite_Notice
+            = BaseUrl_OfficialWebsite + "/notice?id={0}";
 
-        public const string OfficialWebsite_Notice = BaseUrl_OfficialWebsite + "/notice?id={0}";
-        public const string OfficialWebsite_UploadsPublishFiles = BaseUrl_OfficialWebsite + $"/uploads/publish/files/{{0}}{FileEx.BIN}";
-        public const string OfficialWebsite_UploadsPublish = BaseUrl_OfficialWebsite + "/uploads/publish/{0}";
+        public const string OfficialWebsite_UploadsPublishFiles
+            = BaseUrl_OfficialWebsite + $"/uploads/publish/files/{{0}}{FileEx.BIN}";
 
-        public const string API_Advertisement_Jump = BaseUrl_API + "/api/Advertisement/Jump/{0}";
-        public const string API_Advertisement_Image = BaseUrl_API + "/api/Advertisement/Images/{0}";
+        public const string OfficialWebsite_UploadsPublish
+            = BaseUrl_OfficialWebsite + "/uploads/publish/{0}";
+
+        #endregion
+
+        #region API
+
+        public const string BaseUrl_API_Production = Prefix_HTTPS + "api.steampp.net";
+        public const string BaseUrl_API_Development = Prefix_HTTPS + "pan.mossimo.net:8862";
+        public const string BaseUrl_API_Debug = Prefix_HTTPS + "localhost:5001";
+
+        static string BaseUrl_API = BaseUrl_API_Development;
+
+        public static string ApiBaseUrl
+        {
+            get => BaseUrl_API;
+
+            set => BaseUrl_API = value;
+        }
+
+        public static string API_Advertisement_JumpUrl(Guid id)
+            => $"{BaseUrl_API}/api/Advertisement/Jump/{id}";
+
+        public static string API_Advertisement_ImageUrl(Guid id)
+            => $"{BaseUrl_API}/api/Advertisement/Images/{id}";
+
+        #endregion
     }
 }

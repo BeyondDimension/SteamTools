@@ -145,9 +145,13 @@ namespace System.Application.UI
                         //#endif
                         var value =
                             (_ThisAssembly.Debuggable || !s.GetIsOfficialChannelPackage()) ?
-                                Constants.Urls.ApiBaseUrl_Development :
-                                Constants.Urls.BaseUrl_API;
-                        s.ApiBaseUrl = value;
+#if USE_DEBUG_SERVER
+                                Constants.Urls.BaseUrl_API_Debug
+#else
+                                Constants.Urls.BaseUrl_API_Development
+#endif
+                               : Constants.Urls.BaseUrl_API_Production;
+                        s.ApiBaseUrl = Constants.Urls.ApiBaseUrl = value;
                     }
                 }
                 return mAppSettings;
