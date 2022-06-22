@@ -1,5 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/IHttpClientFactory.cs
 
+using System.Application.Internals.Http;
 using System.Application.Models;
 
 namespace System.Application.Services;
@@ -15,5 +16,5 @@ public interface IReverseProxyHttpClientFactory
     /// <param name="domain"></param>
     /// <param name="domainConfig"></param>
     /// <returns></returns>
-    HttpClient CreateHttpClient(string domain, IDomainConfig domainConfig);
+    ReverseProxyHttpClient CreateHttpClient(string domain, IDomainConfig domainConfig);
 }

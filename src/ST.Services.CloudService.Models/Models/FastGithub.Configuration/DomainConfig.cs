@@ -35,6 +35,9 @@ public sealed class DomainConfig : IDomainConfig
     [MPKey(6)]
     public ResponseConfig? Response { get; init; }
 
+    [MPKey(7)]
+    public string? DomainName { get; init; }
+
     IResponseConfig? IDomainConfig.Response => Response;
 }
 
@@ -65,12 +68,17 @@ public interface IDomainConfig
     IPAddress? IPAddress { get; }
 
     /// <summary>
+    /// 使用的域名
+    /// </summary>
+    string? DomainName { get; }
+
+    /// <summary>
     /// 请求超时时长
     /// </summary>
     TimeSpan? Timeout { get; }
 
     /// <summary>
-    /// 目的地
+    /// 重定向地址
     /// <para>格式为相对或绝对 <see cref="Uri"/></para>
     /// </summary>
     Uri? Destination { get; }
@@ -83,17 +91,55 @@ public interface IDomainConfig
 
 partial class AccelerateProjectDTO : IDomainConfig
 {
-    bool IDomainConfig.TlsSni => ServerName != null;
+    bool IDomainConfig.TlsSni => !string.IsNullOrEmpty(ServerName);
 
     string? IDomainConfig.TlsSniPattern => ServerName;
 
-    bool IDomainConfig.TlsIgnoreNameMismatch => false;
+    bool IDomainConfig.TlsIgnoreNameMismatch => true;
 
-    IPAddress? IDomainConfig.IPAddress => IPAddress2.ParseNullable(ForwardDomainIP);
+    IPAddress? IDomainConfig.IPAddress
+    {
+        get
+        {
+            if (ProxyType == ProxyType.Local && !ForwardDomainIsNameOrIP)
+            {
+                IPAddress2.TryParse(ForwardDomainIP, out var ip);
+                return ip;
+            }
+            return null;
+        }
+    }
+
+    string? IDomainConfig.DomainName
+    {
+        get
+        {
+            if (ProxyType == ProxyType.Local && ForwardDomainIsNameOrIP)
+            {
+                return ForwardDomainName;
+            }
+            return null;
+        }
+    }
 
     TimeSpan? IDomainConfig.Timeout => null;
 
-    Uri? IDomainConfig.Destination => new(ForwardDomainName);
+    Uri? IDomainConfig.Destination
+    {
+        get
+        {
+            if (ProxyType == ProxyType.Redirect)
+            {
+                var b = new UriBuilder
+                {
+                    Host = ForwardDomainName,
+                    Port = PortId,
+                };
+                return b.Uri;
+            }
+            return null;
+        }
+    }
 
     IResponseConfig? IDomainConfig.Response => null; // or null
 }

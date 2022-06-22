@@ -16,8 +16,7 @@ sealed class DomainResolver : IDomainResolver
 
     public IAsyncEnumerable<IPAddress> ResolveAsync(DnsEndPoint endPoint, CancellationToken cancellationToken = default)
     {
-        var hostNameOrAddress = endPoint.ToString();
-        return reverseProxyConfig.Service.DnsAnalysis.AnalysisDomainIpAsync(hostNameOrAddress, cancellationToken);
+        return reverseProxyConfig.Service.DnsAnalysis.AnalysisDomainIpAsync(endPoint.Host, cancellationToken);
     }
 
     public Task TestSpeedAsync(CancellationToken cancellationToken = default)

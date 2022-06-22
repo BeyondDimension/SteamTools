@@ -2,9 +2,12 @@
 
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Application.Internals.Certs;
 using System.Application.Internals.HttpServer;
+using System.Application.Middleware;
 using System.Application.Models;
 using System.Application.Services;
 
@@ -100,6 +103,8 @@ public static class KestrelServerOptionsExtensions
     /// <param name="options"></param>
     public static void ListenHttpsReverseProxy(this KestrelServerOptions options)
     {
+        var certService = options.ApplicationServices.GetRequiredService<CertService>();
+
         var reverseProxyConfig = options.ApplicationServices.GetRequiredService<IReverseProxyConfig>();
 
         var httpsPort = IReverseProxyConfig.HttpsPort;
@@ -108,7 +113,7 @@ public static class KestrelServerOptionsExtensions
             listen.UseFlowAnalyze();
             listen.UseHttps(https =>
             {
-                https.ServerCertificateSelector = (connectionContext, name) => reverseProxyConfig.Service.RootCertificate;
+                https.ServerCertificateSelector = (connectionContext, name) => certService.GetOrCreateServerCert(name);
             });
         });
 

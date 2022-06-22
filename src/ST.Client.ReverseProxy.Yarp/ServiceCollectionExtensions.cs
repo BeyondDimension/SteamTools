@@ -6,6 +6,7 @@ using System.Application.Models;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Application.Internals.Certs;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -74,7 +75,7 @@ public static partial class ServiceCollectionExtensions
         return services
             .AddMemoryCache()
             .AddHttpForwarder()
-            //.AddSingleton<CertService>()
+            .AddSingleton<CertService>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfMacOS>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfWindows>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfLinuxRedHat>()

@@ -52,7 +52,7 @@ sealed class HttpReverseProxyMiddleware
             var scheme = context.Request.Scheme;
             var destinationPrefix = GetDestinationPrefix(scheme, host, domainConfig.Destination);
             var httpClient = httpClientFactory.CreateHttpClient(host.Host, domainConfig);
-            var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient);
+            var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, ForwarderRequestConfig.Empty, HttpTransformer.Empty);
             await HandleErrorAsync(context, error);
         }
         else

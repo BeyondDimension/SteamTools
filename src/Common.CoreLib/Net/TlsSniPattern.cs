@@ -1,6 +1,7 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/TlsSniPattern.cs
 
 // ReSharper disable once CheckNamespace
+
 namespace System.Net;
 
 /// <summary>
@@ -16,7 +17,7 @@ public struct TlsSniPattern
     /// <summary>
     /// 获取表示式值
     /// </summary>
-    public string? Value { get; }
+    public string Value { get; }
 
     public const string DomainValue = "@domain";
     public const string IPAddressValue = "@ipaddress";
@@ -46,7 +47,7 @@ public struct TlsSniPattern
     /// SNI 自定义值表达式
     /// </summary>
     /// <param name="value">表示式值</param>
-    public TlsSniPattern(string? value) => Value = value;
+    public TlsSniPattern(string value) => Value = value ?? string.Empty;
 
     /// <summary>
     /// 更新域名

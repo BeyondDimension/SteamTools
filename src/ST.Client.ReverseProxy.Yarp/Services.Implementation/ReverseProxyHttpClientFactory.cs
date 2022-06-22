@@ -35,11 +35,11 @@ sealed class ReverseProxyHttpClientFactory : IReverseProxyHttpClientFactory
         this.domainResolver = domainResolver;
     }
 
-    public HttpClient CreateHttpClient(string domain, IDomainConfig domainConfig)
+    public ReverseProxyHttpClient CreateHttpClient(string domain, IDomainConfig domainConfig)
     {
         var lifeTimeKey = new LifeTimeKey(domain, domainConfig);
         var lifetimeHttpHandler = httpHandlerLazyCache.GetOrAdd(lifeTimeKey, CreateFirstLifetimeHttpHandlerLazy).Value;
-        return new HttpClient(lifetimeHttpHandler, disposeHandler: false);
+        return new ReverseProxyHttpClient(lifetimeHttpHandler, disposeHandler: false);
 
         Lazy<LifetimeHttpHandler> CreateFirstLifetimeHttpHandlerLazy(LifeTimeKey lifeTimeKey)
             => new(() => CreateLifetimeHttpHandler(lifeTimeKey, firstLiftTime), true);
