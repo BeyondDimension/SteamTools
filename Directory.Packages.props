@@ -128,11 +128,11 @@
 
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
-    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.63" />
-    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.63" />
+    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.71" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.71" />
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/SkiaSharp.props -->
-    <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.63" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.63" />
+    <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.71" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.71" />
 
     <!-- AutoMapper -->
     <PackageVersion Include="AutoMapper" Version="10.1.1" />
