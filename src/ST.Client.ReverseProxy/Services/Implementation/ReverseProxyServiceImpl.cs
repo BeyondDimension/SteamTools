@@ -4,7 +4,11 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+#if REVERSE_PROXY_TITANIUM
 using Titanium.Web.Proxy.Network;
+#elif REVERSE_PROXY_YARP
+using CertificateManager = System.Application.Services.ICertificateManager;
+#endif
 using static System.Application.Services.IReverseProxyService;
 
 namespace System.Application.Services.Implementation;
@@ -27,8 +31,10 @@ abstract class ReverseProxyServiceImpl
 
     protected virtual void InitCertificateManager()
     {
+#if REVERSE_PROXY_TITANIUM
         // 可选地设置证书引擎
         CertificateManager.CertificateEngine = (CertificateEngine)CertificateEngine;
+#endif
         //CertificateManager.PfxPassword = $"{CertificateName}";
         CertificateManager.PfxFilePath = ((IReverseProxyService)this).PfxFilePath;
         CertificateManager.RootCertificateIssuerName = RootCertificateIssuerName;

@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy.Yarp</AssemblyName>
+    <DefineConstants>REVERSE_PROXY_YARP;$(DefineConstants)</DefineConstants>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -21,7 +22,7 @@
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
     <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" LinkBase="Services.Implementation" />
-    <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\ICertificateCache.cs">
+    <!--<Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\ICertificateCache.cs">
       <LinkBase>Titanium.Web.Proxy\Certificates\Cache</LinkBase>
     </Compile>
     <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\DefaultCertificateDiskCache.cs">
@@ -71,7 +72,7 @@
     </Compile>
     <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Extensions\HttpHeaderExtensions.cs">
       <LinkBase>Titanium.Web.Proxy\Extensions</LinkBase>
-    </Compile>
+    </Compile>-->
   </ItemGroup>
 
   <ItemGroup>

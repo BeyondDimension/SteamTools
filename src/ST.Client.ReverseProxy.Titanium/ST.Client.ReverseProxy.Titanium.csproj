@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
     <RootNamespace>System.Application.Services.Implementation</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy.Titanium</AssemblyName>
+    <DefineConstants>REVERSE_PROXY_TITANIUM;$(DefineConstants)</DefineConstants>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
