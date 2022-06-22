@@ -75,6 +75,5 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     protected override void DisposeCore()
     {
         StopProxy();
-        CertificateManager.Dispose();
     }
 }

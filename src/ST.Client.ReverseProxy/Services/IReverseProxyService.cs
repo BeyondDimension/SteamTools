@@ -16,7 +16,6 @@ public interface IReverseProxyService : IDisposable
     const string CertificateName = "SteamTools";
 
     const string RootCertificateName = $"{CertificateName} Certificate";
-    const string RootCertificateIssuerName = $"{CertificateName} Certificate Authority";
     const string LocalDomain = "local.steampp.net";
     const string TAG = "ReverseProxyS";
 

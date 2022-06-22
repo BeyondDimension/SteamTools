@@ -18,7 +18,7 @@ sealed class CertService
     readonly ILogger<CertService> logger;
     readonly IReverseProxyConfig reverseProxyConfig;
 
-    const int KEY_SIZE_BITS = 2048;
+    public const int KEY_SIZE_BITS = 2048;
 
     IReverseProxyService ReverseProxyService => reverseProxyConfig.Service;
 
@@ -40,32 +40,6 @@ sealed class CertService
         this.serverCertCache = serverCertCache;
         this.logger = logger;
         this.reverseProxyConfig = reverseProxyConfig;
-    }
-
-    /// <summary>
-    /// 生成 CA 证书
-    /// </summary> 
-    [Obsolete("move to YarpReverseProxyServiceImpl.ICertificateManager.CreateRootCertificate", true)]
-    public bool CreateCaCertIfNotExists()
-    {
-        if (File.Exists(CaCerFilePath))
-        {
-            return false;
-        }
-
-        File.Delete(CaCerFilePath);
-
-        var validFrom = DateTime.Today.AddDays(-1);
-        var validTo = DateTime.Today.AddYears(10);
-
-        int value = reverseProxyConfig.Service.CertificateManager.CertificateValidDays;
-        var rootCertificateIssuerName = IReverseProxyService.RootCertificateIssuerName;
-        var rootCertificateName = IReverseProxyService.RootCertificateName;
-
-        throw new NotImplementedException("");
-
-        CertGenerator.GenerateBySelf(new[] { IReverseProxyService.CertificateName, }, KEY_SIZE_BITS, validFrom, validTo, CaCerFilePath, null);
-        return true;
     }
 
     /// <summary>

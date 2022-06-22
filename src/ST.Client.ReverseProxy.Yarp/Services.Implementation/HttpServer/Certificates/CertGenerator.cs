@@ -7,6 +7,7 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Operators;
 using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Pkcs;
@@ -54,6 +55,30 @@ static class CertGenerator
         var pubPemWriter = new PemWriter(pubWriter);
         pubPemWriter.WriteObject(cert);
         pubPemWriter.Writer.Flush();
+    }
+
+    /// <summary>
+    /// 生成自签名证书
+    /// </summary>
+    /// <param name="domains"></param>
+    /// <param name="keySizeBits"></param>
+    /// <param name="validFrom"></param>
+    /// <param name="validTo"></param>
+    /// <param name="password"></param>
+    public static X509Certificate2 GenerateBySelfPfx(IEnumerable<string> domains, int keySizeBits, DateTime validFrom, DateTime validTo, string? caPfxPath, string? password = default)
+    {
+        var keys = GenerateRsaKeyPair(keySizeBits);
+        var cert = GenerateCertificate(domains, keys.Public, validFrom, validTo, domains.First(), null, keys.Private, 1);
+
+        var x509Certificate = WithPrivateKey(cert, keys.Private);
+
+        if (!string.IsNullOrEmpty(caPfxPath))
+        {
+            byte[] exported = x509Certificate.Export(X509ContentType.Pkcs12, password);
+            File.WriteAllBytes(caPfxPath, exported);
+        }
+
+        return x509Certificate;
     }
 
     /// <summary>
@@ -216,6 +241,32 @@ static class CertGenerator
         using var pfxStream = new MemoryStream();
         pkcs12Store.Save(pfxStream, password?.ToCharArray(), secureRandom);
         return new X509Certificate2(pfxStream.ToArray());
+    }
+
+    static X509Certificate2 WithPrivateKey(X509Certificate certificate, AsymmetricKeyParameter privateKey)
+    {
+        const string password = "password";
+        Pkcs12Store store;
+
+        if (OperatingSystem2.IsRunningOnMono())
+        {
+            var builder = new Pkcs12StoreBuilder();
+            builder.SetUseDerEncoding(true);
+            store = builder.Build();
+        }
+        else
+        {
+            store = new Pkcs12Store();
+        }
+
+        var entry = new X509CertificateEntry(certificate);
+        store.SetCertificateEntry(certificate.SubjectDN.ToString(), entry);
+
+        store.SetKeyEntry(certificate.SubjectDN.ToString(), new AsymmetricKeyEntry(privateKey), new[] { entry });
+        using var ms = new MemoryStream();
+        store.Save(ms, password.ToCharArray(), new SecureRandom(new CryptoApiRandomGenerator()));
+
+        return new X509Certificate2(ms.ToArray(), password, X509KeyStorageFlags.Exportable);
     }
 
     /// <summary>

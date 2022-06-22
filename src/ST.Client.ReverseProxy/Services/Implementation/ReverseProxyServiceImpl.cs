@@ -36,7 +36,6 @@ abstract class ReverseProxyServiceImpl
         CertificateManager.CertificateEngine = (CertificateEngine)CertificateEngine;
         //CertificateManager.PfxPassword = $"{CertificateName}";
         CertificateManager.PfxFilePath = ((IReverseProxyService)this).PfxFilePath;
-        CertificateManager.RootCertificateIssuerName = RootCertificateIssuerName;
         CertificateManager.RootCertificateName = RootCertificateName;
 #endif
         //mac和ios的证书信任时间不能超过300天

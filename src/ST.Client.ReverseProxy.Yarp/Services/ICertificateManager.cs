@@ -6,6 +6,10 @@ public interface ICertificateManager
 {
     int CertificateValidDays { get; set; }
 
+    string PfxFilePath { get; set; }
+
+    string? PfxPassword { get; set; }
+
     X509Certificate2? RootCertificate { get; set; }
 
     X509Certificate2? LoadRootCertificate();
