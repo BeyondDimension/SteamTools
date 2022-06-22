@@ -127,7 +127,8 @@ namespace System.Application.UI.ViewModels
 
         public void TrustCer_OnClick()
         {
-            reverseProxyService.CertificateManager.TrustRootCertificate();
+            reverseProxyService.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists();
+            reverseProxyService.CertificateManager.PlatformTrustRootCertificateGuide();
         }
 
         public override void Activation()

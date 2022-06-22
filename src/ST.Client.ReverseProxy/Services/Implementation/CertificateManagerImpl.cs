@@ -86,13 +86,29 @@ abstract partial class CertificateManagerImpl
         }
     }
 
-    /// <inheritdoc cref="ICertificateManager.TrustRootCertificate"/>
-    public void TrustRootCertificate()
+    void TrustRootCertificate()
     {
         try
         {
             SharedTrustRootCertificate();
+        }
+#if DEBUG
+        catch (Exception e)
+        {
+            e.LogAndShowT(TAG, msg: "TrustRootCertificate Error");
+        }
+#else
+        catch { }
+#endif
 
+        PlatformTrustRootCertificateGuide();
+    }
+
+    /// <inheritdoc cref="ICertificateManager.PlatformTrustRootCertificateGuide"/>
+    public void PlatformTrustRootCertificateGuide()
+    {
+        try
+        {
             if (OperatingSystem2.IsMacOS())
             {
                 TrustRootCertificateMacOS();
@@ -105,7 +121,7 @@ abstract partial class CertificateManagerImpl
 #if DEBUG
         catch (Exception e)
         {
-            e.LogAndShowT(TAG, msg: "TrustRootCertificate Error");
+            e.LogAndShowT(TAG, msg: "PlatformTrustRootCertificateGuide Error");
         }
 #else
         catch { }

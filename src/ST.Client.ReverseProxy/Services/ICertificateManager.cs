@@ -76,9 +76,9 @@ public interface ICertificateManager
     string? GetCerFilePathGeneratedWhenNoFileExists();
 
     /// <summary>
-    /// 信任根证书
+    /// 由平台实现的信任根证书引导，有 Root 权限将尝试执行信任，否则则 UI 引导，跳转网页或弹窗
     /// </summary>
-    void TrustRootCertificate();
+    void PlatformTrustRootCertificateGuide();
 
     /// <summary>
     /// 安装根证书，如果没有证书将生成一个新的
