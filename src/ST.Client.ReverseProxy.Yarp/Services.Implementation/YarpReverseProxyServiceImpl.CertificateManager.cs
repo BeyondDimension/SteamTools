@@ -12,7 +12,7 @@ partial class YarpReverseProxyServiceImpl : ICertificateManager
 
     X509Certificate2? ICertificateManager.RootCertificate { get; set; }
 
-    public string PfxFilePath { get; set; } = string.Empty;
+    public string PfxFilePath { get; set; } = IReverseProxyService.DefaultPfxFilePath;
 
     public string? PfxPassword { get; set; }
 

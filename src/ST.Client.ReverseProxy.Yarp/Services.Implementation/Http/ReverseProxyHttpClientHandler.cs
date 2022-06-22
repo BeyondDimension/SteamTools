@@ -170,9 +170,9 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
                 yield return new IPEndPoint(domainConfig.IPAddress, dnsEndPoint.Port);
             }
 
-            if (domainConfig.DomainName != null)
+            if (domainConfig.ForwardDomainName != null)
             {
-                await foreach (var item in domainResolver.ResolveAsync(new DnsEndPoint(domainConfig.DomainName, dnsEndPoint.Port), cancellationToken))
+                await foreach (var item in domainResolver.ResolveAsync(new DnsEndPoint(domainConfig.ForwardDomainName, dnsEndPoint.Port), cancellationToken))
                 {
                     yield return new IPEndPoint(item, dnsEndPoint.Port);
                 }

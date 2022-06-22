@@ -18,7 +18,7 @@ public sealed class DomainPattern : IComparable<DomainPattern>
     {
         this.domainPattern = domainPattern;
         var regexPattern = Regex.Escape(domainPattern).Replace(@"\*", @"[^\.]*");
-        regex = new Regex($"^{regexPattern}$", RegexOptions.IgnoreCase);
+        regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
     }
 
     /// <summary>
