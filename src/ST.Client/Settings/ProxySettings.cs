@@ -3,8 +3,8 @@ using System.Application.Columns;
 using System.Application.Services;
 using System.Application.UI.Resx;
 using System.Collections.Generic;
-using IPAddress = System.Net.IPAddress;
 using EProxyMode = System.Application.ProxyMode;
+using IPAddress = System.Net.IPAddress;
 
 namespace System.Application.Settings
 {
@@ -67,7 +67,7 @@ namespace System.Application.Settings
             = GetProperty<string?>(defaultValue: "223.5.5.5", autoSave: false);
 
         /// <summary>
-        /// 启用Http链接转发到Https
+        /// 启用 Http 链接转发到 Https
         /// </summary>
         public static SerializableProperty<bool> EnableHttpProxyToHttps { get; }
             = GetProperty(defaultValue: true, autoSave: true);
@@ -100,7 +100,7 @@ namespace System.Application.Settings
             = GetProperty(defaultValue: false, autoSave: false);
 
         /// <summary>
-        /// TwoLevelAgent Enable
+        /// TwoLevelAgent ProxyType
         /// </summary>
         public static SerializableProperty<short> TwoLevelAgentProxyType { get; }
             = GetProperty(defaultValue: DefaultTwoLevelAgentProxyType, autoSave: false);

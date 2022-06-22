@@ -29,10 +29,7 @@ namespace System.Application.Services
         async void RunShell(string script, bool admin = false) => await RunShellAsync(script, admin);
 
         /// <inheritdoc cref="RunShell(string, bool)"/>
-        ValueTask RunShellAsync(string script, bool admin = false)
-        {
-            return new();
-        }
+        ValueTask RunShellAsync(string script, bool admin = false) => default;
 
         /// <summary>
         /// 使用文本阅读器打开文件

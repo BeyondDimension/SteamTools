@@ -1,14 +1,7 @@
 using System.Application.Models;
-using System.Application.UI.Resx;
 using System.Net;
 using System.Net.Sockets;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-#if REVERSE_PROXY_TITANIUM
-using Titanium.Web.Proxy.Network;
-#elif REVERSE_PROXY_YARP
-using CertificateManager = System.Application.Services.ICertificateManager;
-#endif
 using static System.Application.Services.IReverseProxyService;
 
 namespace System.Application.Services.Implementation;
@@ -27,59 +20,61 @@ abstract class ReverseProxyServiceImpl
 
     public IDnsAnalysisService DnsAnalysis { get; }
 
-    public abstract CertificateManager CertificateManager { get; }
+    public abstract ICertificateManager CertificateManager { get; }
 
-    protected virtual void InitCertificateManager()
-    {
-#if REVERSE_PROXY_TITANIUM
-        // 可选地设置证书引擎
-        CertificateManager.CertificateEngine = (CertificateEngine)CertificateEngine;
-        //CertificateManager.PfxPassword = $"{CertificateName}";
-        CertificateManager.PfxFilePath = ((IReverseProxyService)this).PfxFilePath;
-        CertificateManager.RootCertificateName = RootCertificateName;
-#endif
-        //mac和ios的证书信任时间不能超过300天
-        CertificateManager.CertificateValidDays = 300;
-        //CertificateManager.SaveFakeCertificates = true;
-
-        CertificateManager.RootCertificate = CertificateManager.LoadRootCertificate();
-    }
-
+    /// <summary>
+    /// 获取或设置当前根证书
+    /// </summary>
     public X509Certificate2? RootCertificate
     {
         get => CertificateManager.RootCertificate;
         set => CertificateManager.RootCertificate = value;
     }
 
+    /// <inheritdoc cref="IReverseProxyService.ProxyRunning"/>
     public abstract bool ProxyRunning { get; }
 
-    public bool IsCertificate => RootCertificate == null;
-
+    /// <inheritdoc cref="IReverseProxyService.ProxyDomains"/>
     public IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
+    /// <inheritdoc cref="IReverseProxyService.Scripts"/>
     public IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
 
+    /// <inheritdoc cref="IReverseProxyService.IsEnableScript"/>
     public bool IsEnableScript { get; set; }
 
+    /// <inheritdoc cref="IReverseProxyService.IsOnlyWorkSteamBrowser"/>
     public bool IsOnlyWorkSteamBrowser { get; set; }
 
-    public ECertificateEngine CertificateEngine { get; set; } = ECertificateEngine.BouncyCastle;
-
+    /// <inheritdoc cref="IReverseProxyService.ProxyPort"/>
     public int ProxyPort { get; set; } = 26501;
 
+    /// <inheritdoc cref="IReverseProxyService.ProxyIp"/>
     public IPAddress ProxyIp { get; set; } = IPAddress.Any;
 
+    /// <inheritdoc cref="IReverseProxyService.IsSystemProxy"/>
     public bool IsSystemProxy { get; set; }
 
+    /// <inheritdoc cref="IReverseProxyService.IsProxyGOG"/>
     public bool IsProxyGOG { get; set; }
 
+    /// <inheritdoc cref="IReverseProxyService.OnlyEnableProxyScript"/>
     public bool OnlyEnableProxyScript { get; set; }
 
-    public bool Socks5ProxyEnable { get; set; }
-
+    /// <inheritdoc cref="IReverseProxyService.EnableHttpProxyToHttps"/>
     public bool EnableHttpProxyToHttps { get; set; }
 
+    #region Socks5
+
+    /// <inheritdoc cref="IReverseProxyService.Socks5ProxyEnable"/>
+    public bool Socks5ProxyEnable { get; set; }
+
+    /// <inheritdoc cref="IReverseProxyService.Socks5ProxyPortId"/>
     public int Socks5ProxyPortId { get; set; }
+
+    #endregion
+
+    #region TwoLevelAgent(二级代理)
 
     public bool TwoLevelAgentEnable { get; set; }
 
@@ -93,14 +88,29 @@ abstract class ReverseProxyServiceImpl
 
     public string? TwoLevelAgentPassword { get; set; }
 
+    #endregion
+
     public IPAddress? ProxyDNS { get; set; }
 
-    public int GetRandomUnusedPort() => SocketHelper.GetRandomUnusedPort(ProxyIp);
+    /// <summary>
+    /// 获取一个随机的未使用的端口
+    /// </summary>
+    /// <returns></returns>
+    protected int GetRandomUnusedPort() => SocketHelper.GetRandomUnusedPort(ProxyIp);
 
+    /// <inheritdoc cref="IReverseProxyService.PortInUse(int)"/>
     public bool PortInUse(int port) => SocketHelper.IsUsePort(ProxyIp, port);
 
-    static bool WirtePemCertificateToGoGSteamPlugins(Func<string> getPemCertificateString)
+    /// <inheritdoc cref="IReverseProxyService.WirtePemCertificateToGoGSteamPlugins"/>
+    public bool WirtePemCertificateToGoGSteamPlugins()
     {
+        /* https://www.gog.com/galaxy
+         * GOG GALAXY 2.0 公测需要Windows 8或更新版本。
+         * 也同时支持Mac OS X。
+         * OSX 也是这个路径？？？？
+         * https://snapcraft.io/gog-galaxy-wine
+         * 作废
+         */
         var local = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         var gogPlugins = Path.Combine(local, "GOG.com", "Galaxy", "plugins", "installed");
         if (Directory.Exists(gogPlugins))
@@ -109,7 +119,7 @@ abstract class ReverseProxyServiceImpl
             {
                 if (dir.Contains("steam"))
                 {
-                    var pem = getPemCertificateString();
+                    var pem = RootCertificate!.GetPublicPemCertificateString();
                     var certifi = Path.Combine(local, dir, "certifi", "cacert.pem");
                     if (File.Exists(certifi))
                     {
@@ -132,222 +142,33 @@ abstract class ReverseProxyServiceImpl
         return false;
     }
 
-    public bool WirtePemCertificateToGoGSteamPlugins()
-        => WirtePemCertificateToGoGSteamPlugins(() =>
-            RootCertificate!.GetPublicPemCertificateString());
-
+    /// <summary>
+    /// 自定义异常纪录处理
+    /// </summary>
+    /// <param name="exception"></param>
     protected virtual void OnException(Exception exception)
     {
         Log.Error(TAG, exception, "ProxyServer ExceptionFunc");
     }
 
-    static readonly object lockGenerateCertificate = new();
-
-    public string? GetCerFilePathGeneratedWhenNoFileExists()
-    {
-        var filePath = ((IReverseProxyService)this).CerFilePath;
-        lock (lockGenerateCertificate)
-        {
-            if (!File.Exists(filePath))
-            {
-                if (!GenerateCertificateUnlock(filePath)) return null;
-            }
-            return filePath;
-        }
-    }
-
-    protected bool GenerateCertificateUnlock(string filePath)
-    {
-        var result = CertificateManager.CreateRootCertificate(true);
-        if (!result || RootCertificate == null)
-        {
-            Log.Error(TAG, AppResources.CreateCertificateFaild);
-            Toast.Show(AppResources.CreateCertificateFaild);
-            return false;
-        }
-
-        RootCertificate.SaveCerCertificateFile(filePath);
-
-        return true;
-    }
-
-    public bool GenerateCertificate(string? filePath = null)
-    {
-        filePath ??= ((IReverseProxyService)this).CerFilePath;
-        lock (lockGenerateCertificate)
-        {
-            return GenerateCertificateUnlock(filePath);
-        }
-    }
-
-    public void TrustCer()
-    {
-        var filePath = GetCerFilePathGeneratedWhenNoFileExists();
-        if (filePath != null)
-            IPlatformService.Instance.RunShell($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
-    }
-
-    public bool SetupCertificate()
-    {
-        // 此代理使用的本地信任根证书
-        //proxyServer.CertificateManager.TrustRootCertificate(true);
-        //proxyServer.CertificateManager
-        //    .CreateServerCertificate($"{Assembly.GetCallingAssembly().GetName().Name} Certificate")
-        //    .ContinueWith(c => proxyServer.CertificateManager.RootCertificate = c.Result);
-
-        if (!GenerateCertificate()) return false;
-
-        try
-        {
-            CertificateManager.TrustRootCertificate();
-        }
-#if DEBUG
-        catch (Exception e)
-        {
-            e.LogAndShowT(TAG, msg: "TrustRootCertificate Error");
-        }
-#else
-            catch { }
-#endif
-        try
-        {
-            CertificateManager.EnsureRootCertificate();
-        }
-
-#if DEBUG
-        catch (Exception e)
-        {
-            e.LogAndShowT(TAG, msg: "EnsureRootCertificate Error");
-        }
-#else
-            catch { }
-#endif
-        if (OperatingSystem2.IsMacOS())
-        {
-            TrustCer();
-        }
-        if (OperatingSystem2.IsLinux() && !OperatingSystem2.IsAndroid())
-        {
-            //IPlatformService.Instance.AdminShell($"sudo cp -f \"{filePath}\" \"{Path.Combine(IOPath.AppDataDirectory, $@"{CertificateName}.Certificate.pem")}\"", false);
-            Browser2.Open(UrlConstants.OfficialWebsite_LiunxSetupCer);
-            return true;
-        }
-        return IsCertificateInstalled(CertificateManager.RootCertificate);
-    }
-
-    /// <summary>
-    /// 删除全部 Watt Toolkit 证书 如失败尝试 命令删除
-    /// </summary>
-    public async void DeleteCer()
-    {
-        using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-        store.Open(OpenFlags.ReadOnly);
-        X509Certificate2Collection collection = store.Certificates.Find(X509FindType.FindByIssuerName, RootCertificateName, false);
-        foreach (var item in collection)
-        {
-            if (item != null)
-            {
-                try
-                {
-                    store.Open(OpenFlags.ReadWrite);
-                    store.Remove(item);
-                }
-                catch
-                {
-                    await IPlatformService.Instance.RunShellAsync($"security delete-certificate -Z \\\"{item.GetCertHashString()}\\\"", true);
-                }
-            }
-        }
-
-    }
-
-    public bool DeleteCertificate()
-    {
-        if (ProxyRunning)
-            return false;
-        if (CertificateManager.RootCertificate == null)
-            return true;
-        try
-        {
-            //using (var store = new X509Store(StoreName.Root, StoreLocation.CurrentUser))
-            //{
-            //    store.Open(OpenFlags.MaxAllowed);
-            //    var test = store.Certificates.Find(X509FindType.FindByIssuerName, CertificateName, true);
-            //    foreach (var item in test)
-            //    {
-            //        store.Remove(item);
-            //    }
-            //}
-            //proxyServer.CertificateManager.ClearRootCertificate();
-
-            if (OperatingSystem2.IsMacOS())
-            {
-                DeleteCer();
-            }
-            else
-            {
-                CertificateManager.RemoveTrustedRootCertificate();
-            }
-            if (IsCertificateInstalled(CertificateManager.RootCertificate) == false)
-            {
-                CertificateManager.RootCertificate = null;
-                if (File.Exists(CertificateManager.PfxFilePath))
-                    File.Delete(CertificateManager.PfxFilePath);
-            }
-            //CertificateManager.RemoveTrustedRootCertificateAsAdmin();
-            //CertificateManager.CertificateStorage.Clear();
-        }
-        catch (CryptographicException)
-        {
-            //取消删除证书
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-        return true;
-    }
-
-    public bool IsCurrentCertificateInstalled
-    {
-        get
-        {
-            if (CertificateManager.RootCertificate == null)
-                if (GetCerFilePathGeneratedWhenNoFileExists() == null) return false;
-            return IsCertificateInstalled(CertificateManager.RootCertificate, usePlatformCheck: true);
-        }
-    }
-
-    public bool IsCertificateInstalled(X509Certificate2? certificate2) => IsCertificateInstalled(certificate2, false);
-
-    public bool IsCertificateInstalled(X509Certificate2? certificate2, bool usePlatformCheck)
-    {
-        if (certificate2 == null)
-            return false;
-        if (certificate2.NotAfter <= DateTime.Now)
-            return false;
-
-        if (!OperatingSystem2.IsAndroid() && OperatingSystem2.IsLinux())
-        {
-            return true;
-        }
-
-        bool result;
-        //|| OperatingSystem2.IsMacOS() 
-        if ((usePlatformCheck && OperatingSystem2.IsAndroid()) || OperatingSystem2.IsMacOS())
-        {
-            result = platformService.IsCertificateInstalled(certificate2);
-        }
-        else
-        {
-            using var store = new X509Store(OperatingSystem2.IsMacOS() ? StoreName.My : StoreName.Root, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.ReadOnly);
-            result = store.Certificates.Contains(certificate2);
-        }
-        return result;
-    }
-
     public abstract EReverseProxyEngine ReverseProxyEngine { get; }
+
+    public async Task<bool> StartProxy()
+    {
+        if (!CertificateManager.IsRootCertificateInstalled)
+        {
+            CertificateManager.DeleteRootCertificate();
+            var isOk = CertificateManager.SetupRootCertificate();
+            if (!isOk)
+            {
+                return false;
+            }
+        }
+
+        return await StartProxyImpl();
+    }
+
+    protected abstract Task<bool> StartProxyImpl();
 
     #region IDisposable
 

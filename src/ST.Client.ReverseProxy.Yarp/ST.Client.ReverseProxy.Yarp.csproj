@@ -22,6 +22,7 @@
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
     <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" LinkBase="Services.Implementation" />
+    <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\CertificateManagerImpl.cs" LinkBase="Services.Implementation" />
     <!--<Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\ICertificateCache.cs">
       <LinkBase>Titanium.Web.Proxy\Certificates\Cache</LinkBase>
     </Compile>

@@ -69,8 +69,8 @@ namespace System.Application.UI.ViewModels
                 TrustCerCommand = ReactiveCommand.Create(TrustCer_OnClick);
                 OpenCertificateDirCommand = ReactiveCommand.Create(() =>
                 {
-                    reverseProxyService.GetCerFilePathGeneratedWhenNoFileExists();
-                    platformService.OpenFolder(reverseProxyService.PfxFilePath);
+                    reverseProxyService.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists();
+                    platformService.OpenFolder(reverseProxyService.CertificateManager.PfxFilePath);
                 });
                 RefreshCommand = ReactiveCommand.Create(RefreshButton_Click);
             }
@@ -127,7 +127,7 @@ namespace System.Application.UI.ViewModels
 
         public void TrustCer_OnClick()
         {
-            reverseProxyService.TrustCer();
+            reverseProxyService.CertificateManager.TrustRootCertificate();
         }
 
         public override void Activation()
@@ -163,12 +163,12 @@ namespace System.Application.UI.ViewModels
 
         public void SetupCertificate_OnClick()
         {
-            reverseProxyService.SetupCertificate();
+            reverseProxyService.CertificateManager.SetupRootCertificate();
         }
 
         public void DeleteCertificate_OnClick()
         {
-            reverseProxyService.DeleteCertificate();
+            reverseProxyService.CertificateManager.DeleteRootCertificate();
         }
 
         static string FormatHexString(string? hexString)
@@ -216,6 +216,6 @@ namespace System.Application.UI.ViewModels
             return noHeader ? value : $"Subject：{Environment.NewLine}{value}";
         }
 
-        public X509Certificate2? RootCertificate => reverseProxyService.RootCertificate;
+        public X509Certificate2? RootCertificate => reverseProxyService.CertificateManager.RootCertificate;
     }
 }

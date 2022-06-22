@@ -25,12 +25,12 @@ sealed class CertService
     /// <summary>
     /// 获取 CER 证书文件路径
     /// </summary>
-    public string CaCerFilePath => ReverseProxyService.CerFilePath;
+    public string CaCerFilePath => ReverseProxyService.CertificateManager.CerFilePath;
 
     /// <summary>
     /// 获取 PFX 证书文件路径
     /// </summary>
-    public string CaPfxFilePath => ReverseProxyService.PfxFilePath;
+    public string CaPfxFilePath => ReverseProxyService.CertificateManager.PfxFilePath;
 
     public CertService(
         IMemoryCache serverCertCache,

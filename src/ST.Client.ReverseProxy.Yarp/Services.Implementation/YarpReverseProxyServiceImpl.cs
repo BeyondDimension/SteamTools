@@ -14,12 +14,14 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         IPlatformService platformService,
         IDnsAnalysisService dnsAnalysis) : base(platformService, dnsAnalysis)
     {
-        InitCertificateManager();
+        CertificateManager = new YarpCertificateManagerImpl(platformService, this);
     }
+
+    public override ICertificateManager CertificateManager { get; }
 
     public override bool ProxyRunning => app != null;
 
-    public Task<bool> StartProxy() => Task.FromResult(StartProxyCore());
+    protected override Task<bool> StartProxyImpl() => Task.FromResult(StartProxyCore());
 
     bool StartProxyCore()
     {

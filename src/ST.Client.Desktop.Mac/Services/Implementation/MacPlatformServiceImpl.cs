@@ -13,7 +13,6 @@ using System.Application.UI.ViewModels;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -56,11 +55,10 @@ namespace System.Application.Services.Implementation
 
         internal static bool IsCertificateInstalled(X509Certificate2 certificate2)
         {
-
 #if MONO_MAC
             using var p = new Process();
             p.StartInfo.FileName = "security";
-            p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Instance.GetCerFilePathGeneratedWhenNoFileExists()}\"";
+            p.StartInfo.Arguments = $" verify-cert -c \"{IReverseProxyService.Instance.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists()}\"";
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
             p.Start();

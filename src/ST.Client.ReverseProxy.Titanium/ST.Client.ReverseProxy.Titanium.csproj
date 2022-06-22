@@ -22,6 +22,7 @@
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
     <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" />
+    <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\CertificateManagerImpl.cs" />
   </ItemGroup>
 
   <ItemGroup>
