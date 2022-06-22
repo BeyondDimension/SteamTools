@@ -34,11 +34,11 @@ abstract class ReverseProxyServiceImpl
 #if REVERSE_PROXY_TITANIUM
         // 可选地设置证书引擎
         CertificateManager.CertificateEngine = (CertificateEngine)CertificateEngine;
-#endif
         //CertificateManager.PfxPassword = $"{CertificateName}";
         CertificateManager.PfxFilePath = ((IReverseProxyService)this).PfxFilePath;
         CertificateManager.RootCertificateIssuerName = RootCertificateIssuerName;
         CertificateManager.RootCertificateName = RootCertificateName;
+#endif
         //mac和ios的证书信任时间不能超过300天
         CertificateManager.CertificateValidDays = 300;
         //CertificateManager.SaveFakeCertificates = true;

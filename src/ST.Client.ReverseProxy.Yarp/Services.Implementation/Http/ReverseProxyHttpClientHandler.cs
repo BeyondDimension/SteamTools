@@ -1,6 +1,5 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/HttpClientHandler.cs
 
-using System.Application.Services;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Net;
@@ -9,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Application.Models;
 using System.Collections;
 
-namespace System.Application.Internals.Http;
+namespace System.Application.Services.Implementation.Http;
 
 sealed class ReverseProxyHttpClientHandler : DelegatingHandler
 {

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Application.Internals.Certs;
-using System.Application.Internals.HttpServer;
-using System.Application.Middleware;
+using System.Application.Services.Implementation.HttpServer.Certificates;
+using System.Application.Services.Implementation.HttpServer;
+using System.Application.Services.Implementation.HttpServer.Middleware;
 using System.Application.Models;
 using System.Application.Services;
 

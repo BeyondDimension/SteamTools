@@ -1,7 +1,7 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/ApplicationBuilderExtensions.cs
 
 using Microsoft.Extensions.DependencyInjection;
-using System.Application.Middleware;
+using System.Application.Services.Implementation.HttpServer.Middleware;
 using System.Application.Services;
 
 namespace Microsoft.AspNetCore.Builder;

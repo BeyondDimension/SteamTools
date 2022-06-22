@@ -3,12 +3,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Application.Models;
-using System.Application.Services;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Yarp.ReverseProxy.Forwarder;
 
-namespace System.Application.Middleware;
+namespace System.Application.Services.Implementation.HttpServer.Middleware;
 
 /// <summary>
 /// 反向代理中间件

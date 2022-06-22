@@ -2,7 +2,7 @@
 
 using System.Net;
 
-namespace System.Application.Internals.Http;
+namespace System.Application.Services.Implementation.Http;
 
 /// <summary>
 /// 请求上下文

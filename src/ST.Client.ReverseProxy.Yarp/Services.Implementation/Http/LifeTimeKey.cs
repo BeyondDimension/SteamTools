@@ -2,7 +2,7 @@
 
 using System.Application.Models;
 
-namespace System.Application.Internals.Http;
+namespace System.Application.Services.Implementation.Http;
 
 /// <summary>
 /// 生命周期的 Key

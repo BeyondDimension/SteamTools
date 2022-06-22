@@ -13,6 +13,9 @@ public static class Constants
     /// </summary>
     public const string HARDCODED_APP_NAME = "Steam++";
 
+    /// <inheritdoc cref="HARDCODED_APP_NAME"/>
+    public const string HARDCODED_APP_NAME_NEW = "WattToolkit";
+
     public const string CERTIFICATE_TAG = "#Steam++";
 
     public const string APP_LIST_FILE = "apps.json";

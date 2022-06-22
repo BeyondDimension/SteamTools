@@ -1,12 +1,11 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/TcpReverseProxyHandler.cs
 
 using Microsoft.AspNetCore.Connections;
-using System.Application.Services;
 using System.Net.Sockets;
 using System.Net;
 using System.IO.Pipelines;
 
-namespace System.Application.Internals.HttpServer;
+namespace System.Application.Services.Implementation.HttpServer;
 
 /// <summary>
 /// TCP 反射代理处理者

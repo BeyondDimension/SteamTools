@@ -1,7 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/HttpProxyMiddleware.cs
 
 using System.Application.Models;
-using System.Application.Services;
 using System.IO.Pipelines;
 using System.Net;
 using System.Net.Sockets;
@@ -14,7 +13,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Yarp.ReverseProxy.Forwarder;
 
-namespace System.Application.Middleware;
+namespace System.Application.Services.Implementation.HttpServer.Middleware;
 
 /// <summary>
 /// Http 代理中间件

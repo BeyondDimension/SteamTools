@@ -3,11 +3,10 @@
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Application.Services;
 using System.Diagnostics;
 using System.Text;
 
-namespace System.Application.Middleware;
+namespace System.Application.Services.Implementation.HttpServer.Middleware;
 
 /// <summary>
 /// 请求日志中间件

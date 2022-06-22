@@ -3,7 +3,7 @@
 using System.Collections.Concurrent;
 using System.Application.Models;
 
-namespace System.Application.Services.Implementation;
+namespace System.Application.Services.Implementation.FlowAnalyze;
 
 sealed class FlowAnalyzer : IFlowAnalyzer
 {
@@ -20,13 +20,9 @@ sealed class FlowAnalyzer : IFlowAnalyzer
     public void OnFlow(EFlowType flowType, int length)
     {
         if (flowType == EFlowType.Read)
-        {
             readQueues.OnFlow(length);
-        }
         else
-        {
             writeQueues.OnFlow(length);
-        }
     }
 
     /// <summary>
@@ -80,22 +76,14 @@ sealed class FlowAnalyzer : IFlowAnalyzer
         bool CleanInvalidRecords()
         {
             if (Interlocked.CompareExchange(ref cleaning, 1, 0) != 0)
-            {
                 return false;
-            }
 
             var ticks = Environment.TickCount64;
             while (queues.TryPeek(out var item))
-            {
                 if (ticks - item.Ticks < intervalSeconds * 1000)
-                {
                     break;
-                }
                 else
-                {
                     queues.TryDequeue(out _);
-                }
-            }
 
             Interlocked.Exchange(ref cleaning, 0);
             return true;

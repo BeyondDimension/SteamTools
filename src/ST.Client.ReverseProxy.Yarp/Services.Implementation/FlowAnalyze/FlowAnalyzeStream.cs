@@ -1,9 +1,8 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.FlowAnalyze/FlowAnalyzeStream.cs
 
-using System.Application.Services;
 using FlowType = System.Application.EFlowType;
 
-namespace System.Application.Internals.FlowAnalyze;
+namespace System.Application.Services.Implementation.FlowAnalyze;
 
 sealed class FlowAnalyzeStream : DelegatingStream
 {

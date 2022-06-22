@@ -4,12 +4,6 @@ namespace System.Application.Services;
 
 public interface ICertificateManager
 {
-    string PfxFilePath { get; set; }
-
-    string RootCertificateIssuerName { get; set; }
-
-    string RootCertificateName { get; set; }
-
     int CertificateValidDays { get; set; }
 
     X509Certificate2? RootCertificate { get; set; }

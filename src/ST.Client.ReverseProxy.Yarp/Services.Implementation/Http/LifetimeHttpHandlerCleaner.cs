@@ -3,7 +3,7 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 
-namespace System.Application.Internals.Http;
+namespace System.Application.Services.Implementation.Http;
 
 /// <summary>
 /// <see cref="LifetimeHttpHandler"/> 清理器

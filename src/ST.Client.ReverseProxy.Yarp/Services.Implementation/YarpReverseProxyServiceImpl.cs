@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using NLog.Web;
-using Titanium.Web.Proxy.Network;
 
 namespace System.Application.Services.Implementation;
 
@@ -15,15 +14,8 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         IPlatformService platformService,
         IDnsAnalysisService dnsAnalysis) : base(platformService, dnsAnalysis)
     {
-        const bool userTrustRootCertificate = true;
-        const bool machineTrustRootCertificate = false;
-        const bool trustRootCertificateAsAdmin = false;
-        CertificateManager = new(null, null, userTrustRootCertificate, machineTrustRootCertificate, trustRootCertificateAsAdmin, OnException);
-
         InitCertificateManager();
     }
-
-    public override CertificateManager CertificateManager { get; }
 
     public override bool ProxyRunning => app != null;
 

@@ -14,10 +14,12 @@ namespace System.Net;
 /// </summary>
 public struct TlsSniPattern
 {
+    readonly string? _value;
+
     /// <summary>
     /// 获取表示式值
     /// </summary>
-    public string Value { get; }
+    public string Value => _value ?? string.Empty;
 
     public const string DomainValue = "@domain";
     public const string IPAddressValue = "@ipaddress";
@@ -47,7 +49,7 @@ public struct TlsSniPattern
     /// SNI 自定义值表达式
     /// </summary>
     /// <param name="value">表示式值</param>
-    public TlsSniPattern(string value) => Value = value ?? string.Empty;
+    public TlsSniPattern(string? value) => _value = value;
 
     /// <summary>
     /// 更新域名
@@ -56,8 +58,8 @@ public struct TlsSniPattern
     /// <returns></returns>
     public TlsSniPattern WithDomain(string domain)
     {
-        if (string.IsNullOrEmpty(Value)) return None;
-        var value = Value.Replace(DomainValue, domain,
+        if (string.IsNullOrEmpty(_value)) return None;
+        var value = _value.Replace(DomainValue, domain,
             StringComparison.OrdinalIgnoreCase);
         return new TlsSniPattern(value);
     }
@@ -69,8 +71,8 @@ public struct TlsSniPattern
     /// <returns></returns>
     public TlsSniPattern WithIPAddress(IPAddress address)
     {
-        if (string.IsNullOrEmpty(Value)) return None;
-        var value = Value.Replace(IPAddressValue, address.ToString(),
+        if (string.IsNullOrEmpty(_value)) return None;
+        var value = _value.Replace(IPAddressValue, address.ToString(),
             StringComparison.OrdinalIgnoreCase);
         return new TlsSniPattern(value);
     }
@@ -81,8 +83,8 @@ public struct TlsSniPattern
     /// <returns></returns>
     public TlsSniPattern WithRandom()
     {
-        if (string.IsNullOrEmpty(Value)) return None;
-        var value = Value.Replace(RandomValue,
+        if (string.IsNullOrEmpty(_value)) return None;
+        var value = _value.Replace(RandomValue,
 #if NETCOREAPP3_0_OR_GREATER
             Environment.TickCount64.ToString(),
 #else
@@ -92,5 +94,5 @@ public struct TlsSniPattern
         return new TlsSniPattern(value);
     }
 
-    public override string ToString() => Value ?? string.Empty;
+    public override string ToString() => Value;
 }

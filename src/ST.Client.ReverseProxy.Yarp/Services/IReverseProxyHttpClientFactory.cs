@@ -1,6 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Http/IHttpClientFactory.cs
 
-using System.Application.Internals.Http;
+using System.Application.Services.Implementation.Http;
 using System.Application.Models;
 
 namespace System.Application.Services;

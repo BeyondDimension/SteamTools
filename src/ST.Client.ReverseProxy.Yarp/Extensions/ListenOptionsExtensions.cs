@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using System.Application.Internals.FlowAnalyze;
+using System.Application.Services.Implementation.FlowAnalyze;
 using System.Application.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
