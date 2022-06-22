@@ -119,6 +119,7 @@ namespace System.Application.UI.ViewModels
             if (OperatingSystem2.IsWindows())
                 AddTabItem<GameRelatedPageViewModel>();
 #endif
+            AddTabItem<AccountPageViewModel>();
             //AddTabItem<OtherPlatformPageViewModel>();
 
             //#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
