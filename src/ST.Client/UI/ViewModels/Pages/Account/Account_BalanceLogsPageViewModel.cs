@@ -11,11 +11,11 @@ using System.Reactive;
 namespace System.Application.UI.ViewModels
 {
     public partial class Account_BalanceLogsPageViewModel
-    { 
+    {
         public Account_BalanceLogsPageViewModel()
         {
-          
-        }  
+
+        }
 
     }
 }
