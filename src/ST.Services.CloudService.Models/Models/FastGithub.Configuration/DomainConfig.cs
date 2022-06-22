@@ -36,7 +36,7 @@ public sealed class DomainConfig : IDomainConfig
     public ResponseConfig? Response { get; init; }
 
     [MPKey(7)]
-    public string? ForwardDomainName { get; init; }
+    public string? ForwardDestination { get; init; }
 
     IResponseConfig? IDomainConfig.Response => Response;
 }
@@ -70,7 +70,7 @@ public interface IDomainConfig
     /// <summary>
     /// 使用的域名
     /// </summary>
-    string? ForwardDomainName { get; }
+    string? ForwardDestination { get; }
 
     /// <summary>
     /// 请求超时时长
@@ -110,7 +110,7 @@ partial class AccelerateProjectDTO : IDomainConfig
         }
     }
 
-    string? IDomainConfig.ForwardDomainName
+    string? IDomainConfig.ForwardDestination
     {
         get
         {

@@ -43,7 +43,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
             {
                 foreach (var domainName in item.DomainNamesArray)
                 {
-                    dict.Add(new DomainPattern(domainName), item);
+                    dict.Add(new DomainPattern(domainName) { Sort = item.Order }, item);
                 }
             }
         }

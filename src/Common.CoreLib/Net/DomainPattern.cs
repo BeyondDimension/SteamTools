@@ -14,6 +14,8 @@ public sealed class DomainPattern : IComparable<DomainPattern>
     readonly Regex regex;
     readonly string domainPattern;
 
+    public int Sort { get; init; }
+
     public DomainPattern(string domainPattern)
     {
         this.domainPattern = domainPattern;
@@ -29,6 +31,15 @@ public sealed class DomainPattern : IComparable<DomainPattern>
     public int CompareTo(DomainPattern? other)
     {
         if (other is null)
+        {
+            return 1;
+        }
+
+        if (this.Sort < other.Sort)
+        {
+            return -1;
+        }
+        else if (this.Sort > other.Sort)
         {
             return 1;
         }

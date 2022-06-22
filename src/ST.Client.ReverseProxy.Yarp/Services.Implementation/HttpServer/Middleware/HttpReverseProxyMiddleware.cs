@@ -43,7 +43,7 @@ sealed class HttpReverseProxyMiddleware
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         var host = context.Request.Host;
-        if (TryGetDomainConfig(context.Request.GetDisplayUrl(), out var domainConfig) == false)
+        if (TryGetDomainConfig(new Uri(context.Request.GetDisplayUrl()), out var domainConfig) == false)
         {
             await next(context);
         }
@@ -66,18 +66,18 @@ sealed class HttpReverseProxyMiddleware
         }
     }
 
-    bool TryGetDomainConfig(string host, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
+    bool TryGetDomainConfig(Uri uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
     {
-        if (reverseProxyConfig.TryGetDomainConfig(host, out domainConfig) == true)
+        if (reverseProxyConfig.TryGetDomainConfig(uri.AbsoluteUri, out domainConfig) == true)
         {
             return true;
         }
 
         // 未配置的域名，但仍然被解析到本机 IP 的域名
-        if (OperatingSystem.IsWindows() && IsDomain(host))
+        if (OperatingSystem.IsWindows() && IsDomain(uri.Host))
         {
             logger.LogWarning(
-                $"域名 {new Uri(host).Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
+                $"域名 {uri.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
             domainConfig = defaultDomainConfig;
             return true;
         }
