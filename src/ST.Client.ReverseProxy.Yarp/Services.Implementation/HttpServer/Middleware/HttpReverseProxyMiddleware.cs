@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using System.Application.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
@@ -50,8 +51,20 @@ sealed class HttpReverseProxyMiddleware
         else if (domainConfig.Response == null)
         {
             var scheme = context.Request.Scheme;
+            if (scheme == "http")
+            {
+                context.Response.Redirect(context.Request.GetDisplayUrl().Remove(0, 4).Insert(0, "https"));
+                return;
+            }
             var destinationPrefix = GetDestinationPrefix(scheme, host, domainConfig.Destination);
             var httpClient = httpClientFactory.CreateHttpClient(host.Host, domainConfig);
+            if (!string.IsNullOrEmpty(domainConfig.UserAgent))
+            {
+                var oldua = context.Request.Headers.UserAgent.ToString();
+                var newUA = domainConfig.UserAgent.Replace("${origin}", oldua, StringComparison.OrdinalIgnoreCase);
+                context.Request.Headers.UserAgent = new StringValues(newUA);
+            }
+
             var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, ForwarderRequestConfig.Empty, HttpTransformer.Empty);
             await HandleErrorAsync(context, error);
         }
@@ -68,7 +81,7 @@ sealed class HttpReverseProxyMiddleware
 
     bool TryGetDomainConfig(Uri uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
     {
-        if (reverseProxyConfig.TryGetDomainConfig(uri.AbsoluteUri, out domainConfig) == true)
+        if (reverseProxyConfig.TryGetDomainConfig(uri.Host + uri.AbsolutePath, out domainConfig) == true)
         {
             return true;
         }

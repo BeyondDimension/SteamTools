@@ -38,6 +38,9 @@ public sealed class DomainConfig : IDomainConfig
     [MPKey(7)]
     public string? ForwardDestination { get; init; }
 
+    [MPKey(7)]
+    public string? UserAgent { get; init; }
+
     IResponseConfig? IDomainConfig.Response => Response;
 }
 
@@ -78,10 +81,15 @@ public interface IDomainConfig
     TimeSpan? Timeout { get; }
 
     /// <summary>
-    /// 重定向地址
+    /// 目的地
     /// <para>格式为相对或绝对 <see cref="Uri"/></para>
     /// </summary>
     Uri? Destination { get; }
+
+    /// <summary>
+    /// UserAgent
+    /// </summary>
+    string? UserAgent { get; }
 
     /// <summary>
     /// 自定义响应
@@ -132,6 +140,7 @@ partial class AccelerateProjectDTO : IDomainConfig
             {
                 var b = new UriBuilder
                 {
+                    Scheme = PortId == 443 ? "https" : "http",
                     Host = ForwardDomainName,
                     Port = PortId,
                 };
@@ -140,6 +149,8 @@ partial class AccelerateProjectDTO : IDomainConfig
             return null;
         }
     }
+
+    string? IDomainConfig.UserAgent => UserAgent;
 
     IResponseConfig? IDomainConfig.Response => null; // or null
 }
