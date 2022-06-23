@@ -91,7 +91,7 @@ namespace System.Application.Services.Implementation
         {
             try
             {
-                if (OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon && taskbarWindow == null)
+                if (OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon && taskbarWindow == null && mMainWindow != null)
                 {
                     taskbarWindow = new TaskBarWindowViewModel(mMainWindow);
                 }

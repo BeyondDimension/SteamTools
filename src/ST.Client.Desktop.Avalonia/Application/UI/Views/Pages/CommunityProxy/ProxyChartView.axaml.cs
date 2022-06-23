@@ -1,13 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using DynamicData.Binding;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Avalonia;
+using ReactiveUI;
 using System.Application.Models;
 using System.Application.Services;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace System.Application.UI.Views.Pages
@@ -69,7 +72,21 @@ namespace System.Application.UI.Views.Pages
                 chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
             }
 
-            FlushFlowChartAsync();
+            var cancellation = new CancellationTokenSource();
+
+            ProxyService.Current.WhenValueChanged(x => x.ProxyStatus, false)
+                .Subscribe(x =>
+                {
+                    if (x)
+                    {
+                        cancellation.TryReset();
+                        FlushFlowChartAsync(cancellation.Token);
+                    }
+                    else
+                    {
+                        cancellation.Cancel();
+                    }
+                });
         }
 
         private void InitializeComponent()
@@ -92,15 +109,13 @@ namespace System.Application.UI.Views.Pages
             }
         }
 
-        private async void FlushFlowChartAsync()
+        private async void FlushFlowChartAsync(CancellationToken token)
         {
-            while (true)
+            while (!token.IsCancellationRequested)
             {
                 try
                 {
-                    if (!ProxyService.Current.ProxyStatus) continue;
-
-                    var flowStatistics = await IHttpService.Instance.GetAsync<FlowStatistics>("https://localhost/flowStatistics");
+                    var flowStatistics = await IHttpService.Instance.GetAsync<FlowStatistics>("https://localhost/flowStatistics", cancellationToken: token);
                     if (flowStatistics == null)
                     {
                         continue;

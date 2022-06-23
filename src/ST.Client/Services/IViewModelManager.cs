@@ -28,6 +28,7 @@ namespace System.Application.Services
         void InitCloudManageMain(int appid);
 
         void InitTaskBarWindowViewModel();
+
         void DispoeTaskBarWindowViewModel();
 
         /// <summary>
