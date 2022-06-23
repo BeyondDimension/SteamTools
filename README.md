@@ -66,14 +66,17 @@
 ## 🖥 系统要求
 ### Windows
 
-OS                                    | Version                 | Architectures   | Lifecycle
---------------------------------------|-------------------------|-----------------|----------
-[Windows Client][Windows-client]      | 7 SP1(**\***), 8.1      | x64        | [Windows][Windows-lifecycle]
-[Windows 10 Client][Windows-client]   | Version 1607+(**\***)   | x64        | [Windows][Windows-lifecycle]
-[Windows Server][Windows-Server]      | 2012+                   | x64        | [Windows Server][Windows-Server-lifecycle]
+OS                                    | Version                    | Architectures   | Lifecycle
+--------------------------------------|----------------------------|-----------------|----------
+[Windows Client][Windows-client]      | 7 SP1(**\***), 8.1(**\***) | x64             | [Windows][Windows-lifecycle]
+[Windows 10 Client][Windows-client]   | Version 1607+(**\***)      | x64             | [Windows][Windows-lifecycle]
+[Windows 11][Windows-client]          | Version 22000+             | x64,            | [Windows][Windows-lifecycle]
+[Windows Server][Windows-Server]      | 2008 R2 SP1(**\***), 2012+ | x64             | [Windows Server][Windows-Server-lifecycle]
 
-**\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
-**\*** Microsoft Store(Desktop Bridge) Version 1809+
+**\*** Windows 7 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) 且将在不再支持 **2022/11/8** 后发布的版本。  
+**\*** Windows 8.1 将在不再支持 **2022/11/8** 后发布的版本。  
+**\*** Windows Server 2008 R2 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/zh-cn/lifecycle/faq/extended-security-updates) 且将在不再支持 **2022/11/8** 后发布的版本。  
+**\*** Microsoft Store(Desktop Bridge) Version 1809+  
 
 [Windows-client]: https://www.microsoft.com/windows/
 [Windows-lifecycle]: https://support.microsoft.com/help/13853/windows-lifecycle-fact-sheet
@@ -170,26 +173,24 @@ OS                            | Version                 | Architectures     |
 ## ⌨️ 开发环境
 [Visual Studio 2022](https://visualstudio.microsoft.com/zh-hans/vs/)   
 [JetBrains Rider](https://www.jetbrains.com/rider/)  
-~~[Visual Studio 2022 for Mac Preview](https://visualstudio.microsoft.com/zh-hans/vs/mac/)~~  
+~~[Visual Studio 2022 for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/)~~  
 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - 系统要求
 	- [Windows 10 版本 2004 或更高版本：家庭版、专业版、教育版和企业版（不支持 LTSC 和 Windows 10 S，在较早的操作系统上可能不受支持）](https://docs.microsoft.com/zh-cn/visualstudio/releases/2019/system-requirements)
 	- [macOS 10.14 Mojave 或更高版本](https://docs.microsoft.com/zh-cn/visualstudio/productinfo/vs2019-system-requirements-mac)
-- 工作负载
+- 工作负荷
 	- Web 和云
 		- ASP.NET 和 Web 开发
 	- 桌面应用和移动应用
+		- 使用 .NET 的移动开发 / .NET Multi-platform App UI 开发
 		- .NET 桌面开发
 		- 通用 Windows 平台开发
-		- 使用 .NET 的移动开发
-	- 其他工具集
-		- .NET Core 跨平台开发
 - 单个组件
-	- GitHub Extension for Visual Studio
+	- GitHub Extension for Visual Studio(可选)
 	- Windows 10 SDK (10.0.19041.0)
 - [Visual Studio Marketplace](https://marketplace.visualstudio.com/)
-	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
-	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
+	- [Avalonia for Visual Studio(可选)](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
+	- [NUnit VS Templates(可选)](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
 [OpenJDK 11](https://docs.microsoft.com/zh-cn/java/openjdk/download#openjdk-11)  
 [Android Studio 2021.1.1 或更高版本](https://developer.android.google.cn/studio/)  
@@ -216,6 +217,8 @@ OS                            | Version                 | Architectures     |
 * [Hardcodet.NotifyIcon](https://github.com/HavenDV/Hardcodet.NotifyIcon.Wpf.NetCore)
 * [System.Reactive](https://github.com/dotnet/reactive)
 * [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)
+* [YARP](https://github.com/microsoft/reverse-proxy)
+* [FastGithub](https://github.com/dotnetcore/FastGithub)
 * [Portable.BouncyCastle](https://github.com/novotnyllc/bc-csharp)
 * [Ninject](https://github.com/ninject/Ninject)
 * [log4net](https://github.com/apache/logging-log4net)

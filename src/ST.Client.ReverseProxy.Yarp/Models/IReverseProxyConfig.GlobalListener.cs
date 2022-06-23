@@ -11,25 +11,33 @@ partial interface IReverseProxyConfig
     private static readonly HashSet<int> tcpListenPorts = GetListenPorts(global.GetActiveTcpListeners);
     private static readonly HashSet<int> udpListenPorts = GetListenPorts(global.GetActiveUdpListeners);
 
+    const int SshPortDefault = 22;
+
     /// <summary>
     /// SSH 端口
     /// </summary>
-    static int SshPort { get; } = GetAvailableTcpPort(22);
+    static int SshPort { get; } = GetAvailableTcpPort(SshPortDefault);
+
+    const int GitHubDesktopPort = 9418;
 
     /// <summary>
     /// Git 端口
     /// </summary>
-    static int GitPort { get; } = GetAvailableTcpPort(8418);
+    static int GitPort { get; } = GetAvailableTcpPort(GitHubDesktopPort);
+
+    const int HttpPortDefault = 80;
 
     /// <summary>
     /// Http 端口
     /// </summary>
-    static int HttpPort { get; } = OperatingSystem.IsWindows() ? GetAvailableTcpPort(80) : GetAvailableTcpPort(2880);
+    static int HttpPort { get; } = OperatingSystem.IsWindows() ? GetAvailableTcpPort(HttpPortDefault) : GetAvailableTcpPort(7080);
+
+    const int HttpsPortDefault = 443;
 
     /// <summary>
     /// Https 端口
     /// </summary>
-    static int HttpsPort { get; } = OperatingSystem.IsWindows() ? GetAvailableTcpPort(443) : GetAvailableTcpPort(28443);
+    static int HttpsPort { get; } = OperatingSystem.IsWindows() ? GetAvailableTcpPort(HttpsPortDefault) : GetAvailableTcpPort(7443);
 
     /// <summary>
     /// 获取已监听的端口

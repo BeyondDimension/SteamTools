@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>
+      net6.0;net6.0-windows</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy.Yarp</AssemblyName>
     <DefineConstants>REVERSE_PROXY_YARP;$(DefineConstants)</DefineConstants>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -85,6 +87,11 @@
   <ItemGroup>
     <PackageReference Include="Yarp.ReverseProxy" />
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
+    <PackageReference Include="Aigio.WinDivertSharp" />
+    <PackageReference Include="DNS" />
   </ItemGroup>
 
 </Project>
