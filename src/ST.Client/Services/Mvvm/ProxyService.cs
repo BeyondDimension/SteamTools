@@ -752,6 +752,11 @@ namespace System.Application.Services
 
         public async void Dispose()
         {
+            await Exit();
+        }
+
+        public async Task Exit()
+        {
             await reverseProxyService.StopProxy();
             OnExitRestoreHosts();
             reverseProxyService.Dispose();
