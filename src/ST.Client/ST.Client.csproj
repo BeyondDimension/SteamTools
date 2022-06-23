@@ -34,6 +34,8 @@
     <PackageReference Include="Net.Codecrete.QrCodeGenerator" />
     <PackageReference Include="Portable.BouncyCastle" />
     <PackageReference Include="Fleck" />
+    <!--<PackageReference Include="CommunityToolkit.Mvvm"/>-->
+    <PackageReference Include="ReactiveUI.Fody" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <PackageReference Include="JustArchiNET.Madness" />

@@ -31,6 +31,16 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsStartupAppMinimized => _IsStartupAppMinimized ?? throw new PlatformNotSupportedException();
 
+        static readonly SerializableProperty<bool>? _IsEnableTrayIcon = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
+
+        /// <summary>
+        /// 启用托盘
+        /// </summary>
+        [SupportedOSPlatform("Windows7.0")]
+        [SupportedOSPlatform("macOS")]
+        [SupportedOSPlatform("Linux")]
+        public static SerializableProperty<bool> IsEnableTrayIcon => _IsEnableTrayIcon ?? throw new PlatformNotSupportedException();
+
         static readonly SerializableProperty<bool>? _IsSteamAppListLocalCache
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: true, autoSave: true) : null;
 

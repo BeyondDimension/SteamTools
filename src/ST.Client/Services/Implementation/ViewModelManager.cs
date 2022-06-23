@@ -50,18 +50,7 @@ namespace System.Application.Services.Implementation
             }
             finally
             {
-                try
-                {
-                    if (OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon)
-                    {
-                        taskbarWindow = new TaskBarWindowViewModel(mMainWindow);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(nameof(ViewModelManager), ex, "Init TaskBarWindowViewModel");
-                    throw;
-                }
+                InitTaskBarWindowViewModel();
             }
         }
 
@@ -97,6 +86,31 @@ namespace System.Application.Services.Implementation
         //    }
         //    throw new InvalidOperationException();
         //}
+
+        public void InitTaskBarWindowViewModel()
+        {
+            try
+            {
+                if (OperatingSystem2.IsWindows() && StartupOptions.Value.HasNotifyIcon && taskbarWindow == null)
+                {
+                    taskbarWindow = new TaskBarWindowViewModel(mMainWindow);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(ViewModelManager), ex, "Init TaskBarWindowViewModel");
+                throw;
+            }
+        }
+
+        public void DispoeTaskBarWindowViewModel()
+        {
+            if (taskbarWindow != null)
+            {
+                taskbarWindow.Dispose();
+                taskbarWindow = null;
+            }
+        }
 
         public void ShowTaskBarWindow(int x = 0, int y = 0)
         {
@@ -139,6 +153,7 @@ namespace System.Application.Services.Implementation
                 // TODO: 释放未托管的资源(未托管的对象)并重写终结器
                 // TODO: 将大型字段设置为 null
                 disposedValue = true;
+                DispoeTaskBarWindowViewModel();
             }
         }
 

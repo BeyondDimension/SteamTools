@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using NLog.Web;
 
 namespace System.Application.Services.Implementation;
@@ -72,6 +73,13 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         await app.StopAsync();
         await app.DisposeAsync();
         app = null;
+    }
+
+    void FlushFlowStatistics()
+    {
+        if (app == null) return;
+
+        var s = app.Services.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
     }
 
     protected override void DisposeCore()

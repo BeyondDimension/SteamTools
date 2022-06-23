@@ -1,3 +1,5 @@
+using System.Application.Settings;
+
 namespace System.Application
 {
     public sealed class StartupOptions

@@ -1197,6 +1197,12 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_General_AutoCheckUpdate" xml:space="preserve">
     <value>自动检查更新</value>
   </data>
+  <data name="Settings_General_EnableTrayIcon" xml:space="preserve">
+    <value>启用托盘图标</value>
+  </data>
+  <data name="Settings_General_EnableTrayIcon_Tip" xml:space="preserve">
+    <value>禁用此选项时关闭主窗口将直接退出程序</value>
+  </data>
   <data name="Settings_General_RuningMinimize" xml:space="preserve">
     <value>启动时最小化到托盘</value>
   </data>

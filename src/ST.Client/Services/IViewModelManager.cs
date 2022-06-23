@@ -27,6 +27,9 @@ namespace System.Application.Services
 
         void InitCloudManageMain(int appid);
 
+        void InitTaskBarWindowViewModel();
+        void DispoeTaskBarWindowViewModel();
+
         /// <summary>
         /// 打开托盘菜单窗口
         /// </summary>

@@ -9,6 +9,7 @@
              xmlns:ms="using:System.Application.Settings"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:pages="using:System.Application.UI.Views.Pages"
              xmlns:sys="using:System"
              xmlns:markup="using:System.Application.Markup"
              x:Name="u"
@@ -285,7 +286,12 @@
         </WrapPanel>
       </StackPanel>
       <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
-        <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
+
+        <DockPanel>
+          <pages:ProxyChartView/>
+        </DockPanel>
+
+        <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
           <DockPanel MinWidth="300">
             <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        FontSize="16"
@@ -330,8 +336,8 @@
               </ItemsControl>
             </ScrollViewer>
           </DockPanel>
-        </Border>
-        
+        </Border>-->
+
       </StackPanel>
 
       <StackPanel Grid.Row="2" Margin="20 0 20 50">

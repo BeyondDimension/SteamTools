@@ -26,6 +26,8 @@ namespace System.Application.UI
     {
         private NotifyIconHelper() => throw new NotSupportedException();
 
+        static object? Tray = null;
+
 #if !TRAY_INDEPENDENT_PROGRAM
         static Stream GetIcon(IAssetLoader assets)
         {
@@ -47,19 +49,19 @@ namespace System.Application.UI
             return GetIcon(assets);
         }
 
-        public static NotifyIcon? Init(App app, EventHandler notifyIconClick)
+        public static void Init(App app, EventHandler notifyIconClick)
         {
-            if (IsInitialized) return null;
-            NotifyIcon? notifyIcon = null;
+            if (IsInitialized) return;
             IDisposable? menuItemDisposable = null;
             var icon = GetIconByCurrentAvaloniaLocator();
             var text = TaskBarWindowViewModel.TitleString;
 #if WINDOWS
             if (OperatingSystem2.IsWindows())
             {
-                notifyIcon = DI.Get<NotifyIcon>();
+                var notifyIcon = DI.Get<NotifyIcon>();
                 notifyIcon.Text = text;
                 notifyIcon.Icon = icon;
+                notifyIcon.Visible = true;
 #if WINDOWS
                 notifyIcon.RightClick += (_, e) =>
                 {
@@ -71,6 +73,7 @@ namespace System.Application.UI
                 notifyIcon.Click += notifyIconClick;
                 notifyIcon.DoubleClick += notifyIconClick;
                 notifyIcon.AddTo(app);
+                Tray = notifyIcon;
             }
             else
 #endif
@@ -104,6 +107,7 @@ namespace System.Application.UI
                 {
                     Icon = new(icon),
                     ToolTipText = text,
+                    IsVisible = true,
                     Menu = menu,
                 };
                 trayIcon.Clicked += notifyIconClick;
@@ -111,6 +115,7 @@ namespace System.Application.UI
                 {
                     trayIcon,
                 });
+                Tray = trayIcon;
                 if (OperatingSystem2.IsMacOS())
                 {
                     NativeMenu.SetMenu(app, menu);
@@ -118,7 +123,7 @@ namespace System.Application.UI
             }
             if (menuItemDisposable != null) menuItemDisposable.AddTo(app);
             IsInitialized = true;
-            return notifyIcon;
+            return;
         }
 
         public static
@@ -137,6 +142,24 @@ namespace System.Application.UI
 #endif
         }
 #endif
+
+        public static void Dispoe()
+        {
+#if WINDOWS
+                if (Tray is NotifyIcon tray1)
+                {
+                    tray1.Visible = false;
+                    tray1.Dispose();
+                }else
+#endif
+            if (Tray is TrayIcon tray)
+            {
+                tray.IsVisible = false;
+                tray.Dispose();
+            }
+
+            IsInitialized = false;
+        }
 
         //        public static (NotifyIcon notifyIcon, IDisposable? menuItemDisposable) Init(Func<object> getIcon)
         //        {

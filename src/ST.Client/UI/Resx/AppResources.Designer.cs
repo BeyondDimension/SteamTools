@@ -4925,6 +4925,24 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 启用托盘图标 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_EnableTrayIcon {
+            get {
+                return ResourceManager.GetString("Settings_General_EnableTrayIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 禁用此选项时关闭主窗口将直接退出程序 的本地化字符串。
+        /// </summary>
+        public static string Settings_General_EnableTrayIcon_Tip {
+            get {
+                return ResourceManager.GetString("Settings_General_EnableTrayIcon_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 日志文件已占用 {0} 的本地化字符串。
         /// </summary>
         public static string Settings_General_LogSize {
