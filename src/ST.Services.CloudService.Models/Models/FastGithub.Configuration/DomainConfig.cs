@@ -154,3 +154,24 @@ partial class AccelerateProjectDTO : IDomainConfig
 
     IResponseConfig? IDomainConfig.Response => null; // or null
 }
+
+partial class ScriptDTO : IDomainConfig
+{
+    bool IDomainConfig.TlsSni => true;
+
+    string? IDomainConfig.TlsSniPattern => null;
+
+    bool IDomainConfig.TlsIgnoreNameMismatch => true;
+
+    IPAddress? IDomainConfig.IPAddress => null;
+
+    string? IDomainConfig.ForwardDestination => null;
+
+    TimeSpan? IDomainConfig.Timeout => null;
+
+    Uri? IDomainConfig.Destination => null;
+
+    string? IDomainConfig.UserAgent => null;
+
+    IResponseConfig? IDomainConfig.Response => null; // or null
+}

@@ -17,6 +17,8 @@ public partial interface IReverseProxyConfig
 
     IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
+    IReadOnlyCollection<ScriptDTO>? ProxyScripts { get; set; }
+
     /// <summary>
     /// 是否匹配指定的域名
     /// </summary>

@@ -10,6 +10,7 @@ namespace System.Application.Models;
 sealed class ReverseProxyConfig : IReverseProxyConfig
 {
     readonly SortedDictionary<DomainPattern, IDomainConfig> domainConfigs;
+    readonly SortedDictionary<DomainPattern, IDomainConfig> scriptConfigs;
     readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
 
@@ -17,7 +18,8 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     {
         this.reverseProxyService = reverseProxyService;
         domainConfigs = new();
-        AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains);
+        scriptConfigs = new();
+        AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains, reverseProxyService.Scripts);
         domainConfigCache = new();
     }
 
@@ -35,13 +37,31 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         set => reverseProxyService.ProxyDomains = value;
     }
 
-    static void AddDomainConfigs(IDictionary<DomainPattern, IDomainConfig> dict, IEnumerable<AccelerateProjectDTO>? domainConfigs)
+    public IReadOnlyCollection<ScriptDTO>? ProxyScripts
     {
-        if (domainConfigs != null)
+        get => reverseProxyService.Scripts;
+        set => reverseProxyService.Scripts = value;
+    }
+
+    static void AddDomainConfigs(IDictionary<DomainPattern, IDomainConfig> dict,
+        IEnumerable<AccelerateProjectDTO>? accelerates, IEnumerable<ScriptDTO>? scripts)
+    {
+        if (accelerates != null)
         {
-            foreach (var item in domainConfigs)
+            foreach (var item in accelerates)
             {
                 foreach (var domainName in item.DomainNamesArray)
+                {
+                    dict.Add(new DomainPattern(domainName) { Sort = item.Order }, item);
+                }
+            }
+        }
+
+        if (scripts != null)
+        {
+            foreach (var item in scripts)
+            {
+                foreach (var domainName in item.MatchDomainNamesArray)
                 {
                     dict.Add(new DomainPattern(domainName) { Sort = item.Order }, item);
                 }

@@ -6241,7 +6241,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 捐助用户 的本地化字符串。
+        ///   查找类似 赞助用户 的本地化字符串。
         /// </summary>
         public static string User_Sponsor {
             get {

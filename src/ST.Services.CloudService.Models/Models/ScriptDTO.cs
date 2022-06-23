@@ -20,7 +20,7 @@ namespace System.Application.Models
     /// 脚本
     /// </summary>
     [MPObj]
-    public class ScriptDTO
+    public partial class ScriptDTO
 #if MVVM_VM
         : ReactiveObject
 #endif

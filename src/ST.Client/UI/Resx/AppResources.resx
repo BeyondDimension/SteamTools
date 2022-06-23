@@ -2113,7 +2113,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>积分</value>
   </data>
   <data name="User_Sponsor" xml:space="preserve">
-    <value>捐助用户</value>
+    <value>赞助用户</value>
   </data>
   <data name="Account_SignIn_Ok" xml:space="preserve">
     <value>签到成功</value>

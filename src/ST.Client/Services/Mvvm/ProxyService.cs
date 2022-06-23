@@ -670,7 +670,7 @@ namespace System.Application.Services
             //}
             ProxyScripts.AddRange(scriptList);
 
-            CheckUpdate();
+            CheckScriptUpdate();
         }
 
         public async void DownloadScript(ScriptDTO model)
@@ -716,7 +716,7 @@ namespace System.Application.Services
             model.IsLoading = false;
         }
 
-        public async void CheckUpdate()
+        public async void CheckScriptUpdate()
         {
             var items = ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();
             var client = ICloudServiceClient.Instance.Script;

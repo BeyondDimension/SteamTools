@@ -139,10 +139,10 @@
               <StackPanel IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
                 <controls:ScrollingTextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
-                       Classes="h7"
+                       Classes="h5"
                        VerticalAlignment="Center"/>
                 <Border IsVisible="{ReflectionBinding Path=User.IsSponsorUser,Mode=OneWay,Source={x:Static service:UserService.Current}}">
-                  <TextBlock Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                  <TextBlock Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}💖 {0}}"
                              Classes="h8"/>
                 </Border>
                 <!--<TextBlock Text="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}"
