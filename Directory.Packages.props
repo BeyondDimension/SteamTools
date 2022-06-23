@@ -245,7 +245,7 @@
     <!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.12.2" />-->
     <!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
     <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-    <PackageVersion Include="FluentAvaloniaUI" Version="1.4.0" />
+    <PackageVersion Include="FluentAvaloniaUI" Version="1.4.1" />
     <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.300" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
     <PackageVersion Include="Avalonia.Native" Version="0.10.15" />
