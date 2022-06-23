@@ -1,6 +1,7 @@
+#if WINDOWS
+
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Application.Models;
 using System.ComponentModel;
 
@@ -41,3 +42,5 @@ abstract class InterceptHostedService : BackgroundService
         }
     }
 }
+
+#endif
