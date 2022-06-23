@@ -37,7 +37,7 @@ abstract class InterceptHostedService : BackgroundService
         catch (Exception ex)
         {
             logger.LogError(ex, "InterceptAsync catch.");
-            await reverseProxyConfig.Service.StopProxyCoreAsync();
+            await reverseProxyConfig.Service.StopProxy();
         }
     }
 }
