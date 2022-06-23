@@ -64,7 +64,7 @@ namespace System.Application.UI.Views.Controls
 
         void Check()
         {
-            if (UserService.Current.User != null && UserService.Current.IsSponsorUser)
+            if (UserService.Current.User != null && UserService.Current.User.UserType == UserType.Sponsor)
             {
                 RemoveAd();
             }

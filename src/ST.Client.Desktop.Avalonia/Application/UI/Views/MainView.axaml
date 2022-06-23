@@ -11,6 +11,7 @@
         xmlns:ms="using:System.Application.Settings"
         xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:app="using:System.Application"
         x:Class="System.Application.UI.Views.MainView"
         FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
         x:DataType="vm:MainWindowViewModel"
@@ -141,7 +142,7 @@
                        Foreground="{DynamicResource HighlightForegroundBrushKey}"
                        Classes="h5"
                        VerticalAlignment="Center"/>
-                <Border IsVisible="{ReflectionBinding Path=IsSponsorUser,Mode=OneWay,Source={x:Static service:UserService.Current}}">
+                <Border IsVisible="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}">
                   <TextBlock Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}💖 {0}}"
                              Classes="h8"/>
                 </Border>
