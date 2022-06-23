@@ -73,9 +73,9 @@ OS                                    | Version                    | Architectur
 [Windows 11][Windows-client]          | Version 22000+             | x64,            | [Windows][Windows-lifecycle]
 [Windows Server][Windows-Server]      | 2008 R2 SP1(**\***), 2012+ | x64             | [Windows Server][Windows-Server-lifecycle]
 
-**\*** Windows 7 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) 且将在不再支持 **2022/11/8** 后发布的版本。  
-**\*** Windows 8.1 将在不再支持 **2022/11/8** 后发布的版本。  
-**\*** Windows Server 2008 R2 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/zh-cn/lifecycle/faq/extended-security-updates) 且将在不再支持 **2022/11/8** 后发布的版本。  
+**\*** Windows 7 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) 且将在不再支持 **2022/11** 后发布的版本。  
+**\*** Windows 8.1 将在不再支持 **2022/11** 后发布的版本。  
+**\*** Windows Server 2008 R2 SP1 必须安装 [扩展安全更新 (ESU)](https://docs.microsoft.com/zh-cn/lifecycle/faq/extended-security-updates) 且将在不再支持 **2022/11** 后发布的版本。  
 **\*** Microsoft Store(Desktop Bridge) Version 1809+  
 
 [Windows-client]: https://www.microsoft.com/windows/
