@@ -6,9 +6,12 @@ using DynamicData.Binding;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Avalonia;
+using LiveChartsCore.SkiaSharpView.Painting;
 using ReactiveUI;
+using SkiaSharp;
 using System.Application.Models;
 using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -22,10 +25,13 @@ namespace System.Application.UI.Views.Pages
 
         private readonly LineSeries<RateTick> readSeries = new LineSeries<RateTick>
         {
-            Fill = null,
             GeometrySize = 0,
+            GeometryFill = null,
+            GeometryStroke = null,
             LineSmoothness = 1,
-            TooltipLabelFormatter = (e) => $"上传 {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
+            EnableNullSplitting = false,
+            Stroke = LiveChartsSkiaSharp.DefaultPaint,
+            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -35,10 +41,13 @@ namespace System.Application.UI.Views.Pages
 
         private readonly LineSeries<RateTick> writeSeries = new LineSeries<RateTick>
         {
-            Fill = null,
             GeometrySize = 0,
+            GeometryFill = null,
+            GeometryStroke = null,
             LineSmoothness = 1,
-            TooltipLabelFormatter = (e) => $"下载 {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
+            EnableNullSplitting = false,
+            Stroke = LiveChartsSkiaSharp.DefaultPaint,
+            TooltipLabelFormatter = (e) => $"{AppResources.Download} {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -67,8 +76,8 @@ namespace System.Application.UI.Views.Pages
             if (chart != null)
             {
                 chart.Series = new ISeries[] { readSeries, writeSeries };
-                chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter, UnitWidth = 100 } };
-                chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
+                chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter } };
+                chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter } };
             }
 
             CancellationTokenSource? cancellation = null;

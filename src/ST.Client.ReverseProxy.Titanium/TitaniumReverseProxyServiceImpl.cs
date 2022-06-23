@@ -539,7 +539,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         return;
     }
 
-    public void StopProxy()
+    public Task StopProxy()
     {
         try
         {
@@ -568,6 +568,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         {
             ex.LogAndShowT(TAG);
         }
+        return Task.CompletedTask;
     }
 
     protected override void DisposeCore()

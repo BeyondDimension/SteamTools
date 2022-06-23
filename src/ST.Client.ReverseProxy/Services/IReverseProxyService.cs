@@ -119,7 +119,7 @@ public interface IReverseProxyService : IDisposable
 
     Task<bool> StartProxy();
 
-    void StopProxy();
+    Task StopProxy();
 
     /// <summary>
     /// 将 PEM 证书公钥写入 GOG GALAXY

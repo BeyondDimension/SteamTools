@@ -65,9 +65,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         }
     }
 
-    public async void StopProxy() => await StopProxyCoreAsync();
-
-    async Task StopProxyCoreAsync()
+    public async Task StopProxy()
     {
         if (app == null) return;
         await app.StopAsync();

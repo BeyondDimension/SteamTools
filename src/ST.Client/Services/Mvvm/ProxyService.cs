@@ -176,7 +176,7 @@ namespace System.Application.Services
                                             //platformService.RunShell($" \\cp \"{Path.Combine(IOPath.CacheDirectory, "hosts")}\" \"{platformService.HostsFilePath}\"");
                                         }
                                         Toast.Show(AppResources.OperationHostsError_.Format(r.Message));
-                                        reverseProxyService.StopProxy();
+                                        await reverseProxyService.StopProxy();
                                         return;
                                     }
                                 }
@@ -192,7 +192,7 @@ namespace System.Application.Services
                     }
                     else
                     {
-                        reverseProxyService.StopProxy();
+                        await reverseProxyService.StopProxy();
                         StopTimer();
                         reverseProxyService.Scripts = null;
                         void OnStopRemoveHostsByTag()
@@ -737,22 +737,22 @@ namespace System.Application.Services
             }
         }
 
-        public void FixNetwork()
+        public async void FixNetwork()
         {
             OnExitRestoreHosts();
 
             if (OperatingSystem2.IsWindows())
             {
-                reverseProxyService.StopProxy();
+                await reverseProxyService.StopProxy();
                 Process.Start("cmd.exe", "netsh winsock reset");
             }
 
             Toast.Show(AppResources.FixNetworkComplete);
         }
 
-        public void Dispose()
+        public async void Dispose()
         {
-            reverseProxyService.StopProxy();
+            await reverseProxyService.StopProxy();
             OnExitRestoreHosts();
             reverseProxyService.Dispose();
         }

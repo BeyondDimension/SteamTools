@@ -233,7 +233,7 @@ namespace System.Application.UI
 
                     // adds the default supported types
                     // OPTIONAL but highly recommend
-                    .AddDefaultMappers()
+                    //.AddDefaultMappers()
 
                     // select a theme, default is Light
                     // OPTIONAL

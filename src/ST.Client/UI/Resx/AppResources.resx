@@ -2306,6 +2306,12 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="UploadFailed" xml:space="preserve">
     <value>上传失败</value>
   </data>
+  <data name="Upload" xml:space="preserve">
+    <value>上传</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
   <data name="Download_Failed_FileNameTip" xml:space="preserve">
     <value>下载 {0} 失败</value>
   </data>

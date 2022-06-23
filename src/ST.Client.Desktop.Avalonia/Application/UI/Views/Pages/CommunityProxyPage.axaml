@@ -285,11 +285,8 @@
             IsVisible="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value}}"/>
         </WrapPanel>
       </StackPanel>
-      <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
-
-        <DockPanel>
-          <pages:ProxyChartView/>
-        </DockPanel>
+      <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 20">
+        <pages:ProxyChartView Margin="60 0"/>
 
         <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
           <DockPanel MinWidth="300">
@@ -338,7 +335,7 @@
           </DockPanel>
         </Border>-->
 
-      </StackPanel>
+      </DockPanel>
 
       <StackPanel Grid.Row="2" Margin="20 0 20 50">
         <Button Classes="action"
