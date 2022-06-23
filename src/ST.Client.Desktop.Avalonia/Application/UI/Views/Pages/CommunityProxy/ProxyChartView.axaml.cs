@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using DynamicData.Binding;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
@@ -21,11 +22,10 @@ namespace System.Application.UI.Views.Pages
 
         private readonly LineSeries<RateTick> readSeries = new LineSeries<RateTick>
         {
-            Name = "上传",
             Fill = null,
             GeometrySize = 0,
             LineSmoothness = 1,
-            TooltipLabelFormatter = (e) => $"{FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"上传 {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -35,11 +35,10 @@ namespace System.Application.UI.Views.Pages
 
         private readonly LineSeries<RateTick> writeSeries = new LineSeries<RateTick>
         {
-            Name = "下载",
             Fill = null,
             GeometrySize = 0,
             LineSmoothness = 1,
-            TooltipLabelFormatter = (e) => $"{FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"下载 {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -72,19 +71,21 @@ namespace System.Application.UI.Views.Pages
                 chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
             }
 
-            var cancellation = new CancellationTokenSource();
+            CancellationTokenSource? cancellation = null;
 
             ProxyService.Current.WhenValueChanged(x => x.ProxyStatus, false)
                 .Subscribe(x =>
                 {
                     if (x)
                     {
-                        cancellation.TryReset();
+                        cancellation = new CancellationTokenSource();
                         FlushFlowChartAsync(cancellation.Token);
                     }
                     else
                     {
-                        cancellation.Cancel();
+                        cancellation?.Cancel();
+                        reads.Clear();
+                        writes.Clear();
                     }
                 });
         }
@@ -132,10 +133,13 @@ namespace System.Application.UI.Views.Pages
                     if (this.reads.Count > 60)
                     {
                         this.reads.RemoveAt(0);
-                        this.reads.RemoveAt(0);
+                        this.writes.RemoveAt(0);
                     }
 
-                    chart.Series = new ISeries[] { readSeries, writeSeries };
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        chart.Series = new ISeries[] { readSeries, writeSeries };
+                    });
                 }
                 catch (Exception)
                 {

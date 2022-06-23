@@ -211,11 +211,11 @@
       </ui:NavigationView.MenuItemTemplate>
     </ui:NavigationView>
 
-    <controls:AdDialog HorizontalAlignment="Right"
+    <!--<controls:AdDialog HorizontalAlignment="Right"
                        VerticalAlignment="Bottom"
                        SupportClose="True"
                        Width="600"
-                       Height="200"/>
+                       Height="200"/>-->
 
     <!--Toast-->
     <controls:ToastMessage />

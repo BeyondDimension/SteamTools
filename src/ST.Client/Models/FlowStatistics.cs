@@ -31,12 +31,12 @@ public record FlowStatistics
     {
         if (value < 1024)
         {
-            return $"{value}B";
+            return $"{value} B";
         }
         if (value < 1024 * 1024)
         {
-            return $"{value / 1024d:0.00}KB";
+            return $"{value / 1024d:0.00} KB";
         }
-        return $"{value / 1024d / 1024d:0.00}MB";
+        return $"{value / 1024d / 1024d:0.00} MB";
     }
 }
