@@ -146,11 +146,11 @@ namespace System.Application.UI
         public static void Dispoe()
         {
 #if WINDOWS
-                if (Tray is NotifyIcon tray1)
-                {
-                    tray1.Visible = false;
-                    tray1.Dispose();
-                }else
+            if (Tray is NotifyIcon tray1)
+            {
+                tray1.Visible = false;
+                tray1.Dispose();
+            }else
 #endif
             if (Tray is TrayIcon tray)
             {
