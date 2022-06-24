@@ -41,34 +41,21 @@ English | [简体中文](./README.md)
 - [AUR dev](https://aur.archlinux.org/packages/watt-toolkit-git)(Pull latest code and build locally, build maybe failed, also don't guarantee availability)
 
 ## ✨ Functions
-1. Network Acceleration <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
-	- Make the Steam community, Github, Google reCAPTCHA, Pixiv, Discord, Twitch and other domestic hard-to-access pages accessible properly.
-	- Functions similar to [Steamcommunity 302](https://www.dogfight360.com/blog/686/), using [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) open source project for local anti-generation.
-2. Script Configuration <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
-	- Some JS scripts are injected into web pages through an acceleration service that intercepts web requests, providing functionality similar to that of a web plugin.
-3. Account Switch <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
+1. Account Switch <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- Switch between Steam accounts that are already logged in on the current PC with one click, and manage features such as sorting your home shared library.
-4. Inventory Management <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
+2. Inventory Management <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- Lets you manage your Steam game inventory directly, not only by downloading older Steam games, but also by managing Steam game achievements directly, supporting unlocked achievements and unlocked achievements.
-5. Local Authentication <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
+3. Local Authentication <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
 	- Let your cell phone token unified save in the computer, currently only support Steam token, later will develop support more token types with cloud synchronization token.
-6. ArchiSteamFarm <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
+4. ArchiSteamFarm <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
 	- Integration with [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) provides functions such as hanging and dropping Steam Collectible Cards within the app.
-7. Game Tools <img src="./resources/windows-brands.svg" width="16" height="16" />
+5. Game Tools <img src="./resources/windows-brands.svg" width="16" height="16" />
 	- Force game windows to use borderless windowing
 
 <!--Prerequisites Microsoft Visual C++ 2015-2019 Redistributable [64 bit](https://aka.ms/vs/16/release/vc_redist.x64.exe) / [32 bit](https://aka.ms/vs/16/release/vc_redist.x86.exe)-->
 ## 🖥 Supported Operating Systems
 ### Windows
 
-OS                                    | Version                 | Architectures   | Lifecycle
---------------------------------------|-------------------------|-----------------|----------
-[Windows Client][Windows-client]      | 7 SP1(**\***), 8.1      | x64        | [Windows][Windows-lifecycle]
-[Windows 10 Client][Windows-client]   | Version 1607+(**\***)   | x64        | [Windows][Windows-lifecycle]
-[Windows Server][Windows-Server]      | 2012+                   | x64        | [Windows Server][Windows-Server-lifecycle]
-
-**\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
-**\*** Microsoft Store(Desktop Bridge) Version 1809+
 OS                                    | Version                    | Architectures   | Lifecycle
 --------------------------------------|----------------------------|-----------------|----------
 [Windows Client][Windows-client]      | 7 SP1(**\***), 8.1(**\***) | x64             | [Windows][Windows-lifecycle]
@@ -165,8 +152,6 @@ OS                            | Version                 | Architectures     |
 ## ⛔ Unsupported Operating System
 - Windows 8
 	- [Due to Microsoft's official support for the product has ended](https://docs.microsoft.com/lifecycle/products/windows-8), so this program cannot run on this operating system, [It is recommended to upgrade to Windows 8.1](https://support.microsoft.com/windows/update-to-windows-8-1-from-windows-8-17fc54a7-a465-6b5a-c1a0-34140afd0669)
-- Windows Server 2008 R2 SP1
-	- Only version 1.x is available, 2.x is not supported at first, and it is recommended to upgrade to a higher version
 - Windows Server / Linux version without desktop GUI
 - Xbox or Windows Mobile / Phone
 
