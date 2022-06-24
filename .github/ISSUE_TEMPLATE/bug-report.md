@@ -10,7 +10,9 @@ assignees: ''
 ### 🐛 描述(Description)
 
 <!--
-详细地描述 bug，让大家都能理解，请一定确定你所要发布的内容是一个Bug，如果不确定请发 Question
+发布前请先尝试在 Issuse 内搜索一下你的问题是否已经被提出过，
+详细地描述 bug，让大家都能理解，请一定确定你所要发布的内容是一个 Bug，如果不确定请发 Question
+Before posting, please try searching in Issuse to see if your question has already been asked,
 Describe the bug in detail so that everyone can understand it
 -->
 
