@@ -21,9 +21,9 @@ namespace System.Application.UI.Views.Pages
 {
     public partial class ProxyChartView : UserControl
     {
-        private CartesianChart chart;
+        private readonly CartesianChart? chart;
 
-        private readonly LineSeries<RateTick> readSeries = new LineSeries<RateTick>
+        private readonly LineSeries<RateTick> readSeries = new()
         {
             GeometrySize = 0,
             GeometryFill = null,
@@ -31,7 +31,7 @@ namespace System.Application.UI.Views.Pages
             LineSmoothness = 1,
             EnableNullSplitting = false,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {IOPath.GetSizeStringD(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -39,7 +39,7 @@ namespace System.Application.UI.Views.Pages
             }
         };
 
-        private readonly LineSeries<RateTick> writeSeries = new LineSeries<RateTick>
+        private readonly LineSeries<RateTick> writeSeries = new()
         {
             GeometrySize = 0,
             GeometryFill = null,
@@ -47,7 +47,7 @@ namespace System.Application.UI.Views.Pages
             LineSmoothness = 1,
             EnableNullSplitting = false,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Download} {FlowStatistics.ToNetworkSizeString((long)e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"{AppResources.Download} {IOPath.GetSizeStringD(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -57,12 +57,12 @@ namespace System.Application.UI.Views.Pages
 
         //public ISeries[] Series { get; set; }
 
-        private List<RateTick> writes = new List<RateTick>();
-        private List<RateTick> reads = new List<RateTick>();
+        private readonly List<RateTick> writes = new();
+        private readonly List<RateTick> reads = new();
 
         public Func<double, string> XFormatter { get; } = timestamp => ((long)timestamp).ToDateTimeS().ToString("HH:mm:ss");
 
-        public Func<double, string> YFormatter { get; } = value => $"{FlowStatistics.ToNetworkSizeString((long)value)}/s";
+        public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetSizeStringD(value)}/s";
 
         public ProxyChartView()
         {

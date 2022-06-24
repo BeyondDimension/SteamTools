@@ -1,14 +1,15 @@
 using System.ComponentModel;
 using System.Net;
-using System.Runtime.Versioning;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.Services.Implementation;
 using System.Application.Services.Implementation.FlowAnalyze;
-using System.Application.Services.Implementation.PacketIntercept;
 using System.Application.Services.Implementation.HttpServer.Certificates;
 using System.Application.Services.Implementation.HttpServer.Middleware;
+#if WINDOWS
+using System.Application.Services.Implementation.PacketIntercept;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;

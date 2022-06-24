@@ -27,6 +27,8 @@ public record FlowStatistics
     /// </summary>
     public double WriteRate { get; init; }
 
+#if DEBUG
+    [Obsolete("use IOPath.GetSizeString", true)]
     public static string ToNetworkSizeString(long value)
     {
         if (value < 1024)
@@ -39,4 +41,5 @@ public record FlowStatistics
         }
         return $"{value / 1024d / 1024d:0.00} MB";
     }
+#endif
 }
