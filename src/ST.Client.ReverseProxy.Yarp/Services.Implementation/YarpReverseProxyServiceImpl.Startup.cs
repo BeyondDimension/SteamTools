@@ -16,10 +16,9 @@ partial class YarpReverseProxyServiceImpl
         services.AddReverseProxyServer();
         services.AddFlowAnalyze();
 
-        if (OperatingSystem.IsWindows())
-        {
-            services.AddPacketIntercept();
-        }
+#if WINDOWS
+        services.AddPacketIntercept();
+#endif
     }
 
     void StartupConfigure(IApplicationBuilder app)

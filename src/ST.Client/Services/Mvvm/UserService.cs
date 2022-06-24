@@ -111,8 +111,6 @@ namespace System.Application.Services
         /// </summary>
         public bool IsAuthenticated => User != null;
 
-        public bool IsSponsorUser => User?.UserType == UserType.Sponsor;
-
         SteamUser? _SteamUser;
 
         public SteamUser? CurrentSteamUser

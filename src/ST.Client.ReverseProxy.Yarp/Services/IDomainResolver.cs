@@ -18,6 +18,12 @@ public interface IDomainResolver
     IAsyncEnumerable<IPAddress> ResolveAsync(DnsEndPoint endPoint, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// 检查ipv6网络支持
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    void CheckIpv6SupportAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// 对所有节点进行测速
     /// </summary>
     /// <param name="cancellationToken"></param>

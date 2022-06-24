@@ -105,7 +105,7 @@ namespace System.Application.UI.ViewModels
         {
             if (IsFirstActivation)
                 if (ProxySettings.IsAutoCheckScriptUpdate)
-                    ProxyService.Current.CheckUpdate();
+                    ProxyService.Current.CheckScriptUpdate();
             base.Activation();
         }
 

@@ -24,6 +24,8 @@ using System.Reactive.Disposables;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 using AvaloniaApplication = Avalonia.Application;
 using ShutdownMode = Avalonia.Controls.ShutdownMode;
 using Window = Avalonia.Controls.Window;
@@ -208,7 +210,7 @@ namespace System.Application.UI
                         #region 主窗口启动时加载的资源
 #if !UI_DEMO
                         compositeDisposable.Add(SettingsHost.Save);
-                        compositeDisposable.Add(ProxyService.Current.Dispose);
+                        compositeDisposable.Add(ProxyService.Current.Exit);
                         compositeDisposable.Add(SteamConnectService.Current.Dispose);
                         compositeDisposable.Add(ASFService.Current.StopASF);
 #pragma warning disable CA1416 // 验证平台兼容性
@@ -222,6 +224,21 @@ namespace System.Application.UI
                 }
                 MainWindow.DataContext = vmService.MainWindow;
             }, isTrace: isTrace);
+
+            LiveCharts.Configure(config =>
+                config
+                    // registers SkiaSharp as the library backend
+                    // REQUIRED unless you build your own
+                    .AddSkiaSharp()
+
+                    // adds the default supported types
+                    // OPTIONAL but highly recommend
+                    //.AddDefaultMappers()
+
+                    // select a theme, default is Light
+                    // OPTIONAL
+                    //.AddDarkTheme()
+                    .AddDarkTheme());
         }
 
         //public ContextMenu? NotifyIconContextMenu { get; private set; }
@@ -240,27 +257,7 @@ namespace System.Application.UI
                 //#if MAC
                 //                AppDelegate.Init();
                 //#endif
-                if (ProgramHost.IsMainProcess)
-                {
-                    if (StartupOptions.Value.HasNotifyIcon)
-                    {
-                        NotifyIconHelper.Init(this, NotifyIcon_Click);
-                        //                        if (!OperatingSystem2.IsLinux())
-                        //                        {
-                        //                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
-                        //                            notifyIcon.Click += NotifyIcon_Click;
-                        //                            notifyIcon.DoubleClick += NotifyIcon_Click;
-                        //                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
-                        //                            notifyIcon.AddTo(this);
-                        //                        }
-                        //                        else
-                        //                        {
-                        //#if LINUX || DEBUG
-                        //                            NotifyIconHelper.StartPipeServer();
-                        //#endif
-                        //                        }
-                    }
-                }
+                InitTrayIcon(desktop);
 
                 desktop.MainWindow =
 #if !UI_DEMO
@@ -270,15 +267,69 @@ namespace System.Application.UI
 
                 desktop.Startup += Desktop_Startup;
                 desktop.Exit += ApplicationLifetime_Exit;
+            }
+
+            base.OnFrameworkInitializationCompleted();
+        }
+
+        void InitTrayIcon(IClassicDesktopStyleApplicationLifetime? desktop)
+        {
+            if (desktop == null)
+                return;
+            if (ProgramHost.IsMainProcess)
+            {
+#pragma warning disable CA1416 // 验证平台兼容性
+                StartupOptions.Value.HasNotifyIcon = GeneralSettings.IsEnableTrayIcon.Value;
+#pragma warning disable CA1416 // 验证平台兼容性
+
+                if (StartupOptions.Value.HasNotifyIcon)
+                {
+                    IViewModelManager.Instance.InitTaskBarWindowViewModel();
+
+                    NotifyIconHelper.Init(this, NotifyIcon_Click);
+                    //                        if (!OperatingSystem2.IsLinux())
+                    //                        {
+                    //                            (var notifyIcon, var menuItemDisposable) = NotifyIconHelper.Init(NotifyIconHelper.GetIconByCurrentAvaloniaLocator);
+                    //                            notifyIcon.Click += NotifyIcon_Click;
+                    //                            notifyIcon.DoubleClick += NotifyIcon_Click;
+                    //                            if (menuItemDisposable != null) menuItemDisposable.AddTo(this);
+                    //                            notifyIcon.AddTo(this);
+                    //                        }
+                    //                        else
+                    //                        {
+                    //#if LINUX || DEBUG
+                    //                            NotifyIconHelper.StartPipeServer();
+                    //#endif
+                    //                        }
+                }
+                else
+                {
+                    NotifyIconHelper.Dispoe();
+                    IViewModelManager.Instance.DispoeTaskBarWindowViewModel();
+                }
+
                 desktop.ShutdownMode =
 #if UI_DEMO
                     ShutdownMode.OnMainWindowClose;
 #else
                 StartupOptions.Value.HasNotifyIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
 #endif
-            }
 
-            base.OnFrameworkInitializationCompleted();
+            }
+        }
+
+        /// <summary>
+        /// 初始化设置项变更时监听
+        /// </summary>
+        void IApplication.InitSettingSubscribe()
+        {
+            UISettings.Theme.Subscribe(x => Theme = (AppTheme)x);
+            UISettings.Language.Subscribe(R.ChangeLanguage);
+
+            if (IApplication.IsDesktopPlatform)
+            {
+                GeneralSettings.IsEnableTrayIcon.Subscribe(x => InitTrayIcon(ApplicationLifetime as IClassicDesktopStyleApplicationLifetime));
+            }
         }
 
         /// <summary>

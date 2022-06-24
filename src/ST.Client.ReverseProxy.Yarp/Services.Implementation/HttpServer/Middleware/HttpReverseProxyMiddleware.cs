@@ -1,7 +1,9 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/HttpReverseProxyMiddleware.cs
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using System.Application.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
@@ -42,15 +44,27 @@ sealed class HttpReverseProxyMiddleware
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         var host = context.Request.Host;
-        if (TryGetDomainConfig(host, out var domainConfig) == false)
+        if (TryGetDomainConfig(new Uri(context.Request.GetDisplayUrl()), out var domainConfig) == false)
         {
             await next(context);
         }
         else if (domainConfig.Response == null)
         {
             var scheme = context.Request.Scheme;
+            if (scheme == "http")
+            {
+                context.Response.Redirect(context.Request.GetDisplayUrl().Remove(0, 4).Insert(0, "https"));
+                return;
+            }
             var destinationPrefix = GetDestinationPrefix(scheme, host, domainConfig.Destination);
             var httpClient = httpClientFactory.CreateHttpClient(host.Host, domainConfig);
+            if (!string.IsNullOrEmpty(domainConfig.UserAgent))
+            {
+                var oldua = context.Request.Headers.UserAgent.ToString();
+                var newUA = domainConfig.UserAgent.Replace("${origin}", oldua, StringComparison.OrdinalIgnoreCase);
+                context.Request.Headers.UserAgent = new StringValues(newUA);
+            }
+
             var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, ForwarderRequestConfig.Empty, HttpTransformer.Empty);
             await HandleErrorAsync(context, error);
         }
@@ -65,18 +79,18 @@ sealed class HttpReverseProxyMiddleware
         }
     }
 
-    bool TryGetDomainConfig(HostString host, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
+    bool TryGetDomainConfig(Uri uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
     {
-        if (reverseProxyConfig.TryGetDomainConfig(host.Host, out domainConfig) == true)
+        if (reverseProxyConfig.TryGetDomainConfig(uri.Host + uri.AbsolutePath, out domainConfig) == true)
         {
             return true;
         }
 
         // 未配置的域名，但仍然被解析到本机 IP 的域名
-        if (OperatingSystem.IsWindows() && IsDomain(host.Host))
+        if (OperatingSystem.IsWindows() && IsDomain(uri.Host))
         {
             logger.LogWarning(
-                $"域名 {host.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
+                $"域名 {uri.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
             domainConfig = defaultDomainConfig;
             return true;
         }

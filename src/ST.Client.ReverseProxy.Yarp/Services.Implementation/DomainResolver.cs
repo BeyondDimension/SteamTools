@@ -9,6 +9,8 @@ sealed class DomainResolver : IDomainResolver
 {
     readonly IReverseProxyConfig reverseProxyConfig;
 
+    bool isIpv6 = false;
+
     public DomainResolver(IReverseProxyConfig reverseProxyConfig)
     {
         this.reverseProxyConfig = reverseProxyConfig;
@@ -16,7 +18,12 @@ sealed class DomainResolver : IDomainResolver
 
     public IAsyncEnumerable<IPAddress> ResolveAsync(DnsEndPoint endPoint, CancellationToken cancellationToken = default)
     {
-        return reverseProxyConfig.Service.DnsAnalysis.AnalysisDomainIpAsync(endPoint.Host, cancellationToken);
+        return reverseProxyConfig.Service.DnsAnalysis.AnalysisDomainIpAsync(endPoint.Host, isIpv6, cancellationToken);
+    }
+
+    public async void CheckIpv6SupportAsync(CancellationToken cancellationToken = default)
+    {
+        isIpv6 = await reverseProxyConfig.Service.DnsAnalysis.GetIsIpv6Support();
     }
 
     public Task TestSpeedAsync(CancellationToken cancellationToken = default)

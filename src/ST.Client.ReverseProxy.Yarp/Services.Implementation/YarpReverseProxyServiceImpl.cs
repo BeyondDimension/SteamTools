@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using NLog.Web;
 
 namespace System.Application.Services.Implementation;
@@ -14,12 +15,14 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         IPlatformService platformService,
         IDnsAnalysisService dnsAnalysis) : base(platformService, dnsAnalysis)
     {
-        InitCertificateManager();
+        CertificateManager = new YarpCertificateManagerImpl(platformService, this);
     }
+
+    public override ICertificateManager CertificateManager { get; }
 
     public override bool ProxyRunning => app != null;
 
-    public Task<bool> StartProxy() => Task.FromResult(StartProxyCore());
+    protected override Task<bool> StartProxyImpl() => Task.FromResult(StartProxyCore());
 
     bool StartProxyCore()
     {
@@ -62,14 +65,19 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         }
     }
 
-    public async void StopProxy() => await StopProxyCoreAsync();
-
-    async Task StopProxyCoreAsync()
+    public async Task StopProxy()
     {
         if (app == null) return;
         await app.StopAsync();
         await app.DisposeAsync();
         app = null;
+    }
+
+    void FlushFlowStatistics()
+    {
+        if (app == null) return;
+
+        var s = app.Services.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
     }
 
     protected override void DisposeCore()

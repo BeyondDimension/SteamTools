@@ -541,6 +541,7 @@ public static class IOPath
     }
 
     const decimal unit = 1024M;
+    const double unitD = 1024D;
     static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB" };
 
     public static (decimal length, string unit) GetSize(decimal length)
@@ -560,10 +561,33 @@ public static class IOPath
         }
     }
 
+    public static (double length, string unit) GetSizeD(double length)
+    {
+        if (length > 0D)
+        {
+            for (int i = 0; i < units.Length; i++)
+            {
+                if (i > 0) length /= unitD;
+                if (length < unitD) return (length, units[i]);
+            }
+            return (length, units.Last());
+        }
+        else
+        {
+            return (0D, units.First());
+        }
+    }
+
     public static string GetSizeString(decimal length)
     {
         // https://github.com/CommunityToolkit/dotnet/blob/v8.0.0-preview3/CommunityToolkit.Common/Converters.cs#L17
         (length, string unit) = GetSize(length);
+        return $"{length:0.00} {unit}";
+    }
+
+    public static string GetSizeStringD(double length)
+    {
+        (length, string unit) = GetSizeD(length);
         return $"{length:0.00} {unit}";
     }
 

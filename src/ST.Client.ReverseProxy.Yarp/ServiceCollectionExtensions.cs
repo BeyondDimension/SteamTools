@@ -1,13 +1,15 @@
 using System.ComponentModel;
 using System.Net;
-using System.Runtime.Versioning;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.Services.Implementation;
+using System.Application.Services.Implementation.FlowAnalyze;
 using System.Application.Services.Implementation.HttpServer.Certificates;
 using System.Application.Services.Implementation.HttpServer.Middleware;
-using System.Application.Services.Implementation.FlowAnalyze;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+#if WINDOWS
+using System.Application.Services.Implementation.PacketIntercept;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -97,26 +99,29 @@ public static partial class ServiceCollectionExtensions
         return services.AddSingleton<IFlowAnalyzer, FlowAnalyzer>();
     }
 
+#if WINDOWS
+
     /// <summary>
     /// 注册数据包拦截器
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    [SupportedOSPlatform("windows")]
     internal static IServiceCollection AddPacketIntercept(this IServiceCollection services)
     {
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/ServiceCollectionExtensions.cs#L21
         //services.AddSingleton<IDnsConflictSolver, HostsConflictSolver>();
         //services.AddSingleton<IDnsConflictSolver, ProxyConflictSolver>();
-        //services.TryAddSingleton<IDnsInterceptor, DnsInterceptor>();
-        //services.AddHostedService<DnsInterceptHostedService>();
+        services.TryAddSingleton<IDnsInterceptor, DnsInterceptor>();
+        services.AddHostedService<DnsInterceptHostedService>();
 
-        //services.AddSingleton<ITcpInterceptor, SshInterceptor>();
-        //services.AddSingleton<ITcpInterceptor, GitInterceptor>();
-        //services.AddSingleton<ITcpInterceptor, HttpInterceptor>();
-        //services.AddSingleton<ITcpInterceptor, HttpsInterceptor>();
-        //services.AddHostedService<TcpInterceptHostedService>();
+        services.AddSingleton<ITcpInterceptor, SshInterceptor>();
+        services.AddSingleton<ITcpInterceptor, GitInterceptor>();
+        services.AddSingleton<ITcpInterceptor, HttpInterceptor>();
+        services.AddSingleton<ITcpInterceptor, HttpsInterceptor>();
+        services.AddHostedService<TcpInterceptHostedService>();
 
         return services;
     }
+
+#endif
 }

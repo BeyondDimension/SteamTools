@@ -69,6 +69,17 @@ OS                                    | Version                 | Architectures 
 
 **\*** Windows 7 SP1 is supported with [Extended Security Updates](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed.  
 **\*** Microsoft Store(Desktop Bridge) Version 1809+
+OS                                    | Version                    | Architectures   | Lifecycle
+--------------------------------------|----------------------------|-----------------|----------
+[Windows Client][Windows-client]      | 7 SP1(**\***), 8.1(**\***) | x64             | [Windows][Windows-lifecycle]
+[Windows 10 Client][Windows-client]   | Version 1607+(**\***)      | x64             | [Windows][Windows-lifecycle]
+[Windows 11][Windows-client]          | Version 22000+             | x64,            | [Windows][Windows-lifecycle]
+[Windows Server][Windows-Server]      | 2008 R2 SP1(**\***), 2012+ | x64             | [Windows Server][Windows-Server-lifecycle]
+
+**\*** Windows 7 SP1 must have [Extended Security Update](https://docs.microsoft.com/troubleshoot/windows-client/windows-7-eos-faq/windows-7-extended-security-updates-faq) installed and will be released after November 2022 is no longer supported.  
+**\*** Windows 8.1 will no longer be supported in versions released after November 2022.  
+**\*** Windows Server 2008 R2 SP1 must have [Extended Security Update](https://docs.microsoft.com/en-us/lifecycle/faq/extended-security-updates) installed and will be released after November 2022 is no longer supported.  
+**\*** Microsoft Store(Desktop Bridge) Version 1809+  
 
 [Windows-client]: https://www.microsoft.com/windows/
 [Windows-lifecycle]: https://support.microsoft.com/help/13853/windows-lifecycle-fact-sheet
@@ -165,7 +176,7 @@ Read what we [milestones](https://github.com/BeyondDimension/SteamTools/mileston
 ## ⌨️ Development Environment
 [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)  
 [JetBrains Rider](https://www.jetbrains.com/rider/)  
-~~[Visual Studio 2022 for Mac Preview](https://visualstudio.microsoft.com/zh-hans/vs/mac/preview/)~~  
+~~[Visual Studio 2022 for Mac](https://visualstudio.microsoft.com/zh-hans/vs/mac/preview/)~~  
 ~~[Visual Studio Code](https://code.visualstudio.com/)~~
 - Supported Operating Systems
 	- [Windows 10 Version 2004 Or Higher: Home, Professional, Education, and Enterprise (LTSC and S are not supported)](https://docs.microsoft.com/en-us/visualstudio/releases/2019/system-requirements)
@@ -174,17 +185,15 @@ Read what we [milestones](https://github.com/BeyondDimension/SteamTools/mileston
 	- Web and Cloud
 		- ASP.NET and Web Development
 	- Desktop and Mobile Applications
+		- Mobile Development using .Net
 		- .NET Desktop Development
 		- UWP Development
-		- Mobile Development using .Net
-	- Other Toolsets
-		- .NET Core Cross Platform Development
 - Single Component
-	- GitHub Extension for Visual Studio
+	- GitHub Extension for Visual Studio(Optional)
 	- Windows 10 SDK (10.0.19041.0)
 - [Visual Studio Marketplace](https://marketplace.visualstudio.com/)
-	- [Avalonia for Visual Studio](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
-	- [NUnit VS Templates](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
+	- [Avalonia for Visual Studio(Optional)](https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio)
+	- [NUnit VS Templates(Optional)](https://marketplace.visualstudio.com/items?itemName=NUnitDevelopers.NUnitTemplatesforVisualStudio)
 
 [OpenJDK 11](https://docs.microsoft.com/java/openjdk/download#openjdk-11)  
 [Android Studio 2021.1.1 Or Higher](https://developer.android.com/studio/)  
@@ -199,6 +208,8 @@ Read what we [milestones](https://github.com/BeyondDimension/SteamTools/mileston
 * [Hardcodet.NotifyIcon](https://github.com/HavenDV/Hardcodet.NotifyIcon.Wpf.NetCore)
 * [System.Reactive](https://github.com/dotnet/reactive)
 * [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy)
+* [YARP](https://github.com/microsoft/reverse-proxy)
+* [FastGithub](https://github.com/dotnetcore/FastGithub)
 * [Portable.BouncyCastle](https://github.com/novotnyllc/bc-csharp)
 * [Ninject](https://github.com/ninject/Ninject)
 * [log4net](https://github.com/apache/logging-log4net)

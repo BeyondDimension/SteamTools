@@ -34,19 +34,19 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         proxyServer.EnableConnectionPool = true;
         proxyServer.CheckCertificateRevocation = X509RevocationMode.NoCheck;
 
-        InitCertificateManager();
+        CertificateManager = new TitaniumCertificateManagerImpl(platformService, this, proxyServer.CertificateManager);
         //proxyServer.ThreadPoolWorkerThread = Environment.ProcessorCount * 8;
     }
 
     public IPAddress[] DefaultDnsServers => IDnsAnalysisService.DNS_Alis;
 
-    public override CertificateManager CertificateManager => proxyServer.CertificateManager;
+    public override ICertificateManager CertificateManager { get; }
 
     public override bool ProxyRunning => proxyServer.ProxyRunning;
 
-    public static IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
+    static IList<HttpHeader> JsHeader => new List<HttpHeader>() { new HttpHeader("Content-Type", "text/javascript;charset=UTF-8") };
 
-    private static async Task HttpRequest(SessionEventArgs e)
+    static async Task HttpRequest(SessionEventArgs e)
     {
         //IHttpService.Instance.SendAsync<object>();
         var url = Web.HttpUtility.UrlDecode(e.HttpClient.Request.RequestUri.Query.Replace("?request=", ""));
@@ -103,7 +103,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         //e.Ok(respone, new List<HttpHeader>() { new HttpHeader("Access-Control-Allow-Origin", e.HttpClient.Request.Headers.GetFirstHeader("Origin")?.Value ?? "*") });
     }
 
-    private async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
+    async Task<IPAddress?> GetReverseProxyIp(string url, IPAddress? proxyDns, bool isDomain = false)
     {
         if (isDomain || !IPAddress.TryParse(url, out var ip))
         {
@@ -127,7 +127,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         return ip;
     }
 
-    private async Task OnRequest(object sender, SessionEventArgs e)
+    async Task OnRequest(object sender, SessionEventArgs e)
     {
 #if DEBUG
         Debug.WriteLine("OnRequest " + e.HttpClient.Request.RequestUri.AbsoluteUri);
@@ -258,7 +258,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         return;
     }
 
-    private async Task OnResponse(object sender, SessionEventArgs e)
+    async Task OnResponse(object sender, SessionEventArgs e)
     {
 #if DEBUG
         Debug.WriteLine("OnResponse" + e.HttpClient.Request.RequestUri.AbsoluteUri);
@@ -334,7 +334,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
     }
 
     // 允许重写默认的证书验证逻辑
-    private static Task OnCertificateValidation(object sender, CertificateValidationEventArgs e)
+    static Task OnCertificateValidation(object sender, CertificateValidationEventArgs e)
     {
         // 根据证书错误，设置IsValid为真/假
         //if (e.SslPolicyErrors == System.Net.Security.SslPolicyErrors.None)
@@ -343,26 +343,16 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
     }
 
     // 允许在相互身份验证期间重写默认客户端证书选择逻辑
-    private static Task OnCertificateSelection(object sender, CertificateSelectionEventArgs e)
+    static Task OnCertificateSelection(object sender, CertificateSelectionEventArgs e)
     {
         // set e.clientCertificate to override
         return Task.CompletedTask;
     }
 
-    public async Task<bool> StartProxy()
+    protected override async Task<bool> StartProxyImpl()
     {
-        var isCertificateInstalled = IsCertificateInstalled(proxyServer.CertificateManager.RootCertificate);
-        if (!isCertificateInstalled)
-        {
-            DeleteCertificate();
-            var isOk = SetupCertificate();
-            if (!isOk)
-            {
-                return false;
-            }
-        }
-
         #region 启动代理
+
         proxyServer.BeforeRequest += OnRequest;
         proxyServer.BeforeResponse += OnResponse;
         proxyServer.ServerCertificateValidationCallback += OnCertificateValidation;
@@ -464,7 +454,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         return true;
     }
 
-    private Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
+    Task TransparentProxyEndPoint_BeforeSslAuthenticate(object sender, BeforeSslAuthenticateEventArgs e)
     {
         e.DecryptSsl = false;
         if (ProxyDomains is null)
@@ -507,7 +497,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         return Task.CompletedTask;
     }
 
-    private async Task ExplicitProxyEndPoint_BeforeTunnelConnectRequest(object sender, TunnelConnectSessionEventArgs e)
+    async Task ExplicitProxyEndPoint_BeforeTunnelConnectRequest(object sender, TunnelConnectSessionEventArgs e)
     {
         e.DecryptSsl = false;
         if (ProxyDomains is null || e.HttpClient?.Request?.Host == null)
@@ -549,7 +539,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         return;
     }
 
-    public void StopProxy()
+    public Task StopProxy()
     {
         try
         {
@@ -578,6 +568,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         {
             ex.LogAndShowT(TAG);
         }
+        return Task.CompletedTask;
     }
 
     protected override void DisposeCore()

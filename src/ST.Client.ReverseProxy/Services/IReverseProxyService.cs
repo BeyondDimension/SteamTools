@@ -1,6 +1,4 @@
 using System.Net;
-using System.Properties;
-using System.Security.Cryptography.X509Certificates;
 using System.Application.Models;
 
 namespace System.Application.Services;
@@ -21,41 +19,79 @@ public interface IReverseProxyService : IDisposable
 
     static IReverseProxyService Instance => DI.Get<IReverseProxyService>();
 
-    bool IsCertificate { get; }
+    ICertificateManager CertificateManager { get; }
 
-    void TrustCer();
-
+    /// <summary>
+    /// 当前勾选的加速项目组
+    /// </summary>
     IReadOnlyCollection<AccelerateProjectDTO>? ProxyDomains { get; set; }
 
+    /// <summary>
+    /// 当前勾选的脚本集
+    /// </summary>
     IReadOnlyCollection<ScriptDTO>? Scripts { get; set; }
 
+    /// <summary>
+    /// 是否启用脚本
+    /// </summary>
     bool IsEnableScript { get; set; }
 
+    /// <summary>
+    /// 是否只针对 Steam 内置浏览器启用脚本
+    /// </summary>
     bool IsOnlyWorkSteamBrowser { get; set; }
 
-    ECertificateEngine CertificateEngine { get; set; }
-
+    /// <summary>
+    /// 代理服务器端口号
+    /// </summary>
     int ProxyPort { get; set; }
 
+    /// <summary>
+    /// 代理服务器 IP 地址
+    /// </summary>
     IPAddress ProxyIp { get; set; }
 
+    /// <summary>
+    /// 是否使用系统代理模式
+    /// </summary>
     bool IsSystemProxy { get; set; }
 
+    /// <summary>
+    /// 启用 GOG 插件代理
+    /// </summary>
     bool IsProxyGOG { get; set; }
 
+    /// <summary>
+    /// 开启加速后仅代理脚本而不加速
+    /// </summary>
     bool OnlyEnableProxyScript { get; set; }
 
-    bool Socks5ProxyEnable { get; set; }
-
+    /// <summary>
+    /// 启用 Http 链接转发到 Https
+    /// </summary>
     bool EnableHttpProxyToHttps { get; set; }
 
+    #region Socks5
+
+    /// <summary>
+    /// Socks5 Enable
+    /// </summary>
+    bool Socks5ProxyEnable { get; set; }
+
+    /// <summary>
+    /// Socks5 监听端口
+    /// </summary>
     int Socks5ProxyPortId { get; set; }
+
+    #endregion
+
+    #region TwoLevelAgent(二级代理)
+
+    const EExternalProxyType DefaultTwoLevelAgentProxyType = EExternalProxyType.Socks5;
 
     bool TwoLevelAgentEnable { get; set; }
 
     EExternalProxyType TwoLevelAgentProxyType { get; set; }
-
-    const EExternalProxyType DefaultTwoLevelAgentProxyType = EExternalProxyType.Socks5;
 
     string? TwoLevelAgentIp { get; set; }
 
@@ -65,58 +101,35 @@ public interface IReverseProxyService : IDisposable
 
     string? TwoLevelAgentPassword { get; set; }
 
+    #endregion
+
     IPAddress? ProxyDNS { get; set; }
 
+    /// <summary>
+    /// 当前代理服务是否正在运行
+    /// </summary>
     bool ProxyRunning { get; }
 
-    bool SetupCertificate();
-
-    bool DeleteCertificate();
-
+    /// <summary>
+    /// 检查端口号是否被使用
+    /// </summary>
+    /// <param name="port"></param>
+    /// <returns></returns>
     bool PortInUse(int port);
 
     Task<bool> StartProxy();
 
-    void StopProxy();
-
-    bool WirtePemCertificateToGoGSteamPlugins();
-
-    bool IsCertificateInstalled(X509Certificate2? certificate2);
-
-    const string PfxFileName = $"{CertificateName}.Certificate{FileEx.PFX}";
-
-    const string CerFileName = $"{CertificateName}.Certificate{FileEx.CER}";
-
-    static string CerExportFileName
-    {
-        get
-        {
-            var now = DateTime.Now;
-            const string f = $"{ThisAssembly.AssemblyTrademark}  Certificate {{0}}{FileEx.CER}";
-            return string.Format(f, now.ToString(DateTimeFormat.File));
-        }
-    }
-
-    static string DefaultPfxFilePath => Path.Combine(IOPath.AppDataDirectory, PfxFileName);
-
-    static string DefaultCerFilePath => Path.Combine(IOPath.AppDataDirectory, CerFileName);
-
-    string PfxFilePath => DefaultPfxFilePath;
-
-    string CerFilePath => DefaultCerFilePath;
+    Task StopProxy();
 
     /// <summary>
-    /// 获取 Cer 证书路径，当不存在时生成文件后返回路径
+    /// 将 PEM 证书公钥写入 GOG GALAXY
     /// </summary>
     /// <returns></returns>
-    string? GetCerFilePathGeneratedWhenNoFileExists();
-
-    bool IsCurrentCertificateInstalled { get; }
+    bool WirtePemCertificateToGoGSteamPlugins();
 
     /// <summary>
-    /// 获取当前 Root 证书
+    /// 获取当前反向代理实现引擎
     /// </summary>
-    X509Certificate2? RootCertificate { get; }
-
     EReverseProxyEngine ReverseProxyEngine { get; }
+
 }

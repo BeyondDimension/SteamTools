@@ -25,7 +25,17 @@
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsStartupAppMinimized},Path=Value, Mode=TwoWay}"/>
         </DockPanel>
       </Border>
-
+      
+      <Border Classes="Item">
+        <DockPanel>
+          <StackPanel>
+            <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+            <TextBlock Classes="prompt"
+                       Text="{ReflectionBinding Path=Res.Settings_General_EnableTrayIcon_Tip,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+          </StackPanel>
+          <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.IsEnableTrayIcon},Path=Value, Mode=TwoWay}"/>
+        </DockPanel>
+      </Border>
       <Separator Classes="Separator"/>
 
       <Border Classes="Item">
@@ -52,7 +62,7 @@
           <StackPanel>
             <TextBlock Text="{ReflectionBinding Path=Res.Settings_General_UseGPURendering,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
             <TextBlock Classes="prompt"
-                       Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                       Text="{ReflectionBinding Path=Res.Settings_RestartEffective,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
           </StackPanel>
 
           <ToggleSwitch IsChecked="{ReflectionBinding Source={x:Static ms:GeneralSettings.UseGPURendering},Path=Value, Mode=TwoWay}"/>

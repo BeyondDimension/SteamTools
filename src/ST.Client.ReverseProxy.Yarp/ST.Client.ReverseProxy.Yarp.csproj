@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>
+      net6.0;net6.0-windows</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy.Yarp</AssemblyName>
     <DefineConstants>REVERSE_PROXY_YARP;$(DefineConstants)</DefineConstants>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +24,7 @@
       <Link>Properties\AssemblyInfo.OS.cs</Link>
     </Compile>
     <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\ReverseProxyServiceImpl.cs" LinkBase="Services.Implementation" />
+    <Compile Include="..\ST.Client.ReverseProxy\Services\Implementation\CertificateManagerImpl.cs" LinkBase="Services.Implementation" />
     <!--<Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Certificates\Cache\ICertificateCache.cs">
       <LinkBase>Titanium.Web.Proxy\Certificates\Cache</LinkBase>
     </Compile>
@@ -73,6 +76,7 @@
     <Compile Include="..\..\references\Titanium-Web-Proxy\src\Titanium.Web.Proxy\Extensions\HttpHeaderExtensions.cs">
       <LinkBase>Titanium.Web.Proxy\Extensions</LinkBase>
     </Compile>-->
+    <Compile Include="..\Common.ServerLib\Extensions\SystemWebExtensions.cs" LinkBase="Extensions" />
   </ItemGroup>
 
   <ItemGroup>
@@ -83,6 +87,11 @@
   <ItemGroup>
     <PackageReference Include="Yarp.ReverseProxy" />
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
+    <PackageReference Include="Aigio.WinDivertSharp" />
+    <PackageReference Include="DNS" />
   </ItemGroup>
 
 </Project>

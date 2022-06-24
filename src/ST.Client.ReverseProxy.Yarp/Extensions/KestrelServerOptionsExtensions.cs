@@ -104,8 +104,10 @@ public static class KestrelServerOptionsExtensions
     public static void ListenHttpsReverseProxy(this KestrelServerOptions options)
     {
         var certService = options.ApplicationServices.GetRequiredService<CertService>();
+        //var reverseProxyConfig = options.ApplicationServices.GetRequiredService<IReverseProxyConfig>();
 
-        var reverseProxyConfig = options.ApplicationServices.GetRequiredService<IReverseProxyConfig>();
+        var domainResolver = options.ApplicationServices.GetRequiredService<IDomainResolver>();
+        domainResolver.CheckIpv6SupportAsync();
 
         var httpsPort = IReverseProxyConfig.HttpsPort;
         options.ListenLocalhost(httpsPort, listen =>

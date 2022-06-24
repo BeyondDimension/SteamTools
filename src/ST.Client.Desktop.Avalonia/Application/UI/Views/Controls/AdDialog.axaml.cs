@@ -1,6 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
+using DynamicData.Binding;
+using System.Application.Services;
 
 namespace System.Application.UI.Views.Controls
 {
@@ -36,14 +39,44 @@ namespace System.Application.UI.Views.Controls
 
                 closeButton.Click += (s, e) =>
                 {
-                    this.IsVisible = false;
+                    RemoveAd();
                 };
             }
+
+            UserService.Current.WhenValueChanged(x => x.User, false)
+                  .Subscribe(_ => Check());
+
+            AdvertiseService.Current.WhenValueChanged(x => x.Advertisements, false)
+                  .Subscribe(_ => Check());
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+
+            Check();
+        }
+
+        void Check()
+        {
+            if (UserService.Current.User != null && UserService.Current.User.UserType == UserType.Sponsor)
+            {
+                RemoveAd();
+            }
+            if (AdvertiseService.Current.IsInitialized && !AdvertiseService.Current.Advertisements.Any_Nullable())
+            {
+                RemoveAd();
+            }
+        }
+
+        void RemoveAd()
+        {
+            this.IsVisible = false;
         }
     }
 }

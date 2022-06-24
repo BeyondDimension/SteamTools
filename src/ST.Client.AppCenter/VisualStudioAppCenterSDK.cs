@@ -2,13 +2,13 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using System.Application.Security;
-#if WINDOWS
 using System.Reflection;
 using System.Text;
-using Microsoft.AppCenter.Utils;
 using System.Security;
-using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+#if WINDOWS
+using Microsoft.AppCenter.Utils;
 using static System.Application.VisualStudioAppCenterSDK;
 #if DEBUG
 using static System.Application.UI.ViewModels.DebugPageViewModel;

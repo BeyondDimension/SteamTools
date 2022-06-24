@@ -10,7 +10,7 @@ namespace System.Application.Settings
             = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
 
         /// <summary>
-        /// 启用GOG插件代理
+        /// 启用 GOG 插件代理
         /// </summary>
         [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]
@@ -32,7 +32,7 @@ namespace System.Application.Settings
              = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
 
         /// <summary>
-        /// 是否只针对Steam内置浏览器启用脚本
+        /// 是否只针对 Steam 内置浏览器启用脚本
         /// </summary>
         [SupportedOSPlatform("Windows7.0")]
         [SupportedOSPlatform("macOS")]

@@ -8,6 +8,7 @@ using DynamicData;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using DynamicData.Binding;
+using ReactiveUI.Fody.Helpers;
 
 namespace System.Application.Services
 {
@@ -22,6 +23,9 @@ namespace System.Application.Services
         private readonly ReadOnlyObservableCollection<AdvertisementDTO> _Advertisements;
 
         public ReadOnlyObservableCollection<AdvertisementDTO> Advertisements => _Advertisements;
+
+        [Reactive]
+        public bool IsInitialized { get; set; }
 
         private AdvertiseService()
         {
@@ -41,17 +45,22 @@ namespace System.Application.Services
 
         public async void InitAdvertise()
         {
-            var client = ICloudServiceClient.Instance.Advertisement;
-            var result = await client.All();
+            if (IsInitialized == false)
+            {
+                var client = ICloudServiceClient.Instance.Advertisement;
+                var result = await client.All();
 
-            if (result.IsSuccess && result.Content != null)
-            {
-                AdvertisementsSource.Clear();
-                AdvertisementsSource.AddRange(result.Content);
-            }
-            else
-            {
-                Log.Error(nameof(InitAdvertise), result.Message);
+                if (result.IsSuccess && result.Content != null)
+                {
+                    AdvertisementsSource.Clear();
+                    AdvertisementsSource.AddRange(result.Content);
+                }
+                else
+                {
+                    Log.Error(nameof(InitAdvertise), result.Message);
+                }
+
+                IsInitialized = true;
             }
         }
 

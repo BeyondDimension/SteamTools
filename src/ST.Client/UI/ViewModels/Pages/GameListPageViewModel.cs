@@ -1,6 +1,7 @@
 using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Application.Models;
 using System.Application.Services;
 using System.Application.Settings;
@@ -194,75 +195,35 @@ namespace System.Application.UI.ViewModels
             base.Deactivation();
         }
 
-        private bool _IsOpenFilter;
+        [Reactive]
+        public bool IsOpenFilter { get; set; }
 
-        public bool IsOpenFilter
-        {
-            get => _IsOpenFilter;
-            set => this.RaiseAndSetIfChanged(ref _IsOpenFilter, value);
-        }
+        [Reactive]
+        public bool IsInstalledFilter { get; set; }
 
-        private bool _IsInstalledFilter;
+        [Reactive]
+        public bool IsCloudArchiveFilter { get; set; }
 
-        public bool IsInstalledFilter
-        {
-            get => _IsInstalledFilter;
-            set => this.RaiseAndSetIfChanged(ref _IsInstalledFilter, value);
-        }
+        [Reactive]
+        public bool IsAppInfoOpen { get; set; }
 
-        private bool _IsCloudArchiveFilter;
-
-        public bool IsCloudArchiveFilter
-        {
-            get => _IsCloudArchiveFilter;
-            set => this.RaiseAndSetIfChanged(ref _IsCloudArchiveFilter, value);
-        }
-
-        private bool _IsAppInfoOpen;
-
-        public bool IsAppInfoOpen
-        {
-            get => _IsAppInfoOpen;
-            set => this.RaiseAndSetIfChanged(ref _IsAppInfoOpen, value);
-        }
-
-        private SteamApp? _SelectApp;
-
-        public SteamApp? SelectApp
-        {
-            get => _SelectApp;
-            set => this.RaiseAndSetIfChanged(ref _SelectApp, value);
-        }
+        [Reactive]
+        public SteamApp? SelectApp { get; set; }
 
         private readonly ReadOnlyObservableCollection<SteamApp>? _SteamApps;
 
         public ReadOnlyObservableCollection<SteamApp>? SteamApps => _SteamApps;
 
-        private string? _SearchText;
-
-        public string? SearchText
-        {
-            get => _SearchText;
-            set => this.RaiseAndSetIfChanged(ref _SearchText, value);
-        }
+        [Reactive]
+        public string? SearchText { get; set; }
 
         public bool IsSteamAppsEmpty => !SteamApps.Any_Nullable() && !SteamConnectService.Current.IsLoadingGameList;
 
-        private ObservableCollection<EnumModel<SteamAppType>>? _AppTypeFiltres;
+        [Reactive]
+        public ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres { get; set; }
 
-        public ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres
-        {
-            get => _AppTypeFiltres;
-            set => this.RaiseAndSetIfChanged(ref _AppTypeFiltres, value);
-        }
-
-        private IReadOnlyCollection<EnumModel<SteamAppType>>? _EnableAppTypeFiltres;
-
-        public IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres
-        {
-            get => _EnableAppTypeFiltres;
-            set => this.RaiseAndSetIfChanged(ref _EnableAppTypeFiltres, value);
-        }
+        [Reactive]
+        public IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres { get; set; }
 
         public string TypeFilterString
         {

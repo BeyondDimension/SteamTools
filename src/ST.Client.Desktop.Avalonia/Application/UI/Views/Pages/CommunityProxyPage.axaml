@@ -9,6 +9,7 @@
              xmlns:ms="using:System.Application.Settings"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:pages="using:System.Application.UI.Views.Pages"
              xmlns:sys="using:System"
              xmlns:markup="using:System.Application.Markup"
              x:Name="u"
@@ -210,27 +211,28 @@
         </ListBox>
       </Border>
 
-      <Border Grid.Column="1" Grid.Row="1" Classes="paper" Margin="0 0 10 10" Background="{DynamicResource ThemeBrushKey}">
-        <Panel Margin="10 0">
-          <DockPanel>
-            <DockPanel Margin="0 10" DockPanel.Dock="Top">
-              <CheckBox MinWidth="20"
-                        Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                        IsChecked="{ReflectionBinding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
-              </CheckBox>
-              <TextBlock Text="{ReflectionBinding #items.SelectedItem.Name}"
-                         FontSize="20"
-                         VerticalAlignment="Center"
-                         HorizontalAlignment="Right"
-                         Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
-            </DockPanel>
+      <DockPanel Grid.Column="1" Grid.Row="1" Classes="paper" Margin="0 0 10 10">
 
+        <controls:AdDialog DockPanel.Dock="Bottom"
+                           Margin="0 10 0 0"
+                           SupportClose="True"
+                           Height="160"/>
+
+        <Border Grid.Column="1" Grid.Row="1" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
+          <Panel Margin="10 0">
             <DockPanel>
-              <controls:AdDialog DockPanel.Dock="Bottom"
-                                 Margin="0 10"
-                                 Height="140"/>
-              <ScrollViewer DockPanel.Dock="Top"
-                            HorizontalScrollBarVisibility="Disabled"
+              <DockPanel Margin="0 10" DockPanel.Dock="Top">
+                <CheckBox MinWidth="20"
+                          Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                          IsChecked="{ReflectionBinding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
+                </CheckBox>
+                <TextBlock Text="{ReflectionBinding #items.SelectedItem.Name}"
+                           FontSize="20"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           Foreground="{DynamicResource HighlightForegroundBrushKey}"></TextBlock>
+              </DockPanel>
+              <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                             VerticalScrollBarVisibility="Auto">
                 <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
                   <ItemsControl.ItemTemplate>
@@ -252,10 +254,9 @@
                 </ItemsControl>
               </ScrollViewer>
             </DockPanel>
-          </DockPanel>
-        </Panel>
-      </Border>
-
+          </Panel>
+        </Border>
+      </DockPanel>
     </Grid>
 
     <Grid RowDefinitions="Auto,*,Auto"
@@ -284,8 +285,10 @@
             IsVisible="{ReflectionBinding Source={x:Static ms:ProxySettings.EnableWindowsProxy},Path=!Value}}"/>
         </WrapPanel>
       </StackPanel>
-      <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="30" Margin="0 20">
-        <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
+      <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 20">
+        <pages:ProxyChartView Margin="60 0"/>
+
+        <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
           <DockPanel MinWidth="300">
             <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                        FontSize="16"
@@ -330,9 +333,9 @@
               </ItemsControl>
             </ScrollViewer>
           </DockPanel>
-        </Border>
-        
-      </StackPanel>
+        </Border>-->
+
+      </DockPanel>
 
       <StackPanel Grid.Row="2" Margin="20 0 20 50">
         <Button Classes="action"
