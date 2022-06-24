@@ -23,8 +23,8 @@
     <PackageReference Include="ReactiveUI" />
     <PackageReference Include="Splat" />
     <PackageReference Include="DynamicData" />
-    <PackageReference Include="System.Reactive" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' " />
-    <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' != 'true' " />
+    <PackageReference Include="System.Reactive" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' OR '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' " />
+    <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" Condition=" !('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' OR '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true') " />
   </ItemGroup>
 
   <ItemGroup>
