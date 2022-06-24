@@ -245,7 +245,7 @@
     <!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.12.2" />-->
     <!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
     <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
-    <PackageVersion Include="FluentAvaloniaUI" Version="1.4.0" />
+    <PackageVersion Include="FluentAvaloniaUI" Version="1.4.1" />
     <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.300" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
     <PackageVersion Include="Avalonia.Native" Version="0.10.15" />
@@ -255,8 +255,8 @@
 
     <!-- Xamarin.Android -->
     <PackageVersion Include="Xamarin.Build.Download" Version="0.11.2" />
-    <PackageVersion Include="Xamarin.Google.Dagger" Version="2.41.0.1" />
-    <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="117.0.2.1" />
+    <PackageVersion Include="Xamarin.Google.Dagger" Version="2.40.5" />
+    <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0.4" />
     <PackageVersion Include="Square.OkHttp3" Version="4.9.3.1" />
@@ -312,5 +312,8 @@
 
     <!-- WinDivert -->
     <PackageVersion Include="Aigio.WinDivertSharp" Version="1.4.4.2" />
+
+    <!-- ArchiSteamFarm -->
+    <PackageVersion Include="ArchiSteamFarm.Library" Version="5.2.6.3-preview.220608" />
   </ItemGroup>
 </Project>

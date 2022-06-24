@@ -202,7 +202,7 @@ namespace System.Application.UI.Fragments
                     }
                 }
 
-                if (!IReverseProxyService.Instance.IsCurrentCertificateInstalled) // 检查 CA 证书是否已安装
+                if (!IReverseProxyService.Instance.CertificateManager.IsRootCertificateInstalled) // 检查 CA 证书是否已安装
                 {
                     // 当未安装证书时
                     intent = new Intent(a, typeof(GuideCACertActivity));
