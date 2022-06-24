@@ -252,5 +252,13 @@ namespace System.Application.Models
         [N_JsonProperty("19")]
         [S_JsonProperty("19")]
         public UserType UserType { get; set; }
+
+        /// <summary>
+        /// 下级所需经验
+        /// </summary>
+        [MPKey(20)]
+        [N_JsonProperty("20")]
+        [S_JsonProperty("20")]
+        public uint NextExperience { get; set; }
     }
 }

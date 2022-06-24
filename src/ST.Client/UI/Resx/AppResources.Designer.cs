@@ -5331,6 +5331,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 签到 的本地化字符串。
+        /// </summary>
+        public static string Sign {
+            get {
+                return ResourceManager.GetString("Sign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 退出登录 的本地化字符串。
         /// </summary>
         public static string SignOut {

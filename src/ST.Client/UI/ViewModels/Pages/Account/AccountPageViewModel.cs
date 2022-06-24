@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Reactive;
 using System.Application.Models;
+using System.Windows.Input;
 
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
@@ -19,6 +20,10 @@ namespace System.Application.UI.ViewModels
         public ReactiveCommand<Unit, Unit>? OpenBalanceLogs { get; }
 
         public ReactiveCommand<Unit, Unit>? SignIn { get; }
+
+        public ReactiveCommand<Unit, Unit>? RefreshButton { get; }
+
+        public ReactiveCommand<Unit, Unit>? OpenSteamProfile { get; }
 
         public AccountPageViewModel()
         {
@@ -45,7 +50,34 @@ namespace System.Application.UI.ViewModels
                     Toast.Show(state.Message);
                 }
             });
+            RefreshButton = ReactiveCommand.CreateFromTask(async () =>
+            {
+                await UserService.Current.RefreshUserAsync();
+                Toast.Show(AppResources.RefreshOK);
+            });
+
+            OpenSteamProfile = ReactiveCommand.CreateFromTask(async () =>
+            {
+                if (UserService.Current.User?.SteamAccountId.HasValue ?? false)
+                    await Browser2.OpenAsync(string.Format(SteamApiUrls.STEAM_PROFILES_URL, UserService.Current.User!.SteamAccountId));
+            });
         }
+
+        /// <summary>
+        /// 换绑手机号码 按钮点击
+        /// </summary>
+        public ICommand OnBtnChangeBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
+        {
+            UserService.Current.ShowWindow(CustomWindow.ChangeBindPhoneNumber);
+        });
+
+        /// <summary>
+        /// 绑定手机号码 按钮点击
+        /// </summary>
+        public ICommand OnBtnBindPhoneNumberClick { get; } = ReactiveCommand.Create(() =>
+        {
+            UserService.Current.ShowWindow(CustomWindow.BindPhoneNumber);
+        });
 
         public override async void Activation()
         {
@@ -58,6 +90,8 @@ namespace System.Application.UI.ViewModels
         }
 
         public bool IsSponsor => UserService.Current.User?.UserType.HasFlag(UserType.Sponsor) ?? false;
+
+        public double LinearWidth => 25 * Math.Round((double)(UserService.Current.User?.Experience ?? 0) / (UserService.Current.User?.NextExperience ?? 0), 2);
 
     }
 }

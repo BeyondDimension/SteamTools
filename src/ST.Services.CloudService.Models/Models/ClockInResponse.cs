@@ -1,4 +1,4 @@
-﻿using MPKey = MessagePack.KeyAttribute;
+using MPKey = MessagePack.KeyAttribute;
 using MPObj = MessagePack.MessagePackObjectAttribute;
 using N_JsonProperty = Newtonsoft.Json.JsonPropertyAttribute;
 using S_JsonProperty = System.Text.Json.Serialization.JsonPropertyNameAttribute;
@@ -34,5 +34,13 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public byte Level { get; set; }
+
+        /// <summary>
+        /// 下级经验
+        /// </summary>
+        [MPKey(3)]
+        [N_JsonProperty("3")]
+        [S_JsonProperty("3")]
+        public uint NextExperience { get; set; }
     }
 }

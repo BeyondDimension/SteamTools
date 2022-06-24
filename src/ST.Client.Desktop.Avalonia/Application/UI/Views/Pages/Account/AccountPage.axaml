@@ -9,7 +9,9 @@
              xmlns:service="using:System.Application.Services"
              xmlns:models="using:System.Application.Models"
              xmlns:ms="using:System.Application.Settings"
+             xmlns:sys_app="using:System.Application"
              xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
              x:DataType="vm:AccountPageViewModel"
              xmlns:gif="using:AvaloniaGif"
@@ -18,8 +20,6 @@
   <StackPanel HorizontalAlignment="Stretch" Margin="{StaticResource PageMargin}" Background="Transparent" Spacing="20">
     <StackPanel Spacing="8" DockPanel.Dock="Right">
       <Border
-          Classes="paper"
-          Background="{DynamicResource ThemeBrushKey}"
           Padding="10"
           Margin="10 20 10 10">
         <Panel >
@@ -93,9 +93,9 @@
                        VerticalAlignment="Center"/>
                 <Label Margin="15 0 0 0" Content="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}" Foreground="{DynamicResource HighlightForegroundBrushKey}" VerticalContentAlignment="Center" FontSize="12"/>
                 <Border CornerRadius="2" Height="5" Width="25" Background="#ffffff" Opacity="0.2" Margin="0 5 5 0">
-                  <Border Width="10" HorizontalAlignment="Left" CornerRadius="10">
+                  <Border Width="{ReflectionBinding LinearWidth}" HorizontalAlignment="Left" CornerRadius="10">
                     <Border.Background>
-                      <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.5,1">
+                      <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Offset="0" Color="#b00dff"/>
                         <GradientStop Offset="1" Color="#580083"/>
                       </LinearGradientBrush>
@@ -105,18 +105,16 @@
 
                 <WrapPanel HorizontalAlignment="Right">
                   <Button Background="Transparent" Cursor="Hand"
-                          Margin="10 0 10 0"
                           Command="{ReflectionBinding SignIn}"
-                          ToolTip.Tip="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                    <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
+                          ToolTip.Tip="{ReflectionBinding Path=Res.Sign,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <PathIcon Width="16"  Data="{StaticResource SignDrawing}" />
                   </Button>
                   <Button Background="Transparent" Cursor="Hand"
-                     Command="{ReflectionBinding RefreshScriptButton}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                    <PathIcon Width="16"  Data="{StaticResource SearchDrawing}" />
+                          Margin="10 0 10 0"
+                          Command="{ReflectionBinding RefreshButton}"
+                          ToolTip.Tip="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                    <PathIcon Width="16"  Data="{StaticResource RefreshDrawing}" />
                   </Button>
-
-
                 </WrapPanel>
               </DockPanel>
               <Separator Classes="Separator"></Separator>
@@ -144,95 +142,118 @@
                   </Button>
 
                 </DockPanel>
+                <DockPanel HorizontalAlignment="Left" Margin="12,0,0,0">
+                  <DockPanel.Styles>
+                    <Style Selector="PathIcon.FormItemLabel">
+                      <Setter Property="Margin" Value="0,0,12,0"/>
+                      <Setter Property="Height" Value="22" />
+                      <Setter Property="Width" Value="22" />
+                    </Style>
+                  </DockPanel.Styles>
+                  <i:Interaction.Behaviors>
+                    <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{ReflectionBinding #steam}">
+                      <ia:InvokeCommandAction Command="{ReflectionBinding OpenSteamProfile}" />
+                    </ia:EventTriggerBehavior>
+                  </i:Interaction.Behaviors>
+                  <PathIcon Classes="FormItemLabel"
+                            x:Name="steam"
+                            ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,
+                                                            Mode=OneWay,
+                                                            Source={x:Static resx:R.Current}}"
+                            IsVisible="{ReflectionBinding Path=User.SteamAccountId,
+                                                          Mode=OneWay,
+                                                          Source={x:Static service:UserService.Current},
+                                                          Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                            Data="{StaticResource SteamDrawing}" />
+                  <PathIcon Classes="FormItemLabel"
+                            IsVisible="{ReflectionBinding Path=User.MicrosoftAccountEmail,
+                                                          Mode=OneWay,
+                                                          Source={x:Static service:UserService.Current},
+                                                          Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                            Data="{StaticResource Xbox}" />
+                  <PathIcon Classes="FormItemLabel"
+                            IsVisible="{ReflectionBinding Path=User.QQNickName,
+                                                          Mode=OneWay,
+                                                          Source={x:Static service:UserService.Current},
+                                                          Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                            Data="{StaticResource QQ}" />
+                </DockPanel>
               </DockPanel>
 
             </StackPanel>
           </DockPanel>
         </Panel>
       </Border>
-      <Separator Classes="Separator"></Separator>
-      <Grid  ColumnDefinitions="Auto,*"
-              RowDefinitions="Auto,*">
-        <Border Grid.Column="0"
-              Margin="10 0 10 10"
-              MinWidth="300"
-            Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
-          <DockPanel>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                 Padding="0 0 0 10">
-              <ItemsControl
-               x:Name="item"
-               Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate  x:DataType="models:NoticeDTO">
 
-                    <DockPanel>
-                      <StackPanel Spacing="8" DockPanel.Dock="Right">
-                        <DockPanel>
-                          <controls:ScrollingTextBlock
-                              Width="{Binding $parent.Width}"
-                              Text="{Binding Title,Mode=OneWay}"
-                              FontSize="16"
-                              VerticalAlignment="Center"
-                              Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+      <StackPanel Classes="Settings" Margin="30 0 20 30">
+        <Button Classes="plain" Command="{ReflectionBinding OpenUserProfile}">
+          <Border Classes="Item">
+            <DockPanel>
+              <TextBlock Text="您的信息"/>
+              <ui:SymbolIcon Classes="right"
+                             Symbol="Open"
+                             FontSize="24"/>
+            </DockPanel>
+          </Border>
+        </Button>
 
-                          <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <TextBlock
-                                Text="{Binding Author}"
-                                FontSize="14"
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
+        <Expander>
+          <Expander.Header>
+            <DockPanel HorizontalAlignment="Stretch">
+              <TextBlock Text="个性化设置"/>
+            </DockPanel>
+          </Expander.Header>
+          <StackPanel Orientation="Horizontal"
+                      Spacing="10">
+            <TextBlock Text="关闭广告"/>
+            <TextBlock Text="xxxx"/>
+          </StackPanel>
+        </Expander>
 
-                            <TextBlock Text=" / " FontSize="14"></TextBlock>
-                            <TextBlock
-                                Text="{Binding CreationTime}"
-                                FontSize="14"
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-                          </WrapPanel>
-                        </DockPanel>
+        <Expander>
+          <Expander.Header>
+            <DockPanel HorizontalAlignment="Stretch">
+              <TextBlock Text="安全"/>
+            </DockPanel>
+          </Expander.Header>
+          <StackPanel Orientation="Horizontal"
+                      Spacing="10">
+            <Grid>
+              <Panel.Styles>
+                <Style Selector="TextBlock.FormItemLabel">
+                  <Setter Property="VerticalAlignment" Value="Center"/>
+                  <Setter Property="HorizontalAlignment" Value="Right"/>
+                  <Setter Property="Margin" Value="0,0,12,0"/>
+                </Style>
+              </Panel.Styles>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+              </Grid.ColumnDefinitions>
 
-                        <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
-
-                        <TextBlock
-                        Width="{Binding $parent.Width}"
-                        TextWrapping="WrapWithOverflow"
-                        Text="{Binding Introduction}"
-                        FontSize="12"
-                        Foreground="{DynamicResource HighlightForegroundBrushKey}"/>
-
-                      </StackPanel>
-                    </DockPanel>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </ScrollViewer>
-
-          </DockPanel>
-        </Border>
-        <Border Grid.Column="1" Grid.Row="0" Classes="paper"  Margin="0 0 10 10"  Background="{DynamicResource ThemeBrushKey}" Padding="10">
-          <DockPanel >
-            <TextBlock Text="这里部分常见内容 官网Json获取 手动编辑" FontSize="14"></TextBlock>
-          </DockPanel>
-        </Border>
-      </Grid>
-
-      <Grid  ColumnDefinitions="Auto,*"
-              RowDefinitions="Auto,*">
-        <Border Grid.Column="0"
-                Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
-          <DockPanel>
-
-          </DockPanel>
-        </Border>
-        <Border Grid.Column="1"
-                Grid.Row="0" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
-          <DockPanel >
-
-
-          </DockPanel>
-        </Border>
-      </Grid>
+              <TextBlock Classes="FormItemLabel"
+                         Text="{ReflectionBinding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         Grid.Row="0"/>
+              <Button Classes="Secondary"
+                      Content="{ReflectionBinding Path=Res.Modify,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding OnBtnChangeBindPhoneNumberClick}"
+                      IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                      Grid.Row="0"
+                      Grid.Column="2"/>
+              <Button Classes="Secondary"
+                      Content="{ReflectionBinding Path=Res.Bind,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding OnBtnBindPhoneNumberClick}"
+                      IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                      Grid.Row="0"
+                      Grid.Column="2"/>
+            </Grid>
+          </StackPanel>
+        </Expander>
+      </StackPanel>
     </StackPanel>
   </StackPanel>
 </UserControl>

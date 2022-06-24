@@ -2134,7 +2134,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>请在弹出的控制台窗口中输入密码或者手动执行</value>
   </data>
   <data name="CustomFilePicker_Tip" xml:space="preserve">
-    <!--<value>选择文件或拖拽到这里</value>-->
     <value>选择文件</value>
   </data>
   <data name="Info" xml:space="preserve">
@@ -2288,9 +2287,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="GameList_UploadCloudArchiveFile" xml:space="preserve">
     <value>手动上传存档文件</value>
   </data>
-  <data name="RefreshList" xml:space="preserve">
-    <value>刷新列表</value>
-  </data>
   <data name="FileNumber" xml:space="preserve">
     <value>{0}个文件</value>
   </data>
@@ -2308,5 +2304,8 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="Advertisement_Close" xml:space="preserve">
     <value>关闭广告</value>
+  </data>
+  <data name="Sign" xml:space="preserve">
+    <value>签到</value>
   </data>
 </root>
