@@ -148,6 +148,7 @@
                       <Setter Property="Margin" Value="0,0,12,0"/>
                       <Setter Property="Height" Value="22" />
                       <Setter Property="Width" Value="22" />
+                      <Setter Property="Cursor" Value="Hand" />
                     </Style>
                   </DockPanel.Styles>
                   <i:Interaction.Behaviors>
