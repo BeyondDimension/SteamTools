@@ -23,8 +23,6 @@
     <PackageReference Include="ReactiveUI" />
     <PackageReference Include="Splat" />
     <PackageReference Include="DynamicData" />
-    <PackageReference Include="System.Reactive" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' OR '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' " />
-    <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" Condition=" !('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' OR '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true') " />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,5 +33,11 @@
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- System.Reactive 在 -windows 中会引用 WPF，所以使用 ProjectReference 子模块中删除 WPF 依赖的分支项目编译 -->
+    <PackageReference Include="System.Reactive" Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' OR '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true' " />
+    <ProjectReference Include="..\..\references\reactive\Rx.NET\Source\src\System.Reactive\System.Reactive.csproj" Condition=" !('$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true' OR '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true') " />
   </ItemGroup>
 </Project>

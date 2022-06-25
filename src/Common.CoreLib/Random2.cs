@@ -1,4 +1,5 @@
 using System.Common;
+using System.Runtime.CompilerServices;
 //using System.Security.Cryptography;
 
 namespace System;
@@ -9,12 +10,17 @@ namespace System;
 /// </summary>
 public static class Random2
 {
+#if !NET6_0_OR_GREATER
+
     //static readonly RNGCryptoServiceProvider _global = new();
 
     [ThreadStatic]
     static Random? _local;
 
-    static Random GetRandom()
+    /// <summary>
+    /// 提供可从任何线程并发使用的线程安全 Random 实例
+    /// </summary>
+    public static Random Shared()
     {
         var inst = _local;
         if (inst == null)
@@ -29,17 +35,32 @@ public static class Random2
         return inst;
     }
 
-    /// <inheritdoc cref="RANDOM.Next"/>
-    public static int Next() => GetRandom().Next();
+#else
 
-    /// <inheritdoc cref="RANDOM.Next(int)"/>
-    public static int Next(int maxValue) => GetRandom().Next(maxValue);
+    // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Private.CoreLib/src/System/Random.cs#L52
+    // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Private.CoreLib/src/System/Random.cs#L220
 
-    /// <inheritdoc cref="RANDOM.Next(int, int)"/>
-    public static int Next(int minValue, int maxValue) => GetRandom().Next(minValue, maxValue);
+    /// <inheritdoc cref="Random.Shared"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Random Shared() => Random.Shared;
 
-    /// <inheritdoc cref="RANDOM.NextDouble"/>
-    public static double NextDouble() => GetRandom().NextDouble();
+#endif
+
+    /// <inheritdoc cref="Random.Next"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int Next() => Shared().Next();
+
+    /// <inheritdoc cref="Random.Next(int)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int Next(int maxValue) => Shared().Next(maxValue);
+
+    /// <inheritdoc cref="Random.Next(int, int)"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int Next(int minValue, int maxValue) => Shared().Next(minValue, maxValue);
+
+    /// <inheritdoc cref="Random.NextDouble"/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static double NextDouble() => Shared().NextDouble();
 
     static char RandomCharAt(string s, int index)
     {
@@ -56,7 +77,7 @@ public static class Random2
     /// <returns></returns>
     public static string GenerateRandomString(int length = 6, string randomChars = Constants.DigitsLetters)
     {
-        var random = GetRandom();
+        var random = Shared();
         var result = new char[length];
         if (random.Next(256) % 2 == 0)
             for (var i = length - 1; i >= 0; i--) // 5 4 3 2 1 0
@@ -81,7 +102,7 @@ public static class Random2
     /// <returns></returns>
     public static int GenerateRandomNum(int length = 6, bool endIsZero = false)
     {
-        var random = GetRandom();
+        var random = Shared();
         var result = 0;
         var lastNum = 0;
         if (random.Next(256) % 2 == 0)

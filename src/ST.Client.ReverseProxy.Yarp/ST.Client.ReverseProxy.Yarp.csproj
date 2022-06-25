@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>
-      net6.0;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0;net6.0-windows</TargetFrameworks>
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.ReverseProxy.Yarp</AssemblyName>
     <DefineConstants>REVERSE_PROXY_YARP;$(DefineConstants)</DefineConstants>
