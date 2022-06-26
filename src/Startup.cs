@@ -40,9 +40,7 @@ using System.Windows;
 using Microsoft.Extensions.Http;
 using Xamarin.Android.Net;
 using Program = System.Application.UI.MainApplication;
-#if !NET6_0_OR_GREATER
 using PlatformApplication = System.Application.UI.MainApplication;
-#endif
 #elif __IOS__
 using Program = System.Application.UI.AppDelegate;
 #elif !__MOBILE__
@@ -245,6 +243,9 @@ namespace System.Application.UI
             services.AddSingleton(ProgramHost.Instance);
 #endif
 #if !UI_DEMO
+#if WINDOWS && !WINDOWS_DESKTOP_BRIDGE
+            services.AddScheduledTaskService();
+#endif
             // 平台服务 此项放在其他通用业务实现服务之前
             services.AddPlatformService(options);
 #endif

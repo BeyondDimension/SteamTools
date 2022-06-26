@@ -216,11 +216,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.JumpList", "src\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.JumpList.Avalonia", "src\ST.Client.JumpList.Avalonia\ST.Client.JumpList.Avalonia.csproj", "{F7938AFB-0573-47A9-BB99-F1D0501466D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.ReverseProxy", "src\ST.Client.ReverseProxy\ST.Client.ReverseProxy.csproj", "{3F394239-07BF-4FE6-861F-240355D15E3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.ReverseProxy", "src\ST.Client.ReverseProxy\ST.Client.ReverseProxy.csproj", "{3F394239-07BF-4FE6-861F-240355D15E3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.ReverseProxy.Titanium", "src\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj", "{92DEBBE5-FF82-4251-ABC6-75FF285E7149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.ReverseProxy.Titanium", "src\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj", "{92DEBBE5-FF82-4251-ABC6-75FF285E7149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.ReverseProxy.Yarp", "src\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj", "{D8ED7A17-D693-45FF-B75A-D9B12DAB5A42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.ReverseProxy.Yarp", "src\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj", "{D8ED7A17-D693-45FF-B75A-D9B12DAB5A42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.Windows.ScheduledTasks", "src\ST.Client.Windows.ScheduledTasks\ST.Client.Windows.ScheduledTasks.csproj", "{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2596,6 +2598,34 @@ Global
 		{D8ED7A17-D693-45FF-B75A-D9B12DAB5A42}.Release|x64.Build.0 = Release|Any CPU
 		{D8ED7A17-D693-45FF-B75A-D9B12DAB5A42}.Release|x86.ActiveCfg = Release|Any CPU
 		{D8ED7A17-D693-45FF-B75A-D9B12DAB5A42}.Release|x86.Build.0 = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|ARM.Build.0 = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|x64.Build.0 = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Debug|x86.Build.0 = Debug|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|ARM.Build.0 = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|ARM64.Build.0 = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|iPhone.Build.0 = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|x64.ActiveCfg = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|x64.Build.0 = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|x86.ActiveCfg = Release|Any CPU
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2683,9 +2713,10 @@ Global
 		{3F394239-07BF-4FE6-861F-240355D15E3B} = {327FDEE7-C4C8-4AA4-A7B0-8BCE3D75346F}
 		{92DEBBE5-FF82-4251-ABC6-75FF285E7149} = {327FDEE7-C4C8-4AA4-A7B0-8BCE3D75346F}
 		{D8ED7A17-D693-45FF-B75A-D9B12DAB5A42} = {327FDEE7-C4C8-4AA4-A7B0-8BCE3D75346F}
+		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81} = {E50441E8-75F3-406E-9921-30BFC211B5CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 		RESX_NeutralResourcesLanguage = zh-Hans
+		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
 	EndGlobalSection
 EndGlobal

@@ -107,6 +107,7 @@
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <!--<ProjectReference Include="..\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj" />-->
     <ProjectReference Include="..\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj" />
+    <ProjectReference Include="..\ST.Client.Windows.ScheduledTasks\ST.Client.Windows.ScheduledTasks.csproj" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">

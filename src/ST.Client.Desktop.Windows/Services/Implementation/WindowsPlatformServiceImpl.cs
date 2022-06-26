@@ -1,5 +1,4 @@
 using Microsoft.Win32;
-using Microsoft.Win32.TaskScheduler;
 using System.Application.Models;
 using System.Application.UI;
 using System.Application.UI.Resx;
@@ -123,79 +122,6 @@ namespace System.Application.Services.Implementation
                     return "notepad";
                 default:
                     return null;
-            }
-        }
-
-        /// <summary>
-        /// UWP 的开机自启 TaskId，在 Package.appxmanifest 中设定
-        /// </summary>
-        const string BootAutoStartTaskId = "BootAutoStartTask";
-
-        public async void SetBootAutoStart(bool isAutoStart, string name)
-        {
-            if (DesktopBridge.IsRunningAsUwp)
-            {
-                // https://blogs.windows.com/windowsdeveloper/2017/08/01/configure-app-start-log/
-                // https://blog.csdn.net/lh275985651/article/details/109360162
-                // https://www.cnblogs.com/wpinfo/p/uwp_auto_startup.html
-                // 还需要通过 global::Windows.ApplicationModel.AppInstance.GetActivatedEventArgs() 判断为自启时最小化，不能通过参数启动
-                var startupTask = await StartupTask.GetAsync(BootAutoStartTaskId);
-                if (isAutoStart)
-                {
-                    var startupTaskState = startupTask.State;
-                    if (startupTask.State == StartupTaskState.Disabled)
-                    {
-                        startupTaskState = await startupTask.RequestEnableAsync();
-                    }
-                    if (startupTaskState != StartupTaskState.Enabled &&
-                        startupTaskState != StartupTaskState.EnabledByPolicy)
-                    {
-                        Toast.Show(AppResources.SetBootAutoStartTrueFail_.Format(startupTaskState));
-                    }
-                }
-                else
-                {
-                    startupTask.Disable();
-                }
-            }
-            else
-            {
-                // 开机启动使用 taskschd.msc 实现
-                try
-                {
-                    var identity = WindowsIdentity.GetCurrent();
-                    var hasSid = identity.User?.IsAccountSid() ?? false;
-                    var userId = hasSid ? identity.User!.ToString() : identity.Name;
-                    var tdName = hasSid ? userId : userId.Replace(Path.DirectorySeparatorChar, '_');
-                    tdName = $"{name}_{{{tdName}}}";
-                    if (isAutoStart)
-                    {
-                        using var td = TaskService.Instance.NewTask();
-                        td.RegistrationInfo.Description = name + " System Boot Run";
-                        td.Settings.Priority = ProcessPriorityClass.Normal;
-                        td.Settings.ExecutionTimeLimit = new TimeSpan(0);
-                        td.Settings.AllowHardTerminate = false;
-                        td.Settings.StopIfGoingOnBatteries = false;
-                        td.Settings.DisallowStartIfOnBatteries = false;
-                        td.Triggers.Add(new LogonTrigger { UserId = userId });
-                        td.Actions.Add(new ExecAction(IApplication.ProgramName,
-                            IPlatformService.SystemBootRunArguments,
-                            IOPath.BaseDirectory));
-                        if (((IPlatformService)this).IsAdministrator)
-                            td.Principal.RunLevel = TaskRunLevel.Highest;
-                        TaskService.Instance.RootFolder.RegisterTaskDefinition(tdName, td);
-                    }
-                    else
-                    {
-                        TaskService.Instance.RootFolder.DeleteTask(name, exceptionOnNotExists: false);
-                        TaskService.Instance.RootFolder.DeleteTask(tdName, exceptionOnNotExists: false);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Log.Error(TAG, e,
-                        "SetBootAutoStart Fail, isAutoStart: {0}, name: {1}.", isAutoStart, name);
-                }
             }
         }
 
@@ -342,16 +268,15 @@ namespace System.Application.Services.Implementation
         //    //return default;
         //}
 
+        const string ProxyOverride = "\"ProxyOverride\"=\"localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*\"";
+
         /// <summary>
         /// 设置启用或关闭系统代理
         /// </summary>
-        public bool SetAsSystemProxy()
-        {
-            return true;
-        }
-
-        const string ProxyOverride = "\"ProxyOverride\"=\"localhost;127.*;10.*;172.16.*;172.17.*;172.18.*;172.19.*;172.20.*;172.21.*;172.22.*;172.23.*;172.24.*;172.25.*;172.26.*;172.27.*;172.28.*;172.29.*;172.30.*;172.31.*;192.168.*\"";
-
+        /// <param name="state"></param>
+        /// <param name="ip"></param>
+        /// <param name="port"></param>
+        /// <returns></returns>
         public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
             if (DesktopBridge.IsRunningAsUwp)

@@ -5,9 +5,6 @@
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.Windows</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,7 +32,6 @@
     <PackageReference Include="DnsClient" />
     <!--<PackageReference Include="Gameloop.Vdf" />-->
     <PackageReference Include="NotifyIcon.Windows" />
-    <PackageReference Include="TaskScheduler" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
     <PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
     <PackageReference Include="7-Zip.NativeAssets.Win32" />
@@ -75,4 +71,6 @@
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
+
+  <Import Project="..\..\WindowsPlatform.props" />
 </Project>

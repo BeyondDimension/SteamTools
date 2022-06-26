@@ -311,7 +311,7 @@
     <PackageVersion Include="Yarp.ReverseProxy" Version="1.1.0" />
 
     <!-- WinDivert -->
-    <PackageVersion Include="Aigio.WinDivertSharp" Version="1.4.4.2" />
+    <PackageVersion Include="Aigio.WinDivertSharp" Version="1.4.4.3" />
 
     <!-- ArchiSteamFarm -->
     <PackageVersion Include="ArchiSteamFarm.Library" Version="5.2.6.3-preview.220608" />

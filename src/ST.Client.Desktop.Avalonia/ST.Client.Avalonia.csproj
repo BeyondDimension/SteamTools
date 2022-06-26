@@ -11,12 +11,6 @@
     <DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" $(TargetFramework.Contains('-windows')) ">
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <WindowsSdkPackageVersion>10.0.19041.24</WindowsSdkPackageVersion>
-    <DefineConstants>WINDOWS;$(DefineConstants)</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -71,6 +65,9 @@
     <Compile Include="..\AboutAppInfoPopup.cs">
       <LinkBase>Application\UI</LinkBase>
     </Compile>
+    <Compile Include="..\ST.Client.Desktop.Windows\Properties\AssemblyInfo.OS.cs">
+      <Link>Properties\AssemblyInfo.OS.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -116,5 +113,7 @@
       <DependentUpon>CloudArchiveWindow.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <Import Condition=" $(TargetFramework.Contains('-windows')) " Project="..\..\WindowsPlatform.props" />
 
 </Project>
