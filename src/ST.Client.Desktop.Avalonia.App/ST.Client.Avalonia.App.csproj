@@ -107,7 +107,6 @@
     <ProjectReference Include="..\Common.CoreLib\Common.CoreLib.csproj" />
     <!--<ProjectReference Include="..\ST.Client.ReverseProxy.Titanium\ST.Client.ReverseProxy.Titanium.csproj" />-->
     <ProjectReference Include="..\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj" />
-    <ProjectReference Include="..\ST.Client.Windows.ScheduledTasks\ST.Client.Windows.ScheduledTasks.csproj" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" !$(DefineConstants.Contains(`PUBLISH`)) ">
@@ -120,6 +119,7 @@
     <ProjectReference Include="..\ST.Client.Desktop.Windows\ST.Client.Windows.csproj" />
     <ProjectReference Include="..\ST.Client.AppCenter.Avalonia\ST.Client.AppCenter.Avalonia.csproj" />
     <ProjectReference Include="..\ST.Client.JumpList.Avalonia\ST.Client.JumpList.Avalonia.csproj" />
+    <ProjectReference Include="..\ST.Client.Windows.ScheduledTasks\ST.Client.Windows.ScheduledTasks.csproj" />
     <!--<None Include="..\..\references\7z.dll" Condition=" '$(Platform)' != 'x86' And '$(Platform)' != 'ARM64' ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
