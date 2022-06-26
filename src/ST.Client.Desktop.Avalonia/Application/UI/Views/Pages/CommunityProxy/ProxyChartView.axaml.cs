@@ -76,7 +76,7 @@ namespace System.Application.UI.Views.Pages
             if (chart != null)
             {
                 chart.Series = new ISeries[] { readSeries, writeSeries };
-                chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter, UnitWidth = 100 } };
+                chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter } };
                 chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
             }
 
