@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows10.0.19041.0</TargetFrameworks>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="TaskScheduler" />
+    <!--<PackageReference Include="TaskScheduler" />-->
   </ItemGroup>
 
   <ItemGroup>

@@ -12,10 +12,11 @@ sealed partial class ScheduledTaskServiceImpl : IScheduledTaskService
         {
             var identity = WindowsIdentity.GetCurrent();
             var hasSid = identity.User?.IsAccountSid() ?? false;
-            var userId = hasSid ? identity.User!.ToString() : identity.Name;
+            var userName = identity.Name;
+            var userId = hasSid ? identity.User!.ToString() : userName;
             var tdName = hasSid ? userId : userId.Replace(Path.DirectorySeparatorChar, '_');
             tdName = $"{name}_{{{tdName}}}";
-            SetBootAutoStartByTaskScheduler(platformService, isAutoStart, name, userId, tdName, IApplication.ProgramName);
+            SetBootAutoStartByPowerShell(platformService, isAutoStart, name, userId, userName, tdName, IApplication.ProgramName);
         }
         catch (Exception e)
         {
@@ -23,4 +24,6 @@ sealed partial class ScheduledTaskServiceImpl : IScheduledTaskService
                 "SetBootAutoStart Fail, isAutoStart: {0}, name: {1}.", isAutoStart, name);
         }
     }
+
+    static string GetDescription(string name) => name + " System Boot Run";
 }
