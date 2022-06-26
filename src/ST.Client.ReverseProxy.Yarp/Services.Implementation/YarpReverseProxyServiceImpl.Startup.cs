@@ -36,16 +36,16 @@ partial class YarpReverseProxyServiceImpl
             appBuilder.UseRequestLogging();
             appBuilder.UseHttpReverseProxy();
 
-            appBuilder.UseRouting();
+            //appBuilder.UseRouting();
             appBuilder.DisableRequestLogging();
-            appBuilder.UseEndpoints(endpoint =>
-            {
-                endpoint.MapGet("/flowStatistics", context =>
-                {
-                    var flowStatistics = context.RequestServices.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
-                    return context.Response.WriteAsJsonAsync(flowStatistics);
-                });
-            });
+            //appBuilder.UseEndpoints(endpoint =>
+            //{
+            //    endpoint.MapGet("/flowStatistics", context =>
+            //    {
+            //        var flowStatistics = context.RequestServices.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
+            //        return context.Response.WriteAsJsonAsync(flowStatistics);
+            //    });
+            //});
         });
     }
 }

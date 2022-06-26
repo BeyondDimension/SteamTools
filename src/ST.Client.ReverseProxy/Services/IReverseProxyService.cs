@@ -132,4 +132,9 @@ public interface IReverseProxyService : IDisposable
     /// </summary>
     EReverseProxyEngine ReverseProxyEngine { get; }
 
+    /// <summary>
+    /// 获取流量统计信息
+    /// </summary>
+    /// <returns></returns>
+    FlowStatistics? GetFlowStatistics();
 }
