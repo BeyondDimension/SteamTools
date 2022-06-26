@@ -52,9 +52,9 @@ public interface IReverseProxyService : IDisposable
     IPAddress ProxyIp { get; set; }
 
     /// <summary>
-    /// 是否使用系统代理模式
+    /// 代理模式
     /// </summary>
-    bool IsSystemProxy { get; set; }
+    ProxyMode ProxyMode { get; set; }
 
     /// <summary>
     /// 启用 GOG 插件代理

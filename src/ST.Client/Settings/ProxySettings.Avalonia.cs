@@ -17,17 +17,6 @@ namespace System.Application.Settings
         [SupportedOSPlatform("Linux")]
         public static SerializableProperty<bool> IsProxyGOG => _IsProxyGOG ?? throw new PlatformNotSupportedException();
 
-        static readonly SerializableProperty<bool>? _EnableWindowsProxy
-            = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
-
-        /// <summary>
-        /// 启用系统代理模式
-        /// </summary>
-        [SupportedOSPlatform("Windows7.0")]
-        [SupportedOSPlatform("macOS")]
-        [SupportedOSPlatform("Linux")]
-        public static SerializableProperty<bool> EnableWindowsProxy => _EnableWindowsProxy ?? throw new PlatformNotSupportedException();
-
         static readonly SerializableProperty<bool>? _IsOnlyWorkSteamBrowser
              = IApplication.IsDesktopPlatform ? GetProperty(defaultValue: false, autoSave: true) : null;
 

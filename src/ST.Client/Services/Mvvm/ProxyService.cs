@@ -74,13 +74,13 @@ namespace System.Application.Services
                         {
 #pragma warning disable CA1416 // 验证平台兼容性
                             reverseProxyService.IsOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-                            reverseProxyService.IsSystemProxy = ProxySettings.EnableWindowsProxy.Value;
+                            reverseProxyService.ProxyMode = ProxySettings.ProxyModeValue;
                             reverseProxyService.IsProxyGOG = ProxySettings.IsProxyGOG.Value;
 #pragma warning restore CA1416 // 验证平台兼容性
                         }
                         else
                         {
-                            reverseProxyService.IsSystemProxy = true;
+                            reverseProxyService.ProxyMode = ProxyMode.System;
                         }
 
                         // macOS 上目前因权限问题仅支持 0.0.0.0(IPAddress.Any)
@@ -109,7 +109,7 @@ namespace System.Application.Services
                         this.RaisePropertyChanged(nameof(EnableProxyDomains));
                         this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
-                        if (!reverseProxyService.IsSystemProxy)
+                        if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
                         {
                             const ushort httpsPort = 443;
                             var inUse = reverseProxyService.PortInUse(httpsPort);
@@ -140,7 +140,7 @@ namespace System.Application.Services
 
                         if (isRun)
                         {
-                            if (!reverseProxyService.IsSystemProxy)
+                            if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
                             {
                                 if (reverseProxyService.ProxyDomains.Any_Nullable())
                                 {

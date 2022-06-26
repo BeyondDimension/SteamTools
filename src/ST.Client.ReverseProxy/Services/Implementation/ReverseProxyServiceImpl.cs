@@ -52,8 +52,8 @@ abstract class ReverseProxyServiceImpl
     /// <inheritdoc cref="IReverseProxyService.ProxyIp"/>
     public IPAddress ProxyIp { get; set; } = IPAddress.Any;
 
-    /// <inheritdoc cref="IReverseProxyService.IsSystemProxy"/>
-    public bool IsSystemProxy { get; set; }
+    /// <inheritdoc cref="IReverseProxyService.ProxyMode"/>
+    public ProxyMode ProxyMode { get; set; }
 
     /// <inheritdoc cref="IReverseProxyService.IsProxyGOG"/>
     public bool IsProxyGOG { get; set; }

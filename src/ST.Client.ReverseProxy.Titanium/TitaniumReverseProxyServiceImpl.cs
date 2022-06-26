@@ -113,7 +113,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
             }
             else
             {
-                if (!OperatingSystem2.IsWindows() && !IsSystemProxy)
+                if (!OperatingSystem2.IsWindows() && ProxyMode == ProxyMode.Hosts)
                 {
                     // 非 windows 环境 hosts 加速下不能使用系统默认 DNS 解析代理，会解析到 hosts 上无限循环
                     ip = await DnsAnalysis.AnalysisDomainIpAsync(url, DefaultDnsServers, IsIpv6Support).FirstOrDefaultAsync();
@@ -162,7 +162,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
         }
 
         //host模式下不启用加速会出现无限循环问题
-        if (ProxyDomains is null || TwoLevelAgentEnable || (OnlyEnableProxyScript && IsSystemProxy)) return;
+        if (ProxyDomains is null || TwoLevelAgentEnable || (OnlyEnableProxyScript && ProxyMode == ProxyMode.Hosts)) return;
 
         //var item = ProxyDomains.FirstOrDefault(f => f.DomainNamesArray.Any(h => e.HttpClient.Request.RequestUri.AbsoluteUri.Contains(h, StringComparison.OrdinalIgnoreCase)));
 
@@ -368,7 +368,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
             };
             explicitProxyEndPoint.BeforeTunnelConnectRequest += ExplicitProxyEndPoint_BeforeTunnelConnectRequest;
 
-            if (IsSystemProxy)
+            if (ProxyMode == ProxyMode.System)
             {
                 //explicit endpoint 是客户端知道代理存在的地方
                 proxyServer.AddEndPoint(explicitProxyEndPoint);
@@ -422,7 +422,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
 
             proxyServer.Start();
 
-            if (IsSystemProxy)
+            if (ProxyMode == ProxyMode.System)
             {
                 if (!DesktopBridge.IsRunningAsUwp && OperatingSystem2.IsWindows())
                 {
@@ -552,7 +552,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
                 proxyServer.Stop();
             }
 
-            if (IsSystemProxy)
+            if (ProxyMode == ProxyMode.System)
             {
                 if (DesktopBridge.IsRunningAsUwp || !OperatingSystem2.IsWindows())
                 {
