@@ -20,4 +20,6 @@ public interface ISerializationProvider
     bool TryGetValue<T>(string key, [NotNullWhen(true)] out T? value) where T : notnull;
 
     bool RemoveValue(string key);
+
+    string ToJsonString();
 }
