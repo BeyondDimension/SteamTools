@@ -33,11 +33,11 @@ partial class ScheduledTaskServiceImpl
             else userName = SecurityElement.Escape(userName);
             var description = SecurityElement.Escape(GetDescription(name));
             var xml = $"<?xml version=\"1.0\" encoding=\"UTF-16\"?><Task version=\"1.2\" xmlns=\"http://schemas.microsoft.com/windows/2004/02/mit/task\"><RegistrationInfo><Description>{description}</Description></RegistrationInfo><Triggers><LogonTrigger><Enabled>true</Enabled><UserId>{userName}</UserId></LogonTrigger></Triggers><Principals><Principal id=\"Author\"><UserId>{userId}</UserId><LogonType>InteractiveToken</LogonType><RunLevel>{(platformService.IsAdministrator ? "HighestAvailable" : "LeastPrivilege")}</RunLevel></Principal></Principals><Settings><MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy><DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries><StopIfGoingOnBatteries>false</StopIfGoingOnBatteries><AllowHardTerminate>false</AllowHardTerminate><StartWhenAvailable>false</StartWhenAvailable><RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable><IdleSettings><Duration>PT10M</Duration><WaitTimeout>PT1H</WaitTimeout><StopOnIdleEnd>true</StopOnIdleEnd><RestartOnIdle>false</RestartOnIdle></IdleSettings><AllowStartOnDemand>true</AllowStartOnDemand><Enabled>true</Enabled><Hidden>false</Hidden><RunOnlyIfIdle>false</RunOnlyIfIdle><WakeToRun>false</WakeToRun><ExecutionTimeLimit>PT0S</ExecutionTimeLimit><Priority>5</Priority></Settings><Actions Context=\"Author\"><Exec><Command>{programName}</Command><Arguments>{arguments}</Arguments><WorkingDirectory>{workingDirectory}</WorkingDirectory></Exec></Actions></Task>";
-            RunPowerShell($"Register-ScheduledTask -Force -TaskName '{Escape(tdName)}' -Xml '{Escape(xml)}'");
+            RunPowerShell($"Register-ScheduledTask -Force -TaskName '{Escape(tdName)}' -Xml '{Escape(xml)}';exit");
         }
         else
         {
-            RunPowerShell($"Unregister-ScheduledTask -TaskName '{Escape(name)}' -Confirm:$false;Unregister-ScheduledTask -TaskName '{Escape(tdName)}' -Confirm:$false");
+            RunPowerShell($"Unregister-ScheduledTask -TaskName '{Escape(name)}' -Confirm:$false;Unregister-ScheduledTask -TaskName '{Escape(tdName)}' -Confirm:$false;exit");
         }
     }
 
@@ -51,7 +51,7 @@ partial class ScheduledTaskServiceImpl
             {
                 FileName = "powershell.exe",
                 UseShellExecute = false,
-                Arguments = "-Nologo",
+                Arguments = "-NoLogo",
                 //RedirectStandardOutput = true,
                 RedirectStandardInput = true,
                 CreateNoWindow = true,
@@ -60,7 +60,7 @@ partial class ScheduledTaskServiceImpl
             using var process = Process.Start(psi)!;
             //using var reader = process.StandardOutput;
 
-            process.StandardInput.WriteLine($"{arguments};exit");
+            process.StandardInput.WriteLine(arguments.EndsWith(";exit", StringComparison.OrdinalIgnoreCase) ? arguments : $"{arguments};exit");
 
             //var result = reader.ReadToEnd();
 

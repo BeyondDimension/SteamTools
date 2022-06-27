@@ -124,10 +124,11 @@ namespace System.Application
                 const string fileName = "Steam++.Launcher.exe";
                 const string config_ex = ".config";
                 var sourceFileName = Path.Combine(ProjectPathUtil.projPath, "references", fileName);
-                if (File.Exists(sourceFileName))
+                var sourceFileNameBin = $"{sourceFileName}.bin";
+                if (File.Exists(sourceFileNameBin))
                 {
                     var destFileName = Path.Combine(publish.Path, fileName);
-                    File.Copy(sourceFileName, destFileName);
+                    File.Copy(sourceFileNameBin, destFileName);
                     sourceFileName += config_ex;
                     if (File.Exists(sourceFileName))
                     {
