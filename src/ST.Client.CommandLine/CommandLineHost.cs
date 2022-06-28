@@ -2,7 +2,12 @@ using System.Application.UI;
 using System.Application.Services;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using System.Runtime.InteropServices;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using System.Runtime.Versioning;
+using System.Application.Settings;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 
 namespace System.Application.CommandLine;
 
@@ -227,6 +232,67 @@ public abstract class CommandLineHost : IDisposable
         });
         rootCommand.AddCommand(run_SteamApp);
 
+        // -clt show -config -cert
+        var show = new Command("show", "显示信息");
+        show.AddOption(new Option<bool>("-config", "显示 Config.mpo 值"));
+        show.AddOption(new Option<bool>("-cert", "显示当前根证书信息"));
+        show.Handler = CommandHandler.Create((bool config, bool cert) =>
+        {
+            if (OperatingSystem.IsWindows()) if (!AttachConsole()) AllocConsole();
+
+            if (config)
+            {
+                Console.WriteLine("Config: ");
+                try
+                {
+                    SettingsHost.Load();
+                    var configValue = SettingsHostBase.Local.ToJsonString();
+                    Console.WriteLine(configValue);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                Console.WriteLine();
+            }
+
+            if (cert)
+            {
+                Console.WriteLine("RootCertificate: ");
+                try
+                {
+                    using X509Certificate2 rootCert = new(ICertificateManager.DefaultPfxFilePath, (string?)null, X509KeyStorageFlags.Exportable);
+                    Console.WriteLine("Subject：");
+                    Console.WriteLine(rootCert.Subject);
+                    Console.WriteLine("SerialNumber：");
+                    Console.WriteLine(rootCert.SerialNumber);
+                    Console.WriteLine("PeriodValidity：");
+                    Console.Write(rootCert.GetEffectiveDateString());
+                    Console.Write(" ~ ");
+                    Console.Write(rootCert.GetExpirationDateString());
+                    Console.WriteLine();
+                    Console.WriteLine("SHA256：");
+                    Console.WriteLine(rootCert.GetCertHashStringCompat(HashAlgorithmName.SHA256));
+                    Console.WriteLine("SHA1：");
+                    Console.WriteLine(rootCert.GetCertHashStringCompat(HashAlgorithmName.SHA1));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
+
+            if (OperatingSystem.IsWindows()) FreeConsole();
+        });
+        rootCommand.AddCommand(show);
+
+        // TODO
+        //var proxy = new Command("proxy", "仅启用代理服务，无 GUI 窗口");
+
         var r = rootCommand.InvokeAsync(args).GetAwaiter().GetResult();
         return r;
     }
@@ -261,4 +327,16 @@ public abstract class CommandLineHost : IDisposable
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
+
+    [SupportedOSPlatform("Windows")]
+    [DllImport("kernel32.dll", SetLastError = true)]
+    static extern bool AttachConsole(int dwProcessId = -1);
+
+    [SupportedOSPlatform("Windows")]
+    [DllImport("kernel32.dll", SetLastError = true)]
+    static extern bool FreeConsole();
+
+    [SupportedOSPlatform("Windows")]
+    [DllImport("kernel32.dll", SetLastError = true)]
+    static extern bool AllocConsole();
 }

@@ -13,7 +13,7 @@ internal static class User32Window
     static extern void FlashWindowEx(ref FLASHWINFO pwfi);
 
     [DllImport(LibraryName, CharSet = CharSet.Auto)]
-    public static extern bool ShowWindow(IntPtr hWnd, short State);
+    public static extern bool ShowWindow(IntPtr hWnd, Cmd_SHOWWINDOWS nCmdShow);
 
     //[DllImport(LibraryName, CharSet = CharSet.Auto)]
     //internal static extern IntPtr GetOpenClipboardWindow();
@@ -21,7 +21,7 @@ internal static class User32Window
     //[DllImport(LibraryName, SetLastError = true, CharSet = CharSet.Auto)]
     //internal static extern int GetWindowTextLength(IntPtr hWnd);
 
-    public enum Cmd_SHOWWINDOWS : short
+    public enum Cmd_SHOWWINDOWS
     {
         /// <summary>
         ///     Minimizes a window, even if the thread that owns the window is not responding. This flag should only be used when

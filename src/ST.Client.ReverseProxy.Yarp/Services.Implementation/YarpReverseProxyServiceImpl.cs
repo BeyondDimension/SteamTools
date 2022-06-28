@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NLog.Web;
+using System.Application.Models;
 
 namespace System.Application.Services.Implementation;
 
-sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService
+sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverseProxyService, IAsyncDisposable
 {
     public override EReverseProxyEngine ReverseProxyEngine => EReverseProxyEngine.Yarp;
 
@@ -73,15 +74,37 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         app = null;
     }
 
-    void FlushFlowStatistics()
+    public FlowStatistics? GetFlowStatistics()
     {
-        if (app == null) return;
+        if (app == null) return null;
 
-        var s = app.Services.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
+        return app.Services.GetRequiredService<IFlowAnalyzer>().GetFlowStatistics();
     }
+
+    #region IDisposable
 
     protected override void DisposeCore()
     {
-        StopProxy();
+        (app as IDisposable)?.Dispose();
     }
+
+    // https://docs.microsoft.com/zh-cn/dotnet/standard/garbage-collection/implementing-disposeasync#implement-both-dispose-and-async-dispose-patterns
+
+    async ValueTask DisposeAsyncCore()
+    {
+        if (app is not null)
+        {
+            await app.DisposeAsync().ConfigureAwait(false);
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        await DisposeAsyncCore().ConfigureAwait(false);
+
+        Dispose(disposing: false);
+        GC.SuppressFinalize(this);
+    }
+
+    #endregion
 }

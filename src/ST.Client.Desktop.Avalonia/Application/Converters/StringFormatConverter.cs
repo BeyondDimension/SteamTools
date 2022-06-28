@@ -17,9 +17,9 @@ public class StringFormatConverter : IValueConverter, IMultiValueConverter
         if (!string.IsNullOrEmpty(para))
         {
             if (string.Equals(para, Size, StringComparison.OrdinalIgnoreCase)
-                && decimal.TryParse(str, out var num))
+                && double.TryParse(str, out var num))
             {
-                (var length, string unit) = IOPath.GetSize(num);
+                (var length, string unit) = IOPath.GetDisplayFileSize(num);
                 if (length == 0)
                     return "0 B";
                 return $"{length:###,###.##} {unit}";

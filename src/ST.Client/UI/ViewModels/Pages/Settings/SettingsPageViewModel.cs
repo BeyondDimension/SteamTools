@@ -156,7 +156,7 @@ namespace System.Application.UI.ViewModels
                 Task.Run(async () =>
                 {
                     var length = IOPath.GetDirectorySize(dirPath);
-                    var lenString = IOPath.GetSizeString(length);
+                    var lenString = IOPath.GetDisplayFileSizeString(length);
                     await MainThread2.InvokeOnMainThreadAsync(() =>
                     {
                         action(lenString);

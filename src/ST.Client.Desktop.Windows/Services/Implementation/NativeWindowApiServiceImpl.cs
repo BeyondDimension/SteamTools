@@ -90,7 +90,7 @@ namespace System.Application.Services.Implementation
             if (!window.IsHasProcessExits())
             {
                 //最大化启动的程序
-                User32Window.ShowWindow(window.Handle, (short)User32Window.Cmd_SHOWWINDOWS.SW_MAXIMIZE);
+                User32Window.ShowWindow(window.Handle, User32Window.Cmd_SHOWWINDOWS.SW_MAXIMIZE);
             }
         }
 
@@ -98,7 +98,7 @@ namespace System.Application.Services.Implementation
         {
             if (!window.IsHasProcessExits())
             {
-                User32Window.ShowWindow(window.Handle, (short)User32Window.Cmd_SHOWWINDOWS.SW_RESTORE);
+                User32Window.ShowWindow(window.Handle, User32Window.Cmd_SHOWWINDOWS.SW_RESTORE);
                 int p1 = User32Window.GetWindowLongA(window.Handle, (int)WindowLongFlags.GWL_STYLE);
                 User32Window.SetWindowLong(window.Handle, (int)WindowLongFlags.GWL_STYLE, p1);
             }
@@ -108,7 +108,7 @@ namespace System.Application.Services.Implementation
         {
             if (!window.IsHasProcessExits())
             {
-                User32Window.ShowWindow(window.Handle, (short)User32Window.Cmd_SHOWWINDOWS.SW_SHOW);
+                User32Window.ShowWindow(window.Handle, User32Window.Cmd_SHOWWINDOWS.SW_SHOW);
             }
         }
 
@@ -116,7 +116,7 @@ namespace System.Application.Services.Implementation
         {
             if (!window.IsHasProcessExits())
             {
-                User32Window.ShowWindow(window.Handle, (short)User32Window.Cmd_SHOWWINDOWS.SW_HIDE);
+                User32Window.ShowWindow(window.Handle, User32Window.Cmd_SHOWWINDOWS.SW_HIDE);
             }
         }
 
@@ -125,7 +125,7 @@ namespace System.Application.Services.Implementation
             if (!window.IsHasProcessExits())
             {
                 //最大化启动的程序
-                User32Window.ShowWindow(window.Handle, (short)User32Window.Cmd_SHOWWINDOWS.SW_RESTORE);
+                User32Window.ShowWindow(window.Handle, User32Window.Cmd_SHOWWINDOWS.SW_RESTORE);
                 IntPtr progman = User32Window.FindWindow("Progman", null);
                 IntPtr result = User32Window.SendMessage(progman, 0x052C, new IntPtr(0), IntPtr.Zero);
                 IntPtr workerw = IntPtr.Zero;
@@ -153,7 +153,7 @@ namespace System.Application.Services.Implementation
                 User32Window.SetWindowLong(window.Handle, (int)WindowLongFlags.GWL_STYLE, p1);
 
                 //最大化启动的程序
-                User32Window.ShowWindow(window.Handle, (short)User32Window.Cmd_SHOWWINDOWS.SW_MAXIMIZE);
+                User32Window.ShowWindow(window.Handle, User32Window.Cmd_SHOWWINDOWS.SW_MAXIMIZE);
                 //User32Window.MoveWindow(window.Handle, 0, 0, Screen.AllScreens[0].WorkingArea.Width,
                 //    Screen.AllScreens[0].WorkingArea.Height, false);
 

@@ -1,3 +1,4 @@
+using System.Application.Models;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
@@ -578,5 +579,10 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
             StopProxy();
         }
         proxyServer.Dispose();
+    }
+
+    public FlowStatistics? GetFlowStatistics()
+    {
+        return null;
     }
 }

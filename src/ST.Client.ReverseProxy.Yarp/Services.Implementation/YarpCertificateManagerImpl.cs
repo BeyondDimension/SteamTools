@@ -38,8 +38,8 @@ sealed partial class YarpCertificateManagerImpl : CertificateManagerImpl, ICerti
         try
         {
             ICertificateManager thiz = this;
-            var rootCert = new X509Certificate2(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
-            if (rootCert != null && rootCert.NotAfter <= DateTime.Now)
+            X509Certificate2 rootCert = new(thiz.PfxFilePath, thiz.PfxPassword, X509KeyStorageFlags.Exportable);
+            if (rootCert.NotAfter <= DateTime.Now)
             {
                 Log.Error(TAG, "Loaded root certificate has expired.");
                 return null;

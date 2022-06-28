@@ -406,8 +406,6 @@ namespace System.Application.Models
         /// </summary>
         public long BytesDownloaded { get; set; }
 
-        //public int DownloadedProgressValue => IOPath.GetProgressPercentage(BytesDownloaded, BytesToDownload);
-
         /// <summary>
         /// 需要安装字节数
         /// </summary>

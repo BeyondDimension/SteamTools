@@ -100,6 +100,8 @@ public sealed class FileSettingsProvider : ISerializationProvider
         IsLoaded = true;
     }
 
+    public string ToJsonString() => Serializable.SJSON(_settings, writeIndented: true);
+
     event EventHandler ISerializationProvider.Reloaded
     {
         add { }

@@ -51,11 +51,12 @@ sealed class HttpReverseProxyMiddleware
         else if (domainConfig.Response == null)
         {
             var scheme = context.Request.Scheme;
-            if (scheme == "http")
+            if (IReverseProxyService.Instance.EnableHttpProxyToHttps && scheme == "http")
             {
-                context.Response.Redirect(context.Request.GetDisplayUrl().Remove(0, 4).Insert(0, "https"));
+                context.Response.Redirect("https" + context.Request.Host.Host + context.Request.RawUrl());
                 return;
             }
+
             var destinationPrefix = GetDestinationPrefix(scheme, host, domainConfig.Destination);
             var httpClient = httpClientFactory.CreateHttpClient(host.Host, domainConfig);
             if (!string.IsNullOrEmpty(domainConfig.UserAgent))

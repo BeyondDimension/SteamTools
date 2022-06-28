@@ -78,7 +78,7 @@
     <!--<PackageVersion Include="Microsoft.Windows.CsWinRT" Version="1.4.1" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.NET.Ref" Version="10.0.19041.22" />-->
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
-    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.197" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
     <PackageVersion Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
 
@@ -113,26 +113,26 @@
 
     <!-- NLog -->
     <PackageVersion Include="NLog" Version="5.0.1" />
-    <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.0" />
+    <PackageVersion Include="NLog.Extensions.Logging" Version="5.0.1" />
     <PackageVersion Include="NLog.Web.AspNetCore" Version="5.0.0" />
     <PackageVersion Include="AspNetCore2.NETStandard.NLog.Web.AspNetCore" Version="5.0.0" />
 
     <!-- ReactiveUI -->
     <PackageVersion Include="System.Reactive" Version="5.0.0" />
-    <PackageVersion Include="Splat" Version="14.2.8" />
-    <PackageVersion Include="DynamicData" Version="7.9.1" />
-    <PackageVersion Include="ReactiveUI" Version="18.1.8" />
-    <PackageVersion Include="ReactiveUI.Fody" Version="18.1.8" /> 
-    <PackageVersion Include="ReactiveUI.XamForms" Version="18.1.8" />
-    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.1.8" />
-    <PackageVersion Include="ReactiveUI.Maui" Version="18.1.8" />
+    <PackageVersion Include="Splat" Version="14.3.4" />
+    <PackageVersion Include="DynamicData" Version="7.9.4" />
+    <PackageVersion Include="ReactiveUI" Version="18.2.5" />
+    <PackageVersion Include="ReactiveUI.Fody" Version="18.2.5" /> 
+    <PackageVersion Include="ReactiveUI.XamForms" Version="18.2.5" />
+    <PackageVersion Include="ReactiveUI.AndroidX" Version="18.2.5" />
+    <PackageVersion Include="ReactiveUI.Maui" Version="18.2.5" />
     <!-- SkiaSharp & HarfBuzzSharp -->
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/HarfBuzzSharp.props -->
-    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.71" />
-    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.71" />
+    <PackageVersion Include="HarfBuzzSharp" Version="2.8.2.1-preview.75" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1-preview.75" />
     <!-- https://github.com/AvaloniaUI/Avalonia/blob/master/build/SkiaSharp.props -->
-    <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.71" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.71" />
+    <PackageVersion Include="SkiaSharp" Version="2.88.1-preview.75" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1-preview.75" />
 
     <!-- AutoMapper -->
     <PackageVersion Include="AutoMapper" Version="10.1.1" />
@@ -299,7 +299,7 @@
 
     <!-- UWP -->
     <PackageVersion Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
-    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.0-preview3" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.1.1" />
 
     <!-- Code Style -->
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.435" />

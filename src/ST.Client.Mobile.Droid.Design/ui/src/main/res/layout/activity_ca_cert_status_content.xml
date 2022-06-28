@@ -137,7 +137,7 @@
     app:layout_constraintEnd_toStartOf="@+id/guideline_right"
     app:layout_constraintStart_toStartOf="@+id/guideline_left"
     app:layout_constraintTop_toBottomOf="@+id/tvSHA256"
-    tools:text="SHA256：\nQW:ER:TY:UI:OP:AS:DF"
+    tools:text="SHA1：\nQW:ER:TY:UI:OP:AS:DF"
     xamarin:managedType="AndroidX.AppCompat.Widget.AppCompatTextView" />
 
   <com.google.android.material.button.MaterialButton

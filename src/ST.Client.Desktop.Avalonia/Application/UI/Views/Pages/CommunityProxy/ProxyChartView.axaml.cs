@@ -31,7 +31,7 @@ namespace System.Application.UI.Views.Pages
             LineSmoothness = 1,
             EnableNullSplitting = false,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {IOPath.GetSizeStringD(e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -47,7 +47,7 @@ namespace System.Application.UI.Views.Pages
             LineSmoothness = 1,
             EnableNullSplitting = false,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Download} {IOPath.GetSizeStringD(e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"{AppResources.Download} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -62,7 +62,7 @@ namespace System.Application.UI.Views.Pages
 
         public Func<double, string> XFormatter { get; } = timestamp => ((long)timestamp).ToDateTimeS().ToString("HH:mm:ss");
 
-        public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetSizeStringD(value)}/s";
+        public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetDisplayFileSizeString(value)}/s";
 
         public ProxyChartView()
         {
@@ -76,8 +76,8 @@ namespace System.Application.UI.Views.Pages
             if (chart != null)
             {
                 chart.Series = new ISeries[] { readSeries, writeSeries };
-                chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter } };
-                chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter } };
+                chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter, UnitWidth = 100 } };
+                chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
             }
 
             CancellationTokenSource? cancellation = null;
@@ -125,7 +125,7 @@ namespace System.Application.UI.Views.Pages
             {
                 try
                 {
-                    var flowStatistics = await IHttpService.Instance.GetAsync<FlowStatistics>("https://localhost/flowStatistics", cancellationToken: token);
+                    var flowStatistics = IReverseProxyService.Instance.GetFlowStatistics();
                     if (flowStatistics == null)
                     {
                         continue;
@@ -145,10 +145,11 @@ namespace System.Application.UI.Views.Pages
                         this.writes.RemoveAt(0);
                     }
 
-                    Dispatcher.UIThread.Post(() =>
-                    {
-                        chart.Series = new ISeries[] { readSeries, writeSeries };
-                    });
+                    if (chart != null)
+                        Dispatcher.UIThread.Post(() =>
+                        {
+                            chart.Series = new ISeries[] { readSeries, writeSeries };
+                        });
                 }
                 catch (Exception)
                 {
