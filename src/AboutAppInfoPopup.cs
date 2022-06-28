@@ -178,7 +178,7 @@ namespace System.Application.UI
                 var nativeHeapFreeSize = memoryInfo.AvailMem;
                 var usedMemInBytes = nativeHeapSize - nativeHeapFreeSize;
                 var usedMemInPercentage = usedMemInBytes * 100M / nativeHeapSize;
-                b.Append($"{IOPath.GetDisplayFileSizeString((float)usedMemInBytes)} ({usedMemInPercentage:0.00}%)");
+                b.Append($"{IOPath.GetDisplayFileSizeString(usedMemInBytes)} ({usedMemInPercentage:0.00}%)");
 #else
                 b.Append(IOPath.GetDisplayFileSizeString(Environment.WorkingSet));
 #endif
