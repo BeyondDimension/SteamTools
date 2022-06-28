@@ -505,21 +505,59 @@ public static class IOPath
     public static Task<(bool success, string? content, Exception? ex)> TryReadAllTextAsync(string? filePath, Encoding encoding, CancellationToken cancellationToken = default) => TryCallAsync(filePath, (p, tk) => File.ReadAllTextAsync(p, encoding, tk), cancellationToken);
 #endif
 
+    const double unit_double = 1024D;
+
+    static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB", };
+
+    /// <summary>
+    /// 获取用于显示的文件大小
+    /// </summary>
+    /// <param name="length"></param>
+    /// <returns></returns>
+    public static (double length, string unit) GetDisplayFileSize(double length)
+    {
+        if (length > 0D)
+        {
+            for (int i = 0; i < units.Length; i++)
+            {
+                if (i > 0) length /= unit_double;
+                if (length < unit_double) return (length, units[i]);
+            }
+            return (length, units.Last());
+        }
+        else
+        {
+            return (0D, units.First());
+        }
+    }
+
+    /// <summary>
+    /// 获取用于显示文件大小的字符串
+    /// </summary>
+    /// <param name="length"></param>
+    /// <returns></returns>
+    public static string GetDisplayFileSizeString(double length)
+    {
+        // https://github.com/CommunityToolkit/dotnet/blob/v8.0.0-preview3/CommunityToolkit.Common/Converters.cs#L17
+        (length, string unit) = GetDisplayFileSize(length);
+        return $"{length:0.00} {unit}";
+    }
+
     /// <summary>
     /// 获取文件的大小
     /// </summary>
     /// <param name="fileInfo"></param>
     /// <returns>单位 字节</returns>
-    public static decimal GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0M;
+    public static long GetFileSize(FileInfo fileInfo) => fileInfo.Exists ? fileInfo.Length : 0L;
 
     /// <summary>
     /// 获取指定路径的大小
     /// </summary>
     /// <param name="dirPath">路径</param>
     /// <returns>单位 字节</returns>
-    public static decimal GetDirectorySize(string dirPath)
+    public static long GetDirectorySize(string dirPath)
     {
-        var len = 0M;
+        var len = 0L;
         // 判断该路径是否存在（是否为文件夹）
         var isDirectory = IsDirectory(dirPath, out var fileInfo, out var directoryInfo);
         if (isDirectory.HasValue)
@@ -538,65 +576,6 @@ public static class IOPath
             }
         }
         return len;
-    }
-
-    const decimal unit = 1024M;
-    const double unitD = 1024D;
-    static readonly string[] units = new[] { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", "BB" };
-
-    public static (decimal length, string unit) GetSize(decimal length)
-    {
-        if (length > 0M)
-        {
-            for (int i = 0; i < units.Length; i++)
-            {
-                if (i > 0) length /= unit;
-                if (length < unit) return (length, units[i]);
-            }
-            return (length, units.Last());
-        }
-        else
-        {
-            return (0M, units.First());
-        }
-    }
-
-    public static (double length, string unit) GetSizeD(double length)
-    {
-        if (length > 0D)
-        {
-            for (int i = 0; i < units.Length; i++)
-            {
-                if (i > 0) length /= unitD;
-                if (length < unitD) return (length, units[i]);
-            }
-            return (length, units.Last());
-        }
-        else
-        {
-            return (0D, units.First());
-        }
-    }
-
-    public static string GetSizeString(decimal length)
-    {
-        // https://github.com/CommunityToolkit/dotnet/blob/v8.0.0-preview3/CommunityToolkit.Common/Converters.cs#L17
-        (length, string unit) = GetSize(length);
-        return $"{length:0.00} {unit}";
-    }
-
-    public static string GetSizeStringD(double length)
-    {
-        (length, string unit) = GetSizeD(length);
-        return $"{length:0.00} {unit}";
-    }
-
-    public static int GetProgressPercentage(decimal current, decimal total)
-    {
-        decimal t = decimal.Parse((current / total).ToString("0.000"));
-
-        var t1 = Math.Round(t, 2);
-        return Convert.ToInt32(t1 * 100);
     }
 
     // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Private.CoreLib/src/System/IO/Path.cs#L25-L28

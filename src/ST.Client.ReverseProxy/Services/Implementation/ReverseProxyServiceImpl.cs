@@ -176,7 +176,7 @@ abstract class ReverseProxyServiceImpl
 
     bool disposedValue;
 
-    void Dispose(bool disposing)
+    protected void Dispose(bool disposing)
     {
         if (!disposedValue)
         {

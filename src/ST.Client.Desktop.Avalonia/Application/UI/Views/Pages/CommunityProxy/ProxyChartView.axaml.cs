@@ -31,7 +31,7 @@ namespace System.Application.UI.Views.Pages
             LineSmoothness = 1,
             EnableNullSplitting = false,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {IOPath.GetSizeStringD(e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"{AppResources.Upload} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -47,7 +47,7 @@ namespace System.Application.UI.Views.Pages
             LineSmoothness = 1,
             EnableNullSplitting = false,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
-            TooltipLabelFormatter = (e) => $"{AppResources.Download} {IOPath.GetSizeStringD(e.PrimaryValue)}/s",
+            TooltipLabelFormatter = (e) => $"{AppResources.Download} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
             {
                 point.PrimaryValue = rate.Rate;
@@ -62,7 +62,7 @@ namespace System.Application.UI.Views.Pages
 
         public Func<double, string> XFormatter { get; } = timestamp => ((long)timestamp).ToDateTimeS().ToString("HH:mm:ss");
 
-        public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetSizeStringD(value)}/s";
+        public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetDisplayFileSizeString(value)}/s";
 
         public ProxyChartView()
         {

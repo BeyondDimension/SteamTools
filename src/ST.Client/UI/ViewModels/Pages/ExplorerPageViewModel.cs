@@ -138,7 +138,7 @@ namespace System.Application.UI.ViewModels
                 if (fileSystemInfo is FileInfo fileInfo)
                 {
                     IsDirectory = false;
-                    var fileSize = IOPath.GetSizeString(fileInfo.Length);
+                    var fileSize = IOPath.GetDisplayFileSizeString(fileInfo.Length);
                     Desc = $"Size: {fileSize}{Desc}";
                 }
                 else if (fileSystemInfo is DirectoryInfo dirInfo)
