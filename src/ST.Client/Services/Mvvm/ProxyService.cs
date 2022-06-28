@@ -436,55 +436,6 @@ namespace System.Application.Services
 
         public static bool IsChangeSupportProxyServicesStatus { get; set; }
 
-        public async Task InitializeScript()
-        {
-            #region 加载脚本数据
-
-            //var response =// await client.Scripts();
-            //if (!response.IsSuccess)
-            //{
-            //    return;
-            //}
-            //new ObservableCollection<ScriptDTO>(response.Content);
-            var scriptList = await scriptManager.GetAllScriptAsync();
-            //if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
-            //{
-            //    foreach (var item in scriptList)
-            //    {
-            //        if (item.LocalId > 0 && ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
-            //        {
-            //            item.Enable = true;
-            //        }
-            //    }
-            //}
-
-            ProxyScripts.AddRange(scriptList);
-            reverseProxyService.IsEnableScript = IsEnableScript;
-
-            this.WhenAnyValue(v => v.ProxyScripts)
-                  .Subscribe(script => script?
-                  .Connect()
-                  .AutoRefresh(x => x.Enable)
-                  .WhenPropertyChanged(x => x.Enable, false)
-                  .Subscribe(async item =>
-                  {
-                      //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                      //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                      if (reverseProxyService.ProxyRunning)
-                      {
-                          item.Sender.Enable = item.Value;
-                          await scriptManager.SaveEnableScript(item.Sender);
-
-                          await EnableProxyScripts.ContinueWith(e =>
-                          {
-                              reverseProxyService.Scripts = e.Result?.ToImmutableArray();
-                          });
-                          this.RaisePropertyChanged(nameof(EnableProxyScripts));
-                      }
-                  }));
-            #endregion
-        }
-
         private void LoadOrSaveLocalAccelerate()
         {
             var filepath = Path.Combine(IOPath.AppDataDirectory, "LOCAL_ACCELERATE.json");
@@ -515,6 +466,80 @@ namespace System.Application.Services
                         ProxyDomains.AddRange(accelerates!);
                 }
             }
+        }
+
+        private Timer? timer;
+
+        public void StartTimer()
+        {
+            if (timer == null)
+            {
+                timer = new Timer(_ => AccelerateTime = DateTimeOffset.Now - _StartAccelerateTime, nameof(AccelerateTime), 0, 1000);
+            }
+        }
+
+        public void StopTimer()
+        {
+            if (timer != null)
+            {
+                timer.Dispose();
+                timer = null;
+            }
+        }
+
+        public static void OnExitRestoreHosts()
+        {
+            var s = DI.Get_Nullable<IHostsFileService>();
+            if (s != null)
+            {
+                var needClear = s.ContainsHostsByTag();
+                if (needClear)
+                {
+                    s.OnExitRestoreHosts();
+                }
+            }
+        }
+
+        #region 脚本相关
+
+        /// <summary>
+        /// 初始化脚本数据
+        /// </summary>
+        /// <returns></returns>
+        public async Task InitializeScript()
+        {
+            #region 加载脚本数据
+
+            var scriptList = await scriptManager.GetAllScriptAsync();
+
+            ProxyScripts.AddRange(scriptList);
+
+            //拉取 GM.js
+            await BasicsInfoAsync();
+            reverseProxyService.IsEnableScript = IsEnableScript;
+
+            this.WhenAnyValue(v => v.ProxyScripts)
+                  .Subscribe(script => script?
+                  .Connect()
+                  .AutoRefresh(x => x.Enable)
+                  .WhenPropertyChanged(x => x.Enable, false)
+                  .Subscribe(async item =>
+                  {
+                      //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
+                      //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
+                      if (reverseProxyService.ProxyRunning)
+                      {
+                          item.Sender.Enable = item.Value;
+                          await scriptManager.SaveEnableScript(item.Sender);
+
+                          await EnableProxyScripts.ContinueWith(e =>
+                          {
+                              reverseProxyService.Scripts = e.Result?.ToImmutableArray();
+                          });
+                          this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                      }
+                  }));
+            #endregion
         }
 
         /// <summary>
@@ -554,38 +579,6 @@ namespace System.Application.Services
                 }
                 else
                     Toast.Show(jspath.GetMessageByFormat(AppResources.Download_ScriptError_));
-            }
-        }
-
-        private Timer? timer;
-
-        public void StartTimer()
-        {
-            if (timer == null)
-            {
-                timer = new Timer(_ => AccelerateTime = DateTimeOffset.Now - _StartAccelerateTime, nameof(AccelerateTime), 0, 1000);
-            }
-        }
-
-        public void StopTimer()
-        {
-            if (timer != null)
-            {
-                timer.Dispose();
-                timer = null;
-            }
-        }
-
-        public static void OnExitRestoreHosts()
-        {
-            var s = DI.Get_Nullable<IHostsFileService>();
-            if (s != null)
-            {
-                var needClear = s.ContainsHostsByTag();
-                if (needClear)
-                {
-                    s.OnExitRestoreHosts();
-                }
             }
         }
 
@@ -654,25 +647,22 @@ namespace System.Application.Services
             Toast.Show(item.Message);
         }
 
+        /// <summary>
+        /// 刷新脚本列表
+        /// </summary>
         public async void RefreshScript()
         {
             var scriptList = await scriptManager.GetAllScriptAsync();
             ProxyScripts.Clear();
-            //if (ProxySettings.ScriptsStatus.Value.Any_Nullable() && scriptList.Any())
-            //{
-            //    foreach (var item in scriptList)
-            //    {
-            //        if (ProxySettings.ScriptsStatus.Value!.Contains(item.LocalId))
-            //        {
-            //            item.Enable = true;
-            //        }
-            //    }
-            //}
             ProxyScripts.AddRange(scriptList);
 
             CheckScriptUpdate();
         }
 
+        /// <summary>
+        /// 下载或更新JS 直接替换或新增进列表不需要刷新
+        /// </summary>
+        /// <param name="model"></param>
         public async void DownloadScript(ScriptDTO model)
         {
             model.IsLoading = true;
@@ -684,23 +674,23 @@ namespace System.Application.Services
                 {
                     if (build.Content != null)
                     {
-                        var basicsItem = Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
-                        if (basicsItem != null)
-                        {
-                            var index = Current.ProxyScripts.Items.IndexOf(basicsItem);
-                            Current.ProxyScripts.ReplaceAt(index, basicsItem);
-                        }
-                        else
-                        {
-                            Current.ProxyScripts.Add(build.Content);
-                        }
                         model.IsUpdate = false;
                         model.IsExist = true;
                         model.UpdateLink = build.Content.UpdateLink;
                         model.FilePath = build.Content.FilePath;
                         model.Version = build.Content.Version;
                         model.Name = build.Content.Name;
-                        RefreshScript();
+
+                        var basicsItem = Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
+                        if (basicsItem != null)
+                        {
+                            Current.ProxyScripts.Replace(basicsItem, model);
+                        }
+                        else
+                        {
+                            Current.ProxyScripts.Add(model);
+                        }
+
                         Toast.Show(AppResources.Download_ScriptOk);
                     }
                 }
@@ -716,6 +706,9 @@ namespace System.Application.Services
             model.IsLoading = false;
         }
 
+        /// <summary>
+        /// 检查 JS 更新
+        /// </summary>
         public async void CheckScriptUpdate()
         {
             var items = ProxyScripts.Items.Where(x => x.Id.HasValue).Select(x => x.Id!.Value).ToList();
@@ -723,7 +716,7 @@ namespace System.Application.Services
             var response = await client.ScriptUpdateInfo(items, AppResources.Script_UpdateError);
             if (response.Code == ApiResponseCode.OK && response.Content != null)
             {
-                foreach (var item in ProxyScripts.Items)//response.Content)
+                foreach (var item in ProxyScripts.Items)
                 {
                     var newItem = response.Content.FirstOrDefault(x => x.Id == item.Id);
                     if (newItem != null && item.Version != newItem.Version)
@@ -736,6 +729,7 @@ namespace System.Application.Services
                 }
             }
         }
+        #endregion
 
         public async void FixNetwork()
         {

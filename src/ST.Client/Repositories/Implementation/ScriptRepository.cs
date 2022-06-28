@@ -42,7 +42,11 @@ namespace System.Application.Repositories.Implementation
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(async () =>
             {
-                return await dbConnection.Table<Script>().OrderBy(x => x.Order).Take(IScriptRepository.MaxValue).ToArrayAsync();
+                return await dbConnection
+                             .Table<Script>()
+                             .OrderBy(x => x.Order)
+                             .Take(IScriptRepository.MaxValue)
+                             .ToArrayAsync();
             }).ConfigureAwait(false);
         }
 
@@ -51,7 +55,9 @@ namespace System.Application.Repositories.Implementation
             var dbConnection = await GetDbConnection().ConfigureAwait(false);
             return await AttemptAndRetry(async () =>
             {
-                return await dbConnection.Table<Script>().FirstOrDefaultAsync(x => x.Name == name);
+                return await dbConnection
+                             .Table<Script>()
+                             .FirstOrDefaultAsync(x => x.Name == name);
             }).ConfigureAwait(false);
         }
     }
