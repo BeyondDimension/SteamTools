@@ -167,5 +167,13 @@ namespace System.Application.Models
         [N_JsonProperty("11")]
         [S_JsonProperty("11")]
         public string? UserAgent { get; set; }
+
+        /// <summary>
+        /// 子级加速项目
+        /// </summary>
+        [MPKey(12)]
+        [N_JsonProperty("12")]
+        [S_JsonProperty("12")]
+        public List<AccelerateProjectDTO>? Items { get; set; }
     }
 }
