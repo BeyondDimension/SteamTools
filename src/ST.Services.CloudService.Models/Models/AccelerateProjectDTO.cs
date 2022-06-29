@@ -60,14 +60,21 @@ namespace System.Application.Models
         public string[] DomainNamesArray
             => GetSplitValues(mDomainNamesArrayLock, DomainNames, ref mDomainNames, ref mDomainNamesArray);
 
+        string? _ForwardDomainName;
+
         /// <summary>
         /// 转发域名
         /// </summary>
         [MPKey(3)]
         [N_JsonProperty("3")]
         [S_JsonProperty("3")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? ForwardDomainName { get; set; } = string.Empty;
+        public string ForwardDomainName
+        {
+            get => _ForwardDomainName ?? string.Empty;
+            set => _ForwardDomainName = value;
+        }
+
+        string? _ForwardDomainIP;
 
         /// <summary>
         /// 转发域名IP
@@ -75,8 +82,11 @@ namespace System.Application.Models
         [MPKey(4)]
         [N_JsonProperty("4")]
         [S_JsonProperty("4")]
-        [NotNull, DisallowNull] // C# 8 not null
-        public string? ForwardDomainIP { get; set; } = string.Empty;
+        public string ForwardDomainIP
+        {
+            get => _ForwardDomainIP ?? string.Empty;
+            set => _ForwardDomainIP = value;
+        }
 
         /// <summary>
         /// 转发是域名(<see langword="true"/>)还是域名IP(<see langword="false"/>)
@@ -84,7 +94,7 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public bool ForwardDomainIsNameOrIP => string.IsNullOrEmpty(ForwardDomainIP);
+        public bool ForwardDomainIsNameOrIP => string.IsNullOrEmpty(_ForwardDomainIP);
 
         /// <summary>
         /// 服务器名

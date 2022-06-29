@@ -74,7 +74,7 @@ namespace System.Application.UI.ViewModels
             if (IApplication.IsDesktopPlatform)
             {
                 var adminTag = platformService.IsAdministrator ? (OperatingSystem2.IsWindows() ? " (Administrator)" : " (Root)") : string.Empty;
-                var title = $"{ThisAssembly.DisplayTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLower()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName()}{adminTag}";
+                var title = $"{ThisAssembly.DisplayTrademark} {RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()} v{ThisAssembly.VersionDisplay} for {DeviceInfo2.OSName()}{adminTag}";
 #if DEBUG
                 title = $"[Debug] {title}";
 #endif
