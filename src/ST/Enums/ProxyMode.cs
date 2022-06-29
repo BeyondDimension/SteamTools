@@ -36,5 +36,11 @@ namespace System.Application
         /// </summary>
         [Description("ProxyMode_ProxyOnly")]
         ProxyOnly,
+
+        /// <summary>
+        /// PAC代理模式(Desktop Only)
+        /// </summary>
+        [Description("ProxyMode_PAC")]
+        PAC,
     }
 }

@@ -10,13 +10,11 @@ namespace System.Application.Services.Implementation.Http;
 /// </summary>
 public class ReverseProxyHttpClient : HttpMessageInvoker
 {
-    const string Mark = Constants.HARDCODED_APP_NAME_NEW;
-
     /// <summary>
     /// 插入的 UserAgent 标记
     /// </summary>
     static readonly ProductInfoHeaderValue userAgent
-       = new(new ProductHeaderValue(Mark, "1.0"));
+       = new(new ProductHeaderValue(Constants.HARDCODED_APP_NAME_NEW, "1.0"));
 
     public ReverseProxyHttpClient(IDomainConfig domainConfig, IDomainResolver domainResolver)
         : this(new ReverseProxyHttpClientHandler(domainConfig, domainResolver), disposeHandler: true)
@@ -40,13 +38,13 @@ public class ReverseProxyHttpClient : HttpMessageInvoker
         if (request.Headers.UserAgent.Contains(userAgent))
         {
             const string message =
-                $"Because {{0}} actually points to {Mark} itself, " +
-                $"{Mark} has interrupted this forwarding";
+                $"Because {{0}} actually points to {Constants.HARDCODED_APP_NAME_NEW} itself, " +
+                $"{Constants.HARDCODED_APP_NAME_NEW} has interrupted this forwarding";
             throw new ApplicationException(string.Format(message, request.RequestUri));
         }
         request.Headers.UserAgent.Add(userAgent);
         var response = await base.SendAsync(request, cancellationToken);
-        response.Headers.Server.TryParseAdd(Mark);
+        response.Headers.Server.TryParseAdd(Constants.HARDCODED_APP_NAME_NEW);
         return response;
     }
 }

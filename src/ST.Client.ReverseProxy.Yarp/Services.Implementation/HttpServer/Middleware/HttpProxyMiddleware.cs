@@ -134,10 +134,10 @@ sealed class HttpProxyMiddleware
     {
         var buidler = new StringBuilder();
         buidler.AppendLine("function FindProxyForURL(url, host){");
-        buidler.AppendLine($"    var fastgithub = 'PROXY {proxyHost}';");
+        buidler.AppendLine($"    var pac = 'PROXY {proxyHost}';");
         foreach (var domain in reverseProxyConfig.GetDomainPatterns())
         {
-            buidler.AppendLine($"    if (shExpMatch(host, '{domain}')) return fastgithub;");
+            buidler.AppendLine($"    if (shExpMatch(host, '{domain}')) return pac;");
         }
         buidler.AppendLine("    return 'DIRECT';");
         buidler.AppendLine("}");

@@ -4,13 +4,13 @@ using System.Net;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Application.Services.Implementation;
+using System.Application.Services;
 
 namespace System.Application.Models;
 
 sealed class ReverseProxyConfig : IReverseProxyConfig
 {
     readonly SortedDictionary<DomainPattern, IDomainConfig> domainConfigs;
-    readonly SortedDictionary<DomainPattern, IDomainConfig> scriptConfigs;
     readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
 
@@ -18,8 +18,8 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     {
         this.reverseProxyService = reverseProxyService;
         domainConfigs = new();
-        scriptConfigs = new();
-        AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains, reverseProxyService.Scripts);
+        AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains);
+        AddScriptConfigs(domainConfigs, reverseProxyService.Scripts);
         domainConfigCache = new();
     }
 
@@ -44,7 +44,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     }
 
     static void AddDomainConfigs(IDictionary<DomainPattern, IDomainConfig> dict,
-        IEnumerable<AccelerateProjectDTO>? accelerates, IEnumerable<ScriptDTO>? scripts)
+        IEnumerable<AccelerateProjectDTO>? accelerates)
     {
         if (accelerates != null)
         {
@@ -56,8 +56,12 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
                 }
             }
         }
+    }
 
-        if (scripts != null)
+    static void AddScriptConfigs(IDictionary<DomainPattern, IDomainConfig> dict,
+    IEnumerable<ScriptDTO>? scripts)
+    {
+        if (IReverseProxyService.Instance.IsEnableScript && scripts != null)
         {
             foreach (var item in scripts)
             {

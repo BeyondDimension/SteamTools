@@ -55,7 +55,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             app = builder.Build();
             StartupConfigure(app);
 
-            Task.Factory.StartNew(() => app.Run());
+            Task.Factory.StartNew(() => app.Run(), TaskCreationOptions.LongRunning);
 
             return true;
         }

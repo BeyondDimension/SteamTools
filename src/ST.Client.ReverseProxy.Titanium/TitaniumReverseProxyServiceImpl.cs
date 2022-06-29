@@ -287,12 +287,10 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
 
             foreach (var script in Scripts)
             {
-                if (script.ExcludeDomainNamesArray != null)
-                    foreach (var host in script.ExcludeDomainNamesArray)
-                    {
-                        if (e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(host, RegexOptions.IgnoreCase))
-                            goto next;
-                    }
+                if (script.ExcludeDomainNamesArray.Any_Nullable(s => e.HttpClient.Request.RequestUri.AbsoluteUri.IsWildcard(s, RegexOptions.IgnoreCase)))
+                {
+                    continue;
+                }
 
                 foreach (var host in script.MatchDomainNamesArray)
                 {
@@ -316,7 +314,6 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
                         scriptHtml.AppendLine(temp);
                     }
                 }
-            next:;
             }
 
             if (scriptHtml.Length > 0)

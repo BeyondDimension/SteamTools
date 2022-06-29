@@ -43,7 +43,6 @@ sealed class HttpReverseProxyMiddleware
     /// <returns></returns>
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var host = context.Request.Host;
         if (TryGetDomainConfig(new Uri(context.Request.GetDisplayUrl()), out var domainConfig) == false)
         {
             await next(context);
@@ -57,16 +56,15 @@ sealed class HttpReverseProxyMiddleware
                 return;
             }
 
-            var destinationPrefix = GetDestinationPrefix(scheme, host, domainConfig.Destination);
-            var httpClient = httpClientFactory.CreateHttpClient(host.Host, domainConfig);
+            var destinationPrefix = GetDestinationPrefix(scheme, context.Request.Host, domainConfig.Destination);
+            var httpClient = httpClientFactory.CreateHttpClient(context.Request.Host.Host, domainConfig);
             if (!string.IsNullOrEmpty(domainConfig.UserAgent))
             {
-                var oldua = context.Request.Headers.UserAgent.ToString();
-                var newUA = domainConfig.UserAgent.Replace("${origin}", oldua, StringComparison.OrdinalIgnoreCase);
-                context.Request.Headers.UserAgent = new StringValues(newUA);
+                context.Request.Headers.UserAgent = domainConfig.UserAgent.Replace("${origin}", context.Request.Headers.UserAgent, StringComparison.OrdinalIgnoreCase);
             }
 
             var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, ForwarderRequestConfig.Empty, HttpTransformer.Empty);
+
             await HandleErrorAsync(context, error);
         }
         else

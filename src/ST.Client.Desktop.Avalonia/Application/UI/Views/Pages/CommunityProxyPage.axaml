@@ -285,8 +285,12 @@
             Text="{ReflectionBinding Source={x:Static ms:ProxySettings.ProxyMode},Path=Value, Mode=OneWay,Converter={StaticResource EnumDescriptionToNameConverter},ConverterParameter=Localiza}"/>
         </WrapPanel>
       </StackPanel>
-      <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="0 20">
-        <pages:ProxyChartView Margin="60 0"/>
+      <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" Margin="80 20">
+        <controls:AdDialog DockPanel.Dock="Right"
+                    SupportClose="True"
+                    Width="100"/>
+
+        <pages:ProxyChartView/>
 
         <!--<Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
           <DockPanel MinWidth="300">
