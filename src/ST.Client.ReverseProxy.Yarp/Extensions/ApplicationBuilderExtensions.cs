@@ -13,10 +13,22 @@ static class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
+    [Obsolete]
     internal static IApplicationBuilder UseHttpProxy(this IApplicationBuilder app)
     {
         var middleware = app.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
         return app.Use(next => context => middleware.InvokeAsync(context));
+    }
+
+    /// <summary>
+    /// 使用 Http 代理策略中间件
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
+    internal static IApplicationBuilder UseHttpProxyPac(this IApplicationBuilder app)
+    {
+        var middleware = app.ApplicationServices.GetRequiredService<HttpProxyPacMiddleware>();
+        return app.Use(next => context => middleware.InvokeAsync(context, next));
     }
 
     /// <summary>

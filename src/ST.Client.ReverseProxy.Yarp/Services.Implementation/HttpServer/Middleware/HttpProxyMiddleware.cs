@@ -18,6 +18,7 @@ namespace System.Application.Services.Implementation.HttpServer.Middleware;
 /// <summary>
 /// Http 代理中间件
 /// </summary>
+[Obsolete]
 sealed class HttpProxyMiddleware
 {
     const string LOCALHOST = "localhost";

@@ -83,7 +83,19 @@ public static partial class ServiceCollectionExtensions
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfWindows>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfLinuxRedHat>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfLinuxDebian>()
-            .AddSingleton<HttpProxyMiddleware>()
+
+            // tcp
+            .AddSingleton<HttpProxyMiddleware2>()
+            .AddSingleton<TunnelMiddleware>()
+
+            // tls
+            .AddSingleton<TlsInvadeMiddleware>()
+            .AddSingleton<TlsRestoreMiddleware>()
+
+            // http
+            .AddSingleton<HttpProxyPacMiddleware>()
+
+            //.AddSingleton<HttpProxyMiddleware>()
             .AddSingleton<RequestLoggingMiddleware>()
             .AddSingleton<HttpReverseProxyMiddleware>();
     }
