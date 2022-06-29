@@ -48,7 +48,7 @@ namespace System.Application.Services
             if (IsInitialized == false)
             {
                 var client = ICloudServiceClient.Instance.Advertisement;
-                var result = await client.All();
+                var result = await client.All(EAdvertisementType.Banner);
 
                 if (result.IsSuccess && result.Content != null)
                 {
