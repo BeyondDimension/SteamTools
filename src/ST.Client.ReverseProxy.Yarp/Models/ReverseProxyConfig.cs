@@ -5,12 +5,14 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Application.Services.Implementation;
 using System.Application.Services;
+using System.Text.RegularExpressions;
 
 namespace System.Application.Models;
 
 sealed class ReverseProxyConfig : IReverseProxyConfig
 {
     readonly SortedDictionary<DomainPattern, IDomainConfig> domainConfigs;
+    readonly SortedDictionary<DomainPattern, IDomainConfig> scriptConfigs;
     readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
 
@@ -18,8 +20,9 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     {
         this.reverseProxyService = reverseProxyService;
         domainConfigs = new();
+        scriptConfigs = new();
         AddDomainConfigs(domainConfigs, reverseProxyService.ProxyDomains);
-        AddScriptConfigs(domainConfigs, reverseProxyService.Scripts);
+        AddScriptConfigs(scriptConfigs, reverseProxyService.Scripts);
         domainConfigCache = new();
     }
 
@@ -67,6 +70,12 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
             {
                 foreach (var domainName in item.MatchDomainNamesArray)
                 {
+                    if (domainName.IndexOf("/") != 0)
+                    {
+                        var pattern = "/^" + Regex.Escape(domainName).Replace("\\*", ".*").Replace("\\?", ".") + "$";
+                        dict.Add(new DomainPattern(pattern) { Sort = item.Order }, item);
+                        continue;
+                    }
                     dict.Add(new DomainPattern(domainName) { Sort = item.Order }, item);
                 }
             }
@@ -108,14 +117,32 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
 
     public bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out IDomainConfig value)
     {
-        value = domainConfigCache.GetOrAdd(domain, GetDomainConfig);
-        return value != null;
+        //value = domainConfigCache.GetOrAdd(domain.Host, GetDomainConfig);
+
+        var uri = new UriBuilder(domain).Uri;
+
+        domainConfigCache.TryGetValue(uri.Host, out value);
+        if (value != null)
+            return true;
+
+        value = GetDomainConfig(uri.Host + uri.PathAndQuery);
+        if (value == null)
+            return false;
+
+        domainConfigCache.TryAdd(uri.Host, value);
+        return true;
 
         IDomainConfig? GetDomainConfig(string domain)
         {
             var key = domainConfigs.Keys.FirstOrDefault(item => item.IsMatch(domain));
             return key == null ? null : domainConfigs[key];
         }
+    }
+
+    public bool TryGetScriptConfig(string domain, [MaybeNullWhen(false)] out IEnumerable<IDomainConfig> value)
+    {
+        value = scriptConfigs.Where(item => item.Key.IsMatch(domain)).Select(item => item.Value);
+        return value.Any_Nullable();
     }
 
     public DomainPattern[] GetDomainPatterns() => domainConfigs.Keys.ToArray();

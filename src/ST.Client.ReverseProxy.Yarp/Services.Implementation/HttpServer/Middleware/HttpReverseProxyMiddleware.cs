@@ -43,16 +43,16 @@ sealed class HttpReverseProxyMiddleware
     /// <returns></returns>
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        if (TryGetDomainConfig(new Uri(context.Request.GetDisplayUrl()), out var domainConfig) == false)
+        if (TryGetDomainConfig(context.Request.GetDisplayUrl(), out var domainConfig) == false)
         {
             await next(context);
         }
         else if (domainConfig.Response == null)
         {
             var scheme = context.Request.Scheme;
-            if (IReverseProxyService.Instance.EnableHttpProxyToHttps && scheme == "http")
+            if (IReverseProxyService.Instance.EnableHttpProxyToHttps && scheme == Uri.UriSchemeHttp)
             {
-                context.Response.Redirect("https" + context.Request.Host.Host + context.Request.RawUrl());
+                context.Response.Redirect(Uri.UriSchemeHttps + context.Request.Host.Host + context.Request.RawUrl());
                 return;
             }
 
@@ -78,18 +78,19 @@ sealed class HttpReverseProxyMiddleware
         }
     }
 
-    bool TryGetDomainConfig(Uri uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
+    bool TryGetDomainConfig(string uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
     {
-        if (reverseProxyConfig.TryGetDomainConfig(uri.Host + uri.AbsolutePath, out domainConfig) == true)
+        if (reverseProxyConfig.TryGetDomainConfig(uri, out domainConfig) == true)
         {
             return true;
         }
 
+        var host = new Uri(uri).Host;
         // 未配置的域名，但仍然被解析到本机 IP 的域名
-        if (OperatingSystem.IsWindows() && IsDomain(uri.Host))
+        if (OperatingSystem.IsWindows() && IsDomain(host))
         {
             logger.LogWarning(
-                $"域名 {uri.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
+                $"域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。");
             domainConfig = defaultDomainConfig;
             return true;
         }
