@@ -16,4 +16,9 @@ public enum EAdvertisementType
     /// 系统消息广告
     /// </summary>
     News = 4,
+
+    /// <summary>
+    /// 内嵌广告
+    /// </summary>
+    Embedded = 8,
 }
