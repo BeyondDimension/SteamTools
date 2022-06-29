@@ -17,7 +17,7 @@ namespace System.Application.Services
         /// <summary>
         /// 获取为当前主窗口提供的数据
         /// </summary>
-        WindowViewModel MainWindow { get; }
+        WindowViewModel? MainWindow { get; }
 
         TaskBarWindowViewModel? TaskBarWindow { get; }
 

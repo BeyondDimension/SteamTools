@@ -274,7 +274,7 @@ namespace System.Application.UI
 
         void InitTrayIcon(IClassicDesktopStyleApplicationLifetime? desktop)
         {
-            if (desktop == null)
+            if (desktop == null || IViewModelManager.Instance.MainWindow == null)
                 return;
             if (ProgramHost.IsMainProcess)
             {

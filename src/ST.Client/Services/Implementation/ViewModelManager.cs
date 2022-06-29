@@ -17,9 +17,9 @@ namespace System.Application.Services.Implementation
 
         WindowViewModel? mMainWindow;
 
-        public WindowViewModel MainWindow
+        public WindowViewModel? MainWindow
         {
-            get => mMainWindow ?? throw new NullReferenceException("MainWindowViewModel is null.");
+            get => mMainWindow;
         }
 
         public TaskBarWindowViewModel? TaskBarWindow => taskbarWindow;
