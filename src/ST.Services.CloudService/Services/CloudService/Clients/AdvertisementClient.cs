@@ -23,7 +23,7 @@ namespace System.Application.Services.CloudService.Clients
                 isAnonymous: true,
                 isSecurity: false,
                 method: HttpMethod.Get,
-                requestUri: $"api/Advertisement/{(int)DeviceInfo2.Platform()}/{(int)DeviceInfo2.Idiom()}/Advertisements{(type.HasValue ? $"?type={type}" : "")}",
+                requestUri: $"api/Advertisement/All/{(int)DeviceInfo2.Platform()}/{(int)DeviceInfo2.Idiom()}{(type.HasValue ? $"?type={type}" : "")}",
                 cancellationToken: default);
     }
 }

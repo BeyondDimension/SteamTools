@@ -14,6 +14,6 @@ namespace System.Application.Services.CloudService.Clients.Abstractions
         /// </summary>
         /// <param name="type">广告类型默认不传返回全部</param>
         /// <returns>按Order排序 id展示就行了 接口只会返回没过期的</returns>
-        Task<IApiResponse<List<AdvertisementDTO>>> All(EAdvertisementType? type);
+        Task<IApiResponse<List<AdvertisementDTO>>> All(EAdvertisementType? type = null);
     }
 }

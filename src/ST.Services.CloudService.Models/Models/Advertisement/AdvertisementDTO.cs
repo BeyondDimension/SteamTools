@@ -39,6 +39,15 @@ namespace System.Application.Models
         [N_JsonProperty("2")]
         [S_JsonProperty("2")]
         public string? Remark { get; set; }
+
+        /// <summary>
+        /// 广告类型
+        /// </summary>
+        [MPKey(3)]
+        [N_JsonProperty("3")]
+        [S_JsonProperty("3")]
+        public EAdvertisementType Type { get; set; }
+
 #if MVVM_VM
 
         [MPIgnore]
