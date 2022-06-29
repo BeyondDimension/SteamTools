@@ -4195,6 +4195,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 PAC代理模式 的本地化字符串。
+        /// </summary>
+        public static string ProxyMode_PAC {
+            get {
+                return ResourceManager.GetString("ProxyMode_PAC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 仅代理模式 的本地化字符串。
         /// </summary>
         public static string ProxyMode_ProxyOnly {

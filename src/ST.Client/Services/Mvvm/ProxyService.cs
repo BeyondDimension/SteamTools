@@ -135,6 +135,14 @@ namespace System.Application.Services
                                 return;
                             }
                         }
+                        else if (reverseProxyService.ProxyMode == ProxyMode.System)
+                        {
+                            if (!IPlatformService.Instance.SetAsSystemProxy(true, reverseProxyService.ProxyIp, reverseProxyService.ProxyPort))
+                            {
+                                Toast.Show("系统代理开启失败");
+                                return;
+                            }
+                        }
 
                         var isRun = await reverseProxyService.StartProxy();
 
@@ -219,8 +227,9 @@ namespace System.Application.Services
                                 }
                             }
                         }
+
                         OnStopRemoveHostsByTag();
-                        //Toast.Show(SteamTools.Properties.Resources.ProxyStop);
+                        IPlatformService.Instance.SetAsSystemProxy(false);
                     }
                 });
         }
@@ -753,6 +762,7 @@ namespace System.Application.Services
         {
             await reverseProxyService.StopProxy();
             OnExitRestoreHosts();
+            IPlatformService.Instance.SetAsSystemProxy(false);
             reverseProxyService.Dispose();
         }
 

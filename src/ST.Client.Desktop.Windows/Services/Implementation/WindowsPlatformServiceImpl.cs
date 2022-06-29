@@ -279,17 +279,14 @@ namespace System.Application.Services.Implementation
         /// <returns></returns>
         public bool SetAsSystemProxy(bool state, IPAddress? ip, int port)
         {
-            if (DesktopBridge.IsRunningAsUwp)
-            {
-                var proxyEnable = $"\"ProxyEnable\"=dword:{(state ? "00000001" : "00000000")}";
-                var hasIpAndProt = ip != null && port >= 0;
-                var proxyServer = hasIpAndProt ? $"\"proxyServer\"=\"{ip}:{port}\"" : "";
-                var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings]{Environment.NewLine}{proxyEnable}{Environment.NewLine}{(state ? $"{ProxyOverride}{Environment.NewLine}" : "")}{proxyServer}";
-                var path = Path.Combine(IOPath.CacheDirectory, "switchproxy.reg");
-                File.WriteAllText(path, reg, Text.Encoding.UTF8);
-                var p = Process2.Start("regedit", $"/s \"{path}\"", true);
-                p?.WaitForExit();
-            }
+            var proxyEnable = $"\"ProxyEnable\"=dword:{(state ? "00000001" : "00000000")}";
+            var hasIpAndProt = ip != null && port >= 0;
+            var proxyServer = hasIpAndProt ? $"\"proxyServer\"=\"{ip}:{port}\"" : "";
+            var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings]{Environment.NewLine}{proxyEnable}{Environment.NewLine}{(state ? $"{ProxyOverride}{Environment.NewLine}" : "")}{proxyServer}";
+            var path = Path.Combine(IOPath.CacheDirectory, "switchproxy.reg");
+            File.WriteAllText(path, reg, Text.Encoding.UTF8);
+            var p = Process2.Start("regedit", $"/s \"{path}\"", true);
+            p?.WaitForExit();
             return true;
         }
 
