@@ -290,6 +290,23 @@ namespace System.Application.Services.Implementation
             return true;
         }
 
+        /// <summary>
+        /// 设置启用或关闭PAC代理
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public bool SetAsSystemPACProxy(bool state, string? url = null)
+        {
+            var regAutoConfigUrl = state ? $"\"AutoConfigURL\"=\"{url}\"" : "\"AutoConfigURL\"=\"\"";
+            var reg = $"Windows Registry Editor Version 5.00{Environment.NewLine}[HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings]{Environment.NewLine}{regAutoConfigUrl}";
+            var path = Path.Combine(IOPath.CacheDirectory, "switchpacproxy.reg");
+            File.WriteAllText(path, reg, Text.Encoding.UTF8);
+            var p = Process2.Start("regedit", $"/s \"{path}\"", true);
+            p?.WaitForExit();
+            return true;
+        }
+
         public IReadOnlyCollection<KeyValuePair<string, string>> GetFontsByGdiPlus()
         {
             // https://docs.microsoft.com/zh-cn/typography/font-list

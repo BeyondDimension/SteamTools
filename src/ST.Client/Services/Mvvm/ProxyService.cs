@@ -143,6 +143,14 @@ namespace System.Application.Services
                                 return;
                             }
                         }
+                        else if (reverseProxyService.ProxyMode == ProxyMode.PAC)
+                        {
+                            if (!IPlatformService.Instance.SetAsSystemPACProxy(true, $"http://{reverseProxyService.ProxyIp}:{reverseProxyService.ProxyPort}/pac"))
+                            {
+                                Toast.Show("PAC代理开启失败");
+                                return;
+                            }
+                        }
 
                         var isRun = await reverseProxyService.StartProxy();
 
@@ -230,6 +238,7 @@ namespace System.Application.Services
 
                         OnStopRemoveHostsByTag();
                         IPlatformService.Instance.SetAsSystemProxy(false);
+                        IPlatformService.Instance.SetAsSystemPACProxy(false);
                     }
                 });
         }

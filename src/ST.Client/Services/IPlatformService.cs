@@ -119,6 +119,17 @@ namespace System.Application.Services
         }
 
         /// <summary>
+        /// 设置启用或关闭PAC代理
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        bool SetAsSystemPACProxy(bool state, string? url = null)
+        {
+            return false;
+        }
+
+        /// <summary>
         /// 获取一个正在运行的进程的命令行参数
         /// 与 <see cref="Environment.GetCommandLineArgs"/> 一样，使用此方法获取的参数是包含应用程序路径的
         /// 关于 <see cref="Environment.GetCommandLineArgs"/> 可参见：

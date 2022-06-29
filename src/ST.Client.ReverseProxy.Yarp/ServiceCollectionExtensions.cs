@@ -85,7 +85,7 @@ public static partial class ServiceCollectionExtensions
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfLinuxDebian>()
 
             // tcp
-            .AddSingleton<HttpProxyMiddleware2>()
+            .AddSingleton<HttpProxyMiddleware>()
             .AddSingleton<TunnelMiddleware>()
 
             // tls

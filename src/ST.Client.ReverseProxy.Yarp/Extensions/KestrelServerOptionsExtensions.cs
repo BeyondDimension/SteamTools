@@ -41,9 +41,18 @@ public static class KestrelServerOptionsExtensions
                 $"TCP port {httpProxyPort} is already occupied by other processes.");
         }
 
-        options.ListenLocalhost(httpProxyPort);
-        var logger = options.GetLogger();
-        logger.LogInformation(
+        options.ListenLocalhost(httpProxyPort, listen =>
+        {
+            var proxyMiddleware = options.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
+            var tunnelMiddleware = options.ApplicationServices.GetRequiredService<TunnelMiddleware>();
+
+            listen.UseFlowAnalyze();
+            listen.Use(next => context => proxyMiddleware.InvokeAsync(next, context));
+            listen.UseTls();
+            listen.Use(next => context => tunnelMiddleware.InvokeAsync(next, context));
+        });
+
+        options.GetLogger().LogInformation(
             $"Listened http://localhost:{httpProxyPort}, HTTP proxy service startup completed.");
     }
 
@@ -113,10 +122,7 @@ public static class KestrelServerOptionsExtensions
         options.ListenLocalhost(httpsPort, listen =>
         {
             listen.UseFlowAnalyze();
-            listen.UseHttps(https =>
-            {
-                https.ServerCertificateSelector = (connectionContext, name) => certService.GetOrCreateServerCert(name);
-            });
+            listen.UseTls();
         });
 
         var logger = options.GetLogger();
@@ -129,4 +135,5 @@ public static class KestrelServerOptionsExtensions
         var loggerFactory = kestrel.ApplicationServices.GetRequiredService<ILoggerFactory>();
         return loggerFactory.CreateLogger(IReverseProxyService.TAG);
     }
+
 }
