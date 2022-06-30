@@ -197,6 +197,7 @@ sealed class HttpReverseProxyMiddleware
         async void ResetBody()
         {
             memoryStream.Seek(0, SeekOrigin.Begin);
+            context.Response.ContentLength = memoryStream.Length;
             await memoryStream.CopyToAsync(originalBody);
             context.Response.Body = originalBody;
         }
@@ -287,9 +288,12 @@ sealed class HttpReverseProxyMiddleware
                     context.Response.Body = originalBody;
                 }
             }
-            finally
+            catch
             {
                 ResetBody();
+            }
+            finally
+            {
                 await memoryStream.DisposeAsync();
             }
         }
