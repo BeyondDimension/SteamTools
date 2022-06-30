@@ -227,7 +227,7 @@
         <Border Grid.Column="1" Grid.Row="1" Classes="paper" Background="{DynamicResource ThemeBrushKey}">
           <Panel Margin="10 0">
             <DockPanel>
-              <DockPanel Margin="0 10" DockPanel.Dock="Top">
+              <DockPanel Margin="0 10 0 0" DockPanel.Dock="Top">
                 <CheckBox MinWidth="20"
                           Content="{ReflectionBinding Path=Res.CommunityFix_AllCheck,Mode=OneWay,Source={x:Static resx:R.Current}}"
                           IsChecked="{ReflectionBinding #items.SelectedItem.ThreeStateEnable,Mode=TwoWay}">
@@ -240,7 +240,27 @@
               </DockPanel>
               <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                             VerticalScrollBarVisibility="Auto">
-                <ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
+                <TreeView Items="{ReflectionBinding #items.SelectedItem.ObservableItems}"
+                          Classes="NameToggle">
+                  <TreeView.ItemTemplate>
+                    <TreeDataTemplate ItemsSource="{ReflectionBinding Items}"
+                                      DataType="{x:Type models:AccelerateProjectDTO}">
+                      <!--<StackPanel Spacing="6">-->
+                      <CheckBox HorizontalAlignment="Left" IsChecked="{ReflectionBinding Enable}">
+                        <TextBlock Text="{ReflectionBinding Name}"></TextBlock>
+                      </CheckBox>
+                      <!--<ItemsRepeater Items="{ReflectionBinding DomainNamesArray}">
+                          <ItemsRepeater.ItemTemplate>
+                            <DataTemplate>
+                              <TextBlock Text="{ReflectionBinding}"/>
+                            </DataTemplate>
+                          </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>-->
+                      <!--</StackPanel>-->
+                    </TreeDataTemplate>
+                  </TreeView.ItemTemplate>
+                </TreeView>
+                <!--<ItemsControl Items="{ReflectionBinding #items.SelectedItem.ObservableItems}">
                   <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type models:AccelerateProjectDTO}">
                       <StackPanel>
@@ -257,7 +277,7 @@
                       </StackPanel>
                     </DataTemplate>
                   </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                </ItemsControl>-->
               </ScrollViewer>
             </DockPanel>
           </Panel>

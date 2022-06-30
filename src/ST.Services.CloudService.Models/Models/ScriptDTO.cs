@@ -94,11 +94,6 @@ namespace System.Application.Models
         [MPIgnore]
         [N_JsonIgnore]
         [S_JsonIgnore]
-        public int LocalId { get; set; }
-
-        [MPIgnore]
-        [N_JsonIgnore]
-        [S_JsonIgnore]
         public string FilePath { get; set; } = string.Empty;
 
         [MPIgnore]
@@ -175,6 +170,11 @@ namespace System.Application.Models
         public DateTimeOffset? UpdateTime { get; set; }
 
 #endif
+
+        [MPIgnore]
+        [N_JsonIgnore]
+        [S_JsonIgnore]
+        public int LocalId { get; set; }
 
         /// <summary>
         /// 显示名称

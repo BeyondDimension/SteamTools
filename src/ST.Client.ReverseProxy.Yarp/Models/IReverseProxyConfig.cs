@@ -35,6 +35,14 @@ public partial interface IReverseProxyConfig
     bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out IDomainConfig value);
 
     /// <summary>
+    /// 尝试获取脚本配置
+    /// </summary>
+    /// <param name="domain"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    bool TryGetScriptConfig(string domain, [MaybeNullWhen(false)] out IEnumerable<IScriptConfig> value);
+
+    /// <summary>
     /// 获取所有域名表达式
     /// </summary>
     /// <returns></returns>

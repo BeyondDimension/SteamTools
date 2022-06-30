@@ -1,5 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/DomainPattern.cs
 
+using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 
 // ReSharper disable once CheckNamespace
@@ -11,25 +12,38 @@ namespace System.Net;
 /// </summary>
 public sealed class DomainPattern : IComparable<DomainPattern>
 {
-    readonly Regex regex;
+    /// <summary>
+    /// 通用分隔符
+    /// </summary>
+    public const char GeneralSeparator = ';';
+
+    readonly ImmutableArray<Regex> regexs;
     readonly string domainPattern;
 
     public int Sort { get; init; }
 
     public DomainPattern(string domainPattern)
     {
+        if (string.IsNullOrWhiteSpace(domainPattern))
+            throw new ArgumentNullException(nameof(domainPattern));
+
         this.domainPattern = domainPattern;
 
-        var isRegex = domainPattern.IndexOf("/") == 0;
-        if (isRegex)
+        var items = domainPattern.Split(DomainPattern.GeneralSeparator, StringSplitOptions.RemoveEmptyEntries);
+
+        regexs = items.Select(s =>
         {
-            regex = new Regex(domainPattern[1..], RegexOptions.IgnoreCase);
-        }
-        else
-        {
-            var regexPattern = Regex.Escape(domainPattern).Replace(@"\*", @"[^\.]*");
-            regex = new Regex(regexPattern, RegexOptions.IgnoreCase);
-        }
+            var isRegex = s.IndexOf("/") == 0;
+            if (isRegex)
+            {
+                return new Regex(s[1..], RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                var regexPattern = Regex.Escape(s).Replace(@"\*", @"[^\.]*");
+                return new Regex(regexPattern, RegexOptions.IgnoreCase);
+            }
+        }).ToImmutableArray();
     }
 
     /// <summary>
@@ -95,7 +109,7 @@ public sealed class DomainPattern : IComparable<DomainPattern>
     /// </summary>
     /// <param name="domain"></param>
     /// <returns></returns>
-    public bool IsMatch(string domain) => regex.IsMatch(domain);
+    public bool IsMatch(string domain) => regexs.Any(s => s.IsMatch(domain));
 
     public override string ToString() => domainPattern;
 }

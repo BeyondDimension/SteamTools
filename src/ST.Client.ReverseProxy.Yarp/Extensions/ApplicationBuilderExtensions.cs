@@ -9,13 +9,24 @@ namespace Microsoft.AspNetCore.Builder;
 static class ApplicationBuilderExtensions
 {
     /// <summary>
-    /// 使用 Http 代理策略中间件
+    /// 使用 Http 代理PAC中间件
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
     internal static IApplicationBuilder UseHttpProxyPac(this IApplicationBuilder app)
     {
         var middleware = app.ApplicationServices.GetRequiredService<HttpProxyPacMiddleware>();
+        return app.Use(next => context => middleware.InvokeAsync(context, next));
+    }
+
+    /// <summary>
+    /// 使用本地 Http 请求中间件
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
+    internal static IApplicationBuilder UseHttpLocalRequest(this IApplicationBuilder app)
+    {
+        var middleware = app.ApplicationServices.GetRequiredService<HttpLocalRequestMiddleware>();
         return app.Use(next => context => middleware.InvokeAsync(context, next));
     }
 

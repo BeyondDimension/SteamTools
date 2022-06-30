@@ -12,7 +12,7 @@ namespace System.Application.Models;
 sealed class ReverseProxyConfig : IReverseProxyConfig
 {
     readonly SortedDictionary<DomainPattern, IDomainConfig> domainConfigs;
-    readonly SortedDictionary<DomainPattern, IDomainConfig> scriptConfigs;
+    readonly SortedDictionary<DomainPattern, IScriptConfig> scriptConfigs;
     readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
 
@@ -53,31 +53,34 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         {
             foreach (var item in accelerates)
             {
-                foreach (var domainName in item.DomainNamesArray)
-                {
-                    dict.Add(new DomainPattern(domainName) { Sort = item.Order }, item);
-                }
+                dict.Add(new DomainPattern(item.DomainNames) { Sort = item.Order }, item);
             }
         }
     }
 
-    static void AddScriptConfigs(IDictionary<DomainPattern, IDomainConfig> dict,
+    static void AddScriptConfigs(IDictionary<DomainPattern, IScriptConfig> dict,
     IEnumerable<ScriptDTO>? scripts)
     {
         if (IReverseProxyService.Instance.IsEnableScript && scripts != null)
         {
             foreach (var item in scripts)
             {
-                foreach (var domainName in item.MatchDomainNamesArray)
+                var domainNames = string.Join(DomainPattern.GeneralSeparator, item.MatchDomainNamesArray.Select(GetDomainPatternString));
+                //if (item.ExcludeDomainNamesArray.Any_Nullable())
+                //{
+                //    var domainNames2 = string.Join(DomainPattern.GeneralSeparator, item.ExcludeDomainNamesArray.Select(GetDomainPatternString));
+                //}
+
+                dict.Add(new DomainPattern(domainNames) { Sort = item.Order }, item);
+            }
+
+            static string GetDomainPatternString(string s)
+            {
+                if (s.IndexOf("/") != 0)
                 {
-                    if (domainName.IndexOf("/") != 0)
-                    {
-                        var pattern = "/^" + Regex.Escape(domainName).Replace("\\*", ".*").Replace("\\?", ".") + "$";
-                        dict.Add(new DomainPattern(pattern) { Sort = item.Order }, item);
-                        continue;
-                    }
-                    dict.Add(new DomainPattern(domainName) { Sort = item.Order }, item);
+                    return "/^" + Regex.Escape(s).Replace("\\*", ".*").Replace("\\?", ".") + "$";
                 }
+                return s;
             }
         }
     }
@@ -125,7 +128,7 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         if (value != null)
             return true;
 
-        value = GetDomainConfig(uri.Host + uri.PathAndQuery);
+        value = GetDomainConfig(domain);
         if (value == null)
             return false;
 
@@ -139,9 +142,18 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         }
     }
 
-    public bool TryGetScriptConfig(string domain, [MaybeNullWhen(false)] out IEnumerable<IDomainConfig> value)
+    public bool TryGetScriptConfig(string domain, [MaybeNullWhen(false)] out IEnumerable<IScriptConfig> value)
     {
-        value = scriptConfigs.Where(item => item.Key.IsMatch(domain)).Select(item => item.Value);
+        if (!IReverseProxyService.Instance.IsEnableScript)
+        {
+            value = null;
+            return false;
+        }
+
+        value = scriptConfigs.Where(item => item.Key.IsMatch(domain))
+                    .Where(item => item.Value.ExcludeDomainPattern?.IsMatch(domain) != true)
+                    .Select(item => item.Value);
+
         return value.Any_Nullable();
     }
 

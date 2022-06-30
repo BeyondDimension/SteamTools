@@ -309,7 +309,7 @@ sealed class TitaniumReverseProxyServiceImpl : ReverseProxyServiceImpl, IReverse
 
                         if (script.JsPathUrl == null)
                             script.JsPathUrl = $"/{Guid.NewGuid()}";
-                        var temp = $"<script type=\"text/javascript\" src=\"https://local.steampp.net{script.JsPathUrl}\"></script>";
+                        var temp = $"<script type=\"text/javascript\" src=\"https://{IReverseProxyService.LocalDomain}{script.JsPathUrl}\"></script>";
 
                         scriptHtml.AppendLine(temp);
                     }

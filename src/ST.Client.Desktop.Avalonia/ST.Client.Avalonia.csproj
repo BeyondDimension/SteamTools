@@ -106,6 +106,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaResource Update="Application\UI\Styles\Controls\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Application\UI\Views\Controls\AdDialog.axaml.cs">
       <DependentUpon>AdDialog.axaml</DependentUpon>
     </Compile>

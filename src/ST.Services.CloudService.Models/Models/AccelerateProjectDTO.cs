@@ -23,6 +23,23 @@ namespace System.Application.Models
         : ReactiveObject
 #endif
     {
+#if MVVM_VM
+        public AccelerateProjectDTO()
+        {
+            this.WhenAnyValue(v => v.Enable)
+                  .Subscribe(x =>
+                  {
+                      if (Items.Any_Nullable())
+                      {
+                          foreach (var item in Items)
+                          {
+                              item.Enable = x;
+                          }
+                      }
+                  });
+        }
+#endif
+
         /// <summary>
         /// 显示名称
         /// </summary>

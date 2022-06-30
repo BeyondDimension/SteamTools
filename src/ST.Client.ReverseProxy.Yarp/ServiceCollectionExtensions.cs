@@ -92,10 +92,9 @@ public static partial class ServiceCollectionExtensions
             .AddSingleton<TlsInvadeMiddleware>()
             .AddSingleton<TlsRestoreMiddleware>()
 
-            // http
+            //http
+            .AddSingleton<HttpLocalRequestMiddleware>()
             .AddSingleton<HttpProxyPacMiddleware>()
-
-            //.AddSingleton<HttpProxyMiddleware>()
             .AddSingleton<RequestLoggingMiddleware>()
             .AddSingleton<HttpReverseProxyMiddleware>();
     }

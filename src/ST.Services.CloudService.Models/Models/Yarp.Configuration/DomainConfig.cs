@@ -41,6 +41,9 @@ public sealed class DomainConfig : IDomainConfig
     [MPKey(7)]
     public string? UserAgent { get; init; }
 
+    [MPKey(8)]
+    public IReadOnlyDictionary<DomainPattern, IDomainConfig>? Items { get; init; }
+
     IResponseConfig? IDomainConfig.Response => Response;
 }
 
@@ -95,6 +98,11 @@ public interface IDomainConfig
     /// 自定义响应
     /// </summary>
     IResponseConfig? Response { get; }
+
+    /// <summary>
+    /// 子匹配项
+    /// </summary>
+    IReadOnlyDictionary<DomainPattern, IDomainConfig>? Items { get; }
 }
 
 partial class AccelerateProjectDTO : IDomainConfig
@@ -140,7 +148,7 @@ partial class AccelerateProjectDTO : IDomainConfig
             {
                 var b = new UriBuilder
                 {
-                    Scheme = PortId == 443 ? "https" : "http",
+                    Scheme = PortId == 443 ? Uri.UriSchemeHttps : Uri.UriSchemeHttp,
                     Host = ForwardDomainName,
                     Port = PortId,
                 };
@@ -152,26 +160,7 @@ partial class AccelerateProjectDTO : IDomainConfig
 
     string? IDomainConfig.UserAgent => UserAgent;
 
-    IResponseConfig? IDomainConfig.Response => null; // or null
-}
+    IResponseConfig? IDomainConfig.Response => null;
 
-partial class ScriptDTO : IDomainConfig
-{
-    bool IDomainConfig.TlsSni => true;
-
-    string? IDomainConfig.TlsSniPattern => null;
-
-    bool IDomainConfig.TlsIgnoreNameMismatch => true;
-
-    IPAddress? IDomainConfig.IPAddress => null;
-
-    string? IDomainConfig.ForwardDestination => null;
-
-    TimeSpan? IDomainConfig.Timeout => null;
-
-    Uri? IDomainConfig.Destination => null;
-
-    string? IDomainConfig.UserAgent => null;
-
-    IResponseConfig? IDomainConfig.Response => null; // or null
+    IReadOnlyDictionary<DomainPattern, IDomainConfig>? IDomainConfig.Items => Items.ToDictionary(x => new DomainPattern(x.DomainNames), y => (IDomainConfig)y);
 }

@@ -106,8 +106,8 @@ namespace System.Application.Services
                         reverseProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
                         reverseProxyService.EnableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
 
-                        this.RaisePropertyChanged(nameof(EnableProxyDomains));
-                        this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                        //this.RaisePropertyChanged(nameof(EnableProxyDomains));
+                        //this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
                         if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
                         {
@@ -271,12 +271,31 @@ namespace System.Application.Services
         {
             if (!ProxyDomains.Items.Any_Nullable())
                 return null;
-            return ProxyDomains.Items
+            var data = ProxyDomains.Items
                 .Where(x => x.Items != null)
                 .SelectMany(s => s.Items!.Where(w => w.Enable));
+            //return data.Concat(data.SelectMany(s => GetProxyDomainsItems(s)));
+            return data;
         }
 
         public IReadOnlyCollection<AccelerateProjectDTO>? EnableProxyDomains => GetEnableProxyDomains()?.ToArray();
+
+        //static IEnumerable<AccelerateProjectDTO>? GetProxyDomainsItems(AccelerateProjectDTO accelerates)
+        //{
+        //    return accelerates.Items.Where(w => w.Enable).SelectMany(GetProxyDomainsItems);
+        //}
+
+        static void EnableProxyDomainsItems(AccelerateProjectDTO accelerates)
+        {
+            if (accelerates.Items != null)
+            {
+                foreach (var item in accelerates.Items)
+                {
+                    item.Enable = accelerates.Enable;
+                    EnableProxyDomainsItems(item);
+                }
+            }
+        }
 
         public IEnumerable<ScriptDTO>? GetEnableProxyScripts()
         {
@@ -401,7 +420,7 @@ namespace System.Application.Services
             var stopwatch = Stopwatch.StartNew();
 #endif
             //var result = await client.All(reverseProxyService.ReverseProxyEngine);
-            var result = await client.All();
+            var result = await client.All(reverseProxyService.ReverseProxyEngine);
 #if DEBUG
             stopwatch.Stop();
             Toast.Show($"加载代理服务数据耗时：{stopwatch.ElapsedMilliseconds}ms，IsSuccess：{result.IsSuccess}，Count：{result.Content?.Count}");
@@ -413,7 +432,7 @@ namespace System.Application.Services
                     var items = result.Content!.SelectMany(s => s.Items);
                     foreach (var item in items)
                     {
-                        if (ProxySettings.SupportProxyServicesStatus.Value!.Contains(item.Id.ToString()))
+                        if (ProxySettings.SupportProxyServicesStatus.Value.Contains(item.Id.ToString()))
                         {
                             item.Enable = true;
                         }
@@ -443,11 +462,8 @@ namespace System.Application.Services
                   .WhenPropertyChanged(x => x.Enable, false)
                   .Subscribe(_ =>
                   {
-                      if (EnableProxyDomains != null)
-                      {
-                          IsChangeSupportProxyServicesStatus = true;
-                          ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains.Select(k => k.Id.ToString()).ToImmutableHashSet();
-                      }
+                      IsChangeSupportProxyServicesStatus = true;
+                      ProxySettings.SupportProxyServicesStatus.Value = EnableProxyDomains?.Select(k => k.Id.ToString()).ToImmutableHashSet();
                   }));
             #endregion
         }
