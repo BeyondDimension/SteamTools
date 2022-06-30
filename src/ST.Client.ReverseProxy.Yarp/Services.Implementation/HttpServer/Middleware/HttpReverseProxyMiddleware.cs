@@ -287,12 +287,9 @@ sealed class HttpReverseProxyMiddleware
                     context.Response.Body = originalBody;
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
             finally
             {
+                ResetBody();
                 await memoryStream.DisposeAsync();
             }
         }
