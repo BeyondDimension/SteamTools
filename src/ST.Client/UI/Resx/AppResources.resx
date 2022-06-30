@@ -420,9 +420,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="CommunityFix_ProxyMode" xml:space="preserve">
     <value>加速模式</value>
   </data>
-  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
-    <value>加速模式：</value>
-  </data>
   <data name="CommunityFix_ProxyMode_HostsTip" xml:space="preserve">
     <value>修改 Hosts 文件来监听本机请求实现代理，此方式速度更快且只会影响加速的网站，效果最好，但需要本机 443 端口未被使用。</value>
   </data>

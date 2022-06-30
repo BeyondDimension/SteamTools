@@ -1401,15 +1401,6 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 加速模式： 的本地化字符串。
-        /// </summary>
-        public static string CommunityFix_ProxyModeTip {
-            get {
-                return ResourceManager.GetString("CommunityFix_ProxyModeTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 代理仅启用脚本功能 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyOnlyOnScript {
