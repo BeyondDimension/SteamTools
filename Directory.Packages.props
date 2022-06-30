@@ -308,7 +308,7 @@
     <PackageVersion Include="Quartz.AspNetCore" Version="3.4.0" />
 
     <!-- Yet Another Reverse Proxy -->
-    <PackageVersion Include="Yarp.ReverseProxy" Version="1.1.0" />
+    <PackageVersion Include="Yarp.ReverseProxy" Version="1.1.1" />
 
     <!-- WinDivert -->
     <PackageVersion Include="Aigio.WinDivertSharp" Version="1.4.4.3" />
