@@ -58,7 +58,8 @@ sealed class HttpReverseProxyMiddleware
             context.Response.Body = memoryStream;
         }
 
-        if (TryGetDomainConfig(url, out var domainConfig) == false)
+        if (TryGetDomainConfig(url, out var domainConfig) == false ||
+            IReverseProxyService.Instance.OnlyEnableProxyScript)
         {
             await next(context);
             if (isScriptInject)

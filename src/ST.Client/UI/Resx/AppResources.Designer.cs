@@ -1347,7 +1347,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 仅对 Steam 内置浏览器生效 的本地化字符串。
+        ///   查找类似 使脚本仅 Steam 内置浏览器生效 的本地化字符串。
         /// </summary>
         public static string CommunityFix_OnlySteamBrowser {
             get {

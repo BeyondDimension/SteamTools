@@ -412,7 +412,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>没有选择任何加速服务</value>
   </data>
   <data name="CommunityFix_OnlySteamBrowser" xml:space="preserve">
-    <value>仅对 Steam 内置浏览器生效</value>
+    <value>使脚本仅 Steam 内置浏览器生效</value>
   </data>
   <data name="CommunityFix_OpenCertificateDir" xml:space="preserve">
     <value>打开证书文件夹</value>
