@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using DynamicData.Binding;
 using System.Application.Services;
 
@@ -76,7 +77,10 @@ namespace System.Application.UI.Views.Controls
 
         void RemoveAd()
         {
-            this.IsVisible = false;
+            Dispatcher.UIThread.Post(() =>
+            {
+                this.IsVisible = false;
+            });
         }
     }
 }
