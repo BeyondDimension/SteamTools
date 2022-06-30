@@ -46,7 +46,7 @@ sealed class HttpLocalRequestMiddleware
                     await HandleHttpRequestAsync(context);
                     return;
                 default: //默认处理脚本匹配
-                    if (!int.TryParse(context.Request.PathBase.Value?.Trim('/'), out var lid) && lid <= 0)
+                    if (!int.TryParse(context.Request.Path.Value?.Trim('/'), out var lid) && lid <= 0)
                     {
                         await Handle404NotFoundAsync(context);
                         return;

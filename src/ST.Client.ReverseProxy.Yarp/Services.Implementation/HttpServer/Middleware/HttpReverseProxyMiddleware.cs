@@ -216,7 +216,20 @@ sealed class HttpReverseProxyMiddleware
         }
 
         if (!string.IsNullOrEmpty(context.Response.Headers.ContentSecurityPolicy))
-            context.Response.Headers.ContentSecurityPolicy += " " + IReverseProxyService.LocalDomain;
+        {
+            //var csp = context.Response.Headers.ContentSecurityPolicy.ToString();
+            //var marks = new string[] { "default-src", "script-src", "connect-src" };
+
+            //foreach (var mark in marks)
+            //{
+            //    var cspIndex = csp.IndexOf(mark);
+            //    if (cspIndex >= 0)
+            //    {
+            //        context.Response.Headers.ContentSecurityPolicy = csp.Insert(cspIndex + mark.Length, " " + IReverseProxyService.LocalDomain);
+            //    }
+            //}
+            context.Response.Headers.Remove("Content-Security-Policy");
+        }
 
         StringBuilder scriptHtml = new();
         foreach (var script in scripts)
@@ -232,9 +245,9 @@ sealed class HttpReverseProxyMiddleware
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 using Stream s = (string)context.Response.Headers.ContentEncoding switch
                 {
-                    "gzip" => new GZipStream(memoryStream, CompressionMode.Decompress),
-                    "deflate" => new DeflateStream(memoryStream, CompressionMode.Decompress),
-                    "br" => new BrotliStream(memoryStream, CompressionMode.Decompress),
+                    "gzip" => new GZipStream(memoryStream, CompressionMode.Decompress, true),
+                    "deflate" => new DeflateStream(memoryStream, CompressionMode.Decompress, true),
+                    "br" => new BrotliStream(memoryStream, CompressionMode.Decompress, true),
                     _ => throw new Exception($"Unsupported decompression mode: {context.Response.Headers.ContentEncoding}"),
                 };
                 var responseBody = await new StreamReader(s, Encoding.UTF8).ReadToEndAsync();
@@ -247,19 +260,20 @@ sealed class HttpReverseProxyMiddleware
                 {
                     responseBody = responseBody.Insert(index, scriptHtml.ToString());
                     var buffer = Encoding.UTF8.GetBytes(responseBody);
-                    //using var bodyStream = new MemoryStream();
-                    //StreamWriter writer = new StreamWriter(bodyStream, Encoding.UTF8);
-                    //await writer.WriteAsync(responseBody);
                     using var compressionStream = new MemoryStream();
-                    using Stream compressor = (string)context.Response.Headers.ContentEncoding switch
+                    using Stream zip = (string)context.Response.Headers.ContentEncoding switch
                     {
-                        "gzip" => new GZipStream(compressionStream, CompressionMode.Compress),
-                        "deflate" => new DeflateStream(compressionStream, CompressionMode.Compress),
-                        "br" => new BrotliStream(compressionStream, CompressionMode.Compress),
+                        "gzip" => new GZipStream(compressionStream, CompressionMode.Compress, true),
+                        "deflate" => new DeflateStream(compressionStream, CompressionMode.Compress, true),
+                        "br" => new BrotliStream(compressionStream, CompressionMode.Compress, true),
                         _ => throw new Exception($"Unsupported decompression mode: {context.Response.Headers.ContentEncoding}"),
                     };
-                    await compressor.WriteAsync(buffer, 0, buffer.Length);
-                    //await bodyStream.CopyToAsync(compressor);
+                    await zip.WriteAsync(buffer, 0, buffer.Length);
+                    await zip.DisposeAsync(); //不主动释放压缩流会有残余数据未写入compressionStream
+
+                    context.Response.ContentLength = compressionStream.Length;
+                    //context.Response.Headers.Remove("Content-Encoding");
+
                     compressionStream.Seek(0, SeekOrigin.Begin);
                     await compressionStream.CopyToAsync(originalBody);
                     context.Response.Body = originalBody;
