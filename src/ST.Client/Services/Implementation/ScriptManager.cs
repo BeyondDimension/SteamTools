@@ -133,6 +133,7 @@ namespace System.Application.Services.Implementation
                                 db.Order = order.Value;
                             else if (db.Order == 0)
                                 db.Order = 10;
+                            info.Order = db.Order;
                             try
                             {
                                 if (deleteFile)
@@ -208,9 +209,9 @@ namespace System.Application.Services.Implementation
                                 toast.Show(errorMsg);
                             }
                         }
-                        scriptContent.AppendLine("var jq = jQuery.noConflict(true);(($, jQuery) => {");
+                        scriptContent.AppendLine("try{var jq2 = $.noConflict(true);}catch{};(($, jQuery) => {");
                         scriptContent.AppendLine(model.Content);
-                        scriptContent.AppendLine("})(jq, jq)})()");
+                        scriptContent.AppendLine("})(jq2, jq2)})()");
                     }
                     else
                     {

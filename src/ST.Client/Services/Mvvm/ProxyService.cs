@@ -679,6 +679,7 @@ namespace System.Application.Services
             }
             IsLoading = false;
             Toast.Show(item.Message);
+            RefreshScript();
         }
 
         /// <summary>
@@ -710,21 +711,17 @@ namespace System.Application.Services
                     {
                         model.IsUpdate = false;
                         model.IsExist = true;
-                        model.UpdateLink = build.Content.UpdateLink;
-                        model.FilePath = build.Content.FilePath;
-                        model.Version = build.Content.Version;
-                        model.Name = build.Content.Name;
-
-                        var basicsItem = Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == model.Id);
-                        if (basicsItem != null)
+                        build.Content.IsUpdate = false;
+                        build.Content.IsExist = true;
+                        var basicsItem = Current.ProxyScripts.Items.IndexOf(model);
+                        if (basicsItem > -1)
                         {
-                            Current.ProxyScripts.Replace(basicsItem, model);
+                            ProxyScripts.ReplaceAt(basicsItem, build.Content);
                         }
                         else
                         {
-                            Current.ProxyScripts.Add(model);
+                            ProxyScripts.Add(build.Content);
                         }
-
                         Toast.Show(AppResources.Download_ScriptOk);
                     }
                 }
