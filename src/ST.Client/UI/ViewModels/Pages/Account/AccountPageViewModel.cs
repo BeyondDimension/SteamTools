@@ -25,11 +25,17 @@ namespace System.Application.UI.ViewModels
 
         public ReactiveCommand<Unit, Unit>? OpenSteamProfile { get; }
 
+        public ReactiveCommand<Unit, Unit>? OpenNotice { get; }
+
         public AccountPageViewModel()
         {
             OpenUserProfile = ReactiveCommand.Create(() =>
             {
                 UserService.Current.ShowWindow(CustomWindow.UserProfile);
+            });
+            OpenNotice = ReactiveCommand.Create(() =>
+            {
+                UserService.Current.ShowWindow(CustomWindow.Notice);
             });
             OpenEngineOilLogs = ReactiveCommand.Create(() =>
             {
