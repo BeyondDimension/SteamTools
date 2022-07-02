@@ -353,10 +353,6 @@
     <value>加速模式</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
-    <value>加速模式：</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="ProxyMode_Hosts" xml:space="preserve">
     <value>Hosts 代理模式</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

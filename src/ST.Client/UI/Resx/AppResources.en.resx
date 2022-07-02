@@ -353,10 +353,6 @@
     <value>Routing mode</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
-  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
-    <value>Routing mode</value>
-    <comment>Comment=;Author=沙中金</comment>
-  </data>
   <data name="ProxyMode_Hosts" xml:space="preserve">
     <value>Hosts routing mode</value>
     <comment>Comment=;Author=沙中金</comment>

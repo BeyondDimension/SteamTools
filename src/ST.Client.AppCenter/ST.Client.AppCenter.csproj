@@ -5,6 +5,7 @@
     <RootNamespace>System.Application</RootNamespace>
     <AssemblyName>System.Application.SteamTools.Client.AppCenter</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
   </PropertyGroup>
 
   <ItemGroup>

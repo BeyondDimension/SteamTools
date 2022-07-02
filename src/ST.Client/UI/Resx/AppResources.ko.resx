@@ -353,10 +353,6 @@
     <value>가속 모드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
-  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
-    <value>가속 모드:</value>
-    <comment>Comment=;Author=MicrosoftTranslator</comment>
-  </data>
   <data name="ProxyMode_Hosts" xml:space="preserve">
     <value>호스트 프록시 모드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

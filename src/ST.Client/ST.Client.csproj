@@ -36,14 +36,14 @@
     <PackageReference Include="Fleck" />
     <!--<PackageReference Include="CommunityToolkit.Mvvm"/>-->
     <PackageReference Include="ReactiveUI.Fody" />
-    <PackageReference Include="ArchiSteamFarm.Library" />
+    <!--<PackageReference Include="ArchiSteamFarm.Library" />-->
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <PackageReference Include="JustArchiNET.Madness" />
   </ItemGroup>
 
   <ItemGroup>
-    <!--<ProjectReference Include="..\..\references\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />-->
+    <ProjectReference Include="..\..\references\ArchiSteamFarm\ArchiSteamFarm.Library\ArchiSteamFarm.Library.csproj" />
     <ProjectReference Include="..\Common.PinyinLib\Common.PinyinLib.csproj" />
     <ProjectReference Include="..\Repositories.sqlite-net-pcl\Repositories.sqlite-net-pcl.csproj" />
     <ProjectReference Include="..\ST.Client.ReverseProxy\ST.Client.ReverseProxy.csproj" />

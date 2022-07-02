@@ -99,8 +99,6 @@ namespace System.Application.UI
             XEPlatform.ActivityStateChanged += OnActivityStateChanged;
             if (isTrace) StartWatchTrace.Record("Essentials");
 
-            OnCreateAppExecuted(this, isTrace: isTrace);
-
             var level = DILevel.Min;
             if (IsMainProcess) level = DILevel.MainProcess;
             IApplication.IProgramHost host = this;
@@ -119,6 +117,8 @@ namespace System.Application.UI
                     if (isTrace) StartWatchTrace.Record("ClearAllPackCacheDir");
                 }
             }
+
+            OnCreateAppExecuted(this, isTrace: isTrace);
 
             host.OnStartup();
             if (isTrace) StartWatchTrace.Record("OnStartup");

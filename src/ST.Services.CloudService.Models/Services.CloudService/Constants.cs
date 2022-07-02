@@ -11,7 +11,9 @@ namespace System.Application.Services.CloudService
 
         public static string NetworkConnectionInterruption => SR.NetworkConnectionInterruption;
 
-        public const string Scheme = "spp://";
+        public const string SchemeValue = "spp";
+
+        public const string Scheme = $"{SchemeValue}://";
 
         public const string Referrer_ = $"{Scheme}{{0}}/{_ThisAssembly.Version}";
 

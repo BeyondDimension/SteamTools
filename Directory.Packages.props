@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net6.0')) ">
     <!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NET60) -->
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />-->
     <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) Or $(TargetFramework.StartsWith('netcoreapp3.1'))">
     <!-- Microsoft.Extensions.* & AspNetCore & EntityFrameworkCore(NETCOREAPP31) -->
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.26" />
+    <!--<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="3.1.26" />-->
     <PackageVersion Include="Microsoft.Extensions.Http" Version="3.1.26" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="3.1.26" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.26" />
@@ -80,6 +80,7 @@
     <!--<PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.1" />-->
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.1" />
     <PackageVersion Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
 
@@ -260,7 +261,7 @@
     <PackageVersion Include="Xamarin.Google.MLKit.BarcodeScanning" Version="116.1.2.5" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
     <PackageVersion Include="de.hdodenhof.circleimageview" Version="3.1.0.4" />
-    <PackageVersion Include="Square.OkHttp3" Version="4.9.3.1" />
+    <PackageVersion Include="Square.OkHttp3" Version="4.9.3" />
     <PackageVersion Include="Square.Picasso" Version="2.71828.0" />
     <!--<PackageVersion Include="LeakCanaryBinding" Version="1.5.1.1" />-->
     <!--<PackageVersion Include="TencentOpenApiSDK.Android" Version="3.5.4.11" />-->

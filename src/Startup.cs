@@ -575,7 +575,7 @@ namespace System.Application.UI
 
         #endregion
 
-        // OnCreateAppExecuting -> OnCreateAppExecuted -> DI.ConfigureServices(Init) -> OnStartup
+        // OnCreateAppExecuting -> DI.ConfigureServices(Init) -> OnCreateAppExecuted -> OnStartup
 
         #region OnCreateApplication
 

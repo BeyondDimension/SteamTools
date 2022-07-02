@@ -29,7 +29,7 @@ namespace System.Application.Services.Implementation
 
         public ArchiSteamFarmServiceImpl()
         {
-            ArchiSteamFarmLibrary.Init(this, IOPath.AppDataDirectory, IApplication.LogDirPathASF);
+            ArchiSteamFarmLibrary.Init(this, IOPath.AppDataDirectory, IApplication.LogDirPath);
         }
 
         public event Action<string>? OnConsoleWirteLine;

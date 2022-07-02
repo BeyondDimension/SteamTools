@@ -55,8 +55,8 @@ namespace System.Application.UI.Fragments
                 var proxyMode = ProxySettings.ProxyModeValue;
                 binding!.tvProxyMode.Text = proxyMode switch
                 {
-                    ProxyMode.ProxyOnly => $"{AppResources.CommunityFix_ProxyModeTip}{ProxySettings.ToStringByProxyMode(proxyMode)}{Environment.NewLine}IPEndPoint: {proxyS.ProxyIp}:{proxyS.ProxyPort}",
-                    _ => $"{AppResources.CommunityFix_ProxyModeTip}{ProxySettings.ToStringByProxyMode(proxyMode)}",
+                    ProxyMode.ProxyOnly => $"{AppResources.CommunityFix_ProxyMode}：{ProxySettings.ToStringByProxyMode(proxyMode)}{Environment.NewLine}IPEndPoint: {proxyS.ProxyIp}:{proxyS.ProxyPort}",
+                    _ => $"{AppResources.CommunityFix_ProxyMode}：{ProxySettings.ToStringByProxyMode(proxyMode)}",
                 };
             }
 
@@ -179,8 +179,11 @@ namespace System.Application.UI.Fragments
                         "因 Android 7(Nougat API 24) 之后的版本不再信任用户证书，所以此功能已放弃继续开发，" +
                         "如仍想使用需要自行使用 adb 工具或 Magisk 之类的软件导入证书到系统目录，" +
                         "未来会使用不需要证书的加速功能替换此功能";
-                    await MessageBox.ShowAsync(textCertificateTrustTip, "已知问题",
-                        rememberChooseKey: MessageBox.DontPromptType.AndroidCertificateTrustTip);
+                    if ((await MessageBox.ShowAsync(textCertificateTrustTip, "已知问题", MessageBox.Button.OKCancel,
+                         rememberChooseKey: MessageBox.DontPromptType.AndroidCertificateTrustTip)) != MessageBox.Result.OK)
+                    {
+                        return;
+                    }
                 }
 
                 Intent? intent = null;
@@ -357,10 +360,12 @@ namespace System.Application.UI.Fragments
         async void Test()
         {
             if (!ProxyService.Current.ProxyStatus) return;
-            var s = IHttpProxyService.Instance;
-            Xamarin.Android.Net.AndroidClientHandler handler = new();
-            handler.Proxy = new WebProxy(s.ProxyIp.ToString(), s.ProxyPort);
-            var certFilePath = s.GetCerFilePathGeneratedWhenNoFileExists();
+            var s = IReverseProxyService.Instance;
+            Xamarin.Android.Net.AndroidClientHandler handler = new()
+            {
+                Proxy = new WebProxy(s.ProxyIp.ToString(), s.ProxyPort),
+            };
+            var certFilePath = s.CertificateManager.GetCerFilePathGeneratedWhenNoFileExists();
             if (certFilePath != null)
                 handler.AddTrustedCert(File.OpenRead(certFilePath));
             using var client = new HttpClient(handler);

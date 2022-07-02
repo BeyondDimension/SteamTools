@@ -353,10 +353,6 @@
     <value>Modalità di accelerazione</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
-  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
-    <value>Modalità accelerata :</value>
-    <comment>Comment=;Author=Zhengye</comment>
-  </data>
   <data name="ProxyMode_Hosts" xml:space="preserve">
     <value>Modalità proxy Hosts</value>
     <comment>Comment=;Author=Zhengye</comment>

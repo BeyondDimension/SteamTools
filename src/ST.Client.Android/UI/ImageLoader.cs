@@ -79,8 +79,8 @@ namespace System.Application.UI
                     $"Bitmap.Width: {bitmap.Width}, " +
                     $"Bitmap.Height: {bitmap.Height}, " +
                     $"Bitmap.Config: {bitmap.GetConfig()}, " +
-                    $"Bitmap.Size1: {IOPath.GetSizeString(bitmap.ByteCount)}, " +
-                    $"Bitmap.Size2: {IOPath.GetSizeString(bitmap.AllocationByteCount)}.");
+                    $"Bitmap.Size1: {IOPath.GetDisplayFileSizeString(bitmap.ByteCount)}, " +
+                    $"Bitmap.Size2: {IOPath.GetDisplayFileSizeString(bitmap.AllocationByteCount)}.");
 #endif
                 imageView.SetImageBitmap(bitmap);
             }

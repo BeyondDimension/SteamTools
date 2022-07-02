@@ -14,15 +14,29 @@ using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Application.UI.Fragments;
 using System.Text;
+using CC = System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.Activities
 {
     [Register(JavaPackageConstants.Activities + nameof(LoginOrRegisterActivity))]
     [Activity(Theme = ManifestConstants.MainTheme2_NoActionBar,
-          LaunchMode = LaunchMode.SingleTask,
-          ConfigurationChanges = ManifestConstants.ConfigurationChanges)]
+        LaunchMode = LaunchMode.SingleTask,
+        ConfigurationChanges = ManifestConstants.ConfigurationChanges,
+        Exported = true)]
+    [IntentFilter(actions: new[] { Intent.ActionView },
+        Categories = new[] {
+            Intent.CategoryBrowsable, // 通过浏览器的连接启动
+            Intent.CategoryDefault, // 该页面可以被隐式调用
+        },
+        DataScheme = CC.SchemeValue,
+        DataHost = "auth")]
     internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterWindowViewModel>
     {
+        /* URL Route
+         * spp://auth/fast/{value?} 打开快速登录页面/回调授权值
+         * spp://auth/phonenum 打开手机号登录页面
+         */
+
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
         static readonly Dictionary<int, Func<string>> title_strings = new()
@@ -39,6 +53,8 @@ namespace System.Application.UI.Activities
         protected override void OnCreate2(Bundle? savedInstanceState)
         {
             base.OnCreate2(savedInstanceState);
+
+            this.IsNotAuthenticated();
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
@@ -59,6 +75,18 @@ namespace System.Application.UI.Activities
                     }
                 }
             }).AddTo(this);
+
+            OnNewIntent(Intent);
+        }
+
+        protected override void OnNewIntent(Intent? intent)
+        {
+            base.OnNewIntent(intent);
+            var intentData = intent?.DataString;
+            if (!string.IsNullOrWhiteSpace(intentData))
+            {
+
+            }
         }
 
         public static SpannableString CreateAgreementAndPrivacy(LoginOrRegisterWindowViewModel viewModel) => RichTextHelper.CreateSpannableString(list =>

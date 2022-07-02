@@ -513,10 +513,6 @@ AAAAA-BBBBB-CCCC3</value>
     <value>Режим ускорения</value>
     <comment>Comment=;Author=vanja-san</comment>
   </data>
-  <data name="CommunityFix_ProxyModeTip" xml:space="preserve">
-    <value>Режим ускорения:</value>
-    <comment>Comment=;Author=vanja-san</comment>
-  </data>
   <data name="ProxyMode_Hosts" xml:space="preserve">
     <value>Режим хоста прокси</value>
     <comment>Comment=;Author=vanja-san</comment>
