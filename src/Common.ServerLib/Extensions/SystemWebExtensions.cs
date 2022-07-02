@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Text;
 
@@ -12,8 +13,6 @@ namespace System;
 /// </summary>
 public static class SystemWebExtensions
 {
-    internal static readonly Encoding DefaultEncoding = Encoding.GetEncoding("ISO-8859-1");
-
     /// <summary>
     /// 获取所提供的客户端浏览器的原始用户代理字符串。 请注意此字符串可能为 <see langword="null"/>
     /// </summary>
@@ -25,17 +24,35 @@ public static class SystemWebExtensions
     }
 
     /// <summary>
+    /// 获取输出流的 HTTP 字符集
+    /// <para>https://docs.microsoft.com/zh-cn/dotnet/api/system.web.httpresponse.contentencoding?view=netframework-4.8</para>
+    /// </summary>
+    /// <param name="response"></param>
+    /// <returns></returns>
+    public static Encoding ContentEncoding(this HttpResponse response)
+    {
+        if (MediaTypeHeaderValue.TryParse(response.ContentType, out var contentType))
+        {
+            // https://github.com/dotnet/aspnetcore/blob/v6.0.6/src/Http/Headers/src/MediaTypeHeaderValue.cs#L113
+            return contentType.Encoding ?? Encoding.Latin1;
+        }
+        return Encoding.Latin1;
+    }
+
+#if DEBUG
+    /// <summary>
     /// 获取所提供的服务端响应的ContentType中的Charset编码类型。 
     /// </summary>
     /// <param name="response"></param>  
     /// <returns></returns>
+    [Obsolete("use ContentEncoding", true)]
     internal static Encoding GetEncodingFromContentType(this HttpResponse response)
     {
         try
         {
             if (string.IsNullOrEmpty(response.ContentType))
             {
-                return DefaultEncoding;
+                return Encoding.Latin1;
             }
 
             foreach (var parameter in response.ContentType.Split(';'))
@@ -64,8 +81,9 @@ public static class SystemWebExtensions
             // ignored
         }
 
-        return DefaultEncoding;
+        return Encoding.Latin1;
     }
+#endif
 
     /// <summary>
     /// 获取当前请求的原始 URL

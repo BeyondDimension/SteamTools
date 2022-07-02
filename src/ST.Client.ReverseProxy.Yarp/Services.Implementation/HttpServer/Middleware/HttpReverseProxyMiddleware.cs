@@ -252,7 +252,7 @@ sealed class HttpReverseProxyMiddleware
                     "br" => new BrotliStream(memoryStream, CompressionMode.Decompress, true),
                     _ => memoryStream,
                 };
-                var encoding = context.Response.GetEncodingFromContentType();
+                var encoding = context.Response.ContentEncoding();
                 var responseBody = await new StreamReader(s, encoding).ReadToEndAsync();
                 memoryStream.Seek(0, SeekOrigin.Begin);
 
