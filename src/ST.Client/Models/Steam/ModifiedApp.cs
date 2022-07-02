@@ -29,7 +29,7 @@ namespace System.Application.Models
             using BinaryWriter binaryWriter = new BinaryWriter(new MemoryStream());
             binaryWriter.Write(app.ChangesData);
 
-            ChangesData = binaryWriter.BaseStream.ToByteArray2();
+            ChangesData = binaryWriter.BaseStream.ToByteArray();
         }
 
         [MPKey(0)]

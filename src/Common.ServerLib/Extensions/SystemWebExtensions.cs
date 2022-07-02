@@ -29,14 +29,22 @@ public static class SystemWebExtensions
     /// </summary>
     /// <param name="response"></param>
     /// <returns></returns>
-    public static Encoding ContentEncoding(this HttpResponse response)
+    public static Encoding? ContentTextEncoding(this HttpResponse response)
     {
         if (MediaTypeHeaderValue.TryParse(response.ContentType, out var contentType))
         {
             // https://github.com/dotnet/aspnetcore/blob/v6.0.6/src/Http/Headers/src/MediaTypeHeaderValue.cs#L113
-            return contentType.Encoding ?? Encoding.Latin1;
+            try
+            {
+                return contentType.Encoding;
+            }
+            catch
+            {
+
+            }
         }
-        return Encoding.Latin1;
+        // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Net.Http/src/System/Net/Http/HttpContent.cs#L24
+        return null;
     }
 
 #if DEBUG

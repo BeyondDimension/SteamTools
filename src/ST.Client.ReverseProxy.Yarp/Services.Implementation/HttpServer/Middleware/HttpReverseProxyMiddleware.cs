@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using System.Application.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
@@ -192,13 +193,16 @@ sealed class HttpReverseProxyMiddleware
     /// </summary>
     /// <param name="context"></param>
     /// <param name="scripts"></param>
-    static async Task HandleScriptInject(HttpContext context, IEnumerable<IScriptConfig>? scripts, MemoryStream memoryStream, Stream originalBody)
+    /// <param name="body"></param>
+    /// <param name="originalBody"></param>
+    /// <returns></returns>
+    async Task HandleScriptInject(HttpContext context, IEnumerable<IScriptConfig>? scripts, MemoryStream body, Stream originalBody)
     {
         async Task ResetBody()
         {
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            context.Response.ContentLength = memoryStream.Length;
-            await memoryStream.CopyToAsync(originalBody);
+            body.Seek(0, SeekOrigin.Begin);
+            context.Response.ContentLength = body.Length;
+            await body.CopyToAsync(originalBody);
             context.Response.Body = originalBody;
         }
 
@@ -233,70 +237,281 @@ sealed class HttpReverseProxyMiddleware
             context.Response.Headers.Remove("Content-Security-Policy");
         }
 
-        StringBuilder scriptHtml = new();
-        foreach (var script in scripts)
-        {
-            var temp = $"<script type=\"text/javascript\" src=\"https://{IReverseProxyService.LocalDomain}/{script.LocalId}\"></script>";
-            scriptHtml.AppendLine(temp);
-        }
+        var isSetBody = false;
 
-        if (scriptHtml.Length > 0)
+        if (scripts.Any() && body.Length < int.MaxValue)
         {
             try
             {
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                using Stream s = (string)context.Response.Headers.ContentEncoding switch
-                {
-                    "gzip" => new GZipStream(memoryStream, CompressionMode.Decompress, true),
-                    "deflate" => new DeflateStream(memoryStream, CompressionMode.Decompress, true),
-                    "br" => new BrotliStream(memoryStream, CompressionMode.Decompress, true),
-                    _ => memoryStream,
-                };
-                var encoding = context.Response.ContentEncoding();
-                var responseBody = await new StreamReader(s, encoding).ReadToEndAsync();
-                memoryStream.Seek(0, SeekOrigin.Begin);
+                body.Seek(0, SeekOrigin.Begin);
+                // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
+                var contentCompression = context.Response.Headers.ContentEncoding.ToString().ToLowerInvariant();
+                using Stream bodyDecompress = GetStreamByContentCompression(body, contentCompression, CompressionMode.Decompress, true) ?? body;
 
-                var index = responseBody.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
-                if (index == -1)
-                    index = responseBody.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-                if (index > -1)
-                {
-                    responseBody = responseBody.Insert(index, scriptHtml.ToString());
-                    var buffer = encoding.GetBytes(responseBody);
-                    using var compressionStream = new MemoryStream();
-                    using Stream? zip = (string)context.Response.Headers.ContentEncoding switch
-                    {
-                        "gzip" => new GZipStream(compressionStream, CompressionMode.Compress, true),
-                        "deflate" => new DeflateStream(compressionStream, CompressionMode.Compress, true),
-                        "br" => new BrotliStream(compressionStream, CompressionMode.Compress, true),
-                        _ => null,
-                    };
+                var buffer_ = await bodyDecompress.ToByteArrayAsync();
 
-                    if (zip != null)
+                // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Net.Http/src/System/Net/Http/HttpContent.cs#L175
+                Encoding? encoding = context.Response.ContentTextEncoding();
+                if (encoding == null)
+                {
+                    if (!TryDetectEncoding(buffer_, out encoding))
                     {
-                        await zip.WriteAsync(buffer);
-                        await zip.DisposeAsync(); //不主动释放压缩流会有残余数据未写入compressionStream
+                        encoding = Encoding.UTF8;
+                    }
+                }
+
+                if (FindScriptInjectInsertPosition(buffer_, encoding, out var buffer, out var position))
+                {
+                    using var bodyWriter = new MemoryStream();
+                    using Stream? bodyCompress = GetStreamByContentCompression(bodyWriter, contentCompression, CompressionMode.Compress, true);
+
+                    if (bodyCompress != null)
+                    {
+                        await WriteAsync(bodyCompress);
+                        await bodyCompress.DisposeAsync(); // 不主动释放压缩流会有残余数据未写入
                     }
                     else
                     {
-                        await compressionStream.WriteAsync(buffer);
+                        await WriteAsync(bodyWriter);
                         context.Response.Headers.Remove("Content-Encoding");
                     }
 
-                    context.Response.ContentLength = compressionStream.Length;
-                    compressionStream.Seek(0, SeekOrigin.Begin);
-                    await compressionStream.CopyToAsync(originalBody);
-                    context.Response.Body = originalBody;
+                    async Task WriteAsync(Stream bodyCoreWriter)
+                    {
+                        var html_start = buffer[..position];
+                        //#if DEBUG
+                        //                        var html_start_string = encoding.GetString(html_start.Span);
+                        //#endif
+                        await bodyCoreWriter.WriteAsync(html_start);
+                        (var script_xml_start, var script_xml_end) = GetScriptXmls(encoding);
+                        foreach (var script in scripts)
+                        {
+                            await bodyCoreWriter.WriteAsync(script_xml_start);
+                            await bodyCoreWriter.WriteAsync(encoding.GetBytes(script.LocalId.ToString()));
+                            await bodyCoreWriter.WriteAsync(script_xml_end);
+                        }
+                        var html_end = buffer[position..];
+                        //#if DEBUG
+                        //                        var html_end_string = encoding.GetString(html_end.Span);
+                        //#endif
+                        await bodyCoreWriter.WriteAsync(html_end);
+                    }
+
+                    isSetBody = true;
+                    await SetBodyAsync(bodyWriter);
                 }
             }
+#if !DEBUG
             catch
+#else
+            catch (Exception e)
+#endif
             {
+#if DEBUG
+                var rawUrl = context.Request.RawUrl();
+                logger.LogError(e, "HandleScriptInject fail, rawUrl: {rawUrl}", rawUrl);
+#endif
                 await ResetBody();
             }
             finally
             {
-                await memoryStream.DisposeAsync();
+                if (!isSetBody)
+                {
+                    await SetBodyAsync(body);
+                }
+                await body.DisposeAsync();
+            }
+
+            async Task SetBodyAsync(Stream stream)
+            {
+                context.Response.ContentLength = stream.Length;
+                stream.Seek(0, SeekOrigin.Begin);
+                await stream.CopyToAsync(originalBody);
+                context.Response.Body = originalBody;
             }
         }
+    }
+
+    static Stream? GetStreamByContentCompression(Stream stream, string contentCompression, CompressionMode mode, bool leaveOpen) => contentCompression switch
+    {
+        "gzip" => new GZipStream(stream, mode, leaveOpen),
+        "deflate" => new DeflateStream(stream, mode, leaveOpen),
+        "br" => new BrotliStream(stream, mode, leaveOpen),
+        _ => null,
+    };
+
+    static bool TryDetectEncoding(byte[] data, [NotNullWhen(true)] out Encoding? encoding/*, out int preambleLength*/)
+    {
+        // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Net.Http/src/System/Net/Http/HttpContent.cs#L773
+
+        const long offset = 0L;
+        var dataLength = data.Length;
+
+        if (dataLength >= 2)
+        {
+            int first2Bytes = data[offset + 0] << 8 | data[offset + 1];
+
+            switch (first2Bytes)
+            {
+                case UTF8PreambleFirst2Bytes:
+                    if (dataLength >= UTF8PreambleLength && data[offset + 2] == UTF8PreambleByte2)
+                    {
+                        encoding = Encoding.UTF8;
+                        //preambleLength = UTF8PreambleLength;
+                        return true;
+                    }
+                    break;
+
+                case UTF32OrUnicodePreambleFirst2Bytes:
+                    // UTF32 not supported on Phone
+                    if (dataLength >= UTF32PreambleLength && data[offset + 2] == UTF32PreambleByte2 && data[offset + 3] == UTF32PreambleByte3)
+                    {
+                        encoding = Encoding.UTF32;
+                        //preambleLength = UTF32PreambleLength;
+                    }
+                    else
+                    {
+                        encoding = Encoding.Unicode;
+                        //preambleLength = UnicodePreambleLength;
+                    }
+                    return true;
+
+                case BigEndianUnicodePreambleFirst2Bytes:
+                    encoding = Encoding.BigEndianUnicode;
+                    //preambleLength = BigEndianUnicodePreambleLength;
+                    return true;
+            }
+        }
+
+        encoding = null;
+        //preambleLength = 0;
+        return false;
+    }
+
+    const int UTF8PreambleLength = 3;
+    const byte UTF8PreambleByte2 = 0xBF;
+    const int UTF8PreambleFirst2Bytes = 0xEFBB;
+
+    const int UTF32PreambleLength = 4;
+    const byte UTF32PreambleByte2 = 0x00;
+    const byte UTF32PreambleByte3 = 0x00;
+    const int UTF32OrUnicodePreambleFirst2Bytes = 0xFFFE;
+
+    //const int UnicodePreambleLength = 2;
+
+    //const int BigEndianUnicodePreambleLength = 2;
+    const int BigEndianUnicodePreambleFirst2Bytes = 0xFEFF;
+
+    static readonly object marksLock = new();
+    static readonly object scriptXmlsLock = new();
+    static readonly Dictionary<int, (byte[] mark_start, byte[] mark_end)> marksDict = new();
+    static readonly Dictionary<int, (byte[] script_xml_start, byte[] script_xml_end)> scriptXmlsDict = new();
+
+    static (byte[] mark_start, byte[] mark_end) GetMarks(Encoding encoding)
+    {
+        var codePage = encoding.CodePage;
+        if (marksDict.ContainsKey(codePage)) return marksDict[codePage];
+        lock (marksLock)
+        {
+            var mark_start = encoding.GetBytes("</");
+            var mark_end = encoding.GetBytes(">");
+            var value = (mark_start, mark_end);
+            marksDict.Add(codePage, value);
+            return value;
+        }
+    }
+
+    static (byte[] script_xml_start, byte[] script_xml_end) GetScriptXmls(Encoding encoding)
+    {
+        var codePage = encoding.CodePage;
+        if (scriptXmlsDict.ContainsKey(codePage)) return scriptXmlsDict[codePage];
+        lock (scriptXmlsLock)
+        {
+            const string scriptXmlStart = $"<script type=\"text/javascript\" src=\"https://{IReverseProxyService.LocalDomain}/";
+            const string scriptXmlEnd = "\"></script>";
+            var script_xml_start = encoding.GetBytes(scriptXmlStart);
+            var script_xml_end = encoding.GetBytes(scriptXmlEnd);
+            var value = (script_xml_start, script_xml_end);
+            scriptXmlsDict.Add(codePage, value);
+            return value;
+        }
+    }
+
+
+    /// <summary>
+    /// 查找脚本注入位置
+    /// </summary>
+    /// <param name="buffer_">Response.Body ByteArray</param>
+    /// <param name="encoding">Response.Body Encoding</param>
+    /// <param name="buffer">Response.Body Byte[]</param>
+    /// <param name="insertPosition">Insert Script Xml Position</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    static bool FindScriptInjectInsertPosition(byte[] buffer_, Encoding encoding, out ReadOnlyMemory<byte> buffer, out int insertPosition)
+    {
+        buffer = buffer_.AsMemory();
+
+        // 匹配 </...> 60 47 ... 62
+        (var mark_start, var mark_end) = GetMarks(encoding);
+        if (mark_start.Length <= 0 || mark_end.Length <= 0) goto notfound;
+
+        int index_name_end = 0;
+        int match_mark_end_index = 0;
+        int match_mark_start_index = 0;
+
+        for (int i = buffer_.Length - 1; i >= 0; i--) // 倒序匹配，对应之前的 LastIndexOf(string
+        {
+            var item = buffer_[i];
+            if (index_name_end == 0)
+            {
+                var index = mark_end.Length - 1 - match_mark_end_index;
+                if (index >= 0 && index < mark_end.Length && item == mark_end[index]) // 匹配末尾
+                {
+                    if (item == mark_end[index])
+                    {
+                        match_mark_end_index++;
+                        if (match_mark_end_index >= mark_end.Length)
+                        {
+                            if (index_name_end == 0)
+                            {
+                                index_name_end = i;
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var index = mark_start.Length - 1 - match_mark_start_index;
+                if (index >= 0 && index < mark_start.Length && item == mark_start[index]) // 匹配开头
+                {
+                    match_mark_start_index++;
+                    if (match_mark_start_index >= mark_start.Length)
+                    {
+                        var index_name_start = i + mark_start.Length;
+                        var name = encoding.GetString(buffer.Span[index_name_start..index_name_end]);
+                        if (name.Equals("body", StringComparison.OrdinalIgnoreCase) ||
+                            name.Equals("head", StringComparison.OrdinalIgnoreCase))
+                        {
+                            insertPosition = index_name_start - mark_start.Length;
+                            return true;
+                        }
+                        else
+                        {
+                            goto reset;
+                        }
+                    }
+                }
+            }
+
+            continue;
+
+
+        reset: index_name_end = match_mark_end_index = match_mark_start_index = 0;
+        }
+
+    notfound: insertPosition = -1;
+        return false;
     }
 }
