@@ -12,6 +12,8 @@ namespace System;
 /// </summary>
 public static class SystemWebExtensions
 {
+    internal static readonly Encoding DefaultEncoding = Encoding.GetEncoding("ISO-8859-1");
+
     /// <summary>
     /// 获取所提供的客户端浏览器的原始用户代理字符串。 请注意此字符串可能为 <see langword="null"/>
     /// </summary>
@@ -20,6 +22,49 @@ public static class SystemWebExtensions
     public static string? UserAgent(this HttpRequest request)
     {
         return request.Headers.TryGetValue("User-Agent", out var value) ? value.ToString() : null;
+    }
+
+    /// <summary>
+    /// 获取所提供的服务端响应的ContentType中的Charset编码类型。 
+    /// </summary>
+    /// <param name="response"></param>  
+    /// <returns></returns>
+    internal static Encoding GetEncodingFromContentType(this HttpResponse response)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(response.ContentType))
+            {
+                return DefaultEncoding;
+            }
+
+            foreach (var parameter in response.ContentType.Split(';'))
+            {
+                int equalsIndex = parameter.IndexOf('=');
+                if (equalsIndex != -1 && "charset".Equals(parameter[..equalsIndex].TrimStart(), StringComparison.OrdinalIgnoreCase))
+                {
+                    var value = parameter[(equalsIndex + 1)..];
+                    if (value.Equals("x-user-defined", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
+                    if (value.Length > 2 && value[0] == '"' && value[^1] == '"')
+                    {
+                        value = value[1..^1];
+                    }
+
+                    return Encoding.GetEncoding(value);
+                }
+            }
+        }
+        catch
+        {
+            // parsing errors
+            // ignored
+        }
+
+        return DefaultEncoding;
     }
 
     /// <summary>

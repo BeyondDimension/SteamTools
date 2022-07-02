@@ -194,7 +194,7 @@ sealed class HttpReverseProxyMiddleware
     /// <param name="scripts"></param>
     static async Task HandleScriptInject(HttpContext context, IEnumerable<IScriptConfig>? scripts, MemoryStream memoryStream, Stream originalBody)
     {
-        async void ResetBody()
+        async Task ResetBody()
         {
             memoryStream.Seek(0, SeekOrigin.Begin);
             context.Response.ContentLength = memoryStream.Length;
@@ -207,13 +207,13 @@ sealed class HttpReverseProxyMiddleware
             context.Response.StatusCode != StatusCodes.Status200OK ||
             !context.Response.ContentType.Contains("text/html", StringComparison.OrdinalIgnoreCase))
         {
-            ResetBody();
+            await ResetBody();
             return;
         }
 
         if (IReverseProxyService.Instance.IsOnlyWorkSteamBrowser && context.Request.UserAgent()?.Contains("Valve Steam") == false)
         {
-            ResetBody();
+            await ResetBody();
             return;
         }
 
@@ -252,7 +252,8 @@ sealed class HttpReverseProxyMiddleware
                     "br" => new BrotliStream(memoryStream, CompressionMode.Decompress, true),
                     _ => memoryStream,
                 };
-                var responseBody = await new StreamReader(s, Encoding.UTF8).ReadToEndAsync();
+                var encoding = context.Response.GetEncodingFromContentType();
+                var responseBody = await new StreamReader(s, encoding).ReadToEndAsync();
                 memoryStream.Seek(0, SeekOrigin.Begin);
 
                 var index = responseBody.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
@@ -261,7 +262,7 @@ sealed class HttpReverseProxyMiddleware
                 if (index > -1)
                 {
                     responseBody = responseBody.Insert(index, scriptHtml.ToString());
-                    var buffer = Encoding.UTF8.GetBytes(responseBody);
+                    var buffer = encoding.GetBytes(responseBody);
                     using var compressionStream = new MemoryStream();
                     using Stream? zip = (string)context.Response.Headers.ContentEncoding switch
                     {
@@ -290,7 +291,7 @@ sealed class HttpReverseProxyMiddleware
             }
             catch
             {
-                ResetBody();
+                await ResetBody();
             }
             finally
             {
