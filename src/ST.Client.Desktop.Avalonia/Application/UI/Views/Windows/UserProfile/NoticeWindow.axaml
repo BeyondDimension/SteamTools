@@ -35,86 +35,111 @@
         </TabControl.ItemTemplate>
 
         <TabControl.ContentTemplate>
-          <DataTemplate>
-            <Panel>
-              <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsLoading,Mode=OneWay}"
-                 HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-                <ProgressBar
-                    Width="100"
-                    Height="100"
-                    Classes="Circle"
-                    IsIndeterminate="True"
-                    Orientation="Vertical" />
-                <TextBlock Text="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
-              </StackPanel>
-              
-              <TextBlock Text="{ReflectionBinding Path=Res.NoticeEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                         IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsEmpty,Mode=OneWay}"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center" />
-              
-              <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                   Padding="0 0 0 10">
-                <ItemsControl
-                 x:Name="item"
-                 Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="models:NoticeDTO">
-                      <Border Classes="paper"
-                              Margin="0 10"
-                              Background="{DynamicResource ThemeBrushKey}"
-                              Padding="20 10">
-                        <DockPanel>
-                          <StackPanel Spacing="8" DockPanel.Dock="Right">
-                            <DockPanel>
+          <DataTemplate x:DataType="vm:NoticeWindowViewModel">
+            <Border Classes="paper"
+                    Margin="0 10"
+                    Background="{DynamicResource ThemeBrushKey}">
+              <Panel>
+                <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsLoading,Mode=OneWay}"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                  <ProgressBar
+                      Width="100"
+                      Height="100"
+                      Classes="Circle"
+                      IsIndeterminate="True"
+                      Orientation="Vertical" />
+                  <TextBlock Text="{ReflectionBinding Path=Res.Loading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+                </StackPanel>
+
+                <TextBlock Text="{ReflectionBinding Path=Res.NoticeEmpty,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                           IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=IsEmpty,Mode=OneWay}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="600"/>
+                  </Grid.ColumnDefinitions>
+                  <Panel Grid.Row="0" Grid.Column="0">
+                    <ScrollViewer Padding="10" HorizontalScrollBarVisibility="Disabled">
+                      <ItemsControl
+                       x:Name="item"
+                       Items="{ReflectionBinding SelectGroup.Items.DataSource,Source={x:Static service:NotificationService.Current}}">
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate x:DataType="models:NoticeDTO">
+                            <StackPanel Spacing="8" DockPanel.Dock="Right">
                               <Button Content="{Binding Title,Mode=OneWay}"
                                       VerticalAlignment="Center"
                                       Classes="plain"
-                                      Command="{ReflectionBinding #u.DataContext.OpenNoticeWeb}"
+                                      Command="{ReflectionBinding #u.DataContext.SelectNoticeItem}"
                                       CommandParameter="{Binding}">
                                 <TextBlock Text="{Binding Title,Mode=OneWay}"
-                                           Classes="h6"
+                                           Classes="h4"
                                            TextTrimming="CharacterEllipsis"/>
                               </Button>
-                              <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                                <TextBlock
-                                    Text="{Binding Author,StringFormat={}{0} / }"
-                                    VerticalAlignment="Center"/>
+                              <TextBlock
+                                   Text="{Binding CreationTime}"
+                                   HorizontalAlignment="Right"/>
+                              <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+                            </StackPanel>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                    </ScrollViewer>
+                  </Panel>
+                  <Panel  Grid.Row="0" Grid.Column="1">
+                    <Separator MinHeight="200" Opacity="0.8" Padding="20" Width="0.88"  Background="{DynamicResource SystemControlHighlightBaseLowBrush}"/>
+                  </Panel>
+                  <Border Grid.Row="0" Grid.Column="2">
+                    <ScrollViewer Padding="10">
+                      <Panel>
+                        <StackPanel IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=NoticeItem.Title,Mode=OneWay,Converter={StaticResource IsNullConverter},ConverterParameter=invert}}">
+                          <TextBlock Text="{ReflectionBinding NoticeItem.Title,Source={x:Static service:NotificationService.Current}}"
+                                     Classes="h1"
+                                     HorizontalAlignment="Center"/>
+                          <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
+                          <WrapPanel  HorizontalAlignment="Center">
+                            <TextBlock
+                                IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=NoticeItem.Author,Mode=OneWay,Converter={StaticResource IsNullConverter},ConverterParameter=invert}}"
+                                Text="{ReflectionBinding NoticeItem.Author,Source={x:Static service:NotificationService.Current},StringFormat={}{0} / }"
+                                VerticalAlignment="Center"/>
 
-                                <TextBlock
-                                    Text="{Binding CreationTime}"
-                                    VerticalAlignment="Center"/>
-                              </WrapPanel>
-                            </DockPanel>
-                            <Separator Classes="Separator" Margin="0 0 0 5"></Separator>
-                            <Grid ColumnDefinitions="Auto,*">
-                              <Border ClipToBounds="True">
-                                <Panel Cursor="Hand" >
-                                  <gif:Image2
-                                      Width="150"
-                                      DecodeWidth="150"
-                                      AutoStart="true"
-                                      Source="{Binding PictureStream^}"
-                                      Stretch="Uniform" />
-                                </Panel>
-                              </Border>
-                              <Panel Grid.Column="1" Margin="10,0,0,0">
-                                <TextBlock
-                                Width="{Binding $parent.Width}"
-                                TextWrapping="Wrap"
-                                Text="{Binding Introduction}"
-                                Classes="h8"/>
-                              </Panel>
-                            </Grid>
-                          </StackPanel>
-                        </DockPanel>
-                      </Border>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-              </ScrollViewer>
+                            <TextBlock
+                                Text="{ReflectionBinding NoticeItem.CreationTime,Source={x:Static service:NotificationService.Current}}"
+                                VerticalAlignment="Center"/>
+                          </WrapPanel>
+                          <Panel>
+                            <gif:Image2 AutoStart="true"
+                                        Width="600"
+                                        DecodeWidth="600"
+                                        Source="{ReflectionBinding NoticeItem.PictureStream^,Source={x:Static service:NotificationService.Current}}"
+                                        Stretch="Uniform" />
+                          </Panel>
 
-            </Panel>
+                          <TextBlock Width="{Binding $parent.Width}"
+                                     TextWrapping="Wrap"
+                                     Text="{ReflectionBinding NoticeItem.Introduction,Source={x:Static service:NotificationService.Current}}"
+                                     Classes="h6"/>
+                        </StackPanel>
+                        <WrapPanel  HorizontalAlignment="Right">
+                          <TextBlock
+                              IsVisible="{ReflectionBinding Source={x:Static service:NotificationService.Current},Path=NoticeItem.Author,Mode=OneWay,Converter={StaticResource IsNullConverter},ConverterParameter=invert}}"
+                              Text="{ReflectionBinding NoticeItem.Author,Source={x:Static service:NotificationService.Current},StringFormat={}{0} / }"
+                              VerticalAlignment="Center"/>
+
+                          <TextBlock
+                              Text="{ReflectionBinding NoticeItem.CreationTime,Source={x:Static service:NotificationService.Current}}"
+                              VerticalAlignment="Center"/>
+                        </WrapPanel>
+                      </Panel>
+                    </ScrollViewer>
+                  </Border>
+                </Grid>
+
+              </Panel>
+            </Border>
           </DataTemplate>
         </TabControl.ContentTemplate>
       </TabControl>

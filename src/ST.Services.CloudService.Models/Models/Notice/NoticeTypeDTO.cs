@@ -41,7 +41,7 @@ namespace System.Application.Models
 
 #if MVVM_VM
         /// <summary>
-        /// 当前组中所有的加速项目集合
+        /// Table Index
         /// </summary> 
         [MPIgnore]
         [N_JsonIgnore]
@@ -55,7 +55,7 @@ namespace System.Application.Models
         int _Index = 1;
 
         /// <summary>
-        /// 当前组中所有的加速项目集合
+        /// 通知列表
         /// </summary> 
         [MPIgnore]
         [N_JsonIgnore]

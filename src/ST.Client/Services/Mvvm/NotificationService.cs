@@ -64,6 +64,14 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _SelectGroup, value);
         }
 
+        NoticeDTO _NoticeItem;
+
+        public NoticeDTO NoticeItem
+        {
+            get => _NoticeItem;
+            set => this.RaiseAndSetIfChanged(ref _NoticeItem, value);
+        }
+
         public async Task GetNews(int trycount = 0)
         {
             if (NoticeTypes.Count > 0)
@@ -150,6 +158,7 @@ namespace System.Application.Services
                             item.PictureStream = httpService.GetImageAsync(item.Picture, ImageChannelType.NoticePicture);
                     }
                     SelectGroup!.Items = result.Content!;
+                    NoticeItem = SelectGroup!.Items.DataSource.FirstOrDefault();
                 }
                 IsEmpty = SelectGroup!.Items == null || SelectGroup.Items?.DataSource.Count == 0;
 
@@ -188,7 +197,6 @@ namespace System.Application.Services
                 .Subscribe(_ =>
                {
                    SelectGroup = NoticeTypes.Items.FirstOrDefault();
-
                });
 
         }
