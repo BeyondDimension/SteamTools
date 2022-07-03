@@ -316,8 +316,10 @@
               Height="100"
               Classes="Circle"
               IsIndeterminate="True"
-              Orientation="Vertical" />
-          <TextBlock Text="{ReflectionBinding Path=Res.GameList_IsLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"></TextBlock>
+              Orientation="Vertical"
+              HorizontalAlignment="Center"/>
+          <TextBlock Text="{ReflectionBinding Path=Res.GameList_IsLoading,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                     HorizontalAlignment="Center"/>
         </StackPanel>
 
         <TextBlock IsVisible="{Binding IsSteamAppsEmpty}"

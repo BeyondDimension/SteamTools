@@ -3,13 +3,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Margin="-10"
              xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:resx="using:System.Application.UI.Resx"
              x:Class="System.Application.UI.Views.Pages.ProxyChartView">
-  <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+  <Panel>
     <lvc:CartesianChart x:Name="Chart" 
-                        MinWidth="600" 
-                        MinHeight="300" 
+                        MinWidth="500" 
+                        MinHeight="250" 
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
                         Background="Transparent">
     </lvc:CartesianChart>
-  </DockPanel>
+
+    <StackPanel VerticalAlignment="Top" 
+                HorizontalAlignment="Right">
+      <TextBlock Classes="h7" Foreground="DodgerBlue" HorizontalAlignment="Center" Margin="0 5" 
+                 Text="{ReflectionBinding Path=Res.UploadFlow,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      <TextBlock x:Name="textBlockRead" Text="0 B" Foreground="DodgerBlue" HorizontalAlignment="Center" Margin="0 0 0 8"/>
+
+      <TextBlock Classes="h7" Foreground="IndianRed" HorizontalAlignment="Center" Margin="0 5"
+                 Text="{ReflectionBinding Path=Res.DownloadFlow,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+      <TextBlock x:Name="textBlockWrite" Text="0 B" Foreground="IndianRed" HorizontalAlignment="Center" Margin="0 0 0 8"/>
+    </StackPanel>
+  </Panel>
 </UserControl>

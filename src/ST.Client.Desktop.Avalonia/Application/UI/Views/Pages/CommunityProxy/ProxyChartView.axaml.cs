@@ -22,6 +22,8 @@ namespace System.Application.UI.Views.Pages
     public partial class ProxyChartView : UserControl
     {
         private readonly CartesianChart? chart;
+        private readonly TextBlock textBlockRead;
+        private readonly TextBlock textBlockWrite;
 
         private readonly LineSeries<RateTick> readSeries = new()
         {
@@ -69,6 +71,8 @@ namespace System.Application.UI.Views.Pages
             InitializeComponent();
 
             chart = this.FindControl<CartesianChart>("Chart");
+            textBlockRead = this.FindControl<TextBlock>("textBlockRead");
+            textBlockWrite = this.FindControl<TextBlock>("textBlockWrite");
 
             this.readSeries.Values = reads;
             this.writeSeries.Values = writes;
@@ -131,8 +135,11 @@ namespace System.Application.UI.Views.Pages
                         continue;
                     }
 
-                    //this.textBlockRead.Text = FlowStatistics.ToNetworkSizeString(flowStatistics.TotalRead);
-                    //this.textBlockWrite.Text = FlowStatistics.ToNetworkSizeString(flowStatistics.TotalWrite);
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        this.textBlockRead.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalRead);
+                        this.textBlockWrite.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalWrite);
+                    });
 
                     var timestamp = GetTimestamp(DateTime.Now);
 
@@ -156,7 +163,7 @@ namespace System.Application.UI.Views.Pages
                 }
                 finally
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1d));
+                    await Task.Delay(TimeSpan.FromSeconds(1d), token);
                 }
             }
         }

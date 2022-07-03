@@ -317,9 +317,10 @@
         </StackPanel>
       </StackPanel>
       <TabControl TabStripPlacement="Top"
+                  Classes="flat"
                   Grid.Row="1"
                   HorizontalAlignment="Stretch"
-                  Margin="60 10">
+                  Margin="60 0 60 10">
         <TabItem Header="加速服务">
           <StackPanel Orientation="Horizontal"
                       HorizontalAlignment="Center"
@@ -347,8 +348,7 @@
               </DockPanel>
             </Border>
 
-            <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10"
-                    IsVisible="{Binding Source={x:Static service:ProxyService.Current},Path=IsEnableScript}">
+            <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
               <DockPanel MinWidth="300">
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                            FontSize="16"

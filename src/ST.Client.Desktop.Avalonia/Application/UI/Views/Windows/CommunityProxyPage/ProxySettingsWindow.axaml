@@ -79,7 +79,7 @@
             </StackPanel>
           </Expander>
 
-          <Expander IsExpanded="True">
+          <!--<Expander IsExpanded="True">
             <Expander.Header>
               <DockPanel HorizontalAlignment="Stretch">
                 <TextBlock Text="{ReflectionBinding Path=Res.Settings_Proxy_Socks5Proxy,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
@@ -87,11 +87,11 @@
               </DockPanel>
             </Expander.Header>
             <StackPanel Spacing="10">
-              <!--<DockPanel>
+              --><!--<DockPanel>
                 <TextBlock Text="启用" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.Socks5ProxyEnable},Path=Value, Mode=TwoWay}"/>
-              </DockPanel>-->
+              </DockPanel>--><!--
               <DockPanel>
                 <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyPort,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
                 <NumericUpDown Maximum="65535"
@@ -110,11 +110,11 @@
               </DockPanel>
             </Expander.Header>
             <StackPanel Spacing="10">
-              <!--<DockPanel>
+              --><!--<DockPanel>
                 <TextBlock Text="启用" ></TextBlock>
                 <ToggleSwitch
                             IsChecked="{ReflectionBinding Source={x:Static ms:ProxySettings.TwoLevelAgentEnable},Path=Value, Mode=TwoWay}"/>
-              </DockPanel>-->
+              </DockPanel>--><!--
 
               <DockPanel>
                 <Label Content="{ReflectionBinding Path=Res.Settings_Proxy_ProxyType,Mode=OneWay,Source={x:Static resx:R.Current}}"></Label>
@@ -146,7 +146,7 @@
               </DockPanel>
 
             </StackPanel>
-          </Expander>
+          </Expander>-->
 
           <!--<Button Content="保存"
                   Classes="action"

@@ -1824,6 +1824,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下行流量 的本地化字符串。
+        /// </summary>
+        public static string DownloadFlow {
+            get {
+                return ResourceManager.GetString("DownloadFlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 正在下载：{0}% 的本地化字符串。
         /// </summary>
         public static string Downloading {
@@ -5904,6 +5913,15 @@ namespace System.Application.UI.Resx {
         public static string UploadFailed {
             get {
                 return ResourceManager.GetString("UploadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上行流量 的本地化字符串。
+        /// </summary>
+        public static string UploadFlow {
+            get {
+                return ResourceManager.GetString("UploadFlow", resourceCulture);
             }
         }
         

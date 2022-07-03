@@ -26,20 +26,4 @@ public record FlowStatistics
     /// 获取写入速率
     /// </summary>
     public double WriteRate { get; init; }
-
-#if DEBUG
-    [Obsolete("use IOPath.GetSizeString", true)]
-    public static string ToNetworkSizeString(long value)
-    {
-        if (value < 1024)
-        {
-            return $"{value} B";
-        }
-        if (value < 1024 * 1024)
-        {
-            return $"{value / 1024d:0.00} KB";
-        }
-        return $"{value / 1024d / 1024d:0.00} MB";
-    }
-#endif
 }

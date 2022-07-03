@@ -2320,4 +2320,10 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Sign" xml:space="preserve">
     <value>签到</value>
   </data>
+  <data name="UploadFlow" xml:space="preserve">
+    <value>上行流量</value>
+  </data>
+  <data name="DownloadFlow" xml:space="preserve">
+    <value>下行流量</value>
+  </data>
 </root>
