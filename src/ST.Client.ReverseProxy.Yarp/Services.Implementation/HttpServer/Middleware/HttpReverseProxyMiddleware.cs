@@ -3,14 +3,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Net.Http.Headers;
 using System.Application.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
 using System.Net;
 using System.Text;
 using Yarp.ReverseProxy.Forwarder;
-using System;
 
 namespace System.Application.Services.Implementation.HttpServer.Middleware;
 
@@ -505,7 +503,6 @@ sealed class HttpReverseProxyMiddleware
             }
 
             continue;
-
 
         reset: index_name_end = match_mark_end_index = match_mark_start_index = 0;
         }
