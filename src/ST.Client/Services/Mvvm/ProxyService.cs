@@ -106,8 +106,8 @@ namespace System.Application.Services
                         reverseProxyService.ProxyDNS = IPAddress2.TryParse(ProxySettings.ProxyMasterDns.Value, out var dns) ? dns : null;
                         reverseProxyService.EnableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
 
-                        //this.RaisePropertyChanged(nameof(EnableProxyDomains));
-                        //this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                        this.RaisePropertyChanged(nameof(EnableProxyDomains));
+                        this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
                         if (reverseProxyService.ProxyMode == ProxyMode.Hosts)
                         {
