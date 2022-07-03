@@ -163,7 +163,7 @@ namespace System.Application.UI.Views.Pages
                 }
                 finally
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1d), token);
+                    await Task.Delay(TimeSpan.FromSeconds(1d), CancellationToken.None);
                 }
             }
         }
