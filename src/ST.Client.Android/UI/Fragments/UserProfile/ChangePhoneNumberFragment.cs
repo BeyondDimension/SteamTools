@@ -32,8 +32,6 @@ namespace System.Application.UI.Fragments
             binding!.tbNewSmsCode.TextChanged += (_, _)
                 => ViewModel.SmsCodeNew = binding!.tbNewSmsCode.Text;
 
-            OnCreateViewAsync();
-
             // https://developer.android.google.cn/reference/android/widget/TextView.html#protected-methods
             binding!.tbNewPhoneNumber.SetRawInputType(InputTypes.ClassPhone);
             binding!.tbNewPhoneNumber.SetDigitsKeyListener();
@@ -134,11 +132,13 @@ namespace System.Application.UI.Fragments
                 if (binding == null) return;
                 binding.tbNewSmsCode.RequestFocus();
             };
+
+            OnCreateViewAsync();
         }
 
         async void OnCreateViewAsync()
         {
-            var value = await ITelephonyService.GetAutoFillPhoneNumberAsync(null);
+            var value = await PhoneNumberPlatformHelper.GetAutoFillPhoneNumberAsync();
             var currentValue = IUserManager.Instance.GetCurrentUser()?.PhoneNumber;
             if (value != currentValue)
             {

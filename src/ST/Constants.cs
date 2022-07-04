@@ -26,6 +26,10 @@ public static class Constants
 
     public const string LOGS_DIR = "logs";
 
+    public const string CUSTOM_URL_SCHEME_NAME = "spp";
+
+    public const string CUSTOM_URL_SCHEME = $"{CUSTOM_URL_SCHEME_NAME}://";
+
     public static class Urls
     {
         #region OfficialWebsite
@@ -63,6 +67,15 @@ public static class Constants
 
         public static string API_Advertisement_ImageUrl(Guid id)
             => $"{BaseUrl_API}/api/Advertisement/Images/{id}";
+
+        #endregion
+
+        #region Custom Url Scheme
+
+        public const string Segment_LoginOrRegister_Fast = "fast";
+        public const string Segment_LoginOrRegister_PhoneNum = "phonenum";
+
+        public const string ThirdPartyLoginCallback_ = $"{CUSTOM_URL_SCHEME}{Segment_LoginOrRegister_Fast}/{{0}}";
 
         #endregion
     }

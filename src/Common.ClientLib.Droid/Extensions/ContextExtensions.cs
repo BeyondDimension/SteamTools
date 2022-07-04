@@ -24,16 +24,6 @@ namespace System
             return service;
         }
 
-        /// <inheritdoc cref="Context.GetSystemService(string)"/>
-        public static TService GetSystemService<TService>(this Context context, string name) where TService : class, IJavaObject
-        {
-            var service = context.GetSystemService(name)?.JavaCast<TService>();
-            if (service == null)
-                throw new NullReferenceException(
-                    $"Context.GetSystemService return null, name: {name}");
-            return service;
-        }
-
         /// <summary>
         /// Return the context of the single, global Application object of the current process.
         /// </summary>

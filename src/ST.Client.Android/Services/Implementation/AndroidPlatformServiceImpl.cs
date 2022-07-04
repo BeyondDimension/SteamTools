@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Text;
-using XEPlatform = Xamarin.Essentials.Platform;
-using AndroidApplication = Android.App.Application;
+using System.Net;
 using AndroidX.AppCompat.App;
 using System.Application.UI.Activities;
-using System.Net;
+using AndroidApplication = Android.App.Application;
+using XEPlatform = Xamarin.Essentials.Platform;
 
 namespace System.Application.Services.Implementation
 {

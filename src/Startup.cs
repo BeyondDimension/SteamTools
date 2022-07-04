@@ -330,9 +330,6 @@ namespace System.Application.UI
                 services.AddSingleton<IAndroidApplication>(s => s.GetRequiredService<PlatformApplication>());
 #endif
 #if __MOBILE__
-                // 添加电话服务
-                services.AddTelephonyService();
-
                 //services.AddMSALPublicClientApp(AppSettings.MASLClientId);
 #elif MAUI
                 services.AddSingleton<IMauiApplication>(s => s.GetRequiredService<PlatformApplication>());

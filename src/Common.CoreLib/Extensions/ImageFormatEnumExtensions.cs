@@ -1,6 +1,7 @@
 using System.IO.FileFormats;
 using static System.IO.FileFormats.Internals.ImageFileFormat;
 
+// ReSharper disable once CheckNamespace
 namespace System;
 
 /// <summary>

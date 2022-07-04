@@ -22,17 +22,6 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// 添加电话服务
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddTelephonyService(this IServiceCollection services)
-        {
-            services.AddSingleton<ITelephonyService, PlatformTelephonyServiceImpl>();
-            return services;
-        }
-
-        /// <summary>
         /// 添加平台运行时权限
         /// </summary>
         /// <param name="services"></param>

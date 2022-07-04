@@ -1,19 +1,23 @@
-namespace System.Application.Services.Implementation;
+using System.Threading.Tasks;
+using Android.Telephony;
+using XEPlatform = Xamarin.Essentials.Platform;
 
-/// <inheritdoc cref="ITelephonyService"/>
-public abstract class TelephonyServiceImpl : ITelephonyService
+namespace System.Application;
+
+public static class PhoneNumberPlatformHelper
 {
-    /// <summary>
-    /// 由特定平台实现的获取手机号码
-    /// </summary>
-    /// <returns></returns>
-    protected abstract string? PlatformGetPhoneNumber();
+    static string? PlatformGetPhoneNumber()
+    {
+        var telephonyManager = XEPlatform.AppContext.GetSystemService<TelephonyManager>();
+        var value = telephonyManager.Line1Number;
+        return PhoneNumberHelper.GetChineseMainlandPhoneNumber(value);
+    }
 
     /// <summary>
-    /// 由特定平台实现的检查权限后获取手机号码
+    /// 获取当前设备的手机号码
     /// </summary>
     /// <returns></returns>
-    protected virtual async Task<string?> PlatformGetPhoneNumberAsync()
+    public static async Task<string?> GetPhoneNumberAsync()
     {
         var status = await Permissions2.CheckAndRequestAsync<Permissions2.IGetPhoneNumber>();
         if (status.IsOk())
@@ -62,9 +66,22 @@ public abstract class TelephonyServiceImpl : ITelephonyService
         return null;
     }
 
-    public async Task<string?> GetPhoneNumberAsync()
+    /// <summary>
+    /// 设置自动填充当前设备的手机号码值
+    /// </summary>
+    /// <param name="getTextBoxText"></param>
+    /// <returns></returns>
+    public static async Task<string?> GetAutoFillPhoneNumberAsync(Func<string?>? getTextBoxText = null)
     {
-        var phoneNumber = await PlatformGetPhoneNumberAsync();
-        return phoneNumber;
+        var value = await GetPhoneNumberAsync();
+        var textBoxText = getTextBoxText?.Invoke();
+        if (string.IsNullOrWhiteSpace(value) ||
+            (!string.IsNullOrWhiteSpace(textBoxText) &&
+                (textBoxText.Length >= value.Length ||
+                    value[..textBoxText.Length] != textBoxText)))
+        {
+            return textBoxText;
+        }
+        return value;
     }
 }

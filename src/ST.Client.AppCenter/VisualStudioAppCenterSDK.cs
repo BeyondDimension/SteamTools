@@ -15,6 +15,7 @@ using static System.Application.UI.ViewModels.DebugPageViewModel;
 #endif
 #endif
 
+// ReSharper disable once CheckNamespace
 namespace System.Application
 {
     public static class VisualStudioAppCenterSDK

@@ -70,11 +70,10 @@ namespace System.Application.UI.ViewModels
         /// <summary>
         /// 当接收到 WebSocket Client 发送的消息时
         /// </summary>
-        /// <param name="host"></param>
         /// <param name="msg"></param>
         /// <param name="socket"></param>
         /// <returns></returns>
-        static async Task OnMessage(string msg, IWebSocketConnection? socket)
+        public static async Task OnMessage(string msg, IWebSocketConnection? socket = null)
         {
             if (tempAes == null) return;
             var byteArray = msg.Base64UrlDecodeToByteArray();
@@ -84,8 +83,7 @@ namespace System.Application.UI.ViewModels
             }
             catch
             {
-                if (socket == null)
-                    Toast.Show(AppResources.Login_WebSocketOnMessage);
+                Toast.Show(AppResources.Login_WebSocketOnMessage);
                 return;
             }
             var rsp = ApiResponse.Deserialize<LoginOrRegisterResponse>(byteArray);
@@ -212,7 +210,11 @@ namespace System.Application.UI.ViewModels
         public static async Task StartAsync(WindowViewModel vm, FastLoginChannel channel, bool isBind)
         {
             var app = IApplication.Instance;
-            StartServer(app);
+            if (!OperatingSystem2.IsAndroid() && !OperatingSystem2.IsIOS())
+            {
+                // Android/iOS 使用 URL Scheme 回调
+                StartServer(app);
+            }
             var conn_helper = DI.Get<IApiConnectionPlatformHelper>();
             var apiBaseUrl = ICloudServiceClient.Instance.ApiBaseUrl;
 #if DEBUG

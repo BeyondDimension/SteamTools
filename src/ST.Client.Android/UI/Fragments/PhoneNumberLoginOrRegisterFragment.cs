@@ -26,8 +26,6 @@ namespace System.Application.UI.Fragments
             binding!.tbSmsCode.TextChanged += (_, _)
                 => ViewModel!.SmsCode = binding!.tbSmsCode.Text;
 
-            OnCreateViewAsync();
-
             binding!.tvAgreementAndPrivacy.SetLinkMovementMethod();
 
             // https://developer.android.google.cn/reference/android/widget/TextView.html#protected-methods
@@ -102,11 +100,14 @@ namespace System.Application.UI.Fragments
                 if (binding == null) return;
                 binding.tbSmsCode.RequestFocus();
             };
+
+            OnCreateViewAsync();
         }
 
         async void OnCreateViewAsync()
         {
-            binding!.tbPhoneNumber.Text = await ITelephonyService.GetAutoFillPhoneNumberAsync(binding!.tbPhoneNumber.Text);
+            var text = await PhoneNumberPlatformHelper.GetAutoFillPhoneNumberAsync(() => binding!.tbPhoneNumber.Text);
+            binding!.tbPhoneNumber.Text = text;
         }
 
         public override void OnDestroyView()

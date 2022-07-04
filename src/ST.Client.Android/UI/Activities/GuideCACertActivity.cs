@@ -44,10 +44,10 @@ namespace System.Application.UI.Activities
             Title = string.Empty;
 
             var appBarConfiguration = new AppBarConfiguration.Builder(Resource.Id.navigation_guide_export_ca_cert).Build();
-            navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;
+            navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)!).NavController;
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
 
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
         }
 
         [Register(JavaPackageConstants.Fragments + nameof(GuideExportCACertFragment))]

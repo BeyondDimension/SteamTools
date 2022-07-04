@@ -1,5 +1,6 @@
 using System.Application.Properties;
 using _ThisAssembly = System.Properties.ThisAssembly;
+using AppConstants = System.Application.Constants;
 
 namespace System.Application.Services.CloudService
 {
@@ -11,11 +12,7 @@ namespace System.Application.Services.CloudService
 
         public static string NetworkConnectionInterruption => SR.NetworkConnectionInterruption;
 
-        public const string SchemeValue = "spp";
-
-        public const string Scheme = $"{SchemeValue}://";
-
-        public const string Referrer_ = $"{Scheme}{{0}}/{_ThisAssembly.Version}";
+        public const string Referrer_ = $"{AppConstants.CUSTOM_URL_SCHEME}{{0}}/{_ThisAssembly.Version}";
 
         public static class Headers
         {

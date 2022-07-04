@@ -14,7 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Root", "_Root", "{66839CD8
 		download-guide.md = download-guide.md
 		global.json = global.json
 		packaging\Info.plist = packaging\Info.plist
-		nuget.config = nuget.config
 		packaging\package.net472.ps1 = packaging\package.net472.ps1
 		README.en.md = README.en.md
 		README.md = README.md
@@ -222,7 +221,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.ReverseProxy.Tita
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.ReverseProxy.Yarp", "src\ST.Client.ReverseProxy.Yarp\ST.Client.ReverseProxy.Yarp.csproj", "{D8ED7A17-D693-45FF-B75A-D9B12DAB5A42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST.Client.Windows.ScheduledTasks", "src\ST.Client.Windows.ScheduledTasks\ST.Client.Windows.ScheduledTasks.csproj", "{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST.Client.Windows.ScheduledTasks", "src\ST.Client.Windows.ScheduledTasks\ST.Client.Windows.ScheduledTasks.csproj", "{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2716,7 +2715,7 @@ Global
 		{0EEA90D8-FAB7-48C9-8C15-1E61AEF8AB81} = {E50441E8-75F3-406E-9921-30BFC211B5CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = zh-Hans
 		SolutionGuid = {9313F2B4-10DA-43AA-A481-CAA7571C740C}
+		RESX_NeutralResourcesLanguage = zh-Hans
 	EndGlobalSection
 EndGlobal

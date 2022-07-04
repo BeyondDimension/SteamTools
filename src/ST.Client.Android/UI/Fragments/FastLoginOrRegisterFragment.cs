@@ -1,6 +1,7 @@
 using Android.Runtime;
 using Android.Views;
 using AndroidX.AppCompat.App;
+using AndroidX.Navigation;
 using AndroidX.RecyclerView.Widget;
 using Binding;
 using ReactiveUI;
@@ -36,7 +37,7 @@ namespace System.Application.UI.Fragments
                 switch (e.Current.Id)
                 {
                     case FastLoginChannelViewModel.PhoneNumber:
-                        GoToUsePhoneNumberPage();
+                        GoToUsePhoneNumberPage(this.GetNavController());
                         break;
                     default:
                         ViewModel!.ChooseChannel.Invoke(e.Current.Id);
@@ -49,16 +50,15 @@ namespace System.Application.UI.Fragments
 
             if (Activity is AppCompatActivity activity)
             {
-                activity.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                activity.SupportActionBar?.SetDisplayHomeAsUpEnabled(true);
             }
         }
 
-        void GoToUsePhoneNumberPage()
+        public static void GoToUsePhoneNumberPage(NavController? navController)
         {
 #if !DEBUG
             MainApplication.ShowUnderConstructionTips();
 #else
-            var navController = this.GetNavController();
             navController?.Navigate(Resource.Id.action_navigation_login_or_register_fast_to_navigation_login_or_register_phone_number);
 #endif
         }

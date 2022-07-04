@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 
+// ReSharper disable once CheckNamespace
 namespace System;
 
 public static class ArchitectureEnumExtensions

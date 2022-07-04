@@ -9,12 +9,12 @@ using AndroidX.Navigation.Fragment;
 using AndroidX.Navigation.UI;
 using Binding;
 using ReactiveUI;
+using System.Text;
+using System.Net;
 using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Collections.Generic;
 using System.Application.UI.Fragments;
-using System.Text;
-using CC = System.Application.Services.CloudService.Constants;
 
 namespace System.Application.UI.Activities
 {
@@ -28,14 +28,16 @@ namespace System.Application.UI.Activities
             Intent.CategoryBrowsable, // 通过浏览器的连接启动
             Intent.CategoryDefault, // 该页面可以被隐式调用
         },
-        DataScheme = CC.SchemeValue,
-        DataHost = "auth")]
-    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterWindowViewModel>
+        DataScheme = Constants.CUSTOM_URL_SCHEME_NAME,
+        DataHost = UriHost)]
+    internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterWindowViewModel>, IHandleUri
     {
         /* URL Route
          * spp://auth/fast/{value?} 打开快速登录页面/回调授权值
          * spp://auth/phonenum 打开手机号登录页面
          */
+
+        const string UriHost = "auth";
 
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
@@ -59,33 +61,64 @@ namespace System.Application.UI.Activities
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
             var appBarConfiguration = new AppBarConfiguration.Builder(Resource.Id.navigation_login_or_register_fast).Build();
-            navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)).NavController;
+            navController = ((NavHostFragment)SupportFragmentManager.FindFragmentById(Resource.Id.nav_host_fragment)!).NavController;
             NavigationUI.SetupActionBarWithNavController(this, navController, appBarConfiguration);
 
             R.Subscribe(() =>
             {
-                var currentDestinationId = navController.CurrentDestination.Id;
-                foreach (var item in title_strings)
+                var currentDestination = navController?.CurrentDestination;
+                if (currentDestination != null)
                 {
-                    var title = item.Value();
-                    this.SetNavigationGraphTitle(item.Key, title);
-                    if (currentDestinationId == item.Key)
+                    var currentDestinationId = currentDestination.Id;
+                    foreach (var item in title_strings)
                     {
-                        Title = title;
+                        var title = item.Value();
+                        this.SetNavigationGraphTitle(item.Key, title);
+                        if (currentDestinationId == item.Key)
+                        {
+                            Title = title;
+                        }
                     }
                 }
             }).AddTo(this);
 
-            OnNewIntent(Intent);
+            this.HandleUri(Intent);
         }
 
         protected override void OnNewIntent(Intent? intent)
         {
             base.OnNewIntent(intent);
-            var intentData = intent?.DataString;
-            if (!string.IsNullOrWhiteSpace(intentData))
-            {
+            this.HandleUri(intent);
+        }
 
+        async void IHandleUri.HandleUri(Uri uri)
+        {
+            if (uri.Scheme != Constants.CUSTOM_URL_SCHEME_NAME || uri.Host != UriHost || uri.Segments.Length < 2) return;
+            switch (uri.Segments[1].TrimEnd('/'))
+            {
+                case Constants.Urls.Segment_LoginOrRegister_Fast:
+                    if (uri.Segments.Length == 3)
+                    {
+                        var value = uri.Segments[2];
+                        value = WebUtility.UrlDecode(value);
+                        await ThirdPartyLoginHelper.OnMessage(value);
+                    }
+                    break;
+                case Constants.Urls.Segment_LoginOrRegister_PhoneNum:
+                    GoToUsePhoneNumberPage();
+                    break;
+            }
+        }
+
+        void GoToUsePhoneNumberPage()
+        {
+            var currentDestination = navController?.CurrentDestination;
+            if (currentDestination != null)
+            {
+                if (currentDestination.Id != Resource.Id.navigation_login_or_register_phone_number)
+                {
+                    FastLoginOrRegisterFragment.GoToUsePhoneNumberPage(navController);
+                }
             }
         }
 

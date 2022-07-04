@@ -41,9 +41,9 @@
     <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformToastImpl.cs">
       <LinkBase>Services\Implementation</LinkBase>
     </Compile>
-    <Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformTelephonyServiceImpl.cs">
+    <!--<Compile Include="..\Common.ClientLib.Droid\Application\Services\Implementation\PlatformTelephonyServiceImpl.cs">
       <LinkBase>Services\Implementation</LinkBase>
-    </Compile>
+    </Compile>-->
     <Compile Include="..\Common.ClientLib.Droid\Logging\LogHelper.cs">
       <LinkBase>Logging</LinkBase>
     </Compile>

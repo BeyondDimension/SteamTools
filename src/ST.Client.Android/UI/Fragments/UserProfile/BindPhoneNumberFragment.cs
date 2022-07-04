@@ -28,8 +28,6 @@ namespace System.Application.UI.Fragments
             binding!.tbSmsCode.TextChanged += (_, _)
                 => ViewModel.SmsCode = binding!.tbSmsCode.Text;
 
-            OnCreateViewAsync();
-
             // https://developer.android.google.cn/reference/android/widget/TextView.html#protected-methods
             binding!.tbPhoneNumber.SetRawInputType(InputTypes.ClassPhone);
             binding!.tbPhoneNumber.SetDigitsKeyListener();
@@ -92,11 +90,13 @@ namespace System.Application.UI.Fragments
                 if (binding == null) return;
                 binding.tbSmsCode.RequestFocus();
             };
+
+            OnCreateViewAsync();
         }
 
         async void OnCreateViewAsync()
         {
-            binding!.tbPhoneNumber.Text = await ITelephonyService.GetAutoFillPhoneNumberAsync(binding!.tbPhoneNumber.Text);
+            binding!.tbPhoneNumber.Text = await PhoneNumberPlatformHelper.GetAutoFillPhoneNumberAsync(() => binding!.tbPhoneNumber.Text);
         }
 
         protected override bool OnClick(View view)
