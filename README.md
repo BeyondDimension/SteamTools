@@ -44,7 +44,8 @@
 
 ## ✨ 功能
 1. 网络加速 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" /> <img src="./resources/android-brands.svg" width="16" height="16" /> 
-	- 使用 [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) 开源项目进行本地反代来支持更快的访问游戏网站。
+    - ~~使用 [Titanium-Web-Proxy](https://github.com/justcoding121/Titanium-Web-Proxy) 开源项目进行本地反代来支持更快的访问游戏网站。~~
+	- 使用 [YARP.ReverseProxy](https://github.com/microsoft/reverse-proxy) 开源项目进行本地反代来支持更快的访问游戏网站。
 2. 脚本配置 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />
 	- 通过加速服务拦截网络请求将一些 JS 脚本注入在网页中，提供类似网页插件的功能。
 3. 账号切换 <img src="./resources/windows-brands.svg" width="16" height="16" /> <img src="./resources/linux-brands.svg" width="16" height="16" /> <img src="./resources/apple-brands.svg" width="16" height="16" />

@@ -1,0 +1,193 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:resx="using:System.Application.UI.Resx"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:controls="clr-namespace:System.Application.UI.Views.Controls"
+             xmlns:service="using:System.Application.Services"
+             xmlns:app="using:System.Application"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:gif="using:AvaloniaGif"
+             x:CompileBindings="True"
+             x:DataType="vm:AccountPageViewModel"
+             x:Class="System.Application.UI.Views.Pages.AccountPage">
+  <ScrollViewer>
+    <StackPanel Classes="Settings">
+      <Border Margin="0 30">
+        <DockPanel>
+          <Button Classes="plain" Command="{Binding OpenUserProfile}">
+            <Border Width="128"
+                    Height="128"
+                    CornerRadius="128"
+                    ClipToBounds="True">
+              <gif:Image2 Stretch="Uniform"
+                    Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    DecodeWidth="128"
+                    Cursor="Hand"
+                    FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
+                    ToolTip.Tip="{ReflectionBinding Path=Res.UserProfile,
+                                                Mode=OneWay,
+                                                Source={x:Static resx:R.Current}}"/>
+            </Border>
+          </Button>
+          <StackPanel Spacing="5"
+                      Margin="10"
+                      IsVisible="{ReflectionBinding Path=User,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource IsNullConverter},ConverterParameter=invert}">
+            <DockPanel>
+              <StackPanel Orientation="Horizontal"
+                          Margin="0"
+                          Spacing="10"
+                          VerticalAlignment="Center">
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                             Classes="h3"/>
+                  <Border IsVisible="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}"
+                          VerticalAlignment="Center">
+                    <TextBlock Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}💖 {0}}"
+                               Classes="h8"/>
+                  </Border>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                             Classes="h8"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"/>
+                  <ProgressBar Classes="Material"
+                               Value="60"
+                               Width="200"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal"
+                          Margin="0"
+                          HorizontalAlignment="Right"
+                          DockPanel.Dock="Right">
+                <Button Background="Transparent" Cursor="Hand"
+                        Command="{Binding OpenNotice}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Sign,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                  <PathIcon Width="16" Data="{StaticResource AlterDrawing}" />
+                </Button>
+                <Button Background="Transparent" Cursor="Hand"
+                        Command="{Binding SignIn}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.Sign,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                  <PathIcon Width="16" Data="{StaticResource SignDrawing}" />
+                </Button>
+                <Button Background="Transparent" Cursor="Hand"
+                        Command="{Binding RefreshButton}"
+                        ToolTip.Tip="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                  <PathIcon Width="16" Data="{StaticResource RefreshDrawing}" />
+                </Button>
+              </StackPanel>
+            </DockPanel>
+            <Separator Classes="Separator" />
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Left"
+                        Spacing="10">
+              <Label Content="{ReflectionBinding Path=Res.User_EngineOil,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0} :}" />
+              <Button Classes="Hyperlink"
+                      Cursor="Hand"
+                      Content="{ReflectionBinding Path=User.EngineOil,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                      Command="{ReflectionBinding OpenEngineOilLogs}"
+                      ToolTip.Tip="{ReflectionBinding Path=Res.User_EngineOil,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              <Label Content="{ReflectionBinding Path=Res.User_Balance,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0} :}"/>
+              <Button Classes="Hyperlink"
+                      Cursor="Hand"
+                      Content="{ReflectionBinding Path=User.Balance,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                      Command="{ReflectionBinding OpenEngineOilLogs}"
+                      ToolTip.Tip="{ReflectionBinding Path=Res.User_Balance,Mode=OneWay,Source={x:Static resx:R.Current}}"/>
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <Label Content="账号关联信息 : "/>
+                <Button Classes="plain"
+                        Command="{Binding OpenSteamProfile}">
+                  <PathIcon ToolTip.Tip="{ReflectionBinding Path=Res.UserChange_OpenUserUrl,
+                                                            Mode=OneWay,
+                                                            Source={x:Static resx:R.Current}}"
+                            IsVisible="{ReflectionBinding Path=User.SteamAccountId,
+                                                          Mode=OneWay,
+                                                          Source={x:Static service:UserService.Current},
+                                                          Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                            Data="{StaticResource SteamDrawing}" />
+                </Button>
+
+                <PathIcon IsVisible="{ReflectionBinding Path=User.MicrosoftAccountEmail,
+                                                          Mode=OneWay,
+                                                          Source={x:Static service:UserService.Current},
+                                                          Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                          Data="{StaticResource Xbox}" />
+
+                <PathIcon IsVisible="{ReflectionBinding Path=User.QQNickName,
+                                                          Mode=OneWay,
+                                                          Source={x:Static service:UserService.Current},
+                                                          Converter={StaticResource IsNullConverter},ConverterParameter=invert}"
+                          Data="{StaticResource QQ}" />
+
+                <PathIcon Data="{StaticResource AddDrawing}" />
+              </StackPanel>
+            </StackPanel>
+          </StackPanel>
+        </DockPanel>
+      </Border>
+
+      <Button Classes="plain"
+              Cursor="Hand"
+              Command="{ReflectionBinding OpenUserProfile}">
+        <Border Classes="Item">
+          <DockPanel>
+            <TextBlock Text="编辑您的个人资料"/>
+            <ui:SymbolIcon Classes="right"
+                           Symbol="Open"
+                           FontSize="24"/>
+          </DockPanel>
+        </Border>
+      </Button>
+
+      <Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="账号设置"/>
+          </DockPanel>
+        </Expander.Header>
+        <StackPanel Spacing="10">
+          <Border Classes="Item">
+            <DockPanel>
+              <TextBlock Text="关闭程序内广告"/>
+              <ToggleSwitch />
+            </DockPanel>
+          </Border>
+        </StackPanel>
+      </Expander>
+
+      <Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="安全设置"/>
+          </DockPanel>
+        </Expander.Header>
+        <StackPanel Spacing="10">
+          <Border Classes="Item">
+            <DockPanel>
+              <TextBlock Classes="FormItemLabel"
+                         Text="{ReflectionBinding Path=Res.User_Phone,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                         Grid.Row="0"/>
+              <Button Content="{ReflectionBinding Path=Res.Modify,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding OnBtnChangeBindPhoneNumberClick}"
+                      IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                      Grid.Row="0"
+                      Grid.Column="2"/>
+              <Button Content="{ReflectionBinding Path=Res.Bind,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{Binding OnBtnBindPhoneNumberClick}"
+                      IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                      Grid.Row="0"
+                      Grid.Column="2"/>
+            </DockPanel>
+          </Border>
+        </StackPanel>
+      </Expander>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
+

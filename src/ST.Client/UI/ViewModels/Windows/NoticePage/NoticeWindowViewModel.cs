@@ -23,11 +23,6 @@ namespace System.Application.UI.ViewModels
             OpenNotice = ReactiveCommand.CreateFromTask<string>(x => Browser2.OpenAsync(x));
         }
 
-        public void SelectNoticeItem(NoticeDTO item)
-        {
-            NotificationService.Current.NoticeItem = item;
-        }
-
         public void OpenNoticeWeb(NoticeDTO item)
         {
             if (item.IsOpenBrowser)

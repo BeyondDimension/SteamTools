@@ -320,7 +320,10 @@
                   Classes="flat"
                   Grid.Row="1"
                   HorizontalAlignment="Stretch"
-                  Margin="60 0 60 10">
+                  Margin="60 10">
+        <TabItem Header="流量统计">
+          <pages:ProxyChartView/>
+        </TabItem>
         <TabItem Header="加速服务">
           <StackPanel Orientation="Horizontal"
                       HorizontalAlignment="Center"
@@ -372,12 +375,9 @@
             </Border>
           </StackPanel>
         </TabItem>
-        <TabItem Header="流量统计">
-          <pages:ProxyChartView/>
-        </TabItem>
         <!--<TabItem Header="加速日志">
           </TabItem>-->
-        <!--<TabItem Header="广告">
+        <!--<TabItem Header="AD">
             <controls:AdDialog />
           </TabItem>-->
       </TabControl>
