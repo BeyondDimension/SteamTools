@@ -29,15 +29,13 @@ namespace System.Application.UI.Activities
             Intent.CategoryDefault, // 该页面可以被隐式调用
         },
         DataScheme = Constants.CUSTOM_URL_SCHEME_NAME,
-        DataHost = UriHost)]
+        DataHost = Constants.Urls.Segment_LoginOrRegister)]
     internal sealed class LoginOrRegisterActivity : BaseActivity<activity_login_or_register, LoginOrRegisterWindowViewModel>, IHandleUri
     {
         /* URL Route
          * spp://auth/fast/{value?} 打开快速登录页面/回调授权值
          * spp://auth/phonenum 打开手机号登录页面
          */
-
-        const string UriHost = "auth";
 
         protected override int? LayoutResource => Resource.Layout.activity_login_or_register;
 
@@ -93,7 +91,9 @@ namespace System.Application.UI.Activities
 
         async void IHandleUri.HandleUri(Uri uri)
         {
-            if (uri.Scheme != Constants.CUSTOM_URL_SCHEME_NAME || uri.Host != UriHost || uri.Segments.Length < 2) return;
+            if (uri.Scheme != Constants.CUSTOM_URL_SCHEME_NAME ||
+                uri.Host != Constants.Urls.Segment_LoginOrRegister ||
+                uri.Segments.Length < 2) return;
             switch (uri.Segments[1].TrimEnd('/'))
             {
                 case Constants.Urls.Segment_LoginOrRegister_Fast:

@@ -72,10 +72,11 @@ public static class Constants
 
         #region Custom Url Scheme
 
+        public const string Segment_LoginOrRegister = "auth";
         public const string Segment_LoginOrRegister_Fast = "fast";
         public const string Segment_LoginOrRegister_PhoneNum = "phonenum";
 
-        public const string ThirdPartyLoginCallback_ = $"{CUSTOM_URL_SCHEME}{Segment_LoginOrRegister_Fast}/{{0}}";
+        public const string ThirdPartyLoginCallback_ = $"{CUSTOM_URL_SCHEME}{Segment_LoginOrRegister}/{Segment_LoginOrRegister_Fast}/{{0}}";
 
         #endregion
     }
