@@ -145,7 +145,7 @@
 
     <!-- QRCode -->
     <!--<PackageVersion Include="QRCoder" Version="1.4.2" />-->
-    <PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.1" />
+    <PackageVersion Include="Net.Codecrete.QrCodeGenerator" Version="2.0.3" />
 
     <!-- NotifyIcon -->
     <PackageVersion Include="NotifyIcon.Base" Version="1.1.0" />
