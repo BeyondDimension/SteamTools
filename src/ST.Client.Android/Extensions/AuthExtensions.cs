@@ -7,7 +7,7 @@ namespace System
     public static class AuthExtensions
     {
         /// <summary>
-        /// 当未登录账号时，将关闭当前活动
+        /// 当未登录账号时，将关闭当前活动，返回是否已登录
         /// </summary>
         /// <param name="activity"></param>
         /// <returns></returns>
@@ -22,7 +22,7 @@ namespace System
         }
 
         /// <summary>
-        /// 当已登录账号时，将关闭当前活动
+        /// 当已登录账号时，将关闭当前活动，返回是否已登录
         /// </summary>
         /// <param name="activity"></param>
         /// <returns></returns>

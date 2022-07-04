@@ -54,7 +54,7 @@ namespace System.Application.UI.Activities
         {
             base.OnCreate2(savedInstanceState);
 
-            this.IsNotAuthenticated();
+            if (this.IsNotAuthenticated()) return;
 
             this.SetSupportActionBarWithNavigationClick(binding!.toolbar, true);
 
@@ -86,6 +86,7 @@ namespace System.Application.UI.Activities
         protected override void OnNewIntent(Intent? intent)
         {
             base.OnNewIntent(intent);
+            if (this.IsNotAuthenticated()) return;
             this.HandleUri(intent);
         }
 
