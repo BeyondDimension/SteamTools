@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Runtime.Versioning;
 using System.Application.Settings;
 using System.Application.CommandLine;
@@ -33,6 +34,8 @@ namespace System.Application.UI
         [STAThread]
         static int Main(string[] args)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             // fix The request was aborted: Could not create SSL/TLS secure channel
             TrySetSecurityProtocol();
 

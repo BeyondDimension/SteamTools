@@ -85,7 +85,7 @@
 
   <ItemGroup>
     <PackageReference Include="Yarp.ReverseProxy" />
-    <PackageReference Include="System.Text.Encoding.CodePages" />
+    <PackageReference Include="NLog.Web.AspNetCore" />
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
   </ItemGroup>
 

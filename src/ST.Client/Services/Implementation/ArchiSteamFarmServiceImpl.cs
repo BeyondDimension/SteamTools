@@ -29,7 +29,7 @@ namespace System.Application.Services.Implementation
 
         public ArchiSteamFarmServiceImpl()
         {
-            ArchiSteamFarmLibrary.Init(this, IOPath.AppDataDirectory, IApplication.LogDirPath);
+            ArchiSteamFarmLibrary.Init(this, IOPath.AppDataDirectory, IApplication.LogDirPathASF);
         }
 
         public event Action<string>? OnConsoleWirteLine;
@@ -62,7 +62,7 @@ namespace System.Application.Services.Implementation
 
                 if (isFirstStart)
                 {
-                    //IArchiSteamFarmService.InitCoreLoggers?.Invoke();
+                    IArchiSteamFarmService.InitCoreLoggers?.Invoke();
 
                     InitHistoryLogger();
 

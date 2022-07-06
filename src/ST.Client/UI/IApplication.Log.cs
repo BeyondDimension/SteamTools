@@ -8,6 +8,7 @@ using NLog.Targets;
 using System.Application.Services;
 using System.IO;
 using System.Properties;
+using ASFNLogManager = ArchiSteamFarm.LogManager;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using NInternalLogger = NLog.Common.InternalLogger;
 using NLogLevel = NLog.LogLevel;
@@ -148,8 +149,10 @@ namespace System.Application.UI
         /// </summary>
         public static string LogDirPath { get; private set; } = string.Empty;
 
-        [Obsolete("use LogDirPath")]
-        public static string LogDirPathASF => LogDirPath; // { get; private set; } = string.Empty;
+        /// <summary>
+        /// 日志存放文件夹路径(ASF)
+        /// </summary>
+        public static string LogDirPathASF { get; private set; } = string.Empty;
 
 #if DEBUG
         /// <summary>
@@ -224,31 +227,29 @@ namespace System.Application.UI
 #endif
             NLogManager.Configuration = objConfig;
 
-            //LogDirPathASF = ASFPathHelper.GetLogDirectory(logDirPath_);
-            //IArchiSteamFarmService.InitCoreLoggers = () =>
-            //{
-            //    if (ASFNLogManager.Configuration != null) return;
-            //    LoggingConfiguration config = new();
-            //    FileTarget fileTarget = new("File")
-            //    {
-            //        ArchiveFileName = ASFPathHelper.GetNLogArchiveFileName(LogDirPathASF),
-            //        ArchiveNumbering = ArchiveNumberingMode.Rolling,
-            //        ArchiveOldFileOnStartup = true,
-            //        CleanupFileName = false,
-            //        ConcurrentWrites = false,
-            //        DeleteOldFileOnStartup = true,
-            //        FileName = ASFPathHelper.GetNLogFileName(LogDirPathASF),
-            //        Layout = ASFPathHelper.NLogGeneralLayout,
-            //        ArchiveAboveSize = 10485760,
-            //        MaxArchiveFiles = 10,
-            //        MaxArchiveDays = 7,
-            //    };
-            //    config.AddTarget(fileTarget);
-            //    config.LoggingRules.Add(new LoggingRule("*", defMinLevel, fileTarget));
-            //    ASFNLogManager.Configuration = config;
-            //};
-
-            ////LogDirPathASF = logDirPath;
+            LogDirPathASF = ASFPathHelper.GetLogDirectory(logDirPath_);
+            IArchiSteamFarmService.InitCoreLoggers = () =>
+            {
+                if (ASFNLogManager.Configuration != null) return;
+                LoggingConfiguration config = new();
+                FileTarget fileTarget = new("File")
+                {
+                    ArchiveFileName = ASFPathHelper.GetNLogArchiveFileName(LogDirPathASF),
+                    ArchiveNumbering = ArchiveNumberingMode.Rolling,
+                    ArchiveOldFileOnStartup = true,
+                    CleanupFileName = false,
+                    ConcurrentWrites = false,
+                    DeleteOldFileOnStartup = true,
+                    FileName = ASFPathHelper.GetNLogFileName(LogDirPathASF),
+                    Layout = ASFPathHelper.NLogGeneralLayout,
+                    ArchiveAboveSize = 10485760,
+                    MaxArchiveFiles = 10,
+                    MaxArchiveDays = 7,
+                };
+                config.AddTarget(fileTarget);
+                config.LoggingRules.Add(new LoggingRule("*", defMinLevel, fileTarget));
+                ASFNLogManager.Configuration = config;
+            };
 
             LogDirPath = logDirPath;
         }

@@ -20,7 +20,7 @@ namespace System.Application.Services
     {
         static new IArchiSteamFarmService Instance => DI.Get<IArchiSteamFarmService>();
 
-        //static Action? InitCoreLoggers { protected get; set; }
+        static Action? InitCoreLoggers { protected get; set; }
 
         event Action<string>? OnConsoleWirteLine;
 
