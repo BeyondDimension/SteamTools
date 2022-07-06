@@ -64,7 +64,9 @@ static class CertGenerator
     /// <param name="keySizeBits"></param>
     /// <param name="validFrom"></param>
     /// <param name="validTo"></param>
+    /// <param name="caPfxPath"></param>
     /// <param name="password"></param>
+    /// <returns></returns>
     public static X509Certificate2 GenerateBySelfPfx(IEnumerable<string> domains, int keySizeBits, DateTime validFrom, DateTime validTo, string? caPfxPath, string? password = default)
     {
         var keys = GenerateRsaKeyPair(keySizeBits);
@@ -248,7 +250,15 @@ static class CertGenerator
         const string password = "password";
         Pkcs12Store store;
 
-        if (OperatingSystem2.IsRunningOnMono())
+        if (OperatingSystem.IsAndroid())
+        {
+            var builder = new Pkcs12StoreBuilder();
+            builder.SetUseDerEncoding(true);
+            // https://github.com/dotnet/runtime/issues/71603
+            builder.SetCertAlgorithm(PkcsObjectIdentifiers.PbeWithShaAnd3KeyTripleDesCbc);
+            store = builder.Build();
+        }
+        else if (OperatingSystem2.IsRunningOnMono())
         {
             var builder = new Pkcs12StoreBuilder();
             builder.SetUseDerEncoding(true);
