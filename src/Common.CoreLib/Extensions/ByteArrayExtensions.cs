@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // ReSharper disable once CheckNamespace
@@ -109,5 +110,15 @@ public static class ByteArrayExtensions
         }
 
         return buffer;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string ToHexString(this byte[] inArray)
+    {
+#if NET5_0_OR_GREATER
+        return Convert.ToHexString(inArray);
+#else
+        return string.Concat(Array.ConvertAll(inArray, x => x.ToString("X2")));
+#endif
     }
 }

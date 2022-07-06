@@ -7,15 +7,6 @@ namespace System;
 
 public static class X509CertificateExtensions
 {
-    static string ToHexString(byte[] inArray)
-    {
-#if NET5_0_OR_GREATER
-        return Convert.ToHexString(inArray);
-#else
-        return string.Concat(Array.ConvertAll(inArray, x => x.ToString("X2")));
-#endif
-    }
-
     static byte[] GetCertHashCompatImpl(this X509Certificate certificate, HashAlgorithmName hashAlgorithm)
     {
         // https://github.com/dotnet/runtime/blob/v6.0.4/src/libraries/System.Security.Cryptography.X509Certificates/src/System/Security/Cryptography/X509Certificates/X509Certificate.cs#L362
@@ -45,7 +36,7 @@ public static class X509CertificateExtensions
         catch
         {
             // https://github.com/dotnet/runtime/blob/main/src/libraries/System.Security.Cryptography/src/System/Security/Cryptography/X509Certificates/X509Certificate.cs#L408
-            return ToHexString(certificate.GetCertHashCompatImpl(hashAlgorithm));
+            return certificate.GetCertHashCompatImpl(hashAlgorithm).ToHexString();
         }
     }
 

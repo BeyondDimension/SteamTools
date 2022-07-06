@@ -131,7 +131,7 @@ namespace System.Application.Services.Implementation
         {
             ArchiSteamFarm.NLog.Logging.InitHistoryLogger();
 
-            HistoryTarget? historyTarget = LogManager.Configuration.AllTargets.OfType<HistoryTarget>().FirstOrDefault();
+            HistoryTarget? historyTarget = ArchiSteamFarm.LogManager.Configuration.AllTargets.OfType<HistoryTarget>().FirstOrDefault();
 
             if (historyTarget != null)
                 historyTarget.NewHistoryEntry += (object? sender, HistoryTarget.NewHistoryEntryArgs newHistoryEntryArgs) =>
