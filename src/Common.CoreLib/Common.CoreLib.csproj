@@ -6,6 +6,8 @@
     <RootNamespace>System</RootNamespace>
     <AssemblyName>System.Common.CoreLib</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>HEXMATE;$(DefineConstants)</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
