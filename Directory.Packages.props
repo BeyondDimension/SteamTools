@@ -249,7 +249,7 @@
     <!--<PackageVersion Include="FluentAvaloniaUI" Version="1.4.1" />-->
     <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.300" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
-    <PackageVersion Include="Avalonia.Native" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.Native" Version="0.10.16" />
     <PackageVersion Include="Avalonia.Win32" Version="0.10.15" />
     <PackageVersion Include="Avalonia.X11" Version="0.10.15" />
     <!--Avalonia End-->
