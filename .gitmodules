@@ -40,6 +40,3 @@
 [submodule "references/Gameloop.Vdf"]
 	path = references/Gameloop.Vdf
 	url = https://github.com/BeyondDimension/Gameloop.Vdf.git
-[submodule "references/Avalonia.HtmlRenderer"]
-	path = references/Avalonia.HtmlRenderer
-	url = https://github.com/BeyondDimension/Avalonia.HtmlRenderer.git

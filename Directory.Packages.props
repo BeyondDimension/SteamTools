@@ -82,7 +82,9 @@
     <PackageVersion Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
-
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.1264.42" />
+    
     <!-- AppCenter.* -->
     <PackageVersion Include="Microsoft.AppCenter" Version="4.5.1" />
     <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="4.5.1" />
@@ -123,7 +125,7 @@
     <PackageVersion Include="Splat" Version="14.3.4" />
     <PackageVersion Include="DynamicData" Version="7.9.4" />
     <PackageVersion Include="ReactiveUI" Version="18.2.5" />
-    <PackageVersion Include="ReactiveUI.Fody" Version="18.2.5" /> 
+    <PackageVersion Include="ReactiveUI.Fody" Version="18.2.5" />
     <PackageVersion Include="ReactiveUI.XamForms" Version="18.2.5" />
     <PackageVersion Include="ReactiveUI.AndroidX" Version="18.2.5" />
     <PackageVersion Include="ReactiveUI.Maui" Version="18.2.5" />
@@ -252,6 +254,7 @@
     <PackageVersion Include="Avalonia.Native" Version="0.10.16" />
     <PackageVersion Include="Avalonia.Win32" Version="0.10.16" />
     <PackageVersion Include="Avalonia.X11" Version="0.10.16" />
+    <!--<PackageVersion Include="Avalonia.HtmlRenderer" Version="0.10.0" />-->
     <!--Avalonia End-->
 
     <!-- Xamarin.Android -->

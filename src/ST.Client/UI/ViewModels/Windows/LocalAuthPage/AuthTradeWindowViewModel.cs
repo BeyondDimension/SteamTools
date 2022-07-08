@@ -466,10 +466,16 @@ namespace System.Application.UI.ViewModels
             }).ForgetAndDispose();
         }
 
-        public void ViewConfirmationDetail(WinAuthSteamClient.Confirmation trade)
+        public string GetConfirmationDetailHtml(WinAuthSteamClient.Confirmation trade)
         {
-            var a = _Authenticator!.GetClient().GetConfirmationDetails(trade);
-            Diagnostics.Debug.WriteLine(a);
+            var html = _Authenticator!.GetClient().GetConfirmationDetails(trade);
+            //var style = "<style>body{font-family:\"宋体\"}</style>";
+            //var index = html.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
+            //if (index > -1)
+            //{
+            //    html = html.Insert(index, style);
+            //}
+            return html;
         }
 
         public void ConfirmTrade_Click(WinAuthSteamClient.Confirmation trade)

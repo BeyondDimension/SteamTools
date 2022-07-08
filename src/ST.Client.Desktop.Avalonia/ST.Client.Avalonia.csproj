@@ -9,6 +9,7 @@
     <AssemblyName>System.Application.SteamTools.Client.Avalonia</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
+    <!--<UseWindowsForms>true</UseWindowsForms>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -91,6 +92,8 @@
     <PackageReference Include="Avalonia.Xaml.Behaviors" />
     <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
+    <!--<PackageReference Include="Microsoft.Web.WebView2" />-->
+    <!--<PackageReference Include="Avalonia.HtmlRenderer"/>-->
     <!--<PackageReference Include="Avalonia.AvaloniaEdit" />-->
     <!--<PackageReference Include="CefNet.Avalonia" />-->
     <!--<PackageReference Include="LibVLCSharp.Avalonia" />-->

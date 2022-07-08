@@ -159,6 +159,12 @@
             <TextBlock Text="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_GetTip,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Center" FontSize="14"></TextBlock>
           </StackPanel>
 
+          <ui:ContentDialog x:Name="HtmlDialog"
+                            PrimaryButtonText="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
+            <ui:ContentDialog.Content>
+            </ui:ContentDialog.Content>
+          </ui:ContentDialog>
+
           <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto"
                         Padding="0 0 0 10">
@@ -229,18 +235,18 @@
                                       Content="查看详情"
                                       HorizontalAlignment="Stretch"
                                       Background="{DynamicResource ThemeBrushKey}"
-                                      Command="{ReflectionBinding #u.DataContext.ViewConfirmationDetail}"
-                                      CommandParameter="{Binding}"></Button>
+                                      Click="ShowHtmlDialog_Click"
+                                      Tag="{Binding}"></Button>
                             </Border>
                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
                                     ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                              <Button Classes="flatbutton" 
-                                      Cursor="Hand" 
-                                      IsEnabled="{Binding ButtonEnable}" 
-                                      Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                                      HorizontalAlignment="Stretch" 
-                                      Background="{DynamicResource ThemeBrushKey}" 
-                                      Command="{ReflectionBinding #u.DataContext.ConfirmTrade_Click}" 
+                              <Button Classes="flatbutton"
+                                      Cursor="Hand"
+                                      IsEnabled="{Binding ButtonEnable}"
+                                      Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                      HorizontalAlignment="Stretch"
+                                      Background="{DynamicResource ThemeBrushKey}"
+                                      Command="{ReflectionBinding #u.DataContext.ConfirmTrade_Click}"
                                       CommandParameter="{Binding}"></Button>
                             </Border>
                             <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"

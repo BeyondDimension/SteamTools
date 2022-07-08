@@ -7,7 +7,7 @@ using System.Application.Settings;
 
 namespace System.Application.UI.Views.Controls
 {
-    public class WallpaperControl : TemplatedControl
+    public class WallpaperControl : Control
     {
         readonly INativeWindowApiService? windowApiService = INativeWindowApiService.Instance;
 
