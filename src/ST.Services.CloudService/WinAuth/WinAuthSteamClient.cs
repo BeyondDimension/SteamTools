@@ -1117,37 +1117,37 @@ namespace WinAuth
             return trades;
         }
 
-        ///// <summary>
-        ///// Get details for an individual Confirmation
-        ///// </summary>
-        ///// <param name="trade">trade Confirmation</param>
-        ///// <returns>html string of details</returns>
-        ////[Obsolete("use GetConfirmationDetailsAsync")]
+        /// <summary>
+        /// Get details for an individual Confirmation
+        /// </summary>
+        /// <param name="trade">trade Confirmation</param>
+        /// <returns>html string of details</returns>
+        //[Obsolete("use GetConfirmationDetailsAsync")]
         //[Obsolete("0 references", true)]
-        //public string GetConfirmationDetails(Confirmation trade)
-        //{
-        //    // build details URL
-        //    string url = COMMUNITY_BASE + "/mobileconf/details/" + trade.Id + "?" + ConfirmationsQuery;
+        public string GetConfirmationDetails(Confirmation trade)
+        {
+            // build details URL
+            string url = COMMUNITY_BASE + "/mobileconf/details/" + trade.Id + "?" + ConfirmationsQuery;
 
-        //    string response = GetString(url);
-        //    if (response.IndexOf("success") == -1)
-        //    {
-        //        throw new WinAuthInvalidSteamRequestException("Invalid request from steam: " + response);
-        //    }
-        //    if (JObject.Parse(response).SelectToken("success").Value<bool>() == true)
-        //    {
-        //        string html = JObject.Parse(response).SelectToken("html").Value<string>();
+            string response = GetString(url);
+            if (response.IndexOf("success") == -1)
+            {
+                throw new WinAuthInvalidSteamRequestException("Invalid request from steam: " + response);
+            }
+            if (JObject.Parse(response).SelectToken("success").Value<bool>() == true)
+            {
+                string html = JObject.Parse(response).SelectToken("html").Value<string>();
 
-        //        Regex detailsRegex = new Regex(@"(.*<body[^>]*>\s*<div\s+class=""[^""]+"">).*(</div>.*?</body>\s*</html>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        //        var match = detailsRegex.Match(ConfirmationsHtml);
-        //        if (match.Success == true)
-        //        {
-        //            return match.Groups[1].Value + html + match.Groups[2].Value;
-        //        }
-        //    }
+                Regex detailsRegex = new Regex(@"(.*<body[^>]*>\s*<div\s+class=""[^""]+"">).*(</div>.*?</body>\s*</html>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                var match = detailsRegex.Match(ConfirmationsHtml);
+                if (match.Success == true)
+                {
+                    return match.Groups[1].Value + html + match.Groups[2].Value;
+                }
+            }
 
-        //    return "<html><head></head><body><p>Cannot load trade confirmation details</p></body></html>";
-        //}
+            return "<html><head></head><body><p>Cannot load trade confirmation details</p></body></html>";
+        }
 
         /// <summary>
         /// Confirm or reject a specific trade confirmation

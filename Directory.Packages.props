@@ -235,23 +235,23 @@
     <PackageVersion Include="Polly" Version="7.2.3" />
 
     <!--Avalonia Start-->
-    <PackageVersion Include="Avalonia" Version="0.10.15" />
-    <PackageVersion Include="Avalonia.Desktop" Version="0.10.15" />
-    <PackageVersion Include="Avalonia.Skia" Version="0.10.15" />
-    <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.15" />
-    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.15" />
-    <!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.15" />-->
-    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.15" />
-    <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.15" />
+    <PackageVersion Include="Avalonia" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.Desktop" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.Skia" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.ReactiveUI" Version="0.10.16" />
+    <!--<PackageVersion Include="Avalonia.Direct2D1" Version="0.10.16" />-->
+    <PackageVersion Include="Avalonia.Controls.DataGrid" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="0.10.15.1" />
     <!--<PackageVersion Include="Avalonia.AvaloniaEdit" Version="0.10.12.2" />-->
     <!--<PackageVersion Include="CefNet.Avalonia" Version="93.1.21240.857" />-->
     <!--<PackageVersion Include="LibVLCSharp.Avalonia" Version="3.5.1" />-->
     <!--<PackageVersion Include="FluentAvaloniaUI" Version="1.4.1" />-->
     <PackageVersion Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.300" />
     <PackageVersion Include="JumpLists.Win32.Avalonia" Version="1.0.0" />
-    <PackageVersion Include="Avalonia.Native" Version="0.10.15" />
-    <PackageVersion Include="Avalonia.Win32" Version="0.10.15" />
-    <PackageVersion Include="Avalonia.X11" Version="0.10.15" />
+    <PackageVersion Include="Avalonia.Native" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.Win32" Version="0.10.16" />
+    <PackageVersion Include="Avalonia.X11" Version="0.10.16" />
     <!--Avalonia End-->
 
     <!-- Xamarin.Android -->

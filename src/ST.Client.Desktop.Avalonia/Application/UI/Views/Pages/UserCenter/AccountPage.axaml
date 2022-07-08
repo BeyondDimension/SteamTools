@@ -15,9 +15,11 @@
              x:Class="System.Application.UI.Views.Pages.AccountPage">
   <ScrollViewer>
     <StackPanel Classes="Settings">
-      <Border Margin="0 30">
+      <Border Margin="0 20">
         <DockPanel>
-          <Button Classes="plain" Command="{Binding OpenUserProfile}">
+          <Button Classes="plain"
+                  Command="{Binding RefreshButton}"
+                  ToolTip.Tip="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <Border Width="128"
                     Height="128"
                     CornerRadius="128"
@@ -28,10 +30,7 @@
                     HorizontalAlignment="Center"
                     DecodeWidth="128"
                     Cursor="Hand"
-                    FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"
-                    ToolTip.Tip="{ReflectionBinding Path=Res.UserProfile,
-                                                Mode=OneWay,
-                                                Source={x:Static resx:R.Current}}"/>
+                    FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg"/>
             </Border>
           </Button>
           <StackPanel Spacing="5"
@@ -42,44 +41,53 @@
                           Margin="0"
                           Spacing="10"
                           VerticalAlignment="Center">
-                <StackPanel VerticalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" Spacing="3">
                   <TextBlock Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
                              Classes="h3"/>
-                  <Border IsVisible="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}"
-                          VerticalAlignment="Center">
-                    <TextBlock Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}💖 {0}}"
-                               Classes="h8"/>
-                  </Border>
-                </StackPanel>
-                <StackPanel VerticalAlignment="Center">
-                  <TextBlock Text="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}"
-                             Classes="h8"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"/>
-                  <ProgressBar Classes="Material"
-                               Value="60"
-                               Width="200"
-                               VerticalAlignment="Center"/>
+                  <StackPanel Orientation="Horizontal" Spacing="10">
+                    <TextBlock Text="{ReflectionBinding Path=User.LevelStr,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+                               Classes="h8"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                    <Border IsVisible="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}"
+                            VerticalAlignment="Center">
+                      <TextBlock Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}💖 {0}}"
+                                 Classes="h8"/>
+                    </Border>
+                  </StackPanel>
+                  <Panel VerticalAlignment="Center">
+                    <ProgressBar Classes="Material"
+                                 Height="14"
+                                 Value="60"
+                                 Width="300"
+                                 VerticalAlignment="Center"/>
+                    <TextBlock Text="200 / 300"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                  </Panel>
                 </StackPanel>
               </StackPanel>
               <StackPanel Orientation="Horizontal"
                           Margin="0"
                           HorizontalAlignment="Right"
                           DockPanel.Dock="Right">
-                <Button Background="Transparent" Cursor="Hand"
-                        Command="{Binding OpenNotice}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.Sign,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                  <PathIcon Width="16" Data="{StaticResource AlterDrawing}" />
+                <Button Background="Transparent"
+                        Command="{Binding OpenNotice}">
+                  <WrapPanel>
+                    <PathIcon Width="16" Data="{StaticResource AlterDrawing}"
+                              Margin="0 0 10 0"/>
+                    <TextBlock Text="查看通知"/>
+                  </WrapPanel>
                 </Button>
-                <Button Background="Transparent" Cursor="Hand"
+                <Button Background="Transparent"
                         Command="{Binding SignIn}"
                         ToolTip.Tip="{ReflectionBinding Path=Res.Sign,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                  <PathIcon Width="16" Data="{StaticResource SignDrawing}" />
-                </Button>
-                <Button Background="Transparent" Cursor="Hand"
-                        Command="{Binding RefreshButton}"
-                        ToolTip.Tip="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                  <PathIcon Width="16" Data="{StaticResource RefreshDrawing}" />
+                  <WrapPanel>
+                    <PathIcon Width="16" Data="{StaticResource SignDrawing}"
+                              Margin="0 0 10 0"/>
+                    <TextBlock Text="点击签到"/>
+                  </WrapPanel>
                 </Button>
               </StackPanel>
             </DockPanel>
@@ -132,18 +140,36 @@
         </DockPanel>
       </Border>
 
+      <Label Content="帐户设置"/>
+
       <Button Classes="plain"
               Cursor="Hand"
               Command="{ReflectionBinding OpenUserProfile}">
         <Border Classes="Item">
           <DockPanel>
-            <TextBlock Text="编辑您的个人资料"/>
+            <TextBlock Text="你的信息"/>
             <ui:SymbolIcon Classes="right"
                            Symbol="Open"
                            FontSize="24"/>
           </DockPanel>
         </Border>
       </Button>
+
+      <Expander>
+        <Expander.Header>
+          <DockPanel HorizontalAlignment="Stretch">
+            <TextBlock Text="账号绑定"/>
+          </DockPanel>
+        </Expander.Header>
+        <StackPanel Spacing="10">
+          <Border Classes="Item">
+            <DockPanel>
+              <TextBlock Text="关闭程序内广告"/>
+              <ToggleSwitch />
+            </DockPanel>
+          </Border>
+        </StackPanel>
+      </Expander>
 
       <Expander>
         <Expander.Header>

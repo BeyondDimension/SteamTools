@@ -76,47 +76,44 @@
                 Padding="10"
                 Background="{DynamicResource ThemeBrushKey}">
           <DockPanel>
-            <!--<ui:CommandBar DefaultLabelPosition="Right"
+            <ui:CommandBar DefaultLabelPosition="Right"
                       IsSticky="False">
               <ui:CommandBar.PrimaryCommands>
 
-                <ui:CommandBarButton Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
-                                     Command="{ReflectionBinding LoadSteamEditedApps}">
+                <ui:CommandBarButton Label="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                     Command="{ReflectionBinding ConfirmAllButton_Click,Mode=OneTime}"
+                                     IsEnabled="{Binding IsConfirmationsAny}">
                   <ui:CommandBarButton.Icon>
                     <ui:SymbolIcon Symbol="Checkmark"/>
                   </ui:CommandBarButton.Icon>
                 </ui:CommandBarButton>
 
-                <ui:CommandBarButton Label="保存全部更改到Steam"
-                                     Command="{ReflectionBinding SaveSteamEditedApps}">
+                <ui:CommandBarButton Label="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_CancelAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                     Command="{ReflectionBinding CancelAllButton_Click,Mode=OneTime}"
+                                     IsEnabled="{Binding IsConfirmationsAny}">
                   <ui:CommandBarButton.Icon>
                     <ui:SymbolIcon Symbol="Cancel"/>
                   </ui:CommandBarButton.Icon>
                 </ui:CommandBarButton>
 
-                <ui:CommandBarButton Label="备份已修改的数据">
+                <ui:CommandBarSeparator/>
+
+                <ui:CommandBarButton Label="{ReflectionBinding Path=Res.Refresh,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{ReflectionBinding Refresh_Click,Mode=OneTime}">
                   <ui:CommandBarButton.Icon>
                     <ui:SymbolIcon Symbol="Refresh"/>
                   </ui:CommandBarButton.Icon>
                 </ui:CommandBarButton>
 
-                <ui:CommandBarButton Label="还原备份的数据">
+                <ui:CommandBarButton Label="{ReflectionBinding Path=Res.Logout,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                      Command="{ReflectionBinding Logout_Click,Mode=OneTime}">
                   <ui:CommandBarButton.Icon>
-                    <ui:SymbolIcon Symbol="OutlineStar"/>
-                  </ui:CommandBarButton.Icon>
-                </ui:CommandBarButton>
-
-                <ui:CommandBarSeparator/>
-
-                <ui:CommandBarButton Label="清空"
-                                     Command="{ReflectionBinding SaveSteamEditedApps}">
-                  <ui:CommandBarButton.Icon>
-                    <ui:SymbolIcon Symbol="Delete"/>
+                    <ui:SymbolIcon Symbol="Up"/>
                   </ui:CommandBarButton.Icon>
                 </ui:CommandBarButton>
               </ui:CommandBar.PrimaryCommands>
-            </ui:CommandBar>-->
-            <StackPanel Spacing="10" Orientation="Horizontal">
+            </ui:CommandBar>
+            <!--<StackPanel Spacing="10" Orientation="Horizontal">
               <Button Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_ConfirmAll,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Classes="DialogButton"
                       Command="{ReflectionBinding ConfirmAllButton_Click,Mode=OneTime}"
@@ -131,7 +128,7 @@
               <Button Content="{ReflectionBinding Path=Res.Logout,Mode=OneWay,Source={x:Static resx:R.Current}}"
                       Command="{ReflectionBinding Logout_Click,Mode=OneTime}"
                       Classes="DialogButton"></Button>
-            </StackPanel>
+            </StackPanel>-->
             <TextBlock Text="{Binding ConfirmationsConutMessage}" Grid.Column="1"
                        VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16"></TextBlock>
           </DockPanel>
@@ -187,9 +184,9 @@
                         <Panel Grid.Column="1" Margin="10,5">
                           <StackPanel>
                             <DockPanel LastChildFill="True">
-                              <TextBlock Text="{Binding Details}" 
-                                         Classes="h4" 
-                                         Foreground="{DynamicResource HighlightForegroundBrushKey}" 
+                              <TextBlock Text="{Binding Details}"
+                                         Classes="h4"
+                                         Foreground="{DynamicResource HighlightForegroundBrushKey}"
                                          TextWrapping="Wrap" />
                             </DockPanel>
 
@@ -199,11 +196,11 @@
                         </Panel>
                         <Grid Grid.Column="3" RowDefinitions="*,Auto">
                           <Panel>
-                            <TextBlock x:Name="OperateText" 
+                            <TextBlock x:Name="OperateText"
                                        IsVisible="{Binding IsOperate}"
-                                       VerticalAlignment="Center" 
+                                       VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       FontSize="16" 
+                                       FontSize="16"
                                        Margin="0 0 10 0">
                               <i:Interaction.Behaviors>
                                 <ia:DataTriggerBehavior Binding="{Binding IsOperate}" ComparisonCondition="Equal" Value="1">
@@ -221,25 +218,40 @@
                               </i:Interaction.Behaviors>
                             </TextBlock>
                           </Panel>
-                          <StackPanel Grid.Row="1" 
-                                      Orientation="Horizontal" 
-                                      Margin="0 0 0 0" 
-                                      IsVisible="True" 
+                          <StackPanel Grid.Row="1"
+                                      Orientation="Horizontal"
+                                      IsVisible="True"
                                       x:Name="OperatePanel">
-                            <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" BorderThickness=".66 .66 .66 0" ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
-                              <Button Classes="flatbutton" Cursor="Hand" IsEnabled="{Binding ButtonEnable}" Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" HorizontalAlignment="Stretch" FontSize="16" Background="{DynamicResource ThemeBrushKey}" Command="{ReflectionBinding #u.DataContext.ConfirmTrade_Click}" CommandParameter="{Binding}"></Button>
+                            <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
+                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <Button Classes="flatbutton"
+                                      Cursor="Hand"
+                                      Content="查看详情"
+                                      HorizontalAlignment="Stretch"
+                                      Background="{DynamicResource ThemeBrushKey}"
+                                      Command="{ReflectionBinding #u.DataContext.ViewConfirmationDetail}"
+                                      CommandParameter="{Binding}"></Button>
                             </Border>
-                            <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}" 
-                                    BorderThickness="0 .66 0 0" 
-                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                            <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
+                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
                               <Button Classes="flatbutton" 
                                       Cursor="Hand" 
                                       IsEnabled="{Binding ButtonEnable}" 
-                                      Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}" 
-                                      Background="{DynamicResource ThemeBrushKey}" 
+                                      Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}" 
                                       HorizontalAlignment="Stretch" 
-                                      FontSize="16" 
-                                      Command="{ReflectionBinding #u.DataContext.CancelTrade_Click}" 
+                                      Background="{DynamicResource ThemeBrushKey}" 
+                                      Command="{ReflectionBinding #u.DataContext.ConfirmTrade_Click}" 
+                                      CommandParameter="{Binding}"></Button>
+                            </Border>
+                            <Border BorderBrush="{DynamicResource SemiactiveBackgroundBrushKey}"
+                                    ToolTip.Tip="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}">
+                              <Button Classes="flatbutton"
+                                      Cursor="Hand"
+                                      IsEnabled="{Binding ButtonEnable}"
+                                      Content="{ReflectionBinding Path=Res.LocalAuth_AuthTrade_Cancel,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                                      Background="{DynamicResource ThemeBrushKey}"
+                                      HorizontalAlignment="Stretch"
+                                      Command="{ReflectionBinding #u.DataContext.CancelTrade_Click}"
                                       CommandParameter="{Binding}"></Button>
                             </Border>
                           </StackPanel>

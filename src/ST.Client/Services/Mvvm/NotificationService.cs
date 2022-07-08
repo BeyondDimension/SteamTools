@@ -72,6 +72,42 @@ namespace System.Application.Services
             set => this.RaiseAndSetIfChanged(ref _NoticeItem, value);
         }
 
+        public NotificationService()
+        {
+            mCurrent = this;
+            NoticeTypes = new SourceList<NoticeTypeDTO>();
+            this.WhenAnyValue(x => x.SelectGroup)
+               .Subscribe(async x =>
+               {
+                   if (x != null)
+                   {
+                       //延迟500ms显示加载
+                       using (var tk = CancellationTokenSource.CreateLinkedTokenSource(new CancellationToken()))
+                       {
+                           new Task(() =>
+                           {
+                               Thread.Sleep(500);
+                               if (!tk.IsCancellationRequested)
+                                   IsLoading = true;
+                           }, tk.Token).Start();
+                           await GetTable(x);
+                           tk.Cancel();
+                           IsLoading = false;
+                       }
+                   }
+               });
+            NoticeTypes
+                .Connect()
+                .ObserveOn(RxApp.MainThreadScheduler)
+                .Sort(SortExpressionComparer<NoticeTypeDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
+                .Bind(out _ObservableItems)
+                .Subscribe(_ =>
+                {
+                    SelectGroup = NoticeTypes.Items.FirstOrDefault();
+                });
+
+        }
+
         public async Task GetNews(int trycount = 0)
         {
             if (NoticeTypes.Count > 0)
@@ -163,42 +199,6 @@ namespace System.Application.Services
                 IsEmpty = SelectGroup!.Items == null || SelectGroup.Items?.DataSource.Count == 0;
 
             }
-        }
-
-        public NotificationService()
-        {
-            mCurrent = this;
-            NoticeTypes = new SourceList<NoticeTypeDTO>();
-            this.WhenAnyValue(x => x.SelectGroup)
-               .Subscribe(async x =>
-               {
-                   if (x != null)
-                   {
-                       //延迟500ms显示加载
-                       using (var tk = CancellationTokenSource.CreateLinkedTokenSource(new CancellationToken()))
-                       {
-                           new Task(() =>
-                           {
-                               Thread.Sleep(500);
-                               if (!tk.IsCancellationRequested)
-                                   IsLoading = true;
-                           }, tk.Token).Start();
-                           await GetTable(x);
-                           tk.Cancel();
-                           IsLoading = false;
-                       }
-                   }
-               });
-            NoticeTypes
-                .Connect()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Sort(SortExpressionComparer<NoticeTypeDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
-                .Bind(out _ObservableItems)
-                .Subscribe(_ =>
-               {
-                   SelectGroup = NoticeTypes.Items.FirstOrDefault();
-               });
-
         }
     }
 }

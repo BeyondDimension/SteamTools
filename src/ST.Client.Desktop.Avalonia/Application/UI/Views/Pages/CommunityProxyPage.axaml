@@ -325,11 +325,12 @@
           <pages:ProxyChartView/>
         </TabItem>
         <TabItem Header="加速服务">
-          <StackPanel Orientation="Horizontal"
-                      HorizontalAlignment="Center"
-                      Spacing="20">
-            <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
-              <DockPanel MinWidth="300">
+          <Grid ColumnDefinitions="*,20,*">
+            <Border Classes="paper"
+                    Background="{DynamicResource ThemeBrushKey}"
+                    Grid.Column="0"
+                    Padding="10">
+              <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_AccelerationsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                            FontSize="16"
                            Margin="0 0 0 10"
@@ -351,8 +352,11 @@
               </DockPanel>
             </Border>
 
-            <Border Classes="paper" Background="{DynamicResource ThemeBrushKey}" Padding="10">
-              <DockPanel MinWidth="300">
+            <Border Classes="paper"
+                    Background="{DynamicResource ThemeBrushKey}"
+                    Grid.Column="2"
+                    Padding="10">
+              <DockPanel>
                 <TextBlock Text="{ReflectionBinding Path=Res.CommunityFix_ScriptsEnable,Mode=OneWay,Source={x:Static resx:R.Current}}"
                            FontSize="16"
                            Margin="0 0 0 10"
@@ -373,7 +377,7 @@
                 </ScrollViewer>
               </DockPanel>
             </Border>
-          </StackPanel>
+          </Grid>
         </TabItem>
         <!--<TabItem Header="加速日志">
           </TabItem>-->

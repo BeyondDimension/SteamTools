@@ -466,6 +466,12 @@ namespace System.Application.UI.ViewModels
             }).ForgetAndDispose();
         }
 
+        public void ViewConfirmationDetail(WinAuthSteamClient.Confirmation trade)
+        {
+            var a = _Authenticator!.GetClient().GetConfirmationDetails(trade);
+            Diagnostics.Debug.WriteLine(a);
+        }
+
         public void ConfirmTrade_Click(WinAuthSteamClient.Confirmation trade)
         {
             OperationTrade(true, trade);
