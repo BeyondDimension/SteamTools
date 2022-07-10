@@ -35,8 +35,8 @@
     <AvaloniaXaml Remove="Application\UI\Views\Controls\WebView3.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_ChangeLog.axaml" />
     <AvaloniaXaml Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml" />
-    <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugPage.axaml" Condition="'$(Configuration)'=='Release'" />
-    <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml" />
+    <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugPage.axaml" Condition=" '$(Configuration)'=='Release' " />
+    <AvaloniaXaml Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml" Condition=" '$(Configuration)'=='Release' OR !$(TargetFramework.Contains('-windows')) " />
     <AvaloniaXaml Remove="Application\UI\Views\Windows\WebView3Window.axaml" />
   </ItemGroup>
 
@@ -46,8 +46,8 @@
     <Compile Remove="Application\UI\Views\Controls\WebViewBase.cs" />
     <Compile Remove="Application\UI\Views\Pages\About\About_Changelog.axaml.cs" />
     <Compile Remove="Application\UI\Views\Pages\About\About_FAQPage.axaml.cs" />
-    <Compile Remove="Application\UI\Views\Pages\DebugPage.axaml.cs" Condition="'$(Configuration)'=='Release'" />
-    <Compile Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml.cs" />
+    <Compile Remove="Application\UI\Views\Pages\DebugPage.axaml.cs" Condition=" '$(Configuration)'=='Release' " />
+    <Compile Remove="Application\UI\Views\Pages\DebugWebViewPage.axaml.cs" Condition=" '$(Configuration)'=='Release' OR !$(TargetFramework.Contains('-windows')) " />
     <Compile Remove="Application\UI\Views\Windows\WebView3Window.axaml.cs" />
     <Compile Remove="Extensions\CookieExtensions.cs" />
     <Compile Remove="Extensions\WebViewExtensions.cs" />
@@ -106,6 +106,10 @@
 
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
+    <PackageReference Include="WebView2.Avalonia" />
   </ItemGroup>
 
   <ItemGroup>

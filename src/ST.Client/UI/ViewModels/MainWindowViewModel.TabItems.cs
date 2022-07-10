@@ -28,6 +28,7 @@ namespace System.Application.UI.ViewModels
                     if (IApplication.EnableDevtools && IApplication.IsDesktopPlatform)
                     {
                         items.Insert(0, DebugPageViewModel.Instance);
+                        items.Insert(1, DebugWebViewPageViewModel.Instance);
                     }
 #endif
 

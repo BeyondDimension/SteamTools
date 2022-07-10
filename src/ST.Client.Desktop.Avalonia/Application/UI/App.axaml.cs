@@ -239,6 +239,10 @@ namespace System.Application.UI
                     // OPTIONAL
                     //.AddDarkTheme()
                     .AddDarkTheme());
+
+#if WINDOWS
+            InitWebView2();
+#endif
         }
 
         //public ContextMenu? NotifyIconContextMenu { get; private set; }
