@@ -83,7 +83,6 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <!--<PackageVersion Include="CommunityToolkit.Mvvm" Version="7.1.2" />-->
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="6.0.0" />
-    <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.1264.42" />
     
     <!-- AppCenter.* -->
     <PackageVersion Include="Microsoft.AppCenter" Version="4.5.1" />
@@ -255,7 +254,7 @@
     <PackageVersion Include="Avalonia.Win32" Version="0.10.16" />
     <PackageVersion Include="Avalonia.X11" Version="0.10.16" />
     <!--<PackageVersion Include="Avalonia.HtmlRenderer" Version="0.10.0" />-->
-    <PackageVersion Include="WebView2.Avalonia" Version="1.0.1264.42-preview.220711.2" />
+    <PackageVersion Include="WebView2.Avalonia" Version="1.0.1264.42-preview.220711.5" />
     <!--Avalonia End-->
 
     <!-- Xamarin.Android -->

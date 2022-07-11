@@ -6,6 +6,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
+using static System.Common.Constants;
 
 namespace System.Application.UI.Views.Pages
 {
@@ -19,7 +20,7 @@ namespace System.Application.UI.Views.Pages
             InitializeComponent();
 
             webView = this.FindControl<WebView2>("webView");
-            webView.Source = new("edge://version");
+            webView.Source = new(UrlConstants.GitHub_Repository);
 
             urlTextBox = this.FindControl<TextBox>("urlTextBox");
             urlTextBox.KeyUp += UrlTextBox_KeyUp;
@@ -29,7 +30,12 @@ namespace System.Application.UI.Views.Pages
         {
             if (e.Key == Key.Enter)
             {
-                webView.CoreWebView2?.Navigate(urlTextBox.Text);
+                var url = urlTextBox.Text;
+                if (!Browser2.IsHttpUrl(url)) url = $"{Prefix_HTTPS}{url}";
+                var array = url.Split('/');
+                if (array.Length < 3) return;
+                if (!array[2].Contains('.')) return;
+                webView.CoreWebView2?.Navigate(url);
             }
         }
 
