@@ -782,7 +782,7 @@
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Caricamento</value>
+    <value>Caricamento…</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth" xml:space="preserve">

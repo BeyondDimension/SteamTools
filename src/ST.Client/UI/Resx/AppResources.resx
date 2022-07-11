@@ -751,7 +751,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>导入</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>加载中</value>
+    <value>加载中…</value>
   </data>
   <data name="LocalAuth" xml:space="preserve">
     <value>本地令牌</value>
@@ -2305,9 +2305,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Upload" xml:space="preserve">
     <value>上传</value>
   </data>
-  <data name="Download" xml:space="preserve">
-    <value>下载</value>
-  </data>
   <data name="Download_Failed_FileNameTip" xml:space="preserve">
     <value>下载 {0} 失败</value>
   </data>
@@ -2325,5 +2322,11 @@ AAAAA-BBBBB-CCCC3</value>
   </data>
   <data name="DownloadFlow" xml:space="preserve">
     <value>下行流量</value>
+  </data>
+  <data name="DownloadAndInstall" xml:space="preserve">
+    <value>下载并安装</value>
+  </data>
+  <data name="YouNeedInstallWebView2Runtime" xml:space="preserve">
+    <value>你需要安装 Microsoft Edge WebView2 Runtime 才能使用此功能</value>
   </data>
 </root>

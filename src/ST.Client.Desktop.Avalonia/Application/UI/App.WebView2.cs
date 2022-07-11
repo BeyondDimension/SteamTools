@@ -34,9 +34,6 @@ partial class App
             }
         }
     }
-
-    // WebView2AutoInstaller
-    // https://github.com/ProKn1fe/WebView2.Runtime/blob/62011b09436944143996fdb0039cd2c5dbb5c300/WebView2.Runtime.AutoInstaller/WebView2.Runtime.AutoInstaller/WebView2AutoInstaller.cs
 }
 
 #endif

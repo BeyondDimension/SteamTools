@@ -1815,6 +1815,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下载并安装 的本地化字符串。
+        /// </summary>
+        public static string DownloadAndInstall {
+            get {
+                return ResourceManager.GetString("DownloadAndInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 已下载 的本地化字符串。
         /// </summary>
         public static string Downloaded {
@@ -2923,7 +2932,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 加载中 的本地化字符串。
+        ///   查找类似 加载中… 的本地化字符串。
         /// </summary>
         public static string Loading {
             get {
@@ -6598,6 +6607,15 @@ namespace System.Application.UI.Resx {
         public static string WorkingDir {
             get {
                 return ResourceManager.GetString("WorkingDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 你需要安装 Microsoft Edge WebView2 Runtime 才能使用此功能 的本地化字符串。
+        /// </summary>
+        public static string YouNeedInstallWebView2Runtime {
+            get {
+                return ResourceManager.GetString("YouNeedInstallWebView2Runtime", resourceCulture);
             }
         }
         

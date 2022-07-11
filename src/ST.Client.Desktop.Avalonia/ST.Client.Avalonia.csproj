@@ -112,19 +112,8 @@
     <PackageReference Include="WebView2.Avalonia" />
   </ItemGroup>
 
-  <ItemGroup>
-    <AvaloniaResource Update="Application\UI\Styles\Controls\TreeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Application\UI\Views\Controls\AdDialog.axaml.cs">
-      <DependentUpon>AdDialog.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Application\UI\Views\Windows\GameListPage\CloudArchiveWindow.axaml.cs">
-      <DependentUpon>CloudArchiveWindow.axaml</DependentUpon>
-    </Compile>
+  <ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
+    <ProjectReference Include="..\Avalonia.WebView2\Avalonia.WebView2.csproj" />
   </ItemGroup>
 
   <Import Condition=" $(TargetFramework.Contains('-windows')) " Project="..\..\WindowsPlatform.props" />

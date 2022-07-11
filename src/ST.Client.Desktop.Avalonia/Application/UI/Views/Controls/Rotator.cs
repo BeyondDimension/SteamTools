@@ -33,7 +33,7 @@ namespace System.Application.UI.Views.Controls
             // Prepare render loop task for use.
             _loopTask = new RenderLoopClock();
             _loopTask.Subscribe(
-                delegate(TimeSpan renderTime)
+                renderTime =>
                 {
                     var delta = renderTime - _prev;
                     _rotateDegree += _speed * delta.TotalMilliseconds;
@@ -54,8 +54,8 @@ namespace System.Application.UI.Views.Controls
 
         public static readonly DirectProperty<Rotator, double> SpeedProperty =
             AvaloniaProperty.RegisterDirect(nameof(Speed),
-                delegate(Rotator rotator) { return rotator._speed; },
-                delegate(Rotator rotator, double v)
+                rotator => rotator._speed,
+                (Rotator rotator, double v) =>
                 {
                     rotator._speed = v;
                     OnSpeedChanged(rotator, v);

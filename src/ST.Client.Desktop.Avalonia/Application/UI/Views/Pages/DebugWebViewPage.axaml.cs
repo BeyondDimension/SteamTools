@@ -4,6 +4,9 @@ using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
+using Microsoft.Web.WebView2.Core;
+using System.Application.Services;
+using System.Application.UI.Resx;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using static System.Common.Constants;
@@ -12,19 +15,27 @@ namespace System.Application.UI.Views.Pages
 {
     public class DebugWebViewPage : ReactiveUserControl<DebugWebViewPageViewModel>/*, IDisposable*/
     {
-        readonly WebView2 webView;
+        readonly WebView2Compat webViewCompat;
         readonly TextBox urlTextBox;
 
         public DebugWebViewPage()
         {
             InitializeComponent();
 
-            webView = this.FindControl<WebView2>("webView");
-            webView.Source = new(UrlConstants.GitHub_Repository);
+            webViewCompat = this.FindControl<WebView2Compat>("webView");
+            webViewCompat.Source = new(R.IsChineseSimplified ? UrlConstants.Gitee_Repository : UrlConstants.GitHub_Repository);
+            //webViewCompat.WebView2.DOMContentLoaded += WebView2_DOMContentLoaded;
 
             urlTextBox = this.FindControl<TextBox>("urlTextBox");
             urlTextBox.KeyUp += UrlTextBox_KeyUp;
         }
+
+        //async void WebView2_DOMContentLoaded(object? sender, CoreWebView2DOMContentLoadedEventArgs e)
+        //{
+        //    webViewCompat.WebView2.DOMContentLoaded -= WebView2_DOMContentLoaded;
+        //    var userAgent = await webViewCompat.WebView2.ExecuteScriptAsync("window.navigator.userAgent");
+        //    // "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.49"
+        //}
 
         private void UrlTextBox_KeyUp(object? sender, KeyEventArgs e)
         {
@@ -35,14 +46,9 @@ namespace System.Application.UI.Views.Pages
                 var array = url.Split('/');
                 if (array.Length < 3) return;
                 if (!array[2].Contains('.')) return;
-                webView.CoreWebView2?.Navigate(url);
+                webViewCompat.Source = new(url);
             }
         }
-
-        //private async void WebView_BrowserCreated(object sender, EventArgs e)
-        //{
-        //    var value = await webView.GetUserAgentAsync();
-        //}
 
         private void InitializeComponent()
         {
