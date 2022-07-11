@@ -9,23 +9,17 @@ namespace System.Application.UI;
 
 partial class App
 {
-    public static bool AvailableWebView2 { get; private set; }
+#if DEBUG
+    [Obsolete("use WebView2.AvailableWebView2", true)]
+    public static bool AvailableWebView2 => WebView2.IsSupported;
 
-    public static string? WebView2VersionString { get; private set; }
+    [Obsolete("use WebView2.VersionString", true)]
+    public static string? WebView2VersionString => WebView2.VersionString;
+#endif
 
     static void InitWebView2()
     {
-        try
-        {
-            WebView2VersionString = CoreWebView2Environment.GetAvailableBrowserVersionString();
-            if (!string.IsNullOrEmpty(WebView2VersionString)) AvailableWebView2 = true;
-        }
-        catch (WebView2RuntimeNotFoundException)
-        {
-
-        }
-
-        if (AvailableWebView2)
+        if (WebView2.IsSupported)
         {
             WebView2.DefaultCreationProperties = new()
             {
