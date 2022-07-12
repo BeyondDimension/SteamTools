@@ -65,7 +65,7 @@
 
       <ui:NavigationView.Content>
         <ui:Frame x:Name="frame"
-                  DataContext="{Binding SelectedItem}"
+                  DataContext="{Binding FrameContent}"
                   Margin="-10 0 0 0">
           <!--<ui:Frame.DataTemplates>
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">
@@ -103,10 +103,8 @@
       </ui:NavigationView.Content>
 
       <ui:NavigationView.PaneCustomContent>
-        <ui:Button Cursor="Hand"
-                   Margin="6"
+        <ui:Button Margin="6"
                    Padding="10 5"
-                   MaxWidth="240"
                    BorderThickness="0"
                    Background="Transparent"
                    HorizontalContentAlignment="Stretch"
@@ -159,15 +157,20 @@
 
           </DockPanel>
           <ui:Button.Flyout>
-            <ui:MenuFlyout Placement="RightEdgeAlignedTop">
+            <Flyout Placement="RightEdgeAlignedTop" FlyoutPresenterClasses="NoPadding">
+              <pages:UserItem/>
+            </Flyout>
+            <!--<ui:MenuFlyout Placement="RightEdgeAlignedTop">
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=RefreshUserAvatarAsync,Source={x:Static service:UserService.Current}}"/>
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                                  CommandParameter="UserProfile"/>
-              <!--<ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
+              -->
+            <!--<ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
                                  CommandParameter="Notice"/>-->
+            <!--
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
                                  Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
@@ -178,7 +181,7 @@
                                  CommandParameter="BindPhoneNumber"/>
               <ui:MenuFlyoutItem Text="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}"
                                  Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}"/>
-            </ui:MenuFlyout>
+            </ui:MenuFlyout>-->
           </ui:Button.Flyout>
         </ui:Button>
 

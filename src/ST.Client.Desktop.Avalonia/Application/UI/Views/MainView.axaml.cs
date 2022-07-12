@@ -14,12 +14,15 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Application.UI.Views.Pages;
 using Avalonia.Layout;
+using ReactiveUI;
 
 namespace System.Application.UI.Views
 {
     public class MainView : ReactiveUserControl<MainWindowViewModel>
     {
         private readonly IBrush? _backgroundTemp;
+        private readonly Frame? _frame;
+        private readonly NavigationView? _nav;
 
         private static IReadOnlyDictionary<Type, Type> PageTypes { get; }
 
@@ -38,12 +41,12 @@ namespace System.Application.UI.Views
                 { typeof(GameRelatedPageViewModel), typeof(GameRelatedPage) },
                 { typeof(ArchiSteamFarmPlusPageViewModel), typeof(ArchiSteamFarmPlusPage) },
                 //{ typeof(GameRelated_BorderlessPageViewModel), typeof(GameRelated_BorderlessPage) },
+                { typeof(AccountPageViewModel), typeof(AccountPage) }, 
 #if DEBUG
                 { typeof(DebugPageViewModel), typeof(DebugPage) },
 #if WINDOWS
                 { typeof(DebugWebViewPageViewModel), typeof(DebugWebViewPage) },
 #endif
-                { typeof(AccountPageViewModel), typeof(AccountPage) }, 
 #endif
             };
         }
@@ -53,8 +56,9 @@ namespace System.Application.UI.Views
             InitializeComponent();
 
             var avatar = this.FindControl<Control>("avatar");
-            var nav = this.FindControl<NavigationView>("NavigationView");
             var back = this.FindControl<ExperimentalAcrylicBorder>("NavBarBackground");
+            _nav = this.FindControl<NavigationView>("NavigationView");
+            _frame = this.FindControl<Frame>("frame");
             //var bg = this.FindControl<Control>("Background");
 
             //if (!TitleBar.GetIsVisible())
@@ -79,9 +83,9 @@ namespace System.Application.UI.Views
             //        });
             //}
 
-            if (avatar != null && nav != null)
+            if (avatar != null && _nav != null)
             {
-                nav.GetObservable(NavigationView.IsPaneOpenProperty)
+                _nav.GetObservable(NavigationView.IsPaneOpenProperty)
                   .Subscribe(x =>
                   {
                       if (!x)
@@ -104,9 +108,13 @@ namespace System.Application.UI.Views
                   });
             }
 
-            var frame = this.FindControl<Frame>("frame");
-            if (frame != null && nav != null)
+            if (_frame != null && _nav != null)
             {
+                _nav.BackRequested += (sender, e) =>
+                {
+                    _frame.GoBack();
+                };
+
                 //frame.Navigating += (s, e) =>
                 //{
                 //    DebugPageViewModel.Instance.DebugString += $"Frame Navigating: {e?.SourcePageType?.Name} {Environment.NewLine}";
@@ -120,15 +128,7 @@ namespace System.Application.UI.Views
                 //    DebugPageViewModel.Instance.DebugString += $"TabItem Change Error: {e.Exception} {e.SourcePageType} {Environment.NewLine}";
                 //    Log.Error("TabItem Changed", e.Exception, nameof(MainWindowViewModel));
                 //};
-
-                if (nav.IsBackButtonVisible)
-                {
-                    nav.BackRequested += (sender, e) =>
-                    {
-                        frame.GoBack();
-                    };
-                }
-                nav.GetObservable(NavigationView.SelectedItemProperty)
+                _nav.GetObservable(NavigationView.SelectedItemProperty)
                     .Subscribe(x =>
                     {
                         if (x != null)
@@ -138,8 +138,8 @@ namespace System.Application.UI.Views
                             //{
                             //    frame.Navigate(template.Build(null).GetType());
                             //}
-
-                            frame.Navigate(PageTypes[x.GetType()]);
+                            _nav.IsBackButtonVisible = false;
+                            _frame.Navigate(PageTypes[x.GetType()]);
                         }
                     });
             }
@@ -159,7 +159,7 @@ namespace System.Application.UI.Views
                 });
             }
 
-            if (nav != null)
+            if (_nav != null)
             {
                 this.GetObservable(BoundsProperty)
                         .Subscribe(x =>
@@ -167,14 +167,32 @@ namespace System.Application.UI.Views
                             switch (x.Width)
                             {
                                 case < 1000:
-                                    nav.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
-                                    nav.IsPaneOpen = false;
+                                    _nav.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
+                                    _nav.IsPaneOpen = false;
                                     break;
                                 default:
-                                    nav.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+                                    _nav.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
                                     break;
                             }
                         });
+            }
+        }
+
+        protected override void OnDataContextChanged(EventArgs e)
+        {
+            base.OnDataContextChanged(e);
+            if (ViewModel is MainWindowViewModel main && main != null)
+            {
+                main.WhenAnyValue(x => x.FrameContent)
+                     .Subscribe(x =>
+                     {
+                         if (x != null)
+                         {
+                             //if (_nav != null)
+                             //    _nav.IsBackButtonVisible = true;
+                             _frame?.Navigate(PageTypes[x.GetType()]);
+                         }
+                     });
             }
         }
 

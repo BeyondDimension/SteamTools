@@ -15,7 +15,6 @@
         Icon="/Application/UI/Assets/Icon.ico"
         Background="{x:Null}"
         Title="{Binding Title,Mode=OneWay}"
-        Topmost="{Binding Topmost}"
         x:DataType="vm:MainWindowViewModel"
         x:CompileBindings="True">
   <Panel x:Name="Panel" Margin="{Binding #MainWindow.OffScreenMargin}">

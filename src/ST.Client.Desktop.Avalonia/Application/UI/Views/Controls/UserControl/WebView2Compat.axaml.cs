@@ -294,7 +294,7 @@ public partial class WebView2Compat : UserControl
 
     void IsVisibleChanged(EventArgs e)
     {
-#if !WINDOWS
+#if WINDOWS
         WebView2.IsVisible = IsVisible;
 #endif
     }

@@ -52,6 +52,14 @@ namespace System.Application.Services
             await windowManager.ShowDialog(windowName, isDialog: isDialog, resizeMode: default);
         }
 
+        public void NavigateUserCenterPage()
+        {
+            if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
+            {
+                main.FrameContent = new AccountPageViewModel();
+            }
+        }
+
         public async Task SignOutAsync(Func<Task<IApiResponse>>? apiCall = null, string? message = null)
         {
             if (User == null) return;

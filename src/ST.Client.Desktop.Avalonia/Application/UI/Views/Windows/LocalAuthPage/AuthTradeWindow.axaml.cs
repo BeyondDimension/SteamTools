@@ -20,14 +20,14 @@ namespace System.Application.UI.Views.Windows
             htmlDialog = this.FindControl<ContentDialog>("HtmlDialog");
             webview = this.FindControl<WebView2Compat>("webview");
 
-            htmlDialog.Opening += (s, e) =>
-            {
-                webview.IsVisible = true;
-            };
-            htmlDialog.Closing += (s, e) =>
-            {
-                webview.IsVisible = false;
-            };
+            //htmlDialog.Opening += (s, e) =>
+            //{
+            //    webview.IsVisible = true;
+            //};
+            //htmlDialog.Closing += (s, e) =>
+            //{
+            //    webview.IsVisible = false;
+            //};
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -45,6 +45,7 @@ namespace System.Application.UI.Views.Windows
                 var auth = (sender as Control)?.Tag as WinAuthSteamClient.Confirmation;
                 webview.HtmlSource = ViewModel.GetConfirmationDetailHtml(auth!);
                 await htmlDialog.ShowAsync();
+                webview.IsVisible = false;
             }
         }
     }

@@ -1,4 +1,5 @@
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Application.Services;
 using System.Application.Settings;
 using System.Application.UI.Resx;
@@ -17,29 +18,17 @@ namespace System.Application.UI.ViewModels
     {
         #region 更改通知
 
-        bool mTopmost;
+        //[Reactive]
+        //public bool Topmost { get; set; }
 
-        public bool Topmost
-        {
-            get => mTopmost;
-            set => this.RaiseAndSetIfChanged(ref mTopmost, value);
-        }
+        [Reactive]
+        public ItemViewModel? SelectedItem { get; set; }
 
-        private ItemViewModel _SelectedItem;
+        [Reactive]
+        public bool IsOpenUserMenu { get; set; }
 
-        public ItemViewModel SelectedItem
-        {
-            get => _SelectedItem;
-            set => this.RaiseAndSetIfChanged(ref _SelectedItem, value);
-        }
-
-        bool _IsOpenUserMenu;
-
-        public bool IsOpenUserMenu
-        {
-            get => _IsOpenUserMenu;
-            set => this.RaiseAndSetIfChanged(ref _IsOpenUserMenu, value);
-        }
+        [Reactive]
+        public ViewModelBase? FrameContent { get; set; }
 
         public ReactiveCommand<Unit, Unit>? OpenUserMenu { get; }
 
@@ -64,8 +53,6 @@ namespace System.Application.UI.ViewModels
         public GameRelatedPageViewModel GameRelatedPage => GetTabItemVM<GameRelatedPageViewModel>();
 
         public OtherPlatformPageViewModel OtherPlatformPage => GetTabItemVM<OtherPlatformPageViewModel>();
-
-        public AccountPageViewModel AccountPage => GetTabItemVM<AccountPageViewModel>();
 
         protected static readonly IPlatformService platformService = IPlatformService.Instance;
 
@@ -119,7 +106,7 @@ namespace System.Application.UI.ViewModels
             if (OperatingSystem2.IsWindows())
                 AddTabItem<GameRelatedPageViewModel>();
 #endif
-            AddTabItem<AccountPageViewModel>();
+            //AddTabItem<AccountPageViewModel>();
             //AddTabItem<OtherPlatformPageViewModel>();
 
             //#if !TRAY_INDEPENDENT_PROGRAM && DEBUG
@@ -137,7 +124,7 @@ namespace System.Application.UI.ViewModels
 
             #endregion
 
-            _SelectedItem = TabItems.First();
+            SelectedItem = TabItems.First();
 
             R.Subscribe(() =>
             {
@@ -146,6 +133,20 @@ namespace System.Application.UI.ViewModels
                     item.RaisePropertyChanged(nameof(TabItemViewModelBase.Name));
                 }
             }).AddTo(this);
+
+            this.WhenAnyValue(x => x.SelectedItem)
+                .Subscribe(x =>
+                {
+                    if (x != null)
+                        FrameContent = x;
+                }).AddTo(this);
+
+            this.WhenAnyValue(x => x.FrameContent)
+                .Subscribe(x =>
+                {
+                    if (x != SelectedItem)
+                        SelectedItem = null;
+                }).AddTo(this);
         }
 
         public override void Initialize()

@@ -11,7 +11,7 @@ using System.Windows.Input;
 // ReSharper disable once CheckNamespace
 namespace System.Application.UI.ViewModels
 {
-    public partial class AccountPageViewModel
+    public partial class AccountPageViewModel : PageViewModel
     {
         public ReactiveCommand<Unit, Unit>? OpenUserProfile { get; }
 

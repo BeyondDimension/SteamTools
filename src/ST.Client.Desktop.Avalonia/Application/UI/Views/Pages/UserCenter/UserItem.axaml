@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:gif="using:AvaloniaGif"
+             xmlns:controls="using:System.Application.UI.Views.Controls"
+             xmlns:service="using:System.Application.Services"
+             xmlns:app="using:System.Application"
+             xmlns:vm="using:System.Application.UI.ViewModels"
+             xmlns:resx="using:System.Application.UI.Resx"
+             x:Class="System.Application.UI.Views.Pages.UserItem">
+  <Grid RowDefinitions="Auto,Auto,1,*,1,Auto">
+    <Grid.Styles>
+      <Style Selector="ui|Button">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="12 8"/>
+      </Style>
+    </Grid.Styles>
+    <StackPanel Orientation="Horizontal" Margin="10">
+      <Border x:Name="avatar"
+       BorderThickness="0"
+       HorizontalAlignment="Left"
+       Height="64"
+       Width="64"
+       ClipToBounds="True"
+       CornerRadius="64">
+        <Button ToolTip.Tip="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                Command="{ReflectionBinding Path=RefreshUserAvatarAsync,Source={x:Static service:UserService.Current}}"
+                Background="Transparent"
+                Padding="0"
+                Cursor="Hand">
+          <gif:Image2
+                 Source="{ReflectionBinding Path=AvatarPath, Source={x:Static service:UserService.Current},Mode=OneWay,Converter={StaticResource BitmapAssetValueConverter}}"
+                 Stretch="Uniform"
+                 DecodeWidth="64"
+                 FallbackSource="avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/AppResources/avatar.jpg">
+          </gif:Image2>
+        </Button>
+      </Border>
+      <StackPanel VerticalAlignment="Center" Margin="10 0">
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontWeight="Bold"
+            Text="{ReflectionBinding Path=User.NickName,Mode=OneWay,Source={x:Static service:UserService.Current}}"
+            TextAlignment="Center"
+            TextTrimming="CharacterEllipsis" />
+        <Border IsVisible="{ReflectionBinding Path=User.UserType,Mode=OneWay,Source={x:Static service:UserService.Current},Converter={StaticResource EnumEqualValueConverter},ConverterParameter={x:Static app:UserType.Sponsor}}"
+                VerticalAlignment="Center">
+          <TextBlock Text="{ReflectionBinding Path=Res.User_Sponsor,Mode=OneWay,Source={x:Static resx:R.Current},StringFormat={}{0}}"
+                     FontSize="10"/>
+        </Border>
+      </StackPanel>
+    </StackPanel>
+    <WrapPanel Grid.Row="1"
+               HorizontalAlignment="Center">
+      <Button Content="等级：Lv.2" Margin="5 0" FontSize="10"/>
+      <Button Content="积分：30" Margin="5 0" FontSize="10"/>
+    </WrapPanel>
+    <Separator Classes="Separator" Grid.Row="2" Margin="0 8"/>
+    <ItemsControl Grid.Row="3">
+      <!--<ui:Button Content="{ReflectionBinding Path=Res.RefreshAvatar,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 Command="{ReflectionBinding Path=RefreshUserAvatarAsync,Source={x:Static service:UserService.Current}}"/>-->
+      <ui:Button Content="{ReflectionBinding Path=Res.UserProfile,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 Command="{ReflectionBinding Path=NavigateUserCenterPage,Source={x:Static service:UserService.Current}}"/>
+      <ui:Button Content="{ReflectionBinding Path=Res.NotificationChannelType_Name_Announcement,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                 CommandParameter="Notice"/>
+      <ui:Button Content="{ReflectionBinding Path=Res.User_ChangePhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 IsVisible="{ReflectionBinding Path=HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                 CommandParameter="ChangeBindPhoneNumber"/>
+      <ui:Button Content="{ReflectionBinding Path=Res.User_BindPhoneNum,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 IsVisible="{ReflectionBinding Path=!HasPhoneNumber,Source={x:Static service:UserService.Current}}}"
+                 Command="{ReflectionBinding Path=ShowWindow,Source={x:Static service:UserService.Current}}"
+                 CommandParameter="BindPhoneNumber"/>
+    </ItemsControl>
+    <Separator Classes="Separator" Grid.Row="4" Margin="0 8"/>
+    <ItemsControl Grid.Row="5">
+      <ui:Button Content="{ReflectionBinding Path=Res.SignOut,Mode=OneWay,Source={x:Static resx:R.Current}}"
+                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                 Command="{ReflectionBinding Path=SignOut,Source={x:Static service:UserService.Current}}"/>
+    </ItemsControl>
+  </Grid>
+</UserControl>
