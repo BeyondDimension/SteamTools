@@ -469,12 +469,6 @@ namespace System.Application.UI.ViewModels
         public string GetConfirmationDetailHtml(WinAuthSteamClient.Confirmation trade)
         {
             var html = _Authenticator!.GetClient().GetConfirmationDetails(trade);
-            //var style = "<style>body{font-family:\"宋体\"}</style>";
-            //var index = html.LastIndexOf("</head>", StringComparison.OrdinalIgnoreCase);
-            //if (index > -1)
-            //{
-            //    html = html.Insert(index, style);
-            //}
             return html;
         }
 

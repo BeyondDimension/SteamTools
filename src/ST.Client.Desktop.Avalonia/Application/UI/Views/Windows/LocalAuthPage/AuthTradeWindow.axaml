@@ -13,7 +13,7 @@
         xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
         xmlns:ms="using:System.Application.Settings"
         xmlns:gif="using:AvaloniaGif"
-        FontFamily="{Binding Source={x:Static ms:UISettings.FontName},Path=Value, Mode=OneWay,Converter={StaticResource NameToFontFamilyConverter}}"
+        xmlns:wv2="clr-namespace:Avalonia.Controls;assembly=Avalonia.WebView2"
         Background="Transparent"
         ExtendClientAreaTitleBarHeightHint="30"
         x:DataType="vm:AuthTradeWindowViewModel"
@@ -162,6 +162,7 @@
           <ui:ContentDialog x:Name="HtmlDialog"
                             PrimaryButtonText="{ReflectionBinding Path=Res.Confirm,Mode=OneWay,Source={x:Static resx:R.Current}}">
             <ui:ContentDialog.Content>
+              <controls:WebView2Compat x:Name="webview"/>
             </ui:ContentDialog.Content>
           </ui:ContentDialog>
 
