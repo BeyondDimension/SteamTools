@@ -56,7 +56,7 @@ namespace System.Application.Services
         {
             if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
             {
-                main.FrameContent = new AccountPageViewModel();
+                main.SelectedItem = new AccountPageViewModel();
             }
         }
 

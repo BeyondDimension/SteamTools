@@ -65,7 +65,7 @@
 
       <ui:NavigationView.Content>
         <ui:Frame x:Name="frame"
-                  DataContext="{Binding FrameContent}"
+                  DataContext="{Binding SelectedItem}"
                   Margin="-10 0 0 0">
           <!--<ui:Frame.DataTemplates>
             <DataTemplate DataType="vm:ProxyScriptManagePageViewModel">

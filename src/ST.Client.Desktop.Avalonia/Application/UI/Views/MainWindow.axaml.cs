@@ -82,7 +82,7 @@ namespace System.Application.UI.Views
         {
             base.OnOpened(e);
 
-            if (ViewModel is not null && ViewModel.SelectedItem.IsDeactivation)
+            if (ViewModel?.SelectedItem?.IsDeactivation == true)
             {
                 ViewModel.SelectedItem.Activation();
             }

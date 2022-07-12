@@ -22,13 +22,10 @@ namespace System.Application.UI.ViewModels
         //public bool Topmost { get; set; }
 
         [Reactive]
-        public ItemViewModel? SelectedItem { get; set; }
+        public ViewModelBase? SelectedItem { get; set; }
 
         [Reactive]
         public bool IsOpenUserMenu { get; set; }
-
-        [Reactive]
-        public ViewModelBase? FrameContent { get; set; }
 
         public ReactiveCommand<Unit, Unit>? OpenUserMenu { get; }
 
@@ -134,19 +131,19 @@ namespace System.Application.UI.ViewModels
                 }
             }).AddTo(this);
 
-            this.WhenAnyValue(x => x.SelectedItem)
-                .Subscribe(x =>
-                {
-                    if (x != null)
-                        FrameContent = x;
-                }).AddTo(this);
+            //this.WhenAnyValue(x => x.SelectedItem)
+            //    .Subscribe(x =>
+            //    {
+            //        if (x != null)
+            //            FrameContent = x;
+            //    }).AddTo(this);
 
-            this.WhenAnyValue(x => x.FrameContent)
-                .Subscribe(x =>
-                {
-                    if (x != SelectedItem)
-                        SelectedItem = null;
-                }).AddTo(this);
+            //this.WhenAnyValue(x => x.FrameContent)
+            //    .Subscribe(x =>
+            //    {
+            //        if (x != SelectedItem)
+            //            SelectedItem = null;
+            //    }).AddTo(this);
         }
 
         public override void Initialize()

@@ -128,20 +128,21 @@ namespace System.Application.UI.Views
                 //    DebugPageViewModel.Instance.DebugString += $"TabItem Change Error: {e.Exception} {e.SourcePageType} {Environment.NewLine}";
                 //    Log.Error("TabItem Changed", e.Exception, nameof(MainWindowViewModel));
                 //};
-                _nav.GetObservable(NavigationView.SelectedItemProperty)
-                    .Subscribe(x =>
-                    {
-                        if (x != null)
-                        {
-                            //var page = frame.DataTemplates.FirstOrDefault(f => f.Match(x));
-                            //if (page is DataTemplate template)
-                            //{
-                            //    frame.Navigate(template.Build(null).GetType());
-                            //}
-                            _nav.IsBackButtonVisible = false;
-                            _frame.Navigate(PageTypes[x.GetType()]);
-                        }
-                    });
+
+                //_nav.GetObservable(NavigationView.SelectedItemProperty)
+                //    .Subscribe(x =>
+                //    {
+                //        if (x != null)
+                //        {
+                //            //var page = frame.DataTemplates.FirstOrDefault(f => f.Match(x));
+                //            //if (page is DataTemplate template)
+                //            //{
+                //            //    frame.Navigate(template.Build(null).GetType());
+                //            //}
+                //            _nav.IsBackButtonVisible = false;
+                //            _frame.Navigate(PageTypes[x.GetType()]);
+                //        }
+                //    });
             }
 
             //UISettings.EnableDesktopBackground.Subscribe(x =>
@@ -183,7 +184,7 @@ namespace System.Application.UI.Views
             base.OnDataContextChanged(e);
             if (ViewModel is MainWindowViewModel main && main != null)
             {
-                main.WhenAnyValue(x => x.FrameContent)
+                main.WhenAnyValue(x => x.SelectedItem)
                      .Subscribe(x =>
                      {
                          if (x != null)
