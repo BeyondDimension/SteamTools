@@ -51,6 +51,7 @@ public partial class WebView2Compat : UserControl
 
         this.GetPropertyChangedObservable(SourceProperty).Subscribe(OnSourceChanged);
         this.GetPropertyChangedObservable(HtmlSourceProperty).Subscribe(OnHtmlSourceChanged);
+        this.GetPropertyChangedObservable(IsVisibleProperty).Subscribe(IsVisibleChanged);
     }
 
     protected Window? Window { get; set; }
@@ -288,6 +289,13 @@ public partial class WebView2Compat : UserControl
             WebView2.NavigateToString(htmlString);
             if (!isNotFirstLoad) WebView2.IsVisible = false;
         }
+#endif
+    }
+
+    void IsVisibleChanged(EventArgs e)
+    {
+#if !WINDOWS
+        WebView2.IsVisible = IsVisible;
 #endif
     }
 }
