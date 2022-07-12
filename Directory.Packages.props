@@ -122,7 +122,7 @@
     <!-- ReactiveUI -->
     <PackageVersion Include="System.Reactive" Version="5.0.0" />
     <PackageVersion Include="Splat" Version="14.3.4" />
-    <PackageVersion Include="DynamicData" Version="7.9.4" />
+    <PackageVersion Include="DynamicData" Version="7.9.5" />
     <PackageVersion Include="ReactiveUI" Version="18.2.5" />
     <PackageVersion Include="ReactiveUI.Fody" Version="18.2.5" />
     <PackageVersion Include="ReactiveUI.XamForms" Version="18.2.5" />
