@@ -8,17 +8,25 @@
     xmlns:wv2="clr-namespace:Avalonia.Controls;assembly=Avalonia.WebView2"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    mc:Ignorable="d">  
+    mc:Ignorable="d">
   <Panel>
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Spacing="10">
+      <ProgressBar x:Name="LoadingProgress"
+                   IsVisible="False"
+                   Width="100"
+                   Height="100"
+                   Classes="Circle"
+                   IsIndeterminate="True"
+                   Orientation="Vertical"
+                   HorizontalAlignment="Center"/>
       <TextBlock x:Name="TbContent"
           HorizontalAlignment="Center"
           VerticalAlignment="Center"
-          Margin="24,0"
           TextWrapping="Wrap"
-          FontSize="24" />
+          Classes="h6"/>
       <Button x:Name="BtnDownloadAndInstall"
-          Margin="0,24,0,0"
           HorizontalAlignment="Center"
           VerticalAlignment="Center"
           Content="{ReflectionBinding Path=Res.DownloadAndInstall,

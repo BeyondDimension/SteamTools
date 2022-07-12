@@ -21,8 +21,9 @@ public partial class WebView2Compat : UserControl
     const string TAG = "WebView2Compat";
     const string DownloadLink = "https://go.microsoft.com/fwlink/p/?LinkId=2124703";
 
-    public readonly TextBlock TbContent;
-    public readonly Button BtnDownloadAndInstall;
+    readonly TextBlock TbContent;
+    readonly Button BtnDownloadAndInstall;
+    readonly ProgressBar LoadingProgress;
     public readonly WebView2 WebView2;
 
     static bool isInstalling;
@@ -33,6 +34,7 @@ public partial class WebView2Compat : UserControl
     {
         InitializeComponent();
 
+        LoadingProgress = this.FindControl<ProgressBar>("LoadingProgress");
         TbContent = this.FindControl<TextBlock>("TbContent");
         BtnDownloadAndInstall = this.FindControl<Button>("BtnDownloadAndInstall");
         WebView2 = this.FindControl<WebView2>("WebView2");
@@ -43,6 +45,7 @@ public partial class WebView2Compat : UserControl
 
         webView2IsSupported = WebView2.IsSupported;
         TbContent.Text = webView2IsSupported ? AppResources.Loading : AppResources.YouNeedInstallWebView2Runtime;
+        LoadingProgress.IsVisible = webView2IsSupported;
         if (BtnDownloadAndInstall.IsVisible = !webView2IsSupported)
         {
             BtnDownloadAndInstall.Click += BtnDownloadAndInstall_Click;
@@ -194,6 +197,7 @@ public partial class WebView2Compat : UserControl
                 MainThread2.BeginInvokeOnMainThread(() =>
                 {
                     TbContent.Text = AppResources.Loading;
+                    LoadingProgress.IsVisible = true;
                     foreach (var item in compats)
                     {
                         item.BtnDownloadAndInstall.IsVisible = false;
@@ -282,13 +286,9 @@ public partial class WebView2Compat : UserControl
     void OnHtmlSourceChanged(EventArgs e)
     {
 #if WINDOWS
-        var htmlString = _HtmlSource;
-        if (!string.IsNullOrWhiteSpace(htmlString))
-        {
-            if (!isNotFirstLoad) WebView2.IsVisible = true;
-            WebView2.NavigateToString(htmlString);
-            if (!isNotFirstLoad) WebView2.IsVisible = false;
-        }
+        if (!isNotFirstLoad) WebView2.IsVisible = true;
+        WebView2.HtmlSource = HtmlSource;
+        if (!isNotFirstLoad) WebView2.IsVisible = false;
 #endif
     }
 

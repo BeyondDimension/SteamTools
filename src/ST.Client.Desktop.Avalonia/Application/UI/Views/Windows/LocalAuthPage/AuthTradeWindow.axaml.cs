@@ -19,6 +19,15 @@ namespace System.Application.UI.Views.Windows
 
             htmlDialog = this.FindControl<ContentDialog>("HtmlDialog");
             webview = this.FindControl<WebView2Compat>("webview");
+
+            htmlDialog.Opening += (s, e) =>
+            {
+                webview.IsVisible = true;
+            };
+            htmlDialog.Closing += (s, e) =>
+            {
+                webview.IsVisible = false;
+            };
 #if DEBUG
             this.AttachDevTools();
 #endif
