@@ -2327,6 +2327,15 @@ AAAAA-BBBBB-CCCC3</value>
     <value>下载并安装</value>
   </data>
   <data name="YouNeedInstallWebView2Runtime" xml:space="preserve">
-    <value>你需要安装 Microsoft Edge WebView2 Runtime 才能使用此功能</value>
+    <value>你需要安装 WebView2 Runtime 才能使用此功能</value>
+  </data>
+  <data name="DownloadFailedPleaseTryAgainLater" xml:space="preserve">
+    <value>下载失败，请稍后重试</value>
+  </data>
+  <data name="InstallingPleaseWait" xml:space="preserve">
+    <value>正在安装，请稍后...</value>
+  </data>
+  <data name="FailedToRunSetupWithPath_PleaseRunItManually" xml:space="preserve">
+    <value>运行安装程序失败，路径为：{0}，请手动运行</value>
   </data>
 </root>

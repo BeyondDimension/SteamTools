@@ -1833,6 +1833,15 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
+        ///   查找类似 下载失败，请稍后重试 的本地化字符串。
+        /// </summary>
+        public static string DownloadFailedPleaseTryAgainLater {
+            get {
+                return ResourceManager.GetString("DownloadFailedPleaseTryAgainLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 下行流量 的本地化字符串。
         /// </summary>
         public static string DownloadFlow {
@@ -1955,6 +1964,15 @@ namespace System.Application.UI.Resx {
         public static string FailedGetImageFromSteamGridDB {
             get {
                 return ResourceManager.GetString("FailedGetImageFromSteamGridDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 运行安装程序失败，路径为：{0}，请手动运行 的本地化字符串。
+        /// </summary>
+        public static string FailedToRunSetupWithPath_PleaseRunItManually {
+            get {
+                return ResourceManager.GetString("FailedToRunSetupWithPath_PleaseRunItManually", resourceCulture);
             }
         }
         
@@ -2892,6 +2910,15 @@ namespace System.Application.UI.Resx {
         public static string InstalledPath {
             get {
                 return ResourceManager.GetString("InstalledPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在安装，请稍后... 的本地化字符串。
+        /// </summary>
+        public static string InstallingPleaseWait {
+            get {
+                return ResourceManager.GetString("InstallingPleaseWait", resourceCulture);
             }
         }
         
@@ -6611,7 +6638,7 @@ namespace System.Application.UI.Resx {
         }
         
         /// <summary>
-        ///   查找类似 你需要安装 Microsoft Edge WebView2 Runtime 才能使用此功能 的本地化字符串。
+        ///   查找类似 你需要安装 WebView2 Runtime 才能使用此功能 的本地化字符串。
         /// </summary>
         public static string YouNeedInstallWebView2Runtime {
             get {
