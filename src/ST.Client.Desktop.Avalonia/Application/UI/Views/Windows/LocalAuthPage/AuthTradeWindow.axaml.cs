@@ -44,6 +44,7 @@ namespace System.Application.UI.Views.Windows
             {
                 var auth = (sender as Control)?.Tag as WinAuthSteamClient.Confirmation;
                 webview.HtmlSource = ViewModel.GetConfirmationDetailHtml(auth!);
+                webview.IsVisible = true;
                 await htmlDialog.ShowAsync();
                 webview.IsVisible = false;
             }
