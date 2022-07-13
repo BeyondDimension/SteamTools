@@ -130,6 +130,7 @@
     <PackageReference Include="Xamarin.AndroidX.Navigation.UI" />
     <PackageReference Include="Xamarin.AndroidX.RecyclerView" />
     <PackageReference Include="Xamarin.AndroidX.ViewPager2" />
+    <PackageReference Include="Xamarin.AndroidX.WebKit" />
     <!--dependencies implementation-->
     <PackageReference Include="ReactiveUI.AndroidX" />
     <PackageReference Include="Square.OkHttp3" />
