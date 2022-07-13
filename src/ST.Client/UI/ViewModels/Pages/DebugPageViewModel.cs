@@ -44,6 +44,30 @@ public partial class DebugPageViewModel
         set => this.RaiseAndSetIfChanged(ref _DebugString, value);
     }
 
+    public void Debug(string? cmd)
+    {
+        if (string.IsNullOrEmpty(cmd))
+            return;
+
+        var cmds = cmd.ToLowerInvariant().Split(' ');
+        switch (cmds[0])
+        {
+            case "dialog":
+                INotificationService.Instance.Notify("测试Test🎆🎇→→", NotificationType.Announcement);
+                ShowDialogButton_Click1();
+                break;
+            case "webview":
+                if (IViewModelManager.Instance.MainWindow is MainWindowViewModel main)
+                {
+                    main.SelectedItem = DebugWebViewPageViewModel.Instance;
+                }
+                break;
+            default:
+                DebugString += "未知命令" + Environment.NewLine;
+                break;
+        }
+    }
+
     //async void TestHttp()
     //{
     //    var task1 = IHttpService.Instance.GetAsync<string>("https://developers.google.com/android");
@@ -703,7 +727,7 @@ public partial class DebugPageViewModel
 #endif
 }
 
-public partial class DebugWebViewPageViewModel
+public partial class DebugWebViewPageViewModel : ViewModelBase
 {
     DebugWebViewPageViewModel() { }
 

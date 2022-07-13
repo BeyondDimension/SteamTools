@@ -142,11 +142,20 @@ namespace System.Application.UI.Views.Controls
 
         private void SwipersLoad()
         {
-            if (_carousel.ItemCount < 1)
+            if (_carousel.ItemCount <= 0)
                 return;
-            var arr = new bool[_carousel.ItemCount];
-            arr[_carousel.SelectedIndex] = true;
-            _swipers.Items = arr;
+            if (_carousel.ItemCount == 1)
+            {
+                _left.IsVisible = _right.IsVisible = _swipers.IsVisible = false;
+                return;
+            }
+            else
+            {
+                _left.IsVisible = _right.IsVisible = _swipers.IsVisible = true;
+                var arr = new bool[_carousel.ItemCount];
+                arr[_carousel.SelectedIndex] = true;
+                _swipers.Items = arr;
+            }
         }
 
         private void SwiperNext()

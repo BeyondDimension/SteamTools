@@ -157,16 +157,6 @@ namespace System.Application.UI.ViewModels
             get => DisplayName;
         }
     }
-
-    partial class DebugWebViewPageViewModel : TabItemViewModel
-    {
-        public const string DisplayName = "DebugWebView";
-
-        public override string Name
-        {
-            get => DisplayName;
-        }
-    }
 #endif
 
     partial class GameRelatedPageViewModel : TabItemViewModel

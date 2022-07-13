@@ -32,6 +32,7 @@ namespace System.Application.UI.Views.Pages
             GeometryStroke = null,
             LineSmoothness = 1,
             EnableNullSplitting = false,
+            DataLabelsSize = 12,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
             TooltipLabelFormatter = (e) => $"{AppResources.Upload} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>
@@ -48,6 +49,7 @@ namespace System.Application.UI.Views.Pages
             GeometryStroke = null,
             LineSmoothness = 1,
             EnableNullSplitting = false,
+            DataLabelsSize = 12,
             Stroke = LiveChartsSkiaSharp.DefaultPaint,
             TooltipLabelFormatter = (e) => $"{AppResources.Download} {IOPath.GetDisplayFileSizeString(e.PrimaryValue)}/s",
             Mapping = (rate, point) =>

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using System.Application.UI.ViewModels;
+using System.Application.UI.Views.Controls;
 using System.Application.UI.Views.Windows;
 
 namespace System.Application.UI.Views.Pages
@@ -18,6 +19,11 @@ namespace System.Application.UI.Views.Pages
             {
                 testWindow.Tapped += TestWindow_Tapped;
             }
+        }
+
+        private void ConsoleShell_CommandSubmit(object? sender, CommandEventArgs e)
+        {
+            ViewModel?.Debug(e.Command);
         }
 
         private void TestWindow_Tapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
