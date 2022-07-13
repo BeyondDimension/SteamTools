@@ -80,7 +80,7 @@ sealed class HttpLocalRequestMiddleware
             return;
 
         var url = Web.HttpUtility.UrlDecode(context.Request.QueryString.Value.Replace("?request=", ""));
-        var cookie = context.Request.Headers["cookie-steamTool"];
+        string? cookie = context.Request.Headers["cookie-steamTool"];
         if (string.IsNullOrEmpty(cookie))
             cookie = context.Request.Headers["Cookie"];
 
@@ -114,11 +114,16 @@ sealed class HttpLocalRequestMiddleware
                     {
                         var req = new HttpRequestMessage
                         {
+                            RequestUri = new Uri(url),
                             Method = HttpMethod.Post,
                             Content = new StreamContent(context.Request.Body),
                         };
+                        if (cookie != null)
+                        {
+                            req.Headers.Add("Cookie", cookie);
+                        }
                         req.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(context.Request.ContentType);
-                        req.Content.Headers.ContentLength = context.Request.Body.Length;
+                        req.Content.Headers.ContentLength = context.Request.ContentLength;
                         return req;
                     }, null/*, false*/, default);
 

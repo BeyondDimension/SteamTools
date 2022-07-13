@@ -559,12 +559,12 @@ namespace System.Application.Services
                   .WhenPropertyChanged(x => x.Enable, false)
                   .Subscribe(async item =>
                   {
+                      item.Sender.Enable = item.Value;
+                      await scriptManager.SaveEnableScript(item.Sender);
                       //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                       //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
                       if (reverseProxyService.ProxyRunning)
                       {
-                          item.Sender.Enable = item.Value;
-                          await scriptManager.SaveEnableScript(item.Sender);
 
                           await EnableProxyScripts.ContinueWith(e =>
                           {
