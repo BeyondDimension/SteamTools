@@ -16,8 +16,8 @@ namespace System.Application.UI
     {
         private readonly Uri _baseUri;
         private Styles _sharedStyles = new();
-        private Styles _fluentDark = new();
-        private Styles _fluentLight = new();
+        //private Styles _fluentDark = new();
+        //private Styles _fluentLight = new();
         private bool _isLoading;
         private IStyle? _loaded;
         private readonly ResourceDictionary _themeResources = new ResourceDictionary();
