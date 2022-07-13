@@ -2,15 +2,41 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using FluentAvalonia.Core.ApplicationModel;
 using System.Application.Services;
 using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
 using System.ComponentModel;
-using System.Linq;
+using System.Properties;
 
 namespace System.Application.UI.Views
 {
+    public class AppSplashScreen : IApplicationSplashScreen
+    {
+        public AppSplashScreen()
+        {
+            using (var s = AvaloniaLocator.Current.GetService<IAssetLoader>()?.Open(new Uri("avares://System.Application.SteamTools.Client.Avalonia/Application/UI/Assets/Icon.ico")))
+                AppIcon = new Bitmap(s);
+        }
+
+        string IApplicationSplashScreen.AppName { get; } = ThisAssembly.AssemblyProduct;
+
+        public IImage AppIcon { get; }
+
+        object IApplicationSplashScreen.SplashScreenContent { get; }
+
+        int IApplicationSplashScreen.MinimumShowTime => 0;
+
+        void IApplicationSplashScreen.RunTasks()
+        {
+            IViewModelManager.Instance.MainWindow?.Initialize();
+        }
+    }
+
     public class MainWindow : FluentWindow<MainWindowViewModel>
     {
         readonly IntPtr _backHandle;
@@ -20,6 +46,7 @@ namespace System.Application.UI.Views
         public MainWindow() : base()
         {
             InitializeComponent();
+            SplashScreen = new AppSplashScreen();
 
 #if WINDOWS
             //var wp = this.FindControl<WallpaperControl>("DesktopBackground");

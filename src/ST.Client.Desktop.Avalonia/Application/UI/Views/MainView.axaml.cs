@@ -2,18 +2,13 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using Avalonia.Platform;
 using Avalonia.ReactiveUI;
-using AvaloniaGif;
 using FluentAvalonia.UI.Controls;
-using FluentAvalonia.UI.Media.Animation;
 using System.Application.Settings;
 using System.Application.UI.ViewModels;
 using System.Application.UI.Views.Controls;
-using System.Linq;
 using System.Collections.Generic;
 using System.Application.UI.Views.Pages;
-using Avalonia.Layout;
 using ReactiveUI;
 
 namespace System.Application.UI.Views
